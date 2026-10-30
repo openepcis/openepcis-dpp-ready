@@ -27,7 +27,7 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 
 | | Count |
 |---|---|
-| Modules | 13 — `common/{core,interop,carrier}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}`, `upstream/{gs1-rail}` |
+| Modules | 15 — `common/{core,interop,carrier}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}`, `upstream/{gs1-rail,cirpass2-eudpp,cirpass2-textile,cirpass2-battery}` |
 | Classes | 106 |
 | Properties | 805 |
 | EPCIS Event Examples | 47 |
@@ -119,6 +119,9 @@ This monorepo provides a consistent, GS1-aligned approach to implementing Digita
 | [eu/cpr](./extensions/eu/cpr/) | EU | Construction Products Regulation (EU) 2024/3110 | Preview | 0.9.9 | Jul 2026 |
 | [us/fsma204](./extensions/us/fsma204/) | US | FSMA §204 Food Traceability Rule (21 CFR 1 Subpart S) | Preview | 0.9.9 | Apr 2026 (new module) |
 | [upstream/gs1-rail](./extensions/upstream/gs1-rail/) | Upstream (GS1 AISBL / GS1 Switzerland) | GS1 Rail Vocabulary — sectoral Layer-2 upstream profile (sensor metadata, wheel diagnostics, rail EPCIS Registry shapes); namespace stays at `https://gs1-epcis-reg.org/rail/voc/data#` | Mirror | upstream 1.6 | May 2026 (initial mirror, bridge to dpp-core) |
+| [upstream/cirpass2-eudpp](./extensions/upstream/cirpass2-eudpp/) | Upstream (CIRPASS-2 / TalTech) | CIRPASS-2 EUDPP Core Ontology — Layer-2 community profile, mirrored for browsing; namespace stays at `https://w3id.org/eudpp#` | Mirror | upstream 2.1.0 | Oct 2026 (release 2.1.0, pinned to `CIRPASS-2/ontologies-docs`) |
+| [upstream/cirpass2-textile](./extensions/upstream/cirpass2-textile/) | Upstream (CIRPASS-2, task T3.2 led by GS1 in Europe) | CIRPASS-2 Textile Ontology — sectoral Layer-2 profile, twelve modules under `https://w3id.org/eudpp/textile-*#` | Mirror | upstream 1.1.2 | Oct 2026 (initial mirror) |
+| [upstream/cirpass2-battery](./extensions/upstream/cirpass2-battery/) | Upstream (CIRPASS-2) | CIRPASS-2 EU DPP Battery Ontology — sectoral Layer-2 profile, DRAFT | Mirror | upstream 0.4.0 DRAFT | Oct 2026 (initial mirror) |
 
 ## Repository Structure
 

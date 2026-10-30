@@ -2,6 +2,41 @@
 
 All notable changes to the Textile module will be documented in this file.
 
+## [Unreleased]
+
+### Changed: CIRPASS-2 pointers follow EUDPP 2.1.0
+
+### Added: audited SKOS mappings to the CIRPASS-2 Textile Ontology (vocab-sync wave 2026-10-30)
+
+`vocab-sync audit --module textile` against EUDPP 2.1.0 and the mirrored CIRPASS Textile
+Ontology 1.1.2 (grader gpt-oss-20b, three-judge QA panel on qwen3-32b, report
+`docs/skos-alignment/skos-completeness-textile-2026-10-29.{md,json}`; 365 findings, 63 APPLY
+after triage, 50 of them with a CIRPASS-2 target). 26 were curated and written:
+`eutex:hasRecycledContentDeclaration` and `eutex:hasRecyclabilityAssessment` →
+`skos:exactMatch` on their `textile-recyclability#` twins; `eutex:TextileProduct`
+`skos:narrowMatch` `SmartTextile` / `ElectronicTextile` / `TextileApparel`;
+`eutex:TextileApparel` and `eutex:TextileFootwear` `skos:broadMatch` the textile
+`TextileProduct`, apparel `narrowMatch` its medical-device, toy and PPE specialisations;
+`eutex:CareInstruction skos:closeMatch textile-process#TextileCareInstruction` (downgraded
+from the panel's broadMatch: same concept); the five stage facility properties
+`skos:broadMatch eudpp:hasFacility`; `eutex:RobustnessAssessment broadMatch
+DurabilityAssessment`, `eutex:DurabilityInfo broadMatch textile Durability`, the two test
+result classes `broadMatch` `AssessmentResult` / `MeasurementResult`;
+`organicContentPercentage`, `recycledContentSource`, `hasWasteOriginType`,
+`MicroplasticInfo` graded against their EUDPP / textile counterparts.
+`eutex:RecyclabilityAssessment` and `eutex:RecycledContentDeclaration` get `rdfs:seeAlso` to
+the textile classes of the same name (not proposed by the panel). Held in
+`OPEN_DECISIONS.md`: `TextileProduct narrowMatch TextileWaste`, assessment-to-method /
+-score / -criterion proposals, `TakeBackProgram` → process, `lciaValue` → value slots,
+`MicroplasticInfo broadMatch NanoplasticRelease`.
+
+`eutex:ecNumber` → `eudpp:ecNumber` (exactMatch kept). `eutex:EnvironmentalFootprint`
+lost its eight `skos:narrowMatch` targets (`AirPollutionFootprint`, `EnergyFootprint`, …
+were removed in LCA 3.1) and now carries `skos:narrowMatch eudpp:LCIAResult` plus
+`rdfs:seeAlso eudpp:LCIAImpactCategory`; `CarbonFootprint` and `MaterialFootprint`
+stay. The CIRPASS-2 Textile Ontology 1.1.2 (textile ontology task T3.2 led by GS1 in Europe) is now mirrored as
+`extensions/upstream/cirpass2-textile`; aligning `eutex:` to it is a follow-up audit.
+
 ## [0.9.9] - 2026-08-04
 
 ### Changed: schema descriptions cite the regulation

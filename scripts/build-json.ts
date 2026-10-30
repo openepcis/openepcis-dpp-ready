@@ -266,6 +266,42 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ontologyIri: "https://w3id.org/eudpp/",
     publishTermNamespace: true,
   },
+  // Upstream mirror — CIRPASS-2 Textile Ontology 1.1.2 (GS1-led working group,
+  // CC BY 4.0). Twelve modules plus two code lists, each under its own
+  // https://w3id.org/eudpp/textile-<module># namespace; the umbrella node
+  // carries title and version. Five property names recur across modules
+  // (hasTextualValue in five of them), so colliding local names are
+  // disambiguated as <module>.<name> — see disambiguateLocalNames().
+  {
+    name: "cirpass2-textile",
+    dir: "extensions/upstream/cirpass2-textile",
+    ttlFile: "textile.ttl",
+    namespace: "https://w3id.org/eudpp/textile-core#",
+    extraNamespaces: [
+      "assessment", "associated-materials", "associated-materials-codelists", "codelists",
+      "connector", "context", "durability", "indicator", "process", "recyclability",
+      "repairability", "soc", "structure",
+    ].map((m) => `https://w3id.org/eudpp/textile-${m}#`),
+    ontologyIri: "https://w3id.org/eudpp/textile-ontology",
+    publishTermNamespace: true,
+  },
+  // Upstream mirror — CIRPASS-2 EU DPP Battery Ontology 0.4.0 DRAFT. Umbrella
+  // namespace plus nine thematic / SKOS modules under
+  // https://w3id.org/eudpp/battery-<module>#. The export also carries MIREOT
+  // copies of a few CORE terms (eudpp#Product, …); they sit outside these
+  // namespaces and are not indexed here (the CORE mirror owns them).
+  {
+    name: "cirpass2-battery",
+    dir: "extensions/upstream/cirpass2-battery",
+    ttlFile: "battery.ttl",
+    namespace: "https://w3id.org/eudpp/battery#",
+    extraNamespaces: [
+      "categories", "chemistries", "extinguisher-classes", "labeling", "locations",
+      "materials", "metals", "performance", "statuses",
+    ].map((m) => `https://w3id.org/eudpp/battery-${m}#`),
+    ontologyIri: "https://w3id.org/eudpp/battery",
+    publishTermNamespace: true,
+  },
 ];
 
 function getLocalName(uri: string, namespace: string): string {
@@ -413,7 +449,8 @@ function extractAccessRoleDefaults(store: Store, subjects: string[]): AccessRole
 
 function extractEnumerations(
   store: Store,
-  namespace: string,
+  termNamespaces: string[],
+  nsFor: (uri: string) => string,
   classes: TermData[]
 ): EnumerationData[] {
   const enumerations: EnumerationData[] = [];
@@ -422,10 +459,10 @@ function extractEnumerations(
     const instances = store.getQuads(null, namedNode(`${RDF}type`), namedNode(cls.id), null);
 
     const enumValues: EnumValue[] = instances
-      .filter((q) => q.subject.value.startsWith(namespace))
+      .filter((q) => termNamespaces.some((ns) => q.subject.value.startsWith(ns)))
       .map((q) => {
         const subject = q.subject.value;
-        const localName = getLocalName(subject, namespace);
+        const localName = getLocalName(subject, nsFor(subject));
         const label =
           getObjectValue(store, subject, `${RDFS}label`) ||
           getObjectValue(store, subject, `${SKOS}prefLabel`) ||
@@ -459,22 +496,24 @@ function extractEnumerations(
  */
 function extractExternalEnumerations(
   store: Store,
-  namespace: string,
+  termNamespaces: string[],
+  nsFor: (uri: string) => string,
   allSubjects: Set<string>
 ): EnumerationData[] {
   const grouped = new Map<string, EnumValue[]>();
+  const isOwn = (uri: string) => termNamespaces.some((ns) => uri.startsWith(ns));
 
   for (const subject of allSubjects) {
     if (isClass(store, subject) || isProperty(store, subject)) continue;
-    // Skip the ontology root (subject IRI exactly equals namespace, no local name)
-    if (subject === namespace || subject === namespace.replace(/[#/]$/, "")) continue;
+    // Skip the ontology root (subject IRI exactly equals a namespace, no local name)
+    if (termNamespaces.some((ns) => subject === ns || subject === ns.replace(/[#/]$/, ""))) continue;
 
     const types = getObjectValues(store, subject, `${RDF}type`);
     for (const type of types) {
-      // Skip RDF/OWL meta-types and types within our own namespace (handled by extractEnumerations)
-      if (type.startsWith(RDF) || type.startsWith(OWL) || type.startsWith(RDFS) || type.startsWith(namespace)) continue;
+      // Skip RDF/OWL meta-types and types within our own namespaces (handled by extractEnumerations)
+      if (type.startsWith(RDF) || type.startsWith(OWL) || type.startsWith(RDFS) || isOwn(type)) continue;
 
-      const localName = getLocalName(subject, namespace);
+      const localName = getLocalName(subject, nsFor(subject));
       const label =
         getObjectValue(store, subject, `${RDFS}label`) ||
         getObjectValue(store, subject, `${SKOS}prefLabel`) ||
@@ -507,6 +546,44 @@ function extractExternalEnumerations(
   }
 
   return enumerations;
+}
+
+/**
+ * A multi-namespace mirror can declare the same local name in two of its
+ * sub-namespaces (the CIRPASS-2 textile ontology has hasTextualValue in five
+ * modules). The browser resolves a term page by local name alone, so every
+ * local name in a dataset must be unique. Colliding names are prefixed with
+ * the last path segment of their own namespace ("textile-process.hasTextualValue");
+ * names that collide only once stay bare. A collision that survives the rename
+ * (same local name twice inside ONE namespace, or a prefixed name that already
+ * exists) fails the build rather than publishing an ambiguous page.
+ */
+function disambiguateLocalNames(
+  moduleName: string,
+  groups: { id: string; localName: string }[][],
+  nsFor: (uri: string) => string,
+): void {
+  const all = groups.flat();
+  const byName = new Map<string, Set<string>>();
+  for (const t of all) {
+    if (!byName.has(t.localName)) byName.set(t.localName, new Set());
+    byName.get(t.localName)!.add(t.id);
+  }
+  const segment = (uri: string) => nsFor(uri).replace(/[#/]$/, "").split("/").pop() ?? "";
+  for (const [name, ids] of byName) {
+    if (ids.size < 2) continue;
+    for (const t of all) {
+      if (t.localName === name) t.localName = `${segment(t.id)}.${name}`;
+    }
+  }
+  const seen = new Map<string, string>();
+  for (const t of all) {
+    const prev = seen.get(t.localName);
+    if (prev && prev !== t.id) {
+      throw new Error(`${moduleName}: local name "${t.localName}" is still ambiguous after disambiguation (${prev} vs ${t.id})`);
+    }
+    seen.set(t.localName, t.id);
+  }
 }
 
 function extractOntologyData(store: Store, module: OntologyModule): OntologyData {
@@ -560,15 +637,19 @@ function extractOntologyData(store: Store, module: OntologyModule): OntologyData
     }
   }
 
-  const enumerations = extractEnumerations(store, namespace, classes);
+  const enumerations = extractEnumerations(store, termNamespaces, nsFor, classes);
   const accessRoleDefaults = extractAccessRoleDefaults(store, [describedBy, ontologyUri]);
 
   // Also collect individuals that are instances of external classes (e.g., gs1:MeasurementType)
-  const externalEnums = extractExternalEnumerations(store, namespace, allSubjects);
+  const externalEnums = extractExternalEnumerations(store, termNamespaces, nsFor, allSubjects);
   enumerations.push(...externalEnums);
 
   const enumClassIds = new Set(enumerations.map((e) => e.id));
   const regularClasses = classes.filter((c) => !enumClassIds.has(c.id));
+
+  if (module.extraNamespaces?.length) {
+    disambiguateLocalNames(module.name, [regularClasses, properties, enumerations, ...enumerations.map((e) => e.values)], nsFor);
+  }
 
   regularClasses.sort((a, b) => a.localName.localeCompare(b.localName));
   properties.sort((a, b) => a.localName.localeCompare(b.localName));
@@ -655,6 +736,7 @@ async function buildOntologyJson(): Promise<void> {
       console.log(`  Output: ${jsonPath}\n`);
     } catch (error) {
       console.error(`  Error processing ${module.name}:`, error);
+      process.exitCode = 1;
     }
   }
 

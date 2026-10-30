@@ -74,11 +74,12 @@ oec:DocumentReference a rdfs:Class;
     skos:broadMatch <http://xmlns.com/foaf/0.1/Document>, schema:APIReference, schema:NoteDigitalDocument;
     skos:closeMatch gs1:ReferencedFileDetails.
 oec:RecycledContent a rdfs:Class;
-    rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf>, <https://w3id.org/eudpp#RecycledMaterialsUse>, <urn:samm:io.BatteryPass.Circularity:1.2.0#RecycledContentEntity>, gs1:PackagingDetails;
+    rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf>, <https://w3id.org/eudpp#RecycledMaterialsUseResult>, <urn:samm:io.BatteryPass.Circularity:1.2.0#RecycledContentEntity>, gs1:PackagingDetails;
     rdfs:comment "Declaration of recycled material content with pre-consumer\nand post-consumer splits."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Recycled Content"@en;
-    skos:note "Required extension: GS1 Web Vocabulary does not provide structured recycled content\nproperties. ESPR and Battery Regulation require pre-consumer/post-consumer breakdown which is\nnot available in GS1 vocabulary. Aligned with GDSN sustainability attributes."@en.
+    skos:note "Required extension: GS1 Web Vocabulary does not provide structured recycled content\nproperties. ESPR and Battery Regulation require pre-consumer/post-consumer breakdown which is\nnot available in GS1 vocabulary. Aligned with GDSN sustainability attributes."@en;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-recyclability#RecycledContentDeclaration>.
 oec:MaterialComposition a rdfs:Class;
     rdfs:seeAlso gs1:TextileMaterialDetails, gs1:PackagingMaterialDetails, <https://w3id.org/eudpp#MaterialOfComposition>;
     rdfs:comment "Material composition information including source country,\npercentage, and critical raw material classification."@en;
@@ -86,7 +87,7 @@ oec:MaterialComposition a rdfs:Class;
     rdfs:label "Material Composition"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "Required extension: GS1 provides gs1:TextileMaterialDetails and\ngs1:PackagingMaterialDetails for specific domains but lacks a generic material composition\nclass with CAS/EC number support and critical raw material flags required by ESPR."@en;
-    skos:narrowMatch gs1:TextileMaterialDetails, gs1:PackagingMaterialDetails.
+    skos:narrowMatch gs1:TextileMaterialDetails, gs1:PackagingMaterialDetails, <https://w3id.org/eudpp/textile-core#FibreCompositionComponent>.
 oec:FacilityInformation a rdfs:Class;
     rdfs:seeAlso gs1:Place, schema:Place, <https://vocabulary.uncefact.org/untp/Facility>, <http://www.w3.org/ns/locn#Location>, <http://www.w3.org/ns/locn#Address>, <http://www.w3.org/ns/locn#Geometry>, <https://w3id.org/eudpp#Facility>, <http://data.europa.eu/m8g/InformationConcept>;
     rdfs:comment "Manufacturing or processing facility information per ESPR.\nCaptures facility identification, location, and certification data.\nUse gs1:globalLocationNumber for facility identification, schema:name for facility name, gs1:address for location (all inherited from gs1:Place).\nUse GS1 Digital Link format: https://id.gs1.org/414/{GLN}"@en;
@@ -110,7 +111,8 @@ oec:PerformanceInfo a rdfs:Class;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Performance Information"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    skos:note "Required extension: GS1 provides gs1:manufacturersWarranty for warranty information but lacks\nstructured performance and durability data (expected lifespan, usage cycles, performance class)\nrequired by ESPR Article 7. Use in conjunction with gs1:manufacturersWarranty where applicable."@en.
+    skos:note "Required extension: GS1 provides gs1:manufacturersWarranty for warranty information but lacks\nstructured performance and durability data (expected lifespan, usage cycles, performance class)\nrequired by ESPR Article 7. Use in conjunction with gs1:manufacturersWarranty where applicable."@en;
+    skos:narrowMatch <https://w3id.org/eudpp#Durability>, <https://w3id.org/eudpp#Reliability>, <https://w3id.org/eudpp/textile-indicator#PerformanceAfterNCycles>, <https://w3id.org/eudpp/textile-durability#ObservedPerformanceParameter>, <https://w3id.org/eudpp/battery-performance#BatteryDurability>, <https://w3id.org/eudpp/textile-indicator#PerformanceRetentionRate>, <https://w3id.org/eudpp/battery-performance#BatteryPerformance>, <https://w3id.org/eudpp/textile-durability#SurfacePerformanceParameter>, <https://w3id.org/eudpp/textile-durability#AssemblyPerformanceParameter>, <https://w3id.org/eudpp/textile-indicator#PerformanceLevelOverTime>, <https://w3id.org/eudpp/textile-durability#MechanicalPerformanceParameter>.
 oec:RepairabilityInfo a rdfs:Class;
     rdfs:seeAlso gs1:manufacturersWarranty, <https://w3id.org/eudpp#Durability>, <https://w3id.org/eudpp#Reliability>, gs1:referencedFile;
     rdfs:comment "Repair and maintenance information per ESPR Article 7.\nCaptures repair scores, spare part availability, and repair instructions."@en;
@@ -125,12 +127,12 @@ oec:AccessRights a rdfs:Class;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "Required extension: ESPR Article 9 defines three access levels (Public, Authorized,\nRestricted) for DPP data. GS1 Web Vocabulary does not provide access control semantics.\nThis supports the ESPR requirement for tiered data access."@en.
 oec:EmissionsPerformance a rdfs:Class;
-    rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf>, <https://w3id.org/eudpp#CarbonFootprint>, <https://w3id.org/eudpp#EnvironmentalFootprint>;
+    rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf>, <https://w3id.org/eudpp#CarbonFootprint>, <https://w3id.org/eudpp#LCIAResult>;
     rdfs:comment "Container for greenhouse gas emissions data including carbon footprint,\nlifecycle phases, and verification status. Aligned with UNTP EmissionsPerformance."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Emissions Performance"@en;
     skos:note "Required extension: Structured emissions performance data for ESPR requirements.\nAligned with UNTP EmissionsPerformance for interoperability. Extends the GDSN CFP pattern\nwith operational scope and verification metrics."@en;
-    skos:narrowMatch <https://w3id.org/eudpp#CarbonFootprint>.
+    skos:narrowMatch <https://w3id.org/eudpp#CarbonFootprint>, <https://w3id.org/eudpp#LCIAResult>.
 oec:TraceabilityPerformance a rdfs:Class;
     rdfs:seeAlso <https://vocabulary.uncefact.org/untp/PerformanceMetric>;
     rdfs:comment "Supply chain verification and traceability metrics indicating the proportion\nof materials that are verifiably traced through the supply chain."@en;
@@ -289,7 +291,7 @@ oec:NotifiedActor a oec:ActorRole;
     dcterms:source "EN 18239:2026, 3.6 (CEN/CENELEC JTC 24)";
     rdfs:label "Notified Actor"@en.
 oec:hasBackupCopyHost a owl:ObjectProperty;
-    rdfs:seeAlso oec:hasPassportIssuer, <https://w3id.org/eudpp#hasBackUpCopyHost>;
+    rdfs:seeAlso oec:hasPassportIssuer, <https://w3id.org/eudpp#hasBackUpCopyHost>, <https://w3id.org/eudpp#dppBackupUrl>;
     rdfs:comment "Digital product passport service provider that holds the backup copy of this passport, ensuring availability if the primary host fails or the responsible economic operator ceases to exist."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Backup Copy Host"@en;
@@ -525,7 +527,7 @@ oec:lastUpdated a owl:DatatypeProperty;
     rdfs:domain oec:DigitalProductPassport;
     skos:exactMatch <https://w3id.org/eudpp#lastUpdate>.
 oec:DigitalProductPassport a rdfs:Class;
-    rdfs:seeAlso <https://w3id.org/eudpp#DPP>;
+    rdfs:seeAlso <https://w3id.org/eudpp#DPP>, <https://w3id.org/eudpp#DPPEvent>, <https://w3id.org/eudpp#dppUrl>;
     rdfs:comment "The DPP envelope: identification and lifecycle metadata plus the product data elements, per the EN 18223 information model."@en;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)";
     rdfs:label "Digital Product Passport"@en;
@@ -937,7 +939,7 @@ oec:hasHazardClass a owl:ObjectProperty;
     rdfs:domain oec:HazardousSubstance;
     skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass>.
 oec:casNumber a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#componentCasNumber>, <https://w3id.org/eudpp#numberCAS>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#componentCasNumber>, <https://w3id.org/eudpp#casNumber>;
     rdfs:comment "Chemical Abstracts Service registry number."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "CAS Number"@en;
@@ -946,7 +948,7 @@ oec:casNumber a owl:DatatypeProperty;
     skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#componentCasNumber>;
     rdfs:range xsd:string;
     rdfs:domain oec:HazardousSubstance;
-    skos:exactMatch <https://w3id.org/eudpp#numberCAS>.
+    skos:exactMatch <https://w3id.org/eudpp#casNumber>.
 oec:hasMaterialOrigin a owl:ObjectProperty;
     rdfs:seeAlso gs1:countryOfOrigin, <https://w3id.org/eudpp#MaterialOrigin>, <https://w3id.org/eudpp#hasMaterialOrigin>;
     rdfs:comment "Country of origin of an individual material or component within the product composition, as a gs1:Country value."@en;
@@ -958,7 +960,7 @@ oec:hasMaterialOrigin a owl:ObjectProperty;
     rdfs:range gs1:Country;
     rdfs:domain oec:MaterialComposition.
 oec:concentration a owl:DatatypeProperty;
-    rdfs:seeAlso <https://w3id.org/eudpp#Concentration>, <https://w3id.org/eudpp#hasConcentration>;
+    rdfs:seeAlso <https://w3id.org/eudpp#ConcentrationRange>, <https://w3id.org/eudpp#MaximumConcentration>, <https://w3id.org/eudpp#hasConcentration>;
     rdfs:comment "Concentration of the hazardous substance as percentage."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Concentration"@en;
@@ -968,7 +970,7 @@ oec:concentration a owl:DatatypeProperty;
     rdfs:domain oec:HazardousSubstance;
     skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceConcentration>.
 oec:socThreshold a owl:DatatypeProperty;
-    rdfs:seeAlso oec:concentration, <https://w3id.org/eudpp#Threshold>, <https://w3id.org/eudpp#ThresholdOfSubstanceOfConcern>, <https://w3id.org/eudpp#hasThreshold>;
+    rdfs:seeAlso oec:concentration, <https://w3id.org/eudpp#MaximumConcentration>, <https://w3id.org/eudpp#ThresholdOfSubstanceOfConcern>;
     rdfs:comment "Concentration threshold (percentage by weight) above which the presence of the substance of concern must be declared in the passport, per the applicable delegated act."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Substance of Concern Threshold"@en;
@@ -977,7 +979,7 @@ oec:socThreshold a owl:DatatypeProperty;
     rdfs:range xsd:decimal;
     rdfs:domain oec:HazardousSubstance.
 oec:iupacName a owl:DatatypeProperty;
-    rdfs:seeAlso <https://w3id.org/eudpp#nameIUPAC>;
+    rdfs:seeAlso <https://w3id.org/eudpp#iupacName>;
     rdfs:comment "Systematic IUPAC nomenclature name of the substance."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "IUPAC Name"@en;
@@ -994,7 +996,7 @@ oec:substanceTradeName a owl:DatatypeProperty;
     rdfs:label "Substance Trade Name"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "Substance identity element carried by SCIP dossiers and the CIRPASS-2 SOC module; distinct from the product-level brand name (gs1:brandName identifies the trade item, not an ingredient substance)."@en;
-    skos:broadMatch <https://w3id.org/eudpp#otherName>;
+    skos:broadMatch <https://w3id.org/eudpp#otherName>, <https://w3id.org/eudpp#tradeName>, <https://w3id.org/eudpp#usualName>;
     rdfs:range xsd:string;
     rdfs:domain oec:HazardousSubstance.
 oec:hazardImpact a owl:DatatypeProperty;
@@ -1099,7 +1101,7 @@ oec:recyclableContent a owl:DatatypeProperty;
     rdfs:range xsd:decimal;
     rdfs:domain oec:CircularityPerformance.
 oec:endOfLifeInstructions a owl:DatatypeProperty;
-    rdfs:seeAlso gs1:consumerRecyclingInstructions, <https://dpp-keystone.org/spec/v2/terms#endOfLifeInstructions>, gs1:sustainabilityInfo;
+    rdfs:seeAlso gs1:consumerRecyclingInstructions, <https://dpp-keystone.org/spec/v2/terms#endOfLifeInstructions>, gs1:sustainabilityInfo, <https://w3id.org/eudpp#hasEndOfLifeManagementInstruction>;
     rdfs:comment "URL to end-of-life handling instructions. For text-based recycling guidance, see gs1:consumerRecyclingInstructions."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "End of Life Instructions"@en;
@@ -1107,6 +1109,7 @@ oec:endOfLifeInstructions a owl:DatatypeProperty;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en;
     skos:broadMatch gs1:sustainabilityInfo, gs1:instructions;
     skos:closeMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation>;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-process#hasEndOfLifeInstruction>;
     rdfs:range xsd:anyURI;
     rdfs:domain oec:CircularityPerformance;
     skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#endOfLifeInstructions>.
@@ -1132,7 +1135,7 @@ oec:separateCollectionInfo a owl:DatatypeProperty;
     rdfs:range xsd:anyURI;
     rdfs:domain oec:CircularityPerformance.
 oec:hasDismantlingInstructions a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#dismantlingInformation>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#dismantlingInformation>, <https://w3id.org/eudpp#hasDisassemblyInstruction>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Dismantling Instructions"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -1174,7 +1177,8 @@ oec:hasRecyclabilityAssessment a owl:ObjectProperty;
     rdfs:label "Recyclability Assessment"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en;
-    rdfs:range oec:RecyclabilityAssessment.
+    rdfs:range oec:RecyclabilityAssessment;
+    skos:exactMatch <https://w3id.org/eudpp/textile-recyclability#hasRecyclabilityAssessment>.
 oec:hasRecycledContentDetails a owl:ObjectProperty;
     rdfs:seeAlso oec:recyclableContent, <https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage>, <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition>, <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage>;
     rdfs:comment "Detailed recycled content breakdown with pre/post-consumer splits."@en;
@@ -1184,7 +1188,7 @@ oec:hasRecycledContentDetails a owl:ObjectProperty;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en;
     skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage>, <https://vocabulary.uncefact.org/untp/recycledMassFraction>;
     skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentMass>;
-    skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition>, <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage>;
+    skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition>, <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage>, <https://w3id.org/eudpp/textile-recyclability#hasRecycledContentAspect>;
     rdfs:range oec:RecycledContent.
 oec:recycledContent a owl:DatatypeProperty;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v2/terms#packagingRecycledContent>;
@@ -1206,6 +1210,7 @@ oec:preConsumerRecycledContent a owl:DatatypeProperty;
     rdfs:label "Pre-Consumer Recycled Content"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "Value is a decimal fraction 0-1."@en;
+    skos:broadMatch <https://w3id.org/eudpp#materialRecycledContent>;
     rdfs:range xsd:decimal;
     rdfs:domain oec:RecycledContent;
     skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent>, <urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare>.
@@ -1216,6 +1221,7 @@ oec:postConsumerRecycledContent a owl:DatatypeProperty;
     rdfs:label "Post-Consumer Recycled Content"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "Value is a decimal fraction 0-1."@en;
+    skos:broadMatch <https://w3id.org/eudpp#materialRecycledContent>;
     skos:closeMatch <https://vocabulary.uncefact.org/untp/recycledMassFraction>;
     rdfs:range xsd:decimal;
     rdfs:domain oec:RecycledContent;
@@ -1247,7 +1253,8 @@ oec:isCriticalRawMaterial a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     rdfs:range xsd:boolean;
-    rdfs:domain oec:MaterialComposition.
+    rdfs:domain oec:MaterialComposition;
+    skos:exactMatch <https://w3id.org/eudpp#isCriticalRawMaterial>.
 oec:componentName a owl:DatatypeProperty;
     rdfs:seeAlso schema:name, <https://dpp-keystone.org/spec/v2/terms#componentName>, gs1:ingredientName;
     rdfs:comment "Human-readable name of the material or component (e.g. a fibre type, alloy, or constituent material)."@en;
@@ -1268,7 +1275,7 @@ oec:componentIdentifier a owl:DatatypeProperty;
     rdfs:label "Component Identifier"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "Generic component-identifier pattern. Anchored to DPP Keystone dppk:componentIdentifier (peer DPP profile) and schema:identifier."@en;
-    skos:broadMatch schema:identifier, <http://www.w3.org/ns/adms#identifier>;
+    skos:broadMatch schema:identifier, <http://www.w3.org/ns/adms#identifier>, <https://w3id.org/eudpp#identifierValue>;
     skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier>;
     rdfs:range xsd:string;
     rdfs:domain oec:MaterialComposition;
@@ -1316,7 +1323,7 @@ oec:declaredUnit a owl:DatatypeProperty;
     rdfs:label "Declared Unit"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "Aligned with GDSN cfpFunctionalUnit and UNTP declaredUnit. Specifies the reference unit for measurements."@en;
-    skos:broadMatch gs1:unitCode, <https://w3id.org/eudpp#hasUnitOfMeasure>;
+    skos:broadMatch gs1:unitCode, <https://w3id.org/eudpp#hasMeasurementUnit>;
     rdfs:range xsd:string;
     skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#declaredUnit>.
 oec:carbonFootprintStudyUrl a owl:DatatypeProperty;
@@ -1468,7 +1475,7 @@ oec:hasSubstancesOfConcern a owl:ObjectProperty;
     rdfs:range oec:SubstanceOfConcern;
     skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#substancesOfConcern>, <https://w3id.org/eudpp#containsSubstanceOfConcern>.
 oec:ecNumber a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#componentEcNumber>, <https://w3id.org/eudpp#numberEC>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#componentEcNumber>, <https://w3id.org/eudpp#ecNumber>;
     rdfs:comment "European Community number for the substance (EINECS/ELINCS)."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "EC Number"@en;
@@ -1477,7 +1484,7 @@ oec:ecNumber a owl:DatatypeProperty;
     skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#componentEcNumber>;
     rdfs:range xsd:string;
     rdfs:domain oec:SubstanceOfConcern;
-    skos:exactMatch <https://w3id.org/eudpp#numberEC>.
+    skos:exactMatch <https://w3id.org/eudpp#ecNumber>.
 oec:scipId a owl:DatatypeProperty;
     rdfs:comment "Identifier in the ECHA SCIP database (Substances of Concern In Products)."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272>;
@@ -1488,7 +1495,7 @@ oec:scipId a owl:DatatypeProperty;
     rdfs:range xsd:string;
     rdfs:domain oec:SubstanceOfConcern.
 oec:substanceLocation a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#componentLocationInProduct>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceLocation>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialLocation>, <http://www.w3.org/ns/locn#location>, <https://w3id.org/eudpp#substanceLocation>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#componentLocationInProduct>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceLocation>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialLocation>, <http://www.w3.org/ns/locn#location>, <https://w3id.org/eudpp#substanceLocationDescription>, <https://w3id.org/eudpp#isLocatedInProduct>;
     rdfs:comment "Location or component where the substance is present in the product."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272>;
     rdfs:label "Substance Location"@en;
@@ -1499,9 +1506,9 @@ oec:substanceLocation a owl:DatatypeProperty;
     skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceLocation>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialLocation>;
     rdfs:range xsd:string;
     rdfs:domain oec:SubstanceOfConcern;
-    skos:exactMatch <https://w3id.org/eudpp#substanceLocation>.
+    skos:exactMatch <https://w3id.org/eudpp#substanceLocationDescription>.
 oec:safeUseInstructions a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#safeUseInstructions>, gs1:consumerSafetyInformation;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#safeUseInstructions>, gs1:consumerSafetyInformation, <https://w3id.org/eudpp#hasSafeUseInstruction>;
     rdfs:comment "Instructions for safe use of the product containing the substance of concern."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Safe Use Instructions"@en;
@@ -1512,6 +1519,7 @@ oec:safeUseInstructions a owl:DatatypeProperty;
     rdfs:domain oec:SubstanceOfConcern;
     skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#safeUseInstructions>.
 oec:safeDisassemblyInstructions a owl:DatatypeProperty;
+    rdfs:seeAlso <https://w3id.org/eudpp#hasDisassemblyInstruction>;
     rdfs:comment "Instructions for safe disassembly and handling of components containing the substance."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Safe Disassembly Instructions"@en;
@@ -1526,6 +1534,7 @@ oec:hasPerformanceInfo a owl:ObjectProperty;
     rdfs:label "Performance Information"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
+    skos:narrowMatch <https://w3id.org/eudpp/battery-performance#hasBatteryPerformance>;
     rdfs:range oec:PerformanceInfo.
 oec:hasExpectedLifespan a owl:ObjectProperty;
     rdfs:comment "Expected product lifespan. Use gs1:QuantitativeValue with unitCode (e.g., 'ANN' for years)."@en;
@@ -1552,7 +1561,7 @@ oec:usageCycles a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#batteryCondition>;
-    skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles>;
+    skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles>, <https://w3id.org/eudpp/battery-performance#expectedLifetimeCycles>;
     rdfs:range xsd:integer;
     rdfs:domain oec:PerformanceInfo.
 oec:hasTechnicalLifetime a owl:ObjectProperty;
@@ -1717,6 +1726,7 @@ oec:passportIdentifier a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     skos:broadMatch schema:identifier, <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier>;
+    skos:closeMatch <https://w3id.org/eudpp#hasDigitalProductPassportId>;
     rdfs:range xsd:anyURI;
     rdfs:domain oec:DigitalProductPassport.
 oec:passportVersion a owl:DatatypeProperty;
@@ -1774,7 +1784,7 @@ oec:isEnergyRelated a owl:DatatypeProperty;
     rdfs:domain gs1:Product;
     skos:exactMatch <https://w3id.org/eudpp#isEnergyRelated>.
 oec:previousPassportVersion a owl:DatatypeProperty;
-    rdfs:seeAlso <http://www.w3.org/ns/adms#prev>, <https://w3id.org/eudpp#linkToPreviousDPP>;
+    rdfs:seeAlso <http://www.w3.org/ns/adms#prev>, <https://w3id.org/eudpp#linkToPreviousDPP>, <https://w3id.org/eudpp#hasPreviousDPP>;
     rdfs:comment "Reference to the previous version of this passport, supporting version history per EN 18221."@en;
     dcterms:source "EN 18221:2026 (CEN/CENELEC JTC 24)";
     rdfs:label "Previous Passport Version"@en;
@@ -1784,6 +1794,7 @@ oec:previousPassportVersion a owl:DatatypeProperty;
     rdfs:range xsd:anyURI;
     skos:exactMatch <http://www.w3.org/ns/adms#prev>, <https://w3id.org/eudpp#linkToPreviousDPP>.
 oec:dppSchemaVersion a owl:DatatypeProperty;
+    rdfs:seeAlso <https://w3id.org/eudpp#dppSchemaVersion>;
     rdfs:comment "The schema or standard version the DPP instance conforms to (EN 18223 'dppSchemaVersion'). Distinct from the content version oec:passportVersion."@en;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)";
     rdfs:label "DPP Schema Version"@en;
@@ -1792,7 +1803,7 @@ oec:dppSchemaVersion a owl:DatatypeProperty;
     skos:closeMatch schema:schemaVersion;
     rdfs:range xsd:string;
     rdfs:domain oec:DigitalProductPassport;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#dppSchemaVersion>.
+    skos:exactMatch <https://w3id.org/eudpp#dppSchemaVersion>, <https://dpp-keystone.org/spec/v2/terms#dppSchemaVersion>.
 oec:facilityId a owl:DatatypeProperty;
     rdfs:seeAlso <https://w3id.org/eudpp#FacilityIdentifier>, <https://w3id.org/eudpp#hasUniqueFacilityIdentifier>;
     rdfs:comment "Identifier of a facility involved in the product's life cycle (EN 18223 'facilityId', formatted per EN 18219). In EPCIS4DPP a GLN. See oec:FacilityInformation for the richer facility record."@en;
@@ -2026,6 +2037,7 @@ oec:customsCommodityCode a owl:DatatypeProperty;
     rdfs:label "Customs Commodity Code"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
+    skos:closeMatch <https://w3id.org/eudpp#commodityCode>;
     rdfs:range xsd:string;
     rdfs:domain gs1:Product.
 oec:hasCustomsCommodityCodeType a owl:ObjectProperty;
@@ -2304,7 +2316,7 @@ oec:CarbonFootprintDeclaration a owl:Class;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     rdfs:subClassOf schema:Observation;
     skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en;
-    skos:broadMatch <https://w3id.org/eudpp#CarbonFootprint>, <https://w3id.org/eudpp#EnvironmentalFootprint>;
+    skos:broadMatch <https://w3id.org/eudpp#CarbonFootprint>, <https://w3id.org/eudpp#LCIAResult>;
     skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity>.
 oec:hasCarbonFootprintRawMaterial a owl:ObjectProperty;
     rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint>;
@@ -2365,6 +2377,7 @@ oec:hasCarbonFootprintDeclaration a owl:ObjectProperty;
     skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#environmentalFootprint>;
     rdfs:range oec:CarbonFootprintDeclaration.
 oec:RecyclabilityAssessment a owl:Class;
+    rdfs:seeAlso <https://w3id.org/eudpp/textile-recyclability#RecyclabilityAssessment>;
     rdfs:comment "An assessment of a product's recyclability. Different regulations express the same concept differently: PPWR uses letter grades A/B/C, the JRC textile methodology uses a 0-10 score, electronics WEEE uses a 0-1 rate. All three are optional; pick whichever your regulation requires."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Recyclability Assessment"@en;
@@ -2434,7 +2447,7 @@ oec:packagingWasteAmount a owl:DatatypeProperty;
     rdfs:range xsd:decimal;
     rdfs:domain gs1:Product.
 oec:waterConsumption a owl:DatatypeProperty;
-    rdfs:seeAlso oec:WDP, <https://w3id.org/eudpp#WaterConsumption>;
+    rdfs:seeAlso oec:WDP, <https://w3id.org/eudpp#WaterConsumptionResult>;
     rdfs:comment "Net fresh water consumed over the product life cycle per declared unit, expressed in cubic metres."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Water Consumption"@en;
@@ -2447,7 +2460,7 @@ oec:WDP a oec:ImpactIndicatorType;
     rdfs:label "Water (user) deprivation potential"@en;
     skos:notation "WDP".
 oec:landUse a owl:DatatypeProperty;
-    rdfs:seeAlso <https://w3id.org/eudpp#LandUse>;
+    rdfs:seeAlso <https://w3id.org/eudpp#LandUseResult>;
     rdfs:comment "Land area occupied or transformed over the product life cycle per declared unit, expressed in square metres."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Land Use"@en;
@@ -2456,7 +2469,7 @@ oec:landUse a owl:DatatypeProperty;
     rdfs:range xsd:decimal;
     rdfs:domain gs1:Product.
 oec:materialFootprint a owl:DatatypeProperty;
-    rdfs:seeAlso <https://w3id.org/eudpp#MaterialFootprint>, <https://w3id.org/eudpp#ResourceConsumption>;
+    rdfs:seeAlso <https://w3id.org/eudpp#MaterialFootprint>, <https://w3id.org/eudpp#InventoryIndicatorResult>;
     rdfs:comment "Total raw material input mobilised over the product life cycle per declared unit, expressed in kilograms."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Material Footprint"@en;
@@ -2782,70 +2795,70 @@ oec:ImpactIndicatorResult a owl:Class;
     rdfs:label "Impact Indicator Result"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "EN 15804 impact-indicator result. Anchored to DPP Keystone dppk:ImpactValues (peer DPP profile)."@en;
-    skos:broadMatch <https://w3id.org/eudpp#ImpactCategoryIndicator>, <https://w3id.org/eudpp#LcaResult>;
+    skos:broadMatch <https://w3id.org/eudpp#LCIAResult>, <https://w3id.org/eudpp#LCAResult>, <https://w3id.org/eudpp/textile-assessment#MeasurementResult>;
     skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#ImpactValues>.
 oec:LifecycleStageResult a owl:Class;
-    rdfs:seeAlso <https://w3id.org/eudpp#LCIAModuleValue>;
+    rdfs:seeAlso <https://w3id.org/eudpp#LCAModuleValue>;
     rdfs:comment "The value of an impact indicator for a single EN 15804 lifecycle module (e.g. A1, B6, C3, D)."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Lifecycle Stage Result"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "EN 15804 modular lifecycle value. Pairs an oec:LifecycleStage code with a decimal value in the indicator's declared unit."@en;
-    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity>, <https://w3id.org/eudpp#LcaResult>.
+    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity>, <https://w3id.org/eudpp#LCAResult>.
 oec:ImpactIndicatorType a rdfs:Class;
-    rdfs:seeAlso <https://w3id.org/eudpp#EN15804ImpactIndicator>, <https://w3id.org/eudpp#LCIAImpactIndicator>;
+    rdfs:seeAlso <https://w3id.org/eudpp#EN15804ImpactIndicator>, <https://w3id.org/eudpp#LCIAImpactIndicator>, <https://w3id.org/eudpp#AreaOfProtection>;
     rdfs:comment "Controlled list of EN 15804:2012+A2:2019 environmental impact indicators."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Impact Indicator Type"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "EN 15804+A2 core impact category set."@en;
-    skos:broadMatch <https://w3id.org/eudpp#ImpactType>, <https://w3id.org/eudpp#ImpactCategory>.
+    skos:broadMatch <https://w3id.org/eudpp#LCIAImpactCategory>.
 oec:GWPTotal a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#gwp>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#gwp>, <https://w3id.org/eudpp#ind_GWPtotal>;
     rdfs:label "Global Warming Potential, total"@en;
     skos:notation "GWP-total".
 oec:GWPFossil a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#gwpF>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#gwpF>, <https://w3id.org/eudpp#ind_GWPfossil>;
     rdfs:label "Global Warming Potential, fossil"@en;
     skos:notation "GWP-fossil".
 oec:GWPBiogenic a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#gwpB>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#gwpB>, <https://w3id.org/eudpp#ind_GWPbiogenic>;
     rdfs:label "Global Warming Potential, biogenic"@en;
     skos:notation "GWP-biogenic".
 oec:GWPLuluc a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#gwpLuluc>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#gwpLuluc>, <https://w3id.org/eudpp#ind_GWPluluc>;
     rdfs:label "Global Warming Potential, land use and land-use change"@en;
     skos:notation "GWP-luluc".
 oec:ODP a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#odp>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#odp>, <https://w3id.org/eudpp#ind_ODP>;
     rdfs:label "Depletion potential of the stratospheric ozone layer"@en;
     skos:notation "ODP".
 oec:AP a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#ap>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#ap>, <https://w3id.org/eudpp#ind_AP>;
     rdfs:label "Acidification potential"@en;
     skos:notation "AP".
 oec:EPFreshwater a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#epF>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#epF>, <https://w3id.org/eudpp#ind_EPfreshwater>;
     rdfs:label "Eutrophication potential, freshwater"@en;
     skos:notation "EP-freshwater".
 oec:EPMarine a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#epM>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#epM>, <https://w3id.org/eudpp#ind_EPmarine>;
     rdfs:label "Eutrophication potential, marine"@en;
     skos:notation "EP-marine".
 oec:EPTerrestrial a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#epT>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#epT>, <https://w3id.org/eudpp#ind_EPterrestrial>;
     rdfs:label "Eutrophication potential, terrestrial"@en;
     skos:notation "EP-terrestrial".
 oec:POCP a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#pocp>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#pocp>, <https://w3id.org/eudpp#ind_POCP>;
     rdfs:label "Formation potential of tropospheric ozone"@en;
     skos:notation "POCP".
 oec:ADPElements a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#adpe>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#adpe>, <https://w3id.org/eudpp#ind_ADPE>;
     rdfs:label "Abiotic depletion potential, minerals and metals"@en;
     skos:notation "ADP-minerals&metals".
 oec:ADPFossil a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#adpf>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#adpf>, <https://w3id.org/eudpp#ind_ADPF>;
     rdfs:label "Abiotic depletion potential, fossil resources"@en;
     skos:notation "ADP-fossil".
 oec:LifecycleStage a rdfs:Class;
@@ -2854,69 +2867,74 @@ oec:LifecycleStage a rdfs:Class;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Lifecycle Stage"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    skos:note "EN 15804 modular lifecycle stages."@en.
+    skos:note "EN 15804 modular lifecycle stages."@en;
+    skos:exactMatch <https://w3id.org/eudpp#LifeCycleModule>.
 oec:StageA1 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#a1>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#a1>, <https://w3id.org/eudpp#en15804moduleA1>;
     rdfs:label "A1 Raw material supply"@en;
     skos:notation "A1".
 oec:StageA2 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#a2>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#a2>, <https://w3id.org/eudpp#en15804moduleA2>;
     rdfs:label "A2 Transport to manufacturer"@en;
     skos:notation "A2".
 oec:StageA3 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#a3>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#a3>, <https://w3id.org/eudpp#en15804moduleA3>;
     rdfs:label "A3 Manufacturing"@en;
     skos:notation "A3".
 oec:StageA4 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#a4>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#a4>, <https://w3id.org/eudpp#en15804moduleA4>;
     rdfs:label "A4 Transport to site"@en;
     skos:notation "A4".
 oec:StageA5 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#a5>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#a5>, <https://w3id.org/eudpp#en15804moduleA5>;
     rdfs:label "A5 Installation"@en;
     skos:notation "A5".
 oec:StageB1 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b1>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b1>, <https://w3id.org/eudpp#en15804moduleB1>;
     rdfs:label "B1 Use"@en;
     skos:notation "B1".
 oec:StageB2 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b2>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b2>, <https://w3id.org/eudpp#en15804moduleB2>;
     rdfs:label "B2 Maintenance"@en;
     skos:notation "B2".
 oec:StageB3 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b3>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b3>, <https://w3id.org/eudpp#en15804moduleB3>;
     rdfs:label "B3 Repair"@en;
     skos:notation "B3".
 oec:StageB4 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b4>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b4>, <https://w3id.org/eudpp#en15804moduleB4>;
     rdfs:label "B4 Replacement"@en;
     skos:notation "B4".
 oec:StageB5 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b5>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b5>, <https://w3id.org/eudpp#en15804moduleB5>;
     rdfs:label "B5 Refurbishment"@en;
     skos:notation "B5".
 oec:StageB6 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b6>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b6>, <https://w3id.org/eudpp#en15804moduleB6>;
     rdfs:label "B6 Operational energy use"@en;
     skos:notation "B6".
 oec:StageB7 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b7>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b7>, <https://w3id.org/eudpp#en15804moduleB7>;
     rdfs:label "B7 Operational water use"@en;
     skos:notation "B7".
 oec:StageC1 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#c1>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#c1>, <https://w3id.org/eudpp#en15804moduleC1>;
     rdfs:label "C1 Deconstruction / demolition"@en;
     skos:notation "C1".
 oec:StageC2 a oec:LifecycleStage;
+    rdfs:seeAlso <https://w3id.org/eudpp#en15804moduleC2>;
     rdfs:label "C2 Transport to waste processing"@en;
     skos:notation "C2".
 oec:StageC3 a oec:LifecycleStage;
+    rdfs:seeAlso <https://w3id.org/eudpp#en15804moduleC3>;
     rdfs:label "C3 Waste processing"@en;
     skos:notation "C3".
 oec:StageC4 a oec:LifecycleStage;
+    rdfs:seeAlso <https://w3id.org/eudpp#en15804moduleC4>;
     rdfs:label "C4 Disposal"@en;
     skos:notation "C4".
 oec:StageD a oec:LifecycleStage;
+    rdfs:seeAlso <https://w3id.org/eudpp#moduleD>;
     rdfs:label "D Benefits and loads beyond the system boundary"@en;
     skos:notation "D".
 oec:hasEnvironmentalProductDeclaration a owl:ObjectProperty;
@@ -2939,13 +2957,13 @@ oec:epdRegistrationNumber a owl:DatatypeProperty;
     rdfs:range xsd:string;
     rdfs:domain oec:EnvironmentalProductDeclaration.
 oec:productCategoryRules a owl:DatatypeProperty;
-    rdfs:seeAlso <https://w3id.org/eudpp#PCR>, <https://w3id.org/eudpp#PEFCR>, <https://w3id.org/eudpp#referenceToPCR>, <https://w3id.org/eudpp#referenceToPEFCR>;
+    rdfs:seeAlso <https://w3id.org/eudpp#PCR>, <https://w3id.org/eudpp#PEFCR>, <https://w3id.org/eudpp#followsPCR>, <https://w3id.org/eudpp#followsPEFCR>;
     rdfs:comment "URI of the Product Category Rules (PCR) or Product Environmental Footprint Category Rules (PEFCR) document under which the environmental declaration was produced."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Product Category Rules"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     skos:note "ISO 14025 / EN 15804 EPD metadata: results are only comparable within one PCR/PEFCR, so the passport must say which one applies. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:narrowMatch <https://w3id.org/eudpp#referenceToPEFCR>;
+    skos:narrowMatch <https://w3id.org/eudpp#followsPEFCR>;
     rdfs:range xsd:anyURI;
     rdfs:domain oec:EnvironmentalProductDeclaration.
 oec:epdProgramOperator a owl:DatatypeProperty;
@@ -3021,7 +3039,7 @@ oec:hasLifecycleStageResult a owl:ObjectProperty;
     rdfs:range oec:LifecycleStageResult;
     rdfs:domain oec:ImpactIndicatorResult.
 oec:hasLifecycleStage a owl:ObjectProperty;
-    rdfs:seeAlso <https://w3id.org/eudpp#hasLifeCycleStage>;
+    rdfs:seeAlso <https://w3id.org/eudpp#forLifeCycleModule>;
     rdfs:comment "The EN 15804 lifecycle module this value applies to (e.g. oec:StageA1)."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Lifecycle Stage"@en;
@@ -3060,7 +3078,8 @@ oec:stageValue a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     rdfs:subClassOf gs1:Product;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#BatteryProduct>.
+    skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#BatteryProduct>;
+    skos:exactMatch <https://w3id.org/eudpp/battery#Battery>.
 <https://ref.openepcis.org/extensions/eu/battery/BatteryChemistry> a owl:Class;
     rdfs:comment "The electrochemical system of the battery including cathode, anode, and electrolyte materials."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
@@ -3090,7 +3109,7 @@ oec:stageValue a owl:DatatypeProperty;
     rdfs:label "Recycled Content"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:broadMatch <https://w3id.org/eudpp#RecycledMaterialsUse>;
+    skos:broadMatch <https://w3id.org/eudpp#RecycledMaterialsUseResult>;
     skos:closeMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#RecycledContentEntity>;
     skos:exactMatch oec:RecycledContent.
 <https://ref.openepcis.org/extensions/eu/battery/EndOfLifeInfo> a owl:Class;
@@ -3137,7 +3156,7 @@ oec:stageValue a owl:DatatypeProperty;
     rdfs:label "Power Capability at SoC"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#BatteryTechnicalPropertiesEntity>;
+    skos:broadMatch <https://w3id.org/eudpp/battery-performance#BatteryPerformance>, <urn:samm:io.BatteryPass.Performance:1.2.1#BatteryTechnicalPropertiesEntity>;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#PowerCapabilityAtEntity>.
 <https://ref.openepcis.org/extensions/eu/battery/TemperatureRange> a owl:Class;
     rdfs:comment "A temperature range specification with minimum and maximum values for a specific operating context."@en;
@@ -3153,16 +3172,17 @@ oec:stageValue a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
     skos:broadMatch <http://data.europa.eu/m8g/Event>, schema:Event, <https://w3id.org/eudpp#ProductEvent>;
+    skos:narrowMatch <https://w3id.org/eudpp/battery-performance#AccidentEvent>;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#NegativeEventEntity>.
 <https://ref.openepcis.org/extensions/eu/battery/CarbonFootprintDeclaration> a owl:Class;
-    rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf>, oec:EmissionsPerformance, <https://w3id.org/eudpp#EnvironmentalFootprint>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity>, oec:carbonFootprintTotal, oec:CarbonFootprintDeclaration, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-17>;
+    rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf>, oec:EmissionsPerformance, <https://w3id.org/eudpp#LCIAResult>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity>, oec:carbonFootprintTotal, oec:CarbonFootprintDeclaration, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-17>;
     rdfs:comment "Carbon footprint declaration for a battery including lifecycle breakdown and third-party verification."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     rdfs:label "Carbon Footprint Declaration"@en;
     rdfs:subClassOf oec:CarbonFootprintDeclaration;
     skos:note "Required extension: Battery Regulation Art. 7 requires lifecycle carbon footprint\nwith breakdown by phase (raw materials, production, distribution, recycling). This extends the\nGDSN CFP pattern with battery-specific lifecycle phases and performance class labeling.\nAligned with oec:EmissionsPerformance for core carbon footprint properties."@en;
-    skos:broadMatch <https://w3id.org/eudpp#EnvironmentalFootprint>;
-    skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity>.
+    skos:broadMatch <https://w3id.org/eudpp#LCIAResult>;
+    skos:narrowMatch <https://w3id.org/eudpp#CarbonFootprint>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity>.
 <https://ref.openepcis.org/extensions/eu/battery/ThirdPartyVerification> a owl:Class;
     rdfs:comment "Third-party verification details for carbon footprint or other certified data."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
@@ -3340,6 +3360,7 @@ _:b122 rdf:first <https://ref.openepcis.org/extensions/eu/battery/BMS>;
     rdfs:label "Material Category"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
+    skos:broadMatch <https://w3id.org/eudpp#MaterialType>;
     owl:oneOf _:b123.
 _:b123 rdf:first <https://ref.openepcis.org/extensions/eu/battery/ActiveMaterial>;
     rdf:rest _:b124.
@@ -3619,7 +3640,7 @@ _:b168 rdf:first <https://ref.openepcis.org/extensions/eu/battery/ConditionallyC
     rdfs:comment "Battery complies subject to specified conditions or limitations."@en;
     rdfs:label "Conditionally Compliant"@en.
 <https://ref.openepcis.org/extensions/eu/battery/CarbonFootprintClass> a owl:Class;
-    rdfs:seeAlso oec:EmissionsPerformance, <https://w3id.org/eudpp#CarbonFootprint>, <https://w3id.org/eudpp#EnvironmentalFootprint>, schema:Class;
+    rdfs:seeAlso oec:EmissionsPerformance, <https://w3id.org/eudpp#CarbonFootprint>, <https://w3id.org/eudpp#LCIAResult>, schema:Class;
     rdfs:comment "Carbon footprint performance classification (A-E) per EU Battery Regulation."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     rdfs:label "Carbon Footprint Performance Class"@en;
@@ -3781,7 +3802,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:label "Battery Model Identifier"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "BatteryPass-Ready v1.3 longlist attribute #7. Mandatory. GS1 Web Vocabulary has gs1:gtin (trade item) but no separate model identifier; in EU regulatory practice these are not always equivalent."@en;
-    skos:broadMatch schema:identifier, <http://www.w3.org/ns/adms#identifier>, <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier>, <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#productIdentifier>, <https://dpp-keystone.org/spec/v2/terms#identifier>, <https://dpp-keystone.org/spec/v2/terms#uniqueProductIdentifier>, <https://dpp-keystone.org/spec/v2/terms#model>;
+    skos:broadMatch schema:identifier, <http://www.w3.org/ns/adms#identifier>, <https://w3id.org/eudpp#identifierValue>, <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier>, <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#productIdentifier>, <https://dpp-keystone.org/spec/v2/terms#identifier>, <https://dpp-keystone.org/spec/v2/terms#uniqueProductIdentifier>, <https://dpp-keystone.org/spec/v2/terms#model>;
     rdfs:range xsd:string;
     rdfs:domain gs1:Product.
 <https://ref.openepcis.org/extensions/eu/battery/facilityIdentifier> a owl:DatatypeProperty;
@@ -3943,7 +3964,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification>;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#ratedMaximumPower>.
 <https://ref.openepcis.org/extensions/eu/battery/hasMaximumPermittedBatteryPower> a owl:ObjectProperty;
-    rdfs:seeAlso <https://ref.openepcis.org/extensions/eu/battery/hasRatedMaximumPower>, <https://dpp-keystone.org/spec/v2/terms#powerMaximumPermitted>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-30>, <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability>;
+    rdfs:seeAlso <https://ref.openepcis.org/extensions/eu/battery/hasRatedMaximumPower>, <https://dpp-keystone.org/spec/v2/terms#powerMaximumPermitted>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-30>, <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability>, <https://w3id.org/eudpp/battery-performance#maximumPermittedBatteryPower>;
     rdfs:comment "Maximum permitted battery power (single declared value). Use gs1:QuantitativeValue with unitCode 'WTT' (watt) or 'KWT' (kW), UN/CEFACT Rec 20."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     rdfs:label "Maximum Permitted Battery Power"@en;
@@ -4016,10 +4037,10 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:label "Round Trip Efficiency"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>;
+    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>, <https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife>;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyInitial>, <urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyInitial>, <urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency>, <https://w3id.org/eudpp/battery-performance#initialRoundTripEnergyEfficiency>.
 <https://ref.openepcis.org/extensions/eu/battery/roundTripEfficiencyAt50PercentCycleLife> a owl:DatatypeProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyAt50Cycles>, <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyRemaining>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-37>;
     rdfs:comment "Expected round trip efficiency at 50% of rated cycle life."@en;
@@ -4030,7 +4051,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency>, <https://dpp-keystone.org/spec/v2/terms#efficiency>;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification>;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>.
+    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>, <https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife>.
 <https://ref.openepcis.org/extensions/eu/battery/depthOfDischargeInCycleLifeTest> a owl:DatatypeProperty;
     rdfs:comment "Depth of discharge (DoD) percentage used for cycle life testing."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
@@ -4076,7 +4097,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#selfDischargeInitial>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#selfDischargeInitial>, <https://w3id.org/eudpp/battery-performance#initialSelfDischargeRate>.
 <https://ref.openepcis.org/extensions/eu/battery/capacityThresholdForExhaustion> a owl:DatatypeProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#exhaustionCapacityThreshold>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-33>;
     rdfs:comment "SOCE percentage threshold below which the battery is considered exhausted."@en;
@@ -4107,13 +4128,14 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification>;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#powerCapabilityRatio>.
+    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#powerCapabilityRatio>, <https://w3id.org/eudpp/battery-performance#powerToEnergyRatio>.
 <https://ref.openepcis.org/extensions/eu/battery/cRate> a owl:DatatypeProperty;
     rdfs:comment "Nominal charge/discharge rate relative to capacity (e.g., 1C = full charge in 1 hour)."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     rdfs:label "C-Rate"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
+    skos:narrowMatch <https://w3id.org/eudpp/battery-performance#cRateOfCycleLifeTest>;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification>;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#powerCapabilityRatio>, <urn:samm:io.BatteryPass.Performance:1.2.1#cRate>.
@@ -4127,7 +4149,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#cRate>;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#cRateCycleTest>.
+    skos:exactMatch <https://w3id.org/eudpp/battery-performance#cRateOfCycleLifeTest>, <https://dpp-keystone.org/spec/v2/terms#cRateCycleTest>.
 <https://ref.openepcis.org/extensions/eu/battery/hasOriginalPowerCapability> a owl:ObjectProperty;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-29>;
     rdfs:comment "Original power capability at specific SoC levels (80% and 20%)."@en;
@@ -4250,7 +4272,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:label "EC Number"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "Hazardous-substance classification aligned with CLP (EC) 1272/2008, as required by the EU Battery Regulation (EU) 2023/1542."@en;
-    skos:broadMatch <https://w3id.org/eudpp#numberEC>;
+    skos:broadMatch <https://w3id.org/eudpp#ecNumber>;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/BatteryMaterial>;
     skos:exactMatch oec:ecNumber, <https://dpp-keystone.org/spec/v2/terms#componentEcNumber>.
@@ -4510,7 +4532,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:label "Safety Instructions for Dismantling"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:broadMatch gs1:instructions, <https://dpp-keystone.org/spec/v2/terms#dismantlingInformation>, gs1:consumerSafetyInformation, <urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions>, <urn:samm:io.BatteryPass.Circularity:1.2.0#safetyMeasures>, gs1:safetyInfo, <https://vocabulary.uncefact.org/untp/materialSafetyInformation>;
+    skos:broadMatch gs1:instructions, <https://dpp-keystone.org/spec/v2/terms#dismantlingInformation>, gs1:consumerSafetyInformation, <urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions>, <urn:samm:io.BatteryPass.Circularity:1.2.0#safetyMeasures>, gs1:safetyInfo, <https://vocabulary.uncefact.org/untp/materialSafetyInformation>, <https://w3id.org/eudpp/battery#dismantlingInformation>, <https://w3id.org/eudpp/battery#safetyMeasures>;
     rdfs:range xsd:anyURI;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/EndOfLifeInfo>.
 <https://ref.openepcis.org/extensions/eu/battery/hasDismantlingTime> a owl:ObjectProperty;
@@ -4668,6 +4690,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:label "Substance CAS Number"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "Hazardous-substance classification aligned with CLP (EC) 1272/2008, as required by the EU Battery Regulation (EU) 2023/1542."@en;
+    skos:broadMatch <https://w3id.org/eudpp#casNumber>;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/HazardousSubstance>;
     skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceIdentifier>.
@@ -4677,6 +4700,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:label "Substance EC Number"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "Hazardous-substance classification aligned with CLP (EC) 1272/2008, as required by the EU Battery Regulation (EU) 2023/1542."@en;
+    skos:broadMatch <https://w3id.org/eudpp#ecNumber>;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/HazardousSubstance>.
 <https://ref.openepcis.org/extensions/eu/battery/concentration> a owl:DatatypeProperty;
@@ -4707,7 +4731,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:label "Substance Location"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:broadMatch <https://w3id.org/eudpp#substanceLocation>;
+    skos:broadMatch <https://w3id.org/eudpp#isLocatedInProduct>;
     rdfs:range <https://ref.openepcis.org/extensions/eu/battery/ComponentLocation>;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/HazardousSubstance>;
     skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceLocation>.
@@ -4718,6 +4742,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:label "Economic Operator Information"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "BatteryPass-Ready v1.3 longlist attribute #12 (was combined #3 in v1.2). Specialises the cross-cutting oec:hasOperatorInformation."@en;
+    skos:broadMatch <https://w3id.org/eudpp#hasEconomicOperator>;
     skos:closeMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#operatorInformation>;
     rdfs:range oec:OperatorInformation;
     rdfs:domain gs1:Product;
@@ -4729,7 +4754,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:label "Economic Operator Identifier"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "BatteryPass-Ready v1.3 longlist attribute #9. Recommended access level: AuthorizedOnly. Domain moved from gs1:Product to oec:OperatorInformation in 0.9.5: the identifier identifies the operator, not the product. Conceptually an adms:Identifier whose notation is the GLN / EOID and whose schemaAgency identifies the issuer."@en;
-    skos:broadMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#operatorInformation>, schema:identifier, <http://www.w3.org/ns/adms#identifier>, <https://dpp-keystone.org/spec/v2/terms#economicOperator>;
+    skos:broadMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#operatorInformation>, schema:identifier, <http://www.w3.org/ns/adms#identifier>, <https://w3id.org/eudpp#identifierValue>, <https://dpp-keystone.org/spec/v2/terms#economicOperator>;
     skos:narrowMatch gs1:globalLocationNumber;
     rdfs:range xsd:string;
     rdfs:domain oec:OperatorInformation;
@@ -4809,7 +4834,8 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
     skos:broadMatch schema:url;
     rdfs:range xsd:anyURI;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/Label>.
+    rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/Label>;
+    skos:exactMatch <https://w3id.org/eudpp/battery-labeling#labelingSymbol>.
 <https://ref.openepcis.org/extensions/eu/battery/labelMeaning> a owl:DatatypeProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#labelMeaning>;
     rdfs:comment "Human-readable meaning of the label."@en;
@@ -4937,6 +4963,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
     skos:closeMatch <urn:samm:io.BatteryPass.Labels:1.2.0#resultOfTestReport>;
+    skos:narrowMatch <https://w3id.org/eudpp/battery#testReportResults>;
     rdfs:range xsd:anyURI;
     rdfs:domain gs1:Product.
 <https://ref.openepcis.org/extensions/eu/battery/testReportNumber> a owl:DatatypeProperty;
@@ -5468,7 +5495,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "State-of-health passport data property per Annex XIII. No equivalent GS1 term exists for battery internal resistance."@en;
     skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#internalResistanceInitial>, <urn:samm:io.BatteryPass.Performance:1.2.1#ohmicResistance>;
-    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance>;
+    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance>, <https://w3id.org/eudpp/battery-performance#initialInternalResistance>;
     rdfs:range gs1:QuantitativeValue;
     rdfs:domain gs1:Product;
     oec:hasReportingGranularity oec:ItemLevel.
@@ -5539,6 +5566,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     skos:note "State-of-health passport data property per Annex XIII."@en;
     skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#selfDischargeEvolution>;
     skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#selfDischargeCurrent>;
+    skos:narrowMatch <https://w3id.org/eudpp/battery-performance#initialSelfDischargeRate>;
     rdfs:range gs1:QuantitativeValue;
     rdfs:domain gs1:Product;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#currentSelfDischargingRateValue>.
@@ -5559,7 +5587,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:label "Time Spent in Extreme Temperatures Above Boundary"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "BatteryPass-Ready v1.3 longlist attribute #94. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator for LMT and Stationary Industrial batteries (TimeSpentInExtremeTemperaturesAboveBoundary). Cumulative lifetime counter, distinct from the per-event eubat:exposureDurationMinutes. No equivalent GS1 term exists."@en;
-    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTempCharging>;
+    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTempCharging>, <https://w3id.org/eudpp/battery-performance#timeSpentChargingInExtremeTemperaturesAboveBoundary>;
     rdfs:range xsd:integer;
     rdfs:domain gs1:Product;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTemp>.
@@ -5644,6 +5672,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:label "Certified Usable Energy"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
+    skos:narrowMatch <https://w3id.org/eudpp/battery-performance#certifiedUsableBatteryEnergy>;
     rdfs:range gs1:QuantitativeValue;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#ratedEnergy>, <https://dpp-keystone.org/spec/v2/terms#certifiedUsableEnergy>.
 <https://ref.openepcis.org/extensions/eu/battery/hasRemainingUsableEnergy> a owl:ObjectProperty;
@@ -5655,7 +5684,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergy>;
     rdfs:range gs1:QuantitativeValue;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#remainingUsableEnergy>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#remainingUsableEnergy>, <https://w3id.org/eudpp/battery-performance#remainingUsableBatteryEnergy>.
 <https://ref.openepcis.org/extensions/eu/battery/soceMeasurementId> a owl:DatatypeProperty;
     rdfs:comment "Unique identifier for the SOCE measurement."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
@@ -5715,6 +5744,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:label "Exposure Duration (Minutes)"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
+    skos:narrowMatch <https://w3id.org/eudpp/battery-performance#timeSpentInExtremeTemperaturesAboveBoundary>, <https://w3id.org/eudpp/battery-performance#timeSpentInExtremeTemperaturesBelowBoundary>;
     rdfs:range xsd:integer;
     oec:hasReportingGranularity oec:ItemLevel.
 <https://ref.openepcis.org/extensions/eu/battery/exceedanceThreshold> a owl:DatatypeProperty;
@@ -5852,7 +5882,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:label "Power Capability at 20% SoC"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability>, <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability>, <urn:samm:io.BatteryPass.Performance:1.2.1#powerCapabilityAt>;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability>, <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability>, <urn:samm:io.BatteryPass.Performance:1.2.1#powerCapabilityAt>, <https://w3id.org/eudpp/battery-performance#originalPowerCapability>, <https://w3id.org/eudpp/battery-performance#remainingPowerCapability>;
     rdfs:range gs1:QuantitativeValue.
 <https://ref.openepcis.org/extensions/eu/battery/hasCurrentSelfDischargingRate> a owl:ObjectProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#selfDischargeCurrent>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-65>;
@@ -5881,7 +5911,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#numberOfFullCycles)."@en;
     rdfs:range xsd:integer;
     rdfs:domain oec:PerformanceInfo;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCycles>.
+    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCycles>, <https://w3id.org/eudpp/battery-performance#numberOfFullCycles>.
 <https://ref.openepcis.org/extensions/eu/battery/roundTripEnergyEfficiency> a owl:DatatypeProperty;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>, <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyAt50Cycles>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-36>, <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyRemaining>;
     rdfs:comment "Current round-trip energy efficiency on the 0-1 decimal scale (0.92 = 92%)."@en;
@@ -5889,7 +5919,7 @@ _:b182 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:label "Round-Trip Energy Efficiency"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#roundTripEnergyEfficiency). Aligned with the 0-1 ratio convention used throughout oec:."@en;
-    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>, <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyAt50Cycles>;
+    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>, <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyAt50Cycles>, <https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife>;
     rdfs:range xsd:decimal;
     rdfs:domain oec:PerformanceInfo;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency>.

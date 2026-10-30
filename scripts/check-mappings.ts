@@ -132,6 +132,7 @@ const NS_TO_PREFIX: [string, string][] = [
   ["http://xmlns.com/foaf/0.1/", "foaf:"],
   ["https://dpp-keystone.org/spec/v2/terms#", "dppk:"],
   ["https://vocabulary.uncefact.org/untp/", "untp:"],
+  ["https://w3id.org/eudpp#", "eudpp:"],
 ];
 
 /** `<https://schema.org/category>` -> `schema:category`; anything else is returned as is. */
@@ -164,6 +165,45 @@ const ITEM_SCOPED = new Set(
 const BATCH_LEVEL = /(^|[a-z])(Lot|Batch|Heat|Cast|Melt|Coil)([A-Z]|$)|^(lot|batch|heat|cast|melt|coil)/;
 
 const SEMICEU_PREFIXES = new Set(["cv", "cccev", "locn", "adms", "cpsv", "foaf", "legal", "org"]);
+
+/**
+ * 13. CIRPASS-2 EUDPP targets must exist in the mirror. The mirror under
+ * extensions/upstream/cirpass2-eudpp/ontology/eudpp.ttl is the ground truth for the
+ * `cirpass2:` / `eudpp:` namespace (https://w3id.org/eudpp#), and unlike the other upstream
+ * peers it lives in this repository, so a pointer can be checked offline. Both the graded
+ * SKOS relations and rdfs:seeAlso are covered: the 2.0.5 → 2.1.0 bump renamed or removed
+ * 229 terms, and three rdfs:seeAlso pointers had been pointing at names that never existed
+ * in any release. Subjects are read with the same line-initial scanner used for our own
+ * files, which is enough for an n3-written mirror (one subject per block).
+ */
+const EUDPP_NS = "https://w3id.org/eudpp#";
+const EUDPP_PREFIXES = new Set(["cirpass2", "eudpp"]);
+const EUDPP_TERMS: Set<string> = (() => {
+  const mirror = join(PROJECT_ROOT, "extensions/upstream/cirpass2-eudpp/ontology/eudpp.ttl");
+  const ttl = readFileSync(mirror, "utf8");
+  const terms = new Set<string>();
+  for (const m of ttl.matchAll(/^(?:eudpp:([\w.-]+)|<https:\/\/w3id\.org\/eudpp#([^>]+)>)\s/gm)) terms.add(m[1] ?? m[2]);
+  for (const m of ttl.matchAll(/^@prefix\s+eudpp:\s+<([^>]+)>/gm)) {
+    if (m[1] !== EUDPP_NS) throw new Error(`${mirror}: eudpp prefix is ${m[1]}, expected ${EUDPP_NS}`);
+  }
+  if (terms.size < 100) throw new Error(`${mirror}: only ${terms.size} eudpp terms parsed; the mirror looks truncated`);
+  return terms;
+})();
+
+/** Every CURIE or IRI target of a predicate, across a comma-separated object list. */
+function targetsOf(block: string, predicate: RegExp): string[] {
+  const out: string[] = [];
+  for (const m of block.matchAll(predicate)) {
+    for (const t of m[1].split(",")) {
+      const v = t.trim();
+      if (v) out.push(toCurie(v));
+    }
+  }
+  return out;
+}
+const OBJ = String.raw`(?:<[^>]+>|[A-Za-z]\w*:[\w.-]+)`;
+const SEEALSO_RE = new RegExp(String.raw`rdfs:seeAlso\s+(${OBJ}(?:\s*,\s*${OBJ})*)`, "g");
+const MATCH_RE = new RegExp(String.raw`skos:(?:exactMatch|closeMatch|broadMatch|narrowMatch|relatedMatch)\s+(${OBJ}(?:\s*,\s*${OBJ})*)`, "g");
 const RELS = ["exactMatch", "closeMatch", "broadMatch", "narrowMatch"];
 
 /**
@@ -241,6 +281,8 @@ function isEntityClass(target: string): boolean {
 }
 
 for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
+  // Upstream mirrors are the ground truth, not the subject of this guard.
+  if (f.includes("/extensions/upstream/")) continue;
   const ttl = blankLongLiterals(readFileSync(f, "utf8"));
   const rel = relative(PROJECT_ROOT, f);
   const isTextile = rel.includes("/textile/");
@@ -291,6 +333,20 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
           file: rel, subject: subj, rule: "object-property-naming",
           detail: `is an owl:ObjectProperty named like an attribute; project-owned object properties follow the has* convention (is*/…Of stay as established readings) — rename to has${local[0].toUpperCase()}${local.slice(1)} or retype if the range is a literal`,
         });
+      }
+    }
+
+    // 13. dead CIRPASS-2 pointer (see EUDPP_TERMS)
+    for (const [pred, re] of [["rdfs:seeAlso", SEEALSO_RE], ["skos:*Match", MATCH_RE]] as const) {
+      for (const target of targetsOf(block, re)) {
+        const [px, local] = target.split(":", 2);
+        if (!EUDPP_PREFIXES.has(px) || !local) continue;
+        if (!EUDPP_TERMS.has(local)) {
+          violations.push({
+            file: rel, subject: subj, rule: "dead-eudpp-target", target,
+            detail: `${pred} ${target} — no such term in the CIRPASS-2 EUDPP mirror (extensions/upstream/cirpass2-eudpp); the term was renamed or removed upstream, re-point it or drop the pointer`,
+          });
+        }
       }
     }
 

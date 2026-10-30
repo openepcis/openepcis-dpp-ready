@@ -67,7 +67,15 @@ public class OurIndex {
         return ttl.getParent().getParent().getFileName().toString();
     }
 
-    /** Map of module slug → its single ontology TTL path (for the gated apply step). */
+    /**
+     * Map of module slug → its single ontology TTL path (for the gated apply step).
+     *
+     * A module directory may hold a second TTL beside the ontology: the access-level
+     * sidecar (`<module>-access-levels.ttl`, ESPR tier annotations only). It re-declares
+     * subjects without their definitions, so an edit placed there would land in the wrong
+     * file — the core sidecar was picked over dpp-core.ttl on 2026-10-30 and every class
+     * edit reported "block not found". Sidecars are skipped; the first remaining TTL wins.
+     */
     public Map<String, Path> moduleTtlFiles() {
         Path extensions = Path.of(repoRoot).resolve("extensions").normalize();
         Map<String, Path> map = new LinkedHashMap<>();
@@ -75,7 +83,9 @@ public class OurIndex {
             walk.filter(p -> p.getParent() != null
                             && p.getParent().getFileName().toString().equals("ontology"))
                     .filter(p -> p.getFileName().toString().endsWith(".ttl"))
-                    .forEach(p -> map.put(moduleSlugOf(p), p));
+                    .filter(p -> !p.getFileName().toString().endsWith("-access-levels.ttl"))
+                    .sorted()
+                    .forEach(p -> map.putIfAbsent(moduleSlugOf(p), p));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
