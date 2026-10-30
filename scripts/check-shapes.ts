@@ -57,6 +57,8 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { offlineDocumentLoader } from "./lib/jsonld-loader.ts";
 import {
+  coreOntologyFiles,
+  coreShapeFiles,
   discoverModules,
   coreOf,
   granularityOfDigitalLink,
@@ -104,6 +106,7 @@ async function examplesOf(module: ValidatableModule): Promise<string[]> {
 const PREFIXES: [string, string][] = [
   ["https://ref.openepcis.org/extensions/common/core/shapes/", "dpp-sh"],
   ["https://ref.openepcis.org/extensions/common/core/", "oec"],
+  ["https://ref.openepcis.org/extensions/common/assessment/", "oea"],
   ["https://ref.openepcis.org/extensions/common/carrier/", "carrier"],
   ["https://ref.openepcis.org/extensions/eu/battery/", "eubat"],
   ["https://ref.openepcis.org/extensions/eu/textile/", "eutex"],
@@ -141,8 +144,9 @@ async function main() {
   const core = coreOf(modules);
   const documentLoader = await offlineDocumentLoader();
 
-  const coreShapesTtl = await fs.readFile(path.join(ROOT, core.shapes), "utf8");
-  const coreOntologyTtl = await fs.readFile(path.join(ROOT, core.ontology), "utf8");
+  // The core bundle: the modules below the core (common/assessment), then the core.
+  const coreShapesTtls = await Promise.all(coreShapeFiles(core).map((f) => fs.readFile(path.join(ROOT, f), "utf8")));
+  const coreOntologyTtls = await Promise.all(coreOntologyFiles(core).map((f) => fs.readFile(path.join(ROOT, f), "utf8")));
 
   // The filter matches a module directory OR an example path, so both
   // `check-shapes eu/textile` and `check-shapes organic-tee` do what they look
@@ -175,12 +179,12 @@ async function main() {
   let sparqlSkipped = 0;
 
   for (const module of selected) {
-    const shapeParts = [await fs.readFile(path.join(ROOT, module.shapes), "utf8")];
-    const ontologyParts = [await fs.readFile(path.join(ROOT, module.ontology), "utf8")];
-    if (module.dir !== core.dir) {
-      shapeParts.push(coreShapesTtl);
-      ontologyParts.push(coreOntologyTtl);
-    }
+    const shapeParts = module.dir === core.dir
+      ? [...coreShapesTtls]
+      : [await fs.readFile(path.join(ROOT, module.shapes), "utf8"), ...coreShapesTtls];
+    const ontologyParts = module.dir === core.dir
+      ? [...coreOntologyTtls]
+      : [await fs.readFile(path.join(ROOT, module.ontology), "utf8"), ...coreOntologyTtls];
     // One shapes graph per granularity level, because activation MUTATES the
     // store: the per-level shapes ship sh:deactivated true and exactly one
     // level's suffix is dropped. A single shared store would either leak the

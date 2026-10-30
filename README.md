@@ -27,7 +27,7 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 
 | | Count |
 |---|---|
-| Modules | 15 — `common/{core,interop,carrier}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}`, `upstream/{gs1-rail,cirpass2-eudpp,cirpass2-textile,cirpass2-battery}` |
+| Modules | 16 — `common/{core,assessment,interop,carrier}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}`, `upstream/{gs1-rail,cirpass2-eudpp,cirpass2-textile,cirpass2-battery}` |
 | Classes | 106 |
 | Properties | 805 |
 | EPCIS Event Examples | 47 |
@@ -107,6 +107,7 @@ This monorepo provides a consistent, GS1-aligned approach to implementing Digita
 | Module | Region | Regulation | Status | Version | Last updated |
 |--------|--------|------------|--------|---------|--------------|
 | [common/core](./extensions/common/core/) | Cross-cutting | ESPR 2024/1781 Framework | Preview | 0.9.9 | Apr 2026 |
+| [common/assessment](./extensions/common/assessment/) | Cross-cutting | Assessments, tests, results, criteria and indicators (ESPR Art. 7 / Annex I; CIRPASS-2 assessment pattern) | Preview | 0.9.9 | Oct 2026 (new module, below core) |
 | [common/interop](./extensions/common/interop/) | Cross-cutting | Standards Harmonization (UNTP, CIRPASS2, JTC 24, BatteryPass) | Preview | 0.9.9 | Apr 2026 |
 | [common/carrier](./extensions/common/carrier/) | Cross-cutting | Data carrier authentication (NTAG 424 DNA SUN, NXP AN12196; RAIN RFID and signed QR reserved) | Preview | 0.9.9 | Oct 2026 (new module) |
 | [eu/battery](./extensions/eu/battery/) | EU | Battery Regulation 2023/1542 | Preview | 0.9.9 | Feb 2026 |
@@ -259,6 +260,7 @@ The project follows a **`gs1:` → SEMICeu (`cv:` / `cccev:` / `locn:` / `adms:`
 | Module | Namespace | Prefix |
 |--------|-----------|--------|
 | DPP Core | `https://ref.openepcis.org/extensions/common/core/` | `oec:` |
+| Assessment | `https://ref.openepcis.org/extensions/common/assessment/` | `oea:` |
 | Interop | `https://ref.openepcis.org/extensions/common/interop/` | `oei:` |
 | Carrier | `https://ref.openepcis.org/extensions/common/carrier/` | `carrier:` |
 | Battery | `https://ref.openepcis.org/extensions/eu/battery/` | `eubat:` |
@@ -394,6 +396,7 @@ Each module follows [Semantic Versioning](https://semver.org/) and is versioned 
 | Module | Version | Notes |
 |--------|---------|-------|
 | `common/core` | 0.9.9 | ESPR framework + shared patterns; breaking changes bump major |
+| `common/assessment` | 0.9.9 | Assessment and test model below the core (methods, standards, results, criteria, indicators) |
 | `common/interop` | 0.9.9 | UNTP / CIRPASS2 / JTC 24 / BatteryPass bridges |
 | `common/carrier` | 0.9.9 | Data carrier authentication (NTAG 424 DNA SUN) |
 | `eu/battery` | 0.9.9 | Battery Regulation 2023/1542 |

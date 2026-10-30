@@ -31,6 +31,23 @@ export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "
 export const CORE_DIR = "extensions/common/core";
 export const CORE_TYPE = "dpp.core";
 
+/**
+ * Modules below the core: dpp-core imports them, so they are validated as part of
+ * the core in every validation type and are never a type of their own (a type id is
+ * a published conformance target). Their shapes and ontology travel with the core's.
+ */
+export const BELOW_CORE = [{ dir: "extensions/common/assessment", slug: "assessment" }];
+
+/** Shape files of the core bundle: the modules below the core, then the core. */
+export function coreShapeFiles(core: ValidatableModule): string[] {
+  return [...BELOW_CORE.map((b) => `${b.dir}/validation/${b.slug}-shapes.ttl`), core.shapes];
+}
+
+/** Ontology files of the core bundle: the modules below the core, then the core. */
+export function coreOntologyFiles(core: ValidatableModule): string[] {
+  return [...BELOW_CORE.map((b) => `${b.dir}/ontology/${b.slug}.ttl`), core.ontology];
+}
+
 interface CuratedModule {
   type: string;
   label: string;
@@ -220,6 +237,7 @@ export async function discoverModules(): Promise<ValidatableModule[]> {
 
     const dir = `extensions/${m[1]}`;
     const slug = m[2];
+    if (BELOW_CORE.some((b) => b.dir === dir)) continue; // validated inside the core bundle
     const shapes = `${dir}/validation/${slug}-shapes.ttl`;
     if (!(await exists(shapes))) continue;
 

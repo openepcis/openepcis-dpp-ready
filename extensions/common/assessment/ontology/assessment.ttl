@@ -1,0 +1,741 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix schema: <https://schema.org/> .
+# EU SEMICeu CCCEV (Core Criterion and Core Evidence Vocabulary), one namespace with `cv:`.
+@prefix cccev: <http://data.europa.eu/m8g/> .
+# Mapping targets carried over from the dpp-core terms these individuals replace.
+@prefix cirpass2: <https://w3id.org/eudpp#> .
+@prefix dppk: <https://dpp-keystone.org/spec/v2/terms#> .
+
+# =============================================================================
+# Ontology Declaration
+# =============================================================================
+
+<https://ref.openepcis.org/extensions/common/assessment/>
+    a owl:Ontology ;
+    dcterms:title "OpenEPCIS Assessment and Test Vocabulary"@en ;
+    dcterms:description """How a Digital Product Passport states what was measured, tested or assessed about a
+product: the assessment that was carried out, the method and the standard that define it, the
+conditions and protocol settings it ran under, the results it produced, the criteria and
+thresholds a result is judged against, and the indicators (scores, classes, expected lifetimes)
+derived from those results.
+
+The model follows the assessment pattern of the CIRPASS-2 EU DPP ontologies (textile-assessment,
+textile-indicator): an assessment execution produces results; a result carries a measured value
+with its unit and names the performance parameter it observes; an indicator is derived from
+results and is never the result itself. Values with a unit are gs1:QuantitativeValue
+(UN/CEFACT Rec 20 unitCode), so they read the same way as every other quantity in a passport.
+
+The module sits below the DPP core: it imports only the GS1 Web Vocabulary, schema.org and
+CCCEV, and oec: (dpp-core) imports it. Sector modules add their own performance parameters,
+indicator kinds, test methods, standards and criteria as individuals of the classes here
+(eutex:AbrasionResistance a oea:PerformanceParameter, eutex:MartindaleAbrasionTest a
+oea:TestMethod), not new classes.
+
+EPCIS binding: an assessment carried out on an item is an ObjectEvent with action OBSERVE and
+bizStep inspecting. The event is the execution: eventTime, readPoint, bizLocation and the
+source party say when, where and by whom; the oea:Assessment object hangs at event level under
+oea:hasAssessment and carries method, conditions, settings and results. An equivalent compact
+form uses the EPCIS sensorElementList: sensorMetadata.dataProcessingMethod names the method,
+sensorMetadata.bizRules the standard, and each sensorReport carries one result with type set to
+the oea:PerformanceParameter IRI, value and uom. See docs/EPCIS_BINDING.md.
+
+EPCIS 2.0 Extension:
+This vocabulary is a first-class EPCIS 2.0 extension per Section 12.3. Declare it using:
+  GS1-Extensions: oea=https://ref.openepcis.org/extensions/common/assessment/
+
+References:
+- Regulation (EU) 2024/1781 (ESPR), Article 7 and Annex I (performance and information requirements)
+- ISO/IEC 17025:2017, General requirements for the competence of testing and calibration laboratories
+- CIRPASS-2 EU DPP ontologies, textile-assessment and textile-indicator modules
+- SEMICeu Core Criterion and Core Evidence Vocabulary (CCCEV) 2.1"""@en ;
+    dcterms:creator "OpenEPCIS" ;
+    dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+    dcterms:created "2026-10-31"^^xsd:date ;
+    dcterms:modified "2026-10-31"^^xsd:date ;
+    owl:versionInfo "0.9.9" ;
+    owl:versionIRI <https://ref.openepcis.org/extensions/common/assessment/0.9.9> ;
+    vann:preferredNamespacePrefix "oea" ;
+    vann:preferredNamespaceUri "https://ref.openepcis.org/extensions/common/assessment/" ;
+    rdfs:seeAlso <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso <https://www.iso.org/standard/66912.html> ;
+    rdfs:seeAlso <https://cirpass-2.github.io/ontologies-docs/> ;
+    owl:imports <https://ref.gs1.org/voc/> ;
+    owl:imports <http://data.europa.eu/m8g/> .
+
+# =============================================================================
+# Classes: what was done
+# =============================================================================
+
+oea:Assessment
+    a owl:Class ;
+    rdfs:subClassOf schema:Observation ;
+    rdfs:label "Assessment"@en ;
+    rdfs:comment "One concrete assessment of a product: a method applied to a specified product under stated conditions and protocol settings, producing results. An assessment made of several tests (a composite durability or recyclability scheme) lists them under oea:hasSubAssessment. When the assessment is reported in an EPCIS event, the event is the execution and supplies time, place and party."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Execution of an assessment method on a product. schema:Observation records an observed value but has no method, condition, protocol setting or criterion; GS1 Web Vocabulary has none of these. Follows the CIRPASS-2 AssessmentExecution pattern."@en ;
+    rdfs:seeAlso schema:Observation .
+
+oea:TestExecution
+    a owl:Class ;
+    rdfs:subClassOf oea:Assessment ;
+    rdfs:label "Test Execution"@en ;
+    rdfs:comment "An assessment that performs a test method under controlled test conditions, typically in a laboratory per ISO/IEC 17025."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Laboratory test as a kind of assessment. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:AssessmentMethod
+    a owl:Class ;
+    rdfs:label "Assessment Method"@en ;
+    rdfs:comment "A documented procedure for assessing, testing, measuring or scoring a product. Methods are published once as individuals (eutex:MartindaleAbrasionTest, a JRC scoring method) and referenced by every assessment that applies them."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Reusable method definition. schema:measurementMethod and schema:measurementTechnique point at a method but define no class for it; no GS1 or SEMICeu equivalent."@en ;
+    rdfs:seeAlso schema:measurementMethod .
+
+oea:TestMethod
+    a owl:Class ;
+    rdfs:subClassOf oea:AssessmentMethod ;
+    rdfs:label "Test Method"@en ;
+    rdfs:comment "An assessment method that applies a controlled experimental or inspection procedure, usually defined by a test standard."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Laboratory or inspection method. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:AssessmentStandard
+    a owl:Class ;
+    rdfs:label "Assessment Standard"@en ;
+    rdfs:comment "A normative or reference document that defines or constrains assessment methods, conditions or result interpretation: an ISO, EN, IEC or OECD standard, a harmonised standard, or a regulatory methodology such as a JRC preparatory study."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Reference document for a method. GS1 Web Vocabulary references documents only as files (gs1:referencedFile); schema.org has no standard class."@en ;
+    rdfs:seeAlso gs1:referencedFile .
+
+oea:AssessmentCondition
+    a owl:Class ;
+    rdfs:label "Assessment Condition"@en ;
+    rdfs:comment "A condition under which an assessment was performed or a result obtained: a specimen type, a pre-treatment, an environment, a use scenario. Stated as a condition type plus a coded value, a quantity, or a description."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Test condition record. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:ParameterSetting
+    a owl:Class ;
+    rdfs:label "Parameter Setting"@en ;
+    rdfs:comment "The value a protocol parameter was set to in an assessment: 5 cleaning cycles, 40 °C, 12 kPa. A protocol parameter configures the test; it is not the product property the test observes."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Test protocol setting. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+# =============================================================================
+# Classes: what came out
+# =============================================================================
+
+oea:AssessmentResult
+    a owl:Class ;
+    rdfs:subClassOf schema:Observation ;
+    rdfs:label "Assessment Result"@en ;
+    rdfs:comment "An output of an assessment: a measured value, a rating, an outcome against a criterion, or a textual finding, for one performance parameter."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Result of one assessment. schema:Observation carries a value but no criterion or outcome; no GS1 equivalent."@en ;
+    rdfs:seeAlso schema:Observation .
+
+oea:MeasurementResult
+    a owl:Class ;
+    rdfs:subClassOf oea:AssessmentResult ;
+    rdfs:label "Measurement Result"@en ;
+    rdfs:comment "An assessment result that records a quantitative value with its unit, or a grade on the scale the method defines (a 1-5 grey-scale rating has unitCode C62)."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Quantitative test result. In an EPCIS event the same result can travel as a sensorReport (type, value, uom); see docs/EPCIS_BINDING.md."@en .
+
+oea:CriterionResult
+    a owl:Class ;
+    rdfs:subClassOf oea:AssessmentResult ;
+    rdfs:label "Criterion Result"@en ;
+    rdfs:comment "An assessment result that records whether one criterion is met, and the points a scoring method awards for it, without a measured value of its own."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Per-criterion outcome of a scoring scheme (sorting factors of a recyclability score, repair criteria of a repairability index). No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:Criterion
+    a owl:Class ;
+    rdfs:subClassOf cccev:Criterion ;
+    rdfs:label "Assessment Criterion"@en ;
+    rdfs:comment "A criterion a result or an assessment is judged against: a design rule, a requirement of a scoring method, a pass condition. Published once as an individual and referenced by every result that evaluates it."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://semiceu.github.io/CCCEV/releases/2.1.0/> ;
+    skos:note "Specialises cccev:Criterion for product assessments, so criteria authored here read as CCCEV criteria for public-sector consumers."@en .
+
+oea:Threshold
+    a owl:Class ;
+    rdfs:subClassOf oea:Criterion ;
+    rdfs:label "Threshold"@en ;
+    rdfs:comment "A criterion stated as a limit value: a performance parameter, a comparison operator and a quantity (elastane content at most 15 %, biodegradation at least 60 % in 28 days)."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://semiceu.github.io/CCCEV/releases/2.1.0/> ;
+    skos:note "Quantitative criterion. CCCEV models limits as cccev:Constraint without operator or parameter."@en ;
+    rdfs:seeAlso cccev:Constraint .
+
+oea:Indicator
+    a owl:Class ;
+    rdfs:subClassOf schema:Observation ;
+    rdfs:label "Indicator"@en ;
+    rdfs:comment "A value derived from assessment results to interpret, aggregate or communicate them: a score, a class, an expected lifetime, a number of use cycles. An indicator names its kind, carries a quantity or a coded value, and points at the results and the method it was derived with. It is not a measured value."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Derived score or class. schema:Rating covers review ratings, not method-bound product indicators; no GS1 equivalent."@en ;
+    rdfs:seeAlso schema:Rating .
+
+# =============================================================================
+# Classes: value spaces (open lists, extended by sector modules)
+# =============================================================================
+
+oea:PerformanceParameter
+    a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Performance Parameter"@en ;
+    rdfs:comment "A product characteristic an assessment observes: abrasion resistance, dimensional stability, biodegradation, recyclability rate. Individuals, not classes; sector modules add their own."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Value space for the observed characteristic. CIRPASS-2 models each parameter as a class (textile-durability ObservedPerformanceParameter); here they are concepts, which is how a passport references them."@en .
+
+oea:MeasurementParameter
+    a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Measurement Parameter"@en ;
+    rdfs:comment "A protocol parameter a test is configured with: number of cycles, temperature, duration, load, relative humidity. Distinct from the performance parameter the test observes."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Value space for protocol parameters. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:ConditionType
+    a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Condition Type"@en ;
+    rdfs:comment "The kind of an assessment condition: specimen type, pre-treatment, use scenario. Sector modules add their own."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Value space for condition kinds. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:IndicatorKind
+    a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Indicator Kind"@en ;
+    rdfs:comment "What an indicator expresses: a recyclability score, a repairability score, an expected lifetime, a durability class. Sector modules add their own."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Value space for indicator kinds. CIRPASS-2 models each kind as an Indicator subclass; here they are concepts."@en .
+
+oea:Outcome
+    a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Outcome"@en ;
+    rdfs:comment "Whether a result or an assessment meets the criterion it is judged against."@en ;
+    owl:oneOf ( oea:Satisfied oea:NotSatisfied oea:NotAssessed ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://semiceu.github.io/CCCEV/releases/2.1.0/> ;
+    skos:note "Closed outcome list. CBV dispositions conformant/non_conformant state the same for an item in an event, not for a criterion."@en .
+
+oea:Satisfied a oea:Outcome ; rdfs:label "Satisfied"@en ; skos:notation "satisfied" ;
+    rdfs:comment "The result or assessment meets the criterion."@en .
+oea:NotSatisfied a oea:Outcome ; rdfs:label "Not Satisfied"@en ; skos:notation "not_satisfied" ;
+    rdfs:comment "The result or assessment does not meet the criterion."@en .
+oea:NotAssessed a oea:Outcome ; rdfs:label "Not Assessed"@en ; skos:notation "not_assessed" ;
+    rdfs:comment "The criterion was not evaluated, for example because it does not apply to the product."@en .
+
+oea:ComparisonOperator
+    a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Comparison Operator"@en ;
+    rdfs:comment "How a threshold compares a value with its limit."@en ;
+    owl:oneOf ( oea:LessThan oea:LessThanOrEqual oea:Equal oea:GreaterThanOrEqual oea:GreaterThan ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://semiceu.github.io/CCCEV/releases/2.1.0/> ;
+    skos:note "Closed operator list. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:LessThan a oea:ComparisonOperator ; rdfs:label "Less Than"@en ; skos:notation "lt" ;
+    rdfs:comment "The value must be below the limit."@en .
+oea:LessThanOrEqual a oea:ComparisonOperator ; rdfs:label "Less Than or Equal"@en ; skos:notation "le" ;
+    rdfs:comment "The value must not exceed the limit."@en .
+oea:Equal a oea:ComparisonOperator ; rdfs:label "Equal"@en ; skos:notation "eq" ;
+    rdfs:comment "The value must equal the limit."@en .
+oea:GreaterThanOrEqual a oea:ComparisonOperator ; rdfs:label "Greater Than or Equal"@en ; skos:notation "ge" ;
+    rdfs:comment "The value must reach at least the limit."@en .
+oea:GreaterThan a oea:ComparisonOperator ; rdfs:label "Greater Than"@en ; skos:notation "gt" ;
+    rdfs:comment "The value must be above the limit."@en .
+
+# =============================================================================
+# Cross-sector individuals
+# =============================================================================
+
+oea:NumberOfCycles a oea:MeasurementParameter ; rdfs:label "Number of Cycles"@en ;
+    rdfs:comment "Number of repeated test, cleaning, abrasion or simulated-use cycles applied before or during a test (unitCode C62)."@en .
+oea:Temperature a oea:MeasurementParameter ; rdfs:label "Temperature"@en ;
+    rdfs:comment "Test temperature (unitCode CEL)."@en .
+oea:Duration a oea:MeasurementParameter ; rdfs:label "Duration"@en ;
+    rdfs:comment "Test duration (unitCode DAY, HUR or MIN)."@en .
+oea:RelativeHumidity a oea:MeasurementParameter ; rdfs:label "Relative Humidity"@en ;
+    rdfs:comment "Relative humidity of the test atmosphere (unitCode P1)."@en .
+oea:Load a oea:MeasurementParameter ; rdfs:label "Load"@en ;
+    rdfs:comment "Mechanical load or pressure applied by the test (unitCode NEW or KPA)."@en .
+
+oea:RecyclabilityRate a oea:PerformanceParameter ; rdfs:label "Recyclability Rate"@en ;
+    rdfs:comment "Mass fraction of the product that can be recycled (unitCode P1, or C62 for a 0-1 fraction). Replaces oec:recyclabilityRate."@en .
+oea:RecoverableRate a oea:PerformanceParameter ; rdfs:label "Recoverable Rate"@en ;
+    rdfs:comment "Mass fraction of the product recoverable at end of life through any recovery operation: material recycling, energy recovery, backfilling (Waste Framework Directive Art. 3(15)). Replaces oec:recoverableRate."@en ;
+    rdfs:seeAlso cirpass2:RecoverableRate .
+oea:RecyclingCollectionRate a oea:PerformanceParameter ; rdfs:label "Recycling Collection Rate"@en ;
+    rdfs:comment "Fraction of products of this type actually collected for recycling under the applicable collection scheme. Replaces oec:recyclingCollectionRate."@en ;
+    rdfs:seeAlso cirpass2:RecyclingCollectionRate .
+
+oea:RecyclabilityScore a oea:IndicatorKind ; rdfs:label "Recyclability Score"@en ;
+    rdfs:comment "Method-specific recyclability score (a JRC textile 0-10 score, a PPWR percentage). A score does not by itself prove that the product will be collected or recycled. Replaces oec:recyclabilityScore."@en ;
+    skos:closeMatch dppk:recyclabilityScore .
+oea:RepairabilityScore a oea:IndicatorKind ; rdfs:label "Repairability Score"@en ;
+    rdfs:comment "Method-specific repairability score (French Indice de Réparabilité, EU repairability index; typically 0-10). Replaces oec:repairabilityScore."@en .
+oea:RepairabilityClass a oea:IndicatorKind ; rdfs:label "Repairability Class"@en ;
+    rdfs:comment "Repairability class band (A to E, A most repairable). Replaces oec:repairabilityClass."@en .
+oea:PerformanceClass a oea:IndicatorKind ; rdfs:label "Performance Class"@en ;
+    rdfs:comment "Performance or efficiency class band (A to G energy-label style). Replaces oec:performanceClass."@en ;
+    skos:broadMatch dppk:performance ;
+    rdfs:seeAlso dppk:energyEfficiencyClass .
+oea:ExpectedLifetime a oea:IndicatorKind ; rdfs:label "Expected Lifetime"@en ;
+    rdfs:comment "Lifetime the product is expected to reach under normal use (unitCode ANN). An estimate, not a measured property: it names its method and assumptions. Replaces oec:hasExpectedLifespan."@en ;
+    skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime> .
+oea:TechnicalLifetime a oea:IndicatorKind ; rdfs:label "Technical Lifetime"@en ;
+    rdfs:comment "Lifetime under the conditions stated in the indicator's assessment (unitCode ANN). Replaces oec:hasTechnicalLifetime."@en ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#batteryTechnicalProperties> .
+oea:NumberOfUseCycles a oea:IndicatorKind ; rdfs:label "Number of Use Cycles"@en ;
+    rdfs:comment "Number of use, wash or charge cycles the product is expected to withstand (unitCode C62). A use indicator, not the protocol parameter oea:NumberOfCycles. Replaces oec:usageCycles."@en ;
+    skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles> ;
+    skos:closeMatch <https://w3id.org/eudpp/battery-performance#expectedLifetimeCycles> .
+
+# =============================================================================
+# Properties: assessment
+# =============================================================================
+
+oea:hasAssessment
+    a owl:ObjectProperty ;
+    rdfs:label "Assessment"@en ;
+    rdfs:comment "An assessment of the product, from the product master data or from an EPCIS OBSERVE event at event level."@en ;
+    rdfs:range oea:Assessment ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Entry point to an assessment. No domain: it hangs on a gs1:Product, on an EPCIS event, or on a sector container. No GS1 equivalent."@en ;
+    rdfs:seeAlso schema:hasMeasurement .
+
+oea:hasSubAssessment
+    a owl:ObjectProperty ;
+    rdfs:label "Sub-Assessment"@en ;
+    rdfs:comment "An assessment that is part of this one: the spirality, dimensional change and visual inspection tests of a composite robustness assessment."@en ;
+    rdfs:domain oea:Assessment ;
+    rdfs:range oea:Assessment ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Composite assessment structure. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    rdfs:seeAlso dcterms:hasPart .
+
+oea:hasMethod
+    a owl:ObjectProperty ;
+    rdfs:label "Method"@en ;
+    rdfs:comment "The method the assessment applied."@en ;
+    rdfs:domain oea:Assessment ;
+    rdfs:range oea:AssessmentMethod ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Method of an assessment. schema:measurementMethod is the nearest term and takes free text or a URL."@en ;
+    rdfs:seeAlso schema:measurementMethod .
+
+oea:hasAssessedParameter
+    a owl:ObjectProperty ;
+    rdfs:label "Assessed Parameter"@en ;
+    rdfs:comment "A performance parameter the assessment targets. Optional: each result names the parameter it observes."@en ;
+    rdfs:domain oea:Assessment ;
+    rdfs:range oea:PerformanceParameter ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Scope of an assessment. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:hasCondition
+    a owl:ObjectProperty ;
+    rdfs:label "Condition"@en ;
+    rdfs:comment "A condition the assessment was performed under."@en ;
+    rdfs:domain oea:Assessment ;
+    rdfs:range oea:AssessmentCondition ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Test condition. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:hasParameterSetting
+    a owl:ObjectProperty ;
+    rdfs:label "Parameter Setting"@en ;
+    rdfs:comment "A protocol parameter value the assessment was configured with."@en ;
+    rdfs:domain oea:Assessment ;
+    rdfs:range oea:ParameterSetting ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Test protocol setting. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:hasResult
+    a owl:ObjectProperty ;
+    rdfs:label "Result"@en ;
+    rdfs:comment "A result the assessment produced."@en ;
+    rdfs:domain oea:Assessment ;
+    rdfs:range oea:AssessmentResult ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Output of an assessment. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:assessmentDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Assessment Date"@en ;
+    rdfs:comment "Date the assessment was performed. Only for assessments stated in master data; in an EPCIS event the eventTime says when."@en ;
+    rdfs:domain oea:Assessment ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Date of an assessment outside an event. schema:observationDate is a dateTime on schema:Observation."@en ;
+    rdfs:seeAlso schema:observationDate .
+
+oea:hasAssessmentBody
+    a owl:ObjectProperty ;
+    rdfs:label "Assessment Body"@en ;
+    rdfs:comment "The laboratory, conformity assessment body or organisation that performed the assessment. In an EPCIS event the source party can say the same."@en ;
+    rdfs:domain oea:Assessment ;
+    rdfs:range gs1:Organization ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Performer of an assessment, identified like any GS1 party (GLN)."@en .
+
+oea:hasEvidence
+    a owl:ObjectProperty ;
+    rdfs:label "Evidence"@en ;
+    rdfs:comment "A document substantiating the assessment: a test report, a certificate, a calculation sheet."@en ;
+    rdfs:domain oea:Assessment ;
+    rdfs:range gs1:ReferencedFileDetails ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://semiceu.github.io/CCCEV/releases/2.1.0/> ;
+    skos:note "Evidence document, carried as a GS1 referenced file. CCCEV models evidence as cccev:Evidence."@en ;
+    rdfs:seeAlso cccev:Evidence .
+
+oea:hasOutcome
+    a owl:ObjectProperty ;
+    rdfs:label "Outcome"@en ;
+    rdfs:comment "Whether the result, criterion result or whole assessment meets its criterion. On an assessment it states the overall verdict of the method (recyclable, passes ultimate biodegradability)."@en ;
+    rdfs:range oea:Outcome ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://semiceu.github.io/CCCEV/releases/2.1.0/> ;
+    skos:note "Pass/fail verdict. No domain: results and assessments both carry one."@en .
+
+oea:awardedScore
+    a owl:DatatypeProperty ;
+    rdfs:label "Awarded Score"@en ;
+    rdfs:comment "Points a scoring method awards to this result or sub-assessment (spirality 0-3 points of a robustness score, 1 point per sorting factor met)."@en ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Component points of a composite score. No domain: results and sub-assessments both carry them."@en .
+
+# =============================================================================
+# Properties: method, standard, condition, setting
+# =============================================================================
+
+oea:isDefinedByStandard
+    a owl:ObjectProperty ;
+    rdfs:label "Defined By Standard"@en ;
+    rdfs:comment "A standard that defines or constrains the method."@en ;
+    rdfs:domain oea:AssessmentMethod ;
+    rdfs:range oea:AssessmentStandard ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Method-to-standard link. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:methodUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Method URL"@en ;
+    rdfs:comment "Where the method is published, for a method stated inline rather than as a named individual."@en ;
+    rdfs:domain oea:AssessmentMethod ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Method reference. schema:measurementMethod accepts a URL in the same role."@en .
+
+oea:standardCode
+    a owl:DatatypeProperty ;
+    rdfs:label "Standard Code"@en ;
+    rdfs:comment "Designation of the standard, e.g. ISO 12947-2:2016."@en ;
+    rdfs:domain oea:AssessmentStandard ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Standard designation. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:standardUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Standard URL"@en ;
+    rdfs:comment "Catalogue page of the standard (iso.org, cen.eu, an ELI for a regulation)."@en ;
+    rdfs:domain oea:AssessmentStandard ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Standard reference. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:hasConditionType
+    a owl:ObjectProperty ;
+    rdfs:label "Condition Type"@en ;
+    rdfs:comment "What kind of condition this is."@en ;
+    rdfs:domain oea:AssessmentCondition ;
+    rdfs:range oea:ConditionType ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Condition kind. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:hasConditionConcept
+    a owl:ObjectProperty ;
+    rdfs:label "Condition Value"@en ;
+    rdfs:comment "The coded value of the condition, an individual of the sector module's own list (eutex:WovenNonDenim for a specimen-type condition)."@en ;
+    rdfs:domain oea:AssessmentCondition ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Coded condition value. No range: any module's code list may supply it."@en .
+
+oea:hasConditionValue
+    a owl:ObjectProperty ;
+    rdfs:label "Condition Quantity"@en ;
+    rdfs:comment "The quantity of the condition, when it is a quantity."@en ;
+    rdfs:domain oea:AssessmentCondition ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Quantitative condition value."@en .
+
+oea:conditionDescription
+    a owl:DatatypeProperty ;
+    rdfs:label "Condition Description"@en ;
+    rdfs:comment "Free-text description of the condition, when it is neither coded nor a quantity."@en ;
+    rdfs:domain oea:AssessmentCondition ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Textual condition. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:hasParameter
+    a owl:ObjectProperty ;
+    rdfs:label "Parameter"@en ;
+    rdfs:comment "The protocol parameter this setting assigns."@en ;
+    rdfs:domain oea:ParameterSetting ;
+    rdfs:range oea:MeasurementParameter ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Protocol parameter of a setting. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:hasParameterValue
+    a owl:ObjectProperty ;
+    rdfs:label "Parameter Value"@en ;
+    rdfs:comment "The value the protocol parameter was set to."@en ;
+    rdfs:domain oea:ParameterSetting ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Protocol parameter value."@en .
+
+# =============================================================================
+# Properties: result
+# =============================================================================
+
+oea:hasObservedParameter
+    a owl:ObjectProperty ;
+    rdfs:label "Observed Parameter"@en ;
+    rdfs:comment "The performance parameter this result observes."@en ;
+    rdfs:domain oea:AssessmentResult ;
+    rdfs:range oea:PerformanceParameter ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "What a result is about. In the EPCIS sensorReport form the same IRI is the report type."@en .
+
+oea:hasMeasuredValue
+    a owl:ObjectProperty ;
+    rdfs:label "Measured Value"@en ;
+    rdfs:comment "The value obtained, with its UN/CEFACT unit. A grade on the scale the method defines takes unitCode C62."@en ;
+    rdfs:domain oea:MeasurementResult ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Measured quantity. In the EPCIS sensorReport form: value and uom."@en ;
+    rdfs:seeAlso schema:value .
+
+oea:resultText
+    a owl:DatatypeProperty ;
+    rdfs:label "Result Text"@en ;
+    rdfs:comment "A finding stated as text, when the result is neither a quantity nor a coded outcome."@en ;
+    rdfs:domain oea:AssessmentResult ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Textual result. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:isEvaluatedAgainst
+    a owl:ObjectProperty ;
+    rdfs:label "Evaluated Against"@en ;
+    rdfs:comment "A criterion or threshold the result, indicator or assessment was judged against; oea:hasOutcome says whether it was met."@en ;
+    rdfs:range oea:Criterion ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://semiceu.github.io/CCCEV/releases/2.1.0/> ;
+    skos:note "Result-to-criterion link. No domain: results, indicators and assessments are judged alike."@en .
+
+oea:hasCriterion
+    a owl:ObjectProperty ;
+    rdfs:label "Criterion"@en ;
+    rdfs:comment "The criterion this criterion result reports on."@en ;
+    rdfs:domain oea:CriterionResult ;
+    rdfs:range oea:Criterion ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://semiceu.github.io/CCCEV/releases/2.1.0/> ;
+    skos:note "Criterion of a criterion result."@en .
+
+# =============================================================================
+# Properties: criterion and threshold
+# =============================================================================
+
+oea:criterionDescription
+    a owl:DatatypeProperty ;
+    rdfs:label "Criterion Description"@en ;
+    rdfs:comment "What the criterion requires, in words."@en ;
+    rdfs:domain oea:Criterion ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://semiceu.github.io/CCCEV/releases/2.1.0/> ;
+    skos:note "Criterion text. cccev:Criterion carries the same as dcterms:description."@en .
+
+oea:maxScore
+    a owl:DatatypeProperty ;
+    rdfs:label "Maximum Score"@en ;
+    rdfs:comment "The most points a scoring method can award for this criterion."@en ;
+    rdfs:domain oea:Criterion ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Weight of a criterion in a composite score. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+oea:hasThresholdParameter
+    a owl:ObjectProperty ;
+    rdfs:label "Threshold Parameter"@en ;
+    rdfs:comment "The performance parameter the threshold limits."@en ;
+    rdfs:domain oea:Threshold ;
+    rdfs:range oea:PerformanceParameter ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://semiceu.github.io/CCCEV/releases/2.1.0/> ;
+    skos:note "Parameter of a limit value."@en .
+
+oea:hasComparisonOperator
+    a owl:ObjectProperty ;
+    rdfs:label "Comparison Operator"@en ;
+    rdfs:comment "How the value is compared with the limit."@en ;
+    rdfs:domain oea:Threshold ;
+    rdfs:range oea:ComparisonOperator ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://semiceu.github.io/CCCEV/releases/2.1.0/> ;
+    skos:note "Operator of a limit value."@en .
+
+oea:hasThresholdValue
+    a owl:ObjectProperty ;
+    rdfs:label "Threshold Value"@en ;
+    rdfs:comment "The limit quantity."@en ;
+    rdfs:domain oea:Threshold ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://semiceu.github.io/CCCEV/releases/2.1.0/> ;
+    skos:note "Limit of a threshold."@en .
+
+# =============================================================================
+# Properties: indicator
+# =============================================================================
+
+oea:hasIndicator
+    a owl:ObjectProperty ;
+    rdfs:label "Indicator"@en ;
+    rdfs:comment "An indicator stated for the product or derived by an assessment."@en ;
+    rdfs:range oea:Indicator ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Entry point to an indicator. No domain: it hangs on a gs1:Product, an assessment, or a sector container."@en .
+
+oea:hasIndicatorKind
+    a owl:ObjectProperty ;
+    rdfs:label "Indicator Kind"@en ;
+    rdfs:comment "What the indicator expresses."@en ;
+    rdfs:domain oea:Indicator ;
+    rdfs:range oea:IndicatorKind ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Kind of an indicator."@en .
+
+oea:hasIndicatorValue
+    a owl:ObjectProperty ;
+    rdfs:label "Indicator Value"@en ;
+    rdfs:comment "The indicator as a quantity: a score (unitCode C62), a lifetime (ANN), a number of cycles (C62)."@en ;
+    rdfs:domain oea:Indicator ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Quantitative indicator value."@en .
+
+oea:hasCategoricalValue
+    a owl:ObjectProperty ;
+    rdfs:label "Categorical Value"@en ;
+    rdfs:comment "The indicator as a coded value from a module's list: a durability class, a shedding risk level, a recyclability grade."@en ;
+    rdfs:domain oea:Indicator ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Coded indicator value. No range: any module's code list may supply it."@en .
+
+oea:indicatorText
+    a owl:DatatypeProperty ;
+    rdfs:label "Indicator Text"@en ;
+    rdfs:comment "The indicator as text, for a class band that has no published code list (a repairability class 'B')."@en ;
+    rdfs:domain oea:Indicator ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Uncoded indicator value. Prefer oea:hasCategoricalValue where a code list exists."@en .
+
+oea:isDerivedFrom
+    a owl:ObjectProperty ;
+    rdfs:label "Derived From"@en ;
+    rdfs:comment "A result, assessment or indicator this indicator was calculated from."@en ;
+    rdfs:domain oea:Indicator ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Provenance of an indicator. No range: results, assessments and indicators all qualify."@en ;
+    rdfs:seeAlso dcterms:source .
+
+oea:hasDerivationMethod
+    a owl:ObjectProperty ;
+    rdfs:label "Derivation Method"@en ;
+    rdfs:comment "The method the indicator was calculated with (a scoring method, a lifetime estimation method)."@en ;
+    rdfs:domain oea:Indicator ;
+    rdfs:range oea:AssessmentMethod ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Method of an indicator."@en .
+
+oea:calculationDescription
+    a owl:DatatypeProperty ;
+    rdfs:label "Calculation Description"@en ;
+    rdfs:comment "How the indicator was calculated and on which assumptions, when no published method covers it."@en ;
+    rdfs:domain oea:Indicator ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Assumptions of an indicator. No GS1, SEMICeu, or schema.org equivalent."@en .

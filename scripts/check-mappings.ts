@@ -246,7 +246,7 @@ function blankLongLiterals(ttl: string): string {
 const VALUE_SLOTS = new Set(["gs1:value", "schema:value", "schema:minValue", "schema:maxValue"]);
 
 /** The namespaces this project governs, so a target inside them is a cross-reference. */
-const OUR_PREFIXES = new Set(["oec", "eubat", "eutex", "euelec", "eudet", "eucpr", "eusteel", "eudr", "euppwr", "usfsma"]);
+const OUR_PREFIXES = new Set(["oec", "oea", "eubat", "eutex", "euelec", "eudet", "eucpr", "eusteel", "eudr", "euppwr", "usfsma"]);
 
 /** Names that denote a closed set of codes rather than a set of things. */
 const VALUE_SPACE_SUFFIX = /(Type|Types|Category|Categories|Class|Code|Codes|CodeSet|Status|Enumeration|Tier|Grade|Level|Scheme|Form)$/;

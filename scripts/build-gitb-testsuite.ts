@@ -51,6 +51,8 @@ import {
   validate,
 } from "./lib/shacl-run.ts";
 import {
+  coreOntologyFiles,
+  coreShapeFiles,
   coreOf,
   discoverModules,
   granularityOfDigitalLink,
@@ -426,7 +428,7 @@ async function main() {
 
     // Obligations of THIS module plus the cross-cutting core, matching what the
     // corresponding validation type bundles.
-    const shapeFiles = [module.shapes, ...(module.dir === core.dir ? [] : [core.shapes])];
+    const shapeFiles = module.dir === core.dir ? coreShapeFiles(core) : [module.shapes, ...coreShapeFiles(core)];
     const shapeParts = await Promise.all(
       shapeFiles.map((f) => fs.readFile(path.join(ROOT, f), "utf8")),
     );
