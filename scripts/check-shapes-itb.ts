@@ -70,19 +70,41 @@ interface TarResult {
   violations: string[];
 }
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * POST one validation. The shared Test Bed rate-limits the API and answers
+ * 429 with a Retry-After header (and the same number of seconds in the body);
+ * a local container never does. Waiting the announced time and retrying keeps
+ * the run honest instead of counting every throttled request as a failure.
+ */
+async function postValidation(body: string): Promise<Response> {
+  for (let attempt = 1; ; attempt++) {
+    const res = await fetch(`${BASE}/shacl/${DOMAIN}/api/validate`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+    });
+    if (res.status !== 429 || attempt >= 6) return res;
+    const text = await res.text();
+    const announced = Number(res.headers.get("retry-after")) || Number(/after (\d+) second/.exec(text)?.[1]);
+    const waitMs = (Number.isFinite(announced) && announced > 0 ? announced + 1 : 30) * 1000;
+    console.log(`            (rate limited by the validator, waiting ${waitMs / 1000}s)`);
+    await sleep(waitMs);
+  }
+}
+
 /** Ask the validator to report in Turtle and read the verdict out of it. */
 async function validate(nquads: string, validationType: string): Promise<TarResult> {
-  const res = await fetch(`${BASE}/shacl/${DOMAIN}/api/validate`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
+  const res = await postValidation(
+    JSON.stringify({
       contentToValidate: Buffer.from(nquads, "utf8").toString("base64"),
       embeddingMethod: "BASE64",
       validationType,
       contentSyntax: "application/n-quads",
       reportSyntax: "text/turtle",
     }),
-  });
+  );
   if (!res.ok) throw new Error(`validator returned HTTP ${res.status}: ${await res.text()}`);
   const report = await res.text();
 
