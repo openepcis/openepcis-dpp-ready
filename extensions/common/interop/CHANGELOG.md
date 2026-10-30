@@ -25,6 +25,11 @@ All notable changes to the Interoperability module will be documented in this fi
 - `pnpm run check:mappings` rule 13: every `cirpass2:`/`eudpp:` target (graded or
   `rdfs:seeAlso`) must exist in the mirror. It found 43 dead pointers after the bump,
   three of which had never resolved against any release.
+- vocab-sync round 2026-10-30 (grader gpt-oss-20b, QA panel qwen3-32b) over core, battery
+  and textile against all three mirrors: 88 curated CIRPASS-2 mappings written (see the
+  module changelogs), the remaining APPLY and HOLD findings recorded in
+  [`docs/skos-alignment/OPEN_DECISIONS.md`](../../../docs/skos-alignment/OPEN_DECISIONS.md);
+  `alignment-run-manifest.json` regenerated.
 
 ## [0.9.9] - 2026-08-04
 

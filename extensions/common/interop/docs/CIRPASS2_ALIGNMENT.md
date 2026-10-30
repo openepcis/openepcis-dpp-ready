@@ -49,8 +49,14 @@ under `https://w3id.org/eudpp/textile-<module>#`,
 [`extensions/upstream/cirpass2-textile/`](../../../upstream/cirpass2-textile/README.md))
 and the **EU DPP Battery Ontology 0.4.0 DRAFT**
 ([`extensions/upstream/cirpass2-battery/`](../../../upstream/cirpass2-battery/README.md)).
-Their alignment to `eu/textile` and `eu/battery` is a follow-up SKOS
-audit; this document covers CORE.
+The 2026-10-30 vocab-sync round audited `common/core`, `eu/battery` and
+`eu/textile` against all three mirrors (reports
+`docs/skos-alignment/skos-completeness-{core,battery,textile}-2026-10-29`,
+graded gpt-oss-20b, QA panel qwen3-32b); the curated CIRPASS-2 subset of
+its APPLY set is written (30 + 32 + 26 mappings, see the module
+changelogs), the part-of, different-axis and value-slot proposals are
+held in `docs/skos-alignment/OPEN_DECISIONS.md`. This document covers
+CORE.
 
 ## Anchor strategy
 
