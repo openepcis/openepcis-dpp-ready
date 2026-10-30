@@ -180,7 +180,8 @@
         "https://w3id.org/eudpp#LCIAResult"
       ],
       "narrowMatch": [
-        "https://w3id.org/eudpp#CarbonFootprint"
+        "https://w3id.org/eudpp#CarbonFootprint",
+        "https://w3id.org/eudpp#LCIAResult"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -311,7 +312,8 @@
       ],
       "broadMatch": [
         "https://w3id.org/eudpp#LCIAResult",
-        "https://w3id.org/eudpp#LCAResult"
+        "https://w3id.org/eudpp#LCAResult",
+        "https://w3id.org/eudpp/textile-assessment#MeasurementResult"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -354,7 +356,8 @@
       ],
       "narrowMatch": [
         "https://ref.gs1.org/voc/TextileMaterialDetails",
-        "https://ref.gs1.org/voc/PackagingMaterialDetails"
+        "https://ref.gs1.org/voc/PackagingMaterialDetails",
+        "https://w3id.org/eudpp/textile-core#FibreCompositionComponent"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -430,6 +433,19 @@
         "https://w3id.org/eudpp#Reliability",
         "https://vocabulary.uncefact.org/untp/PerformanceMetric"
       ],
+      "narrowMatch": [
+        "https://w3id.org/eudpp#Durability",
+        "https://w3id.org/eudpp#Reliability",
+        "https://w3id.org/eudpp/textile-indicator#PerformanceAfterNCycles",
+        "https://w3id.org/eudpp/textile-durability#ObservedPerformanceParameter",
+        "https://w3id.org/eudpp/battery-performance#BatteryDurability",
+        "https://w3id.org/eudpp/textile-indicator#PerformanceRetentionRate",
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance",
+        "https://w3id.org/eudpp/textile-durability#SurfacePerformanceParameter",
+        "https://w3id.org/eudpp/textile-durability#AssemblyPerformanceParameter",
+        "https://w3id.org/eudpp/textile-indicator#PerformanceLevelOverTime",
+        "https://w3id.org/eudpp/textile-durability#MechanicalPerformanceParameter"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -437,6 +453,9 @@
       "localName": "RecyclabilityAssessment",
       "label": "Recyclability Assessment",
       "comment": "An assessment of a product's recyclability. Different regulations express the same concept differently: PPWR uses letter grades A/B/C, the JRC textile methodology uses a 0-10 score, electronics WEEE uses a 0-1 rate. All three are optional; pick whichever your regulation requires.",
+      "seeAlso": [
+        "https://w3id.org/eudpp/textile-recyclability#RecyclabilityAssessment"
+      ],
       "subClassOf": [
         "https://schema.org/Observation"
       ],
@@ -456,6 +475,9 @@
         "https://w3id.org/eudpp#RecycledMaterialsUseResult",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#RecycledContentEntity",
         "https://ref.gs1.org/voc/PackagingDetails"
+      ],
+      "narrowMatch": [
+        "https://w3id.org/eudpp/textile-recyclability#RecycledContentDeclaration"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -819,7 +841,8 @@
       ],
       "broadMatch": [
         "https://schema.org/identifier",
-        "http://www.w3.org/ns/adms#identifier"
+        "http://www.w3.org/ns/adms#identifier",
+        "https://w3id.org/eudpp#identifierValue"
       ],
       "narrowMatch": [
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier"
@@ -949,6 +972,9 @@
         "xsd:string"
       ],
       "seeAlso": [
+        "https://w3id.org/eudpp#commodityCode"
+      ],
+      "closeMatch": [
         "https://w3id.org/eudpp#commodityCode"
       ],
       "source": "https://www.wcoomd.org/en/topics/nomenclature.aspx",
@@ -1139,6 +1165,7 @@
         "https://w3id.org/eudpp#dppSchemaVersion"
       ],
       "exactMatch": [
+        "https://w3id.org/eudpp#dppSchemaVersion",
         "https://dpp-keystone.org/spec/v2/terms#dppSchemaVersion"
       ],
       "closeMatch": [
@@ -1244,6 +1271,9 @@
       "broadMatch": [
         "https://ref.gs1.org/voc/sustainabilityInfo",
         "https://ref.gs1.org/voc/instructions"
+      ],
+      "narrowMatch": [
+        "https://w3id.org/eudpp/textile-process#hasEndOfLifeInstruction"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -2657,6 +2687,9 @@
       "range": [
         "https://ref.openepcis.org/extensions/common/core/PerformanceInfo"
       ],
+      "narrowMatch": [
+        "https://w3id.org/eudpp/battery-performance#hasBatteryPerformance"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "Container for the durability and performance parameters that ESPR Art. 7(5)/Annex III direct at consumers; its members are individually Public.",
@@ -2740,6 +2773,9 @@
       "range": [
         "https://ref.openepcis.org/extensions/common/core/RecyclabilityAssessment"
       ],
+      "exactMatch": [
+        "https://w3id.org/eudpp/textile-recyclability#hasRecyclabilityAssessment"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "The recyclability assessment substantiates public recyclability claims (ESPR Annex I(i)); textile module serves the same name Public.",
@@ -2782,7 +2818,8 @@
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare",
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage"
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage",
+        "https://w3id.org/eudpp/textile-recyclability#hasRecycledContentAspect"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -3131,6 +3168,9 @@
         "xsd:boolean"
       ],
       "seeAlso": [
+        "https://w3id.org/eudpp#isCriticalRawMaterial"
+      ],
+      "exactMatch": [
         "https://w3id.org/eudpp#isCriticalRawMaterial"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -3487,6 +3527,9 @@
       "seeAlso": [
         "https://w3id.org/eudpp#DPPIdentifier"
       ],
+      "closeMatch": [
+        "https://w3id.org/eudpp#hasDigitalProductPassportId"
+      ],
       "broadMatch": [
         "https://schema.org/identifier",
         "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier"
@@ -3599,6 +3642,9 @@
       "closeMatch": [
         "https://vocabulary.uncefact.org/untp/recycledMassFraction"
       ],
+      "broadMatch": [
+        "https://w3id.org/eudpp#materialRecycledContent"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "The post-consumer split substantiates the public recycled-content claim (ESPR Annex I(h); PPWR recycled-content rules).",
@@ -3643,6 +3689,9 @@
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare"
+      ],
+      "broadMatch": [
+        "https://w3id.org/eudpp#materialRecycledContent"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -4299,7 +4348,9 @@
         "https://w3id.org/eudpp#tradeName"
       ],
       "broadMatch": [
-        "https://w3id.org/eudpp#otherName"
+        "https://w3id.org/eudpp#otherName",
+        "https://w3id.org/eudpp#tradeName",
+        "https://w3id.org/eudpp#usualName"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
@@ -4479,7 +4530,8 @@
         "xsd:integer"
       ],
       "closeMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles"
+        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles",
+        "https://w3id.org/eudpp/battery-performance#expectedLifetimeCycles"
       ],
       "broadMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#batteryCondition"

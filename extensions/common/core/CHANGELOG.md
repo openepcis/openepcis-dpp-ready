@@ -22,6 +22,29 @@ Re-pointed, relation grades kept: `oec:casNumber`/`oec:ecNumber`/`oec:iupacName`
 
 ### Added: pointers to new EUDPP 2.1.0 terms
 
+### Added: audited SKOS mappings to the CIRPASS-2 ontologies (vocab-sync wave 2026-10-30)
+
+`vocab-sync audit --module core` against the refreshed upstream indexes (EUDPP 2.1.0 plus
+the new textile and battery mirrors; bulk grader gpt-oss-20b, three-judge QA panel on
+qwen3-32b, report `docs/skos-alignment/skos-completeness-core-2026-10-29.{md,json}`).
+Of the 97 findings the triage marked APPLY, the 30 whose target is a CIRPASS-2 term were
+curated and written; the rest (DPP Keystone, BatteryPass, UNTP, GS1, rail, schema.org)
+stay in `OPEN_DECISIONS.md` for the next curation round. Written: `oec:dppSchemaVersion`,
+`oec:isCriticalRawMaterial`, `oec:LifecycleStage` → `exactMatch` on their EUDPP twins;
+`oec:passportIdentifier closeMatch eudpp:hasDigitalProductPassportId` (downgraded from the
+panel's exactMatch: datatype vs object property); `oec:customsCommodityCode closeMatch
+commodityCode`; `oec:EmissionsPerformance narrowMatch LCIAResult`; `oec:PerformanceInfo
+narrowMatch` the EUDPP `Durability`/`Reliability`, the battery `BatteryPerformance`/
+`BatteryDurability` and seven textile performance-parameter classes; recycled-content,
+trade-name, component-identifier, end-of-life-instruction and recyclability-assessment
+properties graded against their textile or EUDPP counterparts; `oec:usageCycles closeMatch`
+battery `expectedLifetimeCycles`. Held with reasons (different axis, part-of rather than
+kind-of, generic carrier): the `oec:LifecycleStageResult` → `*Result`, `oec:DigitalProductPassport`
+→ instruction/event, `oec:RecyclabilityAssessment` → result/score/method, `oec:EndOfLifeProgram`
+→ instruction/process and `oec:wasteGenerationAmount` → `eudpp:amount` proposals.
+`oec:RecyclabilityAssessment` gets an `rdfs:seeAlso` to the textile class of the same name
+instead.
+
 `rdfs:seeAlso` only (no audit yet): `oec:dppSchemaVersion` → `dppSchemaVersion`,
 `oec:hasBackupCopyHost` → `dppBackupUrl`, `oec:previousPassportVersion` →
 `hasPreviousDPP`, `oec:DigitalProductPassport` → `DPPEvent`, `dppUrl`, the four
