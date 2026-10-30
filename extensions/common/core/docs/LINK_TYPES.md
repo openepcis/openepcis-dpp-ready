@@ -226,7 +226,6 @@ Useful for EUDR's EU Information System (EUIS) reference numbers:
     },
     "oec:circularityInfo": {
       "type": "oec:CircularityInfo",
-      "oec:recyclabilityRate": 95.5,
       "oec:endOfLifeInstructions": {"id": "https://example.com/eol-guide.pdf"}
     }
   }

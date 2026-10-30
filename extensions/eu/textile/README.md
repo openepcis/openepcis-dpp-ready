@@ -93,7 +93,7 @@ Browse the vocabulary at: [ref.openepcis.org/extensions/eu/textile/](https://ref
 | `eutex:SubstanceOfConcernType` | SoCTypeA (SVHC), SoCTypeB (CLP), SoCTypeC (POPs), SoCTypeD (Recycling) |
 | `eutex:CLPHazardCategory` | CMR, EndocrineDisruptor, PMT, Sensitizer, AquaticToxicity |
 | `eutex:FootprintDataType` | PrimaryData, SecondaryData, MixedData |
-| `eutex:TestStandard` | ISO6330, ISO16322_3, ISO3759, ISO15487, ISO105, ISO12945, ISO12947 |
+| `oea:AssessmentStandard` (textile individuals) | ISO6330, ISO16322_3, ISO3759, ISO15487, ISO105, ISO12945, ISO12947, ISO13934_1, ISO13937, ISO4484_1, JRCTextilePrepStudy |
 
 ## GS1 Integration
 

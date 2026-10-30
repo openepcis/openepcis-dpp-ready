@@ -107,8 +107,8 @@ CIRPASS2 (Circular Economy Product Passport Readiness) is an EU project defining
 
 | CIRPASS2 Requirement | OpenEPCIS Implementation |
 |---------------------|-------------------------|
-| Repairability score | `oec:repairabilityScore` |
-| Repairability class | `oec:repairabilityClass` (A-E) |
+| Repairability score | `oea:RepairabilityScore` indicator |
+| Repairability class | `oea:RepairabilityClass` indicator (A-E) |
 | Spare parts availability | `oec:hasSparePartsAvailability` |
 | Spare parts delivery | `oec:sparePartsDeliveryTime` |
 | Repair instructions | `oec:hasRepairInstructions` |
@@ -120,12 +120,12 @@ CIRPASS2 (Circular Economy Product Passport Readiness) is an EU project defining
 
 | CIRPASS2 Requirement | OpenEPCIS Implementation |
 |---------------------|-------------------------|
-| Expected lifespan | `oec:hasExpectedLifespan` |
+| Expected lifespan | `oea:ExpectedLifetime` indicator |
 | Guaranteed lifespan | `oec:hasGuaranteedLifespan` |
-| Usage cycles | `oec:usageCycles` |
-| Technical lifetime | `oec:hasTechnicalLifetime` |
-| Performance class | `oec:performanceClass` |
-| Tested conditions | `oec:testedConditions` |
+| Usage cycles | `oea:NumberOfUseCycles` indicator |
+| Technical lifetime | `oea:TechnicalLifetime` indicator |
+| Performance class | `oea:PerformanceClass` indicator |
+| Tested conditions | `oea:hasCondition` |
 | Utility factor | `oec:utilityFactor` |
 
 ### Access Control

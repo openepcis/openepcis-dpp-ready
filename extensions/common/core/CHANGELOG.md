@@ -4,6 +4,23 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+### Breaking: performance, repairability and recyclability values move to `common/assessment`
+
+- `dpp-core` imports the new `common/assessment` module (`oea:`); its context imports the assessment
+  context.
+- `oec:PerformanceInfo` and `oec:RecyclabilityAssessment` are subclasses of `oea:Assessment`.
+- Removed, with their replacement:
+  - `oec:usageCycles` → indicator of kind `oea:NumberOfUseCycles`
+  - `oec:hasExpectedLifespan` → `oea:ExpectedLifetime`; `oec:hasTechnicalLifetime` → `oea:TechnicalLifetime`
+  - `oec:performanceClass` → `oea:PerformanceClass`; `oec:testedConditions` → `oea:hasCondition`
+  - `oec:repairabilityScore` / `oec:repairabilityClass` → `oea:RepairabilityScore` / `oea:RepairabilityClass`
+  - `oec:recyclabilityScore` → `oea:RecyclabilityScore`; `oec:recyclabilityMethodology` → `oea:hasMethod`
+  - `oec:recyclabilityRate`, `oec:recoverableRate`, `oec:recyclingCollectionRate` → `oea:MeasurementResult`
+    observing `oea:RecyclabilityRate`, `oea:RecoverableRate`, `oea:RecyclingCollectionRate`
+- Their SKOS mappings moved to the `oea:` individuals. Shapes, access levels and context overrides
+  follow. `oec:Biodegradability`, `oec:EnergyEfficiency` and the EPD/LCA classes move with the
+  modules that use them.
+
 ### Added: the EN 18239:2026 actor-role vocabulary and role-based access grants
 
 EN 18239:2026 (access rights management) is published. It defines access to

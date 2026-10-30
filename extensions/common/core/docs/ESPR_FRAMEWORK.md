@@ -145,19 +145,22 @@ The core module provides the following ESPR-aligned classes:
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `oec:hasExpectedLifespan` | QuantitativeValue | Expected product lifetime |
+| `oea:hasIndicator` → `oea:ExpectedLifetime` | Indicator (QuantitativeValue, ANN) | Expected product lifetime |
 | `oec:hasGuaranteedLifespan` | QuantitativeValue | Manufacturer guarantee |
-| `oec:usageCycles` | integer | Expected usage cycles |
-| `oec:hasTechnicalLifetime` | QuantitativeValue | Technical lifetime |
-| `oec:performanceClass` | string | A-G efficiency class |
-| `oec:testedConditions` | string | Test conditions description |
+| `oea:hasIndicator` → `oea:NumberOfUseCycles` | Indicator (QuantitativeValue, C62) | Expected usage cycles |
+| `oea:hasIndicator` → `oea:TechnicalLifetime` | Indicator (QuantitativeValue, ANN) | Technical lifetime |
+| `oea:hasIndicator` → `oea:PerformanceClass` | Indicator (text or code) | A-G efficiency class |
+| `oea:hasCondition` | AssessmentCondition | Test conditions |
+| `oea:hasResult` | MeasurementResult | Measured performance values (method, unit, parameter) |
+
+`oec:PerformanceInfo` is an `oea:Assessment`; see `extensions/common/assessment/`.
 
 ### Repairability (Article 7)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `oec:repairabilityScore` | decimal | 0-10 repairability index |
-| `oec:repairabilityClass` | string | A-E repairability class |
+| `oea:hasIndicator` → `oea:RepairabilityScore` | Indicator (QuantitativeValue, C62) | 0-10 repairability index |
+| `oea:hasIndicator` → `oea:RepairabilityClass` | Indicator (text or code) | A-E repairability class |
 | `oec:hasSparePartsAvailability` | QuantitativeValue | Years spare parts available |
 | `schema:deliveryTime` | QuantitativeValue | Max delivery time |
 | `oec:diyRepairPossible` | boolean | Consumer repair possible |
@@ -245,13 +248,23 @@ ESPR defines approximately 125 data points grouped into categories. The core mod
 ```json
 {
   "type": "PerformanceInfo",
-  "oec:hasExpectedLifespan": {
-    "type": "gs1:QuantitativeValue",
-    "gs1:value": "10",
-    "gs1:unitCode": "ANN"
-  },
-  "oec:usageCycles": 3000,
-  "oec:performanceClass": "A"
+  "oea:hasIndicator": [
+    {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:ExpectedLifetime" },
+      "oea:hasIndicatorValue": { "type": "gs1:QuantitativeValue", "gs1:value": "10", "gs1:unitCode": "ANN" }
+    },
+    {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:NumberOfUseCycles" },
+      "oea:hasIndicatorValue": { "type": "gs1:QuantitativeValue", "gs1:value": 3000, "gs1:unitCode": "C62" }
+    },
+    {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:PerformanceClass" },
+      "oea:indicatorText": "A"
+    }
+  ]
 }
 ```
 
@@ -259,8 +272,18 @@ ESPR defines approximately 125 data points grouped into categories. The core mod
 ```json
 {
   "type": "RepairabilityInfo",
-  "oec:repairabilityScore": 7.5,
-  "oec:repairabilityClass": "B",
+  "oea:hasIndicator": [
+    {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:RepairabilityScore" },
+      "oea:hasIndicatorValue": { "type": "gs1:QuantitativeValue", "gs1:value": "7.5", "gs1:unitCode": "C62" }
+    },
+    {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:RepairabilityClass" },
+      "oea:indicatorText": "B"
+    }
+  ],
   "oec:hasSparePartsAvailability": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
@@ -295,7 +318,6 @@ ESPR defines approximately 125 data points grouped into categories. The core mod
 ```json
 {
   "type": "CircularityInfo",
-  "oec:recyclabilityRate": 95.5,
   "oec:endOfLifeInstructions": { "id": "https://example.com/eol-guide.pdf" }
 }
 ```

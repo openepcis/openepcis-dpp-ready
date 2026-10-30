@@ -4,6 +4,11 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed: recyclability rate pointer
+
+`eubat:recyclabilityRate` points at `oea:RecyclabilityRate` (rdfs:seeAlso) instead of the removed
+`oec:recyclabilityRate`.
+
 ### Changed: CIRPASS-2 pointers follow EUDPP 2.1.0
 
 ### Added: audited SKOS mappings to the CIRPASS-2 battery ontology (vocab-sync wave 2026-10-30)

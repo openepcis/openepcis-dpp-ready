@@ -102,7 +102,7 @@ JTC 24 is developing **8 individual standards** under M/604. All eight were publ
 
 | Standard | Title | OpenEPCIS Alignment |
 |----------|-------|---------------------|
-| **EN 45552** | General method for durability assessment | `oec:PerformanceInfo`, `oec:hasExpectedLifespan` |
+| **EN 45552** | General method for durability assessment | `oec:PerformanceInfo`, `oea:ExpectedLifetime` indicator |
 | **EN 45553** | General method for remanufacturability assessment | `oec:CircularityPerformance` |
 | **EN 45554** | General method for repair, reuse, upgrade assessment | `oec:RepairabilityInfo` |
 | **EN 45555** | General method for recyclability/recoverability assessment | `oec:recyclableContent`, `oec:CircularityPerformance` |
@@ -300,8 +300,8 @@ See [CIRPASS2_COVERAGE.md](./CIRPASS2_COVERAGE.md) for detailed coverage analysi
 
 | ESPR Requirement | OpenEPCIS Implementation |
 |-----------------|-------------------------|
-| Article 7 - Performance/Durability | `oec:PerformanceInfo`, `oec:hasExpectedLifespan` |
-| Article 7 - Repairability | `oec:RepairabilityInfo`, `oec:repairabilityScore` |
+| Article 7 - Performance/Durability | `oec:PerformanceInfo`, `oea:ExpectedLifetime` indicator |
+| Article 7 - Repairability | `oec:RepairabilityInfo`, `oea:RepairabilityScore` indicator |
 | Article 8 - Substances of Concern | `oec:SubstanceOfConcern`, SCIP alignment |
 | Article 9 - Access Rights | `oec:AccessRights`, `oec:AccessLevel` |
 | Article 77 - Operator ID | `oec:economicOperatorId`, `oec:OperatorRole` |
@@ -314,18 +314,18 @@ The EN 45552-45555 series defines *how* to assess product characteristics. OpenE
 
 | Assessment Output | OpenEPCIS Property |
 |-------------------|-------------------|
-| Expected lifetime | `oec:hasExpectedLifespan` |
+| Expected lifetime | `oea:ExpectedLifetime` indicator |
 | Guaranteed lifetime | `oec:hasGuaranteedLifespan` |
-| Usage cycles | `oec:usageCycles` |
-| Technical lifetime | `oec:hasTechnicalLifetime` |
-| Test conditions | `oec:testedConditions` |
+| Usage cycles | `oea:NumberOfUseCycles` indicator |
+| Technical lifetime | `oea:TechnicalLifetime` indicator |
+| Test conditions | `oea:hasCondition` |
 
 ### EN 45554 - Repairability Assessment
 
 | Assessment Output | OpenEPCIS Property |
 |-------------------|-------------------|
-| Repairability score | `oec:repairabilityScore` |
-| Repairability class | `oec:repairabilityClass` (A-E) |
+| Repairability score | `oea:RepairabilityScore` indicator |
+| Repairability class | `oea:RepairabilityClass` indicator (A-E) |
 | Spare parts availability | `oec:hasSparePartsAvailability` |
 | Repair documentation | `oec:hasRepairInstructions` |
 | Professional repair access | `oec:professionalRepairNetwork` |

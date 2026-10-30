@@ -92,7 +92,7 @@ mismatches the bridge context cannot rescale (JSON-LD maps IRIs, not values):
 | DPP Keystone | OpenEPCIS | Coverage | Notes |
 |--------------|-----------|----------|-------|
 | `dppk:TextileProduct` | `gs1:Product` (`eutex:TextileApparel` / `TextileFootwear` for subtype) | Partial | OpenEPCIS splits apparel/footwear; map to the GS1 base on ingest. |
-| `dppk:robustnessScore` / `recyclabilityScore` | `eutex:robustnessScore` / `eutex:recyclabilityScore` | Mapped | |
+| `dppk:robustnessScore` / `recyclabilityScore` | indicators of kind `eutex:RobustnessScore` / `oea:RecyclabilityScore` | Partial | A flat Keystone score becomes an `oea:Indicator` object; the bridge context can no longer alias it. |
 | `dppk:carbonFootprint` | `eutex:carbonFootprintManufacturing` | Mapped | |
 | `dppk:carbonFootprintClass` / `environmentalFootprintClass` | `eutex:carbonFootprintClass` / `eutex:environmentalFootprintClass` | Mapped | Harvested. |
 | `dppk:environmentalFootprint` | `eutex:pefSingleScore` | Mapped | |
@@ -109,7 +109,7 @@ mismatches the bridge context cannot rescale (JSON-LD maps IRIs, not values):
 | `dppk:textileCareInstructions` | `eutex:hasCareInstructions` | Partial | OpenEPCIS care model is ISO 3758 symbol-structured, not a free `RelatedResource`. |
 | `dppk:textileRepairInstructions` / `textileSafeUseInstructions` / `textileEndOfLifeInstructions` | `eutex:repairGuideUrl` / `oec:safeUseInstructions` / `eutex:hasTakeBackProgram` | Partial | Different document/structure shapes. |
 | `dppk:pefcrCategory` | `eutex:hasApparelSubcategory` | Partial | PEFCR A&F category list vs JRC apparel subcategory list. |
-| `dppk:spirality` / `dimensionalChange` / `visualInspection` | `eutex:spiralityPercentage` / `eutex:dimensionalChangePercentage` / `eutex:VisualInspectionResult` | Partial | OpenEPCIS carries the structured `RobustnessAssessment` sub-results. |
+| `dppk:spirality` / `dimensionalChange` / `visualInspection` | `oea:MeasurementResult` observing `eutex:Spirality` / `eutex:DimensionalStability`, and the `eutex:AppearanceAfterWashingTest` results | Partial | OpenEPCIS carries the structured `RobustnessAssessment` sub-results. |
 
 ## Unmapped (theirs) — no OpenEPCIS counterpart yet
 
