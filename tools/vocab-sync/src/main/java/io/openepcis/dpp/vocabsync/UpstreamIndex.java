@@ -224,7 +224,7 @@ public class UpstreamIndex {
 
     private void loadRdf(Source s) {
         Model model = RDFDataMgr.loadModel(s.path().toString());
-        String version = firstVersion(model);
+        String version = firstVersion(model, s.namespace());
         ResIterator subjects = model.listSubjects();
         while (subjects.hasNext()) {
             Resource r = subjects.next();
@@ -393,12 +393,23 @@ public class UpstreamIndex {
         byIri.put(t.iri(), t);
     }
 
-    private static String firstVersion(Model model) {
+    /**
+     * The version of the source's own ontology node. A merged mirror holds several
+     * owl:Ontology nodes (the EUDPP file carries CORE plus its nine modules), so the node
+     * whose IRI is the source namespace (minus the trailing # or /) wins; the first node
+     * with a version is the fallback for single-ontology files.
+     */
+    private static String firstVersion(Model model, String namespace) {
+        String want = namespace.replaceAll("[#/]+$", "");
+        String fallback = null;
         ResIterator it = model.listSubjectsWithProperty(RDF.type, OWL.Ontology);
         while (it.hasNext()) {
-            String v = RdfSupport.firstString(it.next(), OWL.versionInfo);
-            if (v != null) return v;
+            Resource node = it.next();
+            String v = RdfSupport.firstString(node, OWL.versionInfo);
+            if (v == null) continue;
+            if (node.getURI() != null && node.getURI().replaceAll("[#/]+$", "").equals(want)) return v;
+            if (fallback == null) fallback = v;
         }
-        return null;
+        return fallback;
     }
 }

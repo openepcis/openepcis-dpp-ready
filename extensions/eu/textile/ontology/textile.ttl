@@ -102,7 +102,10 @@ identifier and trade-item attributes apply unchanged."""@en ;
     skos:narrowMatch gs1:WearableProduct ;
     skos:broadMatch schema:Product ;
     skos:broadMatch dppk:Product ;
-    skos:broadMatch <https://w3id.org/eudpp#Product> .
+    skos:broadMatch <https://w3id.org/eudpp#Product> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-core#TextileApparel> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-core#ElectronicTextile> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-core#SmartTextile> .
 
 eutex:CareInstruction
     a owl:Class ;
@@ -111,7 +114,8 @@ eutex:CareInstruction
     dcterms:source <https://www.iso.org/standard/74401.html> ;
     skos:note """Required extension: GS1 Web Vocabulary does not provide structured care instruction data
 with ISO 3758 symbol codes. This class captures machine-readable care symbols for consumer apps
-and laundry service integration."""@en.
+and laundry service integration."""@en ;
+    skos:closeMatch <https://w3id.org/eudpp/textile-process#TextileCareInstruction> .
 
 eutex:DurabilityInfo
     a owl:Class ;
@@ -124,7 +128,8 @@ eutex:DurabilityInfo
 number of wash cycles, pilling resistance, and dimensional stability. GS1 Web Vocabulary lacks
 textile-specific durability metrics. Aligned with oec:PerformanceInfo pattern."""@en ;
     skos:broadMatch <https://w3id.org/eudpp#Durability> ;
-    skos:broadMatch <https://w3id.org/eudpp#QualityIndicator> .
+    skos:broadMatch <https://w3id.org/eudpp#QualityIndicator> ;
+    skos:broadMatch <https://w3id.org/eudpp/textile-durability#Durability> .
 
 eutex:TakeBackProgram
     a owl:Class ;
@@ -152,7 +157,8 @@ CIRPASS-2's EUDPP P_DPP module carries product-generic microplastic/nanoplastic 
 classes; this stays a eutex: concept until a second regulation module needs it (the
 governance move-down criterion), at which point it graduates to oec:."""@en ;
     rdfs:seeAlso <https://w3id.org/eudpp#MicroplasticRelease> ;
-    rdfs:seeAlso <https://w3id.org/eudpp#NanoplasticRelease> .
+    rdfs:seeAlso <https://w3id.org/eudpp#NanoplasticRelease> ;
+    skos:broadMatch <https://w3id.org/eudpp#MicroplasticRelease> .
 
 # =============================================================================
 # PART 2: ENUMERATIONS
@@ -225,7 +231,11 @@ because it also covers non-wearable categories (HomeTextiles, TechnicalTextiles)
     rdfs:seeAlso gs1:Clothing , gs1:WearableProduct ;
     skos:broadMatch gs1:WearableProduct ;
     skos:broadMatch gs1:Clothing ;
-    skos:narrowMatch dppk:PefcrShirtsAndBlouses .
+    skos:narrowMatch dppk:PefcrShirtsAndBlouses ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-core#PPETextileApparel> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-core#ToyTextileApparel> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-core#MedicalDeviceTextileApparel> ;
+    skos:broadMatch <https://w3id.org/eudpp/textile-core#TextileProduct> .
 
 eutex:TextileFootwear
     a owl:Class ;
@@ -244,7 +254,8 @@ gs1:Product) per GS1 First governance. Named TextileFootwear (not Footwear) to a
 collision with the existing eutex:Footwear enum individual in TextileCategory."""@en ;
     rdfs:seeAlso gs1:Footwear , gs1:WearableProduct ;
     skos:broadMatch gs1:Footwear ;
-    skos:broadMatch gs1:WearableProduct .
+    skos:broadMatch gs1:WearableProduct ;
+    skos:broadMatch <https://w3id.org/eudpp/textile-core#TextileProduct> .
 
 # -----------------------------------------------------------------------------
 # Fiber Type (aligned with EU Textile Labelling Regulation Annex I)
@@ -531,7 +542,8 @@ eutex:recycledContentSource
     rdfs:range xsd:string ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Extension: Provides fiber-level recycled source traceability not available in GS1 TextileMaterialDetails." ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
+    skos:broadMatch <https://w3id.org/eudpp#materialRecycledContentType> .
 
 eutex:hasFiberCertification
     a owl:ObjectProperty ;
@@ -1086,7 +1098,8 @@ eutex:hasSpinningFacility
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Textile production / facility attribute per ESPR 2024/1781 and the PEFCR for Apparel & Footwear. No GS1 equivalent."@en ;
     skos:broadMatch gs1:manufacturingPlant ;
-    skos:broadMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace> .
+    skos:broadMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace> ;
+    skos:broadMatch <https://w3id.org/eudpp#hasFacility> .
 
 eutex:hasWeavingFacility
     a owl:ObjectProperty ;
@@ -1104,7 +1117,8 @@ eutex:hasWeavingFacility
     rdfs:seeAlso untp:modifiedAtFacility ;
     skos:broadMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace> ;
     skos:broadMatch untp:facility ;
-    skos:broadMatch untp:madeAtFacility .
+    skos:broadMatch untp:madeAtFacility ;
+    skos:broadMatch <https://w3id.org/eudpp#hasFacility> .
 
 eutex:hasDyeingFacility
     a owl:ObjectProperty ;
@@ -1120,7 +1134,8 @@ eutex:hasDyeingFacility
     skos:broadMatch gs1:manufacturingPlant ;
     skos:broadMatch dppk:manufacturingFacility ;
     skos:broadMatch untp:producedAtFacility ;
-    skos:broadMatch untp:facility .
+    skos:broadMatch untp:facility ;
+    skos:broadMatch <https://w3id.org/eudpp#hasFacility> .
 
 eutex:hasCutAndSewFacility
     a owl:ObjectProperty ;
@@ -1141,7 +1156,8 @@ eutex:hasCutAndSewFacility
     rdfs:seeAlso untp:modifiedAtFacility ;
     rdfs:seeAlso dppk:facilityId ;
     rdfs:seeAlso untp:fromFacility ;
-    skos:broadMatch gs1:manufacturingPlant .
+    skos:broadMatch gs1:manufacturingPlant ;
+    skos:broadMatch <https://w3id.org/eudpp#hasFacility> .
 
 eutex:hasFinishingFacility
     a owl:ObjectProperty ;
@@ -1154,7 +1170,8 @@ eutex:hasFinishingFacility
     skos:note "Textile production / facility attribute per ESPR 2024/1781 and the PEFCR for Apparel & Footwear. No GS1 equivalent."@en ;
     rdfs:seeAlso gs1:manufacturingPlant ;
     skos:broadMatch untp:facility ;
-    rdfs:seeAlso untp:modifiedAtFacility .
+    rdfs:seeAlso untp:modifiedAtFacility ;
+    skos:broadMatch <https://w3id.org/eudpp#hasFacility> .
 
 # =============================================================================
 # PART 13: FABRIC TYPE & PRODUCT SUBCATEGORY (WP1)
@@ -1291,7 +1308,8 @@ with a standardised composite score. See also schema:Rating for the rating-style
 Anchored to cccev:Evidence (EU SEMICeu CCCEV): the assessment is evidence supporting the
 robustness Requirement defined by the EU Preparatory Study; component test results
 (spirality, dimensional change, visual inspection) are cccev:Constraint instances."""@en ;
-    skos:broadMatch schema:Rating .
+    skos:broadMatch schema:Rating ;
+    skos:broadMatch <https://w3id.org/eudpp/textile-assessment#DurabilityAssessment> .
 
 eutex:SpiralityTestResult
     a owl:Class ;
@@ -1314,7 +1332,9 @@ Scoring (knitted): >+-6%=0pt, +-5.5-6%=1pt, +-5-5.5%=2pt, <=+-5%=3pt."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
     dcterms:source <https://www.iso.org/standard/57309.html> ;
     skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:broadMatch untp:ConformityAssessment .
+    skos:broadMatch untp:ConformityAssessment ;
+    skos:broadMatch <https://w3id.org/eudpp/textile-assessment#MeasurementResult> ;
+    skos:broadMatch <https://w3id.org/eudpp/textile-assessment#AssessmentResult> .
 
 eutex:VisualInspectionResult
     a owl:Class ;
@@ -1327,7 +1347,9 @@ fabric appearance, seam appearance, and non-textile parts condition."""@en ;
     dcterms:source <https://www.iso.org/standard/55312.html> ;
     skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso schema:Rating ;
-    skos:broadMatch schema:Rating .
+    skos:broadMatch schema:Rating ;
+    skos:broadMatch <https://w3id.org/eudpp/textile-assessment#MeasurementResult> ;
+    skos:broadMatch <https://w3id.org/eudpp/textile-assessment#AssessmentResult> .
 
 # Robustness Assessment properties
 eutex:hasRobustnessAssessment
@@ -1571,7 +1593,8 @@ technical recyclability of the applicable recycling technology."""@en ;
     rdfs:seeAlso schema:Rating ;
     skos:note """Required extension: The EU preparatory study defines a specific recyclability scoring
 methodology not present in GS1 or the core DPP vocabulary. See also schema:Rating for the rating-style aggregate score."""@en ;
-    rdfs:seeAlso oec:RecyclabilityAssessment .
+    rdfs:seeAlso oec:RecyclabilityAssessment ;
+    rdfs:seeAlso <https://w3id.org/eudpp/textile-recyclability#RecyclabilityAssessment> .
 
 eutex:SortingFactors
     a owl:Class ;
@@ -1631,7 +1654,8 @@ eutex:hasRecyclabilityAssessment
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
     skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
     rdfs:seeAlso oec:CircularityPerformance ;
-    rdfs:seeAlso oec:hasRecyclabilityAssessment .
+    rdfs:seeAlso oec:hasRecyclabilityAssessment ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-recyclability#hasRecyclabilityAssessment> .
 
 eutex:recyclabilityScore
     a owl:DatatypeProperty ;
@@ -1798,7 +1822,8 @@ recycled source type (fiber-to-fiber/open loop), and chain of custody method."""
 declarations with specific categorisation not available in GS1 or core DPP vocabulary.
 Complements oec:RecycledContent with textile-specific regulatory detail.
 See also schema:QuantitativeValue for the secondary material fraction."""@en ;
-    skos:broadMatch oec:RecycledContent .
+    skos:broadMatch oec:RecycledContent ;
+    rdfs:seeAlso <https://w3id.org/eudpp/textile-recyclability#RecycledContentDeclaration> .
 
 # Waste Origin Type enumeration
 eutex:WasteOriginType
@@ -1868,7 +1893,8 @@ eutex:hasRecycledContentDeclaration
     rdfs:seeAlso oec:CircularityPerformance ;
     skos:broadMatch gs1:textileMaterialContent ;
     rdfs:seeAlso dppk:preConsumerRecycledMaterialComposition ;
-    rdfs:seeAlso dppk:preConsumerRecycledContentMass .
+    rdfs:seeAlso dppk:preConsumerRecycledContentMass ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-recyclability#hasRecycledContentDeclaration> .
 
 eutex:secondaryMaterialFraction
     a owl:DatatypeProperty ;
@@ -1897,7 +1923,8 @@ eutex:hasWasteOriginType
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso dppk:preConsumerTypeOfWaste ;
     rdfs:seeAlso dppk:postConsumerTypeOfWaste ;
-    skos:broadMatch <https://w3id.org/eudpp#hasMaterialOrigin> .
+    skos:broadMatch <https://w3id.org/eudpp#hasMaterialOrigin> ;
+    skos:closeMatch <https://w3id.org/eudpp/textile-recyclability#hasRecycledContentSource> .
 
 eutex:hasRecycledSourceType
     a owl:ObjectProperty ;
@@ -2434,7 +2461,8 @@ eutex:organicContentPercentage
     skos:closeMatch dppk:organicContentPercentage ;
     skos:note "Organic content per Regulation (EU) 2018/848. Anchored to the DPP Keystone peer profile dppk:organicContentPercentage. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch gs1:organicPercentClaim ;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent> .
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent> ;
+    skos:broadMatch <https://w3id.org/eudpp#materialPercentage> .
 
 eutex:organicContentMass
     a owl:DatatypeProperty ;

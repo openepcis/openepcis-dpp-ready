@@ -60,7 +60,7 @@ function declaredPrefixes(ttl: string): Set<string> {
 const blank = (ttl: string) =>
   ttl
     .replace(/"""[\s\S]*?"""/g, (lit) => '""' + lit.replace(/[^\n]/g, " ").slice(2) + '""')
-    .replace(/^(\s*)#.*$/gm, (line) => " ".repeat(line.length));
+    .replace(/^[ \t]*#.*$/gm, (line) => " ".repeat(line.length));
 
 function ontologyFiles(): string[] {
   const out: string[] = [];
