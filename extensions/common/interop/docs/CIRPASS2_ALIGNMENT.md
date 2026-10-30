@@ -44,7 +44,7 @@ nine content modules (LCA is imported since 2.1.0):
 | Connector | `CON` | 2.4.0 | cross-module object properties (`hasUniqueProductIdentifier`, `hasBackUpCopyHost`, `hasSubstancePresence`, `hasLCAResult`, `hasPreviousDPP`/`hasNextDPP`, …) |
 
 Sectoral extensions published alongside CORE are mirrored as their own
-upstream modules: the **Textile Ontology 1.1.2** (GS1-led, twelve modules
+upstream modules: the **Textile Ontology 1.1.2** (task T3.2 led by GS1 in Europe, twelve modules
 under `https://w3id.org/eudpp/textile-<module>#`,
 [`extensions/upstream/cirpass2-textile/`](../../../upstream/cirpass2-textile/README.md))
 and the **EU DPP Battery Ontology 0.4.0 DRAFT**

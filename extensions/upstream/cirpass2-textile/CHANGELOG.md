@@ -12,6 +12,6 @@ OpenEPCIS DPP-Ready version.
   umbrella `https://w3id.org/eudpp/textile-ontology` over twelve modules and two
   code lists), copied verbatim from `Textile/textile-ontology-complete/ontology.ttl`
   by `pnpm sync:cirpass2-textile` (9307 quads, 839 named subjects under
-  `https://w3id.org/eudpp/textile-*#`). Upstream licence CC BY 4.0.
+  `https://w3id.org/eudpp/textile-*#`). Upstream licence CC BY 4.0; task T3.2 led by GS1 in Europe.
 - Colliding local names across modules are published as `<module>.<name>` by the
   build (15 of them); the IRIs are untouched.

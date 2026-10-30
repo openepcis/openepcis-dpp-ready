@@ -1,6 +1,6 @@
 # CIRPASS-2 Textile Ontology — upstream mirror
 
-**Status:** Mirror (upstream Version 1.1.2, issued 2026-07-16) • **Layer:** 2 (sectoral upstream profile of the CIRPASS-2 EU DPP pilot programme; textile working group led by GS1) • **Licence:** CC BY 4.0 (upstream, `dcterms:license`), creator per `dcterms:creator` in the ontology header
+**Status:** Mirror (upstream Version 1.1.2, issued 2026-07-16) • **Layer:** 2 (sectoral upstream profile of the CIRPASS-2 EU DPP pilot programme; textile upper-level ontology task T3.2 led by GS1 in Europe, per cirpass2.eu/who-we-are) • **Licence:** CC BY 4.0 (upstream, `dcterms:license`), creator per `dcterms:creator` in the ontology header
 
 This module mirrors the **CIRPASS Textile Ontology**, the sectoral extension of
 the [EUDPP Core Ontology](../cirpass2-eudpp/README.md) for textile Digital

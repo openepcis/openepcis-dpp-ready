@@ -36,7 +36,7 @@
  * Upstream licenses: CORE and Battery — Apache License 2.0 (CC BY 4.0 fallback
  * when treated as a document), (c) CIRPASS-2 project / TalTech (CORE) and the
  * battery module authors; Textile — CC BY 4.0, CIRPASS-2 textile working group
- * (led by GS1). The mirrors keep those licenses.
+ * (task T3.2 led by GS1 in Europe). The mirrors keep those licenses.
  */
 
 import { writeFileSync } from "fs";
@@ -126,7 +126,7 @@ const MIRRORS: Record<string, MirrorSpec> = {
       ].map((m) => [`txt-${m}`, `https://w3id.org/eudpp/textile-${m}#`]),
     ),
     license: [
-      "# Upstream license: CC BY 4.0, (c) CIRPASS-2 project — textile ontology working group (led by GS1).",
+      "# Upstream license: CC BY 4.0, (c) CIRPASS-2 project — textile upper-level ontology task T3.2 (led by GS1 in Europe).",
     ],
   },
   battery: {

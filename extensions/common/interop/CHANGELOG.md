@@ -15,7 +15,7 @@ All notable changes to the Interoperability module will be documented in this fi
   `github.com/CIRPASS-2/ontologies-docs` (`scripts/sync-cirpass2.ts`) instead of the
   unpinnable hub exports, whose `COMP` export was broken on 2026-10-29.
 - New upstream mirrors [`cirpass2-textile/`](../../upstream/cirpass2-textile/README.md)
-  (CIRPASS-2 Textile Ontology 1.1.2, GS1-led, CC BY 4.0) and
+  (CIRPASS-2 Textile Ontology 1.1.2, task T3.2 led by GS1 in Europe, CC BY 4.0) and
   [`cirpass2-battery/`](../../upstream/cirpass2-battery/README.md) (EU DPP Battery
   Ontology 0.4.0 DRAFT). Alignment of `eu/textile` and `eu/battery` to them is a
   follow-up SKOS audit.

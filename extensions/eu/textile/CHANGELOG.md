@@ -10,7 +10,7 @@ All notable changes to the Textile module will be documented in this file.
 lost its eight `skos:narrowMatch` targets (`AirPollutionFootprint`, `EnergyFootprint`, …
 were removed in LCA 3.1) and now carries `skos:narrowMatch eudpp:LCIAResult` plus
 `rdfs:seeAlso eudpp:LCIAImpactCategory`; `CarbonFootprint` and `MaterialFootprint`
-stay. The CIRPASS-2 Textile Ontology 1.1.2 (GS1-led) is now mirrored as
+stay. The CIRPASS-2 Textile Ontology 1.1.2 (textile ontology task T3.2 led by GS1 in Europe) is now mirrored as
 `extensions/upstream/cirpass2-textile`; aligning `eutex:` to it is a follow-up audit.
 
 ## [0.9.9] - 2026-08-04

@@ -17,7 +17,7 @@ The mirror `extensions/upstream/cirpass2-eudpp` follows, now built from the pinn
 module files of `github.com/CIRPASS-2/ontologies-docs` rather than the unpinnable hub
 exports (`scripts/sync-cirpass2.ts`, with a guard against empty or blank-node-only
 modules — the hub's `COMP` export was exactly that on 2026-10-29). Two sectoral
-ontologies are mirrored for the first time: `cirpass2-textile` (1.1.2, GS1-led) and
+ontologies are mirrored for the first time: `cirpass2-textile` (1.1.2, task T3.2 led by GS1 in Europe) and
 `cirpass2-battery` (0.4.0 DRAFT); `build:json` learned to index multi-namespace
 mirrors and to disambiguate colliding local names.
 
