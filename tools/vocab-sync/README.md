@@ -276,8 +276,11 @@ QA_CHAT_MODEL=qwen/qwen3-32b java -jar $J reverse --vocab eudpp \
 # 2) One workbook: the 'decisions' sheet (graded mappings, Apply? yes/no — the usual curate
 #    input) plus the 'coverage' sheet (every upstream term with bucket, nearest ours, proposal,
 #    advice and a Decision dropdown).
+#    --coverage-prefill pre-fills Decision and Notes from a recommendation set (a tracked JSON,
+#    upstream IRI → {decision, notes}), so the curator overrides only where they disagree.
 java -jar $J provenance --report docs/skos-alignment/skos-completeness-reverse-eudpp-$S.json \
      --coverage docs/skos-alignment/skos-reverse-coverage-eudpp-$S.json \
+     --coverage-prefill docs/skos-alignment/coverage-prefill-eudpp-$S.json \
      --xlsx docs/skos-alignment/skos-alignment-review-eudpp-$S.xlsx --qa-model qwen/qwen3-32b --stamp $S
 
 # 3) After the curator edited both sheets:

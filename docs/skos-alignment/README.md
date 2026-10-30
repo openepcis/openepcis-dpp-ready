@@ -18,6 +18,7 @@ curated evaluation data. Human documentation lives one level up in `docs/`
 | `skos-completeness-*.{json,md}` | Per-module + combined audit reports: MISSING / WEAK / WRONG / OK mappings, with LLM rationale and QA verdicts. | `vocab-sync audit` / `sync` |
 | `skos-reverse-coverage*.{json,md}` | Reverse coverage of an upstream vocabulary: every term in one bucket (covered / proposed / code-list / epcis-cbv / uncovered) with nearest term of ours, graded proposal and advice. | `vocab-sync reverse [--grade --advise]` |
 | `skos-completeness-reverse-*.{json,md}` | The graded findings of a reverse run, in the audit report format (feeds `provenance --xlsx` and `curate`). | `vocab-sync reverse --grade` |
+| `coverage-prefill-*.json` | Tracked recommendation set for a reverse run (upstream IRI → decision + note); pre-fills the coverage sheet. | hand-authored (`provenance --coverage-prefill`) |
 | `coverage-decisions-*.json` | The curator's coverage-sheet decisions, exported for the follow-up work. | `vocab-sync coverage-decisions` |
 | `skos-upstream-delta.json` | Diff of each upstream source vs the cached copy on the last refresh. | `vocab-sync fetch --all` |
 | `alignment-provenance.{json,ttl}` | Audit trail of accepted mappings (who/what/when/confidence). | `vocab-sync provenance` |

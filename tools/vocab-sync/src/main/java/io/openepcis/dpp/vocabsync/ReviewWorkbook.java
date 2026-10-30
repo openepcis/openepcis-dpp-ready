@@ -70,6 +70,20 @@ public final class ReviewWorkbook {
      */
     public static void write(Path out, List<Decision> rows, String stamp, String bulkModel, String qaModel,
                              List<CoverageRow> coverage) {
+        write(out, rows, stamp, bulkModel, qaModel, coverage, Map.of());
+    }
+
+    /** A pre-filled coverage decision: what the Decision and Notes cells start out with. */
+    public record Prefill(String decision, String notes) {
+    }
+
+    /**
+     * As above, with the coverage sheet's Decision and Notes columns pre-filled per upstream IRI
+     * (a curator's recommendation set, kept as a JSON file so the workbook is reproducible). The
+     * curator overrides only where they disagree.
+     */
+    public static void write(Path out, List<Decision> rows, String stamp, String bulkModel, String qaModel,
+                             List<CoverageRow> coverage, Map<String, Prefill> prefill) {
         // review rows first (need judgement), then by module, then action — surfaces the contested set.
         List<Decision> sorted = new ArrayList<>(rows);
         sorted.sort(Comparator
@@ -130,7 +144,7 @@ public final class ReviewWorkbook {
             dv.setShowErrorBox(true);
             sheet.addValidationData(dv);
 
-            if (coverage != null && !coverage.isEmpty()) writeCoverage(wb, coverage, headerStyle, reviewStyle);
+            if (coverage != null && !coverage.isEmpty()) writeCoverage(wb, coverage, headerStyle, reviewStyle, prefill);
             writeLegend(wb, sorted, stamp, bulkModel, qaModel, coverage != null && !coverage.isEmpty());
 
             Files.createDirectories(out.getParent());
@@ -191,7 +205,8 @@ public final class ReviewWorkbook {
     /** The reverse-coverage sheet: one row per upstream term, the curator fills Decision and Notes. */
     private static void writeCoverage(Workbook wb, List<CoverageRow> coverage,
                                       org.apache.poi.ss.usermodel.CellStyle headerStyle,
-                                      org.apache.poi.ss.usermodel.CellStyle flagStyle) {
+                                      org.apache.poi.ss.usermodel.CellStyle flagStyle,
+                                      Map<String, Prefill> prefill) {
         Sheet sheet = wb.createSheet("coverage");
         Row header = sheet.createRow(0);
         for (int c = 0; c < COVERAGE_HEADERS.length; c++) {
@@ -214,7 +229,8 @@ public final class ReviewWorkbook {
         int r = 1;
         for (CoverageRow row : sorted) {
             Row x = sheet.createRow(r++);
-            set(x, 0, "");
+            Prefill pre = prefill.get(row.upstreamIri());
+            set(x, 0, pre == null ? "" : pre.decision());
             Cell b = set(x, 1, row.bucket());
             if ("uncovered".equals(row.bucket())) b.setCellStyle(flagStyle);
             set(x, 2, row.module());
@@ -241,7 +257,7 @@ public final class ReviewWorkbook {
             }
             set(x, 12, detail);
             set(x, 13, row.adviceRationale());
-            set(x, 14, "");
+            set(x, 14, pre == null ? "" : pre.notes());
             set(x, 15, row.upstreamIri());
         }
         sheet.setColumnHidden(COVERAGE_HEADERS.length - 1, true);
@@ -334,7 +350,8 @@ public final class ReviewWorkbook {
                 "           uncovered = class/property nothing of ours maps to and no accepted match.",
                 "  Advice   MAP / ADOPT / CARRIER / DEFER / OUT_OF_SCOPE from the bulk model, with 'Advice detail' = the counterpart",
                 "           or the proposed module:localName. A recommendation only; nothing on this sheet is applied by curate.",
-                "  Decision your call per row (dropdown). 'accept advice' takes the Advice column as the decision;",
+                "  Decision your call per row (dropdown); a pre-filled value is the curator's recommendation (see Notes),",
+                "           change it only where you disagree. 'accept advice' takes the Advice column as the decision;",
                 "           'adopt' = add a term of ours (name it in Notes if not the proposal); 'map' = map to the term in Notes;",
                 "           'carrier' = EPCIS/CBV/GS1 carries it; 'out of scope' = leave; 'defer' = next round.",
         };
