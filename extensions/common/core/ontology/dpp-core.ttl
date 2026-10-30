@@ -5,6 +5,8 @@
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix schema: <https://schema.org/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+# Assessment and test vocabulary, the layer below core (dpp-core imports it).
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
@@ -107,6 +109,7 @@ Domain-specific vocabularies import this core and add regulation-specific extens
     rdfs:comment "Aligned with UN Transparency Protocol patterns"@en ;
     dcterms:source <https://untp.unece.org/docs/specification/> ;
     owl:imports <https://ref.gs1.org/voc/> ;
+    owl:imports <https://ref.openepcis.org/extensions/common/assessment/> ;
     owl:imports <http://data.europa.eu/m8g/> ;
     owl:imports <http://www.w3.org/ns/locn#> ;
     owl:imports <http://www.w3.org/ns/adms#> .
@@ -306,17 +309,23 @@ and Waste Framework Directive requirements."""@en;
 
 oec:PerformanceInfo
     a rdfs:Class ;
+    rdfs:subClassOf oea:Assessment ;
     rdfs:label "Performance Information"@en ;
-    rdfs:comment """Product performance and durability information per ESPR Article 7.
-Captures expected lifespan, usage cycles, and performance metrics."""@en ;
+    rdfs:comment """Product performance and durability assessment per ESPR Article 7. An oea:Assessment:
+expected lifespan, technical lifetime, usage cycles and performance class are indicators
+(oea:hasIndicator with oea:ExpectedLifetime, oea:TechnicalLifetime, oea:NumberOfUseCycles,
+oea:PerformanceClass), measured performance values are results (oea:hasResult), and the test
+conditions are oea:hasCondition. Sector modules hang their own performance properties here."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso gs1:manufacturersWarranty ;
     rdfs:seeAlso cirpass2:Durability ;
     rdfs:seeAlso cirpass2:Reliability ;
     skos:note """Required extension: GS1 provides gs1:manufacturersWarranty for warranty information but lacks
-structured performance and durability data (expected lifespan, usage cycles, performance class)
-required by ESPR Article 7. Use in conjunction with gs1:manufacturersWarranty where applicable."""@en ;
+structured performance and durability data required by ESPR Article 7. Since 0.9.9 the values travel
+through the oea: assessment model rather than flat properties (oec:usageCycles, oec:hasExpectedLifespan,
+oec:hasTechnicalLifetime, oec:performanceClass and oec:testedConditions were removed). Use in
+conjunction with gs1:manufacturersWarranty where applicable."""@en ;
     rdfs:seeAlso untp:PerformanceMetric ;
     skos:narrowMatch <https://w3id.org/eudpp/textile-indicator#PerformanceAfterNCycles> ;
     skos:narrowMatch <https://w3id.org/eudpp/textile-durability#ObservedPerformanceParameter> ;
@@ -333,8 +342,9 @@ required by ESPR Article 7. Use in conjunction with gs1:manufacturersWarranty wh
 oec:RepairabilityInfo
     a rdfs:Class ;
     rdfs:label "Repairability Information"@en ;
-    rdfs:comment """Repair and maintenance information per ESPR Article 7.
-Captures repair scores, spare part availability, and repair instructions."""@en ;
+    rdfs:comment """Repair and maintenance information per ESPR Article 7: spare part availability,
+software update support, repair instructions and services. A repairability score or class is an
+indicator (oea:hasIndicator with oea:RepairabilityScore or oea:RepairabilityClass)."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso gs1:manufacturersWarranty ;
@@ -1491,7 +1501,7 @@ oec:materialCircularityIndicator
     skos:note "Value is a decimal fraction 0-1. Based on Ellen MacArthur Foundation MCI methodology. Aligned with UNTP."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     rdfs:seeAlso dppk:recyclabilityScore ;
-    rdfs:seeAlso oec:recyclabilityScore ;
+    rdfs:seeAlso oea:RecyclabilityScore ;
     rdfs:seeAlso oec:hasRecyclabilityAssessment .
 
 # =============================================================================
@@ -2050,17 +2060,6 @@ oec:hasPerformanceInfo
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     skos:narrowMatch <https://w3id.org/eudpp/battery-performance#hasBatteryPerformance> .
 
-oec:hasExpectedLifespan
-    a owl:ObjectProperty ;
-    rdfs:label "Expected Lifespan"@en ;
-    rdfs:comment "Expected product lifespan. Use gs1:QuantitativeValue with unitCode (e.g., 'ANN' for years)."@en ;
-    rdfs:domain oec:PerformanceInfo ;
-    rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime> .
-
 oec:hasGuaranteedLifespan
     a owl:ObjectProperty ;
     rdfs:label "Guaranteed Lifespan"@en ;
@@ -2071,55 +2070,6 @@ oec:hasGuaranteedLifespan
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     rdfs:seeAlso schema:durationOfWarranty .
-
-oec:usageCycles
-    a owl:DatatypeProperty ;
-    rdfs:label "Usage Cycles"@en ;
-    rdfs:comment "Number of expected usage cycles (e.g., charging cycles for batteries)."@en ;
-    rdfs:domain oec:PerformanceInfo ;
-    rdfs:range xsd:integer ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles> ;
-    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#batteryCondition> ;
-    skos:closeMatch <https://w3id.org/eudpp/battery-performance#expectedLifetimeCycles> .
-
-oec:hasTechnicalLifetime
-    a owl:ObjectProperty ;
-    rdfs:label "Technical Lifetime"@en ;
-    rdfs:comment "Technical lifetime under specified conditions. Use unitCode 'ANN' (UN/CEFACT Rec 20)."@en ;
-    rdfs:domain oec:PerformanceInfo ;
-    rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime> ;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#batteryTechnicalProperties> .
-
-oec:performanceClass
-    a owl:DatatypeProperty ;
-    rdfs:label "Performance Class"@en ;
-    rdfs:comment "Performance or efficiency class (e.g., A+++ to G for energy labels)."@en ;
-    rdfs:domain oec:PerformanceInfo ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso dppk:energyEfficiencyClass ;
-    rdfs:seeAlso oec:hasEnergyEfficiencyClass ;
-    rdfs:seeAlso schema:energyEfficiencyScaleMax ;
-    skos:broadMatch dppk:performance .
-
-oec:testedConditions
-    a owl:DatatypeProperty ;
-    rdfs:label "Tested Conditions"@en ;
-    rdfs:comment "Description of conditions under which performance was tested."@en ;
-    rdfs:domain oec:PerformanceInfo ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
 
 # =============================================================================
 # Properties - Repairability (ESPR Article 7)
@@ -2135,26 +2085,6 @@ oec:hasRepairabilityInfo
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
     rdfs:seeAlso gs1:serviceInfo ;
     skos:closeMatch gs1:serviceInfo .
-
-oec:repairabilityScore
-    a owl:DatatypeProperty ;
-    rdfs:label "Repairability Score"@en ;
-    rdfs:comment "Repairability index score (typically 0-10 scale, e.g., French Indice de Réparabilité)."@en ;
-    rdfs:domain oec:RepairabilityInfo ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en .
-
-oec:repairabilityClass
-    a owl:DatatypeProperty ;
-    rdfs:label "Repairability Class"@en ;
-    rdfs:comment "Repairability class (A to E, where A is most repairable)."@en ;
-    rdfs:domain oec:RepairabilityInfo ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en .
 
 oec:hasSparePartsAvailability
     a owl:ObjectProperty ;
@@ -3330,69 +3260,20 @@ oec:hasCarbonFootprintDeclaration
 
 oec:RecyclabilityAssessment
     a owl:Class ;
-    rdfs:subClassOf schema:Observation ;
+    rdfs:subClassOf oea:Assessment ;
     rdfs:label "Recyclability Assessment"@en ;
-    rdfs:comment "An assessment of a product's recyclability. Different regulations express the same concept differently: PPWR uses letter grades A/B/C, the JRC textile methodology uses a 0-10 score, electronics WEEE uses a 0-1 rate. All three are optional; pick whichever your regulation requires."@en ;
+    rdfs:comment """An assessment of a product's recyclability, an oea:Assessment. Regulations express the
+outcome differently, and each form has its place in the assessment model: a score (JRC textile 0-10,
+PPWR percentage) or a grade (PPWR A/B/C) is an oea:Indicator of kind oea:RecyclabilityScore; a
+recyclability, recoverable or collection rate is an oea:MeasurementResult observing oea:RecyclabilityRate,
+oea:RecoverableRate or oea:RecyclingCollectionRate; the methodology is oea:hasMethod; whether the product
+counts as recyclable is oea:hasOutcome."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
     skos:broadMatch cv:Criterion ;
     skos:broadMatch untp:ConformityAssessment ;
     rdfs:seeAlso <https://w3id.org/eudpp/textile-recyclability#RecyclabilityAssessment> .
-
-oec:recyclabilityScore
-    a owl:DatatypeProperty ;
-    rdfs:label "Recyclability Score"@en ;
-    rdfs:comment "Numeric recyclability score (e.g. 0-10 per JRC textile methodology). Use unitCode aligned with the methodology when expressed via gs1:QuantitativeValue."@en ;
-    rdfs:domain oec:RecyclabilityAssessment ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
-    skos:exactMatch dppk:recyclabilityScore .
-
-oec:recyclabilityRate
-    a owl:DatatypeProperty ;
-    rdfs:label "Recyclability Rate"@en ;
-    rdfs:comment "Decimal fraction (0-1) of the product that can be recycled."@en ;
-    rdfs:domain oec:RecyclabilityAssessment ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en .
-
-oec:recyclabilityMethodology
-    a owl:DatatypeProperty ;
-    rdfs:label "Recyclability Methodology"@en ;
-    rdfs:comment "URI of the recyclability methodology used (e.g. PEF, EN 15343, JRC textile preparatory study, PPWR Annex II)."@en ;
-    rdfs:domain oec:RecyclabilityAssessment ;
-    rdfs:range xsd:anyURI ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en .
-
-oec:recoverableRate
-    a owl:DatatypeProperty ;
-    rdfs:label "Recoverable Rate"@en ;
-    rdfs:comment "Decimal fraction (0-1) of the product recoverable at end of life through any recovery operation (material recycling, energy recovery, backfilling)."@en ;
-    rdfs:domain oec:RecyclabilityAssessment ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "ESPR Annex I ecodesign parameter: recoverability is broader than recyclability (oec:recyclabilityRate covers material recycling only; recovery adds energy recovery and backfilling per Waste Framework Directive Art. 3(15)). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:recyclabilityRate ;
-    rdfs:seeAlso cirpass2:RecoverableRate .
-
-oec:recyclingCollectionRate
-    a owl:DatatypeProperty ;
-    rdfs:label "Recycling Collection Rate"@en ;
-    rdfs:comment "Decimal fraction (0-1) of products of this type actually collected for recycling, as reported for the applicable collection scheme."@en ;
-    rdfs:domain oec:RecyclabilityAssessment ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "ESPR Annex I ecodesign parameter distinct from technical recyclability: a technically recyclable product may still have a low real-world collection rate. Cross-regulation (PPWR collection targets, Battery Regulation Art. 59, WEEE). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso cirpass2:RecyclingCollectionRate .
 
 oec:productToPackagingRatio
     a owl:DatatypeProperty ;

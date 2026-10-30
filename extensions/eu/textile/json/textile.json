@@ -15,27 +15,15 @@
       "source": "https://www.iso.org/standard/74401.html"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTestResult",
-      "localName": "DimensionalChangeTestResult",
-      "label": "Dimensional Change Test Result",
-      "comment": "Dimensional change test result per ISO 3759 after cleaning cycles.\nScoring (woven): >+-4%=0pt, +-3.5-4%=1pt, +-3-3.5%=2pt, <=+-3%=3pt.\nScoring (knitted): >+-6%=0pt, +-5.5-6%=1pt, +-5-5.5%=2pt, <=+-5%=3pt.",
-      "subClassOf": [
-        "https://schema.org/Observation"
-      ],
-      "broadMatch": [
-        "https://vocabulary.uncefact.org/untp/ConformityAssessment",
-        "https://w3id.org/eudpp/textile-assessment#MeasurementResult",
-        "https://w3id.org/eudpp/textile-assessment#AssessmentResult"
-      ],
-      "source": "https://www.iso.org/standard/57309.html"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo",
       "localName": "DurabilityInfo",
       "label": "Durability Information",
-      "comment": "Product durability metrics including expected lifespan, wash cycles, and usage resistance.",
+      "comment": "Durability assessment of a textile product, an oea:Assessment. Each laboratory test is an\noea:TestExecution under oea:hasSubAssessment, naming its test method (eutex:MartindaleAbrasionTest,\neutex:PillingTest, eutex:ColourFastnessTest, eutex:DimensionalChangeTest, eutex:TensileStrengthTest,\neutex:TearStrengthTest) and an oea:MeasurementResult for the parameter it observes. Expected wash cycles,\nexpected lifetime and the durability class are indicators (oea:hasIndicator with oea:NumberOfUseCycles,\noea:ExpectedLifetime, eutex:DurabilityRating).",
       "seeAlso": [
         "https://ref.openepcis.org/extensions/common/core/PerformanceInfo"
+      ],
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/Assessment"
       ],
       "broadMatch": [
         "https://w3id.org/eudpp#Durability",
@@ -76,10 +64,13 @@
       "id": "https://ref.openepcis.org/extensions/eu/textile/MicroplasticInfo",
       "localName": "MicroplasticInfo",
       "label": "Microplastic Information",
-      "comment": "Information about microplastic/microfiber shedding potential from synthetic textiles.",
+      "comment": "Microplastic and microfibre shedding of a synthetic textile, an oea:Assessment: the measured\nrelease is an oea:MeasurementResult of eutex:MicrofibreReleaseTest observing eutex:MicrofibreRelease, the\nrisk band an indicator of kind eutex:SheddingRiskLevel with an eutex:MicroplasticRiskLevel value.",
       "seeAlso": [
         "https://w3id.org/eudpp#MicroplasticRelease",
         "https://w3id.org/eudpp#NanoplasticRelease"
+      ],
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/Assessment"
       ],
       "broadMatch": [
         "https://w3id.org/eudpp#MicroplasticRelease"
@@ -90,7 +81,7 @@
       "id": "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment",
       "localName": "RecyclabilityAssessment",
       "label": "Recyclability Assessment",
-      "comment": "Recyclability assessment per EU Preparatory Study 3rd Milestone.\nScore 0-10 based on: elastane content threshold (>15% or >20% for PA6-rich >80% blends makes product\nnon-recyclable, score 0), sorting factors (same composition inner/outer, free from printings,\nfree from coatings, free from sequins, free from dyes, mono-material), and\ntechnical recyclability of the applicable recycling technology.",
+      "comment": "Recyclability assessment per EU Preparatory Study 3rd Milestone, applying\neutex:JRCRecyclabilityScoring. The elastane content is an oea:MeasurementResult evaluated against\neutex:ElastaneContentLimit; each sorting criterion (eutex:SameInnerOuterComposition, eutex:FreeFromPrintings,\neutex:FreeFromCoatings, eutex:FreeFromSequins, eutex:FreeFromDyes, eutex:MonoMaterial) and\neutex:TechnicalRecyclabilityCriterion is an oea:CriterionResult with its outcome and points; the 0-10 score is\nan indicator of kind oea:RecyclabilityScore; whether the product counts as recyclable is oea:hasOutcome.",
       "seeAlso": [
         "https://ref.openepcis.org/extensions/common/core/CircularityPerformance",
         "https://schema.org/Rating",
@@ -98,7 +89,6 @@
         "https://w3id.org/eudpp/textile-recyclability#RecyclabilityAssessment"
       ],
       "subClassOf": [
-        "https://schema.org/Observation",
         "https://ref.openepcis.org/extensions/common/core/RecyclabilityAssessment"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -122,37 +112,20 @@
       "id": "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment",
       "localName": "RobustnessAssessment",
       "label": "Robustness Assessment",
-      "comment": "Composite robustness assessment per EU Preparatory Study 3rd Milestone.\nScore 0-10 based on three test parameters measured after 5 cleaning cycles (ISO 6330):\nspirality (0-3 pts), dimensional change (0-3 pts), and visual inspection (0-4 pts).\nThresholds differ by fabric type (knitted vs woven).",
+      "comment": "Composite robustness assessment per EU Preparatory Study 3rd Milestone, an oea:Assessment\napplying eutex:JRCRobustnessScoring. The 5 cleaning cycles are an oea:hasParameterSetting (oea:NumberOfCycles),\nthe fabric type an oea:hasCondition (eutex:SpecimenFabricType). The three tests are oea:TestExecution\nsub-assessments (eutex:SpiralityTest, eutex:DimensionalChangeTest, eutex:AppearanceAfterWashingTest), each with\nits measurement results and the points it earns (oea:awardedScore); the 0-10 total is an indicator of kind\neutex:RobustnessScore derived from them.",
       "seeAlso": [
         "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo",
         "https://schema.org/Rating",
         "http://data.europa.eu/m8g/Evidence"
       ],
       "subClassOf": [
-        "https://schema.org/Observation"
+        "https://ref.openepcis.org/extensions/common/assessment/Assessment"
       ],
       "broadMatch": [
         "https://schema.org/Rating",
         "https://w3id.org/eudpp/textile-assessment#DurabilityAssessment"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/SortingFactors",
-      "localName": "SortingFactors",
-      "label": "Sorting Factors",
-      "comment": "Sorting factors affecting recyclability score. Each factor satisfied adds 1 point:\nsame composition inner/outer, free from printings, free from coatings, free from sequins,\nfree from dyes, mono-material.",
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/SpiralityTestResult",
-      "localName": "SpiralityTestResult",
-      "label": "Spirality Test Result",
-      "comment": "Spirality test result per ISO 16322-3 after cleaning cycles.\nScoring (woven): >6%=0pt, 5.5-6%=1pt, 5-5.5%=2pt, <=5%=3pt.\nScoring (knitted): >7%=0pt, 6-7%=1pt, 5-6%=2pt, <=5%=3pt.",
-      "subClassOf": [
-        "https://schema.org/Observation"
-      ],
-      "source": "https://www.iso.org/standard/56326.html"
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern",
@@ -186,19 +159,6 @@
       ],
       "broadMatch": [
         "https://schema.org/Service"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/TechnicalRecyclability",
-      "localName": "TechnicalRecyclability",
-      "label": "Technical Recyclability",
-      "comment": "Technical recyclability assessment based on the applicable recycling technology.",
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
-      ],
-      "broadMatch": [
-        "https://ref.openepcis.org/extensions/common/core/RecyclabilityAssessment"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -276,46 +236,9 @@
         "https://w3id.org/eudpp/textile-core#SmartTextile"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult",
-      "localName": "VisualInspectionResult",
-      "label": "Visual Inspection Result",
-      "comment": "Visual inspection result per ISO 15487 after cleaning cycles.\nScore 0-4 pts based on sub-ratings (1-5 scale each) for colour change,\nfabric appearance, seam appearance, and non-textile parts condition.",
-      "seeAlso": [
-        "https://schema.org/Rating"
-      ],
-      "subClassOf": [
-        "https://schema.org/Observation"
-      ],
-      "broadMatch": [
-        "https://schema.org/Rating",
-        "https://w3id.org/eudpp/textile-assessment#MeasurementResult",
-        "https://w3id.org/eudpp/textile-assessment#AssessmentResult"
-      ],
-      "source": "https://www.iso.org/standard/55312.html"
     }
   ],
   "properties": [
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/abrasionResistance",
-      "localName": "abrasionResistance",
-      "label": "Abrasion Resistance",
-      "comment": "Abrasion resistance in Martindale cycles.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://schema.org/value"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Martindale abrasion result substantiates the public durability claim and reveals no formulation or supply-chain secret.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     {
       "id": "https://ref.openepcis.org/extensions/eu/textile/additionalCareInstructions",
       "localName": "additionalCareInstructions",
@@ -416,8 +339,8 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://schema.org/value",
         "https://ref.openepcis.org/extensions/common/core/carbonFootprintTotal",
+        "https://schema.org/value",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
       ],
@@ -449,63 +372,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32006R1907",
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "The purpose of a production chemical is part of the confidential formulation detail, not of the public hazard disclosure.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/cleaningCyclesBeforeTest",
-      "localName": "cleaningCyclesBeforeTest",
-      "label": "Cleaning Cycles Before Test",
-      "comment": "Number of cleaning cycles performed before testing (default 5 per EU methodology).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The pre-test cleaning-cycle count is methodology context without which the public robustness scores cannot be interpreted.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/colorFastness",
-      "localName": "colorFastness",
-      "label": "Color Fastness",
-      "comment": "Color fastness rating (1-5 per ISO 105, where 5 is best).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://schema.org/ratingValue"
-      ],
-      "broadMatch": [
-        "https://schema.org/ratingValue"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "ISO 105 colour-fastness rating substantiates the public durability claim.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/colourChangeRating",
-      "localName": "colourChangeRating",
-      "label": "Colour Change Rating",
-      "comment": "Colour change sub-rating (1-5 per ISO 15487, where 5 is no change).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://schema.org/ratingValue"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "ISO 15487 colour-change sub-rating is part of the public robustness result.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -548,82 +414,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2011/1007"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/dimensionalChangePercentage",
-      "localName": "dimensionalChangePercentage",
-      "label": "Dimensional Change Percentage",
-      "comment": "Measured dimensional change as percentage (absolute value) after cleaning cycles.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTestResult"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#dimensionalChange"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The measured dimensional-change percentage substantiates the public dimensional-change score.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/dimensionalChangeScore",
-      "localName": "dimensionalChangeScore",
-      "label": "Dimensional Change Score",
-      "comment": "Dimensional change component score (0-3 points).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTestResult"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://schema.org/ratingValue"
-      ],
-      "broadMatch": [
-        "https://vocabulary.uncefact.org/untp/score"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The dimensional-change component score contributes to the public robustness score.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/dimensionalChangeTestMethod",
-      "localName": "dimensionalChangeTestMethod",
-      "label": "Dimensional Change Test Method",
-      "comment": "Test method reference (e.g. ISO 3759).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTestResult"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "seeAlso": [
-        "https://schema.org/measurementMethod"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The dimensional-change test-method reference (e.g. ISO 3759) makes the public result reproducible and verifiable.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/dimensionalStability",
-      "localName": "dimensionalStability",
-      "label": "Dimensional Stability",
-      "comment": "Maximum dimensional change (shrinkage/stretch) as percentage after washing.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Shrinkage/stretch behaviour is consumer-relevant durability information about how the garment survives washing.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/ecNumber",
       "localName": "ecNumber",
       "label": "EC Number",
@@ -649,29 +439,6 @@
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "The EC substance identifier belongs to the detailed chemical declaration; kept AuthorizedOnly to match the shared oec:ecNumber alias in every module.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/elastaneContentPercent",
-      "localName": "elastaneContentPercent",
-      "label": "Elastane Content Percent",
-      "comment": "Elastane/spandex content as percentage of total weight. Content >15% (>20% for PA6-rich >80% blends) makes product non-recyclable (score 0).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://ref.gs1.org/voc/textileMaterialPercentage"
-      ],
-      "broadMatch": [
-        "https://ref.gs1.org/voc/textileMaterialPercentage"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2011/1007",
-      "accessLevelRationale": "Elastane share is fibre-composition information that Regulation (EU) 1007/2011 Arts. 9 and 14-16 require on the consumer-facing label.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2011/1007"
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/textile/endOfLifeDestination",
@@ -765,67 +532,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2010/66"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/expectedLifetimeYears",
-      "localName": "expectedLifetimeYears",
-      "label": "Expected Lifetime Years",
-      "comment": "Expected product lifetime in years under normal use.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://schema.org/value",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Expected lifetime is ESPR Art. 7/Annex I consumer durability information, kept Public in step with the battery module's expectedLifetime* family.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/expectedWashCycles",
-      "localName": "expectedWashCycles",
-      "label": "Expected Wash Cycles",
-      "comment": "Expected number of wash cycles before significant degradation.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://schema.org/value"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Expected wash-cycle count is consumer durability information equivalent to expected lifetime.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/fabricAppearanceRating",
-      "localName": "fabricAppearanceRating",
-      "label": "Fabric Appearance Rating",
-      "comment": "Fabric surface appearance sub-rating (1-5 per ISO 15487, where 5 is no change).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://schema.org/ratingValue"
-      ],
-      "broadMatch": [
-        "https://schema.org/ratingValue"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The fabric-appearance sub-rating is part of the public visual-inspection result.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/fiberOrigin",
       "localName": "fiberOrigin",
       "label": "Fiber Origin",
@@ -847,70 +553,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007",
       "accessLevel": "Public",
       "accessLevelRationale": "Fibre origin at country granularity is a consumer-facing sourcing claim that exposes no operational facility detail.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/freeFromCoatings",
-      "localName": "freeFromCoatings",
-      "label": "Free From Coatings",
-      "comment": "Whether the product is free from non-removable coatings (+1 pt if true).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SortingFactors"
-      ],
-      "range": [
-        "xsd:boolean"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Coating-free status is an externally observable sorting factor of the public recyclability assessment.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/freeFromDyes",
-      "localName": "freeFromDyes",
-      "label": "Free From Dyes",
-      "comment": "Whether the product is free from dyes (+1 pt if true).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SortingFactors"
-      ],
-      "range": [
-        "xsd:boolean"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Dye-free status is an externally observable sorting factor of the public recyclability assessment.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/freeFromPrintings",
-      "localName": "freeFromPrintings",
-      "label": "Free From Printings",
-      "comment": "Whether the product is free from non-removable printings (+1 pt if true).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SortingFactors"
-      ],
-      "range": [
-        "xsd:boolean"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Print-free status is an externally observable sorting factor of the public recyclability assessment.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/freeFromSequins",
-      "localName": "freeFromSequins",
-      "label": "Free From Sequins",
-      "comment": "Whether the product is free from sequins, beads, and non-textile embellishments (+1 pt if true).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SortingFactors"
-      ],
-      "range": [
-        "xsd:boolean"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Embellishment-free status is an externally observable sorting factor of the public recyclability assessment.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -963,9 +605,9 @@
       "id": "https://ref.openepcis.org/extensions/eu/textile/hasApplicableRecyclingTechnology",
       "localName": "hasApplicableRecyclingTechnology",
       "label": "Applicable Recycling Technology",
-      "comment": "The recycling technology applicable to this product based on its fiber composition.",
+      "comment": "The recycling technology applicable to this product based on its fiber composition; it determines the points of eutex:TechnicalRecyclabilityCriterion.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/TechnicalRecyclability"
+        "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment"
       ],
       "range": [
         "https://ref.openepcis.org/extensions/eu/textile/RecyclingTechnology"
@@ -1103,22 +745,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasDimensionalChangeTest",
-      "localName": "hasDimensionalChangeTest",
-      "label": "Dimensional Change Test",
-      "comment": "Dimensional change test result component of robustness assessment.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTestResult"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The dimensional-change test result is a component of the public robustness assessment.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/hasDryCleaningSymbol",
       "localName": "hasDryCleaningSymbol",
       "label": "Dry Cleaning Symbol",
@@ -1148,22 +774,6 @@
       "source": "https://www.iso.org/standard/74401.html",
       "accessLevel": "Public",
       "accessLevelRationale": "ISO 3758 drying symbol is printed on the consumer care label.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasDurabilityClass",
-      "localName": "hasDurabilityClass",
-      "label": "Durability Class",
-      "comment": "Durability rating class (A-E).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityClass"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The A-E durability class is the consumer-facing summary band of the durability assessment.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1421,22 +1031,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasMicroplasticRiskLevel",
-      "localName": "hasMicroplasticRiskLevel",
-      "label": "Microplastic Risk Level",
-      "comment": "Risk classification for microfiber shedding.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/MicroplasticInfo"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/MicroplasticRiskLevel"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The shedding risk classification is the consumer-facing summary of the microplastic disclosure.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/hasRecyclabilityAssessment",
       "localName": "hasRecyclabilityAssessment",
       "label": "Recyclability Assessment",
@@ -1549,38 +1143,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasRobustnessTestFabricType",
-      "localName": "hasRobustnessTestFabricType",
-      "label": "Robustness Test Fabric Type",
-      "comment": "Fabric type used to determine test thresholds (knitted vs woven scoring tables differ).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/FabricType"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The knitted/woven scoring-table selector is methodology context needed to interpret the public robustness score.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasSheddingRate",
-      "localName": "hasSheddingRate",
-      "label": "Shedding Rate",
-      "comment": "Microfiber shedding rate per wash. Use unitCode 'MGM' (mg/kg, UN/CEFACT Rec 20).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/MicroplasticInfo"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The measured shedding rate is the quantitative substantiation of the public microplastic disclosure.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/hasSocType",
       "localName": "hasSocType",
       "label": "SoC Type",
@@ -1594,22 +1156,6 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "The ESPR Art. 7(5) A-D type classification qualifies the public substances-of-concern disclosure.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasSortingFactors",
-      "localName": "hasSortingFactors",
-      "label": "Sorting Factors",
-      "comment": "Sorting factors assessment for recyclability.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/SortingFactors"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Sorting factors are recyclability inputs derived from externally observable product features.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1631,22 +1177,6 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "Named production facilities are commercially sensitive supplier relationships, disclosed to authorities and legitimate-interest actors only.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasSpiralityTest",
-      "localName": "hasSpiralityTest",
-      "label": "Spirality Test",
-      "comment": "Spirality test result component of robustness assessment.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/SpiralityTestResult"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The spirality test result is a component of the public robustness assessment.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1696,68 +1226,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasTearStrength",
-      "localName": "hasTearStrength",
-      "label": "Tear Strength",
-      "comment": "Fabric tear strength. Use unitCode 'NEW' (newtons, UN/CEFACT Rec 20).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Tear strength is a spec-sheet durability metric substantiating the public durability claim.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasTechnicalRecyclability",
-      "localName": "hasTechnicalRecyclability",
-      "label": "Technical Recyclability",
-      "comment": "Technical recyclability assessment for the product.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/TechnicalRecyclability"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Technical recyclability is a component of the public recyclability assessment.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasTensileStrength",
-      "localName": "hasTensileStrength",
-      "label": "Tensile Strength",
-      "comment": "Fabric tensile strength. Use unitCode 'NEW' (newtons, UN/CEFACT Rec 20).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Tensile strength is a spec-sheet durability metric substantiating the public durability claim.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasTestStandard",
-      "localName": "hasTestStandard",
-      "label": "Test Standard",
-      "comment": "The test standard used for a durability or robustness test.",
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/TestStandard"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/hasTextileChemicals",
       "localName": "hasTextileChemicals",
       "label": "Textile Chemicals",
@@ -1795,25 +1263,6 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "The underlying third-party certificate for the recycled-content claim is audit evidence for verifiers; the claim itself is already public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasVisualInspection",
-      "localName": "hasVisualInspection",
-      "label": "Visual Inspection",
-      "comment": "Visual inspection result component of robustness assessment.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#visualInspection"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The visual-inspection result is a component of the public robustness assessment.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1907,22 +1356,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/isMonoMaterial",
-      "localName": "isMonoMaterial",
-      "label": "Is Mono-Material",
-      "comment": "Whether the product is made of a single fiber type (+1 pt if true). Mono-material products are more likely to be recycled.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SortingFactors"
-      ],
-      "range": [
-        "xsd:boolean"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Mono-material status is a recyclability sorting factor derived from label-level fibre composition, useful to consumers and sorters alike.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/isMRSLCompliant",
       "localName": "isMRSLCompliant",
       "label": "Is MRSL Compliant",
@@ -1936,25 +1369,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32006R1907",
       "accessLevel": "Public",
       "accessLevelRationale": "ZDHC MRSL compliance is a pass/fail chemical-management claim brands publish for consumers without exposing formulation detail.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/isRecyclable",
-      "localName": "isRecyclable",
-      "label": "Is Recyclable",
-      "comment": "Whether the product is considered recyclable (score above minimum threshold).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment"
-      ],
-      "range": [
-        "xsd:boolean"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Recyclability status is a consumer-facing circularity claim (ESPR Annex I).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2084,28 +1498,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/nonTextilePartsRating",
-      "localName": "nonTextilePartsRating",
-      "label": "Non-Textile Parts Rating",
-      "comment": "Non-textile parts condition sub-rating (1-5 per ISO 15487, where 5 is no change).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://schema.org/ratingValue"
-      ],
-      "broadMatch": [
-        "https://schema.org/ratingValue"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The non-textile-parts sub-rating is part of the public visual-inspection result.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/organicContentMass",
       "localName": "organicContentMass",
       "label": "Organic Content Mass",
@@ -2209,25 +1601,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/pillingResistance",
-      "localName": "pillingResistance",
-      "label": "Pilling Resistance",
-      "comment": "Pilling resistance rating (1-5 per ISO 12945, where 5 is best).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://schema.org/ratingValue"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "ISO 12945 pilling rating substantiates the public durability claim.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/productionWastePercentage",
       "localName": "productionWastePercentage",
       "label": "Production Waste Percentage",
@@ -2241,33 +1614,6 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "Production waste rates are operational performance data of the manufacturer, relevant to auditors and authorities.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/recyclabilityScore",
-      "localName": "recyclabilityScore",
-      "label": "Recyclability Score",
-      "comment": "Composite recyclability score (0-10).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://schema.org/ratingValue",
-        "https://ref.openepcis.org/extensions/common/core/recyclabilityScore",
-        "https://dpp-keystone.org/spec/v2/terms#recyclabilityScore"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#recyclabilityScore"
-      ],
-      "closeMatch": [
-        "https://schema.org/ratingValue"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The composite recyclability score is the headline of the public recyclability assessment; aligned with core oec:recyclabilityScore (Public).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2313,29 +1659,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/robustnessScore",
-      "localName": "robustnessScore",
-      "label": "Robustness Score",
-      "comment": "Composite robustness score (0-10). Sum of spirality (0-3), dimensional change (0-3), and visual inspection (0-4).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://schema.org/ratingValue",
-        "https://dpp-keystone.org/spec/v2/terms#robustnessScore"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#robustnessScore"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The composite robustness score is the consumer-facing headline of the robustness assessment.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/safeUseInstructions",
       "localName": "safeUseInstructions",
       "label": "Safe Use Instructions",
@@ -2362,44 +1685,6 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "Safe-use instructions are consumer safety information; aligned with core oec:safeUseInstructions (Public).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/sameInnerOuterComposition",
-      "localName": "sameInnerOuterComposition",
-      "label": "Same Inner/Outer Composition",
-      "comment": "Whether inner and outer fabric layers have the same fiber composition (+1 pt if true).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SortingFactors"
-      ],
-      "range": [
-        "xsd:boolean"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Layer-composition equality is a recyclability sorting factor derived from label-level fibre composition.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/seamAppearanceRating",
-      "localName": "seamAppearanceRating",
-      "label": "Seam Appearance Rating",
-      "comment": "Seam appearance sub-rating (1-5 per ISO 15487, where 5 is no change).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://schema.org/ratingValue"
-      ],
-      "broadMatch": [
-        "https://schema.org/ratingValue"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The seam-appearance sub-rating is part of the public visual-inspection result.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2523,68 +1808,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/spiralityPercentage",
-      "localName": "spiralityPercentage",
-      "label": "Spirality Percentage",
-      "comment": "Measured spirality as percentage after cleaning cycles.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SpiralityTestResult"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The measured spirality percentage substantiates the public spirality score.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/spiralityScore",
-      "localName": "spiralityScore",
-      "label": "Spirality Score",
-      "comment": "Spirality component score (0-3 points).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SpiralityTestResult"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://schema.org/ratingValue",
-        "https://vocabulary.uncefact.org/untp/score"
-      ],
-      "broadMatch": [
-        "https://vocabulary.uncefact.org/untp/profileScore"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The spirality component score contributes to the public robustness score.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/spiralityTestMethod",
-      "localName": "spiralityTestMethod",
-      "label": "Spirality Test Method",
-      "comment": "Test method reference (e.g. ISO 16322-3).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SpiralityTestResult"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "seeAlso": [
-        "https://schema.org/measurementMethod",
-        "https://dpp-keystone.org/spec/v2/terms#testMethod"
-      ],
-      "broadMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#testMethod"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The spirality test-method reference (e.g. ISO 16322-3) makes the public result reproducible and verifiable.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/substanceConcentration",
       "localName": "substanceConcentration",
       "label": "Substance Concentration",
@@ -2702,27 +1925,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/technicalRecyclabilityScore",
-      "localName": "technicalRecyclabilityScore",
-      "label": "Technical Recyclability Score",
-      "comment": "Technical recyclability component score based on applicable recycling technology.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/TechnicalRecyclability"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://schema.org/ratingValue",
-        "https://vocabulary.uncefact.org/untp/score",
-        "https://vocabulary.uncefact.org/untp/profileScore"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The technical-recyclability component score contributes to the public recyclability score.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/textileFibreScientificName",
       "localName": "textileFibreScientificName",
       "label": "Textile Fibre Scientific Name",
@@ -2744,47 +1946,6 @@
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2011/1007",
       "accessLevelRationale": "The scientific fibre name accompanies the fibre name in consumer-facing labelling for certain fibres under Regulation (EU) 1007/2011 (labelling per Arts. 14-16).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2011/1007"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/visualInspectionScore",
-      "localName": "visualInspectionScore",
-      "label": "Visual Inspection Score",
-      "comment": "Visual inspection component score (0-4 points).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://schema.org/ratingValue"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The visual-inspection component score contributes to the public robustness score.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/visualInspectionTestMethod",
-      "localName": "visualInspectionTestMethod",
-      "label": "Visual Inspection Test Method",
-      "comment": "Test method reference (e.g. ISO 15487).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "seeAlso": [
-        "https://schema.org/measurementMethod"
-      ],
-      "closeMatch": [
-        "https://schema.org/measurementMethod"
-      ],
-      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The visual-inspection test-method reference (e.g. ISO 15487) makes the public result reproducible and verifiable.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/textile/weightExcludingTrims",
@@ -2879,6 +2040,100 @@
           "localName": "Underwear",
           "label": "Underwear",
           "comment": "Undergarments and intimate apparel."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/AssessmentMethod",
+      "localName": "AssessmentMethod",
+      "label": "AssessmentMethod",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/JRCRecyclabilityScoring",
+          "localName": "JRCRecyclabilityScoring",
+          "label": "JRC Recyclability Scoring",
+          "comment": "Recyclability score 0-10 of the EU Preparatory Study: elastane content above 15 % (20 % for\nPA6-rich blends over 80 %) makes the product non-recyclable (score 0); otherwise each sorting criterion\nmet earns a point (same inner/outer composition, free from printings, coatings, sequins and dyes,\nmono-material) and the applicable recycling technology adds the technical recyclability points."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/JRCRobustnessScoring",
+          "localName": "JRCRobustnessScoring",
+          "label": "JRC Robustness Scoring",
+          "comment": "Composite robustness score 0-10 of the EU Preparatory Study: after 5 cleaning cycles (ISO 6330)\nspirality earns 0-3 points, dimensional change 0-3 points and the visual inspection 0-4 points.\nThresholds differ by fabric type. Spirality, woven: >6%=0, 5.5-6%=1, 5-5.5%=2, <=5%=3; knitted:\n>7%=0, 6-7%=1, 5-6%=2, <=5%=3. Dimensional change, woven: >4%=0, 3.5-4%=1, 3-3.5%=2, <=3%=3;\nknitted: >6%=0, 5.5-6%=1, 5-5.5%=2, <=5%=3."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/AssessmentStandard",
+      "localName": "AssessmentStandard",
+      "label": "AssessmentStandard",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO105",
+          "localName": "ISO105",
+          "label": "ISO 105",
+          "comment": "Textiles - Tests for colour fastness (multi-part standard)."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO12945",
+          "localName": "ISO12945",
+          "label": "ISO 12945",
+          "comment": "Textiles - Determination of fabric propensity to surface pilling, fuzzing or matting."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO12947",
+          "localName": "ISO12947",
+          "label": "ISO 12947",
+          "comment": "Textiles - Determination of the abrasion resistance of fabrics by the Martindale method."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO13934_1",
+          "localName": "ISO13934_1",
+          "label": "ISO 13934-1",
+          "comment": "Textiles - Tensile properties of fabrics - Part 1: Determination of maximum force and elongation at maximum force using the strip method."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO13937",
+          "localName": "ISO13937",
+          "label": "ISO 13937",
+          "comment": "Textiles - Tear properties of fabrics (multi-part standard)."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO15487",
+          "localName": "ISO15487",
+          "label": "ISO 15487",
+          "comment": "Textiles - Method for assessing the appearance of apparel and other textile end products after domestic washing and drying."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO16322_3",
+          "localName": "ISO16322_3",
+          "label": "ISO 16322-3",
+          "comment": "Textiles - Determination of spirality after laundering - Part 3: Woven and knitted garments."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO3759",
+          "localName": "ISO3759",
+          "label": "ISO 3759",
+          "comment": "Textiles - Preparation, marking and measuring of fabric specimens and garments in tests for determination of dimensional change."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO4484_1",
+          "localName": "ISO4484_1",
+          "label": "ISO 4484-1",
+          "comment": "Textiles and textile products - Microplastics from textile sources - Part 1: Determination of material loss from fabrics during washing."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO6330",
+          "localName": "ISO6330",
+          "label": "ISO 6330",
+          "comment": "Textiles - Domestic washing and drying procedures for textile testing."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/JRCTextilePrepStudy",
+          "localName": "JRCTextilePrepStudy",
+          "label": "JRC Textile Preparatory Study, 3rd Milestone",
+          "comment": "EU Preparatory Study on Textiles (JRC, December 2025): the robustness and recyclability scoring methodologies for ESPR textile requirements."
         }
       ]
     },
@@ -3117,6 +2372,70 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/ConditionType",
+      "localName": "ConditionType",
+      "label": "ConditionType",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/SpecimenFabricType",
+          "localName": "SpecimenFabricType",
+          "label": "Specimen Fabric Type",
+          "comment": "The fabric type of the tested specimen, which selects the scoring table (knitted or woven); the coded value is an eutex:FabricType individual."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/Criterion",
+      "localName": "Criterion",
+      "label": "Criterion",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/FreeFromCoatings",
+          "localName": "FreeFromCoatings",
+          "label": "Free From Coatings",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/FreeFromDyes",
+          "localName": "FreeFromDyes",
+          "label": "Free From Dyes",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/FreeFromPrintings",
+          "localName": "FreeFromPrintings",
+          "label": "Free From Printings",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/FreeFromSequins",
+          "localName": "FreeFromSequins",
+          "label": "Free From Sequins",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/MonoMaterial",
+          "localName": "MonoMaterial",
+          "label": "Mono-Material",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/SameInnerOuterComposition",
+          "localName": "SameInnerOuterComposition",
+          "label": "Same Inner and Outer Composition",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/TechnicalRecyclabilityCriterion",
+          "localName": "TechnicalRecyclabilityCriterion",
+          "label": "Technical Recyclability",
+          "comment": ""
+        }
+      ]
+    },
+    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/DurabilityClass",
       "localName": "DurabilityClass",
       "label": "Durability Class",
@@ -3335,6 +2654,32 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/IndicatorKind",
+      "localName": "IndicatorKind",
+      "label": "IndicatorKind",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/DurabilityRating",
+          "localName": "DurabilityRating",
+          "label": "Durability Rating",
+          "comment": "Durability class A-E; the coded value is an eutex:DurabilityClass individual."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/RobustnessScore",
+          "localName": "RobustnessScore",
+          "label": "Robustness Score",
+          "comment": "Composite robustness score 0-10 by eutex:JRCRobustnessScoring (unitCode C62)."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/SheddingRiskLevel",
+          "localName": "SheddingRiskLevel",
+          "label": "Shedding Risk Level",
+          "comment": "Microfibre shedding risk band; the coded value is an eutex:MicroplasticRiskLevel individual."
+        }
+      ]
+    },
+    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/LCIACategoryCode",
       "localName": "LCIACategoryCode",
       "label": "LCIA Category Code",
@@ -3401,6 +2746,92 @@
           "localName": "MediumShedding",
           "label": "Medium Shedding",
           "comment": "Medium microfiber shedding risk (50-500 mg/kg per wash). Typical synthetic fabrics."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter",
+      "localName": "PerformanceParameter",
+      "label": "PerformanceParameter",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/AbrasionResistance",
+          "localName": "AbrasionResistance",
+          "label": "Abrasion Resistance",
+          "comment": "Resistance of the fabric to wear by rubbing, as Martindale cycles to breakdown."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ColourChange",
+          "localName": "ColourChange",
+          "label": "Colour Change",
+          "comment": "Colour change of the garment after washing, as an ISO 15487 grade 1-5."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ColourFastness",
+          "localName": "ColourFastness",
+          "label": "Colour Fastness",
+          "comment": "Resistance of the colour to washing, light or rubbing, as a grey-scale grade 1-5."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/DimensionalStability",
+          "localName": "DimensionalStability",
+          "label": "Dimensional Stability",
+          "comment": "Dimensional change (shrinkage or stretch) after washing, in percent."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ElastaneContent",
+          "localName": "ElastaneContent",
+          "label": "Elastane Content",
+          "comment": "Elastane (spandex) share of the total product weight, in percent."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/FabricAppearance",
+          "localName": "FabricAppearance",
+          "label": "Fabric Appearance",
+          "comment": "Surface appearance of the fabric after washing, as an ISO 15487 grade 1-5."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/MicrofibreRelease",
+          "localName": "MicrofibreRelease",
+          "label": "Microfibre Release",
+          "comment": "Material released from the fabric per wash, in milligrams per stated fabric mass."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/NonTextilePartsAppearance",
+          "localName": "NonTextilePartsAppearance",
+          "label": "Non-Textile Parts Appearance",
+          "comment": "Condition of buttons, zips and other non-textile parts after washing, as an ISO 15487 grade 1-5."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/PillingResistance",
+          "localName": "PillingResistance",
+          "label": "Pilling Resistance",
+          "comment": "Resistance to surface pilling, fuzzing or matting, as a grade 1-5."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/SeamAppearance",
+          "localName": "SeamAppearance",
+          "label": "Seam Appearance",
+          "comment": "Appearance of the seams after washing, as an ISO 15487 grade 1-5."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/Spirality",
+          "localName": "Spirality",
+          "label": "Spirality",
+          "comment": "Twisting of a garment after laundering, in percent."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/TearStrength",
+          "localName": "TearStrength",
+          "label": "Tear Strength",
+          "comment": "Tear force of the fabric, in newtons."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/TensileStrength",
+          "localName": "TensileStrength",
+          "label": "Tensile Strength",
+          "comment": "Maximum tensile force of the fabric, in newtons."
         }
       ]
     },
@@ -3495,52 +2926,64 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/TestStandard",
-      "localName": "TestStandard",
-      "label": "Test Standard",
-      "comment": "Test standards referenced in the EU Preparatory Study for textile robustness and durability testing.",
+      "id": "https://ref.openepcis.org/extensions/common/assessment/TestMethod",
+      "localName": "TestMethod",
+      "label": "TestMethod",
+      "comment": "",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO105",
-          "localName": "ISO105",
-          "label": "ISO 105",
-          "comment": "Textiles - Tests for colour fastness (multi-part standard)."
+          "id": "https://ref.openepcis.org/extensions/eu/textile/AppearanceAfterWashingTest",
+          "localName": "AppearanceAfterWashingTest",
+          "label": "Appearance After Washing Test",
+          "comment": "Visual inspection of apparel after domestic washing and drying; colour change, fabric appearance, seam appearance and non-textile parts are each graded 1-5, 5 meaning no change (unitCode C62)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO12945",
-          "localName": "ISO12945",
-          "label": "ISO 12945",
-          "comment": "Textiles - Determination of fabric propensity to surface pilling, fuzzing or matting."
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ColourFastnessTest",
+          "localName": "ColourFastnessTest",
+          "label": "Colour Fastness Test",
+          "comment": "Colour fastness on the grey scale; the result is a grade 1-5, 5 best (unitCode C62)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO12947",
-          "localName": "ISO12947",
-          "label": "ISO 12947",
-          "comment": "Textiles - Determination of the abrasion resistance of fabrics by the Martindale method."
+          "id": "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTest",
+          "localName": "DimensionalChangeTest",
+          "label": "Dimensional Change Test",
+          "comment": "Dimensional change (shrinkage or stretch) after washing; the result is the largest absolute change in percent (unitCode P1)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO15487",
-          "localName": "ISO15487",
-          "label": "ISO 15487",
-          "comment": "Textiles - Method for assessing the appearance of apparel and other textile end products after domestic washing and drying."
+          "id": "https://ref.openepcis.org/extensions/eu/textile/MartindaleAbrasionTest",
+          "localName": "MartindaleAbrasionTest",
+          "label": "Martindale Abrasion Test",
+          "comment": "Abrasion resistance by the Martindale method: rubs until specimen breakdown; the result is the number of cycles (unitCode C62)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO16322_3",
-          "localName": "ISO16322_3",
-          "label": "ISO 16322-3",
-          "comment": "Textiles - Determination of spirality after laundering - Part 3: Woven and knitted garments."
+          "id": "https://ref.openepcis.org/extensions/eu/textile/MicrofibreReleaseTest",
+          "localName": "MicrofibreReleaseTest",
+          "label": "Microfibre Release Test",
+          "comment": "Material loss from fabrics during washing (unitCode MGM per stated fabric mass)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO3759",
-          "localName": "ISO3759",
-          "label": "ISO 3759",
-          "comment": "Textiles - Preparation, marking and measuring of fabric specimens and garments in tests for determination of dimensional change."
+          "id": "https://ref.openepcis.org/extensions/eu/textile/PillingTest",
+          "localName": "PillingTest",
+          "label": "Pilling Test",
+          "comment": "Propensity to surface pilling, fuzzing or matting; the result is a grade 1-5, 5 best (unitCode C62)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO6330",
-          "localName": "ISO6330",
-          "label": "ISO 6330",
-          "comment": "Textiles - Domestic washing and drying procedures for textile testing."
+          "id": "https://ref.openepcis.org/extensions/eu/textile/SpiralityTest",
+          "localName": "SpiralityTest",
+          "label": "Spirality Test",
+          "comment": "Spirality after laundering; the result is the spirality in percent (unitCode P1)."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/TearStrengthTest",
+          "localName": "TearStrengthTest",
+          "label": "Tear Strength Test",
+          "comment": "Tear force of the fabric (unitCode NEW)."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/TensileStrengthTest",
+          "localName": "TensileStrengthTest",
+          "label": "Tensile Strength Test",
+          "comment": "Maximum tensile force by the strip method (unitCode NEW)."
         }
       ]
     },
@@ -3579,6 +3022,26 @@
           "localName": "TechnicalTextiles",
           "label": "Technical Textiles",
           "comment": "Functional textiles for industrial, medical, protective, or automotive applications."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/Threshold",
+      "localName": "Threshold",
+      "label": "Threshold",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ElastaneContentLimit",
+          "localName": "ElastaneContentLimit",
+          "label": "Elastane Content Limit",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ElastaneContentLimitPA6",
+          "localName": "ElastaneContentLimitPA6",
+          "label": "Elastane Content Limit (PA6-Rich Blends)",
+          "comment": ""
         }
       ]
     },

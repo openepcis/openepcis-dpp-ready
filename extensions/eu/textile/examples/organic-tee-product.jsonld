@@ -164,36 +164,209 @@
   "eutex:hasDurabilityInfo": {
     "id": "https://id.gs1.org/01/09521890340331#durability",
     "type": "eutex:DurabilityInfo",
-    "eutex:expectedWashCycles": 60,
-    "eutex:hasDurabilityClass": {
-      "@id": "eutex:DurabilityB"
-    },
-    "eutex:pillingResistance": 4,
-    "eutex:colorFastness": 4,
-    "eutex:dimensionalStability": 3,
-    "eutex:abrasionResistance": 25000,
-    "eutex:expectedLifetimeYears": 4
+    "oea:hasSubAssessment": [
+      {
+        "id": "https://id.gs1.org/01/09521890340331#durability-abrasion",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:MartindaleAbrasionTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:AbrasionResistance"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 25000,
+            "gs1:unitCode": "C62"
+          }
+        }
+      },
+      {
+        "id": "https://id.gs1.org/01/09521890340331#durability-pilling",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:PillingTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:PillingResistance"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 4,
+            "gs1:unitCode": "C62"
+          }
+        }
+      },
+      {
+        "id": "https://id.gs1.org/01/09521890340331#durability-colour-fastness",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:ColourFastnessTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:ColourFastness"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 4,
+            "gs1:unitCode": "C62"
+          }
+        }
+      },
+      {
+        "id": "https://id.gs1.org/01/09521890340331#durability-dimensional-change",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:DimensionalChangeTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:DimensionalStability"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 3,
+            "gs1:unitCode": "P1"
+          }
+        }
+      }
+    ],
+    "oea:hasIndicator": [
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:NumberOfUseCycles"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 60,
+          "gs1:unitCode": "C62"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:ExpectedLifetime"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 4,
+          "gs1:unitCode": "ANN"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "eutex:DurabilityRating"
+        },
+        "oea:hasCategoricalValue": {
+          "@id": "eutex:DurabilityB"
+        }
+      }
+    ]
   },
   "_comment_recyclability": "Single-fibre organic cotton scores well on sorting/recyclability (no elastane, no coatings).",
   "eutex:hasRecyclabilityAssessment": {
     "id": "https://id.gs1.org/01/09521890340331#recyclability",
     "type": "eutex:RecyclabilityAssessment",
-    "eutex:recyclabilityScore": "8.5",
-    "eutex:isRecyclable": true,
-    "eutex:elastaneContentPercent": 0,
-    "eutex:hasSortingFactors": {
-      "type": "eutex:SortingFactors",
-      "eutex:sameInnerOuterComposition": true,
-      "eutex:freeFromPrintings": true,
-      "eutex:freeFromCoatings": true,
-      "eutex:freeFromSequins": true
+    "oea:hasMethod": {
+      "@id": "eutex:JRCRecyclabilityScoring"
     },
-    "eutex:hasTechnicalRecyclability": {
-      "type": "eutex:TechnicalRecyclability",
-      "eutex:technicalRecyclabilityScore": 5,
-      "eutex:hasApplicableRecyclingTechnology": {
-        "@id": "eutex:MechanicalRecycling"
+    "eutex:hasApplicableRecyclingTechnology": {
+      "@id": "eutex:MechanicalRecycling"
+    },
+    "oea:hasResult": [
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "eutex:ElastaneContent"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 0,
+          "gs1:unitCode": "P1"
+        },
+        "oea:isEvaluatedAgainst": {
+          "@id": "eutex:ElastaneContentLimit"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:Satisfied"
+        }
+      },
+      {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
+          "@id": "eutex:SameInnerOuterComposition"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:Satisfied"
+        },
+        "oea:awardedScore": 1
+      },
+      {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
+          "@id": "eutex:FreeFromPrintings"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:Satisfied"
+        },
+        "oea:awardedScore": 1
+      },
+      {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
+          "@id": "eutex:FreeFromCoatings"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:Satisfied"
+        },
+        "oea:awardedScore": 1
+      },
+      {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
+          "@id": "eutex:FreeFromSequins"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:Satisfied"
+        },
+        "oea:awardedScore": 1
+      },
+      {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
+          "@id": "eutex:TechnicalRecyclabilityCriterion"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:Satisfied"
+        },
+        "oea:awardedScore": 5
       }
+    ],
+    "oea:hasIndicator": {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": {
+        "@id": "oea:RecyclabilityScore"
+      },
+      "oea:hasIndicatorValue": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": "8.5",
+        "gs1:unitCode": "C62"
+      },
+      "oea:hasDerivationMethod": {
+        "@id": "eutex:JRCRecyclabilityScoring"
+      }
+    },
+    "oea:hasOutcome": {
+      "@id": "oea:Satisfied"
     }
   },
   "oec:hasRecycledContentDetails": {

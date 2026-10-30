@@ -2,7 +2,7 @@
 
 Regulatory frame: ESPR 2024/1781 Art. 7–9, Annex III
 
-Coverage: 200 properties — 135 Public / 36 AuthorizedOnly / 6 Restricted / 23 inherited / 0 UNCLASSIFIED; 10 legally locked.
+Coverage: 188 properties — 124 Public / 36 AuthorizedOnly / 6 Restricted / 22 inherited / 0 UNCLASSIFIED; 10 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
@@ -89,7 +89,6 @@ Coverage: 200 properties — 135 Public / 36 AuthorizedOnly / 6 Restricted / 23 
 | `hasEnvironmentalProductDeclaration` | Environmental Product Declaration | **Public** |  | eli/reg/2024/1781 | EPDs under ISO 14025/EN 15804 are published, third-party-verified declarations by definition. |
 | `hasEprJurisdiction` | EPR Jurisdiction | **AuthorizedOnly** |  | eli/dir/2008/98 | Per-member-state registration coverage maps the producer's market footprint for enforcement (WFD Art. 8a). |
 | `hasEprScheme` | EPR Scheme Operator | **AuthorizedOnly** |  | eli/dir/2008/98 | The producer's PRO affiliation is compliance-registry detail for authorities and schemes (WFD Art. 8a). |
-| `hasExpectedLifespan` | Expected Lifespan | **Public** |  | eli/reg/2024/1781 | Durability expressed as expected lifespan is a consumer-facing product parameter under ESPR Art. 7(5) and Annex I(a). |
 | `hasExtendedProducerResponsibility` | Extended Producer Responsibility | **AuthorizedOnly** |  | eli/dir/2008/98 | EPR registration records serve scheme operators and enforcement under WFD Art. 8a; member-state registers are not uniformly public. |
 | `hasFacilityCertifications` | Facility Certifications | **Restricted** |  | eli/reg/2023/1542 | Per-facility certification detail identifies specific sites and shares the facility record's authority-only audience (battery precedent). |
 | `hasFacilityInformation` | Facility Information | **Restricted** |  | eli/reg/2023/1542 | Full facility records (location, type, certifications) are commercially sensitive supply-chain mapping data for authorities and designated operators (battery precedent). |
@@ -123,7 +122,6 @@ Coverage: 200 properties — 135 Public / 36 AuthorizedOnly / 6 Restricted / 23 
 | `hasSoftwareUpdatesAvailability` | Software Updates Availability | **Public** |  | eli/reg/2024/1781 | The guaranteed software/firmware update period is a consumer durability parameter (ESPR Annex I; smartphone/tablet labelling precedent). |
 | `hasSparePartsAvailability` | Spare Parts Availability | **Public** |  | eli/reg/2024/1781 | Spare-parts availability duration is a consumer purchase parameter under ESPR Annex I(d) and existing ecodesign implementing measures. |
 | `hasSubstancesOfConcern` | Substances of Concern | **Public** |  | eli/reg/2024/1781 | Tracking substances of concern is a stated DPP objective (ESPR Art. 7(5)(b)) and presence data is already public via ECHA's SCIP database; textile module agrees on Public. |
-| `hasTechnicalLifetime` | Technical Lifetime | **Public** |  | eli/reg/2024/1781 | Technical lifetime under specified conditions is a durability parameter directed at end users per ESPR Annex I(a). |
 | `hasTraceabilityPerformance` | Traceability Performance | **Public** |  | eli/reg/2024/1781 | Aggregate traceability metrics substantiate public transparency claims without exposing individual suppliers (ESPR Art. 7; CSDDD context). |
 | `hasTradeItemPieces` | Trade Item Pieces | **Public** |  | eli/reg/2024/1781 | The piece set is the container for piece data that is itself Public throughout; gating it would hide public product identification behind a closed door. |
 | `hasVerificationBody` | Verification Body | **Public** |  | eli/reg/2024/1781 | Naming the third-party verifier is what makes public assurances checkable; battery module serves the same name Public. |
@@ -154,7 +152,6 @@ Coverage: 200 properties — 135 Public / 36 AuthorizedOnly / 6 Restricted / 23 
 | `passportIssueDate` | Passport Issue Date | **Public** |  | eli/reg/2024/1781 | The issue date is neutral passport metadata every audience needs to judge the currency of the information. |
 | `passportStatus` | Passport Status | **Public** |  | eli/reg/2024/1781 | Consumers and repairers must be able to tell an active passport from an archived or invalid one before relying on its content. |
 | `passportVersion` | Passport Version | **Public** |  | eli/reg/2024/1781 | Version metadata lets any reader confirm they are looking at the current passport revision (EN 18223 lifecycle management). |
-| `performanceClass` | Performance Class | **Public** |  | eli/reg/2024/1781 | Performance/efficiency classes (e.g. A-G) exist precisely for at-a-glance consumer comparison, mirroring the public energy-label and battery CF classes. |
 | `postConsumerRecycledContent` | Post-Consumer Recycled Content | **Public** |  | eli/reg/2024/1781 | The post-consumer split substantiates the public recycled-content claim (ESPR Annex I(h); PPWR recycled-content rules). |
 | `precautionaryStatement` | Precautionary Statement (P-statement) | **Public** | 🔒 eli/reg/2008/1272 | eli/reg/2008/1272 | P-statements are mandatory elements of the public CLP label (Reg. (EC) 1272/2008 Art. 17). |
 | `preConsumerRecycledContent` | Pre-Consumer Recycled Content | **Public** |  | eli/reg/2024/1781 | The pre-consumer split substantiates the public recycled-content claim (ESPR Annex I(h)). |
@@ -163,19 +160,12 @@ Coverage: 200 properties — 135 Public / 36 AuthorizedOnly / 6 Restricted / 23 
 | `productCategoryRules` | Product Category Rules | **Public** |  | eli/reg/2024/1781 | The PCR/PEFCR reference is EPD metadata without which the declared results are not comparable; ISO 14025 declarations are public documents. |
 | `productToPackagingRatio` | Product-to-Packaging Ratio | **Public** |  | eli/reg/2024/1781 | Annex I ecodesign parameter; derived from weights GS1 already publishes per trade item. |
 | `professionalRepairNetwork` | Professional Repair Network | **Public** |  | eli/dir/2024/1799 | Consumers must be able to find authorised repairers; the Right-to-Repair Directive builds on public repairer discovery (Dir. 2024/1799). |
-| `recoverableRate` | Recoverable Rate | **Public** |  | eli/reg/2024/1781 | End-of-life recoverability is consumer-facing circularity information, same tier as oec:recyclabilityRate. |
-| `recyclabilityMethodology` | Recyclability Methodology | **Public** |  | eli/reg/2024/1781 | A public recyclability claim is only checkable with its methodology reference, mirroring the public carbonFootprintMethodology. |
-| `recyclabilityRate` | Recyclability Rate | **Public** |  | eli/reg/2024/1781 | The recyclable fraction is consumer-facing under ESPR Annex I(i); electronics module serves the same name Public. |
-| `recyclabilityScore` | Recyclability Score | **Public** |  | eli/reg/2024/1781 | Numeric recyclability scores (e.g. JRC textile methodology) exist for consumer comparison; textile module serves it Public. |
 | `recyclableContent` | Recyclable Content | **Public** |  | eli/reg/2024/1781 | The recyclable fraction is a consumer comparison parameter under ESPR Annex I(i). |
 | `recycledContent` | Recycled Content | **Public** |  | eli/reg/2024/1781 | Recycled-content share is a consumer-facing sustainability parameter (ESPR Annex I(h)); the Battery Regulation makes it public on-pack/passport. |
-| `recyclingCollectionRate` | Recycling Collection Rate | **Public** |  | eli/reg/2024/1781 | Collection rates are scheme-level statistics published by EPR schemes and member states; nothing product-confidential. |
 | `registrationNumber` | Registration Number | **AuthorizedOnly** |  | eli/reg/2024/1781 | Official registration/licence numbers support authority verification; broadcasting them invites impersonation without serving consumers. |
 | `regulatoryActStatus` | Regulatory Act Status | **Public** |  | eli/reg/2024/1781 | The product's status under a named regulatory act (ACTIVE/EXEMPT/PENDING) is public market-access information. |
 | `regulatoryPermitIdentification` | Regulatory Permit Identification | **AuthorizedOnly** |  | eli/reg/2024/1781 | Permit and type-examination certificate identifiers serve authority verification; publishing them aids certificate fraud, not consumers. |
 | `remanufacturingDate` | Remanufacturing / refurbishment date | **Public** |  | eli/reg/2024/1781 | Whether and when a product was remanufactured or refurbished is purchase-relevant consumer information supporting ESPR's reuse objectives (Annex I). |
-| `repairabilityClass` | Repairability Class | **Public** |  | eli/reg/2024/1781 | A repairability class is the at-a-glance consumer form of the repairability score, mirroring public energy-label classes. |
-| `repairabilityScore` | Repairability Score | **Public** |  | eli/reg/2024/1781 | Repairability index scores exist to steer purchase decisions (ESPR Annex I(b)); the French Indice de Réparabilité mandates display at point of sale. |
 | `repairInformationPortalUrl` | Repair Information Portal URL | **Public** |  | eli/dir/2024/1799 | The Right-to-Repair Directive requires manufacturers to make repair information available via a freely accessible portal (Dir. 2024/1799 Art. 4/5). |
 | `repairProviderName` | Repair Provider Name | **Public** |  | eli/dir/2024/1799 | The name of a repair provider that has agreed to be listed is consumer-facing directory information (Dir. 2024/1799). |
 | `repairProviderUrl` | Repair Provider URL | **Public** |  | eli/dir/2024/1799 | The listed repair provider's URL is consumer-facing directory information (Dir. 2024/1799). |
@@ -192,13 +182,11 @@ Coverage: 200 properties — 135 Public / 36 AuthorizedOnly / 6 Restricted / 23 
 | `supplyChainTransparencyUrl` | Supply-Chain Transparency URL | **Public** |  | eli/dir/2024/1760 | CSDDD Art. 16 requires companies to publicly communicate on due diligence; a transparency endpoint is public by function. |
 | `takeBackIncentive` | Take-Back Incentive | **Public** |  | eli/dir/2008/98 | A take-back incentive only steers consumer behaviour if consumers can see it; textile module serves the same name Public. |
 | `takeBackUrl` | Take-Back URL | **Public** |  | eli/dir/2008/98 | The consumer-facing take-back landing page is public by function; textile module serves the same name Public. |
-| `testedConditions` | Tested Conditions | **(inherited)** |  |  |  |
 | `thirdPartyAssurancesUrl` | Third Party Assurances URL | **Public** |  | eli/reg/2024/1781 | Third-party assurance links substantiate public claims and are public by function; battery module serves the same name Public. |
 | `tradeItemPieceCount` | Trade Item Piece Count | **Public** |  | eli/reg/2024/1781 | How many physical pieces constitute the trade item is basic product identification within the consumer-facing ESPR Annex III information. |
 | `tradeItemPieceDescription` | Trade Item Piece Description | **Public** |  | eli/reg/2024/1781 | The human-readable description of each piece (jacket, trousers, booklet) is consumer product identification per ESPR Annex III. |
 | `tradeItemPieceNumber` | Trade Item Piece Number | **Public** |  | eli/reg/2024/1781 | The sequential piece number carries no commercial content and is needed to identify which piece of the item one holds. |
 | `tradeItemPieceOf` | Trade Item Piece Of | **Public** |  | eli/reg/2024/1781 | Linking a piece to its parent GTIN is product identification equivalent to the public product identifier itself. |
-| `usageCycles` | Usage Cycles | **Public** |  | eli/reg/2024/1781 | Expected usage cycles are a durability metric of the same consumer-comparison kind as expected lifespan (ESPR Annex I(a)). |
 | `utilityFactor` | Utility Factor | **Public** |  | eli/reg/2024/1781 | Durability relative to the industry average is a consumer comparison metric of the same kind as expected lifespan (ESPR Annex I(a)). |
 | `value` | Value | **(inherited)** |  |  |  |
 | `valueDataType` | Value Data Type | **(inherited)** |  |  |  |

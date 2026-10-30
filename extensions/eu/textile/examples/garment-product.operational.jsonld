@@ -8,6 +8,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521000000018",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/textile/",
     "https://schema.org/"
@@ -122,23 +123,102 @@
   },
   "hasDurabilityInfo": {
     "type": "DurabilityInfo",
-    "abrasionResistance": 40000,
-    "colorFastness": 4,
-    "dimensionalStability": 2,
-    "expectedLifetimeYears": 8,
-    "expectedWashCycles": 150,
-    "hasDurabilityClass": "DurabilityB",
-    "hasTearStrength": {
-      "type": "QuantitativeValue",
-      "unitCode": "NEW",
-      "value": 35
-    },
-    "hasTensileStrength": {
-      "type": "QuantitativeValue",
-      "unitCode": "NEW",
-      "value": 800
-    },
-    "pillingResistance": 4
+    "hasIndicator": [
+      {
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/NumberOfUseCycles",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": 150
+        }
+      },
+      {
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/ExpectedLifetime",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "ANN",
+          "value": 8
+        }
+      },
+      {
+        "hasCategoricalValue": "https://ref.openepcis.org/extensions/eu/textile/DurabilityB",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/textile/DurabilityRating"
+      }
+    ],
+    "hasSubAssessment": [
+      {
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/MartindaleAbrasionTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "C62",
+            "value": 40000
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/AbrasionResistance"
+        }
+      },
+      {
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/PillingTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "C62",
+            "value": 4
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/PillingResistance"
+        }
+      },
+      {
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/ColourFastnessTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "C62",
+            "value": 4
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/ColourFastness"
+        }
+      },
+      {
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "P1",
+            "value": 2
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/DimensionalStability"
+        }
+      },
+      {
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/TensileStrengthTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "NEW",
+            "value": 800
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/TensileStrength"
+        }
+      },
+      {
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/TearStrengthTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "NEW",
+            "value": 35
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/TearStrength"
+        }
+      }
+    ]
   },
   "hasDyeingFacility": {
     "type": "FacilityInformation",
@@ -187,11 +267,20 @@
   "hasFabricType": "WovenNonDenim",
   "hasMicroplasticInfo": {
     "type": "MicroplasticInfo",
-    "hasMicroplasticRiskLevel": "MediumShedding",
-    "hasSheddingRate": {
-      "type": "QuantitativeValue",
-      "unitCode": "MGM",
-      "value": 120
+    "hasIndicator": {
+      "type": "Indicator",
+      "hasCategoricalValue": "https://ref.openepcis.org/extensions/eu/textile/MediumShedding",
+      "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/textile/SheddingRiskLevel"
+    },
+    "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/MicrofibreReleaseTest",
+    "hasResult": {
+      "type": "MeasurementResult",
+      "hasMeasuredValue": {
+        "type": "QuantitativeValue",
+        "unitCode": "MGM",
+        "value": 120
+      },
+      "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/MicrofibreRelease"
     },
     "microplasticMitigationMeasures": [
       {
@@ -225,21 +314,56 @@
   "hasProductCategory": "Textiles",
   "hasRecyclabilityAssessment": {
     "type": "RecyclabilityAssessment",
-    "elastaneContentPercent": 5,
-    "hasSortingFactors": {
-      "type": "SortingFactors",
-      "freeFromCoatings": false,
-      "freeFromPrintings": true,
-      "freeFromSequins": true,
-      "sameInnerOuterComposition": false
+    "hasApplicableRecyclingTechnology": "ThermoChemicalRecycling",
+    "hasIndicator": {
+      "type": "Indicator",
+      "hasDerivationMethod": "https://ref.openepcis.org/extensions/eu/textile/JRCRecyclabilityScoring",
+      "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityScore",
+      "hasIndicatorValue": {
+        "type": "QuantitativeValue",
+        "unitCode": "C62",
+        "value": "6.5"
+      }
     },
-    "hasTechnicalRecyclability": {
-      "type": "TechnicalRecyclability",
-      "hasApplicableRecyclingTechnology": "ThermoChemicalRecycling",
-      "technicalRecyclabilityScore": 4
-    },
-    "isRecyclable": true,
-    "recyclabilityScore": "6.5"
+    "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/JRCRecyclabilityScoring",
+    "hasOutcome": "Satisfied",
+    "hasResult": [
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "P1",
+          "value": 5
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/ElastaneContent",
+        "hasOutcome": "Satisfied",
+        "isEvaluatedAgainst": "https://ref.openepcis.org/extensions/eu/textile/ElastaneContentLimit"
+      },
+      {
+        "awardedScore": 0,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/textile/SameInnerOuterComposition",
+        "hasOutcome": "NotSatisfied"
+      },
+      {
+        "awardedScore": 1,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/textile/FreeFromPrintings",
+        "hasOutcome": "Satisfied"
+      },
+      {
+        "awardedScore": 0,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/textile/FreeFromCoatings",
+        "hasOutcome": "NotSatisfied"
+      },
+      {
+        "awardedScore": 1,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/textile/FreeFromSequins",
+        "hasOutcome": "Satisfied"
+      },
+      {
+        "awardedScore": 4,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/textile/TechnicalRecyclabilityCriterion",
+        "hasOutcome": "Satisfied"
+      }
+    ]
   },
   "hasRecycledContentDeclaration": [
     {
@@ -291,44 +415,125 @@
   "hasRepairabilityInfo": {
     "type": "RepairabilityInfo",
     "diyRepairPossible": true,
+    "hasIndicator": [
+      {
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/RepairabilityScore",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "7.2"
+        }
+      },
+      {
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/RepairabilityClass",
+        "indicatorText": "B"
+      }
+    ],
     "hasSparePartsAvailability": {
       "type": "QuantitativeValue",
       "unitCode": "ANN",
       "value": 10
     },
-    "professionalRepairNetwork": "https://files.example.org/files/products/09521000001428/docs/repair-network.pdf",
-    "repairabilityClass": "B",
-    "repairabilityScore": "7.2"
+    "professionalRepairNetwork": "https://files.example.org/files/products/09521000001428/docs/repair-network.pdf"
   },
   "hasRobustnessAssessment": {
     "type": "RobustnessAssessment",
-    "cleaningCyclesBeforeTest": 5,
-    "hasDimensionalChangeTest": {
-      "type": "DimensionalChangeTestResult",
-      "dimensionalChangePercentage": "3.2",
-      "dimensionalChangeScore": 2,
-      "dimensionalChangeTestMethod": "ISO 3759",
-      "hasTestStandard": "ISO3759"
+    "hasCondition": {
+      "type": "AssessmentCondition",
+      "hasConditionConcept": "https://ref.openepcis.org/extensions/eu/textile/WovenNonDenim",
+      "hasConditionType": "https://ref.openepcis.org/extensions/eu/textile/SpecimenFabricType"
     },
-    "hasRobustnessTestFabricType": "WovenNonDenim",
-    "hasSpiralityTest": {
-      "type": "SpiralityTestResult",
-      "hasTestStandard": "ISO16322_3",
-      "spiralityPercentage": "4.2",
-      "spiralityScore": 3,
-      "spiralityTestMethod": "ISO 16322-3"
+    "hasIndicator": {
+      "type": "Indicator",
+      "hasDerivationMethod": "https://ref.openepcis.org/extensions/eu/textile/JRCRobustnessScoring",
+      "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/textile/RobustnessScore",
+      "hasIndicatorValue": {
+        "type": "QuantitativeValue",
+        "unitCode": "C62",
+        "value": 8
+      },
+      "isDerivedFrom": [
+        "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-spirality",
+        "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-dimensional-change",
+        "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-visual-inspection"
+      ]
     },
-    "hasVisualInspection": {
-      "type": "VisualInspectionResult",
-      "colourChangeRating": 4,
-      "fabricAppearanceRating": 4,
-      "hasTestStandard": "ISO15487",
-      "nonTextilePartsRating": 4,
-      "seamAppearanceRating": 5,
-      "visualInspectionScore": 3,
-      "visualInspectionTestMethod": "ISO 15487"
+    "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/JRCRobustnessScoring",
+    "hasParameterSetting": {
+      "type": "ParameterSetting",
+      "hasParameter": "https://ref.openepcis.org/extensions/common/assessment/NumberOfCycles",
+      "hasParameterValue": {
+        "type": "QuantitativeValue",
+        "unitCode": "C62",
+        "value": 5
+      }
     },
-    "robustnessScore": 8
+    "hasSubAssessment": [
+      {
+        "awardedScore": 3,
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/SpiralityTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "P1",
+            "value": "4.2"
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/Spirality"
+        }
+      },
+      {
+        "awardedScore": 2,
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "P1",
+            "value": "3.2"
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/DimensionalStability"
+        }
+      },
+      {
+        "awardedScore": 3,
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/AppearanceAfterWashingTest",
+        "hasResult": [
+          {
+            "hasMeasuredValue": {
+              "type": "QuantitativeValue",
+              "unitCode": "C62",
+              "value": 4
+            },
+            "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/ColourChange"
+          },
+          {
+            "hasMeasuredValue": {
+              "type": "QuantitativeValue",
+              "unitCode": "C62",
+              "value": 4
+            },
+            "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/FabricAppearance"
+          },
+          {
+            "hasMeasuredValue": {
+              "type": "QuantitativeValue",
+              "unitCode": "C62",
+              "value": 5
+            },
+            "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/SeamAppearance"
+          },
+          {
+            "hasMeasuredValue": {
+              "type": "QuantitativeValue",
+              "unitCode": "C62",
+              "value": 4
+            },
+            "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/NonTextilePartsAppearance"
+          }
+        ]
+      }
+    ]
   },
   "hasSubstancesOfConcern": {
     "type": "SubstanceOfConcern",

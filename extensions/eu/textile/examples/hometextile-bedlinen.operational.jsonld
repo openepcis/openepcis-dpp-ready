@@ -8,6 +8,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521987000056",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/textile/",
     "https://schema.org/"
@@ -43,17 +44,78 @@
   },
   "hasDurabilityInfo": {
     "type": "DurabilityInfo",
-    "colorFastness": 4,
-    "dimensionalStability": 2,
-    "expectedLifetimeYears": 5,
-    "expectedWashCycles": 200,
-    "hasDurabilityClass": "DurabilityA",
-    "hasTensileStrength": {
-      "type": "QuantitativeValue",
-      "unitCode": "NEW",
-      "value": 480
-    },
-    "pillingResistance": 5
+    "hasIndicator": [
+      {
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/NumberOfUseCycles",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": 200
+        }
+      },
+      {
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/ExpectedLifetime",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "ANN",
+          "value": 5
+        }
+      },
+      {
+        "hasCategoricalValue": "https://ref.openepcis.org/extensions/eu/textile/DurabilityA",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/textile/DurabilityRating"
+      }
+    ],
+    "hasSubAssessment": [
+      {
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/PillingTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "C62",
+            "value": 5
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/PillingResistance"
+        }
+      },
+      {
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/ColourFastnessTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "C62",
+            "value": 4
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/ColourFastness"
+        }
+      },
+      {
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "P1",
+            "value": 2
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/DimensionalStability"
+        }
+      },
+      {
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/TensileStrengthTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "NEW",
+            "value": 480
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/TensileStrength"
+        }
+      }
+    ]
   },
   "hasEnvironmentalFootprint": {
     "type": "EnvironmentalFootprint",

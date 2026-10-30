@@ -170,19 +170,109 @@
   },
   "eutex:hasDurabilityInfo": {
     "type": "eutex:DurabilityInfo",
-    "eutex:expectedWashCycles": 200,
-    "eutex:hasDurabilityClass": {
-      "@id": "eutex:DurabilityA"
-    },
-    "eutex:pillingResistance": 5,
-    "eutex:colorFastness": 4,
-    "eutex:dimensionalStability": 2,
-    "eutex:hasTensileStrength": {
-      "type": "gs1:QuantitativeValue",
-      "gs1:value": 480,
-      "gs1:unitCode": "NEW"
-    },
-    "eutex:expectedLifetimeYears": 5
+    "oea:hasSubAssessment": [
+      {
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:PillingTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:PillingResistance"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 5,
+            "gs1:unitCode": "C62"
+          }
+        }
+      },
+      {
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:ColourFastnessTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:ColourFastness"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 4,
+            "gs1:unitCode": "C62"
+          }
+        }
+      },
+      {
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:DimensionalChangeTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:DimensionalStability"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 2,
+            "gs1:unitCode": "P1"
+          }
+        }
+      },
+      {
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:TensileStrengthTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:TensileStrength"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 480,
+            "gs1:unitCode": "NEW"
+          }
+        }
+      }
+    ],
+    "oea:hasIndicator": [
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:NumberOfUseCycles"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 200,
+          "gs1:unitCode": "C62"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:ExpectedLifetime"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 5,
+          "gs1:unitCode": "ANN"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "eutex:DurabilityRating"
+        },
+        "oea:hasCategoricalValue": {
+          "@id": "eutex:DurabilityA"
+        }
+      }
+    ]
   },
   "eutex:takeBackProgramAvailable": true,
   "eutex:hasTakeBackProgram": {
@@ -200,17 +290,15 @@
   "gs1:certification": [
     {
       "type": "gs1:CertificationDetails",
-      "gs1:certificationStandard": "Organic cotton fibre supply chain",
-      "gs1:certificationAgency": "Global Organic Textile Standard",
       "gs1:certificationStandard": "GOTS v7.0",
+      "gs1:certificationAgency": "Global Organic Textile Standard",
       "gs1:certificationIdentification": "GOTS-DE-2026-LINA-0042",
       "gs1:certificationURI": "https://www.global-standard.org/find-certified-suppliers"
     },
     {
       "type": "gs1:CertificationDetails",
-      "gs1:certificationStandard": "Hazardous-substance compliance",
-      "gs1:certificationAgency": "OEKO-TEX",
       "gs1:certificationStandard": "OEKO-TEX Standard 100 Class I",
+      "gs1:certificationAgency": "OEKO-TEX",
       "gs1:certificationIdentification": "OEKO-TEX-100-2026-IN-2841",
       "gs1:certificationURI": "https://www.oeko-tex.com/en/our-standards/oeko-tex-standard-100"
     }
