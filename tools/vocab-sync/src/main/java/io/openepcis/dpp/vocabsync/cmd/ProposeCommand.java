@@ -275,7 +275,10 @@ public class ProposeCommand implements Runnable {
                 .append("@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix dcterms: <http://purl.org/dc/terms/> .\n")
                 .append("@prefix skos: <http://www.w3.org/2004/02/skos/core#> .\n")
                 .append("@prefix eudpp: <https://w3id.org/eudpp#> .\n");
-        for (String m : byModule.keySet()) {
+        // Every module prefix, not just the ones with drafts: a draft's domain or range may name a
+        // class of any module (eutex:SubstanceOfConcern as the range of a core property).
+        ttl.append("@prefix gs1: <https://ref.gs1.org/voc/> .\n@prefix schema: <https://schema.org/> .\n");
+        for (String m : new java.util.TreeSet<>(PREFIX.keySet())) {
             ttl.append("@prefix ").append(PREFIX.get(m)).append(": <").append(namespace(m)).append("> .\n");
         }
         ttl.append('\n');
