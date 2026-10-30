@@ -1,6 +1,7 @@
 package io.openepcis.dpp.vocabsync;
 
 import org.apache.poi.ss.usermodel.Cell;
+import io.openepcis.dpp.vocabsync.model.CoverageRow;
 import org.apache.poi.ss.usermodel.DataValidation;
 import org.apache.poi.ss.usermodel.DataValidationConstraint;
 import org.apache.poi.ss.usermodel.DataValidationHelper;
@@ -58,6 +59,17 @@ public final class ReviewWorkbook {
             8, 10, 12, 14, 38, 30, 44, 8, 14, 22, 90, 60, 60, 22, 22};
 
     public static void write(Path out, List<Decision> rows, String stamp, String bulkModel, String qaModel) {
+        write(out, rows, stamp, bulkModel, qaModel, null);
+    }
+
+    /**
+     * As {@link #write(Path, List, String, String, String)}, plus a {@code coverage} sheet listing every
+     * upstream term of a reverse-coverage run with its bucket, nearest term of ours, graded proposal and
+     * advisor recommendation, with a free Decision column for the curator. {@code curate} reads only the
+     * first sheet, so the extra sheet never changes what gets applied.
+     */
+    public static void write(Path out, List<Decision> rows, String stamp, String bulkModel, String qaModel,
+                             List<CoverageRow> coverage) {
         // review rows first (need judgement), then by module, then action — surfaces the contested set.
         List<Decision> sorted = new ArrayList<>(rows);
         sorted.sort(Comparator
@@ -118,7 +130,8 @@ public final class ReviewWorkbook {
             dv.setShowErrorBox(true);
             sheet.addValidationData(dv);
 
-            writeLegend(wb, sorted, stamp, bulkModel, qaModel);
+            if (coverage != null && !coverage.isEmpty()) writeCoverage(wb, coverage, headerStyle, reviewStyle);
+            writeLegend(wb, sorted, stamp, bulkModel, qaModel, coverage != null && !coverage.isEmpty());
 
             Files.createDirectories(out.getParent());
             try (OutputStream os = Files.newOutputStream(out)) {
@@ -166,8 +179,128 @@ public final class ReviewWorkbook {
         return accepted;
     }
 
+    private static final String[] COVERAGE_HEADERS = {
+            "Decision", "Bucket", "Module", "Type", "New", "Upstream term", "Label", "Definition",
+            "Nearest ours", "cos", "Graded proposal", "Advice", "Advice detail", "Advice rationale", "Notes",
+            "upstreamIri"};
+    private static final int[] COVERAGE_WIDTHS = {
+            14, 11, 11, 9, 5, 34, 30, 70, 30, 6, 36, 14, 34, 70, 30, 60};
+    private static final String[] COVERAGE_DECISIONS = {
+            "accept advice", "map", "adopt", "carrier", "out of scope", "defer"};
+
+    /** The reverse-coverage sheet: one row per upstream term, the curator fills Decision and Notes. */
+    private static void writeCoverage(Workbook wb, List<CoverageRow> coverage,
+                                      org.apache.poi.ss.usermodel.CellStyle headerStyle,
+                                      org.apache.poi.ss.usermodel.CellStyle flagStyle) {
+        Sheet sheet = wb.createSheet("coverage");
+        Row header = sheet.createRow(0);
+        for (int c = 0; c < COVERAGE_HEADERS.length; c++) {
+            Cell cell = header.createCell(c);
+            cell.setCellValue(COVERAGE_HEADERS[c]);
+            cell.setCellStyle(headerStyle);
+            sheet.setColumnWidth(c, COVERAGE_WIDTHS[c] * 256);
+        }
+        // Needs-a-decision rows first (uncovered, then the policy buckets), covered rows last.
+        List<CoverageRow> sorted = new ArrayList<>(coverage);
+        sorted.sort(Comparator.comparingInt((CoverageRow r) -> switch (r.bucket()) {
+                    case "uncovered" -> 0;
+                    case "proposed" -> 1;
+                    case "epcis-cbv" -> 2;
+                    case "code-list" -> 3;
+                    default -> 4;
+                })
+                .thenComparing(r -> r.module() == null ? "" : r.module())
+                .thenComparing(CoverageRow::localName));
+        int r = 1;
+        for (CoverageRow row : sorted) {
+            Row x = sheet.createRow(r++);
+            set(x, 0, "");
+            Cell b = set(x, 1, row.bucket());
+            if ("uncovered".equals(row.bucket())) b.setCellStyle(flagStyle);
+            set(x, 2, row.module());
+            set(x, 3, row.type());
+            set(x, 4, row.isNew() ? "yes" : "");
+            set(x, 5, row.localName());
+            set(x, 6, row.label());
+            set(x, 7, row.definition());
+            set(x, 8, row.nearestOurId());
+            set(x, 9, row.nearestOurId() == null ? "" : fmt(row.nearestCosine()));
+            String prop = row.coveredBy() != null ? row.coveredBy()
+                    : row.proposalOurId() != null
+                    ? row.proposalOurId() + " " + row.proposalPredicate() + " (" + row.proposalTier()
+                    + (row.proposalConfidence() != null ? " " + fmt(row.proposalConfidence()) : "") + ")" : "";
+            set(x, 10, prop);
+            set(x, 11, row.adviceAction());
+            String detail = "";
+            if (row.adviceProposedName() != null && !row.adviceProposedName().isBlank()) {
+                detail = (row.adviceModule() == null ? "" : row.adviceModule() + ":") + row.adviceProposedName();
+            } else if (row.adviceCounterpart() != null && !row.adviceCounterpart().isBlank()) {
+                detail = row.adviceCounterpart();
+            } else if (row.adviceModule() != null && !row.adviceModule().isBlank()) {
+                detail = row.adviceModule();
+            }
+            set(x, 12, detail);
+            set(x, 13, row.adviceRationale());
+            set(x, 14, "");
+            set(x, 15, row.upstreamIri());
+        }
+        sheet.setColumnHidden(COVERAGE_HEADERS.length - 1, true);
+        sheet.createFreezePane(1, 1);
+        int lastRow = Math.max(1, sorted.size());
+        sheet.setAutoFilter(new CellRangeAddress(0, lastRow, 0, COVERAGE_HEADERS.length - 1));
+        DataValidationHelper dvh = sheet.getDataValidationHelper();
+        DataValidation dv = dvh.createValidation(dvh.createExplicitListConstraint(COVERAGE_DECISIONS),
+                new CellRangeAddressList(1, lastRow, 0, 0));
+        dv.setShowErrorBox(true);
+        sheet.addValidationData(dv);
+    }
+
+    /** One curator decision from the coverage sheet (rows with an empty Decision are skipped). */
+    public record CoverageDecision(String upstreamIri, String localName, String module, String type,
+                                   String bucket, String decision, String notes, String adviceAction,
+                                   String adviceDetail, String gradedProposal) {
+    }
+
+    /** Read the coverage sheet's filled-in Decision rows; empty if the workbook has no coverage sheet. */
+    public static List<CoverageDecision> readCoverageDecisions(Path in) {
+        List<CoverageDecision> out = new ArrayList<>();
+        try (InputStream is = Files.newInputStream(in); Workbook wb = new XSSFWorkbook(is)) {
+            Sheet sheet = wb.getSheet("coverage");
+            if (sheet == null) return out;
+            Row header = sheet.getRow(0);
+            if (header == null) return out;
+            Map<String, Integer> col = new LinkedHashMap<>();
+            for (Cell c : header) col.put(str(c).trim(), c.getColumnIndex());
+            for (int r = 1; r <= sheet.getLastRowNum(); r++) {
+                Row row = sheet.getRow(r);
+                if (row == null) continue;
+                String decision = cell(row, col, "Decision").trim();
+                String iri = cell(row, col, "upstreamIri").trim();
+                if (decision.isEmpty() || iri.isEmpty()) continue;
+                String advice = cell(row, col, "Advice").trim();
+                if (decision.equalsIgnoreCase("accept advice")) {
+                    decision = switch (advice.toUpperCase(Locale.ROOT)) {
+                        case "MAP" -> "map";
+                        case "ADOPT" -> "adopt";
+                        case "CARRIER" -> "carrier";
+                        case "OUT_OF_SCOPE" -> "out of scope";
+                        case "DEFER" -> "defer";
+                        default -> "defer";
+                    };
+                }
+                out.add(new CoverageDecision(iri, cell(row, col, "Upstream term").trim(),
+                        cell(row, col, "Module").trim(), cell(row, col, "Type").trim(),
+                        cell(row, col, "Bucket").trim(), decision, cell(row, col, "Notes").trim(),
+                        advice, cell(row, col, "Advice detail").trim(), cell(row, col, "Graded proposal").trim()));
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+        return out;
+    }
+
     private static void writeLegend(Workbook wb, List<Decision> rows, String stamp,
-                                    String bulkModel, String qaModel) {
+                                    String bulkModel, String qaModel, boolean withCoverage) {
         Sheet s = wb.createSheet("legend");
         s.setColumnWidth(0, 110 * 256);
         long review = rows.stream().filter(d -> "review".equals(d.scrutiny())).count();
@@ -191,6 +324,26 @@ public final class ReviewWorkbook {
                 "Do not edit the hidden columns (ourIri, upstreamIri, predicate, oldPredicate) — they are the keys",
                 "used to apply your choices. Sorting and filtering are safe; every row carries its own keys.",
         };
+        String[] coverageLines = {
+                "",
+                "COVERAGE SHEET (reverse run: one row per upstream term)",
+                "  Bucket   covered = one of ours already maps to it (column 'Graded proposal' shows by whom);",
+                "           proposed = the graded pass found a match the TTL lacks — it is ALSO a row on the decisions sheet;",
+                "           code-list = an individual/concept, adopted by value reference, never by SKOS;",
+                "           epcis-cbv = upstream EVENT module, EPCIS/CBV carries it by policy (Advice names the construct);",
+                "           uncovered = class/property nothing of ours maps to and no accepted match.",
+                "  Advice   MAP / ADOPT / CARRIER / DEFER / OUT_OF_SCOPE from the bulk model, with 'Advice detail' = the counterpart",
+                "           or the proposed module:localName. A recommendation only; nothing on this sheet is applied by curate.",
+                "  Decision your call per row (dropdown). 'accept advice' takes the Advice column as the decision;",
+                "           'adopt' = add a term of ours (name it in Notes if not the proposal); 'map' = map to the term in Notes;",
+                "           'carrier' = EPCIS/CBV/GS1 carries it; 'out of scope' = leave; 'defer' = next round.",
+        };
+        if (withCoverage) {
+            String[] all = new String[lines.length + coverageLines.length];
+            System.arraycopy(lines, 0, all, 0, lines.length);
+            System.arraycopy(coverageLines, 0, all, lines.length, coverageLines.length);
+            lines = all;
+        }
         for (int i = 0; i < lines.length; i++) {
             s.createRow(i).createCell(0).setCellValue(lines[i]);
         }

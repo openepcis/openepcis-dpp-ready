@@ -74,6 +74,8 @@ public class UpstreamIndex {
     @ConfigProperty(name = "vocab-sync.batterypass-root") String batterypassRoot;
     @ConfigProperty(name = "vocab-sync.batterypass-ready-vocab") String batterypassReadyVocab;
 
+    private List<Source> sourceList = List.of();
+
     /** Term namespace prefix for the BatteryPass SAMM aspect models (all aspects share it). */
     private static final String BATTERYPASS_NS = "urn:samm:io.BatteryPass";
 
@@ -83,6 +85,35 @@ public class UpstreamIndex {
     public synchronized List<UpstreamTerm> all() {
         if (terms == null) loadAll();
         return terms;
+    }
+
+    /**
+     * The typed individuals and concepts of one RDF source (code-list values such as life-cycle
+     * modules or impact categories). They are NOT part of the index — our side holds classes and
+     * properties only, so nothing retrieves against them — but a coverage report has to list them.
+     */
+    public synchronized List<UpstreamTerm> individuals(String vocabId) {
+        all();
+        List<UpstreamTerm> out = new ArrayList<>();
+        for (Source s : sourceList) {
+            if (s.kind() != Kind.RDF || !s.vocabId().equals(vocabId) || !Files.isReadable(s.path())) continue;
+            Model model = RDFDataMgr.loadModel(s.path().toString());
+            String version = firstVersion(model, s.namespace());
+            ResIterator subjects = model.listSubjects();
+            while (subjects.hasNext()) {
+                Resource r = subjects.next();
+                if (r.isAnon() || r.getURI() == null) continue;
+                if (!r.getURI().startsWith(s.namespace())) continue;
+                if (RdfSupport.termType(r) != TermType.OTHER) continue;
+                if (!r.hasProperty(RDF.type)) continue;
+                if (r.hasProperty(RDF.type, OWL.Ontology)) continue;
+                String label = RdfSupport.firstString(r, RDFS.label, RdfSupport.SKOS_PREF_LABEL);
+                String comment = RdfSupport.firstString(r, RDFS.comment, RdfSupport.SKOS_DEFINITION);
+                out.add(new UpstreamTerm(s.vocabId(), r.getURI(), r.getLocalName(), label, comment,
+                        TermType.OTHER, version));
+            }
+        }
+        return out;
     }
 
     public boolean contains(String iri) {
@@ -172,6 +203,7 @@ public class UpstreamIndex {
         sources.add(Source.rdf("bpr", "https://ref.openepcis.org/vocab/batterypass-ready/1.3#",
                 root.resolve(batterypassReadyVocab)));
 
+        sourceList = sources;
         terms = new ArrayList<>();
         byIri = new HashMap<>();
         for (Source s : sources) {

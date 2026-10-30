@@ -408,6 +408,8 @@ Each module follows [Semantic Versioning](https://semver.org/) and is versioned 
 
 Modules declare their minimum `common/core` dependency in their respective `README.md` and `CHANGELOG.md`.
 
+How a release is cut, end to end, is in [`docs/RELEASE.md`](./docs/RELEASE.md).
+
 ## GS1 Standards Used
 
 | Standard | Purpose |

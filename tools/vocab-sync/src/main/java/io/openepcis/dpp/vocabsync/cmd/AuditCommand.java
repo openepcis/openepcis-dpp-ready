@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.openepcis.dpp.vocabsync.Embeddings;
 import io.openepcis.dpp.vocabsync.Grader;
 import io.openepcis.dpp.vocabsync.OurIndex;
+import io.openepcis.dpp.vocabsync.PairJudge;
 import io.openepcis.dpp.vocabsync.QaGrader;
 import io.openepcis.dpp.vocabsync.RdfSupport;
 import io.openepcis.dpp.vocabsync.ReportWriter;
@@ -53,8 +54,7 @@ public class AuditCommand implements Runnable {
     @Inject OurIndex ourIndex;
     @Inject UpstreamIndex upstreamIndex;
     @Inject Retriever retriever;
-    @Inject Grader grader;
-    @Inject QaGrader qaGrader;
+    @Inject PairJudge judge;
     @Inject VerdictCache verdicts;
     @Inject ReportWriter reportWriter;
     @Inject Embeddings embeddings;
@@ -179,7 +179,7 @@ public class AuditCommand implements Runnable {
             for (ExistingMapping m : t.existing()) {
                 UpstreamTerm up = upstreamIndex.get(m.targetIri());
                 if (up != null && up.type() == t.type()) {
-                    perTerm.put(up.iri(), new Pair(t, up, scoreOf(t, up), true));
+                    perTerm.put(up.iri(), new Pair(t, up, judge.scoreOf(t, up), true));
                 }
             }
             work.addAll(perTerm.values());
@@ -191,7 +191,7 @@ public class AuditCommand implements Runnable {
         AtomicInteger done = new AtomicInteger();
         int total = work.size();
         List<Finding> findings = Multi.createFrom().iterable(work)
-                .onItem().transformToUni(p -> gradeCachedUni(p.term(), p.up())
+                .onItem().transformToUni(p -> judge.gradeCachedUni(p.term(), p.up(), retries)
                         .onItem().transform(v -> {
                             int n = done.incrementAndGet();
                             if (n % 25 == 0 || n == total) {
@@ -199,7 +199,7 @@ public class AuditCommand implements Runnable {
                                 verdicts.save();
                             }
                             return Optional.ofNullable(
-                                    classify(p.term(), p.up(), p.cosine(), v, p.existingTarget()));
+                                    judge.classify(p.term(), p.up(), p.cosine(), v, minConfidence));
                         }))
                 .merge(Math.max(1, concurrency))
                 .collect().asList()
@@ -245,12 +245,12 @@ public class AuditCommand implements Runnable {
                     .filter(f -> !targeted || rejudge.contains(key(f)))
                     .toList();
             System.err.printf("QA: verifying %d / %d findings with a %d-judge blind panel on %s%n",
-                    toQa.size(), findings.size(), selectedLenses().size(), qaModelName);
+                    toQa.size(), findings.size(), judge.selectedLenses(qaJudges).size(), qaModelName);
             AtomicInteger qd = new AtomicInteger();
             int qaTotal = toQa.size();
             List<Finding> verified = Multi.createFrom().iterable(toQa)
-                    .onItem().transformToUni(f -> qaPanelUni(f, ourByIri.get(f.ourIri()),
-                            upstreamIndex.get(f.upstreamIri()))
+                    .onItem().transformToUni(f -> judge.qaPanelUni(f, ourByIri.get(f.ourIri()),
+                            upstreamIndex.get(f.upstreamIri()), retries, qaJudges)
                             .onItem().transform(vf -> {
                                 int n = qd.incrementAndGet();
                                 if (n % 10 == 0 || n == qaTotal) {
@@ -309,100 +309,6 @@ public class AuditCommand implements Runnable {
         System.out.println("json:   " + json);
     }
 
-    /** Distinct QA lenses; a panel of these (run blind) gives decorrelated votes from the QA model. */
-    private static final List<String[]> QA_LENSES = List.of(
-            new String[]{"scope", "Lens: compare the DEFINITIONS' scope — are the two concepts the same, "
-                    + "strongly overlapping, or does one fully contain the other?"},
-            new String[]{"direction", "Lens: focus on HIERARCHY — is OUR term broader than, narrower than, "
-                    + "or equal in scope to the upstream term? Choose BROAD/NARROW only if one genuinely "
-                    + "subsumes the other."},
-            new String[]{"skeptic", "Lens: be a strict skeptic — default to NONE unless the concepts are "
-                    + "genuinely the same or clearly overlapping; a similar label with a differing definition, "
-                    + "domain, or range is NONE."},
-            new String[]{"neutral", "Lens: weigh definition, domain, and range together and choose the single "
-                    + "best relation."});
-
-    /** N distinct lenses (capped at the available set — extra judges at temperature 0 only duplicate). */
-    private List<String[]> selectedLenses() {
-        int n = Math.min(Math.max(1, qaJudges), QA_LENSES.size());
-        return QA_LENSES.subList(0, n);
-    }
-
-    /**
-     * QA panel: run {@code --qa-judges} blind judges (distinct lenses, NOT shown the bulk proposal) and
-     * {@link #reconcile} their votes against the bulk relation into a two-tier verdict. Each judge is
-     * cached by {@code (qa-model|lens, ourIri, upIri, contentSig)}; the judges for a finding run together
-     * and the blocking HTTP calls go on the worker pool. The outer merge bounds findings in flight.
-     */
-    private Uni<Finding> qaPanelUni(Finding f, OurTerm t, UpstreamTerm up) {
-        if (t == null || up == null) return Uni.createFrom().item(f);
-        String sig = contentSig(t, up);
-        List<Uni<Verdict>> judges = new ArrayList<>();
-        for (String[] lens : selectedLenses()) {
-            String lensId = lens[0], lensText = lens[1];
-            String modelTag = qaModelName + "|" + lensId;
-            Verdict cached = verdicts.get(modelTag, f.ourIri(), f.upstreamIri(), sig);
-            if (cached != null) {
-                judges.add(Uni.createFrom().item(cached));
-                continue;
-            }
-            Uni<Verdict> raw = Uni.createFrom().item((Supplier<Verdict>) () -> qaGrader.judgeBlind(
-                                    lensText, t.prefixedId(), t.type().label(), nz(t.label()), nz(t.comment()),
-                                    nz(t.domain()), nz(t.range()), up.vocabId(), up.iri(), up.type().label(),
-                                    nz(up.label()), nz(up.comment()), nz(up.domain()), nz(up.range())))
-                            .runSubscriptionOn(Infrastructure.getDefaultWorkerPool());
-            judges.add(raw
-                    .onFailure().retry().withBackOff(Duration.ofMillis(500), Duration.ofSeconds(8))
-                        .atMost(Math.max(1, retries))
-                    .onItem().invoke(v -> verdicts.put(modelTag, f.ourIri(), f.upstreamIri(), sig, v))
-                    .onFailure().recoverWithItem(e ->
-                            new Verdict(Verdict.Relation.NONE, 0, "qa failed: " + e.getMessage())));
-        }
-        return Uni.join().all(judges).andFailFast().onItem().transform(votes -> {
-            Recon r = reconcile(f.relation(), votes);
-            return f.withQaPanel(r.relation(), r.confidence(), r.rationale(), r.tier(), r.predicate());
-        });
-    }
-
-    /** Panel outcome: the gating tier, the panel-consensus relation, its confidence, and the predicate to write. */
-    record Recon(String tier, Verdict.Relation relation, double confidence, String rationale, String predicate) {
-    }
-
-    /**
-     * Reconcile a panel of blind votes against the bulk relation into a two-tier verdict:
-     * STRONG (strict majority equals the bulk relation → write that relation), WEAK (majority is a
-     * different non-NONE relation → existence agreed but not the grade → write skos:closeMatch),
-     * REJECT (majority NONE), SPLIT (no strict majority → leave for review). Pure for unit testing.
-     */
-    static Recon reconcile(Verdict.Relation bulk, List<Verdict> votes) {
-        int k = votes.size();
-        Map<Verdict.Relation, Integer> tally = new java.util.EnumMap<>(Verdict.Relation.class);
-        Map<Verdict.Relation, Double> confSum = new java.util.EnumMap<>(Verdict.Relation.class);
-        for (Verdict v : votes) {
-            tally.merge(v.relation(), 1, Integer::sum);
-            confSum.merge(v.relation(), v.confidence(), Double::sum);
-        }
-        Verdict.Relation maj = null;
-        int best = 0;
-        for (var e : tally.entrySet()) {
-            if (e.getValue() > best) { best = e.getValue(); maj = e.getKey(); }
-        }
-        String tallyStr = tally.toString();
-        if (maj == null || best * 2 <= k) {
-            return new Recon("SPLIT", Verdict.Relation.NONE, 0, "panel split " + tallyStr, null);
-        }
-        double conf = confSum.get(maj) / best;
-        if (maj == Verdict.Relation.NONE) {
-            return new Recon("REJECT", Verdict.Relation.NONE, conf, "panel majority NONE " + tallyStr, null);
-        }
-        if (maj == bulk) {
-            return new Recon("STRONG", maj, conf, "panel agrees " + tallyStr, maj.predicate());
-        }
-        return new Recon("WEAK", maj, conf,
-                "panel agrees a relation but not the grade (bulk " + bulk + ") " + tallyStr,
-                Verdict.Relation.CLOSE.predicate());
-    }
-
     /** Stable finding key: (our IRI, upstream IRI). Matches the prior-report join key. */
     private static String key(Finding f) {
         return f.ourIri() + "\t" + f.upstreamIri();
@@ -442,119 +348,6 @@ public class AuditCommand implements Runnable {
             return Verdict.Relation.valueOf(s);
         } catch (IllegalArgumentException e) {
             return Verdict.Relation.NONE;
-        }
-    }
-
-    private double scoreOf(OurTerm t, UpstreamTerm up) {
-        try {
-            return Embeddings.cosine(embeddings.embed(t.embedText()), embeddings.embed(up.embedText()));
-        } catch (RuntimeException e) {
-            return 0;
-        }
-    }
-
-    /**
-     * Verdict for a pair: a cache hit resolves immediately, otherwise the reactive grader
-     * runs with exponential-backoff retry. The verdict is cached only on success, so a
-     * terminal failure leaves the pair ungraded for the next run to retry.
-     */
-    private Uni<Verdict> gradeCachedUni(OurTerm t, UpstreamTerm up) {
-        String sig = contentSig(t, up);
-        Verdict cached = verdicts.get(t.iri(), up.iri(), sig);
-        if (cached != null) return Uni.createFrom().item(cached);
-        // langchain4j's structured-output AiService is blocking, so run it as a deferred
-        // Uni on the worker pool. merge(concurrency) upstream bounds how many run at once.
-        return Uni.createFrom().item(() -> grader.grade(
-                        t.prefixedId(), t.type().label(), nz(t.label()), nz(t.comment()),
-                        nz(t.domain()), nz(t.range()), up.vocabId(), up.iri(), up.type().label(),
-                        nz(up.label()), nz(up.comment()), nz(up.domain()), nz(up.range())))
-                .runSubscriptionOn(Infrastructure.getDefaultWorkerPool())
-                .onFailure().retry()
-                    .withBackOff(Duration.ofMillis(500), Duration.ofSeconds(8))
-                    .atMost(Math.max(1, retries))
-                .onItem().invoke(v -> verdicts.put(t.iri(), up.iri(), sig, v))
-                .onFailure().recoverWithItem(e ->
-                        new Verdict(Verdict.Relation.NONE, 0, "grade failed: " + e.getMessage()));
-    }
-
-    /** Classify a verdict against the term's existing TTL mappings → a Finding (or null to skip). */
-    private Finding classify(OurTerm t, UpstreamTerm up, double cosine, Verdict v, boolean existingTarget) {
-        List<ExistingMapping> forIri = t.existing().stream()
-                .filter(m -> m.targetIri().equals(up.iri())).toList();
-        String gradedExisting = forIri.stream().map(ExistingMapping::predicate)
-                .filter(AuditCommand::isGraded).findFirst().orElse(null);
-        boolean anyExisting = !forIri.isEmpty();
-        String existingPred = anyExisting ? forIri.get(0).predicate() : null;
-
-        if (!v.relation().isMatch()) {
-            // Grader says NONE. Only interesting if the TTL asserts a graded mapping here.
-            if (gradedExisting != null) {
-                return new Finding(t.moduleSlug(), t.prefixedId(), t.type().label(), t.iri(),
-                        up.vocabId(), up.iri(), up.label(), Verdict.Relation.NONE, null,
-                        v.confidence(), cosine, v.rationale(), Finding.Status.WRONG, gradedExisting,
-                        null, null, null, null, null);
-            }
-            return null;
-        }
-        if (v.confidence() < minConfidence) return null;
-
-        Finding.Status status;
-        if (!anyExisting) {
-            status = Finding.Status.MISSING;
-        } else if (gradedExisting == null) {
-            status = Finding.Status.WEAK; // only seeAlso so far
-        } else if (agrees(gradedExisting, v.relation())) {
-            status = Finding.Status.OK;
-        } else {
-            status = Finding.Status.WRONG;
-        }
-        return new Finding(t.moduleSlug(), t.prefixedId(), t.type().label(), t.iri(),
-                up.vocabId(), up.iri(), up.label(), v.relation(), v.relation().predicate(),
-                v.confidence(), cosine, v.rationale(), status, existingPred,
-                null, null, null, null, null);
-    }
-
-    /** A predicate counts as a graded assertion (vs informational seeAlso). */
-    private static boolean isGraded(String pred) {
-        String p = local(pred);
-        return p.equals("exactMatch") || p.equals("closeMatch") || p.equals("broadMatch")
-                || p.equals("narrowMatch") || p.equals("equivalentClass") || p.equals("equivalentProperty");
-    }
-
-    /** Does the existing graded predicate match the grader's proposed relation? */
-    private static boolean agrees(String existingPred, Verdict.Relation rel) {
-        String p = local(existingPred);
-        if ((p.equals("equivalentClass") || p.equals("equivalentProperty")))
-            return rel == Verdict.Relation.EXACT;
-        return rel.predicate() != null && local(rel.predicate()).equals(p);
-    }
-
-    private static String local(String prefixed) {
-        int i = prefixed.indexOf(':');
-        return i >= 0 ? prefixed.substring(i + 1) : prefixed;
-    }
-
-    private static String nz(String s) {
-        return s == null ? "(none)" : s;
-    }
-
-    /**
-     * Fingerprint of everything the grader sees for a pair except the IRIs (which are already in the
-     * cache key). Folding this into the verdict key means an upstream definition/label/domain edit
-     * that keeps the same IRI invalidates the cached verdict, so a re-run re-grades only moved pairs.
-     */
-    private static String contentSig(OurTerm t, UpstreamTerm up) {
-        String raw = String.join("\u0001",
-                t.type().label(), nz(t.label()), nz(t.comment()), nz(t.domain()), nz(t.range()),
-                up.type().label(), nz(up.label()), nz(up.comment()));
-        try {
-            byte[] h = java.security.MessageDigest.getInstance("SHA-1")
-                    .digest(raw.getBytes(java.nio.charset.StandardCharsets.UTF_8));
-            StringBuilder sb = new StringBuilder(16);
-            for (int i = 0; i < 8; i++) sb.append(String.format("%02x", h[i]));
-            return sb.toString();
-        } catch (java.security.NoSuchAlgorithmException e) {
-            return Integer.toHexString(raw.hashCode());
         }
     }
 }

@@ -62,6 +62,47 @@ public class OurIndex {
         return terms;
     }
 
+    /**
+     * Every cross-vocabulary mapping asserted anywhere in our ontologies, keyed by target IRI, from
+     * subjects of ANY type — {@link #load} keeps classes and properties, but our individuals (CBV
+     * values, EN 15804 indicators) carry pointers too, and a coverage report must count them.
+     * Values are {@code "<prefixedId> <predicate>"}.
+     */
+    public Map<String, List<String>> allMappings() {
+        Path extensions = Path.of(repoRoot).resolve("extensions").normalize();
+        Map<String, List<String>> out = new LinkedHashMap<>();
+        try (Stream<Path> walk = Files.walk(extensions)) {
+            List<Path> ttls = walk
+                    .filter(p -> p.getParent() != null && p.getParent().getFileName().toString().equals("ontology"))
+                    .filter(p -> p.getFileName().toString().endsWith(".ttl"))
+                    .sorted()
+                    .toList();
+            for (Path ttl : ttls) {
+                Model model = RDFDataMgr.loadModel(ttl.toString());
+                ResIterator subjects = model.listSubjects();
+                while (subjects.hasNext()) {
+                    Resource r = subjects.next();
+                    if (r.isAnon() || r.getURI() == null || !r.getURI().startsWith(OUR_NS_PREFIX)) continue;
+                    String prefix = model.getNsURIPrefix(r.getNameSpace());
+                    String id = prefix != null ? prefix + ":" + r.getLocalName() : r.getURI();
+                    for (Property pred : RdfSupport.MAPPING_PREDICATES) {
+                        var it = r.listProperties(pred);
+                        while (it.hasNext()) {
+                            RDFNode o = it.next().getObject();
+                            if (!o.isResource() || o.asResource().getURI() == null) continue;
+                            String pp = model.getNsURIPrefix(pred.getNameSpace());
+                            String predId = pp != null ? pp + ":" + pred.getLocalName() : pred.getLocalName();
+                            out.computeIfAbsent(o.asResource().getURI(), x -> new ArrayList<>()).add(id + " " + predId);
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+        return out;
+    }
+
     /** Module slug = the directory two levels above the .ttl (…/<slug>/ontology/<file>.ttl). */
     static String moduleSlugOf(Path ttl) {
         return ttl.getParent().getParent().getFileName().toString();

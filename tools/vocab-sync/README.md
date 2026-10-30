@@ -184,7 +184,8 @@ Commands:
 | `apply --report R [--status …] [--confirmed-only] [--min-qa-confidence X] [--rewrite] [--apply]` | Insert/rewrite mappings into the TTLs (dry-run unless `--apply`). Below `--min-qa-confidence` (0.75) an add becomes a non-committal `rdfs:seeAlso` in place of a graded relation; re-parses and restores on invalid output. |
 | `provenance [--report R] [--approve F] [--xlsx P] [--min-qa-confidence X]` | From the report(s), write `docs/skos-alignment/skos-alignment-review.md` (review sheet) + `docs/skos-alignment/alignment-provenance.{ttl,json}` (audit trail). `--report` reads one report (vs the `*-opus.json` glob); `--xlsx` also writes the editable Excel curation workbook. |
 | `curate --report R [--xlsx P] [--stamp D] [--base-branch B] [--push]` | Read a curator-edited workbook and rebuild the `vocab-sync/upstream-<stamp>` branch from only the `Apply?=yes` rows (adds, rewrites, **and** removes). See [Curate via Excel](#curate-via-excel). |
-| `reverse [--vocab V] [--min-cosine X]` | Reverse coverage: upstream terms with no incoming mapping that are embedding-near one of ours → `docs/skos-alignment/skos-reverse-coverage.{md,json}`. |
+| `reverse [--vocab V] [--baseline TTL --only-new] [--module-map J] [--grade] [--advise] [--stamp D]` | Reverse coverage: every upstream term in one bucket — covered / proposed / code-list / epcis-cbv / uncovered → `docs/skos-alignment/skos-reverse-coverage.{md,json}`. `--grade` LLM-grades the nearest terms of ours (same judge, cache and QA panel as `audit`) and writes a findings report in the audit format (`--report`), so `provenance --xlsx` and `curate` work on it unchanged; `--advise` asks the bulk model MAP / ADOPT / CARRIER / OUT_OF_SCOPE for what stays uncovered. `--baseline` is an earlier copy of the upstream TTL: terms absent there are "new" (`--only-new` restricts the run to them). See [Reverse coverage of an upstream release](#reverse-coverage-of-an-upstream-release). |
+| `coverage-decisions --xlsx P [--out J]` | Export the curator's filled-in Decision rows of a workbook's `coverage` sheet as JSON (adopt / map / carrier / out of scope / defer) for the follow-up work; nothing is applied. |
 | `manifest [--qa-model M]` | Reproducibility manifest: models, parameters, upstream versions + cache hashes → `docs/skos-alignment/alignment-run-manifest.json`. |
 | `fetch --from URL\|file --against cached [--save]` | Diff a refreshed upstream vocabulary against the cached copy (added/removed/changed terms) to decide when to re-audit. |
 | `fetch --all [--save]` | Refresh **every** configured upstream source (`vocab-sync.source.*.url`), diff each, and write `docs/skos-alignment/skos-upstream-delta.json`. |
@@ -245,6 +246,54 @@ re-run as often as you like; each run rebuilds the branch from scratch, so it is
 The `.xlsx` is a transient local artifact (gitignored); the curated mappings live on the branch.
 `apply --apply-removes` is the destructive primitive `curate` uses to drop a QA-rejected
 (`WRONG` + `qaRelation=NONE`) mapping; it is gated behind that flag and `--approve`.
+
+## Reverse coverage of an upstream release
+
+The audit answers "for each of OUR terms, what upstream matches?". When an upstream vocabulary
+releases, the other direction matters: which of ITS new terms does nothing of ours map to, and
+what should happen with each? `reverse` answers that per term, graded and advised, and lands
+everything in one workbook with two sheets.
+
+```bash
+J=target/quarkus-app/quarkus-run.jar
+S=2026-10-30
+
+# 0) The previous mirror as baseline (so the run is limited to what the release added) and a
+#    term → module map (from the per-module upstream files; only used for the Module column
+#    and the EVENT policy bucket).
+git show <pre-release-commit>:extensions/upstream/cirpass2-eudpp/ontology/eudpp.ttl > tools/vocab-sync/.cache/eudpp-baseline.ttl
+
+# 1) Coverage with grading and advice. Classes/properties nothing of ours maps to get their
+#    nearest terms of ours LLM-graded (QA panel included); what stays uncovered gets a
+#    MAP / ADOPT / CARRIER / OUT_OF_SCOPE recommendation.
+QA_CHAT_MODEL=qwen/qwen3-32b java -jar $J reverse --vocab eudpp \
+     --baseline tools/vocab-sync/.cache/eudpp-baseline.ttl --only-new \
+     --module-map tools/vocab-sync/.cache/eudpp-term-modules.json \
+     --grade --advise --concurrency 1 --stamp $S \
+     --out docs/skos-alignment/skos-reverse-coverage-eudpp-$S \
+     --report docs/skos-alignment/skos-completeness-reverse-eudpp-$S
+
+# 2) One workbook: the 'decisions' sheet (graded mappings, Apply? yes/no — the usual curate
+#    input) plus the 'coverage' sheet (every upstream term with bucket, nearest ours, proposal,
+#    advice and a Decision dropdown).
+java -jar $J provenance --report docs/skos-alignment/skos-completeness-reverse-eudpp-$S.json \
+     --coverage docs/skos-alignment/skos-reverse-coverage-eudpp-$S.json \
+     --xlsx docs/skos-alignment/skos-alignment-review-eudpp-$S.xlsx --qa-model qwen/qwen3-32b --stamp $S
+
+# 3) After the curator edited both sheets:
+#    - mappings: rebuild a branch from main with only the accepted rows
+java -jar $J curate --xlsx docs/skos-alignment/skos-alignment-review-eudpp-$S.xlsx \
+     --report docs/skos-alignment/skos-completeness-reverse-eudpp-$S.json --base-branch main --stamp $S
+#    - everything else (adopt a term, let EPCIS carry it, leave it): export and work through it
+java -jar $J coverage-decisions --xlsx docs/skos-alignment/skos-alignment-review-eudpp-$S.xlsx \
+     --out docs/skos-alignment/coverage-decisions-eudpp-$S.json
+```
+
+Buckets, one per upstream term: **covered** (something of ours already maps to it, individuals
+included), **proposed** (the graded pass found a match the TTL lacks; it is also a decisions-sheet
+row), **code-list** (an individual or concept, adopted by value reference, never by SKOS),
+**epcis-cbv** (upstream EVENT module; EPCIS/CBV carries it by policy, the advice names the
+construct), **uncovered** (class/property with no mapping and no accepted match).
 
 ## Run it elsewhere / repoint the LLM
 
