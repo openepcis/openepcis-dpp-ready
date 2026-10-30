@@ -27,7 +27,7 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 
 | | Count |
 |---|---|
-| Modules | 12 — `common/{core,interop}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}`, `upstream/{gs1-rail}` |
+| Modules | 13 — `common/{core,interop,carrier}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}`, `upstream/{gs1-rail}` |
 | Classes | 106 |
 | Properties | 805 |
 | EPCIS Event Examples | 47 |
@@ -108,6 +108,7 @@ This monorepo provides a consistent, GS1-aligned approach to implementing Digita
 |--------|--------|------------|--------|---------|--------------|
 | [common/core](./extensions/common/core/) | Cross-cutting | ESPR 2024/1781 Framework | Preview | 0.9.9 | Apr 2026 |
 | [common/interop](./extensions/common/interop/) | Cross-cutting | Standards Harmonization (UNTP, CIRPASS2, JTC 24, BatteryPass) | Preview | 0.9.9 | Apr 2026 |
+| [common/carrier](./extensions/common/carrier/) | Cross-cutting | Data carrier authentication (NTAG 424 DNA SUN, NXP AN12196; RAIN RFID and signed QR reserved) | Preview | 0.9.9 | Oct 2026 (new module) |
 | [eu/battery](./extensions/eu/battery/) | EU | Battery Regulation 2023/1542 | Preview | 0.9.9 | Feb 2026 |
 | [eu/eudr](./extensions/eu/eudr/) | EU | Deforestation Regulation 2023/1115 | Preview | 0.9.9 | Apr 2026 (exemption pattern added) |
 | [eu/textile](./extensions/eu/textile/) | EU | Sustainable Textiles Strategy | Preview | 0.9.9 | Mar 2026 (JRC Milestone 3 alignment) |
@@ -256,6 +257,7 @@ The project follows a **`gs1:` → SEMICeu (`cv:` / `cccev:` / `locn:` / `adms:`
 |--------|-----------|--------|
 | DPP Core | `https://ref.openepcis.org/extensions/common/core/` | `oec:` |
 | Interop | `https://ref.openepcis.org/extensions/common/interop/` | `oei:` |
+| Carrier | `https://ref.openepcis.org/extensions/common/carrier/` | `carrier:` |
 | Battery | `https://ref.openepcis.org/extensions/eu/battery/` | `eubat:` |
 | EUDR | `https://ref.openepcis.org/extensions/eu/eudr/` | `eudr:` |
 | Textile | `https://ref.openepcis.org/extensions/eu/textile/` | `eutex:` |
@@ -390,6 +392,7 @@ Each module follows [Semantic Versioning](https://semver.org/) and is versioned 
 |--------|---------|-------|
 | `common/core` | 0.9.9 | ESPR framework + shared patterns; breaking changes bump major |
 | `common/interop` | 0.9.9 | UNTP / CIRPASS2 / JTC 24 / BatteryPass bridges |
+| `common/carrier` | 0.9.9 | Data carrier authentication (NTAG 424 DNA SUN) |
 | `eu/battery` | 0.9.9 | Battery Regulation 2023/1542 |
 | `eu/eudr` | 0.9.9 | Deforestation Regulation 2023/1115 |
 | `eu/textile` | 0.9.9 | Sustainable Textiles |
