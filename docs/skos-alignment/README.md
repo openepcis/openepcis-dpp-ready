@@ -19,6 +19,8 @@ curated evaluation data. Human documentation lives one level up in `docs/`
 | `skos-reverse-coverage*.{json,md}` | Reverse coverage of an upstream vocabulary: every term in one bucket (covered / proposed / code-list / epcis-cbv / uncovered) with nearest term of ours, graded proposal and advice. | `vocab-sync reverse [--grade --advise]` |
 | `skos-completeness-reverse-*.{json,md}` | The graded findings of a reverse run, in the audit report format (feeds `provenance --xlsx` and `curate`). | `vocab-sync reverse --grade` |
 | `coverage-prefill-*.json` | Tracked recommendation set for a reverse run (upstream IRI → decision + note); pre-fills the coverage sheet. | hand-authored (`provenance --coverage-prefill`) |
+| `skos-adoption-proposal-*.{ttl,md,json}` + `-prefill.json` | Drafted terms of ours for the uncovered rows of a reverse run (TTL blocks in house style, table, saved drafts, updated recommendation set). | `vocab-sync propose` |
+| `skos-adoption-proposal-*-codelists-*.{ttl,md}` | Drafted individuals / concept schemes for the code-list values of a reverse run, typed with the class of ours that holds the list. | `scripts/propose-cirpass2-codelists.ts`, `scripts/propose-cirpass2-textile-codelists.ts` |
 | `coverage-decisions-*.json` | The curator's coverage-sheet decisions, exported for the follow-up work. | `vocab-sync coverage-decisions` |
 | `skos-upstream-delta.json` | Diff of each upstream source vs the cached copy on the last refresh. | `vocab-sync fetch --all` |
 | `alignment-provenance.{json,ttl}` | Audit trail of accepted mappings (who/what/when/confidence). | `vocab-sync provenance` |
