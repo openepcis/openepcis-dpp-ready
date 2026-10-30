@@ -281,6 +281,17 @@ QA_CHAT_MODEL=qwen/qwen3-32b java -jar $J propose \
      --coverage docs/skos-alignment/skos-reverse-coverage-eudpp-$S.json \
      --prefill docs/skos-alignment/coverage-prefill-eudpp-$S.json --for adopt,defer \
      --out docs/skos-alignment/skos-adoption-proposal-eudpp-$S --stamp $S
+#     A draft's module is the model's when it is one of ours, else the module whose name starts
+#     the upstream sub-module the model copied (textile-process → textile), else --default-module
+#     (derived from --vocab-prefix: cirpass2-textile → textile; otherwise core). --render re-emits
+#     the outputs from a saved drafts JSON without model calls and honours --prefill the same way.
+
+# 1c) Code-list values (individuals, concepts, schemes) are facts, not judgements: a
+#     deterministic script drafts them from the mirror, typed with the class of ours that holds
+#     the list (existing, drafted in 1b, or a stub with a CHECK note), skos:exactMatch to the
+#     upstream value, and merges decision + proposal text into the 1b recommendation set.
+pnpm run propose:codelists:eudpp -- --stamp $S        # scripts/propose-cirpass2-codelists.ts
+pnpm run propose:codelists:textile -- --stamp $S      # scripts/propose-cirpass2-textile-codelists.ts
 
 # 2) One workbook: the 'decisions' sheet (graded mappings, Apply? yes/no — the usual curate
 #    input) plus the 'coverage' sheet (every upstream term with bucket, nearest ours, proposal,
@@ -300,6 +311,11 @@ java -jar $J curate --xlsx docs/skos-alignment/skos-alignment-review-eudpp-$S.xl
 java -jar $J coverage-decisions --xlsx docs/skos-alignment/skos-alignment-review-eudpp-$S.xlsx \
      --out docs/skos-alignment/coverage-decisions-eudpp-$S.json
 ```
+
+For a sectoral upstream (`--vocab cirpass2-textile`, `--vocab-prefix cirpass2-textile`) the same
+sequence applies without a baseline (the whole ontology is new to us); the recommendation set
+for 1b is derived from the advice of step 1 (MAP → map, CARRIER → carrier, OUT_OF_SCOPE → out of
+scope; everything else is drafted), see `docs/skos-alignment/coverage-prefill-cirpass2-textile-*.json`.
 
 Buckets, one per upstream term: **covered** (something of ours already maps to it, individuals
 included), **proposed** (the graded pass found a match the TTL lacks; it is also a decisions-sheet

@@ -74,6 +74,11 @@ public class ProposeCommand implements Runnable {
             description = "Prefix to write the upstream mapping object with (eudpp:X).")
     String vocabPrefix;
 
+    @CommandLine.Option(names = "--default-module",
+            description = "Module of ours a draft falls into when the model names none of ours (default: the "
+                    + "module whose name ends --vocab-prefix, e.g. cirpass2-textile → textile, else core).")
+    String defaultModule;
+
     @CommandLine.Option(names = "--concurrency", defaultValue = "1", description = "Parallel drafting requests.")
     int concurrency;
 
@@ -121,6 +126,7 @@ public class ProposeCommand implements Runnable {
 
         Map<String, CoverageRow> rowByIri = new HashMap<>();
         for (CoverageRow r : coverage) rowByIri.put(r.upstreamIri(), r);
+        Set<String> forSet = Set.copyOf(forDecisions);
         if (renderFrom != null) {
             List<Draft> drafts = new ArrayList<>();
             try {
@@ -128,6 +134,9 @@ public class ProposeCommand implements Runnable {
                 for (JsonNode d : saved.path("drafts")) {
                     CoverageRow r = rowByIri.get(d.path("upstreamIri").asText());
                     if (r == null) continue;
+                    // Same selection as a drafting run: a row the prefill decides otherwise keeps its decision.
+                    JsonNode pre = prefill.get(r.upstreamIri());
+                    if (pre != null && !forSet.contains(pre.path("decision").asText(""))) continue;
                     TermProposal p = mapper.convertValue(d.path("proposal"), TermProposal.class);
                     drafts.add(new Draft(r, upstreamIndex.get(r.upstreamIri()), p));
                 }
@@ -139,7 +148,6 @@ public class ProposeCommand implements Runnable {
             return;
         }
 
-        Set<String> forSet = Set.copyOf(forDecisions);
         List<CoverageRow> selected = coverage.stream()
                 .filter(r -> r.bucket().equals("uncovered"))
                 .filter(r -> {
@@ -220,9 +228,27 @@ public class ProposeCommand implements Runnable {
                 });
     }
 
-    private static String prefixed(TermProposal p) {
-        String module = p.module() == null || !PREFIX.containsKey(p.module()) ? "core" : p.module();
-        return PREFIX.get(module) + ":" + p.localName();
+    /**
+     * The module of ours a draft goes into: the model's module when it is one of ours; the module
+     * whose name starts an upstream sub-module name the model copied instead (textile-process →
+     * textile); otherwise the run's default module.
+     */
+    private String moduleOf(TermProposal p) {
+        String m = p.module() == null ? "" : p.module().trim().toLowerCase();
+        if (PREFIX.containsKey(m)) return m;
+        for (String ours : PREFIX.keySet()) if (m.startsWith(ours + "-") || m.startsWith(ours + "_")) return ours;
+        return defaultModule();
+    }
+
+    private String defaultModule() {
+        if (defaultModule != null && PREFIX.containsKey(defaultModule)) return defaultModule;
+        String v = vocabPrefix == null ? "" : vocabPrefix.toLowerCase();
+        for (String ours : PREFIX.keySet()) if (v.endsWith("-" + ours) || v.equals(ours)) return ours;
+        return "core";
+    }
+
+    private String prefixed(TermProposal p) {
+        return PREFIX.get(moduleOf(p)) + ":" + p.localName();
     }
 
     private static String namespace(String module) {
@@ -259,7 +285,7 @@ public class ProposeCommand implements Runnable {
         int failed = 0;
         for (Draft d : drafts) {
             if (d.p() == null) { failed++; continue; }
-            String m = PREFIX.containsKey(d.p().module()) ? d.p().module() : "core";
+            String m = moduleOf(d.p());
             if ("class".equalsIgnoreCase(d.p().termType())) known.add(PREFIX.get(m) + ":" + d.p().localName());
             byModule.computeIfAbsent(m, k -> new ArrayList<>()).add(d);
         }
@@ -329,8 +355,10 @@ public class ProposeCommand implements Runnable {
                         .append("    skos:note \"Proposed from the ").append(vocabPrefix).append(" reverse-coverage run of ")
                         .append(stamp).append(" to cover ").append(vocabPrefix).append(":").append(upLocal).append(". ")
                         .append(esc(PairJudge.nz(p.rationale()))).append("\"@en ;\n")
-                        .append("    ").append(mapping).append(' ')
-                        .append(vocabPrefix).append(':').append(upLocal).append(" .\n\n");
+                        // The mapping object is the full IRI: a sectoral upstream spans several
+                        // namespaces, so no single prefix covers it.
+                        .append("    ").append(mapping).append(" <")
+                        .append(d.row().upstreamIri()).append("> .\n\n");
                 md.append("| `").append(id).append("` | ").append(cls ? "class" : "property").append(" | ")
                         .append(cell(p.label())).append(" | ").append(cell(p.definition())).append(" | ")
                         .append(cell(p.domain())).append(" | ").append(cell(p.range())).append(" | ")

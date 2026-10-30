@@ -24,7 +24,9 @@ public interface ProposalDrafter {
             prefixes: core (oec:, cross-cutting, the default), battery (eubat:), textile (eutex:),
             electronics (euelec:), detergent (eudet:), ppwr (euppwr:), cpr (eucpr:), iron-steel
             (eusteel:), eudr (eudr:), fsma204 (usfsma:). Put a term in a regulation module only when
-            it is specific to that regulation; otherwise core.
+            it is specific to that regulation; otherwise core. The module field names one of THESE
+            modules, never the upstream module (an upstream "textile-process" term that is textile
+            specific goes into textile).
 
             House style:
             - Properties are lowerCamelCase, classes UpperCamelCase. Object properties that link
