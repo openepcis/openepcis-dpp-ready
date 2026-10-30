@@ -20,11 +20,19 @@ published specification. Everything here is about conformance.
 
 | GITB concept | Here |
 |---|---|
-| Domain | `openepcis-dpp` — OpenEPCIS DPP-Ready |
+| Domain (Test Bed) | `openepcis-dpp` — OpenEPCIS DPP-Ready |
 | Specification | one per regulation module, plus the cross-cutting core |
 | Actor | `DPPDataProvider`, role `SUT` — the economic operator or solution provider under test |
 | Validation type | the identifier a validator request carries, e.g. `eu.battery.item` |
 | Test suite | `gitb/test-suites/openepcis-dpp` |
+| Domain (validator) | `openepcis` — the path segment of every validator URL |
+
+The two "domains" are different things and the names differ on purpose. The
+**Test Bed domain** groups specifications, actors and test suites inside a
+community. The **validator domain** is one directory of shapes served by an RDF
+validator, addressed as `/shacl/openepcis/upload` and
+`/shacl/soap/openepcis/validation?wsdl` — the same name locally and on the shared
+Test Bed, which is what lets a suite move between them by address alone.
 
 A conformance statement therefore reads: *system X conforms to OpenEPCIS
 DPP-Ready / EU Battery*.
@@ -80,8 +88,8 @@ so a committed bundle or suite cannot fall behind the ontologies:
 ```
 gitb/
 ├── validator-resources/
-│   ├── shacl/dpp/            config.properties + shapes/<type>/{shapes,background}.ttl
-│   └── json/dpp/             (empty — see "The JSON domain" below)
+│   ├── shacl/openepcis/      config.properties + shapes/<type>/{shapes,background}.ttl
+│   └── json/openepcis/       (empty — see "The JSON domain" below)
 ├── test-suites/openepcis-dpp/
 │   ├── testSuite.xml
 │   ├── testCases/tc-{upload,selftest}-<type>.xml
@@ -93,6 +101,89 @@ gitb/
 |---|---|
 | `pnpm run build:gitb` | `pnpm run check:gitb` |
 | `pnpm run build:gitb-testsuite` | `pnpm run check:gitb-testsuite` |
+
+### Where the validator runs
+
+The European Commission hosts the validator on the **shared Interoperability
+Test Bed** as the `openepcis` domain, live since 2026-09-25 at
+<https://www.itb.ec.europa.eu/shacl/openepcis/upload>. The shared instance builds
+nothing and runs no service of ours: it watches one public repository per hosted
+validator and re-reads it on push, which a webhook on the mirror repository
+triggers.
+
+```
+gitb/validator-resources/shacl/openepcis/   ──►   github.com/openepcis/validator-resources-openepcis
+  config.properties                                 resources/config.properties
+  shapes/<type>/*.ttl                               resources/shapes/<type>/*.ttl
+                                                    README.md, LICENSE
+```
+
+That repository is a **mirror**, written by `pnpm run publish:validator-resources`
+from the generated bundle — the domain directory flattened into `resources/`,
+which is the layout the ITB expects (as in
+[`ISAITB/validator-resources-rdf-sample`](https://github.com/ISAITB/validator-resources-rdf-sample)).
+It is not a second source: an edit made there is overwritten by the next sync.
+
+### The community on the shared Test Bed
+
+Live since 2026-10-05. The European Commission created the community, the domain
+and the administrator account; everything inside it is ours, and
+`pnpm run provision:itb` builds it from the shipping validator configuration:
+
+| | |
+|---|---|
+| Community | OpenEPCIS community |
+| Domain | `openepcis-dpp` |
+| Specifications | 16, one per validation type |
+| Actor | `DPPDataProvider` under each, marked default |
+| Test suite | one **shared** suite, 32 test cases, linked to all 16 |
+| System under test | OpenEPCIS / Reference passports, 16 conformance statements |
+
+`--run` then executes the 16 self-tests through the hosted validator. All 16 came
+back SUCCESS on the first full run, which is the end of the chain the project has
+been building toward: their engine, their network, our shapes, our passports.
+
+Three things cost real time to discover, so they are worth stating plainly.
+
+**The API key header must be written with hyphens.** It is documented as
+`ITB_API_KEY`, and that works against a local instance. The shared Test Bed sits
+behind a proxy that drops headers containing underscores, so the call comes back
+`{"error_code":"204","error_description":"Needs API key header."}` while sending
+the header. That error reads exactly like an API that is switched off, and we
+concluded for two days that the automation API was unavailable to us.
+`ITB-API-KEY` passes through both instances.
+
+**Three keys, and the 403s point elsewhere.** Specifications, actors, shared test
+suites, organisations and systems take the *community* key. Conformance
+statements and test sessions take the *organisation* key. Domains and communities
+themselves take the *master* key, which only the Test Bed operator holds, which is
+why those two come from the onboarding rather than from us. Using the master key
+for a specification answers "You are not allowed to manage specifications through
+the automation API", which sounds like a missing feature rather than the wrong
+credential.
+
+**One switch has no API.** Conformance statements additionally require *Manage
+test sessions via REST API* under Community details, User permissions. Until it is
+ticked every statement fails with "You are not allowed to manage test sessions
+through the automation API". The provisioning script detects that message and says
+so.
+
+The keys live in the Test Bed UI, on the domain and community detail forms, and
+belong in the password manager. Nothing in this repository contains one.
+
+Three consequences of hosting on the shared instance rather than our own:
+
+- **Only validator configuration is hosted.** Custom extension services — bespoke
+  processing or messaging handlers a test case might call — have to run
+  elsewhere and be reached remotely. The suite needs none: every `verify` step
+  calls the RDF validator's own GITB validation service, and the upload step is
+  the Test Bed's built-in `interact`.
+- **Office hours, no SLA.** The shared instance runs Monday to Friday, 05:00 to
+  20:00 CET. Nothing in `pnpm run build` depends on it; the parity gate runs the
+  same `isaitb/shacl-validator` image locally.
+- **EU Login with 2FA** guards the Test Bed UI, so a party running conformance
+  sessions needs an EU Login account. The validator itself — web form, REST,
+  SOAP — stays public.
 
 ---
 
@@ -203,7 +294,7 @@ cannot drift from the examples they mutate:
 | `out-of-range-fraction` | the 0..1 value-range constraint on the property |
 | `missing-required-property` | whichever `sh:minCount` the module's own shapes declare — read from the shapes, so it needs no curation |
 
-`pnpm run check:shapes:itb` verifies all 48 fixtures in both directions. If an
+`pnpm run check:shapes:itb` verifies all 73 fixtures in both directions. If an
 upstream change makes a mutation stop violating, that gate fails loudly rather
 than the suite quietly asserting nothing.
 

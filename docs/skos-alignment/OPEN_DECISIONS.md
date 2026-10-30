@@ -327,7 +327,7 @@ From `skos-completeness-detergent-2026-08-07.json`. 19 confirmed findings the tr
 
 ## electronics
 
-From `skos-completeness-electronics-2026-08-07.json`. 29 confirmed findings the triage did not apply.
+From `skos-completeness-electronics-2026-08-07.json`. 31 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
@@ -344,6 +344,7 @@ From `skos-completeness-electronics-2026-08-07.json`. 29 confirmed findings the 
 | 0.88 | `euelec:hasRefreshRate` | rdfs:seeAlso to `skos:broadMatch` | `gs1:value` | target is a structural value carrier |
 | 0.88 | `euelec:hasFeatureSupportYears` | `skos:broadMatch` | `gs1:value` | target is a structural value carrier |
 | 0.87 | `euelec:EURepairabilityClass` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Class` | target is a meta-class |
+| 0.85 | `euelec:SelectiveTreatmentItem` | skos:closeMatch to `skos:broadMatch` | `other:HazardousSubstance` | regrade skos:closeMatch to skos:broadMatch |
 | 0.85 | `euelec:hasSparePartPrice` | `skos:broadMatch` | `semic:hasValue` | target is a structural value carrier |
 | 0.82 | `euelec:newVersion` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:softwareVersion` | every schema domain (SoftwareApplication) is foreign to a passport |
 | 0.81 | `euelec:nextDisposition` | `skos:exactMatch` | `untp:disposition` | deferred by a curator: exactMatch is a strong claim for a WEEE routing decision against UNTP's general disposition; closeMatch may be the honest grade. |
@@ -352,6 +353,7 @@ From `skos-completeness-electronics-2026-08-07.json`. 29 confirmed findings the 
 | 0.78 | `euelec:hasPeakBrightness` | `skos:broadMatch` | `gs1:value` | target is a structural value carrier |
 | 0.77 | `euelec:ComponentType` | rdfs:seeAlso to `skos:broadMatch` | `dppk:Component` | our term is a type, target is the entity |
 | 0.73 | `euelec:RepairCriterion` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Rating` | seeAlso upgrade below the 0.8 floor |
+| 0.72 | `euelec:hasComponentType` | `skos:narrowMatch` | `other:BatteryComponent` | our term is a property, target is a class |
 | 0.71 | `euelec:RepairCriterionType` | rdfs:seeAlso to `skos:broadMatch` | `semic:Criterion` | our term is a type, target is the entity |
 | 0.71 | `euelec:criterionMaxScore` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:maxValue` | target is a structural value carrier |
 | 0.71 | `euelec:hasComponentType` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:batteryCategory` | seeAlso upgrade below the 0.8 floor |
@@ -363,19 +365,16 @@ From `skos-completeness-electronics-2026-08-07.json`. 29 confirmed findings the 
 
 ## eudr
 
-From `skos-completeness-eudr-2026-08-07.json`. 10 confirmed findings the triage did not apply.
+From `skos-completeness-eudr-2026-08-07.json`. 8 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
 | 0.97 | `eudr:TimberProductType` | `skos:broadMatch` | `eudpp:Product` | our term is a type, target is the entity |
 | 0.96 | `eudr:TimberProductType` | `skos:broadMatch` | `eudpp:MaterialType` | deferred by a curator: Different classification axes: TimberProductType classifies products (EUDR Annex I categories: sawn wood, plywood, ...), eudpp:MaterialType classifies composition materials ('cotton, nylon' per its own definition). A product category is not a narrower material category — unlike eutex:FiberType, where fibers are materials. The product-group axis is carried by eudr:hasTimberProductType broadMatch eudpp:hasProductGroup. |
 | 0.94 | `eudr:TimberProductType` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Product` | our term is a type, target is the entity |
-| 0.94 | `eudr:ActorRole` | `skos:broadMatch` | `eudpp:Role` | our term is a type, target is the entity |
 | 0.93 | `eudr:TimberProductType` | rdfs:seeAlso to `skos:broadMatch` | `gs1:Product` | our term is a type, target is the entity |
-| 0.93 | `eudr:ActorRole` | `skos:narrowMatch` | `eudpp:EconomicOperatorRole` | our term is a type, target is the entity |
 | 0.87 | `eudr:TimberProductType` | `skos:broadMatch` | `dppk:ConstructionProduct` | our term is a type, target is the entity |
 | 0.86 | `eudr:DueDiligenceStatement` | `skos:broadMatch` | `gs1:RegulatoryIdentifier` | deferred by a curator: A due-diligence statement is a document, not an identifier; the subsumption does not hold in either direction. |
-| 0.78 | `eudr:ActorRole` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Role` | our term is a type, target is the entity |
 | 0.65 | `eudr:hasCountryList` | `skos:narrowMatch` | `untp:countryName` | new mapping below the 0.8 floor |
 
 ## fsma204
@@ -397,10 +396,11 @@ From `skos-completeness-iron-steel-2026-08-07.json`. 6 confirmed findings the tr
 
 ## ppwr
 
-From `skos-completeness-ppwr-2026-08-07.json`. 1 confirmed finding the triage did not apply.
+From `skos-completeness-ppwr-2026-08-07.json`. 2 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
+| 0.97 | `euppwr:collectionPointsUrl` | skos:closeMatch to `skos:exactMatch` | `other:collectionPointDirectoryUrl` | regrade skos:closeMatch to skos:exactMatch |
 | 0.91 | `euppwr:PackagingTier` | `skos:broadMatch` | `gs1:PackagingDetails` | our term is a type, target is the entity |
 
 ## textile

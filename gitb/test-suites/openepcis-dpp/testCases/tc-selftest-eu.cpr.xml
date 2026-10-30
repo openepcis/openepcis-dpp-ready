@@ -16,14 +16,14 @@
     <artifact type="binary" encoding="UTF-8" name="neg_missing_required_property">resources/negative/eu.cpr/cement-bag.missing-required-property.nq</artifact>
   </imports>
   <steps>
-    <verify id="pos0" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
+    <verify id="pos0" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl"
             desc="Reference passport must conform: cement-bag.jsonld">
       <input name="contentToValidate">$pos0_cement_bag</input>
       <input name="validationType">"eu.cpr"</input>
       <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
-    <verify id="pos1" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
+    <verify id="pos1" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl"
             desc="Reference passport must conform: insulation-panel.jsonld">
       <input name="contentToValidate">$pos1_insulation_panel</input>
       <input name="validationType">"eu.cpr"</input>
@@ -31,7 +31,7 @@
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <!-- A predicate the module's own shapes require with sh:minCount is removed, which the corresponding MinCount constraint must reject. -->
-    <verify id="neg0" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl" invert="true"
+    <verify id="neg0" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl" invert="true"
             desc="Broken passport must be REJECTED (missing-required-property)">
       <input name="contentToValidate">$neg_missing_required_property</input>
       <input name="validationType">"eu.cpr"</input>

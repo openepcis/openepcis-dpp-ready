@@ -13,7 +13,34 @@ Deploy chains, seeding, guards, and the production gates for the DPP stack
 | EPCIS 2.0 repository | `api.demo.epcis.cloud` | `openepcis-rest-quarkus` (build superproject) | `docker:rest` → `:stable` multi-arch manifest; demo deployed by **digest pin** on `openepcis-demo/openepcis-rest-api` |
 | Vocabulary browser | `ref.openepcis.org` | `openepcis-web` `apps/ref-openepcis` + this repo's generated JSON | openepcis-web pipeline: `build:ref-openepcis` (clones dpp-ready main, runs its build) → `deploy:ref-openepcis` → `deploy:ref-openepcis-prod` (all manual) |
 | Digital Data Management (DDM) | `demo.epcis.cloud` | `openepcis-web` `apps/digital-data-management` | `build:…-demo` → `deploy:…-demo` (Kaniko `:demo` tag) → rollout job — **then digest-pin** (see gotcha below) |
-| DPP conformance validator | not yet hosted | this repo's generated `gitb/validator-resources/shacl` | off-the-shelf `isaitb/shacl-validator` with that directory as `validator.resourceRoot`; locally `gitb/dev.sh up validators`. See [GITB_CONFORMANCE.md](GITB_CONFORMANCE.md) |
+| DPP conformance validator | `www.itb.ec.europa.eu/shacl/openepcis/upload` (**live** since 2026-09-25; shared EU Interoperability Test Bed, Mon–Fri 05:00–20:00 CET, no SLA) | this repo's generated `gitb/validator-resources/shacl/openepcis` | mirrored to [`openepcis/validator-resources-openepcis`](https://github.com/openepcis/validator-resources-openepcis) with `pnpm run publish:validator-resources -- --commit --push`; the Test Bed's webhook re-reads that repository on push (a couple of minutes), the EC runs the off-the-shelf `isaitb/shacl-validator` itself. Locally the same bundle: `gitb/dev.sh up validators`. See [GITB_CONFORMANCE.md](GITB_CONFORMANCE.md) |
+
+### The Test Bed side is self-service now
+
+The European Commission created the **OpenEPCIS community** on the shared
+instance and made sven.boeckelmann@benelog.com its community administrator, so
+domains, specifications, actors and test suites are ours to configure without
+going through them. Access is EU Login with 2FA.
+
+Two things carry an expiry or a footgun:
+
+- The **usage-statistics dashboard** is behind a client certificate issued by
+  the Test Bed team, **valid one year from 2026-09-25**. Ask them for a renewal
+  before it lapses; the import password arrived as a one-time link, so the
+  certificate and its password belong in Vaultwarden, not in a mailbox.
+- The **webhook makes every push to the mirror a deployment** of the live
+  validator. Push complete updates only and develop against the local stack, per
+  the Test Bed team's request. See [`../gitb/README.md`](../gitb/README.md).
+
+The community itself is provisioned from this repository, not by clicking:
+`pnpm run provision:itb -- --run` rebuilds the 16 specifications, actors, the
+shared test suite and the conformance statements, then re-runs the 16 self-tests.
+It needs `ITB_COMMUNITY_KEY` and `ITB_DOMAIN_KEY`, both readable in the Test Bed
+UI on the community and domain detail forms, both belonging in Vaultwarden
+alongside the statistics-dashboard certificate. The automation API is reachable
+on the shared instance, provided the key header is spelled `ITB-API-KEY`: their
+proxy drops headers with underscores, so the documented `ITB_API_KEY` answers
+"Needs API key header" while you are sending it.
 
 ### The conformance validator depends on the vocabulary browser deploy
 

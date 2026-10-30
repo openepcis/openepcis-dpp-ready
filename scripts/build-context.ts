@@ -99,6 +99,14 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     prefix: "oec",
   },
   {
+    name: "carrier",
+    dir: "extensions/common/carrier",
+    ttlFile: "carrier.ttl",
+    namespace: "https://ref.openepcis.org/extensions/common/carrier/",
+    prefix: "carrier",
+    imports: [DPP_CORE_IMPORT],
+  },
+  {
     name: "battery",
     dir: "extensions/eu/battery",
     ttlFile: "battery.ttl",
@@ -188,6 +196,7 @@ const NAMESPACE_TO_PREFIX: Record<string, string> = {
   [SCHEMA]: "schema",
   "https://ref.openepcis.org/extensions/common/core/": "oec",
   "https://ref.openepcis.org/extensions/common/interop/": "oei",
+  "https://ref.openepcis.org/extensions/common/carrier/": "carrier",
   "https://ref.openepcis.org/extensions/eu/battery/": "eubat",
   "https://ref.openepcis.org/extensions/eu/eudr/": "eudr",
   "https://ref.openepcis.org/extensions/eu/textile/": "eutex",

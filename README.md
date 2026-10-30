@@ -27,7 +27,7 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 
 | | Count |
 |---|---|
-| Modules | 14 — `common/{core,interop}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}`, `upstream/{gs1-rail,cirpass2-eudpp,cirpass2-textile,cirpass2-battery}` |
+| Modules | 15 — `common/{core,interop,carrier}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}`, `upstream/{gs1-rail,cirpass2-eudpp,cirpass2-textile,cirpass2-battery}` |
 | Classes | 106 |
 | Properties | 805 |
 | EPCIS Event Examples | 47 |
@@ -108,6 +108,7 @@ This monorepo provides a consistent, GS1-aligned approach to implementing Digita
 |--------|--------|------------|--------|---------|--------------|
 | [common/core](./extensions/common/core/) | Cross-cutting | ESPR 2024/1781 Framework | Preview | 0.9.9 | Apr 2026 |
 | [common/interop](./extensions/common/interop/) | Cross-cutting | Standards Harmonization (UNTP, CIRPASS2, JTC 24, BatteryPass) | Preview | 0.9.9 | Apr 2026 |
+| [common/carrier](./extensions/common/carrier/) | Cross-cutting | Data carrier authentication (NTAG 424 DNA SUN, NXP AN12196; RAIN RFID and signed QR reserved) | Preview | 0.9.9 | Oct 2026 (new module) |
 | [eu/battery](./extensions/eu/battery/) | EU | Battery Regulation 2023/1542 | Preview | 0.9.9 | Feb 2026 |
 | [eu/eudr](./extensions/eu/eudr/) | EU | Deforestation Regulation 2023/1115 | Preview | 0.9.9 | Apr 2026 (exemption pattern added) |
 | [eu/textile](./extensions/eu/textile/) | EU | Sustainable Textiles Strategy | Preview | 0.9.9 | Mar 2026 (JRC Milestone 3 alignment) |
@@ -222,12 +223,18 @@ infrastructure the European Commission operates — the
 [EU Interoperability Test Bed](https://www.itb.ec.europa.eu/) with its off-the-shelf
 validators and GITB TDL test suites.
 
+The validator itself is **hosted by the European Commission** on the shared Test Bed as the
+`openepcis` domain — <https://www.itb.ec.europa.eu/shacl/openepcis/upload>, with REST and
+SOAP APIs beside it — reading the configuration from
+[`openepcis/validator-resources-openepcis`](https://github.com/openepcis/validator-resources-openepcis),
+a mirror of what this repository generates.
+
 Everything needed is generated under [`gitb/`](gitb/):
 
 - **16 validation types** for the EC's RDF validator (`isaitb/shacl-validator`): the
   cross-cutting core, nine regulation modules, three EN 18223 granularity levels and three EC
   battery categories.
-- **A GITB TDL test suite** — 12 specifications, 24 test cases. Each specification offers an
+- **A GITB TDL test suite** — 16 specifications, 32 test cases. Each specification offers an
   upload test for the system under test and a self-test that asserts the reference passports
   pass *and* a deliberately broken variant fails, so a green result cannot be mistaken for
   empty shapes.
@@ -253,6 +260,7 @@ The project follows a **`gs1:` → SEMICeu (`cv:` / `cccev:` / `locn:` / `adms:`
 |--------|-----------|--------|
 | DPP Core | `https://ref.openepcis.org/extensions/common/core/` | `oec:` |
 | Interop | `https://ref.openepcis.org/extensions/common/interop/` | `oei:` |
+| Carrier | `https://ref.openepcis.org/extensions/common/carrier/` | `carrier:` |
 | Battery | `https://ref.openepcis.org/extensions/eu/battery/` | `eubat:` |
 | EUDR | `https://ref.openepcis.org/extensions/eu/eudr/` | `eudr:` |
 | Textile | `https://ref.openepcis.org/extensions/eu/textile/` | `eutex:` |
@@ -387,6 +395,7 @@ Each module follows [Semantic Versioning](https://semver.org/) and is versioned 
 |--------|---------|-------|
 | `common/core` | 0.9.9 | ESPR framework + shared patterns; breaking changes bump major |
 | `common/interop` | 0.9.9 | UNTP / CIRPASS2 / JTC 24 / BatteryPass bridges |
+| `common/carrier` | 0.9.9 | Data carrier authentication (NTAG 424 DNA SUN) |
 | `eu/battery` | 0.9.9 | Battery Regulation 2023/1542 |
 | `eu/eudr` | 0.9.9 | Deforestation Regulation 2023/1115 |
 | `eu/textile` | 0.9.9 | Sustainable Textiles |

@@ -4,14 +4,14 @@
 # with the RDF validator that the generated test suite calls. Everything is
 # reachable under the compose network, so the WSDL address baked into
 # gitb/test-suites/openepcis-dpp/testCases/*.xml —
-# http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl — resolves unchanged.
+# http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl — resolves unchanged.
 #
 # Start it with ../dev.sh up. The first run pulls several hundred MB per image, so
 # start it inside tmux: an interrupted SSH session otherwise kills the pull.
 #
 #   Test Bed UI      http://localhost:9000   (admin@itb, one-time password in the
 #                                             gitb-ui log until the first login)
-#   RDF validator    http://localhost:8080/shacl/dpp/upload
+#   RDF validator    http://localhost:8080/shacl/openepcis/upload
 #
 # The validator's resource root is the GENERATED bundle, so regenerate before
 # starting whenever the ontologies or shapes changed:  pnpm run build:gitb
@@ -28,7 +28,7 @@ services:
     ports:
       - "8080:8080"
     healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/shacl/dpp/upload > /dev/null"]
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/shacl/openepcis/upload > /dev/null"]
       interval: 15s
       timeout: 5s
       retries: 20

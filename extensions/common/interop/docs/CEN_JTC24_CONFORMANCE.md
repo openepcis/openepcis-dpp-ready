@@ -1,6 +1,6 @@
 # CEN/CENELEC JTC 24 DPP standards: clause-by-clause conformance map
 
-This document maps the six published CEN/CENELEC JTC 24 Digital Product
+This document maps the eight published CEN/CENELEC JTC 24 Digital Product
 Passport standards to OpenEPCIS, clause by clause. It records what each
 standard actually requires and how the **EPCIS4DPP** profile (OpenEPCIS's
 GS1 and EPCIS based realisation) conforms to it.
@@ -293,6 +293,184 @@ named in the Introduction: organisational, semantic, and technical.
 
 ---
 
+## EN 18239:2026 (Access rights management, information system security, and business confidentiality)
+
+**Scope (Clause 1).** Access-rights management for the DPP, including IT
+security, data protection, and the transfer of responsibilities between
+economic operators; a framework for managing access to confidential
+information, with public DPP data readable without any restriction.
+
+**Key requirements.**
+- Actors (Clause 4.2): the standard enumerates who needs access along the
+  life cycle — economic operators and their sub-roles (manufacturer,
+  authorised representative, importer, distributor, dealer, fulfilment
+  service provider), consumers, professional repairers, independent
+  operators, recyclers, market surveillance authorities, customs
+  authorities, DPP service providers (main and back-up) — plus the
+  *notified actor* of 3.6. Roles are defined per product group by the
+  relevant legal act; the economic operator may grant additional
+  privileges (5.2.6, 5.2.7).
+- Identity (5.2.1, 5.2.4, 5.2.8): every actor carries a globally unique
+  operator identifier per EN 18219, and that identifier is part of the
+  authentication process — for example inside a trustworthy role
+  credential that admits an actor without the operator's individual
+  approval.
+- Public data (5.2.2, 5.2.3, 6.1): readable without authentication and
+  never withheld on the basis of location or jurisdiction.
+- Granularity (5.2.10, 5.2.23): access-rights terms are defined, and
+  enforced, at data-element level, according to the requesting actor's
+  role.
+- Accountability (5.2.5, 5.2.16): management of controlled data uses
+  non-repudiation mechanisms; every access to, and every change of,
+  roles, rights or controlled data is logged, auditable, and protected
+  against tampering, forging and deletion, with integrity over time.
+- Life cycle of rights (5.2.17, 5.2.19, 6.3): documented grant / revoke /
+  modify processes, emergency revocation, a revocation policy.
+- Delegation (5.2.18, 5.2.20): access roles can be delegated; the
+  authorisation then also weighs the delegating entity's role and the
+  robustness of the delegation itself.
+- Protection (5.2.11, 5.2.24): limits against attacks and mass scraping;
+  no user profiling unless authentication is strictly required.
+- Operations (Clause 6.4, 6.5): business continuity, security by design,
+  incident response, ISMS continuous improvement (ISO 27001 PDCA) — all
+  *should*-level, organisational.
+
+**EPCIS4DPP conformance.**
+- Actor taxonomy: `oec:ActorRole` carries Clause 4.2 and 3.6 verbatim,
+  with the economic-operator sub-roles as `oec:OperatorRole`
+  (Conformant). The EUDR supply-chain positions live in the same
+  enumeration, so no module mints a role list of its own.
+- Roles per legal act: the access-level sidecars state which roles each
+  governing act admits to a tier (`oec:authorizedOnlyGrantedToRole`,
+  `oec:restrictedGrantedToRole`) or to a single term
+  (`oec:accessGrantedToRole`, only together with
+  `oec:accessLevelMandatedBy`) — dpp-core for ESPR Art. 9, battery for
+  Annex XIII(3) and the Art. 14 / Annex VII state-of-health terms, EUDR
+  for Arts. 26 and 33 (Conformant for those three modules; the other
+  regulation modules inherit the core defaults until their acts fix an
+  audience).
+- Element-level enforcement by role: the Digital Link resolver filters
+  controlled fields per tier and, for actors outside the owning economic
+  operator, per audience (role gate); roles are minted from realm roles
+  declared trustworthy by the deployment (Conformant for reads of master
+  data and linksets; the DPP API decides whole-passport read/write by
+  role, not per element — Partial).
+- Public data without authentication, and never by location: the
+  resolver's anonymous path (Conformant).
+- Operator identifier in authentication (5.2.1, 5.2.8): *In progress* —
+  the `operator_id` claim (EN 18219 GLN URI) is being added to the
+  platform realm and carried into every change record.
+- Logging and non-repudiation (5.2.5, 5.2.16): *Planned* — the DPP API
+  keeps a signed version graph of passport changes; access logging and
+  role/right change logging are not yet built.
+- Delegation assessment (5.2.20): *Planned* — capability tokens delegate
+  a path but do not yet carry an assessable chain.
+- Clause 6 operations: organisational, outside this map.
+
+**EPCIS4DPP profile, beyond the standard.** The role vocabulary is
+published RDF with SKOS alignment, so a third party can read which roles a
+passport field admits before asking for it; the standard requires the
+rule, not its publication.
+
+**Status:** Partial — vocabulary and element-level enforcement by role
+conformant; operator identifier in progress; logging and delegation
+assessment planned.
+
+---
+
+## EN 18246:2026 (Data authentication, reliability and integrity)
+
+**Scope (Clause 1).** Secure information processing and communication
+that safeguards integrity, authenticity and reliability of DPP data,
+minimising fraud and counterfeiting; a framework for trust and
+interoperation via *electronically signed data constructs* (ESDC).
+System architecture, use cases, data-carrier secure elements and
+cryptographic identifier features are out of scope.
+
+**Key requirements.**
+- Independence from transport (4.1): the mechanisms that ensure integrity
+  and authenticity are independent of the security of the communication
+  channel — a signature on the data, not only TLS.
+- Identification (4.2): every actor accessing controlled data is
+  identified by a globally unique identifier; authentication is based on
+  the required level of assurance.
+- Public data (4.3, 5.4.2): readable without authentication, without
+  additional software, with measures against profiling; additional
+  security must never block public access.
+- Authenticity and integrity (4.7): a DPP is verifiable, and verification
+  is free of charge and without limitation for the verifier; every
+  modification, including creation and deletion, is bound to the
+  authenticated actor's identity with non-repudiation; changes are logged
+  tamper-proof with integrity over time, verifiable without offline
+  procedures; the responsible editor is identifiable through a globally
+  unique operator identifier.
+- Personal data and the public page (5.1.2, 5.1.3, 5.1.6): no personal
+  data gathered from public readers; the DPP service uses no external
+  analytics tools and includes no reference to external components in
+  its response; no personal data or advanced device functions requested.
+- Protection (5.1.5, 5.1.7, 5.1.8): profiling prevented where technically
+  feasible; phishing/quishing awareness; anti-scraping, while search
+  engines may index.
+- Data carrier and identifier (4.5, 4.6, 5.3.1): protecting the
+  identifier or the carrier is optional, must stay interoperable with
+  EN 18219/18220, and must never require additional software for public
+  data; a counterfeiting risk assessment *should* be done and
+  proportionate measures *may* follow.
+- Accessibility (5.4.3): public content perceivable and operable for
+  persons with disabilities, without weakening security.
+- ESDC (Annex A, normative): an ESDC has an issuer, a subject, data and a
+  signature; it verifies integrity, authenticity, non-repudiation of the
+  issuer, and the issuer's authority against a trusted list or governance
+  framework. Annex B (informative) lists EAA, VDS (ISO 22376), DigSig
+  (ISO/IEC 20248), W3C Verifiable Credentials and AdES signatures as
+  realisations.
+
+**EPCIS4DPP conformance.**
+- ESDC realisation: W3C Verifiable Credentials (VCDM 2.0) with Data
+  Integrity `ecdsa-rdfc-2019` and VC-JOSE/SD-JWT, issuer identity by
+  `did:web`, evidence by `relatedResource` digests; an OpenEPCIS
+  credential verifies at a third-party verifier and a real GS1 licence
+  credential verifies here (Conformant for Annex A's first three
+  capabilities; see [`VC_INTEROPERABILITY.md`](./VC_INTEROPERABILITY.md)
+  for the evidence grade of every layer).
+- Issuer authority against a trusted list (Annex A.3, fourth capability):
+  Partial — the `TrustRoot` SPI and a per-tenant trusted-issuer registry
+  exist; the published, signed issuer list and the GS1 licence-chain
+  source are not yet built.
+- Transport independence (4.1): Conformant for credentials; plain
+  resolver responses rely on TLS only.
+- Change binding and logging (4.7): Partial — the DPP API keeps a Git
+  version graph with signed checkpoints per operator; binding each
+  amendment to the authenticated actor is in progress, a tamper-evident
+  access and change log across resolver, trust registry and keys is
+  planned.
+- Free, unrestricted verification (4.7): Partial — the verification
+  endpoint resolves only vendored contexts today, so a foreign credential
+  with an unknown context fails there although the library verifies it.
+- Public page without external components (5.1.3), no profiling (5.1.5),
+  no device functions (5.1.6), accessibility (5.4.3): *To be audited* on
+  the public DPP page; the resolver's JSON responses carry no external
+  references.
+- Anti-scraping (5.1.8): Partial — rate limiting exists for
+  authenticated callers, not yet on the anonymous path.
+- Data-carrier protection (4.5, 4.6, 5.3.1): Profile choice, not taken
+  yet — EPCIS4DPP signs the passport, not the link; a signed Digital Link
+  is tracked as a product option.
+
+**EPCIS4DPP profile, beyond the standard.** The standard is technology
+neutral and lists Verifiable Credentials as one example. EPCIS4DPP
+commits to them because every trust source the ecosystem converges on —
+GS1 Digital Licences, EUDI/eIDAS attestations, UNTP — is expressed as a
+Verifiable Credential, and because Annex A's trusted-list check and
+EN 18239's role credential (5.2.8) describe exactly what a credential
+verifier does.
+
+**Status:** Partial — ESDC mechanism conformant and demonstrated against
+third parties; actor binding in progress; trusted list, access log,
+unrestricted verification and the public-page audit open.
+
+---
+
 ## Quick reference: where each standard places a requirement
 
 | Standard | Defines | EPCIS4DPP realisation |
@@ -303,6 +481,8 @@ named in the Introduction: organisational, semantic, and technical.
 | EN 18221 | Storage/archiving/persistence + provider roles | Append-only EPCIS + versioned core (a conformant pattern) |
 | EN 18222 | Concrete DPP REST API (method set + registry) | Expose the method surface (Planned); EPCIS query + resolver added |
 | EN 18223 | UML+JSON information model + data dictionary | `oec:` core maps to it; ref.openepcis.org is the 4.3 dictionary |
+| EN 18239 | Actors (4.2), roles per legal act, element-level rights, logging, delegation | `oec:ActorRole` + role audiences in the access-level sidecars; resolver role gate; operator id and logging in progress |
+| EN 18246 | Transport-independent integrity, actor-bound changes, free verification, ESDC (Annex A) | Verifiable Credentials + `did:web` as the ESDC; signed version graph; trusted list and access log open |
 
 For the attribute-level EN 18223 mapping and the EN 18222 method-to-endpoint
 plan, see [`EN18223_MODEL_ALIGNMENT.md`](./EN18223_MODEL_ALIGNMENT.md). For

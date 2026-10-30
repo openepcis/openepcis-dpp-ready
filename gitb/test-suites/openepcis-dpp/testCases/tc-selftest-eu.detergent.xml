@@ -17,14 +17,14 @@
     <artifact type="binary" encoding="UTF-8" name="neg_missing_required_property">resources/negative/eu.detergent/dishwasher-detergent.missing-required-property.nq</artifact>
   </imports>
   <steps>
-    <verify id="pos0" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
+    <verify id="pos0" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl"
             desc="Reference passport must conform: dishwasher-detergent.jsonld">
       <input name="contentToValidate">$pos0_dishwasher_detergent</input>
       <input name="validationType">"eu.detergent"</input>
       <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
-    <verify id="pos1" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
+    <verify id="pos1" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl"
             desc="Reference passport must conform: laundry-detergent.jsonld">
       <input name="contentToValidate">$pos1_laundry_detergent</input>
       <input name="validationType">"eu.detergent"</input>
@@ -32,7 +32,7 @@
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <!-- An economic operator without its ESPR Art. 77 role, which dpp-sh:EconomicOperatorRoleRequired must reject. -->
-    <verify id="neg0" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl" invert="true"
+    <verify id="neg0" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl" invert="true"
             desc="Broken passport must be REJECTED (missing-operator-role)">
       <input name="contentToValidate">$neg_missing_operator_role</input>
       <input name="validationType">"eu.detergent"</input>
@@ -40,7 +40,7 @@
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <!-- A predicate the module's own shapes require with sh:minCount is removed, which the corresponding MinCount constraint must reject. -->
-    <verify id="neg1" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl" invert="true"
+    <verify id="neg1" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl" invert="true"
             desc="Broken passport must be REJECTED (missing-required-property)">
       <input name="contentToValidate">$neg_missing_required_property</input>
       <input name="validationType">"eu.detergent"</input>

@@ -8,9 +8,18 @@
 # Supersedes the scattered flow (seed-dev-demo.sh + upload-product-images.sh +
 # seed-organizations.sh + provision-demo-epcis-links.sh + refresh-dev-demo.sh +
 # seed-dev-passports.sh). Persona passwords are never touched (that is
-# e2e-demo-users.sh's job). The two hero products (Fjordline / Amperia) are
-# provisioned at all three granularities (model + batch + item) because
-# DELETE /products/{gtin} removes the WHOLE tree including lot/serial rows.
+# e2e-demo-users.sh's job). Every catalogue product is ALSO provisioned at the
+# finer granularities the website's demo-catalog.ts links to (GRANULARITY
+# below), because a Digital Link the site shows must resolve to its OWN record —
+# a /21/ that only walks up to the GTIN shows model data under a serial URL.
+#
+# Granularity vocabulary (GS1): the GTIN is the model CLASS; a lot/batch
+# (01+10, LGTIN) is a CLASS too — a set of like items sharing production facts;
+# only a serial (01+21, SGTIN) is an INSTANCE, one physical item. Lots are
+# maintained like master data, serials mostly accumulate facts from EPCIS.
+# DELETE /products/{gtin} removes the WHOLE tree including lot/serial rows, so
+# the granularity phase runs after every products phase; alone
+# (--only=granularity) it is a pure upsert.
 #
 # WHY a single script:
 #   - The 11-product catalogue (9 canonical + Fjordline/Amperia heroes) lived
@@ -24,6 +33,7 @@
 #
 # Usage:
 #   SEED_PW=… SEED_CLIENT_SECRET=… scripts/provision-demo.sh --env=demo
+#   SEED_PW=… SEED_CLIENT_SECRET=… scripts/provision-demo.sh --env=epc-is
 #   scripts/provision-demo.sh --env=demo --only=products      # one phase
 #   scripts/provision-demo.sh --env=demo --only=orgs,epcis
 #   scripts/provision-demo.sh --env=demo --gtin=09521890340331  # only this product
@@ -34,10 +44,14 @@
 #   SEED_PW / BRUNO_PW                     password of SEED_USER in realm `openepcis`
 #   SEED_CLIENT_SECRET / BRUNO_CLIENT_SECRET  secret of the backend-service client
 #   SEED_USER            override the seed user (default per-env; demo=demo-admin)
+#   REALM                override the realm (default per-env; epc-is=platform,
+#                        everything else openepcis)
 #   Optional overrides: DL_URL FILES_URL AUTH_URL API_URL SEED_CLIENT_ID
 #
-# Phases (default: products docs orgs epcis verify): products, docs (generated
-# PDFs + shared symbols), orgs, epcis, events, verify.
+# Phases (default: products granularity docs orgs epcis keys verify): products,
+# granularity (lot classes and serial instances under each product, see
+# GRANULARITY), docs (generated PDFs + shared symbols), orgs, epcis, keys
+# (linksets on primary keys other than GTIN/GLN, see KEYS), events, verify.
 set -uo pipefail
 
 # ------------------------------------------------------------------ args
@@ -59,9 +73,17 @@ case "$ENV" in
   dev)   : "${DL_URL:=https://id.dev.epcis.cloud}";   : "${FILES_URL:=https://files.dev.epcis.cloud}";   : "${AUTH_URL:=https://keycloak.dev.epcis.cloud}"; : "${API_URL:=https://api.dev.epcis.cloud}";   : "${WEB_URL:=https://ddm.dev.epcis.cloud}";  DEF_USER=admin ;;
   demo)  : "${DL_URL:=https://id.demo.epcis.cloud}";  : "${FILES_URL:=https://files.demo.epcis.cloud}";  : "${AUTH_URL:=https://auth.demo.epcis.cloud}";    : "${API_URL:=https://api.demo.epcis.cloud}";  : "${WEB_URL:=https://demo.epcis.cloud}";     DEF_USER=demo-admin ;;
   local) : "${DL_URL:=https://id.epcis.local:8443}";  : "${FILES_URL:=https://files.epcis.local:8443}";  : "${AUTH_URL:=https://auth.epcis.local:8443}";    : "${API_URL:=https://api.epcis.local:8443}";  : "${WEB_URL:=https://epcis.local:8443}";     DEF_USER=admin ;;
-  *) echo "Unknown --env: $ENV (expected dev|demo|local)" >&2; exit 64 ;;
+  # epc.is ist der eigenstaendige Datenpfad: eigener OpenSearch-Cluster, eigener
+  # Dateidienst, eigenes Keycloak -- und ein anderes REALM. Das ist der Punkt,
+  # an dem ein blindes Kopieren des demo-Falls scheitert: DEF_REALM ist hier
+  # "platform", denn auf auth.epc.is gibt es kein Realm namens openepcis
+  # (/realms/openepcis antwortet dort 404). Ohne das holt der Lauf keinen Token
+  # und meldet einen Anmeldefehler statt der Ursache.
+  epc-is) : "${DL_URL:=https://id.epc.is}";           : "${FILES_URL:=https://files.epc.is}";           : "${AUTH_URL:=https://auth.epc.is}";             : "${API_URL:=https://api.epc.is}";           : "${WEB_URL:=https://epc.is}";               DEF_USER=demo-admin; DEF_REALM=platform ;;
+  *) echo "Unknown --env: $ENV (expected dev|demo|local|epc-is)" >&2; exit 64 ;;
 esac
-REALM="${REALM:-openepcis}"
+# Je Umgebung vorbelegt statt fest "openepcis": siehe den epc-is-Fall oben.
+REALM="${REALM:-${DEF_REALM:-openepcis}}"
 SEED_CLIENT_ID="${SEED_CLIENT_ID:-backend-service}"
 SEED_USER="${SEED_USER:-$DEF_USER}"                    # NOT $USERNAME — zsh reserves that
 SEED_PW="${SEED_PW:-${BRUNO_PW:-}}"
@@ -72,7 +94,7 @@ REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 IMAGES_DIR="${IMAGES_DIR:-$REPO_ROOT/scripts/images}"
 ORG_BRU_DIR="$REPO_ROOT/bruno/digital-link-resolver/04-organizations"
 
-PHASES="${ONLY:-products docs orgs epcis verify}"
+PHASES="${ONLY:-products granularity docs orgs epcis keys verify}"
 PHASES="${PHASES//,/ }"
 [ "$WANT_EVENTS" -eq 1 ] && PHASES="$PHASES events"
 
@@ -101,13 +123,65 @@ PRODUCTS=(
   "09521890340331|extensions/eu/textile/examples/organic-tee-product.jsonld|organic-tee|Organic Tee"
 )
 
-# Hero products additionally carry batch + item granularities (model⊂batch⊂item
-# deep-merge, PUT sub-paths) — the DDM provenance/assemble demo resolves the
-# item level, and DELETE /products/{gtin} above wipes the whole tree.
+# Hero products carry batch + item granularities with their own overlay files
+# (model⊂batch⊂item deep-merge) — the DDM provenance/assemble demo and the
+# EPCIS traceability links (epcis phase) resolve those levels.
 # gtin | lot | serial | batch overlay | item overlay
 HEROES=(
   "09521234002000|LOT-2026-AMP01|STAX10-2026-000001|extensions/eu/battery/examples/amperia-staxwall-batch.jsonld|extensions/eu/battery/examples/amperia-staxwall-item.jsonld"
   "09521234003007|LOT-2026-FJ03|AUR-2026-000001|extensions/eu/textile/examples/fjordline-aurora-batch.jsonld|extensions/eu/textile/examples/fjordline-aurora-item.jsonld"
+)
+
+# Every finer-granularity record the website links to (openepcis-web
+# apps/openepcis-components/app/data/demo-catalog.ts — keep the two in step).
+# The heroes are listed again so ONE table drives the granularity phase.
+#
+# Three kinds of record hang off a model, all the COMPLETE model record plus the
+# qualifier (address order per GS1 Digital Link URI syntax §4.9: 22, 10, 21):
+#   variant  — a consumer product variant (01+22, GS1 AI 22): the model with
+#              `gs1:consumerProductVariant`, id …/22/{cpv}. A class below the
+#              model for items that need no GTIN of their own (GTIN Management
+#              Standard) — a seasonal artwork, a promotional print. No EPC carries
+#              it; the catalogue keeps it as its own node.
+#   class    — a lot (01+10): model ⊕ batch overlay, `gs1:hasBatchLotNumber`,
+#              id …/10/{lot}. A class, because it describes a set of like items.
+#   instance — a serial (01+21): model ⊕ batch ⊕ item overlay,
+#              `schema:serialNumber`, id …/21/{serial}. One physical item.
+# A cpv on a lot or serial row writes that record THROUGH the variant
+# (…/22/{cpv}/10/{lot}, …/22/{cpv}/21/{serial}): the node stays 01/g/10/l or
+# 01/g/21/s, the variant becomes its attribute. The Digital Link the website
+# encodes (…/21/{serial}) is unchanged by that.
+# Overlays are optional — six catalogue seeds are serial-level passports already
+# (their `id` carries the /21/ and they name the serial), so the instance IS the
+# seed file and the MODEL is derived from it in provision_product. The bottle
+# keeps its lot overlay file (written for LOT-01) and gets the lot id the
+# website uses stamped over it.
+#
+# Empty cpv, lot or serial = that level is not provisioned for the product. A
+# deposit-return bottle has no SGTIN (its returnable container is a GRAI); the
+# contents are tracked by lot only. A row with a cpv and nothing else is the
+# variant node itself.
+# gtin | cpv | lot | serial | batch overlay | item overlay
+GRANULARITY=(
+  "09521000001428|||WJ-2024-00142||"
+  "09521000002159|||TR-2024-08521||"
+  "09521000004207|||SUIT-2026-00042||"
+  "09521001001380|||BL-2026-04201||"
+  "09521234003007||LOT-2026-FJ03|AUR-2026-000001|extensions/eu/textile/examples/fjordline-aurora-batch.jsonld|extensions/eu/textile/examples/fjordline-aurora-item.jsonld"
+  "09521002005004|||BAT2024-001||"
+  "09521003000442|||EB2026-00821||"
+  "09521234002000||LOT-2026-AMP01|STAX10-2026-000001|extensions/eu/battery/examples/amperia-staxwall-batch.jsonld|extensions/eu/battery/examples/amperia-staxwall-item.jsonld"
+  "09521004005019||BTL-LOT-2026-Q1-001||extensions/eu/ppwr/examples/beverage-bottle-lot-01.jsonld|"
+  # FlexiSnack pouch: two artwork variants of the same 80 g pouch (same GTIN —
+  # a GS1 CPV, not a new item), a production lot written through the promo
+  # variant, the website's serial as a member of that variant, and one item of
+  # the winter edition. Shows all four levels on one product.
+  "09521005000808|PROMO26||||"
+  "09521005000808|WINTER26||||"
+  "09521005000808|PROMO26|LOT-2026-P01|||"
+  "09521005000808|PROMO26||PCH-2026-001||"
+  "09521005000808|WINTER26||PCH-2026-W01||"
+  "09521006003013|||CTN-2026-001||"
 )
 # STRIP (editorial _comment* keys) and HOSTS (neutral example hosts -> this
 # environment) are shared with the other seeding scripts, so all of them normalize
@@ -135,6 +209,13 @@ FLS_PROBE_GTIN=09521000001428
 # ------------------------------------------------------------------ auth
 TOKEN=""
 fetch_token() {
+  # A bearer token handed in (SEED_TOKEN) stands in for the password grant, for a
+  # short run by someone who holds the token but not the seed user's password.
+  if [[ -n "${SEED_TOKEN:-}" ]]; then
+    TOKEN="$SEED_TOKEN"
+    cyan "→ Token handed in for '$(jq -Rr 'split(".")[1] | gsub("-";"+") | gsub("_";"/") | @base64d | fromjson | .preferred_username // "?"' <<<"$TOKEN" 2>/dev/null)'"
+    return 0
+  fi
   if [[ -z "$SEED_PW" || -z "$SEED_CLIENT_SECRET" ]]; then
     red "Set SEED_PW and SEED_CLIENT_SECRET (or BRUNO_PW / BRUNO_CLIENT_SECRET)." >&2
     red "  SEED_PW            = password of '$SEED_USER' in realm '$REALM'" >&2
@@ -205,6 +286,23 @@ refuse_unassigned() { # gtin
   red "     Self-service: POST $DL_URL/test-gcps"
 }
 
+# Whether the target resolver applies the canonical-serial rule, asked once and
+# cached. It decides how a serial that belongs to a lot is written: with the rule
+# ON, /10/{lot}/21/{serial} lands on the instance node 01/g/21/s and stamps the
+# lot as its attribute, so a resolution of the plain /21/ address inherits the lot
+# class's links. With the rule OFF that same address is a document of its own —
+# there the serial keeps its plain /21/ path. An older resolver has no
+# /tenant-settings endpoint at all; that answers the question the same way.
+CANONICAL_SERIAL=""
+canonical_serial() {
+  if [[ -z "$CANONICAL_SERIAL" ]]; then
+    CANONICAL_SERIAL=$(curl -sk -H "$(auth)" -H 'Accept: application/json' "$DL_URL/tenant-settings" \
+      | jq -r 'if .canonicalSerialEnabled == true then "yes" else "no" end' 2>/dev/null)
+    [[ "$CANONICAL_SERIAL" == "yes" ]] || CANONICAL_SERIAL="no"
+  fi
+  [[ "$CANONICAL_SERIAL" == "yes" ]]
+}
+
 # ------------------------------------------------------------------ products (+ embedded images)
 upload_image() { # gtin key src  -> echoes URL (handles images, PDFs, SVG, HTML)
   local gtin="$1" key="$2" src="$3" mime resp code
@@ -233,77 +331,107 @@ mime_of() { # src -> echoes media type
   esac
 }
 
-collect_image_urls() { # gtin slug -> prints JSON array of {url, mime} objects
-  local gtin="$1" slug="$2" src entries=() n=0 url mime
+# The product's local image files, as "key<TAB>path" lines: numbered
+# {gtin}-1..4.{ext} first, else the single {gtin}.{ext}. The key is the path
+# component the file is served under (products/{gtin}/{key}), so it is the one
+# thing the model phase (which uploads) and the granularity phase (which only
+# links) have to agree on.
+image_sources() { # gtin slug
+  local gtin="$1" slug="$2" src n found=0
   for n in 1 2 3 4; do
     for ext in png jpg jpeg webp; do
       src="$IMAGES_DIR/${gtin}-${n}.${ext}"
-      [[ -f "$src" ]] && { url=$(upload_image "$gtin" "${slug}-${n}" "$src") && {
-        mime=$(mime_of "$src")
-        entries+=("$(jq -nc --arg u "$url" --arg m "$mime" '{url:$u, mime:$m}')")
-      }; break; }
+      [[ -f "$src" ]] && { printf '%s\t%s\n' "${slug}-${n}" "$src"; found=1; break; }
     done
   done
-  if [[ ${#entries[@]} -eq 0 ]]; then
-    for ext in png jpg jpeg webp; do
-      src="$IMAGES_DIR/${gtin}.${ext}"
-      [[ -f "$src" ]] && { url=$(upload_image "$gtin" "$slug" "$src") && {
-        mime=$(mime_of "$src")
-        entries+=("$(jq -nc --arg u "$url" --arg m "$mime" '{url:$u, mime:$m}')")
-      }; break; }
-    done
-  fi
+  [[ "$found" -eq 1 ]] && return 0
+  for ext in png jpg jpeg webp; do
+    src="$IMAGES_DIR/${gtin}.${ext}"
+    [[ -f "$src" ]] && { printf '%s\t%s\n' "$slug" "$src"; break; }
+  done
+  return 0
+}
+
+image_entries() { # key src ... -> one {url, mime} object per pair, from stdin lines
+  local key src entries=() url
+  while IFS=$'\t' read -r key src; do
+    [[ -n "$key" ]] || continue
+    url="$FILES_URL/files/products/$1/$key"
+    entries+=("$(jq -nc --arg u "$url" --arg m "$(mime_of "$src")" '{url:$u, mime:$m}')")
+  done
   # bash 3.2 (macOS default) errors on "${entries[@]}" when the array is empty
   # under set -u, and an empty printf line would become [""] — guard both.
   if [[ ${#entries[@]} -eq 0 ]]; then echo '[]'; else printf '%s\n' "${entries[@]}" | jq -s .; fi
 }
 
-# Same as collect_image_urls, but uploads each file only once per run: the hero
-# GTINs need the URL list three times (model + batch + item) and re-uploading a
-# megabyte per granularity is pure waste. bash 3.2 has no associative arrays, so
-# the cache is one small file per GTIN under a run-scoped directory.
-IMG_CACHE_DIR="${TMPDIR:-/tmp}/provision-demo-imgs.$$"
-trap 'rm -rf "$IMG_CACHE_DIR"' EXIT
-image_urls_for() { # gtin slug -> prints JSON array of {url, mime} objects
-  local gtin="$1" slug="$2" cache="$IMG_CACHE_DIR/$1.json"
-  mkdir -p "$IMG_CACHE_DIR"
-  [[ -f "$cache" ]] || collect_image_urls "$gtin" "$slug" >"$cache"
-  cat "$cache"
+collect_image_urls() { # gtin slug -> uploads, prints JSON array of {url, mime} objects
+  local gtin="$1" slug="$2" key src
+  image_sources "$gtin" "$slug" | while IFS=$'\t' read -r key src; do
+    upload_image "$gtin" "$key" "$src" >/dev/null && printf '%s\t%s\n' "$key" "$src"
+  done | image_entries "$gtin"
 }
 
-# Turn the uploaded image list into gs1:ReferencedFileDetails entries and APPEND
-# them to whatever referencedFile the document already declares (certificates,
-# manuals) — never replace. Reads the document on stdin, writes it on stdout.
-#
-# WHY a shared helper: the hero batch/item documents used to be PUT straight from
-# the raw model*batch*item seed merge, which carries no referencedFile at all —
-# so a signed-in reader of a serial-level passport (whose own item document is
-# served, not the model's) got a passport with no product images, while an
-# anonymous reader saw them. Same filter, all three granularities.
-embed_image_refs() { # urls_json desc  (document on stdin)
-  local urls_json="$1" desc="$2"
-  jq --argjson urls "$urls_json" --arg desc "$desc" '
-    if ($urls|length) > 0 then .referencedFile = ((.referencedFile // []) + ($urls | to_entries | map({
-        "type":"gs1:ReferencedFileDetails","fileLanguageCode":"en",
-        "contentDescription": ($desc + " (image " + ((.key+1)|tostring) + ")"),
-        "referencedFileType": {"id":"gs1:ReferencedFileTypeCode-PRODUCT_IMAGE"},
-        "id": .value.url, "referencedFileURL": .value.url }
-        + (if (.value.mime // "") != "" then {"schema:encodingFormat": .value.mime} else {} end)
-      ))) else . end'
+# The same array WITHOUT uploading — the URLs the model phase produced (or
+# will produce; they are a pure function of gtin and key). For the lot and
+# serial records: their pictures are the product's, uploaded once for the
+# model, and a second upload per record would be bandwidth for no new byte.
+# Run with --only=granularity before any products phase, the links point at
+# files that are not there yet; the products phase makes them good.
+image_urls_of() { # gtin slug -> prints JSON array of {url, mime} objects
+  image_sources "$1" "$2" | image_entries "$1"
 }
+
+# jq: the uploaded pictures as gs1:ReferencedFileDetails, appended to whatever
+# referencedFile the seed declares (certificates, manuals). Args: $urls (the
+# array above), $desc (the product description).
+#
+# Two repairs on the way, both learned from what demo served on 2026-09-24:
+#  - The seeds spell the array `gs1:referencedFile`, the pictures go in bare
+#    `referencedFile`. Two spellings of one term in one body, and which of them
+#    the resolver keeps depends on the write path (the model came back with the
+#    pictures only, the serial with the seed's documents only). Folded into the
+#    bare key first, so there is one array to keep.
+#  - Seed entries that name their file only by JSON-LD `id` get that as
+#    referencedFileURL too: the typed write path (ReferencedFileDetails has no
+#    id) drops the id, and the entry arrived as a file type without a file.
+EMBED_IMAGES='
+  if has("gs1:referencedFile") then
+    .referencedFile = ((."gs1:referencedFile" // []) + (.referencedFile // [])) | del(."gs1:referencedFile")
+  else . end |
+  if has("referencedFile") then .referencedFile |= map(
+    if type == "object" and ((.referencedFileURL // "") == "") and ((.id // "") | startswith("http"))
+    then . + {"referencedFileURL": .id} else . end)
+  else . end |
+  if ($urls|length) > 0 then .referencedFile = ((.referencedFile // []) + ($urls | to_entries | map({
+      "type":"gs1:ReferencedFileDetails","fileLanguageCode":"en",
+      "contentDescription": ($desc + " (image " + ((.key+1)|tostring) + ")"),
+      "referencedFileType": {"id":"gs1:ReferencedFileTypeCode-PRODUCT_IMAGE"},
+      "id": .value.url, "referencedFileURL": .value.url }
+      + (if (.value.mime // "") != "" then {"schema:encodingFormat": .value.mime} else {} end)
+    ))) else . end'
 
 provision_product() { # gtin file slug desc
   local gtin="$1" rel="$2" slug="$3" desc="$4" file="$REPO_ROOT/$2"
   [[ -f "$file" ]] || { red "  missing seed file: $rel"; return 1; }
   if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] product $gtin  ($rel + images)"; return 0; fi
-  local urls_json; urls_json=$(image_urls_for "$gtin" "$slug")
+  local urls_json; urls_json=$(collect_image_urls "$gtin" "$slug")
   # Embed the image referencedFile array into the seed body so a single POST
   # yields a complete linkset (no lossy follow-up PUT).
   # Strip editorial _comment* keys (same STRIP as the passport seeder), then embed images.
-  local body; body=$(jq "${hostargs[@]}" '
+  # Append image entries to any referencedFile the seed already declares (e.g.
+  # certificate / manual documents), rather than replacing them.
+  # Several catalogue seeds are ITEM-level passports (id …/01/{gtin}/21/{serial},
+  # schema:serialNumber) that double as the model here. The model record must
+  # not claim to be an exemplar: id back to /01/{gtin}, serial dropped, and a
+  # declared granularity set to "model". The item level gets the untouched file
+  # via the granularity phase.
+  local body; body=$(jq "${hostargs[@]}" --argjson urls "$urls_json" --arg desc "$desc" --arg gtin "$gtin" '
     walk(if type == "object" then with_entries(select(.key | startswith("_") | not)) else . end) |
-    walk(if type == "string" then (gsub("https://id\\.gs1\\.org"; $dl) | gsub("https://files\\.example\\.org"; $files)) else . end)
-    ' "$file" | embed_image_refs "$urls_json" "$desc")
+    walk(if type == "string" then (gsub("https://id\\.gs1\\.org"; $dl) | gsub("https://files\\.example\\.org"; $files)) else . end) |
+    .id = ($dl + "/01/" + $gtin) |
+    del(."schema:serialNumber") |
+    if has("oec:granularityLevel") then ."oec:granularityLevel" = "model" else . end |
+    '"$EMBED_IMAGES" "$file")
   # FLS probe markers (see FLS_PROBE_GTIN above): three oec-core fields at three
   # field tiers, in bare shortcut spelling (survives the typed write path).
   if [[ "$gtin" == "$FLS_PROBE_GTIN" ]]; then
@@ -329,31 +457,118 @@ provision_product() { # gtin file slug desc
   esac
 }
 
-# ------------------------------------------------------------------ hero batch/item granularities
-provision_hero_sublevels() {
-  local row gtin lot serial batch item model code doc slug desc urls_json
-  for row in "${HEROES[@]}"; do
-    IFS='|' read -r gtin lot serial batch item <<<"$row"
+# ------------------------------------------------------------------ lot/serial granularities
+# The seed file of a catalogue product, or "" when the GTIN is not in PRODUCTS.
+model_file_of() { # gtin
+  local prow model
+  for prow in "${PRODUCTS[@]}"; do
+    [[ "$prow" == "$1|"* ]] && { IFS='|' read -r _ model _ _ <<<"$prow"; echo "$model"; return 0; }
+  done
+  echo ""
+}
+
+# The image slug of a catalogue product, or "" when the GTIN is not in PRODUCTS.
+slug_of() { # gtin
+  local prow
+  for prow in "${PRODUCTS[@]}"; do
+    [[ "$prow" == "$1|"* ]] && { IFS='|' read -r _ _ s _ <<<"$prow"; echo "$s"; return 0; }
+  done
+  echo ""
+}
+
+# instance_body GTIN MODEL [OVERLAY…] — deep-merge the seed files (later wins),
+# normalize hosts and embed the product's pictures, exactly as the model got
+# them. A lot or serial record is served as its own document, not as a delta
+# the resolver fills in from the model: what the record does not carry, no
+# reader of it sees. Callers stamp id and qualifier afterwards.
+instance_body() {
+  local gtin="$1"; shift
+  local files=() f urls_json
+  for f in "$@"; do [[ -n "$f" ]] && files+=("$REPO_ROOT/$f"); done
+  urls_json=$(image_urls_of "$gtin" "$(slug_of "$gtin")")
+  jq -s 'reduce .[1:][] as $o (.[0]; . * $o)' "${files[@]}" \
+    | jq "${hostargs[@]}" "$STRIP | $HOSTS" \
+    | jq --argjson urls "$urls_json" --arg desc "$(desc_for "$gtin")" "$EMBED_IMAGES"
+}
+
+# put_instance PATH DOC LABEL — PUT /products/PATH (an upsert; never a delete).
+put_instance() {
+  local path="$1" doc="$2" label="$3" code
+  # The level endpoints read isAnonymousAccessAllowed from the QUERY (the header
+  # is what POST /products reads); without it a lot or serial record is stored
+  # AuthorizedOnly and an anonymous resolution falls back to the model — which
+  # also hides the node's lot and variant attributes from the walk.
+  code=$(curl -sk -o /tmp/pd_inst.json -w '%{http_code}' -X PUT "$DL_URL/products/$path?isAnonymousAccessAllowed=true" \
+    -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' \
+    --data-binary "$doc")
+  local nimg; nimg=$(jq '[.referencedFile[]? | select(.referencedFileURL? and ((.referencedFileType|tostring) | test("PRODUCT_IMAGE")))] | length' <<<"$doc" 2>/dev/null || echo 0)
+  case "$code" in
+    20[0-2]) grn "  $label $path ($nimg img) -> $code" ;;
+    *) red "  $label $path -> $code $(jq -rc '.detail // .message // empty' /tmp/pd_inst.json 2>/dev/null)" ;;
+  esac
+}
+
+provision_granularity() {
+  local row gtin cpv lot serial batch item model doc via
+  for row in "${GRANULARITY[@]}"; do
+    IFS='|' read -r gtin cpv lot serial batch item <<<"$row"
     gtin_selected "$gtin" || continue
-    model=""; slug=""; desc=""
-    local prow
-    for prow in "${PRODUCTS[@]}"; do
-      [[ "$prow" == "$gtin|"* ]] && { IFS='|' read -r _ model slug desc <<<"$prow"; break; }
-    done
-    [[ -n "$model" && -f "$REPO_ROOT/$model" && -f "$REPO_ROOT/$batch" && -f "$REPO_ROOT/$item" ]]       || { red "  hero $gtin: missing model/batch/item file"; continue; }
-    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] hero $gtin batch=$lot item=$serial"; continue; fi
-    # The batch/item documents are what the resolver serves to a reader who is
-    # entitled to the stored record (its owner, signed in) — they need the same
-    # product images the model carries, or that reader gets an imageless
-    # passport while an anonymous one, served the derived view, sees pictures.
-    # Cached, so this costs no extra uploads.
-    urls_json=$(image_urls_for "$gtin" "$slug")
-    doc=$(jq -s '.[0] * .[1]' "$REPO_ROOT/$model" "$REPO_ROOT/$batch" | jq "${hostargs[@]}" "$STRIP | $HOSTS" | embed_image_refs "$urls_json" "$desc")
-    code=$(curl -sk -o /dev/null -w '%{http_code}' -X PUT "$DL_URL/products/$gtin/10/$lot"       -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true'       --data-binary "$doc")
-    case "$code" in 20[0-2]) grn "  hero batch $gtin/10/$lot -> $code" ;; *) red "  hero batch $gtin/10/$lot -> $code" ;; esac
-    doc=$(jq -s '.[0] * .[1] * .[2]' "$REPO_ROOT/$model" "$REPO_ROOT/$batch" "$REPO_ROOT/$item" | jq "${hostargs[@]}" "$STRIP | $HOSTS" | embed_image_refs "$urls_json" "$desc")
-    code=$(curl -sk -o /dev/null -w '%{http_code}' -X PUT "$DL_URL/products/$gtin/21/$serial"       -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true'       --data-binary "$doc")
-    case "$code" in 20[0-2]) grn "  hero item  $gtin/21/$serial -> $code" ;; *) red "  hero item  $gtin/21/$serial -> $code" ;; esac
+    model=$(model_file_of "$gtin")
+    [[ -n "$model" && -f "$REPO_ROOT/$model" ]] || { red "  granularity $gtin: no model seed in PRODUCTS"; continue; }
+    [[ -z "$batch" || -f "$REPO_ROOT/$batch" ]] || { red "  granularity $gtin: missing batch overlay $batch"; continue; }
+    [[ -z "$item"  || -f "$REPO_ROOT/$item"  ]] || { red "  granularity $gtin: missing item overlay $item"; continue; }
+    if [[ "$DRY" -eq 1 ]]; then
+      echo "  [dry-run] granularity $gtin cpv=${cpv:--} lot=${lot:--} serial=${serial:--} ($(image_urls_of "$gtin" "$(slug_of "$gtin")" | jq length) img)"
+      continue
+    fi
+    # The address prefix below the model: a variant in front of lot and serial
+    # (GS1 order 22, 10, 21). The node is still the lot class or the instance;
+    # the CPV is its attribute, so it must not be in the body — the path says it.
+    via=${cpv:+"22/$cpv/"}
+    if [[ -n "$cpv" && -z "$lot" && -z "$serial" ]]; then
+      # The variant node: the model with its CPV, id …/22/{cpv}. EN 18223 knows
+      # no granularity between model and batch, so the level stays "model".
+      doc=$(instance_body "$gtin" "$model" | jq --arg dl "$DL_URL" --arg gtin "$gtin" --arg cpv "$cpv" '
+        .id = ($dl + "/01/" + $gtin + "/22/" + $cpv) |
+        ."gs1:consumerProductVariant" = $cpv |
+        del(."schema:serialNumber", ."gs1:hasBatchLotNumber", .hasBatchLotNumber) |
+        if has("oec:granularityLevel") then ."oec:granularityLevel" = "model" else . end')
+      put_instance "$gtin/22/$cpv" "$doc" "variant "
+      continue
+    fi
+    if [[ -n "$lot" ]]; then
+      # The lot record: model ⊕ batch overlay, id and lot number stamped to THIS
+      # lot (the bottle's overlay was written for another lot id), no serial.
+      doc=$(instance_body "$gtin" "$model" "$batch" | jq --arg dl "$DL_URL" --arg gtin "$gtin" --arg lot "$lot" '
+        .id = ($dl + "/01/" + $gtin + "/10/" + $lot) |
+        ."gs1:hasBatchLotNumber" = $lot |
+        del(."schema:serialNumber", ."gs1:consumerProductVariant", .consumerProductVariant) |
+        if has("oec:granularityLevel") then ."oec:granularityLevel" = "batch" else . end')
+      put_instance "$gtin/${via}10/$lot" "$doc" "class   "
+    fi
+    if [[ -n "$serial" ]]; then
+      # The item record: the COMPLETE model (⊕ batch ⊕ item overlays) plus the
+      # serial. Never a qualifier in the BODY — the path carries lot and variant,
+      # and the endpoints reject a body that repeats or contradicts them.
+      #
+      # Which path: an item that belongs to a lot is written THROUGH that lot
+      # (…/10/{lot}/21/{serial}) wherever the canonical-serial rule is in force.
+      # The node is still 01/g/21/s — the Digital Link the website encodes — and
+      # it now carries hasBatchLotNumber, which is what lets a scan of the bare
+      # serial inherit the lot class's links (instance → lot → variant → model).
+      # Without the rule that address would be a second document, so there the
+      # serial stays at its plain /21/ path.
+      local item_via="$via"
+      if [[ -n "$lot" ]]; then
+        if canonical_serial; then item_via="${via}10/$lot/"; else ylw "  note: $gtin/$serial stays outside lot $lot (canonical-serial off on $ENV)"; fi
+      fi
+      doc=$(instance_body "$gtin" "$model" "$batch" "$item" | jq --arg dl "$DL_URL" --arg gtin "$gtin" --arg serial "$serial" '
+        .id = ($dl + "/01/" + $gtin + "/21/" + $serial) |
+        ."schema:serialNumber" = $serial |
+        del(."gs1:hasBatchLotNumber", .hasBatchLotNumber, ."gs1:consumerProductVariant", .consumerProductVariant) |
+        if has("oec:granularityLevel") then ."oec:granularityLevel" = "item" else . end')
+      put_instance "$gtin/${item_via}21/$serial" "$doc" "instance"
+    fi
   done
 }
 
@@ -548,6 +763,121 @@ provision_place_link() { # gln name
   patch_link "414/$gln" "locationInfo" "$detail" "$name"
 }
 
+# ------------------------------------------------------------- alternative primary keys
+# /.well-known/gs1resolver advertises twenty primary keys. Until this phase
+# existed, exactly two of them had data behind them: 01 (products) and 414
+# (orgs/places). The other eighteen were verifiable only at the validator level
+# -- a wrong key is refused with 400, a right one reaches 404 -- and never
+# through GS1s resolver test suite, which needs a linkset, a default link and a
+# redirect to test against.
+#
+# Two are provisioned here because they are the two that are structurally
+# different, not because the rest are uninteresting:
+#
+#   8013  Global Model Number. The ONLY primary key without a mod-10 check
+#         digit: it ends in a check character PAIR over MOD 1021-37 / CSET 82.
+#         Do not "correct" the tail of the value below -- changing any character
+#         in the model reference changes the pair, and the resolver refuses it
+#         outright with 400.
+#   417 needs NO row. A party GLN identifies the same GLN as 414 does for an
+#         organisation, and the resolver normalises 417 -> 414 on the way in, so
+#         /417/<gln> already answers with the organisation's own linkset
+#         (verified on dev: 200, anchor .../414/<gln>). A record written at a
+#         417 path would never be read by anybody.
+#
+# NOT 410-413. They read like primary keys -- they are GLNs, and GS1s
+# description-file schema still offers them in supportedPrimaryKeys -- but the
+# URI Syntax standard removed them: "AIs in the 410-416 range, except 414 and
+# 417, have been removed from the list of primary identification keys". They
+# are data attributes and belong in the query string. Four rows for them lived
+# here briefly; the addresses they wrote are not Digital Links, and the linksets
+# behind them are deleted by resolver-demo-cleanup.sh.
+#
+# A caveat before pointing GS1s suite at the GMN: their Digital Link toolkit
+# lists only FOURTEEN identifiers where the syntax standard has sixteen. 8013
+# sits under dataAttributes there and 417 is absent altogether, so
+# extractFromGS1digitalLink() returns nothing for either and the suite stops
+# before it makes a single request. Measured 2026-09-13. The record below is
+# still right; the suite simply cannot read its address yet.
+#
+# anchorPath | description | target path on the DDM/demo site
+KEYS=(
+  "8013/9521890340331TSHIRTP3|Organic Tee - model (GMN)|01/09521890340331"
+)
+
+# Der Default-Link faehrt wieder im Anlege-Body mit.
+#
+# Bis zum 15.09. ging das nicht: der Resolver speicherte einen Linktyp mit
+# einer eigenen Regel (alles nach dem letzten Slash, Schreibweise behalten),
+# sodass aus https://ref.gs1.org/voc/defaultLink ein defaultLink wurde -- und
+# die Validierung, die beim Anlegen ein zweites Mal laeuft, misst das gegen
+# GS1s Muster ^[a-z-]+$. Jeder camelCase-Linktyp fiel damit durch
+# (defaultLink, masterData, certificationInfo, epcisRepository,
+# organisationInfo), waehrend pip und dpp durchkamen, weil sie zufaellig
+# kleingeschrieben sind. Der Umweg hier lautete deshalb: anlegen mit pip,
+# Default-Link danach per PATCH, das jene Validierung nicht faehrt.
+#
+# Behoben in Resolver 7ebe0a6: der Schreibpfad benutzt jetzt ueberall
+# CommonConstant.linkTypeStorageKey, die gemeinsame Regel, deren Vertrag genau
+# das verlangt. Auf dev, demo und epc.is ausgerollt und nachgeprueft.
+#
+# VORAUSSETZUNG, falls dieses Skript gegen eine aeltere Installation laeuft:
+# ohne diesen Fix antwortet der POST mit 400 und "property 'defaultLink' is
+# not defined in the schema". Dann ist nicht das Body schuld, sondern das Ziel
+# zu alt.
+provision_keys() {
+  cyan "▸ Alternative primary keys (KEYS)"
+  local row ap desc target body code resp rbody
+  for row in "${KEYS[@]}"; do
+    IFS='|' read -r ap desc target <<<"$row"
+    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] key $ap -> $target"; continue; fi
+    # itemDescription, NOT description. GS1s schema prefers "description" and
+    # deprecated the old name, and the resolver learned to accept both -- but
+    # only from the image that carries that change. An older deployment has no
+    # binding for "description", so the key falls through to the link-relation
+    # setter and the whole document is rejected with a type error. The
+    # deprecated name is understood by every build, new and old.
+    body=$(python3 -c "
+import json,sys
+ap, desc, target = sys.argv[1], sys.argv[2], sys.argv[3]
+print(json.dumps({'linkset': [{
+  'anchor': ap,
+  'itemDescription': desc,
+  'https://ref.gs1.org/voc/defaultLink': [{'href': target, 'title': desc}],
+  'https://ref.gs1.org/voc/pip': [{
+      'href': target, 'title': desc, 'type': 'text/html',
+      'hreflang': ['en'], 'context': ['ALL'], 'public': True}]}]}))" \
+      "$DL_URL/$ap" "$desc" "$WEB_URL/$target")
+    # POST creates (201), PUT updates an existing one (a POST onto an existing
+    # anchor is refused, and a PUT onto a missing one answers "Linkset not found
+    # for update") -- so try create, then update, exactly as the org and place
+    # phases do.
+    # The anonymous flag goes as query param AND header for the same reason
+    # documented in provision_orgs: the APIs bound it differently over time.
+    resp=$(curl -sk -w '\n%{http_code}' -X POST "$DL_URL/$ap?isAnonymousAccessAllowed=true" \
+      -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' \
+      --data-binary "$body")
+    code=$(printf '%s' "$resp" | tail -n1); rbody=$(printf '%s' "$resp" | sed '$d')
+    if [[ "$code" == 20[0-2] ]]; then
+      grn "  $ap -> POST $code"
+    else
+      # Report the POST as well. The first version of this phase printed only
+      # the PUT, so a POST that failed for its own reason looked like a missing
+      # record -- which cost an entire round of guessing.
+      ylw "  $ap -> POST $code ${rbody:0:160}"
+      resp=$(curl -sk -w '\n%{http_code}' -X PUT "$DL_URL/$ap?isAnonymousAccessAllowed=true" \
+        -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' \
+        --data-binary "$body")
+      code=$(printf '%s' "$resp" | tail -n1); rbody=$(printf '%s' "$resp" | sed '$d')
+      case "$code" in
+        20[0-2]) grn "  $ap -> PUT $code" ;;
+        *) red "  $ap -> PUT $code ${rbody:0:200}" ;;
+      esac
+    fi
+  done
+}
+
+
 # ------------------------------------------------------------------ places
 # A demo Place, anonymously resolvable (Public tier) exactly like products/orgs. The
 # isAnonymousAccessAllowed=true header reconciles to accessLevel=Public at the resolver's
@@ -623,6 +953,71 @@ verify() {
     else red "  $gtin  md=$md dpp=$dpp img=$img"; fi
   done
   echo "  $ok/$total products resolve (masterData + dpp)."
+
+  # Instances: the linkset served for a /10/ or /21/ Digital Link must be
+  # anchored at THAT path. A walk-up to the GTIN anchor answers 200 as well,
+  # which is exactly the state this phase exists to rule out.
+  cyan "▸ Verify (variant/class/instance anchors)"
+  # An address through the variant (…/22/{cpv}/10/{lot}) is an entry path to the
+  # lot node; the GS1-conformant resolver still anchors its first context at the
+  # address that was asked for, so the check is the same for every row.
+  local cpv lot serial p anchor via iok=0 itotal=0
+  for row in "${GRANULARITY[@]}"; do
+    IFS='|' read -r gtin cpv lot serial _ _ <<<"$row"; gtin_selected "$gtin" || continue
+    via=${cpv:+"22/$cpv/"}
+    local item_via="$via" paths=()
+    [[ -n "$lot" && -n "$serial" ]] && canonical_serial && item_via="${via}10/$lot/"
+    if [[ -n "$cpv" && -z "$lot" && -z "$serial" ]]; then paths=("01/$gtin/22/$cpv"); fi
+    [[ -n "$lot" ]] && paths+=("01/$gtin/${via}10/$lot")
+    [[ -n "$serial" ]] && paths+=("01/$gtin/${item_via}21/$serial")
+    for p in ${paths[@]+"${paths[@]}"}; do
+      itotal=$((itotal+1))
+      anchor=$(curl -sk -H 'Accept: application/linkset+json' "$DL_URL/$p?linkType=all" | jq -r '.linkset[0].anchor // empty' 2>/dev/null)
+      if [[ "$anchor" == "$DL_URL/$p" ]]; then grn "  $p  own anchor"; iok=$((iok+1));
+      else red "  $p  anchor=${anchor:-none} (walk-up or missing)"; fi
+    done
+  done
+  echo "  $iok/$itotal variant/class/instance anchors resolve at their own level."
+
+  # The point of writing an item through its lot: a scan of the BARE serial — the
+  # address on the label — must find the lot class in its walk. Checked only where
+  # the rule is in force; without it the bare serial is a node without a lot.
+  if canonical_serial; then
+    cyan "▸ Verify (a serial inherits its lot class)"
+    local wok=0 wtotal=0 anchors
+    for row in "${GRANULARITY[@]}"; do
+      IFS='|' read -r gtin cpv lot serial _ _ <<<"$row"; gtin_selected "$gtin" || continue
+      [[ -n "$lot" && -n "$serial" ]] || continue
+      wtotal=$((wtotal+1))
+      anchors=$(curl -sk -H 'Accept: application/linkset+json' "$DL_URL/01/$gtin/21/$serial?linkType=all" \
+        | jq -r '[.linkset[].anchor] | join(" ")' 2>/dev/null)
+      if [[ "$anchors" == *"/01/$gtin/10/$lot"* ]]; then grn "  01/$gtin/21/$serial  inherits lot $lot"; wok=$((wok+1));
+      else red "  01/$gtin/21/$serial  lot $lot missing from the walk (anchors: ${anchors:-none})"; fi
+    done
+    echo "  $wok/$wtotal serials inherit their lot class."
+  fi
+
+  # The alternative primary keys. Checked anonymously and WITHOUT a token on
+  # purpose: these exist so GS1s resolver test suite can be pointed at them, and
+  # the suite carries no credentials. A record that only resolves for us proves
+  # nothing about conformance.
+  if [[ ${#KEYS[@]} -gt 0 ]]; then
+    cyan "▸ Verify (alternative primary keys, anonymous)"
+    local krow kap kdesc ktarget ls def kok=0 ktotal=0
+    for krow in "${KEYS[@]}"; do
+      IFS='|' read -r kap kdesc ktarget <<<"$krow"; ktotal=$((ktotal+1))
+      ls=$(curl -sk -o /dev/null -w '%{http_code}' -H 'Accept: application/linkset+json' "$DL_URL/$kap?linkType=linkset")
+      def=$(curl -sk -o /dev/null -w '%{http_code}' -H 'Accept: text/html' "$DL_URL/$kap")
+      # A bare request must redirect to the default link (GS1-conformant
+      # resolver standard 1.2.1 requires 302 here, not 307).
+      if [[ "$ls" == 200 && ( "$def" == 302 || "$def" == 307 ) ]]; then
+        grn "  $kap  linkset=$ls default=$def"; kok=$((kok+1))
+      else
+        red "  $kap  linkset=$ls default=$def"
+      fi
+    done
+    echo "  $kok/$ktotal alternative primary keys resolve anonymously."
+  fi
 }
 
 # ------------------------------------------------------------------ run
@@ -638,9 +1033,11 @@ if [[ "$DRY" -eq 1 ]]; then ylw "dry-run: skipping token"; TOKEN=dry-run; else f
 if has products; then
   cyan "▸ Products (+ embedded images)"
   for row in "${PRODUCTS[@]}"; do IFS='|' read -r g f s d <<<"$row"; gtin_selected "$g" && provision_product "$g" "$f" "$s" "$d"; done
-  cyan "▸ Hero batch/item granularities"
-  provision_hero_sublevels
   provision_tier_probes
+fi
+if has granularity; then
+  cyan "▸ Granularity: variants + lot classes + serial instances (GRANULARITY)"
+  provision_granularity
 fi
 has docs   && provision_docs
 has orgs   && { provision_orgs; provision_places; }
@@ -657,6 +1054,7 @@ if has epcis; then
   # epcisRepository only for the event-bearing hero products (item + lot via EPC=)
   for row in "${HEROES[@]}"; do IFS='|' read -r g _ _ _ _ <<<"$row"; gtin_selected "$g" && provision_epcisrepo "$g"; done
 fi
+has keys   && provision_keys
 has events && provision_events
 has verify && verify
 grn "✓ provision-demo complete ($ENV)"

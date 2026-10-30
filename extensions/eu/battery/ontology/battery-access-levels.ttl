@@ -43,6 +43,31 @@
 @prefix oec:   <https://ref.openepcis.org/extensions/common/core/> .
 
 # =============================================================================
+# Module-level role defaults (EN 18239:2026 5.2.7; Battery Regulation audiences)
+# =============================================================================
+# Annex XIII(2) + Art. 77(2)(c): "persons with a legitimate interest and the
+# Commission" -> every identified value-chain actor and authority. The
+# Commission has no EN 18239 4.2 role; it enters as a market surveillance /
+# notified actor credential when it does.
+# Annex XIII(3): "notified bodies, market surveillance authorities and the
+# Commission" -> Restricted is NARROWER than the dpp-core default: customs is
+# not in the Annex XIII(3) audience.
+# Annex XIII(4) + Art. 14 + Annex VII (state of health, usage telemetry) name a
+# narrower legitimate-interest audience again; those terms carry their own
+# oec:accessGrantedToRole below.
+
+<https://ref.openepcis.org/extensions/eu/battery/>
+    oec:authorizedOnlyGrantedToRole
+        oec:Manufacturer, oec:AuthorisedRepresentative, oec:Importer, oec:Distributor,
+        oec:Dealer, oec:FulfilmentServiceProvider, oec:Processor, oec:Trader,
+        oec:Producer, oec:Operator, oec:DownstreamOperator,
+        oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler,
+        oec:MarketSurveillanceAuthority, oec:CustomsAuthority, oec:NotifiedActor,
+        oec:DppServiceProvider ;
+    oec:restrictedGrantedToRole
+        oec:NotifiedActor, oec:MarketSurveillanceAuthority .
+
+# =============================================================================
 # Public: battery identification & general information
 # (Annex XIII(1)(a) via Annex VI Part A; Art. 77(2))
 # =============================================================================
@@ -748,152 +773,186 @@ eubat:hasRepurposingEntity oec:defaultAccessLevel oec:AuthorizedOnly ;
 # Battery-individual SoH and expected-lifetime data determined per Annex VII
 # is readable via the BMS by the purchaser/owner, independent operators,
 # repurposers, remanufacturers and recyclers — a fixed legitimate-interest
-# audience, hence AuthorizedOnly and mandated.
+# audience, hence AuthorizedOnly and mandated. Each term therefore names its
+# own EN 18239 audience (oec:accessGrantedToRole): professional repairers,
+# independent operators (repurposers, remanufacturers, waste operators),
+# recyclers, market surveillance and notified actors. The owner is the
+# economic operator holding the record (never role-gated); an owner who is a
+# consumer reads through the BMS, not through the passport tier.
 
 eubat:hasStateOfHealth oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Art. 14(1)/Annex VII: state-of-health data is BMS-readable for the legitimate-interest audience, not the general public." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasStateOfCharge oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: state of charge is battery-individual BMS data for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasStateOfCertifiedEnergy oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: SoCE is battery-individual health state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasRemainingCapacity oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: remaining capacity is battery-individual health state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasRemainingEnergy oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: remaining energy is battery-individual health state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasRemainingUsableEnergy oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: remaining usable energy is battery-individual health state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasRemainingPowerCapability oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: remaining power capability is battery-individual health state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasPowerCapabilityAt20SoC oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Current power capability at 20 % SoC is a measured expression of the Annex VII remaining-power-capability state for the Art. 14 audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasPowerCapabilityAt80SoC oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Current power capability at 80 % SoC is a measured expression of the Annex VII remaining-power-capability state for the Art. 14 audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasRemainingRoundTripEfficiency oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: remaining round-trip efficiency is battery-individual health state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:roundTripEnergyEfficiency oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The current measured round-trip efficiency is Annex VII health state — only the initial declared value (eubat:roundTripEfficiency) is public." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasRoundTripEfficiencyFade oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: measured efficiency fade is battery-individual degradation state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasCapacityFade oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: measured capacity fade is battery-individual degradation state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasPowerFade oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: measured power fade is battery-individual degradation state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasInternalResistance oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The current measured internal resistance is Annex VII health state — only the initial declared value (eubat:hasInitialInternalResistance) is public under Annex XIII(1)(o)." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasInternalResistanceIncrease oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: measured resistance increase is battery-individual degradation state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasSelfDischargeRate oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: the current self-discharge rate is battery-individual health state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasCurrentSelfDischargingRate oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: the current self-discharge rate is battery-individual health state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasEvolutionOfSelfDischarge oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: the evolution of self-discharge is battery-individual degradation state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasCycleCount oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part B: the number of charge-discharge cycles is battery-individual usage data for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:numberOfFullCycles oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part B: full equivalent cycles are battery-individual usage data for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasCapacityThroughput oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part B: cumulative capacity throughput is battery-individual usage data for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasEnergyThroughput oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part B: cumulative energy throughput is battery-individual usage data for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:timeSpentInExtremeTemperaturesAboveBoundary oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part B: temperature-exposure history is battery-individual usage data for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:timeSpentInExtremeTemperaturesBelowBoundary oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part B: temperature-exposure history is battery-individual usage data for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part B: charging-in-extreme-temperature history is battery-individual usage data for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part B: charging-in-extreme-temperature history is battery-individual usage data for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:numberOfDeepDischargeEvents oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex XIII(4) via Annex VII: the count of deep-discharge events is battery-individual negative-event data for the Art. 14 legitimate-interest audience, matching eubat:hasNegativeEvents." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:puttingIntoService oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part B: the date of putting into service is battery-individual lifecycle data for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasInitialCapacity oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The capacity measured at commissioning (ILMD) is the battery-individual SoH baseline used by the Art. 14/Annex VII audience — the declared rating stays public separately." ;

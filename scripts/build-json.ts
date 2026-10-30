@@ -105,6 +105,18 @@ interface TermData {
   accessLevelRationale?: string;
   accessLevelSource?: string;
   accessLevelInherited?: boolean;
+  /**
+   * EN 18239:2026 actor roles (oec:ActorRole local names) the mandating legal act admits to
+   * this term — oec:accessGrantedToRole. Only meaningful with accessLevelMandatedBy; terms
+   * without it inherit the module's accessRoleDefaults for their tier.
+   */
+  accessGrantedToRole?: string[];
+}
+
+/** Module-level EN 18239 role defaults per controlled tier (oec:*GrantedToRole on the ontology node). */
+interface AccessRoleDefaults {
+  AuthorizedOnly?: string[];
+  Restricted?: string[];
 }
 
 interface EnumValue {
@@ -130,6 +142,7 @@ interface OntologyData {
   classes: TermData[];
   properties: TermData[];
   enumerations: EnumerationData[];
+  accessRoleDefaults?: AccessRoleDefaults;
 }
 
 interface OntologyModule {
@@ -161,16 +174,24 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "dpp-core.ttl",
     namespace: "https://ref.openepcis.org/extensions/common/core/",
   },
+  {
+    name: "carrier",
+    dir: "extensions/common/carrier",
+    ttlFile: "carrier.ttl",
+    namespace: "https://ref.openepcis.org/extensions/common/carrier/",
+  },
   // Served master-data fields. NOT an EPCIS extension and not a vocabulary of
-  // its own: 135 of the 139 served fields are GS1 Web Vocabulary properties
+  // its own: 143 of the 152 served fields are GS1 Web Vocabulary properties
   // under the identical local name, so identity stays with GS1 and the terms
-  // are gs1: IRIs. Only 4 flattened/resolver-specific shapes carry a local id.
+  // are gs1: IRIs. 5 are schema.org properties the extension contexts place at
+  // the top level of a record. Only 4 flattened/resolver-specific shapes carry
+  // a local id.
   {
     name: "served-fields",
     dir: "masterdata/served-fields",
     ttlFile: "served-fields.ttl",
     namespace: "https://ref.gs1.org/voc/",
-    extraNamespaces: ["https://ref.openepcis.org/masterdata/served-fields/"],
+    extraNamespaces: ["https://ref.openepcis.org/masterdata/served-fields/", "https://schema.org/"],
     ontologyIri: "https://ref.openepcis.org/masterdata/served-fields/",
   },
   {
@@ -369,6 +390,9 @@ function extractTermData(store: Store, subject: string, namespace: string): Term
   const accessLevelRationale = getObjectValue(store, subject, `${OEC}accessLevelRationale`);
   const accessLevelSource = getObjectValue(store, subject, `${OEC}accessLevelSource`);
   const accessLevelInherited = getObjectValue(store, subject, `${OEC}accessLevelInherited`) === "true";
+  // EN 18239 role audience fixed by the mandating act (oec:accessGrantedToRole); emitted as
+  // bare oec:ActorRole local names, sorted so the JSON is stable across TTL reorderings.
+  const accessGrantedToRole = actorRoleNames(getObjectValues(store, subject, `${OEC}accessGrantedToRole`));
 
   return {
     id: subject,
@@ -395,6 +419,31 @@ function extractTermData(store: Store, subject: string, namespace: string): Term
     ...(accessLevelRationale && { accessLevelRationale }),
     ...(accessLevelSource && { accessLevelSource }),
     ...(accessLevelInherited && { accessLevelInherited }),
+    ...(accessGrantedToRole.length > 0 && { accessGrantedToRole }),
+  };
+}
+
+/** oec:ActorRole IRIs → sorted bare local names; a value outside oec: is kept verbatim so check:access-levels can name it. */
+function actorRoleNames(iris: string[]): string[] {
+  return iris
+    .map((iri) => (iri.startsWith(OEC) ? iri.substring(OEC.length) : iri))
+    .sort((a, b) => a.localeCompare(b));
+}
+
+/**
+ * The module's EN 18239 tier→roles defaults, stated on its ontology node in the
+ * *-access-levels.ttl sidecar (oec:authorizedOnlyGrantedToRole / oec:restrictedGrantedToRole).
+ * Absent when the module states none — consumers then fall back to dpp-core's.
+ */
+function extractAccessRoleDefaults(store: Store, subjects: string[]): AccessRoleDefaults | undefined {
+  const collect = (predicate: string) =>
+    actorRoleNames(subjects.flatMap((subject) => getObjectValues(store, subject, predicate)));
+  const authorizedOnly = collect(`${OEC}authorizedOnlyGrantedToRole`);
+  const restricted = collect(`${OEC}restrictedGrantedToRole`);
+  if (authorizedOnly.length === 0 && restricted.length === 0) return undefined;
+  return {
+    ...(authorizedOnly.length > 0 && { AuthorizedOnly: authorizedOnly }),
+    ...(restricted.length > 0 && { Restricted: restricted }),
   };
 }
 
@@ -589,6 +638,7 @@ function extractOntologyData(store: Store, module: OntologyModule): OntologyData
   }
 
   const enumerations = extractEnumerations(store, termNamespaces, nsFor, classes);
+  const accessRoleDefaults = extractAccessRoleDefaults(store, [describedBy, ontologyUri]);
 
   // Also collect individuals that are instances of external classes (e.g., gs1:MeasurementType)
   const externalEnums = extractExternalEnumerations(store, termNamespaces, nsFor, allSubjects);
@@ -618,6 +668,7 @@ function extractOntologyData(store: Store, module: OntologyModule): OntologyData
     classes: regularClasses,
     properties,
     enumerations,
+    ...(accessRoleDefaults && { accessRoleDefaults }),
   };
 }
 

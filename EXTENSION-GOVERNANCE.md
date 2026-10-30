@@ -41,6 +41,7 @@ GS1-Extensions: battery=https://ref.openepcis.org/extensions/eu/battery/
 | Prefix | URI | Purpose |
 |--------|-----|---------|
 | `dpp` | `https://ref.openepcis.org/extensions/common/core/` | Core DPP/ESPR vocabulary |
+| `carrier` | `https://ref.openepcis.org/extensions/common/carrier/` | Data carrier authentication (NTAG 424 DNA SUN key records, chip binding, scan verdicts) |
 | `battery` | `https://ref.openepcis.org/extensions/eu/battery/` | Battery Regulation vocabulary |
 | `eudr` | `https://ref.openepcis.org/extensions/eu/eudr/` | EUDR vocabulary |
 | `detergent` | `https://ref.openepcis.org/extensions/eu/detergent/` | Detergent Regulation vocabulary |

@@ -95,9 +95,9 @@ licensed documents, cited here by clause.
 
 ## 1. The standards, and how to read them
 
-JTC 24 is developing eight DPP standards under M/604. Six were published
-in 2026; prEN 18239 (access rights) and prEN 18246 (data authentication)
-remain in development.
+JTC 24 has delivered eight DPP standards under M/604, all published in
+2026 — EN 18239 (access rights) and EN 18246 (data authentication) last,
+in September.
 
 | Standard | Title | Working Group |
 |----------|-------|---------------|
@@ -187,7 +187,7 @@ profiles.[^refregistry] Section 7 details it.
 
 **Keycloak.** Identity in front of capture and of non-public resources,
 realising the differentiated access ESPR requires.[^keycloak] The access
-standard prEN 18239 is still in development. Section 6 details it.
+standard EN 18239 defines that access per actor role. Section 6 details it.
 
 ---
 
@@ -369,8 +369,11 @@ authenticates with an OAuth2 client and bearer tokens.
   Keycloak role (consumer, regulator, recycler, repairer, customs).
 
 This realises ESPR's access requirement today. The dedicated CEN standard
-for access rights, prEN 18239, is still in development; its data
-authentication companion is prEN 18246. EPCIS4DPP will track both.
+for access rights, EN 18239, defines access per actor role (its 4.2
+taxonomy is `oec:ActorRole`, the per-act audiences live in the access-level
+sidecars); its data authentication companion EN 18246 asks for actor-bound,
+non-repudiable changes and a tamper-evident log. The clause-level state is
+in `CEN_JTC24_CONFORMANCE.md`.
 
 ---
 
@@ -662,18 +665,24 @@ The Community Edition components are Apache-2.0.
 
 ## 11. Conformance summary and honest gaps
 
-Six of the eight JTC 24 standards are published. EPCIS4DPP is conformant to
-four of them (EN 18219, EN 18220, EN 18216, EN 18223); EN 18221 is partial
-and the EN 18222 API is planned. Two standards remain in development:
+All eight JTC 24 standards are published. EPCIS4DPP is conformant to four
+of them (EN 18219, EN 18220, EN 18216, EN 18223); EN 18221 is partial, the
+EN 18222 API is planned, and the two September 2026 standards are partial:
 
-- **prEN 18239 (Access rights, security, business confidentiality).**
-  `oec:AccessLevel` plus Keycloak enforce the access tiers today;
-  fine-grained per-role link policies expand as the standard finalises.
-- **prEN 18246 (Data authentication, reliability, integrity).** `oec:did`
-  and `oec:identityCredentialUrl` provide hooks; Verifiable Credentials
-  and Electronically Signed Data Constructs follow the final text. This
-  standard is a normative reference in EN 18221, and appears in the EN 18223
-  bibliography.
+- **EN 18239 (Access rights, security, business confidentiality).**
+  `oec:AccessLevel` carries the tiers, `oec:ActorRole` the standard's 4.2
+  actor taxonomy, and the access-level sidecars the roles each legal act
+  admits per tier or per term; the resolver enforces those audiences per
+  data element for actors outside the owning operator. Operator identifier
+  in authentication (5.2.8) is in progress; access logging (5.2.16) and
+  delegation assessment (5.2.20) are open.
+- **EN 18246 (Data authentication, reliability, integrity).** The
+  electronically signed data construct of Annex A is realised as W3C
+  Verifiable Credentials (Data Integrity, did:web) and demonstrated against
+  third parties; actor-bound changes (4.7) are in progress, the trusted list
+  (A.3), the tamper-evident access log and free, unrestricted verification
+  are open. This standard is a normative reference in EN 18221, and appears
+  in the EN 18223 bibliography.
 
 EPCIS4DPP is one conformant profile of neutral standards, not the only
 one. Where it goes beyond a standard (the GS1 Digital Link resolver,

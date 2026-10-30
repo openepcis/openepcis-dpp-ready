@@ -104,6 +104,7 @@ async function examplesOf(module: ValidatableModule): Promise<string[]> {
 const PREFIXES: [string, string][] = [
   ["https://ref.openepcis.org/extensions/common/core/shapes/", "dpp-sh"],
   ["https://ref.openepcis.org/extensions/common/core/", "oec"],
+  ["https://ref.openepcis.org/extensions/common/carrier/", "carrier"],
   ["https://ref.openepcis.org/extensions/eu/battery/", "eubat"],
   ["https://ref.openepcis.org/extensions/eu/textile/", "eutex"],
   ["https://ref.openepcis.org/extensions/eu/electronics/", "euelec"],
