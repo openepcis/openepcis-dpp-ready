@@ -185,6 +185,7 @@ Commands:
 | `provenance [--report R] [--approve F] [--xlsx P] [--min-qa-confidence X]` | From the report(s), write `docs/skos-alignment/skos-alignment-review.md` (review sheet) + `docs/skos-alignment/alignment-provenance.{ttl,json}` (audit trail). `--report` reads one report (vs the `*-opus.json` glob); `--xlsx` also writes the editable Excel curation workbook. |
 | `curate --report R [--xlsx P] [--stamp D] [--base-branch B] [--push]` | Read a curator-edited workbook and rebuild the `vocab-sync/upstream-<stamp>` branch from only the `Apply?=yes` rows (adds, rewrites, **and** removes). See [Curate via Excel](#curate-via-excel). |
 | `reverse [--vocab V] [--baseline TTL --only-new] [--module-map J] [--grade] [--advise] [--stamp D]` | Reverse coverage: every upstream term in one bucket — covered / proposed / code-list / epcis-cbv / uncovered → `docs/skos-alignment/skos-reverse-coverage.{md,json}`. `--grade` LLM-grades the nearest terms of ours (same judge, cache and QA panel as `audit`) and writes a findings report in the audit format (`--report`), so `provenance --xlsx` and `curate` work on it unchanged; `--advise` asks the bulk model MAP / ADOPT / CARRIER / OUT_OF_SCOPE for what stays uncovered. `--baseline` is an earlier copy of the upstream TTL: terms absent there are "new" (`--only-new` restricts the run to them). See [Reverse coverage of an upstream release](#reverse-coverage-of-an-upstream-release). |
+| `propose --coverage J [--prefill J] [--for adopt,defer] [--vocab-prefix P] --out B [--stamp D]` | Draft terms of ours for the uncovered rows of a reverse run (QA model; classes first, then properties): a proposal TTL in house style, a markdown table, JSON, and an updated recommendation set (decision adopt, the draft in Notes) for the workbook. Nothing is inserted. |
 | `coverage-decisions --xlsx P [--out J]` | Export the curator's filled-in Decision rows of a workbook's `coverage` sheet as JSON (adopt / map / carrier / out of scope / defer) for the follow-up work; nothing is applied. |
 | `manifest [--qa-model M]` | Reproducibility manifest: models, parameters, upstream versions + cache hashes → `docs/skos-alignment/alignment-run-manifest.json`. |
 | `fetch --from URL\|file --against cached [--save]` | Diff a refreshed upstream vocabulary against the cached copy (added/removed/changed terms) to decide when to re-audit. |
@@ -273,6 +274,14 @@ QA_CHAT_MODEL=qwen/qwen3-32b java -jar $J reverse --vocab eudpp \
      --out docs/skos-alignment/skos-reverse-coverage-eudpp-$S \
      --report docs/skos-alignment/skos-completeness-reverse-eudpp-$S
 
+# 1b) Draft a term of ours for every uncovered row the recommendation set does not rule out
+#     (carrier / out of scope stay out): TTL blocks in house style + table + an updated
+#     recommendation set that the workbook then shows as decision = adopt with the draft in Notes.
+QA_CHAT_MODEL=qwen/qwen3-32b java -jar $J propose \
+     --coverage docs/skos-alignment/skos-reverse-coverage-eudpp-$S.json \
+     --prefill docs/skos-alignment/coverage-prefill-eudpp-$S.json --for adopt,defer \
+     --out docs/skos-alignment/skos-adoption-proposal-eudpp-$S --stamp $S
+
 # 2) One workbook: the 'decisions' sheet (graded mappings, Apply? yes/no — the usual curate
 #    input) plus the 'coverage' sheet (every upstream term with bucket, nearest ours, proposal,
 #    advice and a Decision dropdown).
@@ -280,7 +289,7 @@ QA_CHAT_MODEL=qwen/qwen3-32b java -jar $J reverse --vocab eudpp \
 #    upstream IRI → {decision, notes}), so the curator overrides only where they disagree.
 java -jar $J provenance --report docs/skos-alignment/skos-completeness-reverse-eudpp-$S.json \
      --coverage docs/skos-alignment/skos-reverse-coverage-eudpp-$S.json \
-     --coverage-prefill docs/skos-alignment/coverage-prefill-eudpp-$S.json \
+     --coverage-prefill docs/skos-alignment/skos-adoption-proposal-eudpp-$S-prefill.json \
      --xlsx docs/skos-alignment/skos-alignment-review-eudpp-$S.xlsx --qa-model qwen/qwen3-32b --stamp $S
 
 # 3) After the curator edited both sheets:

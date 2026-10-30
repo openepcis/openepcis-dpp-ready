@@ -203,7 +203,7 @@ public class ReverseCommand implements Runnable {
             }
             nearest.put(u.iri(), near);
 
-            String module = modules.getOrDefault(u.iri(), "");
+            String module = modules.getOrDefault(u.iri(), moduleFromNamespace(u.iri()));
             List<String> covered = coveredBy.get(u.iri());
             String bucket;
             if (covered != null) bucket = "covered";
@@ -420,6 +420,18 @@ public class ReverseCommand implements Runnable {
         } catch (IOException e) {
             throw new IllegalArgumentException("--module-map: " + e.getMessage(), e);
         }
+    }
+
+    /**
+     * Without a module map, the namespace names the module for vocabularies split over
+     * sub-namespaces ({@code https://w3id.org/eudpp/textile-durability#X} → {@code textile-durability});
+     * a single-namespace vocabulary gets "".
+     */
+    static String moduleFromNamespace(String iri) {
+        int hash = iri.lastIndexOf('#');
+        String ns = hash > 0 ? iri.substring(0, hash) : iri.substring(0, Math.max(0, iri.lastIndexOf('/')));
+        String last = ns.substring(ns.lastIndexOf('/') + 1);
+        return last.contains("-") ? last : "";
     }
 
     private static String fmt(double d) {

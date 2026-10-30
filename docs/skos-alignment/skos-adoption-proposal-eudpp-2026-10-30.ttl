@@ -1,0 +1,820 @@
+# Proposed terms from the eudpp reverse-coverage run of 2026-10-30.
+# Drafted by the QA model, one block per uncovered upstream term; a proposal for the
+# curator, not an ontology. Copy a block into its module's ontology/*.ttl when adopted and
+# add the changelog line; the skos:note keeps the provenance.
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix eudpp: <https://w3id.org/eudpp#> .
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+
+# ===== core (79) =====
+
+oec:BackgroundDatabase
+    a owl:Class ;
+    rdfs:label "Background Database"@en ;
+    rdfs:comment "Source representing a background LCI database used for the LCA modelling (e.g. ecoinvent, GaBi/Sphera, Okobaudat)."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#BackgroundDatabase> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:BackgroundDatabase. Captures the LCI database referenced in LCA calculations, a concept not covered by existing terms."@en ;
+    skos:exactMatch eudpp:BackgroundDatabase .
+
+oec:ComplianceSystem
+    a owl:Class ;
+    rdfs:label "Compliance System"@en ;
+    rdfs:comment "A standard or programme against which an LCA or EPD study is declared compliant, such as ISO 14040/14044, ISO 14025, ISO 14067, ISO 21930, EN 15804+A2, PEFCR programmes, or a specific programme operator's scheme."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#ComplianceSystem> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:ComplianceSystem. Captures the compliance framework referenced in LCA/EPD studies, a concept not represented by existing terms."@en ;
+    skos:exactMatch eudpp:ComplianceSystem .
+
+oec:EN15804InventoryIndicator
+    a owl:Class ;
+    rdfs:label "EN 15804 Inventory Indicator"@en ;
+    rdfs:comment "An EN 15804+A2 inventory‑level indicator (resource use, waste disposed, or output flow for valorisation/exported energy). The value is an aggregated inventory quantity; results are represented by eudpp:InventoryIndicatorResult instances."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#EN15804InventoryIndicator> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:EN15804InventoryIndicator. Captures the specific inventory‑level indicator defined in EN 15804+A2, a concept not represented by existing terms."@en ;
+    skos:exactMatch eudpp:EN15804InventoryIndicator .
+
+oec:EnergyConsumptionResult
+    a owl:Class ;
+    rdfs:label "Energy Consumption Result"@en ;
+    rdfs:comment "An LCA inventory indicator result quantifying the consumption of primary energy resources—renewable and non‑renewable—in a product system. It is typically associated with EN 15804+A2 primary energy indicators (e.g. PERE, PERM, PERT, PENRE, PENRM, PENRT) but may span multiple indicators depending on study scope."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#EnergyConsumptionResult> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:EnergyConsumptionResult. Captures the specific primary‑energy consumption result defined in LCA studies, a concept not represented by existing terms."@en ;
+    skos:exactMatch eudpp:EnergyConsumptionResult .
+
+oec:ImpactModel
+    a owl:Class ;
+    rdfs:label "Impact Model"@en ;
+    rdfs:comment "The characterisation model underlying an LCIA method (e.g. IPCC AR6 2021 for GWP). It carries a model name, optional version and optional bibliographic source."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#ImpactModel> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:ImpactModel. Captures the LCIA characterisation model used in LCA studies, a concept not represented by existing terms."@en ;
+    skos:exactMatch eudpp:ImpactModel .
+
+oec:LCAIndicator
+    a owl:Class ;
+    rdfs:label "LCA Indicator"@en ;
+    rdfs:comment "Abstract umbrella class for an indicator definition (impact or inventory category) that a method calculates values for. Each instance identifies exactly one method under which it is computed."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#LCAIndicator> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:LCAIndicator. Provides a generic definition of an LCA indicator, distinct from result instances and not covered by existing terms."@en ;
+    skos:exactMatch eudpp:LCAIndicator .
+
+oec:LCAMethod
+    a owl:Class ;
+    rdfs:label "LCA Method"@en ;
+    rdfs:comment "A life‑cycle assessment method that produces values for one indicator from an inventory of elementary flows, covering both characterised LCIA methods and inventory aggregation methods such as EN 15804+A2 inventory indicators."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#LCAMethod> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:LCAMethod. Defines the generic method used to calculate an LCA indicator, a concept not represented by existing terms."@en ;
+    skos:exactMatch eudpp:LCAMethod .
+
+oec:LCAMethodology
+    a owl:Class ;
+    rdfs:label "LCA Methodology"@en ;
+    rdfs:comment "A named, versioned LCA methodology—a coherent set of LCA methods sharing principles and a common set of characterisation factors. Individual Method instances belong to one or more LCAMethodology instances."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#LCAMethodology> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:LCAMethodology. Captures the overarching methodology that groups related LCIA methods, a concept not represented by existing terms."@en ;
+    skos:exactMatch eudpp:LCAMethodology .
+
+oec:LCAStudy
+    a owl:Class ;
+    rdfs:label "LCA Study"@en ;
+    rdfs:comment "A life‑cycle assessment study of a product, conducted per ISO 14040/14044, producing one or more LCA results. It contains study‑level metadata such as UUID, dataset version, name, reference year, license, copyright, ILCD format version, compliance declarations, manufacturer records, reviews and references to data sources or background databases."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#LCAStudy> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:LCAStudy. Provides a container for an LCA study, a concept not represented by existing terms."@en ;
+    skos:exactMatch eudpp:LCAStudy .
+
+oec:LCIAMethodReport
+    a owl:Class ;
+    rdfs:label "LCIA Method Report"@en ;
+    rdfs:comment "Source that documents a life‑cycle impact assessment (LCIA) method, such as the EF 3.1 method description."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#LCAMethodReport> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:LCAMethodReport. Captures the documentation of an LCIA method, a concept not represented by existing terms."@en ;
+    skos:exactMatch eudpp:LCAMethodReport .
+
+oec:LicenseType
+    a owl:Class ;
+    rdfs:label "License Type"@en ;
+    rdfs:comment "Closed enumeration of licence categories that govern access to and use of an LCA or EPD study."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#LicenseType> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:LicenseType. Provides a dedicated class for the licence categories applicable to LCA/EPD studies, not covered by existing terms."@en ;
+    skos:exactMatch eudpp:LicenseType .
+
+oec:SoCQualificationAssertion
+    a owl:Class ;
+    rdfs:label "SoC Qualification Assertion"@en ;
+    rdfs:comment "A documented, explicit assertion that a substance satisfies one or more non‑exclusive qualification criteria in ESPR Article 2(27). For criterion (d) the applicable product context is represented by a dpp:SubstancePresence linked through dpp:hasApplicableQualification."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#SoCQualificationAssertion> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:SoCQualificationAssertion. Captures the evidence‑based assertion of ESPR qualification, a concept not represented by existing terms."@en ;
+    skos:exactMatch eudpp:SoCQualificationAssertion .
+
+oec:SubstanceManagementInstruction
+    a owl:Class ;
+    rdfs:label "Substance Management Instruction"@en ;
+    rdfs:comment "Instruction concerning the management of a substance of concern within its SubstancePresence context, covering safe use, disassembly, preparation for reuse, recycling and environmentally sound end‑of‑life handling."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#SubstanceManagementInstruction> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:SubstanceManagementInstruction. Captures the ESPR Article 7(5)(d‑e) guidance on substance handling, a concept not represented by existing terms."@en ;
+    skos:exactMatch eudpp:SubstanceManagementInstruction .
+
+oec:SubstancePresence
+    a owl:Class ;
+    rdfs:label "Substance Presence"@en ;
+    rdfs:comment "Contextual relation entity representing the presence of a substance in a product, component or spare part as placed on the market. It allows location‑specific concentration and instruction data to be attached without treating those attributes as intrinsic properties of the substance itself."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#SubstancePresence> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:SubstancePresence. Provides the modelling abstraction required by ESPR Article 7(5) to capture product‑dependent substance information, a concept not covered by existing terms."@en ;
+    skos:exactMatch eudpp:SubstancePresence .
+
+oec:SustainableRenewableMaterialsUseResult
+    a owl:Class ;
+    rdfs:label "Sustainable Renewable Materials Use Result"@en ;
+    rdfs:comment "LCA inventory indicator result quantifying the use of renewable secondary material and fuel inputs in a product system, typically aligned with EN 15804+A2 indicators such as Use of Renewable Secondary Fuels (RSF)."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#SustainableRenewableMaterialsUseResult> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:SustainableRenewableMaterialsUseResult. Provides a dedicated result class for renewable material use, not represented by existing terms."@en ;
+    skos:exactMatch eudpp:SustainableRenewableMaterialsUseResult .
+
+oec:TypeOfReview
+    a owl:Class ;
+    rdfs:label "Type of Review"@en ;
+    rdfs:comment "Enumeration of the kind of critical review or verification performed on a dataset, matching ILCD TypeOfReviewValues."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#TypeOfReview> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:TypeOfReview. Captures the review type dimension required for LCA datasets, not represented by existing terms."@en ;
+    skos:exactMatch eudpp:TypeOfReview .
+
+oec:accessRestrictions
+    a owl:DatatypeProperty ;
+    rdfs:label "Access Restrictions"@en ;
+    rdfs:comment "Human‑readable description of the access and use restrictions for an LCA or EPD study, equivalent to dcterms:accessRights."@en ;
+    rdfs:domain oec:LCAStudy ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#accessRestrictions> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:accessRestrictions. Provides the textual access‑rights annotation required for LCA studies, not covered by existing terms."@en ;
+    skos:exactMatch eudpp:accessRestrictions .
+
+oec:addressesAoP
+    a owl:ObjectProperty ;
+    rdfs:label "Addresses Area of Protection"@en ;
+    rdfs:comment "Links an LCIA impact category to the one or more Areas of Protection it addresses, e.g. ozone depletion affecting both Natural Environment and Human Health."@en ;
+    rdfs:domain oec:LCIAImpactCategory # CHECK: unknown class ;
+    rdfs:range oec:AreaOfProtection # CHECK: unknown class ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#addressesAoP> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:addressesAoP. Captures the mapping between impact categories and protection areas required by LCA methodology, not represented by existing terms."@en ;
+    skos:exactMatch eudpp:addressesAoP .
+
+oec:assessesImpactCategory
+    a owl:ObjectProperty ;
+    rdfs:label "Assesses Impact Category"@en ;
+    rdfs:comment "Links an LCIA impact indicator to the mid‑point impact category it characterises, allowing multiple indicators to refer to the same category."@en ;
+    rdfs:domain oec:LCIAImpactIndicator # CHECK: unknown class ;
+    rdfs:range oec:LCIAImpactCategory # CHECK: unknown class ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#assessesImpactCategory> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:assessesImpactCategory. Provides the conceptual classification link between indicators and categories required by LCA methodology, not covered by existing terms."@en ;
+    skos:exactMatch eudpp:assessesImpactCategory .
+
+oec:belongsToEn15804Group
+    a owl:ObjectProperty ;
+    rdfs:label "Belongs to EN 15804 Indicator Group"@en ;
+    rdfs:comment "Links an EN 15804 indicator individual to the indicator group it belongs to (core impact, with‑caveats, resource use, waste, valorisation, exported energy)."@en ;
+    rdfs:domain oec:EN15804Indicator # CHECK: unknown class ;
+    rdfs:range oec:EN15804IndicatorGroup # CHECK: unknown class ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#belongsToEn15804Group> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:belongsToEn15804Group. Provides the grouping relationship required for EN 15804 indicators, not represented by existing terms."@en ;
+    skos:exactMatch eudpp:belongsToEn15804Group .
+
+oec:belongsToMethodology
+    a owl:ObjectProperty ;
+    rdfs:label "Belongs to Methodology"@en ;
+    rdfs:comment "Links an LCAMethod to one or more LCAMethodology individuals it belongs to (e.g. eudpp:methodology_EF3_1). A single method may be classified under multiple methodologies when they share the same characterisation factors for an indicator."@en ;
+    rdfs:domain oec:LCAMethod ;
+    rdfs:range oec:LCAMethodology ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#belongsToMethodology> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:belongsToMethodology. Captures the many‑to‑many relationship between methods and methodologies required for LCA, not represented by existing terms."@en ;
+    skos:exactMatch eudpp:belongsToMethodology .
+
+oec:casName
+    a owl:DatatypeProperty ;
+    rdfs:label "CAS Name"@en ;
+    rdfs:comment "The Chemical Abstracts Service name of the substance, when available."@en ;
+    rdfs:domain oec:Substance # CHECK: unknown class ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#casName> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:casName. Provides the human‑readable CAS name for a substance, complementing the numeric CAS number already captured."@en ;
+    skos:exactMatch eudpp:casName .
+
+oec:computedByMethod
+    a owl:ObjectProperty ;
+    rdfs:label "Computed by Method"@en ;
+    rdfs:comment "Links an LCAIndicator individual to the LCAMethod instance that describes how the indicator is calculated, including its impact model, category, methodology reference and ILCD metadata."@en ;
+    rdfs:domain oec:LCAIndicator ;
+    rdfs:range oec:LCAMethod ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#computedByMethod> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:computedByMethod. Captures the single method that defines an indicator’s computation, a relationship not represented by existing terms."@en ;
+    skos:exactMatch eudpp:computedByMethod .
+
+oec:concernsSubstance
+    a owl:ObjectProperty ;
+    rdfs:label "Concerns Substance"@en ;
+    rdfs:comment "Links a reported SubstancePresence to the specific SubstanceOfConcern that is present, restricting the relation to substances identified as concerns rather than generic substances."@en ;
+    rdfs:domain oec:SubstancePresence ;
+    rdfs:range eutex:SubstanceOfConcern ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#concernsSubstance> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:concernsSubstance. Captures the SOC‑specific link between a presence record and a substance of concern, which is not covered by existing generic substance relations."@en ;
+    skos:exactMatch eudpp:concernsSubstance .
+
+oec:dataSetVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "Data Set Version"@en ;
+    rdfs:comment "Version number of this LCA/EPD study instance, independent of the ontology version. Format: major.minor.sub‑minor (e.g., \"02.00.011\")."@en ;
+    rdfs:domain oec:LCAStudy ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#dataSetVersion> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:dataSetVersion. Provides a study‑specific version identifier that is distinct from the DPP schema or passport version."@en ;
+    skos:exactMatch eudpp:dataSetVersion .
+
+oec:declaresManufacturerRecord
+    a owl:ObjectProperty ;
+    rdfs:label "Declares Manufacturer Record"@en ;
+    rdfs:comment "Links an LCA study to a manufacturer record documenting the manufacturers whose data is included in the study."@en ;
+    rdfs:domain oec:LCAStudy ;
+    rdfs:range oec:OperatorInformation ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#declaresManufacturerRecord> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:declaresManufacturerRecord. Captures the relationship between a study and the manufacturer(s) whose data contributed, using OperatorInformation as the closest existing class."@en ;
+    skos:exactMatch eudpp:declaresManufacturerRecord .
+
+oec:echaNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "ECHA Number"@en ;
+    rdfs:comment "Number assigned to the substance by the European Chemicals Agency, when available and appropriate."@en ;
+    rdfs:domain oec:Substance # CHECK: unknown class ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#echaNumber> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:echaNumber. Provides the ECHA identifier for a substance, complementing existing EC number properties."@en ;
+    skos:exactMatch eudpp:echaNumber .
+
+oec:epdFormatVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "EPD Format Version"@en ;
+    rdfs:comment "Version tag of the ILCD+EPD format used (e.g. \"1.3\")."@en ;
+    rdfs:domain oec:LCAStudy ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#epdFormatVersion> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:epdFormatVersion. Captures the specific ILCD+EPD format version for an LCA/EPD study, distinct from the EPD reference standard."@en ;
+    skos:exactMatch eudpp:epdFormatVersion .
+
+oec:forScenario
+    a owl:DatatypeProperty ;
+    rdfs:label "For Scenario"@en ;
+    rdfs:comment "Identifier of the scenario this LCIA module value applies to (free‑text label matching the EPD’s scenario declaration)."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#forScenario> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:forScenario. Captures the scenario context for an LCIA module value, which is not represented by any existing class in our vocabulary."@en ;
+    skos:exactMatch eudpp:forScenario .
+
+oec:hasApplicableQualification
+    a owl:ObjectProperty ;
+    rdfs:label "Has Applicable Qualification"@en ;
+    rdfs:comment "Links a SubstancePresence to an applicable SoC qualification assertion; the criterion applies in a presence‑scoped context."@en ;
+    rdfs:domain oec:SubstancePresence ;
+    rdfs:range oec:SoCQualificationAssertion ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasApplicableQualification> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasApplicableQualification. Captures the relationship between a substance presence record and the SoC qualification that applies to it."@en ;
+    skos:exactMatch eudpp:hasApplicableQualification .
+
+oec:hasComplianceDeclaration
+    a owl:ObjectProperty ;
+    rdfs:label "Has Compliance Declaration"@en ;
+    rdfs:comment "Links an LCAStudy (or its subclass EPDStudy) to a ComplianceDeclaration that records compliance with any relevant standard such as ISO 14040/44, ISO 14025, ISO 14067, ISO 21930, EN 15804+A2 or PEF‑CR rules."@en ;
+    rdfs:domain oec:LCAStudy ;
+    rdfs:range oec:ComplianceDeclaration # CHECK: unknown class ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasComplianceDeclaration> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasComplianceDeclaration. Provides a generic link from an LCA study to the declaration of compliance with applicable environmental standards."@en ;
+    skos:exactMatch eudpp:hasComplianceDeclaration .
+
+oec:hasCopyright
+    a owl:DatatypeProperty ;
+    rdfs:label "Has Copyright"@en ;
+    rdfs:comment "Indicates whether a copyright applies to the LCA or EPD study (true if applicable, false otherwise)."@en ;
+    rdfs:domain oec:LCAStudy ;
+    rdfs:range xsd:boolean ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasCopyright> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasCopyright. Provides a simple flag to record the presence of copyright on an LCA/EPD study."@en ;
+    skos:exactMatch eudpp:hasCopyright .
+
+oec:hasExternalSource
+    a owl:ObjectProperty ;
+    rdfs:label "Has External Source"@en ;
+    rdfs:comment "Links an LCAStudy to a background source such as a project report, safety data sheet, database or literature reference used for modelling."@en ;
+    rdfs:domain oec:LCAStudy ;
+    rdfs:range oec:DocumentReference ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasExternalSource> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasExternalSource. Provides a generic reference to any external material that underpins the LCA study."@en ;
+    skos:exactMatch eudpp:hasExternalSource .
+
+oec:hasImpactModel
+    a owl:ObjectProperty ;
+    rdfs:label "Has Impact Model"@en ;
+    rdfs:comment "Links an LCAMethod to its characterisation‑model block, if one exists; inventory‑only methods may not have a model."@en ;
+    rdfs:domain oec:LCAMethod ;
+    rdfs:range oec:ImpactModel ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasImpactModel> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasImpactModel. Captures the optional link from a method to the impact model that defines its characterisation."@en ;
+    skos:exactMatch eudpp:hasImpactModel .
+
+oec:hasInventoryIndicatorResult
+    a owl:ObjectProperty ;
+    rdfs:label "Has Inventory Indicator Result"@en ;
+    rdfs:comment "Links an LCAStudy to a specific inventory indicator result, narrowing the generic eudpp:hasLCAResult to InventoryIndicatorResult."@en ;
+    rdfs:domain oec:LCAStudy ;
+    rdfs:range oec:InventoryIndicatorResult # CHECK: unknown class ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasInventoryIndicatorResult> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasInventoryIndicatorResult. Provides a typed link from a study to its inventory‑level indicator results."@en ;
+    skos:exactMatch eudpp:hasInventoryIndicatorResult .
+
+oec:hasLCAResult
+    a owl:ObjectProperty ;
+    rdfs:label "Has LCA Result"@en ;
+    rdfs:comment "Links an LCAStudy (or its subclass EPDStudy) to one of its LCA results, covering both inventory‑level and LCIA results."@en ;
+    rdfs:domain oec:LCAStudy ;
+    rdfs:range oec:LCAResult # CHECK: unknown class ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasLCAResult> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasLCAResult. Provides a single property that aggregates all LCA result types for querying convenience."@en ;
+    skos:exactMatch eudpp:hasLCAResult .
+
+oec:hasLCAVerifier
+    a owl:ObjectProperty ;
+    rdfs:label "Has LCA Verifier"@en ;
+    rdfs:comment "Links a Review to the independent actor that performed or is responsible for verifying an LCA study or EPD."@en ;
+    rdfs:domain oec:Review # CHECK: unknown class ;
+    rdfs:range oec:Actor # CHECK: unknown class ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasLCAVerifier> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasLCAVerifier. Provides a direct reference from a review to the verifier actor, covering internal or third‑party verification."@en ;
+    skos:exactMatch eudpp:hasLCAVerifier .
+
+oec:hasLCIAResult
+    a owl:ObjectProperty ;
+    rdfs:label "Has LCIA Result"@en ;
+    rdfs:comment "Links an LCAStudy to a specific LCIAResult, the quantified impact category outcome of the life‑cycle assessment."@en ;
+    rdfs:domain oec:LCAStudy ;
+    rdfs:range oec:LCIAResult # CHECK: unknown class ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasLCIAResult> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasLCIAResult. Provides a typed link from a study to its LCIA results, distinct from inventory‑only results."@en ;
+    skos:exactMatch eudpp:hasLCIAResult .
+
+oec:hasLicenseType
+    a owl:ObjectProperty ;
+    rdfs:label "Has License Type"@en ;
+    rdfs:comment "Links an LCAStudy to the license that authorises its conduct or publication, such as a national or sectoral LCA/EPD licence."@en ;
+    rdfs:domain oec:LCAStudy ;
+    rdfs:range oec:LicenseType ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasLicenseType> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasLicenseType. Captures the regulatory licence required for an LCA/EPD study, distinct from the EPD reference standard."@en ;
+    skos:exactMatch eudpp:hasLicenseType .
+
+oec:hasManufacturingSite
+    a owl:ObjectProperty ;
+    rdfs:label "Has Manufacturing Site"@en ;
+    rdfs:comment "Links a ManufacturerRecord to the Facility where the product is produced, as required by ILCD+EPD v1.3."@en ;
+    rdfs:domain oec:ManufacturerRecord # CHECK: unknown class ;
+    rdfs:range oec:FacilityInformation ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasManufacturingSite> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasManufacturingSite. Captures the manufacturing location for a product, tying the record to its physical site."@en ;
+    skos:exactMatch eudpp:hasManufacturingSite .
+
+oec:hasNextDPP
+    a owl:ObjectProperty ;
+    rdfs:label "Has Next DPP"@en ;
+    rdfs:comment "Links a Digital Product Passport to its successor passport, indicating the next version in the product’s lifecycle."@en ;
+    rdfs:domain oec:DigitalProductPassport ;
+    rdfs:range oec:DigitalProductPassport ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasNextDPP> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasNextDPP. Provides a direct reference to the next DPP instance, supporting versioning and traceability."@en ;
+    skos:exactMatch eudpp:hasNextDPP .
+
+oec:hasPreparationForReuseInstruction
+    a owl:ObjectProperty ;
+    rdfs:label "Has Preparation‑for‑Reuse Instruction"@en ;
+    rdfs:comment "Links a SubstancePresence to the SubstanceManagementInstruction that contains guidance on how to prepare the substance for reuse."@en ;
+    rdfs:domain oec:SubstancePresence ;
+    rdfs:range oec:SubstanceManagementInstruction ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasPreparationForReuseInstruction> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasPreparationForReuseInstruction. Provides a typed link from the presence of a substance to reuse‑preparation guidance, distinct from safe‑use instructions."@en ;
+    skos:exactMatch eudpp:hasPreparationForReuseInstruction .
+
+oec:hasQualificationAssertion
+    a owl:ObjectProperty ;
+    rdfs:label "Has Qualification Assertion"@en ;
+    rdfs:comment "Links a SubstanceOfConcern to the SoCQualificationAssertion that documents its compliance status or assessment."@en ;
+    rdfs:domain oec:SubstanceOfConcern ;
+    rdfs:range oec:SoCQualificationAssertion ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasQualificationAssertion> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasQualificationAssertion. Provides a typed link from the identified substance to its documented qualification, distinct from threshold or presence."@en ;
+    skos:exactMatch eudpp:hasQualificationAssertion .
+
+oec:hasReferenceToBackgroundDatabase
+    a owl:ObjectProperty ;
+    rdfs:label "Has Reference To Background Database"@en ;
+    rdfs:comment "Links an LCAStudy to one or more BackgroundDatabase instances that supplied the life‑cycle inventory data used in the study."@en ;
+    rdfs:domain oec:LCAStudy ;
+    rdfs:range oec:BackgroundDatabase ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasReferenceToBackgroundDatabase> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasReferenceToBackgroundDatabase. Captures the source databases for LCI data, a required link in an LCA study."@en ;
+    skos:exactMatch eudpp:hasReferenceToBackgroundDatabase .
+
+oec:hasReview
+    a owl:ObjectProperty ;
+    rdfs:label "Has Review"@en ;
+    rdfs:comment "Links an LCAStudy to a critical‑review or verification record that assessed the study’s methodology and data."@en ;
+    rdfs:domain oec:LCAStudy ;
+    rdfs:range oec:Review # CHECK: unknown class ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasReview> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasReview. Captures the external review that validates an LCA study, a required audit step."@en ;
+    skos:exactMatch eudpp:hasReview .
+
+oec:hasSoCCriterion
+    a owl:ObjectProperty ;
+    rdfs:label "Has SoC Criterion"@en ;
+    rdfs:comment "Links a Substance of Concern Qualification Assertion to one or more criteria that define the level of concern (e.g., A, B, C, D)."@en ;
+    rdfs:domain oec:SoCQualificationAssertion ;
+    rdfs:range skos:Concept # CHECK: unknown class ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasSoCCriterion> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasSoCCriterion. Captures the specific SoC classification criteria attached to a qualification assertion."@en ;
+    skos:exactMatch eudpp:hasSoCCriterion .
+
+oec:hasSubstancePresence
+    a owl:ObjectProperty ;
+    rdfs:label "Has Substance Presence"@en ;
+    rdfs:comment "Links a product to the SubstancePresence instances that describe where and how a substance is present within the product."@en ;
+    rdfs:domain oec:DigitalProductPassport ;
+    rdfs:range oec:SubstancePresence ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasSubstancePresence> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasSubstancePresence. Captures the contextual presence of substances in a product, tying the product to its substance‑presence records."@en ;
+    skos:exactMatch eudpp:hasSubstancePresence .
+
+oec:hasTypeOfReview
+    a owl:ObjectProperty ;
+    rdfs:label "Has Type Of Review"@en ;
+    rdfs:comment "Links a review record to the TypeOfReview that describes whether it is independent, accredited third‑party, or another review category."@en ;
+    rdfs:domain oec:Review # CHECK: unknown class ;
+    rdfs:range oec:TypeOfReview ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#hasTypeOfReview> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasTypeOfReview. Captures the nature of the review performed on an LCA study."@en ;
+    skos:exactMatch eudpp:hasTypeOfReview .
+
+oec:identifiesDataProvider
+    a owl:ObjectProperty ;
+    rdfs:label "Identifies Data Provider"@en ;
+    rdfs:comment "Links a manufacturer record to the Actor that supplied or submitted the inventory data for the record, which may differ from the product’s manufacturer."@en ;
+    rdfs:range oec:Actor # CHECK: unknown class ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#identifiesDataProvider> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:identifiesDataProvider. Captures the entity responsible for providing the data used in a manufacturer record."@en ;
+    skos:exactMatch eudpp:identifiesDataProvider .
+
+oec:identifiesManufacturer
+    a owl:ObjectProperty ;
+    rdfs:label "Identifies Manufacturer"@en ;
+    rdfs:comment "Links a manufacturer record to the Actor that represents the economic operator or company whose production process and product are described by the record."@en ;
+    rdfs:range oec:Actor # CHECK: unknown class ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#identifiesManufacturer> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:identifiesManufacturer. Captures the specific manufacturer responsible for a product’s production as recorded in a manufacturer record."@en ;
+    skos:exactMatch eudpp:identifiesManufacturer .
+
+oec:ilcdFormatVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "ILCD Format Version"@en ;
+    rdfs:comment "Specifies the ILCD schema version used to serialise this LCA study (e.g., '1.1')."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#ilcdFormatVersion> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:ilcdFormatVersion. Captures the ILCD version of an LCA study, distinct from the DPP schema version."@en ;
+    skos:exactMatch eudpp:ilcdFormatVersion .
+
+oec:internationalName
+    a owl:DatatypeProperty ;
+    rdfs:label "International Name"@en ;
+    rdfs:comment "An internationally recognised name for the substance used when an IUPAC name is not available."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#internationalName> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:internationalName. Provides a fallback name for substances when the systematic IUPAC name is unavailable, complementing oec:iupacName."@en ;
+    skos:exactMatch eudpp:internationalName .
+
+oec:isDeclared
+    a owl:DatatypeProperty ;
+    rdfs:label "Is Declared"@en ;
+    rdfs:comment "True if the module value is declared in the study (has a numerical amount), false if explicitly marked as not declared (ND/MND). Absence of the triple means the module was not in scope."@en ;
+    rdfs:range xsd:boolean ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#isDeclared> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:isDeclared. Captures the declared status of an LCAModuleValue within a study."@en ;
+    skos:exactMatch eudpp:isDeclared .
+
+oec:isSubstancePresenceOf
+    a owl:ObjectProperty ;
+    rdfs:label "Is Substance Presence Of"@en ;
+    rdfs:comment "Inverse relation from a SubstancePresence instance to the Product that contains it."@en ;
+    rdfs:range oec:DigitalProductPassport ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#isSubstancePresenceOf> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:isSubstancePresenceOf. Captures the product that a given substance presence refers to, complementing oec:substanceLocation."@en ;
+    skos:exactMatch eudpp:isSubstancePresenceOf .
+
+oec:materialTypeScheme
+    a owl:DatatypeProperty ;
+    rdfs:label "Material Type Scheme"@en ;
+    rdfs:comment "Reference system (e.g. ISO 11224, EU Textile Regulation 1007/2011 Annex I) that defines the coding of a material type."@en ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#materialTypeScheme> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:materialTypeScheme. Captures the external scheme used to identify a material type, complementing existing substance‑level properties."@en ;
+    skos:exactMatch eudpp:materialTypeScheme .
+
+oec:materialTypeValue
+    a owl:DatatypeProperty ;
+    rdfs:label "Material Type Value"@en ;
+    rdfs:comment "Code or label from the scheme identified by materialTypeScheme that specifies a particular material type."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#materialTypeValue> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:materialTypeValue. Provides the concrete value used to identify a material type within the chosen nomenclature."@en ;
+    skos:exactMatch eudpp:materialTypeValue .
+
+oec:maximumNumericalValue
+    a owl:DatatypeProperty ;
+    rdfs:label "Maximum Numerical Value"@en ;
+    rdfs:comment "The upper bound of a concentration range expressed as a decimal."@en ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#maximumNumericalValue> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:maximumNumericalValue. Captures the numeric upper limit of a concentration range for substances."@en ;
+    skos:exactMatch eudpp:maximumNumericalValue .
+
+oec:methodVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "Method Version"@en ;
+    rdfs:comment "Version identifier of a specific LCIA or inventory method instance, distinct from the overarching methodology version."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#methodVersion> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:methodVersion. Captures instance‑level versioning for LCAMethod objects."@en ;
+    skos:exactMatch eudpp:methodVersion .
+
+oec:methodologyVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "Methodology Version"@en ;
+    rdfs:comment "Version identifier of an LCAMethodology instance (e.g. \"3.1\" for EF 3.1, \"2002\" for CML 2002)."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#methodologyVersion> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:methodologyVersion. Captures the version of a specific LCA methodology, distinct from instance‑level method versions."@en ;
+    skos:exactMatch eudpp:methodologyVersion .
+
+oec:minimumNumericalValue
+    a owl:DatatypeProperty ;
+    rdfs:label "Minimum Numerical Value"@en ;
+    rdfs:comment "The lower bound of a concentration range."@en ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#minimumNumericalValue> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:minimumNumericalValue. Provides the numeric lower limit for a concentration range, complementing maximumNumericalValue."@en ;
+    skos:exactMatch eudpp:minimumNumericalValue .
+
+oec:modelVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "Model Version"@en ;
+    rdfs:comment "Version of the characterisation model used (e.g. \"IPCC AR6 2021\" vs \"IPCC AR5 2013\")."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#modelVersion> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:modelVersion. Captures the specific model version applied in an ImpactModel, distinguishing it from the overall LCA methodology."@en ;
+    skos:exactMatch eudpp:modelVersion .
+
+oec:providesLCAData
+    a owl:DatatypeProperty ;
+    rdfs:label "Provides LCA Data"@en ;
+    rdfs:comment "Indicates whether the manufacturer in this record supplied primary LCA data for the study."@en ;
+    rdfs:range xsd:boolean ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#providesLCAData> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:providesLCAData. Captures the data‑source status of a ManufacturerRecord for LCA studies."@en ;
+    skos:exactMatch eudpp:providesLCAData .
+
+oec:qualificationNote
+    a owl:DatatypeProperty ;
+    rdfs:label "Qualification Note"@en ;
+    rdfs:comment "Additional explanation or limitation of a SoC qualification assertion."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#qualificationNote> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:qualificationNote. Captures free‑text commentary attached to a SoCQualificationAssertion."@en ;
+    skos:exactMatch eudpp:qualificationNote .
+
+oec:qualificationValidFrom
+    a owl:DatatypeProperty ;
+    rdfs:label "Qualification Valid From"@en ;
+    rdfs:comment "First date on which the qualification assertion is considered valid."@en ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#qualificationValidFrom> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:qualificationValidFrom. Captures the start date of validity for a SoCQualificationAssertion."@en ;
+    skos:exactMatch eudpp:qualificationValidFrom .
+
+oec:qualificationValidUntil
+    a owl:DatatypeProperty ;
+    rdfs:label "Qualification Valid Until"@en ;
+    rdfs:comment "Last date on which the qualification assertion is considered valid, when bounded."@en ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#qualificationValidUntil> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:qualificationValidUntil. Captures the end date of validity for a SoCQualificationAssertion."@en ;
+    skos:exactMatch eudpp:qualificationValidUntil .
+
+oec:qualifiesSubstance
+    a owl:ObjectProperty ;
+    rdfs:label "Qualifies Substance"@en ;
+    rdfs:comment "Links a SoC qualification assertion to the substance of concern that it positively qualifies."@en ;
+    rdfs:range eutex:SubstanceOfConcern ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#qualifiesSubstance> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:qualifiesSubstance. Captures the specific substance of concern that a SoC qualification assertion applies to."@en ;
+    skos:exactMatch eudpp:qualifiesSubstance .
+
+oec:quantifiesIndicator
+    a owl:ObjectProperty ;
+    rdfs:label "Quantifies Indicator"@en ;
+    rdfs:comment "Links an LCA result (LCIAResult or InventoryIndicatorResult) to the LCAIndicator that it quantifies."@en ;
+    rdfs:range oec:LCAIndicator ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#quantifiesIndicator> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:quantifiesIndicator. Captures the primary semantic identity of an LCA result as a quantification of an indicator."@en ;
+    skos:exactMatch eudpp:quantifiesIndicator .
+
+oec:referenceToCompleteReviewReport
+    a owl:ObjectProperty ;
+    rdfs:label "Reference to Complete Review Report"@en ;
+    rdfs:comment "Link from a Review to the full review report."@en ;
+    rdfs:range oec:DocumentReference ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#referenceToCompleteReviewReport> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:referenceToCompleteReviewReport. Provides a reference to the complete review report associated with a Review."@en ;
+    skos:exactMatch eudpp:referenceToCompleteReviewReport .
+
+oec:referenceToComplianceStatus
+    a owl:ObjectProperty ;
+    rdfs:label "Reference to Compliance Status"@en ;
+    rdfs:comment "Level of compliance declared by a ComplianceDeclaration (fully compliant, partially compliant, or not compliant)."@en ;
+    rdfs:range eubat:ComplianceStatus ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#referenceToComplianceStatus> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:referenceToComplianceStatus. Links a ComplianceDeclaration to the compliance status it declares."@en ;
+    skos:exactMatch eudpp:referenceToComplianceStatus .
+
+oec:referenceToComplianceSystem
+    a owl:ObjectProperty ;
+    rdfs:label "Reference to Compliance System"@en ;
+    rdfs:comment "Link from a ComplianceDeclaration to the standard or programme it references (e.g., EN 15804+A2, ISO 14025, ISO 21930)."@en ;
+    rdfs:range oec:ComplianceSystem ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#referenceToComplianceSystem> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:referenceToComplianceSystem. Connects a ComplianceDeclaration to the compliance system it cites."@en ;
+    skos:exactMatch eudpp:referenceToComplianceSystem .
+
+oec:referenceToExternalSource
+    a owl:ObjectProperty ;
+    rdfs:label "Reference to External Source"@en ;
+    rdfs:comment "Link from an LCAMethod to the external documentation that describes the method."@en ;
+    rdfs:range oec:DocumentReference ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#referenceToExternalSource> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:referenceToExternalSource. Connects a method to the external source that provides its detailed description."@en ;
+    skos:exactMatch eudpp:referenceToExternalSource .
+
+oec:referenceToLCAMethodReport
+    a owl:ObjectProperty ;
+    rdfs:label "Reference to LCA Method Report"@en ;
+    rdfs:comment "Link from an LCAMethod to the formal LCIA method report that describes it (e.g., EF 3.1)."@en ;
+    rdfs:range oec:LCIAMethodReport ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#referenceToLCAMethodReport> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:referenceToLCAMethodReport. Connects a method to the authoritative LCIA method report that underpins it."@en ;
+    skos:exactMatch eudpp:referenceToLCAMethodReport .
+
+oec:referenceToModelSource
+    a owl:ObjectProperty ;
+    rdfs:label "Reference to Model Source"@en ;
+    rdfs:comment "Link from an ImpactModel to the bibliographic source(s) that describe its characterisation model."@en ;
+    rdfs:range oec:DocumentReference ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#referenceToModelSource> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:referenceToModelSource. Connects a model to the literature or documentation that defines it."@en ;
+    skos:exactMatch eudpp:referenceToModelSource .
+
+oec:referenceToOriginalEPD
+    a owl:ObjectProperty ;
+    rdfs:label "Reference to Original EPD"@en ;
+    rdfs:comment "Link from an EPDStudy to the published EPD document (typically a PDF)."@en ;
+    rdfs:range oec:DocumentReference ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#referenceToOriginalEPD> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:referenceToOriginalEPD. Connects a study to the original EPD document that it represents."@en ;
+    skos:exactMatch eudpp:referenceToOriginalEPD .
+
+oec:referenceYear
+    a owl:DatatypeProperty ;
+    rdfs:label "Reference Year"@en ;
+    rdfs:comment "Start year of the time period for which the LCA study is valid."@en ;
+    rdfs:range xsd:gYear ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#referenceYear> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:referenceYear. Captures the year that marks the beginning of the study’s validity period."@en ;
+    skos:exactMatch eudpp:referenceYear .
+
+oec:relatesToLCAIndicator
+    a owl:ObjectProperty ;
+    rdfs:label "Relates to LCA Indicator"@en ;
+    rdfs:comment "Links an EN15804 impact indicator to the conceptually corresponding EF 3.1 / PEF LCIA impact indicator, recording a conceptual correspondence without implying equivalence."@en ;
+    rdfs:range oec:LCIAImpactIndicator # CHECK: unknown class ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#relatesToLCAIndicator> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:relatesToLCAIndicator. Captures the conceptual mapping between an EN15804 indicator and its broader LCIA counterpart."@en ;
+    skos:exactMatch eudpp:relatesToLCAIndicator .
+
+oec:reviewDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Review Date"@en ;
+    rdfs:comment "Date on which the review was completed, allowing DPP consumers to assess currency of the review."@en ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#reviewDate> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:reviewDate. Captures the completion date of a review activity within an LCA context."@en ;
+    skos:exactMatch eudpp:reviewDate .
+
+oec:sourceVocabulary
+    a owl:DatatypeProperty ;
+    rdfs:label "Source Vocabulary"@en ;
+    rdfs:comment "Provenance annotation identifying the vocabulary, standard or ontology from which a class, property or individual of this ontology aligns."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#sourceVocabulary> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:sourceVocabulary. Captures the external source of alignment for any term in the LCA module."@en ;
+    skos:exactMatch eudpp:sourceVocabulary .
+
+oec:uuid
+    a owl:DatatypeProperty ;
+    rdfs:label "UUID"@en ;
+    rdfs:comment "Universally Unique Identifier of an LCA/EPD study, generated once and unchanged; increments eudpp:dataSetVersion on updates."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source <https://w3id.org/eudpp#uuid> ;
+    skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:uuid. Provides the persistent identifier required by ILCD+EPD for each study."@en ;
+    skos:exactMatch eudpp:uuid .
+
