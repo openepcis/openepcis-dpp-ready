@@ -1,5 +1,7 @@
 package io.openepcis.dpp.vocabsync.cmd;
 
+import io.openepcis.dpp.vocabsync.PairJudge;
+
 import io.openepcis.dpp.vocabsync.model.Verdict;
 import io.openepcis.dpp.vocabsync.model.Verdict.Relation;
 import org.junit.jupiter.api.Test;
@@ -23,7 +25,7 @@ class QaPanelReconcileTest {
 
     @Test
     void strong_majorityMatchesBulk_writesThatRelation() {
-        AuditCommand.Recon r = AuditCommand.reconcile(Relation.EXACT,
+        PairJudge.Recon r = PairJudge.reconcile(Relation.EXACT,
                 List.of(v(Relation.EXACT), v(Relation.EXACT), v(Relation.CLOSE)));
         assertEquals("STRONG", r.tier());
         assertEquals(Relation.EXACT, r.relation());
@@ -32,7 +34,7 @@ class QaPanelReconcileTest {
 
     @Test
     void weak_majorityDiffersButRelationExists_writesCloseMatch() {
-        AuditCommand.Recon r = AuditCommand.reconcile(Relation.EXACT,
+        PairJudge.Recon r = PairJudge.reconcile(Relation.EXACT,
                 List.of(v(Relation.CLOSE), v(Relation.CLOSE), v(Relation.EXACT)));
         assertEquals("WEAK", r.tier());
         assertEquals("skos:closeMatch", r.predicate());
@@ -41,7 +43,7 @@ class QaPanelReconcileTest {
     @Test
     void weak_directionConflict_downgradesToCloseMatch() {
         // bulk says BROAD, panel majority says NARROW: don't assert a wrong direction → closeMatch.
-        AuditCommand.Recon r = AuditCommand.reconcile(Relation.BROAD,
+        PairJudge.Recon r = PairJudge.reconcile(Relation.BROAD,
                 List.of(v(Relation.NARROW), v(Relation.NARROW), v(Relation.BROAD)));
         assertEquals("WEAK", r.tier());
         assertEquals("skos:closeMatch", r.predicate());
@@ -49,7 +51,7 @@ class QaPanelReconcileTest {
 
     @Test
     void reject_majorityNone_writesNothing() {
-        AuditCommand.Recon r = AuditCommand.reconcile(Relation.EXACT,
+        PairJudge.Recon r = PairJudge.reconcile(Relation.EXACT,
                 List.of(v(Relation.NONE), v(Relation.NONE), v(Relation.EXACT)));
         assertEquals("REJECT", r.tier());
         assertNull(r.predicate());
@@ -57,7 +59,7 @@ class QaPanelReconcileTest {
 
     @Test
     void split_noStrictMajority_writesNothing() {
-        AuditCommand.Recon r = AuditCommand.reconcile(Relation.EXACT,
+        PairJudge.Recon r = PairJudge.reconcile(Relation.EXACT,
                 List.of(v(Relation.EXACT), v(Relation.CLOSE), v(Relation.NONE)));
         assertEquals("SPLIT", r.tier());
         assertNull(r.predicate());
@@ -65,15 +67,15 @@ class QaPanelReconcileTest {
 
     @Test
     void singleJudge_actsAsItsOwnMajority() {
-        assertEquals("STRONG", AuditCommand.reconcile(Relation.EXACT, List.of(v(Relation.EXACT))).tier());
-        assertEquals("REJECT", AuditCommand.reconcile(Relation.EXACT, List.of(v(Relation.NONE))).tier());
+        assertEquals("STRONG", PairJudge.reconcile(Relation.EXACT, List.of(v(Relation.EXACT))).tier());
+        assertEquals("REJECT", PairJudge.reconcile(Relation.EXACT, List.of(v(Relation.NONE))).tier());
     }
 
     @Test
     void twoJudges_mustBothAgree_elseSplit() {
-        assertEquals("STRONG", AuditCommand.reconcile(Relation.EXACT,
+        assertEquals("STRONG", PairJudge.reconcile(Relation.EXACT,
                 List.of(v(Relation.EXACT), v(Relation.EXACT))).tier());
-        assertEquals("SPLIT", AuditCommand.reconcile(Relation.EXACT,
+        assertEquals("SPLIT", PairJudge.reconcile(Relation.EXACT,
                 List.of(v(Relation.EXACT), v(Relation.CLOSE))).tier());
     }
 }

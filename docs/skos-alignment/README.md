@@ -16,7 +16,9 @@ curated evaluation data. Human documentation lives one level up in `docs/`
 | File / glob | What it is | How it's produced |
 |---|---|---|
 | `skos-completeness-*.{json,md}` | Per-module + combined audit reports: MISSING / WEAK / WRONG / OK mappings, with LLM rationale and QA verdicts. | `vocab-sync audit` / `sync` |
-| `skos-reverse-coverage.{json,md}` | Upstream terms with no incoming mapping that sit near one of ours (coverage gaps). | `vocab-sync reverse` |
+| `skos-reverse-coverage*.{json,md}` | Reverse coverage of an upstream vocabulary: every term in one bucket (covered / proposed / code-list / epcis-cbv / uncovered) with nearest term of ours, graded proposal and advice. | `vocab-sync reverse [--grade --advise]` |
+| `skos-completeness-reverse-*.{json,md}` | The graded findings of a reverse run, in the audit report format (feeds `provenance --xlsx` and `curate`). | `vocab-sync reverse --grade` |
+| `coverage-decisions-*.json` | The curator's coverage-sheet decisions, exported for the follow-up work. | `vocab-sync coverage-decisions` |
 | `skos-upstream-delta.json` | Diff of each upstream source vs the cached copy on the last refresh. | `vocab-sync fetch --all` |
 | `alignment-provenance.{json,ttl}` | Audit trail of accepted mappings (who/what/when/confidence). | `vocab-sync provenance` |
 | `ontology-realignment-mapping.{json,md}` | Proposed term realignments. Consumed by `scripts/realign-mapping.ts` / `realign-apply.ts`. | `scripts/realign-mapping.ts` |
