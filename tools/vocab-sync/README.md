@@ -292,6 +292,9 @@ QA_CHAT_MODEL=qwen/qwen3-32b java -jar $J propose \
 #     the upstream sub-module the model copied (textile-process → textile), else --default-module
 #     (derived from --vocab-prefix: cirpass2-textile → textile; otherwise core). --render re-emits
 #     the outputs from a saved drafts JSON without model calls and honours --prefill the same way.
+#     A draft that takes the exact name of an existing term of ours is not written; the row is set
+#     to map. A draft whose name differs only in case from a term of the same module (class
+#     AbrasionResistance beside property abrasionResistance) gets a CHECK caveat.
 #     --reuse <drafts.json> --reuse-coverage <old coverage.json> keeps the draft of every row whose
 #     candidates are unchanged, so a re-run after a retrieval change drafts only what moved.
 

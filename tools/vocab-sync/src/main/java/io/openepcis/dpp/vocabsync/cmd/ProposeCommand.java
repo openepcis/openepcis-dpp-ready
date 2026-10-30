@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.openepcis.dpp.vocabsync.OurIndex;
 import io.openepcis.dpp.vocabsync.PairJudge;
+import io.openepcis.dpp.vocabsync.Retriever;
 import io.openepcis.dpp.vocabsync.ProposalDrafter;
 import io.openepcis.dpp.vocabsync.UpstreamIndex;
 import io.openepcis.dpp.vocabsync.model.CoverageRow;
@@ -329,10 +330,21 @@ public class ProposeCommand implements Runnable {
     private void write(Path root, List<Draft> drafts, Map<String, JsonNode> prefill) {
         Map<String, List<Draft>> byModule = new LinkedHashMap<>();
         Set<String> known = new java.util.HashSet<>();
-        for (OurTerm t : ourIndex.load(null)) if (t.type() == TermType.CLASS) known.add(t.prefixedId());
+        // Every term of ours by exact prefixed id, and by folded local name within a module, so a
+        // draft that takes the name of an existing term is caught: exact → not drafted, set to map;
+        // same name up to case (class AbrasionResistance beside property abrasionResistance) → CHECK.
+        Set<String> ourIds = new java.util.HashSet<>();
+        Map<String, String> ourByFolded = new HashMap<>();
+        for (OurTerm t : ourIndex.load(null)) {
+            if (t.type() == TermType.CLASS) known.add(t.prefixedId());
+            ourIds.add(t.prefixedId());
+            ourByFolded.putIfAbsent(t.moduleSlug() + "|" + Retriever.foldedName(t.localName()), t.prefixedId() + " (" + t.type().label() + ")");
+        }
         int failed = 0;
+        List<Draft> collisions = new ArrayList<>();
         for (Draft d : drafts) {
             if (d.p() == null) { failed++; continue; }
+            if (ourIds.contains(prefixed(d.p()))) { collisions.add(d); continue; }
             String m = moduleOf(d.p());
             if ("class".equalsIgnoreCase(d.p().termType())) known.add(PREFIX.get(m) + ":" + d.p().localName());
             byModule.computeIfAbsent(m, k -> new ArrayList<>()).add(d);
@@ -363,6 +375,21 @@ public class ProposeCommand implements Runnable {
                 .append("to cover the upstream term; `caveat` is what the curator must check. The TTL beside this file has the same drafts as blocks.\n\n");
         Map<String, Object> prefillOut = new LinkedHashMap<>();
         prefill.forEach((k, v) -> prefillOut.put(k, v));
+        if (!collisions.isEmpty()) {
+            md.append("## not drafted: the name is taken (").append(collisions.size()).append(")\n\n")
+                    .append("| Existing term of ours | Upstream term | Mapping to add instead |\n|---|---|---|\n");
+            for (Draft d : collisions) {
+                String id = prefixed(d.p());
+                md.append("| `").append(id).append("` | `").append(vocabPrefix).append(':').append(d.row().localName())
+                        .append("` | ").append(mappingOf(d.p())).append(" |\n");
+                Map<String, Object> pre = new LinkedHashMap<>();
+                pre.put("decision", "map");
+                pre.put("notes", id + " already exists; add " + mappingOf(d.p()) + " " + vocabPrefix + ":" + d.row().localName()
+                        + " to it instead of a second term. Draft: " + PairJudge.nz(d.p().definition()));
+                prefillOut.put(d.row().upstreamIri(), pre);
+            }
+            md.append('\n');
+        }
         List<Map<String, Object>> json = new ArrayList<>();
 
         for (var e : byModule.entrySet()) {
@@ -386,17 +413,29 @@ public class ProposeCommand implements Runnable {
                     caveat = (caveat.isEmpty() ? "" : caveat + " ") + "CHECK: " + unknown + ".";
                     flagged++;
                 }
+                String sameName = ourByFolded.get(m + "|" + Retriever.foldedName(p.localName()));
+                if (sameName != null) {
+                    caveat = (caveat.isEmpty() ? "" : caveat + " ") + "CHECK: " + sameName
+                            + " already carries this name; adopt only if both are wanted, else map.";
+                    flagged++;
+                }
+                // A domain/range that is not one prefixed name (the model may write a union with
+                // '|') cannot go into the TTL; it is kept in the caveat for the curator.
+                String domainRef = isRef(p.domain()) ? p.domain().trim() : null;
+                String rangeRef = isRef(p.range()) ? p.range().trim() : null;
+                if (!cls && nb(p.domain()) && domainRef == null) caveat = caveat + (caveat.isEmpty() ? "" : " ") + "CHECK: domain '" + p.domain().trim() + "' is not one class.";
+                if (!cls && nb(p.range()) && rangeRef == null) caveat = caveat + (caveat.isEmpty() ? "" : " ") + "CHECK: range '" + p.range().trim() + "' is not one class.";
                 String owlType = cls ? "owl:Class"
                         : (p.range() != null && p.range().startsWith("xsd:")) ? "owl:DatatypeProperty" : "owl:ObjectProperty";
                 ttl.append(id).append("\n    a ").append(owlType).append(" ;\n")
                         .append("    rdfs:label \"").append(esc(p.label())).append("\"@en ;\n")
                         .append("    rdfs:comment \"").append(esc(p.definition())).append("\"@en ;\n");
                 // A Turtle comment runs to the end of the line, so the CHECK marker follows the ';'.
-                if (!cls && nb(p.domain())) ttl.append("    rdfs:domain ").append(p.domain().trim()).append(" ;")
-                        .append(known.contains(p.domain().trim()) || p.domain().trim().startsWith("xsd:") ? "" : " # CHECK: unknown class")
+                if (!cls && domainRef != null) ttl.append("    rdfs:domain ").append(domainRef).append(" ;")
+                        .append(known.contains(domainRef) || domainRef.startsWith("xsd:") ? "" : " # CHECK: unknown class")
                         .append('\n');
-                if (!cls && nb(p.range())) ttl.append("    rdfs:range ").append(p.range().trim()).append(" ;")
-                        .append(known.contains(p.range().trim()) || p.range().trim().startsWith("xsd:") ? "" : " # CHECK: unknown class")
+                if (!cls && rangeRef != null) ttl.append("    rdfs:range ").append(rangeRef).append(" ;")
+                        .append(known.contains(rangeRef) || rangeRef.startsWith("xsd:") ? "" : " # CHECK: unknown class")
                         .append('\n');
                 ttl.append("    rdfs:isDefinedBy <").append(namespace(m)).append("> ;\n")
                         .append("    dcterms:source <").append(d.row().upstreamIri()).append("> ;\n")
@@ -439,6 +478,7 @@ public class ProposeCommand implements Runnable {
             doc.put("drafts", json);
             mapper.writerWithDefaultPrettyPrinter().writeValue(Path.of(base + ".json").toFile(), doc);
             mapper.writerWithDefaultPrettyPrinter().writeValue(Path.of(base + "-prefill.json").toFile(), prefillOut);
+            if (!collisions.isEmpty()) System.err.printf("propose: %d drafts not written, the name is taken (set to map)%n", collisions.size());
             System.out.printf("%npropose: %d drafts (%d failed, %d with a domain/range to check) → %s.{ttl,md,json}, prefill → %s-prefill.json%n",
                     drafts.size() - failed, failed, flagged, base, base);
         } catch (IOException e) {
@@ -448,6 +488,11 @@ public class ProposeCommand implements Runnable {
 
     private static boolean nb(String s) {
         return s != null && !s.isBlank();
+    }
+
+    /** One prefixed name (oec:Thing, xsd:string): what a domain or range line may carry. */
+    private static boolean isRef(String s) {
+        return nb(s) && s.trim().matches("[A-Za-z][A-Za-z0-9-]*:[A-Za-z_][A-Za-z0-9_-]*");
     }
 
     private static String esc(String s) {

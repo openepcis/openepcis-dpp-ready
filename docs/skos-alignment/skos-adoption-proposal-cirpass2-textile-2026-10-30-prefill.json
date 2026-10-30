@@ -1,171 +1,191 @@
 {
-  "https://w3id.org/eudpp/textile-assessment#hasCondition": {
+  "https://w3id.org/eudpp/textile-assessment#isDefinedByStandard": {
     "decision": "map",
-    "notes": "Advice MAP -> oec:testedConditions. The upstream property links an assessment execution to the condition under which it is performed, which aligns with our existing property oec:testedConditions that describes the conditions under which performance was tested."
+    "notes": "Advice MAP -> eutex:hasTestStandard. The upstream property links an assessment method to the standard that defines it, which is already represented by eutex:hasTestStandard in our vocabulary."
   },
-  "https://w3id.org/eudpp/textile-assessment#hasMeasuredValue": {
+  "https://w3id.org/eudpp/textile-assessment#specifiesCondition": {
     "decision": "map",
-    "notes": "Advice MAP -> eucpr:hasCharacteristicValue. Both properties relate a measurement result to its quantitative value; eucpr:hasCharacteristicValue already captures this relationship."
-  },
-  "https://w3id.org/eudpp/textile-associated-materials#hasNonTextileComponentType": {
-    "decision": "map",
-    "notes": "Advice MAP -> euelec:hasComponentType. The upstream property links a non‑textile component to its type concept, which is already represented by euelec:hasComponentType in our vocabulary."
+    "notes": "Advice MAP -> oec:testedConditions. The upstream ‘specifies condition’ concept aligns with our existing property that describes the conditions under which a test or assessment is performed."
   },
   "https://w3id.org/eudpp/textile-associated-materials#hasTextileChemicalFunction": {
     "decision": "map",
-    "notes": "Advice MAP -> eutex:chemicalPurpose. The upstream property describes the functional role of a textile chemical substance, which is already represented by eutex:chemicalPurpose in our vocabulary."
+    "notes": "Advice MAP -> eutex:chemicalPurpose. The upstream concept ‘has textile chemical function’ is equivalent to our existing property eutex:chemicalPurpose, which describes the purpose of a chemical in textile manufacturing."
   },
   "https://w3id.org/eudpp/textile-connector#QuantitativeValue": {
     "decision": "map",
-    "notes": "Advice MAP -> oec:SingleValuedDataElement. The upstream class represents a numerical value with unit, which is already captured by oec:SingleValuedDataElement in our vocabulary."
+    "notes": "Advice MAP -> oec:SingleValuedDataElement. The upstream class ‘QuantitativeValue’ is equivalent to our existing class oec:SingleValuedDataElement, which represents a single data point with a numeric value and unit."
   },
-  "https://w3id.org/eudpp/textile-context#hasQuantitativeValue": {
+  "https://w3id.org/eudpp/textile-connector#hasMeasurementUnit": {
     "decision": "map",
-    "notes": "Advice MAP -> eucpr:hasCharacteristicValue. Both properties link a context observation to a quantitative value; eucpr:hasCharacteristicValue is the existing DPP term that captures this relationship."
+    "notes": "Advice MAP -> eucpr:hasCharacteristicValue. The upstream property ‘hasMeasurementUnit’ is functionally equivalent to our existing eucpr:hasCharacteristicValue, which already associates a quantitative value with its unitCode."
   },
   "https://w3id.org/eudpp/textile-core#ReusableTextileAbsorbentHygieneProduct": {
     "decision": "out of scope",
-    "notes": "Advice OUT_OF_SCOPE. The upstream class represents a product type that is explicitly excluded from the DPP scope, so it does not need to be modeled in the vocabulary."
+    "notes": "Advice OUT_OF_SCOPE. The class represents a product type that is explicitly excluded from the DPP scope, so it does not need to be modeled in our vocabulary."
   },
   "https://w3id.org/eudpp/textile-core#hasFibreMassFraction": {
     "decision": "map",
-    "notes": "Advice MAP -> oec:massFraction. The upstream property describes the mass fraction of a fibre component, which is directly represented by our existing term oec:massFraction."
+    "notes": "Advice MAP -> oec:massFraction. The upstream property represents a mass fraction of a fibre component, which is exactly what oec:massFraction captures."
+  },
+  "https://w3id.org/eudpp/textile-core#hasFibreType": {
+    "decision": "map",
+    "notes": "Advice MAP -> eutex:FiberType. The upstream property links a fibre composition component to its fibre type, which is exactly what eutex:FiberType represents."
   },
   "https://w3id.org/eudpp/textile-core#hasTextileFibreMassFraction": {
     "decision": "map",
-    "notes": "Advice MAP -> oec:massFraction. The upstream property describes the mass fraction of textile fibres, which is directly represented by our existing term oec:massFraction."
+    "notes": "Advice MAP -> oec:massFraction. The upstream property represents the mass fraction of textile fibres, which is exactly what oec:massFraction captures."
   },
   "https://w3id.org/eudpp/textile-core#jrcExclusionReason": {
     "decision": "map",
-    "notes": "Advice MAP -> eudr:exemptionReasonCode. The upstream property captures a coded reason for excluding a textile product class from the JRC study scope, which is functionally equivalent to an exemption reason code in our vocabulary."
+    "notes": "Advice MAP -> eudr:exemptionReasonCode. The upstream property captures a coded reason for exclusion from the JRC study scope, which aligns with eudr:exemptionReasonCode’s purpose of representing an exemption reason code."
+  },
+  "https://w3id.org/eudpp/textile-durability#AbrasionResistance": {
+    "decision": "map",
+    "notes": "Advice MAP -> eutex:abrasionResistance. The upstream class represents abrasion resistance, which is already captured by eutex:abrasionResistance."
+  },
+  "https://w3id.org/eudpp/textile-durability#ColourDepthEvenness": {
+    "decision": "map",
+    "notes": "Advice MAP -> eutex:VisualInspectionResult. Colour depth and evenness is a visual inspection sub‑rating that is already represented by eutex:VisualInspectionResult, which captures colour change and other visual quality metrics."
+  },
+  "https://w3id.org/eudpp/textile-durability#ColourFading": {
+    "decision": "map",
+    "notes": "Advice MAP -> eutex:VisualInspectionResult. Colour fading is a visual failure mode that falls under the colour change sub‑rating of eutex:VisualInspectionResult, which already captures colour intensity loss during use or washing."
+  },
+  "https://w3id.org/eudpp/textile-durability#ColourFastness": {
+    "decision": "map",
+    "notes": "Advice MAP -> eutex:colorFastness. Colour fastness is directly represented by eutex:colorFastness, which captures the resistance of textile colour to fading, running or alteration under standard test conditions."
+  },
+  "https://w3id.org/eudpp/textile-durability#DimensionalStability": {
+    "decision": "map",
+    "notes": "Advice MAP -> eutex:dimensionalStability. Dimensional stability is already represented by eutex:dimensionalStability, which captures the maximum dimensional change after washing."
   },
   "https://w3id.org/eudpp/textile-durability#hasDurabilityAspect": {
     "decision": "map",
-    "notes": "Advice MAP -> eutex:hasDurabilityInfo. The upstream property ‘has durability aspect’ directly corresponds to the existing DPP class property eutex:hasDurabilityInfo, which links a textile product to its durability metrics."
+    "notes": "Advice MAP -> eutex:hasDurabilityInfo. The upstream property ‘has durability aspect’ is conceptually equivalent to the existing eutex:hasDurabilityInfo, which links a textile product to its durability metrics."
   },
-  "https://w3id.org/eudpp/textile-durability#hasObservedPerformanceParameter": {
+  "https://w3id.org/eudpp/textile-process#CareMethodConcept": {
     "decision": "map",
-    "notes": "Advice MAP -> eutex:hasDurabilityInfo. The upstream property ‘has observed performance parameter’ is effectively covered by the existing DPP property eutex:hasDurabilityInfo, which links a textile product to its durability metrics and observed performance data."
-  },
-  "https://w3id.org/eudpp/textile-indicator#hasQuantitativeValue": {
-    "decision": "map",
-    "notes": "Advice MAP -> oec:stageValue. The upstream property links an Indicator to a generic quantitative value, which is functionally equivalent to our oec:stageValue that represents an indicator’s quantitative value for a lifecycle module."
+    "notes": "Advice MAP -> eutex:CareInstruction. The upstream CareMethodConcept is a controlled value for textile care, which aligns with our eutex:CareInstruction class that represents ISO 3758:2023 care instructions."
   },
   "https://w3id.org/eudpp/textile-process#DyeingTemperature": {
     "decision": "map",
-    "notes": "Advice MAP -> eubat:TemperatureRange. The upstream term represents a temperature parameter for dyeing, which aligns with the existing TemperatureRange class in our vocabulary; no new term is required."
+    "notes": "Advice MAP -> eubat:TemperatureRange. Dyeing temperature is a specific instance of a temperature range used in an operating context, which aligns with the generic TemperatureRange concept."
   },
-  "https://w3id.org/eudpp/textile-process#TemperatureControl": {
+  "https://w3id.org/eudpp/textile-process#RecyclingProcess": {
     "decision": "map",
-    "notes": "Advice MAP -> eubat:TemperatureRange. The upstream concept of Temperature control is effectively the same as the existing eubat:TemperatureRange, which captures a temperature range specification for an operating context."
+    "notes": "Advice MAP -> euelec:recyclingProcess. The upstream concept is a generic recycling process, which directly corresponds to the existing euelec:recyclingProcess class."
   },
   "https://w3id.org/eudpp/textile-process#TextileProcessExecution": {
     "decision": "carrier",
-    "notes": "Advice CARRIER -> EPCIS event. A concrete occurrence of a textile process is naturally represented by an EPCIS event, which already captures the execution details within the DPP data exchange."
+    "notes": "Advice CARRIER -> EPCIS event. A textile process execution is a concrete occurrence that maps directly to an EPCIS event with CBV bizStep and disposition."
   },
   "https://w3id.org/eudpp/textile-process#UseWearProcess": {
     "decision": "carrier",
-    "notes": "Advice CARRIER -> CBV bizStep use. The ‘Use or wear process’ is a lifecycle stage that can be represented by the existing CBV bizStep ‘use’, which already captures use‑phase events in EPCIS."
+    "notes": "Advice CARRIER -> EPCIS event (bizStep: use or wear). The use‑or‑wear process is a lifecycle event that can be represented by an EPCIS event with the appropriate CBV bizStep."
+  },
+  "https://w3id.org/eudpp/textile-process#WashingProcess": {
+    "decision": "carrier",
+    "notes": "Advice CARRIER -> EPCIS event (bizStep: washing). A washing process is a lifecycle event that can be captured by an EPCIS event with the appropriate CBV bizStep."
   },
   "https://w3id.org/eudpp/textile-process#hasCareInstruction": {
     "decision": "map",
-    "notes": "Advice MAP -> eutex:hasCareInstructions. The upstream property ‘has care instruction’ is equivalent to the existing eutex:hasCareInstructions, which already captures product‑specific care instructions."
-  },
-  "https://w3id.org/eudpp/textile-process#hasQuantitativeValue": {
-    "decision": "map",
-    "notes": "Advice MAP -> eucpr:hasCharacteristicValue. The upstream property links a process parameter setting to a quantitative value, which is conceptually equivalent to the existing eucpr:hasCharacteristicValue property that associates a quantitative value with an essential characteristic."
+    "notes": "Advice MAP -> eutex:hasCareInstructions. The upstream property ‘has care instruction’ is equivalent to the existing eutex:hasCareInstructions, which links a textile product to its care instructions."
   },
   "https://w3id.org/eudpp/textile-process#isRepresentedByProductEvent": {
     "decision": "carrier",
-    "notes": "Advice CARRIER -> EPCIS productEvent. The upstream property simply links a textile process execution to the EPCIS product event that records it, which is already represented by the standard EPCIS productEvent construct."
+    "notes": "Advice CARRIER -> EPCIS event. The relationship is already expressed by the EPCIS ProductEvent that records the process execution; no new property is required."
   },
   "https://w3id.org/eudpp/textile-process#representsProcessExecution": {
     "decision": "carrier",
-    "notes": "Advice CARRIER -> EPCIS productEvent. The upstream property simply links a product event to the textile process execution it records, which is already represented by the standard EPCIS productEvent construct."
+    "notes": "Advice CARRIER -> EPCIS event. The relationship is already expressed by the EPCIS ProductEvent that records or represents a process execution; no new property is required."
   },
   "https://w3id.org/eudpp/textile-process#usesChemicalFunction": {
     "decision": "map",
-    "notes": "Advice MAP -> eutex:chemicalPurpose. The upstream property ‘uses chemical function’ aligns with the existing DPP term eutex:chemicalPurpose, which captures the technical purpose of a chemical in textile processes."
+    "notes": "Advice MAP -> eutex:chemicalPurpose. The upstream property ‘uses chemical function’ aligns with our existing eutex:chemicalPurpose, which captures the technical purpose of a chemical in textile processes."
   },
   "https://w3id.org/eudpp/textile-process#usesChemicalSubstance": {
     "decision": "map",
-    "notes": "Advice MAP -> eutex:hasTextileChemicals. The upstream property ‘uses chemical substance’ describes chemicals employed in a textile process, which is effectively the same concept as eutex:hasTextileChemicals – chemicals used in textile production."
+    "notes": "Advice MAP -> eutex:hasTextileChemicals. The upstream property ‘uses chemical substance’ describes a textile process’s use of a specific chemical, which aligns with our existing eutex:hasTextileChemicals that records the chemicals used in textile production."
+  },
+  "https://w3id.org/eudpp/textile-recyclability#ManufacturerDeclarationVerificationMethod": {
+    "decision": "map",
+    "notes": "Advice MAP -> eudr:verificationMethod. The upstream class describes a verification method based on a manufacturer’s declaration, which is conceptually equivalent to the generic Verification Method used in eudr for deforestation‑free and legality claims."
   },
   "https://w3id.org/eudpp/textile-recyclability#Recyclability": {
     "decision": "map",
-    "notes": "Advice MAP -> eutex:RecyclabilityAssessment. The upstream Recyclability class matches the existing eutex:RecyclabilityAssessment, which captures a product’s potential for recycling under specified contexts."
-  },
-  "https://w3id.org/eudpp/textile-recyclability#TextileChemicalRecyclingEvent": {
-    "decision": "carrier",
-    "notes": "Advice CARRIER -> EPCIS event with CBV bizStep recycling. The concept represents a specific type of EPCIS event; it is already covered by the generic EPCIS event construct with an appropriate bizStep."
-  },
-  "https://w3id.org/eudpp/textile-recyclability#TextileMechanicalRecyclingEvent": {
-    "decision": "carrier",
-    "notes": "Advice CARRIER -> EPCIS event with CBV bizStep recycling. The concept represents a specific type of EPCIS event; it is already covered by the generic EPCIS event construct with an appropriate bizStep."
-  },
-  "https://w3id.org/eudpp/textile-recyclability#TextileRecyclingEvent": {
-    "decision": "carrier",
-    "notes": "Advice CARRIER -> EPCIS event with CBV bizStep recycling. The concept is an occurrence of textile recycling, which is already represented by a generic EPCIS event with the appropriate bizStep."
+    "notes": "Advice MAP -> eutex:RecyclabilityAssessment. The upstream class describes a textile product’s potential to provide fibre or material feedstock under specified recycling contexts, which aligns with the eutex:RecyclabilityAssessment concept that scores recyclability based on composition and technical factors."
   },
   "https://w3id.org/eudpp/textile-recyclability#appliesSortingCriterion": {
     "decision": "map",
-    "notes": "Advice MAP -> eutex:hasSortingFactors. The upstream property ‘applies sorting criterion’ is conceptually equivalent to the existing eutex:hasSortingFactors, which captures sorting factors used in recycling processes."
+    "notes": "Advice MAP -> eutex:hasSortingFactors. The upstream property ‘applies sorting criterion’ aligns with our existing eutex:hasSortingFactors, which captures the factors used in sorting for recycling."
   },
   "https://w3id.org/eudpp/textile-recyclability#assessesRecyclabilityOf": {
     "decision": "map",
-    "notes": "Advice MAP -> eutex:hasRecyclabilityAssessment. The upstream property ‘assesses recyclability of’ directly corresponds to the existing eutex:hasRecyclabilityAssessment, which links a textile product to its recyclability assessment."
+    "notes": "Advice MAP -> eutex:hasRecyclabilityAssessment. The upstream property ‘assesses recyclability of’ directly corresponds to our eutex:hasRecyclabilityAssessment, which links a textile product to its recyclability assessment."
   },
   "https://w3id.org/eudpp/textile-recyclability#hasRecoveredMaterial": {
     "decision": "map",
-    "notes": "Advice MAP -> euelec:hasMaterialRecoveryResults. The property euelec:hasMaterialRecoveryResults captures the measured outcome of a textile recycling event, including recovered material outputs, matching the upstream hasRecoveredMaterial concept."
+    "notes": "Advice MAP -> euelec:hasMaterialRecoveryResults. The upstream property links a recycling event to recovered material, which is already represented by euelec:hasMaterialRecoveryResults in our vocabulary."
   },
   "https://w3id.org/eudpp/textile-recyclability#hasRecyclabilityAspect": {
     "decision": "map",
-    "notes": "Advice MAP -> eutex:hasRecyclabilityAssessment. The upstream property hasRecyclabilityAspect corresponds to the existing eutex:hasRecyclabilityAssessment, which links a product to its recyclability assessment."
-  },
-  "https://w3id.org/eudpp/textile-recyclability#hasRecyclabilityScore": {
-    "decision": "map",
-    "notes": "Advice MAP -> oec:recyclabilityScore. The upstream hasRecyclabilityScore directly corresponds to the existing oec:recyclabilityScore property, which captures a numeric recyclability score for a product."
+    "notes": "Advice MAP -> eutex:hasRecyclabilityAssessment. The upstream property links a product to its recyclability aspect, which is already represented by eutex:hasRecyclabilityAssessment in our vocabulary."
   },
   "https://w3id.org/eudpp/textile-recyclability#hasWasteSourceType": {
     "decision": "map",
-    "notes": "Advice MAP -> eutex:hasWasteOriginType. The upstream concept of a waste source type (lifecycle‑stage category where the textile became waste) aligns with our existing Waste Origin Type classification, so mapping is appropriate."
+    "notes": "Advice MAP -> eutex:hasWasteOriginType. The upstream concept ‘has waste source type’ aligns with our existing property ‘eutex:hasWasteOriginType’, which classifies the origin of recycled waste material."
   },
   "https://w3id.org/eudpp/textile-recyclability#usesRecyclingProcessType": {
     "decision": "map",
-    "notes": "Advice MAP -> euelec:recyclingProcess. The upstream property links a recycling route to its principal recycling process type, which matches the existing euelec:recyclingProcess property that describes the treatment or recycling process applied to an item."
+    "notes": "Advice MAP -> euelec:recyclingProcess. The upstream property ‘uses recycling process type’ matches the existing euelec:recyclingProcess, which relates a recycling route (or item) to its principal recycling process type."
   },
-  "https://w3id.org/eudpp/textile-repairability#Repairability": {
+  "https://w3id.org/eudpp/textile-recyclability#verifiesRecycledContentDeclaration": {
     "decision": "map",
-    "notes": "Advice MAP -> oec:RepairabilityInfo. The upstream Repairability concept is equivalent to the existing oec:RepairabilityInfo class, which already represents repair and maintenance information per ESPR Article 7."
+    "notes": "Advice MAP -> eutex:hasRecycledContentDeclaration. The upstream property ‘verifies recycled content declaration’ expresses the same relationship as eutex:hasRecycledContentDeclaration, which links an assessment result (or product) to the structured recycled‑content declaration it verifies."
+  },
+  "https://w3id.org/eudpp/textile-repairability#RefurbishmentPossibility": {
+    "decision": "map",
+    "notes": "Advice MAP -> oec:RepairabilityInfo. The upstream class ‘Possibility of refurbishment’ describes the ability to prepare, clean, test, service and repair a product to restore its performance, which is effectively the same concept as oec:RepairabilityInfo that captures repair and maintenance information per ESPR Article 7."
+  },
+  "https://w3id.org/eudpp/textile-repairability#TextileRefurbishmentEvent": {
+    "decision": "carrier",
+    "notes": "Advice CARRIER -> EPCIS event. A textile refurbishment occurrence is an instance of a generic EPCIS event; the existing EPCIS construct already carries this concept."
+  },
+  "https://w3id.org/eudpp/textile-repairability#TextileRemanufacturingEvent": {
+    "decision": "carrier",
+    "notes": "Advice CARRIER -> EPCIS event. A textile remanufacturing occurrence is an instance of a generic EPCIS event; the existing EPCIS construct already carries this concept."
+  },
+  "https://w3id.org/eudpp/textile-repairability#TextileRepairEvent": {
+    "decision": "carrier",
+    "notes": "Advice CARRIER -> EPCIS event. A textile repair occurrence is an instance of a generic EPCIS event; the existing EPCIS construct already carries this concept."
+  },
+  "https://w3id.org/eudpp/textile-repairability#TextileUpgradingEvent": {
+    "decision": "carrier",
+    "notes": "Advice CARRIER -> EPCIS event. A textile upgrading occurrence is an instance of a generic EPCIS event; the existing EPCIS construct already carries this concept."
   },
   "https://w3id.org/eudpp/textile-repairability#hasRepairActionType": {
     "decision": "map",
-    "notes": "Advice MAP -> euelec:repairType. The upstream property describes the type of repair action performed, which aligns with our existing euelec:repairType that captures the kind of repair performed."
+    "notes": "Advice MAP -> euelec:repairType. The upstream property describes the type of repair action performed, which is already captured by our euelec:repairType property."
+  },
+  "https://w3id.org/eudpp/textile-repairability#hasRepairActorType": {
+    "decision": "map",
+    "notes": "Advice MAP -> oec:ActorRole. The upstream property classifies an actor by its role in textile repair, which is already represented by our generic oec:ActorRole construct."
   },
   "https://w3id.org/eudpp/textile-repairability#hasRepairGuidance": {
     "decision": "map",
-    "notes": "Advice MAP -> oec:hasRepairInstructions. The upstream property ‘has repair guidance’ is functionally equivalent to our existing oec:hasRepairInstructions, which links a product to repair instructions or manuals."
+    "notes": "Advice MAP -> oec:hasRepairInstructions. The upstream property relates apparel to repair guidance, which is already represented by our oec:hasRepairInstructions construct."
   },
   "https://w3id.org/eudpp/textile-repairability#hasSparePartAvailabilityCondition": {
     "decision": "map",
-    "notes": "Advice MAP -> oec:hasSparePartsAvailability. The upstream ‘has spare‑part availability condition’ is functionally equivalent to our existing oec:hasSparePartsAvailability, which records the duration for which spare parts will be available."
-  },
-  "https://w3id.org/eudpp/textile-repairability#providedBy": {
-    "decision": "map",
-    "notes": "Advice MAP -> oec:hasRepairProvider. The upstream ‘provided by’ property is functionally equivalent to our existing oec:hasRepairProvider, which links a product (or service) to one or more authorised repair providers."
-  },
-  "https://w3id.org/eudpp/textile-repairability#providesGuidance": {
-    "decision": "map",
-    "notes": "Advice MAP -> oec:hasRepairInstructions. The upstream ‘provides guidance’ property is functionally equivalent to our existing oec:hasRepairInstructions, which links a repair service (or product) to the URL or reference of repair instructions and manuals."
+    "notes": "Advice MAP -> oec:hasSparePartsAvailability. The upstream property describes the availability condition of spare parts for a repairability assessment, which is already represented by our oec:hasSparePartsAvailability property."
   },
   "https://w3id.org/eudpp/textile-structure#hasCharacteristicValue": {
     "decision": "map",
-    "notes": "Advice MAP -> eucpr:hasCharacteristicValue. The upstream property ‘has characteristic value’ is a generic quantitative link between a textile structure characteristic and its numeric value, which matches the existing eucpr:hasCharacteristicValue construct."
+    "notes": "Advice MAP -> eucpr:hasCharacteristicValue. The upstream property ‘has characteristic value’ directly corresponds to the existing eucpr:hasCharacteristicValue, which links a characteristic occurrence to its quantitative value."
   },
-  "https://w3id.org/eudpp/textile-durability#AbrasionResistance": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:AbrasionResistance (class) skos:closeMatch cirpass2-textile:AbrasionResistance. Observed performance parameter describing the resistance of a textile material or product to wear caused by rubbing or abrasion."
+  "https://w3id.org/eudpp/textile-indicator#concernsDurabilityAspect": {
+    "decision": "map",
+    "notes": "eutex:hasDurabilityInfo already exists; add skos:closeMatch cirpass2-textile:concernsDurabilityAspect to it instead of a second term. Draft: Links an indicator to the durability information it interprets."
   },
   "https://w3id.org/eudpp/textile-durability#AccidentalDamage": {
     "decision": "adopt",
@@ -181,23 +201,19 @@
   },
   "https://w3id.org/eudpp/textile-assessment#AssessmentCondition": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:AssessmentCondition (class) skos:closeMatch cirpass2-textile:AssessmentCondition. The set of environmental, operational or procedural parameters under which an assessment is performed or a result is obtained."
+    "notes": "Proposal: eutex:AssessmentCondition (class) skos:exactMatch cirpass2-textile:AssessmentCondition. The set of circumstances or criteria under which a textile assessment is performed, such as environmental testing conditions or regulatory compliance checks."
   },
   "https://w3id.org/eudpp/textile-assessment#AssessmentExecution": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:AssessmentExecution (class) skos:closeMatch cirpass2-textile:AssessmentExecution. The actual performance of a textile assessment method on a specified product under defined conditions and parameter settings."
+    "notes": "Proposal: eutex:AssessmentExecution (class) skos:exactMatch cirpass2-textile:AssessmentExecution. The actual performance of a textile assessment method on a specified product under defined conditions and parameter settings."
   },
   "https://w3id.org/eudpp/textile-assessment#AssessmentMethod": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:AssessmentMethod (class) skos:closeMatch cirpass2-textile:AssessmentMethod. A documented procedure or approach used to assess, observe, test, measure or evaluate a textile product or a durability‑related performance parameter."
+    "notes": "Proposal: eutex:AssessmentMethod (class) skos:exactMatch cirpass2-textile:AssessmentMethod. The documented procedure or approach used to assess, observe, test, measure or evaluate a textile product or a durability‑related performance parameter."
   },
   "https://w3id.org/eudpp/textile-assessment#AssessmentParameter": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:AssessmentParameter (class) skos:closeMatch cirpass2-textile:AssessmentParameter. A configurable value or setting that influences how a textile assessment procedure is carried out, interpreted or qualified."
-  },
-  "https://w3id.org/eudpp/textile-process#CareMethodConcept": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:CareMethodConcept (class) skos:closeMatch cirpass2-textile:CareMethodConcept. Controlled vocabulary concept representing a textile care method, such as washing or drying instructions."
+    "notes": "Proposal: eutex:AssessmentParameter (class) skos:exactMatch cirpass2-textile:AssessmentParameter. A configurable value or setting that qualifies, limits, or interprets a textile assessment procedure."
   },
   "https://w3id.org/eudpp/textile-process#CareParameter": {
     "decision": "adopt",
@@ -225,23 +241,11 @@
   },
   "https://w3id.org/eudpp/textile-recyclability#CollectionSchemeConcept": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:CollectionSchemeConcept (class) skos:closeMatch cirpass2-textile:CollectionSchemeConcept. Concept used to classify an arrangement for collecting textile waste."
-  },
-  "https://w3id.org/eudpp/textile-durability#ColourDepthEvenness": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:ColourDepthEvenness (class) skos:closeMatch cirpass2-textile:ColourDepthEvenness. Observed visual performance parameter describing the depth and evenness of colour in a textile product or fabric, especially in relation to dyeing and finishing quality."
-  },
-  "https://w3id.org/eudpp/textile-durability#ColourFading": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:ColourFading (class) skos:closeMatch cirpass2-textile:ColourFading. Visual failure mode corresponding to progressive loss of colour intensity during use, washing, ageing or exposure."
-  },
-  "https://w3id.org/eudpp/textile-durability#ColourFastness": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:ColourFastness (class) skos:closeMatch cirpass2-textile:ColourFastness. Observed performance parameter describing the resistance of a textile colour to fading, running or alteration under conditions such as washing, rubbing, perspiration or light exposure."
+    "notes": "Proposal: eutex:CollectionSchemeConcept (class) skos:closeMatch cirpass2-textile:CollectionSchemeConcept. SKOS concept used to classify an arrangement for collecting textile waste."
   },
   "https://w3id.org/eudpp/textile-durability#ComponentFailureMode": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:ComponentFailureMode (class) skos:closeMatch cirpass2-textile:ComponentFailureMode. Category of failure modes affecting components or trims in textile products."
+    "notes": "Proposal: eutex:ComponentFailureMode (class) skos:exactMatch cirpass2-textile:ComponentFailureMode. Category of failure modes affecting components or trims in textile products."
   },
   "https://w3id.org/eudpp/textile-process#ConfectioningParameter": {
     "decision": "adopt",
@@ -275,10 +279,6 @@
     "decision": "adopt",
     "notes": "Proposal: eutex:DegradationRate (class) skos:exactMatch cirpass2-textile:DegradationRate. Calculated indicator expressing change in a performance parameter or degradation phenomenon per stated unit of time, use, cycle or exposure."
   },
-  "https://w3id.org/eudpp/textile-durability#DimensionalStability": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:DimensionalStability (class) skos:closeMatch cirpass2-textile:DimensionalStability. Observed performance parameter describing the ability of a textile product or fabric to retain its dimensions after use, laundering or other treatment cycles."
-  },
   "https://w3id.org/eudpp/textile-durability#Discolouration": {
     "decision": "adopt",
     "notes": "Proposal: eutex:Discolouration (class) skos:closeMatch cirpass2-textile:Discolouration. Observed performance parameter describing localised, irregular or use‑specific colour change that is distinct from general colour fading."
@@ -289,7 +289,7 @@
   },
   "https://w3id.org/eudpp/textile-process#DyeConcentration": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:DyeConcentration (class) skos:closeMatch cirpass2-textile:DyeConcentration. Dyeing parameter describing the concentration of dye or colourant used in a textile dyeing process."
+    "notes": "Proposal: eutex:DyeConcentration (class) skos:exactMatch cirpass2-textile:DyeConcentration. Dyeing parameter describing the concentration of dye or colourant used in a dyeing process."
   },
   "https://w3id.org/eudpp/textile-process#DyeingParameter": {
     "decision": "adopt",
@@ -301,7 +301,7 @@
   },
   "https://w3id.org/eudpp/textile-process#DyeingTime": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:DyeingTime (class) skos:closeMatch cirpass2-textile:DyeingTime. Dyeing parameter describing the duration of a dyeing process or dyeing step."
+    "notes": "Proposal: eutex:DyeingTime (class) skos:exactMatch cirpass2-textile:DyeingTime. Dyeing parameter describing the duration of a dyeing process or dyeing step."
   },
   "https://w3id.org/eudpp/textile-durability#ElasticityLoss": {
     "decision": "adopt",
@@ -313,7 +313,7 @@
   },
   "https://w3id.org/eudpp/textile-structure#FabricAppearance": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:FabricAppearance (class) skos:closeMatch cirpass2-textile:FabricAppearance. Visual characteristic describing the overall visible appearance or visual quality of a fabric."
+    "notes": "Proposal: eutex:FabricAppearance (class) skos:closeMatch cirpass2-textile:FabricAppearance. Visual characteristic of a fabric that describes its overall visible appearance or visual quality."
   },
   "https://w3id.org/eudpp/textile-structure#FabricBehaviouralCharacteristic": {
     "decision": "adopt",
@@ -321,11 +321,11 @@
   },
   "https://w3id.org/eudpp/textile-durability#FabricBreakdown": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:FabricBreakdown (class) skos:closeMatch cirpass2-textile:FabricBreakdown. Aggregated failure mode of a textile fabric that may later be decomposed into specific phenomena such as fraying, thinning, localised wear or hole formation."
+    "notes": "Proposal: eutex:FabricBreakdown (class) skos:exactMatch cirpass2-textile:FabricBreakdown. Aggregated failure mode of a textile fabric that may later be decomposed into specific phenomena such as fraying, thinning, localised wear or hole formation."
   },
   "https://w3id.org/eudpp/textile-structure#FabricBreathability": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:FabricBreathability (class) skos:closeMatch cirpass2-textile:FabricBreathability. Functional characteristic of a fabric describing the passage of water vapour and evaporative cooling."
+    "notes": "Proposal: eutex:FabricBreathability (class) skos:closeMatch cirpass2-textile:FabricBreathability. Functional characteristic of a fabric that describes the passage of water vapour through it and its evaporative cooling effect."
   },
   "https://w3id.org/eudpp/textile-process#FabricConstructionParameter": {
     "decision": "adopt",
@@ -333,7 +333,7 @@
   },
   "https://w3id.org/eudpp/textile-structure#FabricDrape": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:FabricDrape (class) skos:closeMatch cirpass2-textile:FabricDrape. Behavioural characteristic describing how a fabric hangs in three dimensions and conforms to contours."
+    "notes": "Proposal: eutex:FabricDrape (class) skos:closeMatch cirpass2-textile:FabricDrape. Behavioural characteristic describing how a fabric hangs in three dimensions and adapts to contours."
   },
   "https://w3id.org/eudpp/textile-structure#FabricElasticity": {
     "decision": "adopt",
@@ -345,15 +345,15 @@
   },
   "https://w3id.org/eudpp/textile-structure#FabricHandle": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:FabricHandle (class) skos:closeMatch cirpass2-textile:FabricHandle. Tactile characteristic of a fabric describing softness, smoothness, flexibility and overall sensation when touched."
+    "notes": "Proposal: eutex:FabricHandle (class) skos:closeMatch cirpass2-textile:FabricHandle. Tactile characteristic describing the softness, smoothness, flexibility and overall sensation when a fabric is touched."
   },
   "https://w3id.org/eudpp/textile-structure#FabricInsulation": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:FabricInsulation (class) skos:closeMatch cirpass2-textile:FabricInsulation. Functional characteristic of a textile that describes its ability to retain heat and reduce heat transfer."
+    "notes": "Proposal: eutex:FabricInsulation (class) skos:closeMatch cirpass2-textile:FabricInsulation. Functional characteristic describing a fabric’s ability to retain heat and reduce heat transfer."
   },
   "https://w3id.org/eudpp/textile-structure#FabricLustre": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:FabricLustre (class) skos:closeMatch cirpass2-textile:FabricLustre. Visual characteristic of a textile that describes the reflection of light producing a shiny or glossy appearance."
+    "notes": "Proposal: eutex:FabricLustre (class) skos:closeMatch cirpass2-textile:FabricLustre. Visual characteristic describing the reflection of light that gives a shiny or glossy appearance to a fabric."
   },
   "https://w3id.org/eudpp/textile-process#FabricManufacturingMethodConcept": {
     "decision": "adopt",
@@ -373,15 +373,15 @@
   },
   "https://w3id.org/eudpp/textile-structure#FabricRigidity": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:FabricRigidity (class) skos:closeMatch cirpass2-textile:FabricRigidity. Structural characteristic indicating the stiffness or resistance to deformation of a textile."
+    "notes": "Proposal: eutex:FabricRigidity (class) skos:closeMatch cirpass2-textile:FabricRigidity. Structural characteristic indicating the stiffness or rigidity of a fabric."
   },
   "https://w3id.org/eudpp/textile-durability#FabricSmoothness": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:FabricSmoothness (class) skos:closeMatch cirpass2-textile:FabricSmoothness. Observed performance parameter describing the visible or tactile smoothness of a fabric surface, commonly assessed during visual inspection after washing, drying or other durability‑related stress."
+    "notes": "Proposal: eutex:FabricSmoothness (class) skos:exactMatch cirpass2-textile:FabricSmoothness. Observed performance parameter describing the visible or tactile smoothness of a fabric surface, commonly assessed during visual inspection after washing, drying or other durability-related stress."
   },
   "https://w3id.org/eudpp/textile-durability#FabricStrength": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:FabricStrength (class) skos:closeMatch cirpass2-textile:FabricStrength. Aggregated observed mechanical performance parameter describing the strength of a fabric, covering tensile, tear or bursting strength as appropriate to the test context."
+    "notes": "Proposal: eutex:FabricStrength (class) skos:exactMatch cirpass2-textile:FabricStrength. Aggregated observed mechanical performance parameter describing the strength of a fabric, potentially covering tensile strength, tear strength or bursting strength depending on the test context."
   },
   "https://w3id.org/eudpp/textile-structure#FabricTactileCharacteristic": {
     "decision": "adopt",
@@ -401,7 +401,7 @@
   },
   "https://w3id.org/eudpp/textile-structure#FibreCleanliness": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:FibreCleanliness (class) skos:closeMatch cirpass2-textile:FibreCleanliness. Quality characteristic of a textile fibre describing the presence of impurities or foreign matter remaining in the fibre."
+    "notes": "Proposal: eutex:FibreCleanliness (class) skos:closeMatch cirpass2-textile:FibreCleanliness. Quality characteristic describing the level of impurities or foreign matter remaining in a fibre."
   },
   "https://w3id.org/eudpp/textile-structure#FibreColour": {
     "decision": "adopt",
@@ -433,15 +433,15 @@
   },
   "https://w3id.org/eudpp/textile-structure#FibreStrength": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:FibreStrength (class) skos:closeMatch cirpass2-textile:FibreStrength. Mechanical property of a textile fibre describing its resistance to tensile stress or breakage."
+    "notes": "Proposal: eutex:FibreStrength (class) skos:closeMatch cirpass2-textile:FibreStrength. Mechanical characteristic expressing a fibre’s resistance to tensile stress or breakage."
   },
   "https://w3id.org/eudpp/textile-process#FinishingParameter": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:FinishingParameter (class) skos:closeMatch cirpass2-textile:FinishingParameter. Process parameter relevant to textile finishing, including chemical and mechanical finishing."
+    "notes": "Proposal: eutex:FinishingParameter (class) skos:exactMatch cirpass2-textile:FinishingParameter. Process parameter relevant to textile finishing, including chemical and mechanical finishing."
   },
   "https://w3id.org/eudpp/textile-process#FinishingProcess": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:FinishingProcess (class) skos:closeMatch cirpass2-textile:FinishingProcess. Textile process applied to modify appearance, handle, function or physical properties of textile materials or products."
+    "notes": "Proposal: eutex:FinishingProcess (class) skos:exactMatch cirpass2-textile:FinishingProcess. Textile process applied to modify appearance, handle, function or physical properties of textile materials or products."
   },
   "https://w3id.org/eudpp/textile-process#FinishingTreatmentParameter": {
     "decision": "adopt",
@@ -453,7 +453,7 @@
   },
   "https://w3id.org/eudpp/textile-durability#FunctionalFailureMode": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:FunctionalFailureMode (class) skos:closeMatch cirpass2-textile:FunctionalFailureMode. A failure mode that primarily results in loss of intended use, comfort or functional suitability of a textile product."
+    "notes": "Proposal: eutex:FunctionalFailureMode (class) skos:exactMatch cirpass2-textile:FunctionalFailureMode. Category of failure modes primarily involving loss of intended use, comfort or functional suitability of a textile product."
   },
   "https://w3id.org/eudpp/textile-durability#FuzzingOrMatting": {
     "decision": "adopt",
@@ -525,19 +525,15 @@
   },
   "https://w3id.org/eudpp/textile-durability#LossOfDimensionalStability": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:LossOfDimensionalStability (class) skos:closeMatch cirpass2-textile:LossOfDimensionalStability. Failure mode indicating a textile product’s inability to retain its dimensions after use, laundering or treatment cycles."
+    "notes": "Proposal: eutex:LossOfDimensionalStability (class) skos:exactMatch cirpass2-textile:LossOfDimensionalStability. Failure expression corresponding to loss of the ability of a textile product or fabric to retain its dimensions after use, laundering or treatment cycles."
   },
   "https://w3id.org/eudpp/textile-process#MachineryCharacteristic": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:MachineryCharacteristic (class) skos:closeMatch cirpass2-textile:MachineryCharacteristic. Process parameter or equipment characteristic describing machinery quality, configuration or components relevant to textile processing."
+    "notes": "Proposal: eutex:MachineryCharacteristic (class) skos:exactMatch cirpass2-textile:MachineryCharacteristic. Process parameter or equipment characteristic describing machinery quality, configuration or components relevant to textile processing."
   },
   "https://w3id.org/eudpp/textile-process#MaintenanceAndRepairProcess": {
     "decision": "adopt",
     "notes": "Proposal: eutex:MaintenanceAndRepairProcess (class) skos:closeMatch cirpass2-textile:MaintenanceAndRepairProcess. Process that extends product lifetime through maintenance or repair activities, distinct from assessment indicators."
-  },
-  "https://w3id.org/eudpp/textile-recyclability#ManufacturerDeclarationVerificationMethod": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:ManufacturerDeclarationVerificationMethod (class) skos:closeMatch cirpass2-textile:ManufacturerDeclarationVerificationMethod. Verification method based on a declaration made by the manufacturer."
   },
   "https://w3id.org/eudpp/textile-assessment#MeasurementParameter": {
     "decision": "adopt",
@@ -557,7 +553,7 @@
   },
   "https://w3id.org/eudpp/textile-process#MechanicalRecyclingProcess": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:MechanicalRecyclingProcess (class) skos:closeMatch cirpass2-textile:MechanicalRecyclingProcess. Recycling process that mechanically transforms textile products or waste into reusable fibres or materials."
+    "notes": "Proposal: eutex:MechanicalRecyclingProcess (class) skos:exactMatch cirpass2-textile:MechanicalRecyclingProcess. Recycling process mechanically transforming textile products or textile waste into reusable fibres or materials."
   },
   "https://w3id.org/eudpp/textile-repairability#ModularityFeature": {
     "decision": "adopt",
@@ -569,7 +565,7 @@
   },
   "https://w3id.org/eudpp/textile-associated-materials#NonTextileComponent": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:NonTextileComponent (class) skos:closeMatch cirpass2-textile:NonTextileComponent. A physical component integrated into a textile product that is not part of the primary textile fibre composition, such as a button, zipper or sequin."
+    "notes": "Proposal: eutex:NonTextileComponent (class) skos:exactMatch cirpass2-textile:NonTextileComponent. A physical component integrated into a textile product that is not part of the primary textile fibre composition, such as a button, zipper or sequin."
   },
   "https://w3id.org/eudpp/textile-soc#NonTextileComponentMaterialGroup": {
     "decision": "adopt",
@@ -585,7 +581,7 @@
   },
   "https://w3id.org/eudpp/textile-assessment#NumberOfCycles": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:NumberOfCycles (class) skos:closeMatch cirpass2-textile:NumberOfCycles. A measurement parameter specifying the number of repeated test, washing, abrasion or simulated‑use cycles performed during an assessment."
+    "notes": "Proposal: eutex:NumberOfCycles (class) skos:exactMatch cirpass2-textile:NumberOfCycles. The count of repeated test, washing, abrasion or simulated‑use cycles performed on a textile product during an assessment."
   },
   "https://w3id.org/eudpp/textile-durability#ObservedDegradationPhenomenon": {
     "decision": "adopt",
@@ -593,7 +589,7 @@
   },
   "https://w3id.org/eudpp/textile-associated-materials#PackagingMaterial": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:PackagingMaterial (class) skos:closeMatch cirpass2-textile:PackagingMaterial. A material occurrence used for the packaging, transport, storage or delivery of a textile product."
+    "notes": "Proposal: eutex:PackagingMaterial (class) skos:exactMatch cirpass2-textile:PackagingMaterial. A material occurrence used for the packaging, transport, storage or delivery of a textile product."
   },
   "https://w3id.org/eudpp/textile-associated-materials#PackagingMaterialTypeConcept": {
     "decision": "adopt",
@@ -601,15 +597,15 @@
   },
   "https://w3id.org/eudpp/textile-process#PackagingProcess": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:PackagingProcess (class) skos:closeMatch cirpass2-textile:PackagingProcess. Process that uses packaging material as an input within a textile manufacturing context, distinguishing it from ordinary textile production."
+    "notes": "Proposal: eutex:PackagingProcess (class) skos:exactMatch cirpass2-textile:PackagingProcess. Process context in which packaging material is used as an input, distinct from ordinary textile manufacturing processes."
   },
   "https://w3id.org/eudpp/textile-assessment#PerformanceThreshold": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:PerformanceThreshold (class) skos:closeMatch cirpass2-textile:PerformanceThreshold. A decision criterion specifying a minimum, maximum, target or equality value against which an assessment result is evaluated."
+    "notes": "Proposal: eutex:PerformanceThreshold (class) skos:exactMatch cirpass2-textile:PerformanceThreshold. A decision criterion that specifies a minimum, maximum, target or equality value against which an assessment result is evaluated."
   },
   "https://w3id.org/eudpp/textile-durability#Pilling": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:Pilling (class) skos:closeMatch cirpass2-textile:Pilling. Observed surface degradation where small balls or pills of entangled fibres form on a textile during wear, friction, use or testing."
+    "notes": "Proposal: eutex:Pilling (class) skos:exactMatch cirpass2-textile:Pilling. Observed surface degradation phenomenon involving the formation of small balls or pills of entangled fibres on a textile surface during wear, friction, use or testing."
   },
   "https://w3id.org/eudpp/textile-process#PolycottonThermoChemicalRecyclingProcess": {
     "decision": "adopt",
@@ -649,7 +645,7 @@
   },
   "https://w3id.org/eudpp/textile-durability#ProductAgeing": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:ProductAgeing (class) skos:closeMatch cirpass2-textile:ProductAgeing. Progressive change or degradation of textile product performance over time under repeated use, care, environmental exposure or stress."
+    "notes": "Proposal: eutex:ProductAgeing (class) skos:exactMatch cirpass2-textile:ProductAgeing. Progressive change or degradation of textile product performance over time under repeated use, care, environmental exposure or stress."
   },
   "https://w3id.org/eudpp/textile-indicator#ProductReplacementFrequency": {
     "decision": "adopt",
@@ -661,7 +657,7 @@
   },
   "https://w3id.org/eudpp/textile-process#PyrolysisGasificationRecyclingProcess": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:PyrolysisGasificationRecyclingProcess (class) skos:closeMatch cirpass2-textile:PyrolysisGasificationRecyclingProcess. Thermo‑chemical process that converts textile waste into syngas or pyrolysis oil for use as a feedstock in material production."
+    "notes": "Proposal: eutex:PyrolysisGasificationRecyclingProcess (class) skos:exactMatch cirpass2-textile:PyrolysisGasificationRecyclingProcess. Thermo‑chemical process that produces syngas or pyrolysis oil for use as a feedstock in material production; fuel‑use energy recovery is not considered recycling."
   },
   "https://w3id.org/eudpp/textile-durability#RadiationInducedDegradation": {
     "decision": "adopt",
@@ -697,39 +693,31 @@
   },
   "https://w3id.org/eudpp/textile-recyclability#RecycledContentAssessment": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:RecycledContentAssessment (class) skos:closeMatch cirpass2-textile:RecycledContentAssessment. Execution of an assessment that verifies or evaluates a recycled‑content declaration for a textile product."
+    "notes": "Proposal: eutex:RecycledContentAssessment (class) skos:closeMatch cirpass2-textile:RecycledContentAssessment. Assessment execution that verifies or evaluates a recycled‑content declaration for a textile product."
   },
   "https://w3id.org/eudpp/textile-recyclability#RecycledContentAssessmentResult": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:RecycledContentAssessmentResult (class) skos:closeMatch cirpass2-textile:RecycledContentAssessmentResult. Result of verifying or evaluating a recycled‑content declaration for a textile product."
+    "notes": "Proposal: eutex:RecycledContentAssessmentResult (class) skos:closeMatch cirpass2-textile:RecycledContentAssessmentResult. Assessment result reporting the outcome of verifying or evaluating a recycled‑content declaration."
   },
   "https://w3id.org/eudpp/textile-recyclability#RecycledContentPerformanceThreshold": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:RecycledContentPerformanceThreshold (class) skos:closeMatch cirpass2-textile:RecycledContentPerformanceThreshold. Minimum recycled‑content value required for a product, fibre or source context."
+    "notes": "Proposal: eutex:RecycledContentPerformanceThreshold (class) skos:closeMatch cirpass2-textile:RecycledContentPerformanceThreshold. Performance threshold defining a minimum recycled‑content value for a stated product, fibre or source context."
   },
   "https://w3id.org/eudpp/textile-recyclability#RecycledContentVerificationMethod": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:RecycledContentVerificationMethod (class) skos:closeMatch cirpass2-textile:RecycledContentVerificationMethod. Method used to verify a recycled‑content declaration when direct lab determination of fibre origin is not feasible at scale."
+    "notes": "Proposal: eutex:RecycledContentVerificationMethod (class) skos:closeMatch cirpass2-textile:RecycledContentVerificationMethod. Assessment method used to verify a recycled‑content declaration where no direct laboratory determination of recycled versus virgin fibre origin is available at scale."
   },
   "https://w3id.org/eudpp/textile-recyclability#RecycledTextileFibre": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:RecycledTextileFibre (class) skos:closeMatch cirpass2-textile:RecycledTextileFibre. Recovered textile material represented as a fibre suitable for use in textile products, meeting quality and process requirements."
+    "notes": "Proposal: eutex:RecycledTextileFibre (class) skos:closeMatch cirpass2-textile:RecycledTextileFibre. Recovered textile material represented as a textile fibre suitable, subject to quality and process requirements, for use in textile products."
   },
   "https://w3id.org/eudpp/textile-recyclability#RecyclingLoopConcept": {
     "decision": "adopt",
     "notes": "Proposal: eutex:RecyclingLoopConcept (class) skos:closeMatch cirpass2-textile:RecyclingLoopConcept. Controlled concept identifying the intended material‑loop destination of a recycling route."
   },
-  "https://w3id.org/eudpp/textile-process#RecyclingProcess": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:RecyclingProcess (class) skos:closeMatch cirpass2-textile:RecyclingProcess. End‑of‑life process that transforms textile products, waste or recovered materials into reusable fibre or material feedstock."
-  },
   "https://w3id.org/eudpp/textile-connector#ReferencePeriod": {
     "decision": "adopt",
     "notes": "Proposal: eutex:ReferencePeriod (class) skos:closeMatch cirpass2-textile:ReferencePeriod. A structured temporal interval that specifies the period to which an observation, indicator or other time‑bound textile statement applies."
-  },
-  "https://w3id.org/eudpp/textile-repairability#RefurbishmentPossibility": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:RefurbishmentPossibility (class) skos:closeMatch cirpass2-textile:RefurbishmentPossibility. Ability of a product or discarded product to be prepared, cleaned, tested, serviced and, where necessary, repaired so that performance or functionality is restored within the originally intended use and performance range."
   },
   "https://w3id.org/eudpp/textile-repairability#RefurbishmentProcess": {
     "decision": "adopt",
@@ -737,11 +725,11 @@
   },
   "https://w3id.org/eudpp/textile-repairability#RemanufacturingPossibility": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:RemanufacturingPossibility (class) skos:closeMatch cirpass2-textile:RemanufacturingPossibility. Possibility of producing a new product from waste objects, products or components through actions involving at least one change that may affect the product performance, purpose or type."
+    "notes": "Proposal: eutex:RemanufacturingPossibility (class) skos:closeMatch cirpass2-textile:RemanufacturingPossibility. Potential to produce a new product from waste textiles, components or products through at least one change that may alter performance, purpose or type."
   },
   "https://w3id.org/eudpp/textile-repairability#RemanufacturingProcess": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:RemanufacturingProcess (class) skos:closeMatch cirpass2-textile:RemanufacturingProcess. Process producing a new textile product from waste objects, products or components, with at least one change that may affect performance, purpose or type. It is distinct from material recycling."
+    "notes": "Proposal: eutex:RemanufacturingProcess (class) skos:closeMatch cirpass2-textile:RemanufacturingProcess. Process that creates a new textile product from waste textiles, components or products through at least one change that may alter performance, purpose or type, distinct from material recycling."
   },
   "https://w3id.org/eudpp/textile-repairability#RepairActionTypeConcept": {
     "decision": "adopt",
@@ -753,11 +741,11 @@
   },
   "https://w3id.org/eudpp/textile-repairability#RepairCostCondition": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:RepairCostCondition (class) skos:closeMatch cirpass2-textile:RepairCostCondition. Economic condition describing repair cost in relation to a comparable new product price and its influence on a repair decision."
+    "notes": "Proposal: eutex:RepairCostCondition (class) skos:closeMatch cirpass2-textile:RepairCostCondition. Economic condition describing repair cost relative to a comparable new product price and its influence on a repair decision."
   },
   "https://w3id.org/eudpp/textile-process#RepairProcess": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:RepairProcess (class) skos:closeMatch cirpass2-textile:RepairProcess. Process that extends the usable lifetime of a textile product through repair activities."
+    "notes": "Proposal: eutex:RepairProcess (class) skos:exactMatch cirpass2-textile:RepairProcess. Process that extends the usable lifetime of a textile product; links to repair‑related indicators are handled in other modules."
   },
   "https://w3id.org/eudpp/textile-repairability#RepairRelatedProcess": {
     "decision": "adopt",
@@ -766,6 +754,10 @@
   "https://w3id.org/eudpp/textile-repairability#RepairServiceConfigurationConcept": {
     "decision": "adopt",
     "notes": "Proposal: eutex:RepairServiceConfigurationConcept (class) skos:closeMatch cirpass2-textile:RepairServiceConfigurationConcept. SKOS concept representing a BC, BAT or BNAT repair‑service and guidance configuration from JRC Table 48."
+  },
+  "https://w3id.org/eudpp/textile-repairability#Repairability": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:Repairability (class) skos:closeMatch cirpass2-textile:Repairability. Ability of a defective textile product or waste object to return, through one or more actions, to a condition that fulfills its intended use, with user acceptance of restored functionality and possibly altered aesthetics."
   },
   "https://w3id.org/eudpp/textile-repairability#RepairabilityContextCondition": {
     "decision": "adopt",
@@ -797,7 +789,7 @@
   },
   "https://w3id.org/eudpp/textile-structure#SeamStrength": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:SeamStrength (class) skos:closeMatch cirpass2-textile:SeamStrength. Mechanical property of a textile assembly describing the strength or integrity of a seam."
+    "notes": "Proposal: eutex:SeamStrength (class) skos:closeMatch cirpass2-textile:SeamStrength. Assembly characteristic expressing the mechanical strength or integrity of a seam."
   },
   "https://w3id.org/eudpp/textile-structure#SewingCharacteristic": {
     "decision": "adopt",
@@ -897,15 +889,19 @@
   },
   "https://w3id.org/eudpp/textile-process#TargetFabricMassPerUnitArea": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:TargetFabricMassPerUnitArea (class) skos:closeMatch cirpass2-textile:TargetFabricMassPerUnitArea. Process target specification stating the intended mass of fabric per unit surface area."
+    "notes": "Proposal: eutex:TargetFabricMassPerUnitArea (class) skos:exactMatch cirpass2-textile:TargetFabricMassPerUnitArea. Specification of the intended mass of fabric per unit surface area for a textile process."
   },
   "https://w3id.org/eudpp/textile-durability#TearOrRip": {
     "decision": "adopt",
     "notes": "Proposal: eutex:TearOrRip (class) skos:closeMatch cirpass2-textile:TearOrRip. Mechanical failure mode involving rupture, tearing or ripping of textile material under stress, snagging or damage."
   },
+  "https://w3id.org/eudpp/textile-process#TemperatureControl": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:TemperatureControl (class) skos:exactMatch cirpass2-textile:TemperatureControl. Process parameter describing the control of temperature during textile manufacturing, processing or care."
+  },
   "https://w3id.org/eudpp/textile-assessment#TestCondition": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:TestCondition (class) skos:closeMatch cirpass2-textile:TestCondition. A controlled assessment condition used in a test protocol, such as temperature, humidity, load, duration, washing cycle or abrasion cycle."
+    "notes": "Proposal: eutex:TestCondition (class) skos:exactMatch cirpass2-textile:TestCondition. A controlled assessment condition used in a test protocol, such as temperature, humidity, load, duration, washing cycle or abrasion cycle."
   },
   "https://w3id.org/eudpp/textile-assessment#TestEndpoint": {
     "decision": "adopt",
@@ -917,11 +913,15 @@
   },
   "https://w3id.org/eudpp/textile-assessment#TestMethod": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:TestMethod (class) skos:closeMatch cirpass2-textile:TestMethod. An assessment method that applies a controlled experimental or inspection procedure to a durability‑related performance parameter."
+    "notes": "Proposal: eutex:TestMethod (class) skos:exactMatch cirpass2-textile:TestMethod. An assessment method that applies a controlled experimental or inspection procedure to a durability‑related performance parameter."
   },
   "https://w3id.org/eudpp/textile-associated-materials#TextileChemicalFunctionConcept": {
     "decision": "adopt",
     "notes": "Proposal: eutex:TextileChemicalFunctionConcept (class) skos:closeMatch cirpass2-textile:TextileChemicalFunctionConcept. A controlled concept describing the technical function performed by a chemical in textile production or treatment."
+  },
+  "https://w3id.org/eudpp/textile-recyclability#TextileChemicalRecyclingEvent": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:TextileChemicalRecyclingEvent (class) skos:closeMatch cirpass2-textile:TextileChemicalRecyclingEvent. Event in which a textile product or material undergoes a chemical recycling process."
   },
   "https://w3id.org/eudpp/textile-associated-materials#TextileChemicalSubstance": {
     "decision": "adopt",
@@ -945,7 +945,7 @@
   },
   "https://w3id.org/eudpp/textile-core#TextileFibre": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:TextileFibre (class) skos:closeMatch cirpass2-textile:TextileFibre. A unit of matter characterised by flexibility, fineness and a high length‑to‑width ratio, suitable for textile applications."
+    "notes": "Proposal: eutex:TextileFibre (class) skos:exactMatch cirpass2-textile:TextileFibre. Unit of matter characterised by flexibility, fineness and a high ratio of length to maximum transverse dimension, suitable for textile applications."
   },
   "https://w3id.org/eudpp/textile-process#TextileManufacturingProcess": {
     "decision": "adopt",
@@ -954,6 +954,10 @@
   "https://w3id.org/eudpp/textile-soc#TextileMaterialGroup": {
     "decision": "adopt",
     "notes": "Proposal: eutex:TextileMaterialGroup (class) skos:closeMatch cirpass2-textile:TextileMaterialGroup. A fibre‑, yarn‑ or fabric‑based material grouping within a textile product that serves as a location or mass‑reference unit for substance reporting."
+  },
+  "https://w3id.org/eudpp/textile-recyclability#TextileMechanicalRecyclingEvent": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:TextileMechanicalRecyclingEvent (class) skos:closeMatch cirpass2-textile:TextileMechanicalRecyclingEvent. Event in which a textile product or material undergoes a mechanical recycling process."
   },
   "https://w3id.org/eudpp/textile-process#TextileProcess": {
     "decision": "adopt",
@@ -967,17 +971,9 @@
     "decision": "adopt",
     "notes": "Proposal: eutex:TextileRecyclingAlertThreshold (class) skos:closeMatch cirpass2-textile:TextileRecyclingAlertThreshold. A textile‑sector alert concentration used to inform sorting, recycling or environmentally sound end‑of‑life handling when the substance may hinder circular treatment."
   },
-  "https://w3id.org/eudpp/textile-repairability#TextileRefurbishmentEvent": {
+  "https://w3id.org/eudpp/textile-recyclability#TextileRecyclingEvent": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:TextileRefurbishmentEvent (class) skos:broadMatch cirpass2-textile:TextileRefurbishmentEvent. Concrete occurrence of a textile refurbishment that is both an instance of the EU DPP RefurbishmentEvent semantics and a textile process execution."
-  },
-  "https://w3id.org/eudpp/textile-repairability#TextileRemanufacturingEvent": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:TextileRemanufacturingEvent (class) skos:broadMatch cirpass2-textile:TextileRemanufacturingEvent. Concrete occurrence of a textile remanufacturing that is both an instance of the EU DPP RemanufacturingEvent semantics and a textile process execution."
-  },
-  "https://w3id.org/eudpp/textile-repairability#TextileRepairEvent": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:TextileRepairEvent (class) skos:broadMatch cirpass2-textile:TextileRepairEvent. Concrete occurrence of a textile repair that is both an instance of the EU DPP RepairEvent semantics and a textile process execution."
+    "notes": "Proposal: eutex:TextileRecyclingEvent (class) skos:closeMatch cirpass2-textile:TextileRecyclingEvent. Concrete occurrence of textile recycling, represented as both a product event and an execution of a textile process."
   },
   "https://w3id.org/eudpp/textile-soc#TextileSoCHandlingInformation": {
     "decision": "adopt",
@@ -998,10 +994,6 @@
   "https://w3id.org/eudpp/textile-soc#TextileTypeDQualification": {
     "decision": "adopt",
     "notes": "Proposal: eutex:TextileTypeDQualification (class) skos:closeMatch cirpass2-textile:TextileTypeDQualification. Product‑group‑specific qualification indicating that a substance hinders the reuse or recycling of a textile product or textile material stream."
-  },
-  "https://w3id.org/eudpp/textile-repairability#TextileUpgradingEvent": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:TextileUpgradingEvent (class) skos:closeMatch cirpass2-textile:TextileUpgradingEvent. Concrete occurrence of a textile upgrading that is both an instance of the EU DPP UpgradingEvent semantics and a textile process execution."
   },
   "https://w3id.org/eudpp/textile-recyclability#TextileWasteSourceConcept": {
     "decision": "adopt",
@@ -1059,10 +1051,6 @@
     "decision": "adopt",
     "notes": "Proposal: eutex:VisualPerformanceParameter (class) skos:closeMatch cirpass2-textile:VisualPerformanceParameter. Category of observed performance parameters related to visual appearance or colour behaviour."
   },
-  "https://w3id.org/eudpp/textile-process#WashingProcess": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:WashingProcess (class) skos:closeMatch cirpass2-textile:WashingProcess. Care process involving laundering or washing of a textile product."
-  },
   "https://w3id.org/eudpp/textile-process#WashingTemperature": {
     "decision": "adopt",
     "notes": "Proposal: eutex:WashingTemperature (class) skos:closeMatch cirpass2-textile:WashingTemperature. Care parameter describing the temperature used in a washing process."
@@ -1085,11 +1073,11 @@
   },
   "https://w3id.org/eudpp/textile-structure#YarnAppearance": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:YarnAppearance (class) skos:closeMatch cirpass2-textile:YarnAppearance. Visual property of yarn describing diameter, hairiness, visible defects and overall appearance."
+    "notes": "Proposal: eutex:YarnAppearance (class) skos:broadMatch cirpass2-textile:YarnAppearance. Visual characteristic of yarn concerning diameter, hairiness, visible defects and overall appearance."
   },
   "https://w3id.org/eudpp/textile-structure#YarnCharacteristic": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:YarnCharacteristic (class) skos:closeMatch cirpass2-textile:YarnCharacteristic. Property of a yarn that can influence the durability of the resulting fabric or product."
+    "notes": "Proposal: eutex:YarnCharacteristic (class) skos:closeMatch cirpass2-textile:YarnCharacteristic. Characteristic of a yarn that may influence fabric and product durability."
   },
   "https://w3id.org/eudpp/textile-process#YarnConditioning": {
     "decision": "adopt",
@@ -1113,11 +1101,11 @@
   },
   "https://w3id.org/eudpp/textile-structure#YarnStrength": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:YarnStrength (class) skos:closeMatch cirpass2-textile:YarnStrength. Mechanical property of a yarn expressing its ability to withstand tensile force without breaking."
+    "notes": "Proposal: eutex:YarnStrength (class) skos:broadMatch cirpass2-textile:YarnStrength. Mechanical characteristic expressing the ability of a yarn to withstand tensile force without breaking."
   },
   "https://w3id.org/eudpp/textile-structure#YarnStructuralCharacteristic": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:YarnStructuralCharacteristic (class) skos:closeMatch cirpass2-textile:YarnStructuralCharacteristic. Property of a yarn describing its structural regularity or configuration."
+    "notes": "Proposal: eutex:YarnStructuralCharacteristic (class) skos:closeMatch cirpass2-textile:YarnStructuralCharacteristic. Characteristic of a yarn concerning its structural regularity or configuration."
   },
   "https://w3id.org/eudpp/textile-structure#YarnTactileCharacteristic": {
     "decision": "adopt",
@@ -1141,7 +1129,7 @@
   },
   "https://w3id.org/eudpp/textile-assessment#appliesMethod": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:appliesMethod (property, range eutex:AssessmentMethod) skos:exactMatch cirpass2-textile:appliesMethod. Links an assessment execution to the assessment method that it performs."
+    "notes": "Proposal: eutex:appliesMethod (property, range eutex:AssessmentMethod) skos:broadMatch cirpass2-textile:appliesMethod. Links an assessment execution to the reusable assessment method that it performs."
   },
   "https://w3id.org/eudpp/textile-process#appliesTo": {
     "decision": "adopt",
@@ -1157,15 +1145,11 @@
   },
   "https://w3id.org/eudpp/textile-assessment#assessesProduct": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:assessesProduct (property, range eutex:TextileProduct) skos:exactMatch cirpass2-textile:assessesProduct. Links an assessment execution to the product being assessed, including components used in another product."
+    "notes": "Proposal: eutex:assessesProduct (property, range oec:Product) skos:closeMatch cirpass2-textile:assessesProduct. Relates an assessment execution to the product being assessed, including a component used in another product. CHECK: oec:Product is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-recyclability#assessesRecyclingRoute": {
     "decision": "adopt",
     "notes": "Proposal: eutex:assessesRecyclingRoute (property, range eutex:RecyclingTechnology) skos:closeMatch cirpass2-textile:assessesRecyclingRoute. Relates a recyclability assessment execution to the recycling route evaluated by that assessment."
-  },
-  "https://w3id.org/eudpp/textile-repairability#assessesRepairabilityOf": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:assessesRepairabilityOf (property, range eutex:TextileApparel) skos:closeMatch cirpass2-textile:assessesRepairabilityOf. Relates a repair‑ability assessment execution to the textile apparel it evaluates."
   },
   "https://w3id.org/eudpp/textile-recyclability#awardsScoreValue": {
     "decision": "adopt",
@@ -1185,11 +1169,11 @@
   },
   "https://w3id.org/eudpp/textile-structure#characteristicOf": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:characteristicOf (property, range eutex:TextileProduct) skos:closeMatch cirpass2-textile:characteristicOf. Links a textile structure characteristic occurrence to the textile product it describes, including products used as components of another product. CHECK: eutex:TextileStructureCharacteristic is not an existing or proposed class."
+    "notes": "Proposal: eutex:characteristicOf (property, range eutex:TextileProduct) skos:closeMatch cirpass2-textile:characteristicOf. Links a textile structure characteristic occurrence to the textile product it describes, including products used as components of other products."
   },
   "https://w3id.org/eudpp/textile-process#concernsProduct": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:concernsProduct (property, range eutex:TextileProduct) skos:closeMatch cirpass2-textile:concernsProduct. Links a concrete textile process execution to the textile product it concerns, including component products. CHECK: eutex:TextileProcessExecution is not an existing or proposed class."
+    "notes": "Proposal: eutex:concernsProduct (property, range eutex:TextileProduct) skos:closeMatch cirpass2-textile:concernsProduct. Links a concrete textile process execution to the textile product it concerns, including products used as components of another product. CHECK: eutex:TextileProcessExecution is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-repairability#considersProcessType": {
     "decision": "adopt",
@@ -1217,7 +1201,7 @@
   },
   "https://w3id.org/eudpp/textile-assessment#definesMethod": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:definesMethod (property, range eutex:AssessmentMethod) skos:exactMatch cirpass2-textile:definesMethod. Links an assessment standard to the assessment method it defines or specifies."
+    "notes": "Proposal: eutex:definesMethod (property, range eutex:AssessmentMethod) skos:broadMatch cirpass2-textile:definesMethod. Links an assessment standard to the assessment method it defines or specifies."
   },
   "https://w3id.org/eudpp/textile-indicator#derivedFrom": {
     "decision": "adopt",
@@ -1233,7 +1217,7 @@
   },
   "https://w3id.org/eudpp/textile-recyclability#evaluatesCriterion": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:evaluatesCriterion (property, range eutex:RecyclabilityCriterionConcept) skos:closeMatch cirpass2-textile:evaluatesCriterion. Relates a recyclability criterion result to the controlled criterion it evaluates. CHECK: eutex:RecyclabilityCriterionResult, eutex:RecyclabilityCriterionConcept is not an existing or proposed class."
+    "notes": "Proposal: eutex:evaluatesCriterion (property, range eutex:RecyclingTechnology) skos:closeMatch cirpass2-textile:evaluatesCriterion. Links a recyclability criterion result to the controlled criterion it evaluates."
   },
   "https://w3id.org/eudpp/textile-connector#evidenceStatus": {
     "decision": "adopt",
@@ -1245,23 +1229,27 @@
   },
   "https://w3id.org/eudpp/textile-recyclability#followsRecyclingRoute": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:followsRecyclingRoute (property, range eutex:RecyclingTechnology) skos:closeMatch cirpass2-textile:followsRecyclingRoute. Relates a textile recycling event to the recycling route it follows. CHECK: eutex:TextileRecyclingEvent is not an existing or proposed class."
+    "notes": "Proposal: eutex:followsRecyclingRoute (property, range eutex:RecyclingTechnology) skos:closeMatch cirpass2-textile:followsRecyclingRoute. Relates a textile recycling event to the recycling route it follows."
+  },
+  "https://w3id.org/eudpp/textile-repairability#assessesRepairabilityOf": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:hasAssessesRepairabilityOf (property, range eutex:TextileApparel) skos:closeMatch cirpass2-textile:assessesRepairabilityOf. Links a repairability assessment execution to the textile apparel it evaluates."
   },
   "https://w3id.org/eudpp/textile-recyclability#hasBarrierType": {
     "decision": "adopt",
     "notes": "Proposal: eutex:hasBarrierType (property, range eutex:RecyclabilityBarrierTypeConcept) skos:closeMatch cirpass2-textile:hasBarrierType. Classifies a recyclability barrier using a controlled barrier concept."
   },
-  "https://w3id.org/eudpp/textile-context#hasCategoricalValue": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:hasCategoricalValue (property, range skos:Concept) skos:closeMatch cirpass2-textile:hasCategoricalValue. Links a textile context observation to a controlled categorical value represented as a SKOS concept. CHECK: skos:Concept is not an existing or proposed class."
-  },
-  "https://w3id.org/eudpp/textile-indicator#hasCategoricalValue": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:hasCategoricalValue (property, range skos:Concept) skos:closeMatch cirpass2-textile:hasCategoricalValue. Links an indicator to a controlled categorical, ordinal or rating value represented as a SKOS concept. CHECK: skos:Concept is not an existing or proposed class."
-  },
   "https://w3id.org/eudpp/textile-process#hasCategoricalValue": {
     "decision": "adopt",
     "notes": "Proposal: eutex:hasCategoricalValue (property, range skos:Concept) skos:closeMatch cirpass2-textile:hasCategoricalValue. Links a process parameter setting to the controlled SKOS concept that represents its categorical value. CHECK: skos:Concept is not an existing or proposed class."
+  },
+  "https://w3id.org/eudpp/textile-context#hasCategoricalValue": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:hasCategoricalValue (property, range eutex:TextileContextFactorConcept) skos:closeMatch cirpass2-textile:hasCategoricalValue. Links a textile context observation to the controlled categorical concept that describes its value."
+  },
+  "https://w3id.org/eudpp/textile-indicator#hasCategoricalValue": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:hasCategoricalValue (property, range skos:Concept) skos:closeMatch cirpass2-textile:hasCategoricalValue. Links an indicator to a controlled SKOS concept that represents its categorical, ordinal or rating value. CHECK: eutex:Indicator, skos:Concept is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-assessment#hasComparisonOperator": {
     "decision": "adopt",
@@ -1269,11 +1257,15 @@
   },
   "https://w3id.org/eudpp/textile-associated-materials#hasComponentMaterial": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasComponentMaterial (property, range oec:MaterialComposition) skos:closeMatch cirpass2-textile:hasComponentMaterial. Links a non‑textile component to the material from which it is made."
+    "notes": "Proposal: eutex:hasComponentMaterial (property, range oec:MaterialComposition) skos:closeMatch cirpass2-textile:hasComponentMaterial. Links a non‑textile component to the material occurrence from which it is made."
+  },
+  "https://w3id.org/eudpp/textile-assessment#hasCondition": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:hasCondition (property, range eutex:AssessmentCondition) skos:broadMatch cirpass2-textile:hasCondition. Links an assessment execution to the specific condition under which it was performed."
   },
   "https://w3id.org/eudpp/textile-indicator#hasConstituentIndicator": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasConstituentIndicator (property, range eutex:Indicator) skos:closeMatch cirpass2-textile:hasConstituentIndicator. Links an aggregate or trajectory indicator to a more specific indicator that is part of its derivation. CHECK: eutex:Indicator is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasConstituentIndicator (property, range eutex:Indicator) skos:closeMatch cirpass2-textile:hasConstituentIndicator. Links an aggregate or trajectory indicator to a more specific indicator that contributes to its derivation. CHECK: eutex:Indicator, eutex:Indicator is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-context#hasContextFactorType": {
     "decision": "adopt",
@@ -1285,15 +1277,15 @@
   },
   "https://w3id.org/eudpp/textile-indicator#contributesToIndicator": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasContributesToIndicator (property, range eutex:Indicator) skos:closeMatch cirpass2-textile:contributesToIndicator. Links an indicator to a broader indicator that it contributes to. CHECK: eutex:Indicator is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasContributingIndicator (property, range eutex:Indicator) skos:closeMatch cirpass2-textile:contributesToIndicator. Links an indicator to a broader indicator that it contributes to. CHECK: eutex:Indicator, eutex:Indicator is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-recyclability#hasCriterionOutcome": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasCriterionOutcome (property, range eutex:RecyclabilityOutcomeConcept) skos:closeMatch cirpass2-textile:hasCriterionOutcome. Relates a recyclability criterion result to its controlled assessment outcome. CHECK: eutex:RecyclabilityCriterionResult, eutex:RecyclabilityOutcomeConcept is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasCriterionOutcome (property, range eutex:RecyclingTechnology) skos:closeMatch cirpass2-textile:hasCriterionOutcome. Links a recyclability criterion result to the controlled outcome concept it produces."
   },
   "https://w3id.org/eudpp/textile-recyclability#hasCriterionResult": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasCriterionResult (property, range eutex:RecyclabilityCriterionResult) skos:closeMatch cirpass2-textile:hasCriterionResult. Relates a recyclability assessment result to the individual criterion result it contains. CHECK: eutex:RecyclabilityAssessmentResult, eutex:RecyclabilityCriterionResult is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasCriterionResult (property, range eutex:RecyclingTechnology) skos:closeMatch cirpass2-textile:hasCriterionResult. Links an aggregate recyclability assessment result to the individual criterion outcome it contains."
   },
   "https://w3id.org/eudpp/textile-durability#hasDegradationExpression": {
     "decision": "adopt",
@@ -1302,14 +1294,6 @@
   "https://w3id.org/eudpp/textile-repairability#hasDesignFeature": {
     "decision": "adopt",
     "notes": "Proposal: eutex:hasDesignFeature (property, range oec:RepairabilityDesignFeature) skos:closeMatch cirpass2-textile:hasDesignFeature. Relates a repairability assessment to the design feature considered in the assessment. CHECK: eutex:RepairabilityAssessment, oec:RepairabilityDesignFeature is not an existing or proposed class."
-  },
-  "https://w3id.org/eudpp/textile-indicator#concernsDurabilityAspect": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:hasDurabilityInfo (property, range eutex:DurabilityInfo) skos:closeMatch cirpass2-textile:concernsDurabilityAspect. Links an indicator to the durability information it interprets."
-  },
-  "https://w3id.org/eudpp/textile-repairability#hasElementType": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:hasElementType (property, range oec:PriorityRepairElementTypeConcept) skos:closeMatch cirpass2-textile:hasElementType. Assigns a controlled priority‑repair element type to a priority repair element role. CHECK: oec:PriorityRepairElement, oec:PriorityRepairElementTypeConcept is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-durability#hasExternalDamage": {
     "decision": "adopt",
@@ -1333,19 +1317,15 @@
   },
   "https://w3id.org/eudpp/textile-core#hasFibreComponent": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasFibreComponent (property, range oec:TextileFibre) skos:closeMatch cirpass2-textile:hasFibreComponent. Relates a textile product to the fibre type concept that is part of its composition. CHECK: oec:TextileFibre is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasFibreComponent (property, range eutex:FiberTypeConcept) skos:closeMatch cirpass2-textile:hasFibreComponent. Links a textile product to the fibre type concept that constitutes part of its composition. CHECK: eutex:FiberTypeConcept is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-core#hasFibreCompositionComponent": {
     "decision": "adopt",
     "notes": "Proposal: eutex:hasFibreCompositionComponent (property, range oec:MaterialComposition) skos:closeMatch cirpass2-textile:hasFibreCompositionComponent. Relates a textile product to a structured fibre composition component that describes the fibre mix of its construction."
   },
-  "https://w3id.org/eudpp/textile-core#hasFibreType": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:hasFibreType (property, range eutex:FiberType) skos:closeMatch cirpass2-textile:hasFibreType. Relates a fibre composition component to the textile fibre type it describes. CHECK: eutex:FibreCompositionComponent is not an existing or proposed class."
-  },
   "https://w3id.org/eudpp/textile-indicator#hasIndicator": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasIndicator (property, range eutex:Indicator) skos:closeMatch cirpass2-textile:hasIndicator. Links a product to an indicator that describes or interprets it. CHECK: eutex:Indicator is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasIndicator (property, range eutex:Indicator) skos:closeMatch cirpass2-textile:hasIndicator. Links a textile product to an indicator that describes or interprets it. CHECK: eutex:Indicator is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-repairability#hasInteractiveRepairSupport": {
     "decision": "adopt",
@@ -1363,17 +1343,21 @@
     "decision": "adopt",
     "notes": "Proposal: eutex:hasMeasurementParameter (property, range eutex:MeasurementParameter) skos:exactMatch cirpass2-textile:hasMeasurementParameter. Links a method or assessment condition to the protocol parameter it specifies."
   },
-  "https://w3id.org/eudpp/textile-connector#hasMeasurementUnit": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:hasMeasurementUnit (property, range oec:MeasurementUnit) skos:closeMatch cirpass2-textile:hasMeasurementUnit. Links a quantitative value to the measurement unit used to express it. CHECK: oec:QuantitativeValue, oec:MeasurementUnit is not an existing or proposed class."
-  },
   "https://w3id.org/eudpp/textile-recyclability#hasMinimumScoreValue": {
     "decision": "adopt",
     "notes": "Proposal: eutex:hasMinimumScoreValue (property, range oec:QuantitativeValue) skos:closeMatch cirpass2-textile:hasMinimumScoreValue. Relates a recyclability scoring method to the minimum dimensionless score value defined by that method. CHECK: eutex:RecyclabilityScoringMethod, oec:QuantitativeValue is not an existing or proposed class."
   },
+  "https://w3id.org/eudpp/textile-repairability#producesNewTextileProduct": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:hasNewTextileProduct (property, range eutex:TextileProduct) skos:closeMatch cirpass2-textile:producesNewTextileProduct. Links a remanufacturing execution to the new textile product it produces."
+  },
   "https://w3id.org/eudpp/textile-associated-materials#hasNonTextileComponent": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasNonTextileComponent (property, range eutex:TextileProduct) skos:exactMatch cirpass2-textile:hasNonTextileComponent. Links a textile product to a non‑textile component physically integrated into it."
+    "notes": "Proposal: eutex:hasNonTextileComponent (property, range eutex:NonTextileComponent) skos:closeMatch cirpass2-textile:hasNonTextileComponent. Links a textile product to a non‑textile component physically integrated into it."
+  },
+  "https://w3id.org/eudpp/textile-associated-materials#hasNonTextileComponentType": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:hasNonTextileComponentType (property, range eutex:NonTextileComponentTypeConcept) skos:closeMatch cirpass2-textile:hasNonTextileComponentType. Links a non‑textile component to the controlled concept that describes its type."
   },
   "https://w3id.org/eudpp/textile-core#hasNonTextileMaterialMassFraction": {
     "decision": "adopt",
@@ -1383,13 +1367,17 @@
     "decision": "adopt",
     "notes": "Proposal: eutex:hasObservedDegradationPhenomenon (property, range eutex:ObservedDegradationPhenomenon) skos:exactMatch cirpass2-textile:concernsDegradationPhenomenon. Links an indicator to the observed textile degradation phenomenon it interprets."
   },
+  "https://w3id.org/eudpp/textile-durability#hasObservedPerformanceParameter": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:hasObservedPerformanceParameter (property, range eutex:ObservedPerformanceParameter) skos:closeMatch cirpass2-textile:hasObservedPerformanceParameter. Links a textile product to the observed performance parameter that informs its durability assessment. CHECK: eutex:ObservedPerformanceParameter is not an existing or proposed class."
+  },
   "https://w3id.org/eudpp/textile-associated-materials#hasPackagingMaterial": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasPackagingMaterial (property, range eutex:PackagingMaterial) skos:exactMatch cirpass2-textile:hasPackagingMaterial. Links a textile product to the packaging‑material occurrence used for its packaging, transport, storage or delivery."
+    "notes": "Proposal: eutex:hasPackagingMaterial (property, range euppwr:Packaging) skos:closeMatch cirpass2-textile:hasPackagingMaterial. Links a textile product to the packaging material used for its packaging, transport, storage or delivery."
   },
   "https://w3id.org/eudpp/textile-associated-materials#hasPackagingMaterialType": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasPackagingMaterialType (property, range eutex:PackagingMaterialTypeConcept) skos:closeMatch cirpass2-textile:hasPackagingMaterialType. Links a packaging‑material occurrence to the controlled concept that describes its material type."
+    "notes": "Proposal: eutex:hasPackagingMaterialType (property, range eutex:PackagingMaterialTypeConcept) skos:closeMatch cirpass2-textile:hasPackagingMaterialType. Links a packaging material to the controlled concept that describes its type."
   },
   "https://w3id.org/eudpp/textile-assessment#hasParameterSetting": {
     "decision": "adopt",
@@ -1409,11 +1397,15 @@
   },
   "https://w3id.org/eudpp/textile-soc#hasPresenceUseCategory": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasPresenceUseCategory (property, range eutex:TextileChemicalUseCategoryConcept) skos:closeMatch cirpass2-textile:hasPresenceUseCategory. Classifies a textile chemical occurrence by its use category—process use, intended performance use or unintended presence—attached to the specific substance occurrence."
+    "notes": "Proposal: eutex:hasPresenceUseCategory (property, range eutex:TextileChemicalUseCategoryConcept) skos:closeMatch cirpass2-textile:hasPresenceUseCategory. Classifies a textile chemical occurrence by its association with process use, intended performance use or unintended presence."
   },
   "https://w3id.org/eudpp/textile-repairability#hasPriorityRepairElement": {
     "decision": "adopt",
     "notes": "Proposal: eutex:hasPriorityRepairElement (property, range oec:PriorityRepairElement) skos:closeMatch cirpass2-textile:hasPriorityRepairElement. Relates a repairability assessment to the priority repair element considered in that assessment. CHECK: eutex:RepairabilityAssessment, oec:PriorityRepairElement is not an existing or proposed class."
+  },
+  "https://w3id.org/eudpp/textile-repairability#hasElementType": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:hasPriorityRepairElementType (property, range eutex:PriorityRepairElementTypeConcept) skos:closeMatch cirpass2-textile:hasElementType. Assigns a controlled element type to a priority repair element role. CHECK: eutex:PriorityRepairElementTypeConcept is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-process#hasProcessExecution": {
     "decision": "adopt",
@@ -1421,7 +1413,7 @@
   },
   "https://w3id.org/eudpp/textile-process#hasProcessMethod": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasProcessMethod (property, range eutex:ProcessMethodConcept) skos:closeMatch cirpass2-textile:hasProcessMethod. Links a textile process type or concrete execution to the controlled concept that identifies its selected process method."
+    "notes": "Proposal: eutex:hasProcessMethod (property, range eutex:ProcessMethodConcept) skos:closeMatch cirpass2-textile:hasProcessMethod. Links a textile process type or concrete execution to the controlled concept that identifies the selected process method."
   },
   "https://w3id.org/eudpp/textile-process#hasProcessParameter": {
     "decision": "adopt",
@@ -1433,7 +1425,11 @@
   },
   "https://w3id.org/eudpp/textile-indicator#concernsProduct": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasProduct (property, range eutex:TextileProduct) skos:closeMatch cirpass2-textile:concernsProduct. Links an indicator to the textile product it describes or interprets."
+    "notes": "Proposal: eutex:hasProduct (property, range eutex:TextileProduct) skos:closeMatch cirpass2-textile:concernsProduct. Links an indicator to the textile product it describes or interprets. CHECK: eutex:Indicator is not an existing or proposed class."
+  },
+  "https://w3id.org/eudpp/textile-context#hasQuantitativeValue": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:hasQuantitativeValue (property, range xsd:decimal) skos:closeMatch cirpass2-textile:hasQuantitativeValue. Links a textile context observation to its quantitative value expressed as a decimal with an appropriate unit code."
   },
   "https://w3id.org/eudpp/textile-connector#hasQuantityKind": {
     "decision": "adopt",
@@ -1445,15 +1441,15 @@
   },
   "https://w3id.org/eudpp/textile-recyclability#hasRecoveredMaterialQualityResult": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasRecoveredMaterialQualityResult (property, range oec:RecoveredMaterialQualityResult) skos:closeMatch cirpass2-textile:hasRecoveredMaterialQualityResult. Relates an assessment or recycling result to the quality outcome for the recovered material. CHECK: oec:RecoveredMaterialQualityResult is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasRecoveredMaterialQualityResult (property, range eutex:RecoveredMaterialQualityResult) skos:closeMatch cirpass2-textile:hasRecoveredMaterialQualityResult. Links an assessment or recycling result to the quality outcome for a recovered material."
   },
   "https://w3id.org/eudpp/textile-recyclability#hasRecyclabilityBarrier": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasRecyclabilityBarrier (property, range oec:RecyclabilityBarrier) skos:closeMatch cirpass2-textile:hasRecyclabilityBarrier. Relates a recyclability assessment result to a barrier identified during the assessment. CHECK: oec:RecyclabilityAssessmentResult, oec:RecyclabilityBarrier is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasRecyclabilityBarrier (property, range eutex:RecyclabilityBarrier) skos:closeMatch cirpass2-textile:hasRecyclabilityBarrier. Links a recyclability assessment result to a barrier identified during the assessment."
   },
   "https://w3id.org/eudpp/textile-recyclability#hasRecyclabilityLabel": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasRecyclabilityLabel (property, range oec:RecyclabilityLabelConcept) skos:closeMatch cirpass2-textile:hasRecyclabilityLabel. Relates a recyclability score to the controlled label that describes its method‑specific value. CHECK: oec:RecyclabilityScore, oec:RecyclabilityLabelConcept is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasRecyclabilityLabel (property, range eutex:RecyclabilityLabelConcept) skos:closeMatch cirpass2-textile:hasRecyclabilityLabel. Links a recyclability score to the controlled label that describes the method‑specific result."
   },
   "https://w3id.org/eudpp/textile-recyclability#hasRecyclabilityTechnologyLevel": {
     "decision": "adopt",
@@ -1465,11 +1461,11 @@
   },
   "https://w3id.org/eudpp/textile-recyclability#hasRecycledContentAssessment": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasRecycledContentAssessment (property, range eutex:RecycledContentAssessment) skos:closeMatch cirpass2-textile:hasRecycledContentAssessment. Relates a textile product to the execution of its recycled‑content assessment."
+    "notes": "Proposal: eutex:hasRecycledContentAssessment (property, range eutex:RecycledContentAssessment) skos:closeMatch cirpass2-textile:hasRecycledContentAssessment. Links a textile product to the execution of its recycled‑content assessment."
   },
   "https://w3id.org/eudpp/textile-recyclability#hasRecycledContentTechnologyLevel": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasRecycledContentTechnologyLevel (property, range oec:ProductTechnologyLevelConcept) skos:closeMatch cirpass2-textile:hasRecycledContentTechnologyLevel. Classifies a recycled‑content assessment result by the product‑technology level defined in Textile Connector. CHECK: oec:ProductTechnologyLevelConcept is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasRecycledContentTechnologyLevel (property, range eutex:ProductTechnologyLevelConcept) skos:closeMatch cirpass2-textile:hasRecycledContentTechnologyLevel. Classifies a recycled‑content assessment result by the product technology level used in the assessment."
   },
   "https://w3id.org/eudpp/textile-recyclability#hasRecycledMaterialMassValue": {
     "decision": "adopt",
@@ -1477,11 +1473,11 @@
   },
   "https://w3id.org/eudpp/textile-recyclability#hasRecyclingLoop": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasRecyclingLoop (property, range oec:RecyclingLoopConcept) skos:closeMatch cirpass2-textile:hasRecyclingLoop. Relates a route, assessment result or event to the intended material‑loop destination. CHECK: oec:RecyclingLoopConcept is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasRecyclingLoop (property, range eutex:RecyclingLoopConcept) skos:closeMatch cirpass2-textile:hasRecyclingLoop. Links a route, assessment result or event to the intended material‑loop destination."
   },
   "https://w3id.org/eudpp/textile-recyclability#hasRecyclingYieldResult": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasRecyclingYieldResult (property, range eutex:RecyclingYieldResult) skos:closeMatch cirpass2-textile:hasRecyclingYieldResult. Relates a textile recycling event to the result reporting the recovered‑material yield of that event. CHECK: eutex:TextileRecyclingEvent, eutex:RecyclingYieldResult is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasRecyclingYieldResult (property, range eutex:RecyclingYieldResult) skos:closeMatch cirpass2-textile:hasRecyclingYieldResult. Relates a textile recycling event to the result reporting the recovered‑material yield of that event. CHECK: eutex:RecyclingYieldResult is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-recyclability#hasRecyclingYieldValue": {
     "decision": "adopt",
@@ -1489,7 +1485,7 @@
   },
   "https://w3id.org/eudpp/textile-connector#hasReferenceDuration": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasReferenceDuration (property, range oec:QuantitativeValue) skos:closeMatch cirpass2-textile:hasReferenceDuration. Links a reference period to its quantitative duration. CHECK: oec:ReferencePeriod, oec:QuantitativeValue is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasReferenceDuration (property, range xsd:duration) skos:closeMatch cirpass2-textile:hasReferenceDuration. Links a reference period to its quantitative duration expressed as an ISO‑8601 duration."
   },
   "https://w3id.org/eudpp/textile-context#hasReferencePeriod": {
     "decision": "adopt",
@@ -1503,13 +1499,9 @@
     "decision": "adopt",
     "notes": "Proposal: eutex:hasReferenceProductMassValue (property, range oec:QuantitativeValue) skos:closeMatch cirpass2-textile:hasReferenceProductMassValue. Relates a recycled‑content declaration to the reference product mass, excluding trims where the applicable method requires this basis. CHECK: oec:QuantitativeValue is not an existing or proposed class."
   },
-  "https://w3id.org/eudpp/textile-repairability#hasRepairActorType": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:hasRepairActorType (property, range oec:RepairActorTypeConcept) skos:closeMatch cirpass2-textile:hasRepairActorType. Classifies a DPP actor by the role or category they play in textile repair activities. CHECK: oec:RepairActorTypeConcept is not an existing or proposed class."
-  },
   "https://w3id.org/eudpp/textile-repairability#hasRepairCostCondition": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasRepairCostCondition (property, range oec:RepairCostCondition) skos:closeMatch cirpass2-textile:hasRepairCostCondition. Relates a repairability assessment to the cost condition considered for that repair. CHECK: oec:RepairCostCondition is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasRepairCostCondition (property, range eutex:RepairCostCondition) skos:closeMatch cirpass2-textile:hasRepairCostCondition. Links a repairability assessment to the repair‑cost condition considered."
   },
   "https://w3id.org/eudpp/textile-repairability#hasRepairCostToNewProductPriceRatio": {
     "decision": "adopt",
@@ -1529,11 +1521,19 @@
   },
   "https://w3id.org/eudpp/textile-repairability#hasRepairabilityAssessment": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasRepairabilityAssessment (property, range oec:RepairabilityAssessment) skos:exactMatch cirpass2-textile:hasRepairabilityAssessment. Relates a textile apparel item to the repairability assessment that has been executed for it. CHECK: oec:RepairabilityAssessment is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasRepairabilityAssessment (property, range eutex:RepairabilityAssessment) skos:closeMatch cirpass2-textile:hasRepairabilityAssessment. Links a textile apparel to the repairability assessment execution that evaluates it. CHECK: eutex:RepairabilityAssessment is not an existing or proposed class."
+  },
+  "https://w3id.org/eudpp/textile-recyclability#ruleEvaluatesCriterion": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:hasRuleEvaluatesCriterion (property, range eutex:RecyclabilityCriterionConcept) skos:closeMatch cirpass2-textile:ruleEvaluatesCriterion. Links a recyclability scoring rule to the criterion it evaluates. CHECK: eutex:RecyclabilityCriterionConcept is not an existing or proposed class."
+  },
+  "https://w3id.org/eudpp/textile-recyclability#ruleUsesThreshold": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:hasRuleUsesThreshold (property, range eutex:PerformanceThreshold) skos:closeMatch cirpass2-textile:ruleUsesThreshold. Links a recyclability scoring rule to the performance threshold it applies."
   },
   "https://w3id.org/eudpp/textile-assessment#hasScaleValue": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasScaleValue (property, range oec:RatingValueConcept) skos:exactMatch cirpass2-textile:hasScaleValue. Links a rating scale to one of its controlled rating values. CHECK: oec:RatingValueConcept is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasScaleValue (property, range eutex:RatingValueConcept) skos:closeMatch cirpass2-textile:hasScaleValue. Links a rating scale to one of its controlled rating values."
   },
   "https://w3id.org/eudpp/textile-recyclability#hasScoringRule": {
     "decision": "adopt",
@@ -1545,7 +1545,7 @@
   },
   "https://w3id.org/eudpp/textile-structure#hasStructuralCharacteristic": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasStructuralCharacteristic (property, range eutex:TextileStructureCharacteristic) skos:closeMatch cirpass2-textile:hasStructuralCharacteristic. Links a textile product, including component products, to the occurrence of a textile structure characteristic that applies to it. CHECK: eutex:TextileStructureCharacteristic is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasStructuralCharacteristic (property, range eutex:TextileStructureCharacteristic) skos:closeMatch cirpass2-textile:hasStructuralCharacteristic. Links a textile product, including products used as components of other products, to the occurrence of a textile structure characteristic. CHECK: eutex:TextileStructureCharacteristic is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-core#hasStudyScopeStatus": {
     "decision": "adopt",
@@ -1553,11 +1553,11 @@
   },
   "https://w3id.org/eudpp/textile-core#hasTextileApparelProductType": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasTextileApparelProductType (property, range eutex:TextileApparelProductTypeConcept) skos:closeMatch cirpass2-textile:hasTextileApparelProductType. Relates a textile apparel product to the controlled textile apparel product type concept that applies to it. CHECK: eutex:TextileApparelProductTypeConcept is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasTextileApparelProductType (property, range eutex:TextileApparelProductTypeConcept) skos:closeMatch cirpass2-textile:hasTextileApparelProductType. Links a textile apparel product to the controlled concept that specifies its apparel product type. CHECK: eutex:TextileApparelProductTypeConcept is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-associated-materials#hasTextileChemicalUseCategory": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasTextileChemicalUseCategory (property, range eutex:TextileChemicalUseCategoryConcept) skos:closeMatch cirpass2-textile:hasTextileChemicalUseCategory. Links a textile chemical substance to the controlled concept that indicates whether it is used as a process chemical, performance chemical or occurs unintentionally."
+    "notes": "Proposal: eutex:hasTextileChemicalUseCategory (property, range eutex:TextileChemicalUseCategoryConcept) skos:closeMatch cirpass2-textile:hasTextileChemicalUseCategory. Links a textile chemical substance to the controlled category that indicates whether it is used as a process chemical, a performance chemical or occurs unintentionally."
   },
   "https://w3id.org/eudpp/textile-soc#hasTextileHandlingInformation": {
     "decision": "adopt",
@@ -1569,27 +1569,15 @@
   },
   "https://w3id.org/eudpp/textile-soc#hasTextileProductGroupReference": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasTextileProductGroupReference (property, range eutex:TextileProductGroupSoCReference) skos:closeMatch cirpass2-textile:hasTextileProductGroupReference. Links a textile type D qualification to the versioned textile product‑group reference that supports that qualification."
-  },
-  "https://w3id.org/eudpp/textile-assessment#hasTextualValue": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:hasTextualValue (property, range xsd:string) skos:exactMatch cirpass2-textile:hasTextualValue. Links an assessment result to a free‑text outcome when no controlled rating concept is available."
-  },
-  "https://w3id.org/eudpp/textile-context#hasTextualValue": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:hasTextualValue (property, range xsd:string) skos:closeMatch cirpass2-textile:hasTextualValue. Relates a textile context observation to a textual value used when no controlled concept or quantitative representation is available."
-  },
-  "https://w3id.org/eudpp/textile-indicator#hasTextualValue": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:hasTextualValue (property, range xsd:string) skos:closeMatch cirpass2-textile:hasTextualValue. Links an indicator to a free‑text value when no controlled categorical value is available."
+    "notes": "Proposal: eutex:hasTextileProductGroupReference (property, range eutex:TextileProductGroupSoCReference) skos:closeMatch cirpass2-textile:hasTextileProductGroupReference. Links a textile type‑D qualification to the versioned textile product‑group reference that supports it."
   },
   "https://w3id.org/eudpp/textile-process#hasTextualValue": {
     "decision": "adopt",
     "notes": "Proposal: eutex:hasTextualValue (property, range xsd:string) skos:exactMatch cirpass2-textile:hasTextualValue. Links a process parameter setting to the free‑text value used when no controlled concept is available."
   },
-  "https://w3id.org/eudpp/textile-structure#hasTextualValue": {
+  "https://w3id.org/eudpp/textile-recyclability#thresholdForRecycledContentSource": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasTextualValue (property, range xsd:string) skos:closeMatch cirpass2-textile:hasTextualValue. Links a textile structure characteristic occurrence to a free‑text description when no controlled list is available. CHECK: eutex:TextileStructureCharacteristic is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasThresholdForRecycledContentSource (property, range eutex:RecycledSourceTypeConcept) skos:closeMatch cirpass2-textile:thresholdForRecycledContentSource. Links a recycled‑content performance threshold to the source category it constrains. CHECK: eutex:RecycledSourceTypeConcept is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-assessment#hasThresholdRatingValue": {
     "decision": "adopt",
@@ -1601,7 +1589,11 @@
   },
   "https://w3id.org/eudpp/textile-repairability#hasUserAcceptanceStatus": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:hasUserAcceptanceStatus (property, range oec:UserAcceptanceStatusConcept) skos:exactMatch cirpass2-textile:hasUserAcceptanceStatus. Relates a user‑acceptance condition to the controlled status recorded in the assessment context. CHECK: oec:UserAcceptanceCondition, oec:UserAcceptanceStatusConcept is not an existing or proposed class."
+    "notes": "Proposal: eutex:hasUserAcceptanceStatus (property, range eutex:UserAcceptanceStatusConcept) skos:closeMatch cirpass2-textile:hasUserAcceptanceStatus. Links a user‑acceptance condition to the controlled acceptance status recorded in the assessment context."
+  },
+  "https://w3id.org/eudpp/textile-recyclability#usesCollectionScheme": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:hasUsesCollectionScheme (property, range eutex:CollectionSchemeConcept) skos:closeMatch cirpass2-textile:usesCollectionScheme. Links a collection‑for‑recycling process type or configuration to the collection scheme it uses."
   },
   "https://w3id.org/eudpp/textile-assessment#inScale": {
     "decision": "adopt",
@@ -1615,17 +1607,13 @@
     "decision": "adopt",
     "notes": "Proposal: eutex:isAvailableInWholeSalesRegion (property, range xsd:boolean) skos:closeMatch cirpass2-textile:isAvailableInWholeSalesRegion. Indicates whether the repair service is available throughout the region where the textile product is sold. CHECK: eutex:RepairService is not an existing or proposed class."
   },
-  "https://w3id.org/eudpp/textile-assessment#isDefinedByStandard": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:isDefinedByStandard (property, range oec:DocumentReference) skos:closeMatch cirpass2-textile:isDefinedByStandard. Links an assessment method to the standard that defines or specifies it."
-  },
   "https://w3id.org/eudpp/textile-assessment#isEvaluatedAgainst": {
     "decision": "adopt",
     "notes": "Proposal: eutex:isEvaluatedAgainst (property, range eutex:AssessmentDecisionCriterion) skos:exactMatch cirpass2-textile:isEvaluatedAgainst. Links an assessment result to the decision criterion against which it is evaluated. CHECK: eutex:AssessmentDecisionCriterion is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-indicator#isIndicatorOf": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:isIndicatorOf (property, range eutex:TextileProduct) skos:closeMatch cirpass2-textile:isIndicatorOf. Links an indicator to the product it describes or interprets."
+    "notes": "Proposal: eutex:isIndicatorOf (property, range eutex:TextileProduct) skos:closeMatch cirpass2-textile:isIndicatorOf. Links an indicator to the textile product it describes or interprets. CHECK: eutex:Indicator is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-assessment#isInterpretedBy": {
     "decision": "adopt",
@@ -1671,10 +1659,6 @@
     "decision": "adopt",
     "notes": "Proposal: eutex:periodStart (property, range xsd:dateTime) skos:closeMatch cirpass2-textile:periodStart. Start date and time of a reference period. CHECK: oec:ReferencePeriod is not an existing or proposed class."
   },
-  "https://w3id.org/eudpp/textile-repairability#producesNewTextileProduct": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:producesNewTextileProduct (property, range eutex:TextileProduct) skos:exactMatch cirpass2-textile:producesNewTextileProduct. Relates a remanufacturing execution to the new textile product it produces. CHECK: eutex:TextileProcessExecution is not an existing or proposed class."
-  },
   "https://w3id.org/eudpp/textile-process#producesOutput": {
     "decision": "adopt",
     "notes": "Proposal: eutex:producesOutput (property, range eutex:TextileProduct) skos:exactMatch cirpass2-textile:producesOutput. Links a textile process type or execution to the textile product produced as an output, including products that may later serve as components of other products."
@@ -1682,6 +1666,14 @@
   "https://w3id.org/eudpp/textile-assessment#producesResult": {
     "decision": "adopt",
     "notes": "Proposal: eutex:producesResult (property, range eutex:AssessmentResult) skos:exactMatch cirpass2-textile:producesResult. Links an assessment execution to the result it generates. CHECK: eutex:AssessmentResult is not an existing or proposed class."
+  },
+  "https://w3id.org/eudpp/textile-repairability#providedBy": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:providedBy (property, range oec:ActorRole) skos:closeMatch cirpass2-textile:providedBy. Links a repair service to the actor that provides or organizes it."
+  },
+  "https://w3id.org/eudpp/textile-repairability#providesGuidance": {
+    "decision": "adopt",
+    "notes": "Proposal: eutex:providesGuidance (property, range eutex:RepairGuidance) skos:closeMatch cirpass2-textile:providesGuidance. Links a repair service to the guidance made available through that service. CHECK: eutex:RepairGuidance is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-repairability#refersToComponent": {
     "decision": "adopt",
@@ -1713,19 +1705,11 @@
   },
   "https://w3id.org/eudpp/textile-assessment#resultOfAssessment": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:resultOfAssessment (property, range eutex:AssessmentExecution) skos:exactMatch cirpass2-textile:resultOfAssessment. Links an assessment result to the execution that produced it."
+    "notes": "Proposal: eutex:resultOfAssessment (property, range eutex:AssessmentExecution) skos:closeMatch cirpass2-textile:resultOfAssessment. Links an assessment result to the execution that produced it. CHECK: eutex:AssessmentResult is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-recyclability#ruleAppliesToRoute": {
     "decision": "adopt",
     "notes": "Proposal: eutex:ruleAppliesToRoute (property, range eutex:RecyclingTechnology) skos:closeMatch cirpass2-textile:ruleAppliesToRoute. Relates a recyclability scoring rule to the recycling route in which it is applicable. CHECK: eutex:RecyclabilityScoringRule is not an existing or proposed class."
-  },
-  "https://w3id.org/eudpp/textile-recyclability#ruleEvaluatesCriterion": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:ruleEvaluatesCriterion (property, range oec:RecyclabilityCriterionConcept) skos:closeMatch cirpass2-textile:ruleEvaluatesCriterion. Relates a recyclability scoring rule to the recyclability criterion it evaluates. CHECK: eutex:RecyclabilityScoringRule, oec:RecyclabilityCriterionConcept is not an existing or proposed class."
-  },
-  "https://w3id.org/eudpp/textile-recyclability#ruleUsesThreshold": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:ruleUsesThreshold (property, range eutex:PerformanceThreshold) skos:closeMatch cirpass2-textile:ruleUsesThreshold. Relates a recyclability scoring rule to the performance threshold it employs. CHECK: eutex:RecyclabilityScoringRule is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-assessment#settingForParameter": {
     "decision": "adopt",
@@ -1739,21 +1723,13 @@
     "decision": "adopt",
     "notes": "Proposal: eutex:sourceLocator (property, range xsd:string) skos:closeMatch cirpass2-textile:sourceLocator. Human‑readable reference to the section, page, table, figure, line range or file location in a cited source that supports an ontology resource."
   },
-  "https://w3id.org/eudpp/textile-assessment#specifiesCondition": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:specifiesCondition (property, range eutex:AssessmentCondition) skos:exactMatch cirpass2-textile:specifiesCondition. Links a method or standard to the assessment condition it prescribes."
-  },
   "https://w3id.org/eudpp/textile-indicator#supportsAssessmentOf": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:supportsAssessmentOf (property, range eutex:DurabilityClass) skos:closeMatch cirpass2-textile:supportsAssessmentOf. Links an indicator to a durability concept whose assessment it supports without asserting equivalence."
+    "notes": "Proposal: eutex:supportsAssessmentOf (property, range eutex:Durability) skos:closeMatch cirpass2-textile:supportsAssessmentOf. Links an indicator to a durability concept whose assessment it supports without asserting equivalence. CHECK: eutex:Indicator, eutex:Durability is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-repairability#supportsProcessType": {
     "decision": "adopt",
     "notes": "Proposal: eutex:supportsProcessType (property, range eutex:RepairProcess) skos:closeMatch cirpass2-textile:supportsProcessType. Relates a repair service or guidance to the maintenance, repair, upgrade, refurbishment or remanufacturing process type it supports."
-  },
-  "https://w3id.org/eudpp/textile-recyclability#thresholdForRecycledContentSource": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:thresholdForRecycledContentSource (property, range eutex:RecycledContentSourceConcept) skos:closeMatch cirpass2-textile:thresholdForRecycledContentSource. Relates a recycled‑content performance threshold to the source category of recycled content it constrains. CHECK: eutex:RecycledContentSourceConcept is not an existing or proposed class."
   },
   "https://w3id.org/eudpp/textile-durability#typicalDegradationExpression": {
     "decision": "adopt",
@@ -1799,13 +1775,9 @@
     "decision": "adopt",
     "notes": "Proposal: eutex:usesChemicalUseCategory (property, range eutex:TextileChemicalUseCategoryConcept) skos:closeMatch cirpass2-textile:usesChemicalUseCategory. Relates a textile process type or execution to the use category of a chemical employed in that process, such as process or performance chemical."
   },
-  "https://w3id.org/eudpp/textile-recyclability#usesCollectionScheme": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:usesCollectionScheme (property, range eutex:CollectionSchemeConcept) skos:closeMatch cirpass2-textile:usesCollectionScheme. Relates a collection‑for‑recycling process type or configuration to the collection scheme it employs. CHECK: eutex:CollectionForRecyclingProcess is not an existing or proposed class."
-  },
   "https://w3id.org/eudpp/textile-process#usesInput": {
     "decision": "adopt",
-    "notes": "Proposal: eutex:usesInput (property, range eutex:TextileProduct) skos:closeMatch cirpass2-textile:usesInput. Relates a textile process type or execution to an input such as a textile product, non‑textile component, material of composition, chemical substance or packaging material used in that process."
+    "notes": "Proposal: eutex:usesInput (property, range eutex:TextileProduct | eutex:MaterialCategory | eutex:TextileChemicalSubstance | eutex:NonTextileComponentTypeConcept | euppwr:PackagingMaterial) skos:closeMatch cirpass2-textile:usesInput. Links a textile process type or execution to an input that may be a textile product, material of composition, chemical substance, non‑textile component or packaging material. CHECK: eutex:TextileProduct | eutex:MaterialCategory | eutex:TextileChemicalSubstance | eutex:NonTextileComponentTypeConcept | euppwr:PackagingMaterial is not an existing or proposed class. CHECK: range 'eutex:TextileProduct | eutex:MaterialCategory | eutex:TextileChemicalSubstance | eutex:NonTextileComponentTypeConcept | euppwr:PackagingMaterial' is not one class."
   },
   "https://w3id.org/eudpp/textile-recyclability#usesPreTreatmentTechnique": {
     "decision": "adopt",
@@ -1826,10 +1798,6 @@
   "https://w3id.org/eudpp/textile-repairability#usesSpareComponent": {
     "decision": "adopt",
     "notes": "Proposal: eutex:usesSpareComponent (property, range eutex:NonTextileComponent) skos:closeMatch cirpass2-textile:usesSpareComponent. Links a textile process execution to the non‑textile component that is used as a spare part during the intervention. CHECK: eutex:TextileProcessExecution is not an existing or proposed class."
-  },
-  "https://w3id.org/eudpp/textile-recyclability#verifiesRecycledContentDeclaration": {
-    "decision": "adopt",
-    "notes": "Proposal: eutex:verifiesRecycledContentDeclaration (property, range eutex:RecycledContentDeclaration) skos:closeMatch cirpass2-textile:verifiesRecycledContentDeclaration. Relates a recycled‑content assessment result to the declaration it verifies."
   },
   "https://w3id.org/eudpp/textile-assessment-codelists#ThresholdComparisonOperatorScheme": {
     "decision": "adopt",
