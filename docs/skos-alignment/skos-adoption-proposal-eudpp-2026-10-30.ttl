@@ -172,8 +172,8 @@ oec:addressesAoP
     a owl:ObjectProperty ;
     rdfs:label "Addresses Area of Protection"@en ;
     rdfs:comment "Links an LCIA impact category to the one or more Areas of Protection it addresses, e.g. ozone depletion affecting both Natural Environment and Human Health."@en ;
-    rdfs:domain oec:LCIAImpactCategory # CHECK: unknown class ;
-    rdfs:range oec:AreaOfProtection # CHECK: unknown class ;
+    rdfs:domain oec:LCIAImpactCategory ; # CHECK: unknown class
+    rdfs:range oec:AreaOfProtection ; # CHECK: unknown class
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#addressesAoP> ;
     skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:addressesAoP. Captures the mapping between impact categories and protection areas required by LCA methodology, not represented by existing terms."@en ;
@@ -183,8 +183,8 @@ oec:assessesImpactCategory
     a owl:ObjectProperty ;
     rdfs:label "Assesses Impact Category"@en ;
     rdfs:comment "Links an LCIA impact indicator to the mid‑point impact category it characterises, allowing multiple indicators to refer to the same category."@en ;
-    rdfs:domain oec:LCIAImpactIndicator # CHECK: unknown class ;
-    rdfs:range oec:LCIAImpactCategory # CHECK: unknown class ;
+    rdfs:domain oec:LCIAImpactIndicator ; # CHECK: unknown class
+    rdfs:range oec:LCIAImpactCategory ; # CHECK: unknown class
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#assessesImpactCategory> ;
     skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:assessesImpactCategory. Provides the conceptual classification link between indicators and categories required by LCA methodology, not covered by existing terms."@en ;
@@ -194,8 +194,8 @@ oec:belongsToEn15804Group
     a owl:ObjectProperty ;
     rdfs:label "Belongs to EN 15804 Indicator Group"@en ;
     rdfs:comment "Links an EN 15804 indicator individual to the indicator group it belongs to (core impact, with‑caveats, resource use, waste, valorisation, exported energy)."@en ;
-    rdfs:domain oec:EN15804Indicator # CHECK: unknown class ;
-    rdfs:range oec:EN15804IndicatorGroup # CHECK: unknown class ;
+    rdfs:domain oec:EN15804Indicator ; # CHECK: unknown class
+    rdfs:range oec:EN15804IndicatorGroup ; # CHECK: unknown class
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#belongsToEn15804Group> ;
     skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:belongsToEn15804Group. Provides the grouping relationship required for EN 15804 indicators, not represented by existing terms."@en ;
@@ -216,7 +216,7 @@ oec:casName
     a owl:DatatypeProperty ;
     rdfs:label "CAS Name"@en ;
     rdfs:comment "The Chemical Abstracts Service name of the substance, when available."@en ;
-    rdfs:domain oec:Substance # CHECK: unknown class ;
+    rdfs:domain oec:Substance ; # CHECK: unknown class
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#casName> ;
@@ -271,7 +271,7 @@ oec:echaNumber
     a owl:DatatypeProperty ;
     rdfs:label "ECHA Number"@en ;
     rdfs:comment "Number assigned to the substance by the European Chemicals Agency, when available and appropriate."@en ;
-    rdfs:domain oec:Substance # CHECK: unknown class ;
+    rdfs:domain oec:Substance ; # CHECK: unknown class
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#echaNumber> ;
@@ -315,7 +315,7 @@ oec:hasComplianceDeclaration
     rdfs:label "Has Compliance Declaration"@en ;
     rdfs:comment "Links an LCAStudy (or its subclass EPDStudy) to a ComplianceDeclaration that records compliance with any relevant standard such as ISO 14040/44, ISO 14025, ISO 14067, ISO 21930, EN 15804+A2 or PEF‑CR rules."@en ;
     rdfs:domain oec:LCAStudy ;
-    rdfs:range oec:ComplianceDeclaration # CHECK: unknown class ;
+    rdfs:range oec:ComplianceDeclaration ; # CHECK: unknown class
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#hasComplianceDeclaration> ;
     skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasComplianceDeclaration. Provides a generic link from an LCA study to the declaration of compliance with applicable environmental standards."@en ;
@@ -359,7 +359,7 @@ oec:hasInventoryIndicatorResult
     rdfs:label "Has Inventory Indicator Result"@en ;
     rdfs:comment "Links an LCAStudy to a specific inventory indicator result, narrowing the generic eudpp:hasLCAResult to InventoryIndicatorResult."@en ;
     rdfs:domain oec:LCAStudy ;
-    rdfs:range oec:InventoryIndicatorResult # CHECK: unknown class ;
+    rdfs:range oec:InventoryIndicatorResult ; # CHECK: unknown class
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#hasInventoryIndicatorResult> ;
     skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasInventoryIndicatorResult. Provides a typed link from a study to its inventory‑level indicator results."@en ;
@@ -370,7 +370,7 @@ oec:hasLCAResult
     rdfs:label "Has LCA Result"@en ;
     rdfs:comment "Links an LCAStudy (or its subclass EPDStudy) to one of its LCA results, covering both inventory‑level and LCIA results."@en ;
     rdfs:domain oec:LCAStudy ;
-    rdfs:range oec:LCAResult # CHECK: unknown class ;
+    rdfs:range oec:LCAResult ; # CHECK: unknown class
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#hasLCAResult> ;
     skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasLCAResult. Provides a single property that aggregates all LCA result types for querying convenience."@en ;
@@ -380,8 +380,8 @@ oec:hasLCAVerifier
     a owl:ObjectProperty ;
     rdfs:label "Has LCA Verifier"@en ;
     rdfs:comment "Links a Review to the independent actor that performed or is responsible for verifying an LCA study or EPD."@en ;
-    rdfs:domain oec:Review # CHECK: unknown class ;
-    rdfs:range oec:Actor # CHECK: unknown class ;
+    rdfs:domain oec:Review ; # CHECK: unknown class
+    rdfs:range oec:Actor ; # CHECK: unknown class
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#hasLCAVerifier> ;
     skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasLCAVerifier. Provides a direct reference from a review to the verifier actor, covering internal or third‑party verification."@en ;
@@ -392,7 +392,7 @@ oec:hasLCIAResult
     rdfs:label "Has LCIA Result"@en ;
     rdfs:comment "Links an LCAStudy to a specific LCIAResult, the quantified impact category outcome of the life‑cycle assessment."@en ;
     rdfs:domain oec:LCAStudy ;
-    rdfs:range oec:LCIAResult # CHECK: unknown class ;
+    rdfs:range oec:LCIAResult ; # CHECK: unknown class
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#hasLCIAResult> ;
     skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasLCIAResult. Provides a typed link from a study to its LCIA results, distinct from inventory‑only results."@en ;
@@ -413,7 +413,7 @@ oec:hasManufacturingSite
     a owl:ObjectProperty ;
     rdfs:label "Has Manufacturing Site"@en ;
     rdfs:comment "Links a ManufacturerRecord to the Facility where the product is produced, as required by ILCD+EPD v1.3."@en ;
-    rdfs:domain oec:ManufacturerRecord # CHECK: unknown class ;
+    rdfs:domain oec:ManufacturerRecord ; # CHECK: unknown class
     rdfs:range oec:FacilityInformation ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#hasManufacturingSite> ;
@@ -469,7 +469,7 @@ oec:hasReview
     rdfs:label "Has Review"@en ;
     rdfs:comment "Links an LCAStudy to a critical‑review or verification record that assessed the study’s methodology and data."@en ;
     rdfs:domain oec:LCAStudy ;
-    rdfs:range oec:Review # CHECK: unknown class ;
+    rdfs:range oec:Review ; # CHECK: unknown class
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#hasReview> ;
     skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasReview. Captures the external review that validates an LCA study, a required audit step."@en ;
@@ -480,7 +480,7 @@ oec:hasSoCCriterion
     rdfs:label "Has SoC Criterion"@en ;
     rdfs:comment "Links a Substance of Concern Qualification Assertion to one or more criteria that define the level of concern (e.g., A, B, C, D)."@en ;
     rdfs:domain oec:SoCQualificationAssertion ;
-    rdfs:range skos:Concept # CHECK: unknown class ;
+    rdfs:range skos:Concept ; # CHECK: unknown class
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#hasSoCCriterion> ;
     skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:hasSoCCriterion. Captures the specific SoC classification criteria attached to a qualification assertion."@en ;
@@ -501,7 +501,7 @@ oec:hasTypeOfReview
     a owl:ObjectProperty ;
     rdfs:label "Has Type Of Review"@en ;
     rdfs:comment "Links a review record to the TypeOfReview that describes whether it is independent, accredited third‑party, or another review category."@en ;
-    rdfs:domain oec:Review # CHECK: unknown class ;
+    rdfs:domain oec:Review ; # CHECK: unknown class
     rdfs:range oec:TypeOfReview ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#hasTypeOfReview> ;
@@ -512,7 +512,7 @@ oec:identifiesDataProvider
     a owl:ObjectProperty ;
     rdfs:label "Identifies Data Provider"@en ;
     rdfs:comment "Links a manufacturer record to the Actor that supplied or submitted the inventory data for the record, which may differ from the product’s manufacturer."@en ;
-    rdfs:range oec:Actor # CHECK: unknown class ;
+    rdfs:range oec:Actor ; # CHECK: unknown class
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#identifiesDataProvider> ;
     skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:identifiesDataProvider. Captures the entity responsible for providing the data used in a manufacturer record."@en ;
@@ -522,7 +522,7 @@ oec:identifiesManufacturer
     a owl:ObjectProperty ;
     rdfs:label "Identifies Manufacturer"@en ;
     rdfs:comment "Links a manufacturer record to the Actor that represents the economic operator or company whose production process and product are described by the record."@en ;
-    rdfs:range oec:Actor # CHECK: unknown class ;
+    rdfs:range oec:Actor ; # CHECK: unknown class
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#identifiesManufacturer> ;
     skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:identifiesManufacturer. Captures the specific manufacturer responsible for a product’s production as recorded in a manufacturer record."@en ;
@@ -782,7 +782,7 @@ oec:relatesToLCAIndicator
     a owl:ObjectProperty ;
     rdfs:label "Relates to LCA Indicator"@en ;
     rdfs:comment "Links an EN15804 impact indicator to the conceptually corresponding EF 3.1 / PEF LCIA impact indicator, recording a conceptual correspondence without implying equivalence."@en ;
-    rdfs:range oec:LCIAImpactIndicator # CHECK: unknown class ;
+    rdfs:range oec:LCIAImpactIndicator ; # CHECK: unknown class
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://w3id.org/eudpp#relatesToLCAIndicator> ;
     skos:note "Proposed from the eudpp reverse-coverage run of 2026-10-30 to cover eudpp:relatesToLCAIndicator. Captures the conceptual mapping between an EN15804 indicator and its broader LCIA counterpart."@en ;

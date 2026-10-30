@@ -314,12 +314,13 @@ public class ProposeCommand implements Runnable {
                 ttl.append(id).append("\n    a ").append(owlType).append(" ;\n")
                         .append("    rdfs:label \"").append(esc(p.label())).append("\"@en ;\n")
                         .append("    rdfs:comment \"").append(esc(p.definition())).append("\"@en ;\n");
-                if (!cls && nb(p.domain())) ttl.append("    rdfs:domain ").append(p.domain().trim())
+                // A Turtle comment runs to the end of the line, so the CHECK marker follows the ';'.
+                if (!cls && nb(p.domain())) ttl.append("    rdfs:domain ").append(p.domain().trim()).append(" ;")
                         .append(known.contains(p.domain().trim()) || p.domain().trim().startsWith("xsd:") ? "" : " # CHECK: unknown class")
-                        .append(" ;\n");
-                if (!cls && nb(p.range())) ttl.append("    rdfs:range ").append(p.range().trim())
+                        .append('\n');
+                if (!cls && nb(p.range())) ttl.append("    rdfs:range ").append(p.range().trim()).append(" ;")
                         .append(known.contains(p.range().trim()) || p.range().trim().startsWith("xsd:") ? "" : " # CHECK: unknown class")
-                        .append(" ;\n");
+                        .append('\n');
                 ttl.append("    rdfs:isDefinedBy <").append(namespace(m)).append("> ;\n")
                         .append("    dcterms:source <").append(d.row().upstreamIri()).append("> ;\n")
                         .append("    skos:note \"Proposed from the ").append(vocabPrefix).append(" reverse-coverage run of ")
