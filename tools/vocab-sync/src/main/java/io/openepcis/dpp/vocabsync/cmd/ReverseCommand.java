@@ -6,6 +6,7 @@ import io.openepcis.dpp.vocabsync.Embeddings;
 import io.openepcis.dpp.vocabsync.GapAdvisor;
 import io.openepcis.dpp.vocabsync.OurIndex;
 import io.openepcis.dpp.vocabsync.PairJudge;
+import io.openepcis.dpp.vocabsync.Retriever;
 import io.openepcis.dpp.vocabsync.RdfSupport;
 import io.openepcis.dpp.vocabsync.ReportWriter;
 import io.openepcis.dpp.vocabsync.UpstreamIndex;
@@ -153,8 +154,20 @@ public class ReverseCommand implements Runnable {
             description = "Run date to embed in the outputs.")
     String stamp;
 
-    private record Near(OurTerm term, double cosine) {
+    @CommandLine.Option(names = "--advice-prefill",
+            description = "With --advise: write a recommendation set (upstream IRI → {decision, notes}) "
+                    + "for the uncovered rows the advice sends elsewhere (MAP → map, CARRIER → carrier, "
+                    + "OUT_OF_SCOPE → out of scope); the input for `propose --prefill` and the workbook.")
+    String advicePrefill;
+
+    /** A candidate of ours: embedding-nearest of the same type, or a lexical hit of any type. */
+    private record Near(OurTerm term, double cosine, boolean lexical) {
     }
+
+    /** Lexical force-includes per upstream term; embedding ranking keeps the type-compatible top-k. */
+    private static final int MAX_LEXICAL = 2;
+    private static final double LEXICAL_MIN_COSINE = 0.65;
+    private static final double LEXICAL_MIN_JACCARD = 0.5;
 
     @Override
     public void run() {
@@ -194,12 +207,38 @@ public class ReverseCommand implements Runnable {
             List<Near> near = new ArrayList<>();
             if (u.type() != TermType.OTHER) {
                 float[] uv = upVecs.get(i);
+                // Embedding rank among terms of the same type, plus lexical hits of any type: an
+                // upstream class AbrasionResistance and our property abrasionResistance never meet
+                // on type or on cosine, but they share the name and the curator must see the pair.
+                // Same name always; otherwise half the distinctive name tokens in common and a
+                // loose cosine, so "assessment" or "method" alone pulls nothing in.
+                String upName = Retriever.foldedName(u.localName());
+                Set<String> upTokens = Retriever.tokens(u.localName());
+                List<Near> lexical = new ArrayList<>();
                 for (int j = 0; j < ours.size(); j++) {
-                    if (ours.get(j).type() != u.type()) continue;
-                    near.add(new Near(ours.get(j), Embeddings.cosine(uv, ourVecs.get(j))));
+                    OurTerm o = ours.get(j);
+                    double cos = Embeddings.cosine(uv, ourVecs.get(j));
+                    if (o.type() == u.type()) near.add(new Near(o, cos, false));
+                    boolean exact = Retriever.foldedName(o.localName()).equals(upName);
+                    if (exact || (cos >= LEXICAL_MIN_COSINE
+                            && Retriever.jaccard(upTokens, Retriever.tokens(o.localName())) >= LEXICAL_MIN_JACCARD)) {
+                        lexical.add(new Near(o, exact ? 1.0 + cos : cos, true));
+                    }
                 }
                 near.sort(Comparator.comparingDouble(Near::cosine).reversed());
                 if (near.size() > k) near = new ArrayList<>(near.subList(0, k));
+                lexical.sort(Comparator.comparingDouble(Near::cosine).reversed());
+                Set<String> have = new HashSet<>();
+                for (Near n : near) have.add(n.term().iri());
+                int added = 0;
+                for (Near l : lexical) {
+                    if (added >= MAX_LEXICAL) break;
+                    if (have.add(l.term().iri())) {
+                        // Carry the real cosine; the flag is what exempts the pair from the gate.
+                        near.add(new Near(l.term(), l.cosine() > 1.0 ? l.cosine() - 1.0 : l.cosine(), true));
+                        added++;
+                    }
+                }
             }
             nearest.put(u.iri(), near);
 
@@ -211,11 +250,11 @@ public class ReverseCommand implements Runnable {
             else if ("EVENT".equalsIgnoreCase(module)) bucket = "epcis-cbv";
             else bucket = "uncovered";
 
-            Near best = near.isEmpty() ? null : near.get(0);
+            Near best = near.stream().max(Comparator.comparingDouble(Near::cosine)).orElse(null);
             rows.add(new CoverageRow(u.iri(), u.localName(), module, u.type().label(),
                     known == null || !known.contains(u.iri()), bucket, u.label(), u.comment(),
                     best == null ? null : best.term().prefixedId(), best == null ? 0 : best.cosine(),
-                    near.stream().map(n -> n.term().prefixedId() + " " + fmt(n.cosine())).toList(),
+                    near.stream().map(n -> n.term().prefixedId() + " " + fmt(n.cosine()) + (n.lexical() ? " lexical" : "")).toList(),
                     covered == null ? null : String.join("; ", covered),
                     null, null, null, null, null, null, null, null, null));
         }
@@ -231,7 +270,7 @@ public class ReverseCommand implements Runnable {
             for (CoverageRow r : rows) {
                 if (!r.bucket().equals("uncovered")) continue;
                 for (Near n : nearest.get(r.upstreamIri())) {
-                    if (n.cosine() >= minCosine) work.add(new Pair(n.term(), upByIri.get(r.upstreamIri()), n.cosine()));
+                    if (n.lexical() || n.cosine() >= minCosine) work.add(new Pair(n.term(), upByIri.get(r.upstreamIri()), n.cosine()));
                 }
             }
             System.err.printf("reverse: grading %d candidate pairs with %s%n", work.size(), bulkModelName);
@@ -366,6 +405,29 @@ public class ReverseCommand implements Runnable {
         }
 
         write(root, rows, upstream.size());
+        if (advise && advicePrefill != null) writeAdvicePrefill(root, rows);
+    }
+
+    /** The advice-derived recommendation set: only the rows that should not be drafted as terms of ours. */
+    private void writeAdvicePrefill(Path root, List<CoverageRow> rows) {
+        Map<String, String> decisions = Map.of("MAP", "map", "CARRIER", "carrier", "OUT_OF_SCOPE", "out of scope");
+        Map<String, Map<String, String>> out = new LinkedHashMap<>();
+        for (CoverageRow r : rows) {
+            if (!r.bucket().equals("uncovered") || r.adviceAction() == null) continue;
+            String decision = decisions.get(r.adviceAction().toUpperCase(Locale.ROOT));
+            if (decision == null) continue;
+            String notes = "Advice " + r.adviceAction()
+                    + (r.adviceCounterpart() == null || r.adviceCounterpart().isBlank() ? "" : " -> " + r.adviceCounterpart())
+                    + ". " + PairJudge.nz(r.adviceRationale());
+            out.put(r.upstreamIri(), Map.of("decision", decision, "notes", notes.trim()));
+        }
+        Path file = root.resolve(advicePrefill).normalize();
+        try {
+            new com.fasterxml.jackson.databind.ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(file.toFile(), out);
+            System.err.printf("reverse: advice prefill with %d rows → %s%n", out.size(), file);
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("reverse: cannot write " + file + ": " + e.getMessage(), e);
+        }
     }
 
     private Uni<GapAdvice> adviceUni(CoverageRow r, UpstreamTerm u, List<Near> near) {

@@ -274,6 +274,13 @@ QA_CHAT_MODEL=qwen/qwen3-32b java -jar $J reverse --vocab eudpp \
      --out docs/skos-alignment/skos-reverse-coverage-eudpp-$S \
      --report docs/skos-alignment/skos-completeness-reverse-eudpp-$S
 
+#    Candidates per upstream term: the k embedding-nearest terms of ours of the same type, plus
+#    up to two lexical hits of any type (same local name, or half the distinctive name tokens in
+#    common at cosine ≥ 0.65). The lexical pairs are graded regardless of --min-cosine: an upstream
+#    class AbrasionResistance and our property abrasionResistance never meet on type or cosine.
+#    --advice-prefill writes the rows the advice sends elsewhere (MAP/CARRIER/OUT_OF_SCOPE) as a
+#    recommendation set for 1b and the workbook.
+
 # 1b) Draft a term of ours for every uncovered row the recommendation set does not rule out
 #     (carrier / out of scope stay out): TTL blocks in house style + table + an updated
 #     recommendation set that the workbook then shows as decision = adopt with the draft in Notes.
@@ -285,6 +292,8 @@ QA_CHAT_MODEL=qwen/qwen3-32b java -jar $J propose \
 #     the upstream sub-module the model copied (textile-process → textile), else --default-module
 #     (derived from --vocab-prefix: cirpass2-textile → textile; otherwise core). --render re-emits
 #     the outputs from a saved drafts JSON without model calls and honours --prefill the same way.
+#     --reuse <drafts.json> --reuse-coverage <old coverage.json> keeps the draft of every row whose
+#     candidates are unchanged, so a re-run after a retrieval change drafts only what moved.
 
 # 1c) Code-list values (individuals, concepts, schemes) are facts, not judgements: a
 #     deterministic script drafts them from the mirror, typed with the class of ours that holds

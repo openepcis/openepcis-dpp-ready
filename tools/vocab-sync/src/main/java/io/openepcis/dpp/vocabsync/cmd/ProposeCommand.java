@@ -92,6 +92,15 @@ public class ProposeCommand implements Runnable {
     @CommandLine.Option(names = "--stamp", defaultValue = "unset", description = "Run date for the outputs.")
     String stamp;
 
+    @CommandLine.Option(names = "--reuse",
+            description = "Saved drafts JSON of an earlier run: a row whose candidates are unchanged against "
+                    + "--reuse-coverage keeps its draft without a model call.")
+    String reuseFrom;
+
+    @CommandLine.Option(names = "--reuse-coverage",
+            description = "The coverage JSON the --reuse drafts were made from.")
+    String reuseCoverage;
+
     @CommandLine.Option(names = "--render",
             description = "Re-render the outputs from a saved drafts JSON of an earlier run (no model calls).")
     String renderFrom;
@@ -166,10 +175,19 @@ public class ProposeCommand implements Runnable {
         System.err.printf("propose: %d uncovered rows selected (%s) of %d; drafting with %s%n",
                 selected.size(), forDecisions, coverage.size(), judge.qaModelName());
 
-        // Classes first, then properties, so a property can point at a class drafted just before.
-        List<CoverageRow> classes = selected.stream().filter(r -> r.type().equals("class")).toList();
-        List<CoverageRow> props = selected.stream().filter(r -> !r.type().equals("class")).toList();
+        Map<String, TermProposal> reusable = loadReusable(root, rowByIri);
         List<Draft> drafts = new ArrayList<>();
+        List<CoverageRow> toDraft = new ArrayList<>();
+        for (CoverageRow r : selected) {
+            TermProposal p = reusable.get(r.upstreamIri());
+            if (p != null) drafts.add(new Draft(r, upstreamIndex.get(r.upstreamIri()), p));
+            else toDraft.add(r);
+        }
+        if (!reusable.isEmpty()) System.err.printf("propose: %d drafts reused, %d to draft%n", drafts.size(), toDraft.size());
+
+        // Classes first, then properties, so a property can point at a class drafted just before.
+        List<CoverageRow> classes = toDraft.stream().filter(r -> r.type().equals("class")).toList();
+        List<CoverageRow> props = toDraft.stream().filter(r -> !r.type().equals("class")).toList();
         StringBuilder proposedClasses = new StringBuilder();
         drafts.addAll(draftAll(classes, ourById, ourClasses.toString(), proposedClasses.toString()));
         for (Draft d : drafts) {
@@ -181,6 +199,36 @@ public class ProposeCommand implements Runnable {
                 proposedClasses.isEmpty() ? "  (none)\n" : proposedClasses.toString()));
 
         write(root, drafts, prefill);
+    }
+
+    /** Candidate ids of a row, order-free, so a draft is reused only when the grader saw the same terms of ours. */
+    private static Set<String> candidateIds(CoverageRow r) {
+        Set<String> ids = new java.util.TreeSet<>();
+        for (String c : r.candidates() == null ? List.<String>of() : r.candidates()) ids.add(c.contains(" ") ? c.substring(0, c.indexOf(' ')) : c);
+        return ids;
+    }
+
+    /** Drafts of an earlier run whose rows have the same candidates now as then. */
+    private Map<String, TermProposal> loadReusable(Path root, Map<String, CoverageRow> rowByIri) {
+        Map<String, TermProposal> out = new HashMap<>();
+        if (reuseFrom == null) return out;
+        if (reuseCoverage == null) throw new IllegalArgumentException("--reuse needs --reuse-coverage");
+        try {
+            JsonNode oldCov = mapper.readTree(root.resolve(reuseCoverage).normalize().toFile());
+            Map<String, CoverageRow> oldRows = new HashMap<>();
+            for (CoverageRow r : mapper.convertValue(oldCov.path("terms"), new TypeReference<List<CoverageRow>>() { })) oldRows.put(r.upstreamIri(), r);
+            JsonNode saved = mapper.readTree(root.resolve(reuseFrom).normalize().toFile());
+            for (JsonNode d : saved.path("drafts")) {
+                String iri = d.path("upstreamIri").asText();
+                CoverageRow now = rowByIri.get(iri), then = oldRows.get(iri);
+                if (now == null || then == null || !candidateIds(now).equals(candidateIds(then))) continue;
+                if (d.path("proposal").isMissingNode() || d.path("proposal").isNull()) continue;
+                out.put(iri, mapper.convertValue(d.path("proposal"), TermProposal.class));
+            }
+        } catch (IOException e) {
+            throw new IllegalArgumentException("--reuse: " + e.getMessage(), e);
+        }
+        return out;
     }
 
     private List<Draft> draftAll(List<CoverageRow> rows, Map<String, OurTerm> ourById,
