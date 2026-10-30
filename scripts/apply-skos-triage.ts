@@ -54,8 +54,13 @@ function declaredPrefixes(ttl: string): Set<string> {
   return new Set([...ttl.matchAll(/^@prefix\s+([A-Za-z][\w-]*:)/gm)].map((m) => m[1]));
 }
 
+// Blank long literals AND comment lines, keeping every newline. A comment that happens to
+// end in a full stop ("… the eubat: namespace.") would otherwise read as the block end, and
+// the insert would split the subject in two (battery.ttl, 2026-10-30).
 const blank = (ttl: string) =>
-  ttl.replace(/"""[\s\S]*?"""/g, (lit) => '""' + lit.replace(/[^\n]/g, " ").slice(2) + '""');
+  ttl
+    .replace(/"""[\s\S]*?"""/g, (lit) => '""' + lit.replace(/[^\n]/g, " ").slice(2) + '""')
+    .replace(/^(\s*)#.*$/gm, (line) => " ".repeat(line.length));
 
 function ontologyFiles(): string[] {
   const out: string[] = [];
