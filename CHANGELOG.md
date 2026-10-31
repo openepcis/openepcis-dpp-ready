@@ -9,6 +9,19 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Added: crosswalk to CIRPASS-2 and DPP Keystone, checked by round trips
+
+`extensions/common/interop/crosswalk/` converts OpenEPCIS data, both master data and EPCIS events
+with their extensions, into other DPP vocabularies and back, with declarative SPARQL rules per
+profile (engine: `scripts/lib/crosswalk.ts` on Oxigraph; CLI `pnpm run crosswalk`). Profiles:
+`cirpass2`, covering assessments, results, criteria, indicators, units and events of the textile
+and EUDPP ontologies; and `keystone`, covering the JRC scores. `pnpm run check:crosswalk` is part of
+the build. For every self-written test case it compares both directions with committed goldens,
+fails on any output term outside the target vocabulary, and validates the OpenEPCIS side with SHACL.
+CIRPASS-2 → OpenEPCIS → CIRPASS-2 is exact for the recyclability case and differs only by a pairing
+triple for the abrasion case; the remaining gaps of CIRPASS-2 are documented and drafted as an
+upstream issue.
+
 ### Breaking: detergent, CPR, electronics and PPWR on `common/assessment`
 
 Second wave of the assessment model. Biodegradability tests (core and detergent), CPR essential

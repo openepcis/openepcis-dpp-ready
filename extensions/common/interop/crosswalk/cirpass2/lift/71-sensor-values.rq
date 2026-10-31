@@ -1,0 +1,16 @@
+# The value of each sensorReport whose type is a performance parameter.
+CONSTRUCT {
+  ?r txt-assessment:hasMeasuredValue _:qv .
+  _:qv a txt-connector:QuantitativeValue ; txt-connector:numericValue ?nv ; txt-connector:hasMeasurementUnit ?unit .
+}
+WHERE {
+  {
+    SELECT DISTINCT ?r ?v ?code WHERE {
+      GRAPH <urn:xw:in> { ?se epcis:sensorReport ?r . ?r epcis:measurementType ?param ; epcis:value ?v ; epcis:uom ?code }
+      ?param a ?pt . ?pt rdfs:subClassOf* oea:PerformanceParameter .
+    }
+  }
+  OPTIONAL { ?row xw:unitCode ?code ; xw:siUnit ?si ; xw:factor ?f }
+  BIND(COALESCE(?si, IRI(CONCAT("https://vocabulary.uncefact.org/UnitMeasureCode#", ?code))) AS ?unit)
+  BIND(xsd:decimal(xsd:decimal(?v) * COALESCE(?f, 1.0)) AS ?nv)
+}

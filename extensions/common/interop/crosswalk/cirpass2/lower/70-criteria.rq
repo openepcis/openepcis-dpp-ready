@@ -1,0 +1,14 @@
+# Criteria and thresholds that are not OpenEPCIS individuals are adopted as data nodes.
+CONSTRUCT {
+  ?crit a ?ccls ; oea:criterionDescription ?desc ;
+        oea:hasThresholdParameter ?tp ; oea:hasComparisonOperator ?op ; oea:hasThresholdValue ?tqv .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?r txt-assessment:isEvaluatedAgainst ?crit . ?crit a ?ct }
+  FILTER NOT EXISTS { GRAPH <urn:xw:bg> { ?crit a ?known } }
+  BIND(IF(?ct = txt-assessment:PerformanceThreshold, oea:Threshold, oea:Criterion) AS ?ccls)
+  OPTIONAL { GRAPH <urn:xw:in> { ?crit rdfs:label ?l } BIND(STR(?l) AS ?desc) }
+  OPTIONAL { GRAPH <urn:xw:in> { ?crit txt-assessment:criterionForPerformanceParameter ?cp } OPTIONAL { GRAPH <urn:xw:in> { ?cp a ?cpc } ?cpc xw:lowerTo ?cpo . FILTER NOT EXISTS { GRAPH <urn:xw:bg> { ?cp a ?k } } } BIND(COALESCE(?cpo, ?cp) AS ?tp) }
+  OPTIONAL { GRAPH <urn:xw:in> { ?crit txt-assessment:hasComparisonOperator ?cop } ?op xw:sameCode ?cop }
+  OPTIONAL { GRAPH <urn:xw:in> { ?crit txt-assessment:hasThresholdValue ?tqv } }
+}

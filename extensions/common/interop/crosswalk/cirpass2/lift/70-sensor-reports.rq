@@ -1,0 +1,32 @@
+# The sensorReport form of the assessment binding: each sensorElement whose report types are
+# performance parameters is a test execution; each report a measurement result (its value in
+# 71-…, one row per report).
+CONSTRUCT {
+  ?se a txt-assessment:TestExecution ;
+      txt-assessment:assessesProduct ?prod ;
+      txt-assessment:appliesMethod ?m ;
+      txt-assessment:assessesPerformanceParameter ?param ;
+      txt-assessment:producesResult ?r .
+  ?prod a eudpp:Product .
+  ?m a ?mcls ; rdfs:label ?mlabel ; txt-assessment:isDefinedByStandard ?std .
+  ?std a txt-assessment:AssessmentStandard ; rdfs:label ?slabel ; rdfs:seeAlso ?rules .
+  ?param a ?pcls ; rdfs:label ?plabel .
+  ?r a txt-assessment:MeasurementResult ; dcterms:subject ?param .
+}
+WHERE {
+  GRAPH <urn:xw:in> {
+    ?e epcis:sensorElementList ?se .
+    { ?e epcis:epcList ?prod } UNION { ?e epcis:quantityList ?ql . ?ql epcis:epcClass ?prod }
+    ?se epcis:sensorReport ?r .
+    ?r epcis:measurementType ?param ; epcis:value ?v ; epcis:uom ?code .
+    OPTIONAL { ?se epcis:sensorMetadata ?md . ?md epcis:dataProcessingMethod ?m . OPTIONAL { ?md epcis:bizRules ?rules } }
+  }
+  ?param a ?pt . ?pt rdfs:subClassOf* oea:PerformanceParameter .
+  OPTIONAL { ?param xw:liftType ?ptype }
+  BIND(COALESCE(?ptype, txt-durability:ObservedPerformanceParameter) AS ?pcls)
+  OPTIONAL { ?param rdfs:label ?plabel }
+  OPTIONAL { ?m a ?mt . ?mt xw:liftClass ?mclass . FILTER(?mt IN (oea:TestMethod, oea:AssessmentMethod)) }
+  BIND(COALESCE(?mclass, txt-assessment:TestMethod) AS ?mcls)
+  OPTIONAL { ?m rdfs:label ?mlabel }
+  OPTIONAL { ?m oea:isDefinedByStandard ?std . OPTIONAL { ?std rdfs:label ?slabel } }
+}

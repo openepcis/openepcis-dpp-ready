@@ -1,0 +1,66 @@
+# Crosswalk test, inbound: an abrasion test as a CIRPASS-2 textile passport would state it,
+# written from the textile-assessment and textile-indicator module definitions (no published
+# CIRPASS-2 instance data). Own IRIs for method and standard, a parameter instance, a protocol
+# setting, a threshold, and an indicator derived from the result.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix eudpp: <https://w3id.org/eudpp#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix txt-assessment: <https://w3id.org/eudpp/textile-assessment#> .
+@prefix txt-assessment-codelists: <https://w3id.org/eudpp/textile-assessment-codelists#> .
+@prefix txt-connector: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txt-durability: <https://w3id.org/eudpp/textile-durability#> .
+@prefix txt-indicator: <https://w3id.org/eudpp/textile-indicator#> .
+@prefix ex: <https://dpp.example.org/garment/4711/> .
+
+<https://id.gs1.org/01/09521234000037> a eudpp:Product ;
+    txt-indicator:hasIndicator ex:indicator-abrasion .
+
+ex:assessment-abrasion a txt-assessment:DurabilityAssessment ;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521234000037> ;
+    txt-assessment:appliesMethod ex:method-martindale ;
+    txt-assessment:assessesPerformanceParameter ex:abrasion ;
+    txt-assessment:hasParameterSetting ex:setting-cycles ;
+    txt-assessment:producesResult ex:result-abrasion .
+
+ex:method-martindale a txt-assessment:TestMethod ;
+    rdfs:label "Martindale abrasion, specimen breakdown" ;
+    txt-assessment:isDefinedByStandard ex:standard-iso12947-2 .
+
+ex:standard-iso12947-2 a txt-assessment:AssessmentStandard ;
+    rdfs:label "ISO 12947-2:2016" ;
+    rdfs:seeAlso <https://www.iso.org/search.html?q=12947-2> .
+
+ex:abrasion a txt-durability:AbrasionResistance .
+
+ex:setting-cycles a txt-assessment:MeasurementParameterSetting ;
+    txt-assessment:settingForParameter ex:cycles ;
+    txt-assessment:hasParameterValue ex:value-cycles .
+ex:cycles a txt-assessment:NumberOfCycles .
+ex:value-cycles a txt-connector:QuantitativeValue ;
+    txt-connector:numericValue "50000"^^xsd:decimal ;
+    txt-connector:hasMeasurementUnit units:one .
+
+ex:result-abrasion a txt-assessment:MeasurementResult ;
+    txt-assessment:hasMeasuredValue ex:value-abrasion ;
+    txt-assessment:isEvaluatedAgainst ex:threshold-abrasion .
+ex:value-abrasion a txt-connector:QuantitativeValue ;
+    txt-connector:numericValue "40000"^^xsd:decimal ;
+    txt-connector:hasMeasurementUnit units:one .
+
+ex:threshold-abrasion a txt-assessment:PerformanceThreshold ;
+    rdfs:label "At least 30 000 cycles to breakdown" ;
+    txt-assessment:criterionForPerformanceParameter ex:abrasion ;
+    txt-assessment:hasComparisonOperator txt-assessment-codelists:greaterThanOrEqualTo ;
+    txt-assessment:hasThresholdValue ex:value-threshold .
+ex:value-threshold a txt-connector:QuantitativeValue ;
+    txt-connector:numericValue "30000"^^xsd:decimal ;
+    txt-connector:hasMeasurementUnit units:one .
+
+ex:indicator-abrasion a txt-indicator:PerformanceAfterNCycles ;
+    txt-indicator:derivedFrom ex:result-abrasion ;
+    txt-indicator:derivedUsingMethod ex:method-martindale ;
+    txt-indicator:hasQuantitativeValue ex:value-indicator .
+ex:value-indicator a txt-connector:QuantitativeValue ;
+    txt-connector:numericValue "0.8"^^xsd:decimal ;
+    txt-connector:hasMeasurementUnit units:one .

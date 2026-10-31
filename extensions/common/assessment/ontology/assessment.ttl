@@ -265,7 +265,7 @@ oea:Outcome
     rdfs:subClassOf skos:Concept ;
     rdfs:label "Outcome"@en ;
     rdfs:comment "Whether a result or an assessment meets the criterion it is judged against."@en ;
-    owl:oneOf ( oea:Satisfied oea:NotSatisfied oea:NotAssessed ) ;
+    owl:oneOf ( oea:Satisfied oea:PartlySatisfied oea:NotSatisfied oea:NotApplicable oea:NotAssessed oea:Uncertain ) ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://semiceu.github.io/CCCEV/releases/2.1.0/> ;
     skos:note "Closed outcome list. CBV dispositions conformant/non_conformant state the same for an item in an event, not for a criterion."@en .
@@ -274,8 +274,14 @@ oea:Satisfied a oea:Outcome ; rdfs:label "Satisfied"@en ; skos:notation "satisfi
     rdfs:comment "The result or assessment meets the criterion."@en .
 oea:NotSatisfied a oea:Outcome ; rdfs:label "Not Satisfied"@en ; skos:notation "not_satisfied" ;
     rdfs:comment "The result or assessment does not meet the criterion."@en .
+oea:PartlySatisfied a oea:Outcome ; rdfs:label "Partly Satisfied"@en ; skos:notation "partly_satisfied" ;
+    rdfs:comment "The result or assessment meets the criterion only in part."@en .
+oea:NotApplicable a oea:Outcome ; rdfs:label "Not Applicable"@en ; skos:notation "not_applicable" ;
+    rdfs:comment "The criterion does not apply to the product."@en .
+oea:Uncertain a oea:Outcome ; rdfs:label "Uncertain"@en ; skos:notation "uncertain" ;
+    rdfs:comment "The evidence does not allow a verdict on the criterion."@en .
 oea:NotAssessed a oea:Outcome ; rdfs:label "Not Assessed"@en ; skos:notation "not_assessed" ;
-    rdfs:comment "The criterion was not evaluated, for example because it does not apply to the product."@en .
+    rdfs:comment "The criterion was not evaluated."@en .
 
 oea:ComparisonOperator
     a owl:Class ;

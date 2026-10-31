@@ -4,6 +4,13 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+### Added: crosswalk profiles `cirpass2` and `keystone`
+
+Rule-driven conversion to and from CIRPASS-2 (textile 1.1.2, EUDPP 2.1.0) and DPP Keystone v2, with
+round-trip test cases, committed goldens and loss reports (`crosswalk/README.md`). The CIRPASS-2
+alignment doc points to it; a draft upstream issue lists six things CIRPASS-2 assessment data
+cannot express (`docs/upstream/cirpass2/`).
+
 ### Removed: Keystone aliases for CPR shortcuts
 
 The DPP Keystone bridge no longer aliases `thermalConductivity` and `compressiveStrength`: CPR states

@@ -1,0 +1,13 @@
+# Indicators with a Keystone flat property: the score as xsd:double on the product the
+# assessment belongs to. Structure, method, results and points do not travel (Keystone keeps
+# none of them for these scores).
+CONSTRUCT { ?prod ?flat ?d . }
+WHERE {
+  GRAPH <urn:xw:in> { ?a oea:hasIndicator ?i . ?i oea:hasIndicatorKind ?k ; oea:hasIndicatorValue ?q . ?q gs1:value ?v }
+  ?k xw:flatProperty ?flat .
+  GRAPH <urn:xw:in> { ?root oea:hasSubAssessment* ?a . ?x ?p ?root . }
+  ?p rdfs:subPropertyOf* oea:hasAssessment .
+  OPTIONAL { GRAPH <urn:xw:in> { ?x epcis:epcList ?epc } }
+  BIND(COALESCE(?epc, ?x) AS ?prod)
+  BIND(xsd:double(?v) AS ?d)
+}

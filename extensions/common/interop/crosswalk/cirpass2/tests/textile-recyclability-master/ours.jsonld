@@ -1,0 +1,49 @@
+{
+  "@context": [
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld"
+  ],
+  "_comment": "Crosswalk test: JRC recyclability assessment. Elastane content judged against the 15 % threshold, three sorting criteria (met and not met, with points), technical recyclability points, the 0-10 score and the overall verdict.",
+  "id": "https://id.gs1.org/01/09521234000020",
+  "type": "gs1:Product",
+  "eutex:hasRecyclabilityAssessment": {
+    "id": "https://id.gs1.org/01/09521234000020#recyclability",
+    "type": "eutex:RecyclabilityAssessment",
+    "oea:hasMethod": { "@id": "eutex:JRCRecyclabilityScoring" },
+    "eutex:hasApplicableRecyclingTechnology": { "@id": "eutex:MechanicalRecycling" },
+    "oea:hasResult": [
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": { "@id": "eutex:ElastaneContent" },
+        "oea:hasMeasuredValue": { "type": "gs1:QuantitativeValue", "gs1:value": 5, "gs1:unitCode": "P1" },
+        "oea:isEvaluatedAgainst": { "@id": "eutex:ElastaneContentLimit" },
+        "oea:hasOutcome": { "@id": "oea:Satisfied" }
+      },
+      {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": { "@id": "eutex:FreeFromPrintings" },
+        "oea:hasOutcome": { "@id": "oea:Satisfied" },
+        "oea:awardedScore": 1
+      },
+      {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": { "@id": "eutex:FreeFromCoatings" },
+        "oea:hasOutcome": { "@id": "oea:NotSatisfied" },
+        "oea:awardedScore": 0
+      },
+      {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": { "@id": "eutex:MonoMaterial" },
+        "oea:hasOutcome": { "@id": "oea:Satisfied" },
+        "oea:awardedScore": 1
+      }
+    ],
+    "oea:hasIndicator": {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:RecyclabilityScore" },
+      "oea:hasIndicatorValue": { "type": "gs1:QuantitativeValue", "gs1:value": "6.5", "gs1:unitCode": "C62" },
+      "oea:hasDerivationMethod": { "@id": "eutex:JRCRecyclabilityScoring" }
+    },
+    "oea:hasOutcome": { "@id": "oea:Satisfied" }
+  }
+}
