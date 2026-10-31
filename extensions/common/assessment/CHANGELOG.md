@@ -4,6 +4,13 @@ All notable changes to the OpenEPCIS assessment and test vocabulary.
 
 ## [Unreleased]
 
+### Added
+
+- `oea:Biodegradation` (performance parameter, replaces `oec:biodegradationPercentage`) and
+  `oea:methodName` for methods stated inline.
+- An `oea:CriterionResult` states an outcome, points (`oea:awardedScore`) or both; points-only
+  scoring schemes (repairability index criteria) need no invented outcome.
+
 ## [0.10.0] - 2026-11-07
 
 ### Added

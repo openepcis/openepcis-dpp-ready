@@ -104,7 +104,7 @@
 <https://ref.openepcis.org/extensions/common/assessment/CriterionResult> a owl:Class;
     rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/AssessmentResult>;
     rdfs:label "Criterion Result"@en;
-    rdfs:comment "An assessment result that records whether one criterion is met, and the points a scoring method awards for it, without a measured value of its own."@en;
+    rdfs:comment "An assessment result that records whether one criterion is met (oea:hasOutcome), the points a scoring method awards for it (oea:awardedScore), or both, without a measured value of its own."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Per-criterion outcome of a scoring scheme (sorting factors of a recyclability score, repair criteria of a repairability index). No GS1, SEMICeu, or schema.org equivalent."@en.
@@ -252,6 +252,9 @@ _:b7 rdf:first <https://ref.openepcis.org/extensions/common/assessment/GreaterTh
     rdfs:seeAlso <https://w3id.org/eudpp#RecyclingCollectionRate>;
     rdfs:label "Recycling Collection Rate"@en;
     rdfs:comment "Fraction of products of this type actually collected for recycling under the applicable collection scheme. Replaces oec:recyclingCollectionRate."@en.
+<https://ref.openepcis.org/extensions/common/assessment/Biodegradation> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Biodegradation"@en;
+    rdfs:comment "Share of a substance or material biodegraded under the test method's conditions (ultimate aerobic biodegradation, unitCode P1). Replaces oec:biodegradationPercentage."@en.
 <https://ref.openepcis.org/extensions/common/assessment/RecyclabilityScore> a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:label "Recyclability Score"@en;
     rdfs:comment "Method-specific recyclability score (a JRC textile 0-10 score, a PPWR percentage). A score does not by itself prove that the product will be collected or recycled. Replaces oec:recyclabilityScore."@en;
@@ -387,6 +390,14 @@ _:b7 rdf:first <https://ref.openepcis.org/extensions/common/assessment/GreaterTh
     skos:note "Method-to-standard link. No GS1, SEMICeu, or schema.org equivalent."@en;
     skos:exactMatch <https://w3id.org/eudpp/textile-assessment#isDefinedByStandard>;
     rdfs:range <https://ref.openepcis.org/extensions/common/assessment/AssessmentStandard>;
+    rdfs:domain <https://ref.openepcis.org/extensions/common/assessment/AssessmentMethod>.
+<https://ref.openepcis.org/extensions/common/assessment/methodName> a owl:DatatypeProperty;
+    rdfs:label "Method Name"@en;
+    rdfs:comment "Name and version of the method, for a method stated inline rather than as a named individual (\"RecyClass v2.6\")."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/>;
+    dcterms:source <https://www.iso.org/standard/66912.html>;
+    skos:note "Method name. schema:measurementMethod accepts free text in the same role."@en;
+    rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/common/assessment/AssessmentMethod>.
 <https://ref.openepcis.org/extensions/common/assessment/methodUrl> a owl:DatatypeProperty;
     rdfs:label "Method URL"@en;
@@ -2657,9 +2668,9 @@ oec:bioBasedFraction a owl:DatatypeProperty;
     skos:closeMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#renewableContentShare>;
     rdfs:range xsd:decimal.
 oec:Biodegradability a owl:Class;
-    rdfs:subClassOf schema:Observation;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/TestExecution>;
     rdfs:label "Biodegradability"@en;
-    rdfs:comment "An observed biodegradability result for a substance or material, typically per ISO 14593 / OECD 301B/D/F / OECD 310 test methods. Represents a measurement, not a regulatory category."@en;
+    rdfs:comment "A biodegradability test of a substance or material, an oea:TestExecution: oea:hasMethod names the oec:BiodegradabilityTestMethod (ISO 14593, OECD 301B/D/F, OECD 310), the test duration is an oea:hasParameterSetting (oea:Duration), the result an oea:MeasurementResult observing oea:Biodegradation (unitCode P1), and a pass threshold is oea:isEvaluatedAgainst with oea:hasOutcome. A measurement, not a regulatory category."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en.
@@ -2669,10 +2680,11 @@ oec:hasBiodegradability a owl:ObjectProperty;
     rdfs:comment "Links a product, material, or substance to its observed biodegradability result."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Entry property for the oec:Biodegradability observation: without it the class and its oec:biodegradationPercentage / oec:hasBiodegradabilityTestMethod members are unreachable from the product. GS1 has no biodegradability property (gs1:consumerRecyclingInstructions is free text about recycling), SEMICeu has none, and schema.org offers only the generic schema:hasMeasurement."@en;
+    skos:note "Entry property for the oec:Biodegradability observation: without it the test and its oea: results are unreachable from the product. GS1 has no biodegradability property (gs1:consumerRecyclingInstructions is free text about recycling), SEMICeu has none, and schema.org offers only the generic schema:hasMeasurement."@en;
     skos:broadMatch schema:hasMeasurement;
     rdfs:range oec:Biodegradability;
-    rdfs:domain gs1:Product.
+    rdfs:domain gs1:Product;
+    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasAssessment>.
 oec:hasCompostability a owl:ObjectProperty;
     rdfs:seeAlso schema:hasCertification, gs1:PackagingMarkedLabelAccreditationCode;
     rdfs:label "Compostability"@en;
@@ -2690,16 +2702,9 @@ oec:Compostability a owl:Class;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     skos:broadMatch schema:Certification.
-oec:biodegradationPercentage a owl:DatatypeProperty;
-    rdfs:label "Biodegradation Percentage"@en;
-    rdfs:comment "Percentage of substance biodegraded under the test method conditions. Use unitCode 'P1' (UN/CEFACT Rec 20) when expressed via gs1:QuantitativeValue."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain oec:Biodegradability.
 oec:BiodegradabilityTestMethod a owl:Class;
     rdfs:seeAlso <http://data.europa.eu/m8g/Criterion>;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/TestMethod>;
     rdfs:label "Biodegradability Test Method"@en;
     rdfs:comment "The standardised laboratory method used to assess biodegradability."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -2726,15 +2731,6 @@ _:b95 rdf:first oec:OECD310;
     rdf:rest rdf:nil.
 oec:OECD310 a oec:BiodegradabilityTestMethod;
     rdfs:label "OECD 310 (sealed vessel CO2 evolution)"@en.
-oec:hasBiodegradabilityTestMethod a owl:ObjectProperty;
-    rdfs:label "Biodegradability Test Method"@en;
-    rdfs:comment "The test method used to determine the biodegradability percentage."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:broadMatch schema:measurementMethod;
-    rdfs:range oec:BiodegradabilityTestMethod;
-    rdfs:domain oec:Biodegradability.
 oec:CompostabilityType a owl:Class;
     rdfs:label "Compostability Type"@en;
     rdfs:comment "Classification of how a product can be composted."@en;
@@ -3557,7 +3553,7 @@ oec:stageValue a owl:DatatypeProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#ConstructionProduct>;
     rdfs:subClassOf gs1:Product;
     rdfs:label "Construction Product"@en;
-    rdfs:comment "A construction product subject to EU Regulation 2024/3110 (revised\nCPR). Carrier for the regulation's DPP and Declaration-of-Performance data.\nUse eucpr:declarationOfPerformanceUrl, eucpr:hasEssentialCharacteristic, and\neucpr:hasReactionToFireClass for the substantive declarations; reuse oec: terms\nfor recycled content, carbon footprint, hazardous substances, etc."@en;
+    rdfs:comment "A construction product subject to EU Regulation 2024/3110 (revised\nCPR). Carrier for the regulation's DPP and Declaration-of-Performance data.\nUse eucpr:declarationOfPerformanceUrl and eucpr:hasEssentialCharacteristic for the\nsubstantive declarations (the reaction-to-fire class is an oea:Indicator of kind\neucpr:ReactionToFire); reuse oec: terms\nfor recycled content, carbon footprint, hazardous substances, etc."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110>;
     skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
@@ -3612,16 +3608,6 @@ _:b114 rdf:first <https://ref.openepcis.org/extensions/eu/cpr/FireClassF>;
     rdfs:label "Class F"@en;
     rdfs:comment "No performance determined."@en;
     skos:notation "F".
-<https://ref.openepcis.org/extensions/eu/cpr/hasReactionToFireClass> a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/dopc#reactionToFire>;
-    rdfs:label "Reaction-to-fire Class"@en;
-    rdfs:comment "EN 13501-1 reaction-to-fire classification of the construction product."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/>;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-13501-1.aspx>;
-    skos:note "Reaction-to-fire classification per EN 13501-1, as required by the EU Construction Products Regulation (EU) 2024/3110."@en;
-    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms/dopc#reactionToFire>;
-    rdfs:range <https://ref.openepcis.org/extensions/eu/cpr/ReactionToFireClass>;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct>.
 <https://ref.openepcis.org/extensions/eu/cpr/ConstructionProductType> a owl:Class;
     rdfs:seeAlso gs1:Product, schema:Product, <https://dpp-keystone.org/spec/v3/terms#BatteryProduct>, schema:IndividualProduct, <https://dpp-keystone.org/spec/v3/terms#Product>, <https://dpp-keystone.org/spec/v3/terms#IronSteelProduct>;
     rdfs:label "Construction Product Type"@en;
@@ -3702,29 +3688,12 @@ _:b125 rdf:first <https://ref.openepcis.org/extensions/eu/cpr/OtherConstructionP
     rdfs:domain <https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct>.
 <https://ref.openepcis.org/extensions/eu/cpr/EssentialCharacteristic> a owl:Class;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#ProductCharacteristic>;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/MeasurementResult>;
     rdfs:label "Essential Characteristic"@en;
-    rdfs:comment "A single declared essential characteristic (e.g. compressive strength, thermal conductivity, water vapour permeability) per CPR Annex III. Pair name + value + unit + harmonised standard reference."@en;
+    rdfs:comment "A declared essential characteristic per CPR Annex III, an oea:MeasurementResult: oea:hasObservedParameter names the characteristic (an eucpr: performance parameter such as eucpr:ThermalConductivity), oea:hasMeasuredValue carries the declared performance as gs1:QuantitativeValue, eucpr:harmonisedStandard the hEN it is declared under."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110>;
     skos:note "Declaration of Performance / essential-characteristics concept per the EU Construction Products Regulation (EU) 2024/3110. No GS1, SEMICeu, or schema.org equivalent."@en.
-<https://ref.openepcis.org/extensions/eu/cpr/characteristicName> a owl:DatatypeProperty;
-    rdfs:label "Characteristic Name"@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110>;
-    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#characteristicName>;
-    rdfs:range xsd:string;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/cpr/EssentialCharacteristic>.
-<https://ref.openepcis.org/extensions/eu/cpr/hasCharacteristicValue> a owl:ObjectProperty;
-    rdfs:seeAlso schema:value, gs1:value, schema:maxValue, schema:minValue, <http://data.europa.eu/m8g/providesValueFor>;
-    rdfs:label "Characteristic Value"@en;
-    rdfs:comment "Quantitative value of the essential characteristic. gs1:QuantitativeValue with the unitCode appropriate for the characteristic (e.g. 'N31' for MPa, 'F94' for W/(m·K))."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110>;
-    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncreaseValue>;
-    rdfs:range gs1:QuantitativeValue;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/cpr/EssentialCharacteristic>.
 <https://ref.openepcis.org/extensions/eu/cpr/harmonisedStandard> a owl:DatatypeProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#harmonisedStandardReference>;
     rdfs:label "Harmonised Standard"@en;
@@ -3743,26 +3712,27 @@ _:b125 rdf:first <https://ref.openepcis.org/extensions/eu/cpr/OtherConstructionP
     skos:note "Declaration of Performance / essential-characteristics concept per the EU Construction Products Regulation (EU) 2024/3110. No GS1, SEMICeu, or schema.org equivalent."@en;
     rdfs:range <https://ref.openepcis.org/extensions/eu/cpr/EssentialCharacteristic>;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct>.
-<https://ref.openepcis.org/extensions/eu/cpr/hasThermalConductivity> a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#thermalConductivity>;
-    rdfs:label "Thermal Conductivity"@en;
-    rdfs:comment "Declared thermal conductivity λ of the product. gs1:QuantitativeValue with unitCode 'F94' (W/(m·K))."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110>;
-    skos:note "Named essential characteristic per CPR Annex III. Anchored to the DPP Keystone peer profile dppk:thermalConductivity."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#thermalConductivity>;
-    rdfs:range gs1:QuantitativeValue;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct>.
-<https://ref.openepcis.org/extensions/eu/cpr/hasCompressiveStrength> a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#compressiveStrength>;
+<https://ref.openepcis.org/extensions/eu/cpr/CompressiveStrength> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
     rdfs:label "Compressive Strength"@en;
-    rdfs:comment "Declared compressive strength of the product. gs1:QuantitativeValue with unitCode 'N31' (MPa)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110>;
-    skos:note "Named essential characteristic per CPR Annex III. Anchored to the DPP Keystone peer profile dppk:compressiveStrength."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#compressiveStrength>;
-    rdfs:range gs1:QuantitativeValue;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct>.
+    rdfs:comment "Declared compressive strength (unitCode N20 MPa for cement classes, N31 for N/mm²)."@en;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#compressiveStrength>.
+<https://ref.openepcis.org/extensions/eu/cpr/InitialSettingTime> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Initial Setting Time"@en;
+    rdfs:comment "Initial setting time of a cement (unitCode MIN)."@en.
+<https://ref.openepcis.org/extensions/eu/cpr/ThermalConductivity> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Thermal Conductivity"@en;
+    rdfs:comment "Declared thermal conductivity λD (unitCode F94, W/(m·K))."@en;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#thermalConductivity>.
+<https://ref.openepcis.org/extensions/eu/cpr/Density> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Density"@en;
+    rdfs:comment "Declared bulk density (unitCode KMQ, kg/m³)."@en.
+<https://ref.openepcis.org/extensions/eu/cpr/WaterVapourDiffusionResistance> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Water Vapour Diffusion Resistance"@en;
+    rdfs:comment "Water vapour diffusion resistance factor μ (unitCode C62)."@en.
+<https://ref.openepcis.org/extensions/eu/cpr/ReactionToFire> a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
+    rdfs:label "Reaction to Fire"@en;
+    rdfs:comment "EN 13501-1 reaction-to-fire classification; the coded value is an eucpr:ReactionToFireClass individual."@en;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms/dopc#reactionToFire>.
 <https://ref.openepcis.org/extensions/eu/cpr/DeclarationOfPerformance> a owl:Class;
     rdfs:seeAlso schema:Certification, <https://dpp-keystone.org/spec/v3/terms#DoPCBlock>;
     rdfs:label "Declaration of Performance"@en;

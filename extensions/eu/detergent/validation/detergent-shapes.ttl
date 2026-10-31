@@ -3,6 +3,7 @@
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix schema: <https://schema.org/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -109,21 +110,10 @@ eudet:DetergentProductShape a sh:NodeShape ;
         sh:minInclusive 0
     ] ;
     sh:property [
-        sh:path eudet:phosphateCompliant ;
-        sh:datatype xsd:boolean ;
+        sh:path eudet:hasFilmBiodegradability ;
+        sh:name "Film Biodegradability" ;
+        sh:class oec:Biodegradability ;
         sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eudet:filmBiodegradable ;
-        sh:datatype xsd:boolean ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eudet:filmBiodegradabilityPercentage ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0 ;
-        sh:maxInclusive 100
     ] ;
     sh:property [
         sh:path eudet:hasRecommendedDosage ;
@@ -196,31 +186,17 @@ eudet:SurfactantBiodegradabilityShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path eudet:biodegradationPercentage ;
-        sh:name "Biodegradation Percentage" ;
-        sh:datatype xsd:decimal ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0 ;
-        sh:maxInclusive 100
-    ] ;
-    sh:property [
-        sh:path eudet:hasTestMethod ;
+        sh:path oea:hasMethod ;
         sh:name "Test Method" ;
-        sh:class eudet:BiodegradabilityTestMethod ;
         sh:minCount 1 ;
-        sh:maxCount 1
+        sh:message "A surfactant biodegradability test names its oec:BiodegradabilityTestMethod (EU 2026/405 Annex III)."@en
     ] ;
     sh:property [
-        sh:path eudet:testDurationDays ;
-        sh:datatype xsd:integer ;
-        sh:maxCount 1 ;
-        sh:minInclusive 1
-    ] ;
-    sh:property [
-        sh:path eudet:passesUltimateBiodegradability ;
-        sh:datatype xsd:boolean ;
-        sh:maxCount 1
+        sh:path ( oea:hasResult oea:isEvaluatedAgainst ) ;
+        sh:name "Threshold" ;
+        sh:hasValue eudet:UltimateBiodegradabilityThreshold ;
+        sh:severity sh:Warning ;
+        sh:message "The biodegradation result is judged against eudet:UltimateBiodegradabilityThreshold (>= 60 % in 28 days)."@en
     ] .
 
 # -----------------------------------------------------------------------------

@@ -30,9 +30,10 @@ Packaging-specific concepts only live here:
 
   - `euppwr:Packaging` (subClassOf gs1:PackagingDetails)
   - `euppwr:hasPackagingTier` (Sales / Grouped / Transport; Article 3)
-  - `euppwr:hasRecyclabilityGrade` (A / B / C; Article 6, Annex II)
+  - the recyclability performance grade as an indicator kind,
+    `euppwr:RecyclabilityPerformanceGrade` (A / B / C; Article 6, Annex II), stated in an
+    `oec:RecyclabilityAssessment` whose method is the design-for-recycling methodology
   - `euppwr:harmonisedSymbol` (URI of an Article 12 harmonised label entry)
-  - `euppwr:designForRecyclingMethodology` (D4R methodology citation)
   - `euppwr:hasReuseInformation` / `euppwr:ReuseInformation` with
     `euppwr:hasReuseSystemScope` (local / national / Union-wide),
     `euppwr:reuseSystemName`, `euppwr:collectionPointsUrl`,
@@ -167,18 +168,11 @@ euppwr:GradeC a euppwr:RecyclabilityGrade ; rdfs:label "Grade C"@en ;
     rdfs:comment "Lowest acceptable recyclability per PPWR Annex II: ≥ 70 % of unit weight recyclable. Minimum grade from 2030; cannot be placed on the market from 2038."@en ;
     skos:notation "C" .
 
-euppwr:hasRecyclabilityGrade
-    a owl:ObjectProperty ;
-    rdfs:label "PPWR Recyclability Grade"@en ;
-    rdfs:comment "PPWR Article 6 letter grade (A/B/C). Companion to a recyclability score (oea:Indicator of kind oea:RecyclabilityScore) and a recyclability rate (oea:MeasurementResult observing oea:RecyclabilityRate); use the grade for regulatory expression and the score or rate for the underlying methodology output."@en ;
-    rdfs:domain euppwr:Packaging ;
-    rdfs:range euppwr:RecyclabilityGrade ;
+euppwr:RecyclabilityPerformanceGrade a oea:IndicatorKind ;
+    rdfs:label "PPWR Recyclability Performance Grade"@en ;
+    rdfs:comment "PPWR Article 6 letter grade (A/B/C, Annex II); the coded value is an euppwr:RecyclabilityGrade individual. State it as an oea:Indicator of an oec:RecyclabilityAssessment on the packaging, whose oea:hasMethod names the design-for-recycling methodology (RecyClass, CEFLEX D4ACE, APR) until the Annex II delegated acts prescribe one. Replaces euppwr:hasRecyclabilityGrade and euppwr:designForRecyclingMethodology."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/ppwr/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
-    skos:note "Packaging recyclability / circularity concept per the EU Packaging and Packaging Waste Regulation (EU) 2025/40. gs1:packagingRecyclingProcessType RECYCLABLE carries a binary recyclability claim; the graded A/B/C output has no GS1 carrier. The substantiating assessment document can be referenced as a gs1:referencedFileURL entry typed gs1:ReferencedFileTypeCode-RECYCLABILITY_ASSESSMENT_CERTIFICATE."@en ;
-    rdfs:seeAlso oec:CircularityPerformance ;
-    rdfs:seeAlso gs1:packagingRecyclingProcessType ;
-    rdfs:seeAlso gs1:ReferencedFileTypeCode-RECYCLABILITY_ASSESSMENT_CERTIFICATE .
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> .
 
 # =============================================================================
 # Harmonised Symbol (Article 12)
@@ -223,21 +217,6 @@ gs1:RegulatoryInformation entry declaring PPWR compliance."""@en ;
 # =============================================================================
 # Design-for-recycling methodology (Article 4 / Annex II supporting evidence)
 # =============================================================================
-
-euppwr:designForRecyclingMethodology
-    a owl:DatatypeProperty ;
-    rdfs:label "Design-for-Recycling Methodology"@en ;
-    rdfs:comment """Name and version of the design-for-recycling (D4R) assessment
-methodology substantiating a recyclabilityGrade, e.g. "RecyClass v2.6",
-"CEFLEX D4ACE", "APR Design Guide". Cited in the recyclability-grade
-declaration observation until the Commission's Annex II delegated acts
-prescribe the harmonised methodology."""@en ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/ppwr/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
-    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute (Article 4 / Annex II supporting evidence). No GS1, SEMICeu, or schema.org equivalent for the methodology citation itself; the resulting assessment document can be referenced as a gs1:referencedFileURL entry typed gs1:ReferencedFileTypeCode-RECYCLABILITY_ASSESSMENT_CERTIFICATE."@en ;
-    rdfs:seeAlso euppwr:hasRecyclabilityGrade ;
-    rdfs:seeAlso gs1:ReferencedFileTypeCode-RECYCLABILITY_ASSESSMENT_CERTIFICATE .
 
 # =============================================================================
 # Reuse information (Articles 11, 12(2))

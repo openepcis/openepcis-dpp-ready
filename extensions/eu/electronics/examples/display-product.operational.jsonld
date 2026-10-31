@@ -8,6 +8,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521234000006",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/electronics/",
     "https://schema.org/"
@@ -151,6 +152,27 @@
     "hasOperatorRole": "Manufacturer",
     "vatIdentificationNumber": "SE123456789001"
   },
+  "hasRecyclabilityAssessment": {
+    "type": "RecyclabilityAssessment",
+    "hasResult": [
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "0.88"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate"
+      },
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "0.93"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/common/assessment/RecoverableRate"
+      }
+    ]
+  },
   "hasRecycledContentDetails": {
     "type": "RecycledContent",
     "postConsumerRecycledContent": "0.16",
@@ -160,41 +182,58 @@
   "hasRepairabilityIndex": {
     "type": "RepairabilityIndex",
     "assessmentDate": "2025-01-12",
-    "displayScore": "6.8",
-    "hasRepairCriteria": [
+    "hasIndicator": [
       {
-        "criterionDetails": "Service manual available, basic troubleshooting guide",
-        "criterionMaxScore": 20,
-        "criterionScore": 15,
-        "hasCriterionType": "Documentation"
+        "hasDerivationMethod": "https://ref.openepcis.org/extensions/eu/electronics/FrenchRepairabilityIndexMethod",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/electronics/RepairabilityTotalScore",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": 68
+        }
       },
       {
-        "criterionDetails": "Standard screws, modular stand, 12 steps to access power board",
-        "criterionMaxScore": 20,
-        "criterionScore": 14,
-        "hasCriterionType": "Disassembly"
+        "hasDerivationMethod": "https://ref.openepcis.org/extensions/eu/electronics/FrenchRepairabilityIndexMethod",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/RepairabilityScore",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "6.8"
+        }
       },
       {
-        "criterionDetails": "Power board, control board available for 7 years",
-        "criterionMaxScore": 20,
-        "criterionScore": 15,
-        "hasCriterionType": "SparePartsAvailability"
-      },
-      {
-        "criterionDetails": "Power board: 18% of device price, Panel: not available separately",
-        "criterionMaxScore": 20,
-        "criterionScore": 12,
-        "hasCriterionType": "SparePartsPricing"
-      },
-      {
-        "criterionDetails": "Firmware updates via USB, factory reset capability",
-        "criterionMaxScore": 20,
-        "criterionScore": 12,
-        "hasCriterionType": "ProductSpecific"
+        "hasCategoricalValue": "https://ref.openepcis.org/extensions/eu/electronics/RepairClassB",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/RepairabilityClass"
       }
     ],
-    "hasRepairabilityClass": "RepairClassB",
-    "totalScore": 68
+    "hasMethod": "https://ref.openepcis.org/extensions/eu/electronics/FrenchRepairabilityIndexMethod",
+    "hasResult": [
+      {
+        "awardedScore": 15,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/Documentation",
+        "resultText": "Service manual available, basic troubleshooting guide"
+      },
+      {
+        "awardedScore": 14,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/Disassembly",
+        "resultText": "Standard screws, modular stand, 12 steps to access power board"
+      },
+      {
+        "awardedScore": 15,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/SparePartsAvailability",
+        "resultText": "Power board, control board available for 7 years"
+      },
+      {
+        "awardedScore": 12,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/SparePartsPricing",
+        "resultText": "Power board: 18% of device price, Panel: not available separately"
+      },
+      {
+        "awardedScore": 12,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/ProductSpecific",
+        "resultText": "Firmware updates via USB, factory reset capability"
+      }
+    ]
   },
   "hasRohsCompliance": {
     "type": "RoHSCompliance",
@@ -216,8 +255,6 @@
       "type": "Country",
       "countryCode": "SE"
     },
-    "recoverabilityRate": "0.93",
-    "recyclabilityRate": "0.88",
     "weeeCategory": "WEEE2_ScreensMonitors",
     "weeeRegistrationCountry": "SE",
     "weeeRegistrationNumber": "SE-2024-EE-34567"

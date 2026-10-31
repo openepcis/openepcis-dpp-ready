@@ -59,7 +59,7 @@
       "id": "https://ref.openepcis.org/extensions/eu/detergent/SurfactantBiodegradability",
       "localName": "SurfactantBiodegradability",
       "label": "Surfactant Biodegradability",
-      "comment": "Ultimate aerobic biodegradability test result for a surfactant per EU 2026/405 Annex III. Each surfactant type in the formulation requires a separate test result.",
+      "comment": "Ultimate aerobic biodegradability test of a surfactant per EU 2026/405 Annex III, an oec:Biodegradability (oea:TestExecution): the test method (oea:hasMethod, an oec:BiodegradabilityTestMethod), the 28-day duration (oea:hasParameterSetting, oea:Duration), the result observing oea:Biodegradation, evaluated against eudet:UltimateBiodegradabilityThreshold with its oea:hasOutcome. Each surfactant type in the formulation requires a separate test.",
       "subClassOf": [
         "https://ref.openepcis.org/extensions/common/core/Biodegradability"
       ],
@@ -85,28 +85,6 @@
       "accessLevel": "AuthorizedOnly",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2004/648",
       "accessLevelRationale": "Exact allergen concentrations belong to the Annex VII C ingredient datasheet Reg. (EC) 648/2004 reserves for medical personnel; the public label carries presence above threshold instead.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/detergent/biodegradationPercentage",
-      "localName": "biodegradationPercentage",
-      "label": "Biodegradation Percentage",
-      "comment": "Measured ultimate aerobic biodegradation as percentage (>=60% required to pass).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/detergent/SurfactantBiodegradability"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/biodegradationPercentage"
-      ],
-      "exactMatch": [
-        "https://ref.openepcis.org/extensions/common/core/biodegradationPercentage"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The headline biodegradation percentage substantiates the pass/fail claim against the 60% Annex III threshold; aligned with core oec:biodegradationPercentage (Public).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
     },
     {
@@ -145,41 +123,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/detergent/filmBiodegradabilityPercentage",
-      "localName": "filmBiodegradabilityPercentage",
-      "label": "Film Biodegradability Percentage",
-      "comment": "Measured biodegradability of the water-soluble film as a percentage.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/detergent/DetergentProduct"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "closeMatch": [
-        "https://ref.openepcis.org/extensions/common/core/biodegradationPercentage"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The measured film-biodegradability percentage substantiates the public film claim.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/detergent/filmBiodegradable",
-      "localName": "filmBiodegradable",
-      "label": "Film Biodegradable",
-      "comment": "Whether the water-soluble film (for capsules/pods) meets biodegradability requirements.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/detergent/DetergentProduct"
-      ],
-      "range": [
-        "xsd:boolean"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Biodegradability of the water-soluble capsule film is a consumer-facing environmental compliance claim.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/detergent/hasBiodegradabilityTestReport",
       "localName": "hasBiodegradabilityTestReport",
       "label": "Biodegradability Test Report",
@@ -194,6 +137,22 @@
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "The full test report is the technical file evidence competent authorities may request (Art. 9), not consumer information.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/eu/detergent/hasFilmBiodegradability",
+      "localName": "hasFilmBiodegradability",
+      "label": "Film Biodegradability",
+      "comment": "Biodegradability test of the water-soluble film of capsules or pods: an oec:Biodegradability with its result observing oea:Biodegradation and the outcome against the film requirement. Replaces eudet:filmBiodegradable and eudet:filmBiodegradabilityPercentage.",
+      "domain": [
+        "https://ref.openepcis.org/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.org/extensions/common/core/Biodegradability"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The film biodegradability test substantiates the public end-of-life claim for capsules and pods, the same tier as the surfactant results.",
+      "accessLevelSource": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/detergent/hasFragranceAllergens",
@@ -408,25 +367,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/detergent/hasTestMethod",
-      "localName": "hasTestMethod",
-      "label": "Test Method",
-      "comment": "Standard test method used for the biodegradability assessment.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/detergent/SurfactantBiodegradability"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/detergent/BiodegradabilityTestMethod"
-      ],
-      "closeMatch": [
-        "https://schema.org/measurementMethod"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The Annex III test-method reference is technical-file detail accompanying the professional test record.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/detergent/hazardPictograms",
       "localName": "hazardPictograms",
       "label": "Hazard Pictograms",
@@ -503,38 +443,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/detergent/passesUltimateBiodegradability",
-      "localName": "passesUltimateBiodegradability",
-      "label": "Passes Ultimate Biodegradability",
-      "comment": "Whether the surfactant passes the ultimate aerobic biodegradability test (>=60% within 28 days).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/detergent/SurfactantBiodegradability"
-      ],
-      "range": [
-        "xsd:boolean"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Passing the Art. 4/Annex III ultimate-biodegradability requirement is the compliance claim under which the product is marketed.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/detergent/phosphateCompliant",
-      "localName": "phosphateCompliant",
-      "label": "Phosphate Compliant",
-      "comment": "Whether the product complies with phosphorus/phosphate limits set by the regulation.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/detergent/DetergentProduct"
-      ],
-      "range": [
-        "xsd:boolean"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Compliance with the Annex VIa phosphorus limits is a public regulatory compliance claim.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/detergent/phosphorusContentPercent",
       "localName": "phosphorusContentPercent",
       "label": "Phosphorus Content Percent",
@@ -589,22 +497,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/detergent/testDurationDays",
-      "localName": "testDurationDays",
-      "label": "Test Duration Days",
-      "comment": "Duration of the biodegradability test in days (typically 28 days).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/detergent/SurfactantBiodegradability"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The test duration is technical-file detail accompanying the professional test record.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/detergent/weightPercentRange",
       "localName": "weightPercentRange",
       "label": "Weight Percent Range",
@@ -624,40 +516,16 @@
   ],
   "enumerations": [
     {
-      "id": "https://ref.openepcis.org/extensions/eu/detergent/BiodegradabilityTestMethod",
-      "localName": "BiodegradabilityTestMethod",
-      "label": "Biodegradability Test Method",
-      "comment": "Standard test methods for ultimate aerobic biodegradability per EU 2026/405 Annex III.",
+      "id": "https://ref.openepcis.org/extensions/common/assessment/Criterion",
+      "localName": "Criterion",
+      "label": "Criterion",
+      "comment": "",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/detergent/ISO14593",
-          "localName": "ISO14593",
-          "label": "ISO 14593",
-          "comment": "CO2 headspace test (ISO 14593) for ultimate aerobic biodegradability."
-        },
-        {
-          "id": "https://ref.openepcis.org/extensions/eu/detergent/OECD301B",
-          "localName": "OECD301B",
-          "label": "OECD 301B",
-          "comment": "CO2 evolution test (modified Sturm test) for ready biodegradability."
-        },
-        {
-          "id": "https://ref.openepcis.org/extensions/eu/detergent/OECD301D",
-          "localName": "OECD301D",
-          "label": "OECD 301D",
-          "comment": "Closed bottle test for ready biodegradability."
-        },
-        {
-          "id": "https://ref.openepcis.org/extensions/eu/detergent/OECD301F",
-          "localName": "OECD301F",
-          "label": "OECD 301F",
-          "comment": "Manometric respirometry test for ready biodegradability."
-        },
-        {
-          "id": "https://ref.openepcis.org/extensions/eu/detergent/OECD310",
-          "localName": "OECD310",
-          "label": "OECD 310",
-          "comment": "CO2 in sealed vessels test for ready biodegradability."
+          "id": "https://ref.openepcis.org/extensions/eu/detergent/PhosphorusLimit",
+          "localName": "PhosphorusLimit",
+          "label": "Phosphorus Limit",
+          "comment": ""
         }
       ]
     },
@@ -908,6 +776,20 @@
           "localName": "NonIonic",
           "label": "Non-Ionic",
           "comment": "Surfactant with no ionic charge (e.g., alcohol ethoxylates)."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/Threshold",
+      "localName": "Threshold",
+      "label": "Threshold",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/detergent/UltimateBiodegradabilityThreshold",
+          "localName": "UltimateBiodegradabilityThreshold",
+          "label": "Ultimate Aerobic Biodegradability Threshold",
+          "comment": ""
         }
       ]
     }

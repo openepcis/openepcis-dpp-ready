@@ -9,6 +9,16 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Breaking: detergent, CPR, electronics and PPWR on `common/assessment`
+
+Second wave of the assessment model. Biodegradability tests (core and detergent), CPR essential
+characteristics and the reaction-to-fire class, the French repairability index and the WEEE
+recyclability rates (electronics) and the PPWR recyclability grade now use `oea:` assessments,
+results, criteria and indicators instead of flat properties. The hand-written document schemas
+follow, including the textile and core schemas missed in the first wave. EU energy-label values
+(`oec:EnergyEfficiency`, `euelec:EnergyEfficiency`) stay flat on purpose: they are declared EPREL
+label data, not reported test results. Battery and iron-steel follow.
+
 ## [0.11.0] - 2026-11-09
 
 ### One CAS and one EC number term; the tier follows the carrying node

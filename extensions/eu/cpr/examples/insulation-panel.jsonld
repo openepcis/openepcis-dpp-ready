@@ -21,8 +21,14 @@
   "eucpr:hasConstructionProductType": {
     "@id": "eucpr:Insulation"
   },
-  "eucpr:hasReactionToFireClass": {
-    "@id": "eucpr:FireClassA1"
+  "oea:hasIndicator": {
+    "type": "oea:Indicator",
+    "oea:hasIndicatorKind": {
+      "@id": "eucpr:ReactionToFire"
+    },
+    "oea:hasCategoricalValue": {
+      "@id": "eucpr:FireClassA1"
+    }
   },
   "eucpr:declarationOfPerformanceUrl": "https://manufacturer.example/dop/ThermoWool-Plus-100-2026-001.pdf",
   "gs1:manufacturer": {
@@ -34,8 +40,10 @@
   "eucpr:hasEssentialCharacteristic": [
     {
       "type": "eucpr:EssentialCharacteristic",
-      "eucpr:characteristicName": "Thermal Conductivity λD",
-      "eucpr:hasCharacteristicValue": {
+      "oea:hasObservedParameter": {
+        "@id": "eucpr:ThermalConductivity"
+      },
+      "oea:hasMeasuredValue": {
         "type": "gs1:QuantitativeValue",
         "gs1:value": "0.034",
         "gs1:unitCode": "F94"
@@ -44,8 +52,10 @@
     },
     {
       "type": "eucpr:EssentialCharacteristic",
-      "eucpr:characteristicName": "Density",
-      "eucpr:hasCharacteristicValue": {
+      "oea:hasObservedParameter": {
+        "@id": "eucpr:Density"
+      },
+      "oea:hasMeasuredValue": {
         "type": "gs1:QuantitativeValue",
         "gs1:value": 60,
         "gs1:unitCode": "KMQ"

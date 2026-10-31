@@ -5,6 +5,7 @@
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
 @prefix eucpr: <https://ref.openepcis.org/extensions/eu/cpr/> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
 @prefix cpr-sh: <https://ref.openepcis.org/extensions/eu/cpr/shapes/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
@@ -32,13 +33,6 @@ cpr-sh:ConstructionProductShape
         sh:message "eucpr:ConstructionProduct must reference a Declaration of Performance per CPR Article 12"@en
     ] ;
     sh:property [
-        sh:path eucpr:hasReactionToFireClass ;
-        sh:nodeKind sh:IRI ;
-        sh:in ( eucpr:FireClassA1 eucpr:FireClassA2 eucpr:FireClassB eucpr:FireClassC eucpr:FireClassD eucpr:FireClassE eucpr:FireClassF ) ;
-        sh:maxCount 1 ;
-        sh:message "eucpr:hasReactionToFireClass must be A1, A2, B, C, D, E, or F (EN 13501-1)"@en
-    ] ;
-    sh:property [
         sh:path eucpr:hasEssentialCharacteristic ;
         sh:minCount 1 ;
         sh:node cpr-sh:EssentialCharacteristicShape ;
@@ -50,17 +44,16 @@ cpr-sh:EssentialCharacteristicShape
     sh:targetClass eucpr:EssentialCharacteristic ;
     rdfs:label "CPR Essential Characteristic Shape"@en ;
     sh:property [
-        sh:path eucpr:characteristicName ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eucpr:hasCharacteristicValue ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:path oea:hasObservedParameter ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "Each essential characteristic must carry a structured characteristicValue (gs1:QuantitativeValue: value + unitCode)"@en
+        sh:message "Each essential characteristic names its eucpr: performance parameter (oea:hasObservedParameter)"@en
+    ] ;
+    sh:property [
+        sh:path oea:hasMeasuredValue ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Each essential characteristic carries its declared performance as oea:hasMeasuredValue (gs1:QuantitativeValue: value + unitCode)"@en
     ] ;
     sh:property [
         sh:path eucpr:harmonisedStandard ;

@@ -1,6 +1,7 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix euelec: <https://ref.openepcis.org/extensions/eu/electronics/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix schema: <https://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -104,100 +105,26 @@ euelec:ElectronicDeviceShape a sh:NodeShape ;
 euelec:RepairabilityIndexShape a sh:NodeShape ;
     sh:targetClass euelec:RepairabilityIndex ;
     rdfs:label "Repairability Index Shape" ;
-    rdfs:comment "Validation shape for repairability index assessments per EU methodology." ;
+    rdfs:comment "A repairability index applies the French index method; criterion results, scores and class follow the common/assessment shapes." ;
     sh:property [
-        sh:path euelec:totalScore ;
-        sh:name "Total Score" ;
-        sh:description "Overall repairability score from 0 to 100." ;
+        sh:path oea:hasMethod ;
+        sh:name "Method" ;
+        sh:hasValue euelec:FrenchRepairabilityIndexMethod ;
+        sh:message "euelec:RepairabilityIndex applies euelec:FrenchRepairabilityIndexMethod."@en
+    ] ;
+    sh:property [
+        sh:path ( oea:hasResult oea:awardedScore ) ;
+        sh:name "Criterion Score" ;
         sh:datatype xsd:decimal ;
-        sh:maxCount 1 ;
         sh:minInclusive 0 ;
-        sh:maxInclusive 100 ;
-        sh:message "Total score must be a decimal between 0 and 100."
-    ] ;
-    sh:property [
-        sh:path euelec:displayScore ;
-        sh:name "Display Score" ;
-        sh:description "Simplified repairability score from 0 to 10 shown on the label." ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0 ;
-        sh:maxInclusive 10 ;
-        sh:message "Display score must be a decimal between 0 and 10."
-    ] ;
-    sh:property [
-        sh:path euelec:hasRepairabilityClass ;
-        sh:name "Repairability Class" ;
-        sh:description "EU repairability class designation." ;
-        sh:maxCount 1 ;
-        sh:class euelec:EURepairabilityClass
-    ] ;
-    sh:property [
-        sh:path euelec:hasRepairCriteria ;
-        sh:name "Repair Criteria" ;
-        sh:description "Individual repair criteria scores contributing to the index." ;
-        sh:class euelec:RepairCriterion
-    ] ;
-    sh:property [
-        sh:path euelec:assessmentDate ;
-        sh:name "Assessment Date" ;
-        sh:description "Date the repairability assessment was performed." ;
-        sh:datatype xsd:date ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path euelec:hasAssessmentBody ;
-        sh:name "Assessment Body" ;
-        sh:description "Organization that performed the repairability assessment." ;
-        sh:maxCount 1 ;
-        sh:class gs1:Organization
+        sh:maxInclusive 20 ;
+        sh:message "A criterion score is a decimal between 0 and 20."
     ] ;
     sh:property [
         sh:path euelec:repairabilityLabelUrl ;
         sh:name "Repairability Label URL" ;
         sh:description "URL of the repairability label image." ;
         sh:datatype xsd:anyURI ;
-        sh:maxCount 1
-    ] .
-
-# -----------------------------------------------------------------------------
-# Repair Criterion Shape
-# -----------------------------------------------------------------------------
-euelec:RepairCriterionShape a sh:NodeShape ;
-    sh:targetClass euelec:RepairCriterion ;
-    rdfs:label "Repair Criterion Shape" ;
-    rdfs:comment "Validation shape for individual repair criterion scores." ;
-    sh:property [
-        sh:path euelec:hasCriterionType ;
-        sh:name "Criterion Type" ;
-        sh:description "The type of repair criterion being scored." ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:class euelec:RepairCriterionType
-    ] ;
-    sh:property [
-        sh:path euelec:criterionScore ;
-        sh:name "Criterion Score" ;
-        sh:description "Score awarded for this criterion, from 0 to 20." ;
-        sh:datatype xsd:decimal ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0 ;
-        sh:maxInclusive 20 ;
-        sh:message "Criterion score must be a decimal between 0 and 20."
-    ] ;
-    sh:property [
-        sh:path euelec:criterionMaxScore ;
-        sh:name "Criterion Max Score" ;
-        sh:description "Maximum possible score for this criterion." ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path euelec:criterionDetails ;
-        sh:name "Criterion Details" ;
-        sh:description "Textual details or justification for the score." ;
-        sh:datatype xsd:string ;
         sh:maxCount 1
     ] .
 
@@ -468,26 +395,6 @@ euelec:WEEEComplianceShape a sh:NodeShape ;
         sh:description "URL describing the take-back or collection scheme." ;
         sh:datatype xsd:anyURI ;
         sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path euelec:recyclabilityRate ;
-        sh:name "Recyclability Rate" ;
-        sh:description "Fraction of device mass that is recyclable (0 to 1)." ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0 ;
-        sh:maxInclusive 1 ;
-        sh:message "Recyclability rate must be a decimal between 0 and 1."
-    ] ;
-    sh:property [
-        sh:path euelec:recoverabilityRate ;
-        sh:name "Recoverability Rate" ;
-        sh:description "Fraction of device mass that is recoverable (0 to 1)." ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0 ;
-        sh:maxInclusive 1 ;
-        sh:message "Recoverability rate must be a decimal between 0 and 1."
     ] .
 
 # -----------------------------------------------------------------------------

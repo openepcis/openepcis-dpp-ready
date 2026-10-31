@@ -2,7 +2,7 @@
   "namespace": "https://ref.openepcis.org/extensions/eu/ppwr/",
   "version": "0.11.0",
   "title": "OpenEPCIS PPWR Vocabulary",
-  "description": "Vocabulary for the EU Packaging and Packaging Waste Regulation\n(Regulation 2025/40, in force since 2025-02-11; general application from\n2026-08-12; harmonised labelling per Article 12 from 2028-08-12;\nrecyclability grading (Article 6, Annex II) mandatory from 2030-01-01 with\nGrade C minimum; Grades A/B only from 2038-01-01).\n\nThis module is intentionally thin: nearly every PPWR data point reuses the\nGS1 Web Vocabulary packaging model (gs1:PackagingDetails,\ngs1:PackagingMaterialDetails, gs1:ReturnablePackageDepositDetails) plus the\ncross-cutting `oec:` and `untp:` vocabulary already lifted to common/core.\nPackaging-specific concepts only live here:\n\n  - `euppwr:Packaging` (subClassOf gs1:PackagingDetails)\n  - `euppwr:hasPackagingTier` (Sales / Grouped / Transport; Article 3)\n  - `euppwr:hasRecyclabilityGrade` (A / B / C; Article 6, Annex II)\n  - `euppwr:harmonisedSymbol` (URI of an Article 12 harmonised label entry)\n  - `euppwr:designForRecyclingMethodology` (D4R methodology citation)\n  - `euppwr:hasReuseInformation` / `euppwr:ReuseInformation` with\n    `euppwr:hasReuseSystemScope` (local / national / Union-wide),\n    `euppwr:reuseSystemName`, `euppwr:collectionPointsUrl`,\n    `euppwr:averageRotationsEstimate` and the event-capable\n    `euppwr:rotationCount` (Article 12(2) reuse QR data)\n  - `euppwr:depositRefundIssued` / `euppwr:containerCondition`\n    (deposit-return EPCIS observation properties)\n  - `euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION`\n    (module-owned gs1:RegulationTypeCode member; the upstream code list has\n    no packaging-waste entry)\n\nMaterial composition, recycling process, recycling-scheme membership,\ndeposit amounts and consumer sorting instructions use the GS1 packaging\nterms directly (gs1:packagingMaterial, gs1:packagingMaterialType,\ngs1:packagingRecyclingProcessType, gs1:packagingRecyclingScheme,\ngs1:hasReturnablePackageDeposit, gs1:consumerRecyclingInstructions).\nRecyclability scoring/rate, recycled content, reuse, compostability,\nbio-based content, hazardous substances, EPR, production site and the\ndeclaration of conformity all use existing `oec:` / `untp:` / `gs1:`\nterms. Alignment reference: GS1 in Europe White Paper \"Packaging and\nPackaging Waste Regulation and GS1 standards\".",
+  "description": "Vocabulary for the EU Packaging and Packaging Waste Regulation\n(Regulation 2025/40, in force since 2025-02-11; general application from\n2026-08-12; harmonised labelling per Article 12 from 2028-08-12;\nrecyclability grading (Article 6, Annex II) mandatory from 2030-01-01 with\nGrade C minimum; Grades A/B only from 2038-01-01).\n\nThis module is intentionally thin: nearly every PPWR data point reuses the\nGS1 Web Vocabulary packaging model (gs1:PackagingDetails,\ngs1:PackagingMaterialDetails, gs1:ReturnablePackageDepositDetails) plus the\ncross-cutting `oec:` and `untp:` vocabulary already lifted to common/core.\nPackaging-specific concepts only live here:\n\n  - `euppwr:Packaging` (subClassOf gs1:PackagingDetails)\n  - `euppwr:hasPackagingTier` (Sales / Grouped / Transport; Article 3)\n  - the recyclability performance grade as an indicator kind,\n    `euppwr:RecyclabilityPerformanceGrade` (A / B / C; Article 6, Annex II), stated in an\n    `oec:RecyclabilityAssessment` whose method is the design-for-recycling methodology\n  - `euppwr:harmonisedSymbol` (URI of an Article 12 harmonised label entry)\n  - `euppwr:hasReuseInformation` / `euppwr:ReuseInformation` with\n    `euppwr:hasReuseSystemScope` (local / national / Union-wide),\n    `euppwr:reuseSystemName`, `euppwr:collectionPointsUrl`,\n    `euppwr:averageRotationsEstimate` and the event-capable\n    `euppwr:rotationCount` (Article 12(2) reuse QR data)\n  - `euppwr:depositRefundIssued` / `euppwr:containerCondition`\n    (deposit-return EPCIS observation properties)\n  - `euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION`\n    (module-owned gs1:RegulationTypeCode member; the upstream code list has\n    no packaging-waste entry)\n\nMaterial composition, recycling process, recycling-scheme membership,\ndeposit amounts and consumer sorting instructions use the GS1 packaging\nterms directly (gs1:packagingMaterial, gs1:packagingMaterialType,\ngs1:packagingRecyclingProcessType, gs1:packagingRecyclingScheme,\ngs1:hasReturnablePackageDeposit, gs1:consumerRecyclingInstructions).\nRecyclability scoring/rate, recycled content, reuse, compostability,\nbio-based content, hazardous substances, EPR, production site and the\ndeclaration of conformity all use existing `oec:` / `untp:` / `gs1:`\nterms. Alignment reference: GS1 in Europe White Paper \"Packaging and\nPackaging Waste Regulation and GS1 standards\".",
   "classes": [
     {
       "id": "https://ref.openepcis.org/extensions/eu/ppwr/Packaging",
@@ -32,9 +32,9 @@
       "label": "Reuse Information",
       "comment": "Reuse data card of a reusable packaging item per PPWR Article 12(2):\nfrom 2029-02-12 reusable packaging must bear a reuse label plus a QR code or\nother standardised, open, digital data carrier making available further\ninformation on reusability, including the availability of a local, national\nor Union-wide re-use system, information on collection points, and the\ncalculation of trips and rotations or, if that calculation is not feasible,\nan average estimation. Reusability itself is defined by the nine Article 11(1)\ncriteria and demonstrated in the Annex VII technical information (Article\n11(3)). Open-loop systems without a system operator per Annex VI are exempt\nfrom the label and QR duty (Article 12(3)).",
       "seeAlso": [
-        "https://ref.gs1.org/voc/packagingRecyclingProcessType",
         "https://ref.openepcis.org/extensions/common/core/EndOfLifeProgram",
         "https://ref.openepcis.org/extensions/common/core/DepositReturnScheme",
+        "https://ref.gs1.org/voc/packagingRecyclingProcessType",
         "https://ref.gs1.org/voc/packagingRecyclingScheme"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040"
@@ -109,23 +109,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2025/40"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/ppwr/designForRecyclingMethodology",
-      "localName": "designForRecyclingMethodology",
-      "label": "Design-for-Recycling Methodology",
-      "comment": "Name and version of the design-for-recycling (D4R) assessment\nmethodology substantiating a recyclabilityGrade, e.g. \"RecyClass v2.6\",\n\"CEFLEX D4ACE\", \"APR Design Guide\". Cited in the recyclability-grade\ndeclaration observation until the Commission's Annex II delegated acts\nprescribe the harmonised methodology.",
-      "range": [
-        "xsd:string"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/eu/ppwr/hasRecyclabilityGrade",
-        "https://ref.gs1.org/voc/ReferencedFileTypeCode-RECYCLABILITY_ASSESSMENT_CERTIFICATE"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Naming the design-for-recycling methodology (e.g. RecyClass) is the transparency that makes the public recyclability grade verifiable.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2025/40"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/ppwr/harmonisedSymbol",
       "localName": "harmonisedSymbol",
       "label": "Harmonised Symbol",
@@ -162,27 +145,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040",
       "accessLevel": "Public",
       "accessLevelRationale": "The sales/grouped/transport classification (PPWR Art. 3) is basic packaging typing visible from the packaging itself and needed to interpret every other packaging claim.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2025/40"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/ppwr/hasRecyclabilityGrade",
-      "localName": "hasRecyclabilityGrade",
-      "label": "PPWR Recyclability Grade",
-      "comment": "PPWR Article 6 letter grade (A/B/C). Companion to a recyclability score (oea:Indicator of kind oea:RecyclabilityScore) and a recyclability rate (oea:MeasurementResult observing oea:RecyclabilityRate); use the grade for regulatory expression and the score or rate for the underlying methodology output.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/ppwr/Packaging"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/ppwr/RecyclabilityGrade"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance",
-        "https://ref.gs1.org/voc/packagingRecyclingProcessType",
-        "https://ref.gs1.org/voc/ReferencedFileTypeCode-RECYCLABILITY_ASSESSMENT_CERTIFICATE"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The PPWR Art. 6 recyclability performance grade is a consumer- and scheme-facing band (grading criteria pending delegated acts, hence not locked).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2025/40"
     },
     {
@@ -261,6 +223,20 @@
     }
   ],
   "enumerations": [
+    {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/IndicatorKind",
+      "localName": "IndicatorKind",
+      "label": "IndicatorKind",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/ppwr/RecyclabilityPerformanceGrade",
+          "localName": "RecyclabilityPerformanceGrade",
+          "label": "PPWR Recyclability Performance Grade",
+          "comment": "PPWR Article 6 letter grade (A/B/C, Annex II); the coded value is an euppwr:RecyclabilityGrade individual. State it as an oea:Indicator of an oec:RecyclabilityAssessment on the packaging, whose oea:hasMethod names the design-for-recycling methodology (RecyClass, CEFLEX D4ACE, APR) until the Annex II delegated acts prescribe one. Replaces euppwr:hasRecyclabilityGrade and euppwr:designForRecyclingMethodology."
+        }
+      ]
+    },
     {
       "id": "https://ref.openepcis.org/extensions/eu/ppwr/PackagingTier",
       "localName": "PackagingTier",

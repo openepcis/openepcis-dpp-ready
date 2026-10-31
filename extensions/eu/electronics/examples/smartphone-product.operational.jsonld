@@ -8,6 +8,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521234000006",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/electronics/",
     "https://schema.org/"
@@ -137,6 +138,27 @@
     "hasOperatorRole": "Manufacturer",
     "vatIdentificationNumber": "DE123456789"
   },
+  "hasRecyclabilityAssessment": {
+    "type": "RecyclabilityAssessment",
+    "hasResult": [
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "0.85"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate"
+      },
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "0.92"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/common/assessment/RecoverableRate"
+      }
+    ]
+  },
   "hasRecycledContentDetails": {
     "type": "RecycledContent",
     "postConsumerRecycledContent": "0.25",
@@ -146,42 +168,59 @@
   "hasRepairabilityIndex": {
     "type": "RepairabilityIndex",
     "assessmentDate": "2025-01-10",
-    "displayScore": "7.3",
-    "hasRepairCriteria": [
+    "hasIndicator": [
       {
-        "criterionDetails": "Complete repair manuals available in 8 languages, including video tutorials",
-        "criterionMaxScore": 20,
-        "criterionScore": "16.5",
-        "hasCriterionType": "Documentation"
+        "hasDerivationMethod": "https://ref.openepcis.org/extensions/eu/electronics/FrenchRepairabilityIndexMethod",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/electronics/RepairabilityTotalScore",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "72.5"
+        }
       },
       {
-        "criterionDetails": "Uses standard screws, modular design, 8 steps to replace display",
-        "criterionMaxScore": 20,
-        "criterionScore": 14,
-        "hasCriterionType": "Disassembly"
+        "hasDerivationMethod": "https://ref.openepcis.org/extensions/eu/electronics/FrenchRepairabilityIndexMethod",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/RepairabilityScore",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "7.3"
+        }
       },
       {
-        "criterionDetails": "All spare parts available for 7 years, delivery within 5 business days",
-        "criterionMaxScore": 20,
-        "criterionScore": 15,
-        "hasCriterionType": "SparePartsAvailability"
-      },
-      {
-        "criterionDetails": "Battery: 15% of device price, Display: 25%, Logic board: 40%",
-        "criterionMaxScore": 20,
-        "criterionScore": 12,
-        "hasCriterionType": "SparePartsPricing"
-      },
-      {
-        "criterionDetails": "5 years OS updates, 7 years security updates, software reset capability",
-        "criterionMaxScore": 20,
-        "criterionScore": 15,
-        "hasCriterionType": "ProductSpecific"
+        "hasCategoricalValue": "https://ref.openepcis.org/extensions/eu/electronics/RepairClassB",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/RepairabilityClass"
       }
     ],
-    "hasRepairabilityClass": "RepairClassB",
-    "repairabilityLabelUrl": "https://example.com/labels/ecophone-pro-2025-repairability.png",
-    "totalScore": "72.5"
+    "hasMethod": "https://ref.openepcis.org/extensions/eu/electronics/FrenchRepairabilityIndexMethod",
+    "hasResult": [
+      {
+        "awardedScore": "16.5",
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/Documentation",
+        "resultText": "Complete repair manuals available in 8 languages, including video tutorials"
+      },
+      {
+        "awardedScore": 14,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/Disassembly",
+        "resultText": "Uses standard screws, modular design, 8 steps to replace display"
+      },
+      {
+        "awardedScore": 15,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/SparePartsAvailability",
+        "resultText": "All spare parts available for 7 years, delivery within 5 business days"
+      },
+      {
+        "awardedScore": 12,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/SparePartsPricing",
+        "resultText": "Battery: 15% of device price, Display: 25%, Logic board: 40%"
+      },
+      {
+        "awardedScore": 15,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/ProductSpecific",
+        "resultText": "5 years OS updates, 7 years security updates, software reset capability"
+      }
+    ],
+    "repairabilityLabelUrl": "https://example.com/labels/ecophone-pro-2025-repairability.png"
   },
   "hasRohsCompliance": {
     "type": "RoHSCompliance",
@@ -215,8 +254,6 @@
       "type": "Country",
       "countryCode": "DE"
     },
-    "recoverabilityRate": "0.92",
-    "recyclabilityRate": "0.85",
     "weeeCategory": "WEEE6_SmallIT",
     "weeeRegistrationCountry": "DE",
     "weeeRegistrationNumber": "DE-2024-EE-12345"

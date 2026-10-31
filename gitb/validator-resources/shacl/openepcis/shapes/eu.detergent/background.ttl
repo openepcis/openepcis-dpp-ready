@@ -104,7 +104,7 @@
 <https://ref.openepcis.org/extensions/common/assessment/CriterionResult> a owl:Class;
     rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/AssessmentResult>;
     rdfs:label "Criterion Result"@en;
-    rdfs:comment "An assessment result that records whether one criterion is met, and the points a scoring method awards for it, without a measured value of its own."@en;
+    rdfs:comment "An assessment result that records whether one criterion is met (oea:hasOutcome), the points a scoring method awards for it (oea:awardedScore), or both, without a measured value of its own."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Per-criterion outcome of a scoring scheme (sorting factors of a recyclability score, repair criteria of a repairability index). No GS1, SEMICeu, or schema.org equivalent."@en.
@@ -252,6 +252,9 @@ _:b7 rdf:first <https://ref.openepcis.org/extensions/common/assessment/GreaterTh
     rdfs:seeAlso <https://w3id.org/eudpp#RecyclingCollectionRate>;
     rdfs:label "Recycling Collection Rate"@en;
     rdfs:comment "Fraction of products of this type actually collected for recycling under the applicable collection scheme. Replaces oec:recyclingCollectionRate."@en.
+<https://ref.openepcis.org/extensions/common/assessment/Biodegradation> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Biodegradation"@en;
+    rdfs:comment "Share of a substance or material biodegraded under the test method's conditions (ultimate aerobic biodegradation, unitCode P1). Replaces oec:biodegradationPercentage."@en.
 <https://ref.openepcis.org/extensions/common/assessment/RecyclabilityScore> a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:label "Recyclability Score"@en;
     rdfs:comment "Method-specific recyclability score (a JRC textile 0-10 score, a PPWR percentage). A score does not by itself prove that the product will be collected or recycled. Replaces oec:recyclabilityScore."@en;
@@ -387,6 +390,14 @@ _:b7 rdf:first <https://ref.openepcis.org/extensions/common/assessment/GreaterTh
     skos:note "Method-to-standard link. No GS1, SEMICeu, or schema.org equivalent."@en;
     skos:exactMatch <https://w3id.org/eudpp/textile-assessment#isDefinedByStandard>;
     rdfs:range <https://ref.openepcis.org/extensions/common/assessment/AssessmentStandard>;
+    rdfs:domain <https://ref.openepcis.org/extensions/common/assessment/AssessmentMethod>.
+<https://ref.openepcis.org/extensions/common/assessment/methodName> a owl:DatatypeProperty;
+    rdfs:label "Method Name"@en;
+    rdfs:comment "Name and version of the method, for a method stated inline rather than as a named individual (\"RecyClass v2.6\")."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/>;
+    dcterms:source <https://www.iso.org/standard/66912.html>;
+    skos:note "Method name. schema:measurementMethod accepts free text in the same role."@en;
+    rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/common/assessment/AssessmentMethod>.
 <https://ref.openepcis.org/extensions/common/assessment/methodUrl> a owl:DatatypeProperty;
     rdfs:label "Method URL"@en;
@@ -2657,9 +2668,9 @@ oec:bioBasedFraction a owl:DatatypeProperty;
     skos:closeMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#renewableContentShare>;
     rdfs:range xsd:decimal.
 oec:Biodegradability a owl:Class;
-    rdfs:subClassOf schema:Observation;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/TestExecution>;
     rdfs:label "Biodegradability"@en;
-    rdfs:comment "An observed biodegradability result for a substance or material, typically per ISO 14593 / OECD 301B/D/F / OECD 310 test methods. Represents a measurement, not a regulatory category."@en;
+    rdfs:comment "A biodegradability test of a substance or material, an oea:TestExecution: oea:hasMethod names the oec:BiodegradabilityTestMethod (ISO 14593, OECD 301B/D/F, OECD 310), the test duration is an oea:hasParameterSetting (oea:Duration), the result an oea:MeasurementResult observing oea:Biodegradation (unitCode P1), and a pass threshold is oea:isEvaluatedAgainst with oea:hasOutcome. A measurement, not a regulatory category."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en.
@@ -2669,10 +2680,11 @@ oec:hasBiodegradability a owl:ObjectProperty;
     rdfs:comment "Links a product, material, or substance to its observed biodegradability result."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Entry property for the oec:Biodegradability observation: without it the class and its oec:biodegradationPercentage / oec:hasBiodegradabilityTestMethod members are unreachable from the product. GS1 has no biodegradability property (gs1:consumerRecyclingInstructions is free text about recycling), SEMICeu has none, and schema.org offers only the generic schema:hasMeasurement."@en;
+    skos:note "Entry property for the oec:Biodegradability observation: without it the test and its oea: results are unreachable from the product. GS1 has no biodegradability property (gs1:consumerRecyclingInstructions is free text about recycling), SEMICeu has none, and schema.org offers only the generic schema:hasMeasurement."@en;
     skos:broadMatch schema:hasMeasurement;
     rdfs:range oec:Biodegradability;
-    rdfs:domain gs1:Product.
+    rdfs:domain gs1:Product;
+    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasAssessment>.
 oec:hasCompostability a owl:ObjectProperty;
     rdfs:seeAlso schema:hasCertification, gs1:PackagingMarkedLabelAccreditationCode;
     rdfs:label "Compostability"@en;
@@ -2690,16 +2702,9 @@ oec:Compostability a owl:Class;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     skos:broadMatch schema:Certification.
-oec:biodegradationPercentage a owl:DatatypeProperty;
-    rdfs:label "Biodegradation Percentage"@en;
-    rdfs:comment "Percentage of substance biodegraded under the test method conditions. Use unitCode 'P1' (UN/CEFACT Rec 20) when expressed via gs1:QuantitativeValue."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain oec:Biodegradability.
 oec:BiodegradabilityTestMethod a owl:Class;
     rdfs:seeAlso <http://data.europa.eu/m8g/Criterion>;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/TestMethod>;
     rdfs:label "Biodegradability Test Method"@en;
     rdfs:comment "The standardised laboratory method used to assess biodegradability."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -2726,15 +2731,6 @@ _:b95 rdf:first oec:OECD310;
     rdf:rest rdf:nil.
 oec:OECD310 a oec:BiodegradabilityTestMethod;
     rdfs:label "OECD 310 (sealed vessel CO2 evolution)"@en.
-oec:hasBiodegradabilityTestMethod a owl:ObjectProperty;
-    rdfs:label "Biodegradability Test Method"@en;
-    rdfs:comment "The test method used to determine the biodegradability percentage."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:broadMatch schema:measurementMethod;
-    rdfs:range oec:BiodegradabilityTestMethod;
-    rdfs:domain oec:Biodegradability.
 oec:CompostabilityType a owl:Class;
     rdfs:label "Compostability Type"@en;
     rdfs:comment "Classification of how a product can be composted."@en;
@@ -3692,125 +3688,86 @@ _:b126 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Amphoteric>;
     rdfs:label "Amphoteric"@en;
     rdfs:comment "Surfactant that can carry positive or negative charge depending on pH (e.g., betaines)."@en;
     skos:notation "amphoteric".
-<https://ref.openepcis.org/extensions/eu/detergent/BiodegradabilityTestMethod> a owl:Class;
-    rdfs:seeAlso <http://data.europa.eu/m8g/Criterion>, oec:BiodegradabilityTestMethod;
-    rdfs:label "Biodegradability Test Method"@en;
-    rdfs:comment "Standard test methods for ultimate aerobic biodegradability per EU 2026/405 Annex III."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405>;
-    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch oec:BiodegradabilityTestMethod;
-    owl:oneOf _:b127.
-_:b127 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/ISO14593>;
-    rdf:rest _:b128.
-<https://ref.openepcis.org/extensions/eu/detergent/ISO14593> a <https://ref.openepcis.org/extensions/eu/detergent/BiodegradabilityTestMethod>;
-    rdfs:label "ISO 14593"@en;
-    rdfs:comment "CO2 headspace test (ISO 14593) for ultimate aerobic biodegradability."@en;
-    skos:notation "ISO14593".
-_:b128 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/OECD301B>;
-    rdf:rest _:b129.
-<https://ref.openepcis.org/extensions/eu/detergent/OECD301B> a <https://ref.openepcis.org/extensions/eu/detergent/BiodegradabilityTestMethod>;
-    rdfs:label "OECD 301B"@en;
-    rdfs:comment "CO2 evolution test (modified Sturm test) for ready biodegradability."@en;
-    skos:notation "OECD301B".
-_:b129 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/OECD301D>;
-    rdf:rest _:b130.
-<https://ref.openepcis.org/extensions/eu/detergent/OECD301D> a <https://ref.openepcis.org/extensions/eu/detergent/BiodegradabilityTestMethod>;
-    rdfs:label "OECD 301D"@en;
-    rdfs:comment "Closed bottle test for ready biodegradability."@en;
-    skos:notation "OECD301D".
-_:b130 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/OECD301F>;
-    rdf:rest _:b131.
-<https://ref.openepcis.org/extensions/eu/detergent/OECD301F> a <https://ref.openepcis.org/extensions/eu/detergent/BiodegradabilityTestMethod>;
-    rdfs:label "OECD 301F"@en;
-    rdfs:comment "Manometric respirometry test for ready biodegradability."@en;
-    skos:notation "OECD301F".
-_:b131 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/OECD310>;
-    rdf:rest rdf:nil.
-<https://ref.openepcis.org/extensions/eu/detergent/OECD310> a <https://ref.openepcis.org/extensions/eu/detergent/BiodegradabilityTestMethod>;
-    rdfs:label "OECD 310"@en;
-    rdfs:comment "CO2 in sealed vessels test for ready biodegradability."@en;
-    skos:notation "OECD310".
 <https://ref.openepcis.org/extensions/eu/detergent/IngredientFunction> a owl:Class;
     rdfs:label "Ingredient Function"@en;
     rdfs:comment "Functional roles of ingredients in detergent formulations."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405>;
     skos:note "Detergent ingredient / substance disclosure per the EU Detergents Regulation (EU) 2026/405 (ingredient data sheet). No GS1, SEMICeu, or schema.org equivalent."@en;
-    owl:oneOf _:b132.
-_:b132 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/SurfactantFunction>;
-    rdf:rest _:b133.
+    owl:oneOf _:b127.
+_:b127 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/SurfactantFunction>;
+    rdf:rest _:b128.
 <https://ref.openepcis.org/extensions/eu/detergent/SurfactantFunction> a <https://ref.openepcis.org/extensions/eu/detergent/IngredientFunction>;
     rdfs:label "Surfactant"@en;
     rdfs:comment "Surface-active agent providing primary cleaning action."@en;
     skos:notation "surfactant-function".
-_:b133 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Builder>;
-    rdf:rest _:b134.
+_:b128 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Builder>;
+    rdf:rest _:b129.
 <https://ref.openepcis.org/extensions/eu/detergent/Builder> a <https://ref.openepcis.org/extensions/eu/detergent/IngredientFunction>;
     rdfs:label "Builder"@en;
     rdfs:comment "Water softener that enhances surfactant performance (e.g., zeolites, citrates)."@en;
     skos:notation "builder".
-_:b134 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Bleach>;
-    rdf:rest _:b135.
+_:b129 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Bleach>;
+    rdf:rest _:b130.
 <https://ref.openepcis.org/extensions/eu/detergent/Bleach> a <https://ref.openepcis.org/extensions/eu/detergent/IngredientFunction>;
     rdfs:label "Bleach"@en;
     rdfs:comment "Oxidising agent for stain removal (e.g., sodium percarbonate)."@en;
     skos:notation "bleach".
-_:b135 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Enzyme>;
-    rdf:rest _:b136.
+_:b130 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Enzyme>;
+    rdf:rest _:b131.
 <https://ref.openepcis.org/extensions/eu/detergent/Enzyme> a <https://ref.openepcis.org/extensions/eu/detergent/IngredientFunction>;
     rdfs:label "Enzyme"@en;
     rdfs:comment "Biological catalyst for breaking down specific stain types (protease, amylase, lipase, etc.)."@en;
     skos:notation "enzyme".
-_:b136 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Preservative>;
-    rdf:rest _:b137.
+_:b131 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Preservative>;
+    rdf:rest _:b132.
 <https://ref.openepcis.org/extensions/eu/detergent/Preservative> a <https://ref.openepcis.org/extensions/eu/detergent/IngredientFunction>;
     rdfs:label "Preservative"@en;
     rdfs:comment "Antimicrobial agent preventing product degradation."@en;
     skos:notation "preservative".
-_:b137 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Fragrance>;
-    rdf:rest _:b138.
+_:b132 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Fragrance>;
+    rdf:rest _:b133.
 <https://ref.openepcis.org/extensions/eu/detergent/Fragrance> a <https://ref.openepcis.org/extensions/eu/detergent/IngredientFunction>;
     rdfs:label "Fragrance"@en;
     rdfs:comment "Scenting agent (parfum)."@en;
     skos:notation "fragrance".
-_:b138 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Colorant>;
-    rdf:rest _:b139.
+_:b133 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Colorant>;
+    rdf:rest _:b134.
 <https://ref.openepcis.org/extensions/eu/detergent/Colorant> a <https://ref.openepcis.org/extensions/eu/detergent/IngredientFunction>;
     rdfs:label "Colorant"@en;
     rdfs:comment "Dye or pigment for product appearance."@en;
     skos:notation "colorant".
-_:b139 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Solvent>;
-    rdf:rest _:b140.
+_:b134 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Solvent>;
+    rdf:rest _:b135.
 <https://ref.openepcis.org/extensions/eu/detergent/Solvent> a <https://ref.openepcis.org/extensions/eu/detergent/IngredientFunction>;
     rdfs:label "Solvent"@en;
     rdfs:comment "Carrier liquid (typically water or alcohol-based)."@en;
     skos:notation "solvent".
-_:b140 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/pHAdjuster>;
-    rdf:rest _:b141.
+_:b135 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/pHAdjuster>;
+    rdf:rest _:b136.
 <https://ref.openepcis.org/extensions/eu/detergent/pHAdjuster> a <https://ref.openepcis.org/extensions/eu/detergent/IngredientFunction>;
     rdfs:label "pH Adjuster"@en;
     rdfs:comment "Acid or base used to control product pH."@en;
     skos:notation "ph-adjuster".
-_:b141 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Thickener>;
-    rdf:rest _:b142.
+_:b136 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Thickener>;
+    rdf:rest _:b137.
 <https://ref.openepcis.org/extensions/eu/detergent/Thickener> a <https://ref.openepcis.org/extensions/eu/detergent/IngredientFunction>;
     rdfs:label "Thickener"@en;
     rdfs:comment "Viscosity modifier for product consistency."@en;
     skos:notation "thickener".
-_:b142 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/FoamRegulator>;
-    rdf:rest _:b143.
+_:b137 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/FoamRegulator>;
+    rdf:rest _:b138.
 <https://ref.openepcis.org/extensions/eu/detergent/FoamRegulator> a <https://ref.openepcis.org/extensions/eu/detergent/IngredientFunction>;
     rdfs:label "Foam Regulator"@en;
     rdfs:comment "Agent that controls foam generation (booster or suppressor)."@en;
     skos:notation "foam-regulator".
-_:b143 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/AntiRedeposition>;
-    rdf:rest _:b144.
+_:b138 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/AntiRedeposition>;
+    rdf:rest _:b139.
 <https://ref.openepcis.org/extensions/eu/detergent/AntiRedeposition> a <https://ref.openepcis.org/extensions/eu/detergent/IngredientFunction>;
     rdfs:label "Anti-Redeposition"@en;
     rdfs:comment "Agent preventing removed soil from redepositing on surfaces."@en;
     skos:notation "anti-redeposition".
-_:b144 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Filler>;
+_:b139 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Filler>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.org/extensions/eu/detergent/Filler> a <https://ref.openepcis.org/extensions/eu/detergent/IngredientFunction>;
     rdfs:label "Filler"@en;
@@ -3823,15 +3780,15 @@ _:b144 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Filler>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405>;
     skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
     skos:exactMatch oec:HazardSignalWord;
-    owl:oneOf _:b145.
-_:b145 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Danger>;
-    rdf:rest _:b146.
+    owl:oneOf _:b140.
+_:b140 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Danger>;
+    rdf:rest _:b141.
 <https://ref.openepcis.org/extensions/eu/detergent/Danger> a <https://ref.openepcis.org/extensions/eu/detergent/SignalWord>;
     rdfs:label "Danger"@en;
     rdfs:comment "Signal word for more severe hazard categories."@en;
     skos:exactMatch oec:HazardDanger;
     skos:notation "danger".
-_:b146 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Warning>;
+_:b141 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Warning>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.org/extensions/eu/detergent/Warning> a <https://ref.openepcis.org/extensions/eu/detergent/SignalWord>;
     rdfs:label "Warning"@en;
@@ -3857,7 +3814,7 @@ _:b146 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Warning>;
 <https://ref.openepcis.org/extensions/eu/detergent/SurfactantBiodegradability> a owl:Class;
     rdfs:subClassOf oec:Biodegradability;
     rdfs:label "Surfactant Biodegradability"@en;
-    rdfs:comment "Ultimate aerobic biodegradability test result for a surfactant per EU 2026/405 Annex III. Each surfactant type in the formulation requires a separate test result."@en;
+    rdfs:comment "Ultimate aerobic biodegradability test of a surfactant per EU 2026/405 Annex III, an oec:Biodegradability (oea:TestExecution): the test method (oea:hasMethod, an oec:BiodegradabilityTestMethod), the 28-day duration (oea:hasParameterSetting, oea:Duration), the result observing oea:Biodegradation, evaluated against eudet:UltimateBiodegradabilityThreshold with its oea:hasOutcome. Each surfactant type in the formulation requires a separate test."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405>;
     skos:note "No GS1 equivalent for chemical biodegradability test results."@en.
@@ -3910,7 +3867,8 @@ _:b146 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Warning>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405>;
     skos:note "No GS1 equivalent for biodegradability test data."@en;
     rdfs:range <https://ref.openepcis.org/extensions/eu/detergent/SurfactantBiodegradability>;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/detergent/DetergentProduct>.
+    rdfs:domain <https://ref.openepcis.org/extensions/eu/detergent/DetergentProduct>;
+    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasAssessment>.
 <https://ref.openepcis.org/extensions/eu/detergent/hasFragranceAllergens> a owl:ObjectProperty;
     rdfs:seeAlso gs1:hasAllergen;
     rdfs:label "Fragrance Allergens"@en;
@@ -3983,31 +3941,29 @@ _:b146 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Warning>;
     skos:broadMatch gs1:ingredientContentPercentage;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/detergent/DetergentProduct>.
-<https://ref.openepcis.org/extensions/eu/detergent/phosphateCompliant> a owl:DatatypeProperty;
-    rdfs:label "Phosphate Compliant"@en;
-    rdfs:comment "Whether the product complies with phosphorus/phosphate limits set by the regulation."@en;
+<https://ref.openepcis.org/extensions/eu/detergent/hasFilmBiodegradability> a owl:ObjectProperty;
+    rdfs:label "Film Biodegradability"@en;
+    rdfs:comment "Biodegradability test of the water-soluble film of capsules or pods: an oec:Biodegradability with its result observing oea:Biodegradation and the outcome against the film requirement. Replaces eudet:filmBiodegradable and eudet:filmBiodegradabilityPercentage."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405>;
     skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:boolean;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/detergent/DetergentProduct>.
-<https://ref.openepcis.org/extensions/eu/detergent/filmBiodegradable> a owl:DatatypeProperty;
-    rdfs:label "Film Biodegradable"@en;
-    rdfs:comment "Whether the water-soluble film (for capsules/pods) meets biodegradability requirements."@en;
+    rdfs:range oec:Biodegradability;
+    rdfs:domain <https://ref.openepcis.org/extensions/eu/detergent/DetergentProduct>;
+    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasAssessment>.
+<https://ref.openepcis.org/extensions/eu/detergent/UltimateBiodegradabilityThreshold> a <https://ref.openepcis.org/extensions/common/assessment/Threshold>;
+    rdfs:label "Ultimate Aerobic Biodegradability Threshold"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405>;
-    skos:note "Specific to capsule/pod format detergents. No GS1 equivalent."@en;
-    rdfs:range xsd:boolean;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/detergent/DetergentProduct>.
-<https://ref.openepcis.org/extensions/eu/detergent/filmBiodegradabilityPercentage> a owl:DatatypeProperty;
-    rdfs:label "Film Biodegradability Percentage"@en;
-    rdfs:comment "Measured biodegradability of the water-soluble film as a percentage."@en;
+    <https://ref.openepcis.org/extensions/common/assessment/criterionDescription> "A surfactant passes when at least 60 % is ultimately biodegraded within 28 days (EU 2026/405 Annex III).";
+    <https://ref.openepcis.org/extensions/common/assessment/hasThresholdParameter> <https://ref.openepcis.org/extensions/common/assessment/Biodegradation>;
+    <https://ref.openepcis.org/extensions/common/assessment/hasComparisonOperator> <https://ref.openepcis.org/extensions/common/assessment/GreaterThanOrEqual>;
+    <https://ref.openepcis.org/extensions/common/assessment/hasThresholdValue> _:b142.
+_:b142 a gs1:QuantitativeValue;
+    gs1:value "60"^^xsd:decimal;
+    gs1:unitCode "P1".
+<https://ref.openepcis.org/extensions/eu/detergent/PhosphorusLimit> a <https://ref.openepcis.org/extensions/common/assessment/Criterion>;
+    rdfs:label "Phosphorus Limit"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405>;
-    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:closeMatch oec:biodegradationPercentage;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/detergent/DetergentProduct>.
+    <https://ref.openepcis.org/extensions/common/assessment/criterionDescription> "Total phosphorus content limits for consumer laundry and automatic dishwasher detergents (0.5 g and 0.3 g per standard dosage); a product meets the criterion when it stays within the limit for its category. Replaces eudet:phosphateCompliant: state the verdict as an oea:Assessment evaluated against this criterion with its oea:hasOutcome.".
 <https://ref.openepcis.org/extensions/eu/detergent/hasRecommendedDosage> a owl:ObjectProperty;
     rdfs:seeAlso schema:doseValue;
     rdfs:label "Recommended Dosage"@en;
@@ -4077,42 +4033,6 @@ _:b146 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Warning>;
     skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
     rdfs:range <https://ref.openepcis.org/extensions/eu/detergent/SurfactantType>;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/detergent/SurfactantBiodegradability>.
-<https://ref.openepcis.org/extensions/eu/detergent/biodegradationPercentage> a owl:DatatypeProperty;
-    rdfs:seeAlso oec:biodegradationPercentage;
-    rdfs:label "Biodegradation Percentage"@en;
-    rdfs:comment "Measured ultimate aerobic biodegradation as percentage (>=60% required to pass)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405>;
-    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. Specialises the cross-cutting oec:biodegradationPercentage for a single surfactant type."@en;
-    skos:exactMatch oec:biodegradationPercentage;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/detergent/SurfactantBiodegradability>;
-    rdfs:subPropertyOf oec:biodegradationPercentage.
-<https://ref.openepcis.org/extensions/eu/detergent/hasTestMethod> a owl:ObjectProperty;
-    rdfs:label "Test Method"@en;
-    rdfs:comment "Standard test method used for the biodegradability assessment."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405>;
-    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:closeMatch schema:measurementMethod;
-    rdfs:range <https://ref.openepcis.org/extensions/eu/detergent/BiodegradabilityTestMethod>;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/detergent/SurfactantBiodegradability>.
-<https://ref.openepcis.org/extensions/eu/detergent/testDurationDays> a owl:DatatypeProperty;
-    rdfs:label "Test Duration Days"@en;
-    rdfs:comment "Duration of the biodegradability test in days (typically 28 days)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405>;
-    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:integer;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/detergent/SurfactantBiodegradability>.
-<https://ref.openepcis.org/extensions/eu/detergent/passesUltimateBiodegradability> a owl:DatatypeProperty;
-    rdfs:label "Passes Ultimate Biodegradability"@en;
-    rdfs:comment "Whether the surfactant passes the ultimate aerobic biodegradability test (>=60% within 28 days)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405>;
-    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:boolean;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/detergent/SurfactantBiodegradability>.
 <https://ref.openepcis.org/extensions/eu/detergent/allergenConcentration> a owl:DatatypeProperty;
     rdfs:label "Allergen Concentration"@en;
     rdfs:comment "Concentration of the allergen as weight percentage."@en;
@@ -4138,4 +4058,3 @@ _:b146 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/Warning>;
     skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/detergent/MicroorganismInfo>.
-<https://ref.openepcis.org/extensions/eu/detergent/biodegradabilityTestMethod> skos:exactMatch oec:hasBiodegradabilityTestMethod.

@@ -6,6 +6,7 @@
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix schema: <https://schema.org/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
 @prefix dpp-sh: <https://ref.openepcis.org/extensions/common/core/shapes/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
@@ -681,14 +682,14 @@ dpp-sh:BiodegradabilityShape
     a sh:NodeShape ;
     sh:targetClass oec:Biodegradability ;
     sh:name "Biodegradability Shape"@en ;
+    sh:description "A biodegradability test applies one of the listed test methods and reports a result observing oea:Biodegradation."@en ;
     sh:property [
-        sh:path oec:biodegradationPercentage ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:message "Biodegradability must have exactly one biodegradationPercentage"@en
+        sh:path ( oea:hasResult oea:hasObservedParameter ) ;
+        sh:hasValue oea:Biodegradation ;
+        sh:message "A biodegradability test reports an oea:MeasurementResult observing oea:Biodegradation"@en
     ] ;
     sh:property [
-        sh:path oec:hasBiodegradabilityTestMethod ;
+        sh:path oea:hasMethod ;
         sh:in ( oec:ISO14593 oec:OECD301B oec:OECD301D oec:OECD301F oec:OECD310 ) ;
         sh:maxCount 1
     ] .
@@ -731,24 +732,3 @@ dpp-sh:DepositReturnSchemeShape
         sh:maxCount 1
     ] .
 
-# Constrain biodegradationPercentage to the 0-100 percent range.
-#
-# This shape previously pinned ( oec:biodegradationPercentage gs1:unitCode ) to
-# "P1", by analogy with the has* lifespan shapes above. That analogy does not
-# hold: those properties are owl:ObjectProperty ranging over
-# gs1:QuantitativeValue, whereas oec:biodegradationPercentage is an
-# owl:DatatypeProperty with rdfs:range xsd:decimal. A decimal literal has no
-# gs1:unitCode, so the constraint could never be satisfied by any document the
-# ontology permits — it simply never fired, because until the detergent module's
-# specialised property was subordinated to it nothing used the core term at all.
-# The meaningful check on a bare percentage is its value range.
-dpp-sh:BiodegradationPercentageRangeShape
-    a sh:NodeShape ;
-    sh:targetSubjectsOf oec:biodegradationPercentage ;
-    sh:property [
-        sh:path oec:biodegradationPercentage ;
-        sh:datatype xsd:decimal ;
-        sh:minInclusive 0 ;
-        sh:maxInclusive 100 ;
-        sh:message "oec:biodegradationPercentage must be a decimal percentage between 0 and 100"@en
-    ] .

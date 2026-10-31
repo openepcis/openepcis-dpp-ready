@@ -4,6 +4,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
 @prefix eudet: <https://ref.openepcis.org/extensions/eu/detergent/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
@@ -174,38 +175,6 @@ eudet:Cationic a eudet:SurfactantType ; rdfs:label "Cationic"@en ; skos:notation
 eudet:Amphoteric a eudet:SurfactantType ; rdfs:label "Amphoteric"@en ; skos:notation "amphoteric" ;
     rdfs:comment "Surfactant that can carry positive or negative charge depending on pH (e.g., betaines)."@en .
 
-# =============================================================================
-# Biodegradability Test Method Enumeration (Annex III)
-# =============================================================================
-
-eudet:BiodegradabilityTestMethod
-    a owl:Class ;
-    rdfs:label "Biodegradability Test Method"@en ;
-    rdfs:comment "Standard test methods for ultimate aerobic biodegradability per EU 2026/405 Annex III."@en ;
-    owl:oneOf (
-        eudet:ISO14593
-        eudet:OECD301B
-        eudet:OECD301D
-        eudet:OECD301F
-        eudet:OECD310
-    ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
-    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:BiodegradabilityTestMethod ;
-    skos:exactMatch oec:BiodegradabilityTestMethod ;
-    rdfs:seeAlso <http://data.europa.eu/m8g/Criterion> .
-
-eudet:ISO14593 a eudet:BiodegradabilityTestMethod ; rdfs:label "ISO 14593"@en ; skos:notation "ISO14593" ;
-    rdfs:comment "CO2 headspace test (ISO 14593) for ultimate aerobic biodegradability."@en .
-eudet:OECD301B a eudet:BiodegradabilityTestMethod ; rdfs:label "OECD 301B"@en ; skos:notation "OECD301B" ;
-    rdfs:comment "CO2 evolution test (modified Sturm test) for ready biodegradability."@en .
-eudet:OECD301D a eudet:BiodegradabilityTestMethod ; rdfs:label "OECD 301D"@en ; skos:notation "OECD301D" ;
-    rdfs:comment "Closed bottle test for ready biodegradability."@en .
-eudet:OECD301F a eudet:BiodegradabilityTestMethod ; rdfs:label "OECD 301F"@en ; skos:notation "OECD301F" ;
-    rdfs:comment "Manometric respirometry test for ready biodegradability."@en .
-eudet:OECD310 a eudet:BiodegradabilityTestMethod ; rdfs:label "OECD 310"@en ; skos:notation "OECD310" ;
-    rdfs:comment "CO2 in sealed vessels test for ready biodegradability."@en .
 
 # =============================================================================
 # Ingredient Function Enumeration
@@ -313,7 +282,7 @@ eudet:Ingredient
 eudet:SurfactantBiodegradability
     a owl:Class ;
     rdfs:label "Surfactant Biodegradability"@en ;
-    rdfs:comment "Ultimate aerobic biodegradability test result for a surfactant per EU 2026/405 Annex III. Each surfactant type in the formulation requires a separate test result."@en ;
+    rdfs:comment "Ultimate aerobic biodegradability test of a surfactant per EU 2026/405 Annex III, an oec:Biodegradability (oea:TestExecution): the test method (oea:hasMethod, an oec:BiodegradabilityTestMethod), the 28-day duration (oea:hasParameterSetting, oea:Duration), the result observing oea:Biodegradation, evaluated against eudet:UltimateBiodegradabilityThreshold with its oea:hasOutcome. Each surfactant type in the formulation requires a separate test."@en ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "No GS1 equivalent for chemical biodegradability test results."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/> .
@@ -378,6 +347,7 @@ eudet:hasIngredientList
 
 eudet:hasSurfactantBiodegradability
     a owl:ObjectProperty ;
+    rdfs:subPropertyOf oea:hasAssessment ;
     rdfs:label "Surfactant Biodegradability"@en ;
     rdfs:comment "Biodegradability test results for surfactants in the formulation per Annex III."@en ;
     rdfs:domain eudet:DetergentProduct ;
@@ -473,36 +443,29 @@ eudet:phosphorusContentPercent
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/> ;
     skos:broadMatch gs1:ingredientContentPercentage .
 
-eudet:phosphateCompliant
-    a owl:DatatypeProperty ;
-    rdfs:label "Phosphate Compliant"@en ;
-    rdfs:comment "Whether the product complies with phosphorus/phosphate limits set by the regulation."@en ;
+eudet:hasFilmBiodegradability
+    a owl:ObjectProperty ;
+    rdfs:subPropertyOf oea:hasAssessment ;
+    rdfs:label "Film Biodegradability"@en ;
+    rdfs:comment "Biodegradability test of the water-soluble film of capsules or pods: an oec:Biodegradability with its result observing oea:Biodegradation and the outcome against the film requirement. Replaces eudet:filmBiodegradable and eudet:filmBiodegradabilityPercentage."@en ;
     rdfs:domain eudet:DetergentProduct ;
-    rdfs:range xsd:boolean ;
+    rdfs:range oec:Biodegradability ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-eudet:filmBiodegradable
-    a owl:DatatypeProperty ;
-    rdfs:label "Film Biodegradable"@en ;
-    rdfs:comment "Whether the water-soluble film (for capsules/pods) meets biodegradability requirements."@en ;
-    rdfs:domain eudet:DetergentProduct ;
-    rdfs:range xsd:boolean ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
-    skos:note "Specific to capsule/pod format detergents. No GS1 equivalent."@en ;
+eudet:UltimateBiodegradabilityThreshold a oea:Threshold ;
+    rdfs:label "Ultimate Aerobic Biodegradability Threshold"@en ;
+    oea:criterionDescription "A surfactant passes when at least 60 % is ultimately biodegraded within 28 days (EU 2026/405 Annex III)." ;
+    oea:hasThresholdParameter oea:Biodegradation ;
+    oea:hasComparisonOperator oea:GreaterThanOrEqual ;
+    oea:hasThresholdValue [ a gs1:QuantitativeValue ; gs1:value "60"^^xsd:decimal ; gs1:unitCode "P1" ] ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/> .
 
-eudet:filmBiodegradabilityPercentage
-    a owl:DatatypeProperty ;
-    rdfs:label "Film Biodegradability Percentage"@en ;
-    rdfs:comment "Measured biodegradability of the water-soluble film as a percentage."@en ;
-    rdfs:domain eudet:DetergentProduct ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
-    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:closeMatch oec:biodegradationPercentage .
+eudet:PhosphorusLimit a oea:Criterion ;
+    rdfs:label "Phosphorus Limit"@en ;
+    oea:criterionDescription "Total phosphorus content limits for consumer laundry and automatic dishwasher detergents (0.5 g and 0.3 g per standard dosage); a product meets the criterion when it stays within the limit for its category. Replaces eudet:phosphateCompliant: state the verdict as an oea:Assessment evaluated against this criterion with its oea:hasOutcome." ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/> .
 
 eudet:hasRecommendedDosage
     a owl:ObjectProperty ;
@@ -597,54 +560,6 @@ eudet:hasSurfactantType
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-eudet:biodegradationPercentage
-    a owl:DatatypeProperty ;
-    rdfs:label "Biodegradation Percentage"@en ;
-    rdfs:comment "Measured ultimate aerobic biodegradation as percentage (>=60% required to pass)."@en ;
-    rdfs:domain eudet:SurfactantBiodegradability ;
-    rdfs:range xsd:decimal ;
-    # eudet:SurfactantBiodegradability is a rdfs:subClassOf oec:Biodegradability,
-    # so its instances are subject to dpp-sh:BiodegradabilityShape, which requires
-    # oec:biodegradationPercentage. Same range (xsd:decimal), so the specialisation
-    # is a true subproperty: a declared surfactant percentage satisfies the
-    # cross-cutting obligation under RDFS entailment.
-    rdfs:subPropertyOf oec:biodegradationPercentage ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
-    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. Specialises the cross-cutting oec:biodegradationPercentage for a single surfactant type."@en ;
-    rdfs:seeAlso oec:biodegradationPercentage .
-
-eudet:hasTestMethod
-    a owl:ObjectProperty ;
-    rdfs:label "Test Method"@en ;
-    rdfs:comment "Standard test method used for the biodegradability assessment."@en ;
-    rdfs:domain eudet:SurfactantBiodegradability ;
-    rdfs:range eudet:BiodegradabilityTestMethod ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
-    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:closeMatch schema:measurementMethod .
-
-eudet:testDurationDays
-    a owl:DatatypeProperty ;
-    rdfs:label "Test Duration Days"@en ;
-    rdfs:comment "Duration of the biodegradability test in days (typically 28 days)."@en ;
-    rdfs:domain eudet:SurfactantBiodegradability ;
-    rdfs:range xsd:integer ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
-    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eudet:passesUltimateBiodegradability
-    a owl:DatatypeProperty ;
-    rdfs:label "Passes Ultimate Biodegradability"@en ;
-    rdfs:comment "Whether the surfactant passes the ultimate aerobic biodegradability test (>=60% within 28 days)."@en ;
-    rdfs:domain eudet:SurfactantBiodegradability ;
-    rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/detergent/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
-    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
-
 # =============================================================================
 # Fragrance Allergen Properties
 # =============================================================================
@@ -700,5 +615,3 @@ eudet:pStatements           skos:exactMatch oec:precautionaryStatement .
 
 # Biodegradability test result aligns to the lifted oec:Biodegradability.
 eudet:SurfactantBiodegradability rdfs:subClassOf       oec:Biodegradability .
-eudet:biodegradationPercentage   skos:exactMatch oec:biodegradationPercentage .
-eudet:biodegradabilityTestMethod skos:exactMatch oec:hasBiodegradabilityTestMethod .

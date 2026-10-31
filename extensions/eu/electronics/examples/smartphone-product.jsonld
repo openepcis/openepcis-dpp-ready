@@ -30,60 +30,92 @@
   },
   "euelec:hasRepairabilityIndex": {
     "type": "euelec:RepairabilityIndex",
-    "euelec:totalScore": "72.5",
-    "euelec:displayScore": "7.3",
-    "euelec:hasRepairabilityClass": {
-      "@id": "euelec:RepairClassB"
+    "oea:hasMethod": {
+      "@id": "euelec:FrenchRepairabilityIndexMethod"
     },
-    "euelec:assessmentDate": "2025-01-10",
-    "euelec:repairabilityLabelUrl": "https://example.com/labels/ecophone-pro-2025-repairability.png",
-    "euelec:hasRepairCriteria": [
+    "oea:assessmentDate": "2025-01-10",
+    "oea:hasResult": [
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:Documentation"
         },
-        "euelec:criterionScore": "16.5",
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "Complete repair manuals available in 8 languages, including video tutorials"
+        "oea:awardedScore": "16.5",
+        "oea:resultText": "Complete repair manuals available in 8 languages, including video tutorials"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:Disassembly"
         },
-        "euelec:criterionScore": 14,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "Uses standard screws, modular design, 8 steps to replace display"
+        "oea:awardedScore": 14,
+        "oea:resultText": "Uses standard screws, modular design, 8 steps to replace display"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:SparePartsAvailability"
         },
-        "euelec:criterionScore": 15,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "All spare parts available for 7 years, delivery within 5 business days"
+        "oea:awardedScore": 15,
+        "oea:resultText": "All spare parts available for 7 years, delivery within 5 business days"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:SparePartsPricing"
         },
-        "euelec:criterionScore": 12,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "Battery: 15% of device price, Display: 25%, Logic board: 40%"
+        "oea:awardedScore": 12,
+        "oea:resultText": "Battery: 15% of device price, Display: 25%, Logic board: 40%"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:ProductSpecific"
         },
-        "euelec:criterionScore": 15,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "5 years OS updates, 7 years security updates, software reset capability"
+        "oea:awardedScore": 15,
+        "oea:resultText": "5 years OS updates, 7 years security updates, software reset capability"
       }
-    ]
+    ],
+    "oea:hasIndicator": [
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "euelec:RepairabilityTotalScore"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "72.5",
+          "gs1:unitCode": "C62"
+        },
+        "oea:hasDerivationMethod": {
+          "@id": "euelec:FrenchRepairabilityIndexMethod"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:RepairabilityScore"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "7.3",
+          "gs1:unitCode": "C62"
+        },
+        "oea:hasDerivationMethod": {
+          "@id": "euelec:FrenchRepairabilityIndexMethod"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:RepairabilityClass"
+        },
+        "oea:hasCategoricalValue": {
+          "@id": "euelec:RepairClassB"
+        }
+      }
+    ],
+    "euelec:repairabilityLabelUrl": "https://example.com/labels/ecophone-pro-2025-repairability.png"
   },
   "euelec:hasSoftwareSupport": {
     "type": "euelec:SoftwareSupport",
@@ -226,9 +258,7 @@
       "type": "gs1:Country",
       "gs1:countryCode": "DE"
     },
-    "euelec:collectionSchemeUrl": "https://www.ecotech-electronics.example.com/recycling",
-    "euelec:recyclabilityRate": "0.85",
-    "euelec:recoverabilityRate": "0.92"
+    "euelec:collectionSchemeUrl": "https://www.ecotech-electronics.example.com/recycling"
   },
   "euelec:hasRohsCompliance": {
     "type": "euelec:RoHSCompliance",
@@ -272,5 +302,32 @@
     "gs1:globalLocationNumber": "9521234000006",
     "oec:economicOperatorId": "EU-EOID-DE-2024-123456",
     "schema:vatID": "DE123456789"
+  },
+  "oec:hasRecyclabilityAssessment": {
+    "type": "oec:RecyclabilityAssessment",
+    "oea:hasResult": [
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "oea:RecyclabilityRate"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "0.85",
+          "gs1:unitCode": "C62"
+        }
+      },
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "oea:RecoverableRate"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "0.92",
+          "gs1:unitCode": "C62"
+        }
+      }
+    ]
   }
 }

@@ -39,7 +39,7 @@ paper's per-component-GTIN pattern) is typed both `gs1:Product` and
 | PPWR data point (Article) | Carried by |
 |---|---|
 | Packaging tier (Art. 3) | `euppwr:hasPackagingTier` (this module) |
-| Recyclability grade A/B/C (Art. 6, Annex II) | `euppwr:hasRecyclabilityGrade` (this module), substantiated by a recyclability score (`oea:RecyclabilityScore`, as `sensorReport` type or `oea:Indicator`) + `euppwr:designForRecyclingMethodology` |
+| Recyclability grade A/B/C (Art. 6, Annex II) | `oec:hasRecyclabilityAssessment` with an `oea:Indicator` of kind `euppwr:RecyclabilityPerformanceGrade` (this module) and the design-for-recycling methodology as `oea:hasMethod`; the score is an indicator of kind `oea:RecyclabilityScore` |
 | Harmonised labels (Art. 12) | `euppwr:harmonisedSymbol` (this module) |
 | Packaging type / format | `gs1:packagingType` |
 | Material composition (Art. 5, 6, 12) | `gs1:packagingMaterial` → `gs1:PackagingMaterialDetails` (`gs1:packagingMaterialType` code, `gs1:packagingMaterialCompositionQuantity`, `gs1:packagingMaterialThickness`) |
@@ -114,9 +114,8 @@ ppwr/
 | Property / individual | Range / type | Description |
 |----------|-------|-------------|
 | `euppwr:hasPackagingTier` | `euppwr:PackagingTier` | Sales (primary) / Grouped (secondary) / Transport (tertiary). |
-| `euppwr:hasRecyclabilityGrade` | `euppwr:RecyclabilityGrade` | A / B / C grade per Article 6. |
+| `euppwr:RecyclabilityPerformanceGrade` | `oea:IndicatorKind` | A / B / C grade per Article 6; the indicator value is an `euppwr:RecyclabilityGrade`. |
 | `euppwr:harmonisedSymbol` | `xsd:anyURI` | URI of an Article 12 harmonised label entry (implementing acts pending — use documented placeholders). |
-| `euppwr:designForRecyclingMethodology` | `xsd:string` | D4R methodology substantiating the grade (RecyClass, CEFLEX, APR, …). |
 | `euppwr:hasReuseInformation` | `euppwr:ReuseInformation` | Links a reusable packaging item to its Article 12(2) reuse data card. |
 | `euppwr:hasReuseSystemScope` | `euppwr:ReuseSystemScope` | Local / national / Union-wide availability of the re-use system (Art. 12(2)). |
 | `euppwr:reuseSystemName` | `xsd:string` | Name of the re-use system / Annex VI system operator (open-loop systems without operator are exempt, Art. 12(3)). |

@@ -28,13 +28,6 @@ ppwr-sh:PackagingShape
         sh:message "euppwr:Packaging must declare exactly one packagingTier (Sales / Grouped / Transport; Article 3)"@en
     ] ;
     sh:property [
-        sh:path euppwr:hasRecyclabilityGrade ;
-        sh:nodeKind sh:IRI ;
-        sh:in ( euppwr:GradeA euppwr:GradeB euppwr:GradeC ) ;
-        sh:maxCount 1 ;
-        sh:message "euppwr:hasRecyclabilityGrade must be A, B, or C (PPWR Article 6, Annex II)"@en
-    ] ;
-    sh:property [
         sh:path euppwr:harmonisedSymbol ;
         sh:datatype xsd:anyURI ;
         sh:message "euppwr:harmonisedSymbol must be a URI referencing a harmonised label per PPWR Article 12"@en
@@ -82,13 +75,3 @@ ppwr-sh:DepositRefundIssuedShape
         sh:message "euppwr:depositRefundIssued must be a non-negative decimal monetary amount (PPWR Art. 50)"@en
     ] .
 
-ppwr-sh:RecyclabilityGradeObservationShape
-    a sh:NodeShape ;
-    rdfs:label "Recyclability-grade declaration shape"@en ;
-    sh:targetSubjectsOf euppwr:hasRecyclabilityGrade ;
-    sh:property [
-        sh:path euppwr:designForRecyclingMethodology ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1 ;
-        sh:message "Cite exactly one D4R methodology (RecyClass, CEFLEX, APR, …)"@en
-    ] .

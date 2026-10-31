@@ -30661,10 +30661,6 @@ var dpp_core_context_default = {
         "@id": "oec:hasBiodegradability",
         "@type": "@id"
       },
-      "oec:biodegradationPercentage": {
-        "@id": "oec:biodegradationPercentage",
-        "@type": "@id"
-      },
       "oec:hasCompostability": {
         "@id": "oec:hasCompostability",
         "@type": "@id"

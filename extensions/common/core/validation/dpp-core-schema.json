@@ -347,7 +347,7 @@
     },
     "RepairabilityInfo": {
       "type": "object",
-      "description": "Repairability information per ESPR",
+      "description": "Repairability information per ESPR A repairability score or class is an oea:Indicator (oea:RepairabilityScore, oea:RepairabilityClass).",
       "properties": {
         "@type": {
           "const": "RepairabilityInfo"
@@ -370,12 +370,20 @@
         },
         "hasSoftwareUpdatesAvailability": {
           "type": "object"
+        },
+        "hasIndicator": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasIndicator: oea:Indicator object(s) for scores, classes and expected lifetimes."
         }
       }
     },
     "PerformanceInfo": {
       "type": "object",
-      "description": "Performance assessment (subclass of oea:Assessment): guaranteed lifespan, plus the method, results and indicators of the common/assessment module.",
+      "title": "Performance Information",
+      "description": "Performance and durability assessment per ESPR Article 7: expected lifetime, technical lifetime, use cycles and performance class are indicators. See common/assessment (oea:).",
       "properties": {
         "@type": {
           "const": "PerformanceInfo"
@@ -384,25 +392,69 @@
           "type": "object"
         },
         "hasMethod": {
-          "description": "Method the assessment applied (oea:hasMethod): an individual naming the test or calculation method and its standard."
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "oea:hasMethod: the assessment method, the IRI of a published oea:AssessmentMethod individual or an inline method."
         },
         "hasCondition": {
-          "description": "Conditions the assessment ran under (oea:hasCondition)."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasCondition: oea:AssessmentCondition object(s)."
         },
         "hasParameterSetting": {
-          "description": "Protocol settings of the method (oea:hasParameterSetting)."
-        },
-        "hasResult": {
-          "description": "Results the assessment produced (oea:hasResult): measurement, criterion or categorical results."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasParameterSetting: oea:ParameterSetting object(s) (protocol parameter + gs1:QuantitativeValue)."
         },
         "hasSubAssessment": {
-          "description": "Component assessments (oea:hasSubAssessment), e.g. the individual tests of a composite score."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasSubAssessment: the tests of a composite assessment (oea:TestExecution objects)."
+        },
+        "hasResult": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasResult: oea:MeasurementResult / oea:CriterionResult object(s)."
         },
         "hasIndicator": {
-          "description": "Indicators derived from the results (oea:hasIndicator): scores, classes, expected lifetimes."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasIndicator: oea:Indicator object(s) for scores, classes and expected lifetimes."
         },
         "hasOutcome": {
-          "description": "Overall outcome against the applicable criteria (oea:hasOutcome)."
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "oea:hasOutcome: Satisfied, NotSatisfied or NotAssessed."
+        },
+        "assessmentDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "hasAssessmentBody": {
+          "type": [
+            "string",
+            "object"
+          ]
+        },
+        "hasEvidence": {
+          "type": [
+            "object",
+            "array"
+          ]
         }
       }
     },

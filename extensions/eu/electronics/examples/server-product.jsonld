@@ -35,57 +35,89 @@
   },
   "euelec:hasRepairabilityIndex": {
     "type": "euelec:RepairabilityIndex",
-    "euelec:totalScore": 85,
-    "euelec:displayScore": "8.5",
-    "euelec:hasRepairabilityClass": {
-      "@id": "euelec:RepairClassA"
+    "oea:hasMethod": {
+      "@id": "euelec:FrenchRepairabilityIndexMethod"
     },
-    "euelec:assessmentDate": "2025-01-15",
-    "euelec:hasRepairCriteria": [
+    "oea:assessmentDate": "2025-01-15",
+    "oea:hasResult": [
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:Documentation"
         },
-        "euelec:criterionScore": 18,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "Comprehensive service manuals, maintenance guides, and API documentation"
+        "oea:awardedScore": 18,
+        "oea:resultText": "Comprehensive service manuals, maintenance guides, and API documentation"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:Disassembly"
         },
-        "euelec:criterionScore": 19,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "Tool-less hot-swap design for all major components"
+        "oea:awardedScore": 19,
+        "oea:resultText": "Tool-less hot-swap design for all major components"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:SparePartsAvailability"
         },
-        "euelec:criterionScore": 17,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "All spare parts available for 10 years, 24-hour delivery SLA"
+        "oea:awardedScore": 17,
+        "oea:resultText": "All spare parts available for 10 years, 24-hour delivery SLA"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:SparePartsPricing"
         },
-        "euelec:criterionScore": 15,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "Component pricing published, volume discounts available"
+        "oea:awardedScore": 15,
+        "oea:resultText": "Component pricing published, volume discounts available"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:ProductSpecific"
         },
-        "euelec:criterionScore": 16,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "10 years firmware support, remote diagnostics, modular expansion"
+        "oea:awardedScore": 16,
+        "oea:resultText": "10 years firmware support, remote diagnostics, modular expansion"
+      }
+    ],
+    "oea:hasIndicator": [
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "euelec:RepairabilityTotalScore"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 85,
+          "gs1:unitCode": "C62"
+        },
+        "oea:hasDerivationMethod": {
+          "@id": "euelec:FrenchRepairabilityIndexMethod"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:RepairabilityScore"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "8.5",
+          "gs1:unitCode": "C62"
+        },
+        "oea:hasDerivationMethod": {
+          "@id": "euelec:FrenchRepairabilityIndexMethod"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:RepairabilityClass"
+        },
+        "oea:hasCategoricalValue": {
+          "@id": "euelec:RepairClassA"
+        }
       }
     ]
   },
@@ -247,9 +279,7 @@
       "type": "gs1:Country",
       "gs1:countryCode": "NL"
     },
-    "euelec:collectionSchemeUrl": "https://www.euroserver.example.com/sustainability/recycling",
-    "euelec:recyclabilityRate": "0.92",
-    "euelec:recoverabilityRate": "0.96"
+    "euelec:collectionSchemeUrl": "https://www.euroserver.example.com/sustainability/recycling"
   },
   "euelec:hasRohsCompliance": {
     "type": "euelec:RoHSCompliance",
@@ -346,5 +376,32 @@
         "gs1:countryCode": "NL"
       }
     }
+  },
+  "oec:hasRecyclabilityAssessment": {
+    "type": "oec:RecyclabilityAssessment",
+    "oea:hasResult": [
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "oea:RecyclabilityRate"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "0.92",
+          "gs1:unitCode": "C62"
+        }
+      },
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "oea:RecoverableRate"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "0.96",
+          "gs1:unitCode": "C62"
+        }
+      }
+    ]
   }
 }
