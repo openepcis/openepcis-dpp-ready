@@ -74,7 +74,7 @@ instance data; when it does, those documents become test cases as they are.
 ## Known gaps of the CIRPASS-2 profile
 
 What CIRPASS-2 (textile 1.1.2, EUDPP 2.1.0) has no place for, and how the profile carries it.
-Items 1 to 6 are proposed upstream in
+Items 1 to 6 are filed upstream as [CIRPASS-2/ontologies-docs#3](https://github.com/CIRPASS-2/ontologies-docs/issues/3), text in
 [`../docs/upstream/cirpass2/2026-10-31-assessment-gaps.md`](../docs/upstream/cirpass2/2026-10-31-assessment-gaps.md).
 
 | # | Gap | Carried as | Round trip |

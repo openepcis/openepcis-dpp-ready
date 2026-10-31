@@ -1,6 +1,6 @@
-# Draft issue for CIRPASS-2/ontologies-docs: assessment data that does not round-trip
+# Issue for CIRPASS-2/ontologies-docs: assessment data that does not round-trip
 
-Status: draft, to be filed by OpenEPCIS. Repository: `CIRPASS-2/ontologies-docs` (textile modules);
+Status: filed 2026-10-31 as https://github.com/CIRPASS-2/ontologies-docs/issues/3. Repository: `CIRPASS-2/ontologies-docs` (textile modules);
 item 2 also concerns `ontologies-core` (EVENT).
 
 ---
@@ -70,6 +70,7 @@ an EPCIS event cannot say when it was assessed.
 **Test material**
 
 The round-trip cases (our documents and documents written in your terms from the module
-definitions), the expected outputs and the per-case loss reports are public:
-`extensions/common/interop/crosswalk/cirpass2/tests/` in OpenEPCIS DPP-Ready. Published CIRPASS-2
+definitions), the expected outputs and the per-case loss reports will be published with our next
+release under `extensions/common/interop/crosswalk/cirpass2/tests/` in
+https://github.com/openepcis/openepcis-dpp-ready. Published CIRPASS-2
 instance data would let us replace our hand-written inbound cases.
