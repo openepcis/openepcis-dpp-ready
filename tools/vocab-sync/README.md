@@ -185,6 +185,7 @@ Commands:
 | `provenance [--report R] [--approve F] [--xlsx P] [--min-qa-confidence X]` | From the report(s), write `docs/skos-alignment/skos-alignment-review.md` (review sheet) + `docs/skos-alignment/alignment-provenance.{ttl,json}` (audit trail). `--report` reads one report (vs the `*-opus.json` glob); `--xlsx` also writes the editable Excel curation workbook. |
 | `curate --report R [--xlsx P] [--stamp D] [--base-branch B] [--push]` | Read a curator-edited workbook and rebuild the `vocab-sync/upstream-<stamp>` branch from only the `Apply?=yes` rows (adds, rewrites, **and** removes). See [Curate via Excel](#curate-via-excel). |
 | `reverse [--vocab V] [--baseline TTL --only-new] [--module-map J] [--grade] [--advise] [--stamp D]` | Reverse coverage: every upstream term in one bucket — covered / proposed / code-list / epcis-cbv / uncovered → `docs/skos-alignment/skos-reverse-coverage.{md,json}`. `--grade` LLM-grades the nearest terms of ours (same judge, cache and QA panel as `audit`) and writes a findings report in the audit format (`--report`), so `provenance --xlsx` and `curate` work on it unchanged; `--advise` asks the bulk model MAP / ADOPT / CARRIER / OUT_OF_SCOPE for what stays uncovered. `--baseline` is an earlier copy of the upstream TTL: terms absent there are "new" (`--only-new` restricts the run to them). See [Reverse coverage of an upstream release](#reverse-coverage-of-an-upstream-release). |
+| `propose --coverage J [--prefill J] [--for adopt,defer] [--vocab-prefix P] --out B [--stamp D]` | Draft terms of ours for the uncovered rows of a reverse run (QA model; classes first, then properties): a proposal TTL in house style, a markdown table, JSON, and an updated recommendation set (decision adopt, the draft in Notes) for the workbook. Nothing is inserted. |
 | `coverage-decisions --xlsx P [--out J]` | Export the curator's filled-in Decision rows of a workbook's `coverage` sheet as JSON (adopt / map / carrier / out of scope / defer) for the follow-up work; nothing is applied. |
 | `manifest [--qa-model M]` | Reproducibility manifest: models, parameters, upstream versions + cache hashes → `docs/skos-alignment/alignment-run-manifest.json`. |
 | `fetch --from URL\|file --against cached [--save]` | Diff a refreshed upstream vocabulary against the cached copy (added/removed/changed terms) to decide when to re-audit. |
@@ -273,11 +274,45 @@ QA_CHAT_MODEL=qwen/qwen3-32b java -jar $J reverse --vocab eudpp \
      --out docs/skos-alignment/skos-reverse-coverage-eudpp-$S \
      --report docs/skos-alignment/skos-completeness-reverse-eudpp-$S
 
+#    Candidates per upstream term: the k embedding-nearest terms of ours of the same type, plus
+#    up to two lexical hits of any type (same local name, or half the distinctive name tokens in
+#    common at cosine ≥ 0.65). The lexical pairs are graded regardless of --min-cosine: an upstream
+#    class AbrasionResistance and our property abrasionResistance never meet on type or cosine.
+#    --advice-prefill writes the rows the advice sends elsewhere (MAP/CARRIER/OUT_OF_SCOPE) as a
+#    recommendation set for 1b and the workbook.
+
+# 1b) Draft a term of ours for every uncovered row the recommendation set does not rule out
+#     (carrier / out of scope stay out): TTL blocks in house style + table + an updated
+#     recommendation set that the workbook then shows as decision = adopt with the draft in Notes.
+QA_CHAT_MODEL=qwen/qwen3-32b java -jar $J propose \
+     --coverage docs/skos-alignment/skos-reverse-coverage-eudpp-$S.json \
+     --prefill docs/skos-alignment/coverage-prefill-eudpp-$S.json --for adopt,defer \
+     --out docs/skos-alignment/skos-adoption-proposal-eudpp-$S --stamp $S
+#     A draft's module is the model's when it is one of ours, else the module whose name starts
+#     the upstream sub-module the model copied (textile-process → textile), else --default-module
+#     (derived from --vocab-prefix: cirpass2-textile → textile; otherwise core). --render re-emits
+#     the outputs from a saved drafts JSON without model calls and honours --prefill the same way.
+#     A draft that takes the exact name of an existing term of ours is not written; the row is set
+#     to map. A draft whose name differs only in case from a term of the same module (class
+#     AbrasionResistance beside property abrasionResistance) gets a CHECK caveat.
+#     --reuse <drafts.json> --reuse-coverage <old coverage.json> keeps the draft of every row whose
+#     candidates are unchanged, so a re-run after a retrieval change drafts only what moved.
+
+# 1c) Code-list values (individuals, concepts, schemes) are facts, not judgements: a
+#     deterministic script drafts them from the mirror, typed with the class of ours that holds
+#     the list (existing, drafted in 1b, or a stub with a CHECK note), skos:exactMatch to the
+#     upstream value, and merges decision + proposal text into the 1b recommendation set.
+pnpm run propose:codelists:eudpp -- --stamp $S        # scripts/propose-cirpass2-codelists.ts
+pnpm run propose:codelists:textile -- --stamp $S      # scripts/propose-cirpass2-textile-codelists.ts
+
 # 2) One workbook: the 'decisions' sheet (graded mappings, Apply? yes/no — the usual curate
 #    input) plus the 'coverage' sheet (every upstream term with bucket, nearest ours, proposal,
 #    advice and a Decision dropdown).
+#    --coverage-prefill pre-fills Decision and Notes from a recommendation set (a tracked JSON,
+#    upstream IRI → {decision, notes}), so the curator overrides only where they disagree.
 java -jar $J provenance --report docs/skos-alignment/skos-completeness-reverse-eudpp-$S.json \
      --coverage docs/skos-alignment/skos-reverse-coverage-eudpp-$S.json \
+     --coverage-prefill docs/skos-alignment/skos-adoption-proposal-eudpp-$S-prefill.json \
      --xlsx docs/skos-alignment/skos-alignment-review-eudpp-$S.xlsx --qa-model qwen/qwen3-32b --stamp $S
 
 # 3) After the curator edited both sheets:
@@ -288,6 +323,11 @@ java -jar $J curate --xlsx docs/skos-alignment/skos-alignment-review-eudpp-$S.xl
 java -jar $J coverage-decisions --xlsx docs/skos-alignment/skos-alignment-review-eudpp-$S.xlsx \
      --out docs/skos-alignment/coverage-decisions-eudpp-$S.json
 ```
+
+For a sectoral upstream (`--vocab cirpass2-textile`, `--vocab-prefix cirpass2-textile`) the same
+sequence applies without a baseline (the whole ontology is new to us); the recommendation set
+for 1b is derived from the advice of step 1 (MAP → map, CARRIER → carrier, OUT_OF_SCOPE → out of
+scope; everything else is drafted), see `docs/skos-alignment/coverage-prefill-cirpass2-textile-*.json`.
 
 Buckets, one per upstream term: **covered** (something of ours already maps to it, individuals
 included), **proposed** (the graded pass found a match the TTL lacks; it is also a decisions-sheet

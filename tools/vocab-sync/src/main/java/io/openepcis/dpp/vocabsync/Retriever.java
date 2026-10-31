@@ -62,8 +62,7 @@ public class Retriever {
             // then write into the TTL.
             if (u.iri().equals(term.iri())) continue;
             double score = Embeddings.cosine(qv, upstreamVectors.get(i));
-            boolean exact = u.localName() != null
-                    && u.localName().toLowerCase(Locale.ROOT).equals(ourLocalLc);
+            boolean exact = u.localName() != null && foldedName(u.localName()).equals(ourLocalLc);
             // Lexical force-include: shares a distinctive name token and is at least loosely
             // similar — catches wording-divergent matches embeddings rank just below the gate.
             boolean lexical = !exact && score >= 0.40
@@ -89,18 +88,38 @@ public class Retriever {
         return out;
     }
 
-    /** Distinctive lower-cased tokens of a camelCase/local name (length ≥ 5 to avoid noise). */
-    private static Set<String> tokens(String localName) {
+    /**
+     * Distinctive lower-cased tokens of a camelCase/local name (length ≥ 5 to avoid noise),
+     * British spellings folded to American so fibre/fiber and colour/color meet.
+     */
+    public static Set<String> tokens(String localName) {
         Set<String> out = new java.util.HashSet<>();
         if (localName == null) return out;
         for (String tok : localName.replaceAll("([a-z0-9])([A-Z])", "$1 $2")
                 .replaceAll("[^A-Za-z0-9]", " ").toLowerCase(Locale.ROOT).split("\\s+")) {
-            if (tok.length() >= 5) out.add(tok);
+            if (tok.length() >= 5) out.add(fold(tok));
         }
         return out;
     }
 
-    private static boolean sharesSignificantToken(Set<String> a, Set<String> b) {
+    /** A local name lower-cased with British spellings folded, for exact-name comparison. */
+    public static String foldedName(String localName) {
+        return localName == null ? "" : fold(localName.toLowerCase(Locale.ROOT));
+    }
+
+    private static String fold(String lc) {
+        return lc.replace("fibre", "fiber").replace("colour", "color").replace("fibres", "fibers");
+    }
+
+    /** Jaccard overlap of two token sets; 0 when either is empty. */
+    public static double jaccard(Set<String> a, Set<String> b) {
+        if (a.isEmpty() || b.isEmpty()) return 0;
+        int common = 0;
+        for (String t : a) if (b.contains(t)) common++;
+        return (double) common / (a.size() + b.size() - common);
+    }
+
+    public static boolean sharesSignificantToken(Set<String> a, Set<String> b) {
         for (String t : a) if (b.contains(t)) return true;
         return false;
     }

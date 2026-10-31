@@ -70,6 +70,20 @@ public final class ReviewWorkbook {
      */
     public static void write(Path out, List<Decision> rows, String stamp, String bulkModel, String qaModel,
                              List<CoverageRow> coverage) {
+        write(out, rows, stamp, bulkModel, qaModel, coverage, Map.of());
+    }
+
+    /** A pre-filled coverage decision: what the Decision and Notes cells start out with. */
+    public record Prefill(String decision, String notes) {
+    }
+
+    /**
+     * As above, with the coverage sheet's Decision and Notes columns pre-filled per upstream IRI
+     * (a curator's recommendation set, kept as a JSON file so the workbook is reproducible). The
+     * curator overrides only where they disagree.
+     */
+    public static void write(Path out, List<Decision> rows, String stamp, String bulkModel, String qaModel,
+                             List<CoverageRow> coverage, Map<String, Prefill> prefill) {
         // review rows first (need judgement), then by module, then action — surfaces the contested set.
         List<Decision> sorted = new ArrayList<>(rows);
         sorted.sort(Comparator
@@ -130,7 +144,7 @@ public final class ReviewWorkbook {
             dv.setShowErrorBox(true);
             sheet.addValidationData(dv);
 
-            if (coverage != null && !coverage.isEmpty()) writeCoverage(wb, coverage, headerStyle, reviewStyle);
+            if (coverage != null && !coverage.isEmpty()) writeCoverage(wb, coverage, headerStyle, reviewStyle, prefill);
             writeLegend(wb, sorted, stamp, bulkModel, qaModel, coverage != null && !coverage.isEmpty());
 
             Files.createDirectories(out.getParent());
@@ -180,18 +194,19 @@ public final class ReviewWorkbook {
     }
 
     private static final String[] COVERAGE_HEADERS = {
-            "Decision", "Bucket", "Module", "Type", "New", "Upstream term", "Label", "Definition",
+            "Decision", "Proposal", "Bucket", "Module", "Type", "New", "Upstream term", "Label", "Definition",
             "Nearest ours", "cos", "Graded proposal", "Advice", "Advice detail", "Advice rationale", "Notes",
             "upstreamIri"};
     private static final int[] COVERAGE_WIDTHS = {
-            14, 11, 11, 9, 5, 34, 30, 70, 30, 6, 36, 14, 34, 70, 30, 60};
+            14, 90, 11, 11, 9, 5, 34, 30, 70, 30, 6, 36, 14, 34, 70, 30, 60};
     private static final String[] COVERAGE_DECISIONS = {
             "accept advice", "map", "adopt", "carrier", "out of scope", "defer"};
 
     /** The reverse-coverage sheet: one row per upstream term, the curator fills Decision and Notes. */
     private static void writeCoverage(Workbook wb, List<CoverageRow> coverage,
                                       org.apache.poi.ss.usermodel.CellStyle headerStyle,
-                                      org.apache.poi.ss.usermodel.CellStyle flagStyle) {
+                                      org.apache.poi.ss.usermodel.CellStyle flagStyle,
+                                      Map<String, Prefill> prefill) {
         Sheet sheet = wb.createSheet("coverage");
         Row header = sheet.createRow(0);
         for (int c = 0; c < COVERAGE_HEADERS.length; c++) {
@@ -214,23 +229,27 @@ public final class ReviewWorkbook {
         int r = 1;
         for (CoverageRow row : sorted) {
             Row x = sheet.createRow(r++);
-            set(x, 0, "");
-            Cell b = set(x, 1, row.bucket());
+            Prefill pre = prefill.get(row.upstreamIri());
+            set(x, 0, pre == null ? "" : pre.decision());
+            // The recommendation set's note is the curator-facing text: a drafted term, a mapping, or
+            // the policy reason. It sits beside Decision; the model's advice columns follow further right.
+            set(x, 1, pre == null ? "" : pre.notes());
+            Cell b = set(x, 2, row.bucket());
             if ("uncovered".equals(row.bucket())) b.setCellStyle(flagStyle);
-            set(x, 2, row.module());
-            set(x, 3, row.type());
-            set(x, 4, row.isNew() ? "yes" : "");
-            set(x, 5, row.localName());
-            set(x, 6, row.label());
-            set(x, 7, row.definition());
-            set(x, 8, row.nearestOurId());
-            set(x, 9, row.nearestOurId() == null ? "" : fmt(row.nearestCosine()));
+            set(x, 3, row.module());
+            set(x, 4, row.type());
+            set(x, 5, row.isNew() ? "yes" : "");
+            set(x, 6, row.localName());
+            set(x, 7, row.label());
+            set(x, 8, row.definition());
+            set(x, 9, row.nearestOurId());
+            set(x, 10, row.nearestOurId() == null ? "" : fmt(row.nearestCosine()));
             String prop = row.coveredBy() != null ? row.coveredBy()
                     : row.proposalOurId() != null
                     ? row.proposalOurId() + " " + row.proposalPredicate() + " (" + row.proposalTier()
                     + (row.proposalConfidence() != null ? " " + fmt(row.proposalConfidence()) : "") + ")" : "";
-            set(x, 10, prop);
-            set(x, 11, row.adviceAction());
+            set(x, 11, prop);
+            set(x, 12, row.adviceAction());
             String detail = "";
             if (row.adviceProposedName() != null && !row.adviceProposedName().isBlank()) {
                 detail = (row.adviceModule() == null ? "" : row.adviceModule() + ":") + row.adviceProposedName();
@@ -239,10 +258,10 @@ public final class ReviewWorkbook {
             } else if (row.adviceModule() != null && !row.adviceModule().isBlank()) {
                 detail = row.adviceModule();
             }
-            set(x, 12, detail);
-            set(x, 13, row.adviceRationale());
-            set(x, 14, "");
-            set(x, 15, row.upstreamIri());
+            set(x, 13, detail);
+            set(x, 14, row.adviceRationale());
+            set(x, 15, "");
+            set(x, 16, row.upstreamIri());
         }
         sheet.setColumnHidden(COVERAGE_HEADERS.length - 1, true);
         sheet.createFreezePane(1, 1);
@@ -290,7 +309,8 @@ public final class ReviewWorkbook {
                 }
                 out.add(new CoverageDecision(iri, cell(row, col, "Upstream term").trim(),
                         cell(row, col, "Module").trim(), cell(row, col, "Type").trim(),
-                        cell(row, col, "Bucket").trim(), decision, cell(row, col, "Notes").trim(),
+                        cell(row, col, "Bucket").trim(), decision,
+                        (cell(row, col, "Notes").trim().isEmpty() ? cell(row, col, "Proposal") : cell(row, col, "Notes")).trim(),
                         advice, cell(row, col, "Advice detail").trim(), cell(row, col, "Graded proposal").trim()));
             }
         } catch (IOException e) {
@@ -334,8 +354,11 @@ public final class ReviewWorkbook {
                 "           uncovered = class/property nothing of ours maps to and no accepted match.",
                 "  Advice   MAP / ADOPT / CARRIER / DEFER / OUT_OF_SCOPE from the bulk model, with 'Advice detail' = the counterpart",
                 "           or the proposed module:localName. A recommendation only; nothing on this sheet is applied by curate.",
-                "  Decision your call per row (dropdown). 'accept advice' takes the Advice column as the decision;",
-                "           'adopt' = add a term of ours (name it in Notes if not the proposal); 'map' = map to the term in Notes;",
+                "  Proposal the recommendation behind a pre-filled Decision: the drafted term (name, type, mapping,",
+                "           definition, CHECK hints), the mapping target, or the policy reason. Read-only by convention.",
+                "  Decision your call per row (dropdown); a pre-filled value is the recommendation (see Proposal),",
+                "           change it only where you disagree. 'accept advice' takes the Advice column as the decision;",
+                "           'adopt' = add a term of ours (Notes overrides the Proposal); 'map' = map to the term in Notes;",
                 "           'carrier' = EPCIS/CBV/GS1 carries it; 'out of scope' = leave; 'defer' = next round.",
         };
         if (withCoverage) {
