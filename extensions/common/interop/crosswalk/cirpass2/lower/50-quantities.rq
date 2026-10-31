@@ -28,6 +28,7 @@ WHERE {
   BIND(IF(STRSTARTS(STR(?unit), "https://vocabulary.uncefact.org/UnitMeasureCode#"), STRAFTER(STR(?unit), "#"), ?none) AS ?uncefact)
   BIND(COALESCE(IF(BOUND(?pf), ?pc2, ?none2), ?ccode, ?uncefact) AS ?code)
   BIND(IF(BOUND(?pf), ?pf, COALESCE(?cf, 1.0)) AS ?factor)
-  BIND(xsd:decimal(xsd:decimal(?nv) / ?factor) AS ?v)
+  # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+  BIND(xsd:decimal(IF(xsd:decimal(?nv) = 0, 0.0, xsd:decimal(?nv) / ?factor)) AS ?v)
   FILTER(BOUND(?code))
 }

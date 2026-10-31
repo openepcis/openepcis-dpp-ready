@@ -335,7 +335,7 @@ inside `masterDataAvailableFor`.
         "en": "Waldwirtschaft Schmidt GmbH"
       },
       "partyGLN": "9521234000006",
-      "oec:hasOperatorRole": "DownstreamOperator",
+      "oec:hasOperatorRole": { "id": "oec:DownstreamOperator" },
       "oec:economicOperatorId": "EOID-DE-2026-009988"
     }
   }

@@ -1,9 +1,11 @@
 # EUDPP core: identifiers become eudpp:Identifier nodes. GTIN (product, model granularity) and
-# GLN (actor, facility) and LEI (schema:leiCode) name their scheme; an economic-operator or facility identifier of
-# unstated scheme travels without one.
+# GLN (actor, facility) and LEI (schema:leiCode) name their scheme. An economic-operator or
+# facility identifier that is a GS1 Digital Link of a party or location GLN (…/417/… or …/414/…)
+# is that GLN (EUDPP requires a scheme, and the GLN scheme 13 digits); it adds no identifier when
+# the node states the same GLN. Any other one travels without a scheme, which EUDPP lacks.
 CONSTRUCT {
   ?s ?link ?id .
-  ?id a ?idClass ; eudpp:identifierValue ?v ; eudpp:hasScheme ?scheme ; eudpp:hasGranularity ?gran .
+  ?id a ?idClass ; eudpp:identifierValue ?v ; eudpp:hasScheme ?scheme2 ; eudpp:hasGranularity ?gran .
 }
 WHERE {
   VALUES (?p ?host ?link ?idClass ?scheme ?gran) {
@@ -16,6 +18,10 @@ WHERE {
   }
   GRAPH <urn:xw:in> { ?s ?p ?o }
   FILTER EXISTS { GRAPH <urn:xw:in> { ?s a ?t } ?t rdfs:subClassOf* ?host }
-  BIND(STR(?o) AS ?v)
+  BIND(IF(?p IN (oec:economicOperatorId, oec:facilityId),
+          REPLACE(STR(?o), "^https://id\\.gs1\\.org/41[47]/([0-9]{13})$", "$1"), STR(?o)) AS ?v)
+  BIND(IF(!BOUND(?scheme) && REGEX(?v, "^[0-9]{13}$") && ?v != STR(?o), eudpp:GLN, ?scheme) AS ?scheme2)
+  FILTER(?p NOT IN (oec:economicOperatorId, oec:facilityId) || ?v = STR(?o)
+         || NOT EXISTS { GRAPH <urn:xw:in> { ?s gs1:globalLocationNumber ?g } FILTER(STR(?g) = ?v) })
   BIND(BNODE() AS ?id)
 }

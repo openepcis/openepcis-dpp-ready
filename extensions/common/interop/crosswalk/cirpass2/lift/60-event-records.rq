@@ -1,9 +1,21 @@
 # EPCIS statements travel with their GS1 IRIs (EUDPP EVENT 1.0 reuses them): events, the
 # document envelope, quantity and source elements. Sensor elements that carry an assessment
-# become test executions (70-…) and do not travel as sensor data.
-CONSTRUCT { ?s ?p ?o . }
+# become test executions (70-…) and do not travel as sensor data. EPCIS JSON-LD states no type
+# for the elements of an event's lists; each gets the class its properties have as domain
+# (source/destination, business transaction, quantity element, sensor element and report).
+CONSTRUCT { ?s ?p ?o . ?o a ?elementType . }
 WHERE {
   GRAPH <urn:xw:in> { ?s ?p ?o }
+  OPTIONAL {
+    VALUES (?p ?elementType) {
+      (epcis:sourceList epcis:SourceOrDestination) (epcis:destinationList epcis:SourceOrDestination)
+      (epcis:bizTransactionList epcis:BizTransaction)
+      (epcis:quantityList epcis:QuantityElement) (epcis:childQuantityList epcis:QuantityElement)
+      (epcis:inputQuantityList epcis:QuantityElement) (epcis:outputQuantityList epcis:QuantityElement)
+      (epcis:sensorElementList epcis:SensorElement) (epcis:sensorReport epcis:SensorReport)
+    }
+    FILTER(!isLiteral(?o))
+  }
   FILTER(STRSTARTS(STR(?p), STR(epcis:)) || (?p = rdf:type && STRSTARTS(STR(?o), STR(epcis:))))
   FILTER NOT EXISTS {
     GRAPH <urn:xw:in> { ?s epcis:sensorReport ?r0 . ?r0 epcis:measurementType ?param }

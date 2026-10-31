@@ -12,5 +12,6 @@ WHERE {
   }
   OPTIONAL { ?row xw:unitCode ?code ; xw:siUnit ?si ; xw:factor ?f }
   BIND(COALESCE(?si, IRI(CONCAT("https://vocabulary.uncefact.org/UnitMeasureCode#", ?code))) AS ?unit)
-  BIND(xsd:decimal(xsd:decimal(?v) * COALESCE(?f, 1.0)) AS ?nv)
+  # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+  BIND(xsd:decimal(IF(xsd:decimal(?v) = 0, 0.0, xsd:decimal(?v) * COALESCE(?f, 1.0))) AS ?nv)
 }

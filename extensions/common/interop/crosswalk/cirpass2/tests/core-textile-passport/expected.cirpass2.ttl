@@ -23,86 +23,83 @@
 @prefix schema: <https://schema.org/>.
 @prefix euelec: <https://ref.openepcis.org/extensions/eu/electronics/>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix txt-process: <https://w3id.org/eudpp/textile-process#>.
 
-_:a45ccdbc71fd700bbdeb9679dced5158 a eudpp:ProductIdentifier;
-    eudpp:hasGranularity eudpp:model;
-    eudpp:hasScheme eudpp:GTIN;
-    eudpp:identifierValue "09521234006206".
-_:ab7d771864ab8eaa13c85a932381266d a gs1:CertificationDetails;
-    gs1:certificationIdentification "SA-PT-2026-812";
-    gs1:certificationStandard "SA8000".
-_:b84c468b72bdcd63155932ea4079a12 a eudpp:ActorIdentifier;
+_:a0178493a00a214791922c0e0ab49b00 a schema:PostalAddress;
+    schema:addressCountry "PT";
+    schema:addressLocality "Braga".
+_:a0d7099d054573e12d81e47ab664057b a gs1:TextileMaterialDetails;
+    gs1:textileMaterialDescription "Organic Cotton (Main)"@en;
+    gs1:textileMaterialPercentage 70.
+_:a29891509e402314977c75c5b1884d0 a eudpp:ActorIdentifier;
     eudpp:hasScheme eudpp:GLN;
-    eudpp:identifierValue "9521234000334".
-_:b9eb4f145aa14cde2e6ae88524db6b55 a eudpp:DPPIdentifier;
+    eudpp:identifierValue "9521234000310".
+_:afdbd4cfa57d78ff770c864647f47c1f a gs1:TextileMaterialDetails;
+    gs1:textileMaterialDescription "Recycled Polyester (Main)"@en;
+    gs1:textileMaterialPercentage 30.
+_:b936751e1e73e1583139fd95f5a0502c a eudpp:DPPIdentifier;
     eudpp:identifierValue "https://id.gs1.org/01/09521234006206".
-_:c24bb8ee5aa80c4f207a0e1464e58c18 a schema:PostalAddress;
+_:bfa77133b7ad5283e964f4c5e7b06487 a schema:PostalAddress;
     schema:addressCountry "DE";
     schema:addressLocality "Hamburg";
     schema:postalCode "20457";
     schema:streetAddress "Speicherstadt 12".
-_:c3456f047ad5b16dfcc91fcf41e9d91a a eudpp:ActorRoleAssignment;
+_:c410d2886f4a2f503618a5044e41f949 a eudpp:ActorRoleAssignment;
     eudpp:hasActor <https://id.gs1.org/417/9521234000310>;
     eudpp:hasRole eudpp:manufacturer;
     eudpp:inContextOfProduct <https://id.gs1.org/01/09521234006206>.
-_:c440c77e8918c443bd3375b1cdb9ddf1 a eudpp:ActorIdentifier;
+_:c7765de1db39aef3c58ef2d5b4eabecd a eudpp:ActorIdentifier;
     eudpp:hasScheme eudpp:GLN;
-    eudpp:identifierValue "9521234000310".
-_:ca9a2ee778e8f75f0b9090245523ad68 a schema:ContactPoint;
+    eudpp:identifierValue "9521234000334".
+_:d6ebd8ebb24a0fa361157ebd4c66716d a eudpp:ProductIdentifier;
+    eudpp:hasGranularity eudpp:model;
+    eudpp:hasScheme eudpp:GTIN;
+    eudpp:identifierValue "09521234006206".
+_:d915f25e3e959fa8c65787e48936daae a gs1:CertificationDetails;
+    gs1:certificationIdentification "SA-PT-2026-812";
+    gs1:certificationStandard "SA8000".
+_:f0e73f83237c2c77cc0a0ec6e97d4521 a schema:ContactPoint;
     schema:email "dpp@nordlicht.example.com";
     schema:telephone "+49 40 555 0195".
-_:ce7fef0dcc6660990ce584283ac2e69 a eudpp:FacilityIdentifier;
+_:f1170500bfdeff0befb679eb0678e2e9 a eudpp:FacilityIdentifier;
     eudpp:hasScheme eudpp:GLN;
     eudpp:identifierValue "9521234000327".
-_:defc76e8054ae4abf101ad9b780094f7 a schema:PostalAddress;
-    schema:addressCountry "PT";
-    schema:addressLocality "Braga".
-_:e2c9e327c59649561dd625e8e8c54aca a gs1:TextileMaterialDetails;
-    gs1:textileMaterialDescription "Organic Cotton (Main)"@en;
-    gs1:textileMaterialPercentage 70.
-_:e6b6545474b6cbfaaad597fe44df2e2a a gs1:TextileMaterialDetails;
-    gs1:textileMaterialDescription "Recycled Polyester (Main)"@en;
-    gs1:textileMaterialPercentage 30.
-_:eaa0b2a9cf6b2258688d344a81c05a51 a eudpp:ActorIdentifier;
-    eudpp:identifierValue "https://id.gs1.org/417/9521234000310".
-_:fa262741b3b05933c71d2b1b9270d54f a eudpp:FacilityIdentifier;
-    eudpp:identifierValue "https://id.gs1.org/414/9521234000327".
 <https://id.gs1.org/01/09521234006206#dpp> a eudpp:DPP;
     schema:version "1.0";
     eudpp:appliesToProduct <https://id.gs1.org/01/09521234006206>;
     eudpp:dppStatus "Active";
     eudpp:granularity "model";
     eudpp:hasBackUpCopyHost <https://id.gs1.org/417/9521234000334>;
-    eudpp:hasDigitalProductPassportId _:b9eb4f145aa14cde2e6ae88524db6b55;
+    eudpp:hasDigitalProductPassportId _:b936751e1e73e1583139fd95f5a0502c;
     eudpp:validFrom "2026-05-12T00:00:00Z"^^xsd:dateTimeStamp.
 <https://id.gs1.org/01/09521234006206> dcterms:type gs1:Clothing, eutex:TextileApparel;
     a eudpp:Product;
-    gs1:textileMaterial _:e2c9e327c59649561dd625e8e8c54aca, _:e6b6545474b6cbfaaad597fe44df2e2a;
+    gs1:textileMaterial _:a0d7099d054573e12d81e47ab664057b, _:afdbd4cfa57d78ff770c864647f47c1f;
     eudpp:commodityCode "6110201000";
     eudpp:countryOfOrigin "PT";
     eudpp:hasDPP <https://id.gs1.org/01/09521234006206#dpp>;
     eudpp:hasEconomicOperator <https://id.gs1.org/417/9521234000310>;
     eudpp:hasEUDeclarationOfConformity <https://www.nordlicht.example.com/compliance/doc-2026-118.pdf>;
     eudpp:hasProductGroup oec:Textiles;
-    eudpp:hasUniqueProductIdentifier _:a45ccdbc71fd700bbdeb9679dced5158;
+    eudpp:hasUniqueProductIdentifier _:d6ebd8ebb24a0fa361157ebd4c66716d;
     eudpp:productName "Nordlicht Crewneck — organic cotton / recycled polyester"@en;
     eudpp:productTradeMark "Nordlicht".
 <https://id.gs1.org/414/9521234000327> dcterms:type "Cut and Sew";
     a eudpp:Facility;
-    gs1:certification _:ab7d771864ab8eaa13c85a932381266d;
-    schema:address _:defc76e8054ae4abf101ad9b780094f7;
-    schema:name "Braga Knitting & Confection";
-    eudpp:hasUniqueFacilityIdentifier _:ce7fef0dcc6660990ce584283ac2e69, _:fa262741b3b05933c71d2b1b9270d54f.
+    gs1:certification _:d915f25e3e959fa8c65787e48936daae;
+    schema:address _:a0178493a00a214791922c0e0ab49b00;
+    <https://w3id.org/eudpp/facilityName> "Braga Knitting & Confection";
+    eudpp:hasUniqueFacilityIdentifier _:f1170500bfdeff0befb679eb0678e2e9.
 <https://id.gs1.org/417/9521234000310> dcterms:type oec:OperatorInformation;
     a eudpp:LegalPerson;
-    schema:contactPoint _:ca9a2ee778e8f75f0b9090245523ad68;
+    schema:address _:bfa77133b7ad5283e964f4c5e7b06487;
+    schema:contactPoint _:f0e73f83237c2c77cc0a0ec6e97d4521;
     eudpp:actorName "Nordlicht Apparel GmbH";
-    eudpp:hasUniqueOperatorIdentifier _:c440c77e8918c443bd3375b1cdb9ddf1, _:eaa0b2a9cf6b2258688d344a81c05a51;
-    eudpp:isEstablishedIn _:c24bb8ee5aa80c4f207a0e1464e58c18.
+    eudpp:hasUniqueOperatorIdentifier _:a29891509e402314977c75c5b1884d0.
 <https://id.gs1.org/417/9521234000334> dcterms:type oec:OperatorInformation;
     a eudpp:LegalPerson;
     eudpp:actorName "EPCIS Cloud DPP Services";
-    eudpp:hasUniqueOperatorIdentifier _:b84c468b72bdcd63155932ea4079a12.
+    eudpp:hasUniqueOperatorIdentifier _:c7765de1db39aef3c58ef2d5b4eabecd.
 oec:Textiles a eudpp:ClassificationCode.
 <https://www.nordlicht.example.com/compliance/doc-2026-118.pdf> dcterms:issued "2026-05-11"^^xsd:date;
     dcterms:language "en";

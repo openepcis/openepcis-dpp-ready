@@ -20,64 +20,68 @@
 @prefix txt-indicator: <https://w3id.org/eudpp/textile-indicator#>.
 @prefix txt-recyclability: <https://w3id.org/eudpp/textile-recyclability#>.
 @prefix txt-structure: <https://w3id.org/eudpp/textile-structure#>.
+@prefix schema: <https://schema.org/>.
+@prefix euelec: <https://ref.openepcis.org/extensions/eu/electronics/>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix txt-process: <https://w3id.org/eudpp/textile-process#>.
 
-_:aafb663e20288ed66d9c2b12948cf00 dcterms:source <https://id.gs1.org/01/09521234000020#recyclability>;
-    a txt-recyclability:RecyclabilityScore;
-    txt-indicator:derivedUsingMethod eutex:JRCRecyclabilityScoring;
-    txt-indicator:hasQuantitativeValue _:d5c325038ea99e3c0a9b98c442bd5cce.
-_:b29852d203539edfeebb48e06e44195a a txt-connector:QuantitativeValue;
-    txt-connector:hasMeasurementUnit units:one;
-    txt-connector:numericValue "1"^^xsd:decimal.
-_:b8538bce96fc665bd48ff57ff6ff3a1b dcterms:type oea:awardedScore;
-    a txt-indicator:PerformanceIndicator;
-    txt-indicator:derivedFrom _:bdabc1ed37e29b5ee291dbe42e5cd5da;
-    txt-indicator:hasQuantitativeValue _:b29852d203539edfeebb48e06e44195a.
-_:bdabc1ed37e29b5ee291dbe42e5cd5da a txt-recyclability:RecyclabilityCriterionResult;
-    txt-recyclability:evaluatesCriterion txt-recyclability:monoMaterialCriterion;
-    txt-recyclability:hasCriterionOutcome txt-recyclability:criterionSatisfied.
-_:bef96fbd796a7ea4a8f22be340ec272e a txt-recyclability:RecyclabilityCriterionResult;
-    txt-recyclability:evaluatesCriterion txt-recyclability:printingAbsenceCriterion;
-    txt-recyclability:hasCriterionOutcome txt-recyclability:criterionSatisfied.
-_:bf92923600dd37ebe9c16912c1d6668e dcterms:subject eutex:ElastaneContent;
+_:a81d0f25d76af15e59f14df116801b5b dcterms:subject eutex:ElastaneContent;
     a txt-assessment:MeasurementResult, txt-recyclability:RecyclabilityCriterionResult;
-    txt-assessment:hasMeasuredValue _:d90322afe4499ded97d13d79ade8eda3;
+    txt-assessment:hasMeasuredValue _:d22ef9f2ebfe8200c417ec0a255f57ef;
     txt-assessment:isEvaluatedAgainst eutex:ElastaneContentLimit;
     txt-recyclability:evaluatesCriterion txt-recyclability:elastaneProportionCriterion;
     txt-recyclability:hasCriterionOutcome txt-recyclability:criterionSatisfied.
-_:c4914c37122408cbbb7a04400661971a dcterms:type oea:awardedScore;
-    a txt-indicator:PerformanceIndicator;
-    txt-indicator:derivedFrom _:ec7ace777a49eee1dbd843f2ac26e4a4;
-    txt-indicator:hasQuantitativeValue _:d5a7542b92e6bb9e53d6f06f31e66a91.
-_:d5a7542b92e6bb9e53d6f06f31e66a91 a txt-connector:QuantitativeValue;
-    txt-connector:hasMeasurementUnit units:one;
-    txt-connector:numericValue "0"^^xsd:decimal.
-_:d5c325038ea99e3c0a9b98c442bd5cce a txt-connector:QuantitativeValue;
+_:bef41f658f79dbd9c6460c54c2e45747 a txt-connector:QuantitativeValue;
     txt-connector:hasMeasurementUnit units:one;
     txt-connector:numericValue 6.5.
-_:d90322afe4499ded97d13d79ade8eda3 a txt-connector:QuantitativeValue;
+_:c0b2c4e97a6a7dec96172cc75becc9ed a txt-connector:QuantitativeValue;
     txt-connector:hasMeasurementUnit units:one;
-    txt-connector:numericValue 0.05.
-_:e344a8eb335a3acd0a2b92263ce3135c a txt-connector:QuantitativeValue;
-    txt-connector:hasMeasurementUnit units:one;
-    txt-connector:numericValue 0.15.
-_:ec7ace777a49eee1dbd843f2ac26e4a4 a txt-recyclability:RecyclabilityCriterionResult;
-    txt-recyclability:evaluatesCriterion txt-recyclability:coatingAbsenceCriterion;
-    txt-recyclability:hasCriterionOutcome txt-recyclability:criterionNotSatisfied.
-_:ec884edaf42d3370034de816ef1b5faf dcterms:type oea:awardedScore;
-    a txt-indicator:PerformanceIndicator;
-    txt-indicator:derivedFrom _:bef96fbd796a7ea4a8f22be340ec272e;
-    txt-indicator:hasQuantitativeValue _:f18787d5045c288d853bcd3ebeb5aff7.
-_:f18787d5045c288d853bcd3ebeb5aff7 a txt-connector:QuantitativeValue;
+    txt-connector:numericValue "0"^^xsd:decimal.
+_:c86923a41e2586b0062eb10bb010d35e a txt-recyclability:RecyclabilityCriterionResult;
+    txt-recyclability:evaluatesCriterion txt-recyclability:monoMaterialCriterion;
+    txt-recyclability:hasCriterionOutcome txt-recyclability:criterionSatisfied.
+_:caf509e89659c72fab65ae7a86513b1e a txt-connector:QuantitativeValue;
     txt-connector:hasMeasurementUnit units:one;
     txt-connector:numericValue "1"^^xsd:decimal.
+_:cb5ef7d6c9a7b124449a64b8be1bcf9a dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:c86923a41e2586b0062eb10bb010d35e;
+    txt-indicator:hasQuantitativeValue _:caf509e89659c72fab65ae7a86513b1e.
+_:d1d49fe959025db02d4323591c2fbfda a txt-recyclability:RecyclabilityCriterionResult;
+    txt-recyclability:evaluatesCriterion txt-recyclability:printingAbsenceCriterion;
+    txt-recyclability:hasCriterionOutcome txt-recyclability:criterionSatisfied.
+_:d22ef9f2ebfe8200c417ec0a255f57ef a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 0.05.
+_:da1ed4b650bd9bc127b87ea193e8096b a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "1"^^xsd:decimal.
+_:db1dbcff6256c64c204b6fa0777bf68b dcterms:source <https://id.gs1.org/01/09521234000020#recyclability>;
+    a txt-recyclability:RecyclabilityScore;
+    txt-indicator:derivedUsingMethod eutex:JRCRecyclabilityScoring;
+    txt-indicator:hasQuantitativeValue _:bef41f658f79dbd9c6460c54c2e45747.
+_:e0303991bad821a148ea926258dcf16b dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:e5e7bc1771cd3dc9effbc5cf4b03f770;
+    txt-indicator:hasQuantitativeValue _:c0b2c4e97a6a7dec96172cc75becc9ed.
+_:e05bd8a9893e5de66fe5caac870cdcfe a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 0.15.
+_:e5e7bc1771cd3dc9effbc5cf4b03f770 a txt-recyclability:RecyclabilityCriterionResult;
+    txt-recyclability:evaluatesCriterion txt-recyclability:coatingAbsenceCriterion;
+    txt-recyclability:hasCriterionOutcome txt-recyclability:criterionNotSatisfied.
+_:f5aca16bc760c0306191e22f356e956e dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:d1d49fe959025db02d4323591c2fbfda;
+    txt-indicator:hasQuantitativeValue _:da1ed4b650bd9bc127b87ea193e8096b.
 <https://id.gs1.org/01/09521234000020#recyclability> a txt-recyclability:RecyclabilityAssessment;
     txt-assessment:appliesMethod eutex:JRCRecyclabilityScoring;
     txt-assessment:assessesPerformanceParameter eutex:ElastaneContent;
     txt-assessment:assessesProduct <https://id.gs1.org/01/09521234000020>;
-    txt-assessment:producesResult _:bdabc1ed37e29b5ee291dbe42e5cd5da, _:bef96fbd796a7ea4a8f22be340ec272e, _:bf92923600dd37ebe9c16912c1d6668e, _:ec7ace777a49eee1dbd843f2ac26e4a4;
+    txt-assessment:producesResult _:a81d0f25d76af15e59f14df116801b5b, _:c86923a41e2586b0062eb10bb010d35e, _:d1d49fe959025db02d4323591c2fbfda, _:e5e7bc1771cd3dc9effbc5cf4b03f770;
     txt-recyclability:assessesRecyclingRoute eutex:MechanicalRecycling.
 <https://id.gs1.org/01/09521234000020> a eudpp:Product;
-    txt-indicator:hasIndicator _:aafb663e20288ed66d9c2b12948cf00, _:b8538bce96fc665bd48ff57ff6ff3a1b, _:c4914c37122408cbbb7a04400661971a, _:ec884edaf42d3370034de816ef1b5faf;
+    txt-indicator:hasIndicator _:cb5ef7d6c9a7b124449a64b8be1bcf9a, _:db1dbcff6256c64c204b6fa0777bf68b, _:e0303991bad821a148ea926258dcf16b, _:f5aca16bc760c0306191e22f356e956e;
     txt-recyclability:hasRecyclabilityAssessment <https://id.gs1.org/01/09521234000020#recyclability>.
 eutex:ElastaneContent a txt-durability:ObservedPerformanceParameter;
     rdfs:label "Elastane Content"@en.
@@ -85,7 +89,7 @@ eutex:ElastaneContentLimit a txt-assessment:PerformanceThreshold;
     rdfs:label "Elastane Content Limit"@en;
     txt-assessment:criterionForPerformanceParameter eutex:ElastaneContent;
     txt-assessment:hasComparisonOperator txt-assessment-codelists:lessThanOrEqualTo;
-    txt-assessment:hasThresholdValue _:e344a8eb335a3acd0a2b92263ce3135c.
+    txt-assessment:hasThresholdValue _:e05bd8a9893e5de66fe5caac870cdcfe.
 eutex:JRCRecyclabilityScoring a txt-recyclability:RecyclabilityScoringMethod;
     rdfs:label "JRC Recyclability Scoring"@en;
     txt-assessment:isDefinedByStandard eutex:JRCTextilePrepStudy.
@@ -93,4 +97,5 @@ eutex:JRCTextilePrepStudy a txt-assessment:AssessmentStandard;
     rdfs:label "JRC Textile Preparatory Study, 3rd Milestone"@en;
     rdfs:seeAlso <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>.
 eutex:MechanicalRecycling a txt-recyclability:MechanicalRecyclingRoute;
-    rdfs:label "Mechanical Recycling"@en.
+    rdfs:label "Mechanical Recycling"@en;
+    txt-recyclability:usesRecyclingProcessType txt-process:MechanicalRecyclingProcess.

@@ -4,7 +4,8 @@ CONSTRUCT { ?m oec:massFraction ?f . ?m schema:name ?name . }
 WHERE {
   {
     GRAPH <urn:xw:in> { ?m eudpp:materialPercentage ?pct }
-    BIND(xsd:decimal(xsd:decimal(?pct) / 100) AS ?f)
+    # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+    BIND(xsd:decimal(IF(xsd:decimal(?pct) = 0, 0.0, xsd:decimal(?pct) / 100)) AS ?f)
   } UNION {
     GRAPH <urn:xw:in> { ?m eudpp:hasMaterialType ?mt . ?mt eudpp:materialTypeValue ?name }
   }

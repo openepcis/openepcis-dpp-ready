@@ -1,12 +1,14 @@
 # The recycling technology a textile recyclability assessment assumes: a CIRPASS-2 recycling
-# route, the OpenEPCIS technology individual typed with the route class.
+# route, the OpenEPCIS technology individual typed with the route class, with the process type
+# the route class requires.
 CONSTRUCT {
   ?a txt-recyclability:assessesRecyclingRoute ?tech .
-  ?tech a ?route ; rdfs:label ?label .
+  ?tech a ?route ; rdfs:label ?label ; txt-recyclability:usesRecyclingProcessType ?proc .
 }
 WHERE {
   GRAPH <urn:xw:in> { ?a eutex:hasApplicableRecyclingTechnology ?tech }
   OPTIONAL { ?tech xw:liftType ?rt }
   BIND(COALESCE(?rt, txt-recyclability:RecyclingRoute) AS ?route)
   OPTIONAL { ?tech rdfs:label ?label }
+  OPTIONAL { ?route xw:processType ?proc }
 }

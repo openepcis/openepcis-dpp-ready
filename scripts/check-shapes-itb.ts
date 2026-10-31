@@ -52,6 +52,7 @@ import path from "node:path";
 import jsonld from "jsonld";
 import { offlineDocumentLoader } from "./lib/jsonld-loader.ts";
 import {
+  CORE_TYPE,
   discoverModules,
   granularityOfDigitalLink,
   ROOT,
@@ -259,7 +260,62 @@ async function main() {
     console.log(`   ${fixtures.length} fixture(s) checked${bad}`);
   }
 
-  console.log(`\nSummary: ${checked} example(s) through the EC validator, ${failed} failing.`);
+  // Phase 3: what the crosswalk hands an OpenEPCIS consumer. Each test case commits the lowered
+  // document as JSON-LD (scripts/check-crosswalk.ts); the offline gate checks it without the
+  // sh:sparql constraints, so the full shapes run here. It is validated against the core and every
+  // module whose namespace it uses. A case whose roundtrip.txt records shape findings (data the
+  // target vocabulary has no place for) must be rejected, every other one accepted.
+  const crosswalkRoot = path.join(ROOT, "extensions/common/interop/crosswalk");
+  const lowered: string[] = [];
+  for (const rel of await fs.readdir(crosswalkRoot, { recursive: true })) {
+    const r = String(rel).split(path.sep).join("/");
+    if (r.endsWith("/lowered.ours.jsonld")) lowered.push(r);
+  }
+  if (lowered.length) {
+    console.log(`\n── crosswalk: lowered documents (${lowered.length})`);
+    for (const rel of lowered.sort()) {
+      const doc = JSON.parse(await fs.readFile(path.join(crosswalkRoot, rel), "utf8"));
+      const nquads = (await jsonld.toRDF(doc, {
+        format: "application/n-quads",
+        documentLoader: documentLoader as never,
+      })) as unknown as string;
+      const types = modules
+        .filter((m) => m.type !== CORE_TYPE && nquads.includes(`<https://ref.openepcis.org/${m.dir}/`))
+        .map((m) => m.type);
+      const report = await fs.readFile(path.join(crosswalkRoot, rel.replace(/lowered\.ours\.jsonld$/, "roundtrip.txt")), "utf8");
+      const recorded = report.split(/^## /m)
+        .filter((sec) => sec.startsWith("OpenEPCIS shapes"))
+        .some((sec) => sec.split("\n").slice(1).some((l) => l.trim() && l.trim() !== "none"));
+      for (const type of types.length ? types : [CORE_TYPE]) {
+        checked++;
+        let result: TarResult;
+        try {
+          result = await validate(nquads, type);
+        } catch (e) {
+          failed++;
+          console.log(`   ERROR  ${rel} [${type}]: ${(e as Error).message}`);
+          continue;
+        }
+        if (result.conforms && !recorded) {
+          console.log(`   OK     ${rel} [${type}]`);
+          continue;
+        }
+        if (!result.conforms && recorded) {
+          console.log(`   OK     ${rel} [${type}]: rejected, as its roundtrip.txt records (${result.violations.length} violation(s))`);
+          continue;
+        }
+        failed++;
+        if (result.conforms) {
+          console.log(`   FAIL   ${rel} [${type}]: conforms, but its roundtrip.txt records shape findings`);
+          continue;
+        }
+        console.log(`   FAIL   ${rel} [${type}]: ${result.violations.length} violation(s)`);
+        for (const v of VERBOSE ? result.violations : result.violations.slice(0, 5)) console.log(`            ${v}`);
+      }
+    }
+  }
+
+  console.log(`\nSummary: ${checked} document(s) through the EC validator, ${failed} failing.`);
   if (failed) {
     console.log(
       `\nA failure here with a green \`pnpm run check:shapes\` means the two engines disagree:\n` +

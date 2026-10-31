@@ -1,0 +1,9 @@
+# schema.org classes travel back as they are, unless a node-class row lowers them (postal address,
+# contact point) or a rule converts the node (a material's schema:Country, 125-…).
+CONSTRUCT { ?s a ?c . }
+WHERE {
+  GRAPH <urn:xw:in> { ?s a ?c }
+  FILTER(STRSTARTS(STR(?c), STR(schema:)))
+  FILTER NOT EXISTS { ?c xw:nodeLowerTo ?any }
+  FILTER(?c != schema:Country)
+}

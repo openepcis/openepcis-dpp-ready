@@ -18,11 +18,12 @@ WHERE {
   BIND(IF(?onProduct, IRI(CONCAT(STR(?st), "#lca-study")), ?st) AS ?study)
   BIND(IF(?onProduct, ?st, ?noProd) AS ?prod)
   BIND(IF(?onProduct, ?study, ?noFlat) AS ?flatStudy)
-  OPTIONAL { GRAPH <urn:xw:in> { ?st oec:carbonFootprintStudyUrl ?url0 } FILTER(?onProduct) BIND(STR(?url0) AS ?url) }
+  OPTIONAL { GRAPH <urn:xw:in> { ?st oec:carbonFootprintStudyUrl ?url0 } FILTER(?onProduct) BIND(STRDT(STR(?url0), xsd:anyURI) AS ?url) }
   OPTIONAL { GRAPH <urn:xw:in> { ?st oec:declaredUnit ?du } }
   OPTIONAL { GRAPH <urn:xw:in> { ?tot gs1:value ?qv ; gs1:unitCode ?code }
              OPTIONAL { ?urow xw:unitCode ?code ; xw:siUnit ?si ; xw:factor ?f } }
   BIND(IF(isLiteral(?tot), BNODE(), ?tot) AS ?cf)
-  BIND(xsd:decimal(xsd:decimal(IF(isLiteral(?tot), ?tot, ?qv)) * COALESCE(?f, 1.0)) AS ?nv)
+  # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+  BIND(xsd:decimal(IF(xsd:decimal(IF(isLiteral(?tot), ?tot, ?qv)) = 0, 0.0, xsd:decimal(IF(isLiteral(?tot), ?tot, ?qv)) * COALESCE(?f, 1.0))) AS ?nv)
   BIND(IF(BOUND(?code), COALESCE(?si, IRI(CONCAT("https://vocabulary.uncefact.org/UnitMeasureCode#", ?code))), units:kilogram) AS ?unit)
 }

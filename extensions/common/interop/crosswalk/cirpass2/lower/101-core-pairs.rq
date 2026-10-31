@@ -60,5 +60,6 @@ WHERE {
   OPTIONAL { ?crow xw:codeFor ?p ; xw:ourCode ?oc ; xw:theirCode ?tc . FILTER(STR(?tc) = STR(?o)) }
   FILTER(BOUND(?oc) || NOT EXISTS { ?anyRow xw:codeFor ?p })
   OPTIONAL { ?row xw:ourDatatype ?dt }
-  BIND(COALESCE(?ours, ?oc, IF(BOUND(?dt), STRDT(STR(?o), ?dt), ?o)) AS ?o2)
+  # A decimal is cast (the target may write 9.1E0); other datatypes are relabelled.
+  BIND(COALESCE(?ours, ?oc, IF(BOUND(?dt), IF(?dt = xsd:decimal, xsd:decimal(?o), STRDT(STR(?o), ?dt)), ?o)) AS ?o2)
 }

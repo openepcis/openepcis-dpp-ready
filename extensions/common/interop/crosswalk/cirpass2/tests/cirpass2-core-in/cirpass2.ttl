@@ -9,7 +9,7 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<https://id.gs1.org/01/09524000000017> a eudpp:Product ;
+<https://id.gs1.org/01/09524000000019> a eudpp:Product ;
     eudpp:productName "Kettle KX-200" ;
     eudpp:description "Electric kettle, 1.7 l" ;
     eudpp:commodityCode "8516719000" ;
@@ -17,11 +17,11 @@
     eudpp:productTradeMark "Kalda" ;
     eudpp:isEnergyRelated true ;
     eudpp:hasDPP <https://dpp.kalda.example.com/dpp/KX-200> ;
-    eudpp:hasUniqueProductIdentifier [ a eudpp:ProductIdentifier ; eudpp:identifierValue "09524000000017" ;
+    eudpp:hasUniqueProductIdentifier [ a eudpp:ProductIdentifier ; eudpp:identifierValue "09524000000019" ;
                                        eudpp:hasScheme eudpp:GTIN ; eudpp:hasGranularity eudpp:model ] ;
-    eudpp:hasManufacturer <https://id.gs1.org/417/9524000000014> ;
-    eudpp:hasEconomicOperator <https://id.gs1.org/417/9524000000021> ;
-    eudpp:hasFacility <https://id.gs1.org/414/9524000000038> ;
+    eudpp:hasManufacturer <https://id.gs1.org/417/9524000000019> ;
+    eudpp:hasEconomicOperator <https://id.gs1.org/417/9524000000026> ;
+    eudpp:hasFacility <https://id.gs1.org/414/9524000000033> ;
     eudpp:hasProperty [ a eudpp:Weight ; eudpp:numericalValue 1.2 ; eudpp:hasMeasurementUnit units:kilogram ] ;
     eudpp:hasMaterial [ a eudpp:MaterialOfComposition ; eudpp:materialPercentage 62.5 ; eudpp:isCriticalRawMaterial false ;
                         eudpp:hasMaterialType [ a eudpp:MaterialType ; eudpp:materialTypeValue "Stainless steel" ] ] ;
@@ -42,26 +42,31 @@
     eudpp:validFrom "2026-09-01T00:00:00Z"^^xsd:dateTimeStamp ;
     eudpp:lastUpdate "2026-10-20T08:15:00Z"^^xsd:dateTimeStamp ;
     eudpp:hasDigitalProductPassportId [ a eudpp:DPPIdentifier ; eudpp:identifierValue "https://dpp.kalda.example.com/dpp/KX-200" ] ;
-    eudpp:hasIssuer <https://id.gs1.org/417/9524000000014> ;
+    eudpp:hasIssuer <https://id.gs1.org/417/9524000000019> ;
     eudpp:dppUrl "https://dpp.kalda.example.com/dpp/KX-200"^^xsd:anyURI .
 
-<https://id.gs1.org/417/9524000000014> a eudpp:LegalPerson ;
+<https://id.gs1.org/417/9524000000019> a eudpp:LegalPerson ;
     eudpp:actorName "Kalda Sp. z o.o." ;
     eudpp:registeredTradeName "Kalda" ;
-    eudpp:hasUniqueOperatorIdentifier [ a eudpp:ActorIdentifier ; eudpp:identifierValue "9524000000014" ; eudpp:hasScheme eudpp:GLN ] ;
-    eudpp:isEstablishedIn [ a dcterms:Location ] .
+    eudpp:hasUniqueOperatorIdentifier [ a eudpp:ActorIdentifier ; eudpp:identifierValue "9524000000019" ; eudpp:hasScheme eudpp:GLN ] ;
+    eudpp:isEstablishedIn [ a dcterms:Location ] ;
+    schema:address [ a schema:PostalAddress ; schema:streetAddress "ul. Przemysłowa 12" ; schema:postalCode "60-101" ;
+                     schema:addressLocality "Poznań" ; schema:addressCountry "PL" ] ;
+    schema:email "dpp@kalda.example.com" .
 
-<https://id.gs1.org/417/9524000000021> a eudpp:LegalPerson ;
+<https://id.gs1.org/417/9524000000026> a eudpp:LegalPerson ;
     eudpp:actorName "Kalda Import GmbH" ;
     eudpp:hasUniqueOperatorIdentifier [ a eudpp:ActorIdentifier ; eudpp:identifierValue "529900T8BM49AURSDO55" ; eudpp:hasScheme eudpp:LEI ] .
 
 [] a eudpp:ActorRoleAssignment ;
-    eudpp:hasActor <https://id.gs1.org/417/9524000000021> ;
+    eudpp:hasActor <https://id.gs1.org/417/9524000000026> ;
     eudpp:hasRole eudpp:importer ;
-    eudpp:inContextOfProduct <https://id.gs1.org/01/09524000000017> .
+    eudpp:inContextOfProduct <https://id.gs1.org/01/09524000000019> .
 
-<https://id.gs1.org/414/9524000000038> a eudpp:Facility ;
-    eudpp:hasUniqueFacilityIdentifier [ a eudpp:FacilityIdentifier ; eudpp:identifierValue "9524000000038" ; eudpp:hasScheme eudpp:GLN ] .
+<https://id.gs1.org/414/9524000000033> a eudpp:Facility ;
+    <https://w3id.org/eudpp/facilityName> "Kalda Poznań plant" ;
+    schema:geo [ a schema:GeoCoordinates ; schema:latitude 52.4064 ; schema:longitude 16.9252 ] ;
+    eudpp:hasUniqueFacilityIdentifier [ a eudpp:FacilityIdentifier ; eudpp:identifierValue "9524000000033" ; eudpp:hasScheme eudpp:GLN ] .
 
 <https://kalda.example.com/soc/lead> a eudpp:SubstanceOfConcern ;
     eudpp:usualName "Lead" ;
@@ -83,5 +88,5 @@
     eudpp:expiryDate "2030-06-30"^^xsd:date ;
     eudpp:hasLCIAResult [ a eudpp:LCIAResult ; eudpp:quantifiesIndicator eudpp:ind_GWPfossil ;
                           eudpp:numericalValue 13.9 ; eudpp:unitAsString "kg CO2 eq" ;
-                          eudpp:hasPerModuleValue [ a eudpp:LCAModuleValue ; eudpp:forLifeCycleModule eudpp:en15804moduleA1 ; eudpp:numericalValue 9.1 ] ,
-                                                  [ a eudpp:LCAModuleValue ; eudpp:forLifeCycleModule eudpp:en15804moduleA3 ; eudpp:numericalValue 4.8 ] ] .
+                          eudpp:hasPerModuleValue [ a eudpp:LCAModuleValue ; eudpp:forLifeCycleModule eudpp:en15804moduleA1 ; eudpp:amount 9.1E0 ; eudpp:isDeclared true ] ,
+                                                  [ a eudpp:LCAModuleValue ; eudpp:forLifeCycleModule eudpp:en15804moduleA3 ; eudpp:amount 4.8E0 ; eudpp:isDeclared true ] ] .

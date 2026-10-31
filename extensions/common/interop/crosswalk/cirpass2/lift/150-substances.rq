@@ -16,6 +16,8 @@ CONSTRUCT {
 WHERE {
   ?row xw:theirs eudpp:containsSubstanceOfConcern ; xw:ours ?hp .
   GRAPH <urn:xw:in> { ?prod ?hp ?soc }
+  # Product data only: substances an event observes (an event extension) are not the product's.
+  FILTER EXISTS { GRAPH <urn:xw:in> { ?prod a ?prodT } ?prodT rdfs:subClassOf* gs1:Product }
   OPTIONAL { GRAPH <urn:xw:in> { ?soc oec:substanceLocation ?loc } }
   OPTIONAL { GRAPH <urn:xw:in> { ?soc ?cp ?pctv } VALUES ?cp { oec:concentration eutex:substanceConcentration } }
   OPTIONAL { GRAPH <urn:xw:in> { ?soc ?sp ?safeText } VALUES ?sp { oec:safeUseInstructions eutex:safeUseInstructions } }
@@ -24,7 +26,8 @@ WHERE {
   BIND(BNODE() AS ?pres)
   BIND(IF(BOUND(?pctv), BNODE(), ?u1) AS ?conc)
   BIND(IF(BOUND(?pctv), eudpp:ConcentrationOfSubstanceOfConcern, ?u2) AS ?concClass)
-  BIND(IF(BOUND(?pctv), xsd:decimal(xsd:decimal(?pctv) / 100), ?u3) AS ?frac)
+  # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+  BIND(IF(BOUND(?pctv), xsd:decimal(IF(xsd:decimal(?pctv) = 0, 0.0, xsd:decimal(?pctv) / 100)), ?u3) AS ?frac)
   BIND(IF(BOUND(?pctv), eudpp:massFractionUnit, ?u4) AS ?fracUnit)
   BIND(IF(BOUND(?safeText), BNODE(), ?u5) AS ?safe)
   BIND(IF(BOUND(?disText), BNODE(), ?u6) AS ?dis)

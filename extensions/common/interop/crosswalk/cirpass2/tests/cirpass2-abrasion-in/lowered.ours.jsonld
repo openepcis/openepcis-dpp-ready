@@ -1,0 +1,91 @@
+{
+  "@context": [
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld"
+  ],
+  "@graph": [
+    {
+      "id": "https://dpp.example.org/garment/4711/assessment-abrasion",
+      "type": "eutex:DurabilityInfo",
+      "oea:hasMethod": "https://dpp.example.org/garment/4711/method-martindale",
+      "oea:hasParameterSetting": "https://dpp.example.org/garment/4711/setting-cycles",
+      "oea:hasResult": "https://dpp.example.org/garment/4711/result-abrasion"
+    },
+    {
+      "id": "https://dpp.example.org/garment/4711/indicator-abrasion",
+      "type": "oea:Indicator",
+      "oea:hasDerivationMethod": "https://dpp.example.org/garment/4711/method-martindale",
+      "oea:hasIndicatorKind": "https://w3id.org/eudpp/textile-indicator#PerformanceAfterNCycles",
+      "oea:hasIndicatorValue": "https://dpp.example.org/garment/4711/value-indicator",
+      "oea:isDerivedFrom": "https://dpp.example.org/garment/4711/result-abrasion"
+    },
+    {
+      "id": "https://dpp.example.org/garment/4711/method-martindale",
+      "type": "oea:TestMethod",
+      "oea:isDefinedByStandard": "https://dpp.example.org/garment/4711/standard-iso12947-2",
+      "https://ref.openepcis.org/extensions/common/assessment/methodName": "Martindale abrasion, specimen breakdown"
+    },
+    {
+      "id": "https://dpp.example.org/garment/4711/result-abrasion",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "https://dpp.example.org/garment/4711/value-abrasion",
+      "oea:hasObservedParameter": "eutex:AbrasionResistance",
+      "oea:isEvaluatedAgainst": "https://dpp.example.org/garment/4711/threshold-abrasion"
+    },
+    {
+      "id": "https://dpp.example.org/garment/4711/setting-cycles",
+      "type": "oea:ParameterSetting",
+      "oea:hasParameter": "oea:NumberOfCycles",
+      "oea:hasParameterValue": "https://dpp.example.org/garment/4711/value-cycles"
+    },
+    {
+      "id": "https://dpp.example.org/garment/4711/standard-iso12947-2",
+      "type": "oea:AssessmentStandard",
+      "https://ref.openepcis.org/extensions/common/assessment/standardCode": "ISO 12947-2:2016",
+      "oea:standardUrl": "https://www.iso.org/search.html?q=12947-2"
+    },
+    {
+      "id": "https://dpp.example.org/garment/4711/threshold-abrasion",
+      "type": "oea:Threshold",
+      "https://ref.openepcis.org/extensions/common/assessment/criterionDescription": "At least 30 000 cycles to breakdown",
+      "oea:hasComparisonOperator": "oea:GreaterThanOrEqual",
+      "oea:hasThresholdParameter": "eutex:AbrasionResistance",
+      "oea:hasThresholdValue": "https://dpp.example.org/garment/4711/value-threshold"
+    },
+    {
+      "id": "https://dpp.example.org/garment/4711/value-abrasion",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "40000"
+    },
+    {
+      "id": "https://dpp.example.org/garment/4711/value-cycles",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "50000"
+    },
+    {
+      "id": "https://dpp.example.org/garment/4711/value-indicator",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "0.8"
+    },
+    {
+      "id": "https://dpp.example.org/garment/4711/value-threshold",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "30000"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000037",
+      "type": "gs1:Product",
+      "oea:hasIndicator": "https://dpp.example.org/garment/4711/indicator-abrasion",
+      "eutex:hasDurabilityInfo": "https://dpp.example.org/garment/4711/assessment-abrasion"
+    },
+    {
+      "id": "https://w3id.org/eudpp/textile-indicator#PerformanceAfterNCycles",
+      "type": "oea:IndicatorKind"
+    }
+  ]
+}

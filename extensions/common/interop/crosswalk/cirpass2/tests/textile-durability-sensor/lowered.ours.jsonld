@@ -1,0 +1,99 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld"
+  ],
+  "@graph": [
+    {
+      "id": "_:a0646703526fa16b39838009ed43b004",
+      "type": "EPCISDocument",
+      "creationDate": "2025-10-02T10:00:00Z",
+      "schemaVersion": "2.0",
+      "epcisBody": {
+        "id": "_:f6b530f9ca7ccc4f1d4bab3b5c6a3e61"
+      }
+    },
+    {
+      "id": "_:a9bda63d22868f842f31ae1af4262ae2",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "P1",
+      "gs1:value": "2"
+    },
+    {
+      "id": "_:abf21bfd49d46339a73bd385425d0e0d",
+      "type": "oea:TestExecution",
+      "oea:hasMethod": "https://ref.openepcis.org/extensions/eu/textile/MartindaleAbrasionTest",
+      "oea:hasResult": "_:d8d7c33129c14cf18d92c9b5d0dc7e14"
+    },
+    {
+      "id": "_:b660db14d8f38701e4a05d89369dacae",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:b9a6994701f6717eaae6da47c9a47346",
+      "oea:hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/PillingResistance"
+    },
+    {
+      "id": "_:b9a6994701f6717eaae6da47c9a47346",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "4"
+    },
+    {
+      "id": "_:ba005650dffa71d8722ed647c7c09eed",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:a9bda63d22868f842f31ae1af4262ae2",
+      "oea:hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/DimensionalStability"
+    },
+    {
+      "id": "_:bc465b043c6ca7ed68960720746d2253",
+      "type": "oea:TestExecution",
+      "oea:hasMethod": "https://ref.openepcis.org/extensions/eu/textile/PillingTest",
+      "oea:hasResult": "_:b660db14d8f38701e4a05d89369dacae"
+    },
+    {
+      "id": "_:d8d7c33129c14cf18d92c9b5d0dc7e14",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:f22db636a75bf845eb3eebe250c539c1",
+      "oea:hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/AbrasionResistance"
+    },
+    {
+      "id": "_:eab41500b75be816ff785b2cb8917592",
+      "type": "oea:TestExecution",
+      "oea:hasMethod": "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTest",
+      "oea:hasResult": "_:ba005650dffa71d8722ed647c7c09eed"
+    },
+    {
+      "id": "_:f22db636a75bf845eb3eebe250c539c1",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "40000"
+    },
+    {
+      "id": "_:f6b530f9ca7ccc4f1d4bab3b5c6a3e61",
+      "eventList": {
+        "id": "urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567006"
+      }
+    },
+    {
+      "id": "urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567006",
+      "type": "ObjectEvent",
+      "action": "OBSERVE",
+      "bizStep": "inspecting",
+      "disposition": "active",
+      "epcList": [
+        "https://id.gs1.org/01/09521234000013/21/WJ-2025-00301"
+      ],
+      "epcis:eventTime": {
+        "type": "xsd:dateTime",
+        "@value": "2025-10-02T10:00:00Z"
+      },
+      "eventTimeZoneOffset": "+01:00",
+      "readPoint": "https://id.gs1.org/414/9521234000068",
+      "oea:hasAssessment": [
+        "_:abf21bfd49d46339a73bd385425d0e0d",
+        "_:bc465b043c6ca7ed68960720746d2253",
+        "_:eab41500b75be816ff785b2cb8917592"
+      ]
+    }
+  ]
+}

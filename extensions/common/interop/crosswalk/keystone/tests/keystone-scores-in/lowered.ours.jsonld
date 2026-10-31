@@ -1,0 +1,53 @@
+{
+  "@context": [
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld"
+  ],
+  "@graph": [
+    {
+      "id": "_:bdc8e949dc131d0c4efcaab752963420",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "8"
+    },
+    {
+      "id": "_:c05f3b1cc3b0a8d3857d90b7da410603",
+      "type": "eutex:RecyclabilityAssessment",
+      "oea:hasIndicator": "_:c6fee78a99f993b64340be7371379ae4",
+      "oea:hasMethod": "eutex:JRCRecyclabilityScoring"
+    },
+    {
+      "id": "_:c6fee78a99f993b64340be7371379ae4",
+      "type": "oea:Indicator",
+      "oea:hasDerivationMethod": "eutex:JRCRecyclabilityScoring",
+      "oea:hasIndicatorKind": "oea:RecyclabilityScore",
+      "oea:hasIndicatorValue": "_:f8b1854fff4ab597eb9a625c30bd60a6"
+    },
+    {
+      "id": "_:eef06c7f0b0e71f7d6f03bc3a1e18250",
+      "type": "eutex:RobustnessAssessment",
+      "oea:hasIndicator": "_:f2e259d818c440cf191736c1ba255c90",
+      "oea:hasMethod": "eutex:JRCRobustnessScoring"
+    },
+    {
+      "id": "_:f2e259d818c440cf191736c1ba255c90",
+      "type": "oea:Indicator",
+      "oea:hasDerivationMethod": "eutex:JRCRobustnessScoring",
+      "oea:hasIndicatorKind": "eutex:RobustnessScore",
+      "oea:hasIndicatorValue": "_:bdc8e949dc131d0c4efcaab752963420"
+    },
+    {
+      "id": "_:f8b1854fff4ab597eb9a625c30bd60a6",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "6.5"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000051",
+      "type": "gs1:Product",
+      "eutex:hasRecyclabilityAssessment": "_:c05f3b1cc3b0a8d3857d90b7da410603",
+      "eutex:hasRobustnessAssessment": "_:eef06c7f0b0e71f7d6f03bc3a1e18250"
+    }
+  ]
+}

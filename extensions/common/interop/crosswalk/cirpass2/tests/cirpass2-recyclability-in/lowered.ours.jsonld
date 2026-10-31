@@ -1,0 +1,61 @@
+{
+  "@context": [
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld"
+  ],
+  "@graph": [
+    {
+      "id": "https://dpp.example.org/garment/4712/coating",
+      "type": "oea:CriterionResult",
+      "oea:hasCriterion": "https://ref.openepcis.org/extensions/eu/textile/FreeFromCoatings",
+      "oea:hasOutcome": "oea:NotSatisfied"
+    },
+    {
+      "id": "https://dpp.example.org/garment/4712/mono",
+      "type": "oea:CriterionResult",
+      "oea:hasCriterion": "https://ref.openepcis.org/extensions/eu/textile/MonoMaterial",
+      "oea:hasOutcome": "oea:PartlySatisfied"
+    },
+    {
+      "id": "https://dpp.example.org/garment/4712/printing",
+      "type": "oea:CriterionResult",
+      "oea:hasCriterion": "https://ref.openepcis.org/extensions/eu/textile/FreeFromPrintings",
+      "oea:hasOutcome": "oea:Satisfied"
+    },
+    {
+      "id": "https://dpp.example.org/garment/4712/recyclability",
+      "type": "oec:RecyclabilityAssessment",
+      "oea:hasMethod": "https://dpp.example.org/garment/4712/scoring",
+      "oea:hasResult": [
+        "https://dpp.example.org/garment/4712/coating",
+        "https://dpp.example.org/garment/4712/mono",
+        "https://dpp.example.org/garment/4712/printing"
+      ]
+    },
+    {
+      "id": "https://dpp.example.org/garment/4712/score",
+      "type": "oea:Indicator",
+      "oea:hasCategoricalValue": "https://w3id.org/eudpp/textile-recyclability#highRecyclabilityLabel",
+      "oea:hasDerivationMethod": "https://dpp.example.org/garment/4712/scoring",
+      "oea:hasIndicatorKind": "oea:RecyclabilityScore",
+      "oea:hasIndicatorValue": "https://dpp.example.org/garment/4712/score-value"
+    },
+    {
+      "id": "https://dpp.example.org/garment/4712/score-value",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "6.5"
+    },
+    {
+      "id": "https://dpp.example.org/garment/4712/scoring",
+      "type": "oea:AssessmentMethod",
+      "https://ref.openepcis.org/extensions/common/assessment/methodName": "Brand recyclability scoring v3"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000044",
+      "type": "gs1:Product",
+      "oea:hasIndicator": "https://dpp.example.org/garment/4712/score",
+      "oec:hasRecyclabilityAssessment": "https://dpp.example.org/garment/4712/recyclability"
+    }
+  ]
+}

@@ -1,13 +1,18 @@
 # EUDPP core: EPD specifics the property pairs cannot express: the validity date (a date in
-# CIRPASS-2) and the product category rules (an eudpp:PCR node at the rules' URL).
+# CIRPASS-2) and the product category rules (an eudpp:PCR node at the rules' URL). A stage value
+# is a declared module value (eudpp:isDeclared, required by LCAModuleValue).
 CONSTRUCT {
   ?epd eudpp:expiryDate ?exp .
   ?epd eudpp:followsPCR ?pcr . ?pcr a eudpp:PCR .
+  ?sv eudpp:isDeclared true .
 }
 WHERE {
+  { GRAPH <urn:xw:in> { ?sv a oec:LifecycleStageResult ; oec:stageValue ?any } }
+  UNION {
   GRAPH <urn:xw:in> { ?epd a ?t }
   ?t rdfs:subClassOf* oec:EnvironmentalProductDeclaration .
   { GRAPH <urn:xw:in> { ?epd oec:epdValidUntil ?d } BIND(STRDT(SUBSTR(STR(?d), 1, 10), xsd:date) AS ?exp) }
   UNION
   { GRAPH <urn:xw:in> { ?epd oec:productCategoryRules ?u } BIND(IRI(STR(?u)) AS ?pcr) }
+}
 }

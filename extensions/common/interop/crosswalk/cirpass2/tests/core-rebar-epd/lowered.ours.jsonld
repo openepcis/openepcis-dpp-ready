@@ -1,0 +1,132 @@
+{
+  "@context": [
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/iron-steel/iron-steel-context.jsonld"
+  ],
+  "@graph": [
+    {
+      "id": "_:a4a101a3fd6636e0dfbc9e33665f6a87",
+      "type": "oec:EnvironmentalProductDeclaration",
+      "oec:epdProgramOperator": "EPD International",
+      "oec:epdRegistrationNumber": "EPD-IES-2026-00417",
+      "oec:epdStandard": "EN 15804+A2",
+      "oec:epdValidUntil": {
+        "type": "xsd:date",
+        "@value": "2031-04-30"
+      },
+      "oec:hasImpactIndicator": {
+        "id": "_:fa3ecc4422df218ea6ea7f9940595a85"
+      }
+    },
+    {
+      "id": "_:ae9bb543e2101ab341a76c51e245fcbb",
+      "type": "oec:LifecycleStageResult",
+      "oec:hasLifecycleStage": {
+        "id": "oec:StageA1"
+      },
+      "oec:stageValue": {
+        "type": "xsd:decimal",
+        "@value": "180"
+      }
+    },
+    {
+      "id": "_:b1f0b63302425eb7687e97d12219ed7b",
+      "type": "oec:MaterialComposition",
+      "oec:componentName": "Carbon and alloying elements (C, Mn, Cu, Si)",
+      "oec:massFraction": "0.022"
+    },
+    {
+      "id": "_:c02bda6a67c4c263a55aa2cd90c0b0ef",
+      "type": "oec:RecycledContent",
+      "oec:postConsumerRecycledContent": "0.93",
+      "oec:preConsumerRecycledContent": "0.05",
+      "oec:recycledContent": "0.98"
+    },
+    {
+      "id": "_:cc36b78f6bb68e7faf69442b10f9b94d",
+      "type": "oec:LifecycleStageResult",
+      "oec:hasLifecycleStage": {
+        "id": "oec:StageA2"
+      },
+      "oec:stageValue": {
+        "type": "xsd:decimal",
+        "@value": "60"
+      }
+    },
+    {
+      "id": "_:d4e31441e85d0f760e5cc9e6f95f1d80",
+      "type": "oec:LifecycleStageResult",
+      "oec:hasLifecycleStage": {
+        "id": "oec:StageA3"
+      },
+      "oec:stageValue": {
+        "type": "xsd:decimal",
+        "@value": "400"
+      }
+    },
+    {
+      "id": "_:e0579aaa83716cd090fe9b4b1a87f4aa",
+      "type": "gs1:RegulatoryInformation",
+      "gs1:regulatoryAct": "EU 2024/1781",
+      "oec:isRegulationCompliant": "true"
+    },
+    {
+      "id": "_:fa1f0a6db441a87671e367a53913723b",
+      "type": "oec:MaterialComposition",
+      "oec:componentName": "Iron (Fe)",
+      "oec:massFraction": "0.978"
+    },
+    {
+      "id": "_:fa3ecc4422df218ea6ea7f9940595a85",
+      "type": "oec:ImpactIndicatorResult",
+      "oec:hasIndicatorType": {
+        "id": "oec:GWPTotal"
+      },
+      "oec:hasLifecycleStageResult": [
+        {
+          "id": "_:ae9bb543e2101ab341a76c51e245fcbb"
+        },
+        {
+          "id": "_:cc36b78f6bb68e7faf69442b10f9b94d"
+        },
+        {
+          "id": "_:d4e31441e85d0f760e5cc9e6f95f1d80"
+        }
+      ],
+      "oec:indicatorTotalValue": {
+        "type": "xsd:integer",
+        "@value": "640"
+      },
+      "oec:indicatorUnit": "kg CO2 eq / t"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234601005/10/H7740025",
+      "type": "eusteel:IronSteelProduct",
+      "gs1:gtin": "09521234601005",
+      "gs1:manufacturer": {
+        "id": "https://id.gs1.org/417/9521234000051"
+      },
+      "gs1:productName": {
+        "@language": "en",
+        "@value": "S500B ribbed reinforcing bar, Ø16 mm"
+      },
+      "gs1:regulatoryInformation": {
+        "id": "_:e0579aaa83716cd090fe9b4b1a87f4aa"
+      },
+      "oec:hasEnvironmentalProductDeclaration": {
+        "id": "_:a4a101a3fd6636e0dfbc9e33665f6a87"
+      },
+      "oec:hasMaterialComposition": [
+        "_:b1f0b63302425eb7687e97d12219ed7b",
+        "_:fa1f0a6db441a87671e367a53913723b"
+      ],
+      "oec:hasRecycledContentDetails": "_:c02bda6a67c4c263a55aa2cd90c0b0ef"
+    },
+    {
+      "id": "https://id.gs1.org/417/9521234000051",
+      "type": "gs1:Organization",
+      "gs1:organizationName": "Recycling Steelworks GmbH",
+      "gs1:partyGLN": "9521234000051"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 # core-rebar-epd: lift then lower
-input 73 triples, lift 64, back 47
+input 73 triples, lift 67, back 47
 
 ## the way back compared with the input
 - missing 1  a https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate
@@ -57,3 +57,12 @@ input 73 triples, lift 64, back 47
   1  https://ref.openepcis.org/extensions/eu/iron-steel/productNumber
   1  https://ref.openepcis.org/extensions/eu/iron-steel/steelDesignation
   1  https://ref.openepcis.org/extensions/eu/iron-steel/steelGradeClassification
+
+## target-ontology axioms the lifted document does not satisfy (accepted gaps)
+  gap 23  range eudpp:Product eudpp:productName  (1)
+  gap 24  cardinality eudpp:InventoryIndicatorResult eudpp:quantifiesIndicator  (1)
+  gap 24  cardinality eudpp:LCAResult eudpp:quantifiesIndicator  (1)
+
+## OpenEPCIS shapes the way back no longer satisfies
+  _ heatNumber eusteel:IronSteelProduct must declare exactly one heatNumber (EN 10168 traceability)
+  _ steelDesignation eusteel:IronSteelProduct must declare a steelDesignation (EN 10027)

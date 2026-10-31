@@ -4,6 +4,22 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+### Added: crosswalk checks against the CIRPASS-2 ontologies and every module example
+
+The gate checks each lift output against the OWL/RDFS axioms of the CIRPASS-2 ontologies
+(`scripts/lib/owl-structure.ts`); unavoidable findings are accepted per profile with their gap
+number (`profile.json` `structure.accepted`), listed in `roundtrip.txt`, and fail once no longer
+needed. It runs every module example through both profiles, commits the lowered document as JSON-LD
+(`lowered.ours.jsonld`) and checks it expands losslessly; `check:shapes:itb` validates it with the
+full shapes. SHACL applies per module as in the EC validator; what the way back no longer satisfies
+is recorded (`roundtrip.txt`, `examples-shapes.txt`). An entailment step types EPCIS master data
+without `type`. Rule fixes: `eudpp:amount`/`isDeclared` on module values, `xsd:anyURI` URLs,
+`schema:address` for actors, the facility name, GLN scheme for Digital Link identifiers, process
+types of recycling routes, indicator provenance via results, product-only rules, generic hazardous
+substances as `eudpp:Substance`, zero values. Gap docs corrected: EUDPP has facility addresses,
+coordinates and a (mis-namespaced) facility name; four new gaps (23–26). Gate time 30 s → 12 s for
+the cases.
+
 ### Added: EUDPP core in the `cirpass2` crosswalk
 
 Product, DPP, identifiers, actors and roles, facilities, materials, substances of concern,

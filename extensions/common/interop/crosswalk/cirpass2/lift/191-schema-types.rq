@@ -1,0 +1,8 @@
+# schema.org classes travel as they are, unless a node-class row maps them (190-… carries the
+# statements).
+CONSTRUCT { ?s a ?c . }
+WHERE {
+  GRAPH <urn:xw:in> { ?s a ?c }
+  FILTER(STRSTARTS(STR(?c), STR(schema:)))
+  FILTER NOT EXISTS { ?c xw:nodeClass ?any }
+}
