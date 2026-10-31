@@ -1,5 +1,7 @@
 # gs1:QuantitativeValue → txt-connector:QuantitativeValue with an SI Digital Framework unit.
-# Covers values in the document and the threshold values of criteria it references.
+# Covers the values of assessment terms (oea:) in the document and the threshold values of
+# criteria it references. Other quantities (net weight, carbon footprint, …) are EUDPP
+# quantitative properties (1xx rules).
 CONSTRUCT {
   ?q a txt-connector:QuantitativeValue ;
      txt-connector:numericValue ?nv ;
@@ -7,7 +9,8 @@ CONSTRUCT {
 }
 WHERE {
   {
-    GRAPH <urn:xw:in> { ?q gs1:value ?v ; gs1:unitCode ?code }
+    GRAPH <urn:xw:in> { ?q gs1:value ?v ; gs1:unitCode ?code . ?holder ?hp ?q }
+    FILTER(STRSTARTS(STR(?hp), STR(oea:)))
   } UNION {
     GRAPH <urn:xw:in> { ?r oea:isEvaluatedAgainst ?crit }
     ?crit oea:hasThresholdValue ?q . ?q gs1:value ?v ; gs1:unitCode ?code .

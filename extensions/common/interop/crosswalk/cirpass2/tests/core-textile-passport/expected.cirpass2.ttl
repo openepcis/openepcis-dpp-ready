@@ -1,0 +1,112 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix gs1: <https://ref.gs1.org/voc/>.
+@prefix epcis: <https://ref.gs1.org/epcis/>.
+@prefix cbv: <https://ref.gs1.org/cbv/>.
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/>.
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/>.
+@prefix eutex: <https://ref.openepcis.org/extensions/eu/textile/>.
+@prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#>.
+@prefix eudpp: <https://w3id.org/eudpp#>.
+@prefix units: <https://si-digital-framework.org/SI/units/>.
+@prefix txt-assessment: <https://w3id.org/eudpp/textile-assessment#>.
+@prefix txt-assessment-codelists: <https://w3id.org/eudpp/textile-assessment-codelists#>.
+@prefix txt-connector: <https://w3id.org/eudpp/textile-connector#>.
+@prefix txt-core: <https://w3id.org/eudpp/textile-core#>.
+@prefix txt-durability: <https://w3id.org/eudpp/textile-durability#>.
+@prefix txt-indicator: <https://w3id.org/eudpp/textile-indicator#>.
+@prefix txt-recyclability: <https://w3id.org/eudpp/textile-recyclability#>.
+@prefix txt-structure: <https://w3id.org/eudpp/textile-structure#>.
+@prefix schema: <https://schema.org/>.
+@prefix euelec: <https://ref.openepcis.org/extensions/eu/electronics/>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+
+_:a45ccdbc71fd700bbdeb9679dced5158 a eudpp:ProductIdentifier;
+    eudpp:hasGranularity eudpp:model;
+    eudpp:hasScheme eudpp:GTIN;
+    eudpp:identifierValue "09521234006206".
+_:ab7d771864ab8eaa13c85a932381266d a gs1:CertificationDetails;
+    gs1:certificationIdentification "SA-PT-2026-812";
+    gs1:certificationStandard "SA8000".
+_:b84c468b72bdcd63155932ea4079a12 a eudpp:ActorIdentifier;
+    eudpp:hasScheme eudpp:GLN;
+    eudpp:identifierValue "9521234000334".
+_:b9eb4f145aa14cde2e6ae88524db6b55 a eudpp:DPPIdentifier;
+    eudpp:identifierValue "https://id.gs1.org/01/09521234006206".
+_:c24bb8ee5aa80c4f207a0e1464e58c18 a schema:PostalAddress;
+    schema:addressCountry "DE";
+    schema:addressLocality "Hamburg";
+    schema:postalCode "20457";
+    schema:streetAddress "Speicherstadt 12".
+_:c3456f047ad5b16dfcc91fcf41e9d91a a eudpp:ActorRoleAssignment;
+    eudpp:hasActor <https://id.gs1.org/417/9521234000310>;
+    eudpp:hasRole eudpp:manufacturer;
+    eudpp:inContextOfProduct <https://id.gs1.org/01/09521234006206>.
+_:c440c77e8918c443bd3375b1cdb9ddf1 a eudpp:ActorIdentifier;
+    eudpp:hasScheme eudpp:GLN;
+    eudpp:identifierValue "9521234000310".
+_:ca9a2ee778e8f75f0b9090245523ad68 a schema:ContactPoint;
+    schema:email "dpp@nordlicht.example.com";
+    schema:telephone "+49 40 555 0195".
+_:ce7fef0dcc6660990ce584283ac2e69 a eudpp:FacilityIdentifier;
+    eudpp:hasScheme eudpp:GLN;
+    eudpp:identifierValue "9521234000327".
+_:defc76e8054ae4abf101ad9b780094f7 a schema:PostalAddress;
+    schema:addressCountry "PT";
+    schema:addressLocality "Braga".
+_:e2c9e327c59649561dd625e8e8c54aca a gs1:TextileMaterialDetails;
+    gs1:textileMaterialDescription "Organic Cotton (Main)"@en;
+    gs1:textileMaterialPercentage 70.
+_:e6b6545474b6cbfaaad597fe44df2e2a a gs1:TextileMaterialDetails;
+    gs1:textileMaterialDescription "Recycled Polyester (Main)"@en;
+    gs1:textileMaterialPercentage 30.
+_:eaa0b2a9cf6b2258688d344a81c05a51 a eudpp:ActorIdentifier;
+    eudpp:identifierValue "https://id.gs1.org/417/9521234000310".
+_:fa262741b3b05933c71d2b1b9270d54f a eudpp:FacilityIdentifier;
+    eudpp:identifierValue "https://id.gs1.org/414/9521234000327".
+<https://id.gs1.org/01/09521234006206#dpp> a eudpp:DPP;
+    schema:version "1.0";
+    eudpp:appliesToProduct <https://id.gs1.org/01/09521234006206>;
+    eudpp:dppStatus "Active";
+    eudpp:granularity "model";
+    eudpp:hasBackUpCopyHost <https://id.gs1.org/417/9521234000334>;
+    eudpp:hasDigitalProductPassportId _:b9eb4f145aa14cde2e6ae88524db6b55;
+    eudpp:validFrom "2026-05-12T00:00:00Z"^^xsd:dateTimeStamp.
+<https://id.gs1.org/01/09521234006206> dcterms:type gs1:Clothing, eutex:TextileApparel;
+    a eudpp:Product;
+    gs1:textileMaterial _:e2c9e327c59649561dd625e8e8c54aca, _:e6b6545474b6cbfaaad597fe44df2e2a;
+    eudpp:commodityCode "6110201000";
+    eudpp:countryOfOrigin "PT";
+    eudpp:hasDPP <https://id.gs1.org/01/09521234006206#dpp>;
+    eudpp:hasEconomicOperator <https://id.gs1.org/417/9521234000310>;
+    eudpp:hasEUDeclarationOfConformity <https://www.nordlicht.example.com/compliance/doc-2026-118.pdf>;
+    eudpp:hasProductGroup oec:Textiles;
+    eudpp:hasUniqueProductIdentifier _:a45ccdbc71fd700bbdeb9679dced5158;
+    eudpp:productName "Nordlicht Crewneck — organic cotton / recycled polyester"@en;
+    eudpp:productTradeMark "Nordlicht".
+<https://id.gs1.org/414/9521234000327> dcterms:type "Cut and Sew";
+    a eudpp:Facility;
+    gs1:certification _:ab7d771864ab8eaa13c85a932381266d;
+    schema:address _:defc76e8054ae4abf101ad9b780094f7;
+    schema:name "Braga Knitting & Confection";
+    eudpp:hasUniqueFacilityIdentifier _:ce7fef0dcc6660990ce584283ac2e69, _:fa262741b3b05933c71d2b1b9270d54f.
+<https://id.gs1.org/417/9521234000310> dcterms:type oec:OperatorInformation;
+    a eudpp:LegalPerson;
+    schema:contactPoint _:ca9a2ee778e8f75f0b9090245523ad68;
+    eudpp:actorName "Nordlicht Apparel GmbH";
+    eudpp:hasUniqueOperatorIdentifier _:c440c77e8918c443bd3375b1cdb9ddf1, _:eaa0b2a9cf6b2258688d344a81c05a51;
+    eudpp:isEstablishedIn _:c24bb8ee5aa80c4f207a0e1464e58c18.
+<https://id.gs1.org/417/9521234000334> dcterms:type oec:OperatorInformation;
+    a eudpp:LegalPerson;
+    eudpp:actorName "EPCIS Cloud DPP Services";
+    eudpp:hasUniqueOperatorIdentifier _:b84c468b72bdcd63155932ea4079a12.
+oec:Textiles a eudpp:ClassificationCode.
+<https://www.nordlicht.example.com/compliance/doc-2026-118.pdf> dcterms:issued "2026-05-11"^^xsd:date;
+    dcterms:language "en";
+    a eudpp:EUDeclarationOfConformity;
+    schema:name "EU Declaration of Conformity No 2026-118 — Nordlicht Crewneck";
+    eudpp:contentType "pdf";
+    eudpp:value "https://www.nordlicht.example.com/compliance/doc-2026-118.pdf".

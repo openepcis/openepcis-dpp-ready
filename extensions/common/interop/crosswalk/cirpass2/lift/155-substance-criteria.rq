@@ -1,0 +1,11 @@
+# EUDPP core: why a substance is of concern (ESPR Art. 2(27) criteria (a)–(d)) is an
+# eudpp:SoCQualificationAssertion of the substance naming the criterion.
+CONSTRUCT {
+  ?soc eudpp:hasQualificationAssertion ?qa .
+  ?qa a eudpp:SoCQualificationAssertion ; eudpp:qualifiesSubstance ?soc ; eudpp:hasSoCCriterion ?crit .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?soc eutex:hasSocType ?t }
+  ?t xw:sameCode ?crit .
+  BIND(BNODE() AS ?qa)
+}

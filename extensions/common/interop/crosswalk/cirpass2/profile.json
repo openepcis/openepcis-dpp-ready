@@ -23,57 +23,38 @@
     "txt-durability": "https://w3id.org/eudpp/textile-durability#",
     "txt-indicator": "https://w3id.org/eudpp/textile-indicator#",
     "txt-recyclability": "https://w3id.org/eudpp/textile-recyclability#",
-    "txt-structure": "https://w3id.org/eudpp/textile-structure#"
+    "txt-structure": "https://w3id.org/eudpp/textile-structure#",
+    "schema": "https://schema.org/",
+    "euelec": "https://ref.openepcis.org/extensions/eu/electronics/",
+    "owl": "http://www.w3.org/2002/07/owl#"
   },
   "background": {
     "lift": [
-      "extensions/common/assessment/ontology/assessment.ttl",
-      "extensions/common/core/ontology/dpp-core.ttl",
-      "extensions/eu/textile/ontology/textile.ttl"
+      "vendor/gs1/gs1Voc.jsonld",
+      "@modules"
     ],
     "lower": [
-      "extensions/common/assessment/ontology/assessment.ttl",
-      "extensions/common/core/ontology/dpp-core.ttl",
-      "extensions/eu/textile/ontology/textile.ttl",
-      "extensions/upstream/cirpass2-textile/ontology/textile.ttl"
+      "vendor/gs1/gs1Voc.jsonld",
+      "@modules",
+      "extensions/upstream/cirpass2-textile/ontology/textile.ttl",
+      "extensions/upstream/cirpass2-eudpp/ontology/eudpp.ttl"
     ]
   },
   "handles": {
+    "_comment": "Namespaces whose terms travel as they are: EPCIS, schema.org and the GS1 Web Vocabulary (pass-through). Every other term counts as handled only when a rule or the mapping table names it; what a pass-through does not reach shows in the round-trip delta.",
     "lift": [
-      "https://ref.openepcis.org/extensions/common/assessment/",
-      "https://ref.openepcis.org/extensions/eu/textile/hasDurabilityInfo",
-      "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo",
-      "https://ref.openepcis.org/extensions/eu/textile/hasRobustnessAssessment",
-      "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment",
-      "https://ref.openepcis.org/extensions/eu/textile/hasRecyclabilityAssessment",
-      "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment",
-      "https://ref.openepcis.org/extensions/eu/textile/hasApplicableRecyclingTechnology",
-      "https://ref.openepcis.org/extensions/common/core/hasRecyclabilityAssessment",
-      "https://ref.openepcis.org/extensions/common/core/RecyclabilityAssessment",
-      "https://ref.gs1.org/voc/QuantitativeValue",
-      "https://ref.gs1.org/voc/value",
-      "https://ref.gs1.org/voc/unitCode",
-      "https://ref.gs1.org/epcis/"
+      "https://ref.gs1.org/epcis/",
+      "https://schema.org/",
+      "https://ref.gs1.org/voc/"
     ],
     "lower": [
-      "https://w3id.org/eudpp/textile-assessment#",
-      "https://w3id.org/eudpp/textile-indicator#",
-      "https://w3id.org/eudpp/textile-connector#",
-      "https://w3id.org/eudpp/textile-recyclability#",
-      "https://w3id.org/eudpp/textile-durability#",
-      "https://w3id.org/eudpp#Product",
-      "https://w3id.org/eudpp#ProductEvent",
-      "https://w3id.org/eudpp#concernsProduct",
-      "https://w3id.org/eudpp#isRepresentedByCarrier",
       "https://ref.gs1.org/epcis/",
-      "http://purl.org/dc/terms/hasPart",
-      "http://purl.org/dc/terms/source",
-      "http://purl.org/dc/terms/relation",
-      "http://www.w3.org/2000/01/rdf-schema#label"
+      "https://schema.org/",
+      "https://ref.gs1.org/voc/"
     ]
   },
   "vocabulary": {
-    "_comment": "Terms an output may use as predicate or class. lift: the CIRPASS-2 mirrors plus the vocabularies they build on (EPCIS/CBV IRIs, SI units, W3C). lower: the OpenEPCIS ontologies plus GS1 and EPCIS. Anything else in an output is a leak.",
+    "_comment": "Terms an output may use as predicate or class. lift: the CIRPASS-2 mirrors plus the vocabularies they build on or that carry what CIRPASS-2 has no term for (EPCIS/CBV and GS1 Web Vocabulary IRIs, schema.org, W3C). lower: the OpenEPCIS ontologies plus GS1, schema.org and EPCIS. Anything else in an output is a leak.",
     "lift": {
       "files": [
         "extensions/upstream/cirpass2-eudpp/ontology/eudpp.ttl",
@@ -84,26 +65,31 @@
         "http://www.w3.org/2000/01/rdf-schema#",
         "http://purl.org/dc/terms/",
         "http://www.w3.org/2004/02/skos/core#",
-        "https://ref.gs1.org/epcis/"
+        "https://ref.gs1.org/epcis/",
+        "https://schema.org/",
+        "https://ref.gs1.org/voc/",
+        "http://www.w3.org/2002/07/owl#versionInfo"
       ]
     },
     "lower": {
       "files": [
-        "extensions/common/assessment/ontology/assessment.ttl",
-        "extensions/common/core/ontology/dpp-core.ttl",
-        "extensions/eu/textile/ontology/textile.ttl"
+        "@modules"
       ],
       "namespaces": [
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         "http://www.w3.org/2000/01/rdf-schema#",
         "https://ref.gs1.org/voc/",
-        "https://ref.gs1.org/epcis/"
+        "https://ref.gs1.org/epcis/",
+        "https://schema.org/",
+        "http://purl.org/dc/terms/created",
+        "http://www.w3.org/2002/07/owl#versionInfo"
       ]
     }
   },
   "shapes": {
     "_comment": "SHACL the lowered (OpenEPCIS) side must satisfy.",
     "files": [
+      "extensions/common/core/validation/dpp-core-shapes.ttl",
       "extensions/common/assessment/validation/assessment-shapes.ttl",
       "extensions/eu/textile/validation/textile-shapes.ttl"
     ]

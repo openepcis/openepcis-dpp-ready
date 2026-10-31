@@ -1,0 +1,20 @@
+# EUDPP core: DPP identifier (eudpp:DPPIdentifier), validity and last update.
+CONSTRUCT {
+  ?dpp ?q ?stamp .
+  ?dpp eudpp:hasDigitalProductPassportId ?id .
+  ?id a eudpp:DPPIdentifier ; eudpp:identifierValue ?idv .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?s ?p ?o }
+  FILTER(isIRI(?s))
+  FILTER EXISTS { GRAPH <urn:xw:in> { ?s a ?t } ?t rdfs:subClassOf* gs1:Product }
+  VALUES (?p ?q) { (oec:passportIssueDate eudpp:validFrom) (oec:passportExpiryDate eudpp:validUntil)
+                   (oec:lastUpdated eudpp:lastUpdate) (oec:passportIdentifier xw:identifier) }
+  BIND(IRI(CONCAT(STR(?s), IF(CONTAINS(STR(?s), "#"), "-dpp", "#dpp"))) AS ?dpp)
+  BIND(STR(?o) AS ?lex)
+  BIND(IF(?q = xw:identifier, ?unbound,
+          STRDT(IF(STRLEN(?lex) = 10, CONCAT(?lex, "T00:00:00Z"),
+                   IF(REGEX(?lex, "(Z|[+-][0-9]{2}:[0-9]{2})$"), ?lex, CONCAT(?lex, "Z"))), xsd:dateTimeStamp)) AS ?stamp)
+  BIND(IF(?q = xw:identifier, BNODE(), ?unbound3) AS ?id)
+  BIND(IF(?q = xw:identifier, ?lex, ?unbound4) AS ?idv)
+}

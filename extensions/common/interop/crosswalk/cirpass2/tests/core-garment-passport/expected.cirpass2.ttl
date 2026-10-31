@@ -1,0 +1,634 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix gs1: <https://ref.gs1.org/voc/>.
+@prefix epcis: <https://ref.gs1.org/epcis/>.
+@prefix cbv: <https://ref.gs1.org/cbv/>.
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/>.
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/>.
+@prefix eutex: <https://ref.openepcis.org/extensions/eu/textile/>.
+@prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#>.
+@prefix eudpp: <https://w3id.org/eudpp#>.
+@prefix units: <https://si-digital-framework.org/SI/units/>.
+@prefix txt-assessment: <https://w3id.org/eudpp/textile-assessment#>.
+@prefix txt-assessment-codelists: <https://w3id.org/eudpp/textile-assessment-codelists#>.
+@prefix txt-connector: <https://w3id.org/eudpp/textile-connector#>.
+@prefix txt-core: <https://w3id.org/eudpp/textile-core#>.
+@prefix txt-durability: <https://w3id.org/eudpp/textile-durability#>.
+@prefix txt-indicator: <https://w3id.org/eudpp/textile-indicator#>.
+@prefix txt-recyclability: <https://w3id.org/eudpp/textile-recyclability#>.
+@prefix txt-structure: <https://w3id.org/eudpp/textile-structure#>.
+@prefix schema: <https://schema.org/>.
+@prefix euelec: <https://ref.openepcis.org/extensions/eu/electronics/>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+
+_:a1b7083be074728f0b2271b6386245aa a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 0.032.
+_:a2113247b69585e8ff5c52996df2fa0d a eudpp:CarbonFootprint;
+    eudpp:hasMeasurementUnit units:kilogram;
+    eudpp:numericalValue 18.5;
+    eudpp:quantifiesIndicator eudpp:ind_GWPtotal;
+    eudpp:unitAsString "kg CO2e per garment".
+_:a414912813a1905ca9df9915a7f21ace dcterms:subject eutex:PillingResistance;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:bb80c1aa75c70695c1c270ddf8de700e.
+_:a453a5599e07051eab3e0bc83a20533c dcterms:source <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#microplastic>;
+    dcterms:type eutex:SheddingRiskLevel;
+    a txt-indicator:Indicator;
+    txt-indicator:hasCategoricalValue eutex:MediumShedding.
+_:a5dbcc46b2d4cfc755687eed083a5ac1 a gs1:CertificationDetails;
+    gs1:certificationIdentification "EMS-PT-2024-123";
+    gs1:certificationStandard "ISO 14001:2015".
+_:a8f3601f8e3eb3848dba9936e21ce7a8 a gs1:TextileMaterialDetails;
+    gs1:textileMaterialDescription "Recycled Polyester (Shell)"@en;
+    gs1:textileMaterialPercentage 55.
+_:a9b04090a4538026083741b768ab122e a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 0.042.
+_:aa567c4238a535d11a3bcefae5d97a96 a gs1:CertificationDetails;
+    gs1:certificationIdentification "SA-PT-2024-456";
+    gs1:certificationStandard "SA8000".
+_:ab7c5b8d62e2262a2576cdaf591cca2a dcterms:description "No special handling required at detected concentration.";
+    a eudpp:SubstanceManagementInstruction.
+_:ac75de894ce6883a25b8a17feafcffc0 dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:c5142dbe566a8e961c8917a2cc5dfde0;
+    txt-indicator:hasQuantitativeValue _:fb398c50cbffb6177dfa42adcfbf2b8b.
+_:acb0a61d392919815bd5308a535cf2be a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "0"^^xsd:decimal.
+_:ace56f5ff2ef61e43f46e526e266f10 dcterms:subject eutex:SeamAppearance;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:d48a6c69c4dae2aa93f0312e62458024.
+_:ad26f81f0461fc4f147cf062b7d1d150 a txt-recyclability:RecyclabilityCriterionResult;
+    txt-recyclability:evaluatesCriterion txt-recyclability:innerOuterCompositionSimilarityCriterion;
+    txt-recyclability:hasCriterionOutcome txt-recyclability:criterionNotSatisfied.
+_:b184c0a07f09488591063bd2fb66ac4 dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-dimensional-change>;
+    txt-indicator:hasQuantitativeValue _:b4ba7f6ae3cc961c48540608bc10d9a8.
+_:b1fd7627a53d2fa987d09c3f2571173e a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "40000"^^xsd:decimal.
+_:b256553013e21339204d592181f5e886 dcterms:type eutex:SpecimenFabricType;
+    a txt-assessment:AssessmentCondition;
+    rdf:value eutex:WovenNonDenim.
+_:b3e4734d17d8a4d38904706095fa0114 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "3"^^xsd:decimal.
+_:b4ba7f6ae3cc961c48540608bc10d9a8 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "2"^^xsd:decimal.
+_:b50b35045d91ec8e55503f86ac6215be a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "4"^^xsd:decimal.
+_:b5d333b866f06ab98b0ce6df58f4a8ff dcterms:subject eutex:TearStrength;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:e3f9d6151c12d8450bce4f190f72a8b5.
+_:b604e482e1c322e8d3bded61e7b25f9f a eudpp:ConcentrationOfSubstanceOfConcern;
+    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
+    eudpp:numericalValue 0.00008.
+_:b643cb827c4bd140afe6dab8c2d46950 dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:ad26f81f0461fc4f147cf062b7d1d150;
+    txt-indicator:hasQuantitativeValue _:acb0a61d392919815bd5308a535cf2be.
+_:b7684d41ea0d4e1ebd50647986e9c7b4 dcterms:subject eutex:DimensionalStability;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:a1b7083be074728f0b2271b6386245aa.
+_:b821264611f53becd686111cf4a6ae6b a eudpp:SubstancePresence;
+    eudpp:concernsSubstance <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#soc-dye>;
+    eudpp:hasConcentration _:b604e482e1c322e8d3bded61e7b25f9f;
+    eudpp:hasEndOfLifeManagementInstruction _:ab7c5b8d62e2262a2576cdaf591cca2a;
+    eudpp:hasSafeUseInstruction _:c441df434af6dce01d43334b7ede3f50;
+    eudpp:substanceLocationDescription "Shell fabric dye".
+_:b84681b173bc0125b776bd7391231219 a gs1:TextileMaterialDetails;
+    gs1:textileMaterialDescription "Elastane (Cuffs)"@en;
+    gs1:textileMaterialPercentage 5.
+_:b949071ff65a9d896297b3588268ee0c a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit <https://vocabulary.uncefact.org/UnitMeasureCode#ANN>;
+    txt-connector:numericValue "8"^^xsd:decimal.
+_:b9a52b18be12105c4b25a1e26ff5065b dcterms:subject eutex:NonTextilePartsAppearance;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:df29c521f3829b2a07637a5e0e454a67.
+_:bb60aa09413a18d48e903b980a35b2df dcterms:type oea:RepairabilityScore;
+    a txt-indicator:Indicator;
+    txt-indicator:hasQuantitativeValue _:dcd7ebded835b9a0654343f17e3101ab.
+_:bb670bc8ac49eeb3b5e7254f76761246 dcterms:isPartOf <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#recycled>;
+    a eudpp:RecycledMaterialsUseResult;
+    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
+    eudpp:numericalValue 0.55.
+_:bb80c1aa75c70695c1c270ddf8de700e a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "4"^^xsd:decimal.
+_:bc42d024745f9711ff2b35313b490b06 a schema:PostalAddress;
+    schema:addressCountry "PT";
+    schema:addressLocality "Porto".
+_:bd57162a4dc83a1a349b93fc9b0f9b5b a schema:PostalAddress;
+    schema:addressCountry "DE";
+    schema:addressLocality "Munich";
+    schema:postalCode "80333";
+    schema:streetAddress "Reparaturweg 5".
+_:bddb15e36c9320bc287c4c5f28c5ecc4 a schema:ContactPoint;
+    schema:email "info@ecowear.example.com";
+    schema:url <https://files.example.org/files/products/09521000001428/docs/company.pdf>.
+_:be19bc8de88c6f9f3426876f67d846c4 a eudpp:FacilityIdentifier;
+    eudpp:hasScheme eudpp:GLN;
+    eudpp:identifierValue "9521234000037".
+_:be6d6f8fec4e844e29c1b8ec392b1ea7 dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-visual-inspection>;
+    txt-indicator:hasQuantitativeValue _:fca45d7455bd647eb1f176c6a3b3c84e.
+_:bfd4e196167379bb9835fe74bb92c6f0 a schema:PostalAddress;
+    schema:addressCountry "IT";
+    schema:addressLocality "Como".
+_:c1dd58b89e5f69c094c4bc33582bac2b a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "5"^^xsd:decimal.
+_:c441df434af6dce01d43334b7ede3f50 dcterms:description "Wash before first wear. Suitable for skin contact per OEKO-TEX Standard 100 Class II.";
+    a eudpp:SubstanceManagementInstruction.
+_:c5142dbe566a8e961c8917a2cc5dfde0 a txt-recyclability:RecyclabilityCriterionResult;
+    txt-recyclability:evaluatesCriterion txt-recyclability:coatingAbsenceCriterion;
+    txt-recyclability:hasCriterionOutcome txt-recyclability:criterionNotSatisfied.
+_:c7f966f9ad2f676beef12075cbcf0c33 a schema:PostalAddress;
+    schema:addressCountry "DE";
+    schema:addressLocality "Munich";
+    schema:postalCode "80331";
+    schema:streetAddress "Textilstraße 25".
+_:c82cdd7fd905cd223b1c8085c2f0dbf0 a txt-recyclability:RecyclabilityCriterionResult;
+    txt-recyclability:evaluatesCriterion txt-recyclability:printingAbsenceCriterion;
+    txt-recyclability:hasCriterionOutcome txt-recyclability:criterionSatisfied.
+_:c892c2f3929ab998f20e8eb252278c85 dcterms:isPartOf <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#recycled>;
+    dcterms:type oec:preConsumerRecycledContent;
+    a eudpp:RecycledMaterialsUseResult;
+    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
+    eudpp:numericalValue 0.05.
+_:c90b70531bf54f2d3ce3b6e75acc9145 dcterms:source <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability>;
+    a txt-indicator:EstimatedLifetime;
+    txt-indicator:hasQuantitativeValue _:b949071ff65a9d896297b3588268ee0c.
+_:c9cec15088467f7bc14af53e36e4a28e a eudpp:ProductIdentifier;
+    eudpp:hasGranularity eudpp:model;
+    eudpp:hasScheme eudpp:GTIN;
+    eudpp:identifierValue "09521000001428".
+_:cab83df7237ba238e7c8e75c4ff6bfb3 a eudpp:Weight;
+    eudpp:hasMeasurementUnit units:kilogram;
+    eudpp:numericalValue 0.85.
+_:cb21d28816f11c5a6600abd6069c945 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "4"^^xsd:decimal.
+_:cb95dc0235178990e164e6a6079bc975 dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:f72b997518471fe3f48ded2d09ee721d;
+    txt-indicator:hasQuantitativeValue _:d6691ae48264c16e8b416741711bf721.
+_:cd1d52190efc92946348af871a4b1038 dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:c82cdd7fd905cd223b1c8085c2f0dbf0;
+    txt-indicator:hasQuantitativeValue _:f911a976cbb495239fbb9bc70a917236.
+_:cdd14be7fb125c00b6c056adcfca675c dcterms:subject eutex:MicrofibreRelease;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:d82ed0015e2d7bf66f33be4fb10890fc.
+_:cf8d10ee9aeca503ff370f83f6241701 dcterms:source <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability>;
+    a txt-indicator:NumberOfUseCycles;
+    txt-indicator:hasQuantitativeValue _:e2e4194c3c0ed0efc86dbabf6e61e590.
+_:cfa7eb7c7481608d9863fccf834555e5 dcterms:subject eutex:TensileStrength;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:d4aae327e49b6b22c38c938341be0af4.
+_:cfcde5b70691d8c79ff24c7359870bba a eudpp:ActorIdentifier;
+    eudpp:hasScheme eudpp:GLN;
+    eudpp:identifierValue "9521000000018".
+_:d04220a8f12cf2bf6d5e27cc22819df0 a gs1:WarrantyPromise;
+    gs1:durationOfWarranty _:e0fed58971d768d69c1be39e0e638683;
+    gs1:warrantyScopeDescription "Covers manufacturing defects. Does not cover normal wear, improper care, or accidental damage.".
+_:d0b494a748838a6f9c0f87fc2aaac0b9 a eudpp:SoCQualificationAssertion;
+    eudpp:hasSoCCriterion eudpp:CriterionB;
+    eudpp:qualifiesSubstance <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#soc-dye>.
+_:d15e622dad792acb52df95a74798702f a eudpp:FacilityIdentifier;
+    eudpp:hasScheme eudpp:GLN;
+    eudpp:identifierValue "9521234000020".
+_:d1d8db12695f3d02a20b207897c0430f dcterms:subject eutex:ColourChange;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:e2ab663e995b495dd8fa7f0a69f8c185.
+_:d3001d0826f31b30363135ba1199eab6 dcterms:type oea:RepairabilityClass;
+    a txt-indicator:Indicator;
+    txt-indicator:hasTextualValue "B".
+_:d45a1b5ee78c6c0321e9b2623d59920c a schema:ContactPoint;
+    schema:email "sustainability@ecowear.example.com";
+    schema:telephone "+49-89-555-0100".
+_:d48a6c69c4dae2aa93f0312e62458024 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "5"^^xsd:decimal.
+_:d4aae327e49b6b22c38c938341be0af4 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:newton;
+    txt-connector:numericValue "800"^^xsd:decimal.
+_:d53b77d22edcd908d9ed17cc48cbdedf dcterms:subject eutex:ElastaneContent;
+    a txt-assessment:MeasurementResult, txt-recyclability:RecyclabilityCriterionResult;
+    txt-assessment:hasMeasuredValue _:da8aafbce5a5325f6e72fb221303a46a;
+    txt-assessment:isEvaluatedAgainst eutex:ElastaneContentLimit;
+    txt-recyclability:evaluatesCriterion txt-recyclability:elastaneProportionCriterion;
+    txt-recyclability:hasCriterionOutcome txt-recyclability:criterionSatisfied.
+_:d6691ae48264c16e8b416741711bf721 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "1"^^xsd:decimal.
+_:d67dfe4d36aa82279d49af2d05255cf1 dcterms:type oea:CriterionResult;
+    a txt-assessment:AssessmentResult;
+    txt-assessment:isEvaluatedAgainst eutex:TechnicalRecyclabilityCriterion.
+_:d6898433a8108ac0539bfe17eed98e2b dcterms:subject eutex:Spirality;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:a9b04090a4538026083741b768ab122e.
+_:d82ed0015e2d7bf66f33be4fb10890fc a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:milligram;
+    txt-connector:numericValue "120"^^xsd:decimal.
+_:d9ec1738058aad72e066c10e31c6308e dcterms:source <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#recyclability>;
+    a txt-recyclability:RecyclabilityScore;
+    txt-indicator:derivedUsingMethod eutex:JRCRecyclabilityScoring;
+    txt-indicator:hasQuantitativeValue _:ef0d290962877281e08c6000d5727f00.
+_:da8aafbce5a5325f6e72fb221303a46a a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 0.05.
+_:dcd7ebded835b9a0654343f17e3101ab a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 7.2.
+_:dd17959dddaadd4c78162590c3f53ff3 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 0.02.
+_:dd7e4df95b10abb618318aa1f27e3024 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "4"^^xsd:decimal.
+_:df29c521f3829b2a07637a5e0e454a67 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "4"^^xsd:decimal.
+_:e0c2405cfd8a12c0f781455f44c71eb2 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "8"^^xsd:decimal.
+_:e0e19f33e99f84e5f6986afa628c505d a eudpp:ActorRoleAssignment;
+    eudpp:hasActor <https://id.gs1.org/417/9521000000018#operator>;
+    eudpp:hasRole eudpp:manufacturer;
+    eudpp:inContextOfProduct <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142>.
+_:e0fed58971d768d69c1be39e0e638683 a gs1:QuantitativeValue;
+    gs1:unitCode "ANN";
+    gs1:value "2"^^xsd:decimal.
+_:e2ab663e995b495dd8fa7f0a69f8c185 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "4"^^xsd:decimal.
+_:e2e4194c3c0ed0efc86dbabf6e61e590 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "150"^^xsd:decimal.
+_:e3e5c7bd5ec9526bc718c264cf86bc73 a eudpp:ActorIdentifier;
+    eudpp:hasScheme eudpp:GLN;
+    eudpp:identifierValue "9521000000018".
+_:e3f9d6151c12d8450bce4f190f72a8b5 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:newton;
+    txt-connector:numericValue "35"^^xsd:decimal.
+_:e8879a7d5d48cb7e0b10d7ed46b71ac0 a txt-assessment:MeasurementParameterSetting;
+    txt-assessment:hasParameterValue _:c1dd58b89e5f69c094c4bc33582bac2b;
+    txt-assessment:settingForParameter oea:NumberOfCycles.
+_:e8a1475e063615b0aba93add3f292d1 dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:d67dfe4d36aa82279d49af2d05255cf1;
+    txt-indicator:hasQuantitativeValue _:cb21d28816f11c5a6600abd6069c945.
+_:e8efe2b91e68f3f579f40a7f270fc029 dcterms:subject eutex:ColourFastness;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:dd7e4df95b10abb618318aa1f27e3024.
+_:e90d9c40939fa2accc835802bba9d575 dcterms:isPartOf <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#recycled>;
+    dcterms:type oec:postConsumerRecycledContent;
+    a eudpp:RecycledMaterialsUseResult;
+    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
+    eudpp:numericalValue 0.5.
+_:eaa5ba1f8b3b29b5f060b0f03b2e1be9 dcterms:source <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability>;
+    a txt-indicator:DurabilityIndicator;
+    txt-indicator:hasCategoricalValue eutex:DurabilityB.
+_:ed440c1b47a36d16820f59169cac497c a gs1:TextileMaterialDetails;
+    gs1:textileMaterialDescription "Polyamide (Lining)"@en;
+    gs1:textileMaterialPercentage 15.
+_:edb8ff11362b806e03cb70415a090f51 a gs1:CertificationDetails;
+    gs1:certificationIdentification "ZDHC-IT-2024-789";
+    gs1:certificationStandard "ZDHC MRSL v3.1".
+_:edbaf081ed27a6bf49d34761035606de a gs1:TextileMaterialDetails;
+    gs1:textileMaterialDescription "Down (Insulation - RDS Certified)"@en;
+    gs1:textileMaterialPercentage 25.
+_:ee0d29a9e403e9169110e9643afdd9ec dcterms:source <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness>;
+    a txt-indicator:RobustnessScore;
+    txt-indicator:derivedFrom <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-dimensional-change>, <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-spirality>, <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-visual-inspection>;
+    txt-indicator:derivedUsingMethod eutex:JRCRobustnessScoring;
+    txt-indicator:hasQuantitativeValue _:e0c2405cfd8a12c0f781455f44c71eb2.
+_:ef0d290962877281e08c6000d5727f00 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 6.5.
+_:f173fc40131e9b0c1c6c853b94b530ea a schema:ContactPoint;
+    schema:email "repair@ecowear.example.com";
+    schema:url <https://files.example.org/files/products/09521000001428/docs/repair-guide.pdf>.
+_:f26aa10094715c8608e974cfd7696974 dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-spirality>;
+    txt-indicator:hasQuantitativeValue _:b3e4734d17d8a4d38904706095fa0114.
+_:f4bb9f91675d53873789f24742a4acbc a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 0.15.
+_:f72b997518471fe3f48ded2d09ee721d a txt-recyclability:RecyclabilityCriterionResult;
+    txt-recyclability:evaluatesCriterion txt-recyclability:sequinAbsenceCriterion;
+    txt-recyclability:hasCriterionOutcome txt-recyclability:criterionSatisfied.
+_:f8cddc9a53dbf4470af9d20647a457b7 dcterms:subject eutex:DimensionalStability;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:dd17959dddaadd4c78162590c3f53ff3.
+_:f911a976cbb495239fbb9bc70a917236 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "1"^^xsd:decimal.
+_:fb398c50cbffb6177dfa42adcfbf2b8b a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "0"^^xsd:decimal.
+_:fc56af4d09fcba5ea96176d6c97b4299 a eudpp:DPPIdentifier;
+    eudpp:identifierValue "https://id.gs1.org/01/09521000001428".
+_:fca45d7455bd647eb1f176c6a3b3c84e a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "3"^^xsd:decimal.
+_:fe19d1b3160b3e1c37e780e3435091d3 dcterms:subject eutex:FabricAppearance;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:b50b35045d91ec8e55503f86ac6215be.
+_:ff047652b8eec10487d58a92631ccab dcterms:subject eutex:AbrasionResistance;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:b1fd7627a53d2fa987d09c3f2571173e.
+<https://files.example.org/files/products/09521000001428/docs/certifications.pdf> a gs1:ReferencedFileDetails;
+    gs1:fileLanguageCode "en";
+    gs1:referencedFileType gs1:ReferencedFileTypeCode-CERTIFICATION;
+    schema:description "Product Certifications (GRS, OEKO-TEX, bluesign, RDS)".
+<https://files.example.org/files/products/09521000001428/docs/document.pdf> dcterms:language "en";
+    dcterms:type gs1:ReferencedFileDetails, oec:DocumentReference;
+    a eudpp:DigitalInstruction;
+    gs1:fileLanguageCode "en";
+    gs1:referencedFileType gs1:ReferencedFileTypeCode-IFU;
+    schema:description "User and Care Guide";
+    schema:name "Alpine Pro User & Care Guide";
+    eudpp:contentType "pdf";
+    eudpp:value "https://files.example.org/files/products/09521000001428/docs/document.pdf".
+<https://files.example.org/files/products/09521000001428/docs/supply-chain-transparency-2024.pdf> dcterms:issued "2024-04-01"^^xsd:date;
+    dcterms:language "en";
+    dcterms:type oec:DueDiligenceDocument;
+    a eudpp:DocumentFormattedProperty;
+    schema:name "Supply Chain Transparency Report 2024";
+    eudpp:contentType "pdf";
+    eudpp:value "https://files.example.org/files/products/09521000001428/docs/supply-chain-transparency-2024.pdf".
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#cert-bluesign> a gs1:CertificationDetails;
+    gs1:certificationAgency "bluesign technologies ag";
+    gs1:certificationIdentification "BS-2024-ECOWEAR-AP";
+    gs1:certificationStandard "bluesign PRODUCT".
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#cert-grs> a gs1:CertificationDetails;
+    gs1:certificationAgency "Textile Exchange";
+    gs1:certificationEndDate "2025-01-14";
+    gs1:certificationIdentification "GRS-2024-ECOWEAR-001";
+    gs1:certificationStandard "Global Recycled Standard (GRS)";
+    gs1:certificationStartDate "2024-01-15";
+    gs1:certificationURI "https://textileexchange.org/standards/global-recycled-standard/".
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#cert-oekotex> a gs1:CertificationDetails;
+    gs1:certificationAgency "OEKO-TEX Association";
+    gs1:certificationEndDate "2025-02-28";
+    gs1:certificationIdentification "SH025 123456 TESTEX";
+    gs1:certificationStandard "OEKO-TEX Standard 100";
+    gs1:certificationStartDate "2024-03-01".
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#cert-rds> a gs1:CertificationDetails;
+    gs1:certificationAgency "Textile Exchange";
+    gs1:certificationIdentification "RDS-2024-ECOWEAR-002";
+    gs1:certificationStandard "Responsible Down Standard (RDS)".
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#dpp> a eudpp:DPP;
+    schema:version "1.0";
+    eudpp:appliesToProduct <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142>;
+    eudpp:dppStatus "Active";
+    eudpp:hasDigitalProductPassportId _:fc56af4d09fcba5ea96176d6c97b4299;
+    eudpp:lastUpdate "2024-10-15T10:30:00Z"^^xsd:dateTimeStamp;
+    eudpp:validFrom "2024-09-20T00:00:00Z"^^xsd:dateTimeStamp.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-abrasion> a txt-assessment:TestExecution;
+    txt-assessment:appliesMethod eutex:MartindaleAbrasionTest;
+    txt-assessment:assessesPerformanceParameter eutex:AbrasionResistance;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142>;
+    txt-assessment:producesResult _:ff047652b8eec10487d58a92631ccab.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-colour-fastness> a txt-assessment:TestExecution;
+    txt-assessment:appliesMethod eutex:ColourFastnessTest;
+    txt-assessment:assessesPerformanceParameter eutex:ColourFastness;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142>;
+    txt-assessment:producesResult _:e8efe2b91e68f3f579f40a7f270fc029.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-dimensional-change> a txt-assessment:TestExecution;
+    txt-assessment:appliesMethod eutex:DimensionalChangeTest;
+    txt-assessment:assessesPerformanceParameter eutex:DimensionalStability;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142>;
+    txt-assessment:producesResult _:f8cddc9a53dbf4470af9d20647a457b7.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-pilling> a txt-assessment:TestExecution;
+    txt-assessment:appliesMethod eutex:PillingTest;
+    txt-assessment:assessesPerformanceParameter eutex:PillingResistance;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142>;
+    txt-assessment:producesResult _:a414912813a1905ca9df9915a7f21ace.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-tear> a txt-assessment:TestExecution;
+    txt-assessment:appliesMethod eutex:TearStrengthTest;
+    txt-assessment:assessesPerformanceParameter eutex:TearStrength;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142>;
+    txt-assessment:producesResult _:b5d333b866f06ab98b0ce6df58f4a8ff.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-tensile> a txt-assessment:TestExecution;
+    txt-assessment:appliesMethod eutex:TensileStrengthTest;
+    txt-assessment:assessesPerformanceParameter eutex:TensileStrength;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142>;
+    txt-assessment:producesResult _:cfa7eb7c7481608d9863fccf834555e5.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability> dcterms:hasPart <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-abrasion>, <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-colour-fastness>, <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-dimensional-change>, <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-pilling>, <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-tear>, <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-tensile>;
+    a txt-assessment:DurabilityAssessment;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142>.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#lca-study> a eudpp:LCAStudy;
+    schema:url "https://files.example.org/files/products/09521000001428/docs/carbon-footprint-study.pdf";
+    eudpp:hasLCIAResult _:a2113247b69585e8ff5c52996df2fa0d.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#microplastic> dcterms:type eutex:MicroplasticInfo;
+    a txt-assessment:AssessmentExecution;
+    txt-assessment:appliesMethod eutex:MicrofibreReleaseTest;
+    txt-assessment:assessesPerformanceParameter eutex:MicrofibreRelease;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142>;
+    txt-assessment:producesResult _:cdd14be7fb125c00b6c056adcfca675c.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#recyclability> a txt-recyclability:RecyclabilityAssessment;
+    txt-assessment:appliesMethod eutex:JRCRecyclabilityScoring;
+    txt-assessment:assessesPerformanceParameter eutex:ElastaneContent;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142>;
+    txt-assessment:producesResult _:ad26f81f0461fc4f147cf062b7d1d150, _:c5142dbe566a8e961c8917a2cc5dfde0, _:c82cdd7fd905cd223b1c8085c2f0dbf0, _:d53b77d22edcd908d9ed17cc48cbdedf, _:d67dfe4d36aa82279d49af2d05255cf1, _:f72b997518471fe3f48ded2d09ee721d;
+    txt-recyclability:assessesRecyclingRoute eutex:ThermoChemicalRecycling.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#recycled> dcterms:type oec:RecycledContent.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#repair-service> a eudpp:LegalPerson;
+    schema:contactPoint _:f173fc40131e9b0c1c6c853b94b530ea;
+    eudpp:actorName "EcoWear Repair Service";
+    eudpp:isEstablishedIn _:bd57162a4dc83a1a349b93fc9b0f9b5b.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#repairability> txt-indicator:hasIndicator _:bb60aa09413a18d48e903b980a35b2df, _:d3001d0826f31b30363135ba1199eab6.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-dimensional-change> a txt-assessment:TestExecution;
+    txt-assessment:appliesMethod eutex:DimensionalChangeTest;
+    txt-assessment:assessesPerformanceParameter eutex:DimensionalStability;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142>;
+    txt-assessment:producesResult _:b7684d41ea0d4e1ebd50647986e9c7b4.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-spirality> a txt-assessment:TestExecution;
+    txt-assessment:appliesMethod eutex:SpiralityTest;
+    txt-assessment:assessesPerformanceParameter eutex:Spirality;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142>;
+    txt-assessment:producesResult _:d6898433a8108ac0539bfe17eed98e2b.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-visual-inspection> a txt-assessment:TestExecution;
+    txt-assessment:appliesMethod eutex:AppearanceAfterWashingTest;
+    txt-assessment:assessesPerformanceParameter eutex:ColourChange, eutex:FabricAppearance, eutex:NonTextilePartsAppearance, eutex:SeamAppearance;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142>;
+    txt-assessment:producesResult _:ace56f5ff2ef61e43f46e526e266f10, _:b9a52b18be12105c4b25a1e26ff5065b, _:d1d8db12695f3d02a20b207897c0430f, _:fe19d1b3160b3e1c37e780e3435091d3.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness> dcterms:hasPart <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-dimensional-change>, <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-spirality>, <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-visual-inspection>;
+    a txt-assessment:DurabilityAssessment;
+    txt-assessment:appliesMethod eutex:JRCRobustnessScoring;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142>;
+    txt-assessment:hasCondition _:b256553013e21339204d592181f5e886;
+    txt-assessment:hasParameterSetting _:e8879a7d5d48cb7e0b10d7ed46b71ac0.
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#soc-dye> dcterms:type eutex:SubstanceOfConcern;
+    a eudpp:SubstanceOfConcern;
+    eudpp:casNumber "56548-64-2";
+    eudpp:hasQualificationAssertion _:d0b494a748838a6f9c0f87fc2aaac0b9;
+    eudpp:iupacName "3-(2-Cyano-4,6-dinitrophenylazo)-N-ethyl-N-(2-acetoxyethyl)aniline";
+    eudpp:usualName "Disperse Blue 291".
+<https://id.gs1.org/01/09521000001428/21/WJ-2024-00142> dcterms:modified "2024-10-15T10:30:00Z"^^xsd:dateTime;
+    dcterms:type gs1:Clothing, eutex:TextileApparel;
+    a eudpp:Product;
+    gs1:certification <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#cert-bluesign>, <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#cert-grs>, <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#cert-oekotex>, <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#cert-rds>;
+    gs1:consumerRecyclingInstructions "Remove all metal components (zippers, snaps) before textile recycling. Down can be recovered separately."@en, "This product can be returned to any EcoWear store for recycling. Do not dispose of in household waste."@en;
+    gs1:manufacturersWarranty _:d04220a8f12cf2bf6d5e27cc22819df0;
+    gs1:referencedFile <https://files.example.org/files/products/09521000001428/docs/certifications.pdf>, <https://files.example.org/files/products/09521000001428/docs/document.pdf>;
+    gs1:targetConsumerGender gs1:TargetConsumerGenderCode-UNISEX;
+    gs1:textileMaterial _:a8f3601f8e3eb3848dba9936e21ce7a8, _:b84681b173bc0125b776bd7391231219, _:ed440c1b47a36d16820f59169cac497c, _:edbaf081ed27a6bf49d34761035606de;
+    schema:category eutex:Apparel;
+    schema:serialNumber "WJ-2024-00142";
+    txt-indicator:hasIndicator _:a453a5599e07051eab3e0bc83a20533c, _:ac75de894ce6883a25b8a17feafcffc0, _:b184c0a07f09488591063bd2fb66ac4, _:b643cb827c4bd140afe6dab8c2d46950, _:be6d6f8fec4e844e29c1b8ec392b1ea7, _:c90b70531bf54f2d3ce3b6e75acc9145, _:cb95dc0235178990e164e6a6079bc975, _:cd1d52190efc92946348af871a4b1038, _:cf8d10ee9aeca503ff370f83f6241701, _:d9ec1738058aad72e066c10e31c6308e, _:e8a1475e063615b0aba93add3f292d1, _:eaa5ba1f8b3b29b5f060b0f03b2e1be9, _:ee0d29a9e403e9169110e9643afdd9ec, _:f26aa10094715c8608e974cfd7696974;
+    txt-recyclability:hasRecyclabilityAssessment <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#recyclability>;
+    eudpp:containsSubstanceOfConcern <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#soc-dye>;
+    eudpp:countryOfOrigin "PT";
+    eudpp:description "Chaqueta de invierno aislante e impermeable con tejido exterior de poliéster reciclado y relleno de plumón de origen responsable. Diseñada para ofrecer calidez y resistencia en condiciones alpinas."@es, "Giacca invernale isolante e impermeabile con tessuto esterno in poliestere riciclato e imbottitura in piuma di provenienza responsabile. Progettata per garantire calore e durata in condizioni alpine."@it, "Vandafvisende, isoleret vinterjakke med yderstof af genbrugspolyester og ansvarligt indhentet dunfyld. Designet til varme og holdbarhed under alpine forhold."@da, "Vannavstøtende, isolert vinterjakke med yttermateriale i resirkulert polyester og ansvarlig hentet dunfyll. Designet for varme og slitestyrke i alpine forhold."@no, "Vattenavvisande, isolerad vinterjacka med yttertyg av återvunnen polyester och ansvarsfullt framtagen dunfyllning. Konstruerad för värme och hållbarhet under alpina förhållanden."@sv, "Vedenpitävä, eristetty talvitakki, jonka päällikangas on kierrätettyä polyesteriä ja täyte vastuullisesti hankittua untuvaa. Suunniteltu kestävyyteen ja lämpöön alppiolosuhteissa."@fi, "Veste d'hiver isolée et déperlante, coque en polyester recyclé et garnissage en duvet issu de filières responsables. Conçue pour la durabilité et la chaleur en haute montagne."@fr, "Wasserabweisende, isolierte Winterjacke mit Außenstoff aus recyceltem Polyester und verantwortungsvoll gewonnener Daunenfüllung. Entwickelt für Langlebigkeit und Wärme im alpinen Einsatz."@de, "Water-resistant insulated winter jacket with recycled polyester shell and responsibly sourced down filling. Designed for durability and warmth in alpine conditions."@en, "Waterafstotende, geïsoleerde winterjas met buitenstof van gerecycled polyester en verantwoord gewonnen donsvulling. Gemaakt voor duurzaamheid en warmte in alpiene omstandigheden."@nl, "Wodoodporna, ocieplana kurtka zimowa z poszyciem z poliestru z recyklingu i wypełnieniem z odpowiedzialnie pozyskiwanego puchu. Zaprojektowana z myślą o trwałości i cieple w warunkach alpejskich."@pl;
+    eudpp:hasDPP <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#dpp>;
+    eudpp:hasEconomicOperator <https://id.gs1.org/417/9521000000018#operator>;
+    eudpp:hasLCAStudy <https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#lca-study>;
+    eudpp:hasManufacturer <https://id.gs1.org/417/9521000000018>;
+    eudpp:hasProductGroup oec:Textiles;
+    eudpp:hasProperty _:bb670bc8ac49eeb3b5e7254f76761246, _:c892c2f3929ab998f20e8eb252278c85, _:cab83df7237ba238e7c8e75c4ff6bfb3, _:e90d9c40939fa2accc835802bba9d575, <https://files.example.org/files/products/09521000001428/docs/document.pdf>, <https://files.example.org/files/products/09521000001428/docs/supply-chain-transparency-2024.pdf>;
+    eudpp:hasSubstancePresence _:b821264611f53becd686111cf4a6ae6b;
+    eudpp:hasUniqueProductIdentifier _:c9cec15088467f7bc14af53e36e4a28e;
+    eudpp:manufacturingDate "2024-09-15"^^xsd:date;
+    eudpp:productName "Alpine Pro talvitakki, Laivastonsininen"@fi, "Alpine Pro vinterjacka, Marinblå"@sv, "Alpine Pro vinterjakke, Marineblå"@no, "Alpine Pro vinterjakke, Marineblå"@da, "Alpine Pro Winter Jacket, Navy"@en, "Alpine Pro Winterjacke, Marineblau"@de, "Alpine Pro winterjas, Marineblauw"@nl, "Chaqueta de invierno Alpine Pro, Azul marino"@es, "Giacca invernale Alpine Pro, Blu navy"@it, "Kurtka zimowa Alpine Pro, Granatowa"@pl, "Veste d'hiver Alpine Pro, Bleu marine"@fr.
+<https://id.gs1.org/414/9521234000020> dcterms:type "Cut and Sew";
+    a eudpp:Facility;
+    gs1:certification _:a5dbcc46b2d4cfc755687eed083a5ac1, _:aa567c4238a535d11a3bcefae5d97a96;
+    schema:address _:bc42d024745f9711ff2b35313b490b06;
+    schema:name "Porto Textile Manufacturing";
+    eudpp:hasUniqueFacilityIdentifier _:d15e622dad792acb52df95a74798702f.
+<https://id.gs1.org/414/9521234000037> dcterms:type "Dyeing and Finishing";
+    a eudpp:Facility;
+    gs1:certification _:edb8ff11362b806e03cb70415a090f51;
+    schema:address _:bfd4e196167379bb9835fe74bb92c6f0;
+    schema:name "Eco Dyeing Italy";
+    eudpp:hasUniqueFacilityIdentifier _:be19bc8de88c6f9f3426876f67d846c4.
+<https://id.gs1.org/417/9521000000018#address> a schema:PostalAddress;
+    schema:addressCountry "DE";
+    schema:addressLocality "Munich";
+    schema:postalCode "80331";
+    schema:streetAddress "Textilstraße 25".
+<https://id.gs1.org/417/9521000000018#operator> dcterms:type oec:OperatorInformation;
+    a eudpp:LegalPerson;
+    schema:contactPoint _:d45a1b5ee78c6c0321e9b2623d59920c;
+    eudpp:actorName "EcoWear GmbH";
+    eudpp:hasUniqueOperatorIdentifier _:e3e5c7bd5ec9526bc718c264cf86bc73;
+    eudpp:isEstablishedIn _:c7f966f9ad2f676beef12075cbcf0c33.
+<https://id.gs1.org/417/9521000000018> a eudpp:LegalPerson;
+    schema:contactPoint _:bddb15e36c9320bc287c4c5f28c5ecc4;
+    eudpp:actorName "EcoWear GmbH";
+    eudpp:hasUniqueOperatorIdentifier _:cfcde5b70691d8c79ff24c7359870bba;
+    eudpp:isEstablishedIn <https://id.gs1.org/417/9521000000018#address>.
+oea:NumberOfCycles a txt-assessment:NumberOfCycles.
+oec:Textiles a eudpp:ClassificationCode.
+eutex:AbrasionResistance a txt-durability:AbrasionResistance;
+    rdfs:label "Abrasion Resistance"@en.
+eutex:AppearanceAfterWashingTest a txt-assessment:TestMethod;
+    rdfs:label "Appearance After Washing Test"@en;
+    txt-assessment:isDefinedByStandard eutex:ISO15487.
+eutex:ColourChange a txt-durability:ObservedPerformanceParameter;
+    rdfs:label "Colour Change"@en.
+eutex:ColourFastness a txt-durability:ColourFastness;
+    rdfs:label "Colour Fastness"@en.
+eutex:ColourFastnessTest a txt-assessment:TestMethod;
+    rdfs:label "Colour Fastness Test"@en;
+    txt-assessment:isDefinedByStandard eutex:ISO105.
+eutex:DimensionalChangeTest a txt-assessment:TestMethod;
+    rdfs:label "Dimensional Change Test"@en;
+    txt-assessment:isDefinedByStandard eutex:ISO3759, eutex:ISO6330.
+eutex:DimensionalStability a txt-durability:DimensionalStability;
+    rdfs:label "Dimensional Stability"@en.
+eutex:ElastaneContent a txt-durability:ObservedPerformanceParameter;
+    rdfs:label "Elastane Content"@en.
+eutex:ElastaneContentLimit a txt-assessment:PerformanceThreshold;
+    rdfs:label "Elastane Content Limit"@en;
+    txt-assessment:criterionForPerformanceParameter eutex:ElastaneContent;
+    txt-assessment:hasComparisonOperator txt-assessment-codelists:lessThanOrEqualTo;
+    txt-assessment:hasThresholdValue _:f4bb9f91675d53873789f24742a4acbc.
+eutex:FabricAppearance a txt-structure:FabricAppearance;
+    rdfs:label "Fabric Appearance"@en.
+eutex:ISO105 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 105"@en;
+    rdfs:seeAlso <https://www.iso.org/standard/65207.html>.
+eutex:ISO12945 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 12945"@en;
+    rdfs:seeAlso <https://www.iso.org/standard/75375.html>.
+eutex:ISO12947 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 12947"@en;
+    rdfs:seeAlso <https://www.iso.org/standard/75376.html>.
+eutex:ISO13934_1 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 13934-1"@en.
+eutex:ISO13937 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 13937"@en.
+eutex:ISO15487 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 15487"@en;
+    rdfs:seeAlso <https://www.iso.org/standard/55312.html>.
+eutex:ISO16322_3 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 16322-3"@en;
+    rdfs:seeAlso <https://www.iso.org/standard/56326.html>.
+eutex:ISO3759 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 3759"@en;
+    rdfs:seeAlso <https://www.iso.org/standard/57309.html>.
+eutex:ISO4484_1 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 4484-1"@en.
+eutex:ISO6330 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 6330"@en;
+    rdfs:seeAlso <https://www.iso.org/standard/75934.html>.
+eutex:JRCRecyclabilityScoring a txt-recyclability:RecyclabilityScoringMethod;
+    rdfs:label "JRC Recyclability Scoring"@en;
+    txt-assessment:isDefinedByStandard eutex:JRCTextilePrepStudy.
+eutex:JRCRobustnessScoring a txt-assessment:RobustnessScoringMethod;
+    rdfs:label "JRC Robustness Scoring"@en;
+    txt-assessment:isDefinedByStandard eutex:ISO6330, eutex:JRCTextilePrepStudy.
+eutex:JRCTextilePrepStudy a txt-assessment:AssessmentStandard;
+    rdfs:label "JRC Textile Preparatory Study, 3rd Milestone"@en;
+    rdfs:seeAlso <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>.
+eutex:MartindaleAbrasionTest a txt-assessment:TestMethod;
+    rdfs:label "Martindale Abrasion Test"@en;
+    txt-assessment:isDefinedByStandard eutex:ISO12947.
+eutex:MicrofibreRelease a txt-durability:ObservedPerformanceParameter;
+    rdfs:label "Microfibre Release"@en.
+eutex:MicrofibreReleaseTest a txt-assessment:TestMethod;
+    rdfs:label "Microfibre Release Test"@en;
+    txt-assessment:isDefinedByStandard eutex:ISO4484_1.
+eutex:NonTextilePartsAppearance a txt-durability:ObservedPerformanceParameter;
+    rdfs:label "Non-Textile Parts Appearance"@en.
+eutex:PillingResistance a txt-durability:PillingResistance;
+    rdfs:label "Pilling Resistance"@en.
+eutex:PillingTest a txt-assessment:TestMethod;
+    rdfs:label "Pilling Test"@en;
+    txt-assessment:isDefinedByStandard eutex:ISO12945.
+eutex:SeamAppearance a txt-durability:ObservedPerformanceParameter;
+    rdfs:label "Seam Appearance"@en.
+eutex:Spirality a txt-durability:ObservedPerformanceParameter;
+    rdfs:label "Spirality"@en.
+eutex:SpiralityTest a txt-assessment:TestMethod;
+    rdfs:label "Spirality Test"@en;
+    txt-assessment:isDefinedByStandard eutex:ISO16322_3.
+eutex:TearStrength a txt-durability:ObservedPerformanceParameter;
+    rdfs:label "Tear Strength"@en.
+eutex:TearStrengthTest a txt-assessment:TestMethod;
+    rdfs:label "Tear Strength Test"@en;
+    txt-assessment:isDefinedByStandard eutex:ISO13937.
+eutex:TechnicalRecyclabilityCriterion a txt-assessment:AssessmentDecisionCriterion;
+    rdfs:label "Technical Recyclability"@en.
+eutex:TensileStrength a txt-durability:FabricStrength;
+    rdfs:label "Tensile Strength"@en.
+eutex:TensileStrengthTest a txt-assessment:TestMethod;
+    rdfs:label "Tensile Strength Test"@en;
+    txt-assessment:isDefinedByStandard eutex:ISO13934_1.
+eutex:ThermoChemicalRecycling a txt-recyclability:ChemicalRecyclingRoute;
+    rdfs:label "Thermo-Chemical Recycling"@en.

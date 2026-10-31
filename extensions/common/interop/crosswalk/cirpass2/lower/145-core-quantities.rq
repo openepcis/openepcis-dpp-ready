@@ -1,0 +1,36 @@
+# EUDPP core: quantitative properties of the product back to OpenEPCIS.
+#  - Without dcterms:isPartOf: a gs1:QuantitativeValue (same node) under the row's property:
+#    the one dcterms:type names, else the canonical row of the class.
+#  - With dcterms:isPartOf a container: a decimal on the container, which the product links to.
+# Units: an SI unit back to its canonical UN/CEFACT code, a UN/CEFACT code IRI to its code.
+CONSTRUCT {
+  ?prod ?p ?qv .
+  ?qv a gs1:QuantitativeValue ; gs1:value ?nv ; gs1:unitCode ?code .
+  ?cont ?cp ?cv .
+  ?prod ?cl ?cont .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?prod eudpp:hasProperty ?q . ?q a ?qc }
+  OPTIONAL { GRAPH <urn:xw:in> { ?q dcterms:type ?marker } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?q dcterms:isPartOf ?cont0 } }
+  ?row xw:ours ?rp ; xw:quantityClass ?qc ; xw:canonical ?can .
+  OPTIONAL { ?row xw:valueProperty ?vp0 }
+  BIND(COALESCE(?vp0, eudpp:numericalValue) AS ?vp)
+  GRAPH <urn:xw:in> { ?q ?vp ?v }
+  OPTIONAL { ?row xw:containerLink ?rcl }
+  FILTER(BOUND(?cont0) = BOUND(?rcl))
+  FILTER(IF(BOUND(?marker), ?rp = ?marker, ?can))
+  OPTIONAL {
+    GRAPH <urn:xw:in> { ?q eudpp:hasMeasurementUnit ?unit }
+    OPTIONAL { ?urow xw:unitCode ?ucode ; xw:siUnit ?unit ; xw:factor ?uf ; xw:canonical true }
+  }
+  BIND(IF(BOUND(?cont0), ?unbound1, ?rp) AS ?p)
+  BIND(IF(BOUND(?cont0), ?unbound9, ?q) AS ?qv)
+  BIND(IF(BOUND(?cont0), ?unbound2, xsd:decimal(xsd:decimal(?v) / COALESCE(?uf, 1.0))) AS ?nv)
+  BIND(IF(BOUND(?cont0), ?unbound3,
+          COALESCE(?ucode, IF(STRSTARTS(STR(?unit), "https://vocabulary.uncefact.org/UnitMeasureCode#"), STRAFTER(STR(?unit), "#"), ?unbound4))) AS ?code)
+  BIND(IF(BOUND(?cont0), ?rp, ?unbound5) AS ?cp)
+  BIND(IF(BOUND(?cont0), IF(BOUND(?vp0), ?v, xsd:decimal(?v)), ?unbound6) AS ?cv)
+  BIND(IF(BOUND(?cont0), ?cont0, ?unbound7) AS ?cont)
+  BIND(IF(BOUND(?cont0), ?rcl, ?unbound8) AS ?cl)
+}

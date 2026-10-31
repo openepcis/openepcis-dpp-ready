@@ -227,13 +227,19 @@ concept scheme that CBV values can map to (item (b) against the draft).
 ## Converting data: the crosswalk
 
 Term pointers say which terms correspond; they do not convert a document. For that, the
-[crosswalk](../crosswalk/README.md) lifts OpenEPCIS master data and EPCIS events into the
-CIRPASS-2 textile and EUDPP terms and lowers CIRPASS-2 documents back. It is rule-driven SPARQL,
-checked on every build by round-trip cases with committed results. Assessments follow the same
-pattern on both sides (`common/assessment` is modelled on textile-assessment and
+[crosswalk](../crosswalk/README.md) lifts OpenEPCIS master data and EPCIS events into EUDPP core
+and the CIRPASS-2 textile terms and lowers CIRPASS-2 documents back. It is rule-driven SPARQL,
+checked on every build by round-trip cases with committed results, over passports of several
+sectors and a passport written in EUDPP terms only. The reference table above is the basis of its
+mapping table; where the table says "pointer only" because the shapes differ (passport data on the
+product versus a DPP node, operator roles as an enum versus role assignments, substance data on the
+substance versus a substance presence), the crosswalk converts the shape. Assessments follow the
+same pattern on both sides (`common/assessment` is modelled on textile-assessment and
 textile-indicator), so the conversion is close to one to one. What CIRPASS-2 cannot express
-travels in W3C vocabulary, never in ours, and is listed with the gaps in the crosswalk README. The
-gaps are proposed upstream in [`upstream/cirpass2/`](upstream/cirpass2/).
+travels in W3C, schema.org or GS1 vocabulary, never in ours, and is listed with the gaps in the
+crosswalk README. The gaps are proposed upstream in [`upstream/cirpass2/`](upstream/cirpass2/):
+the assessment gaps as [ontologies-docs#3](https://github.com/CIRPASS-2/ontologies-docs/issues/3),
+the EUDPP core gaps as a draft.
 
 ## What we do not do
 

@@ -1,0 +1,85 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix gs1: <https://ref.gs1.org/voc/>.
+@prefix epcis: <https://ref.gs1.org/epcis/>.
+@prefix cbv: <https://ref.gs1.org/cbv/>.
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/>.
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/>.
+@prefix eutex: <https://ref.openepcis.org/extensions/eu/textile/>.
+@prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#>.
+@prefix eudpp: <https://w3id.org/eudpp#>.
+@prefix units: <https://si-digital-framework.org/SI/units/>.
+@prefix txt-assessment: <https://w3id.org/eudpp/textile-assessment#>.
+@prefix txt-assessment-codelists: <https://w3id.org/eudpp/textile-assessment-codelists#>.
+@prefix txt-connector: <https://w3id.org/eudpp/textile-connector#>.
+@prefix txt-core: <https://w3id.org/eudpp/textile-core#>.
+@prefix txt-durability: <https://w3id.org/eudpp/textile-durability#>.
+@prefix txt-indicator: <https://w3id.org/eudpp/textile-indicator#>.
+@prefix txt-recyclability: <https://w3id.org/eudpp/textile-recyclability#>.
+@prefix txt-structure: <https://w3id.org/eudpp/textile-structure#>.
+@prefix schema: <https://schema.org/>.
+@prefix euelec: <https://ref.openepcis.org/extensions/eu/electronics/>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+
+_:a30cfeeb104878ae2955428e6253d52a dcterms:identifier "EU 2024/1781";
+    a eudpp:UnionHarmonisationLegislation.
+_:a431ab937ec867f7ea6901aa4790e5eb dcterms:isPartOf _:b1a82bc051c3d0138fcca858a7584d62;
+    dcterms:type oec:preConsumerRecycledContent;
+    a eudpp:RecycledMaterialsUseResult;
+    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
+    eudpp:numericalValue 0.05.
+_:a61a6d65b73a6b9ae1facdbb7f856a28 dcterms:conformsTo "EN 15804+A2";
+    dcterms:publisher "EPD International";
+    a eudpp:EPDStudy;
+    eudpp:expiryDate "2031-04-30"^^xsd:date;
+    eudpp:hasLCIAResult _:ea08143b4a2d1b42ac666edea69a252e;
+    eudpp:registrationNumber "EPD-IES-2026-00417".
+_:ab627a56e9e96cf0288a825c1fc087ba a eudpp:ProductIdentifier;
+    eudpp:hasGranularity eudpp:model;
+    eudpp:hasScheme eudpp:GTIN;
+    eudpp:identifierValue "09521234601005".
+_:b1090663a00852cdcb33922411509b40 dcterms:isPartOf _:b1a82bc051c3d0138fcca858a7584d62;
+    a eudpp:RecycledMaterialsUseResult;
+    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
+    eudpp:numericalValue 0.98.
+_:b1a82bc051c3d0138fcca858a7584d62 dcterms:type oec:RecycledContent.
+_:c0e4a17dcc4525c8d72f6188b08f4601 a eudpp:LCAModuleValue;
+    eudpp:forLifeCycleModule eudpp:en15804moduleA3;
+    eudpp:numericalValue 400.
+_:c892313b96c626343c9d05441cc9516f a eudpp:MaterialOfComposition;
+    eudpp:materialComponent "Carbon and alloying elements (C, Mn, Cu, Si)";
+    eudpp:materialPercentage 2.2.
+_:d35ffd32b7ab178f1cebce522a2c0e1c a eudpp:MaterialOfComposition;
+    eudpp:materialComponent "Iron (Fe)";
+    eudpp:materialPercentage 97.8.
+_:daa33086b290e5502893b583306b9d05 a eudpp:LCAModuleValue;
+    eudpp:forLifeCycleModule eudpp:en15804moduleA2;
+    eudpp:numericalValue 60.
+_:df75d2c68435299399b8d881096a91c1 a eudpp:LCAModuleValue;
+    eudpp:forLifeCycleModule eudpp:en15804moduleA1;
+    eudpp:numericalValue 180.
+_:ea08143b4a2d1b42ac666edea69a252e a eudpp:LCIAResult;
+    eudpp:hasPerModuleValue _:c0e4a17dcc4525c8d72f6188b08f4601, _:daa33086b290e5502893b583306b9d05, _:df75d2c68435299399b8d881096a91c1;
+    eudpp:numericalValue 640;
+    eudpp:quantifiesIndicator eudpp:ind_GWPtotal;
+    eudpp:unitAsString "kg CO2 eq / t".
+_:ee55fdc8168bab6d9247e4f51f51df6 dcterms:isPartOf _:b1a82bc051c3d0138fcca858a7584d62;
+    dcterms:type oec:postConsumerRecycledContent;
+    a eudpp:RecycledMaterialsUseResult;
+    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
+    eudpp:numericalValue 0.93.
+<https://id.gs1.org/01/09521234601005/10/H7740025> dcterms:type <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct>;
+    a eudpp:Product;
+    eudpp:hasLCAStudy _:a61a6d65b73a6b9ae1facdbb7f856a28;
+    eudpp:hasManufacturer <https://id.gs1.org/417/9521234000051>;
+    eudpp:hasMaterial _:c892313b96c626343c9d05441cc9516f, _:d35ffd32b7ab178f1cebce522a2c0e1c;
+    eudpp:hasProperty _:a431ab937ec867f7ea6901aa4790e5eb, _:b1090663a00852cdcb33922411509b40, _:ee55fdc8168bab6d9247e4f51f51df6;
+    eudpp:hasUniqueProductIdentifier _:ab627a56e9e96cf0288a825c1fc087ba;
+    eudpp:isConformWith _:a30cfeeb104878ae2955428e6253d52a;
+    eudpp:productName "S500B ribbed reinforcing bar, Ø16 mm"@en.
+<https://id.gs1.org/417/9521234000051> a eudpp:LegalPerson;
+    gs1:partyGLN "9521234000051";
+    eudpp:actorName "Recycling Steelworks GmbH".

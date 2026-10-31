@@ -1,0 +1,35 @@
+# EUDPP core: a substance of concern named by the product is eudpp:containsSubstanceOfConcern
+# (101-…); where and how much of it the product contains, and how to handle it, is a
+# eudpp:SubstancePresence. Concentrations are percentages in OpenEPCIS and mass fractions in
+# CIRPASS-2 (eudpp:massFractionUnit). Instructions given as text are instruction nodes with a
+# dcterms:description.
+CONSTRUCT {
+  ?prod eudpp:hasSubstancePresence ?pres .
+  ?pres a eudpp:SubstancePresence ; eudpp:concernsSubstance ?soc ; eudpp:substanceLocationDescription ?loc ;
+        eudpp:hasConcentration ?conc ; eudpp:hasSafeUseInstruction ?safe ; eudpp:hasDisassemblyInstruction ?dis ;
+        eudpp:hasEndOfLifeManagementInstruction ?eol .
+  ?conc a ?concClass ; eudpp:numericalValue ?frac ; eudpp:hasMeasurementUnit ?fracUnit .
+  ?safe a ?instr ; dcterms:description ?safeText .
+  ?dis a ?instr2 ; dcterms:description ?disText .
+  ?eol a ?instr3 ; dcterms:description ?eolText .
+}
+WHERE {
+  ?row xw:theirs eudpp:containsSubstanceOfConcern ; xw:ours ?hp .
+  GRAPH <urn:xw:in> { ?prod ?hp ?soc }
+  OPTIONAL { GRAPH <urn:xw:in> { ?soc oec:substanceLocation ?loc } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?soc ?cp ?pctv } VALUES ?cp { oec:concentration eutex:substanceConcentration } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?soc ?sp ?safeText } VALUES ?sp { oec:safeUseInstructions eutex:safeUseInstructions } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?soc oec:safeDisassemblyInstructions ?disText } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?soc eutex:endOfLifeHandling ?eolText } }
+  BIND(BNODE() AS ?pres)
+  BIND(IF(BOUND(?pctv), BNODE(), ?u1) AS ?conc)
+  BIND(IF(BOUND(?pctv), eudpp:ConcentrationOfSubstanceOfConcern, ?u2) AS ?concClass)
+  BIND(IF(BOUND(?pctv), xsd:decimal(xsd:decimal(?pctv) / 100), ?u3) AS ?frac)
+  BIND(IF(BOUND(?pctv), eudpp:massFractionUnit, ?u4) AS ?fracUnit)
+  BIND(IF(BOUND(?safeText), BNODE(), ?u5) AS ?safe)
+  BIND(IF(BOUND(?disText), BNODE(), ?u6) AS ?dis)
+  BIND(IF(BOUND(?eolText), BNODE(), ?u7) AS ?eol)
+  BIND(IF(BOUND(?safeText), eudpp:SubstanceManagementInstruction, ?u8) AS ?instr)
+  BIND(IF(BOUND(?disText), eudpp:SubstanceManagementInstruction, ?u9) AS ?instr2)
+  BIND(IF(BOUND(?eolText), eudpp:SubstanceManagementInstruction, ?u10) AS ?instr3)
+}

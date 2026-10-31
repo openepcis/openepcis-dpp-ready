@@ -1,0 +1,18 @@
+# EUDPP core: country codes back to gs1:Country nodes (a material's country keeps its node).
+CONSTRUCT {
+  ?s ?p ?c .
+  ?c a gs1:Country ; gs1:countryCode ?code .
+}
+WHERE {
+  {
+    GRAPH <urn:xw:in> { ?s ?q ?code0 }
+    VALUES (?q ?p) { (eudpp:countryOfOrigin gs1:countryOfOrigin) (schema:addressCountry gs1:addressCountry) }
+    FILTER(isLiteral(?code0))
+    BIND(STR(?code0) AS ?code)
+    BIND(BNODE() AS ?c)
+  } UNION {
+    GRAPH <urn:xw:in> { ?s schema:countryOfOrigin ?c . ?c schema:identifier ?code0 . ?s a eudpp:MaterialOfComposition }
+    BIND(oec:hasMaterialOrigin AS ?p)
+    BIND(STR(?code0) AS ?code)
+  }
+}

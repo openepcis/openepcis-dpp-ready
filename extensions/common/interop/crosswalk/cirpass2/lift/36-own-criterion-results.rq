@@ -1,0 +1,15 @@
+# Criterion results against criteria CIRPASS-2 does not name (a sector module's own criteria,
+# e.g. the French repairability index): an assessment result evaluated against the criterion,
+# which keeps its OpenEPCIS IRI typed as an assessment decision criterion. The result class
+# travels as dcterms:type. An outcome has no slot outside recyclability (gap).
+CONSTRUCT {
+  ?a txt-assessment:producesResult ?r .
+  ?r a txt-assessment:AssessmentResult ; dcterms:type oea:CriterionResult ; txt-assessment:isEvaluatedAgainst ?ocrit .
+  ?ocrit a txt-assessment:AssessmentDecisionCriterion ; rdfs:label ?clabel .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?a oea:hasResult ?r . ?r a ?rt ; oea:hasCriterion ?ocrit }
+  ?rt rdfs:subClassOf* oea:CriterionResult .
+  FILTER NOT EXISTS { ?ocrit xw:sameCode ?anyCode }
+  OPTIONAL { ?ocrit rdfs:label ?clabel }
+}

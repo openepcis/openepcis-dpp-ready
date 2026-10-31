@@ -1,0 +1,16 @@
+# EUDPP core: an actor's role assignment back to oec:hasOperatorRole (codes back to their
+# OpenEPCIS partner). An issuer or economic operator without a role assignment that is the
+# product's manufacturer has the manufacturer role (OpenEPCIS requires the ESPR Art. 77 role).
+CONSTRUCT { ?op oec:hasOperatorRole ?role . }
+WHERE {
+  {
+    GRAPH <urn:xw:in> { ?ra a eudpp:ActorRoleAssignment ; eudpp:hasActor ?op ; eudpp:hasRole ?r }
+    OPTIONAL { ?ours xw:sameCode ?r }
+    BIND(COALESCE(?ours, ?r) AS ?role)
+  } UNION {
+    { GRAPH <urn:xw:in> { ?dpp eudpp:hasIssuer ?op } } UNION { GRAPH <urn:xw:in> { ?p0 eudpp:hasEconomicOperator ?op } }
+    GRAPH <urn:xw:in> { ?prod eudpp:hasManufacturer ?op }
+    FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?ra2 eudpp:hasActor ?op } }
+    BIND(oec:Manufacturer AS ?role)
+  }
+}

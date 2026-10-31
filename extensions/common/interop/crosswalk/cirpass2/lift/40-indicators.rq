@@ -1,8 +1,9 @@
 # Indicators hang on the product in CIRPASS-2; one stated on an assessment keeps that link as
-# dcterms:source.
+# dcterms:source. A kind without a CIRPASS-2 indicator class travels as dcterms:type <kind>.
 CONSTRUCT {
   ?prod txt-indicator:hasIndicator ?i .
   ?i a ?icls ;
+     dcterms:type ?kindMarker ;
      dcterms:source ?srcAssessment ;
      txt-indicator:hasQuantitativeValue ?qv ;
      txt-indicator:hasCategoricalValue ?cat ;
@@ -14,6 +15,7 @@ WHERE {
   GRAPH <urn:xw:in> { ?x oea:hasIndicator ?i . ?i oea:hasIndicatorKind ?k }
   OPTIONAL { ?k xw:liftType ?ktype }
   BIND(COALESCE(?ktype, IF(STRSTARTS(STR(?k), "https://w3id.org/eudpp/"), ?k, txt-indicator:Indicator)) AS ?icls)
+  BIND(IF(!BOUND(?ktype) && !STRSTARTS(STR(?k), "https://w3id.org/eudpp/"), ?k, ?noMarker) AS ?kindMarker)
   OPTIONAL {
     GRAPH <urn:xw:in> { ?x a ?xt } ?xt rdfs:subClassOf* oea:Assessment .
     BIND(?x AS ?srcAssessment)

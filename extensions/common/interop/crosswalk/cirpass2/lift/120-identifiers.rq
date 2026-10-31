@@ -1,0 +1,21 @@
+# EUDPP core: identifiers become eudpp:Identifier nodes. GTIN (product, model granularity) and
+# GLN (actor, facility) and LEI (schema:leiCode) name their scheme; an economic-operator or facility identifier of
+# unstated scheme travels without one.
+CONSTRUCT {
+  ?s ?link ?id .
+  ?id a ?idClass ; eudpp:identifierValue ?v ; eudpp:hasScheme ?scheme ; eudpp:hasGranularity ?gran .
+}
+WHERE {
+  VALUES (?p ?host ?link ?idClass ?scheme ?gran) {
+    (gs1:gtin                 gs1:Product             eudpp:hasUniqueProductIdentifier  eudpp:ProductIdentifier  eudpp:GTIN eudpp:model)
+    (gs1:globalLocationNumber gs1:Organization        eudpp:hasUniqueOperatorIdentifier eudpp:ActorIdentifier    eudpp:GLN  UNDEF)
+    (oec:economicOperatorId   gs1:Organization        eudpp:hasUniqueOperatorIdentifier eudpp:ActorIdentifier    UNDEF      UNDEF)
+    (gs1:globalLocationNumber oec:FacilityInformation eudpp:hasUniqueFacilityIdentifier eudpp:FacilityIdentifier eudpp:GLN  UNDEF)
+    (oec:facilityId           oec:FacilityInformation eudpp:hasUniqueFacilityIdentifier eudpp:FacilityIdentifier UNDEF      UNDEF)
+    (schema:leiCode           gs1:Organization        eudpp:hasUniqueOperatorIdentifier eudpp:ActorIdentifier    eudpp:LEI  UNDEF)
+  }
+  GRAPH <urn:xw:in> { ?s ?p ?o }
+  FILTER EXISTS { GRAPH <urn:xw:in> { ?s a ?t } ?t rdfs:subClassOf* ?host }
+  BIND(STR(?o) AS ?v)
+  BIND(BNODE() AS ?id)
+}

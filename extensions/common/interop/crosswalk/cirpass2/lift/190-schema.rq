@@ -1,0 +1,11 @@
+# schema.org statements in the input travel unchanged (both sides use schema.org), except those a
+# rule converts: the name of a material (its eudpp:MaterialType value, 140-…), a row's xw:ours on
+# its host (substance names), the LEI (an eudpp:ActorIdentifier, 120-…).
+CONSTRUCT { ?s ?p ?o . }
+WHERE {
+  GRAPH <urn:xw:in> { ?s ?p ?o }
+  FILTER(STRSTARTS(STR(?p), STR(schema:)))
+  FILTER NOT EXISTS { FILTER(?p = schema:name) GRAPH <urn:xw:in> { ?s a ?mt } ?mt rdfs:subClassOf* oec:MaterialComposition }
+  FILTER NOT EXISTS { ?row xw:ours ?p ; xw:host ?h . GRAPH <urn:xw:in> { ?s a ?st } ?st rdfs:subClassOf* ?h . }
+  FILTER(?p != schema:leiCode)
+}
