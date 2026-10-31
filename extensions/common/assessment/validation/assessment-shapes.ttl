@@ -1,0 +1,359 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix oea-sh: <https://ref.openepcis.org/extensions/common/assessment/shapes/> .
+
+<https://ref.openepcis.org/extensions/common/assessment/shapes/>
+    a sh:ShapesGraph ;
+    dcterms:title "OpenEPCIS Assessment SHACL Shapes"@en ;
+    dcterms:description "SHACL validation shapes for the assessment and test vocabulary. dpp-core imports the vocabulary, so these shapes travel with the core shapes in every validation type."@en ;
+    dcterms:created "2026-10-31"^^xsd:date ;
+    dcterms:modified "2026-10-31"^^xsd:date .
+
+# =============================================================================
+# Assessment
+# =============================================================================
+
+oea-sh:AssessmentShape
+    a sh:NodeShape ;
+    sh:targetClass oea:Assessment ;
+    sh:name "Assessment Shape"@en ;
+    sh:description "An assessment applies at most one method and states what it produced: results, sub-assessments, indicators or an overall outcome."@en ;
+    sh:property [
+        sh:path oea:hasMethod ;
+        sh:name "hasMethod"@en ;
+        sh:class oea:AssessmentMethod ;
+        sh:maxCount 1 ;
+        sh:message "An assessment applies at most one oea:AssessmentMethod; a scheme of several tests lists them as oea:hasSubAssessment."@en
+    ] ;
+    sh:property [
+        sh:path oea:hasSubAssessment ;
+        sh:name "hasSubAssessment"@en ;
+        sh:class oea:Assessment
+    ] ;
+    sh:property [
+        sh:path oea:hasResult ;
+        sh:name "hasResult"@en ;
+        sh:class oea:AssessmentResult
+    ] ;
+    sh:property [
+        sh:path oea:hasCondition ;
+        sh:name "hasCondition"@en ;
+        sh:class oea:AssessmentCondition
+    ] ;
+    sh:property [
+        sh:path oea:hasParameterSetting ;
+        sh:name "hasParameterSetting"@en ;
+        sh:class oea:ParameterSetting
+    ] ;
+    sh:property [
+        sh:path oea:hasAssessedParameter ;
+        sh:name "hasAssessedParameter"@en ;
+        sh:class oea:PerformanceParameter
+    ] ;
+    sh:property [
+        sh:path oea:assessmentDate ;
+        sh:name "assessmentDate"@en ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:hasAssessmentBody ;
+        sh:name "hasAssessmentBody"@en ;
+        sh:description "Identified like any GS1 party, by its GLN Digital Link."@en ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:hasEvidence ;
+        sh:name "hasEvidence"@en ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path oea:hasOutcome ;
+        sh:name "hasOutcome"@en ;
+        sh:in ( oea:Satisfied oea:NotSatisfied oea:NotAssessed ) ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:awardedScore ;
+        sh:name "awardedScore"@en ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxCount 1
+    ] ;
+    sh:or (
+        [ sh:path oea:hasResult ; sh:minCount 1 ]
+        [ sh:path oea:hasSubAssessment ; sh:minCount 1 ]
+        [ sh:path oea:hasIndicator ; sh:minCount 1 ]
+        [ sh:path oea:hasOutcome ; sh:minCount 1 ]
+    ) ;
+    sh:severity sh:Warning ;
+    sh:message "An assessment states nothing it produced: add an oea:hasResult, oea:hasSubAssessment, oea:hasIndicator or oea:hasOutcome."@en .
+
+# =============================================================================
+# Method and standard
+# =============================================================================
+
+oea-sh:AssessmentMethodShape
+    a sh:NodeShape ;
+    sh:targetClass oea:AssessmentMethod ;
+    sh:name "Assessment Method Shape"@en ;
+    sh:property [
+        sh:path oea:isDefinedByStandard ;
+        sh:name "isDefinedByStandard"@en ;
+        sh:class oea:AssessmentStandard
+    ] ;
+    sh:property [
+        sh:path oea:methodUrl ;
+        sh:name "methodUrl"@en ;
+        sh:datatype xsd:anyURI ;
+        sh:maxCount 1
+    ] .
+
+oea-sh:AssessmentStandardShape
+    a sh:NodeShape ;
+    sh:targetClass oea:AssessmentStandard ;
+    sh:name "Assessment Standard Shape"@en ;
+    sh:property [
+        sh:path oea:standardCode ;
+        sh:name "standardCode"@en ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:standardUrl ;
+        sh:name "standardUrl"@en ;
+        sh:datatype xsd:anyURI ;
+        sh:maxCount 1
+    ] .
+
+# =============================================================================
+# Condition and parameter setting
+# =============================================================================
+
+oea-sh:AssessmentConditionShape
+    a sh:NodeShape ;
+    sh:targetClass oea:AssessmentCondition ;
+    sh:name "Assessment Condition Shape"@en ;
+    sh:property [
+        sh:path oea:hasConditionType ;
+        sh:name "hasConditionType"@en ;
+        sh:class oea:ConditionType ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:hasConditionValue ;
+        sh:name "hasConditionValue"@en ;
+        sh:class gs1:QuantitativeValue ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:conditionDescription ;
+        sh:name "conditionDescription"@en ;
+        sh:datatype xsd:string
+    ] ;
+    sh:or (
+        [ sh:path oea:hasConditionConcept ; sh:minCount 1 ]
+        [ sh:path oea:hasConditionValue ; sh:minCount 1 ]
+        [ sh:path oea:conditionDescription ; sh:minCount 1 ]
+    ) ;
+    sh:message "A condition states a coded value (oea:hasConditionConcept), a quantity (oea:hasConditionValue) or a description."@en .
+
+oea-sh:ParameterSettingShape
+    a sh:NodeShape ;
+    sh:targetClass oea:ParameterSetting ;
+    sh:name "Parameter Setting Shape"@en ;
+    sh:property [
+        sh:path oea:hasParameter ;
+        sh:name "hasParameter"@en ;
+        sh:class oea:MeasurementParameter ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:hasParameterValue ;
+        sh:name "hasParameterValue"@en ;
+        sh:class gs1:QuantitativeValue ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .
+
+# =============================================================================
+# Results
+# =============================================================================
+
+oea-sh:AssessmentResultShape
+    a sh:NodeShape ;
+    sh:targetClass oea:AssessmentResult ;
+    sh:name "Assessment Result Shape"@en ;
+    sh:property [
+        sh:path oea:hasObservedParameter ;
+        sh:name "hasObservedParameter"@en ;
+        sh:class oea:PerformanceParameter ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:isEvaluatedAgainst ;
+        sh:name "isEvaluatedAgainst"@en ;
+        sh:class oea:Criterion
+    ] ;
+    sh:property [
+        sh:path oea:hasOutcome ;
+        sh:name "hasOutcome"@en ;
+        sh:in ( oea:Satisfied oea:NotSatisfied oea:NotAssessed ) ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:awardedScore ;
+        sh:name "awardedScore"@en ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:resultText ;
+        sh:name "resultText"@en ;
+        sh:datatype xsd:string
+    ] .
+
+oea-sh:MeasurementResultShape
+    a sh:NodeShape ;
+    sh:targetClass oea:MeasurementResult ;
+    sh:name "Measurement Result Shape"@en ;
+    sh:description "A measurement names the parameter it observes and carries exactly one value with its unit."@en ;
+    sh:property [
+        sh:path oea:hasObservedParameter ;
+        sh:name "hasObservedParameter"@en ;
+        sh:minCount 1 ;
+        sh:message "A measurement result names the oea:PerformanceParameter it observes."@en
+    ] ;
+    sh:property [
+        sh:path oea:hasMeasuredValue ;
+        sh:name "hasMeasuredValue"@en ;
+        sh:class gs1:QuantitativeValue ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A measurement result carries exactly one gs1:QuantitativeValue."@en
+    ] ;
+    sh:property [
+        sh:path ( oea:hasMeasuredValue gs1:unitCode ) ;
+        sh:name "unitCode"@en ;
+        sh:minCount 1 ;
+        sh:message "A measured value states its UN/CEFACT unitCode (C62 for a grade or a dimensionless number)."@en
+    ] .
+
+oea-sh:CriterionResultShape
+    a sh:NodeShape ;
+    sh:targetClass oea:CriterionResult ;
+    sh:name "Criterion Result Shape"@en ;
+    sh:property [
+        sh:path oea:hasCriterion ;
+        sh:name "hasCriterion"@en ;
+        sh:class oea:Criterion ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:hasOutcome ;
+        sh:name "hasOutcome"@en ;
+        sh:minCount 1 ;
+        sh:message "A criterion result states whether its criterion is met."@en
+    ] .
+
+# =============================================================================
+# Criterion and threshold
+# =============================================================================
+
+oea-sh:CriterionShape
+    a sh:NodeShape ;
+    sh:targetClass oea:Criterion ;
+    sh:name "Criterion Shape"@en ;
+    sh:property [
+        sh:path oea:criterionDescription ;
+        sh:name "criterionDescription"@en ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path oea:maxScore ;
+        sh:name "maxScore"@en ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxCount 1
+    ] .
+
+oea-sh:ThresholdShape
+    a sh:NodeShape ;
+    sh:targetClass oea:Threshold ;
+    sh:name "Threshold Shape"@en ;
+    sh:property [
+        sh:path oea:hasThresholdParameter ;
+        sh:name "hasThresholdParameter"@en ;
+        sh:class oea:PerformanceParameter ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:hasComparisonOperator ;
+        sh:name "hasComparisonOperator"@en ;
+        sh:in ( oea:LessThan oea:LessThanOrEqual oea:Equal oea:GreaterThanOrEqual oea:GreaterThan ) ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:hasThresholdValue ;
+        sh:name "hasThresholdValue"@en ;
+        sh:class gs1:QuantitativeValue ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .
+
+# =============================================================================
+# Indicator
+# =============================================================================
+
+oea-sh:IndicatorShape
+    a sh:NodeShape ;
+    sh:targetClass oea:Indicator ;
+    sh:name "Indicator Shape"@en ;
+    sh:description "An indicator names its kind and carries a quantity, a coded value or a text."@en ;
+    sh:property [
+        sh:path oea:hasIndicatorKind ;
+        sh:name "hasIndicatorKind"@en ;
+        sh:class oea:IndicatorKind ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "An indicator names exactly one oea:IndicatorKind."@en
+    ] ;
+    sh:property [
+        sh:path oea:hasIndicatorValue ;
+        sh:name "hasIndicatorValue"@en ;
+        sh:class gs1:QuantitativeValue ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:indicatorText ;
+        sh:name "indicatorText"@en ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:hasDerivationMethod ;
+        sh:name "hasDerivationMethod"@en ;
+        sh:class oea:AssessmentMethod ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path oea:isDerivedFrom ;
+        sh:name "isDerivedFrom"@en ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:or (
+        [ sh:path oea:hasIndicatorValue ; sh:minCount 1 ]
+        [ sh:path oea:hasCategoricalValue ; sh:minCount 1 ]
+        [ sh:path oea:indicatorText ; sh:minCount 1 ]
+    ) ;
+    sh:message "An indicator carries a value: oea:hasIndicatorValue (quantity), oea:hasCategoricalValue (code) or oea:indicatorText."@en .

@@ -43,6 +43,8 @@ import { Writer } from "n3";
 import Ajv from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 import {
+  coreOntologyFiles,
+  coreShapeFiles,
   discoverModules,
   coreOf,
   ROOT,
@@ -81,9 +83,9 @@ function typesOf(modules: ValidatableModule[], core: ValidatableModule): Validat
   const types: ValidationType[] = [];
 
   const shapesFor = (m: ValidatableModule) =>
-    m.dir === core.dir ? [m.shapes] : [core.shapes, m.shapes];
+    m.dir === core.dir ? coreShapeFiles(core) : [...coreShapeFiles(core), m.shapes];
   const ontologiesFor = (m: ValidatableModule) => {
-    const files = m.dir === core.dir ? [m.ontology] : [core.ontology, m.ontology];
+    const files = m.dir === core.dir ? coreOntologyFiles(core) : [...coreOntologyFiles(core), m.ontology];
     // The access-level sidecars carry the ESPR Art. 9 tiers. They are not needed
     // to validate structure and would only bulk up every bundle, so they stay out.
     return files;

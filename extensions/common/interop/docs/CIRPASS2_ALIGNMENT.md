@@ -125,7 +125,7 @@ the restraint:
 | `oec:isCriticalRawMaterial` | `cirpass2:isCriticalRawMaterial` | |
 | `oec:CircularityPerformance` | `cirpass2:CircularEconomyIndicator` | |
 | `oec:RecycledContent` | `cirpass2:RecycledMaterialsUseResult` | LCA 3.1 (was `RecycledMaterialsUse`) |
-| `oec:recoverableRate` / `oec:recyclingCollectionRate` | `cirpass2:RecoverableRate` / `cirpass2:RecyclingCollectionRate` | |
+| `oea:RecoverableRate` / `oea:RecyclingCollectionRate` (performance parameters) | `cirpass2:RecoverableRate` / `cirpass2:RecyclingCollectionRate` | |
 | `oec:waterConsumption` / `oec:landUse` / `oec:materialFootprint` | `cirpass2:WaterConsumptionResult` / `cirpass2:LandUseResult` / `cirpass2:MaterialFootprint`, `cirpass2:InventoryIndicatorResult` | ESPR Annex I parameters; LCA 3.1 models them as inventory-indicator results |
 | `oec:wasteGenerationAmount` / `oec:packagingWasteAmount` / `oec:productToPackagingRatio` | `cirpass2:WasteGenerationAmount` / `cirpass2:PackagingWasteAmount` / `cirpass2:ProductToPackagingRatio` | |
 | `oec:EmissionsPerformance` / `oec:CarbonFootprintDeclaration` | `cirpass2:CarbonFootprint`, `cirpass2:LCIAResult` | audit-graded `skos:narrowMatch` on `CarbonFootprint`; `EnvironmentalFootprint` no longer exists, a characterised impact result is `LCIAResult` |

@@ -2,7 +2,7 @@
 
 Regulatory frame: GS1 Web Vocabulary / ESPR consumer-information baseline
 
-Coverage: 139 properties — 109 Public / 30 AuthorizedOnly / 0 Restricted / 0 inherited / 0 UNCLASSIFIED; 0 legally locked.
+Coverage: 152 properties — 122 Public / 30 AuthorizedOnly / 0 Restricted / 0 inherited / 0 UNCLASSIFIED; 0 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
@@ -21,16 +21,17 @@ Coverage: 139 properties — 109 Public / 30 AuthorizedOnly / 0 Restricted / 0 i
 | `bestBeforeDate` | Best Before Date | **Public** |  | eli/reg/2024/1781 | The best-before date is printed on the label or package by definition and consumers rely on it directly. |
 | `brand` | Brand | **Public** |  | eli/reg/2024/1781 | The brand appears on the consumer package by definition and is core public product identity. |
 | `brandOwner` | Brand Owner | **Public** |  | eli/reg/2024/1781 | The brand owner is the accountable party behind the on-package brand and is published in the GS1 registry (Verified by GS1). |
+| `category` | Category | **Public** |  | eli/reg/2024/1781 | The product category is public product classification, shown in retail listings and on the passport itself. |
 | `certification` | Certification | **Public** |  | eli/reg/2024/1781 | Certification claims must be publicly verifiable by the consumers and market-surveillance actors they are addressed to. |
 | `colourCode` | Colour Code | **Public** |  | eli/reg/2024/1781 | Colour codes describe an attribute visible on the product itself and shown in every retail listing. |
 | `colourDescription` | Colour Description | **Public** |  | eli/reg/2024/1781 | The colour description states an attribute visible on the product itself. |
 | `consumerHandlingStorage` | Consumer Handling Storage | **Public** |  | eli/reg/2024/1781 | The manufacturer's handling and storage recommendations are consumer use-and-maintenance information under ESPR Annex III. |
 | `consumerPackageDisclaimer` | Consumer Package Disclaimer | **Public** |  | eli/reg/2024/1781 | The package disclaimer is defined as information to be used in advertising and display, i.e. inherently public. |
 | `consumerProductVariant` | Consumer Product Variant | **Public** |  | eli/reg/2024/1781 | The consumer product variant distinguishes retail variants under the same GTIN and is by name and purpose consumer-facing. |
+| `consumerRecyclingInstructions` | Consumer Recycling Instructions | **Public** |  | eli/reg/2024/1781 | Recycling instructions address the consumer by definition and are normally printed on the label or package (ESPR Annex III end-of-life information). |
 | `consumerSafetyInformation` | Consumer Safety Information | **Public** |  | eli/reg/2024/1781 | Safety information exists to protect the end user and must reach every anonymous scanner of the product. |
 | `consumerStorageInstructions` | Consumer Storage Instructions | **Public** |  | eli/reg/2024/1781 | Storage instructions are normally held on the label or accompany the product, so they are already public consumer information. |
 | `consumerUsageInstructions` | Consumer Usage Instructions | **Public** |  | eli/reg/2024/1781 | Usage instructions are label-carried consumer information ESPR Annex III explicitly directs at customers. |
-| `contactPoint` | Contact Point | **Public** |  | https://ref.gs1.org/voc/ | Published contact points are how the organization asks to be reached and are ordinary business-directory content. |
 | `countryOfAssembly` | Country Of Assembly | **Public** |  | eli/reg/2024/1781 | Country of assembly is an origin fact at country granularity, revealing no supplier or facility identity. |
 | `countryOfLastProcessing` | Country Of Last Processing | **Public** |  | eli/reg/2024/1781 | Country of last processing is origin information at country granularity, consistent with on-label origin marking. |
 | `countryOfOrigin` | Country Of Origin | **Public** |  | eli/reg/2024/1781 | Country of origin is a consumer-facing declaration frequently required on the label of the target market. |
@@ -86,10 +87,11 @@ Coverage: 139 properties — 109 Public / 30 AuthorizedOnly / 0 Restricted / 0 i
 | `managedBy` | Managed By | **AuthorizedOnly** |  | eli/reg/2024/1781 | The managing organization behind a site or party discloses an outsourcing/management contract between businesses. |
 | `managedFor` | Managed For | **AuthorizedOnly** |  | eli/reg/2024/1781 | Whose behalf a place is managed on discloses the same commercial management relationship as managedBy. |
 | `manages` | Manages | **AuthorizedOnly** |  | eli/reg/2024/1781 | The portfolio of places and parties an organization manages enumerates its service contracts — commercial-relations data. |
-| `manufacturer` | Manufacturer | **AuthorizedOnly** |  | eli/reg/2024/1781 | The producing organization behind a brand is supply-chain sourcing detail; consumers see the brand owner, while manufacturer identity serves authorities and B2B partners. |
+| `manufacturer` | Manufacturer | **Public** |  | eli/reg/2024/1781 | The passport names its economic operator: EN 18223 makes economicOperatorId a mandatory passport field, the passport derives it from the manufacturer, and ESPR Annex III lists the manufacturer's identity among the passport information, so an anonymous reader must be able to see it. |
 | `manufacturersWarranty` | Manufacturers Warranty | **Public** |  | eli/reg/2024/1781 | Guarantee and warranty terms are customer information ESPR Annex III expects to be available to product owners. |
 | `manufacturingPlant` | Manufacturing Plant | **AuthorizedOnly** |  | eli/reg/2024/1781 | Linking a product to its production facility exposes the manufacturer's production network, which the battery-passport precedent keeps non-public. |
 | `massPerUnitArea` | Mass Per Unit Area | **Public** |  | eli/reg/2024/1781 | Mass per unit area (e.g. fabric grammage) is a physical product characteristic quoted in ordinary retail listings. |
+| `model` | Model | **Public** |  | eli/reg/2024/1781 | The model name or number is printed on the product or its label and identifies it towards the consumer. |
 | `netArea` | Net Area | **Public** |  | eli/reg/2024/1781 | Net area is a net-quantity measurement of the retail unit, equivalent to on-label content declarations. |
 | `netContent` | Net Content | **Public** |  | eli/reg/2024/1781 | Net content is, per its GS1 definition, the quantity as claimed on the label. |
 | `netWeight` | Net Weight | **Public** |  | eli/reg/2024/1781 | Net weight is mandatory on-label net-quantity information for consumers. |
@@ -108,6 +110,9 @@ Coverage: 139 properties — 109 Public / 30 AuthorizedOnly / 0 Restricted / 0 i
 | `packaging` | Packaging | **Public** |  | eli/reg/2024/1781 | Packaging type and material details are consumer-relevant circularity information ESPR Annex I makes central to the passport. |
 | `packagingDate` | Packaging Date | **Public** |  | eli/reg/2024/1781 | The packaging date is marked on packs (GS1 element strings) and informs the consumer's freshness judgement. |
 | `packagingMarkedLabelAccreditation` | Packaging Marked Label Accreditation | **Public** |  | eli/reg/2024/1781 | Accreditation marks are printed on the packaging by definition, so the field only mirrors the label. |
+| `packagingMaterial` | Packaging Material | **Public** |  | eli/reg/2024/1781 | The packaging material is what the consumer has to know to sort the packaging correctly, and is visible on the package itself. |
+| `packagingRecyclingProcessType` | Packaging Recycling Process Type | **Public** |  | eli/reg/2024/1781 | Whether packaging is compostable, recyclable or reusable is consumer-facing sorting and sustainability information. |
+| `packagingType` | Packaging Type | **Public** |  | eli/reg/2024/1781 | The type of packaging is evident from the product as sold and carries no confidential content. |
 | `parentOrganization` | Parent Organization | **Public** |  | https://ref.gs1.org/voc/ | The parent legal entity is corporate-structure information disclosed in public company registers. |
 | `partyGLN` | Party GLN | **Public** |  | https://ref.gs1.org/voc/ | The party GLN is the public registry key of the legal entity or function being described. |
 | `physicalLocationName` | Physical Location Name | **Public** |  | https://ref.gs1.org/voc/ | The name of a physical business site is public registry identity, typically also signposted at the site itself. |
@@ -128,6 +133,7 @@ Coverage: 139 properties — 109 Public / 30 AuthorizedOnly / 0 Restricted / 0 i
 | `provenanceStatement` | Provenance Statement | **Public** |  | eli/reg/2024/1781 | The provenance statement is a marketing-grade origin description brands print on the product page and pack. |
 | `referencedFile` | Referenced File | **Public** |  | eli/reg/2024/1781 | Referenced files are links to additional product information the brand publishes for its audience. |
 | `regulatedProductName` | Regulated Product Name | **Public** |  | eli/reg/2024/1781 | The regulated or generic denomination is required on the label to describe the true nature of the product to consumers. |
+| `regulatoryInformation` | Regulatory Information | **Public** |  | eli/reg/2024/1781 | Statements about the regulations a product complies with are compliance claims made towards the market and its customers. |
 | `relatedOrganization` | Related Organization | **Public** |  | https://ref.gs1.org/voc/ | The organization associated with a place is the public operator identity a visitor to the site can observe. |
 | `replacedByOrganization` | Replaced By Organization | **Public** |  | https://ref.gs1.org/voc/ | The successor-organization link keeps the public registry record resolvable after a party is superseded. |
 | `replacedByPlace` | Replaced By Place | **Public** |  | https://ref.gs1.org/voc/ | The successor-location link keeps the public registry record resolvable after a location is superseded. |
@@ -137,11 +143,18 @@ Coverage: 139 properties — 109 Public / 30 AuthorizedOnly / 0 Restricted / 0 i
 | `replacedProduct` | Replaced Product | **Public** |  | eli/reg/2024/1781 | The predecessor-product link is the public catalogue history of what this product permanently replaces. |
 | `responsibleForLocation` | Responsible For Location | **AuthorizedOnly** |  | eli/reg/2024/1781 | The places an organization is responsible for map internal accountability across the site network — B2B operational structure. |
 | `responsibleOrganization` | Responsible Organization | **AuthorizedOnly** |  | eli/reg/2024/1781 | The organization directly responsible for a place is internal accountability structure, distinct from the public operator identity. |
+| `schema.org.contactPoint` | Contact Point | **Public** |  | eli/reg/2024/1781 | A contact point of the responsible party is how a consumer reaches the brand for support, safety or recall questions. |
+| `schemaVersion` | Schema Version | **AuthorizedOnly** |  | eli/reg/2024/1781 | The schema version is technical record metadata that serves systems processing the passport, not consumer information. |
 | `sellByDate` | Sell By Date | **Public** |  | eli/reg/2024/1781 | The sell-by date is marked on retail packaging and lets the consumer judge product freshness at the shelf. |
+| `sizeCode` | Size Code | **Public** |  | eli/reg/2024/1781 | The size is printed on the label of the product and is what the consumer selects at the point of sale. |
 | `sizeCodes` | Size Codes | **Public** |  | eli/reg/2024/1781 | Size codes are ordinary retail information printed on the label and shown at point of sale. |
+| `status` | Status | **Public** |  | eli/reg/2024/1781 | The passport status tells the consumer whether the passport they scanned is valid and current (ESPR Art. 9 information on the passport). |
 | `subOrganization` | Sub Organization | **Public** |  | https://ref.gs1.org/voc/ | Subsidiary legal entities are corporate-structure information disclosed in public company registers. |
 | `supplierSpecifiedMinimumConsumerStorageDays` | Supplier Specified Minimum Consumer Storage Days | **AuthorizedOnly** |  | eli/reg/2024/1781 | The supplier-specified minimum storage-days figure steers retail shelf-life logistics between trading partners; the consumer relies on the printed dates instead. |
+| `targetConsumerGender` | Target Consumer Gender | **Public** |  | eli/reg/2024/1781 | The intended consumer gender is a retail classification shown on the label and in every shop listing. |
 | `targetMarket` | Target Market | **Public** |  | eli/reg/2024/1781 | Target-market countries and release dates are public availability information visible from where the product is sold. |
+| `textileMaterial` | Textile Material | **Public** |  | eli/reg/2024/1781 | The fibre composition of a textile product is mandatory label content and the first fact a consumer checks before buying or washing it. |
 | `usesManagedLocation` | Uses Managed Location | **AuthorizedOnly** |  | eli/reg/2024/1781 | Which managed spaces an organization uses reveals its operational footprint and supplier relationships. |
 | `variantDescription` | Variant Description | **Public** |  | eli/reg/2024/1781 | The variant description distinguishes retail variants the consumer chooses between at point of sale. |
+| `voc.contactPoint` | Contact Point | **Public** |  | https://ref.gs1.org/voc/ | Published contact points are how the organization asks to be reached and are ordinary business-directory content. |
 | `warningCopyDescription` | Warning Copy Description | **Public** |  | eli/reg/2024/1781 | Warning copy reproduces caution information printed on the package and is critical consumer safety content. |

@@ -41,6 +41,7 @@ GS1-Extensions: battery=https://ref.openepcis.org/extensions/eu/battery/
 | Prefix | URI | Purpose |
 |--------|-----|---------|
 | `dpp` | `https://ref.openepcis.org/extensions/common/core/` | Core DPP/ESPR vocabulary |
+| `oea` | `https://ref.openepcis.org/extensions/common/assessment/` | Assessment and test model: assessments, methods, standards, conditions, results, criteria, indicators (below the core; dpp-core imports it) |
 | `carrier` | `https://ref.openepcis.org/extensions/common/carrier/` | Data carrier authentication (NTAG 424 DNA SUN key records, chip binding, scan verdicts) |
 | `battery` | `https://ref.openepcis.org/extensions/eu/battery/` | Battery Regulation vocabulary |
 | `eudr` | `https://ref.openepcis.org/extensions/eu/eudr/` | EUDR vocabulary |

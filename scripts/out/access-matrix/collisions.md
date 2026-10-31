@@ -14,6 +14,7 @@ must be reconciled or explicitly waived (scripts/access-level-waivers.json).
 
 | Local name | Module tiers | Effect |
 |---|---|---|
+| `assessmentDate` | assessment: Public, electronics: Public | consistent |
 | `biodegradationPercentage` | dpp-core: Public, detergent: Public | consistent |
 | `carbonFootprintStudyUrl` | dpp-core: Public, battery: Public | consistent |
 | `casNumber` | dpp-core: AuthorizedOnly, battery: AuthorizedOnly | consistent |
@@ -23,8 +24,8 @@ must be reconciled or explicitly waived (scripts/access-level-waivers.json).
 | `ecNumber` | dpp-core: AuthorizedOnly, battery: AuthorizedOnly, textile: AuthorizedOnly | consistent |
 | `eprelProductUrl` | dpp-core: Public, electronics: Public | consistent |
 | `eprelRegistrationNumber` | dpp-core: Public, electronics: Public | consistent |
-| `expectedLifetimeYears` | battery: Public, textile: Public | consistent |
 | `hasAnnualEnergyConsumption` | dpp-core: Public, electronics: Public | consistent |
+| `hasAssessmentBody` | assessment: Public, electronics: Public | consistent |
 | `hasCarbonFootprintDeclaration` | dpp-core: Public, battery: Public | consistent |
 | `hasCarbonFootprintDistribution` | dpp-core: Public, battery: Public | consistent |
 | `hasCarbonFootprintProduction` | dpp-core: Public, battery: Public | consistent |
@@ -47,8 +48,7 @@ must be reconciled or explicitly waived (scripts/access-level-waivers.json).
 | `isCriticalRawMaterial` | dpp-core: AuthorizedOnly, battery: AuthorizedOnly | consistent |
 | `languageCode` | dpp-core: Public, battery: Public | consistent |
 | `lastDataUpdate` | dpp-core: Public, battery: Public | consistent |
-| `recyclabilityRate` | dpp-core: Public, battery: Public, electronics: Public | consistent |
-| `recyclabilityScore` | dpp-core: Public, textile: Public | consistent |
+| `recyclabilityRate` | battery: Public, electronics: Public | consistent |
 | `safeUseInstructions` | dpp-core: Public, textile: Public | consistent |
 | `takeBackIncentive` | dpp-core: Public, textile: Public | consistent |
 | `takeBackUrl` | dpp-core: Public, textile: Public | consistent |

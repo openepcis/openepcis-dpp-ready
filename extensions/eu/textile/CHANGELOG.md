@@ -4,6 +4,28 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [Unreleased]
 
+### Breaking: durability, robustness, recyclability and microfibre release use `common/assessment`
+
+- `eutex:DurabilityInfo`, `eutex:RobustnessAssessment` and `eutex:MicroplasticInfo` are
+  `oea:Assessment`s; `eutex:RecyclabilityAssessment` stays a subclass of `oec:RecyclabilityAssessment`.
+  The entry properties (`hasDurabilityInfo`, `hasRobustnessAssessment`, `hasRecyclabilityAssessment`,
+  `hasMicroplasticInfo`) are subproperties of `oea:hasAssessment`.
+- New assessment catalogue (PART 19): standards (ISO 6330, 16322-3, 3759, 15487, 105, 12945, 12947,
+  13934-1, 13937, 4484-1, the JRC preparatory study), test methods (`MartindaleAbrasionTest`,
+  `PillingTest`, `ColourFastnessTest`, `DimensionalChangeTest`, `SpiralityTest`,
+  `AppearanceAfterWashingTest`, `TensileStrengthTest`, `TearStrengthTest`, `MicrofibreReleaseTest`),
+  scoring methods (`JRCRobustnessScoring`, `JRCRecyclabilityScoring`), performance parameters,
+  indicator kinds (`RobustnessScore`, `DurabilityRating`, `SheddingRiskLevel`), the condition type
+  `SpecimenFabricType`, and the recyclability criteria and elastane thresholds.
+- Removed: the eight flat durability properties, `hasMicroplasticRiskLevel`, `hasSheddingRate`, the
+  classes `SpiralityTestResult`, `DimensionalChangeTestResult`, `VisualInspectionResult`,
+  `SortingFactors`, `TechnicalRecyclability`, `TestStandard` and their 26 properties,
+  `recyclabilityScore`, `isRecyclable`, `elastaneContentPercent`, `hasTestStandard`. The ISO
+  individuals are now `oea:AssessmentStandard`s; `hasApplicableRecyclingTechnology` hangs on the
+  recyclability assessment.
+- All examples, the durability event and the EN 18223 goldens are migrated; a sensorReport version of
+  the durability event is added (`epcis/observation-durability-sensor.jsonld`).
+
 ### Changed: CIRPASS-2 pointers follow EUDPP 2.1.0
 
 ### Added: audited SKOS mappings to the CIRPASS-2 Textile Ontology (vocab-sync wave 2026-10-30)

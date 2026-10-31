@@ -509,19 +509,29 @@ Capture product performance, durability, and lifespan information per ESPR requi
 ```json
 {
   "type": "PerformanceInfo",
-  "oec:hasExpectedLifespan": {
-    "type": "gs1:QuantitativeValue",
-    "gs1:value": "10",
-    "gs1:unitCode": "ANN"
-  },
   "oec:hasGuaranteedLifespan": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "5",
     "gs1:unitCode": "ANN"
   },
-  "oec:usageCycles": 3000,
-  "oec:performanceClass": "A",
-  "oec:testedConditions": "Standard laboratory conditions per EN 62040-3"
+  "oea:hasIndicator": [
+    {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:ExpectedLifetime" },
+      "oea:hasIndicatorValue": { "type": "gs1:QuantitativeValue", "gs1:value": "10", "gs1:unitCode": "ANN" }
+    },
+    {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:NumberOfUseCycles" },
+      "oea:hasIndicatorValue": { "type": "gs1:QuantitativeValue", "gs1:value": 3000, "gs1:unitCode": "C62" }
+    },
+    {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:PerformanceClass" },
+      "oea:indicatorText": "A"
+    }
+  ],
+  "oea:hasCondition": { "type": "oea:AssessmentCondition", "oea:conditionDescription": "Standard laboratory conditions per EN 62040-3" }
 }
 ```
 
@@ -531,7 +541,7 @@ Capture product performance, durability, and lifespan information per ESPR requi
 | Years | ANN | Expected lifespan |
 | Months | MON | Short-lived products |
 | Hours | HUR | Operating hours |
-| Cycles | N/A | Use `usageCycles` property |
+| Cycles | C62 | Indicator of kind `oea:NumberOfUseCycles` |
 
 ### Usage
 - **All ESPR categories**: Durability and performance requirements
@@ -550,8 +560,18 @@ Capture repair, maintenance, and spare parts information per ESPR requirements.
 ```json
 {
   "type": "RepairabilityInfo",
-  "oec:repairabilityScore": 7.5,
-  "oec:repairabilityClass": "B",
+  "oea:hasIndicator": [
+    {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:RepairabilityScore" },
+      "oea:hasIndicatorValue": { "type": "gs1:QuantitativeValue", "gs1:value": "7.5", "gs1:unitCode": "C62" }
+    },
+    {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:RepairabilityClass" },
+      "oea:indicatorText": "B"
+    }
+  ],
   "oec:hasSparePartsAvailability": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",

@@ -99,12 +99,22 @@ A woven winter jacket tested after 5 wash cycles:
 
 ## Ontology Mapping
 
+The assessment uses the shared `common/assessment` model (`oea:`):
+
 ```turtle
-eutex:RobustnessAssessment    # Container class
-  eutex:robustnessScore       # 0-10 composite score
-  eutex:cleaningCyclesBeforeTest  # Number of wash cycles (default 5)
-  eutex:hasRobustnessTestFabricType  # Determines threshold tables
-  eutex:hasSpiralityTest         # -> SpiralityTestResult
-  eutex:hasDimensionalChangeTest # -> DimensionalChangeTestResult
-  eutex:hasVisualInspection      # -> VisualInspectionResult
+eutex:RobustnessAssessment                       # an oea:Assessment
+  oea:hasMethod eutex:JRCRobustnessScoring
+  oea:hasParameterSetting                        # 5 cleaning cycles (ISO 6330)
+    oea:hasParameter oea:NumberOfCycles ; oea:hasParameterValue 5 C62
+  oea:hasCondition                               # selects the threshold tables
+    oea:hasConditionType eutex:SpecimenFabricType ; oea:hasConditionConcept eutex:WovenNonDenim
+  oea:hasSubAssessment                           # three oea:TestExecution
+    oea:hasMethod eutex:SpiralityTest            ; result eutex:Spirality (P1)          ; oea:awardedScore 0-3
+    oea:hasMethod eutex:DimensionalChangeTest    ; result eutex:DimensionalStability (P1) ; oea:awardedScore 0-3
+    oea:hasMethod eutex:AppearanceAfterWashingTest ; results eutex:ColourChange, FabricAppearance,
+                                                 SeamAppearance, NonTextilePartsAppearance (grades, C62) ; oea:awardedScore 0-4
+  oea:hasIndicator                               # the 0-10 total
+    oea:hasIndicatorKind eutex:RobustnessScore ; oea:isDerivedFrom the three tests
 ```
+
+A worked example is `extensions/eu/textile/examples/garment-product.jsonld`.

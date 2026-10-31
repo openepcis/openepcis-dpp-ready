@@ -92,11 +92,21 @@ Fiber purity affects the score within each technology:
 
 ## Ontology Mapping
 
+The assessment uses the shared `common/assessment` model (`oea:`):
+
 ```turtle
-eutex:RecyclabilityAssessment     # Container class
-  eutex:recyclabilityScore        # 0-10 composite score
-  eutex:isRecyclable              # Boolean (score above threshold)
-  eutex:elastaneContentPercent    # Elastane % for penalty calc
-  eutex:hasSortingFactors            # -> SortingFactors
-  eutex:hasTechnicalRecyclability    # -> TechnicalRecyclability
+eutex:RecyclabilityAssessment                    # an oea:Assessment (via oec:RecyclabilityAssessment)
+  oea:hasMethod eutex:JRCRecyclabilityScoring
+  eutex:hasApplicableRecyclingTechnology eutex:ThermoChemicalRecycling
+  oea:hasResult
+    oea:MeasurementResult  eutex:ElastaneContent (P1)
+                           oea:isEvaluatedAgainst eutex:ElastaneContentLimit ; oea:hasOutcome
+    oea:CriterionResult    oea:hasCriterion eutex:SameInnerOuterComposition | FreeFromPrintings |
+                           FreeFromCoatings | FreeFromSequins | FreeFromDyes | MonoMaterial
+                           oea:hasOutcome ; oea:awardedScore 0-1
+    oea:CriterionResult    oea:hasCriterion eutex:TechnicalRecyclabilityCriterion ; oea:awardedScore
+  oea:hasIndicator         oea:hasIndicatorKind oea:RecyclabilityScore (0-10, C62)
+  oea:hasOutcome           oea:Satisfied when the product counts as recyclable
 ```
+
+A worked example is `extensions/eu/textile/examples/garment-product.jsonld`.

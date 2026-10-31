@@ -3,6 +3,7 @@
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix schema: <https://schema.org/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
 # Reusable value shapes from the core shapes graph (dpp-sh:TranslatableText).
 # Every validation type bundles dpp-core-shapes.ttl alongside this file, so the
 # reference always resolves; see docs/GITB_CONFORMANCE.md.
@@ -315,292 +316,52 @@ eutex:CareInstructionShape a sh:NodeShape ;
     ] .
 
 # -----------------------------------------------------------------------------
-# Durability Info Shape
+# Durability, robustness and recyclability assessments
+# The generic structure (method, results, indicators, criteria) is validated by the
+# common/assessment shapes, which travel with the core shapes in every validation
+# type; these shapes add what is specific to the textile schemes.
 # -----------------------------------------------------------------------------
 eutex:DurabilityInfoShape a sh:NodeShape ;
     sh:targetClass eutex:DurabilityInfo ;
     rdfs:label "Durability Information Shape" ;
+    rdfs:comment "Each durability test is an oea:TestExecution under oea:hasSubAssessment." ;
     sh:property [
-        sh:path eutex:expectedWashCycles ;
-        sh:name "Expected Wash Cycles" ;
-        sh:datatype xsd:integer ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0
-    ] ;
-    sh:property [
-        sh:path eutex:hasDurabilityClass ;
-        sh:name "Durability Class" ;
-        sh:class eutex:DurabilityClass ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:pillingResistance ;
-        sh:name "Pilling Resistance" ;
-        sh:datatype xsd:integer ;
-        sh:maxCount 1 ;
-        sh:minInclusive 1 ;
-        sh:maxInclusive 5
-    ] ;
-    sh:property [
-        sh:path eutex:colorFastness ;
-        sh:name "Color Fastness" ;
-        sh:datatype xsd:integer ;
-        sh:maxCount 1 ;
-        sh:minInclusive 1 ;
-        sh:maxInclusive 5
-    ] ;
-    sh:property [
-        sh:path eutex:dimensionalStability ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:abrasionResistance ;
-        sh:name "Abrasion Resistance" ;
-        sh:datatype xsd:integer ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:hasTensileStrength ;
-        sh:class gs1:QuantitativeValue
-    ] ;
-    sh:property [
-        sh:path eutex:hasTearStrength ;
-        sh:class gs1:QuantitativeValue
-    ] ;
-    sh:property [
-        sh:path eutex:expectedLifetimeYears ;
-        sh:datatype xsd:integer ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0
+        sh:path oea:hasSubAssessment ;
+        sh:name "Durability Tests" ;
+        sh:class oea:TestExecution
     ] .
 
-# -----------------------------------------------------------------------------
-# Robustness Assessment Shape
-# -----------------------------------------------------------------------------
 eutex:RobustnessAssessmentShape a sh:NodeShape ;
     sh:targetClass eutex:RobustnessAssessment ;
     rdfs:label "Robustness Assessment Shape" ;
-    rdfs:comment "Validation shape for the 0-10 robustness scoring system." ;
+    rdfs:comment "A robustness assessment applies the JRC scoring method and carries at most its three tests (spirality, dimensional change, appearance after washing)." ;
     sh:property [
-        sh:path eutex:robustnessScore ;
-        sh:name "Robustness Score" ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0 ;
-        sh:maxInclusive 10
+        sh:path oea:hasMethod ;
+        sh:name "Scoring Method" ;
+        sh:hasValue eutex:JRCRobustnessScoring ;
+        sh:message "eutex:RobustnessAssessment applies eutex:JRCRobustnessScoring."@en
     ] ;
     sh:property [
-        sh:path eutex:cleaningCyclesBeforeTest ;
-        sh:datatype xsd:integer ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0
-    ] ;
-    sh:property [
-        sh:path eutex:hasRobustnessTestFabricType ;
-        sh:class eutex:FabricType ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:hasSpiralityTest ;
-        sh:class eutex:SpiralityTestResult ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:hasDimensionalChangeTest ;
-        sh:class eutex:DimensionalChangeTestResult ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:hasVisualInspection ;
-        sh:class eutex:VisualInspectionResult ;
-        sh:maxCount 1
+        sh:path oea:hasSubAssessment ;
+        sh:name "Robustness Tests" ;
+        sh:class oea:TestExecution ;
+        sh:maxCount 3
     ] .
 
-# -----------------------------------------------------------------------------
-# Spirality Test Result Shape
-# -----------------------------------------------------------------------------
-eutex:SpiralityTestResultShape a sh:NodeShape ;
-    sh:targetClass eutex:SpiralityTestResult ;
-    rdfs:label "Spirality Test Result Shape" ;
-    sh:property [
-        sh:path eutex:spiralityScore ;
-        sh:datatype xsd:integer ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0 ;
-        sh:maxInclusive 3
-    ] ;
-    sh:property [
-        sh:path eutex:spiralityPercentage ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0
-    ] ;
-    sh:property [
-        sh:path eutex:spiralityTestMethod ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:hasTestStandard ;
-        sh:class eutex:TestStandard ;
-        sh:maxCount 1
-    ] .
-
-# -----------------------------------------------------------------------------
-# Dimensional Change Test Result Shape
-# -----------------------------------------------------------------------------
-eutex:DimensionalChangeTestResultShape a sh:NodeShape ;
-    sh:targetClass eutex:DimensionalChangeTestResult ;
-    rdfs:label "Dimensional Change Test Result Shape" ;
-    sh:property [
-        sh:path eutex:dimensionalChangeScore ;
-        sh:datatype xsd:integer ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0 ;
-        sh:maxInclusive 3
-    ] ;
-    sh:property [
-        sh:path eutex:dimensionalChangePercentage ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0
-    ] ;
-    sh:property [
-        sh:path eutex:dimensionalChangeTestMethod ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:hasTestStandard ;
-        sh:class eutex:TestStandard ;
-        sh:maxCount 1
-    ] .
-
-# -----------------------------------------------------------------------------
-# Visual Inspection Result Shape
-# -----------------------------------------------------------------------------
-eutex:VisualInspectionResultShape a sh:NodeShape ;
-    sh:targetClass eutex:VisualInspectionResult ;
-    rdfs:label "Visual Inspection Result Shape" ;
-    sh:property [
-        sh:path eutex:visualInspectionScore ;
-        sh:datatype xsd:integer ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0 ;
-        sh:maxInclusive 4
-    ] ;
-    sh:property [
-        sh:path eutex:colourChangeRating ;
-        sh:datatype xsd:integer ;
-        sh:maxCount 1 ;
-        sh:minInclusive 1 ;
-        sh:maxInclusive 5
-    ] ;
-    sh:property [
-        sh:path eutex:fabricAppearanceRating ;
-        sh:datatype xsd:integer ;
-        sh:maxCount 1 ;
-        sh:minInclusive 1 ;
-        sh:maxInclusive 5
-    ] ;
-    sh:property [
-        sh:path eutex:seamAppearanceRating ;
-        sh:datatype xsd:integer ;
-        sh:maxCount 1 ;
-        sh:minInclusive 1 ;
-        sh:maxInclusive 5
-    ] ;
-    sh:property [
-        sh:path eutex:nonTextilePartsRating ;
-        sh:datatype xsd:integer ;
-        sh:maxCount 1 ;
-        sh:minInclusive 1 ;
-        sh:maxInclusive 5
-    ] ;
-    sh:property [
-        sh:path eutex:visualInspectionTestMethod ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:hasTestStandard ;
-        sh:class eutex:TestStandard ;
-        sh:maxCount 1
-    ] .
-
-# -----------------------------------------------------------------------------
-# Recyclability Assessment Shape
-# -----------------------------------------------------------------------------
 eutex:RecyclabilityAssessmentShape a sh:NodeShape ;
     sh:targetClass eutex:RecyclabilityAssessment ;
     rdfs:label "Recyclability Assessment Shape" ;
-    rdfs:comment "Validation shape for the 0-10 recyclability scoring system." ;
+    rdfs:comment "A textile recyclability assessment applies the JRC scoring method." ;
     sh:property [
-        sh:path eutex:recyclabilityScore ;
-        sh:name "Recyclability Score" ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0 ;
-        sh:maxInclusive 10
+        sh:path oea:hasMethod ;
+        sh:name "Scoring Method" ;
+        sh:hasValue eutex:JRCRecyclabilityScoring ;
+        sh:message "eutex:RecyclabilityAssessment applies eutex:JRCRecyclabilityScoring."@en
     ] ;
     sh:property [
-        sh:path eutex:isRecyclable ;
-        sh:datatype xsd:boolean ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:elastaneContentPercent ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0 ;
-        sh:maxInclusive 100
-    ] ;
-    sh:property [
-        sh:path eutex:hasSortingFactors ;
-        sh:class eutex:SortingFactors ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:hasTechnicalRecyclability ;
-        sh:class eutex:TechnicalRecyclability ;
-        sh:maxCount 1
-    ] .
-
-# -----------------------------------------------------------------------------
-# Sorting Factors Shape
-# -----------------------------------------------------------------------------
-eutex:SortingFactorsShape a sh:NodeShape ;
-    sh:targetClass eutex:SortingFactors ;
-    rdfs:label "Sorting Factors Shape" ;
-    sh:property [
-        sh:path eutex:sameInnerOuterComposition ;
-        sh:datatype xsd:boolean ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:freeFromPrintings ;
-        sh:datatype xsd:boolean ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:freeFromCoatings ;
-        sh:datatype xsd:boolean ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:freeFromSequins ;
-        sh:datatype xsd:boolean ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:freeFromDyes ;
-        sh:datatype xsd:boolean ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:isMonoMaterial ;
-        sh:datatype xsd:boolean ;
+        sh:path eutex:hasApplicableRecyclingTechnology ;
+        sh:name "Applicable Recycling Technology" ;
+        sh:class eutex:RecyclingTechnology ;
         sh:maxCount 1
     ] .
 
@@ -779,17 +540,6 @@ eutex:MicroplasticInfoShape a sh:NodeShape ;
     sh:targetClass eutex:MicroplasticInfo ;
     rdfs:label "Microplastic Information Shape" ;
     sh:property [
-        sh:path eutex:hasMicroplasticRiskLevel ;
-        sh:name "Microplastic Risk Level" ;
-        sh:class eutex:MicroplasticRiskLevel ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:hasSheddingRate ;
-        sh:name "Shedding Rate" ;
-        sh:class gs1:QuantitativeValue
-    ] ;
-    sh:property [
         sh:path eutex:syntheticFiberContent ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1 ;
@@ -882,10 +632,3 @@ eutex:EnergyUsageShape a sh:NodeShape ;
         sh:message "eutex:hasEnergyUsage must use unitCode 'KWH' (kilowatt-hours)"@en
     ] .
 
-eutex:SheddingRateShape a sh:NodeShape ;
-    sh:targetSubjectsOf eutex:hasSheddingRate ;
-    sh:property [
-        sh:path ( eutex:hasSheddingRate gs1:unitCode ) ;
-        sh:hasValue "MGM" ;
-        sh:message "eutex:hasSheddingRate must use unitCode 'MGM' (mg/kg)"@en
-    ] .

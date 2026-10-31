@@ -181,36 +181,175 @@
   "eutex:hasDurabilityInfo": {
     "id": "https://id.gs1.org/01/09521234003007#durability",
     "type": "eutex:DurabilityInfo",
-    "eutex:expectedWashCycles": 120,
-    "eutex:hasDurabilityClass": {
-      "@id": "eutex:DurabilityB"
-    },
-    "eutex:pillingResistance": 4,
-    "eutex:colorFastness": 4,
-    "eutex:dimensionalStability": 2,
-    "eutex:abrasionResistance": 45000,
-    "eutex:hasTensileStrength": {
-      "type": "gs1:QuantitativeValue",
-      "gs1:value": 820,
-      "gs1:unitCode": "NEW"
-    },
-    "eutex:hasTearStrength": {
-      "type": "gs1:QuantitativeValue",
-      "gs1:value": 38,
-      "gs1:unitCode": "NEW"
-    },
-    "eutex:expectedLifetimeYears": 10
+    "oea:hasSubAssessment": [
+      {
+        "id": "https://id.gs1.org/01/09521234003007#durability-abrasion",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:MartindaleAbrasionTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:AbrasionResistance"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 45000,
+            "gs1:unitCode": "C62"
+          }
+        }
+      },
+      {
+        "id": "https://id.gs1.org/01/09521234003007#durability-pilling",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:PillingTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:PillingResistance"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 4,
+            "gs1:unitCode": "C62"
+          }
+        }
+      },
+      {
+        "id": "https://id.gs1.org/01/09521234003007#durability-colour-fastness",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:ColourFastnessTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:ColourFastness"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 4,
+            "gs1:unitCode": "C62"
+          }
+        }
+      },
+      {
+        "id": "https://id.gs1.org/01/09521234003007#durability-dimensional-change",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:DimensionalChangeTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:DimensionalStability"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 2,
+            "gs1:unitCode": "P1"
+          }
+        }
+      },
+      {
+        "id": "https://id.gs1.org/01/09521234003007#durability-tensile",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:TensileStrengthTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:TensileStrength"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 820,
+            "gs1:unitCode": "NEW"
+          }
+        }
+      },
+      {
+        "id": "https://id.gs1.org/01/09521234003007#durability-tear",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:TearStrengthTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:TearStrength"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 38,
+            "gs1:unitCode": "NEW"
+          }
+        }
+      }
+    ],
+    "oea:hasIndicator": [
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:NumberOfUseCycles"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 120,
+          "gs1:unitCode": "C62"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:ExpectedLifetime"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 10,
+          "gs1:unitCode": "ANN"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "eutex:DurabilityRating"
+        },
+        "oea:hasCategoricalValue": {
+          "@id": "eutex:DurabilityB"
+        }
+      }
+    ]
   },
   "eutex:hasMicroplasticInfo": {
     "id": "https://id.gs1.org/01/09521234003007#microplastic",
     "type": "eutex:MicroplasticInfo",
-    "eutex:hasMicroplasticRiskLevel": {
-      "@id": "eutex:MediumShedding"
+    "oea:hasMethod": {
+      "@id": "eutex:MicrofibreReleaseTest"
     },
-    "eutex:hasSheddingRate": {
-      "type": "gs1:QuantitativeValue",
-      "gs1:value": 95,
-      "gs1:unitCode": "MGM"
+    "oea:hasResult": {
+      "type": "oea:MeasurementResult",
+      "oea:hasObservedParameter": {
+        "@id": "eutex:MicrofibreRelease"
+      },
+      "oea:hasMeasuredValue": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": 95,
+        "gs1:unitCode": "MGM"
+      }
+    },
+    "oea:hasIndicator": {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": {
+        "@id": "eutex:SheddingRiskLevel"
+      },
+      "oea:hasCategoricalValue": {
+        "@id": "eutex:MediumShedding"
+      }
     },
     "eutex:syntheticFiberContent": 75,
     "eutex:microplasticMitigationMeasures": {

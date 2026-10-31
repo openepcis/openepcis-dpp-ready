@@ -4,6 +4,7 @@
     "@version": 1.1,
     "gs1": "https://ref.gs1.org/voc/",
     "oec": "https://ref.openepcis.org/extensions/common/core/",
+    "oea": "https://ref.openepcis.org/extensions/common/assessment/",
     "schema": "https://schema.org/",
     "cv": "http://data.europa.eu/m8g/",
     "cccev": "http://data.europa.eu/m8g/",
@@ -12,6 +13,11 @@
     "AccessLevel": "oec:AccessLevel",
     "AccessRights": "oec:AccessRights",
     "ActorRole": "oec:ActorRole",
+    "Assessment": "oea:Assessment",
+    "AssessmentCondition": "oea:AssessmentCondition",
+    "AssessmentMethod": "oea:AssessmentMethod",
+    "AssessmentResult": "oea:AssessmentResult",
+    "AssessmentStandard": "oea:AssessmentStandard",
     "BatchLevel": "oec:BatchLevel",
     "Biodegradability": "oec:Biodegradability",
     "BiodegradabilityTestMethod": "oec:BiodegradabilityTestMethod",
@@ -19,9 +25,13 @@
     "CircularityInfo": "oec:CircularityPerformance",
     "CircularityPerformance": "oec:CircularityPerformance",
     "CommonSpecification": "oec:CommonSpecification",
+    "ComparisonOperator": "oea:ComparisonOperator",
     "Compostability": "oec:Compostability",
     "CompostabilityType": "oec:CompostabilityType",
+    "ConditionType": "oea:ConditionType",
     "ConformityAssessmentModule": "oec:ConformityAssessmentModule",
+    "Criterion": "oea:Criterion",
+    "CriterionResult": "oea:CriterionResult",
     "CustomsCommodityCodeType": "oec:CustomsCommodityCodeType",
     "DPPGranularity": "oec:DPPGranularity",
     "DataElement": "oec:DataElement",
@@ -86,6 +96,8 @@
     },
     "ImpactIndicatorResult": "oec:ImpactIndicatorResult",
     "ImpactIndicatorType": "oec:ImpactIndicatorType",
+    "Indicator": "oea:Indicator",
+    "IndicatorKind": "oea:IndicatorKind",
     "IndividualTradeItemPiece": "oec:IndividualTradeItemPiece",
     "ItemLevel": "oec:ItemLevel",
     "Latitude": "gs1:latitude",
@@ -93,6 +105,8 @@
     "LifecycleStageResult": "oec:LifecycleStageResult",
     "Longitude": "gs1:longitude",
     "MaterialComposition": "oec:MaterialComposition",
+    "MeasurementParameter": "oea:MeasurementParameter",
+    "MeasurementResult": "oea:MeasurementResult",
     "ModelLevel": "oec:ModelLevel",
     "MultiLanguageDataElement": "oec:MultiLanguageDataElement",
     "MultiLanguageValue": "oec:MultiLanguageValue",
@@ -100,8 +114,11 @@
     "OperationalScope": "oec:OperationalScope",
     "OperatorInformation": "oec:OperatorInformation",
     "OperatorRole": "oec:OperatorRole",
+    "Outcome": "oea:Outcome",
+    "ParameterSetting": "oea:ParameterSetting",
     "PassportStatus": "oec:PassportStatus",
     "PerformanceInfo": "oec:PerformanceInfo",
+    "PerformanceParameter": "oea:PerformanceParameter",
     "ProductCategory": "oec:ProductCategory",
     "RecyclabilityAssessment": "oec:RecyclabilityAssessment",
     "RecycledContent": "oec:RecycledContent",
@@ -110,6 +127,9 @@
     "SingleValuedDataElement": "oec:SingleValuedDataElement",
     "SubstanceOfConcern": "oec:SubstanceOfConcern",
     "Temperature": "gs1:Temperature",
+    "TestExecution": "oea:TestExecution",
+    "TestMethod": "oea:TestMethod",
+    "Threshold": "oea:Threshold",
     "TraceabilityPerformance": "oec:TraceabilityPerformance",
     "UnionHarmonisationLegislation": "oec:UnionHarmonisationLegislation",
     "_comment": {
@@ -179,6 +199,10 @@
     },
     "additionalProductClassificationSystemCode": "gs1:additionalProductClassificationCode",
     "alternateName": "schema:alternateName",
+    "assessmentDate": {
+      "@id": "oea:assessmentDate",
+      "@type": "xsd:date"
+    },
     "assignedELI": {
       "@id": "oec:assignedELI",
       "@type": "xsd:anyURI"
@@ -187,6 +211,10 @@
       "@id": "oec:hasAuthorizedParties",
       "@type": "@id",
       "@container": "@set"
+    },
+    "awardedScore": {
+      "@id": "oea:awardedScore",
+      "@type": "xsd:decimal"
     },
     "bioBasedFraction": {
       "@id": "oec:bioBasedFraction",
@@ -199,6 +227,10 @@
     "biodegradationPercentage": {
       "@id": "oec:biodegradationPercentage",
       "@type": "@id"
+    },
+    "calculationDescription": {
+      "@id": "oea:calculationDescription",
+      "@type": "xsd:string"
     },
     "caption": "schema:caption",
     "carbonFootprintMethodology": {
@@ -253,6 +285,10 @@
       "@id": "oec:concentration",
       "@type": "xsd:decimal"
     },
+    "conditionDescription": {
+      "@id": "oea:conditionDescription",
+      "@type": "xsd:string"
+    },
     "contentDescription": "schema:description",
     "contentSpecificationId": {
       "@id": "oec:contentSpecificationId",
@@ -264,6 +300,10 @@
       "@container": "@set"
     },
     "contentUrl": "schema:contentUrl",
+    "criterionDescription": {
+      "@id": "oea:criterionDescription",
+      "@type": "xsd:string"
+    },
     "crmListVersion": {
       "@id": "oec:crmListVersion",
       "@type": "xsd:string"
@@ -453,6 +493,18 @@
       "@id": "oec:hasAnnualEnergyConsumption",
       "@type": "@id"
     },
+    "hasAssessedParameter": {
+      "@id": "oea:hasAssessedParameter",
+      "@type": "@id"
+    },
+    "hasAssessment": {
+      "@id": "oea:hasAssessment",
+      "@type": "@id"
+    },
+    "hasAssessmentBody": {
+      "@id": "oea:hasAssessmentBody",
+      "@type": "@id"
+    },
     "hasAuthorizedParties": {
       "@id": "oec:hasAuthorizedParties",
       "@type": "@id"
@@ -504,9 +556,24 @@
       "@id": "oec:hasCarbonFootprintUse",
       "@type": "@id"
     },
+    "hasCategoricalValue": {
+      "@id": "oea:hasCategoricalValue",
+      "@type": "@id"
+    },
     "hasCircularityPerformance": {
       "@id": "oec:hasCircularityPerformance",
       "@type": "@id"
+    },
+    "hasComparisonOperator": {
+      "@id": "oea:hasComparisonOperator",
+      "@type": "@vocab",
+      "@context": {
+        "Equal": "oea:Equal",
+        "GreaterThan": "oea:GreaterThan",
+        "GreaterThanOrEqual": "oea:GreaterThanOrEqual",
+        "LessThan": "oea:LessThan",
+        "LessThanOrEqual": "oea:LessThanOrEqual"
+      }
     },
     "hasCompostability": {
       "@id": "oec:hasCompostability",
@@ -521,8 +588,28 @@
         "NotCompostable": "oec:NotCompostable"
       }
     },
+    "hasCondition": {
+      "@id": "oea:hasCondition",
+      "@type": "@id"
+    },
+    "hasConditionConcept": {
+      "@id": "oea:hasConditionConcept",
+      "@type": "@id"
+    },
+    "hasConditionType": {
+      "@id": "oea:hasConditionType",
+      "@type": "@id"
+    },
+    "hasConditionValue": {
+      "@id": "oea:hasConditionValue",
+      "@type": "@id"
+    },
     "hasConformityDeclaration": {
       "@id": "oec:hasConformityDeclaration",
+      "@type": "@id"
+    },
+    "hasCriterion": {
+      "@id": "oea:hasCriterion",
       "@type": "@id"
     },
     "hasCustomsCommodityCodeType": {
@@ -554,6 +641,10 @@
     },
     "hasDepositSchemeOperator": {
       "@id": "oec:hasDepositSchemeOperator",
+      "@type": "@id"
+    },
+    "hasDerivationMethod": {
+      "@id": "oea:hasDerivationMethod",
       "@type": "@id"
     },
     "hasDismantlingInstructions": {
@@ -623,8 +714,8 @@
       "@id": "oec:hasEprScheme",
       "@type": "@id"
     },
-    "hasExpectedLifespan": {
-      "@id": "oec:hasExpectedLifespan",
+    "hasEvidence": {
+      "@id": "oea:hasEvidence",
       "@type": "@id"
     },
     "hasExtendedProducerResponsibility": {
@@ -675,6 +766,14 @@
       "@id": "oec:hasImpactIndicator",
       "@type": "@id"
     },
+    "hasIndicator": {
+      "@id": "oea:hasIndicator",
+      "@type": "@id"
+    },
+    "hasIndicatorKind": {
+      "@id": "oea:hasIndicatorKind",
+      "@type": "@id"
+    },
     "hasIndicatorType": {
       "@id": "oec:hasIndicatorType",
       "@type": "@vocab",
@@ -693,6 +792,10 @@
         "POCP": "oec:POCP",
         "WDP": "oec:WDP"
       }
+    },
+    "hasIndicatorValue": {
+      "@id": "oea:hasIndicatorValue",
+      "@type": "@id"
     },
     "hasLifecycleStage": {
       "@id": "oec:hasLifecycleStage",
@@ -729,8 +832,20 @@
       "@id": "oec:hasMaterialOrigin",
       "@type": "@id"
     },
+    "hasMeasuredValue": {
+      "@id": "oea:hasMeasuredValue",
+      "@type": "@id"
+    },
+    "hasMethod": {
+      "@id": "oea:hasMethod",
+      "@type": "@id"
+    },
     "hasMultiLanguageValue": {
       "@id": "oec:hasMultiLanguageValue",
+      "@type": "@id"
+    },
+    "hasObservedParameter": {
+      "@id": "oea:hasObservedParameter",
       "@type": "@id"
     },
     "hasOperationalScope": {
@@ -761,6 +876,27 @@
         "Producer": "oec:Producer",
         "Trader": "oec:Trader"
       }
+    },
+    "hasOutcome": {
+      "@id": "oea:hasOutcome",
+      "@type": "@vocab",
+      "@context": {
+        "NotAssessed": "oea:NotAssessed",
+        "NotSatisfied": "oea:NotSatisfied",
+        "Satisfied": "oea:Satisfied"
+      }
+    },
+    "hasParameter": {
+      "@id": "oea:hasParameter",
+      "@type": "@id"
+    },
+    "hasParameterSetting": {
+      "@id": "oea:hasParameterSetting",
+      "@type": "@id"
+    },
+    "hasParameterValue": {
+      "@id": "oea:hasParameterValue",
+      "@type": "@id"
     },
     "hasPassportIssuer": {
       "@id": "oec:hasPassportIssuer",
@@ -838,6 +974,10 @@
         "ModelLevel": "oec:ModelLevel"
       }
     },
+    "hasResult": {
+      "@id": "oea:hasResult",
+      "@type": "@id"
+    },
     "hasSoftwareUpdatesAvailability": {
       "@id": "oec:hasSoftwareUpdatesAvailability",
       "@type": "@id"
@@ -846,12 +986,20 @@
       "@id": "oec:hasSparePartsAvailability",
       "@type": "@id"
     },
+    "hasSubAssessment": {
+      "@id": "oea:hasSubAssessment",
+      "@type": "@id"
+    },
     "hasSubstancesOfConcern": {
       "@id": "oec:hasSubstancesOfConcern",
       "@type": "@id"
     },
-    "hasTechnicalLifetime": {
-      "@id": "oec:hasTechnicalLifetime",
+    "hasThresholdParameter": {
+      "@id": "oea:hasThresholdParameter",
+      "@type": "@id"
+    },
+    "hasThresholdValue": {
+      "@id": "oea:hasThresholdValue",
       "@type": "@id"
     },
     "hasTraceabilityPerformance": {
@@ -896,6 +1044,10 @@
       "@type": "@id"
     },
     "image": "schema:image",
+    "indicatorText": {
+      "@id": "oea:indicatorText",
+      "@type": "xsd:string"
+    },
     "indicatorTotalValue": {
       "@id": "oec:indicatorTotalValue",
       "@type": "xsd:decimal"
@@ -908,9 +1060,21 @@
       "@id": "oec:isCriticalRawMaterial",
       "@type": "xsd:boolean"
     },
+    "isDefinedByStandard": {
+      "@id": "oea:isDefinedByStandard",
+      "@type": "@id"
+    },
+    "isDerivedFrom": {
+      "@id": "oea:isDerivedFrom",
+      "@type": "@id"
+    },
     "isEnergyRelated": {
       "@id": "oec:isEnergyRelated",
       "@type": "xsd:boolean"
+    },
+    "isEvaluatedAgainst": {
+      "@id": "oea:isEvaluatedAgainst",
+      "@type": "@id"
     },
     "isStrategicRawMaterial": {
       "@id": "oec:isStrategicRawMaterial",
@@ -966,6 +1130,14 @@
       "@type": "xsd:decimal"
     },
     "materialName": "schema:name",
+    "maxScore": {
+      "@id": "oea:maxScore",
+      "@type": "xsd:decimal"
+    },
+    "methodUrl": {
+      "@id": "oea:methodUrl",
+      "@type": "xsd:anyURI"
+    },
     "mimeType": {
       "@id": "oec:mimeType",
       "@type": "xsd:string"
@@ -998,10 +1170,6 @@
     },
     "passportVersion": {
       "@id": "oec:passportVersion",
-      "@type": "xsd:string"
-    },
-    "performanceClass": {
-      "@id": "oec:performanceClass",
       "@type": "xsd:string"
     },
     "postConsumerRecycledContent": {
@@ -1037,32 +1205,12 @@
       "@id": "oec:professionalRepairNetwork",
       "@type": "@id"
     },
-    "recoverableRate": {
-      "@id": "oec:recoverableRate",
-      "@type": "xsd:decimal"
-    },
-    "recyclabilityMethodology": {
-      "@id": "oec:recyclabilityMethodology",
-      "@type": "xsd:anyURI"
-    },
-    "recyclabilityRate": {
-      "@id": "oec:recyclabilityRate",
-      "@type": "xsd:decimal"
-    },
-    "recyclabilityScore": {
-      "@id": "oec:recyclabilityScore",
-      "@type": "xsd:decimal"
-    },
     "recyclableContent": {
       "@id": "oec:recyclableContent",
       "@type": "xsd:decimal"
     },
     "recycledContent": {
       "@id": "oec:recycledContent",
-      "@type": "xsd:decimal"
-    },
-    "recyclingCollectionRate": {
-      "@id": "oec:recyclingCollectionRate",
       "@type": "xsd:decimal"
     },
     "registrationNumber": {
@@ -1106,14 +1254,6 @@
       "@id": "oec:repairProviderUrl",
       "@type": "xsd:anyURI"
     },
-    "repairabilityClass": {
-      "@id": "oec:repairabilityClass",
-      "@type": "xsd:string"
-    },
-    "repairabilityScore": {
-      "@id": "oec:repairabilityScore",
-      "@type": "xsd:decimal"
-    },
     "reportDate": {
       "@id": "oec:reportDate",
       "@type": "xsd:date"
@@ -1121,6 +1261,10 @@
     "reportUrl": {
       "@id": "oec:reportUrl",
       "@type": "@id"
+    },
+    "resultText": {
+      "@id": "oea:resultText",
+      "@type": "xsd:string"
     },
     "safeDisassemblyInstructions": {
       "@id": "oec:safeDisassemblyInstructions",
@@ -1152,6 +1296,14 @@
     "stageValue": {
       "@id": "oec:stageValue",
       "@type": "xsd:decimal"
+    },
+    "standardCode": {
+      "@id": "oea:standardCode",
+      "@type": "xsd:string"
+    },
+    "standardUrl": {
+      "@id": "oea:standardUrl",
+      "@type": "xsd:anyURI"
     },
     "status": {
       "@id": "schema:status",
@@ -1189,10 +1341,6 @@
       "@id": "oec:takeBackUrl",
       "@type": "xsd:anyURI"
     },
-    "testedConditions": {
-      "@id": "oec:testedConditions",
-      "@type": "xsd:string"
-    },
     "thirdPartyAssurancesUrl": {
       "@id": "oec:thirdPartyAssurancesUrl",
       "@type": "@id"
@@ -1226,10 +1374,6 @@
     "url": {
       "@id": "schema:url",
       "@type": "@id"
-    },
-    "usageCycles": {
-      "@id": "oec:usageCycles",
-      "@type": "xsd:integer"
     },
     "utilityFactor": {
       "@id": "oec:utilityFactor",

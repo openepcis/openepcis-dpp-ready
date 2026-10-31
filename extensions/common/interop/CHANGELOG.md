@@ -4,6 +4,12 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+### Removed: bridge aliases for flat scores
+
+The CIRPASS-2, JTC 24 and DPP Keystone bridge contexts no longer alias `repairabilityScore`,
+`repairabilityClass`, `expectedLifespan`, `robustnessScore` and `recyclabilityScore`: the targets are
+now indicator objects of `common/assessment`, which a key alias cannot produce.
+
 ### Changed: CIRPASS-2 EUDPP mirror on release 2.1.0, two sectoral mirrors added
 
 - The EUDPP Core Ontology mirror ([`extensions/upstream/cirpass2-eudpp/`](../../upstream/cirpass2-eudpp/README.md))

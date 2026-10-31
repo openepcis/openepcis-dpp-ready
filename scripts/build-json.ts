@@ -175,6 +175,12 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     namespace: "https://ref.openepcis.org/extensions/common/core/",
   },
   {
+    name: "assessment",
+    dir: "extensions/common/assessment",
+    ttlFile: "assessment.ttl",
+    namespace: "https://ref.openepcis.org/extensions/common/assessment/",
+  },
+  {
     name: "carrier",
     dir: "extensions/common/carrier",
     ttlFile: "carrier.ttl",

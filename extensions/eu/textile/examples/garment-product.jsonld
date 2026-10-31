@@ -269,36 +269,175 @@
   "eutex:hasDurabilityInfo": {
     "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability",
     "type": "eutex:DurabilityInfo",
-    "eutex:expectedWashCycles": 150,
-    "eutex:hasDurabilityClass": {
-      "@id": "eutex:DurabilityB"
-    },
-    "eutex:pillingResistance": 4,
-    "eutex:colorFastness": 4,
-    "eutex:dimensionalStability": 2,
-    "eutex:abrasionResistance": 40000,
-    "eutex:hasTensileStrength": {
-      "type": "gs1:QuantitativeValue",
-      "gs1:value": 800,
-      "gs1:unitCode": "NEW"
-    },
-    "eutex:hasTearStrength": {
-      "type": "gs1:QuantitativeValue",
-      "gs1:value": 35,
-      "gs1:unitCode": "NEW"
-    },
-    "eutex:expectedLifetimeYears": 8
+    "oea:hasSubAssessment": [
+      {
+        "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-abrasion",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:MartindaleAbrasionTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:AbrasionResistance"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 40000,
+            "gs1:unitCode": "C62"
+          }
+        }
+      },
+      {
+        "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-pilling",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:PillingTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:PillingResistance"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 4,
+            "gs1:unitCode": "C62"
+          }
+        }
+      },
+      {
+        "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-colour-fastness",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:ColourFastnessTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:ColourFastness"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 4,
+            "gs1:unitCode": "C62"
+          }
+        }
+      },
+      {
+        "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-dimensional-change",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:DimensionalChangeTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:DimensionalStability"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 2,
+            "gs1:unitCode": "P1"
+          }
+        }
+      },
+      {
+        "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-tensile",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:TensileStrengthTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:TensileStrength"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 800,
+            "gs1:unitCode": "NEW"
+          }
+        }
+      },
+      {
+        "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability-tear",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:TearStrengthTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:TearStrength"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 35,
+            "gs1:unitCode": "NEW"
+          }
+        }
+      }
+    ],
+    "oea:hasIndicator": [
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:NumberOfUseCycles"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 150,
+          "gs1:unitCode": "C62"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:ExpectedLifetime"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 8,
+          "gs1:unitCode": "ANN"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "eutex:DurabilityRating"
+        },
+        "oea:hasCategoricalValue": {
+          "@id": "eutex:DurabilityB"
+        }
+      }
+    ]
   },
   "eutex:hasMicroplasticInfo": {
     "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#microplastic",
     "type": "eutex:MicroplasticInfo",
-    "eutex:hasMicroplasticRiskLevel": {
-      "@id": "eutex:MediumShedding"
+    "oea:hasMethod": {
+      "@id": "eutex:MicrofibreReleaseTest"
     },
-    "eutex:hasSheddingRate": {
-      "type": "gs1:QuantitativeValue",
-      "gs1:value": 120,
-      "gs1:unitCode": "MGM"
+    "oea:hasResult": {
+      "type": "oea:MeasurementResult",
+      "oea:hasObservedParameter": {
+        "@id": "eutex:MicrofibreRelease"
+      },
+      "oea:hasMeasuredValue": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": 120,
+        "gs1:unitCode": "MGM"
+      }
+    },
+    "oea:hasIndicator": {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": {
+        "@id": "eutex:SheddingRiskLevel"
+      },
+      "oea:hasCategoricalValue": {
+        "@id": "eutex:MediumShedding"
+      }
     },
     "eutex:syntheticFiberContent": 75,
     "eutex:microplasticMitigationMeasures": {
@@ -310,62 +449,244 @@
   "eutex:hasRobustnessAssessment": {
     "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness",
     "type": "eutex:RobustnessAssessment",
-    "eutex:robustnessScore": 8,
-    "eutex:cleaningCyclesBeforeTest": 5,
-    "eutex:hasRobustnessTestFabricType": {
-      "@id": "eutex:WovenNonDenim"
+    "oea:hasMethod": {
+      "@id": "eutex:JRCRobustnessScoring"
     },
-    "eutex:hasSpiralityTest": {
-      "type": "eutex:SpiralityTestResult",
-      "eutex:spiralityScore": 3,
-      "eutex:spiralityPercentage": "4.2",
-      "eutex:spiralityTestMethod": "ISO 16322-3",
-      "eutex:hasTestStandard": {
-        "@id": "eutex:ISO16322_3"
+    "oea:hasParameterSetting": {
+      "type": "oea:ParameterSetting",
+      "oea:hasParameter": {
+        "@id": "oea:NumberOfCycles"
+      },
+      "oea:hasParameterValue": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": 5,
+        "gs1:unitCode": "C62"
       }
     },
-    "eutex:hasDimensionalChangeTest": {
-      "type": "eutex:DimensionalChangeTestResult",
-      "eutex:dimensionalChangeScore": 2,
-      "eutex:dimensionalChangePercentage": "3.2",
-      "eutex:dimensionalChangeTestMethod": "ISO 3759",
-      "eutex:hasTestStandard": {
-        "@id": "eutex:ISO3759"
+    "oea:hasCondition": {
+      "type": "oea:AssessmentCondition",
+      "oea:hasConditionType": {
+        "@id": "eutex:SpecimenFabricType"
+      },
+      "oea:hasConditionConcept": {
+        "@id": "eutex:WovenNonDenim"
       }
     },
-    "eutex:hasVisualInspection": {
-      "type": "eutex:VisualInspectionResult",
-      "eutex:visualInspectionScore": 3,
-      "eutex:colourChangeRating": 4,
-      "eutex:fabricAppearanceRating": 4,
-      "eutex:seamAppearanceRating": 5,
-      "eutex:nonTextilePartsRating": 4,
-      "eutex:visualInspectionTestMethod": "ISO 15487",
-      "eutex:hasTestStandard": {
-        "@id": "eutex:ISO15487"
+    "oea:hasSubAssessment": [
+      {
+        "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-spirality",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:SpiralityTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:Spirality"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": "4.2",
+            "gs1:unitCode": "P1"
+          }
+        },
+        "oea:awardedScore": 3
+      },
+      {
+        "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-dimensional-change",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:DimensionalChangeTest"
+        },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eutex:DimensionalStability"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": "3.2",
+            "gs1:unitCode": "P1"
+          }
+        },
+        "oea:awardedScore": 2
+      },
+      {
+        "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-visual-inspection",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": {
+          "@id": "eutex:AppearanceAfterWashingTest"
+        },
+        "oea:hasResult": [
+          {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eutex:ColourChange"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 4,
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eutex:FabricAppearance"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 4,
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eutex:SeamAppearance"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 5,
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eutex:NonTextilePartsAppearance"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 4,
+              "gs1:unitCode": "C62"
+            }
+          }
+        ],
+        "oea:awardedScore": 3
       }
+    ],
+    "oea:hasIndicator": {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": {
+        "@id": "eutex:RobustnessScore"
+      },
+      "oea:hasIndicatorValue": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": 8,
+        "gs1:unitCode": "C62"
+      },
+      "oea:hasDerivationMethod": {
+        "@id": "eutex:JRCRobustnessScoring"
+      },
+      "oea:isDerivedFrom": [
+        {
+          "@id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-spirality"
+        },
+        {
+          "@id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-dimensional-change"
+        },
+        {
+          "@id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness-visual-inspection"
+        }
+      ]
     }
   },
   "_comment_recyclability": "Recyclability score per EU Preparatory Study 3rd Milestone (0-10)",
   "eutex:hasRecyclabilityAssessment": {
     "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#recyclability",
     "type": "eutex:RecyclabilityAssessment",
-    "eutex:recyclabilityScore": "6.5",
-    "eutex:isRecyclable": true,
-    "eutex:elastaneContentPercent": 5,
-    "eutex:hasSortingFactors": {
-      "type": "eutex:SortingFactors",
-      "eutex:sameInnerOuterComposition": false,
-      "eutex:freeFromPrintings": true,
-      "eutex:freeFromCoatings": false,
-      "eutex:freeFromSequins": true
+    "oea:hasMethod": {
+      "@id": "eutex:JRCRecyclabilityScoring"
     },
-    "eutex:hasTechnicalRecyclability": {
-      "type": "eutex:TechnicalRecyclability",
-      "eutex:technicalRecyclabilityScore": 4,
-      "eutex:hasApplicableRecyclingTechnology": {
-        "@id": "eutex:ThermoChemicalRecycling"
+    "eutex:hasApplicableRecyclingTechnology": {
+      "@id": "eutex:ThermoChemicalRecycling"
+    },
+    "oea:hasResult": [
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "eutex:ElastaneContent"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 5,
+          "gs1:unitCode": "P1"
+        },
+        "oea:isEvaluatedAgainst": {
+          "@id": "eutex:ElastaneContentLimit"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:Satisfied"
+        }
+      },
+      {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
+          "@id": "eutex:SameInnerOuterComposition"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:NotSatisfied"
+        },
+        "oea:awardedScore": 0
+      },
+      {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
+          "@id": "eutex:FreeFromPrintings"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:Satisfied"
+        },
+        "oea:awardedScore": 1
+      },
+      {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
+          "@id": "eutex:FreeFromCoatings"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:NotSatisfied"
+        },
+        "oea:awardedScore": 0
+      },
+      {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
+          "@id": "eutex:FreeFromSequins"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:Satisfied"
+        },
+        "oea:awardedScore": 1
+      },
+      {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
+          "@id": "eutex:TechnicalRecyclabilityCriterion"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:Satisfied"
+        },
+        "oea:awardedScore": 4
       }
+    ],
+    "oea:hasIndicator": {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": {
+        "@id": "oea:RecyclabilityScore"
+      },
+      "oea:hasIndicatorValue": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": "6.5",
+        "gs1:unitCode": "C62"
+      },
+      "oea:hasDerivationMethod": {
+        "@id": "eutex:JRCRecyclabilityScoring"
+      }
+    },
+    "oea:hasOutcome": {
+      "@id": "oea:Satisfied"
     }
   },
   "_comment_recycled_content_structured": "Structured recycled content declaration per EU Preparatory Study 3rd Milestone",
@@ -535,15 +856,33 @@
   "oec:hasRepairabilityInfo": {
     "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#repairability",
     "type": "oec:RepairabilityInfo",
-    "oec:repairabilityScore": "7.2",
-    "oec:repairabilityClass": "B",
     "oec:hasSparePartsAvailability": {
       "type": "gs1:QuantitativeValue",
       "gs1:value": 10,
       "gs1:unitCode": "ANN"
     },
     "oec:diyRepairPossible": true,
-    "oec:professionalRepairNetwork": "https://files.example.org/files/products/09521000001428/docs/repair-network.pdf"
+    "oec:professionalRepairNetwork": "https://files.example.org/files/products/09521000001428/docs/repair-network.pdf",
+    "oea:hasIndicator": [
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:RepairabilityScore"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "7.2",
+          "gs1:unitCode": "C62"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:RepairabilityClass"
+        },
+        "oea:indicatorText": "B"
+      }
+    ]
   },
   "gs1:certification": [
     {

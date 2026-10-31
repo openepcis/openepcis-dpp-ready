@@ -85,18 +85,36 @@ interface OntologyModule {
    * every DPP module context is prefix-only (see PREFIXING CONTRACT above).
    */
   bareTermAliases?: boolean;
+  /**
+   * The module sits below dpp-core (dpp-core imports it): its bare aliases join
+   * the dpp-core shortcut layer instead of a shortcut file of its own, so every
+   * operational chain [gs1, dpp-core, module] carries them. common/assessment.
+   */
+  belowCore?: boolean;
 }
 
 const DPP_CORE_IMPORT = "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld";
+const ASSESSMENT_IMPORT = "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld";
 const EPCIS_BASE_IMPORT = "https://ref.gs1.org/standards/epcis/epcis-context.jsonld";
 
 const ONTOLOGY_MODULES: OntologyModule[] = [
+  // Below dpp-core: processed first so its aliases are at hand when the dpp-core
+  // shortcut layer is built; dpp-core imports its context.
+  {
+    name: "assessment",
+    dir: "extensions/common/assessment",
+    ttlFile: "assessment.ttl",
+    namespace: "https://ref.openepcis.org/extensions/common/assessment/",
+    prefix: "oea",
+    belowCore: true,
+  },
   {
     name: "dpp-core",
     dir: "extensions/common/core",
     ttlFile: "dpp-core.ttl",
     namespace: "https://ref.openepcis.org/extensions/common/core/",
     prefix: "oec",
+    imports: [ASSESSMENT_IMPORT],
   },
   {
     name: "carrier",
@@ -196,6 +214,7 @@ const NAMESPACE_TO_PREFIX: Record<string, string> = {
   [SCHEMA]: "schema",
   "https://ref.openepcis.org/extensions/common/core/": "oec",
   "https://ref.openepcis.org/extensions/common/interop/": "oei",
+  "https://ref.openepcis.org/extensions/common/assessment/": "oea",
   "https://ref.openepcis.org/extensions/common/carrier/": "carrier",
   "https://ref.openepcis.org/extensions/eu/battery/": "eubat",
   "https://ref.openepcis.org/extensions/eu/eudr/": "eudr",
@@ -587,6 +606,7 @@ function prefixDeclsFrom(ctx: ContextMap): ContextMap {
     "@version": 1.1,
     gs1: GS1,
     oec: "https://ref.openepcis.org/extensions/common/core/",
+    oea: "https://ref.openepcis.org/extensions/common/assessment/",
     schema: SCHEMA,
     cv: M8G,
     cccev: M8G,
@@ -969,6 +989,9 @@ async function buildContext(): Promise<void> {
   // them and resolve collisions once all layers (plus gs1) are built.
   let dppCoreLayer: ShortcutLayer | undefined;
   const moduleLayers: ShortcutLayer[] = [];
+  // Aliases of the modules below dpp-core, merged into the dpp-core layer.
+  const belowCoreGenerated: ContextMap = {};
+  const belowCoreOverrides: ContextMap = {};
 
   for (const module of ONTOLOGY_MODULES) {
     const ttlPath = join(PROJECT_ROOT, module.dir, "ontology", module.ttlFile);
@@ -1046,20 +1069,31 @@ async function buildContext(): Promise<void> {
 
       // Every module except the rail mirror (whose standard context already
       // exposes bare terms) contributes a generated shortcut layer.
-      if (!module.bareTermAliases) {
+      if (module.belowCore) {
+        const shortcutOverrides = loadShortcutOverrides(
+          join(contextDir, ".shortcut-overrides.json"),
+          join(contextDir, `${module.name}-shortcut-context.jsonld`),
+          derived.bareAliases
+        );
+        Object.assign(belowCoreGenerated, derived.bareAliases);
+        Object.assign(belowCoreOverrides, shortcutOverrides);
+        console.log(`  ${Object.keys(derived.bareAliases).length} bare aliases join the dpp-core shortcut layer`);
+      } else if (!module.bareTermAliases) {
         const shortcutFile = join(contextDir, `${module.name}-shortcut-context.jsonld`);
         const shortcutOverrides = loadShortcutOverrides(
           join(contextDir, ".shortcut-overrides.json"),
           shortcutFile,
           derived.bareAliases
         );
+        const isCore = module.name === "dpp-core";
         const layer: ShortcutLayer = {
           name: module.name,
           file: shortcutFile,
           prefixes: prefixDeclsFrom(derived.context),
-          generated: derived.bareAliases,
-          overrides: shortcutOverrides,
-          chainKey: module.name === "dpp-core" ? "" : module.dir,
+          // dpp-core's own aliases win over those of the modules below it.
+          generated: isCore ? { ...belowCoreGenerated, ...derived.bareAliases } : derived.bareAliases,
+          overrides: isCore ? { ...belowCoreOverrides, ...shortcutOverrides } : shortcutOverrides,
+          chainKey: isCore ? "" : module.dir,
         };
         if (module.name === "dpp-core") dppCoreLayer = layer;
         else moduleLayers.push(layer);

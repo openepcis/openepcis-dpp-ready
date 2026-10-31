@@ -8,6 +8,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521890000013",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/textile/",
     "https://schema.org/"
@@ -62,13 +63,78 @@
   },
   "hasDurabilityInfo": {
     "type": "DurabilityInfo",
-    "abrasionResistance": 25000,
-    "colorFastness": 4,
-    "dimensionalStability": 3,
-    "expectedLifetimeYears": 4,
-    "expectedWashCycles": 60,
-    "hasDurabilityClass": "DurabilityB",
-    "pillingResistance": 4
+    "hasIndicator": [
+      {
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/NumberOfUseCycles",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": 60
+        }
+      },
+      {
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/ExpectedLifetime",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "ANN",
+          "value": 4
+        }
+      },
+      {
+        "hasCategoricalValue": "https://ref.openepcis.org/extensions/eu/textile/DurabilityB",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/textile/DurabilityRating"
+      }
+    ],
+    "hasSubAssessment": [
+      {
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/MartindaleAbrasionTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "C62",
+            "value": 25000
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/AbrasionResistance"
+        }
+      },
+      {
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/PillingTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "C62",
+            "value": 4
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/PillingResistance"
+        }
+      },
+      {
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/ColourFastnessTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "C62",
+            "value": 4
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/ColourFastness"
+        }
+      },
+      {
+        "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTest",
+        "hasResult": {
+          "type": "MeasurementResult",
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "P1",
+            "value": 3
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/DimensionalStability"
+        }
+      }
+    ]
   },
   "hasFabricType": "Knitted",
   "hasOperatorInformation": {
@@ -95,21 +161,56 @@
   "hasProductCategory": "Textiles",
   "hasRecyclabilityAssessment": {
     "type": "RecyclabilityAssessment",
-    "elastaneContentPercent": 0,
-    "hasSortingFactors": {
-      "type": "SortingFactors",
-      "freeFromCoatings": true,
-      "freeFromPrintings": true,
-      "freeFromSequins": true,
-      "sameInnerOuterComposition": true
+    "hasApplicableRecyclingTechnology": "MechanicalRecycling",
+    "hasIndicator": {
+      "type": "Indicator",
+      "hasDerivationMethod": "https://ref.openepcis.org/extensions/eu/textile/JRCRecyclabilityScoring",
+      "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityScore",
+      "hasIndicatorValue": {
+        "type": "QuantitativeValue",
+        "unitCode": "C62",
+        "value": "8.5"
+      }
     },
-    "hasTechnicalRecyclability": {
-      "type": "TechnicalRecyclability",
-      "hasApplicableRecyclingTechnology": "MechanicalRecycling",
-      "technicalRecyclabilityScore": 5
-    },
-    "isRecyclable": true,
-    "recyclabilityScore": "8.5"
+    "hasMethod": "https://ref.openepcis.org/extensions/eu/textile/JRCRecyclabilityScoring",
+    "hasOutcome": "Satisfied",
+    "hasResult": [
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "P1",
+          "value": 0
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/ElastaneContent",
+        "hasOutcome": "Satisfied",
+        "isEvaluatedAgainst": "https://ref.openepcis.org/extensions/eu/textile/ElastaneContentLimit"
+      },
+      {
+        "awardedScore": 1,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/textile/SameInnerOuterComposition",
+        "hasOutcome": "Satisfied"
+      },
+      {
+        "awardedScore": 1,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/textile/FreeFromPrintings",
+        "hasOutcome": "Satisfied"
+      },
+      {
+        "awardedScore": 1,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/textile/FreeFromCoatings",
+        "hasOutcome": "Satisfied"
+      },
+      {
+        "awardedScore": 1,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/textile/FreeFromSequins",
+        "hasOutcome": "Satisfied"
+      },
+      {
+        "awardedScore": 5,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/textile/TechnicalRecyclabilityCriterion",
+        "hasOutcome": "Satisfied"
+      }
+    ]
   },
   "hasRecycledContentDetails": {
     "type": "RecycledContent",
