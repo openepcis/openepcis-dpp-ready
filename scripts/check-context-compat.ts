@@ -1,25 +1,29 @@
 /**
- * PUBLISHED CONTEXT COMPATIBILITY GATE: a published context may only grow.
+ * PUBLISHED CONTEXT COMPATIBILITY GATE: a published term never changes meaning.
  *
  * Every file under extensions/**\/context/ is served from ref.openepcis.org, and
  * stored passports and EPCIS documents name those URLs in their @context. The
  * URL is fetched again every time such a document is read, so whatever the file
- * says TODAY decides what a document written a year ago means. A term that is
- * removed is silently dropped by every JSON-LD processor; a term whose @id,
- * @type or @container changes turns the same stored JSON into different triples.
- * Neither shows up anywhere except in the data of whoever relied on it.
+ * says TODAY decides what a document written a year ago means. A term whose @id,
+ * @type or @container changes turns the same stored JSON into different triples,
+ * and that shows up nowhere except in the data of whoever relied on it.
+ *
+ * Removing a term is allowed: when CIRPASS-2 or an EU act defines a concept
+ * better, the new definition replaces the old one and nothing is deprecated.
+ * Removals are listed so the PR shows what stored documents will lose, but they
+ * do not fail the gate.
  *
  * The proof, per context file present at the base ref:
  *   (1) the file still exists (the URL keeps answering);
  *   (2) both versions are processed by jsonld.js, each with its imports resolved
  *       from its OWN revision, and every term the base defined (imported ones
- *       included) is defined identically now: @id, reverse, @type, @container,
+ *       included) that still exists is defined identically now: @id, reverse, @type, @container,
  *       @language, @direction, @index, @nest, prefix use, and scoped contexts
  *       compared the same way;
  *   (3) @base, @language and @direction of the context are unchanged, and an
  *       existing @vocab is unchanged (adding one where none was is growth).
- * New terms and new files pass. A break that is genuinely intended goes into
- * scripts/context-compat-allowlist.json with a reason, or under a NEW URL.
+ * New terms, new files and removed terms pass. An intended redefinition goes
+ * into scripts/context-compat-allowlist.json with a reason, or under a NEW URL.
  *
  * Usage: pnpm run check:context-compat [-- --base <git ref>]
  *        base defaults to $CONTEXT_COMPAT_BASE, then origin/main
@@ -114,8 +118,8 @@ async function differences(
   where: string,
   depth = 0,
   seen = new Set<string>(),
-): Promise<{ term: string; problem: string }[]> {
-  const found: { term: string; problem: string }[] = [];
+): Promise<{ term: string; problem: string; removed?: boolean }[]> {
+  const found: { term: string; problem: string; removed?: boolean }[] = [];
   for (const k of CONTEXT_KEYS) {
     if (before[k] !== after[k]) found.push({ term: k, problem: `${where}${k} ${JSON.stringify(before[k])} -> ${JSON.stringify(after[k])}` });
   }
@@ -129,7 +133,7 @@ async function differences(
       // a plain IRI mapping that the prefix or @vocab still produces is not lost
       if (definition(old) === definition({ "@id": old["@id"], reverse: false, _prefix: false })
         && undefinedTermIri(after, term) === old["@id"]) continue;
-      found.push({ term, problem: `${label} removed (was ${old["@id"]})` });
+      found.push({ term, problem: `${label} (was ${old["@id"]})`, removed: true });
       continue;
     }
     if (definition(old) !== definition(now)) {
@@ -153,7 +157,7 @@ async function differences(
     try {
       const scopedAfter = await activeContext(now["@context"], newLoader, after);
       const inner = await differences(scopedBefore, scopedAfter, oldLoader, newLoader, `${label} > `, depth + 1, seen);
-      found.push(...inner.map((d) => ({ term, problem: d.problem })));
+      found.push(...inner.map((d) => ({ term, problem: d.problem, removed: d.removed })));
     } catch (e: any) {
       found.push({ term, problem: `${label} scoped @context no longer processes: ${e.message}` });
     }
@@ -184,6 +188,7 @@ async function main(): Promise<number> {
   const oldLoader = baseLoader(ref, baseFiles, newLoader);
 
   const problems: string[] = [];
+  const removals: string[] = [];
   let terms = 0;
   for (const file of baseFiles) {
     const current = await fs.readFile(path.join(ROOT, file), "utf8").catch(() => undefined);
@@ -209,29 +214,37 @@ async function main(): Promise<number> {
     terms += before.mappings.size;
     // a term broken at the top level also shows up under every scope that inherits
     // it; report each break once, at the shallowest place it occurs
-    const shallowest = new Map<string, string>();
+    const shallowest = new Map<string, { problem: string; removed?: boolean }>();
     for (const d of await differences(before, after, oldLoader, newLoader, "")) {
-      if (allowed(file, d.term)) continue;
+      if (!d.removed && allowed(file, d.term)) continue;
       const essence = d.problem.split(" > ").pop()!;
       const known = shallowest.get(essence);
-      if (!known || known.split(" > ").length > d.problem.split(" > ").length) shallowest.set(essence, d.problem);
+      if (!known || known.problem.split(" > ").length > d.problem.split(" > ").length) shallowest.set(essence, d);
     }
-    for (const problem of shallowest.values()) problems.push(`${file}: ${problem}`);
+    for (const d of shallowest.values()) {
+      if (d.removed) removals.push(d.problem.split(" > ").pop()!);
+      else problems.push(`${file}: ${d.problem}`);
+    }
   }
 
   for (const a of allow) {
     if (!used.has(a)) console.warn(`  note: allowlist entry ${a.file} ${a.term} matched nothing, remove it`);
   }
+  if (removals.length) {
+    const distinct = [...new Set(removals)].sort();
+    console.log(`  ${distinct.length} term(s) removed against ${ref}; stored documents using them lose these fields:`);
+    distinct.forEach((r) => console.log(`    ${r}`));
+  }
   if (problems.length) {
-    console.error(`✗ context compat: ${problems.length} change(s) against ${ref} alter what stored documents mean\n`);
+    console.error(`✗ context compat: ${problems.length} change(s) against ${ref} give a published term a different meaning\n`);
     problems.forEach((p) => console.error(`  - ${p}`));
     console.error(
-      `\nPublished contexts may only grow. Keep the old definition, publish the change under a new ` +
-        `context URL, or, if the break is intended, add {file, term, reason} to ${ALLOWLIST}.`,
+      `\nA published term keeps its meaning. Give the new meaning a new term or a new context URL, ` +
+        `or, if the redefinition is intended, add {file, term, reason} to ${ALLOWLIST}.`,
     );
     return 1;
   }
-  console.log(`✓ context compat: ${baseFiles.length} published context(s), ${terms} term(s) checked, none removed or redefined against ${ref}`);
+  console.log(`✓ context compat: ${baseFiles.length} published context(s), ${terms} term(s) checked, none redefined against ${ref}`);
   return 0;
 }
 
