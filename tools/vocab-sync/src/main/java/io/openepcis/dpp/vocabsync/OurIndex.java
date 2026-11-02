@@ -62,12 +62,61 @@ public class OurIndex {
         return terms;
     }
 
+    /**
+     * Every cross-vocabulary mapping asserted anywhere in our ontologies, keyed by target IRI, from
+     * subjects of ANY type — {@link #load} keeps classes and properties, but our individuals (CBV
+     * values, EN 15804 indicators) carry pointers too, and a coverage report must count them.
+     * Values are {@code "<prefixedId> <predicate>"}.
+     */
+    public Map<String, List<String>> allMappings() {
+        Path extensions = Path.of(repoRoot).resolve("extensions").normalize();
+        Map<String, List<String>> out = new LinkedHashMap<>();
+        try (Stream<Path> walk = Files.walk(extensions)) {
+            List<Path> ttls = walk
+                    .filter(p -> p.getParent() != null && p.getParent().getFileName().toString().equals("ontology"))
+                    .filter(p -> p.getFileName().toString().endsWith(".ttl"))
+                    .sorted()
+                    .toList();
+            for (Path ttl : ttls) {
+                Model model = RDFDataMgr.loadModel(ttl.toString());
+                ResIterator subjects = model.listSubjects();
+                while (subjects.hasNext()) {
+                    Resource r = subjects.next();
+                    if (r.isAnon() || r.getURI() == null || !r.getURI().startsWith(OUR_NS_PREFIX)) continue;
+                    String prefix = model.getNsURIPrefix(r.getNameSpace());
+                    String id = prefix != null ? prefix + ":" + r.getLocalName() : r.getURI();
+                    for (Property pred : RdfSupport.MAPPING_PREDICATES) {
+                        var it = r.listProperties(pred);
+                        while (it.hasNext()) {
+                            RDFNode o = it.next().getObject();
+                            if (!o.isResource() || o.asResource().getURI() == null) continue;
+                            String pp = model.getNsURIPrefix(pred.getNameSpace());
+                            String predId = pp != null ? pp + ":" + pred.getLocalName() : pred.getLocalName();
+                            out.computeIfAbsent(o.asResource().getURI(), x -> new ArrayList<>()).add(id + " " + predId);
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+        return out;
+    }
+
     /** Module slug = the directory two levels above the .ttl (…/<slug>/ontology/<file>.ttl). */
     static String moduleSlugOf(Path ttl) {
         return ttl.getParent().getParent().getFileName().toString();
     }
 
-    /** Map of module slug → its single ontology TTL path (for the gated apply step). */
+    /**
+     * Map of module slug → its single ontology TTL path (for the gated apply step).
+     *
+     * A module directory may hold a second TTL beside the ontology: the access-level
+     * sidecar (`<module>-access-levels.ttl`, ESPR tier annotations only). It re-declares
+     * subjects without their definitions, so an edit placed there would land in the wrong
+     * file — the core sidecar was picked over dpp-core.ttl on 2026-10-30 and every class
+     * edit reported "block not found". Sidecars are skipped; the first remaining TTL wins.
+     */
     public Map<String, Path> moduleTtlFiles() {
         Path extensions = Path.of(repoRoot).resolve("extensions").normalize();
         Map<String, Path> map = new LinkedHashMap<>();
@@ -75,7 +124,9 @@ public class OurIndex {
             walk.filter(p -> p.getParent() != null
                             && p.getParent().getFileName().toString().equals("ontology"))
                     .filter(p -> p.getFileName().toString().endsWith(".ttl"))
-                    .forEach(p -> map.put(moduleSlugOf(p), p));
+                    .filter(p -> !p.getFileName().toString().endsWith("-access-levels.ttl"))
+                    .sorted()
+                    .forEach(p -> map.putIfAbsent(moduleSlugOf(p), p));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

@@ -7,6 +7,49 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Mod
 versioned together and share the version in [`package.json`](package.json); `pnpm run
 check:release` verifies that every place recording a version agrees.
 
+## [Unreleased]
+
+### Breaking: measured and assessed values move to the new `common/assessment` module
+
+A new module below the core, `common/assessment` (`oea:`), models what was measured, tested or
+assessed: an assessment applies a method defined by a standard, under conditions and protocol
+settings, and produces results; criteria and thresholds judge them; indicators (scores, classes,
+expected lifetimes) are derived from them. It follows the CIRPASS-2 textile-assessment and
+textile-indicator pattern, so both vocabularies describe the same structure. `dpp-core` imports it;
+its shapes travel with the core shapes in every GITB validation type, and its shortcut aliases join
+the dpp-core shortcut layer.
+
+Flat test values are removed where they had a structured replacement: in `common/core` the
+performance, repairability and recyclability values, in `eu/textile` durability, robustness,
+recyclability and microfibre release. Examples, EN 18223 goldens, shapes, contexts and the GITB
+bundle are regenerated. Bridge-context aliases for the removed scores (DPP Keystone, CIRPASS-2 pilot,
+JTC 24, UNTP) are dropped: a key alias cannot turn a flat score into an indicator object. Detergent,
+CPR, electronics and PPWR follow in the next change; battery and iron-steel after that.
+
+The EPCIS binding has two equivalent forms: the assessment object at event level, and the
+`sensorElementList` form (`sensorReport.type` is the performance parameter, `dataProcessingMethod` the
+test method). See `extensions/common/assessment/docs/EPCIS_BINDING.md`.
+
+### CIRPASS-2 ontologies, October 2026 release
+
+CIRPASS-2 refreshed its ontology documentation on 2026-10-12 and released the EUDPP
+Core Ontology **2.1.0** (LCA 3.1 imported, EVENT 1.0.0 final, SOC 2.2.0, P_DPP 2.2.0).
+The mirror `extensions/upstream/cirpass2-eudpp` follows, now built from the pinned
+module files of `github.com/CIRPASS-2/ontologies-docs` rather than the unpinnable hub
+exports (`scripts/sync-cirpass2.ts`, with a guard against empty or blank-node-only
+modules — the hub's `COMP` export was exactly that on 2026-10-29). Two sectoral
+ontologies are mirrored for the first time: `cirpass2-textile` (1.1.2, task T3.2 led by GS1 in Europe) and
+`cirpass2-battery` (0.4.0 DRAFT); `build:json` learned to index multi-namespace
+mirrors and to disambiguate colliding local names.
+
+Forty-three of our pointers into `eudpp:` targeted terms that 2.1.0 renamed or
+removed; they are re-pointed in core, battery, textile and electronics, and
+`check:mappings` now fails the build on a dead `cirpass2:`/`eudpp:` target. The
+EVENT module dropped its re-declared EPCIS carrier and references the GS1 EPCIS/CBV
+IRIs, which is what
+[`CIRPASS2_ALIGNMENT.md`](extensions/common/interop/docs/CIRPASS2_ALIGNMENT.md) had
+argued for; the document is rewritten accordingly. Modules: 14.
+
 ## [0.9.9] - 2026-08-04
 
 ### The SHACL shapes run, and support EU GITB conformance testing

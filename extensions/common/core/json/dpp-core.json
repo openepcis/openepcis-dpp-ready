@@ -34,7 +34,7 @@
       ],
       "broadMatch": [
         "https://w3id.org/eudpp#CarbonFootprint",
-        "https://w3id.org/eudpp#EnvironmentalFootprint"
+        "https://w3id.org/eudpp#LCIAResult"
       ],
       "narrowMatch": [
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity"
@@ -119,7 +119,9 @@
       "label": "Digital Product Passport",
       "comment": "The DPP envelope: identification and lifecycle metadata plus the product data elements, per the EN 18223 information model.",
       "seeAlso": [
-        "https://w3id.org/eudpp#DPP"
+        "https://w3id.org/eudpp#DPP",
+        "https://w3id.org/eudpp#DPPEvent",
+        "https://w3id.org/eudpp#dppUrl"
       ],
       "exactMatch": [
         "https://w3id.org/eudpp#DPP"
@@ -175,10 +177,11 @@
       "seeAlso": [
         "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
         "https://w3id.org/eudpp#CarbonFootprint",
-        "https://w3id.org/eudpp#EnvironmentalFootprint"
+        "https://w3id.org/eudpp#LCIAResult"
       ],
       "narrowMatch": [
-        "https://w3id.org/eudpp#CarbonFootprint"
+        "https://w3id.org/eudpp#CarbonFootprint",
+        "https://w3id.org/eudpp#LCIAResult"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -308,8 +311,9 @@
         "https://dpp-keystone.org/spec/v2/terms#ImpactValues"
       ],
       "broadMatch": [
-        "https://w3id.org/eudpp#ImpactCategoryIndicator",
-        "https://w3id.org/eudpp#LcaResult"
+        "https://w3id.org/eudpp#LCIAResult",
+        "https://w3id.org/eudpp#LCAResult",
+        "https://w3id.org/eudpp/textile-assessment#MeasurementResult"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -332,11 +336,11 @@
       "label": "Lifecycle Stage Result",
       "comment": "The value of an impact indicator for a single EN 15804 lifecycle module (e.g. A1, B6, C3, D).",
       "seeAlso": [
-        "https://w3id.org/eudpp#LCIAModuleValue"
+        "https://w3id.org/eudpp#LCAModuleValue"
       ],
       "broadMatch": [
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity",
-        "https://w3id.org/eudpp#LcaResult"
+        "https://w3id.org/eudpp#LCAResult"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -352,7 +356,8 @@
       ],
       "narrowMatch": [
         "https://ref.gs1.org/voc/TextileMaterialDetails",
-        "https://ref.gs1.org/voc/PackagingMaterialDetails"
+        "https://ref.gs1.org/voc/PackagingMaterialDetails",
+        "https://w3id.org/eudpp/textile-core#FibreCompositionComponent"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -421,12 +426,28 @@
       "id": "https://ref.openepcis.org/extensions/common/core/PerformanceInfo",
       "localName": "PerformanceInfo",
       "label": "Performance Information",
-      "comment": "Product performance and durability information per ESPR Article 7.\nCaptures expected lifespan, usage cycles, and performance metrics.",
+      "comment": "Product performance and durability assessment per ESPR Article 7. An oea:Assessment:\nexpected lifespan, technical lifetime, usage cycles and performance class are indicators\n(oea:hasIndicator with oea:ExpectedLifetime, oea:TechnicalLifetime, oea:NumberOfUseCycles,\noea:PerformanceClass), measured performance values are results (oea:hasResult), and the test\nconditions are oea:hasCondition. Sector modules hang their own performance properties here.",
       "seeAlso": [
         "https://ref.gs1.org/voc/manufacturersWarranty",
         "https://w3id.org/eudpp#Durability",
         "https://w3id.org/eudpp#Reliability",
         "https://vocabulary.uncefact.org/untp/PerformanceMetric"
+      ],
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/Assessment"
+      ],
+      "narrowMatch": [
+        "https://w3id.org/eudpp#Durability",
+        "https://w3id.org/eudpp#Reliability",
+        "https://w3id.org/eudpp/textile-indicator#PerformanceAfterNCycles",
+        "https://w3id.org/eudpp/textile-durability#ObservedPerformanceParameter",
+        "https://w3id.org/eudpp/battery-performance#BatteryDurability",
+        "https://w3id.org/eudpp/textile-indicator#PerformanceRetentionRate",
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance",
+        "https://w3id.org/eudpp/textile-durability#SurfacePerformanceParameter",
+        "https://w3id.org/eudpp/textile-durability#AssemblyPerformanceParameter",
+        "https://w3id.org/eudpp/textile-indicator#PerformanceLevelOverTime",
+        "https://w3id.org/eudpp/textile-durability#MechanicalPerformanceParameter"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -434,9 +455,12 @@
       "id": "https://ref.openepcis.org/extensions/common/core/RecyclabilityAssessment",
       "localName": "RecyclabilityAssessment",
       "label": "Recyclability Assessment",
-      "comment": "An assessment of a product's recyclability. Different regulations express the same concept differently: PPWR uses letter grades A/B/C, the JRC textile methodology uses a 0-10 score, electronics WEEE uses a 0-1 rate. All three are optional; pick whichever your regulation requires.",
+      "comment": "An assessment of a product's recyclability, an oea:Assessment. Regulations express the\noutcome differently, and each form has its place in the assessment model: a score (JRC textile 0-10,\nPPWR percentage) or a grade (PPWR A/B/C) is an oea:Indicator of kind oea:RecyclabilityScore; a\nrecyclability, recoverable or collection rate is an oea:MeasurementResult observing oea:RecyclabilityRate,\noea:RecoverableRate or oea:RecyclingCollectionRate; the methodology is oea:hasMethod; whether the product\ncounts as recyclable is oea:hasOutcome.",
+      "seeAlso": [
+        "https://w3id.org/eudpp/textile-recyclability#RecyclabilityAssessment"
+      ],
       "subClassOf": [
-        "https://schema.org/Observation"
+        "https://ref.openepcis.org/extensions/common/assessment/Assessment"
       ],
       "broadMatch": [
         "http://data.europa.eu/m8g/Criterion",
@@ -451,9 +475,12 @@
       "comment": "Declaration of recycled material content with pre-consumer\nand post-consumer splits.",
       "seeAlso": [
         "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
-        "https://w3id.org/eudpp#RecycledMaterialsUse",
+        "https://w3id.org/eudpp#RecycledMaterialsUseResult",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#RecycledContentEntity",
         "https://ref.gs1.org/voc/PackagingDetails"
+      ],
+      "narrowMatch": [
+        "https://w3id.org/eudpp/textile-recyclability#RecycledContentDeclaration"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -461,7 +488,7 @@
       "id": "https://ref.openepcis.org/extensions/common/core/RepairabilityInfo",
       "localName": "RepairabilityInfo",
       "label": "Repairability Information",
-      "comment": "Repair and maintenance information per ESPR Article 7.\nCaptures repair scores, spare part availability, and repair instructions.",
+      "comment": "Repair and maintenance information per ESPR Article 7: spare part availability,\nsoftware update support, repair instructions and services. A repairability score or class is an\nindicator (oea:hasIndicator with oea:RepairabilityScore or oea:RepairabilityClass).",
       "seeAlso": [
         "https://ref.gs1.org/voc/manufacturersWarranty",
         "https://w3id.org/eudpp#Durability",
@@ -706,10 +733,10 @@
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#componentCasNumber",
-        "https://w3id.org/eudpp#numberCAS"
+        "https://w3id.org/eudpp#casNumber"
       ],
       "exactMatch": [
-        "https://w3id.org/eudpp#numberCAS"
+        "https://w3id.org/eudpp#casNumber"
       ],
       "closeMatch": [
         "https://dpp-keystone.org/spec/v2/terms#componentCasNumber"
@@ -817,7 +844,8 @@
       ],
       "broadMatch": [
         "https://schema.org/identifier",
-        "http://www.w3.org/ns/adms#identifier"
+        "http://www.w3.org/ns/adms#identifier",
+        "https://w3id.org/eudpp#identifierValue"
       ],
       "narrowMatch": [
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier"
@@ -885,7 +913,8 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://w3id.org/eudpp#Concentration",
+        "https://w3id.org/eudpp#ConcentrationRange",
+        "https://w3id.org/eudpp#MaximumConcentration",
         "https://w3id.org/eudpp#hasConcentration"
       ],
       "exactMatch": [
@@ -948,6 +977,9 @@
       "seeAlso": [
         "https://w3id.org/eudpp#commodityCode"
       ],
+      "closeMatch": [
+        "https://w3id.org/eudpp#commodityCode"
+      ],
       "source": "https://www.wcoomd.org/en/topics/nomenclature.aspx",
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "Commodity codes serve the customs controls of ESPR Art. 9/UCC and reveal sourcing and tariff strategy if broadcast (Reg. (EU) 952/2013).",
@@ -1000,7 +1032,7 @@
       ],
       "broadMatch": [
         "https://ref.gs1.org/voc/unitCode",
-        "https://w3id.org/eudpp#hasUnitOfMeasure"
+        "https://w3id.org/eudpp#hasMeasurementUnit"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -1132,7 +1164,11 @@
       "range": [
         "xsd:string"
       ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#dppSchemaVersion"
+      ],
       "exactMatch": [
+        "https://w3id.org/eudpp#dppSchemaVersion",
         "https://dpp-keystone.org/spec/v2/terms#dppSchemaVersion"
       ],
       "closeMatch": [
@@ -1156,10 +1192,10 @@
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#componentEcNumber",
-        "https://w3id.org/eudpp#numberEC"
+        "https://w3id.org/eudpp#ecNumber"
       ],
       "exactMatch": [
-        "https://w3id.org/eudpp#numberEC"
+        "https://w3id.org/eudpp#ecNumber"
       ],
       "closeMatch": [
         "https://dpp-keystone.org/spec/v2/terms#componentEcNumber"
@@ -1226,7 +1262,8 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/consumerRecyclingInstructions",
         "https://dpp-keystone.org/spec/v2/terms#endOfLifeInstructions",
-        "https://ref.gs1.org/voc/sustainabilityInfo"
+        "https://ref.gs1.org/voc/sustainabilityInfo",
+        "https://w3id.org/eudpp#hasEndOfLifeManagementInstruction"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#endOfLifeInstructions"
@@ -1237,6 +1274,9 @@
       "broadMatch": [
         "https://ref.gs1.org/voc/sustainabilityInfo",
         "https://ref.gs1.org/voc/instructions"
+      ],
+      "narrowMatch": [
+        "https://w3id.org/eudpp/textile-process#hasEndOfLifeInstruction"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -1594,7 +1634,8 @@
       ],
       "seeAlso": [
         "https://ref.openepcis.org/extensions/common/core/hasPassportIssuer",
-        "https://w3id.org/eudpp#hasBackUpCopyHost"
+        "https://w3id.org/eudpp#hasBackUpCopyHost",
+        "https://w3id.org/eudpp#dppBackupUrl"
       ],
       "exactMatch": [
         "https://w3id.org/eudpp#hasBackUpCopyHost"
@@ -2028,7 +2069,8 @@
         "https://ref.openepcis.org/extensions/common/core/DocumentReference"
       ],
       "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#dismantlingInformation"
+        "https://dpp-keystone.org/spec/v2/terms#dismantlingInformation",
+        "https://w3id.org/eudpp#hasDisassemblyInstruction"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#disassemblyInstructions"
@@ -2162,9 +2204,9 @@
         "https://ref.openepcis.org/extensions/common/core/EnergyEfficiency"
       ],
       "seeAlso": [
-        "https://schema.org/energyEfficiencyScaleMax",
         "https://schema.org/energyEfficiencyScaleMin",
         "https://schema.org/hasEnergyConsumptionDetails",
+        "https://schema.org/energyEfficiencyScaleMax",
         "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyFade",
         "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife"
       ],
@@ -2264,25 +2306,6 @@
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "The producer's PRO affiliation is compliance-registry detail for authorities and schemes (WFD Art. 8a).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/hasExpectedLifespan",
-      "localName": "hasExpectedLifespan",
-      "label": "Expected Lifespan",
-      "comment": "Expected product lifespan. Use gs1:QuantitativeValue with unitCode (e.g., 'ANN' for years).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/PerformanceInfo"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Durability expressed as expected lifespan is a consumer-facing product parameter under ESPR Art. 7(5) and Annex I(a).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.org/extensions/common/core/hasExtendedProducerResponsibility",
@@ -2461,7 +2484,7 @@
         "https://ref.openepcis.org/extensions/common/core/LifecycleStage"
       ],
       "seeAlso": [
-        "https://w3id.org/eudpp#hasLifeCycleStage"
+        "https://w3id.org/eudpp#forLifeCycleModule"
       ],
       "closeMatch": [
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#lifecycleStage"
@@ -2648,6 +2671,9 @@
       "range": [
         "https://ref.openepcis.org/extensions/common/core/PerformanceInfo"
       ],
+      "narrowMatch": [
+        "https://w3id.org/eudpp/battery-performance#hasBatteryPerformance"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "Container for the durability and performance parameters that ESPR Art. 7(5)/Annex III direct at consumers; its members are individually Public.",
@@ -2731,6 +2757,9 @@
       "range": [
         "https://ref.openepcis.org/extensions/common/core/RecyclabilityAssessment"
       ],
+      "exactMatch": [
+        "https://w3id.org/eudpp/textile-recyclability#hasRecyclabilityAssessment"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "The recyclability assessment substantiates public recyclability claims (ESPR Annex I(i)); textile module serves the same name Public.",
@@ -2773,7 +2802,8 @@
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare",
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage"
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage",
+        "https://w3id.org/eudpp/textile-recyclability#hasRecycledContentAspect"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -2929,28 +2959,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
       "accessLevel": "Public",
       "accessLevelRationale": "Tracking substances of concern is a stated DPP objective (ESPR Art. 7(5)(b)) and presence data is already public via ECHA's SCIP database; textile module agrees on Public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/hasTechnicalLifetime",
-      "localName": "hasTechnicalLifetime",
-      "label": "Technical Lifetime",
-      "comment": "Technical lifetime under specified conditions. Use unitCode 'ANN' (UN/CEFACT Rec 20).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/PerformanceInfo"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#batteryTechnicalProperties"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Technical lifetime under specified conditions is a durability parameter directed at end users per ESPR Annex I(a).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -3124,6 +3132,9 @@
       "seeAlso": [
         "https://w3id.org/eudpp#isCriticalRawMaterial"
       ],
+      "exactMatch": [
+        "https://w3id.org/eudpp#isCriticalRawMaterial"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "CRM flags support recovery obligations of recyclers and authorities under the CRMA (Reg. 2024/1252), not consumer information.",
@@ -3221,7 +3232,7 @@
         "xsd:string"
       ],
       "seeAlso": [
-        "https://w3id.org/eudpp#nameIUPAC"
+        "https://w3id.org/eudpp#iupacName"
       ],
       "closeMatch": [
         "https://schema.org/iupacName"
@@ -3246,7 +3257,7 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://w3id.org/eudpp#LandUse"
+        "https://w3id.org/eudpp#LandUseResult"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -3383,7 +3394,7 @@
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#recyclabilityScore",
-        "https://ref.openepcis.org/extensions/common/core/recyclabilityScore",
+        "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityScore",
         "https://ref.openepcis.org/extensions/common/core/hasRecyclabilityAssessment"
       ],
       "source": "https://ellenmacarthurfoundation.org/material-circularity-indicator",
@@ -3404,7 +3415,7 @@
       ],
       "seeAlso": [
         "https://w3id.org/eudpp#MaterialFootprint",
-        "https://w3id.org/eudpp#ResourceConsumption"
+        "https://w3id.org/eudpp#InventoryIndicatorResult"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -3478,6 +3489,9 @@
       "seeAlso": [
         "https://w3id.org/eudpp#DPPIdentifier"
       ],
+      "closeMatch": [
+        "https://w3id.org/eudpp#hasDigitalProductPassportId"
+      ],
       "broadMatch": [
         "https://schema.org/identifier",
         "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier"
@@ -3546,30 +3560,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/common/core/performanceClass",
-      "localName": "performanceClass",
-      "label": "Performance Class",
-      "comment": "Performance or efficiency class (e.g., A+++ to G for energy labels).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/PerformanceInfo"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass",
-        "https://ref.openepcis.org/extensions/common/core/hasEnergyEfficiencyClass",
-        "https://schema.org/energyEfficiencyScaleMax"
-      ],
-      "broadMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#performance"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Performance/efficiency classes (e.g. A-G) exist precisely for at-a-glance consumer comparison, mirroring the public energy-label and battery CF classes.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/common/core/postConsumerRecycledContent",
       "localName": "postConsumerRecycledContent",
       "label": "Post-Consumer Recycled Content",
@@ -3589,6 +3579,9 @@
       ],
       "closeMatch": [
         "https://vocabulary.uncefact.org/untp/recycledMassFraction"
+      ],
+      "broadMatch": [
+        "https://w3id.org/eudpp#materialRecycledContent"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -3635,6 +3628,9 @@
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare"
       ],
+      "broadMatch": [
+        "https://w3id.org/eudpp#materialRecycledContent"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "The pre-consumer split substantiates the public recycled-content claim (ESPR Annex I(h)).",
@@ -3650,7 +3646,8 @@
       ],
       "seeAlso": [
         "http://www.w3.org/ns/adms#prev",
-        "https://w3id.org/eudpp#linkToPreviousDPP"
+        "https://w3id.org/eudpp#linkToPreviousDPP",
+        "https://w3id.org/eudpp#hasPreviousDPP"
       ],
       "exactMatch": [
         "http://www.w3.org/ns/adms#prev",
@@ -3694,11 +3691,11 @@
       "seeAlso": [
         "https://w3id.org/eudpp#PCR",
         "https://w3id.org/eudpp#PEFCR",
-        "https://w3id.org/eudpp#referenceToPCR",
-        "https://w3id.org/eudpp#referenceToPEFCR"
+        "https://w3id.org/eudpp#followsPCR",
+        "https://w3id.org/eudpp#followsPEFCR"
       ],
       "narrowMatch": [
-        "https://w3id.org/eudpp#referenceToPEFCR"
+        "https://w3id.org/eudpp#followsPEFCR"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -3745,77 +3742,6 @@
       "accessLevel": "Public",
       "accessLevelRationale": "Consumers must be able to find authorised repairers; the Right-to-Repair Directive builds on public repairer discovery (Dir. 2024/1799).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2024/1799"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/recoverableRate",
-      "localName": "recoverableRate",
-      "label": "Recoverable Rate",
-      "comment": "Decimal fraction (0-1) of the product recoverable at end of life through any recovery operation (material recycling, energy recovery, backfilling).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/RecyclabilityAssessment"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/recyclabilityRate",
-        "https://w3id.org/eudpp#RecoverableRate"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "End-of-life recoverability is consumer-facing circularity information, same tier as oec:recyclabilityRate.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/recyclabilityMethodology",
-      "localName": "recyclabilityMethodology",
-      "label": "Recyclability Methodology",
-      "comment": "URI of the recyclability methodology used (e.g. PEF, EN 15343, JRC textile preparatory study, PPWR Annex II).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/RecyclabilityAssessment"
-      ],
-      "range": [
-        "xsd:anyURI"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "A public recyclability claim is only checkable with its methodology reference, mirroring the public carbonFootprintMethodology.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/recyclabilityRate",
-      "localName": "recyclabilityRate",
-      "label": "Recyclability Rate",
-      "comment": "Decimal fraction (0-1) of the product that can be recycled.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/RecyclabilityAssessment"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The recyclable fraction is consumer-facing under ESPR Annex I(i); electronics module serves the same name Public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/recyclabilityScore",
-      "localName": "recyclabilityScore",
-      "label": "Recyclability Score",
-      "comment": "Numeric recyclability score (e.g. 0-10 per JRC textile methodology). Use unitCode aligned with the methodology when expressed via gs1:QuantitativeValue.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/RecyclabilityAssessment"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#recyclabilityScore"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Numeric recyclability scores (e.g. JRC textile methodology) exist for consumer comparison; textile module serves it Public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.org/extensions/common/core/recyclableContent",
@@ -3866,25 +3792,6 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "Recycled-content share is a consumer-facing sustainability parameter (ESPR Annex I(h)); the Battery Regulation makes it public on-pack/passport.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/recyclingCollectionRate",
-      "localName": "recyclingCollectionRate",
-      "label": "Recycling Collection Rate",
-      "comment": "Decimal fraction (0-1) of products of this type actually collected for recycling, as reported for the applicable collection scheme.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/RecyclabilityAssessment"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://w3id.org/eudpp#RecyclingCollectionRate"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Collection rates are scheme-level statistics published by EPR schemes and member states; nothing product-confidential.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -3969,38 +3876,6 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "Whether and when a product was remanufactured or refurbished is purchase-relevant consumer information supporting ESPR's reuse objectives (Annex I).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/repairabilityClass",
-      "localName": "repairabilityClass",
-      "label": "Repairability Class",
-      "comment": "Repairability class (A to E, where A is most repairable).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/RepairabilityInfo"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "A repairability class is the at-a-glance consumer form of the repairability score, mirroring public energy-label classes.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/repairabilityScore",
-      "localName": "repairabilityScore",
-      "label": "Repairability Score",
-      "comment": "Repairability index score (typically 0-10 scale, e.g., French Indice de Réparabilité).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/RepairabilityInfo"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Repairability index scores exist to steer purchase decisions (ESPR Annex I(b)); the French Indice de Réparabilité mandates display at point of sale.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -4097,6 +3972,9 @@
       "range": [
         "xsd:string"
       ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#hasDisassemblyInstruction"
+      ],
       "broadMatch": [
         "https://dpp-keystone.org/spec/v2/terms#endOfLifeInstructions",
         "https://ref.gs1.org/voc/instructions",
@@ -4121,7 +3999,8 @@
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#safeUseInstructions",
-        "https://ref.gs1.org/voc/consumerSafetyInformation"
+        "https://ref.gs1.org/voc/consumerSafetyInformation",
+        "https://w3id.org/eudpp#hasSafeUseInstruction"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#safeUseInstructions"
@@ -4193,9 +4072,8 @@
       ],
       "seeAlso": [
         "https://ref.openepcis.org/extensions/common/core/concentration",
-        "https://w3id.org/eudpp#Threshold",
-        "https://w3id.org/eudpp#ThresholdOfSubstanceOfConcern",
-        "https://w3id.org/eudpp#hasThreshold"
+        "https://w3id.org/eudpp#MaximumConcentration",
+        "https://w3id.org/eudpp#ThresholdOfSubstanceOfConcern"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -4249,10 +4127,11 @@
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceLocation",
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialLocation",
         "http://www.w3.org/ns/locn#location",
-        "https://w3id.org/eudpp#substanceLocation"
+        "https://w3id.org/eudpp#substanceLocationDescription",
+        "https://w3id.org/eudpp#isLocatedInProduct"
       ],
       "exactMatch": [
-        "https://w3id.org/eudpp#substanceLocation"
+        "https://w3id.org/eudpp#substanceLocationDescription"
       ],
       "closeMatch": [
         "https://dpp-keystone.org/spec/v2/terms#componentLocationInProduct"
@@ -4285,7 +4164,9 @@
         "https://w3id.org/eudpp#tradeName"
       ],
       "broadMatch": [
-        "https://w3id.org/eudpp#otherName"
+        "https://w3id.org/eudpp#otherName",
+        "https://w3id.org/eudpp#tradeName",
+        "https://w3id.org/eudpp#usualName"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
@@ -4345,20 +4226,6 @@
       "accessLevel": "Public",
       "accessLevelRationale": "The consumer-facing take-back landing page is public by function; textile module serves the same name Public.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/testedConditions",
-      "localName": "testedConditions",
-      "label": "Tested Conditions",
-      "comment": "Description of conditions under which performance was tested.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/PerformanceInfo"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
     },
     {
       "id": "https://ref.openepcis.org/extensions/common/core/thirdPartyAssurancesUrl",
@@ -4451,28 +4318,6 @@
       "source": "https://ref.gs1.org/ai/8026",
       "accessLevel": "Public",
       "accessLevelRationale": "Linking a piece to its parent GTIN is product identification equivalent to the public product identifier itself.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/usageCycles",
-      "localName": "usageCycles",
-      "label": "Usage Cycles",
-      "comment": "Number of expected usage cycles (e.g., charging cycles for batteries).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/PerformanceInfo"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#batteryCondition"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Expected usage cycles are a durability metric of the same consumer-comparison kind as expected lifespan (ESPR Annex I(a)).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -4613,7 +4458,7 @@
       ],
       "seeAlso": [
         "https://ref.openepcis.org/extensions/common/core/WDP",
-        "https://w3id.org/eudpp#WaterConsumption"
+        "https://w3id.org/eudpp#WaterConsumptionResult"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",

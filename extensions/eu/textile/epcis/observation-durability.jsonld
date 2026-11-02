@@ -8,11 +8,11 @@
   "schemaVersion": "2.0",
   "creationDate": "2025-10-01T14:00:00.000Z",
   "_comment_architecture": [
-    "Robustness score observation event. Reports the 0-10 composite robustness score per EU Preparatory Study methodology after 5 cleaning cycles (ISO 6330).",
+    "Robustness observation event. The event is the assessment execution (eventTime, readPoint say when and where); the eutex:RobustnessAssessment at event level applies eutex:JRCRobustnessScoring after 5 cleaning cycles (ISO 6330) and carries its three tests, their measurement results and the 0-10 robustness score indicator (common/assessment model).",
     "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
     "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
-    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,eutex=https://ref.openepcis.org/extensions/eu/textile/",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,oea=https://ref.openepcis.org/extensions/common/assessment/,eutex=https://ref.openepcis.org/extensions/eu/textile/",
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
@@ -34,39 +34,132 @@
         },
         "eutex:hasRobustnessAssessment": {
           "type": "eutex:RobustnessAssessment",
-          "eutex:robustnessScore": 8,
-          "eutex:cleaningCyclesBeforeTest": 5,
-          "eutex:hasRobustnessTestFabricType": {
-            "@id": "eutex:WovenNonDenim"
+          "oea:hasMethod": {
+            "@id": "eutex:JRCRobustnessScoring"
           },
-          "eutex:hasSpiralityTest": {
-            "type": "eutex:SpiralityTestResult",
-            "eutex:spiralityScore": 3,
-            "eutex:spiralityPercentage": "4.2",
-            "eutex:spiralityTestMethod": "ISO 16322-3",
-            "eutex:hasTestStandard": {
-              "@id": "eutex:ISO16322_3"
+          "oea:hasParameterSetting": {
+            "type": "oea:ParameterSetting",
+            "oea:hasParameter": {
+              "@id": "oea:NumberOfCycles"
+            },
+            "oea:hasParameterValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 5,
+              "gs1:unitCode": "C62"
             }
           },
-          "eutex:hasDimensionalChangeTest": {
-            "type": "eutex:DimensionalChangeTestResult",
-            "eutex:dimensionalChangeScore": 2,
-            "eutex:dimensionalChangePercentage": "3.2",
-            "eutex:dimensionalChangeTestMethod": "ISO 3759",
-            "eutex:hasTestStandard": {
-              "@id": "eutex:ISO3759"
+          "oea:hasCondition": {
+            "type": "oea:AssessmentCondition",
+            "oea:hasConditionType": {
+              "@id": "eutex:SpecimenFabricType"
+            },
+            "oea:hasConditionConcept": {
+              "@id": "eutex:WovenNonDenim"
             }
           },
-          "eutex:hasVisualInspection": {
-            "type": "eutex:VisualInspectionResult",
-            "eutex:visualInspectionScore": 3,
-            "eutex:colourChangeRating": 4,
-            "eutex:fabricAppearanceRating": 4,
-            "eutex:seamAppearanceRating": 5,
-            "eutex:nonTextilePartsRating": 4,
-            "eutex:visualInspectionTestMethod": "ISO 15487",
-            "eutex:hasTestStandard": {
-              "@id": "eutex:ISO15487"
+          "oea:hasSubAssessment": [
+            {
+              "type": "oea:TestExecution",
+              "oea:hasMethod": {
+                "@id": "eutex:SpiralityTest"
+              },
+              "oea:hasResult": {
+                "type": "oea:MeasurementResult",
+                "oea:hasObservedParameter": {
+                  "@id": "eutex:Spirality"
+                },
+                "oea:hasMeasuredValue": {
+                  "type": "gs1:QuantitativeValue",
+                  "gs1:value": "4.2",
+                  "gs1:unitCode": "P1"
+                }
+              },
+              "oea:awardedScore": 3
+            },
+            {
+              "type": "oea:TestExecution",
+              "oea:hasMethod": {
+                "@id": "eutex:DimensionalChangeTest"
+              },
+              "oea:hasResult": {
+                "type": "oea:MeasurementResult",
+                "oea:hasObservedParameter": {
+                  "@id": "eutex:DimensionalStability"
+                },
+                "oea:hasMeasuredValue": {
+                  "type": "gs1:QuantitativeValue",
+                  "gs1:value": "3.2",
+                  "gs1:unitCode": "P1"
+                }
+              },
+              "oea:awardedScore": 2
+            },
+            {
+              "type": "oea:TestExecution",
+              "oea:hasMethod": {
+                "@id": "eutex:AppearanceAfterWashingTest"
+              },
+              "oea:hasResult": [
+                {
+                  "type": "oea:MeasurementResult",
+                  "oea:hasObservedParameter": {
+                    "@id": "eutex:ColourChange"
+                  },
+                  "oea:hasMeasuredValue": {
+                    "type": "gs1:QuantitativeValue",
+                    "gs1:value": 4,
+                    "gs1:unitCode": "C62"
+                  }
+                },
+                {
+                  "type": "oea:MeasurementResult",
+                  "oea:hasObservedParameter": {
+                    "@id": "eutex:FabricAppearance"
+                  },
+                  "oea:hasMeasuredValue": {
+                    "type": "gs1:QuantitativeValue",
+                    "gs1:value": 4,
+                    "gs1:unitCode": "C62"
+                  }
+                },
+                {
+                  "type": "oea:MeasurementResult",
+                  "oea:hasObservedParameter": {
+                    "@id": "eutex:SeamAppearance"
+                  },
+                  "oea:hasMeasuredValue": {
+                    "type": "gs1:QuantitativeValue",
+                    "gs1:value": 5,
+                    "gs1:unitCode": "C62"
+                  }
+                },
+                {
+                  "type": "oea:MeasurementResult",
+                  "oea:hasObservedParameter": {
+                    "@id": "eutex:NonTextilePartsAppearance"
+                  },
+                  "oea:hasMeasuredValue": {
+                    "type": "gs1:QuantitativeValue",
+                    "gs1:value": 4,
+                    "gs1:unitCode": "C62"
+                  }
+                }
+              ],
+              "oea:awardedScore": 3
+            }
+          ],
+          "oea:hasIndicator": {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:RobustnessScore"
+            },
+            "oea:hasIndicatorValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 8,
+              "gs1:unitCode": "C62"
+            },
+            "oea:hasDerivationMethod": {
+              "@id": "eutex:JRCRobustnessScoring"
             }
           }
         }

@@ -67,261 +67,219 @@ genuinely distinct, so they are not part of this question.
 
 ## battery
 
-From `skos-completeness-battery-2026-08-07.json`. 89 confirmed findings the triage did not apply.
+From `skos-completeness-battery-2026-10-29.json`. 78 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
-| 0.95 | `eubat:HazardClass` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Class` | target is a meta-class |
-| 0.94 | `eubat:ComponentLocation` | `skos:broadMatch` | `eudpp:Location` | our term is a type, target is the entity |
-| 0.94 | `eubat:DismantlingDocumentType` | `skos:broadMatch` | `eudpp:DocumentFormattedProperty` | our term is a type, target is the entity |
-| 0.93 | `eubat:TechnicalSpecification` | `skos:broadMatch` | `eudpp:TechnicalSpecification` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
-| 0.92 | `eubat:leadPreConsumerShare` | skos:closeMatch to `skos:broadMatch` | `batterypass:preConsumerShare` | regrade skos:closeMatch to skos:broadMatch |
-| 0.92 | `eubat:BatteryStatus` | `skos:broadMatch` | `eudpp:LifeCycleStage` | our term is a type, target is the entity |
-| 0.92 | `eubat:separateCollectionSymbolUrl` | `skos:exactMatch` | `dppk:separateCollectionSymbol` | deferred by a curator: A URL that points at the symbol is not the symbol. exactMatch overstates it; the honest grade is closeMatch or an ungraded pointer. |
-| 0.92 | `eubat:NegativeEventType` | `skos:broadMatch` | `eudpp:ProductEvent` | our term is a type, target is the entity |
-| 0.92 | `eubat:BatteryMaterial` | `skos:broadMatch` | `eudpp:MaterialType` | deferred by a curator: Level confusion: eudpp:MaterialType is by its own definition a 'placeholder class for material type classification' (cotton, nylon, ...), i.e. a category code, while eubat:BatteryMaterial is the material entity in the battery. An entity is not in a subsumption relation with its classifier. The entity-level mapping eubat:BatteryMaterial broadMatch eudpp:MaterialOfComposition carries the alignment. |
-| 0.91 | `eubat:hasCarbonFootprintRecycling` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
-| 0.91 | `eubat:batteryModelIdentifier` | skos:broadMatch to `skos:narrowMatch` | `batterypass:batteryPassportIdentifier` | deferred by a curator: Different referents: ours identifies the battery model, theirs identifies the passport document about it. Neither subsumes the other. |
-| 0.90 | `eubat:hasManufacturingPlace` | rdfs:seeAlso to `skos:broadMatch` | `semic:Location` | our term is a property, target is a class |
-| 0.89 | `eubat:hasCarbonFootprintTotal` | skos:closeMatch to `skos:narrowMatch` | `batterypass:carbonFootprint` | regrade skos:closeMatch to skos:narrowMatch |
+| 0.95 | `eubat:renewableContentShare` | skos:exactMatch to `skos:broadMatch` | `batterypass:renewableContent` | regrade skos:exactMatch to skos:broadMatch |
+| 0.94 | `eubat:hasCarbonFootprintRecycling` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
+| 0.92 | `eubat:measurementCertificateUrl` | skos:closeMatch to `skos:broadMatch` | `gs1:certificationInfo` | regrade skos:closeMatch to skos:broadMatch |
+| 0.92 | `eubat:DismantlingDocumentType` | `skos:broadMatch` | `eudpp:DocumentFormattedProperty` | our term is a type, target is the entity |
+| 0.92 | `eubat:hasNegativeEvents` | skos:closeMatch to `skos:narrowMatch` | `batterypass:negativeEvent` | regrade skos:closeMatch to skos:narrowMatch |
+| 0.92 | `eubat:ResponsibleSourcingStandard` | rdfs:seeAlso to `skos:broadMatch` | `untp:Standard` | our term is a type, target is the entity |
+| 0.91 | `eubat:safetyMeasures` | `skos:broadMatch` | `batterypass:safetyMeasures` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
+| 0.91 | `eubat:hasCarbonFootprintTotal` | skos:closeMatch to `skos:narrowMatch` | `batterypass:carbonFootprint` | regrade skos:closeMatch to skos:narrowMatch |
+| 0.90 | `eubat:BatteryStatus` | `skos:broadMatch` | `eudpp:ProductStatus` | our term is a type, target is the entity |
+| 0.90 | `eubat:casNumber` | skos:exactMatch to `skos:broadMatch` | `batterypass:batteryMaterialIdentifier` | regrade skos:exactMatch to skos:broadMatch |
+| 0.89 | `eubat:ResponsibleSourcingStandard` | `skos:broadMatch` | `eudpp:HarmonisedStandard` | our term is a type, target is the entity |
+| 0.89 | `eubat:DismantlingDocumentType` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:DigitalDocument` | our term is a type, target is the entity |
+| 0.88 | `eubat:leadPreConsumerShare` | skos:closeMatch to `skos:broadMatch` | `batterypass:preConsumerShare` | regrade skos:closeMatch to skos:broadMatch |
+| 0.88 | `eubat:safetyMeasures` | `skos:broadMatch` | `cirpass2-battery:safetyMeasures` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
+| 0.88 | `eubat:hasCarbonFootprintRawMaterialExtraction` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
 | 0.88 | `eubat:wastePrevention` | skos:closeMatch to `skos:broadMatch` | `batterypass:wastePrevention` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
-| 0.88 | `eubat:ResponsibleSourcingStandard` | rdfs:seeAlso to `skos:broadMatch` | `untp:Standard` | our term is a type, target is the entity |
-| 0.86 | `eubat:CarbonFootprintClass` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Class` | target is a meta-class |
-| 0.85 | `eubat:hasEventLocation` | skos:broadMatch to `skos:narrowMatch` | `schemaorg:sportsActivityLocation` | every schema domain (ExerciseAction) is foreign to a passport |
-| 0.85 | `eubat:BatteryStatus` | skos:closeMatch to `skos:broadMatch` | `batterypass:BatteryConditionEntity` | our term is a type, target is the entity |
-| 0.84 | `eubat:hasDismantlingInstructions` | skos:broadMatch to `skos:narrowMatch` | `batterypass:dismantlingAndRemovalInformation` | deferred by a curator: Direction flip rejected: our term references the dismantling instructions document, the SAMM term is the whole dismantling-and-removal information block (documents plus removal data). Ours is the narrower one, so the existing skos:broadMatch stands. |
-| 0.83 | `eubat:hasCarbonFootprintDistribution` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
-| 0.83 | `eubat:hasEventLocation` | skos:broadMatch to `skos:narrowMatch` | `rail:europeanTrackLocation` | deferred by a curator: Cross-sector noise: a railway track location is a rail-specific concept and mapping a battery event location above it documents nothing. The rail profile is for railway concepts. |
-| 0.83 | `eubat:hasAbsoluteCarbonFootprint` | skos:closeMatch to `skos:narrowMatch` | `batterypass:carbonFootprint` | regrade skos:closeMatch to skos:narrowMatch |
-| 0.83 | `eubat:hasHazardousSubstances` | skos:broadMatch to `skos:narrowMatch` | `batterypass:hazardousSubstances` | deferred by a curator: Direction flip rejected: same-named peers at the same granularity (per-substance entries with class/concentration/location on both sides). Neither hierarchy direction holds; the honest grade would be closeMatch, and flipping broad to narrow just trades one overclaim for the other. |
-| 0.83 | `eubat:RecycledContent` | skos:closeMatch to `skos:narrowMatch` | `batterypass:RecycledContentEntity` | regrade skos:closeMatch to skos:narrowMatch |
-| 0.82 | `eubat:hasSupplierContact` | `skos:broadMatch` | `schemaorg:contactPoints` | schema:contactPoints is superseded by schema:contactPoint |
-| 0.81 | `eubat:hasMaterialComposition` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:material` | the asserted relation is a recorded decision in mapping-allowlist.json |
-| 0.81 | `eubat:hasRatedCapacity` | `skos:broadMatch` | `schemaorg:fuelCapacity` | every schema domain (Vehicle) is foreign to a passport |
-| 0.80 | `eubat:hasRatedMaximumPower` | skos:broadMatch to `skos:narrowMatch` | `batterypass:ratedMaximumPower` | deferred by a curator: Direction flip rejected: both sides are the same single rated-maximum-power value. A hierarchy claim overstates in either direction; closeMatch would be the honest grade. |
-| 0.80 | `eubat:hasRecycledContent` | skos:broadMatch to `skos:narrowMatch` | `batterypass:recycledContent` | deferred by a curator: Direction flip rejected: the SAMM recycledContent is also per-material with pre/post-consumer shares, so the two blocks share granularity. Neither broad nor narrow holds; closeMatch would be the honest grade. |
-| 0.80 | `eubat:authorizedServiceCenters` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:serviceUrl` | every schema domain (ServiceChannel) is foreign to a passport |
-| 0.80 | `eubat:hasSubstanceLocation` | `skos:broadMatch` | `semic:Location` | our term is a property, target is a class |
-| 0.80 | `eubat:hasRecycledContent` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:postConsumerRecycledContentMass` | seeAlso upgrade below the 0.8 floor |
-| 0.79 | `eubat:authorizedServiceCenters` | rdfs:seeAlso to `skos:broadMatch` | `gs1:serviceInfo` | seeAlso upgrade below the 0.8 floor |
-| 0.79 | `eubat:cobaltRecycledShare` | rdfs:seeAlso to `skos:broadMatch` | `dppk:preConsumerRecycledContent` | seeAlso upgrade below the 0.8 floor |
-| 0.79 | `eubat:hasDismantlingInstructions` | `skos:broadMatch` | `gs1:consumerRecyclingInstructions` | new mapping below the 0.8 floor |
-| 0.79 | `eubat:NegativeEventType` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Event` | our term is a type, target is the entity |
+| 0.87 | `eubat:safetyInstructions` | skos:closeMatch to `skos:broadMatch` | `gs1:safetyInfo` | regrade skos:closeMatch to skos:broadMatch |
+| 0.87 | `eubat:hasMaterialComposition` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:material` | the asserted relation is a recorded decision in mapping-allowlist.json |
+| 0.87 | `eubat:NegativeEventType` | `skos:broadMatch` | `eudpp:ProductEvent` | our term is a type, target is the entity |
+| 0.86 | `eubat:TechnicalSpecification` | `skos:broadMatch` | `eudpp:TechnicalSpecification` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
+| 0.84 | `eubat:NegativeEventType` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Event` | our term is a type, target is the entity |
+| 0.83 | `eubat:batteryModelIdentifier` | skos:broadMatch to `skos:narrowMatch` | `batterypass:batteryPassportIdentifier` | deferred by a curator: Different referents: ours identifies the battery model, theirs identifies the passport document about it. Neither subsumes the other. |
+| 0.83 | `eubat:PowerCapabilityAtSoC` | skos:closeMatch to `skos:broadMatch` | `batterypass:PowerCapabilityAtEntity` | regrade skos:closeMatch to skos:broadMatch |
+| 0.82 | `eubat:RecycledContent` | skos:closeMatch to `skos:narrowMatch` | `batterypass:RecycledContentEntity` | regrade skos:closeMatch to skos:narrowMatch |
+| 0.81 | `eubat:hasStateOfCharge` | skos:exactMatch to `skos:closeMatch` | `batterypass:stateOfCharge` | regrade skos:exactMatch to skos:closeMatch |
+| 0.80 | `eubat:stateOfChargeLevel` | skos:closeMatch to `skos:broadMatch` | `batterypass:stateOfCharge` | regrade skos:closeMatch to skos:broadMatch |
+| 0.80 | `eubat:BatteryStatus` | skos:closeMatch to `skos:broadMatch` | `batterypass:BatteryConditionEntity` | our term is a type, target is the entity |
+| 0.80 | `eubat:NegativeEventType` | `skos:narrowMatch` | `cirpass2-battery:AccidentEvent` | our term is a type, target is the entity |
+| 0.79 | `eubat:ComponentLocation` | `skos:narrowMatch` | `cirpass2-battery:BatteryLocation` | our term is a type, target is the entity |
 | 0.79 | `eubat:hasCarbonFootprintProduction` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
-| 0.79 | `eubat:hasCarbonFootprintDeclaration` | `skos:narrowMatch` | `dppk:carbonFootprintBenchmarkPercentage` | new mapping below the 0.8 floor |
-| 0.78 | `eubat:BatteryChemistry` | `skos:broadMatch` | `batterypass:BatteryMaterialEntity` | new mapping below the 0.8 floor |
+| 0.78 | `eubat:hasRemainingRoundTripEfficiency` | skos:exactMatch to `skos:broadMatch` | `batterypass:roundtripEfficiency` | regrade skos:exactMatch to skos:broadMatch |
+| 0.78 | `eubat:hasSubstanceLocation` | rdfs:seeAlso to `skos:broadMatch` | `semic:location` | seeAlso upgrade below the 0.8 floor |
+| 0.78 | `eubat:timeSpentInExtremeTemperaturesBelowBoundary` | `skos:narrowMatch` | `cirpass2-battery:timeSpentChargingInExtremeTemperaturesBelowBoundary` | new mapping below the 0.8 floor |
+| 0.78 | `eubat:hasOperatorRole` | skos:closeMatch to `skos:broadMatch` | `semic:role` | regrade skos:closeMatch to skos:broadMatch |
+| 0.78 | `eubat:hasCycleCount` | skos:exactMatch to `skos:closeMatch` | `batterypass:numberOfFullCycles` | regrade skos:exactMatch to skos:closeMatch |
 | 0.78 | `eubat:hasSupplierContact` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:emailAddressOfSupplier` | seeAlso upgrade below the 0.8 floor |
-| 0.78 | `eubat:PowerCapabilityAtSoC` | skos:closeMatch to `skos:broadMatch` | `batterypass:PowerCapabilityAtEntity` | regrade skos:closeMatch to skos:broadMatch |
-| 0.78 | `eubat:safetyInstructionsForDismantling` | rdfs:seeAlso to `skos:broadMatch` | `dppk:safetyMeasures` | seeAlso upgrade below the 0.8 floor |
-| 0.78 | `eubat:safetyInstructionsForDismantling` | rdfs:seeAlso to `skos:broadMatch` | `dppk:safetyDataSheet` | seeAlso upgrade below the 0.8 floor |
-| 0.78 | `eubat:recommendedAction` | `skos:closeMatch` | `schemaorg:followup` | every schema domain (MedicalProcedure) is foreign to a passport |
-| 0.78 | `eubat:hasRemainingCapacity` | `skos:broadMatch` | `schemaorg:fuelCapacity` | every schema domain (Vehicle) is foreign to a passport |
-| 0.78 | `eubat:hasCarbonFootprintDeclaration` | `skos:narrowMatch` | `dppk:carbonFootprintAbsolute` | new mapping below the 0.8 floor |
-| 0.78 | `eubat:lithiumRecycledShare` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:postConsumerShare` | seeAlso upgrade below the 0.8 floor |
-| 0.78 | `eubat:hasResponsibleSourcingStandard` | `skos:broadMatch` | `gs1:certificationStandard` | new mapping below the 0.8 floor |
-| 0.78 | `eubat:DismantlingDocumentType` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:DigitalDocument` | our term is a type, target is the entity |
-| 0.78 | `eubat:dataProviderCertification` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:hasCertification` | seeAlso upgrade below the 0.8 floor |
-| 0.77 | `eubat:hasMaximumDischargingPower` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:originalPowerCapability` | seeAlso upgrade below the 0.8 floor |
-| 0.77 | `eubat:hasOriginalPowerCapability` | `skos:broadMatch` | `other:hasRatedMaximumPower` | new mapping below the 0.8 floor |
-| 0.77 | `eubat:BatteryChemistry` | `skos:broadMatch` | `schemaorg:ChemicalSubstance` | the asserted relation is a recorded decision in mapping-allowlist.json |
-| 0.77 | `eubat:hasMaterialComposition` | `skos:narrowMatch` | `other:isCriticalRawMaterial` | new mapping below the 0.8 floor |
-| 0.77 | `eubat:hasPowerCapabilityAt20SoC` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:ratedMaximumPower` | seeAlso upgrade below the 0.8 floor |
-| 0.77 | `eubat:hasRecycledContent` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:preConsumerRecycledMaterialComposition` | seeAlso upgrade below the 0.8 floor |
-| 0.77 | `eubat:hasCarbonFootprintRawMaterialExtraction` | rdfs:seeAlso to `skos:broadMatch` | `other:carbonFootprintTotal` | seeAlso upgrade below the 0.8 floor |
-| 0.76 | `eubat:safetyInstructionsForDismantling` | rdfs:seeAlso to `skos:broadMatch` | `dppk:endOfLifeInstructions` | seeAlso upgrade below the 0.8 floor |
-| 0.76 | `eubat:dueDiligenceReportUrl` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:resultOfTestReport` | seeAlso upgrade below the 0.8 floor |
-| 0.75 | `eubat:nickelPreConsumerShare` | `skos:broadMatch` | `dppk:recycledContentPercentage` | new mapping below the 0.8 floor |
-| 0.75 | `eubat:labelMeaning` | `skos:broadMatch` | `other:prefLabel` | new mapping below the 0.8 floor |
-| 0.75 | `eubat:hasCarbonFootprintRawMaterialExtraction` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
-| 0.75 | `eubat:hasSubstanceLocation` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:batteryMaterialLocation` | seeAlso upgrade below the 0.8 floor |
-| 0.75 | `eubat:hasInternalResistance` | skos:broadMatch to `skos:narrowMatch` | `batterypass:ohmicResistance` | direction flip toward a peer profile below the 0.8 floor |
-| 0.74 | `eubat:hasRecycledContent` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:preConsumerRecycledContentMass` | seeAlso upgrade below the 0.8 floor |
-| 0.74 | `eubat:cobaltRecycledShare` | rdfs:seeAlso to `skos:broadMatch` | `dppk:preConsumerRecycledContentPercentage` | seeAlso upgrade below the 0.8 floor |
-| 0.73 | `eubat:anodeActiveMaterial` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:material` | seeAlso upgrade below the 0.8 floor |
-| 0.73 | `eubat:hasCarbonFootprintRecycling` | `skos:broadMatch` | `other:hasCarbonFootprintDeclaration` | new mapping below the 0.8 floor |
-| 0.73 | `eubat:hasMaterialComposition` | rdfs:seeAlso to `skos:broadMatch` | `untp:materialUsed` | seeAlso upgrade below the 0.8 floor |
-| 0.73 | `eubat:lifetimeReferenceTest` | `skos:broadMatch` | `untp:referenceStandard` | new mapping below the 0.8 floor |
-| 0.73 | `eubat:NegativeEvent` | `skos:broadMatch` | `untp:LifecycleEvent` | new mapping below the 0.8 floor |
-| 0.72 | `eubat:lifetimeReferenceTest` | `skos:broadMatch` | `dppk:harmonisedStandardReference` | new mapping below the 0.8 floor |
-| 0.71 | `eubat:lithiumPostConsumerShare` | `skos:broadMatch` | `batterypass:recycledContent` | new mapping below the 0.8 floor |
-| 0.71 | `eubat:recoveryMaterial` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:batteryMaterialName` | seeAlso upgrade below the 0.8 floor |
-| 0.70 | `eubat:functionalUnit` | `skos:broadMatch` | `untp:unit` | new mapping below the 0.8 floor |
-| 0.70 | `eubat:hasSubstanceLocation` | rdfs:seeAlso to `skos:broadMatch` | `semic:location` | seeAlso upgrade below the 0.8 floor |
-| 0.70 | `eubat:facilityIdentifier` | `skos:broadMatch` | `semic:identifier` | new mapping below the 0.8 floor |
-| 0.70 | `eubat:hasSupplierContact` | `skos:narrowMatch` | `batterypass:addressOfSupplier` | new mapping below the 0.8 floor |
-| 0.69 | `eubat:hasRemainingUsableEnergy` | skos:broadMatch to `skos:narrowMatch` | `batterypass:remainingEnergy` | direction flip toward a peer profile below the 0.8 floor |
-| 0.68 | `eubat:safetyInstructions` | skos:broadMatch to `skos:narrowMatch` | `batterypass:safetyInstructions` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
-| 0.68 | `eubat:hasPowerCapability` | skos:broadMatch to `skos:narrowMatch` | `batterypass:originalPowerCapability` | direction flip toward a peer profile below the 0.8 floor |
-| 0.68 | `eubat:isSubstanceOfConcern` | rdfs:seeAlso to `skos:broadMatch` | `gs1:ingredientOfConcern` | gs1 domain FoodBeverageTobaccoProduct is foreign to a passport |
-| 0.68 | `eubat:nickelPostConsumerShare` | rdfs:seeAlso to `skos:broadMatch` | `dppk:recycledContentPercentage` | seeAlso upgrade below the 0.8 floor |
-| 0.68 | `eubat:hasSupplierContact` | `skos:narrowMatch` | `batterypass:supplierWebAddress` | new mapping below the 0.8 floor |
-| 0.67 | `eubat:hasDismantlingInstructions` | `skos:broadMatch` | `dppk:instructionsForUse` | new mapping below the 0.8 floor |
-| 0.65 | `eubat:hasPowerCapabilityAt80SoC` | `skos:broadMatch` | `other:hasRatedMaximumPower` | new mapping below the 0.8 floor |
-| 0.65 | `eubat:hasCarbonFootprintRawMaterialExtraction` | `skos:broadMatch` | `dppk:mtcCarbonEquivalent` | new mapping below the 0.8 floor |
-| 0.60 | `eubat:facilityIdentifier` | skos:exactMatch to `skos:closeMatch` | `dppk:facilityId` | regrade skos:exactMatch to skos:closeMatch |
-| 0.60 | `eubat:verificationDate` | rdfs:seeAlso to `skos:closeMatch` | `schemaorg:auditDate` | seeAlso upgrade below the 0.8 floor |
+| 0.78 | `eubat:hasSupplierContact` | `skos:broadMatch` | `schemaorg:contactPoints` | schema:contactPoints is superseded by schema:contactPoint |
+| 0.78 | `eubat:hasOriginalPowerCapability` | `skos:broadMatch` | `cirpass2-battery:originalPowerCapability` | new mapping below the 0.8 floor |
+| 0.78 | `eubat:batteryModelIdentifier` | skos:broadMatch to `skos:narrowMatch` | `batterypass:productIdentifier` | direction flip toward a peer profile below the 0.8 floor |
+| 0.78 | `eubat:labelSymbol` | `skos:narrowMatch` | `cirpass2-battery:separateCollectionSymbol` | new mapping below the 0.8 floor |
+| 0.78 | `eubat:ResponsibleSourcingStandard` | `skos:broadMatch` | `cirpass2-textile:AssessmentStandard` | our term is a type, target is the entity |
+| 0.77 | `eubat:hasEnergyThroughput` | `skos:narrowMatch` | `cirpass2-battery:remainingUsableBatteryEnergy` | new mapping below the 0.8 floor |
+| 0.77 | `eubat:hasTechnicalSpecifications` | `skos:narrowMatch` | `batterypass:originalPowerCapability` | new mapping below the 0.8 floor |
+| 0.76 | `eubat:hasOriginalPowerCapability` | skos:closeMatch to `skos:broadMatch` | `batterypass:remainingPowerCapability` | regrade skos:closeMatch to skos:broadMatch |
+| 0.76 | `eubat:leadPostConsumerShare` | skos:closeMatch to `skos:broadMatch` | `batterypass:postConsumerShare` | regrade skos:closeMatch to skos:broadMatch |
+| 0.75 | `eubat:cobaltRecycledShare` | rdfs:seeAlso to `skos:broadMatch` | `dppk:preConsumerRecycledContentPercentage` | seeAlso upgrade below the 0.8 floor |
+| 0.75 | `eubat:safetyInstructionsForDismantling` | rdfs:seeAlso to `skos:broadMatch` | `dppk:endOfLifeInstructions` | seeAlso upgrade below the 0.8 floor |
+| 0.75 | `eubat:hasSubstanceLocation` | `skos:broadMatch` | `semic:Location` | our term is a property, target is a class |
+| 0.75 | `eubat:inspectorId` | `skos:broadMatch` | `untp:id` | new mapping below the 0.8 floor |
+| 0.75 | `eubat:ThirdPartyVerification` | `skos:narrowMatch` | `cirpass2-textile:ManufacturerDeclarationVerificationMethod` | new mapping below the 0.8 floor |
+| 0.74 | `eubat:leadPostConsumerShare` | `skos:broadMatch` | `dppk:postConsumerRecycledContent` | new mapping below the 0.8 floor |
+| 0.73 | `eubat:hazardImpact` | `skos:narrowMatch` | `batterypass:hazardousSubstanceImpact` | new mapping below the 0.8 floor |
+| 0.73 | `eubat:ThirdPartyVerification` | `skos:narrowMatch` | `cirpass2-textile:RecycledContentVerificationMethod` | new mapping below the 0.8 floor |
+| 0.73 | `eubat:MaterialRecoveryTarget` | `skos:broadMatch` | `cirpass2-textile:ProcessTargetSpecification` | new mapping below the 0.8 floor |
+| 0.73 | `eubat:leadPostConsumerShare` | `skos:broadMatch` | `dppk:postConsumerRecycledMaterialComposition` | new mapping below the 0.8 floor |
+| 0.73 | `eubat:cobaltPostConsumerShare` | skos:closeMatch to `skos:broadMatch` | `batterypass:postConsumerShare` | regrade skos:closeMatch to skos:broadMatch |
+| 0.73 | `eubat:expectedLifetimeYears` | `skos:narrowMatch` | `cirpass2-battery:expectedLifetimeCalendarYears` | new mapping below the 0.8 floor |
+| 0.73 | `eubat:ThirdPartyVerification` | `skos:narrowMatch` | `cirpass2-textile:ChainOfCustodyVerificationMethod` | new mapping below the 0.8 floor |
+| 0.73 | `eubat:DismantlingDocument` | skos:narrowMatch to `skos:broadMatch` | `batterypass:DismantlingAndRemovalDocumentation` | direction flip toward a peer profile below the 0.8 floor |
+| 0.72 | `eubat:nickelRecycledShare` | `skos:broadMatch` | `dppk:preConsumerRecycledContentMass` | new mapping below the 0.8 floor |
+| 0.72 | `eubat:MaterialRecoveryTarget` | `skos:broadMatch` | `eudpp:RecoverableRate` | new mapping below the 0.8 floor |
+| 0.72 | `eubat:hasHazardousSubstances` | `skos:broadMatch` | `untp:hazardous` | new mapping below the 0.8 floor |
+| 0.72 | `eubat:hasRecycledContent` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:postConsumerRecycledContentMass` | seeAlso upgrade below the 0.8 floor |
+| 0.72 | `eubat:hasDismantlingDocuments` | `skos:broadMatch` | `batterypass:dismantlingAndRemovalInformation` | new mapping below the 0.8 floor |
+| 0.72 | `eubat:nickelRecycledShare` | `skos:broadMatch` | `cirpass2-textile:hasRecycledContentMassFractionValue` | new mapping below the 0.8 floor |
+| 0.72 | `eubat:BatteryMaterial` | skos:exactMatch to `skos:broadMatch` | `batterypass:BatteryMaterialEntity` | regrade skos:exactMatch to skos:broadMatch |
+| 0.72 | `eubat:recoveryMaterial` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:batteryMaterialName` | seeAlso upgrade below the 0.8 floor |
+| 0.72 | `eubat:hasLabelSubject` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:labelingSubject` | seeAlso upgrade below the 0.8 floor |
+| 0.71 | `eubat:nickelRecycledShare` | `skos:broadMatch` | `dppk:postConsumerRecycledContentPercentage` | new mapping below the 0.8 floor |
+| 0.70 | `eubat:hasInitialCapacity` | `skos:broadMatch` | `other:Capacity` | our term is a property, target is a class |
+| 0.69 | `eubat:nickelRecycledShare` | `skos:broadMatch` | `dppk:postConsumerRecycledContentMass` | new mapping below the 0.8 floor |
+| 0.69 | `eubat:hasRecycledContent` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:preConsumerRecycledMaterialComposition` | seeAlso upgrade below the 0.8 floor |
+| 0.68 | `eubat:DismantlingDocument` | `skos:broadMatch` | `schemaorg:TextDigitalDocument` | new mapping below the 0.8 floor |
+| 0.68 | `eubat:authorizedServiceCenters` | rdfs:seeAlso to `skos:broadMatch` | `gs1:serviceInfo` | seeAlso upgrade below the 0.8 floor |
+| 0.68 | `eubat:BatteryMaterial` | `skos:narrowMatch` | `cirpass2-battery:BatteryChemistry` | new mapping below the 0.8 floor |
+| 0.68 | `eubat:ComponentLocation` | `skos:closeMatch` | `batterypass:BatteryLocationEntity` | our term is a type, target is the entity |
+| 0.65 | `eubat:cobaltPostConsumerShare` | `skos:broadMatch` | `dppk:postConsumerRecycledMaterialComposition` | new mapping below the 0.8 floor |
+| 0.63 | `eubat:hasEnergyThroughput` | skos:closeMatch to `skos:narrowMatch` | `batterypass:energyThroughput` | regrade skos:closeMatch to skos:narrowMatch |
 
 ## core
 
-From `skos-completeness-core-2026-08-06.json`. 155 confirmed findings the triage did not apply.
+From `skos-completeness-core-2026-10-29.json`. 124 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
-| 0.99 | `oec:EnergyEfficiencyClass` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Class` | target is a meta-class |
-| 0.96 | `oec:OperatorRole` | `skos:exactMatch` | `dppk:EconomicOperatorRole` | our term is a type, target is the entity |
-| 0.94 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `rail:topValue` | our term is a structural value carrier |
-| 0.94 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `rail:leftValueString` | our term is a structural value carrier |
+| 0.99 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `gs1:additionalProductClassificationValue` | our term is a structural value carrier |
+| 0.98 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasRecyclingYieldValue` | our term is a structural value carrier |
+| 0.98 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasRatingValue` | our term is a structural value carrier |
+| 0.98 | `oec:value` | `skos:narrowMatch` | `eudpp:minimumNumericalValue` | our term is a structural value carrier |
+| 0.98 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `rail:rightValueString` | our term is a structural value carrier |
+| 0.97 | `oec:value` | `skos:narrowMatch` | `rail:leftValue` | our term is a structural value carrier |
+| 0.97 | `oec:value` | `skos:narrowMatch` | `schemaorg:broadcastFrequencyValue` | our term is a structural value carrier |
+| 0.97 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasRepairResponseTimeValue` | our term is a structural value carrier |
+| 0.97 | `oec:EnergyEfficiencyClass` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Class` | target is a meta-class |
+| 0.97 | `oec:value` | `skos:narrowMatch` | `schemaorg:orderValue` | our term is a structural value carrier |
+| 0.97 | `oec:value` | `skos:narrowMatch` | `eudpp:identifierExampleValue` | our term is a structural value carrier |
+| 0.97 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasThresholdValue` | our term is a structural value carrier |
+| 0.97 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasScaleValue` | our term is a structural value carrier |
+| 0.97 | `oec:value` | `skos:narrowMatch` | `eudpp:maximumNumericalValue` | our term is a structural value carrier |
+| 0.97 | `oec:value` | `skos:narrowMatch` | `gs1:additionalOrganizationIdentificationTypeValue` | our term is a structural value carrier |
+| 0.97 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasRecyclableMassFractionValue` | our term is a structural value carrier |
+| 0.97 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasRecycledMaterialMassValue` | our term is a structural value carrier |
+| 0.97 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasRecycledContentMassFractionValue` | our term is a structural value carrier |
+| 0.96 | `oec:value` | `skos:narrowMatch` | `schemaorg:legislationLegalValue` | our term is a structural value carrier |
+| 0.96 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `rail:rightValue` | our term is a structural value carrier |
+| 0.96 | `oec:value` | `skos:narrowMatch` | `eudpp:numericalValue` | our term is a structural value carrier |
+| 0.96 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasQuantitativeValue` | our term is a structural value carrier |
+| 0.96 | `oec:value` | `skos:narrowMatch` | `rail:bottomValue` | our term is a structural value carrier |
+| 0.96 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasMinimumScoreValue` | our term is a structural value carrier |
+| 0.96 | `oec:ImpactIndicatorResult` | skos:broadMatch to `skos:exactMatch` | `eudpp:LCIAResult` | regrade skos:broadMatch to skos:exactMatch |
+| 0.95 | `oec:hasCarbonFootprintEndOfLife` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
+| 0.95 | `oec:GranularityLevel` | `skos:exactMatch` | `eudpp:IdentifierGranularity` | our term is a type, target is the entity |
+| 0.95 | `oec:value` | `skos:narrowMatch` | `eudpp:identifierValue` | our term is a structural value carrier |
+| 0.95 | `oec:value` | `skos:narrowMatch` | `schemaorg:strengthValue` | our term is a structural value carrier |
+| 0.95 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasCharacteristicValue` | our term is a structural value carrier |
+| 0.95 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasTextualValue` | our term is a structural value carrier |
+| 0.95 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasParameterValue` | our term is a structural value carrier |
+| 0.95 | `oec:contentSpecificationId` | skos:closeMatch to `skos:exactMatch` | `dppk:contentSpecificationIds` | regrade skos:closeMatch to skos:exactMatch |
+| 0.95 | `oec:EnvironmentalProductDeclaration` | skos:exactMatch to `skos:narrowMatch` | `eudpp:EPDDocument` | regrade skos:exactMatch to skos:narrowMatch |
+| 0.95 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `schemaorg:textValue` | our term is a structural value carrier |
+| 0.94 | `oec:value` | `skos:narrowMatch` | `eudpp:codeValue` | our term is a structural value carrier |
+| 0.94 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:numericValue` | our term is a structural value carrier |
+| 0.94 | `oec:value` | `skos:narrowMatch` | `batterypass:capacityFadeValue` | our term is a structural value carrier |
+| 0.94 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasMeasuredValue` | our term is a structural value carrier |
 | 0.94 | `oec:DepositReturnScheme` | `skos:broadMatch` | `gs1:ReturnablePackageDepositDetails` | our term is a type, target is the entity |
-| 0.94 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `rail:rightValueString` | our term is a structural value carrier |
+| 0.94 | `oec:value` | rdfs:seeAlso to `skos:narrowMatch` | `schemaorg:codeValue` | our term is a structural value carrier |
+| 0.94 | `oec:value` | rdfs:seeAlso to `skos:narrowMatch` | `gs1:value` | target is a structural value carrier |
+| 0.94 | `oec:value` | rdfs:seeAlso to `skos:narrowMatch` | `semic:hasValue` | target is a structural value carrier |
+| 0.94 | `oec:value` | rdfs:seeAlso to `skos:narrowMatch` | `gs1:originalCodeValue` | our term is a structural value carrier |
+| 0.94 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasTextualValue` | our term is a structural value carrier |
+| 0.94 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasQuantitativeValue` | our term is a structural value carrier |
+| 0.94 | `oec:value` | `skos:narrowMatch` | `schemaorg:minValue` | target is a structural value carrier |
+| 0.94 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasTextualValue` | our term is a structural value carrier |
+| 0.94 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasQuantitativeValue` | our term is a structural value carrier |
+| 0.94 | `oec:value` | `skos:narrowMatch` | `batterypass:stateOfCertifiedEnergyValue` | our term is a structural value carrier |
+| 0.94 | `oec:value` | `skos:narrowMatch` | `batterypass:energyThroughputValue` | our term is a structural value carrier |
+| 0.94 | `oec:RecycledContent` | `skos:narrowMatch` | `cirpass2-textile:RecycledContent` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
+| 0.94 | `oec:passportStatus` | skos:closeMatch to `skos:exactMatch` | `eudpp:dppStatus` | regrade skos:closeMatch to skos:exactMatch |
+| 0.93 | `oec:value` | `skos:narrowMatch` | `eudpp:value` | our term is a structural value carrier |
 | 0.93 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `gs1:authenticitySecurityFeatureValue` | our term is a structural value carrier |
-| 0.93 | `oec:hasCarbonFootprintRawMaterial` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
-| 0.92 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `schemaorg:textValue` | our term is a structural value carrier |
-| 0.92 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `schemaorg:valueReference` | our term is a structural value carrier |
-| 0.92 | `oec:value` | `skos:narrowMatch` | `semic:supportsValue` | target is a structural value carrier |
-| 0.92 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `rail:rightValue` | our term is a structural value carrier |
-| 0.92 | `oec:hasCarbonFootprintDistribution` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
-| 0.92 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `gs1:additionalProductClassificationValue` | our term is a structural value carrier |
-| 0.91 | `oec:OperatorRole` | rdfs:seeAlso to `skos:exactMatch` | `other:EconomicOperatorRole` | our term is a type, target is the entity |
-| 0.90 | `oec:productToPackagingRatio` | rdfs:seeAlso to `skos:exactMatch` | `other:ProductToPackagingRatio` | our term is a property, target is a class |
-| 0.90 | `oec:registrationNumber` | `skos:exactMatch` | `other:registrationNumber` | deferred by a curator: Name-only match: the EUDPP property is domained on EPDStudy (EPD programme registration number, ILCD publicationAndOwnership/registrationNumber), ours on OperatorInformation (company registration). The correct counterpart oec:epdRegistrationNumber already carries the pointer. |
-| 0.90 | `oec:materialFootprint` | rdfs:seeAlso to `skos:exactMatch` | `other:MaterialFootprint` | our term is a property, target is a class |
-| 0.90 | `oec:socThreshold` | rdfs:seeAlso to `skos:exactMatch` | `other:ThresholdOfSubstanceOfConcern` | our term is a property, target is a class |
-| 0.90 | `oec:hasDataElement` | `skos:broadMatch` | `semic:hasMember` | deferred by a curator: Foreign domain: org:hasMember relates an Organization to a member Agent; oec:hasDataElement is EN 18223 structural containment (passport/collection to DataElement). Membership as a word pattern, not as a concept. |
-| 0.90 | `oec:OperatorInformation` | `skos:narrowMatch` | `other:EconomicOperatorRole` | deferred by a curator: An operator record (name, address, identifiers) against a role enumeration: the same level confusion already resolved for oec:OperatorRole, which CIRPASS2_ALIGNMENT.md records as pointer-only. |
-| 0.89 | `oec:EnergyEfficiencyClass` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:EnergyConsumptionDetails` | our term is a type, target is the entity |
-| 0.89 | `oec:RepairProvider` | skos:broadMatch to `skos:narrowMatch` | `schemaorg:AutoRepair` | schema:AutoRepair belongs to an area foreign to a passport |
-| 0.89 | `oec:stageValue` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:value` | target is a structural value carrier |
-| 0.88 | `oec:value` | rdfs:seeAlso to `skos:narrowMatch` | `gs1:originalCodeValue` | our term is a structural value carrier |
-| 0.87 | `oec:hasCarbonFootprintProduction` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
-| 0.86 | `oec:RepairProvider` | skos:broadMatch to `skos:narrowMatch` | `schemaorg:MotorcycleRepair` | schema:MotorcycleRepair belongs to an area foreign to a passport |
-| 0.84 | `oec:value` | rdfs:seeAlso to `skos:narrowMatch` | `semic:hasValue` | target is a structural value carrier |
-| 0.84 | `oec:recycledContent` | skos:closeMatch to `skos:narrowMatch` | `batterypass:recycledContent` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
-| 0.83 | `oec:EnvironmentalProductDeclaration` | `skos:narrowMatch` | `schemaorg:EnergyConsumptionDetails` | deferred by a curator: An EN 15804 environmental product declaration covers impact indicators across the whole life cycle; schema:EnergyConsumptionDetails carries appliance energy figures. Neither subsumes the other. |
-| 0.83 | `oec:OperationalScope` | skos:broadMatch to `skos:narrowMatch` | `batterypass:CarbonFootprintPerLifecycleStageEntity` | our term is a type, target is the entity |
-| 0.82 | `oec:value` | rdfs:seeAlso to `skos:narrowMatch` | `schemaorg:codeValue` | our term is a structural value carrier |
-| 0.82 | `oec:recyclabilityScore` | `skos:broadMatch` | `gs1:value` | target is a structural value carrier |
-| 0.82 | `oec:hasExpectedLifespan` | skos:closeMatch to `skos:narrowMatch` | `batterypass:expectedLifetime` | regrade skos:closeMatch to skos:narrowMatch |
-| 0.81 | `oec:value` | rdfs:seeAlso to `skos:narrowMatch` | `gs1:value` | target is a structural value carrier |
-| 0.81 | `oec:carbonFootprintTotal` | skos:closeMatch to `skos:narrowMatch` | `batterypass:carbonFootprint` | regrade skos:closeMatch to skos:narrowMatch |
-| 0.81 | `oec:DocumentReference` | skos:broadMatch to `skos:narrowMatch` | `schemaorg:APIReference` | schema:APIReference belongs to an area foreign to a passport |
-| 0.81 | `oec:facilityId` | skos:broadMatch to `skos:narrowMatch` | `dppk:manufacturingFacility` | deferred by a curator: An identifier is not broader than the thing it identifies: oec:facilityId is the identifier, dppk:manufacturingFacility the facility reference. oec:hasFacilityInformation is the term that compares. |
-| 0.80 | `oec:PassportStatus` | rdfs:seeAlso to `skos:exactMatch` | `other:dppStatus` | our term is a class, target is a property |
-| 0.80 | `oec:hasMaterialComposition` | `skos:narrowMatch` | `gs1:textileMaterialPercentage` | gs1:textileMaterialPercentage is a general Layer-1 term, so narrowMatch inverts the relation; broadMatch is the direction |
-| 0.79 | `oec:ProductCategory` | `skos:broadMatch` | `untp:Product` | our term is a type, target is the entity |
-| 0.79 | `oec:postConsumerRecycledContent` | `skos:broadMatch` | `other:recyclableContent` | new mapping below the 0.8 floor |
-| 0.79 | `oec:EnvironmentalProductDeclaration` | skos:broadMatch to `skos:narrowMatch` | `batterypass:CarbonFootprintPerLifecycleStageEntity` | direction flip toward a peer profile below the 0.8 floor |
-| 0.79 | `oec:stageValue` | skos:broadMatch to `skos:narrowMatch` | `batterypass:carbonFootprintPerLifecycleStage` | direction flip toward a peer profile below the 0.8 floor |
+| 0.93 | `oec:remanufacturingDate` | skos:narrowMatch to `skos:exactMatch` | `rail:itemReconditioningDate` | regrade skos:narrowMatch to skos:exactMatch |
+| 0.93 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasTextualValue` | our term is a structural value carrier |
+| 0.93 | `oec:value` | `skos:narrowMatch` | `batterypass:remainingCapacityValue` | our term is a structural value carrier |
+| 0.93 | `oec:value` | `skos:narrowMatch` | `batterypass:internalResistanceIncreaseValue` | our term is a structural value carrier |
+| 0.93 | `oec:value` | `skos:narrowMatch` | `batterypass:remainingPowerCapabilityValue` | our term is a structural value carrier |
+| 0.92 | `oec:language` | skos:closeMatch to `skos:narrowMatch` | `gs1:fileLanguageCode` | regrade skos:closeMatch to skos:narrowMatch |
+| 0.92 | `oec:value` | rdfs:seeAlso to `skos:narrowMatch` | `semic:value` | our term is a structural value carrier |
+| 0.92 | `oec:value` | `skos:narrowMatch` | `schemaorg:doseValue` | our term is a structural value carrier |
+| 0.92 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:awardsScoreValue` | our term is a structural value carrier |
+| 0.92 | `oec:value` | `skos:narrowMatch` | `cirpass2-textile:hasTextualValue` | our term is a structural value carrier |
+| 0.92 | `oec:value` | `skos:narrowMatch` | `batterypass:currentSelfDischargingRateValue` | our term is a structural value carrier |
+| 0.92 | `oec:value` | `skos:narrowMatch` | `batterypass:remainingEnergyValue` | our term is a structural value carrier |
+| 0.92 | `oec:RepairProvider` | skos:broadMatch to `skos:narrowMatch` | `schemaorg:AutoRepair` | schema:AutoRepair belongs to an area foreign to a passport |
+| 0.92 | `oec:OperatorRole` | rdfs:seeAlso to `skos:exactMatch` | `eudpp:EconomicOperatorRole` | our term is a type, target is the entity |
+| 0.92 | `oec:OperatorRole` | `skos:broadMatch` | `eudpp:Role` | our term is a type, target is the entity |
+| 0.92 | `oec:ImpactIndicatorType` | `skos:narrowMatch` | `eudpp:EN15804Indicator` | our term is a type, target is the entity |
+| 0.92 | `oec:RepairProvider` | skos:broadMatch to `skos:narrowMatch` | `schemaorg:MotorcycleRepair` | schema:MotorcycleRepair belongs to an area foreign to a passport |
+| 0.92 | `oec:hasRecycledContentDetails` | skos:closeMatch to `skos:narrowMatch` | `dppk:postConsumerRecycledContentMass` | regrade skos:closeMatch to skos:narrowMatch |
+| 0.92 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `rail:nominalValue` | our term is a structural value carrier |
+| 0.92 | `oec:EnergyEfficiencyClass` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:EnergyConsumptionDetails` | our term is a type, target is the entity |
+| 0.89 | `oec:value` | `skos:narrowMatch` | `schemaorg:ratingValue` | our term is a structural value carrier |
+| 0.89 | `oec:DocumentType` | `skos:broadMatch` | `eudpp:DocumentFormattedProperty` | our term is a type, target is the entity |
+| 0.89 | `oec:DocumentReference` | skos:closeMatch to `skos:narrowMatch` | `gs1:ReferencedFileDetails` | regrade skos:closeMatch to skos:narrowMatch |
+| 0.88 | `oec:hasCarbonFootprintProduction` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
+| 0.88 | `oec:value` | `skos:narrowMatch` | `schemaorg:defaultValue` | our term is a structural value carrier |
+| 0.88 | `oec:value` | `skos:narrowMatch` | `eudpp:materialTypeValue` | our term is a structural value carrier |
+| 0.88 | `oec:OperatorRole` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:OrganizationRole` | our term is a type, target is the entity |
+| 0.88 | `oec:ImpactIndicatorType` | rdfs:seeAlso to `skos:narrowMatch` | `eudpp:EN15804ImpactIndicator` | our term is a type, target is the entity |
+| 0.88 | `oec:RecyclabilityAssessment` | `skos:narrowMatch` | `cirpass2-textile:RecyclabilityAssessment` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
+| 0.87 | `oec:DataElementCollection` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Collection` | schema:Collection belongs to an area foreign to a passport |
+| 0.85 | `oec:SingleValuedDataElement` | `skos:broadMatch` | `schemaorg:PropertyValueSpecification` | target is a structural value carrier |
+| 0.85 | `oec:hasCarbonFootprintRawMaterial` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
+| 0.82 | `oec:hasCarbonFootprint` | skos:closeMatch to `skos:narrowMatch` | `batterypass:carbonFootprint` | regrade skos:closeMatch to skos:narrowMatch |
+| 0.80 | `oec:hasDocuments` | skos:closeMatch to `skos:broadMatch` | `gs1:referencedFile` | regrade skos:closeMatch to skos:broadMatch |
+| 0.80 | `oec:CircularityPerformance` | `skos:narrowMatch` | `cirpass2-textile:RecycledContentPerformanceThreshold` | new mapping below the 0.8 floor |
+| 0.79 | `oec:hasCarbonFootprint` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:carbonFootprintPerLifecycleStage` | seeAlso upgrade below the 0.8 floor |
 | 0.79 | `oec:SingleValuedDataElement` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:QuantitativeValue` | seeAlso upgrade below the 0.8 floor |
-| 0.79 | `oec:hasDismantlingInstructions` | skos:broadMatch to `skos:narrowMatch` | `batterypass:dismantlingAndRemovalInformation` | direction flip toward a peer profile below the 0.8 floor |
-| 0.78 | `oec:economicOperatorId` | rdfs:seeAlso to `skos:broadMatch` | `gs1:additionalOrganizationID` | seeAlso upgrade below the 0.8 floor |
-| 0.78 | `oec:recycledContent` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:postConsumerRecycledContentPercentage` | seeAlso upgrade below the 0.8 floor |
-| 0.78 | `oec:hasCarbonFootprintUse` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:carbonFootprint` | seeAlso upgrade below the 0.8 floor |
-| 0.78 | `oec:ProductCategory` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Product` | our term is a type, target is the entity |
-| 0.78 | `oec:hasMaterialComposition` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:packagingMaterialCompositionQuantity` | seeAlso upgrade below the 0.8 floor |
-| 0.78 | `oec:reportUrl` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:supplyChainDueDiligenceReport` | seeAlso upgrade below the 0.8 floor |
-| 0.78 | `oec:passportIdentifier` | skos:broadMatch to `skos:narrowMatch` | `batterypass:batteryPassportIdentifier` | direction flip toward a peer profile below the 0.8 floor |
-| 0.78 | `oec:hasMultiLanguageValue` | `skos:broadMatch` | `untp:value` | new mapping below the 0.8 floor |
-| 0.78 | `oec:hasRecycledContentDetails` | skos:broadMatch to `skos:narrowMatch` | `untp:recycledMassFraction` | direction flip toward a peer profile below the 0.8 floor |
-| 0.78 | `oec:hasRecycledContentDetails` | rdfs:seeAlso to `skos:broadMatch` | `other:recyclableContent` | seeAlso upgrade below the 0.8 floor |
-| 0.78 | `oec:hasProductCategory` | skos:broadMatch to `skos:narrowMatch` | `batterypass:batteryCategory` | direction flip toward a peer profile below the 0.8 floor |
-| 0.78 | `oec:CarbonFootprintDeclaration` | `skos:broadMatch` | `other:EnvironmentalFootprint` | new mapping below the 0.8 floor |
-| 0.78 | `oec:identityCredentialUrl` | rdfs:seeAlso to `skos:broadMatch` | `dppk:verifiableCredential` | seeAlso upgrade below the 0.8 floor |
-| 0.78 | `oec:LifecycleStageResult` | skos:broadMatch to `skos:narrowMatch` | `batterypass:CarbonFootprintPerLifecycleStageEntity` | direction flip toward a peer profile below the 0.8 floor |
-| 0.77 | `oec:HazardousSubstance` | rdfs:seeAlso to `skos:broadMatch` | `other:Substance` | seeAlso upgrade below the 0.8 floor |
-| 0.77 | `oec:hasCarbonFootprintProduction` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:absoluteCarbonFootprint` | seeAlso upgrade below the 0.8 floor |
-| 0.77 | `oec:hasTechnicalLifetime` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:batteryTechnicalProperties` | seeAlso upgrade below the 0.8 floor |
-| 0.77 | `oec:hasMaterialComposition` | rdfs:seeAlso to `skos:narrowMatch` | `gs1:textileMaterialContent` | gs1:textileMaterialContent is a general Layer-1 term, so narrowMatch inverts the relation; broadMatch is the direction |
-| 0.77 | `oec:stageValue` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:remainingCapacityValue` | seeAlso upgrade below the 0.8 floor |
-| 0.77 | `oec:endOfLifeInstructions` | skos:closeMatch to `skos:broadMatch` | `batterypass:endOfLifeInformation` | regrade skos:closeMatch to skos:broadMatch |
+| 0.79 | `oec:RepairabilityInfo` | `skos:closeMatch` | `cirpass2-textile:RepairabilityAssessmentResult` | new mapping below the 0.8 floor |
+| 0.79 | `oec:FacilityInformation` | `skos:narrowMatch` | `gs1:LocationID_Details` | new mapping below the 0.8 floor |
+| 0.78 | `oec:hasTechnicalLifetime` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:batteryTechnicalProperties` | seeAlso upgrade below the 0.8 floor |
+| 0.78 | `oec:ProductCategory` | `skos:narrowMatch` | `cirpass2-textile:TextileCleaningProduct` | our term is a type, target is the entity |
+| 0.78 | `oec:DocumentReference` | skos:broadMatch to `skos:narrowMatch` | `schemaorg:APIReference` | schema:APIReference belongs to an area foreign to a passport |
+| 0.78 | `oec:ConformityAssessmentModule` | `skos:broadMatch` | `untp:ConformityScheme` | new mapping below the 0.8 floor |
+| 0.78 | `oec:hasIndicatorType` | `skos:broadMatch` | `eudpp:quantifiesIndicator` | new mapping below the 0.8 floor |
+| 0.78 | `oec:hasPerformanceInfo` | `skos:narrowMatch` | `batterypass:carbonFootprintPerformanceClass` | new mapping below the 0.8 floor |
+| 0.78 | `oec:carbonFootprintTotal` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:carbonFootprintPerLifecycleStage` | seeAlso upgrade below the 0.8 floor |
 | 0.77 | `oec:hasCarbonFootprint` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:absoluteCarbonFootprint` | seeAlso upgrade below the 0.8 floor |
-| 0.77 | `oec:massFraction` | `skos:narrowMatch` | `untp:recycledMassFraction` | new mapping below the 0.8 floor |
-| 0.77 | `oec:stageValue` | `skos:narrowMatch` | `batterypass:remainingRoundTripEnergyEfficiencyValue` | new mapping below the 0.8 floor |
-| 0.77 | `oec:RecycledContent` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:RecycledContentEntity` | seeAlso upgrade below the 0.8 floor |
-| 0.76 | `oec:value` | rdfs:seeAlso to `skos:narrowMatch` | `schemaorg:value` | target is a structural value carrier |
-| 0.76 | `oec:hasCarbonFootprintProduction` | rdfs:seeAlso to `skos:broadMatch` | `other:carbonFootprintTotal` | seeAlso upgrade below the 0.8 floor |
-| 0.76 | `oec:stageValue` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:capacityThroughputValue` | seeAlso upgrade below the 0.8 floor |
-| 0.75 | `oec:socThreshold` | rdfs:seeAlso to `skos:broadMatch` | `other:concentration` | seeAlso upgrade below the 0.8 floor |
-| 0.75 | `oec:hasCarbonFootprint` | skos:closeMatch to `skos:narrowMatch` | `batterypass:batteryCarbonFootprint` | regrade skos:closeMatch to skos:narrowMatch |
-| 0.75 | `oec:compostabilityStandard` | `skos:broadMatch` | `untp:standard` | new mapping below the 0.8 floor |
-| 0.75 | `oec:materialCircularityIndicator` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:recyclabilityScore` | seeAlso upgrade below the 0.8 floor |
-| 0.75 | `oec:ProductCategory` | rdfs:seeAlso to `skos:broadMatch` | `gs1:Product` | our term is a type, target is the entity |
-| 0.75 | `oec:passportVersion` | `skos:broadMatch` | `dppk:versionNumber` | new mapping below the 0.8 floor |
-| 0.75 | `oec:DocumentType` | skos:closeMatch to `skos:narrowMatch` | `gs1:ReferencedFileTypeCode` | regrade skos:closeMatch to skos:narrowMatch |
-| 0.75 | `oec:stageValue` | skos:broadMatch to `skos:narrowMatch` | `batterypass:evolutionOfSelfDischargeValue` | direction flip toward a peer profile below the 0.8 floor |
-| 0.75 | `oec:hasMultiLanguageValue` | `skos:broadMatch` | `schemaorg:textValue` | new mapping below the 0.8 floor |
-| 0.75 | `oec:hasTraceabilityPerformance` | `skos:broadMatch` | `untp:requiredPerformance` | new mapping below the 0.8 floor |
-| 0.75 | `oec:hasLifecycleStageResult` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:carbonFootprintPerLifecycleStage` | seeAlso upgrade below the 0.8 floor |
-| 0.75 | `oec:tradeItemPieceDescription` | rdfs:seeAlso to `skos:broadMatch` | `gs1:additionalProductDescription` | seeAlso upgrade below the 0.8 floor |
-| 0.75 | `oec:hasCarbonFootprintEndOfLife` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:carbonFootprint` | seeAlso upgrade below the 0.8 floor |
-| 0.75 | `oec:hasLifecycleStage` | skos:closeMatch to `skos:broadMatch` | `batterypass:lifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
-| 0.75 | `oec:separateCollectionInfo` | `skos:broadMatch` | `batterypass:informationOnCollection` | new mapping below the 0.8 floor |
-| 0.75 | `oec:TraceabilityPerformance` | rdfs:seeAlso to `skos:broadMatch` | `untp:PerformanceMetric` | seeAlso upgrade below the 0.8 floor |
-| 0.75 | `oec:SingleValuedDataElement` | `skos:broadMatch` | `schemaorg:PropertyValueSpecification` | target is a structural value carrier |
-| 0.75 | `oec:DataElementCollection` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Collection` | schema:Collection belongs to an area foreign to a passport |
-| 0.75 | `oec:hasMultiLanguageValue` | `skos:broadMatch` | `dppk:dimensionValue` | new mapping below the 0.8 floor |
-| 0.74 | `oec:DocumentReference` | skos:closeMatch to `skos:narrowMatch` | `gs1:ReferencedFileDetails` | regrade skos:closeMatch to skos:narrowMatch |
-| 0.73 | `oec:stageValue` | skos:broadMatch to `skos:narrowMatch` | `batterypass:remainingEnergyValue` | direction flip toward a peer profile below the 0.8 floor |
-| 0.73 | `oec:hasCarbonFootprintProduction` | rdfs:seeAlso to `skos:broadMatch` | `dppk:carbonFootprint` | seeAlso upgrade below the 0.8 floor |
-| 0.73 | `oec:hasCarbonFootprintEndOfLife` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
-| 0.73 | `oec:hasCarbonFootprintUse` | `skos:narrowMatch` | `batterypass:batteryCarbonFootprint` | new mapping below the 0.8 floor |
-| 0.73 | `oec:preConsumerRecycledContent` | rdfs:seeAlso to `skos:broadMatch` | `untp:recycledMassFraction` | seeAlso upgrade below the 0.8 floor |
-| 0.73 | `oec:BiodegradabilityTestMethod` | rdfs:seeAlso to `skos:broadMatch` | `semic:Criterion` | our term is a type, target is the entity |
-| 0.73 | `oec:hasPowerConsumptionOn` | `skos:broadMatch` | `dppk:ratedPower` | new mapping below the 0.8 floor |
-| 0.73 | `oec:reportUrl` | `skos:broadMatch` | `batterypass:documentURL` | new mapping below the 0.8 floor |
-| 0.73 | `oec:stageValue` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:numberOfFullCyclesValue` | seeAlso upgrade below the 0.8 floor |
-| 0.73 | `oec:carbonFootprintTotal` | `skos:narrowMatch` | `batterypass:batteryCarbonFootprint` | new mapping below the 0.8 floor |
-| 0.73 | `oec:CustomsCommodityCodeType` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:CategoryCode` | seeAlso upgrade below the 0.8 floor |
-| 0.73 | `oec:identityCredentialUrl` | rdfs:seeAlso to `skos:broadMatch` | `gs1:referencedFileURL` | seeAlso upgrade below the 0.8 floor |
-| 0.72 | `oec:LifecycleStageResult` | rdfs:seeAlso to `skos:exactMatch` | `other:LCIAModuleValue` | seeAlso upgrade below the 0.8 floor |
-| 0.72 | `oec:declaredUnit` | `skos:broadMatch` | `schemaorg:unitText` | new mapping below the 0.8 floor |
-| 0.72 | `oec:hasCarbonFootprint` | `skos:narrowMatch` | `other:hasCarbonFootprintProduction` | new mapping below the 0.8 floor |
-| 0.72 | `oec:hasCarbonFootprintRawMaterial` | `skos:broadMatch` | `other:MaterialFootprint` | our term is a property, target is a class |
-| 0.72 | `oec:materialCircularityIndicator` | rdfs:seeAlso to `skos:narrowMatch` | `other:recyclabilityScore` | seeAlso upgrade below the 0.8 floor |
-| 0.72 | `oec:carbonFootprintTotal` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:carbonFootprintPerLifecycleStage` | seeAlso upgrade below the 0.8 floor |
-| 0.72 | `oec:recycledContent` | skos:broadMatch to `skos:narrowMatch` | `dppk:preConsumerRecycledContentPercentage` | direction flip toward a peer profile below the 0.8 floor |
-| 0.72 | `oec:hasCarbonFootprintUse` | `skos:broadMatch` | `other:carbonFootprintTotal` | new mapping below the 0.8 floor |
-| 0.72 | `oec:hasPerformanceInfo` | `skos:narrowMatch` | `untp:claimedPerformance` | new mapping below the 0.8 floor |
-| 0.72 | `oec:indicatorTotalValue` | rdfs:seeAlso to `skos:broadMatch` | `gs1:value` | target is a structural value carrier |
-| 0.72 | `oec:wastePreventionInfo` | `skos:narrowMatch` | `batterypass:informationOnCollection` | new mapping below the 0.8 floor |
-| 0.72 | `oec:postConsumerRecycledContent` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:recycledContent` | seeAlso upgrade below the 0.8 floor |
-| 0.72 | `oec:hasDueDiligenceReport` | `skos:broadMatch` | `untp:documentation` | new mapping below the 0.8 floor |
-| 0.72 | `oec:hasCarbonFootprint` | skos:closeMatch to `skos:narrowMatch` | `batterypass:carbonFootprint` | regrade skos:closeMatch to skos:narrowMatch |
-| 0.72 | `oec:CustomsCommodityCodeType` | rdfs:seeAlso to `skos:broadMatch` | `gs1:TypeCode` | seeAlso upgrade below the 0.8 floor |
-| 0.72 | `oec:epdStandard` | `skos:broadMatch` | `gs1:certificationStandard` | new mapping below the 0.8 floor |
-| 0.72 | `oec:hasTraceabilityPerformance` | `skos:broadMatch` | `dppk:performance` | new mapping below the 0.8 floor |
-| 0.71 | `oec:hasSubstancesOfConcern` | rdfs:seeAlso to `skos:closeMatch` | `gs1:ingredientOfConcern` | gs1 domain FoodBeverageTobaccoProduct is foreign to a passport |
-| 0.71 | `oec:reportUrl` | rdfs:seeAlso to `skos:broadMatch` | `gs1:referencedFileURL` | seeAlso upgrade below the 0.8 floor |
-| 0.71 | `oec:stageValue` | skos:broadMatch to `skos:narrowMatch` | `batterypass:energyThroughputValue` | direction flip toward a peer profile below the 0.8 floor |
-| 0.70 | `oec:recycledContent` | skos:broadMatch to `skos:narrowMatch` | `dppk:preConsumerRecycledContent` | direction flip toward a peer profile below the 0.8 floor |
-| 0.70 | `oec:hasCarbonFootprintUse` | `skos:broadMatch` | `dppk:carbonFootprint` | new mapping below the 0.8 floor |
-| 0.70 | `oec:hasCarbonFootprint` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:carbonFootprintPerLifecycleStage` | seeAlso upgrade below the 0.8 floor |
-| 0.70 | `oec:HarmonisedStandard` | `skos:broadMatch` | `untp:Standard` | new mapping below the 0.8 floor |
-| 0.70 | `oec:hasConformityDeclaration` | rdfs:seeAlso to `skos:broadMatch` | `gs1:certification` | seeAlso upgrade below the 0.8 floor |
-| 0.70 | `oec:hasFacilityInformation` | `skos:narrowMatch` | `other:FacilityIdentifier` | our term is a property, target is a class |
-| 0.70 | `oec:materialFootprint` | `skos:narrowMatch` | `gs1:packagingMaterialCompositionQuantity` | new mapping below the 0.8 floor |
-| 0.70 | `oec:stageValue` | skos:broadMatch to `skos:narrowMatch` | `batterypass:capacityFadeValue` | direction flip toward a peer profile below the 0.8 floor |
-| 0.70 | `oec:FacilityInformation` | `skos:narrowMatch` | `gs1:LocationID_Details` | new mapping below the 0.8 floor |
-| 0.70 | `oec:recycledContent` | skos:broadMatch to `skos:narrowMatch` | `dppk:postConsumerRecycledContent` | direction flip toward a peer profile below the 0.8 floor |
-| 0.69 | `oec:hasHazardousSubstances` | `skos:broadMatch` | `dppk:textileSubstancesOfConcern` | new mapping below the 0.8 floor |
-| 0.69 | `oec:HazardousSubstance` | skos:broadMatch to `skos:narrowMatch` | `batterypass:HazardousSubstanceEntity` | direction flip toward a peer profile below the 0.8 floor |
-| 0.69 | `oec:hasCarbonFootprintProduction` | `skos:broadMatch` | `dppk:carbonFootprintAbsolute` | new mapping below the 0.8 floor |
-| 0.68 | `oec:hasCarbonFootprintUse` | `skos:broadMatch` | `dppk:carbonFootprintAbsolute` | new mapping below the 0.8 floor |
-| 0.68 | `oec:hasPerformanceInfo` | `skos:narrowMatch` | `untp:requiredPerformance` | new mapping below the 0.8 floor |
-| 0.68 | `oec:indicatorTotalValue` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:value` | target is a structural value carrier |
-| 0.68 | `oec:dismantlingGuideUrl` | `skos:broadMatch` | `batterypass:dismantlingAndRemovalInformation` | new mapping below the 0.8 floor |
-| 0.68 | `oec:hasMaterialComposition` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:recycledMaterial` | seeAlso upgrade below the 0.8 floor |
-| 0.68 | `oec:stageValue` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:internalResistanceIncreaseValue` | seeAlso upgrade below the 0.8 floor |
-| 0.68 | `oec:activityClassification` | rdfs:seeAlso to `skos:narrowMatch` | `other:isic` | seeAlso upgrade below the 0.8 floor |
-| 0.68 | `oec:hasCircularityPerformance` | `skos:narrowMatch` | `other:hasRecyclabilityAssessment` | new mapping below the 0.8 floor |
-| 0.67 | `oec:hasPowerConsumptionOn` | `skos:broadMatch` | `dppk:power` | new mapping below the 0.8 floor |
-| 0.67 | `oec:biodegradationPercentage` | `skos:broadMatch` | `dppk:componentPercentage` | new mapping below the 0.8 floor |
-| 0.66 | `oec:hasCarbonFootprintProduction` | `skos:broadMatch` | `dppk:environmentalFootprint` | new mapping below the 0.8 floor |
-| 0.65 | `oec:EnvironmentalProductDeclaration` | rdfs:seeAlso to `skos:narrowMatch` | `other:CarbonFootprintDeclaration` | seeAlso upgrade below the 0.8 floor |
-| 0.65 | `oec:endOfLifeInstructions` | `skos:narrowMatch` | `dppk:textileEndOfLifeInstructions` | new mapping below the 0.8 floor |
-| 0.63 | `oec:hasCarbonFootprintProduction` | `skos:broadMatch` | `dppk:carbonFootprintGeneralInfo` | new mapping below the 0.8 floor |
-| 0.63 | `oec:FacilityInformation` | rdfs:seeAlso to `skos:broadMatch` | `untp:Facility` | seeAlso upgrade below the 0.8 floor |
+| 0.77 | `oec:hasCarbonFootprint` | skos:closeMatch to `skos:narrowMatch` | `batterypass:batteryCarbonFootprint` | regrade skos:closeMatch to skos:narrowMatch |
+| 0.77 | `oec:hasCarbonFootprintRawMaterial` | `skos:broadMatch` | `dppk:carbonFootprint` | new mapping below the 0.8 floor |
+| 0.75 | `oec:CircularityPerformance` | `skos:narrowMatch` | `cirpass2-textile:PerformanceAfterNCycles` | new mapping below the 0.8 floor |
+| 0.75 | `oec:carbonFootprintTotal` | skos:closeMatch to `skos:narrowMatch` | `batterypass:carbonFootprint` | regrade skos:closeMatch to skos:narrowMatch |
+| 0.75 | `oec:ConformityAssessmentModule` | `skos:broadMatch` | `untp:ConformityAssessment` | new mapping below the 0.8 floor |
+| 0.75 | `oec:wastePreventionInfo` | `skos:narrowMatch` | `batterypass:informationOnCollection` | new mapping below the 0.8 floor |
+| 0.75 | `oec:hasEndOfLifeProgram` | `skos:narrowMatch` | `cirpass2-textile:hasEndOfLifeInstruction` | new mapping below the 0.8 floor |
+| 0.75 | `oec:substanceLocation` | `skos:narrowMatch` | `cirpass2-battery:hasBatteryLocation` | new mapping below the 0.8 floor |
+| 0.74 | `oec:hasCarbonFootprintDistribution` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
+| 0.74 | `oec:wastePreventionInfo` | `skos:narrowMatch` | `batterypass:wastePrevention` | new mapping below the 0.8 floor |
+| 0.73 | `oec:ConformityAssessmentModule` | `skos:broadMatch` | `untp:ConformityProfile` | new mapping below the 0.8 floor |
+| 0.73 | `oec:TraceabilityPerformance` | rdfs:seeAlso to `skos:broadMatch` | `untp:PerformanceMetric` | seeAlso upgrade below the 0.8 floor |
+| 0.71 | `oec:hasMaterialComposition` | `skos:narrowMatch` | `batterypass:isCriticalRawMaterial` | new mapping below the 0.8 floor |
+| 0.70 | `oec:hasMaterialComposition` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:recycledMaterial` | seeAlso upgrade below the 0.8 floor |
+| 0.69 | `oec:recycledContent` | skos:broadMatch to `skos:narrowMatch` | `dppk:preConsumerRecycledContentPercentage` | direction flip toward a peer profile below the 0.8 floor |
+| 0.69 | `oec:lastDataUpdate` | skos:exactMatch to `skos:closeMatch` | `batterypass:lastUpdate` | regrade skos:exactMatch to skos:closeMatch |
+| 0.68 | `oec:hasMaterialComposition` | `skos:narrowMatch` | `eudpp:materialRecycledContentType` | new mapping below the 0.8 floor |
+| 0.68 | `oec:hasMaterialComposition` | `skos:narrowMatch` | `cirpass2-textile:hasRecoveredMaterial` | new mapping below the 0.8 floor |
+| 0.68 | `oec:stageValue` | skos:broadMatch to `skos:narrowMatch` | `batterypass:capacityFadeValue` | direction flip toward a peer profile below the 0.8 floor |
+| 0.66 | `oec:recycledContent` | skos:broadMatch to `skos:narrowMatch` | `dppk:postConsumerRecycledContent` | direction flip toward a peer profile below the 0.8 floor |
+| 0.64 | `oec:hasMaterialComposition` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:postConsumerRecycledMaterialComposition` | seeAlso upgrade below the 0.8 floor |
 | 0.60 | `oec:hasCarbonFootprint` | `skos:broadMatch` | `dppk:environmentalFootprint` | new mapping below the 0.8 floor |
-| 0.60 | `oec:hazardImpact` | `skos:narrowMatch` | `batterypass:hazardousSubstanceImpact` | new mapping below the 0.8 floor |
 
 ## cpr
 
@@ -447,62 +405,67 @@ From `skos-completeness-ppwr-2026-08-07.json`. 2 confirmed findings the triage d
 
 ## textile
 
-From `skos-completeness-textile-2026-08-07.json`. 52 confirmed findings the triage did not apply.
+From `skos-completeness-textile-2026-10-29.json`. 57 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
-| 0.95 | `eutex:TestStandard` | rdfs:seeAlso to `skos:broadMatch` | `untp:Standard` | our term is a type, target is the entity |
-| 0.93 | `eutex:SubstanceOfConcernType` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Substance` | our term is a type, target is the entity |
-| 0.93 | `eutex:SubstanceOfConcernType` | `skos:broadMatch` | `eudpp:Substance` | our term is a type, target is the entity |
-| 0.92 | `eutex:benchmarkPerformance` | rdfs:seeAlso to `skos:exactMatch` | `dppk:environmentalFootprintBenchmarkPercentage` | deferred by a curator: skos:exactMatch contradicts our own bridge documentation: DPP_KEYSTONE_MAPPING.md records this as Partial because eutex:benchmarkPerformance collapses BOTH dppk:environmentalFootprintBenchmarkPercentage and dppk:carbonFootprintBenchmarkPercentage, a distinction dppk makes and we do not. Our term is the broader one, so the honest grade is narrowMatch or closeMatch, not exactMatch. |
-| 0.92 | `eutex:substanceConcentration` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:value` | target is a structural value carrier |
-| 0.90 | `eutex:WasteOriginType` | `skos:broadMatch` | `eudpp:MaterialOrigin` | our term is a type, target is the entity |
-| 0.90 | `eutex:LCIACategory` | `skos:broadMatch` | `eudpp:LcaResult` | our term is a type, target is the entity |
-| 0.89 | `eutex:secondaryMaterialFraction` | `skos:broadMatch` | `eudpp:materialPercentage` | deferred by a curator: Wrong referent: eudpp:materialPercentage is the composition share of a material ('percentage of material x'), while secondaryMaterialFraction is the recycled-content ratio. EUDPP carries the right counterpart as eudpp:materialRecycledContent (the battery module maps its recycled shares there); a future pass should propose that pair instead. |
-| 0.88 | `eutex:SubstanceOfConcernType` | `skos:broadMatch` | `eudpp:SubstanceOfConcern` | our term is a type, target is the entity |
-| 0.88 | `eutex:SubstanceOfConcern` | `skos:broadMatch` | `eudpp:SubstanceOfConcern` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
-| 0.83 | `eutex:FootprintDataType` | `skos:narrowMatch` | `batterypass:CarbonFootprintPerLifecycleStageEntity` | our term is a type, target is the entity |
-| 0.81 | `eutex:DurabilityClass` | `skos:broadMatch` | `eudpp:Durability` | our term is a type, target is the entity |
-| 0.80 | `eutex:lciaValue` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:value` | target is a structural value carrier |
-| 0.80 | `eutex:secondaryMaterialFraction` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:recycledContent` | deferred by a curator: Cross-sector peers at the same granularity: a textile-scoped recycled fraction and the battery-scoped recycledContent block do not subsume each other in either direction (same reasoning as the deferred eubat:hasRecycledContent flip). The ungraded seeAlso stands. |
-| 0.79 | `eutex:carbonFootprintManufacturing` | rdfs:seeAlso to `skos:broadMatch` | `other:carbonFootprintTotal` | seeAlso upgrade below the 0.8 floor |
-| 0.78 | `eutex:spiralityScore` | rdfs:seeAlso to `skos:broadMatch` | `untp:score` | seeAlso upgrade below the 0.8 floor |
-| 0.78 | `eutex:ApparelSubcategory` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:PefcrApparelAccessories` | our term is a type, target is the entity |
-| 0.77 | `eutex:seasonCollection` | skos:narrowMatch to `skos:broadMatch` | `gs1:seasonCalendarYear` | the asserted relation is a recorded decision in mapping-allowlist.json |
-| 0.77 | `eutex:hasCutAndSewFacility` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:countryOfAssembly` | seeAlso upgrade below the 0.8 floor |
-| 0.77 | `eutex:RecycledContentDeclaration` | `skos:broadMatch` | `eudpp:RecycledMaterialsUse` | new mapping below the 0.8 floor |
-| 0.76 | `eutex:concentrationRange` | `skos:broadMatch` | `eudpp:hasConcentration` | new mapping below the 0.8 floor |
-| 0.75 | `eutex:DurabilityClass` | `skos:broadMatch` | `eudpp:QualityIndicator` | our term is a type, target is the entity |
-| 0.75 | `eutex:maxConcentration` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:hazardousSubstanceConcentration` | seeAlso upgrade below the 0.8 floor |
-| 0.75 | `eutex:CLPHazardCategory` | `skos:broadMatch` | `schemaorg:CategoryCode` | new mapping below the 0.8 floor |
-| 0.75 | `eutex:seasonCollection` | skos:narrowMatch to `skos:broadMatch` | `gs1:seasonName` | the asserted relation is a recorded decision in mapping-allowlist.json |
-| 0.75 | `eutex:CareSymbolCode` | `skos:broadMatch` | `eudpp:ClassificationCode` | new mapping below the 0.8 floor |
-| 0.75 | `eutex:hasCutAndSewFacility` | `skos:broadMatch` | `gs1:countryOfAssembly` | new mapping below the 0.8 floor |
-| 0.74 | `eutex:CareInstruction` | `skos:broadMatch` | `eudpp:DigitalInstruction` | new mapping below the 0.8 floor |
-| 0.73 | `eutex:RobustnessAssessment` | `skos:broadMatch` | `eudpp:Durability` | new mapping below the 0.8 floor |
-| 0.73 | `eutex:organicContentPercentage` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:renewableContent` | seeAlso upgrade below the 0.8 floor |
-| 0.73 | `eutex:RobustnessAssessment` | `skos:broadMatch` | `eudpp:ConformityAssessmentModule` | new mapping below the 0.8 floor |
-| 0.73 | `eutex:maxConcentration` | `skos:broadMatch` | `eudpp:hasConcentration` | new mapping below the 0.8 floor |
-| 0.72 | `eutex:hasApparelSubcategory` | rdfs:seeAlso to `skos:broadMatch` | `gs1:additionalProductClassification` | seeAlso upgrade below the 0.8 floor |
-| 0.72 | `eutex:hasCutAndSewFacility` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:manufacturingPlace` | seeAlso upgrade below the 0.8 floor |
-| 0.72 | `eutex:carbonFootprintManufacturing` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
-| 0.72 | `eutex:carbonFootprintManufacturing` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:carbonFootprint` | seeAlso upgrade below the 0.8 floor |
-| 0.72 | `eutex:LCIACategoryCode` | `skos:broadMatch` | `eudpp:ImpactCategory` | new mapping below the 0.8 floor |
-| 0.71 | `eutex:hasRobustnessAssessment` | `skos:broadMatch` | `untp:conformityAssessment` | new mapping below the 0.8 floor |
-| 0.70 | `eutex:hasSubstancesOfConcern` | `skos:broadMatch` | `dppk:hazardousSubstances` | new mapping below the 0.8 floor |
-| 0.70 | `eutex:RecycledContentDeclaration` | `skos:broadMatch` | `dppk:DeclarationOfPerformance` | new mapping below the 0.8 floor |
-| 0.70 | `eutex:hasCutAndSewFacility` | rdfs:seeAlso to `skos:broadMatch` | `dppk:facilityId` | seeAlso upgrade below the 0.8 floor |
-| 0.70 | `eutex:hasFiberCertification` | rdfs:seeAlso to `skos:broadMatch` | `gs1:certificationIdentification` | seeAlso upgrade below the 0.8 floor |
-| 0.69 | `eutex:hasRobustnessAssessment` | `skos:broadMatch` | `untp:assessmentCriteria` | new mapping below the 0.8 floor |
-| 0.69 | `eutex:hasCutAndSewFacility` | rdfs:seeAlso to `skos:broadMatch` | `untp:producedAtFacility` | seeAlso upgrade below the 0.8 floor |
-| 0.69 | `eutex:hasEuDeclarationOfConformity` | `skos:broadMatch` | `untp:conformityAssessment` | new mapping below the 0.8 floor |
-| 0.68 | `eutex:hasSubstancesOfConcern` | `skos:broadMatch` | `dppk:dangerousSubstances` | new mapping below the 0.8 floor |
-| 0.68 | `eutex:hasWasteOriginType` | `skos:narrowMatch` | `dppk:animalOriginNonTextile` | new mapping below the 0.8 floor |
-| 0.68 | `eutex:safeUseInstructions` | rdfs:seeAlso to `skos:broadMatch` | `gs1:consumerUsageInstructions` | seeAlso upgrade below the 0.8 floor |
-| 0.68 | `eutex:benchmarkPerformance` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:carbonFootprintBenchmarkPercentage` | seeAlso upgrade below the 0.8 floor |
-| 0.67 | `eutex:hasRobustnessAssessment` | rdfs:seeAlso to `skos:broadMatch` | `untp:assessedPerformance` | seeAlso upgrade below the 0.8 floor |
-| 0.60 | `eutex:dimensionalChangePercentage` | rdfs:seeAlso to `skos:closeMatch` | `dppk:dimensionalChange` | seeAlso upgrade below the 0.8 floor |
-| 0.60 | `eutex:locationInProduct` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:hazardousSubstanceLocation` | seeAlso upgrade below the 0.8 floor |
+| 0.96 | `eutex:TextileCategory` | `skos:narrowMatch` | `cirpass2-textile:ToyTextileApparel` | our term is a type, target is the entity |
+| 0.96 | `eutex:RecyclingTechnology` | `skos:narrowMatch` | `cirpass2-textile:PolycottonThermoChemicalRecyclingProcess` | our term is a type, target is the entity |
+| 0.95 | `eutex:RecyclingTechnology` | `skos:narrowMatch` | `cirpass2-textile:SyntheticFibreChemicalRecyclingProcess` | our term is a type, target is the entity |
+| 0.95 | `eutex:FiberType` | `skos:exactMatch` | `cirpass2-textile:FibreTypeConcept` | our term is a type, target is the entity |
+| 0.95 | `eutex:RecyclingTechnology` | `skos:narrowMatch` | `cirpass2-textile:ChemicalRecyclingProcess` | our term is a type, target is the entity |
+| 0.95 | `eutex:TextileCategory` | `skos:narrowMatch` | `cirpass2-textile:TextileProduct` | our term is a type, target is the entity |
+| 0.94 | `eutex:carbonFootprintManufacturing` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
+| 0.94 | `eutex:RecyclingTechnology` | `skos:narrowMatch` | `cirpass2-textile:PyrolysisGasificationRecyclingProcess` | our term is a type, target is the entity |
+| 0.94 | `eutex:TextileCategory` | `skos:narrowMatch` | `cirpass2-textile:MedicalDeviceTextileApparel` | our term is a type, target is the entity |
+| 0.94 | `eutex:RecyclingTechnology` | `skos:narrowMatch` | `cirpass2-textile:ThermoMechanicalRecyclingProcess` | our term is a type, target is the entity |
+| 0.94 | `eutex:RecyclingTechnology` | `skos:narrowMatch` | `cirpass2-textile:ChemicalRecyclingRoute` | our term is a type, target is the entity |
+| 0.94 | `eutex:TextileCategory` | `skos:narrowMatch` | `cirpass2-textile:TextileApparel` | our term is a type, target is the entity |
+| 0.94 | `eutex:RecyclingTechnology` | `skos:narrowMatch` | `cirpass2-textile:CellulosicChemicalRecyclingProcess` | our term is a type, target is the entity |
+| 0.93 | `eutex:RobustnessAssessment` | `skos:broadMatch` | `cirpass2-textile:RobustnessAssessment` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
+| 0.93 | `eutex:lciaValue` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:value` | target is a structural value carrier |
+| 0.93 | `eutex:SubstanceOfConcernType` | `skos:broadMatch` | `eudpp:SubstanceOfConcern` | our term is a type, target is the entity |
+| 0.93 | `eutex:TextileCategory` | `skos:narrowMatch` | `cirpass2-textile:SmartTextile` | our term is a type, target is the entity |
+| 0.93 | `eutex:ApparelSubcategory` | `skos:broadMatch` | `cirpass2-textile:TextileApparel` | our term is a type, target is the entity |
+| 0.92 | `eutex:DurabilityClass` | `skos:broadMatch` | `eudpp:Durability` | our term is a type, target is the entity |
+| 0.92 | `eutex:DurabilityClass` | `skos:broadMatch` | `cirpass2-textile:IntrinsicDurability` | our term is a type, target is the entity |
+| 0.92 | `eutex:CLPHazardCategory` | `skos:broadMatch` | `eudpp:SubstanceOfConcern` | our term is a type, target is the entity |
+| 0.92 | `eutex:TextileCategory` | `skos:narrowMatch` | `cirpass2-textile:TextileCleaningProduct` | our term is a type, target is the entity |
+| 0.92 | `eutex:TextileCategory` | `skos:narrowMatch` | `cirpass2-textile:TextileApparelProductTypeConcept` | our term is a type, target is the entity |
+| 0.92 | `eutex:ApparelSubcategory` | `skos:narrowMatch` | `cirpass2-textile:ToyTextileApparel` | our term is a type, target is the entity |
+| 0.92 | `eutex:ApparelSubcategory` | `skos:narrowMatch` | `cirpass2-textile:MedicalDeviceTextileApparel` | our term is a type, target is the entity |
+| 0.92 | `eutex:DurabilityClass` | `skos:broadMatch` | `cirpass2-textile:Durability` | our term is a type, target is the entity |
+| 0.92 | `eutex:ApparelSubcategory` | `skos:narrowMatch` | `cirpass2-textile:PPETextileApparel` | our term is a type, target is the entity |
+| 0.92 | `eutex:CareSymbolCode` | `skos:broadMatch` | `cirpass2-textile:TextileCareInstruction` | our term is a type, target is the entity |
+| 0.90 | `eutex:substanceConcentration` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:value` | target is a structural value carrier |
+| 0.90 | `eutex:LCIACategory` | `skos:broadMatch` | `eudpp:LCAResult` | our term is a type, target is the entity |
+| 0.89 | `eutex:RecyclingTechnology` | `skos:narrowMatch` | `cirpass2-textile:MechanicalRecyclingProcess` | our term is a type, target is the entity |
+| 0.89 | `eutex:ChainOfCustodyMethod` | `skos:exactMatch` | `cirpass2-textile:ChainOfCustodyVerificationMethod` | our term is a type, target is the entity |
+| 0.89 | `eutex:abrasionResistance` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:value` | target is a structural value carrier |
+| 0.88 | `eutex:ChainOfCustodyMethod` | `skos:broadMatch` | `cirpass2-textile:AssessmentMethod` | our term is a type, target is the entity |
+| 0.85 | `eutex:RecycledContentDeclaration` | `skos:narrowMatch` | `cirpass2-textile:RecycledContentDeclaration` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
+| 0.85 | `eutex:ChainOfCustodyMethod` | `skos:broadMatch` | `cirpass2-textile:RecycledContentAssessment` | our term is a type, target is the entity |
+| 0.83 | `eutex:substanceConcentration` | `skos:narrowMatch` | `gs1:juiceContentPercent` | gs1 domain FoodBeverageTobaccoProduct is foreign to a passport |
+| 0.82 | `eutex:ChainOfCustodyMethod` | `skos:broadMatch` | `cirpass2-textile:RecycledContentVerificationMethod` | our term is a type, target is the entity |
+| 0.80 | `eutex:RecycledSourceType` | `skos:narrowMatch` | `cirpass2-textile:RecycledContentSourceConcept` | our term is a type, target is the entity |
+| 0.78 | `eutex:hasWashingSymbol` | `skos:broadMatch` | `untp:symbol` | new mapping below the 0.8 floor |
+| 0.78 | `eutex:TestStandard` | `skos:broadMatch` | `cirpass2-textile:AssessmentStandard` | our term is a type, target is the entity |
+| 0.78 | `eutex:TextileProduct` | `skos:narrowMatch` | `cirpass2-textile:MedicalDeviceTextileApparel` | new mapping below the 0.8 floor |
+| 0.77 | `eutex:hasRepairServices` | `skos:narrowMatch` | `cirpass2-textile:hasRepairService` | new mapping below the 0.8 floor |
+| 0.77 | `eutex:LCIACategoryCode` | `skos:broadMatch` | `schemaorg:CategoryCodeSet` | our term is a type, target is the entity |
+| 0.77 | `eutex:hasApparelSubcategory` | rdfs:seeAlso to `skos:broadMatch` | `gs1:additionalProductClassification` | seeAlso upgrade below the 0.8 floor |
+| 0.76 | `eutex:sparePartsUrl` | `skos:closeMatch` | `batterypass:supplierWebAddress` | new mapping below the 0.8 floor |
+| 0.75 | `eutex:SpiralityTestResult` | `skos:broadMatch` | `cirpass2-textile:AssessmentResult` | new mapping below the 0.8 floor |
+| 0.75 | `eutex:DurabilityInfo` | `skos:narrowMatch` | `cirpass2-battery:BatteryDurability` | new mapping below the 0.8 floor |
+| 0.75 | `eutex:SpiralityTestResult` | `skos:broadMatch` | `cirpass2-textile:MeasurementResult` | new mapping below the 0.8 floor |
+| 0.74 | `eutex:hasRecycledSourceType` | `skos:broadMatch` | `cirpass2-textile:sourceType` | new mapping below the 0.8 floor |
+| 0.73 | `eutex:seasonCollection` | skos:broadMatch to `skos:narrowMatch` | `gs1:seasonParameter` | the asserted relation is a recorded decision in mapping-allowlist.json |
+| 0.73 | `eutex:hasDyeingFacility` | `skos:broadMatch` | `untp:madeAtFacility` | new mapping below the 0.8 floor |
+| 0.72 | `eutex:FabricType` | `skos:broadMatch` | `cirpass2-textile:FabricStructuralCharacteristic` | our term is a type, target is the entity |
+| 0.72 | `eutex:DurabilityInfo` | `skos:broadMatch` | `cirpass2-textile:DurabilityAssessment` | new mapping below the 0.8 floor |
+| 0.71 | `eutex:FabricType` | `skos:broadMatch` | `cirpass2-textile:FabricCharacteristic` | our term is a type, target is the entity |
+| 0.70 | `eutex:secondaryMaterialFraction` | rdfs:seeAlso to `skos:broadMatch` | `untp:massFraction` | seeAlso upgrade below the 0.8 floor |
+| 0.68 | `eutex:TextileProduct` | `skos:broadMatch` | `cirpass2-textile:TextileProduct` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
 
 ## Where the pipeline contradicts itself
 
@@ -525,14 +488,14 @@ schema:additionalProperty` at 0.97 confidence, and it does look inverted, since
 
 ## Remaining `skos:narrowMatch` assertions
 
-110 assertions still read `narrowMatch`. Their targets are peer profiles or
+138 assertions still read `narrowMatch`. Their targets are peer profiles or
 intra-project terms of comparable specificity, where which of the two is narrower is a
 modelling question per term. `check:mappings` rule 6 already guards the mechanical class,
 the general Layer-1 head terms.
 
+- **other**: 44
 - **BatteryPass SAMM / bpr**: 40
 - **DPP Keystone**: 31
 - **GS1 tail**: 17
-- **other**: 16
 - **schema.org tail**: 5
 - **UNTP**: 1

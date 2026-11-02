@@ -2,11 +2,12 @@
 
 | Module | Terms | Public | AuthorizedOnly | Restricted | Inherited | UNCLASSIFIED | Locked |
 |---|---|---|---|---|---|---|---|
-| dpp-core | 200 | 135 | 36 | 6 | 23 | 0 | 10 |
-| served-fields | 139 | 109 | 30 | 0 | 0 | 0 | 0 |
+| dpp-core | 188 | 124 | 36 | 6 | 22 | 0 | 10 |
+| assessment | 40 | 39 | 0 | 1 | 0 | 0 | 0 |
+| served-fields | 152 | 122 | 30 | 0 | 0 | 0 | 0 |
 | battery | 227 | 115 | 82 | 5 | 25 | 0 | 94 |
 | eudr | 37 | 8 | 23 | 6 | 0 | 0 | 6 |
-| textile | 123 | 101 | 18 | 0 | 4 | 0 | 4 |
+| textile | 81 | 60 | 18 | 0 | 3 | 0 | 3 |
 | electronics | 102 | 51 | 32 | 0 | 19 | 0 | 5 |
 | detergent | 31 | 22 | 9 | 0 | 0 | 0 | 5 |
 | ppwr | 12 | 10 | 2 | 0 | 0 | 0 | 0 |

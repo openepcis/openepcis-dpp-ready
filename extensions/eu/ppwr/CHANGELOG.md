@@ -2,6 +2,13 @@
 
 All notable changes to the PPWR module will be documented in this file.
 
+## [Unreleased]
+
+### Changed: the recyclability score is `oea:RecyclabilityScore`
+
+The observation event reports the score with `sensorReport.type` `oea:RecyclabilityScore` (the
+`oec:recyclabilityScore` property is gone); the grade shape no longer checks the removed property.
+
 ## [0.9.9] - 2026-08-04
 
 ### Changed: verified against the GS1 packaging model, concrete anchors added

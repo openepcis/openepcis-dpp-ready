@@ -1,0 +1,1268 @@
+{
+  "namespace": "https://w3id.org/eudpp/battery#",
+  "version": "Version 0.4.0 DRAFT",
+  "title": "EU DPP Battery Ontology",
+  "description": "Sectoral ontology for battery Digital Product Passports under Regulation (EU) 2023/1542. This umbrella module declares the Battery product class; battery data is organised in nine companion modules: battery-performance (electrochemical performance, durability and in-use state), battery-materials (chemistry and material location), battery-labeling (labels and symbols), battery-categories (the five Art. 3(1) battery categories), battery-chemistries (the ten labelling chemistries), battery-locations (cathode, anode, electrolyte), battery-metals (the four metals whose recycled content Art. 8(1) requires), battery-statuses (the five Annex XIII 4(c) lifecycle statuses) and battery-extinguisher-classes; battery-cf-shapes carries the carbon footprint SHACL profile. It extends the CIRPASS-2 cross-sectoral CORE ontology by direct reference, following the approach of the Textile sector modules.",
+  "classes": [
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#AccidentEvent",
+      "localName": "AccidentEvent",
+      "label": "Accident Event",
+      "comment": "An accident affecting the battery, including when incorporated in the equipment it is powering. Specialises the generic ProductEvent class of the CORE event module, of which MaintenanceEvent is a sibling: an accident is not a maintenance operation. The link to the battery is provided by the CORE event mechanism (no dedicated object property in this module).",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductEvent"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery#Battery",
+      "localName": "Battery",
+      "label": "Battery",
+      "comment": "A battery placed on the market or put into service, subject of a battery passport under Regulation (EU) 2023/1542. Modelled as a subclass of the cross-sectoral Product class. A battery incorporated as a component of another product remains a Product, linked through the CORE component property (no dedicated Component class), in line with CIRPASS-2 modelling decisions. The regulatory category of a battery is expressed through the CORE property dpp:hasProductGroup, pointing to one of the five individuals of the battery-categories vocabulary; no category property is declared in the battery namespace. Its lifecycle status is expressed through bat:hasBatteryStatus, declared locally for want of a cross-sectoral equivalent. The date of manufacture is carried by the cross-sectoral property dpp:manufacturingDate, settled on ontologies-core#33; no manufacturing date property is declared in the battery namespace.",
+      "seeAlso": [
+        "https://w3id.org/eudpp/battery-categories#BatteryCategoryScheme"
+      ],
+      "subClassOf": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1542/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-materials#BatteryChemistry",
+      "localName": "BatteryChemistry",
+      "label": "Battery Chemistry",
+      "comment": "The electrochemical composition of the battery, reflecting the active materials used in cathode and anode and, voluntarily, electrolyte. Specialises the cross-sectoral MaterialOfComposition class.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#MaterialOfComposition"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#BatteryDurability",
+      "localName": "BatteryDurability",
+      "label": "Battery Durability",
+      "comment": "Battery-specific durability data: expected lifetime in calendar years and in charge-discharge cycles, number of full cycles, energy and capacity throughput, capacity threshold for exhaustion. Specialises the cross-sectoral Durability quality indicator (ESPR Art. 2 (22)).",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Durability"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-labeling#BatteryLabel",
+      "localName": "BatteryLabel",
+      "label": "Battery Label",
+      "comment": "A label or symbol required on the battery or in its passport under Regulation (EU) 2023/1542 (e.g. separate collection symbol, cadmium symbol, lead symbol, carbon footprint label). Provisional battery-specific class: it is declared here only because the CORE has no cross-sectoral Labelling class yet. When that class lands (CIRPASS-2/ontologies-core#55), BatteryLabel is to be re-anchored as a specialisation of it rather than kept as a root class.",
+      "seeAlso": [
+        "https://github.com/CIRPASS-2/ontologies-core/issues/55"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1542/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#BatteryPerformance",
+      "localName": "BatteryPerformance",
+      "label": "Battery Performance",
+      "comment": "Container for the electrochemical performance and in-use state parameters of a battery: capacity (rated, remaining, fade), voltage (minimum, maximum, nominal), power capability, round trip energy efficiency, self-discharge rates, internal resistance, cycle-life test parameters, and in-use event counters. Anchored under the cross-sectoral Property class, not under QuantitativeProperty: this is a container grouping several measured quantities, not a quantity itself, and would otherwise inherit hasMeasurementUnit, which has no meaning on a container.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Property"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#BatteryStateRecord",
+      "localName": "BatteryStateRecord",
+      "label": "Battery State Record",
+      "comment": "A dated record of the values a battery management system updates during operational life. One record per reading; the series of records is the history required by Annex XIII 4 and Annex VII Part B, which describe data that changes over the life of the product rather than a single snapshot. Anchored under dpp:Property and deliberately not under dpp:QuantitativeProperty: this is a container grouping several measured quantities, not a quantity itself, and would otherwise inherit dpp:hasMeasurementUnit, which has no meaning on a container. Which properties belong here follows the 'Data behavioural characteristic: static vs. dynamic' column of the BatteryPass-Ready Data Attribute Long List v1.3, not a local judgement.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Property"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1542/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#TemperatureExposure",
+      "localName": "TemperatureExposure",
+      "label": "Temperature Exposure",
+      "comment": "Container for the thermal exposure of the battery in use: operating temperature information, idle-state temperature range boundaries, and aggregated time spent (and spent charging) in extreme temperatures outside those boundaries. Anchored under the cross-sectoral Property class, not under QuantitativeProperty: this is a container grouping several measured quantities, not a quantity itself.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Property"
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#accidentInformation",
+      "localName": "accidentInformation",
+      "label": "information on accidents",
+      "comment": "Information on accidents affecting the battery, including when incorporated in equipment it is powering, as a link to the relevant resource.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#AccidentEvent"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#asOfDate",
+      "localName": "asOfDate",
+      "label": "as-of date",
+      "comment": "The date and time the values of this record were read. xsd:dateTimeStamp rather than xsd:dateTime: the time zone offset is then mandatory, so no separate offset property is needed.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:dateTimeStamp"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1542/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-labeling#cadmiumSymbol",
+      "localName": "cadmiumSymbol",
+      "label": "symbol for cadmium",
+      "comment": "Representation of the chemical symbol 'Cd' for cadmium, as a link to the symbol resource. Its legal trigger is its own: the symbol is required for batteries containing more than 0,002 % cadmium by weight, independently of the lead symbol.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-labeling#BatteryLabel"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#capacityFade",
+      "localName": "capacityFade",
+      "label": "capacity fade",
+      "comment": "The decrease over time and upon usage in the amount of charge that a battery can deliver at the rated voltage, with respect to the original rated capacity as declared by the manufacturer. Unit: percent (%).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#capacityThresholdForExhaustion",
+      "localName": "capacityThresholdForExhaustion",
+      "label": "capacity threshold for exhaustion",
+      "comment": "The percentage of SOCE (State of Certified Energy), above which the battery is still considered operational as EV battery in its current life, as provided by the economic operator. Unit: percent (%).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryDurability"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#capacityThroughput",
+      "localName": "capacityThroughput",
+      "label": "capacity throughput",
+      "comment": "The overall sum of the capacity throughput over the battery lifetime at a specific time during usage. Unit: ampere-hour (Ah).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#certifiedUsableBatteryEnergy",
+      "localName": "certifiedUsableBatteryEnergy",
+      "label": "certified usable battery energy",
+      "comment": "The usable battery energy according to the procedure in the UN GTR No 22 as determined during the certification of the vehicle. Unit: kilowatt-hour (kWh).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#cRateOfCycleLifeTest",
+      "localName": "cRateOfCycleLifeTest",
+      "label": "C-rate of relevant cycle-life test",
+      "comment": "Measurement parameter for 'Expected lifetime: Number of charge-discharge cycles': applied charge and discharge rate in terms of rated capacity (C-rate) of the relevant cycle-life reference test. Unit: ampere per ampere-hour (A/Ah).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#currentSelfDischargeRate",
+      "localName": "currentSelfDischargeRate",
+      "label": "current self-discharge rate",
+      "comment": "The change of the self-discharge rate in an idle state of the battery in reference conditions (temperature etc.) at aging parameter x, e.g. after a certain amount of storage time or number of cycles. Unit: percent per month (%/month).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#cycleLifeReferenceTest",
+      "localName": "cycleLifeReferenceTest",
+      "label": "cycle-life reference test",
+      "comment": "The reference test for 'Expected lifetime: Number of charge-discharge cycles'.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery#dismantlingInformation",
+      "localName": "dismantlingInformation",
+      "label": "dismantling information",
+      "comment": "Link to the dismantling documentation: exploded diagrams, disassembly sequences, fastening techniques, required tools, safety warnings, and the number and layout of cells. Migration to the CORE document pattern eudpp:Source (LCA module) is tracked in ontologies-battery#11 and deferred until the LCA module is integrated into the CORE; xsd:anyURI is the agreed interim.",
+      "domain": [
+        "https://w3id.org/eudpp/battery#Battery"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1542/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery#dueDiligenceAudit",
+      "localName": "dueDiligenceAudit",
+      "label": "due diligence audit",
+      "comment": "Link to the third-party verification of the battery due diligence policy, carried out by a notified body. Migration to the CORE document pattern eudpp:Source (LCA module) is tracked in ontologies-battery#11 and deferred until the LCA module is integrated into the CORE; xsd:anyURI is the agreed interim.",
+      "domain": [
+        "https://w3id.org/eudpp/battery#Battery"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1542/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery#dueDiligenceReport",
+      "localName": "dueDiligenceReport",
+      "label": "due diligence report",
+      "comment": "Link to the battery due diligence policy and report on the supply chain, covering the raw materials listed in Annex X (cobalt, natural graphite, lithium, nickel) and the chemical compounds based on them. Migration to the CORE document pattern eudpp:Source (LCA module) is tracked in ontologies-battery#11 and deferred until the LCA module is integrated into the CORE; xsd:anyURI is the agreed interim.",
+      "domain": [
+        "https://w3id.org/eudpp/battery#Battery"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1542/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#energyThroughput",
+      "localName": "energyThroughput",
+      "label": "energy throughput",
+      "comment": "The overall sum of the energy throughput over the battery lifetime at a specific time during usage. Unit: kilowatt-hour (kWh).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#expectedLifetimeCalendarYears",
+      "localName": "expectedLifetimeCalendarYears",
+      "label": "expected lifetime in calendar years",
+      "comment": "Expected lifetime under the reference conditions for which the battery has been designed, in calendar years. Unit: year.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryDurability"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#expectedLifetimeCycles",
+      "localName": "expectedLifetimeCycles",
+      "label": "expected lifetime: number of charge-discharge cycles",
+      "comment": "Expected lifetime under the reference conditions for which the battery has been designed, in number of charge-discharge cycles (except for non-cycle applications).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryDurability"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-labeling#extinguishingAgent",
+      "localName": "extinguishingAgent",
+      "label": "extinguishing agent",
+      "comment": "Specification of the usable extinguishing agent, as one of the extinguisher classes of the battery-extinguisher-classes vocabulary. Retyped from a free-text datatype property in v0.2.0: the value set is now controlled.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-labeling#BatteryLabel"
+      ],
+      "range": [
+        "http://www.w3.org/2004/02/skos/core#Concept"
+      ],
+      "seeAlso": [
+        "https://w3id.org/eudpp/battery-extinguisher-classes#ExtinguisherClassScheme"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-materials#hasBatteryChemistry",
+      "localName": "hasBatteryChemistry",
+      "label": "has battery chemistry",
+      "comment": "Links a battery to its electrochemical chemistry. Declared as a sub-property of the CORE product-to-material link dpp:hasMaterial (CONNECTOR).",
+      "domain": [
+        "https://w3id.org/eudpp/battery#Battery"
+      ],
+      "range": [
+        "https://w3id.org/eudpp/battery-materials#BatteryChemistry"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#hasBatteryDurability",
+      "localName": "hasBatteryDurability",
+      "label": "has battery durability",
+      "comment": "Links a battery to its durability data. Specialises the cross-sectoral dpp:hasProperty (Product -> Property); the chain BatteryDurability = dpp:Durability = QualityIndicator = QuantitativeProperty = Property was verified in P_DPP v2.0.0.",
+      "domain": [
+        "https://w3id.org/eudpp/battery#Battery"
+      ],
+      "range": [
+        "https://w3id.org/eudpp/battery-performance#BatteryDurability"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-labeling#hasBatteryLabel",
+      "localName": "hasBatteryLabel",
+      "label": "has battery label",
+      "comment": "Links a battery to a label or symbol required by the Batteries Regulation.",
+      "domain": [
+        "https://w3id.org/eudpp/battery#Battery"
+      ],
+      "range": [
+        "https://w3id.org/eudpp/battery-labeling#BatteryLabel"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-materials#hasBatteryLocation",
+      "localName": "hasBatteryLocation",
+      "label": "has battery location",
+      "comment": "Links a battery material of composition to its internal location within the battery. The domain is restricted to BatteryChemistry rather than the cross-sectoral MaterialOfComposition, so that this battery-specific property is not asserted on materials of other sectors.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-materials#BatteryChemistry"
+      ],
+      "range": [
+        "https://w3id.org/eudpp/battery-materials#BatteryLocation"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#hasBatteryPerformance",
+      "localName": "hasBatteryPerformance",
+      "label": "has battery performance",
+      "comment": "Links a battery to its electrochemical performance and in-use state data.",
+      "domain": [
+        "https://w3id.org/eudpp/battery#Battery"
+      ],
+      "range": [
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#hasBatteryStateRecord",
+      "localName": "hasBatteryStateRecord",
+      "label": "has battery state record",
+      "comment": "Links a battery to one dated record of its in-use state. A battery carries as many records as there are readings; no ordering property is declared, the as-of date orders the series.",
+      "domain": [
+        "https://w3id.org/eudpp/battery#Battery"
+      ],
+      "range": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery#hasBatteryStatus",
+      "localName": "hasBatteryStatus",
+      "label": "has battery status",
+      "comment": "Links a battery to its lifecycle status: one of the five individuals of the battery-statuses vocabulary (original, repurposed, re-used, remanufactured, waste). This is the status of the battery as a physical item, and not the status of its passport as a digital resource, which the CORE carries on dpp:DPP through dpp:dppStatus. Declared locally, unlike the battery category and the battery chemistry, because the CORE has no generic product status property to reuse: dpp:hasProductGroup carries the product group, not the state of the item. This is a stopgap: a cross-sectoral eudpp:productStatus on eudpp:Product was requested in CIRPASS-2/ontologies-core#35 (opened 22 June 2026, still open), motivated by this very attribute. When it lands, this property is to be deprecated in favour of it, using owl:deprecated and dcterms:isReplacedBy.",
+      "domain": [
+        "https://w3id.org/eudpp/battery#Battery"
+      ],
+      "range": [
+        "http://www.w3.org/2004/02/skos/core#Concept"
+      ],
+      "seeAlso": [
+        "https://github.com/CIRPASS-2/ontologies-core/issues/35",
+        "https://w3id.org/eudpp/battery-statuses#BatteryStatusScheme"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1542/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#hasTemperatureExposure",
+      "localName": "hasTemperatureExposure",
+      "label": "has temperature exposure",
+      "comment": "Links a battery to its in-use thermal exposure data.",
+      "domain": [
+        "https://w3id.org/eudpp/battery#Battery"
+      ],
+      "range": [
+        "https://w3id.org/eudpp/battery-performance#TemperatureExposure"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#initialInternalResistance",
+      "localName": "initialInternalResistance",
+      "label": "initial internal resistance of battery cell and pack",
+      "comment": "'Quotient of change of voltage of a battery by the corresponding change in discharge current under specified conditions' (IEV 482 03 36), at begin of life, for battery cell and pack (module recommended). Unit: ohm.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#initialRoundTripEnergyEfficiency",
+      "localName": "initialRoundTripEnergyEfficiency",
+      "label": "initial round trip energy efficiency",
+      "comment": "The ratio of the net energy delivered by a battery during a discharge test to the total energy required to restore the initial state of charge by a standard charge (see Regulation (EU) 2023/1542, Annex IV (6)). Unit: percent (%).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#initialSelfDischargeRate",
+      "localName": "initialSelfDischargeRate",
+      "label": "initial self-discharge rate",
+      "comment": "The self-discharge rate in an idle state of the battery in reference conditions (temperature etc.) at begin of life. Unit: percent per month (%/month).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#internalResistanceIncrease",
+      "localName": "internalResistanceIncrease",
+      "label": "internal resistance increase of pack",
+      "comment": "The increase over time and upon usage of internal resistance, for the pack (cell and module recommended). Unit: percent (%).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-labeling#labelingSymbol",
+      "localName": "labelingSymbol",
+      "label": "labeling symbol",
+      "comment": "Link to the image of the label symbol displayed on the battery.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-labeling#BatteryLabel"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-labeling#leadSymbol",
+      "localName": "leadSymbol",
+      "label": "symbol for lead",
+      "comment": "Representation of the chemical symbol 'Pb' for lead, as a link to the symbol resource. Its legal trigger is its own: the symbol is required for batteries containing more than 0,004 % lead by weight, independently of the cadmium symbol.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-labeling#BatteryLabel"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#maximumPermittedBatteryPower",
+      "localName": "maximumPermittedBatteryPower",
+      "label": "maximum permitted battery power",
+      "comment": "The value of maximum permitted power the battery is rated for and reflects the data relevant for power limits. Unit: watt (W). Declared as Integer [W] in the BatteryPass-Ready long list; xsd:decimal retained per the Gap Analysis decision (open question to BatteryPass-Ready).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#maximumVoltage",
+      "localName": "maximumVoltage",
+      "label": "maximum voltage",
+      "comment": "The upper voltage limit that the safe operation of the battery is rated for. Unit: volt (V).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#minimumVoltage",
+      "localName": "minimumVoltage",
+      "label": "minimum voltage",
+      "comment": "The lower voltage limit that the safe operation of the battery is rated for. Unit: volt (V).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#nominalVoltage",
+      "localName": "nominalVoltage",
+      "label": "nominal voltage",
+      "comment": "The suitable approximate value of the voltage used to designate or identify the battery. Unit: volt (V).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#numberOfDeepDischargeEvents",
+      "localName": "numberOfDeepDischargeEvents",
+      "label": "number of deep discharge events",
+      "comment": "The number of occasions, in which voltage has dropped below the lower operational limit as provided in the battery passport. In-use event counter.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#numberOfFullCycles",
+      "localName": "numberOfFullCycles",
+      "label": "number of full charging and discharging cycles",
+      "comment": "In-use number of (full) charging and discharging cycles.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#numberOfOverchargeEvents",
+      "localName": "numberOfOverchargeEvents",
+      "label": "number of overcharge events",
+      "comment": "The number of occasions, in which voltage has increased above the upper operational limit as provided in the battery passport. In-use event counter.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#originalPowerCapability",
+      "localName": "originalPowerCapability",
+      "label": "original power capability",
+      "comment": "The amount of energy that a battery is capable to provide over a given period of time under reference conditions. Unit: watt (W).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery#partNumber",
+      "localName": "partNumber",
+      "label": "part number",
+      "comment": "Manufacturer part number of a component of the battery, and of the battery itself where one is assigned. Annex XIII 2(b) asks for the part numbers of the components, so the subject is the component and not the battery: CIRPASS-2 decided in June 2026 not to introduce a Component class, a component being a product in its own right, linked to the battery through the CORE property dpp:isComponentOf. The domain is therefore dpp:Product rather than bat:Battery. The property is declared in the battery namespace because the CORE has no cross-sectoral part number; adding one was raised as a recommendation to the Commission. Typed as in the Spherity Battery Pass ontology v0.1, where bp:partNumber is an xsd:string datatype property.",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1542/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#powerFade",
+      "localName": "powerFade",
+      "label": "power fade",
+      "comment": "The decrease over time and upon usage in the amount of power that a battery can deliver at the rated voltage. Unit: percent (%).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#powerToEnergyRatio",
+      "localName": "powerToEnergyRatio",
+      "label": "ratio between nominal battery power and battery energy",
+      "comment": "The suitable approximate value of the power capability used to designate or identify the battery, while the battery energy is determined in reference conditions to be defined. Unit: watt per watt-hour (W/Wh). Declared as Integer [W/Wh] in the BatteryPass-Ready long list; xsd:decimal retained per the Gap Analysis decision (open question to BatteryPass-Ready).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#ratedCapacity",
+      "localName": "ratedCapacity",
+      "label": "rated capacity",
+      "comment": "The total number of ampere-hours that can be withdrawn from a fully charged battery under reference conditions. Unit: ampere-hour (Ah), or milliampere-hour (mAh) for LMT batteries.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#remainingCapacity",
+      "localName": "remainingCapacity",
+      "label": "remaining capacity",
+      "comment": "The corresponding in-use data attribute to rated capacity. Unit: ampere-hour (Ah).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#remainingPowerCapability",
+      "localName": "remainingPowerCapability",
+      "label": "remaining power capability",
+      "comment": "The amount of energy that a battery is capable to provide over a given period of time under reference conditions at a distinct point in time during its usage. Unit: watt (W).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#remainingRoundTripEnergyEfficiency",
+      "localName": "remainingRoundTripEnergyEfficiency",
+      "label": "remaining round trip energy efficiency",
+      "comment": "The in-use analogy to the initial round trip energy efficiency: the ratio of the net energy delivered by a battery during a discharge test to the total energy required to restore the initial state of charge by a standard charge. Unit: percent (%).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#remainingUsableBatteryEnergy",
+      "localName": "remainingUsableBatteryEnergy",
+      "label": "remaining usable battery energy",
+      "comment": "The usable battery energy at the present point in the lifetime of a battery as determined according to the procedure in the UN GTR No 22. Unit: kilowatt-hour (kWh).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife",
+      "localName": "roundTripEnergyEfficiencyAt50PercentCycleLife",
+      "label": "round trip energy efficiency at 50% of cycle life",
+      "comment": "The ratio of the net energy delivered by a battery during a discharge test to the total energy required to restore the initial state of charge by a standard charge, measured at 50% of cycle life (see Regulation (EU) 2023/1542, Annex IV (6)). Unit: percent (%).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyFade",
+      "localName": "roundTripEnergyEfficiencyFade",
+      "label": "energy round trip efficiency fade",
+      "comment": "The decrease of round trip energy efficiency as percentage. Unit: percent (%).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery#safetyMeasures",
+      "localName": "safetyMeasures",
+      "label": "safety measures",
+      "comment": "Link to the safety measures applicable to the battery. The document the URL points at is a digital instruction in the sense of the cross-sectoral class eudpp:DigitalInstruction (P_DPP), and the correspondence is recorded here as rdfs:seeAlso. It is deliberately not a SKOS mapping: this is a datatype property carrying a URL, eudpp:DigitalInstruction is a class of documents, and an alignment between the two would not hold at audit. Re-expressing this property on a CORE document pattern is the subject of ontologies-battery#11 and is deferred until that pattern is settled.",
+      "domain": [
+        "https://w3id.org/eudpp/battery#Battery"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#DigitalInstruction"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1542/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#selfDischargeRateEvolution",
+      "localName": "selfDischargeRateEvolution",
+      "label": "evolution of self-discharge rates",
+      "comment": "The change of self-discharge over time and usage, as percentage calculated from the initial and current self-discharge rate. Unit: percent (%).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-labeling#separateCollectionSymbol",
+      "localName": "separateCollectionSymbol",
+      "label": "separate collection symbol",
+      "comment": "Symbol indicating the necessity of separate collection of the battery (crossed-out wheeled bin), as a link to the symbol resource. Required on all batteries; the symbol itself is set out in Annex VI Part B.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-labeling#BatteryLabel"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#stateOfCertifiedEnergy",
+      "localName": "stateOfCertifiedEnergy",
+      "label": "state of certified energy (SOCE)",
+      "comment": "The measured or on-board usable battery energy performance at a specific point in its lifetime, expressed as a percentage of the certified usable battery energy. Unit: percent (%).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#stateOfCharge",
+      "localName": "stateOfCharge",
+      "label": "state of charge (SoC)",
+      "comment": "The available energy or charge in a battery expressed as a percentage of rated capacity as declared by the manufacturer. When the battery's state of health is no longer equal to its initial condition, SoC refers to the maximum energy or charge that can be stored in the battery at the time of charging. Unit: percent (%).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#temperatureInformation",
+      "localName": "temperatureInformation",
+      "label": "temperature information",
+      "comment": "Temperature information regarding operating environmental conditions. Unit: degree Celsius (°C).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#temperatureRangeIdleStateLowerBoundary",
+      "localName": "temperatureRangeIdleStateLowerBoundary",
+      "label": "temperature range idle state, lower boundary",
+      "comment": "The lower boundary of the surrounding temperature range. Unit: degree Celsius (°C).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#TemperatureExposure"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#temperatureRangeIdleStateUpperBoundary",
+      "localName": "temperatureRangeIdleStateUpperBoundary",
+      "label": "temperature range idle state, upper boundary",
+      "comment": "The upper boundary of the surrounding temperature range. Unit: degree Celsius (°C).",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#TemperatureExposure"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery#testReportResults",
+      "localName": "testReportResults",
+      "label": "test report results",
+      "comment": "Link to the test report results. Access is restricted to notified bodies, market surveillance authorities and the Commission; the restriction is expressed in the SHACL layer, not here. Migration to the CORE document pattern eudpp:Source (LCA module) is tracked in ontologies-battery#11 and deferred until the LCA module is integrated into the CORE; xsd:anyURI is the agreed interim.",
+      "domain": [
+        "https://w3id.org/eudpp/battery#Battery"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1542/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#timeSpentChargingInExtremeTemperaturesAboveBoundary",
+      "localName": "timeSpentChargingInExtremeTemperaturesAboveBoundary",
+      "label": "time spent charging during extreme temperatures above boundary",
+      "comment": "The aggregated time, in which the battery is charged, while temperatures above the upper boundary of the temperature range as defined in 'Temperature range idle state, upper boundary' are prevalent. Unit: minute.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#timeSpentChargingInExtremeTemperaturesBelowBoundary",
+      "localName": "timeSpentChargingInExtremeTemperaturesBelowBoundary",
+      "label": "time spent charging during extreme temperatures below boundary",
+      "comment": "The aggregated time, in which the battery is charged, while temperatures below the lower boundary of the temperature range as defined in 'Temperature range idle state, lower boundary' are prevalent. Unit: minute.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#timeSpentInExtremeTemperaturesAboveBoundary",
+      "localName": "timeSpentInExtremeTemperaturesAboveBoundary",
+      "label": "time spent in extreme temperatures above boundary",
+      "comment": "The aggregated time, in which temperatures above the upper boundary of the temperature range as defined in 'Temperature range idle state, upper boundary' are prevalent. Unit: minute.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery-performance#timeSpentInExtremeTemperaturesBelowBoundary",
+      "localName": "timeSpentInExtremeTemperaturesBelowBoundary",
+      "label": "time spent in extreme temperatures below boundary",
+      "comment": "The aggregated time, in which temperatures below the lower boundary of the temperature range as defined in 'Temperature range idle state, lower boundary' are prevalent. Unit: minute.",
+      "domain": [
+        "https://w3id.org/eudpp/battery-performance#BatteryStateRecord"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp/battery#warrantyPeriod",
+      "localName": "warrantyPeriod",
+      "label": "warranty period",
+      "comment": "Length of the commercial warranty covering the calendar life of the battery, as an ISO 8601 duration - for example \"P24M\" for twenty-four months. Declared in the battery namespace on the decision of 26 August 2026: a cross-sectoral warranty period was requested in CIRPASS-2/ontologies-core#34, but the ESPR does not require one, whereas Regulation (EU) 2023/1542 does, so the term stays sectoral.",
+      "domain": [
+        "https://w3id.org/eudpp/battery#Battery"
+      ],
+      "range": [
+        "xsd:duration"
+      ],
+      "seeAlso": [
+        "https://github.com/CIRPASS-2/ontologies-core/issues/34"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1542/oj"
+    }
+  ],
+  "enumerations": [
+    {
+      "id": "https://w3id.org/eudpp/battery-materials#BatteryLocation",
+      "localName": "BatteryLocation",
+      "label": "Battery Location",
+      "comment": "An internal location within the battery where a material or sub-component resides. Battery-specific class with no CORE anchor. Its value set is the battery-locations vocabulary, which declares the three locations named by Regulation (EU) 2023/1542, Annex XIII 2(a): cathode, anode and electrolyte.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp/battery-locations#Anode",
+          "localName": "Anode",
+          "label": "Anode",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-locations#Cathode",
+          "localName": "Cathode",
+          "label": "Cathode",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-locations#Electrolyte",
+          "localName": "Electrolyte",
+          "label": "Electrolyte",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/2004/02/skos/core#Concept",
+      "localName": "core#Concept",
+      "label": "core#Concept",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp/battery-locations#Anode",
+          "localName": "Anode",
+          "label": "Anode",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-locations#Cathode",
+          "localName": "Cathode",
+          "label": "Cathode",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-extinguisher-classes#ClassA",
+          "localName": "ClassA",
+          "label": "Extinguisher class A",
+          "comment": "Fires involving combustible solids. Same scope in EN 2:2005 and in NFPA 10."
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-extinguisher-classes#ClassB",
+          "localName": "ClassB",
+          "label": "Extinguisher class B",
+          "comment": "Fires involving flammable liquids or liquefiable solids. Same scope in EN 2:2005 and in NFPA 10."
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-extinguisher-classes#ClassC",
+          "localName": "ClassC",
+          "label": "Extinguisher class C",
+          "comment": "Fires involving flammable gases, per EN 2:2005."
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-extinguisher-classes#ClassD",
+          "localName": "ClassD",
+          "label": "Extinguisher class D",
+          "comment": "Fires involving combustible metals. Same scope in EN 2:2005 and in NFPA 10; the class most likely to be relevant to lithium battery cells."
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-extinguisher-classes#ClassF",
+          "localName": "ClassF",
+          "label": "Extinguisher class F",
+          "comment": "Fires involving cooking media (vegetable or animal oils and fats), per EN 2:2005."
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-metals#Cobalt",
+          "localName": "Cobalt",
+          "label": "Cobalt",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-categories#ElectricVehicleBattery",
+          "localName": "ElectricVehicleBattery",
+          "label": "Electric vehicle battery",
+          "comment": "a battery that is specifically designed to provide electric power for traction in hybrid or electric vehicles of category L as provided for in Regulation (EU) No 168/2013, that weighs more than 25 kg, or a battery that is specifically designed to provide electric power for traction in hybrid or electric vehicles of categories M, N or O as provided for in Regulation (EU) 2018/858"
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-locations#Electrolyte",
+          "localName": "Electrolyte",
+          "label": "Electrolyte",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-categories#IndustrialBattery",
+          "localName": "IndustrialBattery",
+          "label": "Industrial battery",
+          "comment": "a battery that is specifically designed for industrial uses, intended for industrial uses after having been subject to preparation for repurposing or repurposing, or any other battery that weighs more than 5 kg and that is neither an electric vehicle battery, an LMT battery, nor an SLI battery"
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-metals#Lead",
+          "localName": "Lead",
+          "label": "Lead",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#LiIonLCO",
+          "localName": "LiIonLCO",
+          "label": "Lithium ion LCO",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#LiIonLFP",
+          "localName": "LiIonLFP",
+          "label": "Lithium ion LFP",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#LiIonLMO",
+          "localName": "LiIonLMO",
+          "label": "Lithium ion LMO",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#LiIonNCA",
+          "localName": "LiIonNCA",
+          "label": "Lithium ion NCA",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#LiIonNMC",
+          "localName": "LiIonNMC",
+          "label": "Lithium ion NMC",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#LiMetal",
+          "localName": "LiMetal",
+          "label": "Lithium metal",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-metals#Lithium",
+          "localName": "Lithium",
+          "label": "Lithium",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-categories#LMTBattery",
+          "localName": "LMTBattery",
+          "label": "Light means of transport battery",
+          "comment": "a battery that is sealed, weighs 25 kg or less and is specifically designed to provide electric power for the traction of wheeled vehicles that can be powered by an electric motor alone or by a combination of motor and human power, including type-approved vehicles of category L within the meaning of Regulation (EU) No 168/2013 of the European Parliament and of the Council, and that is not an electric vehicle battery"
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#NaIon",
+          "localName": "NaIon",
+          "label": "Sodium-ion",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#NiCd",
+          "localName": "NiCd",
+          "label": "Nickel cadmium",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-metals#Nickel",
+          "localName": "Nickel",
+          "label": "Nickel",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#NiMH",
+          "localName": "NiMH",
+          "label": "Nickel metal hydride",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-statuses#Original",
+          "localName": "Original",
+          "label": "Original",
+          "comment": "The battery is in its first life, as placed on the market by the manufacturer, and has not been subjected to re-use, repurposing or remanufacturing."
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#Pb",
+          "localName": "Pb",
+          "label": "Lead acid",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-categories#PortableBattery",
+          "localName": "PortableBattery",
+          "label": "Portable battery",
+          "comment": "a battery that is sealed, weighs 5 kg or less, is not designed specifically for industrial use and is neither an electric vehicle battery, an LMT battery, nor an SLI battery"
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-statuses#Remanufactured",
+          "localName": "Remanufactured",
+          "label": "Remanufactured",
+          "comment": "The battery has been subjected to remanufacturing and placed on the market again."
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-statuses#Repurposed",
+          "localName": "Repurposed",
+          "label": "Repurposed",
+          "comment": "The battery has been subjected to repurposing and placed on the market again for a purpose or application other than the one it was originally designed for."
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-statuses#ReUsed",
+          "localName": "ReUsed",
+          "label": "Re-used",
+          "comment": "The battery has been subjected to a treatment operation preparing it for re-use and placed on the market again for the purpose it was originally designed for."
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-categories#SLIBattery",
+          "localName": "SLIBattery",
+          "label": "Starting, lighting and ignition battery",
+          "comment": "a battery that is specifically designed to supply electric power for starting, lighting, or ignition and that can also be used for auxiliary or backup purposes in vehicles, other means of transport or machinery"
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-statuses#Waste",
+          "localName": "Waste",
+          "label": "Waste",
+          "comment": "The battery is a waste battery: it is discarded or intended to be discarded, and is no longer placed on the market as a battery."
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/2004/02/skos/core#ConceptScheme",
+      "localName": "core#ConceptScheme",
+      "label": "core#ConceptScheme",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp/battery-categories#BatteryCategoryScheme",
+          "localName": "BatteryCategoryScheme",
+          "label": "Battery categories per Regulation (EU) 2023/1542, Art. 3(1)",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme",
+          "localName": "BatteryChemistryScheme",
+          "label": "Battery chemistries per the draft labelling Implementing Act",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-locations#BatteryLocationScheme",
+          "localName": "BatteryLocationScheme",
+          "label": "Battery locations per Annex XIII 2(a)",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-metals#BatteryMetalScheme",
+          "localName": "BatteryMetalScheme",
+          "label": "Battery metals subject to recycled content declaration, Art. 8(1)",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-statuses#BatteryStatusScheme",
+          "localName": "BatteryStatusScheme",
+          "label": "Battery lifecycle statuses per Annex XIII 4(c)",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-extinguisher-classes#ExtinguisherClassScheme",
+          "localName": "ExtinguisherClassScheme",
+          "label": "Extinguisher classes applicable to a battery",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#ClassificationCode",
+      "localName": "eudpp#ClassificationCode",
+      "label": "eudpp#ClassificationCode",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp/battery-categories#ElectricVehicleBattery",
+          "localName": "ElectricVehicleBattery",
+          "label": "Electric vehicle battery",
+          "comment": "a battery that is specifically designed to provide electric power for traction in hybrid or electric vehicles of category L as provided for in Regulation (EU) No 168/2013, that weighs more than 25 kg, or a battery that is specifically designed to provide electric power for traction in hybrid or electric vehicles of categories M, N or O as provided for in Regulation (EU) 2018/858"
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-categories#IndustrialBattery",
+          "localName": "IndustrialBattery",
+          "label": "Industrial battery",
+          "comment": "a battery that is specifically designed for industrial uses, intended for industrial uses after having been subject to preparation for repurposing or repurposing, or any other battery that weighs more than 5 kg and that is neither an electric vehicle battery, an LMT battery, nor an SLI battery"
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-categories#LMTBattery",
+          "localName": "LMTBattery",
+          "label": "Light means of transport battery",
+          "comment": "a battery that is sealed, weighs 25 kg or less and is specifically designed to provide electric power for the traction of wheeled vehicles that can be powered by an electric motor alone or by a combination of motor and human power, including type-approved vehicles of category L within the meaning of Regulation (EU) No 168/2013 of the European Parliament and of the Council, and that is not an electric vehicle battery"
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-categories#PortableBattery",
+          "localName": "PortableBattery",
+          "label": "Portable battery",
+          "comment": "a battery that is sealed, weighs 5 kg or less, is not designed specifically for industrial use and is neither an electric vehicle battery, an LMT battery, nor an SLI battery"
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-categories#SLIBattery",
+          "localName": "SLIBattery",
+          "label": "Starting, lighting and ignition battery",
+          "comment": "a battery that is specifically designed to supply electric power for starting, lighting, or ignition and that can also be used for auxiliary or backup purposes in vehicles, other means of transport or machinery"
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#MaterialType",
+      "localName": "eudpp#MaterialType",
+      "label": "eudpp#MaterialType",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp/battery-metals#Cobalt",
+          "localName": "Cobalt",
+          "label": "Cobalt",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-metals#Lead",
+          "localName": "Lead",
+          "label": "Lead",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#LiIonLCO",
+          "localName": "LiIonLCO",
+          "label": "Lithium ion LCO",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#LiIonLFP",
+          "localName": "LiIonLFP",
+          "label": "Lithium ion LFP",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#LiIonLMO",
+          "localName": "LiIonLMO",
+          "label": "Lithium ion LMO",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#LiIonNCA",
+          "localName": "LiIonNCA",
+          "label": "Lithium ion NCA",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#LiIonNMC",
+          "localName": "LiIonNMC",
+          "label": "Lithium ion NMC",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#LiMetal",
+          "localName": "LiMetal",
+          "label": "Lithium metal",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-metals#Lithium",
+          "localName": "Lithium",
+          "label": "Lithium",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#NaIon",
+          "localName": "NaIon",
+          "label": "Sodium-ion",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#NiCd",
+          "localName": "NiCd",
+          "label": "Nickel cadmium",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-metals#Nickel",
+          "localName": "Nickel",
+          "label": "Nickel",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#NiMH",
+          "localName": "NiMH",
+          "label": "Nickel metal hydride",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp/battery-chemistries#Pb",
+          "localName": "Pb",
+          "label": "Lead acid",
+          "comment": ""
+        }
+      ]
+    }
+  ]
+}

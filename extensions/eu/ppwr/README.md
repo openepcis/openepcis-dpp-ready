@@ -39,7 +39,7 @@ paper's per-component-GTIN pattern) is typed both `gs1:Product` and
 | PPWR data point (Article) | Carried by |
 |---|---|
 | Packaging tier (Art. 3) | `euppwr:hasPackagingTier` (this module) |
-| Recyclability grade A/B/C (Art. 6, Annex II) | `euppwr:hasRecyclabilityGrade` (this module), substantiated by `oec:recyclabilityScore` + `euppwr:designForRecyclingMethodology` |
+| Recyclability grade A/B/C (Art. 6, Annex II) | `euppwr:hasRecyclabilityGrade` (this module), substantiated by a recyclability score (`oea:RecyclabilityScore`, as `sensorReport` type or `oea:Indicator`) + `euppwr:designForRecyclingMethodology` |
 | Harmonised labels (Art. 12) | `euppwr:harmonisedSymbol` (this module) |
 | Packaging type / format | `gs1:packagingType` |
 | Material composition (Art. 5, 6, 12) | `gs1:packagingMaterial` → `gs1:PackagingMaterialDetails` (`gs1:packagingMaterialType` code, `gs1:packagingMaterialCompositionQuantity`, `gs1:packagingMaterialThickness`) |

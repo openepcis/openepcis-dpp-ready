@@ -5,6 +5,7 @@
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix untp: <https://vocabulary.uncefact.org/untp/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
 @prefix eutex: <https://ref.openepcis.org/extensions/eu/textile/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
@@ -102,7 +103,10 @@ identifier and trade-item attributes apply unchanged."""@en ;
     skos:narrowMatch gs1:WearableProduct ;
     skos:broadMatch schema:Product ;
     skos:broadMatch dppk:Product ;
-    skos:broadMatch <https://w3id.org/eudpp#Product> .
+    skos:broadMatch <https://w3id.org/eudpp#Product> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-core#TextileApparel> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-core#ElectronicTextile> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-core#SmartTextile> .
 
 eutex:CareInstruction
     a owl:Class ;
@@ -111,12 +115,19 @@ eutex:CareInstruction
     dcterms:source <https://www.iso.org/standard/74401.html> ;
     skos:note """Required extension: GS1 Web Vocabulary does not provide structured care instruction data
 with ISO 3758 symbol codes. This class captures machine-readable care symbols for consumer apps
-and laundry service integration."""@en.
+and laundry service integration."""@en ;
+    skos:closeMatch <https://w3id.org/eudpp/textile-process#TextileCareInstruction> .
 
 eutex:DurabilityInfo
     a owl:Class ;
+    rdfs:subClassOf oea:Assessment ;
     rdfs:label "Durability Information"@en ;
-    rdfs:comment """Product durability metrics including expected lifespan, wash cycles, and usage resistance."""@en ;
+    rdfs:comment """Durability assessment of a textile product, an oea:Assessment. Each laboratory test is an
+oea:TestExecution under oea:hasSubAssessment, naming its test method (eutex:MartindaleAbrasionTest,
+eutex:PillingTest, eutex:ColourFastnessTest, eutex:DimensionalChangeTest, eutex:TensileStrengthTest,
+eutex:TearStrengthTest) and an oea:MeasurementResult for the parameter it observes. Expected wash cycles,
+expected lifetime and the durability class are indicators (oea:hasIndicator with oea:NumberOfUseCycles,
+oea:ExpectedLifetime, eutex:DurabilityRating)."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso oec:PerformanceInfo ;
@@ -124,7 +135,8 @@ eutex:DurabilityInfo
 number of wash cycles, pilling resistance, and dimensional stability. GS1 Web Vocabulary lacks
 textile-specific durability metrics. Aligned with oec:PerformanceInfo pattern."""@en ;
     skos:broadMatch <https://w3id.org/eudpp#Durability> ;
-    skos:broadMatch <https://w3id.org/eudpp#QualityIndicator> .
+    skos:broadMatch <https://w3id.org/eudpp#QualityIndicator> ;
+    skos:broadMatch <https://w3id.org/eudpp/textile-durability#Durability> .
 
 eutex:TakeBackProgram
     a owl:Class ;
@@ -142,8 +154,11 @@ See also schema:Service for web search interoperability."""@en;
 
 eutex:MicroplasticInfo
     a owl:Class ;
+    rdfs:subClassOf oea:Assessment ;
     rdfs:label "Microplastic Information"@en ;
-    rdfs:comment """Information about microplastic/microfiber shedding potential from synthetic textiles."""@en ;
+    rdfs:comment """Microplastic and microfibre shedding of a synthetic textile, an oea:Assessment: the measured
+release is an oea:MeasurementResult of eutex:MicrofibreReleaseTest observing eutex:MicrofibreRelease, the
+risk band an indicator of kind eutex:SheddingRiskLevel with an eutex:MicroplasticRiskLevel value."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
     skos:note """Required extension: EU Textile Strategy specifically addresses microplastic pollution
@@ -152,7 +167,8 @@ CIRPASS-2's EUDPP P_DPP module carries product-generic microplastic/nanoplastic 
 classes; this stays a eutex: concept until a second regulation module needs it (the
 governance move-down criterion), at which point it graduates to oec:."""@en ;
     rdfs:seeAlso <https://w3id.org/eudpp#MicroplasticRelease> ;
-    rdfs:seeAlso <https://w3id.org/eudpp#NanoplasticRelease> .
+    rdfs:seeAlso <https://w3id.org/eudpp#NanoplasticRelease> ;
+    skos:broadMatch <https://w3id.org/eudpp#MicroplasticRelease> .
 
 # =============================================================================
 # PART 2: ENUMERATIONS
@@ -225,7 +241,11 @@ because it also covers non-wearable categories (HomeTextiles, TechnicalTextiles)
     rdfs:seeAlso gs1:Clothing , gs1:WearableProduct ;
     skos:broadMatch gs1:WearableProduct ;
     skos:broadMatch gs1:Clothing ;
-    skos:narrowMatch dppk:PefcrShirtsAndBlouses .
+    skos:narrowMatch dppk:PefcrShirtsAndBlouses ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-core#PPETextileApparel> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-core#ToyTextileApparel> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-core#MedicalDeviceTextileApparel> ;
+    skos:broadMatch <https://w3id.org/eudpp/textile-core#TextileProduct> .
 
 eutex:TextileFootwear
     a owl:Class ;
@@ -244,7 +264,8 @@ gs1:Product) per GS1 First governance. Named TextileFootwear (not Footwear) to a
 collision with the existing eutex:Footwear enum individual in TextileCategory."""@en ;
     rdfs:seeAlso gs1:Footwear , gs1:WearableProduct ;
     skos:broadMatch gs1:Footwear ;
-    skos:broadMatch gs1:WearableProduct .
+    skos:broadMatch gs1:WearableProduct ;
+    skos:broadMatch <https://w3id.org/eudpp/textile-core#TextileProduct> .
 
 # -----------------------------------------------------------------------------
 # Fiber Type (aligned with EU Textile Labelling Regulation Annex I)
@@ -531,7 +552,8 @@ eutex:recycledContentSource
     rdfs:range xsd:string ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Extension: Provides fiber-level recycled source traceability not available in GS1 TextileMaterialDetails." ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
+    skos:broadMatch <https://w3id.org/eudpp#materialRecycledContentType> .
 
 eutex:hasFiberCertification
     a owl:ObjectProperty ;
@@ -639,6 +661,7 @@ eutex:additionalCareInstructions
 
 eutex:hasDurabilityInfo
     a owl:ObjectProperty ;
+    rdfs:subPropertyOf oea:hasAssessment ;
     rdfs:label "Durability Information"@en ;
     rdfs:comment "Durability metrics for the textile product."@en ;
     rdfs:domain gs1:Product ;
@@ -648,133 +671,17 @@ eutex:hasDurabilityInfo
     skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch schema:hasMeasurement .
 
-eutex:expectedWashCycles
-    a owl:DatatypeProperty ;
-    rdfs:label "Expected Wash Cycles"@en ;
-    rdfs:comment "Expected number of wash cycles before significant degradation."@en ;
-    rdfs:domain eutex:DurabilityInfo ;
-    rdfs:range xsd:integer ;
-    rdfs:seeAlso schema:value ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:hasDurabilityClass
-    a owl:ObjectProperty ;
-    rdfs:label "Durability Class"@en ;
-    rdfs:comment "Durability rating class (A-E)."@en ;
-    rdfs:domain eutex:DurabilityInfo ;
-    rdfs:range eutex:DurabilityClass ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:pillingResistance
-    a owl:DatatypeProperty ;
-    rdfs:label "Pilling Resistance"@en ;
-    rdfs:comment "Pilling resistance rating (1-5 per ISO 12945, where 5 is best)."@en ;
-    rdfs:domain eutex:DurabilityInfo ;
-    rdfs:range xsd:integer ;
-    rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:colorFastness
-    a owl:DatatypeProperty ;
-    rdfs:label "Color Fastness"@en ;
-    rdfs:comment "Color fastness rating (1-5 per ISO 105, where 5 is best)."@en ;
-    rdfs:domain eutex:DurabilityInfo ;
-    rdfs:range xsd:integer ;
-    rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:broadMatch schema:ratingValue .
-
-eutex:dimensionalStability
-    a owl:DatatypeProperty ;
-    rdfs:label "Dimensional Stability"@en ;
-    rdfs:comment "Maximum dimensional change (shrinkage/stretch) as percentage after washing."@en ;
-    rdfs:domain eutex:DurabilityInfo ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:abrasionResistance
-    a owl:DatatypeProperty ;
-    rdfs:label "Abrasion Resistance"@en ;
-    rdfs:comment "Abrasion resistance in Martindale cycles."@en ;
-    rdfs:domain eutex:DurabilityInfo ;
-    rdfs:range xsd:integer ;
-    rdfs:seeAlso schema:value ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:hasTensileStrength
-    a owl:ObjectProperty ;
-    rdfs:label "Tensile Strength"@en ;
-    rdfs:comment "Fabric tensile strength. Use unitCode 'NEW' (newtons, UN/CEFACT Rec 20)."@en ;
-    rdfs:domain eutex:DurabilityInfo ;
-    rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:hasTearStrength
-    a owl:ObjectProperty ;
-    rdfs:label "Tear Strength"@en ;
-    rdfs:comment "Fabric tear strength. Use unitCode 'NEW' (newtons, UN/CEFACT Rec 20)."@en ;
-    rdfs:domain eutex:DurabilityInfo ;
-    rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:expectedLifetimeYears
-    a owl:DatatypeProperty ;
-    rdfs:label "Expected Lifetime Years"@en ;
-    rdfs:comment "Expected product lifetime in years under normal use."@en ;
-    rdfs:domain eutex:DurabilityInfo ;
-    rdfs:range xsd:integer ;
-    rdfs:seeAlso schema:value ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime> .
-
 # =============================================================================
 # PART 6: PROPERTIES - Microplastic
 # =============================================================================
 
 eutex:hasMicroplasticInfo
     a owl:ObjectProperty ;
+    rdfs:subPropertyOf oea:hasAssessment ;
     rdfs:label "Microplastic Information"@en ;
     rdfs:comment "Information about microfiber shedding from synthetic textiles."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range eutex:MicroplasticInfo ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
-    skos:note "Microfibre / microplastic-release concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR. No upstream vocabulary covers it."@en .
-
-eutex:hasMicroplasticRiskLevel
-    a owl:ObjectProperty ;
-    rdfs:label "Microplastic Risk Level"@en ;
-    rdfs:comment "Risk classification for microfiber shedding."@en ;
-    rdfs:domain eutex:MicroplasticInfo ;
-    rdfs:range eutex:MicroplasticRiskLevel ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
-    skos:note "Microfibre / microplastic-release concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR. No upstream vocabulary covers it."@en .
-
-eutex:hasSheddingRate
-    a owl:ObjectProperty ;
-    rdfs:label "Shedding Rate"@en ;
-    rdfs:comment "Microfiber shedding rate per wash. Use unitCode 'MGM' (mg/kg, UN/CEFACT Rec 20)."@en ;
-    rdfs:domain eutex:MicroplasticInfo ;
-    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
     skos:note "Microfibre / microplastic-release concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR. No upstream vocabulary covers it."@en .
@@ -1086,7 +993,8 @@ eutex:hasSpinningFacility
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Textile production / facility attribute per ESPR 2024/1781 and the PEFCR for Apparel & Footwear. No GS1 equivalent."@en ;
     skos:broadMatch gs1:manufacturingPlant ;
-    skos:broadMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace> .
+    skos:broadMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace> ;
+    skos:broadMatch <https://w3id.org/eudpp#hasFacility> .
 
 eutex:hasWeavingFacility
     a owl:ObjectProperty ;
@@ -1104,7 +1012,8 @@ eutex:hasWeavingFacility
     rdfs:seeAlso untp:modifiedAtFacility ;
     skos:broadMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace> ;
     skos:broadMatch untp:facility ;
-    skos:broadMatch untp:madeAtFacility .
+    skos:broadMatch untp:madeAtFacility ;
+    skos:broadMatch <https://w3id.org/eudpp#hasFacility> .
 
 eutex:hasDyeingFacility
     a owl:ObjectProperty ;
@@ -1120,7 +1029,8 @@ eutex:hasDyeingFacility
     skos:broadMatch gs1:manufacturingPlant ;
     skos:broadMatch dppk:manufacturingFacility ;
     skos:broadMatch untp:producedAtFacility ;
-    skos:broadMatch untp:facility .
+    skos:broadMatch untp:facility ;
+    skos:broadMatch <https://w3id.org/eudpp#hasFacility> .
 
 eutex:hasCutAndSewFacility
     a owl:ObjectProperty ;
@@ -1141,7 +1051,8 @@ eutex:hasCutAndSewFacility
     rdfs:seeAlso untp:modifiedAtFacility ;
     rdfs:seeAlso dppk:facilityId ;
     rdfs:seeAlso untp:fromFacility ;
-    skos:broadMatch gs1:manufacturingPlant .
+    skos:broadMatch gs1:manufacturingPlant ;
+    skos:broadMatch <https://w3id.org/eudpp#hasFacility> .
 
 eutex:hasFinishingFacility
     a owl:ObjectProperty ;
@@ -1154,7 +1065,8 @@ eutex:hasFinishingFacility
     skos:note "Textile production / facility attribute per ESPR 2024/1781 and the PEFCR for Apparel & Footwear. No GS1 equivalent."@en ;
     rdfs:seeAlso gs1:manufacturingPlant ;
     skos:broadMatch untp:facility ;
-    rdfs:seeAlso untp:modifiedAtFacility .
+    rdfs:seeAlso untp:modifiedAtFacility ;
+    skos:broadMatch <https://w3id.org/eudpp#hasFacility> .
 
 # =============================================================================
 # PART 13: FABRIC TYPE & PRODUCT SUBCATEGORY (WP1)
@@ -1273,12 +1185,14 @@ eutex:hasApparelSubcategory
 
 eutex:RobustnessAssessment
     a owl:Class ;
-    rdfs:subClassOf schema:Observation ;
+    rdfs:subClassOf oea:Assessment ;
     rdfs:label "Robustness Assessment"@en ;
-    rdfs:comment """Composite robustness assessment per EU Preparatory Study 3rd Milestone.
-Score 0-10 based on three test parameters measured after 5 cleaning cycles (ISO 6330):
-spirality (0-3 pts), dimensional change (0-3 pts), and visual inspection (0-4 pts).
-Thresholds differ by fabric type (knitted vs woven)."""@en ;
+    rdfs:comment """Composite robustness assessment per EU Preparatory Study 3rd Milestone, an oea:Assessment
+applying eutex:JRCRobustnessScoring. The 5 cleaning cycles are an oea:hasParameterSetting (oea:NumberOfCycles),
+the fabric type an oea:hasCondition (eutex:SpecimenFabricType). The three tests are oea:TestExecution
+sub-assessments (eutex:SpiralityTest, eutex:DimensionalChangeTest, eutex:AppearanceAfterWashingTest), each with
+its measurement results and the points it earns (oea:awardedScore); the 0-10 total is an indicator of kind
+eutex:RobustnessScore derived from them."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
@@ -1291,47 +1205,12 @@ with a standardised composite score. See also schema:Rating for the rating-style
 Anchored to cccev:Evidence (EU SEMICeu CCCEV): the assessment is evidence supporting the
 robustness Requirement defined by the EU Preparatory Study; component test results
 (spirality, dimensional change, visual inspection) are cccev:Constraint instances."""@en ;
-    skos:broadMatch schema:Rating .
+    skos:broadMatch schema:Rating ;
+    skos:broadMatch <https://w3id.org/eudpp/textile-assessment#DurabilityAssessment> .
 
-eutex:SpiralityTestResult
-    a owl:Class ;
-    rdfs:subClassOf schema:Observation ;
-    rdfs:label "Spirality Test Result"@en ;
-    rdfs:comment """Spirality test result per ISO 16322-3 after cleaning cycles.
-Scoring (woven): >6%=0pt, 5.5-6%=1pt, 5-5.5%=2pt, <=5%=3pt.
-Scoring (knitted): >7%=0pt, 6-7%=1pt, 5-6%=2pt, <=5%=3pt."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://www.iso.org/standard/56326.html> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:DimensionalChangeTestResult
-    a owl:Class ;
-    rdfs:subClassOf schema:Observation ;
-    rdfs:label "Dimensional Change Test Result"@en ;
-    rdfs:comment """Dimensional change test result per ISO 3759 after cleaning cycles.
-Scoring (woven): >+-4%=0pt, +-3.5-4%=1pt, +-3-3.5%=2pt, <=+-3%=3pt.
-Scoring (knitted): >+-6%=0pt, +-5.5-6%=1pt, +-5-5.5%=2pt, <=+-5%=3pt."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://www.iso.org/standard/57309.html> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:broadMatch untp:ConformityAssessment .
-
-eutex:VisualInspectionResult
-    a owl:Class ;
-    rdfs:subClassOf schema:Observation ;
-    rdfs:label "Visual Inspection Result"@en ;
-    rdfs:comment """Visual inspection result per ISO 15487 after cleaning cycles.
-Score 0-4 pts based on sub-ratings (1-5 scale each) for colour change,
-fabric appearance, seam appearance, and non-textile parts condition."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://www.iso.org/standard/55312.html> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso schema:Rating ;
-    skos:broadMatch schema:Rating .
-
-# Robustness Assessment properties
 eutex:hasRobustnessAssessment
     a owl:ObjectProperty ;
+    rdfs:subPropertyOf oea:hasAssessment ;
     rdfs:label "Robustness Assessment"@en ;
     rdfs:comment "Robustness assessment for the textile product."@en ;
     rdfs:domain gs1:Product ;
@@ -1342,213 +1221,6 @@ eutex:hasRobustnessAssessment
     rdfs:seeAlso dppk:robustnessScore ;
     rdfs:seeAlso untp:assessedPerformance .
 
-eutex:robustnessScore
-    a owl:DatatypeProperty ;
-    rdfs:label "Robustness Score"@en ;
-    rdfs:comment "Composite robustness score (0-10). Sum of spirality (0-3), dimensional change (0-3), and visual inspection (0-4)."@en ;
-    rdfs:domain eutex:RobustnessAssessment ;
-    rdfs:range xsd:decimal ;
-    rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso dppk:robustnessScore ;
-    skos:exactMatch dppk:robustnessScore .
-
-eutex:cleaningCyclesBeforeTest
-    a owl:DatatypeProperty ;
-    rdfs:label "Cleaning Cycles Before Test"@en ;
-    rdfs:comment "Number of cleaning cycles performed before testing (default 5 per EU methodology)."@en ;
-    rdfs:domain eutex:RobustnessAssessment ;
-    rdfs:range xsd:integer ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:hasRobustnessTestFabricType
-    a owl:ObjectProperty ;
-    rdfs:label "Robustness Test Fabric Type"@en ;
-    rdfs:comment "Fabric type used to determine test thresholds (knitted vs woven scoring tables differ)."@en ;
-    rdfs:domain eutex:RobustnessAssessment ;
-    rdfs:range eutex:FabricType ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:hasSpiralityTest
-    a owl:ObjectProperty ;
-    rdfs:label "Spirality Test"@en ;
-    rdfs:comment "Spirality test result component of robustness assessment."@en ;
-    rdfs:domain eutex:RobustnessAssessment ;
-    rdfs:range eutex:SpiralityTestResult ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:hasDimensionalChangeTest
-    a owl:ObjectProperty ;
-    rdfs:label "Dimensional Change Test"@en ;
-    rdfs:comment "Dimensional change test result component of robustness assessment."@en ;
-    rdfs:domain eutex:RobustnessAssessment ;
-    rdfs:range eutex:DimensionalChangeTestResult ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:hasVisualInspection
-    a owl:ObjectProperty ;
-    rdfs:label "Visual Inspection"@en ;
-    rdfs:comment "Visual inspection result component of robustness assessment."@en ;
-    rdfs:domain eutex:RobustnessAssessment ;
-    rdfs:range eutex:VisualInspectionResult ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:exactMatch dppk:visualInspection .
-
-# Spirality Test properties
-eutex:spiralityScore
-    a owl:DatatypeProperty ;
-    rdfs:label "Spirality Score"@en ;
-    rdfs:comment "Spirality component score (0-3 points)."@en ;
-    rdfs:domain eutex:SpiralityTestResult ;
-    rdfs:range xsd:integer ;
-    rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso untp:score ;
-    skos:broadMatch untp:profileScore .
-
-eutex:spiralityPercentage
-    a owl:DatatypeProperty ;
-    rdfs:label "Spirality Percentage"@en ;
-    rdfs:comment "Measured spirality as percentage after cleaning cycles."@en ;
-    rdfs:domain eutex:SpiralityTestResult ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:spiralityTestMethod
-    a owl:DatatypeProperty ;
-    rdfs:label "Spirality Test Method"@en ;
-    rdfs:comment "Test method reference (e.g. ISO 16322-3)."@en ;
-    rdfs:domain eutex:SpiralityTestResult ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso schema:measurementMethod ;
-    rdfs:seeAlso dppk:testMethod ;
-    skos:broadMatch dppk:testMethod .
-
-# Dimensional Change Test properties
-eutex:dimensionalChangeScore
-    a owl:DatatypeProperty ;
-    rdfs:label "Dimensional Change Score"@en ;
-    rdfs:comment "Dimensional change component score (0-3 points)."@en ;
-    rdfs:domain eutex:DimensionalChangeTestResult ;
-    rdfs:range xsd:integer ;
-    rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:broadMatch untp:score .
-
-eutex:dimensionalChangePercentage
-    a owl:DatatypeProperty ;
-    rdfs:label "Dimensional Change Percentage"@en ;
-    rdfs:comment "Measured dimensional change as percentage (absolute value) after cleaning cycles."@en ;
-    rdfs:domain eutex:DimensionalChangeTestResult ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso dppk:dimensionalChange .
-
-eutex:dimensionalChangeTestMethod
-    a owl:DatatypeProperty ;
-    rdfs:label "Dimensional Change Test Method"@en ;
-    rdfs:comment "Test method reference (e.g. ISO 3759)."@en ;
-    rdfs:domain eutex:DimensionalChangeTestResult ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso schema:measurementMethod .
-
-# Visual Inspection properties
-eutex:visualInspectionScore
-    a owl:DatatypeProperty ;
-    rdfs:label "Visual Inspection Score"@en ;
-    rdfs:comment "Visual inspection component score (0-4 points)."@en ;
-    rdfs:domain eutex:VisualInspectionResult ;
-    rdfs:range xsd:integer ;
-    rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:colourChangeRating
-    a owl:DatatypeProperty ;
-    rdfs:label "Colour Change Rating"@en ;
-    rdfs:comment "Colour change sub-rating (1-5 per ISO 15487, where 5 is no change)."@en ;
-    rdfs:domain eutex:VisualInspectionResult ;
-    rdfs:range xsd:integer ;
-    rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:fabricAppearanceRating
-    a owl:DatatypeProperty ;
-    rdfs:label "Fabric Appearance Rating"@en ;
-    rdfs:comment "Fabric surface appearance sub-rating (1-5 per ISO 15487, where 5 is no change)."@en ;
-    rdfs:domain eutex:VisualInspectionResult ;
-    rdfs:range xsd:integer ;
-    rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:broadMatch schema:ratingValue .
-
-eutex:seamAppearanceRating
-    a owl:DatatypeProperty ;
-    rdfs:label "Seam Appearance Rating"@en ;
-    rdfs:comment "Seam appearance sub-rating (1-5 per ISO 15487, where 5 is no change)."@en ;
-    rdfs:domain eutex:VisualInspectionResult ;
-    rdfs:range xsd:integer ;
-    rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:broadMatch schema:ratingValue .
-
-eutex:nonTextilePartsRating
-    a owl:DatatypeProperty ;
-    rdfs:label "Non-Textile Parts Rating"@en ;
-    rdfs:comment "Non-textile parts condition sub-rating (1-5 per ISO 15487, where 5 is no change)."@en ;
-    rdfs:domain eutex:VisualInspectionResult ;
-    rdfs:range xsd:integer ;
-    rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:broadMatch schema:ratingValue .
-
-eutex:visualInspectionTestMethod
-    a owl:DatatypeProperty ;
-    rdfs:label "Visual Inspection Test Method"@en ;
-    rdfs:comment "Test method reference (e.g. ISO 15487)."@en ;
-    rdfs:domain eutex:VisualInspectionResult ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso schema:measurementMethod ;
-    skos:closeMatch schema:measurementMethod .
-
 # =============================================================================
 # PART 15: RECYCLABILITY SCORING SYSTEM (WP3)
 # EU Preparatory Study on Textiles - 3rd Milestone
@@ -1557,13 +1229,14 @@ eutex:visualInspectionTestMethod
 
 eutex:RecyclabilityAssessment
     a owl:Class ;
-    rdfs:subClassOf schema:Observation ;
+    rdfs:subClassOf oec:RecyclabilityAssessment ;
     rdfs:label "Recyclability Assessment"@en ;
-    rdfs:comment """Recyclability assessment per EU Preparatory Study 3rd Milestone.
-Score 0-10 based on: elastane content threshold (>15% or >20% for PA6-rich >80% blends makes product
-non-recyclable, score 0), sorting factors (same composition inner/outer, free from printings,
-free from coatings, free from sequins, free from dyes, mono-material), and
-technical recyclability of the applicable recycling technology."""@en ;
+    rdfs:comment """Recyclability assessment per EU Preparatory Study 3rd Milestone, applying
+eutex:JRCRecyclabilityScoring. The elastane content is an oea:MeasurementResult evaluated against
+eutex:ElastaneContentLimit; each sorting criterion (eutex:SameInnerOuterComposition, eutex:FreeFromPrintings,
+eutex:FreeFromCoatings, eutex:FreeFromSequins, eutex:FreeFromDyes, eutex:MonoMaterial) and
+eutex:TechnicalRecyclabilityCriterion is an oea:CriterionResult with its outcome and points; the 0-10 score is
+an indicator of kind oea:RecyclabilityScore; whether the product counts as recyclable is oea:hasOutcome."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
@@ -1571,26 +1244,8 @@ technical recyclability of the applicable recycling technology."""@en ;
     rdfs:seeAlso schema:Rating ;
     skos:note """Required extension: The EU preparatory study defines a specific recyclability scoring
 methodology not present in GS1 or the core DPP vocabulary. See also schema:Rating for the rating-style aggregate score."""@en ;
-    rdfs:seeAlso oec:RecyclabilityAssessment .
-
-eutex:SortingFactors
-    a owl:Class ;
-    rdfs:label "Sorting Factors"@en ;
-    rdfs:comment """Sorting factors affecting recyclability score. Each factor satisfied adds 1 point:
-same composition inner/outer, free from printings, free from coatings, free from sequins,
-free from dyes, mono-material."""@en ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:TechnicalRecyclability
-    a owl:Class ;
-    rdfs:label "Technical Recyclability"@en ;
-    rdfs:comment "Technical recyclability assessment based on the applicable recycling technology."@en ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
-    rdfs:seeAlso oec:CircularityPerformance ;
-    skos:broadMatch oec:RecyclabilityAssessment .
+    rdfs:seeAlso oec:RecyclabilityAssessment ;
+    rdfs:seeAlso <https://w3id.org/eudpp/textile-recyclability#RecyclabilityAssessment> .
 
 # Recycling Technology enumeration
 eutex:RecyclingTechnology
@@ -1623,6 +1278,7 @@ eutex:ThermoMechanicalRecycling a eutex:RecyclingTechnology ; rdfs:label "Thermo
 # Recyclability Assessment properties
 eutex:hasRecyclabilityAssessment
     a owl:ObjectProperty ;
+    rdfs:subPropertyOf oea:hasAssessment ;
     rdfs:label "Recyclability Assessment"@en ;
     rdfs:comment "Recyclability assessment for the textile product."@en ;
     rdfs:domain gs1:Product ;
@@ -1631,147 +1287,14 @@ eutex:hasRecyclabilityAssessment
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
     skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
     rdfs:seeAlso oec:CircularityPerformance ;
-    rdfs:seeAlso oec:hasRecyclabilityAssessment .
-
-eutex:recyclabilityScore
-    a owl:DatatypeProperty ;
-    rdfs:label "Recyclability Score"@en ;
-    rdfs:comment "Composite recyclability score (0-10)."@en ;
-    rdfs:domain eutex:RecyclabilityAssessment ;
-    rdfs:range xsd:decimal ;
-    rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
-    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No exact foundational-vocabulary equivalent; anchored to the DPP Keystone peer term and loosely related to schema:ratingValue."@en ;
-    rdfs:seeAlso oec:recyclabilityScore ;
-    rdfs:seeAlso dppk:recyclabilityScore ;
-    skos:exactMatch dppk:recyclabilityScore ;
-    skos:closeMatch schema:ratingValue .
-
-eutex:isRecyclable
-    a owl:DatatypeProperty ;
-    rdfs:label "Is Recyclable"@en ;
-    rdfs:comment "Whether the product is considered recyclable (score above minimum threshold)."@en ;
-    rdfs:domain eutex:RecyclabilityAssessment ;
-    rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
-    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
-    rdfs:seeAlso oec:CircularityPerformance .
-
-eutex:elastaneContentPercent
-    a owl:DatatypeProperty ;
-    rdfs:label "Elastane Content Percent"@en ;
-    rdfs:comment "Elastane/spandex content as percentage of total weight. Content >15% (>20% for PA6-rich >80% blends) makes product non-recyclable (score 0)."@en ;
-    rdfs:domain eutex:RecyclabilityAssessment ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso gs1:textileMaterialPercentage ;
-    skos:broadMatch gs1:textileMaterialPercentage .
-
-eutex:hasSortingFactors
-    a owl:ObjectProperty ;
-    rdfs:label "Sorting Factors"@en ;
-    rdfs:comment "Sorting factors assessment for recyclability."@en ;
-    rdfs:domain eutex:RecyclabilityAssessment ;
-    rdfs:range eutex:SortingFactors ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:hasTechnicalRecyclability
-    a owl:ObjectProperty ;
-    rdfs:label "Technical Recyclability"@en ;
-    rdfs:comment "Technical recyclability assessment for the product."@en ;
-    rdfs:domain eutex:RecyclabilityAssessment ;
-    rdfs:range eutex:TechnicalRecyclability ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
-    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
-    rdfs:seeAlso oec:CircularityPerformance .
-
-# Sorting Factors properties
-eutex:sameInnerOuterComposition
-    a owl:DatatypeProperty ;
-    rdfs:label "Same Inner/Outer Composition"@en ;
-    rdfs:comment "Whether inner and outer fabric layers have the same fiber composition (+1 pt if true)."@en ;
-    rdfs:domain eutex:SortingFactors ;
-    rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:freeFromPrintings
-    a owl:DatatypeProperty ;
-    rdfs:label "Free From Printings"@en ;
-    rdfs:comment "Whether the product is free from non-removable printings (+1 pt if true)."@en ;
-    rdfs:domain eutex:SortingFactors ;
-    rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:freeFromCoatings
-    a owl:DatatypeProperty ;
-    rdfs:label "Free From Coatings"@en ;
-    rdfs:comment "Whether the product is free from non-removable coatings (+1 pt if true)."@en ;
-    rdfs:domain eutex:SortingFactors ;
-    rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:freeFromSequins
-    a owl:DatatypeProperty ;
-    rdfs:label "Free From Sequins"@en ;
-    rdfs:comment "Whether the product is free from sequins, beads, and non-textile embellishments (+1 pt if true)."@en ;
-    rdfs:domain eutex:SortingFactors ;
-    rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:freeFromDyes
-    a owl:DatatypeProperty ;
-    rdfs:label "Free From Dyes"@en ;
-    rdfs:comment "Whether the product is free from dyes (+1 pt if true)."@en ;
-    rdfs:domain eutex:SortingFactors ;
-    rdfs:range xsd:boolean ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:isMonoMaterial
-    a owl:DatatypeProperty ;
-    rdfs:label "Is Mono-Material"@en ;
-    rdfs:comment "Whether the product is made of a single fiber type (+1 pt if true). Mono-material products are more likely to be recycled."@en ;
-    rdfs:domain eutex:SortingFactors ;
-    rdfs:range xsd:boolean ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
-
-# Technical Recyclability properties
-eutex:technicalRecyclabilityScore
-    a owl:DatatypeProperty ;
-    rdfs:label "Technical Recyclability Score"@en ;
-    rdfs:comment "Technical recyclability component score based on applicable recycling technology."@en ;
-    rdfs:domain eutex:TechnicalRecyclability ;
-    rdfs:range xsd:decimal ;
-    rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
-    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
-    rdfs:seeAlso untp:score ;
-    rdfs:seeAlso untp:profileScore .
+    rdfs:seeAlso oec:hasRecyclabilityAssessment ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-recyclability#hasRecyclabilityAssessment> .
 
 eutex:hasApplicableRecyclingTechnology
     a owl:ObjectProperty ;
     rdfs:label "Applicable Recycling Technology"@en ;
-    rdfs:comment "The recycling technology applicable to this product based on its fiber composition."@en ;
-    rdfs:domain eutex:TechnicalRecyclability ;
+    rdfs:comment "The recycling technology applicable to this product based on its fiber composition; it determines the points of eutex:TechnicalRecyclabilityCriterion."@en ;
+    rdfs:domain eutex:RecyclabilityAssessment ;
     rdfs:range eutex:RecyclingTechnology ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
@@ -1798,7 +1321,8 @@ recycled source type (fiber-to-fiber/open loop), and chain of custody method."""
 declarations with specific categorisation not available in GS1 or core DPP vocabulary.
 Complements oec:RecycledContent with textile-specific regulatory detail.
 See also schema:QuantitativeValue for the secondary material fraction."""@en ;
-    skos:broadMatch oec:RecycledContent .
+    skos:broadMatch oec:RecycledContent ;
+    rdfs:seeAlso <https://w3id.org/eudpp/textile-recyclability#RecycledContentDeclaration> .
 
 # Waste Origin Type enumeration
 eutex:WasteOriginType
@@ -1868,7 +1392,8 @@ eutex:hasRecycledContentDeclaration
     rdfs:seeAlso oec:CircularityPerformance ;
     skos:broadMatch gs1:textileMaterialContent ;
     rdfs:seeAlso dppk:preConsumerRecycledMaterialComposition ;
-    rdfs:seeAlso dppk:preConsumerRecycledContentMass .
+    rdfs:seeAlso dppk:preConsumerRecycledContentMass ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-recyclability#hasRecycledContentDeclaration> .
 
 eutex:secondaryMaterialFraction
     a owl:DatatypeProperty ;
@@ -1897,7 +1422,8 @@ eutex:hasWasteOriginType
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso dppk:preConsumerTypeOfWaste ;
     rdfs:seeAlso dppk:postConsumerTypeOfWaste ;
-    skos:broadMatch <https://w3id.org/eudpp#hasMaterialOrigin> .
+    skos:broadMatch <https://w3id.org/eudpp#hasMaterialOrigin> ;
+    skos:closeMatch <https://w3id.org/eudpp/textile-recyclability#hasRecycledContentSource> .
 
 eutex:hasRecycledSourceType
     a owl:ObjectProperty ;
@@ -1965,16 +1491,10 @@ reporting with specific metrics (single score in mPt, benchmark performance) not
 in GS1 or core DPP vocabulary. Keeps existing eutex:hasWaterUsage and eutex:hasEnergyUsage
 as convenience properties. See also schema:PropertyValue for generic structured values."""@en ;
     rdfs:seeAlso <https://w3id.org/eudpp#CarbonFootprint> ;
-    skos:narrowMatch <https://w3id.org/eudpp#AirPollutionFootprint> ;
+    rdfs:seeAlso <https://w3id.org/eudpp#LCIAImpactCategory> ;
     skos:narrowMatch <https://w3id.org/eudpp#CarbonFootprint> ;
     skos:narrowMatch <https://w3id.org/eudpp#MaterialFootprint> ;
-    skos:narrowMatch <https://w3id.org/eudpp#EnergyFootprint> ;
-    skos:narrowMatch <https://w3id.org/eudpp#LandFootprint> ;
-    skos:narrowMatch <https://w3id.org/eudpp#WaterFootprint> ;
-    skos:narrowMatch <https://w3id.org/eudpp#FossilEnergyFootprint> ;
-    skos:narrowMatch <https://w3id.org/eudpp#ToxicityFootprint> ;
-    skos:narrowMatch <https://w3id.org/eudpp#EutrophicationFootprint> ;
-    skos:narrowMatch <https://w3id.org/eudpp#OzoneDepletionFootprint> .
+    skos:narrowMatch <https://w3id.org/eudpp#LCIAResult> .
 
 eutex:LCIACategory
     a owl:Class ;
@@ -2280,7 +1800,7 @@ eutex:ecNumber
     rdfs:seeAlso oec:ecNumber ;
     skos:exactMatch oec:ecNumber ;
     skos:broadMatch schema:identifier ;
-    skos:exactMatch <https://w3id.org/eudpp#numberEC> .
+    skos:exactMatch <https://w3id.org/eudpp#ecNumber> .
 
 eutex:substanceConcentration
     a owl:DatatypeProperty ;
@@ -2358,65 +1878,183 @@ eutex:hasClpHazardCategory
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
-# PART 19: TEST STANDARD REFERENCES (WP7)
-# EU Preparatory Study on Textiles - 3rd Milestone
+# PART 19: ASSESSMENT CATALOGUE (common/assessment individuals for textiles)
+# EU Preparatory Study on Textiles - 3rd Milestone, ISO textile test standards
 # =============================================================================
+# Durability, robustness, recyclability and microfibre release are stated with the
+# oea: assessment model (common/assessment). This part publishes what a textile
+# passport references from it: the standards, the test and scoring methods, the
+# performance parameters a result observes, the indicator kinds, the condition types
+# and the recyclability criteria. Data never redefines these; it points at them.
 
-eutex:TestStandard
-    a owl:Class ;
-    rdfs:label "Test Standard"@en ;
-    rdfs:comment "Test standards referenced in the EU Preparatory Study for textile robustness and durability testing."@en ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    owl:oneOf (
-        eutex:ISO6330
-        eutex:ISO16322_3
-        eutex:ISO3759
-        eutex:ISO15487
-        eutex:ISO105
-        eutex:ISO12945
-        eutex:ISO12947
-    ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso untp:Standard .
+# --- Standards -----------------------------------------------------------------
 
-eutex:ISO6330 a eutex:TestStandard ; rdfs:label "ISO 6330"@en ;
+eutex:ISO6330 a oea:AssessmentStandard ; rdfs:label "ISO 6330"@en ;
     rdfs:comment "Textiles - Domestic washing and drying procedures for textile testing."@en ;
-    rdfs:seeAlso <https://www.iso.org/standard/75934.html> .
-eutex:ISO16322_3 a eutex:TestStandard ; rdfs:label "ISO 16322-3"@en ;
+    oea:standardCode "ISO 6330" ;
+    oea:standardUrl "https://www.iso.org/standard/75934.html"^^xsd:anyURI .
+eutex:ISO16322_3 a oea:AssessmentStandard ; rdfs:label "ISO 16322-3"@en ;
     rdfs:comment "Textiles - Determination of spirality after laundering - Part 3: Woven and knitted garments."@en ;
-    rdfs:seeAlso <https://www.iso.org/standard/56326.html> .
-eutex:ISO3759 a eutex:TestStandard ; rdfs:label "ISO 3759"@en ;
+    oea:standardCode "ISO 16322-3" ;
+    oea:standardUrl "https://www.iso.org/standard/56326.html"^^xsd:anyURI .
+eutex:ISO3759 a oea:AssessmentStandard ; rdfs:label "ISO 3759"@en ;
     rdfs:comment "Textiles - Preparation, marking and measuring of fabric specimens and garments in tests for determination of dimensional change."@en ;
-    rdfs:seeAlso <https://www.iso.org/standard/57309.html> .
-eutex:ISO15487 a eutex:TestStandard ; rdfs:label "ISO 15487"@en ;
+    oea:standardCode "ISO 3759" ;
+    oea:standardUrl "https://www.iso.org/standard/57309.html"^^xsd:anyURI .
+eutex:ISO15487 a oea:AssessmentStandard ; rdfs:label "ISO 15487"@en ;
     rdfs:comment "Textiles - Method for assessing the appearance of apparel and other textile end products after domestic washing and drying."@en ;
-    rdfs:seeAlso <https://www.iso.org/standard/55312.html> .
-eutex:ISO105 a eutex:TestStandard ; rdfs:label "ISO 105"@en ;
+    oea:standardCode "ISO 15487" ;
+    oea:standardUrl "https://www.iso.org/standard/55312.html"^^xsd:anyURI .
+eutex:ISO105 a oea:AssessmentStandard ; rdfs:label "ISO 105"@en ;
     rdfs:comment "Textiles - Tests for colour fastness (multi-part standard)."@en ;
-    rdfs:seeAlso <https://www.iso.org/standard/65207.html> .
-eutex:ISO12945 a eutex:TestStandard ; rdfs:label "ISO 12945"@en ;
+    oea:standardCode "ISO 105" ;
+    oea:standardUrl "https://www.iso.org/standard/65207.html"^^xsd:anyURI .
+eutex:ISO12945 a oea:AssessmentStandard ; rdfs:label "ISO 12945"@en ;
     rdfs:comment "Textiles - Determination of fabric propensity to surface pilling, fuzzing or matting."@en ;
-    rdfs:seeAlso <https://www.iso.org/standard/75375.html> .
-eutex:ISO12947 a eutex:TestStandard ; rdfs:label "ISO 12947"@en ;
+    oea:standardCode "ISO 12945" ;
+    oea:standardUrl "https://www.iso.org/standard/75375.html"^^xsd:anyURI .
+eutex:ISO12947 a oea:AssessmentStandard ; rdfs:label "ISO 12947"@en ;
     rdfs:comment "Textiles - Determination of the abrasion resistance of fabrics by the Martindale method."@en ;
-    rdfs:seeAlso <https://www.iso.org/standard/75376.html> .
+    oea:standardCode "ISO 12947" ;
+    oea:standardUrl "https://www.iso.org/standard/75376.html"^^xsd:anyURI .
+eutex:ISO13934_1 a oea:AssessmentStandard ; rdfs:label "ISO 13934-1"@en ;
+    rdfs:comment "Textiles - Tensile properties of fabrics - Part 1: Determination of maximum force and elongation at maximum force using the strip method."@en ;
+    oea:standardCode "ISO 13934-1" .
+eutex:ISO13937 a oea:AssessmentStandard ; rdfs:label "ISO 13937"@en ;
+    rdfs:comment "Textiles - Tear properties of fabrics (multi-part standard)."@en ;
+    oea:standardCode "ISO 13937" .
+eutex:ISO4484_1 a oea:AssessmentStandard ; rdfs:label "ISO 4484-1"@en ;
+    rdfs:comment "Textiles and textile products - Microplastics from textile sources - Part 1: Determination of material loss from fabrics during washing."@en ;
+    oea:standardCode "ISO 4484-1" .
+eutex:JRCTextilePrepStudy a oea:AssessmentStandard ; rdfs:label "JRC Textile Preparatory Study, 3rd Milestone"@en ;
+    rdfs:comment "EU Preparatory Study on Textiles (JRC, December 2025): the robustness and recyclability scoring methodologies for ESPR textile requirements."@en ;
+    oea:standardCode "JRC Textile Prep Study 3rd Milestone" ;
+    oea:standardUrl "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"^^xsd:anyURI .
 
-# Test Standard property
-eutex:hasTestStandard
-    a owl:ObjectProperty ;
-    rdfs:label "Test Standard"@en ;
-    rdfs:comment "The test standard used for a durability or robustness test."@en ;
-    rdfs:range eutex:TestStandard ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
+# --- Test and scoring methods --------------------------------------------------
+
+eutex:MartindaleAbrasionTest a oea:TestMethod ; rdfs:label "Martindale Abrasion Test"@en ;
+    rdfs:comment "Abrasion resistance by the Martindale method: rubs until specimen breakdown; the result is the number of cycles (unitCode C62)."@en ;
+    oea:isDefinedByStandard eutex:ISO12947 .
+eutex:PillingTest a oea:TestMethod ; rdfs:label "Pilling Test"@en ;
+    rdfs:comment "Propensity to surface pilling, fuzzing or matting; the result is a grade 1-5, 5 best (unitCode C62)."@en ;
+    oea:isDefinedByStandard eutex:ISO12945 .
+eutex:ColourFastnessTest a oea:TestMethod ; rdfs:label "Colour Fastness Test"@en ;
+    rdfs:comment "Colour fastness on the grey scale; the result is a grade 1-5, 5 best (unitCode C62)."@en ;
+    oea:isDefinedByStandard eutex:ISO105 .
+eutex:DimensionalChangeTest a oea:TestMethod ; rdfs:label "Dimensional Change Test"@en ;
+    rdfs:comment "Dimensional change (shrinkage or stretch) after washing; the result is the largest absolute change in percent (unitCode P1)."@en ;
+    oea:isDefinedByStandard eutex:ISO3759 , eutex:ISO6330 ;
+    rdfs:seeAlso dppk:dimensionalChange .
+eutex:SpiralityTest a oea:TestMethod ; rdfs:label "Spirality Test"@en ;
+    rdfs:comment "Spirality after laundering; the result is the spirality in percent (unitCode P1)."@en ;
+    oea:isDefinedByStandard eutex:ISO16322_3 .
+eutex:AppearanceAfterWashingTest a oea:TestMethod ; rdfs:label "Appearance After Washing Test"@en ;
+    rdfs:comment "Visual inspection of apparel after domestic washing and drying; colour change, fabric appearance, seam appearance and non-textile parts are each graded 1-5, 5 meaning no change (unitCode C62)."@en ;
+    oea:isDefinedByStandard eutex:ISO15487 ;
+    rdfs:seeAlso dppk:visualInspection .
+eutex:TensileStrengthTest a oea:TestMethod ; rdfs:label "Tensile Strength Test"@en ;
+    rdfs:comment "Maximum tensile force by the strip method (unitCode NEW)."@en ;
+    oea:isDefinedByStandard eutex:ISO13934_1 .
+eutex:TearStrengthTest a oea:TestMethod ; rdfs:label "Tear Strength Test"@en ;
+    rdfs:comment "Tear force of the fabric (unitCode NEW)."@en ;
+    oea:isDefinedByStandard eutex:ISO13937 .
+eutex:MicrofibreReleaseTest a oea:TestMethod ; rdfs:label "Microfibre Release Test"@en ;
+    rdfs:comment "Material loss from fabrics during washing (unitCode MGM per stated fabric mass)."@en ;
+    oea:isDefinedByStandard eutex:ISO4484_1 .
+eutex:JRCRobustnessScoring a oea:AssessmentMethod ; rdfs:label "JRC Robustness Scoring"@en ;
+    rdfs:comment """Composite robustness score 0-10 of the EU Preparatory Study: after 5 cleaning cycles (ISO 6330)
+spirality earns 0-3 points, dimensional change 0-3 points and the visual inspection 0-4 points.
+Thresholds differ by fabric type. Spirality, woven: >6%=0, 5.5-6%=1, 5-5.5%=2, <=5%=3; knitted:
+>7%=0, 6-7%=1, 5-6%=2, <=5%=3. Dimensional change, woven: >4%=0, 3.5-4%=1, 3-3.5%=2, <=3%=3;
+knitted: >6%=0, 5.5-6%=1, 5-5.5%=2, <=5%=3."""@en ;
+    oea:isDefinedByStandard eutex:JRCTextilePrepStudy , eutex:ISO6330 .
+eutex:JRCRecyclabilityScoring a oea:AssessmentMethod ; rdfs:label "JRC Recyclability Scoring"@en ;
+    rdfs:comment """Recyclability score 0-10 of the EU Preparatory Study: elastane content above 15 % (20 % for
+PA6-rich blends over 80 %) makes the product non-recyclable (score 0); otherwise each sorting criterion
+met earns a point (same inner/outer composition, free from printings, coatings, sequins and dyes,
+mono-material) and the applicable recycling technology adds the technical recyclability points."""@en ;
+    oea:isDefinedByStandard eutex:JRCTextilePrepStudy .
+
+# --- Performance parameters ----------------------------------------------------
+
+eutex:AbrasionResistance a oea:PerformanceParameter ; rdfs:label "Abrasion Resistance"@en ;
+    rdfs:comment "Resistance of the fabric to wear by rubbing, as Martindale cycles to breakdown."@en .
+eutex:PillingResistance a oea:PerformanceParameter ; rdfs:label "Pilling Resistance"@en ;
+    rdfs:comment "Resistance to surface pilling, fuzzing or matting, as a grade 1-5."@en .
+eutex:ColourFastness a oea:PerformanceParameter ; rdfs:label "Colour Fastness"@en ;
+    rdfs:comment "Resistance of the colour to washing, light or rubbing, as a grey-scale grade 1-5."@en .
+eutex:DimensionalStability a oea:PerformanceParameter ; rdfs:label "Dimensional Stability"@en ;
+    rdfs:comment "Dimensional change (shrinkage or stretch) after washing, in percent."@en .
+eutex:Spirality a oea:PerformanceParameter ; rdfs:label "Spirality"@en ;
+    rdfs:comment "Twisting of a garment after laundering, in percent."@en .
+eutex:TensileStrength a oea:PerformanceParameter ; rdfs:label "Tensile Strength"@en ;
+    rdfs:comment "Maximum tensile force of the fabric, in newtons."@en .
+eutex:TearStrength a oea:PerformanceParameter ; rdfs:label "Tear Strength"@en ;
+    rdfs:comment "Tear force of the fabric, in newtons."@en .
+eutex:ColourChange a oea:PerformanceParameter ; rdfs:label "Colour Change"@en ;
+    rdfs:comment "Colour change of the garment after washing, as an ISO 15487 grade 1-5."@en .
+eutex:FabricAppearance a oea:PerformanceParameter ; rdfs:label "Fabric Appearance"@en ;
+    rdfs:comment "Surface appearance of the fabric after washing, as an ISO 15487 grade 1-5."@en .
+eutex:SeamAppearance a oea:PerformanceParameter ; rdfs:label "Seam Appearance"@en ;
+    rdfs:comment "Appearance of the seams after washing, as an ISO 15487 grade 1-5."@en .
+eutex:NonTextilePartsAppearance a oea:PerformanceParameter ; rdfs:label "Non-Textile Parts Appearance"@en ;
+    rdfs:comment "Condition of buttons, zips and other non-textile parts after washing, as an ISO 15487 grade 1-5."@en .
+eutex:ElastaneContent a oea:PerformanceParameter ; rdfs:label "Elastane Content"@en ;
+    rdfs:comment "Elastane (spandex) share of the total product weight, in percent."@en ;
+    rdfs:seeAlso gs1:textileMaterialPercentage .
+eutex:MicrofibreRelease a oea:PerformanceParameter ; rdfs:label "Microfibre Release"@en ;
+    rdfs:comment "Material released from the fabric per wash, in milligrams per stated fabric mass."@en .
+
+# --- Indicator kinds and condition types ---------------------------------------
+
+eutex:RobustnessScore a oea:IndicatorKind ; rdfs:label "Robustness Score"@en ;
+    rdfs:comment "Composite robustness score 0-10 by eutex:JRCRobustnessScoring (unitCode C62)."@en ;
+    skos:closeMatch dppk:robustnessScore .
+eutex:DurabilityRating a oea:IndicatorKind ; rdfs:label "Durability Rating"@en ;
+    rdfs:comment "Durability class A-E; the coded value is an eutex:DurabilityClass individual."@en .
+eutex:SheddingRiskLevel a oea:IndicatorKind ; rdfs:label "Shedding Risk Level"@en ;
+    rdfs:comment "Microfibre shedding risk band; the coded value is an eutex:MicroplasticRiskLevel individual."@en .
+eutex:SpecimenFabricType a oea:ConditionType ; rdfs:label "Specimen Fabric Type"@en ;
+    rdfs:comment "The fabric type of the tested specimen, which selects the scoring table (knitted or woven); the coded value is an eutex:FabricType individual."@en .
+
+# --- Recyclability criteria ----------------------------------------------------
+
+eutex:SameInnerOuterComposition a oea:Criterion ; rdfs:label "Same Inner and Outer Composition"@en ;
+    oea:criterionDescription "Inner and outer fabric layers have the same fibre composition." ;
+    oea:maxScore "1"^^xsd:decimal .
+eutex:FreeFromPrintings a oea:Criterion ; rdfs:label "Free From Printings"@en ;
+    oea:criterionDescription "The product carries no non-removable printings." ;
+    oea:maxScore "1"^^xsd:decimal .
+eutex:FreeFromCoatings a oea:Criterion ; rdfs:label "Free From Coatings"@en ;
+    oea:criterionDescription "The product carries no non-removable coatings." ;
+    oea:maxScore "1"^^xsd:decimal .
+eutex:FreeFromSequins a oea:Criterion ; rdfs:label "Free From Sequins"@en ;
+    oea:criterionDescription "The product carries no sequins, beads or non-textile embellishments." ;
+    oea:maxScore "1"^^xsd:decimal .
+eutex:FreeFromDyes a oea:Criterion ; rdfs:label "Free From Dyes"@en ;
+    oea:criterionDescription "The product is undyed." ;
+    oea:maxScore "1"^^xsd:decimal .
+eutex:MonoMaterial a oea:Criterion ; rdfs:label "Mono-Material"@en ;
+    oea:criterionDescription "The product is made of a single fibre type." ;
+    oea:maxScore "1"^^xsd:decimal .
+eutex:TechnicalRecyclabilityCriterion a oea:Criterion ; rdfs:label "Technical Recyclability"@en ;
+    oea:criterionDescription "A recycling technology applicable to the product's fibre composition exists; the points depend on that technology (eutex:hasApplicableRecyclingTechnology)." .
+eutex:ElastaneContentLimit a oea:Threshold ; rdfs:label "Elastane Content Limit"@en ;
+    oea:criterionDescription "Elastane content above 15 % of the product weight makes the product non-recyclable." ;
+    oea:hasThresholdParameter eutex:ElastaneContent ;
+    oea:hasComparisonOperator oea:LessThanOrEqual ;
+    oea:hasThresholdValue [ a gs1:QuantitativeValue ; gs1:value "15"^^xsd:decimal ; gs1:unitCode "P1" ] .
+eutex:ElastaneContentLimitPA6 a oea:Threshold ; rdfs:label "Elastane Content Limit (PA6-Rich Blends)"@en ;
+    oea:criterionDescription "For blends of more than 80 % PA6, elastane content above 20 % of the product weight makes the product non-recyclable." ;
+    oea:hasThresholdParameter eutex:ElastaneContent ;
+    oea:hasComparisonOperator oea:LessThanOrEqual ;
+    oea:hasThresholdValue [ a gs1:QuantitativeValue ; gs1:value "20"^^xsd:decimal ; gs1:unitCode "P1" ] .
 
 # =============================================================================
 # Cross-cutting alignment to oec: (Phase 2 lift)
 # =============================================================================
 
-eutex:RecyclabilityAssessment rdfs:subClassOf oec:RecyclabilityAssessment .
 
 # =============================================================================
 # PART 18: DPP Keystone ESPR harvest
@@ -2440,7 +2078,8 @@ eutex:organicContentPercentage
     skos:closeMatch dppk:organicContentPercentage ;
     skos:note "Organic content per Regulation (EU) 2018/848. Anchored to the DPP Keystone peer profile dppk:organicContentPercentage. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch gs1:organicPercentClaim ;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent> .
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent> ;
+    skos:broadMatch <https://w3id.org/eudpp#materialPercentage> .
 
 eutex:organicContentMass
     a owl:DatatypeProperty ;

@@ -27,7 +27,7 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 
 | | Count |
 |---|---|
-| Modules | 13 — `common/{core,interop,carrier}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}`, `upstream/{gs1-rail}` |
+| Modules | 16 — `common/{core,assessment,interop,carrier}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}`, `upstream/{gs1-rail,cirpass2-eudpp,cirpass2-textile,cirpass2-battery}` |
 | Classes | 106 |
 | Properties | 805 |
 | EPCIS Event Examples | 47 |
@@ -107,6 +107,7 @@ This monorepo provides a consistent, GS1-aligned approach to implementing Digita
 | Module | Region | Regulation | Status | Version | Last updated |
 |--------|--------|------------|--------|---------|--------------|
 | [common/core](./extensions/common/core/) | Cross-cutting | ESPR 2024/1781 Framework | Preview | 0.9.9 | Apr 2026 |
+| [common/assessment](./extensions/common/assessment/) | Cross-cutting | Assessments, tests, results, criteria and indicators (ESPR Art. 7 / Annex I; CIRPASS-2 assessment pattern) | Preview | 0.9.9 | Oct 2026 (new module, below core) |
 | [common/interop](./extensions/common/interop/) | Cross-cutting | Standards Harmonization (UNTP, CIRPASS2, JTC 24, BatteryPass) | Preview | 0.9.9 | Apr 2026 |
 | [common/carrier](./extensions/common/carrier/) | Cross-cutting | Data carrier authentication (NTAG 424 DNA SUN, NXP AN12196; RAIN RFID and signed QR reserved) | Preview | 0.9.9 | Oct 2026 (new module) |
 | [eu/battery](./extensions/eu/battery/) | EU | Battery Regulation 2023/1542 | Preview | 0.9.9 | Feb 2026 |
@@ -119,6 +120,9 @@ This monorepo provides a consistent, GS1-aligned approach to implementing Digita
 | [eu/cpr](./extensions/eu/cpr/) | EU | Construction Products Regulation (EU) 2024/3110 | Preview | 0.9.9 | Jul 2026 |
 | [us/fsma204](./extensions/us/fsma204/) | US | FSMA §204 Food Traceability Rule (21 CFR 1 Subpart S) | Preview | 0.9.9 | Apr 2026 (new module) |
 | [upstream/gs1-rail](./extensions/upstream/gs1-rail/) | Upstream (GS1 AISBL / GS1 Switzerland) | GS1 Rail Vocabulary — sectoral Layer-2 upstream profile (sensor metadata, wheel diagnostics, rail EPCIS Registry shapes); namespace stays at `https://gs1-epcis-reg.org/rail/voc/data#` | Mirror | upstream 1.6 | May 2026 (initial mirror, bridge to dpp-core) |
+| [upstream/cirpass2-eudpp](./extensions/upstream/cirpass2-eudpp/) | Upstream (CIRPASS-2 / TalTech) | CIRPASS-2 EUDPP Core Ontology — Layer-2 community profile, mirrored for browsing; namespace stays at `https://w3id.org/eudpp#` | Mirror | upstream 2.1.0 | Oct 2026 (release 2.1.0, pinned to `CIRPASS-2/ontologies-docs`) |
+| [upstream/cirpass2-textile](./extensions/upstream/cirpass2-textile/) | Upstream (CIRPASS-2, task T3.2 led by GS1 in Europe) | CIRPASS-2 Textile Ontology — sectoral Layer-2 profile, twelve modules under `https://w3id.org/eudpp/textile-*#` | Mirror | upstream 1.1.2 | Oct 2026 (initial mirror) |
+| [upstream/cirpass2-battery](./extensions/upstream/cirpass2-battery/) | Upstream (CIRPASS-2) | CIRPASS-2 EU DPP Battery Ontology — sectoral Layer-2 profile, DRAFT | Mirror | upstream 0.4.0 DRAFT | Oct 2026 (initial mirror) |
 
 ## Repository Structure
 
@@ -256,6 +260,7 @@ The project follows a **`gs1:` → SEMICeu (`cv:` / `cccev:` / `locn:` / `adms:`
 | Module | Namespace | Prefix |
 |--------|-----------|--------|
 | DPP Core | `https://ref.openepcis.org/extensions/common/core/` | `oec:` |
+| Assessment | `https://ref.openepcis.org/extensions/common/assessment/` | `oea:` |
 | Interop | `https://ref.openepcis.org/extensions/common/interop/` | `oei:` |
 | Carrier | `https://ref.openepcis.org/extensions/common/carrier/` | `carrier:` |
 | Battery | `https://ref.openepcis.org/extensions/eu/battery/` | `eubat:` |
@@ -391,6 +396,7 @@ Each module follows [Semantic Versioning](https://semver.org/) and is versioned 
 | Module | Version | Notes |
 |--------|---------|-------|
 | `common/core` | 0.9.9 | ESPR framework + shared patterns; breaking changes bump major |
+| `common/assessment` | 0.9.9 | Assessment and test model below the core (methods, standards, results, criteria, indicators) |
 | `common/interop` | 0.9.9 | UNTP / CIRPASS2 / JTC 24 / BatteryPass bridges |
 | `common/carrier` | 0.9.9 | Data carrier authentication (NTAG 424 DNA SUN) |
 | `eu/battery` | 0.9.9 | Battery Regulation 2023/1542 |
@@ -404,6 +410,8 @@ Each module follows [Semantic Versioning](https://semver.org/) and is versioned 
 | `us/fsma204` | 0.9.9 | FDA FSMA §204 (preview) |
 
 Modules declare their minimum `common/core` dependency in their respective `README.md` and `CHANGELOG.md`.
+
+How a release is cut, end to end, is in [`docs/RELEASE.md`](./docs/RELEASE.md).
 
 ## GS1 Standards Used
 

@@ -58,6 +58,15 @@ public class ProvenanceCommand implements Runnable {
                     + "these pairs, so the audit trail matches a curated apply.")
     String approveFile;
 
+    @CommandLine.Option(names = "--coverage",
+            description = "Reverse-coverage JSON (repo-relative, from `reverse`) to add as a 'coverage' sheet of the workbook.")
+    String coverageFile;
+
+    @CommandLine.Option(names = "--coverage-prefill",
+            description = "JSON object upstream IRI → {decision, notes} (repo-relative): pre-fills the coverage "
+                    + "sheet's Decision and Notes columns with a recommendation set.")
+    String coveragePrefillFile;
+
     @CommandLine.Option(names = "--xlsx",
             description = "Also write an Excel curation workbook to this path (repo-relative).")
     String xlsxOut;
@@ -147,7 +156,32 @@ public class ProvenanceCommand implements Runnable {
         System.out.println("prov:   " + root.resolve(provOut) + ".{ttl,json}");
         if (xlsxOut != null) {
             Path xp = root.resolve(xlsxOut).normalize();
-            ReviewWorkbook.write(xp, toWorkbookRows(decisions), stamp, bulkModel, qaModel);
+            List<io.openepcis.dpp.vocabsync.model.CoverageRow> coverage = null;
+            if (coverageFile != null) {
+                try {
+                    JsonNode cov = mapper.readTree(root.resolve(coverageFile).normalize().toFile());
+                    coverage = mapper.convertValue(cov.path("terms"),
+                            new com.fasterxml.jackson.core.type.TypeReference<List<io.openepcis.dpp.vocabsync.model.CoverageRow>>() {
+                            });
+                    System.err.printf("provenance: coverage sheet with %d upstream terms%n", coverage.size());
+                } catch (IOException e) {
+                    System.err.println("provenance: cannot read coverage file: " + e.getMessage());
+                }
+            }
+            Map<String, ReviewWorkbook.Prefill> prefill = Map.of();
+            if (coveragePrefillFile != null) {
+                try {
+                    JsonNode pf = mapper.readTree(root.resolve(coveragePrefillFile).normalize().toFile());
+                    Map<String, ReviewWorkbook.Prefill> m = new java.util.LinkedHashMap<>();
+                    pf.fields().forEachRemaining(e -> m.put(e.getKey(), new ReviewWorkbook.Prefill(
+                            e.getValue().path("decision").asText(""), e.getValue().path("notes").asText(""))));
+                    prefill = m;
+                    System.err.printf("provenance: %d coverage decisions pre-filled%n", prefill.size());
+                } catch (IOException e) {
+                    System.err.println("provenance: cannot read coverage prefill: " + e.getMessage());
+                }
+            }
+            ReviewWorkbook.write(xp, toWorkbookRows(decisions), stamp, bulkModel, qaModel, coverage, prefill);
             System.out.println("xlsx:   " + xp);
         }
     }

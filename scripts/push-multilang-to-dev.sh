@@ -64,10 +64,13 @@ for row in "${DEMOS[@]}"; do
   src="$REPO_ROOT/$rel"
   [[ ! -f "$src" ]] && { yellow "SKIP $gtin — $rel missing"; continue; }
   # Fetch existing master-data with the LD shape so @context is included
-  # (without the Accept header the DLR strips it). The source seed's
-  # @context wins because it's the canonical declaration of which
-  # ref.openepcis.org extensions the payload uses; the server's compacted
-  # array sometimes drops the openepcis extension URLs.
+  # (without the Accept header the DLR strips it). The source seed names the
+  # modules the payload uses, but in their STANDARD form, which requires
+  # prefixes; the body PUT here is the served document, whose GS1 keys are
+  # bare. So the seed's module contexts go in their operational form
+  # (textile-context -> textile-operational-context), and dpp-core, which every
+  # operational context already includes, drops out. Writing the seed's list
+  # as-is is how the epc.is jacket ended up with keys that expand to nothing.
   curl -sk -L -H "Accept: application/ld+json" \
     "$DL_URL/01/$gtin?linkType=masterData" -o /tmp/cur.json
   jq -s '
@@ -75,7 +78,11 @@ for row in "${DEMOS[@]}"; do
     ($src["productDescription"] // $src["gs1:productDescription"]) as $desc |
     ($src["hasBatchLotNumber"] // $src["gs1:hasBatchLotNumber"]) as $lot |
     $cur
-      | ."@context" = $src["@context"]
+      | ."@context" = ([ $src["@context"] | (if type == "array" then .[] else . end)
+          | select(type == "string")
+          | select(test("/common/core/dpp-core-context\\.jsonld$") | not)
+          | sub("-context\\.jsonld$"; "-operational-context.jsonld") ]
+          | if length == 0 then ["https://ref.openepcis.org/extensions/common/core/dpp-operational-context.jsonld"] else . end)
       | .productName = $src.productName
       | if $desc then .productDescription = $desc else . end
       | del(."gs1:productDescription")

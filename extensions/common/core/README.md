@@ -113,13 +113,23 @@ GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/
 ```json
 {
   "type": "PerformanceInfo",
-  "oec:hasExpectedLifespan": {
-    "type": "gs1:QuantitativeValue",
-    "gs1:value": "10",
-    "gs1:unitCode": "ANN"
-  },
-  "oec:usageCycles": 3000,
-  "oec:performanceClass": "A"
+  "oea:hasIndicator": [
+    {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:ExpectedLifetime" },
+      "oea:hasIndicatorValue": { "type": "gs1:QuantitativeValue", "gs1:value": "10", "gs1:unitCode": "ANN" }
+    },
+    {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:NumberOfUseCycles" },
+      "oea:hasIndicatorValue": { "type": "gs1:QuantitativeValue", "gs1:value": 3000, "gs1:unitCode": "C62" }
+    },
+    {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:PerformanceClass" },
+      "oea:indicatorText": "A"
+    }
+  ]
 }
 ```
 
@@ -128,8 +138,18 @@ GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/
 ```json
 {
   "type": "RepairabilityInfo",
-  "oec:repairabilityScore": 7.5,
-  "oec:repairabilityClass": "B",
+  "oea:hasIndicator": [
+    {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:RepairabilityScore" },
+      "oea:hasIndicatorValue": { "type": "gs1:QuantitativeValue", "gs1:value": "7.5", "gs1:unitCode": "C62" }
+    },
+    {
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": { "@id": "oea:RepairabilityClass" },
+      "oea:indicatorText": "B"
+    }
+  ],
   "oec:hasSparePartsAvailability": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",

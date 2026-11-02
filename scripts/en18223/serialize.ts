@@ -73,6 +73,7 @@ export function operationalContextFor(master: any): string | string[] {
 const PREFIXES: Record<string, string> = {
   gs1: "https://ref.gs1.org/voc/",
   oec: "https://ref.openepcis.org/extensions/common/core/",
+  oea: "https://ref.openepcis.org/extensions/common/assessment/",
   eubat: "https://ref.openepcis.org/extensions/eu/battery/",
   eutex: "https://ref.openepcis.org/extensions/eu/textile/",
   eudr: "https://ref.openepcis.org/extensions/eu/eudr/",

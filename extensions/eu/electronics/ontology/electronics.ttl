@@ -5,6 +5,7 @@
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix euelec: <https://ref.openepcis.org/extensions/eu/electronics/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
 # UNTP namespace references for semantic alignment
 @prefix untp: <https://vocabulary.uncefact.org/untp/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -735,7 +736,7 @@ euelec:hasRepairabilityClass
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:repairabilityClass .
+    rdfs:seeAlso oea:RepairabilityClass .
 
 euelec:hasRepairCriteria
     a owl:ObjectProperty ;
@@ -1203,8 +1204,7 @@ euelec:recyclabilityRate
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:recyclabilityRate ;
-    skos:exactMatch oec:recyclabilityRate .
+    rdfs:seeAlso oea:RecyclabilityRate .
 
 euelec:recoverabilityRate
     a owl:DatatypeProperty ;
@@ -1494,7 +1494,7 @@ class covers treatment output accounting."""@en ;
     rdfs:seeAlso oec:RecyclabilityAssessment ;
     rdfs:seeAlso euelec:WEEECompliance ;
     skos:closeMatch oec:RecyclabilityAssessment ;
-    skos:broadMatch <https://w3id.org/eudpp#LcaResult> .
+    skos:broadMatch <https://w3id.org/eudpp#LCAResult> .
 
 euelec:BatteryDisposition
     a owl:Class ;
@@ -1734,11 +1734,11 @@ euelec:recoveryRate
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the minimum recovery targets of WEEE Directive 2012/19/EU
-Annex V. Distinct from euelec:recoverabilityRate and oec:recyclabilityRate, which state a product's
+Annex V. Distinct from euelec:recoverabilityRate and a recyclability rate (oea:RecyclabilityRate), which state a product's
 design potential before use; this is what one treatment operation achieved. No GS1, SEMICeu or
 schema.org term expresses it."""@en ;
     rdfs:seeAlso euelec:recoverabilityRate ;
-    rdfs:seeAlso oec:recyclabilityRate .
+    rdfs:seeAlso oea:RecyclabilityRate .
 
 euelec:recyclingRate
     a owl:DatatypeProperty ;
@@ -1753,7 +1753,7 @@ Directive 2012/19/EU Annex V, which are set separately from the overall recovery
 from euelec:recyclabilityRate, which is the design-potential figure. No GS1, SEMICeu or schema.org
 term expresses it."""@en ;
     rdfs:seeAlso euelec:recyclabilityRate ;
-    rdfs:seeAlso oec:recyclabilityRate .
+    rdfs:seeAlso oea:RecyclabilityRate .
 
 euelec:energyRecoveryRate
     a owl:DatatypeProperty ;

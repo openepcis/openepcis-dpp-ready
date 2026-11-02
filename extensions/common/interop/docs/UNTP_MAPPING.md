@@ -103,8 +103,8 @@ These properties exist in OpenEPCIS but have no UNTP equivalent:
 |----------|---------|
 | `oec:economicOperatorId` | EU EOID per ESPR Article 77 |
 | `oec:scipId` | ECHA SCIP database identifier |
-| `oec:repairabilityScore` | French Repairability Index |
-| `oec:repairabilityClass` | A-E repair classification |
+| `oea:RepairabilityScore` indicator | French Repairability Index |
+| `oea:RepairabilityClass` indicator | A-E repair classification |
 | `oec:hasAccessLevel` | ESPR Article 9 access control |
 | `oec:safeUseInstructions` | SCIP safe use text |
 | `oec:safeDisassemblyInstructions` | SCIP disassembly text |

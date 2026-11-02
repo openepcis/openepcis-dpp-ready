@@ -2,6 +2,43 @@
 
 All notable changes to the Battery module will be documented in this file.
 
+## [Unreleased]
+
+### Changed: recyclability rate pointer
+
+`eubat:recyclabilityRate` points at `oea:RecyclabilityRate` (rdfs:seeAlso) instead of the removed
+`oec:recyclabilityRate`.
+
+### Changed: CIRPASS-2 pointers follow EUDPP 2.1.0
+
+### Added: audited SKOS mappings to the CIRPASS-2 battery ontology (vocab-sync wave 2026-10-30)
+
+`vocab-sync audit --module battery` against EUDPP 2.1.0 and the mirrored EU DPP Battery
+Ontology 0.4.0 DRAFT (grader gpt-oss-20b, three-judge QA panel on qwen3-32b, report
+`docs/skos-alignment/skos-completeness-battery-2026-10-29.{md,json}`; 938 findings, 93 APPLY
+after triage, 43 of them with a CIRPASS-2 target). 32 were curated and written:
+`eubat:Battery`, `numberOfFullCycles`, `cRateLifeCycleTest`, `labelSymbol`,
+`hasRemainingUsableEnergy`, `initialSelfDischarge`, `powerCapabilityRatio`,
+`roundTripEfficiency` / `roundTripEfficiencyAt50PercentCycleLife` → `skos:exactMatch` on
+their `battery-performance#` twins; the generic rate, resistance, exposure-time, test-report
+and self-discharge properties → `skos:narrowMatch` on the initial / at-50 % / charging
+specialisations; `PowerCapabilityAtSoC`, `hasPowerCapabilityAt20SoC`,
+`safetyInstructionsForDismantling`, `substanceCasNumber` / `substanceEcNumber`,
+`MaterialCategory`, `hasOperatorInformation`, `CarbonFootprintDeclaration` → `broadMatch` /
+`narrowMatch` on the battery and EUDPP terms. `eubat:hasMaximumPermittedBatteryPower` gets an
+`rdfs:seeAlso` to `battery-performance#maximumPermittedBatteryPower` (not proposed by the
+panel). Held: the textile-targeted proposals (`hasRecycledContent`, `lithiumRecycledShare`,
+`capacityThresholdForExhaustion` → textile value properties), range-to-boundary and
+threshold-to-value proposals, `hasMaximumDischargingPower exactMatch
+maximumPermittedBatteryPower`, and the inverted `separateCollectionSymbolUrl`.
+
+`eubat:ecNumber` → `eudpp:ecNumber`, `eubat:hasSubstanceLocation` →
+`eudpp:isLocatedInProduct`, `eubat:RecycledContent` → `eudpp:RecycledMaterialsUseResult`,
+`eubat:CarbonFootprintDeclaration` / `eubat:CarbonFootprintClass` → `eudpp:LCIAResult`
+(the `EnvironmentalFootprint` class no longer exists in LCA 3.1). Relation grades kept.
+The CIRPASS-2 EU DPP Battery Ontology 0.4.0 DRAFT is now mirrored as
+`extensions/upstream/cirpass2-battery`; aligning `eubat:` to it is a follow-up audit.
+
 ## [0.9.9] - 2026-08-04
 
 ### Changed: envelope-term anchor to CIRPASS-2 EUDPP

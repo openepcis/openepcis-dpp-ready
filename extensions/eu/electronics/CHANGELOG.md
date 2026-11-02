@@ -2,6 +2,19 @@
 
 All notable changes to the Electronics module will be documented in this file.
 
+## [Unreleased]
+
+### Changed: pointers to removed core properties
+
+`euelec:recyclabilityRate` and the repairability-class pointer now point at `oea:RecyclabilityRate` and
+`oea:RepairabilityClass` (rdfs:seeAlso); the core flat properties they mapped to were removed. The
+`repairabilityScore` alias left the UNTP bridge context. The module itself moves onto
+`common/assessment` in the next change.
+
+### Changed
+- `euelec:MaterialRecoveryResult skos:broadMatch eudpp:LCAResult` (was `LcaResult`,
+  renamed in the EUDPP LCA 3.1 module).
+
 ## [0.9.9] - 2026-08-04
 
 ### Changed: schema descriptions cite the regulation

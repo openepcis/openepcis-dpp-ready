@@ -521,28 +521,9 @@ dpp-sh:RepairabilityInfoShape
     a sh:NodeShape ;
     sh:targetClass oec:RepairabilityInfo ;
     sh:name "Repairability Information Shape"@en ;
-    sh:description "Validates RepairabilityInfo instances"@en ;
+    sh:description "Validates RepairabilityInfo instances. A repairability score or class is an oea:Indicator, validated by the assessment shapes."@en ;
 
-    sh:property [
-        sh:path oec:repairabilityScore ;
-        sh:name "repairabilityScore"@en ;
-        sh:description "Repairability score (typically 0-10)"@en ;
-        sh:datatype xsd:decimal ;
-        sh:minInclusive 0 ;
-        sh:maxInclusive 10 ;
-        sh:maxCount 1 ;
-        sh:message "repairabilityScore must be between 0 and 10"@en
-    ] ;
 
-    sh:property [
-        sh:path oec:repairabilityClass ;
-        sh:name "repairabilityClass"@en ;
-        sh:description "Repairability class (A-E)"@en ;
-        sh:datatype xsd:string ;
-        sh:pattern "^[A-E]$" ;
-        sh:maxCount 1 ;
-        sh:message "repairabilityClass must be A, B, C, D, or E"@en
-    ] ;
 
     sh:property [
         sh:path oec:diyRepairPossible ;
@@ -556,34 +537,6 @@ dpp-sh:RepairabilityInfoShape
         sh:name "professionalRepairNetwork"@en ;
         # owl:DatatypeProperty, rdfs:range xsd:anyURI — a literal, not an IRI node.
         sh:datatype xsd:anyURI ;
-        sh:maxCount 1
-    ] .
-
-# =============================================================================
-# PerformanceInfo Shape
-# =============================================================================
-
-dpp-sh:PerformanceInfoShape
-    a sh:NodeShape ;
-    sh:targetClass oec:PerformanceInfo ;
-    sh:name "Performance Information Shape"@en ;
-    sh:description "Validates PerformanceInfo instances"@en ;
-
-    sh:property [
-        sh:path oec:usageCycles ;
-        sh:name "usageCycles"@en ;
-        sh:description "Expected number of usage cycles"@en ;
-        sh:datatype xsd:integer ;
-        sh:minInclusive 0 ;
-        sh:maxCount 1 ;
-        sh:message "usageCycles must be a non-negative integer"@en
-    ] ;
-
-    sh:property [
-        sh:path oec:performanceClass ;
-        sh:name "performanceClass"@en ;
-        sh:description "Performance/efficiency class (e.g., A+++ to G)"@en ;
-        sh:datatype xsd:string ;
         sh:maxCount 1
     ] .
 
@@ -671,15 +624,6 @@ dpp-sh:QuantitativeValueShape
 # Per-property unitCode shapes (representative; extend as new properties land).
 # Pattern: target subjects of a property; require its value's unitCode = canonical code.
 
-dpp-sh:ExpectedLifespanShape
-    a sh:NodeShape ;
-    sh:targetSubjectsOf oec:hasExpectedLifespan ;
-    sh:property [
-        sh:path ( oec:hasExpectedLifespan gs1:unitCode ) ;
-        sh:hasValue "ANN" ;
-        sh:message "oec:hasExpectedLifespan must use unitCode 'ANN' (years)"@en
-    ] .
-
 dpp-sh:GuaranteedLifespanShape
     a sh:NodeShape ;
     sh:targetSubjectsOf oec:hasGuaranteedLifespan ;
@@ -687,15 +631,6 @@ dpp-sh:GuaranteedLifespanShape
         sh:path ( oec:hasGuaranteedLifespan gs1:unitCode ) ;
         sh:hasValue "ANN" ;
         sh:message "oec:hasGuaranteedLifespan must use unitCode 'ANN' (years)"@en
-    ] .
-
-dpp-sh:TechnicalLifetimeShape
-    a sh:NodeShape ;
-    sh:targetSubjectsOf oec:hasTechnicalLifetime ;
-    sh:property [
-        sh:path ( oec:hasTechnicalLifetime gs1:unitCode ) ;
-        sh:hasValue "ANN" ;
-        sh:message "oec:hasTechnicalLifetime must use unitCode 'ANN' (years)"@en
     ] .
 
 # =============================================================================

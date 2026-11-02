@@ -4,6 +4,23 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+### Breaking: performance, repairability and recyclability values move to `common/assessment`
+
+- `dpp-core` imports the new `common/assessment` module (`oea:`); its context imports the assessment
+  context.
+- `oec:PerformanceInfo` and `oec:RecyclabilityAssessment` are subclasses of `oea:Assessment`.
+- Removed, with their replacement:
+  - `oec:usageCycles` → indicator of kind `oea:NumberOfUseCycles`
+  - `oec:hasExpectedLifespan` → `oea:ExpectedLifetime`; `oec:hasTechnicalLifetime` → `oea:TechnicalLifetime`
+  - `oec:performanceClass` → `oea:PerformanceClass`; `oec:testedConditions` → `oea:hasCondition`
+  - `oec:repairabilityScore` / `oec:repairabilityClass` → `oea:RepairabilityScore` / `oea:RepairabilityClass`
+  - `oec:recyclabilityScore` → `oea:RecyclabilityScore`; `oec:recyclabilityMethodology` → `oea:hasMethod`
+  - `oec:recyclabilityRate`, `oec:recoverableRate`, `oec:recyclingCollectionRate` → `oea:MeasurementResult`
+    observing `oea:RecyclabilityRate`, `oea:RecoverableRate`, `oea:RecyclingCollectionRate`
+- Their SKOS mappings moved to the `oea:` individuals. Shapes, access levels and context overrides
+  follow. `oec:Biodegradability`, `oec:EnergyEfficiency` and the EPD/LCA classes move with the
+  modules that use them.
+
 ### Added: the EN 18239:2026 actor-role vocabulary and role-based access grants
 
 EN 18239:2026 (access rights management) is published. It defines access to
@@ -40,6 +57,55 @@ granularity by role (5.2.23). The vocabulary now carries that role model:
 Role gating governs actors OTHER than the owning economic operator; the data controller
 reading its own passport is never role-gated. This is the vocabulary half of the
 EN 18239 alignment; the enforcement half lives in the resolver.
+
+### Changed: CIRPASS-2 pointers follow EUDPP 2.1.0
+
+The EUDPP mirror moved to 2.1.0 (SOC 2.2.0, LCA 3.1, P_DPP 2.2.0, EVENT 1.0.0) and
+`check:mappings` rule 13 reported every `cirpass2:` target that no longer exists.
+Re-pointed, relation grades kept: `oec:casNumber`/`oec:ecNumber`/`oec:iupacName` →
+`casNumber`/`ecNumber`/`iupacName` (exactMatch kept), `oec:substanceLocation` →
+`substanceLocationDescription` (exactMatch) + `isLocatedInProduct`, `oec:concentration` →
+`ConcentrationRange` + `MaximumConcentration`, `oec:socThreshold` → `MaximumConcentration`,
+`oec:declaredUnit` → `hasMeasurementUnit`, `oec:CarbonFootprintDeclaration` /
+`oec:EmissionsPerformance` → `LCIAResult`, `oec:RecycledContent` /
+`oec:waterConsumption` / `oec:landUse` / `oec:materialFootprint` → the LCA 3.1
+`*Result` classes, `oec:ImpactIndicatorResult` / `oec:LifecycleStageResult` →
+`LCAResult` + `LCIAResult` / `LCAModuleValue`, `oec:ImpactIndicatorType` →
+`LCIAImpactCategory` (+ `AreaOfProtection`), `oec:productCategoryRules` →
+`followsPCR`/`followsPEFCR`, `oec:hasLifecycleStage` → `forLifeCycleModule`.
+
+### Added: pointers to new EUDPP 2.1.0 terms
+
+### Added: audited SKOS mappings to the CIRPASS-2 ontologies (vocab-sync wave 2026-10-30)
+
+`vocab-sync audit --module core` against the refreshed upstream indexes (EUDPP 2.1.0 plus
+the new textile and battery mirrors; bulk grader gpt-oss-20b, three-judge QA panel on
+qwen3-32b, report `docs/skos-alignment/skos-completeness-core-2026-10-29.{md,json}`).
+Of the 97 findings the triage marked APPLY, the 30 whose target is a CIRPASS-2 term were
+curated and written; the rest (DPP Keystone, BatteryPass, UNTP, GS1, rail, schema.org)
+stay in `OPEN_DECISIONS.md` for the next curation round. Written: `oec:dppSchemaVersion`,
+`oec:isCriticalRawMaterial`, `oec:LifecycleStage` → `exactMatch` on their EUDPP twins;
+`oec:passportIdentifier closeMatch eudpp:hasDigitalProductPassportId` (downgraded from the
+panel's exactMatch: datatype vs object property); `oec:customsCommodityCode closeMatch
+commodityCode`; `oec:EmissionsPerformance narrowMatch LCIAResult`; `oec:PerformanceInfo
+narrowMatch` the EUDPP `Durability`/`Reliability`, the battery `BatteryPerformance`/
+`BatteryDurability` and seven textile performance-parameter classes; recycled-content,
+trade-name, component-identifier, end-of-life-instruction and recyclability-assessment
+properties graded against their textile or EUDPP counterparts; `oec:usageCycles closeMatch`
+battery `expectedLifetimeCycles`. Held with reasons (different axis, part-of rather than
+kind-of, generic carrier): the `oec:LifecycleStageResult` → `*Result`, `oec:DigitalProductPassport`
+→ instruction/event, `oec:RecyclabilityAssessment` → result/score/method, `oec:EndOfLifeProgram`
+→ instruction/process and `oec:wasteGenerationAmount` → `eudpp:amount` proposals.
+`oec:RecyclabilityAssessment` gets an `rdfs:seeAlso` to the textile class of the same name
+instead.
+
+`rdfs:seeAlso` only (no audit yet): `oec:dppSchemaVersion` → `dppSchemaVersion`,
+`oec:hasBackupCopyHost` → `dppBackupUrl`, `oec:previousPassportVersion` →
+`hasPreviousDPP`, `oec:DigitalProductPassport` → `DPPEvent`, `dppUrl`, the four
+instruction properties → the SOC `has*Instruction` properties, the twelve EN 15804+A2
+indicator individuals → `ind_GWPtotal` … `ind_ADPF`, and `oec:StageA1` … `oec:StageD` →
+`en15804moduleA1` … `en15804moduleC4` / `moduleD`. The header comment on the
+`cirpass2:` prefix now states the actual policy (seeAlso plus audited SKOS).
 
 ## [0.9.9] - 2026-08-04
 
