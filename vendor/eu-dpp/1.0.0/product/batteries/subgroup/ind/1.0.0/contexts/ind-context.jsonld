@@ -1,0 +1,295 @@
+{
+  "@context": {
+    "@import": "../../../../1.0.0/contexts/batteries-context.jsonld",
+    "@protected": true,
+    "dpp": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#",
+    "bat": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#",
+    "dppcom": "https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#",
+    "dct": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "@base": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#",
+    "expectedLifetimeCycles": {
+      "@id": "bat:expectedLifetimeCycles",
+      "@type": "xsd:positiveInteger"
+    },
+    "cycleLifeReferenceTest": {
+      "@id": "bat:cycleLifeReferenceTest",
+      "@container": "@language"
+    },
+    "capacityExhaustionThreshold": {
+      "@id": "bat:capacityExhaustionThreshold",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "initialRoundTripEnergyEfficiency": {
+      "@id": "bat:initialRoundTripEnergyEfficiency",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "roundTripEfficiencyAtHalfCycleLife": {
+      "@id": "bat:roundTripEfficiencyAtHalfCycleLife",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "cycleLifeChargeCRate": {
+      "@id": "bat:cycleLifeChargeCRate",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "ratedCapacity": {
+      "@id": "bat:ratedCapacity",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "capacityFade": {
+      "@id": "bat:capacityFade",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "powerCapability": {
+      "@id": "bat:powerCapability",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "powerFade": {
+      "@id": "bat:powerFade",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "internalResistance": {
+      "@id": "bat:internalResistance",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "internalResistanceIncrease": {
+      "@id": "bat:internalResistanceIncrease",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "expectedLifetimeCyclesRest": {
+      "@id": "bat:expectedLifetimeCyclesRest",
+      "@type": "xsd:positiveInteger"
+    },
+    "expectedLifetimeYears": {
+      "@id": "bat:expectedLifetimeYears",
+      "@type": "xsd:positiveInteger"
+    },
+    "remainingCapacity": {
+      "@id": "bat:remainingCapacity",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "remainingPowerCapability": {
+      "@id": "bat:remainingPowerCapability",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "remainingRoundTripEfficiency": {
+      "@id": "bat:remainingRoundTripEfficiency",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "selfDischargingRateSet": {
+      "@id": "bat:selfDischargingRateSet",
+      "@context": {
+        "selfDischargingRate": {
+          "@id": "bat:selfDischargingRate",
+          "@context": {
+            "unit": {
+              "@id": "dppcom:unit",
+              "@context": {
+                "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+              },
+              "@type": "@vocab"
+            },
+            "value": {
+              "@id": "dppcom:value",
+              "@type": "xsd:double"
+            }
+          }
+        },
+        "recordedTime": {
+          "@id": "dppcom:recordedTime",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+    "ohmicResistance": {
+      "@id": "bat:ohmicResistance",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "stateOfCertifiedEnergy": {
+      "@id": "bat:stateOfCertifiedEnergy",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    }
+  },
+  "@type": "dpp:DigitalProductPassport"
+}

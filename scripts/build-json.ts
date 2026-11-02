@@ -164,6 +164,10 @@ interface OntologyModule {
    *  the browser derives term-local names from this field, and the ontologyIri
    *  would send every runtime-derived link to the prefixed-CURIE fallback. */
   publishTermNamespace?: boolean;
+  /** Group skos:Concept values by their skos:inScheme (one enumeration per concept scheme)
+   *  instead of one flat skos:Concept list. The EU DPP vocabularies are seventeen schemes
+   *  whose values would otherwise land in a single list of 294 entries. */
+  groupConceptsByScheme?: boolean;
 }
 
 // Ontology modules configuration
@@ -307,6 +311,27 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ].map((m) => `https://w3id.org/eudpp/battery-${m}#`),
     ontologyIri: "https://w3id.org/eudpp/battery",
     publishTermNamespace: true,
+  },
+  // Upstream mirror — EU DPP Registry semantic data artifacts 1.0.0 (European
+  // Commission, EUPL-1.2). Seventeen SKOS vocabularies, each under
+  // https://repository.product-passport.ec.europa.eu/{core|product/batteries}/vocabs/<name>#;
+  // the core vocabulary scheme carries title and version.
+  {
+    name: "eu-dpp",
+    dir: "extensions/upstream/eu-dpp",
+    ttlFile: "eu-dpp.ttl",
+    namespace: "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#",
+    extraNamespaces: [
+      ...["common-error-code", "common-vocabulary", "core-error-code", "critical-raw-material",
+        "granularity-level", "information-type", "instance-status", "measurement-unit",
+        "observed-characteristic"].map((v) => `https://repository.product-passport.ec.europa.eu/core/vocabs/${v}#`),
+      ...["battery-category", "battery-chemical-symbol", "battery-chemistry", "battery-error-code",
+        "battery-information-type", "battery-status", "battery-vocabulary"].map(
+        (v) => `https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/${v}#`),
+    ],
+    ontologyIri: "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary",
+    publishTermNamespace: true,
+    groupConceptsByScheme: true,
   },
 ];
 
@@ -504,9 +529,14 @@ function extractExternalEnumerations(
   store: Store,
   termNamespaces: string[],
   nsFor: (uri: string) => string,
-  allSubjects: Set<string>
+  allSubjects: Set<string>,
+  groupConceptsByScheme = false
 ): EnumerationData[] {
   const grouped = new Map<string, EnumValue[]>();
+  const schemeOf = (subject: string, type: string): string => {
+    if (!groupConceptsByScheme || type !== `${SKOS}Concept`) return type;
+    return getObjectValue(store, subject, `${SKOS}inScheme`) || type;
+  };
   const isOwn = (uri: string) => termNamespaces.some((ns) => uri.startsWith(ns));
 
   for (const subject of allSubjects) {
@@ -529,8 +559,9 @@ function extractExternalEnumerations(
         getObjectValue(store, subject, `${SKOS}definition`) ||
         "";
 
-      if (!grouped.has(type)) grouped.set(type, []);
-      grouped.get(type)!.push({ id: subject, localName, label, comment });
+      const group = schemeOf(subject, type);
+      if (!grouped.has(group)) grouped.set(group, []);
+      grouped.get(group)!.push({ id: subject, localName, label, comment });
     }
   }
 
@@ -538,9 +569,13 @@ function extractExternalEnumerations(
   for (const [typeUri, values] of grouped) {
     const typeName = getLocalName(typeUri, typeUri.substring(0, typeUri.lastIndexOf("/") + 1));
     const typeLabel =
-      getObjectValue(store, typeUri, `${RDFS}label`) || typeName;
+      getObjectValue(store, typeUri, `${RDFS}label`) ||
+      getObjectValue(store, typeUri, `${SKOS}prefLabel`) ||
+      typeName;
     const typeComment =
-      getObjectValue(store, typeUri, `${RDFS}comment`) || "";
+      getObjectValue(store, typeUri, `${RDFS}comment`) ||
+      getObjectValue(store, typeUri, `${SKOS}definition`) ||
+      "";
 
     enumerations.push({
       id: typeUri,
@@ -647,7 +682,7 @@ function extractOntologyData(store: Store, module: OntologyModule): OntologyData
   const accessRoleDefaults = extractAccessRoleDefaults(store, [describedBy, ontologyUri]);
 
   // Also collect individuals that are instances of external classes (e.g., gs1:MeasurementType)
-  const externalEnums = extractExternalEnumerations(store, termNamespaces, nsFor, allSubjects);
+  const externalEnums = extractExternalEnumerations(store, termNamespaces, nsFor, allSubjects, module.groupConceptsByScheme);
   enumerations.push(...externalEnums);
 
   const enumClassIds = new Set(enumerations.map((e) => e.id));

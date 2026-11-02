@@ -1,0 +1,215 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dpp: <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#> .
+@prefix batind-shapes: <https://repository.product-passport.ec.europa.eu/product/batteries/subgroup/ind/shapes/> .
+@prefix dpp-shapes: <https://repository.product-passport.ec.europa.eu/core/shapes/> .
+@prefix bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#> .
+@prefix dppcom: <https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#> .
+@prefix dppunit: <https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#> .
+
+batind-shapes:battery-ind-restricted-3-shapes
+    a sh:NodeShape ;
+    sh:targetClass dpp:DigitalProductPassport ;
+
+    sh:property [
+        sh:path dpp:contentSpecificationIds ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:qualifiedValueShape [
+            sh:datatype xsd:string ;
+            sh:pattern "^https://repository\\.product-passport\\.ec\\.europa\\.eu/product/batteries/subgroup/ind/\\d+\\.\\d+\\.\\d+$"
+        ] ;
+        sh:message "SEM-MSG-009"
+    ] ;
+
+    sh:property [
+        sh:path bat:expectedLifetimeCyclesRest ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:positiveInteger;
+        sh:message "SEM-BAT-MSG-072"
+    ] ;
+
+    sh:property [
+        sh:path bat:expectedLifetimeYears ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:positiveInteger;
+        sh:message "SEM-BAT-MSG-073"
+    ] ;
+
+    sh:property [
+        sh:path bat:ratedCapacity ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:or (
+                    [ sh:hasValue dppunit:ampereHour ]
+                    [ sh:hasValue dppunit:milliampereHour ]
+                ) ;
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-064"
+    ] ;
+
+    sh:property [
+        sh:path bat:capacityFade ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:percent;
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-065"
+    ] ;
+
+    sh:property [
+        sh:path bat:powerCapability ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:watt;
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-066"
+    ] ;
+
+    sh:property [
+        sh:path bat:powerFade ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:percent;
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-067"
+    ] ;
+
+    sh:property [
+        sh:path bat:internalResistance ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:ohm;
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-068"
+    ] ;
+
+    sh:property [
+        sh:path bat:internalResistanceIncrease ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:percent;
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-069"
+    ] ;
+
+    sh:property [
+        sh:path bat:stateOfCertifiedEnergy ;
+        sh:maxCount 0 ;
+        sh:message "SEM-BAT-MSG-074"
+    ] ;
+
+    sh:property [
+        sh:path bat:remainingCapacity ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:or (
+                    [ sh:hasValue dppunit:ampereHour ]
+                    [ sh:hasValue dppunit:milliampereHour ]
+               )
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-075"
+    ] ;
+
+    sh:property [
+        sh:path bat:remainingPowerCapability ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:watt;
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-076"
+    ] ;
+
+    sh:property [
+        sh:path bat:remainingRoundTripEfficiency ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:percent;
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-077"
+    ] ;
+
+    sh:property [
+        sh:path bat:selfDischargingRateSet ;
+        sh:maxCount 1 ;
+        sh:property [
+            sh:path bat:selfDischargingRate ;
+            sh:minCount 1 ;
+            sh:and (
+                dpp-shapes:unit-shape
+                dpp-shapes:value-shape
+                [
+                    sh:path dppcom:unit;
+                    sh:hasValue dppunit:percent;
+                ]
+            ) ;
+            sh:message "SEM-BAT-MSG-080"
+        ] ;
+        sh:property [
+            sh:path dppcom:recordedTime ;
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+            sh:datatype xsd:dateTime;
+            sh:message "SEM-COM-MSG-011"
+        ] ;
+        sh:message "SEM-BAT-MSG-078"
+    ] ;
+
+    sh:property [
+        sh:path bat:ohmicResistance ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:ohm;
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-081"
+    ] .

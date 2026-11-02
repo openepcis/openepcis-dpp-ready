@@ -1,0 +1,78 @@
+{
+  "$id": "https://repository.product-passport.ec.europa.eu/product/batteries/1.0.0/subgroup/evb/schemas/res3-evb.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Electric Vehicles Batteries (EVB) Product subgroup - Restricted: Only to persons with legitimate interest (individual battery) (RES3)",
+  "description": "JSON Schema for the restricted (RES3) properties of the Electric Vehicles Batteries (EVB) Subgroup representation.",
+  "allOf": [
+    { "$ref": "https://repository.product-passport.ec.europa.eu/product/batteries/1.0.0/schemas/res3-batteries.schema.json" }
+  ],
+  "properties": {
+    "ratedCapacity": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-064"
+      }
+    },
+    "capacityFade": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-065"
+      }
+    },
+    "powerCapability": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-066"
+      }
+    },
+    "powerFade": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-067"
+      }
+    },
+    "internalResistance": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-068"
+      }
+    },
+    "internalResistanceIncrease": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-069"
+      }
+    },
+    "expectedLifetimeCyclesRest": {
+      "type": "integer",
+      "minimum": 1,
+      "message": {
+        "type": "SEM-BAT-MSG-072"
+      }
+    },
+    "expectedLifetimeYears": {
+      "type": "integer",
+      "minimum": 1,
+      "message": {
+        "type": "SEM-BAT-MSG-073"
+      }
+    },
+    "stateOfCertifiedEnergy": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-074"
+      }
+    }
+  },
+  "required": [
+    "ratedCapacity",
+    "capacityFade",
+    "powerCapability",
+    "powerFade",
+    "internalResistance",
+    "internalResistanceIncrease",
+    "expectedLifetimeCyclesRest",
+    "expectedLifetimeYears",
+    "stateOfCertifiedEnergy"
+  ]
+}

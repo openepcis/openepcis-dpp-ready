@@ -1,0 +1,154 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dpp: <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#> .
+@prefix bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#> .
+@prefix dppcom: <https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#> .
+@prefix dpp-shapes: <https://repository.product-passport.ec.europa.eu/core/shapes/> .
+@prefix bat-shapes: <https://repository.product-passport.ec.europa.eu/product/batteries/shapes/> .
+@prefix dppunit: <https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#> .
+
+bat-shapes:battery-restricted3-shape
+    a sh:NodeShape ;
+    sh:targetClass dpp:DigitalProductPassport ;
+
+    sh:property [
+        sh:path dpp:contentSpecificationIds ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:qualifiedValueShape [
+            sh:datatype xsd:string ;
+            sh:pattern "^https://repository\\.product-passport\\.ec\\.europa\\.eu/product/batteries/\\d+\\.\\d+\\.\\d+$"
+        ] ;
+        sh:message "SEM-MSG-009"
+    ] ;
+
+    sh:property [
+       sh:path bat:roundTripEnergyEfficiency ;
+       sh:maxCount 1 ;
+       sh:and (
+           dpp-shapes:unit-shape
+           dpp-shapes:value-shape
+           [
+               sh:path dppcom:unit;
+               sh:hasValue dppunit:percent;
+           ]
+       ) ;
+       sh:message "SEM-BAT-MSG-070"
+    ] ;
+
+    sh:property [
+       sh:path bat:roundTripEnergyEfficiencyFade ;
+       sh:maxCount 1 ;
+       sh:and (
+           dpp-shapes:unit-shape
+           dpp-shapes:value-shape
+           [
+               sh:path dppcom:unit;
+               sh:hasValue dppunit:percent;
+           ]
+       ) ;
+       sh:message "SEM-BAT-MSG-071"
+    ] ;
+
+    sh:property [
+        sh:path bat:batteryStatus ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI;
+        sh:message "SEM-BAT-MSG-082" ;
+        sh:sparql [
+            a sh:SPARQLConstraint ;
+            sh:select """
+                PREFIX bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#>
+                PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+                SELECT $this ?value
+                WHERE {
+                    $this bat:batteryStatus ?value .
+                    filter not EXISTS {
+                        ?concept skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status> .
+                        ?concept a skos:Concept.
+                        FILTER (?concept = ?value)
+                    }
+                }
+            """ ;
+        ]
+    ] ;
+
+    sh:property [
+        sh:path bat:numberOfChargingCycles ;
+        sh:minCount 0 ;
+        sh:datatype xsd:nonNegativeInteger;
+        sh:message "SEM-BAT-MSG-083"
+    ] ;
+
+    sh:property [
+        sh:path bat:numberOfDischargingCycles ;
+        sh:minCount 0 ;
+        sh:datatype xsd:nonNegativeInteger;
+        sh:message "SEM-BAT-MSG-084"
+    ] ;
+
+    sh:property [
+        sh:path bat:negativeEvents ;
+        sh:minCount 0 ;
+        sh:datatype rdf:langString;
+        sh:message "SEM-BAT-MSG-085"
+    ] ;
+
+   sh:property [
+           sh:path bat:negativeEvents ;
+           sh:message "SEM-COM-MSG-012";
+
+           sh:sparql [
+               a sh:SPARQLConstraint ;
+               sh:select """
+                   PREFIX bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#>
+                   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+                   SELECT $this (?value AS ?path)
+                   WHERE {
+                       $this bat:negativeEvents ?value .
+                       BIND(lang(?value) AS ?langTag)
+                       FILTER(!regex(?langTag, "^[A-Za-z]{2}-[A-Za-z]{2}$"))
+                   }
+               """ ;
+           ] ;
+   ] ;
+
+    sh:property [
+        sh:path bat:environmentalConditionHistogramSet ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:node bat-shapes:environmental-conditions-set-shape ;
+        sh:message "SEM-BAT-MSG-086" ;
+    ] ;
+
+    sh:property [
+        sh:path bat:stateOfChargeHistogram ;
+        sh:minCount 0 ;
+        sh:node dpp-shapes:histogram-shape ;
+        sh:message "SEM-BAT-MSG-088" ;
+    ] .
+   
+bat-shapes:environmental-conditions-set-shape
+    a sh:NodeShape ;
+
+    sh:property [
+        sh:path bat:environmentalConditionHistogram ;
+        sh:minCount 1 ;
+        sh:node bat-shapes:environmental-condition-histogram-shape ;
+        sh:message "SEM-BAT-MSG-087" ;
+    ] .
+
+bat-shapes:environmental-condition-histogram-shape
+    a sh:NodeShape ;
+    sh:and (
+        dpp-shapes:histogram-shape
+        dpp-shapes:observed-characteristic-shape
+    ) .
+
+bat-shapes:state-of-charge-histogram-shape
+    a sh:NodeShape ;
+    sh:node dpp-shapes:histogram-shape .

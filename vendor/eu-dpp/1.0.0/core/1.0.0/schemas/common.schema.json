@@ -1,0 +1,131 @@
+{
+  "$id": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Digital Product Passport",
+  "description": "JSON Schema for the common properties of the compact Digital Product Passport representation.",
+  "type": "object",
+  "$defs": {
+    "multiLanguage": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[A-Za-z]{2}-[A-Za-z]{2}$"
+      }
+    },
+    "relatedResource":{
+      "type": "object",
+      "properties": {
+        "contentType": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "resourceTitle": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[A-Za-z]{2}-[A-Za-z]{2}$"
+        }
+      },
+      "required": ["contentType", "url"],
+      "additionalProperties": false
+    },
+    "unitValue": {
+      "type": "object",
+      "properties": {
+        "unit": {
+          "type": "string",
+          "minLength": 1,
+          "$comment": "Controlled vocabulary: https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#.",
+          "pattern": "^https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#[a-zA-Z0-9_-]+$"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [ "unit", "value" ],
+      "additionalProperties": false
+    },
+    "unitValueWithRange": {
+      "type": "object",
+      "properties": {
+        "unit": {
+          "type": "string",
+          "minLength": 1,
+          "$comment": "Controlled vocabulary: https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#.",
+          "pattern": "^https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#[a-zA-Z0-9_-]+$"
+        },
+        "value": {
+          "type": "number"
+        },
+        "valueRange": {
+          "$ref": "#/$defs/valueRange"
+        }
+      },
+      "required": [ "unit", "value" ],
+      "additionalProperties": false
+    },
+    "valueRange": {
+        "type": "object",
+        "properties": {
+          "observedCharacteristic": {
+            "type": "string",
+            "format": "uri"
+          },
+          "lowerBound": {
+            "type": "number"
+          },
+          "upperBound": {
+            "type": "number"
+          },
+          "unit": {
+            "type": "string",
+            "minLength": 1,
+            "$comment": "Controlled vocabulary: https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#.",
+            "pattern": "^https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#[a-zA-Z0-9_-]+$"
+          }
+        },
+        "required": [
+          "observedCharacteristic",
+          "lowerBound",
+          "upperBound",
+          "unit"
+        ],
+        "additionalProperties": false
+      },
+    "histogram": {
+        "type": "object",
+        "properties": {
+          "binRangeUnit": {
+            "type": "string",
+            "minLength": 1,
+            "$comment": "Controlled vocabulary: https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#.",
+            "pattern": "^https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#[a-zA-Z0-9_-]+$"
+          },
+          "binValueUnit": {
+            "type": "string",
+            "minLength": 1,
+            "$comment": "Controlled vocabulary: https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#.",
+            "pattern": "^https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#[a-zA-Z0-9_-]+$"
+          },
+          "bin": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "lowerBound": { "type": "number" },
+                "upperBound": { "type": "number" },
+                "binValue":   { "type": "number", "minimum": 0 }
+              },
+              "required": ["lowerBound", "upperBound", "binValue"]
+            }
+          }
+        },
+        "required": ["binRangeUnit", "binValueUnit", "bin"]
+    }
+  }
+}

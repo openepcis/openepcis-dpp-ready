@@ -27,7 +27,7 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 
 | | Count |
 |---|---|
-| Modules | 16 — `common/{core,assessment,interop,carrier}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}`, `upstream/{gs1-rail,cirpass2-eudpp,cirpass2-textile,cirpass2-battery}` |
+| Modules | 17 — `common/{core,assessment,interop,carrier}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}`, `upstream/{gs1-rail,cirpass2-eudpp,cirpass2-textile,cirpass2-battery,eu-dpp}` |
 | Classes | 106 |
 | Properties | 805 |
 | EPCIS Event Examples | 47 |
@@ -123,6 +123,7 @@ This monorepo provides a consistent, GS1-aligned approach to implementing Digita
 | [upstream/cirpass2-eudpp](./extensions/upstream/cirpass2-eudpp/) | Upstream (CIRPASS-2 / TalTech) | CIRPASS-2 EUDPP Core Ontology — Layer-2 community profile, mirrored for browsing; namespace stays at `https://w3id.org/eudpp#` | Mirror | upstream 2.1.0 | Oct 2026 (release 2.1.0, pinned to `CIRPASS-2/ontologies-docs`) |
 | [upstream/cirpass2-textile](./extensions/upstream/cirpass2-textile/) | Upstream (CIRPASS-2, task T3.2 led by GS1 in Europe) | CIRPASS-2 Textile Ontology — sectoral Layer-2 profile, twelve modules under `https://w3id.org/eudpp/textile-*#` | Mirror | upstream 1.1.2 | Oct 2026 (initial mirror) |
 | [upstream/cirpass2-battery](./extensions/upstream/cirpass2-battery/) | Upstream (CIRPASS-2) | CIRPASS-2 EU DPP Battery Ontology — sectoral Layer-2 profile, DRAFT | Mirror | upstream 0.4.0 DRAFT | Oct 2026 (initial mirror) |
+| [upstream/eu-dpp](./extensions/upstream/eu-dpp/) | Upstream (European Commission, DG GROW) | EU DPP Registry semantic data artifacts — the Registry's data model for core passports and batteries (17 SKOS vocabularies; full release in `vendor/eu-dpp/`) | Mirror | upstream 1.0.0 | Nov 2026 (initial mirror) |
 
 ## Repository Structure
 
