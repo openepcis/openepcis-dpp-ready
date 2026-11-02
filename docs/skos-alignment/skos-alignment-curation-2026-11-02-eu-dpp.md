@@ -10,10 +10,10 @@ core, common and battery vocabularies as properties (`UpstreamIndex.Source.rdfDa
 | Direction | Command | Result |
 |---|---|---|
 | ours → EU, battery | `audit --module battery --vocab eu-dpp` (gpt-oss-20b, QA panel qwen3-32b) | 1167 pairs graded, 174 findings, QA: 93 STRONG, 33 WEAK, 17 SPLIT, 31 REJECT |
-| ours → EU, core | `audit --module core --vocab eu-dpp` | see the core section once written |
-| EU → ours | `reverse --vocab eu-dpp --grade --advise` | see the reverse section once written |
+| ours → EU, core | `audit --module core --vocab eu-dpp` | 886 pairs, 71 findings, QA: 40 STRONG, 11 WEAK, 2 SPLIT, 18 REJECT |
+| EU → ours | `reverse --vocab eu-dpp --grade --advise` (after the battery and code-value mappings) | 294 concepts: 63 covered, 24 proposed, 171 code-list values, 36 uncovered with advice |
 
-Reports: `skos-completeness-battery-eu-dpp-2026-11-02.{md,json}` (gitignored, regenerable).
+Reports: `skos-completeness-{battery,core,reverse}-eu-dpp-2026-11-02.{md,json}` and `skos-reverse-coverage-eu-dpp-2026-11-02.{md,json}` (gitignored, regenerable).
 
 ## Code values (deterministic, no model)
 
@@ -65,3 +65,42 @@ the exactMatch candidate.
 | `cadmiumSymbolRequired` / `leadSymbolRequired` → `chemicalSymbol` | Ours is a flag per symbol, the EU field the list of symbols shown; a value mapping, done in the dpp-api, not a SKOS relation. |
 | `hasMaterialComposition` → `criticalRawMaterials` | Our composition aggregates data points 12, 13 and 15; the guidance marks the aggregate "not to be filled". |
 | `hasInitialCapacity` → `batteryCapacity` | Initial (measured) capacity is not the rated capacity of Annex VI A 6. |
+
+## Core: 10 relations written
+
+The core is cross-cutting, so it anchors only where an `oec:` term is the operative carrier of an
+EU field: passport identifier, last update (`oec:lastUpdated` exact, the older `oec:lastDataUpdate`
+close), granularity level, media type exact; passport status (EU valid / invalid against our
+lifecycle states), content specification (one IRI against the EU list) and passport issuer
+against the battery registrant close. Our generic conformity declaration and hazardous substances
+are broader than the battery-specific EU fields (narrowMatch).
+
+Not written: `oec:hasProductCategory narrowMatch` the EU battery category, because the term
+already carries `skos:broadMatch` toward the BatteryPass batteryCategory and `check:mappings`
+rule 11 forbids both directions on one concept. That existing broadMatch looks inverted (an ESPR
+product category is broader than a battery category); flipping it is a decision of its own.
+All `url` / `value` / `unit` / `language` slot proposals declined as above.
+
+## Reverse direction: 8 relations written, gaps recorded
+
+Most graded reverse proposals were keyword hits into other modules (`batchNumber` under
+`eusteel:heatNumber`, `serialNumber` under `euelec:modelIdentifier`) and were declined. Written,
+checked against the guidance 3.2 `implementedBy` of the same data point: ohmic resistance
+(#66) and power capability (#53), remaining lifetime in cycles (#59), the critical raw
+materials statement, the label meaning, and our three waste-information links under the EU
+waste-battery information block (#44).
+
+What stays uncovered falls into three groups:
+
+1. **Carried by GS1, so no SKOS from our side**: manufacturer name, trade name, trademark,
+   postal address, contact details, website, email (`gs1:manufacturer`, `gs1:organizationName`,
+   `gs1:address`, `gs1:contactPoint`), manufacturing date (`gs1:productionDate`), serial, batch
+   and product number and the unique product identifier (GS1 Digital Link), the warranty period
+   (`gs1:warranty`). The layering rule keeps these in GS1; the dpp-api renders them.
+2. **Real gaps of our battery model** (the advice said ADOPT): the ten texts of the EU waste
+   battery information (end-user roles, collection and take-back points, preparation for reuse
+   and repurposing, treatment facilities, safety instructions, impact of substances), the
+   reference test for the not-in-use temperature range, the separate-collection marking as a
+   yes / no value. These are the same gaps the dpp-api `representation=eu` reports.
+3. **Serialisation helpers of the flat JSON** (bin, bounds, value range, unit, recorded time,
+   resource title, content type): out of scope for SKOS.
