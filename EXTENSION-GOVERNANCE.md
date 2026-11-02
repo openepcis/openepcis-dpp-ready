@@ -16,6 +16,8 @@ When modelling a property or class, choose the most-canonical vocabulary in this
 
 Extension terms that duplicate a schema.org, GS1, or SEMICeu term **must be removed**, and the canonical term used directly (or the extension term strong-anchored via `owl:equivalentClass` / `owl:equivalentProperty` and the upstream IRI preferred in JSON-LD serialisations). The 0.9.5 alignment cleanup deleted ~50 schema.org / GS1 redundancies; the SEMICeu pass that follows extends the same discipline to the EU public-sector vocabularies (see `extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md`).
 
+Published contexts follow the same rule: when CIRPASS-2 or an EU act defines a concept better, its term replaces ours in the ontology and in the context, and the old term is removed without a deprecation phase. What a published context must not do is give an existing term a different meaning (another `@id`, `@type` or `@container`), because stored documents name that URL and would silently turn into different data. A new meaning gets a new term. `pnpm run check:context-compat` enforces this in CI against the previous `main` and lists every removed term in the log; a deliberate redefinition goes into `scripts/context-compat-allowlist.json` with a reason.
+
 ### 2. Extension Transparency
 Every extension term includes:
 - `dcterms:source` - Link to the regulatory requirement mandating this term
