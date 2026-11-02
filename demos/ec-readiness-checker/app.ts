@@ -63,6 +63,7 @@ const SAMPLES: Array<{ label: string; docs: unknown[] }> = [
 /** Regulatory milestones shown on the timeline and as quick-select chips. */
 const MILESTONES: Array<{ date: string; label: string; short: string }> = [
   { date: "2026-07-28", label: "EC guidance v1.0 published (Ares(2026)7579758)", short: "Guidance v1.0" },
+  { date: "2026-10-19", label: "EC guidance v3.2 published (renumbered from data point 40)", short: "Guidance v3.2" },
   { date: BP_APPLICATION_DATE, label: "Battery passport duty begins (BR Art. 77(1))", short: "Passport duty" },
 ];
 const TIMELINE_START = "2026-01-01";
@@ -84,8 +85,8 @@ const OUTCOME_LABEL: Record<Outcome, string> = {
 /** Group the 71 data points by their legal block in display order. */
 const GROUPS: Array<{ title: string; from: number; to: number }> = [
   { title: "Identification & label data — Art. 77(3), Annex VI Part A (1–16)", from: 1, to: 16 },
-  { title: "Public passport data — Annex XIII 1 (17–44)", from: 17, to: 44 },
-  { title: "Legitimate interest — Annex XIII 2 (45–49)", from: 45, to: 49 },
+  { title: "Public passport data — Annex XIII 1 (17–45)", from: 17, to: 45 },
+  { title: "Legitimate interest — Annex XIII 2 (46–49)", from: 46, to: 49 },
   { title: "Notified bodies & authorities — Annex XIII 3 (50)", from: 50, to: 50 },
   { title: "Dynamic, EPCIS-folded — Annex XIII 4 (51–71)", from: 51, to: 71 },
 ];
@@ -192,7 +193,7 @@ function renderTimeline() {
         : `Preparation phase — the duty begins ${BP_APPLICATION_DATE} (${Math.round(
             (Date.parse(BP_APPLICATION_DATE) - Date.parse(asOf)) / dayMs,
           )} days after the selected date). Results read as preparation status.`
-    } Carbon footprint (17–19) and instructions for use (44) stay blocked on the pending implementing act / Omnibus IV — no date is set yet.</div>`;
+    } Carbon footprint (17–18), responsible sourcing (19), recycled content (20–23, Article 8) and instructions for use (45, Omnibus) are not to be filled as of February 2027.</div>`;
 }
 
 // ── Engines ───────────────────────────────────────────────────────────────────

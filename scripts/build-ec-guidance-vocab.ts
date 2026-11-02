@@ -2,8 +2,9 @@
  * Generate the EC Battery Passport guidance data-point registry (RDF/Turtle).
  *
  * The European Commission's "Guidance Document: Digital Batteries Passport -
- * data points by category" (v1.0, 28 July 2026, Ares(2026)7579758, CC BY 4.0)
- * is the first official EU enumeration of the Battery Passport data points:
+ * data points by category" (v1.0 of 28 July 2026, Ares(2026)7579758; current
+ * v3.2 of 19 October 2026, CC BY 4.0) is the official EU enumeration of the
+ * Battery Passport data points:
  * 71 numbered entries, each with its legal source in Regulation (EU) 2023/1542
  * and an applicability matrix per battery category (EV / LMT / industrial),
  * including which data points are NOT to be filled/displayed as of February
@@ -19,13 +20,16 @@
  *   - lifecycle: Annex XIII 4 data points (51-71) are dynamic (EPCIS event
  *     stream folded into the item passport); the rest are static resolver-
  *     served master data,
- *   - accessTier: derived from BR Article 77(2) via the Annex XIII paragraph,
+ *   - accessTier: the guidance's "Type of information" column (since v3.2;
+ *     it agrees with BR Article 77(2) via the Annex XIII paragraph),
  *   - applicability per category with the guidance's verbatim conditions,
  *   - implementedBy links to the operative eubat:/gs1:/oec:/schema: terms.
  *
  * Source of truth: extensions/eu/battery/vocab/ec-guidance-datapoints.json
  * Outputs:
- *   extensions/eu/battery/vocab/ec-battery-passport-guidance-1.0.ttl
+ *   extensions/eu/battery/vocab/ec-battery-passport-guidance-<version>.ttl
+ *     (earlier versions stay as published files; their IRIs keep resolving and
+ *     each current data point names its predecessor with dcterms:replaces)
  *   extensions/eu/battery/validation/ec-datapoint-applicability.json
  *   extensions/eu/battery/validation/ec-readiness-shapes.ttl   (SHACL)
  *   extensions/eu/battery/docs/EC_GUIDANCE_DATAPOINTS.md
@@ -53,13 +57,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const MODULE = join(ROOT, "extensions/eu/battery");
 const SOURCE = join(MODULE, "vocab/ec-guidance-datapoints.json");
-const OUT_TTL = join(MODULE, "vocab/ec-battery-passport-guidance-1.0.ttl");
 const OUT_MATRIX = join(MODULE, "validation/ec-datapoint-applicability.json");
 const OUT_SHAPES = join(MODULE, "validation/ec-readiness-shapes.ttl");
 const OUT_DOC = join(MODULE, "docs/EC_GUIDANCE_DATAPOINTS.md");
 
-const NS = "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#";
-const ONT = "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0";
 
 interface Applicability {
   status: "mandatory" | "optional" | "conditional" | "notToBeFilled" | "pending";
@@ -72,6 +73,10 @@ interface DataPoint {
   source: string | null;
   lifecycle: "static" | "dynamic";
   accessTier: "public" | "legitimateInterest" | "notifiedBodiesAndAuthorities";
+  /** The guidance's "As defined in" column; null for N/A. */
+  definedIn?: string | null;
+  /** The guidance's "Type of information" column, verbatim (since v3.2). */
+  typeOfInformation?: string;
   applicability: { ev: Applicability; lmt: Applicability; industrial: Applicability };
   implementedBy: string[];
   epcisExample?: string;
@@ -86,15 +91,33 @@ interface Registry {
     version: string;
     issued: string;
     publisher: string;
-    reference: string;
+    reference?: string;
     license: string;
     regulation: string;
+    source?: string;
+    supersedes?: { version: string; issued: string; reference: string; namespace: string };
   };
   dataPoints: DataPoint[];
+  /** Version-1.0 number → current number (see the source JSON). */
+  renumbering?: { map: Record<string, number> };
 }
 
 const registry: Registry = JSON.parse(readFileSync(SOURCE, "utf-8"));
 const { document: doc, dataPoints } = registry;
+
+const ONT = `https://ref.openepcis.org/vocab/ec-battery-passport-guidance/${doc.version}`;
+const NS = `${ONT}#`;
+const OUT_TTL = join(MODULE, `vocab/ec-battery-passport-guidance-${doc.version}.ttl`);
+const TTL_NAME = `ec-battery-passport-guidance-${doc.version}.ttl`;
+
+/** Current number → the version-1.0 data points it replaces. */
+const predecessors = new Map<number, number[]>();
+for (const [oldNr, nr] of Object.entries(registry.renumbering?.map ?? {})) {
+  if (!predecessors.has(nr)) predecessors.set(nr, []);
+  predecessors.get(nr)!.push(Number(oldNr));
+}
+const oldIri = (nr: number) =>
+  `<${doc.supersedes!.namespace}dp-${String(nr).padStart(2, "0")}>`;
 
 if (dataPoints.length !== 71) {
   throw new Error(`Expected 71 data points, found ${dataPoints.length}`);
@@ -130,15 +153,15 @@ lines.push(`@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 
 <${ONT}>
     a owl:Ontology ;
-    dcterms:title "EC Battery Passport guidance data-point registry (v1.0)"@en ;
-    dcterms:description "OpenEPCIS-hosted RDF reference for the European Commission '${esc(doc.title)}' (Version ${doc.version}, ${doc.issued}, ${doc.reference}). The Commission publishes the 71 Battery Passport data points as a textual table without IRIs; this registry mirrors them so they can be aligned with OpenEPCIS terms and browsed as a distinct vocabulary. Each data point is dual-typed rdf:Property + cccev:InformationRequirement and carries its legal source in Regulation (EU) 2023/1542, the per-category applicability as of February 2027 (EV / LMT / industrial), the static/dynamic lifecycle split (Annex XIII 4 = dynamic, served by the EPCIS event stream), the access tier derived from Article 77(2), and ecbp:implementedBy links to the operative OpenEPCIS/GS1 terms. Reused under CC BY 4.0; the guidance document is not an official position of the European Commission and this registry restructures its table into RDF."@en ;
+    dcterms:title "EC Battery Passport guidance data-point registry (v${doc.version})"@en ;
+    dcterms:description "OpenEPCIS-hosted RDF reference for the European Commission '${esc(doc.title)}' (Version ${doc.version}, ${doc.issued}${doc.reference ? `, ${doc.reference}` : ""}). The Commission publishes the 71 Battery Passport data points as a textual table without IRIs; this registry mirrors them so they can be aligned with OpenEPCIS terms and browsed as a distinct vocabulary. Each data point is dual-typed rdf:Property + cccev:InformationRequirement and carries its legal source in Regulation (EU) 2023/1542, the per-category applicability as of February 2027 (EV / LMT / industrial), the static/dynamic lifecycle split (Annex XIII 4 = dynamic, served by the EPCIS event stream), the access tier (the guidance's type of information, which agrees with Article 77(2)), and ecbp:implementedBy links to the operative OpenEPCIS/GS1 terms.${doc.supersedes ? ` Supersedes version ${doc.supersedes.version} (${doc.supersedes.issued}, ${doc.supersedes.reference}); each data point names the version ${doc.supersedes.version} entry it replaces with dcterms:replaces, so the renumbering from data point 40 onward stays traceable.` : ""} Reused under CC BY 4.0; the guidance document is not an official position of the European Commission and this registry restructures its table into RDF."@en ;
     dcterms:publisher "${esc(doc.publisher)}"@en ;
     dcterms:creator "OpenEPCIS" ;
     dcterms:issued "${doc.issued}"^^xsd:date ;
     dcterms:license <${doc.license}> ;
     dcterms:source <${doc.regulation}> ;
-    dcterms:bibliographicCitation "European Commission, ${esc(doc.title)}, Version ${doc.version}, ${doc.reference}"@en ;
-    owl:versionInfo "${doc.version}" ;
+    dcterms:bibliographicCitation "European Commission, ${esc(doc.title)}, Version ${doc.version}, ${doc.issued}${doc.reference ? `, ${doc.reference}` : ""}"@en ;
+    owl:versionInfo "${doc.version}" ;${doc.supersedes ? `\n    dcterms:replaces <${doc.supersedes.namespace.replace(/#$/, "")}> ;\n    owl:priorVersion <${doc.supersedes.namespace.replace(/#$/, "")}> ;` : ""}${doc.source ? `\n    dcterms:isFormatOf <${doc.source}> ;` : ""}
     rdfs:seeAlso <https://ref.openepcis.org/extensions/eu/battery/> ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/batterypass-ready/1.3> .
 
@@ -159,8 +182,20 @@ ecbp:lifecycle
 ecbp:accessTier
     a owl:AnnotationProperty ;
     rdfs:label "access tier"@en ;
-    rdfs:comment "Access tier derived from Regulation (EU) 2023/1542 Article 77(2) via the data point's Annex XIII paragraph: 'public' (Annex XIII 1, Annex VI A, Article 77(3)), 'legitimateInterest' (Annex XIII 2 and 4), 'notifiedBodiesAndAuthorities' (Annex XIII 3). Not stated in the guidance document itself."@en ;
+    rdfs:comment "Access tier as a token: 'public' (Annex XIII 1, Annex VI A, Article 77(3)), 'legitimateInterest' (Annex XIII 2 and 4), 'notifiedBodiesAndAuthorities' (Annex XIII 3). Since guidance version 3.2 the document states it in its 'Type of information' column (quoted in ecbp:typeOfInformation); it agrees with Regulation (EU) 2023/1542 Article 77(2) for every data point."@en ;
     dcterms:source <${doc.regulation}> ;
+    rdfs:isDefinedBy <${ONT}> .
+
+ecbp:typeOfInformation
+    a owl:AnnotationProperty ;
+    rdfs:label "type of information"@en ;
+    rdfs:comment "The guidance document's 'Type of information' column, verbatim: who may access the data point."@en ;
+    rdfs:isDefinedBy <${ONT}> .
+
+ecbp:definedIn
+    a owl:AnnotationProperty ;
+    rdfs:label "defined in"@en ;
+    rdfs:comment "The guidance document's 'As defined in' column: the provision of Regulation (EU) 2023/1542 that defines the concept named by the data point."@en ;
     rdfs:isDefinedBy <${ONT}> .
 
 ecbp:applicabilityEV
@@ -219,6 +254,9 @@ for (const dp of dataPoints) {
   t.push(`    dcterms:source <${doc.regulation}> ;`);
   t.push(`    ecbp:lifecycle "${dp.lifecycle}" ;`);
   t.push(`    ecbp:accessTier "${dp.accessTier}" ;`);
+  if (dp.typeOfInformation) t.push(`    ecbp:typeOfInformation "${esc(dp.typeOfInformation)}"@en ;`);
+  if (dp.definedIn) t.push(`    ecbp:definedIn "${esc(dp.definedIn)}"@en ;`);
+  for (const old of predecessors.get(dp.nr) ?? []) t.push(`    dcterms:replaces ${oldIri(old)} ;`);
   t.push(`    ecbp:applicabilityEV "${dp.applicability.ev.status}" ;`);
   t.push(`    ecbp:applicabilityLMT "${dp.applicability.lmt.status}" ;`);
   t.push(`    ecbp:applicabilityIndustrial "${dp.applicability.industrial.status}" ;`);
@@ -236,7 +274,7 @@ for (const dp of dataPoints) {
   for (const agg of dp.aggregates ?? []) t.push(`    dcterms:references ${dpIri(agg)} ;`);
   if (dp.epcisExample) t.push(`    ecbp:epcisExample "${esc(dp.epcisExample)}" ;`);
   if (dp.remark) t.push(`    skos:editorialNote "${esc(dp.remark)}"@en ;`);
-  t.push(`    skos:note "European Commission Battery Passport guidance data point ${dp.nr} (${esc(doc.reference)}, v${doc.version}). Applicability shown is the state as of February 2027 per the guidance table."@en ;`);
+  t.push(`    skos:note "European Commission Battery Passport guidance data point ${dp.nr} (version ${doc.version}, ${esc(doc.issued)}). Applicability shown is the state as of February 2027 per the guidance table."@en ;`);
   t.push(`    rdfs:isDefinedBy <${ONT}> .`);
   lines.push(t.join("\n") + "\n");
 }
@@ -455,7 +493,7 @@ shapes.push(`@prefix sh: <http://www.w3.org/ns/shacl#> .
 <https://ref.openepcis.org/extensions/eu/battery/ec-readiness-shapes.ttl>
     a sh:ShapesGraph ;
     dcterms:title "EC Battery Passport readiness shapes (guidance v${doc.version})"@en ;
-    dcterms:description "SHACL form of the EC guidance applicability matrix (${esc(doc.reference)}): one node shape per (data point, category), targeting eubat:Battery. Statuses map to severities - mandatory = sh:Violation, conditional = sh:Warning, optional and pending = sh:Info; 'not to be filled' data points emit no shape. Every shape ships sh:deactivated true: activate the shapes of exactly ONE category (IRI suffix -ev / -lmt / -industrial) before validating, otherwise a passport is checked against all three categories at once. Validate the MERGED model + batch + item graphs of one battery - the dynamic Annex XIII 4 data points only exist at item level. This is the structural coverage check made executable for any SHACL engine; value-level validation lives in battery-shapes.ttl."@en ;
+    dcterms:description "SHACL form of the EC guidance applicability matrix (version ${doc.version}, ${esc(doc.issued)}): one node shape per (data point, category), targeting eubat:Battery. Statuses map to severities - mandatory = sh:Violation, conditional = sh:Warning, optional and pending = sh:Info; 'not to be filled' data points emit no shape. Every shape ships sh:deactivated true: activate the shapes of exactly ONE category (IRI suffix -ev / -lmt / -industrial) before validating, otherwise a passport is checked against all three categories at once. Validate the MERGED model + batch + item graphs of one battery - the dynamic Annex XIII 4 data points only exist at item level. This is the structural coverage check made executable for any SHACL engine; value-level validation lives in battery-shapes.ttl."@en ;
     dcterms:source <${doc.regulation}> ;
     dcterms:license <${doc.license}> ;
     rdfs:seeAlso <${ONT}> ;
@@ -504,32 +542,54 @@ const md: string[] = [];
 md.push(`# EC Battery Passport guidance — data-point coverage
 
 How the 71 data points of the European Commission **${doc.title}**
-(Version ${doc.version}, ${doc.issued}, ${doc.reference}, CC BY 4.0) map onto the
+(Version ${doc.version}, ${doc.issued}${doc.reference ? `, ${doc.reference}` : ""}, CC BY 4.0) map onto the
 OpenEPCIS battery vocabulary (\`eubat:\` plus \`gs1:\` / \`schema:\` / \`oec:\`).
 
-- **Machine-readable registry (RDF)**: [\`../vocab/ec-battery-passport-guidance-1.0.ttl\`](../vocab/ec-battery-passport-guidance-1.0.ttl) — minted under \`${NS}\` because the Commission publishes no IRIs (same pattern as the GEFEG BatteryPass-Ready mirror). Each data point is dual-typed \`rdf:Property\` + \`cccev:InformationRequirement\`.
+- **Machine-readable registry (RDF)**: [\`../vocab/${TTL_NAME}\`](../vocab/${TTL_NAME}) — minted under \`${NS}\` because the Commission publishes no IRIs (same pattern as the GEFEG BatteryPass-Ready mirror). Each data point is dual-typed \`rdf:Property\` + \`cccev:InformationRequirement\`.
 - **Applicability matrix (JSON)**: [\`../validation/ec-datapoint-applicability.json\`](../validation/ec-datapoint-applicability.json).
 - **SHACL readiness shapes**: [\`../validation/ec-readiness-shapes.ttl\`](../validation/ec-readiness-shapes.ttl) — the matrix made executable for any SHACL engine: one node shape per (data point, category) with the status mapped to severity (mandatory = Violation, conditional = Warning, optional/pending = Info) and the anchor paths derived from the ontologies' \`rdfs:domain\` declarations. All shapes ship \`sh:deactivated true\`; activate exactly one category (IRI suffix \`-ev\`/\`-lmt\`/\`-industrial\`) and validate the merged model + batch + item graphs. \`pnpm run check:ec-readiness -- --shacl\` does both automatically.
-- **Source of truth**: [\`../vocab/ec-guidance-datapoints.json\`](../vocab/ec-guidance-datapoints.json); regenerate with \`pnpm run build:ec-guidance-vocab\`.
+- **Source of truth**: [\`../vocab/ec-guidance-datapoints.json\`](../vocab/ec-guidance-datapoints.json); regenerate with \`pnpm run build:ec-guidance-vocab\`.${doc.supersedes ? `
+- **Earlier version**: [\`../vocab/ec-battery-passport-guidance-${doc.supersedes.version}.ttl\`](../vocab/ec-battery-passport-guidance-${doc.supersedes.version}.ttl) (${doc.supersedes.issued}, ${doc.supersedes.reference}) stays published under its own namespace; every current data point names its predecessor with \`dcterms:replaces\`. See [What changed in version ${doc.version}](#what-changed-in-version-${doc.version.replace(".", "")}).` : ""}
 
 ## The four mechanics encoded in the guidance table
 
 1. **Static vs. dynamic** — Annex XIII 4 data points (51–71) are *dynamic*: the guidance
    marks the static Annex XIII 1(g) rated capacity (#25) "not to be filled" and re-lists it
-   as #51 "same as data point 11, **but now dynamic**". Dynamic data points are folded from
+   as #51 "same as data point 11" in the Annex XIII 4 block. Dynamic data points are folded from
    the EPCIS event stream into the item passport; static ones are resolver-served master data.
    Each dynamic entry links the EPCIS event example that demonstrates it.
-2. **Access tiers** — the "data point source" column determines who may read the value via
-   BR Article 77(2): Annex XIII 1 / VI A / Art. 77(3) = public, XIII 2 and XIII 4 = persons
-   with a legitimate interest, XIII 3 = notified bodies and market surveillance authorities.
+2. **Access tiers** — the "type of information" column (since version 3.2; it agrees with
+   BR Article 77(2) via the "data point source" column): Annex XIII 1 / VI A / Art. 77(3) =
+   public, XIII 2 = persons with a legitimate interest, notified bodies, market surveillance
+   authorities and the Commission, XIII 3 = notified bodies, market surveillance authorities and
+   the Commission, XIII 4 = persons with a legitimate interest (individual battery).
 3. **Category-conditional obligation** — obligation is a function of (data point, battery
    category): e.g. SOCE (#61) is EV-only while the remaining-capacity family (#62–66) applies
    to LMT/industrial; #33 capacity threshold is EV-only.
-4. **Regulatory lifecycle** — "pending" data points (#17–19 carbon footprint, #44 instructions
-   for use) are not to be filled as of February 2027 because the implementing act / Omnibus IV
-   is outstanding; a validator must distinguish *missing* from *not yet required*.
+4. **Regulatory lifecycle** — "pending" data points are not to be filled as of February 2027:
+   #17–18 carbon footprint (format still to be specified in the implementing act), #19
+   responsible sourcing (Article 48(1)), #20–23 recycled content (to be applied as envisaged by
+   Article 8), #45 instructions for use (on hold pending the Omnibus). A validator must
+   distinguish *missing* from *not yet required*.
 
-## Coverage table
+${doc.supersedes ? `## What changed in version ${doc.version}
+
+Against version ${doc.supersedes.version} (${doc.supersedes.issued}):
+
+- **Renumbering from #40.** The C-rate of the relevant cycle-life test (1.0 #39) is split into a
+  charge C-rate (#39, carried by \`eubat:cRateLifeCycleTest\`) and a new, optional discharge
+  C-rate (#40, \`eubat:dischargeCRateLifeCycleTest\`). 1.0 #40–45 become #41–46; 1.0 #46 (part
+  numbers for components) and #47 (contact details of sources for replacement spares) merge into
+  #47. From #48 the numbers are unchanged.
+- **Recycled content (#20–23)** is no longer mandatory as of February 2027: "to be applied as
+  envisaged by Article 8".
+- **Internal resistance (#38)** names two values, cell and pack
+  (\`eubat:hasInitialCellInternalResistance\`, \`eubat:hasInitialPackInternalResistance\`).
+- **Rated capacity (#51)** reads "same as data point 11" for all three categories.
+- New columns "As defined in" and "Type of information" (\`ecbp:definedIn\`,
+  \`ecbp:typeOfInformation\`); every condition is quoted from the new table.
+
+` : ""}## Coverage table
 
 Applicability: **M** mandatory · **O** optional · **C** conditional (see note) · **P** pending
 (not as of Feb 2027, act outstanding) · **–** not to be filled/displayed.

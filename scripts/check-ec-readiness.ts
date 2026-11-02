@@ -3,7 +3,7 @@
  *
  * Evaluates battery passport JSON-LD document(s) against the 71 data points of
  * the European Commission guidance "Digital Batteries Passport - data points by
- * category" (Ares(2026)7579758) and prints the checklist. Pass every level of
+ * category" (version 3.2) and prints the checklist. Pass every level of
  * one battery (model + batch + item) for the full picture — a model passport
  * alone legitimately lacks the dynamic Annex XIII 4 data points, which are
  * folded from the EPCIS event stream at item level.

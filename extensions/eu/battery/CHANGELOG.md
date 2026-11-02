@@ -4,6 +4,36 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed: EC data-point guidance version 3.2
+
+The Commission replaced the Battery Passport data-point guidance: version 3.2 of 19 October 2026
+supersedes version 1.0 of 28 July 2026 (Ares(2026)7579758). The registry follows as
+`vocab/ec-battery-passport-guidance-3.2.ttl` under its own namespace
+(`https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-NN`); the 1.0 file stays
+published and every 3.2 data point names its predecessor with `dcterms:replaces`. All 95
+`rdfs:seeAlso` pointers of the ontology move to the 3.2 numbers.
+
+- The C-rate of the cycle-life test is split: charge (#39, `eubat:cRateLifeCycleTest`) and
+  discharge (#40, new, optional). 1.0 #40 to #45 become #41 to #46; 1.0 #46 and #47 merge into #47.
+- Recycled content (#20 to #23) is not to be filled as of February 2027 ("to be applied as
+  envisaged by Article 8"), so the readiness check reports it as not yet required.
+- The registry carries the new columns "As defined in" (`ecbp:definedIn`) and "Type of
+  information" (`ecbp:typeOfInformation`); conditions are quoted from the 3.2 table.
+- Readiness demo: group boundaries (Annex XIII 1 is #17 to #45, Annex XIII 2 #46 to #49), the 3.2
+  release on the timeline.
+
+### Added: discharge C-rate and cell / pack resistance
+
+`eubat:dischargeCRateLifeCycleTest` (guidance #40) and `eubat:hasInitialCellInternalResistance`
+/ `eubat:hasInitialPackInternalResistance` (guidance #38 names both values; both are
+sub-properties of `eubat:hasInitialInternalResistance`, which stays for a single declared value).
+Public tier, context entries, extension schema and the battery example follow.
+
+### Added: EU DPP Registry value lists
+
+`skos:exactMatch` from the battery categories, battery statuses and access levels to the EU DPP
+Registry value lists (mirror `upstream/eu-dpp`).
+
 ### Changed: recyclability rate pointer
 
 `eubat:recyclabilityRate` points at `oea:RecyclabilityRate` (rdfs:seeAlso) instead of the removed
