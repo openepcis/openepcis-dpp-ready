@@ -118,8 +118,9 @@ async function differences(
   where: string,
   depth = 0,
   seen = new Set<string>(),
-): Promise<{ term: string; problem: string; removed?: boolean }[]> {
-  const found: { term: string; problem: string; removed?: boolean }[] = [];
+): Promise<{ term: string; leaf?: string; problem: string; removed?: boolean }[]> {
+  // term = the top-level term the difference sits under, leaf = the term that differs
+  const found: { term: string; leaf?: string; problem: string; removed?: boolean }[] = [];
   for (const k of CONTEXT_KEYS) {
     if (before[k] !== after[k]) found.push({ term: k, problem: `${where}${k} ${JSON.stringify(before[k])} -> ${JSON.stringify(after[k])}` });
   }
@@ -157,7 +158,7 @@ async function differences(
     try {
       const scopedAfter = await activeContext(now["@context"], newLoader, after);
       const inner = await differences(scopedBefore, scopedAfter, oldLoader, newLoader, `${label} > `, depth + 1, seen);
-      found.push(...inner.map((d) => ({ term, problem: d.problem, removed: d.removed })));
+      found.push(...inner.map((d) => ({ term, leaf: d.leaf ?? d.term, problem: d.problem, removed: d.removed })));
     } catch (e: any) {
       found.push({ term, problem: `${label} scoped @context no longer processes: ${e.message}` });
     }
@@ -216,7 +217,8 @@ async function main(): Promise<number> {
     // it; report each break once, at the shallowest place it occurs
     const shallowest = new Map<string, { problem: string; removed?: boolean }>();
     for (const d of await differences(before, after, oldLoader, newLoader, "")) {
-      if (!d.removed && allowed(file, d.term)) continue;
+      // an allowlisted term is allowed wherever it occurs, also inside a scoped context
+      if (!d.removed && (allowed(file, d.term) || (d.leaf !== undefined && allowed(file, d.leaf)))) continue;
       const essence = d.problem.split(" > ").pop()!;
       const known = shallowest.get(essence);
       if (!known || known.problem.split(" > ").length > d.problem.split(" > ").length) shallowest.set(essence, d);
