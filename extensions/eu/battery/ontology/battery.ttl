@@ -22,6 +22,12 @@
 # BattINFO (EMMO battery domain ontology, independently governed). Referenced only,
 # never imported: the alignments below stay graded SKOS / rdfs:seeAlso.
 @prefix battinfo: <https://w3id.org/emmo/domain/battery#> .
+# EU DPP Registry semantic data artifacts 1.0.0 (European Commission), mirrored under
+# extensions/upstream/eu-dpp. Data elements are SKOS concepts used as passport fields;
+# referenced only, never imported: graded SKOS from our terms, skos:exactMatch for code values.
+@prefix eudppcore: <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#> .
+@prefix eudppcom: <https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#> .
+@prefix eudppbat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#> .
 
 # =============================================================================
 # Ontology Declaration
@@ -309,19 +315,22 @@ eubat:LMTBattery
     a eubat:BatteryCategory ;
     rdfs:label "Light Means of Transport Battery"@en ;
     rdfs:comment "Battery for e-bikes, e-scooters, and other light electric vehicles. Subject to DPP requirements from 18 Feb 2027."@en ;
-    skos:notation "lmt" .
+    skos:notation "lmt" ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-category#lightMeansOfTransportBattery> .
 
 eubat:EVBattery
     a eubat:BatteryCategory ;
     rdfs:label "Electric Vehicle Battery"@en ;
     rdfs:comment "Traction battery for electric vehicles providing propulsion power. Subject to most stringent DPP requirements from 18 Feb 2027."@en ;
-    skos:notation "ev" .
+    skos:notation "ev" ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-category#electricVehicleBattery> .
 
 eubat:IndustrialBattery
     a eubat:BatteryCategory ;
     rdfs:label "Industrial Battery"@en ;
     rdfs:comment "Battery designed for industrial applications with capacity > 2 kWh, excluding LMT and EV batteries. Subject to DPP requirements from 18 Aug 2025."@en ;
-    skos:notation "industrial" .
+    skos:notation "industrial" ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-category#industrialBattery> .
 
 eubat:StationaryBattery
     a eubat:BatteryCategory ;
@@ -361,27 +370,32 @@ eubat:BatteryStatus
 eubat:Original
     a eubat:BatteryStatus ;
     rdfs:label "Original"@en ;
-    rdfs:comment "Battery in its original state as manufactured, not yet subjected to any second-life operations."@en .
+    rdfs:comment "Battery in its original state as manufactured, not yet subjected to any second-life operations."@en ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status#original> .
 
 eubat:Repurposed
     a eubat:BatteryStatus ;
     rdfs:label "Repurposed"@en ;
-    rdfs:comment "Battery adapted for a different application than originally intended (e.g., EV battery used for stationary storage)."@en .
+    rdfs:comment "Battery adapted for a different application than originally intended (e.g., EV battery used for stationary storage)."@en ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status#repurposed> .
 
 eubat:Reused
     a eubat:BatteryStatus ;
     rdfs:label "Reused"@en ;
-    rdfs:comment "Battery used again for the same purpose after refurbishment or testing, without major component replacement."@en .
+    rdfs:comment "Battery used again for the same purpose after refurbishment or testing, without major component replacement."@en ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status#reused> .
 
 eubat:Remanufactured
     a eubat:BatteryStatus ;
     rdfs:label "Remanufactured"@en ;
-    rdfs:comment "Battery restored to original specifications through replacement of components and comprehensive testing."@en .
+    rdfs:comment "Battery restored to original specifications through replacement of components and comprehensive testing."@en ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status#remanufactured> .
 
 eubat:Waste
     a eubat:BatteryStatus ;
     rdfs:label "Waste"@en ;
-    rdfs:comment "Battery at end-of-life designated for recycling or disposal per EU Battery Regulation requirements."@en .
+    rdfs:comment "Battery at end-of-life designated for recycling or disposal per EU Battery Regulation requirements."@en ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status#waste> .
 
 # -----------------------------------------------------------------------------
 # Cell Type (NEW - DIN DKE SPEC 99100)
@@ -749,11 +763,13 @@ eubat:AccessLevel
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eubat:PublicAccess a eubat:AccessLevel ; rdfs:label "Public"@en ;
-    rdfs:comment "Data accessible to the general public without authentication."@en .
+    rdfs:comment "Data accessible to the general public without authentication."@en ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/core/vocabs/information-type#publicType> .
 eubat:AuthorizedAccess a eubat:AccessLevel ; rdfs:label "Authorized Personnel"@en ;
     rdfs:comment "Data accessible to authorized economic operators and service providers."@en .
 eubat:AuthoritiesOnly a eubat:AccessLevel ; rdfs:label "Authorities Only"@en ;
-    rdfs:comment "Data accessible only to notified bodies, market surveillance authorities, and the Commission."@en .
+    rdfs:comment "Data accessible only to notified bodies, market surveillance authorities, and the Commission."@en ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-information-type#batteryRestrictedType2> .
 
 # =============================================================================
 # Product-Battery Relationship (Schema.org Alignment)

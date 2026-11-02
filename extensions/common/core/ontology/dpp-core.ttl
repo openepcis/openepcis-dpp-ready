@@ -38,6 +38,11 @@
 # Published namespace pinned to the v2 spec. Used for SKOS mapping anchors
 # (skos:exactMatch / skos:closeMatch / skos:broadMatch) from oec: terms to dppk: terms.
 @prefix dppk: <https://dpp-keystone.org/spec/v2/terms#> .
+# EU DPP Registry semantic data artifacts 1.0.0 (European Commission), mirrored under
+# extensions/upstream/eu-dpp. Data elements are SKOS concepts used as passport fields;
+# referenced only, never imported: graded SKOS from our terms, skos:exactMatch for code values.
+@prefix eudppcore: <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#> .
+@prefix eudppcom: <https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#> .
 
 # =============================================================================
 # Ontology Declaration
@@ -1064,11 +1069,14 @@ oec:GranularityLevel
     rdfs:seeAlso cirpass2:ProductIdentifierGranularity .
 
 oec:Model a oec:GranularityLevel ; rdfs:label "Model"@en ; skos:notation "model" ;
-    rdfs:comment "DPP data applies to all products of this model or class. GS1 Digital Link 01/{gtin}."@en .
+    rdfs:comment "DPP data applies to all products of this model or class. GS1 Digital Link 01/{gtin}."@en ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/core/vocabs/granularity-level#model> .
 oec:Batch a oec:GranularityLevel ; rdfs:label "Batch"@en ; skos:notation "batch" ;
-    rdfs:comment "DPP data applies to a specific production batch. GS1 Digital Link 01/{gtin}/10/{lot}."@en .
+    rdfs:comment "DPP data applies to a specific production batch. GS1 Digital Link 01/{gtin}/10/{lot}."@en ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/core/vocabs/granularity-level#batch> .
 oec:Item a oec:GranularityLevel ; rdfs:label "Item"@en ; skos:notation "item" ;
-    rdfs:comment "DPP data applies to an individual serialized item. GS1 Digital Link 01/{gtin}/21/{serial}."@en .
+    rdfs:comment "DPP data applies to an individual serialized item. GS1 Digital Link 01/{gtin}/21/{serial}."@en ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/core/vocabs/granularity-level#item> .
 
 # =============================================================================
 # Properties - Operator Information
