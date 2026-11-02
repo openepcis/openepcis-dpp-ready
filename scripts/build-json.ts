@@ -124,6 +124,26 @@ interface EnumValue {
   localName: string;
   label: string;
   comment: string;
+  /** Graded SKOS mappings of the value itself (e.g. eubat:EVBattery skos:exactMatch the EU DPP
+   *  Registry battery-category value); omitted when the value carries none. */
+  exactMatch?: string[];
+  closeMatch?: string[];
+  broadMatch?: string[];
+  narrowMatch?: string[];
+  relatedMatch?: string[];
+  seeAlso?: string[];
+}
+
+/** The mapping fields of one enumeration value, only those that are present. */
+function valueMappings(store: Store, subject: string): Partial<EnumValue> {
+  const out: Partial<EnumValue> = {};
+  for (const rel of ["exactMatch", "closeMatch", "broadMatch", "narrowMatch", "relatedMatch"] as const) {
+    const v = toPrefixedForms(getObjectValues(store, subject, `${SKOS}${rel}`));
+    if (v && v.length) out[rel] = v;
+  }
+  const see = getObjectValues(store, subject, `${RDFS}seeAlso`);
+  if (see.length) out.seeAlso = see;
+  return out;
 }
 
 interface EnumerationData {
@@ -503,7 +523,7 @@ function extractEnumerations(
           getObjectValue(store, subject, `${SKOS}definition`) ||
           "";
 
-        return { id: subject, localName, label, comment };
+        return { id: subject, localName, label, comment, ...valueMappings(store, subject) };
       });
 
     if (enumValues.length > 0) {
@@ -561,7 +581,7 @@ function extractExternalEnumerations(
 
       const group = schemeOf(subject, type);
       if (!grouped.has(group)) grouped.set(group, []);
-      grouped.get(group)!.push({ id: subject, localName, label, comment });
+      grouped.get(group)!.push({ id: subject, localName, label, comment, ...valueMappings(store, subject) });
     }
   }
 
