@@ -12,6 +12,8 @@ on:
       - 'extensions/**'
       - 'scripts/validate-jsonld-examples.ts'
       - 'scripts/check-operational-contexts.ts'
+      - 'scripts/check-context-compat.ts'
+      - 'scripts/context-compat-allowlist.json'
       - 'scripts/check-extension-terms.ts'
       - 'scripts/extension-terms-allowlist.json'
       - 'scripts/en18223/**'
@@ -28,6 +30,8 @@ on:
       - 'extensions/**'
       - 'scripts/validate-jsonld-examples.ts'
       - 'scripts/check-operational-contexts.ts'
+      - 'scripts/check-context-compat.ts'
+      - 'scripts/context-compat-allowlist.json'
       - 'scripts/check-extension-terms.ts'
       - 'scripts/extension-terms-allowlist.json'
       - 'scripts/en18223/**'
@@ -43,6 +47,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
@@ -55,6 +61,13 @@ jobs:
         run: pnpm run check:operational
       - name: Operational serialization idempotence (GET -> PUT -> GET byte-stable)
         run: pnpm run check:idempotence
+      # Base is what was published before this change: the PR target, or main
+      # before the push. Stored documents name these URLs, so a term may be added
+      # but never removed or redefined.
+      - name: Published contexts only grow (no term removed or redefined)
+        env:
+          CONTEXT_COMPAT_BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || github.event.before }}
+        run: pnpm run check:context-compat
       - name: Project-owned terms resolve (no phantom oec:/eubat:/... IRIs)
         run: pnpm run check:extension-terms
       - name: Compressed-form fidelity (no relative IRI / flattened node reference in the goldens)
