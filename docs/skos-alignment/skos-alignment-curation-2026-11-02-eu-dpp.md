@@ -59,7 +59,6 @@ the exactMatch candidate.
 |---|---|
 | any `broadMatch core-vocabulary#url`, `common-vocabulary#valueRange`, `#unit`, `core-vocabulary#language` (14 terms) | Serialisation slots of the flat JSON, not concepts; same rule as `gs1:value` in the triage. |
 | `hasTechnicalSpecifications`, `hasEndOfLifeInfo` to single fields | A container is not narrower or broader than one of its fields. |
-| `exhaustionThreshold`, `renewableContent`, `expectedNumberOfCycles` exactMatch | Duplicates of terms that already carry the exactMatch (`capacityThresholdForExhaustion`, `renewableContentShare`, `expectedCycleLife`); their own SKOS stays with the operative term. |
 | `capacityFadeThreshold` → `capacityFade`, `resistanceIncreaseThreshold` → `internalResistanceIncrease` | A threshold is not the measured value. |
 | `carbonFootprintDeclarationId` → `otherIdentificationElement`, `numberOfDeepDischargeEvents` → `numberOfDischargingCycles`, `transportationSafetyClass` → `safetyMeasures` | Keyword matches into a different concept. |
 | `cadmiumSymbolRequired` / `leadSymbolRequired` → `chemicalSymbol` | Ours is a flag per symbol, the EU field the list of symbols shown; a value mapping, done in the dpp-api, not a SKOS relation. |
@@ -69,8 +68,7 @@ the exactMatch candidate.
 ## Core: 10 relations written
 
 The core is cross-cutting, so it anchors only where an `oec:` term is the operative carrier of an
-EU field: passport identifier, last update (`oec:lastUpdated` exact, the older `oec:lastDataUpdate`
-close), granularity level, media type exact; passport status (EU valid / invalid against our
+EU field: passport identifier, last update (`oec:lastUpdated`), granularity level, media type exact; passport status (EU valid / invalid against our
 lifecycle states), content specification (one IRI against the EU list) and passport issuer
 against the battery registrant close. Our generic conformity declaration and hazardous substances
 are broader than the battery-specific EU fields (narrowMatch).
@@ -104,3 +102,31 @@ What stays uncovered falls into three groups:
    yes / no value. These are the same gaps the dpp-api `representation=eu` reports.
 3. **Serialisation helpers of the flat JSON** (bin, bounds, value range, unit, recorded time,
    resource title, content type): out of scope for SKOS.
+
+## Follow-up: duplicates removed
+
+The alignment showed several of our terms pointing at one EU data element. Where two of ours mean
+the same data point, the duplicate is removed without a deprecation phase and its mappings move to
+the surviving term (the one that carries the EU `skos:exactMatch`):
+
+| Removed | Kept |
+|---|---|
+| `eubat:batteryPassportIdentifier` | `oec:passportIdentifier` |
+| `eubat:lastDataUpdate`, `oec:lastDataUpdate` | `oec:lastUpdated` |
+| `eubat:exhaustionThreshold`, `eubat:capacityFadeThreshold` | `eubat:capacityThresholdForExhaustion` |
+| `eubat:expectedNumberOfCycles` | `eubat:expectedCycleLife` |
+| `eubat:numberOfFullCycles` | `eubat:hasCycleCount` |
+| `eubat:hasInitialInternalResistance` | `eubat:hasInitialCellInternalResistance`, `eubat:hasInitialPackInternalResistance` |
+
+Corrected on the way: the EU `renewableContentShare` (Annex XIII 1 (f)) is the share of the whole
+battery, which we carry as `eubat:renewableContent` on the end-of-life information. That term now
+holds the exactMatch, and the per-material `eubat:renewableContentShare` a broadMatch; the guidance
+registry names `eubat:renewableContent` as the implementing term of data point 24.
+
+Kept although several terms share an EU target: `eubat:roundTripEnergyEfficiency` and
+`eubat:hasRemainingRoundTripEfficiency` (the EU keeps `roundTripEnergyEfficiency` and
+`remainingRoundTripEfficiency` apart by subgroup), `eubat:hasRatedEnergy` and
+`eubat:hasCertifiedUsableEnergy` (different values). The battery copies of cross-cutting core
+terms (document URL, MIME type, language code, concentration, carbon footprint study, operator and
+facility identifier) carry their own domain classes; folding them into the core is a structural
+change of its own.

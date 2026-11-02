@@ -91,7 +91,7 @@ ecbp:epcisExample
 <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-01>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Unique identifier [unique product identifier]"@en ;
-    rdfs:comment "European Commission Battery Passport data point 1 (BR Article 77 (3)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:batteryPassportIdentifier. Served as a GS1 Digital Link URI; the passport identifier resolves via a GS1-conformant resolver."@en ;
+    rdfs:comment "European Commission Battery Passport data point 1 (BR Article 77 (3)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by oec:passportIdentifier. Served as a GS1 Digital Link URI; the passport identifier resolves via a GS1-conformant resolver."@en ;
     skos:notation "1" ;
     dcterms:bibliographicCitation "BR Article 77 (3)"@en ;
     dcterms:source <http://data.europa.eu/eli/reg/2023/1542/oj> ;
@@ -103,8 +103,8 @@ ecbp:epcisExample
     ecbp:applicabilityEV "mandatory" ;
     ecbp:applicabilityLMT "mandatory" ;
     ecbp:applicabilityIndustrial "mandatory" ;
-    ecbp:implementedBy eubat:batteryPassportIdentifier ;
-    rdfs:seeAlso eubat:batteryPassportIdentifier ;
+    ecbp:implementedBy oec:passportIdentifier ;
+    rdfs:seeAlso oec:passportIdentifier ;
     skos:editorialNote "Served as a GS1 Digital Link URI; the passport identifier resolves via a GS1-conformant resolver."@en ;
     skos:note "European Commission Battery Passport guidance data point 1 (version 3.2, 2026-10-19). Applicability shown is the state as of February 2027 per the guidance table."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2> .
@@ -583,7 +583,7 @@ ecbp:epcisExample
 <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-24>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The share of renewable content [%]"@en ;
-    rdfs:comment "European Commission Battery Passport data point 24 (BR Annex XIII 1 (f)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:renewableContentShare."@en ;
+    rdfs:comment "European Commission Battery Passport data point 24 (BR Annex XIII 1 (f)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:renewableContent."@en ;
     skos:notation "24" ;
     dcterms:bibliographicCitation "BR Annex XIII 1 (f)"@en ;
     dcterms:source <http://data.europa.eu/eli/reg/2023/1542/oj> ;
@@ -594,8 +594,8 @@ ecbp:epcisExample
     ecbp:applicabilityEV "mandatory" ;
     ecbp:applicabilityLMT "mandatory" ;
     ecbp:applicabilityIndustrial "mandatory" ;
-    ecbp:implementedBy eubat:renewableContentShare ;
-    rdfs:seeAlso eubat:renewableContentShare ;
+    ecbp:implementedBy eubat:renewableContent ;
+    rdfs:seeAlso eubat:renewableContent ;
     skos:note "European Commission Battery Passport guidance data point 24 (version 3.2, 2026-10-19). Applicability shown is the state as of February 2027 per the guidance table."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2> .
 
@@ -726,7 +726,7 @@ ecbp:epcisExample
 <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Expected battery lifetime expressed in cycles [in number]"@en ;
-    rdfs:comment "European Commission Battery Passport data point 31 (BR Annex XIII 1 (j)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: conditional (Only applicable for some industrial batteries where lifetime can be expressed in cycles). Static master data (resolver-served); access tier: public. Carried by eubat:expectedNumberOfCycles, eubat:expectedCycleLife."@en ;
+    rdfs:comment "European Commission Battery Passport data point 31 (BR Annex XIII 1 (j)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: conditional (Only applicable for some industrial batteries where lifetime can be expressed in cycles). Static master data (resolver-served); access tier: public. Carried by eubat:expectedCycleLife."@en ;
     skos:notation "31" ;
     dcterms:bibliographicCitation "BR Annex XIII 1 (j)"@en ;
     dcterms:source <http://data.europa.eu/eli/reg/2023/1542/oj> ;
@@ -739,8 +739,6 @@ ecbp:epcisExample
     ecbp:applicabilityLMT "mandatory" ;
     ecbp:applicabilityIndustrial "conditional" ;
     skos:scopeNote "Industrial: Only applicable for some industrial batteries where lifetime can be expressed in cycles"@en ;
-    ecbp:implementedBy eubat:expectedNumberOfCycles ;
-    rdfs:seeAlso eubat:expectedNumberOfCycles ;
     ecbp:implementedBy eubat:expectedCycleLife ;
     rdfs:seeAlso eubat:expectedCycleLife ;
     skos:note "European Commission Battery Passport guidance data point 31 (version 3.2, 2026-10-19). Applicability shown is the state as of February 2027 per the guidance table."@en ;
@@ -874,7 +872,7 @@ ecbp:epcisExample
 <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Internal battery cell resistance [unit Ω] and internal battery pack resistance [unit Ω]"@en ;
-    rdfs:comment "European Commission Battery Passport data point 38 (BR Annex XIII 1 (o)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasInitialCellInternalResistance, eubat:hasInitialPackInternalResistance, eubat:hasInitialInternalResistance."@en ;
+    rdfs:comment "European Commission Battery Passport data point 38 (BR Annex XIII 1 (o)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasInitialCellInternalResistance, eubat:hasInitialPackInternalResistance."@en ;
     skos:notation "38" ;
     dcterms:bibliographicCitation "BR Annex XIII 1 (o)"@en ;
     dcterms:source <http://data.europa.eu/eli/reg/2023/1542/oj> ;
@@ -889,8 +887,6 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:hasInitialCellInternalResistance ;
     ecbp:implementedBy eubat:hasInitialPackInternalResistance ;
     rdfs:seeAlso eubat:hasInitialPackInternalResistance ;
-    ecbp:implementedBy eubat:hasInitialInternalResistance ;
-    rdfs:seeAlso eubat:hasInitialInternalResistance ;
     skos:note "European Commission Battery Passport guidance data point 38 (version 3.2, 2026-10-19). Applicability shown is the state as of February 2027 per the guidance table."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2> .
 
@@ -1529,7 +1525,7 @@ ecbp:epcisExample
 <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The number of charging and discharging cycles [number]"@en ;
-    rdfs:comment "European Commission Battery Passport data point 68 (BR Annex XIII 4 (d)). Applicability as of Feb 2027 — EV: conditional (Applicable as soon as the battery starts to be used); LMT: conditional (Applicable as soon as the battery starts to be used); industrial: conditional (Applicable as soon as the battery starts to be used). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:numberOfFullCycles, eubat:hasCycleCount."@en ;
+    rdfs:comment "European Commission Battery Passport data point 68 (BR Annex XIII 4 (d)). Applicability as of Feb 2027 — EV: conditional (Applicable as soon as the battery starts to be used); LMT: conditional (Applicable as soon as the battery starts to be used); industrial: conditional (Applicable as soon as the battery starts to be used). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasCycleCount."@en ;
     skos:notation "68" ;
     dcterms:bibliographicCitation "BR Annex XIII 4 (d)"@en ;
     dcterms:source <http://data.europa.eu/eli/reg/2023/1542/oj> ;
@@ -1541,8 +1537,6 @@ ecbp:epcisExample
     ecbp:applicabilityLMT "conditional" ;
     ecbp:applicabilityIndustrial "conditional" ;
     skos:scopeNote "EV: Applicable as soon as the battery starts to be used | LMT: Applicable as soon as the battery starts to be used | Industrial: Applicable as soon as the battery starts to be used"@en ;
-    ecbp:implementedBy eubat:numberOfFullCycles ;
-    rdfs:seeAlso eubat:numberOfFullCycles ;
     ecbp:implementedBy eubat:hasCycleCount ;
     rdfs:seeAlso eubat:hasCycleCount ;
     ecbp:epcisExample "epcis/amperia-staxwall-lifecycle.jsonld" ;

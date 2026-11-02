@@ -804,9 +804,11 @@ oec:lastUpdated
     rdfs:domain oec:DigitalProductPassport ;
     rdfs:range xsd:dateTime ;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)" ;
-    skos:note "Consolidates the former oec:lastUpdate (BatteryPass-Ready v1.3 #4) and oec:passportLastModified into the EN 18223 'lastUpdated' attribute."@en ;
+    skos:note "Consolidates the former oec:lastUpdate (BatteryPass-Ready v1.3 #4), oec:passportLastModified, oec:lastDataUpdate and eubat:lastDataUpdate into the EN 18223 'lastUpdated' attribute."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#lastUpdate> ;
+    skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/1.3#Date-timeOfLatestUpdateOfDPP> ;
+    skos:exactMatch dppk:lastUpdate ;
     skos:exactMatch <https://w3id.org/eudpp#lastUpdate> ;
     skos:exactMatch eudppcore:lastUpdate .
 
@@ -1797,20 +1799,6 @@ oec:primarySourcedRatio
 # Properties - Data Quality and Provenance
 # =============================================================================
 
-oec:lastDataUpdate
-    a owl:DatatypeProperty ;
-    rdfs:label "Last Data Update"@en ;
-    rdfs:comment "Timestamp of the last update to the DPP data."@en ;
-    rdfs:range xsd:dateTime ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso schema:sdDatePublished ;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#lastUpdate> ;
-    skos:exactMatch dppk:lastUpdate ;
-    skos:narrowMatch <https://w3id.org/eudpp#lastUpdate> ;
-    skos:closeMatch eudppcore:lastUpdate .
-
 oec:dataQualityAssessment
     a owl:DatatypeProperty ;
     rdfs:label "Data Quality Assessment"@en ;
@@ -2251,7 +2239,7 @@ oec:passportIdentifier
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     skos:broadMatch schema:identifier ;
-    skos:broadMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier> ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier> ;
     rdfs:seeAlso cirpass2:DPPIdentifier ;
     skos:closeMatch <https://w3id.org/eudpp#hasDigitalProductPassportId> ;
     skos:exactMatch eudppcore:digitalProductPassportId .

@@ -853,23 +853,6 @@ eubat:puttingIntoService
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:exactMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#puttingIntoService> .
 
-eubat:batteryPassportIdentifier
-    a owl:DatatypeProperty ;
-    rdfs:label "Battery Passport Identifier"@en ;
-    rdfs:comment "Unique identifier for the battery passport. Note: In this implementation, the primary identifier is the GS1 Digital Link (@id)."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range xsd:anyURI ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:exactMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier> ;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#productIdentifier> ;
-    skos:broadMatch schema:identifier ;
-    skos:broadMatch adms:identifier ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-01> ;
-    skos:broadMatch dppk:digitalProductPassportId ;
-    skos:exactMatch eudppcore:digitalProductPassportId .
-
 eubat:batteryModelIdentifier
     a owl:DatatypeProperty ;
     rdfs:label "Battery Model Identifier"@en ;
@@ -1197,7 +1180,7 @@ eubat:expectedCycleLife
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles> ;
+    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles> ;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#batteryCondition> ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31> ;
     skos:exactMatch eudppbat:expectedLifetimeCycles .
@@ -1287,18 +1270,6 @@ eubat:depthOfDischargeInCycleLifeTest
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-eubat:capacityFadeThreshold
-    a owl:DatatypeProperty ;
-    rdfs:label "Capacity Fade Threshold"@en ;
-    rdfs:comment "Capacity fade percentage at which battery reaches end of rated cycle life (typically 80%)."@en ;
-    rdfs:domain eubat:TechnicalSpecification ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso dppk:exhaustionCapacityThreshold ;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#capacityThresholdForExhaustion> .
-
 eubat:resistanceIncreaseThreshold
     a owl:DatatypeProperty ;
     rdfs:label "Resistance Increase Threshold"@en ;
@@ -1309,47 +1280,32 @@ eubat:resistanceIncreaseThreshold
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-eubat:hasInitialInternalResistance
-    a owl:ObjectProperty ;
-    rdfs:seeAlso dppk:internalResistanceInitial ;
-    skos:exactMatch dppk:internalResistanceInitial ;
-    rdfs:label "Initial Internal Resistance"@en ;
-    rdfs:comment "Initial internal resistance at commissioning in Ohms. Use unitCode 'OHM' (UN/CEFACT Rec 20)."@en ;
-    rdfs:domain eubat:TechnicalSpecification ;
-    rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#ohmicResistance> ;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> ;
-    skos:narrowMatch eudppbat:internalCellResistance ;
-    skos:narrowMatch eudppbat:internalPackResistance .
-
 eubat:hasInitialCellInternalResistance
     a owl:ObjectProperty ;
-    rdfs:subPropertyOf eubat:hasInitialInternalResistance ;
     rdfs:label "Initial Internal Cell Resistance"@en ;
     rdfs:comment "Initial internal resistance of the battery cell at commissioning in Ohms (Annex XIII 1 (o)). Use unitCode 'OHM' (UN/CEFACT Rec 20). Annex XIII 1 (o) asks for both the cell and the pack value; the pack value is eubat:hasInitialPackInternalResistance."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "The EC data-point guidance (version 3.2) lists data point 38 as two values, internal battery cell resistance and internal battery pack resistance. The generic eubat:hasInitialInternalResistance stays for passports that declare one value without saying which. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:note "The EC data-point guidance (version 3.2) lists data point 38 as two values, internal battery cell resistance and internal battery pack resistance. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance> ;
+    skos:broadMatch dppk:internalResistanceInitial ;
     skos:exactMatch eudppbat:internalCellResistance .
 
 eubat:hasInitialPackInternalResistance
     a owl:ObjectProperty ;
-    rdfs:subPropertyOf eubat:hasInitialInternalResistance ;
     rdfs:label "Initial Internal Pack Resistance"@en ;
     rdfs:comment "Initial internal resistance of the battery pack at commissioning in Ohms (Annex XIII 1 (o)). Use unitCode 'OHM' (UN/CEFACT Rec 20). Annex XIII 1 (o) asks for both the cell and the pack value; the cell value is eubat:hasInitialCellInternalResistance."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "The EC data-point guidance (version 3.2) lists data point 38 as two values, internal battery cell resistance and internal battery pack resistance. The generic eubat:hasInitialInternalResistance stays for passports that declare one value without saying which. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:note "The EC data-point guidance (version 3.2) lists data point 38 as two values, internal battery cell resistance and internal battery pack resistance. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance> ;
+    skos:broadMatch dppk:internalResistanceInitial ;
     skos:exactMatch eudppbat:internalPackResistance .
 
 eubat:initialSelfDischarge
@@ -1377,6 +1333,7 @@ eubat:capacityThresholdForExhaustion
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-33> ;
+    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#capacityThresholdForExhaustion> ;
     skos:exactMatch eudppbat:capacityExhaustionThreshold .
 
 eubat:lifetimeReferenceTest
@@ -1691,7 +1648,7 @@ eubat:renewableContentShare
     rdfs:seeAlso dppk:renewableContent ;
     skos:exactMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent> ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-24> ;
-    skos:exactMatch eudppbat:renewableContentShare .
+    skos:broadMatch eudppbat:renewableContentShare .
 
 eubat:criticalRawMaterialsStatement
     a owl:DatatypeProperty ;
@@ -2145,7 +2102,8 @@ eubat:renewableContent
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:closeMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent> .
+    skos:closeMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent> ;
+    skos:exactMatch eudppbat:renewableContentShare .
 
 eubat:safetyInstructions
     a owl:DatatypeProperty ;
@@ -3248,21 +3206,6 @@ eubat:dataQualityAssessment
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:dataQualityAssessment .
 
-eubat:lastDataUpdate
-    a owl:DatatypeProperty ;
-    rdfs:label "Last Data Update"@en ;
-    rdfs:comment "Timestamp of the last update to the battery passport data."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range xsd:dateTime ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:lastDataUpdate ;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#lastUpdate> ;
-    skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/1.3#Date-timeOfLatestUpdateOfDPP> ;
-    skos:closeMatch <https://w3id.org/eudpp#lastUpdate> ;
-    skos:exactMatch eudppcore:lastUpdate .
-
 eubat:dataProviderCertification
     a owl:DatatypeProperty ;
     rdfs:label "Data Provider Certification"@en ;
@@ -3349,6 +3292,7 @@ eubat:hasCycleCount
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCycles> ;
     rdfs:seeAlso battinfo:CycleNumber ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68> ;
+    skos:exactMatch <https://w3id.org/eudpp/battery-performance#numberOfFullCycles> ;
     skos:closeMatch eudppbat:numberOfChargingCycles .
 
 eubat:hasRemainingCapacity
@@ -3687,18 +3631,6 @@ eubat:soceMeasurementId
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-eubat:exhaustionThreshold
-    a owl:DatatypeProperty ;
-    rdfs:label "Exhaustion Threshold"@en ;
-    rdfs:comment "SOCE percentage threshold for battery exhaustion."@en ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso dppk:exhaustionCapacityThreshold ;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#capacityThresholdForExhaustion> ;
-    skos:exactMatch dppk:exhaustionCapacityThreshold .
-
 eubat:expectedRemainingCycles
     a owl:DatatypeProperty ;
     rdfs:label "Expected Remaining Cycles"@en ;
@@ -3991,19 +3923,6 @@ eubat:atSoC
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCharge> ;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#atSoC> .
 
-eubat:numberOfFullCycles
-    a owl:DatatypeProperty ;
-    rdfs:label "Number of Full Cycles"@en ;
-    rdfs:comment "Cumulative number of full equivalent cycles the battery has completed."@en ;
-    rdfs:domain oec:PerformanceInfo ;
-    rdfs:range xsd:integer ;
-    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#numberOfFullCycles)."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCycles> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68> ;
-    skos:exactMatch <https://w3id.org/eudpp/battery-performance#numberOfFullCycles> .
-
 eubat:roundTripEnergyEfficiency
     a owl:DatatypeProperty ;
     rdfs:label "Round-Trip Energy Efficiency"@en ;
@@ -4035,20 +3954,6 @@ eubat:hasExpectedLifetime
     rdfs:seeAlso dppk:expectedLifetimeYears ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime> ;
     skos:closeMatch dppk:expectedLifetimeYears .
-
-eubat:expectedNumberOfCycles
-    a owl:DatatypeProperty ;
-    rdfs:label "Expected Number of Cycles"@en ;
-    rdfs:comment "Manufacturer-declared expected number of full cycles."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range xsd:integer ;
-    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#ExpectedNumberOfCycles)."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    rdfs:seeAlso dppk:expectedLifetimeCycles ;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles> ;
-    skos:broadMatch cv:expressionOfExpectedValue ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31> .
 
 eubat:hasBatteryMass
     a owl:ObjectProperty ;

@@ -27,9 +27,9 @@ ecbp:dp-01-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:batteryPassportIdentifier ; sh:minCount 1 ] [ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ] ) ;
+    sh:or ( [ sh:path oec:passportIdentifier ; sh:minCount 1 ] [ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 1 (EV, mandatory): Unique identifier [unique product identifier] — expected eubat:batteryPassportIdentifier or a GS1 Digital Link id" ;
+    sh:message "EC data point 1 (EV, mandatory): Unique identifier [unique product identifier] — expected oec:passportIdentifier or a GS1 Digital Link id" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-01> .
 
 ecbp:dp-02-ev
@@ -201,7 +201,7 @@ ecbp:dp-24-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasMaterialComposition eubat:renewableContentShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 24 (EV, mandatory): The share of renewable content [%] — expected eubat:renewableContentShare" ] ;
+    sh:property [ sh:path ( eubat:hasEndOfLifeInfo eubat:renewableContent ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 24 (EV, mandatory): The share of renewable content [%] — expected eubat:renewableContent" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-24> .
 
 ecbp:dp-26-ev
@@ -245,9 +245,7 @@ ecbp:dp-31-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:expectedNumberOfCycles ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 31 (EV, mandatory): Expected battery lifetime expressed in cycles [in number] — expected eubat:expectedNumberOfCycles / eubat:expectedCycleLife" ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 31 (EV, mandatory): Expected battery lifetime expressed in cycles [in number] — expected eubat:expectedCycleLife" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31> .
 
 ecbp:dp-32-ev
@@ -300,9 +298,9 @@ ecbp:dp-38-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialCellInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialPackInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialInternalResistance ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialCellInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialPackInternalResistance ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 38 (EV, mandatory): Internal battery cell resistance [unit Ω] and internal battery pack resistance [unit Ω] — expected eubat:hasInitialCellInternalResistance / eubat:hasInitialPackInternalResistance / eubat:hasInitialInternalResistance" ;
+    sh:message "EC data point 38 (EV, mandatory): Internal battery cell resistance [unit Ω] and internal battery pack resistance [unit Ω] — expected eubat:hasInitialCellInternalResistance / eubat:hasInitialPackInternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> .
 
 ecbp:dp-39-ev
@@ -499,9 +497,7 @@ ecbp:dp-68-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( oec:hasPerformanceInfo eubat:numberOfFullCycles ) ; sh:minCount 1 ] [ sh:path eubat:hasCycleCount ; sh:minCount 1 ] ) ;
-    sh:severity sh:Warning ;
-    sh:message "EC data point 68 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] — expected eubat:numberOfFullCycles / eubat:hasCycleCount" ;
+    sh:property [ sh:path eubat:hasCycleCount ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 68 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] — expected eubat:hasCycleCount" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68> .
 
 ecbp:dp-69-ev
@@ -533,9 +529,9 @@ ecbp:dp-01-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:batteryPassportIdentifier ; sh:minCount 1 ] [ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ] ) ;
+    sh:or ( [ sh:path oec:passportIdentifier ; sh:minCount 1 ] [ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 1 (LMT, mandatory): Unique identifier [unique product identifier] — expected eubat:batteryPassportIdentifier or a GS1 Digital Link id" ;
+    sh:message "EC data point 1 (LMT, mandatory): Unique identifier [unique product identifier] — expected oec:passportIdentifier or a GS1 Digital Link id" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-01> .
 
 ecbp:dp-02-lmt
@@ -707,7 +703,7 @@ ecbp:dp-24-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasMaterialComposition eubat:renewableContentShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 24 (LMT, mandatory): The share of renewable content [%] — expected eubat:renewableContentShare" ] ;
+    sh:property [ sh:path ( eubat:hasEndOfLifeInfo eubat:renewableContent ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 24 (LMT, mandatory): The share of renewable content [%] — expected eubat:renewableContent" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-24> .
 
 ecbp:dp-26-lmt
@@ -751,9 +747,7 @@ ecbp:dp-31-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:expectedNumberOfCycles ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 31 (LMT, mandatory): Expected battery lifetime expressed in cycles [in number] — expected eubat:expectedNumberOfCycles / eubat:expectedCycleLife" ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 31 (LMT, mandatory): Expected battery lifetime expressed in cycles [in number] — expected eubat:expectedCycleLife" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31> .
 
 ecbp:dp-32-lmt
@@ -799,9 +793,9 @@ ecbp:dp-38-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialCellInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialPackInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialInternalResistance ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialCellInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialPackInternalResistance ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 38 (LMT, mandatory): Internal battery cell resistance [unit Ω] and internal battery pack resistance [unit Ω] — expected eubat:hasInitialCellInternalResistance / eubat:hasInitialPackInternalResistance / eubat:hasInitialInternalResistance" ;
+    sh:message "EC data point 38 (LMT, mandatory): Internal battery cell resistance [unit Ω] and internal battery pack resistance [unit Ω] — expected eubat:hasInitialCellInternalResistance / eubat:hasInitialPackInternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> .
 
 ecbp:dp-39-lmt
@@ -1028,9 +1022,7 @@ ecbp:dp-68-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( oec:hasPerformanceInfo eubat:numberOfFullCycles ) ; sh:minCount 1 ] [ sh:path eubat:hasCycleCount ; sh:minCount 1 ] ) ;
-    sh:severity sh:Warning ;
-    sh:message "EC data point 68 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] — expected eubat:numberOfFullCycles / eubat:hasCycleCount" ;
+    sh:property [ sh:path eubat:hasCycleCount ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 68 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] — expected eubat:hasCycleCount" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68> .
 
 ecbp:dp-69-lmt
@@ -1062,9 +1054,9 @@ ecbp:dp-01-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:batteryPassportIdentifier ; sh:minCount 1 ] [ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ] ) ;
+    sh:or ( [ sh:path oec:passportIdentifier ; sh:minCount 1 ] [ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 1 (industrial, mandatory): Unique identifier [unique product identifier] — expected eubat:batteryPassportIdentifier or a GS1 Digital Link id" ;
+    sh:message "EC data point 1 (industrial, mandatory): Unique identifier [unique product identifier] — expected oec:passportIdentifier or a GS1 Digital Link id" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-01> .
 
 ecbp:dp-02-industrial
@@ -1236,7 +1228,7 @@ ecbp:dp-24-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasMaterialComposition eubat:renewableContentShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 24 (industrial, mandatory): The share of renewable content [%] — expected eubat:renewableContentShare" ] ;
+    sh:property [ sh:path ( eubat:hasEndOfLifeInfo eubat:renewableContent ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 24 (industrial, mandatory): The share of renewable content [%] — expected eubat:renewableContent" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-24> .
 
 ecbp:dp-26-industrial
@@ -1280,9 +1272,7 @@ ecbp:dp-31-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:expectedNumberOfCycles ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Warning ;
-    sh:message "EC data point 31 (industrial, provide if the condition applies: Only applicable for some industrial batteries where lifetime can be expressed in cycles): Expected battery lifetime expressed in cycles [in number] — expected eubat:expectedNumberOfCycles / eubat:expectedCycleLife" ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 31 (industrial, provide if the condition applies: Only applicable for some industrial batteries where lifetime can be expressed in cycles): Expected battery lifetime expressed in cycles [in number] — expected eubat:expectedCycleLife" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31> .
 
 ecbp:dp-32-industrial
@@ -1328,9 +1318,9 @@ ecbp:dp-38-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialCellInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialPackInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialInternalResistance ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialCellInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialPackInternalResistance ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 38 (industrial, mandatory): Internal battery cell resistance [unit Ω] and internal battery pack resistance [unit Ω] — expected eubat:hasInitialCellInternalResistance / eubat:hasInitialPackInternalResistance / eubat:hasInitialInternalResistance" ;
+    sh:message "EC data point 38 (industrial, mandatory): Internal battery cell resistance [unit Ω] and internal battery pack resistance [unit Ω] — expected eubat:hasInitialCellInternalResistance / eubat:hasInitialPackInternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> .
 
 ecbp:dp-39-industrial
@@ -1557,9 +1547,7 @@ ecbp:dp-68-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( oec:hasPerformanceInfo eubat:numberOfFullCycles ) ; sh:minCount 1 ] [ sh:path eubat:hasCycleCount ; sh:minCount 1 ] ) ;
-    sh:severity sh:Warning ;
-    sh:message "EC data point 68 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] — expected eubat:numberOfFullCycles / eubat:hasCycleCount" ;
+    sh:property [ sh:path eubat:hasCycleCount ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 68 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] — expected eubat:hasCycleCount" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68> .
 
 ecbp:dp-69-industrial

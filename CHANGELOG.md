@@ -21,6 +21,11 @@ The Battery Passport data-point guidance moved to version 3.2 (19 October 2026):
 data point 40, recycled content not yet required, two new battery terms. See
 `extensions/eu/battery/CHANGELOG.md`.
 
+Eight duplicates that the Registry data elements and EN 18223 now cover are removed without a
+deprecation phase (seven battery terms and `oec:lastDataUpdate`); the module changelogs list each
+with its replacement. `check:context-compat` lists removed terms instead of failing on them, and
+an allowlisted term is now also accepted where it occurs inside a scoped context.
+
 ### Breaking: measured and assessed values move to the new `common/assessment` module
 
 A new module below the core, `common/assessment` (`oea:`), models what was measured, tested or

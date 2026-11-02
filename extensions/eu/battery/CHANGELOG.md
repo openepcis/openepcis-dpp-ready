@@ -25,9 +25,37 @@ published and every 3.2 data point names its predecessor with `dcterms:replaces`
 ### Added: discharge C-rate and cell / pack resistance
 
 `eubat:dischargeCRateLifeCycleTest` (guidance #40) and `eubat:hasInitialCellInternalResistance`
-/ `eubat:hasInitialPackInternalResistance` (guidance #38 names both values; both are
-sub-properties of `eubat:hasInitialInternalResistance`, which stays for a single declared value).
+/ `eubat:hasInitialPackInternalResistance` (guidance #38 names both values).
 Public tier, context entries, extension schema and the battery example follow.
+
+### Removed: duplicates that the EU DPP Registry and EN 18223 now cover
+
+Removed without a deprecation phase, because each one duplicates a term that carries the
+`skos:exactMatch` to the Commission's DPP Registry data element. Their SKOS mappings move to the
+surviving term; examples, the guidance registries (1.0 and 3.2), the BatteryPass bridge and the
+GITB fixtures follow.
+
+| Removed | Use instead | Why |
+|---|---|---|
+| `eubat:batteryPassportIdentifier` | `oec:passportIdentifier` | EN 18223 `digitalProductPassportId`, EU `core-vocabulary#digitalProductPassportId` |
+| `eubat:lastDataUpdate` | `oec:lastUpdated` | EN 18223 `lastUpdated`, EU `core-vocabulary#lastUpdate`; every battery example already carried both |
+| `eubat:exhaustionThreshold` | `eubat:capacityThresholdForExhaustion` | same definition, EU `capacityExhaustionThreshold` |
+| `eubat:capacityFadeThreshold` | `eubat:capacityThresholdForExhaustion` | a second wording of the same threshold (guidance #33); the examples gave it 20 next to an exhaustion threshold of 70 |
+| `eubat:expectedNumberOfCycles` | `eubat:expectedCycleLife` | EU `expectedLifetimeCycles` (guidance #31) |
+| `eubat:numberOfFullCycles` | `eubat:hasCycleCount` | EU `numberOfChargingCycles` (guidance #68) |
+| `eubat:hasInitialInternalResistance` | `eubat:hasInitialCellInternalResistance`, `eubat:hasInitialPackInternalResistance` | guidance 3.2 #38 asks for both values; one undifferentiated value fills neither |
+
+The BatteryPass bridge keeps every incoming key: `batteryPassportIdentifier` and
+`productIdentifier` land on `oec:passportIdentifier`, `lastUpdate` on `oec:lastUpdated`, the
+longlist cycle keys on `eubat:expectedCycleLife` and `eubat:hasCycleCount`, and the single initial
+resistance keeps its upstream SAMM IRI. These re-pointed keys are listed with their reason in
+`scripts/context-compat-allowlist.json`.
+
+### Fixed: renewable content share
+
+The EU `renewableContentShare` (Annex XIII 1 (f)) is the share of the whole battery. It is now an
+exactMatch of `eubat:renewableContent` (end-of-life information); the per-material
+`eubat:renewableContentShare` points at it with broadMatch.
 
 ### Added: EU DPP Registry value lists
 

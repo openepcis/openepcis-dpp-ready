@@ -20744,7 +20744,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/common/core/landUse": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/language": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/languageCode": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/common/core/lastDataUpdate": "http://www.w3.org/2001/XMLSchema#dateTime",
   "https://ref.openepcis.org/extensions/common/core/lastUpdated": "http://www.w3.org/2001/XMLSchema#dateTime",
   "https://ref.openepcis.org/extensions/common/core/massFraction": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/materialCircularityIndicator": "http://www.w3.org/2001/XMLSchema#decimal",
@@ -20803,10 +20802,8 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/auditBody": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/authorizedServiceCenters": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/batteryModelIdentifier": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/battery/batteryPassportIdentifier": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/cadmiumSymbolRequired": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/battery/calculationStandard": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/battery/capacityFadeThreshold": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/capacityThresholdForExhaustion": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/carbonFootprintDeclarationId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/carbonFootprintGeographicScope": "http://www.w3.org/2001/XMLSchema#string",
@@ -20827,6 +20824,7 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/dataQualityAssessment": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/declarationOfConformity": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/depthOfDischargeInCycleLifeTest": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.org/extensions/eu/battery/dischargeCRateLifeCycleTest": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/documentUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/dueDiligencePolicyUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/dueDiligenceReportUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
@@ -20837,10 +20835,8 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/euDeclarationOfConformityId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/eventDate": "http://www.w3.org/2001/XMLSchema#dateTime",
   "https://ref.openepcis.org/extensions/eu/battery/exceedanceThreshold": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/eu/battery/exhaustionThreshold": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/expectedCycleLife": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/expectedLifetimeYears": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.org/extensions/eu/battery/expectedNumberOfCycles": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/expectedRemainingCycles": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/expectedRemainingLifetimeMonths": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/exposureDurationMinutes": "http://www.w3.org/2001/XMLSchema#integer",
@@ -20886,8 +20882,9 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/hasHazardousSubstances": "https://ref.openepcis.org/extensions/eu/battery/HazardousSubstance",
   "https://ref.openepcis.org/extensions/eu/battery/hasIncidentSeverity": "https://ref.openepcis.org/extensions/eu/battery/IncidentSeverity",
   "https://ref.openepcis.org/extensions/eu/battery/hasInitialCapacity": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.org/extensions/eu/battery/hasInitialCellInternalResistance": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasInitialEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasInitialInternalResistance": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.org/extensions/eu/battery/hasInitialPackInternalResistance": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasInternalResistance": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasInternalResistanceIncrease": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasLabels": "https://ref.openepcis.org/extensions/eu/battery/Label",
@@ -20952,7 +20949,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/labelMeaning": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/labelSymbol": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/languageCode": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/battery/lastDataUpdate": "http://www.w3.org/2001/XMLSchema#dateTime",
   "https://ref.openepcis.org/extensions/eu/battery/leadPostConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/leadPreConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/leadRecycledShare": "http://www.w3.org/2001/XMLSchema#decimal",
@@ -20975,7 +20971,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/notifiedBodyNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/numberOfCells": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/numberOfDeepDischargeEvents": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.org/extensions/eu/battery/numberOfFullCycles": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/numberOfModules": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/operatorIdentifier": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/powerCapabilityRatio": "http://www.w3.org/2001/XMLSchema#decimal",
@@ -21669,10 +21664,6 @@ var contexts_default = {
         },
         "oec:granularityLevel": {
           "@id": "oec:granularityLevel"
-        },
-        "oec:lastDataUpdate": {
-          "@id": "oec:lastDataUpdate",
-          "@type": "xsd:dateTime"
         },
         "gs1:regulatoryReferenceApplicabilityStartDate": {
           "@id": "gs1:regulatoryReferenceApplicabilityStartDate",
@@ -23055,10 +23046,6 @@ var contexts_default = {
         "@id": "oec:languageCode",
         "@type": "xsd:string"
       },
-      lastDataUpdate: {
-        "@id": "oec:lastDataUpdate",
-        "@type": "xsd:dateTime"
-      },
       lastUpdated: {
         "@id": "oec:lastUpdated",
         "@type": "xsd:dateTime"
@@ -23454,10 +23441,6 @@ var contexts_default = {
         "@id": "eubat:batteryModelIdentifier",
         "@type": "xsd:string"
       },
-      batteryPassportIdentifier: {
-        "@id": "eubat:batteryPassportIdentifier",
-        "@type": "@id"
-      },
       batterySerialNumber: "gs1:hasSerialNumber",
       batteryStatus: {
         "@id": "schema:status",
@@ -23485,10 +23468,6 @@ var contexts_default = {
       calculationStandard: {
         "@id": "eubat:calculationStandard",
         "@type": "xsd:string"
-      },
-      capacityFadeThreshold: {
-        "@id": "eubat:capacityFadeThreshold",
-        "@type": "xsd:decimal"
       },
       capacityThresholdForExhaustion: {
         "@id": "eubat:capacityThresholdForExhaustion",
@@ -23556,6 +23535,10 @@ var contexts_default = {
         "@id": "eubat:depthOfDischargeInCycleLifeTest",
         "@type": "xsd:decimal"
       },
+      dischargeCRateLifeCycleTest: {
+        "@id": "eubat:dischargeCRateLifeCycleTest",
+        "@type": "xsd:decimal"
+      },
       documentUrl: {
         "@id": "eubat:documentUrl",
         "@type": "@id"
@@ -23591,20 +23574,12 @@ var contexts_default = {
         "@id": "eubat:exceedanceThreshold",
         "@type": "xsd:decimal"
       },
-      exhaustionThreshold: {
-        "@id": "eubat:exhaustionThreshold",
-        "@type": "xsd:decimal"
-      },
       expectedCycleLife: {
         "@id": "eubat:expectedCycleLife",
         "@type": "xsd:integer"
       },
       expectedLifetimeYears: {
         "@id": "eubat:expectedLifetimeYears",
-        "@type": "xsd:integer"
-      },
-      expectedNumberOfCycles: {
-        "@id": "eubat:expectedNumberOfCycles",
         "@type": "xsd:integer"
       },
       expectedRemainingCycles: {
@@ -23855,12 +23830,16 @@ var contexts_default = {
         "@id": "eubat:hasInitialCapacity",
         "@type": "@id"
       },
+      hasInitialCellInternalResistance: {
+        "@id": "eubat:hasInitialCellInternalResistance",
+        "@type": "@id"
+      },
       hasInitialEnergy: {
         "@id": "eubat:hasInitialEnergy",
         "@type": "@id"
       },
-      hasInitialInternalResistance: {
-        "@id": "eubat:hasInitialInternalResistance",
+      hasInitialPackInternalResistance: {
+        "@id": "eubat:hasInitialPackInternalResistance",
         "@type": "@id"
       },
       hasInternalResistance: {
@@ -24159,10 +24138,6 @@ var contexts_default = {
         "@id": "eubat:languageCode",
         "@type": "xsd:string"
       },
-      lastDataUpdate: {
-        "@id": "eubat:lastDataUpdate",
-        "@type": "xsd:dateTime"
-      },
       leadPostConsumerShare: {
         "@id": "eubat:leadPostConsumerShare",
         "@type": "xsd:decimal"
@@ -24256,10 +24231,6 @@ var contexts_default = {
       },
       numberOfDeepDischargeEvents: {
         "@id": "eubat:numberOfDeepDischargeEvents",
-        "@type": "xsd:integer"
-      },
-      numberOfFullCycles: {
-        "@id": "eubat:numberOfFullCycles",
         "@type": "xsd:integer"
       },
       numberOfModules: {
@@ -28361,10 +28332,6 @@ var contexts_default = {
           "@id": "eubat:puttingIntoService",
           "@type": "xsd:date"
         },
-        "eubat:batteryPassportIdentifier": {
-          "@id": "eubat:batteryPassportIdentifier",
-          "@type": "xsd:anyURI"
-        },
         "oec:passportStatus": {
           "@id": "oec:passportStatus"
         },
@@ -28448,16 +28415,16 @@ var contexts_default = {
           "@id": "eubat:depthOfDischargeInCycleLifeTest",
           "@type": "xsd:decimal"
         },
-        "eubat:capacityFadeThreshold": {
-          "@id": "eubat:capacityFadeThreshold",
-          "@type": "xsd:decimal"
-        },
         "eubat:resistanceIncreaseThreshold": {
           "@id": "eubat:resistanceIncreaseThreshold",
           "@type": "xsd:decimal"
         },
-        "eubat:hasInitialInternalResistance": {
-          "@id": "eubat:hasInitialInternalResistance",
+        "eubat:hasInitialCellInternalResistance": {
+          "@id": "eubat:hasInitialCellInternalResistance",
+          "@type": "@id"
+        },
+        "eubat:hasInitialPackInternalResistance": {
+          "@id": "eubat:hasInitialPackInternalResistance",
           "@type": "@id"
         },
         "eubat:initialSelfDischarge": {
@@ -28482,6 +28449,10 @@ var contexts_default = {
         },
         "eubat:cRateLifeCycleTest": {
           "@id": "eubat:cRateLifeCycleTest",
+          "@type": "xsd:decimal"
+        },
+        "eubat:dischargeCRateLifeCycleTest": {
+          "@id": "eubat:dischargeCRateLifeCycleTest",
           "@type": "xsd:decimal"
         },
         "eubat:hasOriginalPowerCapability": {
@@ -28832,10 +28803,6 @@ var contexts_default = {
           "@id": "eubat:authorizedServiceCenters",
           "@type": "xsd:anyURI"
         },
-        "eubat:lastDataUpdate": {
-          "@id": "eubat:lastDataUpdate",
-          "@type": "xsd:dateTime"
-        },
         "eubat:hasStateOfHealth": {
           "@id": "eubat:hasStateOfHealth",
           "@type": "@id"
@@ -28920,10 +28887,6 @@ var contexts_default = {
           "@id": "eubat:hasRemainingUsableEnergy",
           "@type": "@id"
         },
-        "eubat:exhaustionThreshold": {
-          "@id": "eubat:exhaustionThreshold",
-          "@type": "xsd:decimal"
-        },
         "eubat:expectedRemainingCycles": {
           "@id": "eubat:expectedRemainingCycles",
           "@type": "xsd:integer"
@@ -28996,10 +28959,6 @@ var contexts_default = {
           "@id": "eubat:hasExpectedLifetime",
           "@type": "@id"
         },
-        "eubat:expectedNumberOfCycles": {
-          "@id": "eubat:expectedNumberOfCycles",
-          "@type": "xsd:integer"
-        },
         "eubat:hasMaximumPermittedBatteryPower": {
           "@id": "eubat:hasMaximumPermittedBatteryPower",
           "@type": "@id"
@@ -29007,10 +28966,6 @@ var contexts_default = {
         "eubat:hasNegativeEvents": {
           "@id": "eubat:hasNegativeEvents",
           "@type": "@id"
-        },
-        "eubat:numberOfFullCycles": {
-          "@id": "eubat:numberOfFullCycles",
-          "@type": "xsd:integer"
         },
         "eubat:roundTripEnergyEfficiency": {
           "@id": "eubat:roundTripEnergyEfficiency",
@@ -29040,7 +28995,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/battery/battery-context-batterypass-bridge.jsonld": {
-    _comment: "This context interprets incoming BatteryPass documents as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). One BatteryPass data model, referenced through two renderings. (1) bpsamm-* = the Battery Pass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl \u2014 the canonical form. (2) bpr: = an OpenEPCIS-hosted reference namespace for the few GEFEG BatteryPass-Ready longlist v1.3 attributes with no SAMM equivalent (DPP-information group #1-#4) plus the flat lossless-carrier keys below; GEFEG (thebatterypass.eu) is the Consortium's publication and validation channel and publishes no RDF IRIs. No SAMM 1.3.0 / DPPInformation submodel exists. Target-selection rule: every key resolves to the highest layer that already covers the concept (gs1: > oec: > eubat:); no key mints a new IRI. Where the longlist carries one flat value that OpenEPCIS models structurally across several terms (materialsUsedInCathode -> eubat:hasBatteryChemistry + eubat:hasMaterialComposition; symbolsForCadmiumAndLead -> eubat:cadmiumSymbolRequired + eubat:leadSymbolRequired; carbonFootprintLabel -> eubat:hasLabels/eubat:labelSymbol + eubat:CarbonFootprintLabel; informationOnAccidents -> eubat:hasNegativeEvents) no 1:1 project term exists, so the key keeps its upstream bpr: IRI and the incoming value is preserved losslessly rather than forced into a partial match. Attribute [5] batteryPassportIdentifier (the DPP identifier) and [6] batteryIdentifier (the unique battery/product identifier) are DISTINCT longlist attributes and map to different IRIs \u2014 oec/eubat passport identifier vs gs1:productID. Quantity carriers use the longlist's bare {value, unitCode} shape, aliased onto gs1:value/gs1:unitCode with the same xsd:decimal coercion the prefixed terms carry, so examples/batterypass-v1.3.jsonld validates against validation/batterypass-v1.3-schema.json (85/85 required attributes) while staying graph-identical.",
+    _comment: "This context interprets incoming BatteryPass documents as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). One BatteryPass data model, referenced through two renderings. (1) bpsamm-* = the Battery Pass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl \u2014 the canonical form. (2) bpr: = an OpenEPCIS-hosted reference namespace for the few GEFEG BatteryPass-Ready longlist v1.3 attributes with no SAMM equivalent (DPP-information group #1-#4) plus the flat lossless-carrier keys below; GEFEG (thebatterypass.eu) is the Consortium's publication and validation channel and publishes no RDF IRIs. No SAMM 1.3.0 / DPPInformation submodel exists. Target-selection rule: every key resolves to the highest layer that already covers the concept (gs1: > oec: > eubat:); no key mints a new IRI. Where the longlist carries one flat value that OpenEPCIS models structurally across several terms (materialsUsedInCathode -> eubat:hasBatteryChemistry + eubat:hasMaterialComposition; symbolsForCadmiumAndLead -> eubat:cadmiumSymbolRequired + eubat:leadSymbolRequired; carbonFootprintLabel -> eubat:hasLabels/eubat:labelSymbol + eubat:CarbonFootprintLabel; informationOnAccidents -> eubat:hasNegativeEvents) no 1:1 project term exists, so the key keeps its upstream bpr: IRI and the incoming value is preserved losslessly rather than forced into a partial match. Attribute [5] batteryPassportIdentifier (the DPP identifier) and [6] batteryIdentifier (the unique battery/product identifier) are DISTINCT longlist attributes and map to different IRIs \u2014 oec:passportIdentifier vs gs1:productID. The single initial internal resistance of the longlist and of SAMM keeps its upstream SAMM IRI, because the EU guidance 3.2 asks for a cell and a pack value (eubat:hasInitialCellInternalResistance, eubat:hasInitialPackInternalResistance) and one undifferentiated value fills neither. Quantity carriers use the longlist's bare {value, unitCode} shape, aliased onto gs1:value/gs1:unitCode with the same xsd:decimal coercion the prefixed terms carry, so examples/batterypass-v1.3.jsonld validates against validation/batterypass-v1.3-schema.json (85/85 required attributes) while staying graph-identical.",
     "@context": {
       "@version": 1.1,
       gs1: "https://ref.gs1.org/voc/",
@@ -29076,10 +29031,10 @@ var contexts_default = {
         "@type": "xsd:dateTime"
       },
       productIdentifier: {
-        "@id": "eubat:batteryPassportIdentifier"
+        "@id": "oec:passportIdentifier"
       },
       batteryPassportIdentifier: {
-        "@id": "eubat:batteryPassportIdentifier"
+        "@id": "oec:passportIdentifier"
       },
       batteryModelIdentifier: {
         "@id": "eubat:batteryModelIdentifier"
@@ -29220,7 +29175,7 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       initialInternalResistance: {
-        "@id": "eubat:hasInitialInternalResistance",
+        "@id": "bpsamm-perf:initialInternalResistance",
         "@type": "@id"
       },
       expectedLifetime: {
@@ -29320,7 +29275,7 @@ var contexts_default = {
         "@type": "@id"
       },
       lastUpdate: {
-        "@id": "eubat:lastDataUpdate",
+        "@id": "oec:lastUpdated",
         "@type": "xsd:dateTime"
       },
       negativeEvents: {
@@ -29741,7 +29696,7 @@ var contexts_default = {
         "@type": "@id"
       },
       initialInternalResistanceOfBatteryCellAndPack: {
-        "@id": "eubat:hasInitialInternalResistance",
+        "@id": "bpsamm-perf:initialInternalResistance",
         "@type": "@id"
       },
       internalResistanceIncreaseOfPack: {
@@ -29753,11 +29708,11 @@ var contexts_default = {
         "@type": "@id"
       },
       expectedLifetimeNumberOfChargeDischargeCycles: {
-        "@id": "eubat:expectedNumberOfCycles",
+        "@id": "eubat:expectedCycleLife",
         "@type": "@id"
       },
       numberOfFullChargingAndDischargingCycles: {
-        "@id": "eubat:numberOfFullCycles",
+        "@id": "eubat:hasCycleCount",
         "@type": "@id"
       },
       cycleLifeReferenceTest: "eubat:lifetimeReferenceTest",
@@ -31487,7 +31442,6 @@ var samples_default = [
         "gs1:value": "1.9",
         "gs1:unitCode": "OHM"
       },
-      "eubat:numberOfFullCycles": 640,
       "eubat:hasCycleCount": 640,
       "eubat:hasEnergyThroughput": {
         type: "gs1:QuantitativeValue",
@@ -31671,7 +31625,7 @@ var samples_default = [
           "gs1:value": 5,
           "gs1:unitCode": "KWT"
         },
-        "eubat:hasInitialInternalResistance": {
+        "eubat:hasInitialPackInternalResistance": {
           type: "gs1:QuantitativeValue",
           "gs1:value": "1.8",
           "gs1:unitCode": "OHM"
@@ -31962,7 +31916,7 @@ var samples_default = [
           "gs1:value": "7.5",
           "gs1:unitCode": "KWT"
         },
-        "eubat:hasInitialInternalResistance": {
+        "eubat:hasInitialPackInternalResistance": {
           type: "gs1:QuantitativeValue",
           "gs1:value": "2.1",
           "gs1:unitCode": "OHM"
@@ -32330,7 +32284,12 @@ var samples_default = [
             }
           }
         ],
-        "eubat:hasInitialInternalResistance": {
+        "eubat:hasInitialCellInternalResistance": {
+          type: "gs1:QuantitativeValue",
+          "gs1:value": "0.0009",
+          "gs1:unitCode": "OHM"
+        },
+        "eubat:hasInitialPackInternalResistance": {
           type: "gs1:QuantitativeValue",
           "gs1:value": "2.1",
           "gs1:unitCode": "OHM"
@@ -32349,7 +32308,6 @@ var samples_default = [
           "gs1:unitCode": "AMH"
         },
         "eubat:depthOfDischargeInCycleLifeTest": 80,
-        "eubat:capacityFadeThreshold": 20,
         "eubat:resistanceIncreaseThreshold": 50,
         "eubat:roundTripEfficiency": 96,
         "eubat:capacityThresholdForExhaustion": 70,
@@ -32357,6 +32315,7 @@ var samples_default = [
         "eubat:powerCapabilityRatio": "0.52",
         "eubat:cRate": "0.5",
         "eubat:cRateLifeCycleTest": "0.33",
+        "eubat:dischargeCRateLifeCycleTest": "0.5",
         "eubat:roundTripEfficiencyAt50PercentCycleLife": 94,
         "eubat:hasTemperatureRangeStorage": {
           id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#temp-storage",
@@ -32638,7 +32597,6 @@ var samples_default = [
       },
       "eubat:repurposingGuidelines": "https://files.example.org/files/products/09521002005004/docs/repurposing-guidelines.pdf",
       "eubat:dataQualityAssessment": "A",
-      "eubat:lastDataUpdate": "2024-03-20T14:30:00Z",
       "eubat:dataProviderCertification": "ISO 27001 certified data management",
       "eubat:criticalRawMaterialsStatement": {
         "@value": "Contains lithium (4.2%), graphite (18.3%), and phosphorus (9.8%) which are on the EU Critical Raw Materials list.",
@@ -33204,7 +33162,7 @@ var samples_default = [
             }
           }
         ],
-        "eubat:hasInitialInternalResistance": {
+        "eubat:hasInitialPackInternalResistance": {
           type: "gs1:QuantitativeValue",
           "gs1:value": "2.1",
           "gs1:unitCode": "OHM"
@@ -33223,7 +33181,6 @@ var samples_default = [
           "gs1:unitCode": "AMH"
         },
         "eubat:depthOfDischargeInCycleLifeTest": 80,
-        "eubat:capacityFadeThreshold": 20,
         "eubat:resistanceIncreaseThreshold": 50,
         "eubat:roundTripEfficiency": 96,
         "eubat:capacityThresholdForExhaustion": 70,
@@ -33512,7 +33469,6 @@ var samples_default = [
       },
       "eubat:repurposingGuidelines": "https://files.example.org/files/products/09521002005004/docs/repurposing-guidelines.pdf",
       "eubat:dataQualityAssessment": "A",
-      "eubat:lastDataUpdate": "2024-03-20T14:30:00Z",
       "eubat:dataProviderCertification": "ISO 27001 certified data management",
       "eubat:criticalRawMaterialsStatement": {
         "@value": "Contains lithium (4.2%), graphite (18.3%), and phosphorus (9.8%) which are on the EU Critical Raw Materials list.",
@@ -34111,7 +34067,7 @@ var samples_default = [
             }
           }
         ],
-        "eubat:hasInitialInternalResistance": {
+        "eubat:hasInitialPackInternalResistance": {
           type: "gs1:QuantitativeValue",
           "gs1:value": "2.1",
           "gs1:unitCode": "OHM"
@@ -34130,7 +34086,6 @@ var samples_default = [
           "gs1:unitCode": "AMH"
         },
         "eubat:depthOfDischargeInCycleLifeTest": 80,
-        "eubat:capacityFadeThreshold": 20,
         "eubat:resistanceIncreaseThreshold": 50,
         "eubat:roundTripEfficiency": 96,
         "eubat:capacityThresholdForExhaustion": 70,
@@ -34419,7 +34374,6 @@ var samples_default = [
       },
       "eubat:repurposingGuidelines": "https://files.example.org/files/products/09521002005004/docs/repurposing-guidelines.pdf",
       "eubat:dataQualityAssessment": "A",
-      "eubat:lastDataUpdate": "2024-03-20T14:30:00Z",
       "eubat:dataProviderCertification": "ISO 27001 certified data management",
       "eubat:criticalRawMaterialsStatement": {
         "@value": "Contains lithium (4.2%), graphite (18.3%), and phosphorus (9.8%) which are on the EU Critical Raw Materials list.",
@@ -34981,7 +34935,7 @@ var samples_default = [
             }
           }
         ],
-        "eubat:hasInitialInternalResistance": {
+        "eubat:hasInitialPackInternalResistance": {
           type: "gs1:QuantitativeValue",
           "gs1:value": "2.1",
           "gs1:unitCode": "OHM"
@@ -35000,7 +34954,6 @@ var samples_default = [
           "gs1:unitCode": "AMH"
         },
         "eubat:depthOfDischargeInCycleLifeTest": 80,
-        "eubat:capacityFadeThreshold": 20,
         "eubat:resistanceIncreaseThreshold": 50,
         "eubat:roundTripEfficiency": 96,
         "eubat:capacityThresholdForExhaustion": 70,
@@ -35289,7 +35242,6 @@ var samples_default = [
       },
       "eubat:repurposingGuidelines": "https://files.example.org/files/products/09521002005004/docs/repurposing-guidelines.pdf",
       "eubat:dataQualityAssessment": "A",
-      "eubat:lastDataUpdate": "2024-03-20T14:30:00Z",
       "eubat:dataProviderCertification": "ISO 27001 certified data management",
       "eubat:criticalRawMaterialsStatement": {
         "@value": "Contains lithium (4.2%), graphite (18.3%), and phosphorus (9.8%) which are on the EU Critical Raw Materials list.",
@@ -38925,7 +38877,7 @@ var samples_default = [
       "oec:hasProductCategory": {
         id: "oec:Textiles"
       },
-      "oec:lastDataUpdate": "2024-12-01T09:00:00Z",
+      "oec:lastUpdated": "2024-12-01T09:00:00Z",
       "oec:dataQualityAssessment": "A"
     }
   },
@@ -39970,7 +39922,7 @@ var samples_default = [
       "oec:hasProductCategory": {
         id: "oec:Textiles"
       },
-      "oec:lastDataUpdate": "2024-10-15T10:30:00Z",
+      "oec:lastUpdated": "2024-10-15T10:30:00Z",
       "oec:dataQualityAssessment": "A"
     }
   },
@@ -40934,7 +40886,7 @@ var samples_default = [
       "oec:hasProductCategory": {
         id: "oec:Textiles"
       },
-      "oec:lastDataUpdate": "2026-02-15T09:00:00Z",
+      "oec:lastUpdated": "2026-02-15T09:00:00Z",
       "oec:dataQualityAssessment": "A"
     }
   },
@@ -41047,7 +40999,7 @@ var samples_default = [
         id: "https://fsc.org/en/certificate/FSC-C789012"
       },
       "gs1:hasBatchLotNumber": "FURN-2025-02-001",
-      "oec:lastDataUpdate": "2025-02-18T10:00:00Z",
+      "oec:lastUpdated": "2025-02-18T10:00:00Z",
       "oec:dataQualityAssessment": "A"
     }
   },
@@ -42400,7 +42352,7 @@ var samples_default = [
       "oec:hasProductCategory": {
         id: "oec:Detergents"
       },
-      "oec:lastDataUpdate": "2026-09-01T10:00:00Z"
+      "oec:lastUpdated": "2026-09-01T10:00:00Z"
     }
   },
   {
@@ -42688,7 +42640,7 @@ var samples_default = [
       "oec:hasProductCategory": {
         id: "oec:Detergents"
       },
-      "oec:lastDataUpdate": "2026-09-01T10:00:00Z"
+      "oec:lastUpdated": "2026-09-01T10:00:00Z"
     }
   },
   {

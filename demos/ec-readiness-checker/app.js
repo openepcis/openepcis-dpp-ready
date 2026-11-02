@@ -25751,14 +25751,20 @@ var ec_datapoint_applicability_default = {
   $comment: "GENERATED from vocab/ec-guidance-datapoints.json by scripts/build-ec-guidance-vocab.ts - do not edit. Per-category applicability of the 71 EC Battery Passport guidance data points as of February 2027, with the operative OpenEPCIS/GS1 terms per data point. Statuses: mandatory | optional | conditional | notToBeFilled | pending (blocked on an upcoming implementing act / Omnibus IV).",
   document: {
     title: "Guidance Document: Digital Batteries Passport - data points by category",
-    version: "1.0",
-    issued: "2026-07-28",
+    version: "3.2",
+    issued: "2026-10-19",
     publisher: "European Commission, DG Internal Market, Industry, Entrepreneurship and SMEs (Unit G2)",
-    reference: "Ares(2026)7579758",
     license: "https://creativecommons.org/licenses/by/4.0/",
-    regulation: "http://data.europa.eu/eli/reg/2023/1542/oj"
+    regulation: "http://data.europa.eu/eli/reg/2023/1542/oj",
+    source: "https://single-market-economy.ec.europa.eu/document/download/cd1e5e6c-4a4a-4b99-995a-49eb6916187e_en?filename=Digital%20Batteries%20Passport%20-%20data%20point%20by%20category.pdf",
+    supersedes: {
+      version: "1.0",
+      issued: "2026-07-28",
+      reference: "Ares(2026)7579758",
+      namespace: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#"
+    }
   },
-  namespace: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#",
+  namespace: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#",
   categories: [
     "ev",
     "lmt",
@@ -25767,8 +25773,8 @@ var ec_datapoint_applicability_default = {
   dataPoints: [
     {
       nr: 1,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-01",
-      name: "Unique identifier",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-01",
+      name: "Unique identifier [unique product identifier]",
       source: "BR Article 77 (3)",
       lifecycle: "static",
       accessTier: "public",
@@ -25784,13 +25790,13 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:batteryPassportIdentifier"
+        "oec:passportIdentifier"
       ]
     },
     {
       nr: 2,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-02",
-      name: "Identity of who is registering and/or is responsible for the battery passport",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-02",
+      name: "Identity of who is registering and/or is responsible for the battery passport [name]",
       source: "BR Article 77 (3)",
       lifecycle: "static",
       accessTier: "public",
@@ -25813,8 +25819,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 3,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-03",
-      name: "Manufacturer name, registered trade name or registered trade mark",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-03",
+      name: "Manufacturer name, registered trade name or registered trademark [at least one of]",
       source: "BR Annex VI A (1)",
       lifecycle: "static",
       accessTier: "public",
@@ -25836,8 +25842,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 4,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-04",
-      name: "Manufacturer postal address, indicating a single contact point",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-04",
+      name: "Manufacturer single contact postal address",
       source: "BR Annex VI A (1)",
       lifecycle: "static",
       accessTier: "public",
@@ -25859,23 +25865,23 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 5,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-05",
-      name: "If available, manufacturer web and email address",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-05",
+      name: "If available, manufacturer web and email address [both optional]",
       source: "BR Annex VI A (1)",
       lifecycle: "static",
       accessTier: "public",
       applicability: {
         ev: {
           status: "optional",
-          note: "optional, to be filled if such data is available"
+          note: "Optional, to be filled if such data is available"
         },
         lmt: {
           status: "optional",
-          note: "optional, to be filled if such data is available"
+          note: "Optional, to be filled if such data is available"
         },
         industrial: {
           status: "optional",
-          note: "optional, to be filled if such data is available"
+          note: "Optional, to be filled if such data is available"
         }
       },
       implementedBy: [
@@ -25885,8 +25891,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 6,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-06",
-      name: "Battery category",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-06",
+      name: "Battery category [3-code list]",
       source: "BR Annex VI A (2)",
       lifecycle: "static",
       accessTier: "public",
@@ -25908,8 +25914,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 7,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-07",
-      name: "Model identification and batch or serial number, or product number or another element allowing their identification",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-07",
+      name: "Model identification and batch or serial number, or product number or another element allowing their identification [at least one of]",
       source: "BR Annex VI A (2)",
       lifecycle: "static",
       accessTier: "public",
@@ -25931,8 +25937,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 8,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-08",
-      name: "The place of manufacturer (geographical location of a battery manufacturing plant)",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-08",
+      name: "The place of manufacture (geographical location of a battery manufacturing plant) [town, region, country/jurisdiction]",
       source: "BR Annex VI A (3)",
       lifecycle: "static",
       accessTier: "public",
@@ -25954,8 +25960,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 9,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-09",
-      name: "The date of manufacturing (month and year)",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-09",
+      name: "The date of manufacturing [month and year]",
       source: "BR Annex VI A (4)",
       lifecycle: "static",
       accessTier: "public",
@@ -25976,8 +25982,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 10,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-10",
-      name: "The weight",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-10",
+      name: "The weight [unit kg]",
       source: "BR Annex VI A (5)",
       lifecycle: "static",
       accessTier: "public",
@@ -25999,8 +26005,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 11,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-11",
-      name: "The capacity",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-11",
+      name: "The capacity [unit Ah]",
       source: "BR Annex VI A (6)",
       lifecycle: "static",
       accessTier: "public",
@@ -26021,8 +26027,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 12,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-12",
-      name: "The chemistry",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-12",
+      name: "The chemistry [code list]",
       source: "BR Annex VI A (7)",
       lifecycle: "static",
       accessTier: "public",
@@ -26043,8 +26049,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 13,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-13",
-      name: "The hazardous substances present in the battery, other than mercury, cadmium or lead",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-13",
+      name: "The hazardous substances present in the battery, other than mercury, cadmium or lead [free text]",
       source: "BR Annex VI A (8)",
       lifecycle: "static",
       accessTier: "public",
@@ -26066,8 +26072,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 14,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-14",
-      name: "Usable extinguishing agent",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-14",
+      name: "Usable extinguishing agent [free text]",
       source: "BR Annex VI A (9)",
       lifecycle: "static",
       accessTier: "public",
@@ -26088,8 +26094,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 15,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-15",
-      name: "Critical raw materials present in the battery in a concentration of more than 0,1 % weight by weight",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-15",
+      name: "Critical raw materials present in the battery in a concentration of more than 0,1 % weight by weight [code list]",
       source: "BR Annex VI A (10)",
       lifecycle: "static",
       accessTier: "public",
@@ -26111,23 +26117,23 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 16,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-16",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-16",
       name: "The material composition of the battery, including its chemistry, hazardous substances present in the battery, other than mercury, cadmium or lead, and critical raw materials present in the battery",
-      source: null,
+      source: "BR Annex XIII 1 (b)",
       lifecycle: "static",
       accessTier: "public",
       applicability: {
         ev: {
           status: "notToBeFilled",
-          note: "Not to be filled/displayed"
+          note: "Not to be filled/displayed - repetition, same data already required under previous data points"
         },
         lmt: {
           status: "notToBeFilled",
-          note: "Not to be filled/displayed"
+          note: "Not to be filled/displayed - repetition, same data already required under previous data points Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act"
         },
         industrial: {
           status: "notToBeFilled",
-          note: "Not to be filled/displayed"
+          note: "Not to be filled/displayed - repetition, same data already required under previous data points Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act"
         }
       },
       implementedBy: [
@@ -26136,7 +26142,7 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 17,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-17",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-17",
       name: "The carbon footprint declaration",
       source: "BR Annex XIII 1 (c)",
       lifecycle: "static",
@@ -26144,15 +26150,15 @@ var ec_datapoint_applicability_default = {
       applicability: {
         ev: {
           status: "pending",
-          note: "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act"
+          note: "Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act"
         },
         lmt: {
           status: "pending",
-          note: "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act"
+          note: "Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act"
         },
         industrial: {
           status: "pending",
-          note: "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act"
+          note: "Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act"
         }
       },
       implementedBy: [
@@ -26162,7 +26168,7 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 18,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-18",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-18",
       name: "The carbon footprint label",
       source: "BR Annex XIII 1 (c)",
       lifecycle: "static",
@@ -26170,15 +26176,15 @@ var ec_datapoint_applicability_default = {
       applicability: {
         ev: {
           status: "pending",
-          note: "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act"
+          note: "Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act"
         },
         lmt: {
           status: "pending",
-          note: "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act"
+          note: "Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act"
         },
         industrial: {
           status: "pending",
-          note: "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act"
+          note: "Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act"
         }
       },
       implementedBy: [
@@ -26187,7 +26193,7 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 19,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-19",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-19",
       name: "Information on responsible sourcing as indicated in the report on battery due diligence policy referred to in Article 52(3)",
       source: "BR Annex XIII 1 (d)",
       lifecycle: "static",
@@ -26195,15 +26201,15 @@ var ec_datapoint_applicability_default = {
       applicability: {
         ev: {
           status: "pending",
-          note: "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act"
+          note: "Not to be filled/displayed as of February 2027- as envisaged by Article 48(1), required from August 2027"
         },
         lmt: {
           status: "pending",
-          note: "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act"
+          note: "Not to be filled/displayed as of February 2027- as envisaged by Article 48(1), required from August 2027"
         },
         industrial: {
           status: "pending",
-          note: "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act"
+          note: "Not to be filled/displayed as of February 2027- as envisaged by Article 48(1), required from August 2027"
         }
       },
       implementedBy: [
@@ -26213,20 +26219,23 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 20,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-20",
-      name: "Percentage share of cobalt that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-20",
+      name: "Percentage share of cobalt that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste [%]",
       source: "BR Annex XIII 1 (e)",
       lifecycle: "static",
       accessTier: "public",
       applicability: {
         ev: {
-          status: "mandatory"
+          status: "pending",
+          note: "Not to be filled/displayed as of February 2027- to be applied as envisaged by Article 8"
         },
         lmt: {
-          status: "mandatory"
+          status: "pending",
+          note: "Not to be filled/displayed as of February 2027- to be applied as envisaged by Article 8"
         },
         industrial: {
-          status: "mandatory"
+          status: "pending",
+          note: "Not to be filled/displayed as of February 2027- to be applied as envisaged by Article 8"
         }
       },
       implementedBy: [
@@ -26235,20 +26244,23 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 21,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-21",
-      name: "Percentage share of lithium that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-21",
+      name: "Percentage share of lithium that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste [%]",
       source: "BR Annex XIII 1 (e)",
       lifecycle: "static",
       accessTier: "public",
       applicability: {
         ev: {
-          status: "mandatory"
+          status: "pending",
+          note: "Not to be filled/displayed as of February 2027 - to be applied as envisaged by Article 8"
         },
         lmt: {
-          status: "mandatory"
+          status: "pending",
+          note: "Not to be filled/displayed as of February 2027- to be applied as envisaged by Article 8"
         },
         industrial: {
-          status: "mandatory"
+          status: "pending",
+          note: "Not to be filled/displayed as of February 2027- to be applied as envisaged by Article 8"
         }
       },
       implementedBy: [
@@ -26257,20 +26269,23 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 22,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-22",
-      name: "Percentage share of nickel that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-22",
+      name: "Percentage share of nickel that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste [%]",
       source: "BR Annex XIII 1 (e)",
       lifecycle: "static",
       accessTier: "public",
       applicability: {
         ev: {
-          status: "mandatory"
+          status: "pending",
+          note: "Not to be filled/displayed as of February 2027 - to be applied as envisaged by Article 8"
         },
         lmt: {
-          status: "mandatory"
+          status: "pending",
+          note: "Not to be filled/displayed as of February 2027 - to be applied as envisaged by Article 8"
         },
         industrial: {
-          status: "mandatory"
+          status: "pending",
+          note: "Not to be filled/displayed as of February 2027 - to be applied as envisaged by Article 8"
         }
       },
       implementedBy: [
@@ -26279,20 +26294,23 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 23,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-23",
-      name: "The percentage share of lead that is present in the battery and that has been recovered from waste",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-23",
+      name: "The percentage share of lead that is present in the battery and that has been recovered from waste [%]",
       source: "BR Annex XIII 1 (e)",
       lifecycle: "static",
       accessTier: "public",
       applicability: {
         ev: {
-          status: "mandatory"
+          status: "pending",
+          note: "Not to be filled/displayed as of February 2027 - to be applied as envisaged by Article 8"
         },
         lmt: {
-          status: "mandatory"
+          status: "pending",
+          note: "Not to be filled/displayed as of February 2027 - to be applied as envisaged by Article 8"
         },
         industrial: {
-          status: "mandatory"
+          status: "pending",
+          note: "Not to be filled/displayed as of February 2027 - to be applied as envisaged by Article 8"
         }
       },
       implementedBy: [
@@ -26301,8 +26319,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 24,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-24",
-      name: "The share of renewable content",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-24",
+      name: "The share of renewable content [%]",
       source: "BR Annex XIII 1 (f)",
       lifecycle: "static",
       accessTier: "public",
@@ -26318,28 +26336,28 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:renewableContentShare"
+        "eubat:renewableContent"
       ]
     },
     {
       nr: 25,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-25",
-      name: "Rated capacity (in Ah)",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-25",
+      name: "Rated capacity [unit Ah]",
       source: "BR Annex XIII 1 (g)",
       lifecycle: "static",
       accessTier: "public",
       applicability: {
         ev: {
           status: "notToBeFilled",
-          note: "Not to be filled/displayed"
+          note: "Not to be filled/displayed - repetition, same data required under data point 11"
         },
         lmt: {
           status: "notToBeFilled",
-          note: "Not to be filled/displayed"
+          note: "Not to be filled/displayed - repetition, same data required under data point 11"
         },
         industrial: {
           status: "notToBeFilled",
-          note: "Not to be filled/displayed"
+          note: "Not to be filled/displayed - repetition, same data required under data point 11"
         }
       },
       implementedBy: [
@@ -26348,8 +26366,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 26,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-26",
-      name: "Minimal voltage, with temperature range when relevant",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-26",
+      name: "Minimal voltage, with temperature range when relevant [unit V, optional unit \xB0C]",
       source: "BR Annex XIII 1 (h)",
       lifecycle: "static",
       accessTier: "public",
@@ -26370,8 +26388,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 27,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-27",
-      name: "Nominal voltage, with temperature range when relevant",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-27",
+      name: "Nominal voltage, with temperature range when relevant [unit V, optional unit \xB0C]",
       source: "BR Annex XIII 1 (h)",
       lifecycle: "static",
       accessTier: "public",
@@ -26392,8 +26410,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 28,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-28",
-      name: "Maximum voltage, with temperature range when relevant",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-28",
+      name: "Maximum voltage, with temperature range when relevant [unit V, optional unit \xB0C]",
       source: "BR Annex XIII 1 (h)",
       lifecycle: "static",
       accessTier: "public",
@@ -26414,8 +26432,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 29,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-29",
-      name: "Original power capability (in Watts)",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-29",
+      name: "Original power capability [unit W]",
       source: "BR Annex XIII 1 (i)",
       lifecycle: "static",
       accessTier: "public",
@@ -26436,8 +26454,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 30,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-30",
-      name: "Power limits, with temperature range when relevant",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-30",
+      name: "Power limits, with temperature range when relevant [unit W, optionally min_T \xB0C \u2026 max_T \xB0C]",
       source: "BR Annex XIII 1 (i)",
       lifecycle: "static",
       accessTier: "public",
@@ -26460,8 +26478,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 31,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-31",
-      name: "Expected battery lifetime expressed in cycles",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31",
+      name: "Expected battery lifetime expressed in cycles [in number]",
       source: "BR Annex XIII 1 (j)",
       lifecycle: "static",
       accessTier: "public",
@@ -26474,18 +26492,17 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "only applicable for some industrial batteries where lifetime can be expressed in cycles"
+          note: "Only applicable for some industrial batteries where lifetime can be expressed in cycles"
         }
       },
       implementedBy: [
-        "eubat:expectedNumberOfCycles",
         "eubat:expectedCycleLife"
       ]
     },
     {
       nr: 32,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-32",
-      name: "Reference test used for expected battery lifetime expressed in cycles",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-32",
+      name: "Reference test used for expected battery lifetime expressed in cycles [free text]",
       source: "BR Annex XIII 1 (j)",
       lifecycle: "static",
       accessTier: "public",
@@ -26498,7 +26515,7 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "only applicable for some industrial batteries where lifetime can be expressed in cycles"
+          note: "Only applicable for some industrial batteries where lifetime can be expressed in cycles"
         }
       },
       implementedBy: [
@@ -26507,8 +26524,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 33,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-33",
-      name: "Capacity threshold for exhaustion",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-33",
+      name: "Capacity threshold for exhaustion [%]",
       source: "BR Annex XIII 1 (k)",
       lifecycle: "static",
       accessTier: "public",
@@ -26531,8 +26548,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 34,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-34",
-      name: "Temperature range the battery can withstand when not in use (reference test)",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-34",
+      name: "Temperature range the battery can withstand when not in use (reference test) [min_T \xB0C \u2026 max_T \xB0C + free text]",
       source: "BR Annex XIII 1 (l)",
       lifecycle: "static",
       accessTier: "public",
@@ -26553,23 +26570,23 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 35,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-35",
-      name: "Period for which the commercial warranty for the calendar life applies",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-35",
+      name: "Period for which the commercial warranty for the calendar life applies [months]",
       source: "BR Annex XIII 1 (m)",
       lifecycle: "static",
       accessTier: "public",
       applicability: {
         ev: {
           status: "conditional",
-          note: "only if applicable (if commercial warranty envisaged)"
+          note: "If applicable (if commercial warranty envisaged)"
         },
         lmt: {
           status: "conditional",
-          note: "only if applicable (if commercial warranty envisaged)"
+          note: "If applicable (if commercial warranty envisaged)"
         },
         industrial: {
           status: "conditional",
-          note: "only if applicable (if commercial warranty envisaged)"
+          note: "If applicable (if commercial warranty envisaged)"
         }
       },
       implementedBy: [
@@ -26579,8 +26596,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 36,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-36",
-      name: "Initial round trip energy efficiency",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36",
+      name: "Initial round trip energy efficiency [%]",
       source: "BR Annex XIII 1 (n)",
       lifecycle: "static",
       accessTier: "public",
@@ -26593,7 +26610,7 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "only applicable for some industrial batteries"
+          note: "Only applicable for some industrial batteries"
         }
       },
       implementedBy: [
@@ -26603,8 +26620,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 37,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-37",
-      name: "Round trip energy efficiency at 50 % of cycle-life",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-37",
+      name: "Round trip energy efficiency at 50 % of cycle-life [%]",
       source: "BR Annex XIII 1 (n)",
       lifecycle: "static",
       accessTier: "public",
@@ -26617,7 +26634,7 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "only applicable for some industrial batteries"
+          note: "Only applicable for some industrial batteries"
         }
       },
       implementedBy: [
@@ -26626,8 +26643,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 38,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-38",
-      name: "Internal battery cell and pack resistance",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38",
+      name: "Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9]",
       source: "BR Annex XIII 1 (o)",
       lifecycle: "static",
       accessTier: "public",
@@ -26643,13 +26660,14 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasInitialInternalResistance"
+        "eubat:hasInitialCellInternalResistance",
+        "eubat:hasInitialPackInternalResistance"
       ]
     },
     {
       nr: 39,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-39",
-      name: "C-rate of relevant cycle-life test",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39",
+      name: "Charge C-rate of relevant cycle-life test [number]",
       source: "BR Annex XIII 1 (p)",
       lifecycle: "static",
       accessTier: "public",
@@ -26662,7 +26680,7 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "only applicable for some industrial batteries"
+          note: "Only applicable for some industrial batteries"
         }
       },
       implementedBy: [
@@ -26671,8 +26689,30 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 40,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-40",
-      name: "The marking requirements laid down in Article 13(4)",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-40",
+      name: "Discharge C-rate of relevant cycle-life test [number]",
+      source: "BR Annex XIII 1 (p)",
+      lifecycle: "static",
+      accessTier: "public",
+      applicability: {
+        ev: {
+          status: "optional"
+        },
+        lmt: {
+          status: "optional"
+        },
+        industrial: {
+          status: "optional"
+        }
+      },
+      implementedBy: [
+        "eubat:dischargeCRateLifeCycleTest"
+      ]
+    },
+    {
+      nr: 41,
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-41",
+      name: "The marking requirements laid down in Article 13(4) [Yes/No]",
       source: "BR Annex XIII 1 (q)",
       lifecycle: "static",
       accessTier: "public",
@@ -26693,24 +26733,24 @@ var ec_datapoint_applicability_default = {
       ]
     },
     {
-      nr: 41,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-41",
-      name: "The marking requirements laid down in Article 13(5)",
+      nr: 42,
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-42",
+      name: "The marking requirements laid down in Article 13(5) [code list]",
       source: "BR Annex XIII 1 (q)",
       lifecycle: "static",
       accessTier: "public",
       applicability: {
         ev: {
           status: "conditional",
-          note: "cadmium or lead symbol if applicable"
+          note: "Cadmium or lead symbol if applicable"
         },
         lmt: {
           status: "conditional",
-          note: "cadmium or lead symbol if applicable"
+          note: "Cadmium or lead symbol if applicable"
         },
         industrial: {
           status: "conditional",
-          note: "cadmium or lead symbol if applicable"
+          note: "Cadmium or lead symbol if applicable"
         }
       },
       implementedBy: [
@@ -26719,9 +26759,9 @@ var ec_datapoint_applicability_default = {
       ]
     },
     {
-      nr: 42,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-42",
-      name: "The EU declaration of conformity referred to in Article 18",
+      nr: 43,
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-43",
+      name: "The EU declaration of conformity referred to in Article 18 [a web link]",
       source: "BR Annex XIII 1 (r)",
       lifecycle: "static",
       accessTier: "public",
@@ -26741,9 +26781,9 @@ var ec_datapoint_applicability_default = {
       ]
     },
     {
-      nr: 43,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-43",
-      name: "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f)",
+      nr: 44,
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-44",
+      name: "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text]",
       source: "BR Annex XIII 1 (s)",
       lifecycle: "static",
       accessTier: "public",
@@ -26765,24 +26805,24 @@ var ec_datapoint_applicability_default = {
       ]
     },
     {
-      nr: 44,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-44",
-      name: "Clear, understandable and readable instructions for use in a format that makes it possible to print, download and save them on an electronic device so that the user can access them at all times, in particular during a breakdown of the battery",
+      nr: 45,
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-45",
+      name: "Clear, understandable and readable instructions for use in a format that makes it possible to print, download and save them on an electronic device so that the user can access them at all times, in particular during a breakdown of the battery [TBC]",
       source: "BR Annex XIII 1 (t)",
       lifecycle: "static",
       accessTier: "public",
       applicability: {
         ev: {
           status: "pending",
-          note: "Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus IV adoption"
+          note: "Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus adoption"
         },
         lmt: {
           status: "pending",
-          note: "Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus IV adoption"
+          note: "Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus adoption"
         },
         industrial: {
           status: "pending",
-          note: "Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus IV adoption"
+          note: "Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus adoption"
         }
       },
       implementedBy: [
@@ -26791,9 +26831,9 @@ var ec_datapoint_applicability_default = {
       ]
     },
     {
-      nr: 45,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-45",
-      name: "Detailed composition, including materials used in the cathode, anode and electrolyte",
+      nr: 46,
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-46",
+      name: "Detailed composition, including materials used in the cathode, anode and electrolyte [free text]",
       source: "BR Annex XIII 2 (a)",
       lifecycle: "static",
       accessTier: "legitimateInterest",
@@ -26815,31 +26855,9 @@ var ec_datapoint_applicability_default = {
       ]
     },
     {
-      nr: 46,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-46",
-      name: "Part numbers for components",
-      source: "BR Annex XIII 2 (b)",
-      lifecycle: "static",
-      accessTier: "legitimateInterest",
-      applicability: {
-        ev: {
-          status: "mandatory"
-        },
-        lmt: {
-          status: "mandatory"
-        },
-        industrial: {
-          status: "mandatory"
-        }
-      },
-      implementedBy: [
-        "eubat:spareParts"
-      ]
-    },
-    {
       nr: 47,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-47",
-      name: "Contact details of sources for replacement spares",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-47",
+      name: "Part numbers for components and contact details of sources for replacement spares [a web link]",
       source: "BR Annex XIII 2 (b)",
       lifecycle: "static",
       accessTier: "legitimateInterest",
@@ -26855,14 +26873,15 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
+        "eubat:spareParts",
         "eubat:hasSparePartSources",
         "eubat:hasSupplierContact"
       ]
     },
     {
       nr: 48,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-48",
-      name: "Dismantling information, including at least: exploded diagrams of the battery system/pack showing the location of battery cells, disassembly sequences, type and number of fastening techniques to be unlocked, tools required for disassembly, warnings if risk of damaging parts exist, amount of cells used and layout",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48",
+      name: "Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link]",
       source: "BR Annex XIII 2 (c)",
       lifecycle: "static",
       accessTier: "legitimateInterest",
@@ -26884,8 +26903,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 49,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-49",
-      name: "Safety measures",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49",
+      name: "Safety measures [a web link]",
       source: "BR Annex XIII 2 (d)",
       lifecycle: "static",
       accessTier: "legitimateInterest",
@@ -26907,8 +26926,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 50,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-50",
-      name: "Results of test reports proving compliance with the requirements laid down in this Regulation or any delegated or implementing act adopted pursuant to this Regulation",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-50",
+      name: "Results of test reports proving compliance with the requirements laid down in this Regulation or any delegated or implementing act adopted pursuant to this Regulation [a web link]",
       source: "BR Annex XIII 3",
       lifecycle: "static",
       accessTier: "notifiedBodiesAndAuthorities",
@@ -26930,23 +26949,23 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 51,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-51",
-      name: "Rated capacity (in Ah)",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-51",
+      name: "Rated capacity [unit Ah]",
       source: "BR Annex XIII 4 (a)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
       applicability: {
         ev: {
           status: "mandatory",
-          note: "same as data point number 11 (capacity), but now dynamic"
+          note: "Same as data point 11 (capacity)"
         },
         lmt: {
           status: "mandatory",
-          note: "same as data point number 11 (capacity), but now dynamic"
+          note: "Same as data point 11 (capacity)"
         },
         industrial: {
-          status: "conditional",
-          note: "if applicable, but now dynamic"
+          status: "mandatory",
+          note: "Same as data point 11"
         }
       },
       implementedBy: [
@@ -26956,8 +26975,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 52,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-52",
-      name: "Capacity fade (in %)",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-52",
+      name: "Capacity fade [%]",
       source: "BR Annex XIII 4 (a)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
@@ -26970,7 +26989,7 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Only for rechargeable batteries"
         }
       },
       implementedBy: [
@@ -26980,8 +26999,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 53,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-53",
-      name: "Power (in W)",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-53",
+      name: "Power [unit W]",
       source: "BR Annex XIII 4 (a)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
@@ -26994,7 +27013,7 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Only for rechargeable batteries"
         }
       },
       implementedBy: [
@@ -27004,8 +27023,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 54,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-54",
-      name: "Power fade (in %)",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-54",
+      name: "Power fade [%]",
       source: "BR Annex XIII 4 (a)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
@@ -27018,7 +27037,7 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Only for rechargeable batteries"
         }
       },
       implementedBy: [
@@ -27028,8 +27047,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 55,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-55",
-      name: "Internal resistance (in \u03A9)",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-55",
+      name: "Internal resistance [unit \u03A9]",
       source: "BR Annex XIII 4 (a)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
@@ -27042,7 +27061,7 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Only for rechargeable batteries"
         }
       },
       implementedBy: [
@@ -27052,8 +27071,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 56,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-56",
-      name: "Internal resistance increase (in %)",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-56",
+      name: "Internal resistance increase [%]",
       source: "BR Annex XIII 4 (a)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
@@ -27066,7 +27085,7 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Only for rechargeable batteries"
         }
       },
       implementedBy: [
@@ -27076,23 +27095,23 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 57,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-57",
-      name: "Where applicable, energy round trip efficiency (in %)",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-57",
+      name: "Where applicable, energy round trip efficiency [%]",
       source: "BR Annex XIII 4 (a)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
       applicability: {
         ev: {
           status: "conditional",
-          note: "if applicable"
+          note: "If applicable"
         },
         lmt: {
           status: "conditional",
-          note: "if applicable"
+          note: "If applicable"
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Only for rechargeable batteries, if applicable"
         }
       },
       implementedBy: [
@@ -27102,23 +27121,23 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 58,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-58",
-      name: "Where applicable, energy round trip efficiency fade (in %)",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-58",
+      name: "Where applicable, energy round trip efficiency fade [%]",
       source: "BR Annex XIII 4 (a)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
       applicability: {
         ev: {
           status: "conditional",
-          note: "if applicable"
+          note: "If applicable"
         },
         lmt: {
           status: "conditional",
-          note: "if applicable"
+          note: "If applicable"
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Only for rechargeable batteries, if applicable"
         }
       },
       implementedBy: [
@@ -27128,8 +27147,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 59,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-59",
-      name: "The expected life-time of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-59",
+      name: "The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number]",
       source: "BR Annex XIII 4 (a)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
@@ -27142,7 +27161,7 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Only for rechargeable batteries and except for non-cycle applications"
         }
       },
       implementedBy: [
@@ -27152,8 +27171,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 60,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-60",
-      name: "The expected life-time of the battery under the reference conditions for which it has been designed, in terms of calendar years",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60",
+      name: "The expected lifetime of the battery under the reference conditions for which it has been designed [years]",
       source: "BR Annex XIII 4 (a)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
@@ -27166,7 +27185,7 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Only for rechargeable batteries"
         }
       },
       implementedBy: [
@@ -27177,8 +27196,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 61,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-61",
-      name: "Information on the state of health of the battery pursuant to Article 14: state of certified energy (SOCE)",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-61",
+      name: "Information on the state of health of the battery pursuant to Article 14: state of certified energy (SOCE) [%]",
       source: "BR Annex XIII 4 (b)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
@@ -27202,8 +27221,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 62,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-62",
-      name: "Information on the state of health of the battery pursuant to Article 14: remaining capacity",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-62",
+      name: "Information on the state of health of the battery pursuant to Article 14: remaining capacity [unit Ah]",
       source: "BR Annex XIII 4 (b)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
@@ -27213,11 +27232,12 @@ var ec_datapoint_applicability_default = {
           note: "Not to be filled/displayed"
         },
         lmt: {
-          status: "mandatory"
+          status: "mandatory",
+          note: "Mandatory battery management system"
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Only for stationary battery energy storage systems and if they have a"
         }
       },
       implementedBy: [
@@ -27227,8 +27247,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 63,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-63",
-      name: "Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-63",
+      name: "Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability [unit W]",
       source: "BR Annex XIII 4 (b)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
@@ -27242,7 +27262,7 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Only for stationary battery energy storage systems and if they have a battery management system"
         }
       },
       implementedBy: [
@@ -27252,8 +27272,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 64,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-64",
-      name: "Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round trip efficiency",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-64",
+      name: "Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round-trip efficiency [%]",
       source: "BR Annex XIII 4 (b)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
@@ -27267,7 +27287,7 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Only for stationary battery energy storage systems and if they have a battery management system"
         }
       },
       implementedBy: [
@@ -27277,8 +27297,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 65,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-65",
-      name: "Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65",
+      name: "Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year]",
       source: "BR Annex XIII 4 (b)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
@@ -27292,7 +27312,7 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Only for stationary battery energy storage systems and if they have a battery management system"
         }
       },
       implementedBy: [
@@ -27303,8 +27323,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 66,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-66",
-      name: "Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-66",
+      name: "Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance [unit \u03A9]",
       source: "BR Annex XIII 4 (b)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
@@ -27318,7 +27338,7 @@ var ec_datapoint_applicability_default = {
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Only for stationary battery energy storage systems and if they have a battery management"
         }
       },
       implementedBy: [
@@ -27328,8 +27348,8 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 67,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-67",
-      name: "Information on the status of the battery, defined as 'original', 'repurposed', 're-used', 'remanufactured' or 'waste'",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-67",
+      name: "Information on the status of the battery, defined as \u2018original\u2019, \u2018repurposed\u2019, \u2018re-used\u2019, \u2018remanufactured\u2019 or \u2018waste\u2019 [code list]",
       source: "BR Annex XIII 4 (c)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
@@ -27352,50 +27372,49 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 68,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-68",
-      name: "The number of charging and discharging cycles",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68",
+      name: "The number of charging and discharging cycles [number]",
       source: "BR Annex XIII 4 (d)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
       applicability: {
         ev: {
           status: "conditional",
-          note: "if applicable"
+          note: "Applicable as soon as the battery starts to be used"
         },
         lmt: {
           status: "conditional",
-          note: "if applicable"
+          note: "Applicable as soon as the battery starts to be used"
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Applicable as soon as the battery starts to be used"
         }
       },
       implementedBy: [
-        "eubat:numberOfFullCycles",
         "eubat:hasCycleCount"
       ],
       epcisExample: "epcis/amperia-staxwall-lifecycle.jsonld"
     },
     {
       nr: 69,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-69",
-      name: "Negative events, such as accidents",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-69",
+      name: "Negative events, such as accidents [multiple free texts]",
       source: "BR Annex XIII 4 (d)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
       applicability: {
         ev: {
           status: "conditional",
-          note: "if applicable"
+          note: "Applicable as soon as the battery starts to be used"
         },
         lmt: {
           status: "conditional",
-          note: "if applicable"
+          note: "Applicable as soon as the battery starts to be used"
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Applicable as soon as the battery starts to be used"
         }
       },
       implementedBy: [
@@ -27406,23 +27425,23 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 70,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-70",
-      name: "Periodically recorded information on the operating environmental conditions, including temperature",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70",
+      name: "Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units]",
       source: "BR Annex XIII 4 (d)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
       applicability: {
         ev: {
           status: "conditional",
-          note: "if applicable"
+          note: "Applicable as soon as the battery starts to be used"
         },
         lmt: {
           status: "conditional",
-          note: "if applicable"
+          note: "Applicable as soon as the battery starts to be used"
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Applicable as soon as the battery starts to be used"
         }
       },
       implementedBy: [
@@ -27433,23 +27452,23 @@ var ec_datapoint_applicability_default = {
     },
     {
       nr: 71,
-      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-71",
-      name: "Periodically recorded information on the state of charge",
+      iri: "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-71",
+      name: "Periodically recorded information on the state of charge [histogram, %]",
       source: "BR Annex XIII 4 (d)",
       lifecycle: "dynamic",
       accessTier: "legitimateInterest",
       applicability: {
         ev: {
           status: "conditional",
-          note: "if applicable"
+          note: "Applicable as soon as the battery starts to be used"
         },
         lmt: {
           status: "conditional",
-          note: "if applicable"
+          note: "Applicable as soon as the battery starts to be used"
         },
         industrial: {
           status: "conditional",
-          note: "if applicable"
+          note: "Applicable as soon as the battery starts to be used"
         }
       },
       implementedBy: [
@@ -27470,19 +27489,19 @@ var ec_readiness_shapes_default = `@prefix owl: <http://www.w3.org/2002/07/owl#>
 @prefix schema: <https://schema.org/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
 @prefix eubat: <https://ref.openepcis.org/extensions/eu/battery/> .
-@prefix ecbp: <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#> .
+@prefix ecbp: <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#> .
 
 # GENERATED FILE - do not edit. Source: vocab/ec-guidance-datapoints.json,
 # generator: scripts/build-ec-guidance-vocab.ts (pnpm run build:ec-guidance-vocab).
 
 <https://ref.openepcis.org/extensions/eu/battery/ec-readiness-shapes.ttl>
     a sh:ShapesGraph ;
-    dcterms:title "EC Battery Passport readiness shapes (guidance v1.0)"@en ;
-    dcterms:description "SHACL form of the EC guidance applicability matrix (Ares(2026)7579758): one node shape per (data point, category), targeting eubat:Battery. Statuses map to severities - mandatory = sh:Violation, conditional = sh:Warning, optional and pending = sh:Info; 'not to be filled' data points emit no shape. Every shape ships sh:deactivated true: activate the shapes of exactly ONE category (IRI suffix -ev / -lmt / -industrial) before validating, otherwise a passport is checked against all three categories at once. Validate the MERGED model + batch + item graphs of one battery - the dynamic Annex XIII 4 data points only exist at item level. This is the structural coverage check made executable for any SHACL engine; value-level validation lives in battery-shapes.ttl."@en ;
+    dcterms:title "EC Battery Passport readiness shapes (guidance v3.2)"@en ;
+    dcterms:description "SHACL form of the EC guidance applicability matrix (version 3.2, 2026-10-19): one node shape per (data point, category), targeting eubat:Battery. Statuses map to severities - mandatory = sh:Violation, conditional = sh:Warning, optional and pending = sh:Info; 'not to be filled' data points emit no shape. Every shape ships sh:deactivated true: activate the shapes of exactly ONE category (IRI suffix -ev / -lmt / -industrial) before validating, otherwise a passport is checked against all three categories at once. Validate the MERGED model + batch + item graphs of one battery - the dynamic Annex XIII 4 data points only exist at item level. This is the structural coverage check made executable for any SHACL engine; value-level validation lives in battery-shapes.ttl."@en ;
     dcterms:source <http://data.europa.eu/eli/reg/2023/1542/oj> ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> ;
-    owl:versionInfo "1.0" .
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2> ;
+    owl:versionInfo "3.2" .
 
 # \u2500\u2500 EV batteries \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
@@ -27490,10 +27509,10 @@ ecbp:dp-01-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:batteryPassportIdentifier ; sh:minCount 1 ] [ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ] ) ;
+    sh:or ( [ sh:path oec:passportIdentifier ; sh:minCount 1 ] [ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 1 (EV, mandatory): Unique identifier \u2014 expected eubat:batteryPassportIdentifier or a GS1 Digital Link id" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-01> .
+    sh:message "EC data point 1 (EV, mandatory): Unique identifier [unique product identifier] \u2014 expected oec:passportIdentifier or a GS1 Digital Link id" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-01> .
 
 ecbp:dp-02-ev
     a sh:NodeShape ;
@@ -27501,8 +27520,8 @@ ecbp:dp-02-ev
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasOperatorInformation ; sh:minCount 1 ] [ sh:path ( eubat:hasOperatorInformation eubat:operatorIdentifier ) ; sh:minCount 1 ] [ sh:path ( oec:hasOperatorInformation eubat:operatorIdentifier ) ; sh:minCount 1 ] [ sh:path ( oec:hasPassportIssuer eubat:operatorIdentifier ) ; sh:minCount 1 ] [ sh:path ( eubat:hasOperatorInformation eubat:hasOperatorRole ) ; sh:minCount 1 ] [ sh:path ( oec:hasOperatorInformation eubat:hasOperatorRole ) ; sh:minCount 1 ] [ sh:path ( oec:hasPassportIssuer eubat:hasOperatorRole ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 2 (EV, mandatory): Identity of who is registering and/or is responsible for the battery passport \u2014 expected eubat:hasOperatorInformation / eubat:operatorIdentifier / eubat:hasOperatorRole" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-02> .
+    sh:message "EC data point 2 (EV, mandatory): Identity of who is registering and/or is responsible for the battery passport [name] \u2014 expected eubat:hasOperatorInformation / eubat:operatorIdentifier / eubat:hasOperatorRole" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-02> .
 
 ecbp:dp-03-ev
     a sh:NodeShape ;
@@ -27510,8 +27529,8 @@ ecbp:dp-03-ev
     sh:deactivated true ;
     sh:or ( [ sh:path gs1:manufacturer ; sh:minCount 1 ] [ sh:path ( eubat:hasSparePartSources gs1:organizationName ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity gs1:organizationName ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer gs1:organizationName ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 3 (EV, mandatory): Manufacturer name, registered trade name or registered trade mark \u2014 expected gs1:manufacturer / gs1:organizationName" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-03> .
+    sh:message "EC data point 3 (EV, mandatory): Manufacturer name, registered trade name or registered trademark [at least one of] \u2014 expected gs1:manufacturer / gs1:organizationName" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-03> .
 
 ecbp:dp-04-ev
     a sh:NodeShape ;
@@ -27519,8 +27538,8 @@ ecbp:dp-04-ev
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasSparePartSources gs1:address ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity gs1:address ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer gs1:address ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 4 (EV, mandatory): Manufacturer postal address, indicating a single contact point \u2014 expected gs1:address / gs1:PostalAddress" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-04> .
+    sh:message "EC data point 4 (EV, mandatory): Manufacturer single contact postal address \u2014 expected gs1:address / gs1:PostalAddress" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-04> .
 
 ecbp:dp-05-ev
     a sh:NodeShape ;
@@ -27528,15 +27547,15 @@ ecbp:dp-05-ev
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasSparePartSources gs1:contactPoint ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity gs1:contactPoint ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer gs1:contactPoint ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Info ;
-    sh:message "EC data point 5 (EV, optional: optional, to be filled if such data is available): If available, manufacturer web and email address \u2014 expected gs1:contactPoint / gs1:ContactPoint" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-05> .
+    sh:message "EC data point 5 (EV, optional: Optional, to be filled if such data is available): If available, manufacturer web and email address [both optional] \u2014 expected gs1:contactPoint / gs1:ContactPoint" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-05> .
 
 ecbp:dp-06-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path schema:category ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 6 (EV, mandatory): Battery category \u2014 expected eubat:BatteryCategory / schema:category" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-06> .
+    sh:property [ sh:path schema:category ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 6 (EV, mandatory): Battery category [3-code list] \u2014 expected eubat:BatteryCategory / schema:category" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-06> .
 
 ecbp:dp-07-ev
     a sh:NodeShape ;
@@ -27544,8 +27563,8 @@ ecbp:dp-07-ev
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:batteryModelIdentifier ; sh:minCount 1 ] [ sh:path gs1:hasSerialNumber ; sh:minCount 1 ] [ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 7 (EV, mandatory): Model identification and batch or serial number, or product number or another element allowing their identification \u2014 expected eubat:batteryModelIdentifier / gs1:hasSerialNumber or a GS1 Digital Link id" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-07> .
+    sh:message "EC data point 7 (EV, mandatory): Model identification and batch or serial number, or product number or another element allowing their identification [at least one of] \u2014 expected eubat:batteryModelIdentifier / gs1:hasSerialNumber or a GS1 Digital Link id" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-07> .
 
 ecbp:dp-08-ev
     a sh:NodeShape ;
@@ -27553,15 +27572,15 @@ ecbp:dp-08-ev
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasManufacturingPlace ; sh:minCount 1 ] [ sh:path ( eubat:hasManufacturingPlace eubat:facilityIdentifier ) ; sh:minCount 1 ] [ sh:path ( oec:hasFacilityInformation eubat:facilityIdentifier ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 8 (EV, mandatory): The place of manufacturer (geographical location of a battery manufacturing plant) \u2014 expected eubat:hasManufacturingPlace / eubat:facilityIdentifier" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-08> .
+    sh:message "EC data point 8 (EV, mandatory): The place of manufacture (geographical location of a battery manufacturing plant) [town, region, country/jurisdiction] \u2014 expected eubat:hasManufacturingPlace / eubat:facilityIdentifier" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-08> .
 
 ecbp:dp-09-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path gs1:productionDate ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 9 (EV, mandatory): The date of manufacturing (month and year) \u2014 expected gs1:productionDate" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-09> .
+    sh:property [ sh:path gs1:productionDate ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 9 (EV, mandatory): The date of manufacturing [month and year] \u2014 expected gs1:productionDate" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-09> .
 
 ecbp:dp-10-ev
     a sh:NodeShape ;
@@ -27569,36 +27588,36 @@ ecbp:dp-10-ev
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasBatteryMass ; sh:minCount 1 ] [ sh:path gs1:netWeight ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 10 (EV, mandatory): The weight \u2014 expected eubat:hasBatteryMass / gs1:netWeight" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-10> .
+    sh:message "EC data point 10 (EV, mandatory): The weight [unit kg] \u2014 expected eubat:hasBatteryMass / gs1:netWeight" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-10> .
 
 ecbp:dp-11-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasRatedCapacity ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 11 (EV, mandatory): The capacity \u2014 expected eubat:hasRatedCapacity" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-11> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasRatedCapacity ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 11 (EV, mandatory): The capacity [unit Ah] \u2014 expected eubat:hasRatedCapacity" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-11> .
 
 ecbp:dp-12-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasBatteryChemistry ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 12 (EV, mandatory): The chemistry \u2014 expected eubat:hasBatteryChemistry" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-12> .
+    sh:property [ sh:path eubat:hasBatteryChemistry ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 12 (EV, mandatory): The chemistry [code list] \u2014 expected eubat:hasBatteryChemistry" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-12> .
 
 ecbp:dp-13-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasHazardousSubstances ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 13 (EV, mandatory): The hazardous substances present in the battery, other than mercury, cadmium or lead \u2014 expected eubat:hasHazardousSubstances / eubat:HazardousSubstance" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-13> .
+    sh:property [ sh:path eubat:hasHazardousSubstances ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 13 (EV, mandatory): The hazardous substances present in the battery, other than mercury, cadmium or lead [free text] \u2014 expected eubat:hasHazardousSubstances / eubat:HazardousSubstance" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-13> .
 
 ecbp:dp-14-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasEndOfLifeInfo eubat:extinguishingAgent ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 14 (EV, mandatory): Usable extinguishing agent \u2014 expected eubat:extinguishingAgent" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-14> .
+    sh:property [ sh:path ( eubat:hasEndOfLifeInfo eubat:extinguishingAgent ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 14 (EV, mandatory): Usable extinguishing agent [free text] \u2014 expected eubat:extinguishingAgent" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-14> .
 
 ecbp:dp-15-ev
     a sh:NodeShape ;
@@ -27606,22 +27625,22 @@ ecbp:dp-15-ev
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasMaterialComposition eubat:isCriticalRawMaterial ) ; sh:minCount 1 ] [ sh:path eubat:criticalRawMaterialsStatement ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 15 (EV, mandatory): Critical raw materials present in the battery in a concentration of more than 0,1 % weight by weight \u2014 expected eubat:isCriticalRawMaterial / eubat:criticalRawMaterialsStatement" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-15> .
+    sh:message "EC data point 15 (EV, mandatory): Critical raw materials present in the battery in a concentration of more than 0,1 % weight by weight [code list] \u2014 expected eubat:isCriticalRawMaterial / eubat:criticalRawMaterialsStatement" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-15> .
 
 ecbp:dp-17-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCarbonFootprintDeclaration ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 17 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act): The carbon footprint declaration \u2014 expected eubat:hasCarbonFootprintDeclaration / eubat:CarbonFootprintDeclaration" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-17> .
+    sh:property [ sh:path eubat:hasCarbonFootprintDeclaration ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 17 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint declaration \u2014 expected eubat:hasCarbonFootprintDeclaration / eubat:CarbonFootprintDeclaration" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-17> .
 
 ecbp:dp-18-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration eubat:hasCarbonFootprintPerformanceClass ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:hasCarbonFootprintPerformanceClass" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-18> .
+    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration eubat:hasCarbonFootprintPerformanceClass ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:hasCarbonFootprintPerformanceClass" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-18> .
 
 ecbp:dp-19-ev
     a sh:NodeShape ;
@@ -27629,71 +27648,71 @@ ecbp:dp-19-ev
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasSupplyChainDueDiligence ; sh:minCount 1 ] [ sh:path ( eubat:hasSupplyChainDueDiligence eubat:dueDiligenceReportUrl ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Info ;
-    sh:message "EC data point 19 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act): Information on responsible sourcing as indicated in the report on battery due diligence policy referred to in Article 52(3) \u2014 expected eubat:hasSupplyChainDueDiligence / eubat:dueDiligenceReportUrl" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-19> .
+    sh:message "EC data point 19 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- as envisaged by Article 48(1), required from August 2027): Information on responsible sourcing as indicated in the report on battery due diligence policy referred to in Article 52(3) \u2014 expected eubat:hasSupplyChainDueDiligence / eubat:dueDiligenceReportUrl" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-19> .
 
 ecbp:dp-20-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasRecycledContent eubat:cobaltRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 20 (EV, mandatory): Percentage share of cobalt that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste \u2014 expected eubat:cobaltRecycledShare" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-20> .
+    sh:property [ sh:path ( eubat:hasRecycledContent eubat:cobaltRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 20 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- to be applied as envisaged by Article 8): Percentage share of cobalt that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste [%] \u2014 expected eubat:cobaltRecycledShare" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-20> .
 
 ecbp:dp-21-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasRecycledContent eubat:lithiumRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 21 (EV, mandatory): Percentage share of lithium that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste \u2014 expected eubat:lithiumRecycledShare" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-21> .
+    sh:property [ sh:path ( eubat:hasRecycledContent eubat:lithiumRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 21 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - to be applied as envisaged by Article 8): Percentage share of lithium that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste [%] \u2014 expected eubat:lithiumRecycledShare" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-21> .
 
 ecbp:dp-22-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasRecycledContent eubat:nickelRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 22 (EV, mandatory): Percentage share of nickel that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste \u2014 expected eubat:nickelRecycledShare" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-22> .
+    sh:property [ sh:path ( eubat:hasRecycledContent eubat:nickelRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 22 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - to be applied as envisaged by Article 8): Percentage share of nickel that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste [%] \u2014 expected eubat:nickelRecycledShare" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-22> .
 
 ecbp:dp-23-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasRecycledContent eubat:leadRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 23 (EV, mandatory): The percentage share of lead that is present in the battery and that has been recovered from waste \u2014 expected eubat:leadRecycledShare" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-23> .
+    sh:property [ sh:path ( eubat:hasRecycledContent eubat:leadRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 23 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - to be applied as envisaged by Article 8): The percentage share of lead that is present in the battery and that has been recovered from waste [%] \u2014 expected eubat:leadRecycledShare" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-23> .
 
 ecbp:dp-24-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasMaterialComposition eubat:renewableContentShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 24 (EV, mandatory): The share of renewable content \u2014 expected eubat:renewableContentShare" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-24> .
+    sh:property [ sh:path ( eubat:hasEndOfLifeInfo eubat:renewableContent ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 24 (EV, mandatory): The share of renewable content [%] \u2014 expected eubat:renewableContent" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-24> .
 
 ecbp:dp-26-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMinimumVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 26 (EV, mandatory): Minimal voltage, with temperature range when relevant \u2014 expected eubat:hasMinimumVoltage" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-26> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMinimumVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 26 (EV, mandatory): Minimal voltage, with temperature range when relevant [unit V, optional unit \xB0C] \u2014 expected eubat:hasMinimumVoltage" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-26> .
 
 ecbp:dp-27-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasNominalVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 27 (EV, mandatory): Nominal voltage, with temperature range when relevant \u2014 expected eubat:hasNominalVoltage" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-27> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasNominalVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 27 (EV, mandatory): Nominal voltage, with temperature range when relevant [unit V, optional unit \xB0C] \u2014 expected eubat:hasNominalVoltage" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-27> .
 
 ecbp:dp-28-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMaximumVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 28 (EV, mandatory): Maximum voltage, with temperature range when relevant \u2014 expected eubat:hasMaximumVoltage" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-28> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMaximumVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 28 (EV, mandatory): Maximum voltage, with temperature range when relevant [unit V, optional unit \xB0C] \u2014 expected eubat:hasMaximumVoltage" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-28> .
 
 ecbp:dp-29-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 29 (EV, mandatory): Original power capability (in Watts) \u2014 expected eubat:hasOriginalPowerCapability" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-29> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 29 (EV, mandatory): Original power capability [unit W] \u2014 expected eubat:hasOriginalPowerCapability" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-29> .
 
 ecbp:dp-30-ev
     a sh:NodeShape ;
@@ -27701,38 +27720,36 @@ ecbp:dp-30-ev
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMaximumPermittedBatteryPower ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMaximumChargingPower ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMaximumDischargingPower ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 30 (EV, mandatory): Power limits, with temperature range when relevant \u2014 expected eubat:hasMaximumPermittedBatteryPower / eubat:hasMaximumChargingPower / eubat:hasMaximumDischargingPower" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-30> .
+    sh:message "EC data point 30 (EV, mandatory): Power limits, with temperature range when relevant [unit W, optionally min_T \xB0C \u2026 max_T \xB0C] \u2014 expected eubat:hasMaximumPermittedBatteryPower / eubat:hasMaximumChargingPower / eubat:hasMaximumDischargingPower" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-30> .
 
 ecbp:dp-31-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:expectedNumberOfCycles ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 31 (EV, mandatory): Expected battery lifetime expressed in cycles \u2014 expected eubat:expectedNumberOfCycles / eubat:expectedCycleLife" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-31> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 31 (EV, mandatory): Expected battery lifetime expressed in cycles [in number] \u2014 expected eubat:expectedCycleLife" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31> .
 
 ecbp:dp-32-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:lifetimeReferenceTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 32 (EV, mandatory): Reference test used for expected battery lifetime expressed in cycles \u2014 expected eubat:lifetimeReferenceTest" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-32> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:lifetimeReferenceTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 32 (EV, mandatory): Reference test used for expected battery lifetime expressed in cycles [free text] \u2014 expected eubat:lifetimeReferenceTest" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-32> .
 
 ecbp:dp-33-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:capacityThresholdForExhaustion ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 33 (EV, mandatory): Capacity threshold for exhaustion \u2014 expected eubat:capacityThresholdForExhaustion" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-33> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:capacityThresholdForExhaustion ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 33 (EV, mandatory): Capacity threshold for exhaustion [%] \u2014 expected eubat:capacityThresholdForExhaustion" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-33> .
 
 ecbp:dp-34-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasTemperatureRangeIdleState ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 34 (EV, mandatory): Temperature range the battery can withstand when not in use (reference test) \u2014 expected eubat:hasTemperatureRangeIdleState" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-34> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasTemperatureRangeIdleState ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 34 (EV, mandatory): Temperature range the battery can withstand when not in use (reference test) [min_T \xB0C \u2026 max_T \xB0C + free text] \u2014 expected eubat:hasTemperatureRangeIdleState" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-34> .
 
 ecbp:dp-35-ev
     a sh:NodeShape ;
@@ -27740,8 +27757,8 @@ ecbp:dp-35-ev
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:warrantyConditions ; sh:minCount 1 ] [ sh:path gs1:warranty ; sh:minCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 35 (EV, provide if the condition applies: only if applicable (if commercial warranty envisaged)): Period for which the commercial warranty for the calendar life applies \u2014 expected eubat:warrantyConditions / gs1:warranty" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-35> .
+    sh:message "EC data point 35 (EV, provide if the condition applies: If applicable (if commercial warranty envisaged)): Period for which the commercial warranty for the calendar life applies [months] \u2014 expected eubat:warrantyConditions / gs1:warranty" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-35> .
 
 ecbp:dp-36-ev
     a sh:NodeShape ;
@@ -27749,99 +27766,99 @@ ecbp:dp-36-ev
     sh:deactivated true ;
     sh:or ( [ sh:path ( oec:hasPerformanceInfo eubat:roundTripEnergyEfficiency ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 36 (EV, mandatory): Initial round trip energy efficiency \u2014 expected eubat:roundTripEnergyEfficiency / eubat:roundTripEfficiency" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-36> .
+    sh:message "EC data point 36 (EV, mandatory): Initial round trip energy efficiency [%] \u2014 expected eubat:roundTripEnergyEfficiency / eubat:roundTripEfficiency" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> .
 
 ecbp:dp-37-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiencyAt50PercentCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 37 (EV, mandatory): Round trip energy efficiency at 50 % of cycle-life \u2014 expected eubat:roundTripEfficiencyAt50PercentCycleLife" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-37> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiencyAt50PercentCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 37 (EV, mandatory): Round trip energy efficiency at 50 % of cycle-life [%] \u2014 expected eubat:roundTripEfficiencyAt50PercentCycleLife" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-37> .
 
 ecbp:dp-38-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialInternalResistance ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 38 (EV, mandatory): Internal battery cell and pack resistance \u2014 expected eubat:hasInitialInternalResistance" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-38> .
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialCellInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialPackInternalResistance ) ; sh:minCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 38 (EV, mandatory): Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9] \u2014 expected eubat:hasInitialCellInternalResistance / eubat:hasInitialPackInternalResistance" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> .
 
 ecbp:dp-39-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:cRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 39 (EV, mandatory): C-rate of relevant cycle-life test \u2014 expected eubat:cRateLifeCycleTest" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-39> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:cRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 39 (EV, mandatory): Charge C-rate of relevant cycle-life test [number] \u2014 expected eubat:cRateLifeCycleTest" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39> .
 
 ecbp:dp-40-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasLabels ; sh:minCount 1 ] [ sh:path eubat:separateCollectionSymbolUrl ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 40 (EV, mandatory): The marking requirements laid down in Article 13(4) \u2014 expected eubat:hasLabels / eubat:separateCollectionSymbolUrl" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-40> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:dischargeCRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 40 (EV, optional): Discharge C-rate of relevant cycle-life test [number] \u2014 expected eubat:dischargeCRateLifeCycleTest" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-40> .
 
 ecbp:dp-41-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:cadmiumSymbolRequired ; sh:minCount 1 ] [ sh:path eubat:leadSymbolRequired ; sh:minCount 1 ] ) ;
-    sh:severity sh:Warning ;
-    sh:message "EC data point 41 (EV, provide if the condition applies: cadmium or lead symbol if applicable): The marking requirements laid down in Article 13(5) \u2014 expected eubat:cadmiumSymbolRequired / eubat:leadSymbolRequired" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-41> .
+    sh:or ( [ sh:path eubat:hasLabels ; sh:minCount 1 ] [ sh:path eubat:separateCollectionSymbolUrl ; sh:minCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 41 (EV, mandatory): The marking requirements laid down in Article 13(4) [Yes/No] \u2014 expected eubat:hasLabels / eubat:separateCollectionSymbolUrl" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-41> .
 
 ecbp:dp-42-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasEuDeclarationOfConformity ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 42 (EV, mandatory): The EU declaration of conformity referred to in Article 18 \u2014 expected eubat:hasEuDeclarationOfConformity" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-42> .
+    sh:or ( [ sh:path eubat:cadmiumSymbolRequired ; sh:minCount 1 ] [ sh:path eubat:leadSymbolRequired ; sh:minCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 42 (EV, provide if the condition applies: Cadmium or lead symbol if applicable): The marking requirements laid down in Article 13(5) [code list] \u2014 expected eubat:cadmiumSymbolRequired / eubat:leadSymbolRequired" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-42> .
 
 ecbp:dp-43-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasEndOfLifeInfo eubat:wastePrevention ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:informationOnCollection ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:separateCollection ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 43 (EV, mandatory): The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) \u2014 expected eubat:wastePrevention / eubat:informationOnCollection / eubat:separateCollection" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-43> .
+    sh:property [ sh:path eubat:hasEuDeclarationOfConformity ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 43 (EV, mandatory): The EU declaration of conformity referred to in Article 18 [a web link] \u2014 expected eubat:hasEuDeclarationOfConformity" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-43> .
 
 ecbp:dp-44-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path gs1:instructionsForUse ; sh:minCount 1 ] [ sh:path gs1:consumerUsageInstructions ; sh:minCount 1 ] ) ;
-    sh:severity sh:Info ;
-    sh:message "EC data point 44 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus IV adoption): Clear, understandable and readable instructions for use in a format that makes it possible to print, download and save them on an electronic device so that the user can access them at all times, in particular during a breakdown of the battery \u2014 expected gs1:instructionsForUse / gs1:consumerUsageInstructions" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-44> .
+    sh:or ( [ sh:path ( eubat:hasEndOfLifeInfo eubat:wastePrevention ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:informationOnCollection ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:separateCollection ) ; sh:minCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 44 (EV, mandatory): The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text] \u2014 expected eubat:wastePrevention / eubat:informationOnCollection / eubat:separateCollection" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-44> .
 
 ecbp:dp-45-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasBatteryChemistry eubat:cathodeActiveMaterial ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryChemistry eubat:anodeActiveMaterial ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryChemistry eubat:electrolyteComposition ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 45 (EV, mandatory): Detailed composition, including materials used in the cathode, anode and electrolyte \u2014 expected eubat:cathodeActiveMaterial / eubat:anodeActiveMaterial / eubat:electrolyteComposition" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-45> .
+    sh:or ( [ sh:path gs1:instructionsForUse ; sh:minCount 1 ] [ sh:path gs1:consumerUsageInstructions ; sh:minCount 1 ] ) ;
+    sh:severity sh:Info ;
+    sh:message "EC data point 45 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus adoption): Clear, understandable and readable instructions for use in a format that makes it possible to print, download and save them on an electronic device so that the user can access them at all times, in particular during a breakdown of the battery [TBC] \u2014 expected gs1:instructionsForUse / gs1:consumerUsageInstructions" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-45> .
 
 ecbp:dp-46-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasSparePartSources eubat:spareParts ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity eubat:spareParts ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer eubat:spareParts ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryChemistry eubat:cathodeActiveMaterial ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryChemistry eubat:anodeActiveMaterial ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryChemistry eubat:electrolyteComposition ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 46 (EV, mandatory): Part numbers for components \u2014 expected eubat:spareParts" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-46> .
+    sh:message "EC data point 46 (EV, mandatory): Detailed composition, including materials used in the cathode, anode and electrolyte [free text] \u2014 expected eubat:cathodeActiveMaterial / eubat:anodeActiveMaterial / eubat:electrolyteComposition" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-46> .
 
 ecbp:dp-47-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasSparePartSources ; sh:minCount 1 ] [ sh:path ( eubat:hasSparePartSources eubat:hasSupplierContact ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity eubat:hasSupplierContact ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer eubat:hasSupplierContact ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasSparePartSources eubat:spareParts ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity eubat:spareParts ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer eubat:spareParts ) ; sh:minCount 1 ] [ sh:path eubat:hasSparePartSources ; sh:minCount 1 ] [ sh:path ( eubat:hasSparePartSources eubat:hasSupplierContact ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity eubat:hasSupplierContact ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer eubat:hasSupplierContact ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 47 (EV, mandatory): Contact details of sources for replacement spares \u2014 expected eubat:hasSparePartSources / eubat:hasSupplierContact" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-47> .
+    sh:message "EC data point 47 (EV, mandatory): Part numbers for components and contact details of sources for replacement spares [a web link] \u2014 expected eubat:spareParts / eubat:hasSparePartSources / eubat:hasSupplierContact" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-47> .
 
 ecbp:dp-48-ev
     a sh:NodeShape ;
@@ -27849,8 +27866,8 @@ ecbp:dp-48-ev
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasDismantlingDocuments ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:hasDismantlingInstructions ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 48 (EV, mandatory): Dismantling information, including at least: exploded diagrams of the battery system/pack showing the location of battery cells, disassembly sequences, type and number of fastening techniques to be unlocked, tools required for disassembly, warnings if risk of damaging parts exist, amount of cells used and layout \u2014 expected eubat:hasDismantlingDocuments / eubat:hasDismantlingInstructions" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-48> .
+    sh:message "EC data point 48 (EV, mandatory): Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link] \u2014 expected eubat:hasDismantlingDocuments / eubat:hasDismantlingInstructions" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48> .
 
 ecbp:dp-49-ev
     a sh:NodeShape ;
@@ -27858,8 +27875,8 @@ ecbp:dp-49-ev
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:safetyMeasures ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:safetyInstructions ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 49 (EV, mandatory): Safety measures \u2014 expected eubat:safetyMeasures / eubat:safetyInstructions" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-49> .
+    sh:message "EC data point 49 (EV, mandatory): Safety measures [a web link] \u2014 expected eubat:safetyMeasures / eubat:safetyInstructions" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49> .
 
 ecbp:dp-50-ev
     a sh:NodeShape ;
@@ -27867,22 +27884,22 @@ ecbp:dp-50-ev
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:resultOfTestReport ; sh:minCount 1 ] [ sh:path eubat:testReportNumber ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 50 (EV, mandatory): Results of test reports proving compliance with the requirements laid down in this Regulation or any delegated or implementing act adopted pursuant to this Regulation \u2014 expected eubat:resultOfTestReport / eubat:testReportNumber" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-50> .
+    sh:message "EC data point 50 (EV, mandatory): Results of test reports proving compliance with the requirements laid down in this Regulation or any delegated or implementing act adopted pursuant to this Regulation [a web link] \u2014 expected eubat:resultOfTestReport / eubat:testReportNumber" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-50> .
 
 ecbp:dp-51-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasRatedCapacity ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 51 (EV, mandatory: same as data point number 11 (capacity), but now dynamic): Rated capacity (in Ah) \u2014 expected eubat:hasRatedCapacity" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-51> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasRatedCapacity ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 51 (EV, mandatory: Same as data point 11 (capacity)): Rated capacity [unit Ah] \u2014 expected eubat:hasRatedCapacity" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-51> .
 
 ecbp:dp-52-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCapacityFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 52 (EV, mandatory): Capacity fade (in %) \u2014 expected eubat:hasCapacityFade" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-52> .
+    sh:property [ sh:path eubat:hasCapacityFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 52 (EV, mandatory): Capacity fade [%] \u2014 expected eubat:hasCapacityFade" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-52> .
 
 ecbp:dp-53-ev
     a sh:NodeShape ;
@@ -27890,50 +27907,50 @@ ecbp:dp-53-ev
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasRemainingPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 53 (EV, mandatory): Power (in W) \u2014 expected eubat:hasPowerCapability" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-53> .
+    sh:message "EC data point 53 (EV, mandatory): Power [unit W] \u2014 expected eubat:hasPowerCapability" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-53> .
 
 ecbp:dp-54-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasPowerFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 54 (EV, mandatory): Power fade (in %) \u2014 expected eubat:hasPowerFade" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-54> .
+    sh:property [ sh:path eubat:hasPowerFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 54 (EV, mandatory): Power fade [%] \u2014 expected eubat:hasPowerFade" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-54> .
 
 ecbp:dp-55-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 55 (EV, mandatory): Internal resistance (in \u03A9) \u2014 expected eubat:hasInternalResistance" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-55> .
+    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 55 (EV, mandatory): Internal resistance [unit \u03A9] \u2014 expected eubat:hasInternalResistance" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-55> .
 
 ecbp:dp-56-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistanceIncrease ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 56 (EV, mandatory): Internal resistance increase (in %) \u2014 expected eubat:hasInternalResistanceIncrease" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-56> .
+    sh:property [ sh:path eubat:hasInternalResistanceIncrease ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 56 (EV, mandatory): Internal resistance increase [%] \u2014 expected eubat:hasInternalResistanceIncrease" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-56> .
 
 ecbp:dp-57-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 57 (EV, provide if the condition applies: if applicable): Where applicable, energy round trip efficiency (in %) \u2014 expected eubat:roundTripEfficiency" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-57> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 57 (EV, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-57> .
 
 ecbp:dp-58-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRoundTripEfficiencyFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 58 (EV, provide if the condition applies: if applicable): Where applicable, energy round trip efficiency fade (in %) \u2014 expected eubat:hasRoundTripEfficiencyFade" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-58> .
+    sh:property [ sh:path eubat:hasRoundTripEfficiencyFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 58 (EV, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency fade [%] \u2014 expected eubat:hasRoundTripEfficiencyFade" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-58> .
 
 ecbp:dp-59-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:expectedRemainingCycles ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 59 (EV, mandatory): The expected life-time of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications \u2014 expected eubat:expectedRemainingCycles" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-59> .
+    sh:property [ sh:path eubat:expectedRemainingCycles ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 59 (EV, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number] \u2014 expected eubat:expectedRemainingCycles" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-59> .
 
 ecbp:dp-60-ev
     a sh:NodeShape ;
@@ -27941,38 +27958,36 @@ ecbp:dp-60-ev
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedLifetimeYears ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 60 (EV, mandatory): The expected life-time of the battery under the reference conditions for which it has been designed, in terms of calendar years \u2014 expected eubat:expectedLifetimeYears / eubat:expectedRemainingLifetimeMonths" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-60> .
+    sh:message "EC data point 60 (EV, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:expectedLifetimeYears / eubat:expectedRemainingLifetimeMonths" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
 
 ecbp:dp-61-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasStateOfCertifiedEnergy ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 61 (EV, mandatory): Information on the state of health of the battery pursuant to Article 14: state of certified energy (SOCE) \u2014 expected eubat:hasStateOfCertifiedEnergy" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-61> .
+    sh:property [ sh:path eubat:hasStateOfCertifiedEnergy ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 61 (EV, mandatory): Information on the state of health of the battery pursuant to Article 14: state of certified energy (SOCE) [%] \u2014 expected eubat:hasStateOfCertifiedEnergy" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-61> .
 
 ecbp:dp-67-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path schema:status ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 67 (EV, mandatory): Information on the status of the battery, defined as 'original', 'repurposed', 're-used', 'remanufactured' or 'waste' \u2014 expected schema:status / eubat:BatteryStatus" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-67> .
+    sh:property [ sh:path schema:status ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 67 (EV, mandatory): Information on the status of the battery, defined as \u2018original\u2019, \u2018repurposed\u2019, \u2018re-used\u2019, \u2018remanufactured\u2019 or \u2018waste\u2019 [code list] \u2014 expected schema:status / eubat:BatteryStatus" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-67> .
 
 ecbp:dp-68-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( oec:hasPerformanceInfo eubat:numberOfFullCycles ) ; sh:minCount 1 ] [ sh:path eubat:hasCycleCount ; sh:minCount 1 ] ) ;
-    sh:severity sh:Warning ;
-    sh:message "EC data point 68 (EV, provide if the condition applies: if applicable): The number of charging and discharging cycles \u2014 expected eubat:numberOfFullCycles / eubat:hasCycleCount" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-68> .
+    sh:property [ sh:path eubat:hasCycleCount ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 68 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] \u2014 expected eubat:hasCycleCount" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68> .
 
 ecbp:dp-69-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( oec:hasPerformanceInfo eubat:hasNegativeEvents ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 69 (EV, provide if the condition applies: if applicable): Negative events, such as accidents \u2014 expected eubat:hasNegativeEvents / eubat:NegativeEvent" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-69> .
+    sh:property [ sh:path ( oec:hasPerformanceInfo eubat:hasNegativeEvents ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 69 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): Negative events, such as accidents [multiple free texts] \u2014 expected eubat:hasNegativeEvents / eubat:NegativeEvent" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-69> .
 
 ecbp:dp-70-ev
     a sh:NodeShape ;
@@ -27980,15 +27995,15 @@ ecbp:dp-70-ev
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:timeSpentInExtremeTemperaturesAboveBoundary ; sh:minCount 1 ] [ sh:path eubat:timeSpentInExtremeTemperaturesBelowBoundary ; sh:minCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 70 (EV, provide if the condition applies: if applicable): Periodically recorded information on the operating environmental conditions, including temperature \u2014 expected eubat:timeSpentInExtremeTemperaturesAboveBoundary / eubat:timeSpentInExtremeTemperaturesBelowBoundary" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-70> .
+    sh:message "EC data point 70 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units] \u2014 expected eubat:timeSpentInExtremeTemperaturesAboveBoundary / eubat:timeSpentInExtremeTemperaturesBelowBoundary" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70> .
 
 ecbp:dp-71-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasStateOfCharge ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 71 (EV, provide if the condition applies: if applicable): Periodically recorded information on the state of charge \u2014 expected eubat:hasStateOfCharge" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-71> .
+    sh:property [ sh:path eubat:hasStateOfCharge ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 71 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the state of charge [histogram, %] \u2014 expected eubat:hasStateOfCharge" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-71> .
 
 # \u2500\u2500 LMT batteries \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
@@ -27996,10 +28011,10 @@ ecbp:dp-01-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:batteryPassportIdentifier ; sh:minCount 1 ] [ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ] ) ;
+    sh:or ( [ sh:path oec:passportIdentifier ; sh:minCount 1 ] [ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 1 (LMT, mandatory): Unique identifier \u2014 expected eubat:batteryPassportIdentifier or a GS1 Digital Link id" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-01> .
+    sh:message "EC data point 1 (LMT, mandatory): Unique identifier [unique product identifier] \u2014 expected oec:passportIdentifier or a GS1 Digital Link id" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-01> .
 
 ecbp:dp-02-lmt
     a sh:NodeShape ;
@@ -28007,8 +28022,8 @@ ecbp:dp-02-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasOperatorInformation ; sh:minCount 1 ] [ sh:path ( eubat:hasOperatorInformation eubat:operatorIdentifier ) ; sh:minCount 1 ] [ sh:path ( oec:hasOperatorInformation eubat:operatorIdentifier ) ; sh:minCount 1 ] [ sh:path ( oec:hasPassportIssuer eubat:operatorIdentifier ) ; sh:minCount 1 ] [ sh:path ( eubat:hasOperatorInformation eubat:hasOperatorRole ) ; sh:minCount 1 ] [ sh:path ( oec:hasOperatorInformation eubat:hasOperatorRole ) ; sh:minCount 1 ] [ sh:path ( oec:hasPassportIssuer eubat:hasOperatorRole ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 2 (LMT, mandatory): Identity of who is registering and/or is responsible for the battery passport \u2014 expected eubat:hasOperatorInformation / eubat:operatorIdentifier / eubat:hasOperatorRole" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-02> .
+    sh:message "EC data point 2 (LMT, mandatory): Identity of who is registering and/or is responsible for the battery passport [name] \u2014 expected eubat:hasOperatorInformation / eubat:operatorIdentifier / eubat:hasOperatorRole" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-02> .
 
 ecbp:dp-03-lmt
     a sh:NodeShape ;
@@ -28016,8 +28031,8 @@ ecbp:dp-03-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path gs1:manufacturer ; sh:minCount 1 ] [ sh:path ( eubat:hasSparePartSources gs1:organizationName ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity gs1:organizationName ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer gs1:organizationName ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 3 (LMT, mandatory): Manufacturer name, registered trade name or registered trade mark \u2014 expected gs1:manufacturer / gs1:organizationName" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-03> .
+    sh:message "EC data point 3 (LMT, mandatory): Manufacturer name, registered trade name or registered trademark [at least one of] \u2014 expected gs1:manufacturer / gs1:organizationName" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-03> .
 
 ecbp:dp-04-lmt
     a sh:NodeShape ;
@@ -28025,8 +28040,8 @@ ecbp:dp-04-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasSparePartSources gs1:address ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity gs1:address ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer gs1:address ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 4 (LMT, mandatory): Manufacturer postal address, indicating a single contact point \u2014 expected gs1:address / gs1:PostalAddress" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-04> .
+    sh:message "EC data point 4 (LMT, mandatory): Manufacturer single contact postal address \u2014 expected gs1:address / gs1:PostalAddress" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-04> .
 
 ecbp:dp-05-lmt
     a sh:NodeShape ;
@@ -28034,15 +28049,15 @@ ecbp:dp-05-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasSparePartSources gs1:contactPoint ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity gs1:contactPoint ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer gs1:contactPoint ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Info ;
-    sh:message "EC data point 5 (LMT, optional: optional, to be filled if such data is available): If available, manufacturer web and email address \u2014 expected gs1:contactPoint / gs1:ContactPoint" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-05> .
+    sh:message "EC data point 5 (LMT, optional: Optional, to be filled if such data is available): If available, manufacturer web and email address [both optional] \u2014 expected gs1:contactPoint / gs1:ContactPoint" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-05> .
 
 ecbp:dp-06-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path schema:category ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 6 (LMT, mandatory): Battery category \u2014 expected eubat:BatteryCategory / schema:category" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-06> .
+    sh:property [ sh:path schema:category ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 6 (LMT, mandatory): Battery category [3-code list] \u2014 expected eubat:BatteryCategory / schema:category" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-06> .
 
 ecbp:dp-07-lmt
     a sh:NodeShape ;
@@ -28050,8 +28065,8 @@ ecbp:dp-07-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:batteryModelIdentifier ; sh:minCount 1 ] [ sh:path gs1:hasSerialNumber ; sh:minCount 1 ] [ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 7 (LMT, mandatory): Model identification and batch or serial number, or product number or another element allowing their identification \u2014 expected eubat:batteryModelIdentifier / gs1:hasSerialNumber or a GS1 Digital Link id" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-07> .
+    sh:message "EC data point 7 (LMT, mandatory): Model identification and batch or serial number, or product number or another element allowing their identification [at least one of] \u2014 expected eubat:batteryModelIdentifier / gs1:hasSerialNumber or a GS1 Digital Link id" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-07> .
 
 ecbp:dp-08-lmt
     a sh:NodeShape ;
@@ -28059,15 +28074,15 @@ ecbp:dp-08-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasManufacturingPlace ; sh:minCount 1 ] [ sh:path ( eubat:hasManufacturingPlace eubat:facilityIdentifier ) ; sh:minCount 1 ] [ sh:path ( oec:hasFacilityInformation eubat:facilityIdentifier ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 8 (LMT, mandatory): The place of manufacturer (geographical location of a battery manufacturing plant) \u2014 expected eubat:hasManufacturingPlace / eubat:facilityIdentifier" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-08> .
+    sh:message "EC data point 8 (LMT, mandatory): The place of manufacture (geographical location of a battery manufacturing plant) [town, region, country/jurisdiction] \u2014 expected eubat:hasManufacturingPlace / eubat:facilityIdentifier" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-08> .
 
 ecbp:dp-09-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path gs1:productionDate ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 9 (LMT, mandatory): The date of manufacturing (month and year) \u2014 expected gs1:productionDate" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-09> .
+    sh:property [ sh:path gs1:productionDate ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 9 (LMT, mandatory): The date of manufacturing [month and year] \u2014 expected gs1:productionDate" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-09> .
 
 ecbp:dp-10-lmt
     a sh:NodeShape ;
@@ -28075,36 +28090,36 @@ ecbp:dp-10-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasBatteryMass ; sh:minCount 1 ] [ sh:path gs1:netWeight ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 10 (LMT, mandatory): The weight \u2014 expected eubat:hasBatteryMass / gs1:netWeight" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-10> .
+    sh:message "EC data point 10 (LMT, mandatory): The weight [unit kg] \u2014 expected eubat:hasBatteryMass / gs1:netWeight" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-10> .
 
 ecbp:dp-11-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasRatedCapacity ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 11 (LMT, mandatory): The capacity \u2014 expected eubat:hasRatedCapacity" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-11> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasRatedCapacity ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 11 (LMT, mandatory): The capacity [unit Ah] \u2014 expected eubat:hasRatedCapacity" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-11> .
 
 ecbp:dp-12-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasBatteryChemistry ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 12 (LMT, mandatory): The chemistry \u2014 expected eubat:hasBatteryChemistry" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-12> .
+    sh:property [ sh:path eubat:hasBatteryChemistry ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 12 (LMT, mandatory): The chemistry [code list] \u2014 expected eubat:hasBatteryChemistry" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-12> .
 
 ecbp:dp-13-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasHazardousSubstances ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 13 (LMT, mandatory): The hazardous substances present in the battery, other than mercury, cadmium or lead \u2014 expected eubat:hasHazardousSubstances / eubat:HazardousSubstance" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-13> .
+    sh:property [ sh:path eubat:hasHazardousSubstances ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 13 (LMT, mandatory): The hazardous substances present in the battery, other than mercury, cadmium or lead [free text] \u2014 expected eubat:hasHazardousSubstances / eubat:HazardousSubstance" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-13> .
 
 ecbp:dp-14-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasEndOfLifeInfo eubat:extinguishingAgent ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 14 (LMT, mandatory): Usable extinguishing agent \u2014 expected eubat:extinguishingAgent" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-14> .
+    sh:property [ sh:path ( eubat:hasEndOfLifeInfo eubat:extinguishingAgent ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 14 (LMT, mandatory): Usable extinguishing agent [free text] \u2014 expected eubat:extinguishingAgent" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-14> .
 
 ecbp:dp-15-lmt
     a sh:NodeShape ;
@@ -28112,22 +28127,22 @@ ecbp:dp-15-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasMaterialComposition eubat:isCriticalRawMaterial ) ; sh:minCount 1 ] [ sh:path eubat:criticalRawMaterialsStatement ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 15 (LMT, mandatory): Critical raw materials present in the battery in a concentration of more than 0,1 % weight by weight \u2014 expected eubat:isCriticalRawMaterial / eubat:criticalRawMaterialsStatement" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-15> .
+    sh:message "EC data point 15 (LMT, mandatory): Critical raw materials present in the battery in a concentration of more than 0,1 % weight by weight [code list] \u2014 expected eubat:isCriticalRawMaterial / eubat:criticalRawMaterialsStatement" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-15> .
 
 ecbp:dp-17-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCarbonFootprintDeclaration ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 17 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act): The carbon footprint declaration \u2014 expected eubat:hasCarbonFootprintDeclaration / eubat:CarbonFootprintDeclaration" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-17> .
+    sh:property [ sh:path eubat:hasCarbonFootprintDeclaration ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 17 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint declaration \u2014 expected eubat:hasCarbonFootprintDeclaration / eubat:CarbonFootprintDeclaration" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-17> .
 
 ecbp:dp-18-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration eubat:hasCarbonFootprintPerformanceClass ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:hasCarbonFootprintPerformanceClass" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-18> .
+    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration eubat:hasCarbonFootprintPerformanceClass ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:hasCarbonFootprintPerformanceClass" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-18> .
 
 ecbp:dp-19-lmt
     a sh:NodeShape ;
@@ -28135,71 +28150,71 @@ ecbp:dp-19-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasSupplyChainDueDiligence ; sh:minCount 1 ] [ sh:path ( eubat:hasSupplyChainDueDiligence eubat:dueDiligenceReportUrl ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Info ;
-    sh:message "EC data point 19 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act): Information on responsible sourcing as indicated in the report on battery due diligence policy referred to in Article 52(3) \u2014 expected eubat:hasSupplyChainDueDiligence / eubat:dueDiligenceReportUrl" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-19> .
+    sh:message "EC data point 19 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- as envisaged by Article 48(1), required from August 2027): Information on responsible sourcing as indicated in the report on battery due diligence policy referred to in Article 52(3) \u2014 expected eubat:hasSupplyChainDueDiligence / eubat:dueDiligenceReportUrl" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-19> .
 
 ecbp:dp-20-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasRecycledContent eubat:cobaltRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 20 (LMT, mandatory): Percentage share of cobalt that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste \u2014 expected eubat:cobaltRecycledShare" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-20> .
+    sh:property [ sh:path ( eubat:hasRecycledContent eubat:cobaltRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 20 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- to be applied as envisaged by Article 8): Percentage share of cobalt that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste [%] \u2014 expected eubat:cobaltRecycledShare" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-20> .
 
 ecbp:dp-21-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasRecycledContent eubat:lithiumRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 21 (LMT, mandatory): Percentage share of lithium that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste \u2014 expected eubat:lithiumRecycledShare" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-21> .
+    sh:property [ sh:path ( eubat:hasRecycledContent eubat:lithiumRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 21 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- to be applied as envisaged by Article 8): Percentage share of lithium that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste [%] \u2014 expected eubat:lithiumRecycledShare" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-21> .
 
 ecbp:dp-22-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasRecycledContent eubat:nickelRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 22 (LMT, mandatory): Percentage share of nickel that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste \u2014 expected eubat:nickelRecycledShare" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-22> .
+    sh:property [ sh:path ( eubat:hasRecycledContent eubat:nickelRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 22 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - to be applied as envisaged by Article 8): Percentage share of nickel that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste [%] \u2014 expected eubat:nickelRecycledShare" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-22> .
 
 ecbp:dp-23-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasRecycledContent eubat:leadRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 23 (LMT, mandatory): The percentage share of lead that is present in the battery and that has been recovered from waste \u2014 expected eubat:leadRecycledShare" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-23> .
+    sh:property [ sh:path ( eubat:hasRecycledContent eubat:leadRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 23 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - to be applied as envisaged by Article 8): The percentage share of lead that is present in the battery and that has been recovered from waste [%] \u2014 expected eubat:leadRecycledShare" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-23> .
 
 ecbp:dp-24-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasMaterialComposition eubat:renewableContentShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 24 (LMT, mandatory): The share of renewable content \u2014 expected eubat:renewableContentShare" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-24> .
+    sh:property [ sh:path ( eubat:hasEndOfLifeInfo eubat:renewableContent ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 24 (LMT, mandatory): The share of renewable content [%] \u2014 expected eubat:renewableContent" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-24> .
 
 ecbp:dp-26-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMinimumVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 26 (LMT, mandatory): Minimal voltage, with temperature range when relevant \u2014 expected eubat:hasMinimumVoltage" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-26> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMinimumVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 26 (LMT, mandatory): Minimal voltage, with temperature range when relevant [unit V, optional unit \xB0C] \u2014 expected eubat:hasMinimumVoltage" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-26> .
 
 ecbp:dp-27-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasNominalVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 27 (LMT, mandatory): Nominal voltage, with temperature range when relevant \u2014 expected eubat:hasNominalVoltage" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-27> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasNominalVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 27 (LMT, mandatory): Nominal voltage, with temperature range when relevant [unit V, optional unit \xB0C] \u2014 expected eubat:hasNominalVoltage" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-27> .
 
 ecbp:dp-28-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMaximumVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 28 (LMT, mandatory): Maximum voltage, with temperature range when relevant \u2014 expected eubat:hasMaximumVoltage" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-28> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMaximumVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 28 (LMT, mandatory): Maximum voltage, with temperature range when relevant [unit V, optional unit \xB0C] \u2014 expected eubat:hasMaximumVoltage" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-28> .
 
 ecbp:dp-29-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 29 (LMT, mandatory): Original power capability (in Watts) \u2014 expected eubat:hasOriginalPowerCapability" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-29> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 29 (LMT, mandatory): Original power capability [unit W] \u2014 expected eubat:hasOriginalPowerCapability" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-29> .
 
 ecbp:dp-30-lmt
     a sh:NodeShape ;
@@ -28207,31 +28222,29 @@ ecbp:dp-30-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMaximumPermittedBatteryPower ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMaximumChargingPower ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMaximumDischargingPower ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 30 (LMT, mandatory): Power limits, with temperature range when relevant \u2014 expected eubat:hasMaximumPermittedBatteryPower / eubat:hasMaximumChargingPower / eubat:hasMaximumDischargingPower" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-30> .
+    sh:message "EC data point 30 (LMT, mandatory): Power limits, with temperature range when relevant [unit W, optionally min_T \xB0C \u2026 max_T \xB0C] \u2014 expected eubat:hasMaximumPermittedBatteryPower / eubat:hasMaximumChargingPower / eubat:hasMaximumDischargingPower" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-30> .
 
 ecbp:dp-31-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:expectedNumberOfCycles ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 31 (LMT, mandatory): Expected battery lifetime expressed in cycles \u2014 expected eubat:expectedNumberOfCycles / eubat:expectedCycleLife" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-31> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 31 (LMT, mandatory): Expected battery lifetime expressed in cycles [in number] \u2014 expected eubat:expectedCycleLife" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31> .
 
 ecbp:dp-32-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:lifetimeReferenceTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 32 (LMT, mandatory): Reference test used for expected battery lifetime expressed in cycles \u2014 expected eubat:lifetimeReferenceTest" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-32> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:lifetimeReferenceTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 32 (LMT, mandatory): Reference test used for expected battery lifetime expressed in cycles [free text] \u2014 expected eubat:lifetimeReferenceTest" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-32> .
 
 ecbp:dp-34-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasTemperatureRangeIdleState ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 34 (LMT, mandatory): Temperature range the battery can withstand when not in use (reference test) \u2014 expected eubat:hasTemperatureRangeIdleState" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-34> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasTemperatureRangeIdleState ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 34 (LMT, mandatory): Temperature range the battery can withstand when not in use (reference test) [min_T \xB0C \u2026 max_T \xB0C + free text] \u2014 expected eubat:hasTemperatureRangeIdleState" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-34> .
 
 ecbp:dp-35-lmt
     a sh:NodeShape ;
@@ -28239,8 +28252,8 @@ ecbp:dp-35-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:warrantyConditions ; sh:minCount 1 ] [ sh:path gs1:warranty ; sh:minCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 35 (LMT, provide if the condition applies: only if applicable (if commercial warranty envisaged)): Period for which the commercial warranty for the calendar life applies \u2014 expected eubat:warrantyConditions / gs1:warranty" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-35> .
+    sh:message "EC data point 35 (LMT, provide if the condition applies: If applicable (if commercial warranty envisaged)): Period for which the commercial warranty for the calendar life applies [months] \u2014 expected eubat:warrantyConditions / gs1:warranty" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-35> .
 
 ecbp:dp-36-lmt
     a sh:NodeShape ;
@@ -28248,99 +28261,99 @@ ecbp:dp-36-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path ( oec:hasPerformanceInfo eubat:roundTripEnergyEfficiency ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 36 (LMT, mandatory): Initial round trip energy efficiency \u2014 expected eubat:roundTripEnergyEfficiency / eubat:roundTripEfficiency" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-36> .
+    sh:message "EC data point 36 (LMT, mandatory): Initial round trip energy efficiency [%] \u2014 expected eubat:roundTripEnergyEfficiency / eubat:roundTripEfficiency" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> .
 
 ecbp:dp-37-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiencyAt50PercentCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 37 (LMT, mandatory): Round trip energy efficiency at 50 % of cycle-life \u2014 expected eubat:roundTripEfficiencyAt50PercentCycleLife" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-37> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiencyAt50PercentCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 37 (LMT, mandatory): Round trip energy efficiency at 50 % of cycle-life [%] \u2014 expected eubat:roundTripEfficiencyAt50PercentCycleLife" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-37> .
 
 ecbp:dp-38-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialInternalResistance ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 38 (LMT, mandatory): Internal battery cell and pack resistance \u2014 expected eubat:hasInitialInternalResistance" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-38> .
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialCellInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialPackInternalResistance ) ; sh:minCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 38 (LMT, mandatory): Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9] \u2014 expected eubat:hasInitialCellInternalResistance / eubat:hasInitialPackInternalResistance" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> .
 
 ecbp:dp-39-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:cRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 39 (LMT, mandatory): C-rate of relevant cycle-life test \u2014 expected eubat:cRateLifeCycleTest" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-39> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:cRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 39 (LMT, mandatory): Charge C-rate of relevant cycle-life test [number] \u2014 expected eubat:cRateLifeCycleTest" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39> .
 
 ecbp:dp-40-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasLabels ; sh:minCount 1 ] [ sh:path eubat:separateCollectionSymbolUrl ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 40 (LMT, mandatory): The marking requirements laid down in Article 13(4) \u2014 expected eubat:hasLabels / eubat:separateCollectionSymbolUrl" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-40> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:dischargeCRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 40 (LMT, optional): Discharge C-rate of relevant cycle-life test [number] \u2014 expected eubat:dischargeCRateLifeCycleTest" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-40> .
 
 ecbp:dp-41-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:cadmiumSymbolRequired ; sh:minCount 1 ] [ sh:path eubat:leadSymbolRequired ; sh:minCount 1 ] ) ;
-    sh:severity sh:Warning ;
-    sh:message "EC data point 41 (LMT, provide if the condition applies: cadmium or lead symbol if applicable): The marking requirements laid down in Article 13(5) \u2014 expected eubat:cadmiumSymbolRequired / eubat:leadSymbolRequired" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-41> .
+    sh:or ( [ sh:path eubat:hasLabels ; sh:minCount 1 ] [ sh:path eubat:separateCollectionSymbolUrl ; sh:minCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 41 (LMT, mandatory): The marking requirements laid down in Article 13(4) [Yes/No] \u2014 expected eubat:hasLabels / eubat:separateCollectionSymbolUrl" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-41> .
 
 ecbp:dp-42-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasEuDeclarationOfConformity ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 42 (LMT, mandatory): The EU declaration of conformity referred to in Article 18 \u2014 expected eubat:hasEuDeclarationOfConformity" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-42> .
+    sh:or ( [ sh:path eubat:cadmiumSymbolRequired ; sh:minCount 1 ] [ sh:path eubat:leadSymbolRequired ; sh:minCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 42 (LMT, provide if the condition applies: Cadmium or lead symbol if applicable): The marking requirements laid down in Article 13(5) [code list] \u2014 expected eubat:cadmiumSymbolRequired / eubat:leadSymbolRequired" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-42> .
 
 ecbp:dp-43-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasEndOfLifeInfo eubat:wastePrevention ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:informationOnCollection ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:separateCollection ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 43 (LMT, mandatory): The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) \u2014 expected eubat:wastePrevention / eubat:informationOnCollection / eubat:separateCollection" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-43> .
+    sh:property [ sh:path eubat:hasEuDeclarationOfConformity ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 43 (LMT, mandatory): The EU declaration of conformity referred to in Article 18 [a web link] \u2014 expected eubat:hasEuDeclarationOfConformity" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-43> .
 
 ecbp:dp-44-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path gs1:instructionsForUse ; sh:minCount 1 ] [ sh:path gs1:consumerUsageInstructions ; sh:minCount 1 ] ) ;
-    sh:severity sh:Info ;
-    sh:message "EC data point 44 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus IV adoption): Clear, understandable and readable instructions for use in a format that makes it possible to print, download and save them on an electronic device so that the user can access them at all times, in particular during a breakdown of the battery \u2014 expected gs1:instructionsForUse / gs1:consumerUsageInstructions" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-44> .
+    sh:or ( [ sh:path ( eubat:hasEndOfLifeInfo eubat:wastePrevention ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:informationOnCollection ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:separateCollection ) ; sh:minCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 44 (LMT, mandatory): The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text] \u2014 expected eubat:wastePrevention / eubat:informationOnCollection / eubat:separateCollection" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-44> .
 
 ecbp:dp-45-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasBatteryChemistry eubat:cathodeActiveMaterial ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryChemistry eubat:anodeActiveMaterial ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryChemistry eubat:electrolyteComposition ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 45 (LMT, mandatory): Detailed composition, including materials used in the cathode, anode and electrolyte \u2014 expected eubat:cathodeActiveMaterial / eubat:anodeActiveMaterial / eubat:electrolyteComposition" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-45> .
+    sh:or ( [ sh:path gs1:instructionsForUse ; sh:minCount 1 ] [ sh:path gs1:consumerUsageInstructions ; sh:minCount 1 ] ) ;
+    sh:severity sh:Info ;
+    sh:message "EC data point 45 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus adoption): Clear, understandable and readable instructions for use in a format that makes it possible to print, download and save them on an electronic device so that the user can access them at all times, in particular during a breakdown of the battery [TBC] \u2014 expected gs1:instructionsForUse / gs1:consumerUsageInstructions" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-45> .
 
 ecbp:dp-46-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasSparePartSources eubat:spareParts ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity eubat:spareParts ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer eubat:spareParts ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryChemistry eubat:cathodeActiveMaterial ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryChemistry eubat:anodeActiveMaterial ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryChemistry eubat:electrolyteComposition ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 46 (LMT, mandatory): Part numbers for components \u2014 expected eubat:spareParts" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-46> .
+    sh:message "EC data point 46 (LMT, mandatory): Detailed composition, including materials used in the cathode, anode and electrolyte [free text] \u2014 expected eubat:cathodeActiveMaterial / eubat:anodeActiveMaterial / eubat:electrolyteComposition" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-46> .
 
 ecbp:dp-47-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasSparePartSources ; sh:minCount 1 ] [ sh:path ( eubat:hasSparePartSources eubat:hasSupplierContact ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity eubat:hasSupplierContact ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer eubat:hasSupplierContact ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasSparePartSources eubat:spareParts ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity eubat:spareParts ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer eubat:spareParts ) ; sh:minCount 1 ] [ sh:path eubat:hasSparePartSources ; sh:minCount 1 ] [ sh:path ( eubat:hasSparePartSources eubat:hasSupplierContact ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity eubat:hasSupplierContact ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer eubat:hasSupplierContact ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 47 (LMT, mandatory): Contact details of sources for replacement spares \u2014 expected eubat:hasSparePartSources / eubat:hasSupplierContact" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-47> .
+    sh:message "EC data point 47 (LMT, mandatory): Part numbers for components and contact details of sources for replacement spares [a web link] \u2014 expected eubat:spareParts / eubat:hasSparePartSources / eubat:hasSupplierContact" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-47> .
 
 ecbp:dp-48-lmt
     a sh:NodeShape ;
@@ -28348,8 +28361,8 @@ ecbp:dp-48-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasDismantlingDocuments ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:hasDismantlingInstructions ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 48 (LMT, mandatory): Dismantling information, including at least: exploded diagrams of the battery system/pack showing the location of battery cells, disassembly sequences, type and number of fastening techniques to be unlocked, tools required for disassembly, warnings if risk of damaging parts exist, amount of cells used and layout \u2014 expected eubat:hasDismantlingDocuments / eubat:hasDismantlingInstructions" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-48> .
+    sh:message "EC data point 48 (LMT, mandatory): Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link] \u2014 expected eubat:hasDismantlingDocuments / eubat:hasDismantlingInstructions" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48> .
 
 ecbp:dp-49-lmt
     a sh:NodeShape ;
@@ -28357,8 +28370,8 @@ ecbp:dp-49-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:safetyMeasures ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:safetyInstructions ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 49 (LMT, mandatory): Safety measures \u2014 expected eubat:safetyMeasures / eubat:safetyInstructions" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-49> .
+    sh:message "EC data point 49 (LMT, mandatory): Safety measures [a web link] \u2014 expected eubat:safetyMeasures / eubat:safetyInstructions" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49> .
 
 ecbp:dp-50-lmt
     a sh:NodeShape ;
@@ -28366,22 +28379,22 @@ ecbp:dp-50-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:resultOfTestReport ; sh:minCount 1 ] [ sh:path eubat:testReportNumber ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 50 (LMT, mandatory): Results of test reports proving compliance with the requirements laid down in this Regulation or any delegated or implementing act adopted pursuant to this Regulation \u2014 expected eubat:resultOfTestReport / eubat:testReportNumber" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-50> .
+    sh:message "EC data point 50 (LMT, mandatory): Results of test reports proving compliance with the requirements laid down in this Regulation or any delegated or implementing act adopted pursuant to this Regulation [a web link] \u2014 expected eubat:resultOfTestReport / eubat:testReportNumber" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-50> .
 
 ecbp:dp-51-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasRatedCapacity ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 51 (LMT, mandatory: same as data point number 11 (capacity), but now dynamic): Rated capacity (in Ah) \u2014 expected eubat:hasRatedCapacity" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-51> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasRatedCapacity ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 51 (LMT, mandatory: Same as data point 11 (capacity)): Rated capacity [unit Ah] \u2014 expected eubat:hasRatedCapacity" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-51> .
 
 ecbp:dp-52-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCapacityFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 52 (LMT, mandatory): Capacity fade (in %) \u2014 expected eubat:hasCapacityFade" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-52> .
+    sh:property [ sh:path eubat:hasCapacityFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 52 (LMT, mandatory): Capacity fade [%] \u2014 expected eubat:hasCapacityFade" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-52> .
 
 ecbp:dp-53-lmt
     a sh:NodeShape ;
@@ -28389,50 +28402,50 @@ ecbp:dp-53-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasRemainingPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 53 (LMT, mandatory): Power (in W) \u2014 expected eubat:hasPowerCapability" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-53> .
+    sh:message "EC data point 53 (LMT, mandatory): Power [unit W] \u2014 expected eubat:hasPowerCapability" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-53> .
 
 ecbp:dp-54-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasPowerFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 54 (LMT, mandatory): Power fade (in %) \u2014 expected eubat:hasPowerFade" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-54> .
+    sh:property [ sh:path eubat:hasPowerFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 54 (LMT, mandatory): Power fade [%] \u2014 expected eubat:hasPowerFade" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-54> .
 
 ecbp:dp-55-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 55 (LMT, mandatory): Internal resistance (in \u03A9) \u2014 expected eubat:hasInternalResistance" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-55> .
+    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 55 (LMT, mandatory): Internal resistance [unit \u03A9] \u2014 expected eubat:hasInternalResistance" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-55> .
 
 ecbp:dp-56-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistanceIncrease ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 56 (LMT, mandatory): Internal resistance increase (in %) \u2014 expected eubat:hasInternalResistanceIncrease" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-56> .
+    sh:property [ sh:path eubat:hasInternalResistanceIncrease ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 56 (LMT, mandatory): Internal resistance increase [%] \u2014 expected eubat:hasInternalResistanceIncrease" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-56> .
 
 ecbp:dp-57-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 57 (LMT, provide if the condition applies: if applicable): Where applicable, energy round trip efficiency (in %) \u2014 expected eubat:roundTripEfficiency" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-57> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 57 (LMT, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-57> .
 
 ecbp:dp-58-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRoundTripEfficiencyFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 58 (LMT, provide if the condition applies: if applicable): Where applicable, energy round trip efficiency fade (in %) \u2014 expected eubat:hasRoundTripEfficiencyFade" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-58> .
+    sh:property [ sh:path eubat:hasRoundTripEfficiencyFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 58 (LMT, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency fade [%] \u2014 expected eubat:hasRoundTripEfficiencyFade" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-58> .
 
 ecbp:dp-59-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:expectedRemainingCycles ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 59 (LMT, mandatory): The expected life-time of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications \u2014 expected eubat:expectedRemainingCycles" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-59> .
+    sh:property [ sh:path eubat:expectedRemainingCycles ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 59 (LMT, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number] \u2014 expected eubat:expectedRemainingCycles" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-59> .
 
 ecbp:dp-60-lmt
     a sh:NodeShape ;
@@ -28440,29 +28453,29 @@ ecbp:dp-60-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedLifetimeYears ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 60 (LMT, mandatory): The expected life-time of the battery under the reference conditions for which it has been designed, in terms of calendar years \u2014 expected eubat:expectedLifetimeYears / eubat:expectedRemainingLifetimeMonths" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-60> .
+    sh:message "EC data point 60 (LMT, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:expectedLifetimeYears / eubat:expectedRemainingLifetimeMonths" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
 
 ecbp:dp-62-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingCapacity ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 62 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: remaining capacity \u2014 expected eubat:hasRemainingCapacity" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-62> .
+    sh:property [ sh:path eubat:hasRemainingCapacity ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 62 (LMT, mandatory: Mandatory battery management system): Information on the state of health of the battery pursuant to Article 14: remaining capacity [unit Ah] \u2014 expected eubat:hasRemainingCapacity" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-62> .
 
 ecbp:dp-63-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingPowerCapability ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 63 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability \u2014 expected eubat:hasRemainingPowerCapability" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-63> .
+    sh:property [ sh:path eubat:hasRemainingPowerCapability ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 63 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability [unit W] \u2014 expected eubat:hasRemainingPowerCapability" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-63> .
 
 ecbp:dp-64-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingRoundTripEfficiency ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 64 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round trip efficiency \u2014 expected eubat:hasRemainingRoundTripEfficiency" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-64> .
+    sh:property [ sh:path eubat:hasRemainingRoundTripEfficiency ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 64 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round-trip efficiency [%] \u2014 expected eubat:hasRemainingRoundTripEfficiency" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-64> .
 
 ecbp:dp-65-lmt
     a sh:NodeShape ;
@@ -28470,38 +28483,36 @@ ecbp:dp-65-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasEvolutionOfSelfDischarge ; sh:minCount 1 ] [ sh:path ( oec:hasPerformanceInfo eubat:hasCurrentSelfDischargingRate ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 65 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates \u2014 expected eubat:hasEvolutionOfSelfDischarge / eubat:hasCurrentSelfDischargingRate" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-65> .
+    sh:message "EC data point 65 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year] \u2014 expected eubat:hasEvolutionOfSelfDischarge / eubat:hasCurrentSelfDischargingRate" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65> .
 
 ecbp:dp-66-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 66 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance \u2014 expected eubat:hasInternalResistance" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-66> .
+    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 66 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance [unit \u03A9] \u2014 expected eubat:hasInternalResistance" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-66> .
 
 ecbp:dp-67-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path schema:status ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 67 (LMT, mandatory): Information on the status of the battery, defined as 'original', 'repurposed', 're-used', 'remanufactured' or 'waste' \u2014 expected schema:status / eubat:BatteryStatus" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-67> .
+    sh:property [ sh:path schema:status ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 67 (LMT, mandatory): Information on the status of the battery, defined as \u2018original\u2019, \u2018repurposed\u2019, \u2018re-used\u2019, \u2018remanufactured\u2019 or \u2018waste\u2019 [code list] \u2014 expected schema:status / eubat:BatteryStatus" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-67> .
 
 ecbp:dp-68-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( oec:hasPerformanceInfo eubat:numberOfFullCycles ) ; sh:minCount 1 ] [ sh:path eubat:hasCycleCount ; sh:minCount 1 ] ) ;
-    sh:severity sh:Warning ;
-    sh:message "EC data point 68 (LMT, provide if the condition applies: if applicable): The number of charging and discharging cycles \u2014 expected eubat:numberOfFullCycles / eubat:hasCycleCount" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-68> .
+    sh:property [ sh:path eubat:hasCycleCount ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 68 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] \u2014 expected eubat:hasCycleCount" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68> .
 
 ecbp:dp-69-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( oec:hasPerformanceInfo eubat:hasNegativeEvents ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 69 (LMT, provide if the condition applies: if applicable): Negative events, such as accidents \u2014 expected eubat:hasNegativeEvents / eubat:NegativeEvent" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-69> .
+    sh:property [ sh:path ( oec:hasPerformanceInfo eubat:hasNegativeEvents ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 69 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): Negative events, such as accidents [multiple free texts] \u2014 expected eubat:hasNegativeEvents / eubat:NegativeEvent" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-69> .
 
 ecbp:dp-70-lmt
     a sh:NodeShape ;
@@ -28509,15 +28520,15 @@ ecbp:dp-70-lmt
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:timeSpentInExtremeTemperaturesAboveBoundary ; sh:minCount 1 ] [ sh:path eubat:timeSpentInExtremeTemperaturesBelowBoundary ; sh:minCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 70 (LMT, provide if the condition applies: if applicable): Periodically recorded information on the operating environmental conditions, including temperature \u2014 expected eubat:timeSpentInExtremeTemperaturesAboveBoundary / eubat:timeSpentInExtremeTemperaturesBelowBoundary" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-70> .
+    sh:message "EC data point 70 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units] \u2014 expected eubat:timeSpentInExtremeTemperaturesAboveBoundary / eubat:timeSpentInExtremeTemperaturesBelowBoundary" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70> .
 
 ecbp:dp-71-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasStateOfCharge ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 71 (LMT, provide if the condition applies: if applicable): Periodically recorded information on the state of charge \u2014 expected eubat:hasStateOfCharge" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-71> .
+    sh:property [ sh:path eubat:hasStateOfCharge ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 71 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the state of charge [histogram, %] \u2014 expected eubat:hasStateOfCharge" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-71> .
 
 # \u2500\u2500 industrial batteries \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
@@ -28525,10 +28536,10 @@ ecbp:dp-01-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:batteryPassportIdentifier ; sh:minCount 1 ] [ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ] ) ;
+    sh:or ( [ sh:path oec:passportIdentifier ; sh:minCount 1 ] [ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 1 (industrial, mandatory): Unique identifier \u2014 expected eubat:batteryPassportIdentifier or a GS1 Digital Link id" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-01> .
+    sh:message "EC data point 1 (industrial, mandatory): Unique identifier [unique product identifier] \u2014 expected oec:passportIdentifier or a GS1 Digital Link id" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-01> .
 
 ecbp:dp-02-industrial
     a sh:NodeShape ;
@@ -28536,8 +28547,8 @@ ecbp:dp-02-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasOperatorInformation ; sh:minCount 1 ] [ sh:path ( eubat:hasOperatorInformation eubat:operatorIdentifier ) ; sh:minCount 1 ] [ sh:path ( oec:hasOperatorInformation eubat:operatorIdentifier ) ; sh:minCount 1 ] [ sh:path ( oec:hasPassportIssuer eubat:operatorIdentifier ) ; sh:minCount 1 ] [ sh:path ( eubat:hasOperatorInformation eubat:hasOperatorRole ) ; sh:minCount 1 ] [ sh:path ( oec:hasOperatorInformation eubat:hasOperatorRole ) ; sh:minCount 1 ] [ sh:path ( oec:hasPassportIssuer eubat:hasOperatorRole ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 2 (industrial, mandatory): Identity of who is registering and/or is responsible for the battery passport \u2014 expected eubat:hasOperatorInformation / eubat:operatorIdentifier / eubat:hasOperatorRole" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-02> .
+    sh:message "EC data point 2 (industrial, mandatory): Identity of who is registering and/or is responsible for the battery passport [name] \u2014 expected eubat:hasOperatorInformation / eubat:operatorIdentifier / eubat:hasOperatorRole" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-02> .
 
 ecbp:dp-03-industrial
     a sh:NodeShape ;
@@ -28545,8 +28556,8 @@ ecbp:dp-03-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path gs1:manufacturer ; sh:minCount 1 ] [ sh:path ( eubat:hasSparePartSources gs1:organizationName ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity gs1:organizationName ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer gs1:organizationName ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 3 (industrial, mandatory): Manufacturer name, registered trade name or registered trade mark \u2014 expected gs1:manufacturer / gs1:organizationName" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-03> .
+    sh:message "EC data point 3 (industrial, mandatory): Manufacturer name, registered trade name or registered trademark [at least one of] \u2014 expected gs1:manufacturer / gs1:organizationName" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-03> .
 
 ecbp:dp-04-industrial
     a sh:NodeShape ;
@@ -28554,8 +28565,8 @@ ecbp:dp-04-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasSparePartSources gs1:address ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity gs1:address ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer gs1:address ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 4 (industrial, mandatory): Manufacturer postal address, indicating a single contact point \u2014 expected gs1:address / gs1:PostalAddress" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-04> .
+    sh:message "EC data point 4 (industrial, mandatory): Manufacturer single contact postal address \u2014 expected gs1:address / gs1:PostalAddress" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-04> .
 
 ecbp:dp-05-industrial
     a sh:NodeShape ;
@@ -28563,15 +28574,15 @@ ecbp:dp-05-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasSparePartSources gs1:contactPoint ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity gs1:contactPoint ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer gs1:contactPoint ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Info ;
-    sh:message "EC data point 5 (industrial, optional: optional, to be filled if such data is available): If available, manufacturer web and email address \u2014 expected gs1:contactPoint / gs1:ContactPoint" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-05> .
+    sh:message "EC data point 5 (industrial, optional: Optional, to be filled if such data is available): If available, manufacturer web and email address [both optional] \u2014 expected gs1:contactPoint / gs1:ContactPoint" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-05> .
 
 ecbp:dp-06-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path schema:category ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 6 (industrial, mandatory): Battery category \u2014 expected eubat:BatteryCategory / schema:category" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-06> .
+    sh:property [ sh:path schema:category ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 6 (industrial, mandatory): Battery category [3-code list] \u2014 expected eubat:BatteryCategory / schema:category" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-06> .
 
 ecbp:dp-07-industrial
     a sh:NodeShape ;
@@ -28579,8 +28590,8 @@ ecbp:dp-07-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:batteryModelIdentifier ; sh:minCount 1 ] [ sh:path gs1:hasSerialNumber ; sh:minCount 1 ] [ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 7 (industrial, mandatory): Model identification and batch or serial number, or product number or another element allowing their identification \u2014 expected eubat:batteryModelIdentifier / gs1:hasSerialNumber or a GS1 Digital Link id" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-07> .
+    sh:message "EC data point 7 (industrial, mandatory): Model identification and batch or serial number, or product number or another element allowing their identification [at least one of] \u2014 expected eubat:batteryModelIdentifier / gs1:hasSerialNumber or a GS1 Digital Link id" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-07> .
 
 ecbp:dp-08-industrial
     a sh:NodeShape ;
@@ -28588,15 +28599,15 @@ ecbp:dp-08-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasManufacturingPlace ; sh:minCount 1 ] [ sh:path ( eubat:hasManufacturingPlace eubat:facilityIdentifier ) ; sh:minCount 1 ] [ sh:path ( oec:hasFacilityInformation eubat:facilityIdentifier ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 8 (industrial, mandatory): The place of manufacturer (geographical location of a battery manufacturing plant) \u2014 expected eubat:hasManufacturingPlace / eubat:facilityIdentifier" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-08> .
+    sh:message "EC data point 8 (industrial, mandatory): The place of manufacture (geographical location of a battery manufacturing plant) [town, region, country/jurisdiction] \u2014 expected eubat:hasManufacturingPlace / eubat:facilityIdentifier" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-08> .
 
 ecbp:dp-09-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path gs1:productionDate ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 9 (industrial, mandatory): The date of manufacturing (month and year) \u2014 expected gs1:productionDate" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-09> .
+    sh:property [ sh:path gs1:productionDate ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 9 (industrial, mandatory): The date of manufacturing [month and year] \u2014 expected gs1:productionDate" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-09> .
 
 ecbp:dp-10-industrial
     a sh:NodeShape ;
@@ -28604,36 +28615,36 @@ ecbp:dp-10-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasBatteryMass ; sh:minCount 1 ] [ sh:path gs1:netWeight ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 10 (industrial, mandatory): The weight \u2014 expected eubat:hasBatteryMass / gs1:netWeight" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-10> .
+    sh:message "EC data point 10 (industrial, mandatory): The weight [unit kg] \u2014 expected eubat:hasBatteryMass / gs1:netWeight" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-10> .
 
 ecbp:dp-11-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasRatedCapacity ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 11 (industrial, mandatory): The capacity \u2014 expected eubat:hasRatedCapacity" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-11> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasRatedCapacity ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 11 (industrial, mandatory): The capacity [unit Ah] \u2014 expected eubat:hasRatedCapacity" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-11> .
 
 ecbp:dp-12-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasBatteryChemistry ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 12 (industrial, mandatory): The chemistry \u2014 expected eubat:hasBatteryChemistry" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-12> .
+    sh:property [ sh:path eubat:hasBatteryChemistry ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 12 (industrial, mandatory): The chemistry [code list] \u2014 expected eubat:hasBatteryChemistry" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-12> .
 
 ecbp:dp-13-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasHazardousSubstances ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 13 (industrial, mandatory): The hazardous substances present in the battery, other than mercury, cadmium or lead \u2014 expected eubat:hasHazardousSubstances / eubat:HazardousSubstance" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-13> .
+    sh:property [ sh:path eubat:hasHazardousSubstances ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 13 (industrial, mandatory): The hazardous substances present in the battery, other than mercury, cadmium or lead [free text] \u2014 expected eubat:hasHazardousSubstances / eubat:HazardousSubstance" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-13> .
 
 ecbp:dp-14-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasEndOfLifeInfo eubat:extinguishingAgent ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 14 (industrial, mandatory): Usable extinguishing agent \u2014 expected eubat:extinguishingAgent" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-14> .
+    sh:property [ sh:path ( eubat:hasEndOfLifeInfo eubat:extinguishingAgent ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 14 (industrial, mandatory): Usable extinguishing agent [free text] \u2014 expected eubat:extinguishingAgent" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-14> .
 
 ecbp:dp-15-industrial
     a sh:NodeShape ;
@@ -28641,22 +28652,22 @@ ecbp:dp-15-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasMaterialComposition eubat:isCriticalRawMaterial ) ; sh:minCount 1 ] [ sh:path eubat:criticalRawMaterialsStatement ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 15 (industrial, mandatory): Critical raw materials present in the battery in a concentration of more than 0,1 % weight by weight \u2014 expected eubat:isCriticalRawMaterial / eubat:criticalRawMaterialsStatement" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-15> .
+    sh:message "EC data point 15 (industrial, mandatory): Critical raw materials present in the battery in a concentration of more than 0,1 % weight by weight [code list] \u2014 expected eubat:isCriticalRawMaterial / eubat:criticalRawMaterialsStatement" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-15> .
 
 ecbp:dp-17-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCarbonFootprintDeclaration ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 17 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act): The carbon footprint declaration \u2014 expected eubat:hasCarbonFootprintDeclaration / eubat:CarbonFootprintDeclaration" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-17> .
+    sh:property [ sh:path eubat:hasCarbonFootprintDeclaration ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 17 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint declaration \u2014 expected eubat:hasCarbonFootprintDeclaration / eubat:CarbonFootprintDeclaration" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-17> .
 
 ecbp:dp-18-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration eubat:hasCarbonFootprintPerformanceClass ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:hasCarbonFootprintPerformanceClass" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-18> .
+    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration eubat:hasCarbonFootprintPerformanceClass ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:hasCarbonFootprintPerformanceClass" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-18> .
 
 ecbp:dp-19-industrial
     a sh:NodeShape ;
@@ -28664,71 +28675,71 @@ ecbp:dp-19-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasSupplyChainDueDiligence ; sh:minCount 1 ] [ sh:path ( eubat:hasSupplyChainDueDiligence eubat:dueDiligenceReportUrl ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Info ;
-    sh:message "EC data point 19 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act): Information on responsible sourcing as indicated in the report on battery due diligence policy referred to in Article 52(3) \u2014 expected eubat:hasSupplyChainDueDiligence / eubat:dueDiligenceReportUrl" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-19> .
+    sh:message "EC data point 19 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- as envisaged by Article 48(1), required from August 2027): Information on responsible sourcing as indicated in the report on battery due diligence policy referred to in Article 52(3) \u2014 expected eubat:hasSupplyChainDueDiligence / eubat:dueDiligenceReportUrl" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-19> .
 
 ecbp:dp-20-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasRecycledContent eubat:cobaltRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 20 (industrial, mandatory): Percentage share of cobalt that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste \u2014 expected eubat:cobaltRecycledShare" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-20> .
+    sh:property [ sh:path ( eubat:hasRecycledContent eubat:cobaltRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 20 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- to be applied as envisaged by Article 8): Percentage share of cobalt that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste [%] \u2014 expected eubat:cobaltRecycledShare" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-20> .
 
 ecbp:dp-21-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasRecycledContent eubat:lithiumRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 21 (industrial, mandatory): Percentage share of lithium that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste \u2014 expected eubat:lithiumRecycledShare" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-21> .
+    sh:property [ sh:path ( eubat:hasRecycledContent eubat:lithiumRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 21 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- to be applied as envisaged by Article 8): Percentage share of lithium that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste [%] \u2014 expected eubat:lithiumRecycledShare" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-21> .
 
 ecbp:dp-22-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasRecycledContent eubat:nickelRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 22 (industrial, mandatory): Percentage share of nickel that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste \u2014 expected eubat:nickelRecycledShare" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-22> .
+    sh:property [ sh:path ( eubat:hasRecycledContent eubat:nickelRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 22 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - to be applied as envisaged by Article 8): Percentage share of nickel that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste [%] \u2014 expected eubat:nickelRecycledShare" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-22> .
 
 ecbp:dp-23-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasRecycledContent eubat:leadRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 23 (industrial, mandatory): The percentage share of lead that is present in the battery and that has been recovered from waste \u2014 expected eubat:leadRecycledShare" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-23> .
+    sh:property [ sh:path ( eubat:hasRecycledContent eubat:leadRecycledShare ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 23 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - to be applied as envisaged by Article 8): The percentage share of lead that is present in the battery and that has been recovered from waste [%] \u2014 expected eubat:leadRecycledShare" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-23> .
 
 ecbp:dp-24-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasMaterialComposition eubat:renewableContentShare ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 24 (industrial, mandatory): The share of renewable content \u2014 expected eubat:renewableContentShare" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-24> .
+    sh:property [ sh:path ( eubat:hasEndOfLifeInfo eubat:renewableContent ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 24 (industrial, mandatory): The share of renewable content [%] \u2014 expected eubat:renewableContent" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-24> .
 
 ecbp:dp-26-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMinimumVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 26 (industrial, mandatory): Minimal voltage, with temperature range when relevant \u2014 expected eubat:hasMinimumVoltage" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-26> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMinimumVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 26 (industrial, mandatory): Minimal voltage, with temperature range when relevant [unit V, optional unit \xB0C] \u2014 expected eubat:hasMinimumVoltage" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-26> .
 
 ecbp:dp-27-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasNominalVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 27 (industrial, mandatory): Nominal voltage, with temperature range when relevant \u2014 expected eubat:hasNominalVoltage" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-27> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasNominalVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 27 (industrial, mandatory): Nominal voltage, with temperature range when relevant [unit V, optional unit \xB0C] \u2014 expected eubat:hasNominalVoltage" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-27> .
 
 ecbp:dp-28-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMaximumVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 28 (industrial, mandatory): Maximum voltage, with temperature range when relevant \u2014 expected eubat:hasMaximumVoltage" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-28> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMaximumVoltage ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 28 (industrial, mandatory): Maximum voltage, with temperature range when relevant [unit V, optional unit \xB0C] \u2014 expected eubat:hasMaximumVoltage" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-28> .
 
 ecbp:dp-29-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 29 (industrial, mandatory): Original power capability (in Watts) \u2014 expected eubat:hasOriginalPowerCapability" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-29> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 29 (industrial, mandatory): Original power capability [unit W] \u2014 expected eubat:hasOriginalPowerCapability" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-29> .
 
 ecbp:dp-30-industrial
     a sh:NodeShape ;
@@ -28736,31 +28747,29 @@ ecbp:dp-30-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMaximumPermittedBatteryPower ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMaximumChargingPower ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasMaximumDischargingPower ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 30 (industrial, mandatory): Power limits, with temperature range when relevant \u2014 expected eubat:hasMaximumPermittedBatteryPower / eubat:hasMaximumChargingPower / eubat:hasMaximumDischargingPower" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-30> .
+    sh:message "EC data point 30 (industrial, mandatory): Power limits, with temperature range when relevant [unit W, optionally min_T \xB0C \u2026 max_T \xB0C] \u2014 expected eubat:hasMaximumPermittedBatteryPower / eubat:hasMaximumChargingPower / eubat:hasMaximumDischargingPower" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-30> .
 
 ecbp:dp-31-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:expectedNumberOfCycles ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Warning ;
-    sh:message "EC data point 31 (industrial, provide if the condition applies: only applicable for some industrial batteries where lifetime can be expressed in cycles): Expected battery lifetime expressed in cycles \u2014 expected eubat:expectedNumberOfCycles / eubat:expectedCycleLife" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-31> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 31 (industrial, provide if the condition applies: Only applicable for some industrial batteries where lifetime can be expressed in cycles): Expected battery lifetime expressed in cycles [in number] \u2014 expected eubat:expectedCycleLife" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31> .
 
 ecbp:dp-32-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:lifetimeReferenceTest ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 32 (industrial, provide if the condition applies: only applicable for some industrial batteries where lifetime can be expressed in cycles): Reference test used for expected battery lifetime expressed in cycles \u2014 expected eubat:lifetimeReferenceTest" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-32> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:lifetimeReferenceTest ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 32 (industrial, provide if the condition applies: Only applicable for some industrial batteries where lifetime can be expressed in cycles): Reference test used for expected battery lifetime expressed in cycles [free text] \u2014 expected eubat:lifetimeReferenceTest" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-32> .
 
 ecbp:dp-34-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasTemperatureRangeIdleState ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 34 (industrial, mandatory): Temperature range the battery can withstand when not in use (reference test) \u2014 expected eubat:hasTemperatureRangeIdleState" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-34> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasTemperatureRangeIdleState ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 34 (industrial, mandatory): Temperature range the battery can withstand when not in use (reference test) [min_T \xB0C \u2026 max_T \xB0C + free text] \u2014 expected eubat:hasTemperatureRangeIdleState" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-34> .
 
 ecbp:dp-35-industrial
     a sh:NodeShape ;
@@ -28768,8 +28777,8 @@ ecbp:dp-35-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:warrantyConditions ; sh:minCount 1 ] [ sh:path gs1:warranty ; sh:minCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 35 (industrial, provide if the condition applies: only if applicable (if commercial warranty envisaged)): Period for which the commercial warranty for the calendar life applies \u2014 expected eubat:warrantyConditions / gs1:warranty" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-35> .
+    sh:message "EC data point 35 (industrial, provide if the condition applies: If applicable (if commercial warranty envisaged)): Period for which the commercial warranty for the calendar life applies [months] \u2014 expected eubat:warrantyConditions / gs1:warranty" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-35> .
 
 ecbp:dp-36-industrial
     a sh:NodeShape ;
@@ -28777,99 +28786,99 @@ ecbp:dp-36-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path ( oec:hasPerformanceInfo eubat:roundTripEnergyEfficiency ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 36 (industrial, provide if the condition applies: only applicable for some industrial batteries): Initial round trip energy efficiency \u2014 expected eubat:roundTripEnergyEfficiency / eubat:roundTripEfficiency" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-36> .
+    sh:message "EC data point 36 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Initial round trip energy efficiency [%] \u2014 expected eubat:roundTripEnergyEfficiency / eubat:roundTripEfficiency" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> .
 
 ecbp:dp-37-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiencyAt50PercentCycleLife ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 37 (industrial, provide if the condition applies: only applicable for some industrial batteries): Round trip energy efficiency at 50 % of cycle-life \u2014 expected eubat:roundTripEfficiencyAt50PercentCycleLife" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-37> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiencyAt50PercentCycleLife ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 37 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Round trip energy efficiency at 50 % of cycle-life [%] \u2014 expected eubat:roundTripEfficiencyAt50PercentCycleLife" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-37> .
 
 ecbp:dp-38-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialInternalResistance ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 38 (industrial, mandatory): Internal battery cell and pack resistance \u2014 expected eubat:hasInitialInternalResistance" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-38> .
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialCellInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialPackInternalResistance ) ; sh:minCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 38 (industrial, mandatory): Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9] \u2014 expected eubat:hasInitialCellInternalResistance / eubat:hasInitialPackInternalResistance" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> .
 
 ecbp:dp-39-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:cRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 39 (industrial, provide if the condition applies: only applicable for some industrial batteries): C-rate of relevant cycle-life test \u2014 expected eubat:cRateLifeCycleTest" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-39> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:cRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 39 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Charge C-rate of relevant cycle-life test [number] \u2014 expected eubat:cRateLifeCycleTest" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39> .
 
 ecbp:dp-40-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasLabels ; sh:minCount 1 ] [ sh:path eubat:separateCollectionSymbolUrl ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 40 (industrial, mandatory): The marking requirements laid down in Article 13(4) \u2014 expected eubat:hasLabels / eubat:separateCollectionSymbolUrl" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-40> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:dischargeCRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 40 (industrial, optional): Discharge C-rate of relevant cycle-life test [number] \u2014 expected eubat:dischargeCRateLifeCycleTest" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-40> .
 
 ecbp:dp-41-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:cadmiumSymbolRequired ; sh:minCount 1 ] [ sh:path eubat:leadSymbolRequired ; sh:minCount 1 ] ) ;
-    sh:severity sh:Warning ;
-    sh:message "EC data point 41 (industrial, provide if the condition applies: cadmium or lead symbol if applicable): The marking requirements laid down in Article 13(5) \u2014 expected eubat:cadmiumSymbolRequired / eubat:leadSymbolRequired" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-41> .
+    sh:or ( [ sh:path eubat:hasLabels ; sh:minCount 1 ] [ sh:path eubat:separateCollectionSymbolUrl ; sh:minCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 41 (industrial, mandatory): The marking requirements laid down in Article 13(4) [Yes/No] \u2014 expected eubat:hasLabels / eubat:separateCollectionSymbolUrl" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-41> .
 
 ecbp:dp-42-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasEuDeclarationOfConformity ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 42 (industrial, mandatory): The EU declaration of conformity referred to in Article 18 \u2014 expected eubat:hasEuDeclarationOfConformity" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-42> .
+    sh:or ( [ sh:path eubat:cadmiumSymbolRequired ; sh:minCount 1 ] [ sh:path eubat:leadSymbolRequired ; sh:minCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 42 (industrial, provide if the condition applies: Cadmium or lead symbol if applicable): The marking requirements laid down in Article 13(5) [code list] \u2014 expected eubat:cadmiumSymbolRequired / eubat:leadSymbolRequired" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-42> .
 
 ecbp:dp-43-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasEndOfLifeInfo eubat:wastePrevention ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:informationOnCollection ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:separateCollection ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 43 (industrial, mandatory): The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) \u2014 expected eubat:wastePrevention / eubat:informationOnCollection / eubat:separateCollection" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-43> .
+    sh:property [ sh:path eubat:hasEuDeclarationOfConformity ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 43 (industrial, mandatory): The EU declaration of conformity referred to in Article 18 [a web link] \u2014 expected eubat:hasEuDeclarationOfConformity" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-43> .
 
 ecbp:dp-44-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path gs1:instructionsForUse ; sh:minCount 1 ] [ sh:path gs1:consumerUsageInstructions ; sh:minCount 1 ] ) ;
-    sh:severity sh:Info ;
-    sh:message "EC data point 44 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus IV adoption): Clear, understandable and readable instructions for use in a format that makes it possible to print, download and save them on an electronic device so that the user can access them at all times, in particular during a breakdown of the battery \u2014 expected gs1:instructionsForUse / gs1:consumerUsageInstructions" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-44> .
+    sh:or ( [ sh:path ( eubat:hasEndOfLifeInfo eubat:wastePrevention ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:informationOnCollection ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:separateCollection ) ; sh:minCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 44 (industrial, mandatory): The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text] \u2014 expected eubat:wastePrevention / eubat:informationOnCollection / eubat:separateCollection" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-44> .
 
 ecbp:dp-45-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasBatteryChemistry eubat:cathodeActiveMaterial ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryChemistry eubat:anodeActiveMaterial ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryChemistry eubat:electrolyteComposition ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 45 (industrial, mandatory): Detailed composition, including materials used in the cathode, anode and electrolyte \u2014 expected eubat:cathodeActiveMaterial / eubat:anodeActiveMaterial / eubat:electrolyteComposition" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-45> .
+    sh:or ( [ sh:path gs1:instructionsForUse ; sh:minCount 1 ] [ sh:path gs1:consumerUsageInstructions ; sh:minCount 1 ] ) ;
+    sh:severity sh:Info ;
+    sh:message "EC data point 45 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus adoption): Clear, understandable and readable instructions for use in a format that makes it possible to print, download and save them on an electronic device so that the user can access them at all times, in particular during a breakdown of the battery [TBC] \u2014 expected gs1:instructionsForUse / gs1:consumerUsageInstructions" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-45> .
 
 ecbp:dp-46-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasSparePartSources eubat:spareParts ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity eubat:spareParts ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer eubat:spareParts ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryChemistry eubat:cathodeActiveMaterial ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryChemistry eubat:anodeActiveMaterial ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryChemistry eubat:electrolyteComposition ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 46 (industrial, mandatory): Part numbers for components \u2014 expected eubat:spareParts" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-46> .
+    sh:message "EC data point 46 (industrial, mandatory): Detailed composition, including materials used in the cathode, anode and electrolyte [free text] \u2014 expected eubat:cathodeActiveMaterial / eubat:anodeActiveMaterial / eubat:electrolyteComposition" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-46> .
 
 ecbp:dp-47-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasSparePartSources ; sh:minCount 1 ] [ sh:path ( eubat:hasSparePartSources eubat:hasSupplierContact ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity eubat:hasSupplierContact ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer eubat:hasSupplierContact ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasSparePartSources eubat:spareParts ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity eubat:spareParts ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer eubat:spareParts ) ; sh:minCount 1 ] [ sh:path eubat:hasSparePartSources ; sh:minCount 1 ] [ sh:path ( eubat:hasSparePartSources eubat:hasSupplierContact ) ; sh:minCount 1 ] [ sh:path ( eubat:hasRepurposingEntity eubat:hasSupplierContact ) ; sh:minCount 1 ] [ sh:path ( gs1:manufacturer eubat:hasSupplierContact ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 47 (industrial, mandatory): Contact details of sources for replacement spares \u2014 expected eubat:hasSparePartSources / eubat:hasSupplierContact" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-47> .
+    sh:message "EC data point 47 (industrial, mandatory): Part numbers for components and contact details of sources for replacement spares [a web link] \u2014 expected eubat:spareParts / eubat:hasSparePartSources / eubat:hasSupplierContact" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-47> .
 
 ecbp:dp-48-industrial
     a sh:NodeShape ;
@@ -28877,8 +28886,8 @@ ecbp:dp-48-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasDismantlingDocuments ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:hasDismantlingInstructions ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 48 (industrial, mandatory): Dismantling information, including at least: exploded diagrams of the battery system/pack showing the location of battery cells, disassembly sequences, type and number of fastening techniques to be unlocked, tools required for disassembly, warnings if risk of damaging parts exist, amount of cells used and layout \u2014 expected eubat:hasDismantlingDocuments / eubat:hasDismantlingInstructions" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-48> .
+    sh:message "EC data point 48 (industrial, mandatory): Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link] \u2014 expected eubat:hasDismantlingDocuments / eubat:hasDismantlingInstructions" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48> .
 
 ecbp:dp-49-industrial
     a sh:NodeShape ;
@@ -28886,8 +28895,8 @@ ecbp:dp-49-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:safetyMeasures ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:safetyInstructions ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 49 (industrial, mandatory): Safety measures \u2014 expected eubat:safetyMeasures / eubat:safetyInstructions" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-49> .
+    sh:message "EC data point 49 (industrial, mandatory): Safety measures [a web link] \u2014 expected eubat:safetyMeasures / eubat:safetyInstructions" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49> .
 
 ecbp:dp-50-industrial
     a sh:NodeShape ;
@@ -28895,22 +28904,22 @@ ecbp:dp-50-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:resultOfTestReport ; sh:minCount 1 ] [ sh:path eubat:testReportNumber ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 50 (industrial, mandatory): Results of test reports proving compliance with the requirements laid down in this Regulation or any delegated or implementing act adopted pursuant to this Regulation \u2014 expected eubat:resultOfTestReport / eubat:testReportNumber" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-50> .
+    sh:message "EC data point 50 (industrial, mandatory): Results of test reports proving compliance with the requirements laid down in this Regulation or any delegated or implementing act adopted pursuant to this Regulation [a web link] \u2014 expected eubat:resultOfTestReport / eubat:testReportNumber" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-50> .
 
 ecbp:dp-51-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasRatedCapacity ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 51 (industrial, provide if the condition applies: if applicable, but now dynamic): Rated capacity (in Ah) \u2014 expected eubat:hasRatedCapacity" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-51> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasRatedCapacity ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 51 (industrial, mandatory: Same as data point 11): Rated capacity [unit Ah] \u2014 expected eubat:hasRatedCapacity" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-51> .
 
 ecbp:dp-52-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCapacityFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 52 (industrial, provide if the condition applies: if applicable): Capacity fade (in %) \u2014 expected eubat:hasCapacityFade" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-52> .
+    sh:property [ sh:path eubat:hasCapacityFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 52 (industrial, provide if the condition applies: Only for rechargeable batteries): Capacity fade [%] \u2014 expected eubat:hasCapacityFade" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-52> .
 
 ecbp:dp-53-industrial
     a sh:NodeShape ;
@@ -28918,50 +28927,50 @@ ecbp:dp-53-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasRemainingPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 53 (industrial, provide if the condition applies: if applicable): Power (in W) \u2014 expected eubat:hasPowerCapability" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-53> .
+    sh:message "EC data point 53 (industrial, provide if the condition applies: Only for rechargeable batteries): Power [unit W] \u2014 expected eubat:hasPowerCapability" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-53> .
 
 ecbp:dp-54-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasPowerFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 54 (industrial, provide if the condition applies: if applicable): Power fade (in %) \u2014 expected eubat:hasPowerFade" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-54> .
+    sh:property [ sh:path eubat:hasPowerFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 54 (industrial, provide if the condition applies: Only for rechargeable batteries): Power fade [%] \u2014 expected eubat:hasPowerFade" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-54> .
 
 ecbp:dp-55-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 55 (industrial, provide if the condition applies: if applicable): Internal resistance (in \u03A9) \u2014 expected eubat:hasInternalResistance" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-55> .
+    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 55 (industrial, provide if the condition applies: Only for rechargeable batteries): Internal resistance [unit \u03A9] \u2014 expected eubat:hasInternalResistance" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-55> .
 
 ecbp:dp-56-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistanceIncrease ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 56 (industrial, provide if the condition applies: if applicable): Internal resistance increase (in %) \u2014 expected eubat:hasInternalResistanceIncrease" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-56> .
+    sh:property [ sh:path eubat:hasInternalResistanceIncrease ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 56 (industrial, provide if the condition applies: Only for rechargeable batteries): Internal resistance increase [%] \u2014 expected eubat:hasInternalResistanceIncrease" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-56> .
 
 ecbp:dp-57-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 57 (industrial, provide if the condition applies: if applicable): Where applicable, energy round trip efficiency (in %) \u2014 expected eubat:roundTripEfficiency" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-57> .
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 57 (industrial, provide if the condition applies: Only for rechargeable batteries, if applicable): Where applicable, energy round trip efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-57> .
 
 ecbp:dp-58-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRoundTripEfficiencyFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 58 (industrial, provide if the condition applies: if applicable): Where applicable, energy round trip efficiency fade (in %) \u2014 expected eubat:hasRoundTripEfficiencyFade" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-58> .
+    sh:property [ sh:path eubat:hasRoundTripEfficiencyFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 58 (industrial, provide if the condition applies: Only for rechargeable batteries, if applicable): Where applicable, energy round trip efficiency fade [%] \u2014 expected eubat:hasRoundTripEfficiencyFade" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-58> .
 
 ecbp:dp-59-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:expectedRemainingCycles ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 59 (industrial, provide if the condition applies: if applicable): The expected life-time of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications \u2014 expected eubat:expectedRemainingCycles" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-59> .
+    sh:property [ sh:path eubat:expectedRemainingCycles ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 59 (industrial, provide if the condition applies: Only for rechargeable batteries and except for non-cycle applications): The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number] \u2014 expected eubat:expectedRemainingCycles" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-59> .
 
 ecbp:dp-60-industrial
     a sh:NodeShape ;
@@ -28969,29 +28978,29 @@ ecbp:dp-60-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedLifetimeYears ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 60 (industrial, provide if the condition applies: if applicable): The expected life-time of the battery under the reference conditions for which it has been designed, in terms of calendar years \u2014 expected eubat:expectedLifetimeYears / eubat:expectedRemainingLifetimeMonths" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-60> .
+    sh:message "EC data point 60 (industrial, provide if the condition applies: Only for rechargeable batteries): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:expectedLifetimeYears / eubat:expectedRemainingLifetimeMonths" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
 
 ecbp:dp-62-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingCapacity ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 62 (industrial, provide if the condition applies: if applicable): Information on the state of health of the battery pursuant to Article 14: remaining capacity \u2014 expected eubat:hasRemainingCapacity" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-62> .
+    sh:property [ sh:path eubat:hasRemainingCapacity ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 62 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a): Information on the state of health of the battery pursuant to Article 14: remaining capacity [unit Ah] \u2014 expected eubat:hasRemainingCapacity" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-62> .
 
 ecbp:dp-63-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingPowerCapability ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 63 (industrial, provide if the condition applies: if applicable): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability \u2014 expected eubat:hasRemainingPowerCapability" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-63> .
+    sh:property [ sh:path eubat:hasRemainingPowerCapability ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 63 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability [unit W] \u2014 expected eubat:hasRemainingPowerCapability" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-63> .
 
 ecbp:dp-64-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingRoundTripEfficiency ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 64 (industrial, provide if the condition applies: if applicable): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round trip efficiency \u2014 expected eubat:hasRemainingRoundTripEfficiency" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-64> .
+    sh:property [ sh:path eubat:hasRemainingRoundTripEfficiency ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 64 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round-trip efficiency [%] \u2014 expected eubat:hasRemainingRoundTripEfficiency" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-64> .
 
 ecbp:dp-65-industrial
     a sh:NodeShape ;
@@ -28999,38 +29008,36 @@ ecbp:dp-65-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:hasEvolutionOfSelfDischarge ; sh:minCount 1 ] [ sh:path ( oec:hasPerformanceInfo eubat:hasCurrentSelfDischargingRate ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 65 (industrial, provide if the condition applies: if applicable): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates \u2014 expected eubat:hasEvolutionOfSelfDischarge / eubat:hasCurrentSelfDischargingRate" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-65> .
+    sh:message "EC data point 65 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year] \u2014 expected eubat:hasEvolutionOfSelfDischarge / eubat:hasCurrentSelfDischargingRate" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65> .
 
 ecbp:dp-66-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 66 (industrial, provide if the condition applies: if applicable): Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance \u2014 expected eubat:hasInternalResistance" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-66> .
+    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 66 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management): Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance [unit \u03A9] \u2014 expected eubat:hasInternalResistance" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-66> .
 
 ecbp:dp-67-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path schema:status ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 67 (industrial, mandatory): Information on the status of the battery, defined as 'original', 'repurposed', 're-used', 'remanufactured' or 'waste' \u2014 expected schema:status / eubat:BatteryStatus" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-67> .
+    sh:property [ sh:path schema:status ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 67 (industrial, mandatory): Information on the status of the battery, defined as \u2018original\u2019, \u2018repurposed\u2019, \u2018re-used\u2019, \u2018remanufactured\u2019 or \u2018waste\u2019 [code list] \u2014 expected schema:status / eubat:BatteryStatus" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-67> .
 
 ecbp:dp-68-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( oec:hasPerformanceInfo eubat:numberOfFullCycles ) ; sh:minCount 1 ] [ sh:path eubat:hasCycleCount ; sh:minCount 1 ] ) ;
-    sh:severity sh:Warning ;
-    sh:message "EC data point 68 (industrial, provide if the condition applies: if applicable): The number of charging and discharging cycles \u2014 expected eubat:numberOfFullCycles / eubat:hasCycleCount" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-68> .
+    sh:property [ sh:path eubat:hasCycleCount ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 68 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] \u2014 expected eubat:hasCycleCount" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68> .
 
 ecbp:dp-69-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( oec:hasPerformanceInfo eubat:hasNegativeEvents ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 69 (industrial, provide if the condition applies: if applicable): Negative events, such as accidents \u2014 expected eubat:hasNegativeEvents / eubat:NegativeEvent" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-69> .
+    sh:property [ sh:path ( oec:hasPerformanceInfo eubat:hasNegativeEvents ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 69 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): Negative events, such as accidents [multiple free texts] \u2014 expected eubat:hasNegativeEvents / eubat:NegativeEvent" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-69> .
 
 ecbp:dp-70-industrial
     a sh:NodeShape ;
@@ -29038,15 +29045,15 @@ ecbp:dp-70-industrial
     sh:deactivated true ;
     sh:or ( [ sh:path eubat:timeSpentInExtremeTemperaturesAboveBoundary ; sh:minCount 1 ] [ sh:path eubat:timeSpentInExtremeTemperaturesBelowBoundary ; sh:minCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 70 (industrial, provide if the condition applies: if applicable): Periodically recorded information on the operating environmental conditions, including temperature \u2014 expected eubat:timeSpentInExtremeTemperaturesAboveBoundary / eubat:timeSpentInExtremeTemperaturesBelowBoundary" ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-70> .
+    sh:message "EC data point 70 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units] \u2014 expected eubat:timeSpentInExtremeTemperaturesAboveBoundary / eubat:timeSpentInExtremeTemperaturesBelowBoundary" ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70> .
 
 ecbp:dp-71-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasStateOfCharge ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 71 (industrial, provide if the condition applies: if applicable): Periodically recorded information on the state of charge \u2014 expected eubat:hasStateOfCharge" ] ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-71> .
+    sh:property [ sh:path eubat:hasStateOfCharge ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 71 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the state of charge [histogram, %] \u2014 expected eubat:hasStateOfCharge" ] ;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-71> .
 `;
 
 // extensions/eu/battery/examples/battery-product-model.jsonld
@@ -29185,7 +29192,7 @@ var battery_product_model_default = {
       "gs1:value": "7.5",
       "gs1:unitCode": "KWT"
     },
-    "eubat:hasInitialInternalResistance": {
+    "eubat:hasInitialPackInternalResistance": {
       type: "gs1:QuantitativeValue",
       "gs1:value": "2.1",
       "gs1:unitCode": "OHM"
@@ -29644,7 +29651,12 @@ var battery_product_default = {
         }
       }
     ],
-    "eubat:hasInitialInternalResistance": {
+    "eubat:hasInitialCellInternalResistance": {
+      type: "gs1:QuantitativeValue",
+      "gs1:value": "0.0009",
+      "gs1:unitCode": "OHM"
+    },
+    "eubat:hasInitialPackInternalResistance": {
       type: "gs1:QuantitativeValue",
       "gs1:value": "2.1",
       "gs1:unitCode": "OHM"
@@ -29663,7 +29675,6 @@ var battery_product_default = {
       "gs1:unitCode": "AMH"
     },
     "eubat:depthOfDischargeInCycleLifeTest": 80,
-    "eubat:capacityFadeThreshold": 20,
     "eubat:resistanceIncreaseThreshold": 50,
     "eubat:roundTripEfficiency": 96,
     "eubat:capacityThresholdForExhaustion": 70,
@@ -29671,6 +29682,7 @@ var battery_product_default = {
     "eubat:powerCapabilityRatio": "0.52",
     "eubat:cRate": "0.5",
     "eubat:cRateLifeCycleTest": "0.33",
+    "eubat:dischargeCRateLifeCycleTest": "0.5",
     "eubat:roundTripEfficiencyAt50PercentCycleLife": 94,
     "eubat:hasTemperatureRangeStorage": {
       id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#temp-storage",
@@ -29952,7 +29964,6 @@ var battery_product_default = {
   },
   "eubat:repurposingGuidelines": "https://files.example.org/files/products/09521002005004/docs/repurposing-guidelines.pdf",
   "eubat:dataQualityAssessment": "A",
-  "eubat:lastDataUpdate": "2024-03-20T14:30:00Z",
   "eubat:dataProviderCertification": "ISO 27001 certified data management",
   "eubat:criticalRawMaterialsStatement": {
     "@value": "Contains lithium (4.2%), graphite (18.3%), and phosphorus (9.8%) which are on the EU Critical Raw Materials list.",
@@ -30950,10 +30961,6 @@ var dpp_core_context_default = {
       "oec:granularityLevel": {
         "@id": "oec:granularityLevel"
       },
-      "oec:lastDataUpdate": {
-        "@id": "oec:lastDataUpdate",
-        "@type": "xsd:dateTime"
-      },
       "gs1:regulatoryReferenceApplicabilityStartDate": {
         "@id": "gs1:regulatoryReferenceApplicabilityStartDate",
         "@type": "xsd:date"
@@ -31236,10 +31243,6 @@ var battery_context_default = {
         "@id": "eubat:puttingIntoService",
         "@type": "xsd:date"
       },
-      "eubat:batteryPassportIdentifier": {
-        "@id": "eubat:batteryPassportIdentifier",
-        "@type": "xsd:anyURI"
-      },
       "oec:passportStatus": {
         "@id": "oec:passportStatus"
       },
@@ -31323,16 +31326,16 @@ var battery_context_default = {
         "@id": "eubat:depthOfDischargeInCycleLifeTest",
         "@type": "xsd:decimal"
       },
-      "eubat:capacityFadeThreshold": {
-        "@id": "eubat:capacityFadeThreshold",
-        "@type": "xsd:decimal"
-      },
       "eubat:resistanceIncreaseThreshold": {
         "@id": "eubat:resistanceIncreaseThreshold",
         "@type": "xsd:decimal"
       },
-      "eubat:hasInitialInternalResistance": {
-        "@id": "eubat:hasInitialInternalResistance",
+      "eubat:hasInitialCellInternalResistance": {
+        "@id": "eubat:hasInitialCellInternalResistance",
+        "@type": "@id"
+      },
+      "eubat:hasInitialPackInternalResistance": {
+        "@id": "eubat:hasInitialPackInternalResistance",
         "@type": "@id"
       },
       "eubat:initialSelfDischarge": {
@@ -31357,6 +31360,10 @@ var battery_context_default = {
       },
       "eubat:cRateLifeCycleTest": {
         "@id": "eubat:cRateLifeCycleTest",
+        "@type": "xsd:decimal"
+      },
+      "eubat:dischargeCRateLifeCycleTest": {
+        "@id": "eubat:dischargeCRateLifeCycleTest",
         "@type": "xsd:decimal"
       },
       "eubat:hasOriginalPowerCapability": {
@@ -31707,10 +31714,6 @@ var battery_context_default = {
         "@id": "eubat:authorizedServiceCenters",
         "@type": "xsd:anyURI"
       },
-      "eubat:lastDataUpdate": {
-        "@id": "eubat:lastDataUpdate",
-        "@type": "xsd:dateTime"
-      },
       "eubat:hasStateOfHealth": {
         "@id": "eubat:hasStateOfHealth",
         "@type": "@id"
@@ -31795,10 +31798,6 @@ var battery_context_default = {
         "@id": "eubat:hasRemainingUsableEnergy",
         "@type": "@id"
       },
-      "eubat:exhaustionThreshold": {
-        "@id": "eubat:exhaustionThreshold",
-        "@type": "xsd:decimal"
-      },
       "eubat:expectedRemainingCycles": {
         "@id": "eubat:expectedRemainingCycles",
         "@type": "xsd:integer"
@@ -31871,10 +31870,6 @@ var battery_context_default = {
         "@id": "eubat:hasExpectedLifetime",
         "@type": "@id"
       },
-      "eubat:expectedNumberOfCycles": {
-        "@id": "eubat:expectedNumberOfCycles",
-        "@type": "xsd:integer"
-      },
       "eubat:hasMaximumPermittedBatteryPower": {
         "@id": "eubat:hasMaximumPermittedBatteryPower",
         "@type": "@id"
@@ -31882,10 +31877,6 @@ var battery_context_default = {
       "eubat:hasNegativeEvents": {
         "@id": "eubat:hasNegativeEvents",
         "@type": "@id"
-      },
-      "eubat:numberOfFullCycles": {
-        "@id": "eubat:numberOfFullCycles",
-        "@type": "xsd:integer"
       },
       "eubat:roundTripEnergyEfficiency": {
         "@id": "eubat:roundTripEnergyEfficiency",
@@ -33488,6 +33479,7 @@ var SAMPLES = [
 ];
 var MILESTONES = [
   { date: "2026-07-28", label: "EC guidance v1.0 published (Ares(2026)7579758)", short: "Guidance v1.0" },
+  { date: "2026-10-19", label: "EC guidance v3.2 published (renumbered from data point 40)", short: "Guidance v3.2" },
   { date: BP_APPLICATION_DATE, label: "Battery passport duty begins (BR Art. 77(1))", short: "Passport duty" }
 ];
 var TIMELINE_START = "2026-01-01";
@@ -33505,8 +33497,8 @@ var OUTCOME_LABEL = {
 };
 var GROUPS = [
   { title: "Identification & label data \u2014 Art. 77(3), Annex VI Part A (1\u201316)", from: 1, to: 16 },
-  { title: "Public passport data \u2014 Annex XIII 1 (17\u201344)", from: 17, to: 44 },
-  { title: "Legitimate interest \u2014 Annex XIII 2 (45\u201349)", from: 45, to: 49 },
+  { title: "Public passport data \u2014 Annex XIII 1 (17\u201345)", from: 17, to: 45 },
+  { title: "Legitimate interest \u2014 Annex XIII 2 (46\u201349)", from: 46, to: 49 },
   { title: "Notified bodies & authorities \u2014 Annex XIII 3 (50)", from: 50, to: 50 },
   { title: "Dynamic, EPCIS-folded \u2014 Annex XIII 4 (51\u201371)", from: 51, to: 71 }
 ];
@@ -33596,7 +33588,7 @@ function renderTimeline() {
     </div>
     <div class="tl-note">${inForce ? "The battery passport duty is in force on the selected date." : `Preparation phase \u2014 the duty begins ${BP_APPLICATION_DATE} (${Math.round(
     (Date.parse(BP_APPLICATION_DATE) - Date.parse(asOf)) / dayMs
-  )} days after the selected date). Results read as preparation status.`} Carbon footprint (17\u201319) and instructions for use (44) stay blocked on the pending implementing act / Omnibus IV \u2014 no date is set yet.</div>`;
+  )} days after the selected date). Results read as preparation status.`} Carbon footprint (17\u201318), responsible sourcing (19), recycled content (20\u201323, Article 8) and instructions for use (45, Omnibus) are not to be filled as of February 2027.</div>`;
 }
 function resolveCategory(docs) {
   const sel = $("category").value;

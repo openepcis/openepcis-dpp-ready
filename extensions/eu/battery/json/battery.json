@@ -345,11 +345,11 @@
         "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#modelIdentifier"
       ],
       "broadMatch": [
-        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier",
         "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#productIdentifier",
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier",
         "https://schema.org/identifier",
-        "http://www.w3.org/ns/adms#identifier",
         "https://dpp-keystone.org/spec/v2/terms#identifier",
+        "http://www.w3.org/ns/adms#identifier",
         "https://dpp-keystone.org/spec/v2/terms#uniqueProductIdentifier",
         "https://dpp-keystone.org/spec/v2/terms#model",
         "https://w3id.org/eudpp#identifierValue"
@@ -358,36 +358,6 @@
       "accessLevel": "Public",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "accessLevelRationale": "Annex XIII(1)(a) via Annex VI Part A: battery model/type identification is public labelling information.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/batteryPassportIdentifier",
-      "localName": "batteryPassportIdentifier",
-      "label": "Battery Passport Identifier",
-      "comment": "Unique identifier for the battery passport. Note: In this implementation, the primary identifier is the GS1 Digital Link (@id).",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "xsd:anyURI"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#productIdentifier",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-01"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier",
-        "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#digitalProductPassportId"
-      ],
-      "broadMatch": [
-        "https://schema.org/identifier",
-        "http://www.w3.org/ns/adms#identifier",
-        "https://dpp-keystone.org/spec/v2/terms#digitalProductPassportId"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Art. 77(3): the unique passport identifier is the public entry point resolved from the QR code and cannot itself be gated.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
@@ -432,28 +402,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/capacityFadeThreshold",
-      "localName": "capacityFadeThreshold",
-      "label": "Capacity Fade Threshold",
-      "comment": "Capacity fade percentage at which battery reaches end of rated cycle life (typically 80%).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#exhaustionCapacityThreshold"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#capacityThresholdForExhaustion"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The capacity-fade level that defines rated cycle life is part of the public declared durability ratings (Annex IV Part A), not battery-individual state.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/capacityThresholdForExhaustion",
       "localName": "capacityThresholdForExhaustion",
       "label": "Capacity Threshold for Exhaustion",
@@ -470,6 +418,7 @@
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#exhaustionCapacityThreshold",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#capacityThresholdForExhaustion",
         "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#capacityExhaustionThreshold"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -1166,26 +1115,6 @@
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/exhaustionThreshold",
-      "localName": "exhaustionThreshold",
-      "label": "Exhaustion Threshold",
-      "comment": "SOCE percentage threshold for battery exhaustion.",
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#exhaustionCapacityThreshold"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#exhaustionCapacityThreshold",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#capacityThresholdForExhaustion"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Duplicate expression of the public exhaustion threshold (Annex XIII(1)(k)); tier kept identical to eubat:capacityThresholdForExhaustion.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/expectedCycleLife",
       "localName": "expectedCycleLife",
       "label": "Expected Cycle Life",
@@ -1202,10 +1131,8 @@
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#expectedLifetimeCycles",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles",
         "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#expectedLifetimeCycles"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles"
       ],
       "broadMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#batteryCondition"
@@ -1240,33 +1167,6 @@
       "accessLevel": "Public",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "accessLevelRationale": "Annex XIII(1)(j): expected calendar lifetime is a public declared durability value; eutex serves the same name Public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/expectedNumberOfCycles",
-      "localName": "expectedNumberOfCycles",
-      "label": "Expected Number of Cycles",
-      "comment": "Manufacturer-declared expected number of full cycles.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#expectedLifetimeCycles",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles"
-      ],
-      "broadMatch": [
-        "http://data.europa.eu/m8g/expressionOfExpectedValue"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex XIII(1)(j): the manufacturer-declared expected number of full cycles is public battery-passport data.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
@@ -1992,7 +1892,8 @@
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#cycleCountFull",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCycles"
+        "urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCycles",
+        "https://w3id.org/eudpp/battery-performance#numberOfFullCycles"
       ],
       "closeMatch": [
         "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#numberOfChargingCycles"
@@ -2475,6 +2376,10 @@
       "exactMatch": [
         "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalCellResistance"
       ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance",
+        "https://dpp-keystone.org/spec/v2/terms#internalResistanceInitial"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
@@ -2495,36 +2400,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasInitialInternalResistance",
-      "localName": "hasInitialInternalResistance",
-      "label": "Initial Internal Resistance",
-      "comment": "Initial internal resistance at commissioning in Ohms. Use unitCode 'OHM' (UN/CEFACT Rec 20).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#internalResistanceInitial",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#internalResistanceInitial",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#ohmicResistance",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance"
-      ],
-      "narrowMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalCellResistance",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalPackResistance"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex XIII(1)(o): internal cell/pack resistance as a declared parameter is public battery-passport data.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/hasInitialPackInternalResistance",
       "localName": "hasInitialPackInternalResistance",
       "label": "Initial Internal Pack Resistance",
@@ -2540,6 +2415,10 @@
       ],
       "exactMatch": [
         "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalPackResistance"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance",
+        "https://dpp-keystone.org/spec/v2/terms#internalResistanceInitial"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -2580,7 +2459,7 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "AuthorizedOnly",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "The current measured internal resistance is Annex VII health state — only the initial declared value (eubat:hasInitialInternalResistance) is public under Annex XIII(1)(o).",
+      "accessLevelRationale": "The current measured internal resistance is Annex VII health state — only the initial declared cell and pack values (eubat:hasInitialCellInternalResistance, eubat:hasInitialPackInternalResistance) are public under Annex XIII(1)(o).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "accessGrantedToRole": [
         "IndependentOperator",
@@ -4247,33 +4126,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/lastDataUpdate",
-      "localName": "lastDataUpdate",
-      "label": "Last Data Update",
-      "comment": "Timestamp of the last update to the battery passport data.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "xsd:dateTime"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/lastDataUpdate"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#lastUpdate",
-        "https://ref.openepcis.org/vocab/batterypass-ready/1.3#Date-timeOfLatestUpdateOfDPP",
-        "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#lastUpdate"
-      ],
-      "closeMatch": [
-        "https://w3id.org/eudpp#lastUpdate"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Art. 77(7) requires the passport to stay up to date, so the update timestamp is interpretation metadata every audience needs; dpp-core serves the same name Public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/leadPostConsumerShare",
       "localName": "leadPostConsumerShare",
       "label": "Lead Post-Consumer Recycled Share",
@@ -4815,37 +4667,6 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/numberOfFullCycles",
-      "localName": "numberOfFullCycles",
-      "label": "Number of Full Cycles",
-      "comment": "Cumulative number of full equivalent cycles the battery has completed.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/PerformanceInfo"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCycles",
-        "https://w3id.org/eudpp/battery-performance#numberOfFullCycles"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part B: full equivalent cycles are battery-individual usage data for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/numberOfModules",
       "localName": "numberOfModules",
       "label": "Number of Modules",
@@ -5045,7 +4866,8 @@
         "https://dpp-keystone.org/spec/v2/terms#renewableContent"
       ],
       "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#renewableContent"
+        "https://dpp-keystone.org/spec/v2/terms#renewableContent",
+        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#renewableContentShare"
       ],
       "closeMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent"
@@ -5071,7 +4893,9 @@
         "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-24"
       ],
       "exactMatch": [
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent"
+      ],
+      "broadMatch": [
         "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#renewableContentShare"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",

@@ -2,7 +2,7 @@
 
 Regulatory frame: ESPR 2024/1781 Art. 7–9, Annex III
 
-Coverage: 188 properties — 124 Public / 36 AuthorizedOnly / 6 Restricted / 22 inherited / 0 UNCLASSIFIED; 10 legally locked.
+Coverage: 187 properties — 123 Public / 36 AuthorizedOnly / 6 Restricted / 22 inherited / 0 UNCLASSIFIED; 10 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
@@ -140,7 +140,6 @@ Coverage: 188 properties — 124 Public / 36 AuthorizedOnly / 6 Restricted / 22 
 | `landUse` | Land Use | **Public** |  | eli/reg/2024/1781 | Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal. |
 | `language` | Language | **Public** |  | eli/reg/2024/1781 | Language tags are rendering metadata with no confidentiality content. |
 | `languageCode` | Language Code | **Public** |  | eli/reg/2024/1781 | Language codes are rendering metadata with no confidentiality content. |
-| `lastDataUpdate` | Last Data Update | **Public** |  | eli/reg/2024/1781 | Update timestamps let all audiences judge data currency; battery module serves the same name Public. |
 | `lastUpdated` | Last Updated | **Public** |  | eli/reg/2024/1781 | Update timestamps let all audiences judge data currency (EN 18223 lastUpdated). |
 | `massFraction` | Mass Fraction | **AuthorizedOnly** |  | eli/reg/2023/1542 | Exact mass fractions enable formulation reconstruction; recyclers and authorities need them, consumers do not (battery Annex XIII(2) precedent). |
 | `materialCircularityIndicator` | Material Circularity Indicator | **Public** |  | eli/reg/2024/1781 | An aggregate circularity score is a consumer comparison metric composed of inputs (recycled content, recyclability, utility) that are themselves Public. |
