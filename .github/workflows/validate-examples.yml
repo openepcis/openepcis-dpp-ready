@@ -13,6 +13,7 @@ on:
       - 'scripts/validate-jsonld-examples.ts'
       - 'scripts/check-operational-contexts.ts'
       - 'scripts/check-context-compat.ts'
+      - 'scripts/migrate-assessment.ts'
       - 'scripts/context-compat-allowlist.json'
       - 'scripts/check-extension-terms.ts'
       - 'scripts/extension-terms-allowlist.json'
@@ -31,6 +32,7 @@ on:
       - 'scripts/validate-jsonld-examples.ts'
       - 'scripts/check-operational-contexts.ts'
       - 'scripts/check-context-compat.ts'
+      - 'scripts/migrate-assessment.ts'
       - 'scripts/context-compat-allowlist.json'
       - 'scripts/check-extension-terms.ts'
       - 'scripts/extension-terms-allowlist.json'
@@ -68,6 +70,8 @@ jobs:
         env:
           CONTEXT_COMPAT_BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || github.event.before }}
         run: pnpm run check:context-compat
+      - name: Stored-passport migration to the assessment model reproduces the migrated examples
+        run: pnpm run check:assessment-migration
       - name: Project-owned terms resolve (no phantom oec:/eubat:/... IRIs)
         run: pnpm run check:extension-terms
       - name: Compressed-form fidelity (no relative IRI / flattened node reference in the goldens)
