@@ -4,6 +4,64 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed: EC data-point guidance version 3.2
+
+The Commission replaced the Battery Passport data-point guidance: version 3.2 of 19 October 2026
+supersedes version 1.0 of 28 July 2026 (Ares(2026)7579758). The registry follows as
+`vocab/ec-battery-passport-guidance-3.2.ttl` under its own namespace
+(`https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-NN`); the 1.0 file stays
+published and every 3.2 data point names its predecessor with `dcterms:replaces`. All 95
+`rdfs:seeAlso` pointers of the ontology move to the 3.2 numbers.
+
+- The C-rate of the cycle-life test is split: charge (#39, `eubat:cRateLifeCycleTest`) and
+  discharge (#40, new, optional). 1.0 #40 to #45 become #41 to #46; 1.0 #46 and #47 merge into #47.
+- Recycled content (#20 to #23) is not to be filled as of February 2027 ("to be applied as
+  envisaged by Article 8"), so the readiness check reports it as not yet required.
+- The registry carries the new columns "As defined in" (`ecbp:definedIn`) and "Type of
+  information" (`ecbp:typeOfInformation`); conditions are quoted from the 3.2 table.
+- Readiness demo: group boundaries (Annex XIII 1 is #17 to #45, Annex XIII 2 #46 to #49), the 3.2
+  release on the timeline.
+
+### Added: discharge C-rate and cell / pack resistance
+
+`eubat:dischargeCRateLifeCycleTest` (guidance #40) and `eubat:hasInitialCellInternalResistance`
+/ `eubat:hasInitialPackInternalResistance` (guidance #38 names both values).
+Public tier, context entries, extension schema and the battery example follow.
+
+### Removed: duplicates that the EU DPP Registry and EN 18223 now cover
+
+Removed without a deprecation phase, because each one duplicates a term that carries the
+`skos:exactMatch` to the Commission's DPP Registry data element. Their SKOS mappings move to the
+surviving term; examples, the guidance registries (1.0 and 3.2), the BatteryPass bridge and the
+GITB fixtures follow.
+
+| Removed | Use instead | Why |
+|---|---|---|
+| `eubat:batteryPassportIdentifier` | `oec:passportIdentifier` | EN 18223 `digitalProductPassportId`, EU `core-vocabulary#digitalProductPassportId` |
+| `eubat:lastDataUpdate` | `oec:lastUpdated` | EN 18223 `lastUpdated`, EU `core-vocabulary#lastUpdate`; every battery example already carried both |
+| `eubat:exhaustionThreshold` | `eubat:capacityThresholdForExhaustion` | same definition, EU `capacityExhaustionThreshold` |
+| `eubat:capacityFadeThreshold` | `eubat:capacityThresholdForExhaustion` | a second wording of the same threshold (guidance #33); the examples gave it 20 next to an exhaustion threshold of 70 |
+| `eubat:expectedNumberOfCycles` | `eubat:expectedCycleLife` | EU `expectedLifetimeCycles` (guidance #31) |
+| `eubat:numberOfFullCycles` | `eubat:hasCycleCount` | EU `numberOfChargingCycles` (guidance #68) |
+| `eubat:hasInitialInternalResistance` | `eubat:hasInitialCellInternalResistance`, `eubat:hasInitialPackInternalResistance` | guidance 3.2 #38 asks for both values; one undifferentiated value fills neither |
+
+The BatteryPass bridge keeps every incoming key: `batteryPassportIdentifier` and
+`productIdentifier` land on `oec:passportIdentifier`, `lastUpdate` on `oec:lastUpdated`, the
+longlist cycle keys on `eubat:expectedCycleLife` and `eubat:hasCycleCount`, and the single initial
+resistance keeps its upstream SAMM IRI. These re-pointed keys are listed with their reason in
+`scripts/context-compat-allowlist.json`.
+
+### Fixed: renewable content share
+
+The EU `renewableContentShare` (Annex XIII 1 (f)) is the share of the whole battery. It is now an
+exactMatch of `eubat:renewableContent` (end-of-life information); the per-material
+`eubat:renewableContentShare` points at it with broadMatch.
+
+### Added: EU DPP Registry value lists
+
+`skos:exactMatch` from the battery categories, battery statuses and access levels to the EU DPP
+Registry value lists (mirror `upstream/eu-dpp`).
+
 ### Changed: recyclability rate pointer
 
 `eubat:recyclabilityRate` points at `oea:RecyclabilityRate` (rdfs:seeAlso) instead of the removed

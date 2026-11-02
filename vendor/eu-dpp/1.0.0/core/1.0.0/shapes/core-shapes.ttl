@@ -1,0 +1,127 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dpp-shapes: <https://repository.product-passport.ec.europa.eu/core/shapes/> .
+@prefix dpp: <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#> .
+
+dpp-shapes:core-shapes
+    a sh:NodeShape ;
+    sh:targetClass dpp:DigitalProductPassport ;
+
+    sh:property [
+        sh:path dpp:digitalProductPassportId ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string;
+        sh:message "SEM-MSG-001"
+    ] ;
+
+    sh:property [
+        sh:path dpp:uniqueProductIdentifier ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string;
+        sh:message "SEM-MSG-002"
+    ] ;
+
+    sh:property [
+        sh:path dpp:granularity ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI;
+        sh:message "SEM-MSG-003" ;
+        sh:sparql [
+            a sh:SPARQLConstraint ;
+            sh:select """
+                PREFIX dpp: <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#>
+                PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+                SELECT $this ?value
+                WHERE {
+                    $this dpp:granularity ?value .
+                    filter not EXISTS {
+                        ?concept skos:inScheme <https://repository.product-passport.ec.europa.eu/core/vocabs/granularity-level> .
+                        ?concept a skos:Concept.
+                        FILTER (?concept = ?value)
+                    }
+                }
+            """ ;
+        ]
+    ] ;
+
+    sh:property [
+        sh:path dpp:dppStatus ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI;
+        sh:message "SEM-MSG-005" ;
+        sh:sparql [
+            a sh:SPARQLConstraint ;
+            sh:select """
+                PREFIX dpp: <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#>
+                PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+                SELECT $this ?value
+                WHERE {
+                    $this dpp:dppStatus ?value .
+                    filter not EXISTS {
+                        ?concept skos:inScheme <https://repository.product-passport.ec.europa.eu/core/vocabs/instance-status> .
+                        ?concept a skos:Concept.
+                        FILTER (?concept = ?value)
+                    }
+                }
+            """ ;
+        ]
+    ] ;
+
+    sh:property [
+        sh:path dpp:lastUpdate ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime;
+        sh:message "SEM-MSG-006"
+    ] ;
+
+    sh:property [
+        sh:path dpp:contentSpecificationIds ;
+        sh:datatype xsd:string ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:qualifiedValueShape [
+            sh:datatype xsd:string ;
+            sh:pattern "^https://repository\\.product-passport\\.ec\\.europa\\.eu/core/\\d+\\.\\d+\\.\\d+$"
+        ] ;
+        sh:message "SEM-MSG-009"
+    ] .
+
+
+dpp-shapes:resource-shapes
+    a sh:NodeShape ;
+
+    sh:property [
+        sh:path dpp:contentType ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string;
+    ] ;
+
+    sh:property [
+        sh:path dpp:url ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:anyURI;
+    ] ;
+
+    sh:property [
+        sh:path dpp:resourceTitle ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string;
+    ] ;
+
+    sh:property [
+        sh:path dpp:language ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string;
+        sh:pattern "^[A-Za-z]{2}-[A-Za-z]{2}$";
+    ] .

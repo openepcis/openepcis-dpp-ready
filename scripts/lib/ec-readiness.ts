@@ -4,14 +4,14 @@
  * Evaluates one or more OpenEPCIS battery passport JSON-LD documents (model,
  * batch and/or item level — pass all levels of one battery for a full picture)
  * against the 71 data points of the European Commission guidance "Digital
- * Batteries Passport - data points by category" (v1.0, Ares(2026)7579758), as
+ * Batteries Passport - data points by category" (version 3.2, 19 October 2026), as
  * mirrored in extensions/eu/battery/validation/ec-datapoint-applicability.json.
  *
  * The registry's applicability statuses translate into outcomes per data point:
  *   mandatory     → fulfilled | missing
  *   optional      → fulfilled | optionalAbsent
  *   conditional   → fulfilled | conditionOpen (the condition is not machine-decidable)
- *   pending       → providedEarly | notYetRequired (implementing act / Omnibus IV outstanding)
+ *   pending       → providedEarly | notYetRequired (implementing act, Article 8 date or Omnibus outstanding)
  *   notToBeFilled → notApplicable (the guidance resolves these as duplicates/aggregates;
  *                   they share carrier terms with active data points, so presence is
  *                   neither checked nor warned about)

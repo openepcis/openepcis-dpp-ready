@@ -47,7 +47,6 @@ must be reconciled or explicitly waived (scripts/access-level-waivers.json).
 | `hasVerificationBody` | dpp-core: Public, battery: Public | consistent |
 | `isCriticalRawMaterial` | dpp-core: AuthorizedOnly, battery: AuthorizedOnly | consistent |
 | `languageCode` | dpp-core: Public, battery: Public | consistent |
-| `lastDataUpdate` | dpp-core: Public, battery: Public | consistent |
 | `recyclabilityRate` | battery: Public, electronics: Public | consistent |
 | `safeUseInstructions` | dpp-core: Public, textile: Public | consistent |
 | `takeBackIncentive` | dpp-core: Public, textile: Public | consistent |

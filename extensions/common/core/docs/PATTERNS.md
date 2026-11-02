@@ -905,7 +905,7 @@ Control data visibility per ESPR Article 9 requirements. Define which DPP data i
 3. **Use `gs1:regulatoryInformation`** for compliance declarations
 4. **Provide multilingual documents** with `languageCode`
 5. **Include verification bodies** for third-party assurances
-6. **Track data provenance** with `lastDataUpdate` and `dataQualityAssessment`
+6. **Track data provenance** with `oec:lastUpdated` and `dataQualityAssessment`
 7. **Implement access control** per ESPR Article 9 using `oec:AccessRights`
 8. **Include EOID** for economic operator identification per ESPR Article 77
 9. **Provide repairability information** for applicable product categories

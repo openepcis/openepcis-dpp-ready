@@ -32,6 +32,9 @@ const NS_TO_PREFIX: [string, string][] = [
   ["http://xmlns.com/foaf/0.1/", "foaf:"],
   ["https://dpp-keystone.org/spec/v2/terms#", "dppk:"],
   ["https://vocabulary.uncefact.org/untp/", "untp:"],
+  ["https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#", "eudppcore:"],
+  ["https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#", "eudppcom:"],
+  ["https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#", "eudppbat:"],
 ];
 
 /**

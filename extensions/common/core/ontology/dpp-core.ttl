@@ -38,6 +38,11 @@
 # Published namespace pinned to the v2 spec. Used for SKOS mapping anchors
 # (skos:exactMatch / skos:closeMatch / skos:broadMatch) from oec: terms to dppk: terms.
 @prefix dppk: <https://dpp-keystone.org/spec/v2/terms#> .
+# EU DPP Registry semantic data artifacts 1.0.0 (European Commission), mirrored under
+# extensions/upstream/eu-dpp. Data elements are SKOS concepts used as passport fields;
+# referenced only, never imported: graded SKOS from our terms, skos:exactMatch for code values.
+@prefix eudppcore: <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#> .
+@prefix eudppcom: <https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#> .
 
 # =============================================================================
 # Ontology Declaration
@@ -799,10 +804,13 @@ oec:lastUpdated
     rdfs:domain oec:DigitalProductPassport ;
     rdfs:range xsd:dateTime ;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)" ;
-    skos:note "Consolidates the former oec:lastUpdate (BatteryPass-Ready v1.3 #4) and oec:passportLastModified into the EN 18223 'lastUpdated' attribute."@en ;
+    skos:note "Consolidates the former oec:lastUpdate (BatteryPass-Ready v1.3 #4), oec:passportLastModified, oec:lastDataUpdate and eubat:lastDataUpdate into the EN 18223 'lastUpdated' attribute."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#lastUpdate> ;
-    skos:exactMatch <https://w3id.org/eudpp#lastUpdate> .
+    skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/1.3#Date-timeOfLatestUpdateOfDPP> ;
+    skos:exactMatch dppk:lastUpdate ;
+    skos:exactMatch <https://w3id.org/eudpp#lastUpdate> ;
+    skos:exactMatch eudppcore:lastUpdate .
 
 # =============================================================================
 # ESPR Product Category Enumeration (Priority Sectors)
@@ -1064,11 +1072,14 @@ oec:GranularityLevel
     rdfs:seeAlso cirpass2:ProductIdentifierGranularity .
 
 oec:Model a oec:GranularityLevel ; rdfs:label "Model"@en ; skos:notation "model" ;
-    rdfs:comment "DPP data applies to all products of this model or class. GS1 Digital Link 01/{gtin}."@en .
+    rdfs:comment "DPP data applies to all products of this model or class. GS1 Digital Link 01/{gtin}."@en ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/core/vocabs/granularity-level#model> .
 oec:Batch a oec:GranularityLevel ; rdfs:label "Batch"@en ; skos:notation "batch" ;
-    rdfs:comment "DPP data applies to a specific production batch. GS1 Digital Link 01/{gtin}/10/{lot}."@en .
+    rdfs:comment "DPP data applies to a specific production batch. GS1 Digital Link 01/{gtin}/10/{lot}."@en ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/core/vocabs/granularity-level#batch> .
 oec:Item a oec:GranularityLevel ; rdfs:label "Item"@en ; skos:notation "item" ;
-    rdfs:comment "DPP data applies to an individual serialized item. GS1 Digital Link 01/{gtin}/21/{serial}."@en .
+    rdfs:comment "DPP data applies to an individual serialized item. GS1 Digital Link 01/{gtin}/21/{serial}."@en ;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/core/vocabs/granularity-level#item> .
 
 # =============================================================================
 # Properties - Operator Information
@@ -1188,7 +1199,8 @@ oec:hasHazardousSubstances
     rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass> ;
     rdfs:seeAlso dppk:substancesOfConcern ;
     skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceIdentifier> ;
-    skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass> .
+    skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass> ;
+    skos:narrowMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#hazardousSubstances> .
 
 oec:hasHazardClass
     a owl:ObjectProperty ;
@@ -1341,7 +1353,8 @@ oec:mimeType
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:exactMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#mimeType> .
+    skos:exactMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#mimeType> ;
+    skos:exactMatch eudppcore:contentType .
 
 oec:languageCode
     a owl:DatatypeProperty ;
@@ -1383,7 +1396,8 @@ oec:hasConformityDeclaration
     # hosts return 403 for it, 2026-08-04); the nearest surviving concept is the
     # attestation class, referenced without a subsumption claim.
     rdfs:seeAlso untp:ConformityAttestation ;
-    skos:broadMatch cccev:Evidence .
+    skos:broadMatch cccev:Evidence ;
+    skos:narrowMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#euDeclarationOfConformity> .
 
 oec:combinedNomenclatureCode
     a owl:DatatypeProperty ;
@@ -1785,19 +1799,6 @@ oec:primarySourcedRatio
 # Properties - Data Quality and Provenance
 # =============================================================================
 
-oec:lastDataUpdate
-    a owl:DatatypeProperty ;
-    rdfs:label "Last Data Update"@en ;
-    rdfs:comment "Timestamp of the last update to the DPP data."@en ;
-    rdfs:range xsd:dateTime ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso schema:sdDatePublished ;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#lastUpdate> ;
-    skos:exactMatch dppk:lastUpdate ;
-    skos:narrowMatch <https://w3id.org/eudpp#lastUpdate> .
-
 oec:dataQualityAssessment
     a owl:DatatypeProperty ;
     rdfs:label "Data Quality Assessment"@en ;
@@ -1853,7 +1854,8 @@ oec:granularityLevel
     skos:note "EN 18223 'granularity'. Allowed values model/batch/item; in EPCIS4DPP derived from the GS1 Digital Link AIs (01 model, 01+10 batch, 01+21 item)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     rdfs:seeAlso cirpass2:granularity ;
-    skos:exactMatch <https://w3id.org/eudpp#granularity> .
+    skos:exactMatch <https://w3id.org/eudpp#granularity> ;
+    skos:exactMatch eudppcore:granularity .
 
 # =============================================================================
 # Properties - Regulatory Information Extension
@@ -2237,9 +2239,10 @@ oec:passportIdentifier
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     skos:broadMatch schema:identifier ;
-    skos:broadMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier> ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier> ;
     rdfs:seeAlso cirpass2:DPPIdentifier ;
-    skos:closeMatch <https://w3id.org/eudpp#hasDigitalProductPassportId> .
+    skos:closeMatch <https://w3id.org/eudpp#hasDigitalProductPassportId> ;
+    skos:exactMatch eudppcore:digitalProductPassportId .
 
 oec:passportVersion
     a owl:DatatypeProperty ;
@@ -2273,7 +2276,8 @@ oec:passportStatus
     skos:note "EN 18223 'dppStatus'. Base values active/inactive/archived/invalid; EPCIS4DPP adds draft/withdrawn/suspended. cirpass2:dppStatus is the same JTC 24 member with a capitalized value enumeration, hence closeMatch rather than exactMatch."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     skos:exactMatch dppk:dppStatus ;
-    skos:closeMatch cirpass2:dppStatus .
+    skos:closeMatch cirpass2:dppStatus ;
+    skos:closeMatch eudppcore:dppStatus .
 
 oec:passportExpiryDate
     a owl:DatatypeProperty ;
@@ -2294,7 +2298,8 @@ oec:hasPassportIssuer
     skos:note "ESPR Article 9 requires clear identification of the responsible economic operator."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     skos:closeMatch schema:issuedBy ;
-    rdfs:seeAlso cirpass2:hasIssuer .
+    rdfs:seeAlso cirpass2:hasIssuer ;
+    skos:closeMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#registrantIdentity> .
 
 oec:hasBackupCopyHost
     a owl:ObjectProperty ;
@@ -2399,7 +2404,8 @@ oec:contentSpecificationId
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)" ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:closeMatch dppk:contentSpecificationIds .
+    skos:closeMatch dppk:contentSpecificationIds ;
+    skos:closeMatch eudppcore:contentSpecificationIds .
 
 # =============================================================================
 # DataElement model (EN 18223 4.1.2.3 to 4.1.2.8)

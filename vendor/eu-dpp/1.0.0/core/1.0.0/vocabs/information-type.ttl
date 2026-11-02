@@ -1,0 +1,41 @@
+@base <https://repository.product-passport.ec.europa.eu/core/vocabs> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix euvoc: <http://publications.europa.eu/ontology/euvoc#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix concept-status: <http://publications.europa.eu/resource/authority/concept-status/> .
+@prefix dpptype: <https://repository.product-passport.ec.europa.eu/core/vocabs/information-type#> .
+
+<https://repository.product-passport.ec.europa.eu/core/vocabs/information-type>
+  a owl:Ontology, skos:ConceptScheme;
+  owl:versionIRI <https://repository.product-passport.ec.europa.eu/core/vocabs/information-type/1.0.0>;
+  skos:notation "information-type";
+  skos:prefLabel "Information Type Vocabulary"@en;
+  dct:title "Information Type Vocabulary"@en;
+  skos:definition "Vocabulary of types of information access concepts used by digital product passports."@en;
+  dct:created "2026-10-30"^^xsd:date;
+  owl:versionInfo "1.0.0";
+  skos:hasTopConcept dpptype:publicType, dpptype:restrictedType;
+  dct:creator "European Commission";
+  dct:license <https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12> .
+
+dpptype:publicType a skos:Concept;
+  skos:notation "publicType";
+  skos:prefLabel "Public type information"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/core/vocabs/information-type>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/core/vocabs/information-type>;
+  skos:definition "Publicly accessible information"@en .
+
+dpptype:restrictedType a skos:Concept;
+  skos:notation "restrictedType";
+  skos:prefLabel "Restricted type information"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/core/vocabs/information-type>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/core/vocabs/information-type>;
+  skos:definition "Restricted information"@en .

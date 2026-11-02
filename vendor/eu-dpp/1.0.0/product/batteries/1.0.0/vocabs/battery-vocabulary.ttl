@@ -1,0 +1,1120 @@
+@base <https://repository.product-passport.ec.europa.eu/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix euvoc: <http://publications.europa.eu/ontology/euvoc#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix concept-status: <http://publications.europa.eu/resource/authority/concept-status/> .
+@prefix bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#> .
+@prefix dpptype: <https://repository.product-passport.ec.europa.eu/core/vocabs/information-type#> .
+@prefix battype: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-information-type#> .
+
+<https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>
+  a owl:Ontology, skos:ConceptScheme;
+  owl:versionIRI <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary/1.0.0>;
+  skos:notation "battery-vocabulary";
+  skos:prefLabel "Battery Digital Product Passport Vocabulary"@en;
+  dct:title "Battery Digital Product Passport Vocabulary"@en;
+  skos:definition "Vocabulary of concepts used to support the battery digital product passport data model. Regulation (EU) 2023/1542."@en;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  dct:created "2026-10-30"^^xsd:date;
+  owl:versionInfo "1.0.0";
+  dct:license <https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12>;
+  dct:creator "European Commission", "GROW-DIGITAL-PRODUCT-PASSPORT@ec.europa.eu";
+  skos:hasTopConcept bat:registrantIdentity, bat:manufacturerIdentification, bat:manufacturerPostalAddress,
+    bat:manufacturerContactDetails, bat:batteryCategory, bat:batteryIdentification, bat:manufacturingPlace,
+    bat:manufacturingDate, bat:batteryWeight, bat:batteryCapacity, bat:batteryChemistry,
+    bat:hazardousSubstances, bat:extinguishingAgent, bat:criticalRawMaterials, bat:renewableContentShare,
+    bat:minimalVoltage, bat:nominalVoltage, bat:maximumVoltage, bat:originalPowerCapability,
+    bat:powerLimit, bat:expectedLifetimeCycles, bat:cycleLifeReferenceTest, bat:capacityExhaustionThreshold,
+    bat:notInUseTemperatureRange, bat:commercialWarrantyPeriod, bat:initialRoundTripEnergyEfficiency,
+    bat:roundTripEfficiencyAtHalfCycleLife, bat:internalCellResistance, bat:internalPackResistance,
+    bat:cycleLifeChargeCRate, bat:cycleLifeDischargeCRate, bat:separateCollectionSymbol,
+    bat:chemicalSymbol, bat:euDeclarationOfConformity, bat:wasteBatteryPreventionManagementInfo,
+    bat:detailedComposition, bat:sparePartReplacementDetails, bat:dismantlingInformation,
+    bat:safetyMeasures, bat:complianceTestReportResults, bat:ratedCapacity, bat:capacityFade,
+    bat:powerCapability, bat:powerFade, bat:internalResistance, bat:internalResistanceIncrease,
+    bat:roundTripEnergyEfficiency, bat:roundTripEnergyEfficiencyFade, bat:expectedLifetimeCyclesRest,
+    bat:expectedLifetimeYears, bat:stateOfCertifiedEnergy, bat:remainingCapacity, bat:remainingPowerCapability,
+    bat:remainingRoundTripEfficiency, bat:selfDischargingRateSet, bat:ohmicResistance,
+    bat:batteryStatus, bat:numberOfChargingCycles .
+
+bat:registrantIdentity a skos:Concept;
+  skos:notation "registrantIdentity";
+  skos:prefLabel "Identity of who is registering and/or is responsible for the battery passport"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Article 77 (3) - as defined in Article 77 (4). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Identity of who is registering and/or is responsible for the battery passport [name]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:manufacturerIdentification a skos:Concept;
+  skos:notation "manufacturerIdentification";
+  skos:prefLabel "Manufacturer identification"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 1. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Manufacturer name, registered trade name or registered trademark [at least one of]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:manufacturerName a skos:Concept;
+  skos:notation "manufacturerName";
+  skos:prefLabel "Manufacturer name"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 1 - as defined in Article 3 (1) (33). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Manufacturer name, registered trade name or registered trademark [at least one of]"@en;
+  skos:broader bat:manufacturerIdentification;
+  dct:accessRights dpptype:publicType .
+
+bat:manufacturerTradeName a skos:Concept;
+  skos:notation "manufacturerTradeName";
+  skos:prefLabel "Manufacturer registered trade name"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 1. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Manufacturer name, registered trade name or registered trademark [at least one of]"@en;
+  skos:broader bat:manufacturerIdentification;
+  dct:accessRights dpptype:publicType .
+
+bat:manufacturerTrademark a skos:Concept;
+  skos:notation "manufacturerTrademark";
+  skos:prefLabel "Manufacturer registered trademark"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 1. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Manufacturer name, registered trade name or registered trademark [at least one of]"@en;
+  skos:broader bat:manufacturerIdentification;
+  dct:accessRights dpptype:publicType .
+
+bat:manufacturerPostalAddress a skos:Concept;
+  skos:notation "manufacturerPostalAddress";
+  skos:prefLabel "Manufacturer postal address"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 1. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Manufacturer single contact postal address"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:manufacturerContactDetails a skos:Concept;
+  skos:notation "manufacturerContactDetails";
+  skos:prefLabel "Manufacturer contact details"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 1. Public. EV: Optional, to be filled if such data is available, LMT: Optional, to be filled if such data is available, Industrial: Optional, to be filled if such data is available."@en;
+  skos:definition "If available, manufacturer web and email address [both optional]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:manufacturerWebsite a skos:Concept;
+  skos:notation "manufacturerWebsite";
+  skos:prefLabel "Manufacturer website"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 1. Public. EV: Optional, to be filled if such data is available, LMT: Optional, to be filled if such data is available, Industrial: Optional, to be filled if such data is available."@en;
+  skos:definition "If available, manufacturer web and email address [both optional]"@en;
+  skos:broader bat:manufacturerContactDetails;
+  dct:accessRights dpptype:publicType .
+
+bat:manufacturerEmail a skos:Concept;
+  skos:notation "manufacturerEmail";
+  skos:prefLabel "Manufacturer email address"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 1. Public. EV: Optional, to be filled if such data is available, LMT: Optional, to be filled if such data is available, Industrial: Optional, to be filled if such data is available."@en;
+  skos:definition "If available, manufacturer web and email address [both optional]"@en;
+  skos:broader bat:manufacturerContactDetails;
+  dct:accessRights dpptype:publicType .
+
+bat:batteryCategory a skos:Concept;
+  skos:notation "batteryCategory";
+  skos:prefLabel "Battery category"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 2 - as defined in Article 3 (1) (11)  (13) and (14). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Battery category [3-code list]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:batteryIdentification a skos:Concept;
+  skos:notation "batteryIdentification";
+  skos:prefLabel "Battery identification"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 2. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Model identification and batch or serial number, or product number or another element allowing their identification [at least one of]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:modelIdentifier a skos:Concept;
+  skos:notation "modelIdentifier";
+  skos:prefLabel "Model identifier"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 2. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Model identification and batch or serial number, or product number or another element allowing their identification [at least one of]"@en;
+  skos:broader bat:batteryIdentification;
+  dct:accessRights dpptype:publicType .
+
+bat:batchNumber a skos:Concept;
+  skos:notation "batchNumber";
+  skos:prefLabel "Batch number"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 2. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Model identification and batch or serial number, or product number or another element allowing their identification [at least one of]"@en;
+  skos:broader bat:batteryIdentification;
+  dct:accessRights dpptype:publicType .
+
+bat:serialNumber a skos:Concept;
+  skos:notation "serialNumber";
+  skos:prefLabel "Serial number"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 2. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Model identification and batch or serial number, or product number or another element allowing their identification [at least one of]"@en;
+  skos:broader bat:batteryIdentification;
+  dct:accessRights dpptype:publicType .
+
+bat:productNumber a skos:Concept;
+  skos:notation "productNumber";
+  skos:prefLabel "Product number"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 2. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Model identification and batch or serial number, or product number or another element allowing their identification [at least one of]"@en;
+  skos:broader bat:batteryIdentification;
+  dct:accessRights dpptype:publicType .
+
+bat:otherIdentificationElement a skos:Concept;
+  skos:notation "otherIdentificationElement";
+  skos:prefLabel "Other identification element"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 2. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Model identification and batch or serial number, or product number or another element allowing their identification [at least one of]"@en;
+  skos:broader bat:batteryIdentification;
+  dct:accessRights dpptype:publicType .
+
+bat:manufacturingPlace a skos:Concept;
+  skos:notation "manufacturingPlace";
+  skos:prefLabel "Place of manufacture"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 3. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The place of manufacture (geographical location of a battery manufacturing plant) [town, region, country/jurisdiction]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:manufacturingCity a skos:Concept;
+  skos:notation "manufacturingCity";
+  skos:prefLabel "Town/city of manufacture"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 3. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The place of manufacture (geographical location of a battery manufacturing plant) [town, region, country/jurisdiction]"@en;
+  skos:broader bat:manufacturingPlace;
+  dct:accessRights dpptype:publicType .
+
+bat:manufacturingRegion a skos:Concept;
+  skos:notation "manufacturingRegion";
+  skos:prefLabel "Region of manufacture"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 3. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The place of manufacture (geographical location of a battery manufacturing plant) [town, region, country/jurisdiction]"@en;
+  skos:broader bat:manufacturingPlace;
+  dct:accessRights dpptype:publicType .
+
+bat:manufacturingCountry a skos:Concept;
+  skos:notation "manufacturingCountry";
+  skos:prefLabel "Country of manufacture"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 3. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The place of manufacture (geographical location of a battery manufacturing plant) [town, region, country/jurisdiction]"@en;
+  skos:broader bat:manufacturingPlace;
+  dct:accessRights dpptype:publicType .
+
+bat:manufacturingDate a skos:Concept;
+  skos:notation "manufacturingDate";
+  skos:prefLabel "Date of manufacturing"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 4. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The date of manufacturing [month and year]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:batteryWeight a skos:Concept;
+  skos:notation "batteryWeight";
+  skos:prefLabel "Battery weight"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 5. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The weight [unit kg]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:batteryCapacity a skos:Concept;
+  skos:notation "batteryCapacity";
+  skos:prefLabel "Battery capacity"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 6. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The capacity [unit Ah]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:batteryChemistry a skos:Concept;
+  skos:notation "batteryChemistry";
+  skos:prefLabel "Battery chemistry"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 7. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The chemistry [code list]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:hazardousSubstances a skos:Concept;
+  skos:notation "hazardousSubstances";
+  skos:prefLabel "Hazardous substances present in the battery, other than mercury, cadmium or lead"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 8 - as defined in Article 3 (1) (52). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The hazardous substances present in the battery, other than mercury, cadmium or lead [free text]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:extinguishingAgent a skos:Concept;
+  skos:notation "extinguishingAgent";
+  skos:prefLabel "Usable extinguishing agent"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 9. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Usable extinguishing agent [free text]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:criticalRawMaterials a skos:Concept;
+  skos:notation "criticalRawMaterials";
+  skos:prefLabel "Critical raw materials present in the battery"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex VI Part A 10 - as defined in List of raw materials in Annex X (1). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Critical raw materials present in the battery in a concentration of more than 0,1 % weight by weight [code list]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:renewableContentShare a skos:Concept;
+  skos:notation "renewableContentShare";
+  skos:prefLabel "Renewable content share"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (f). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The share of renewable content [%]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:minimalVoltage a skos:Concept;
+  skos:notation "minimalVoltage";
+  skos:prefLabel "Minimal voltage"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (h). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Minimal voltage, with temperature range when relevant [unit V, optional unit °C]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:nominalVoltage a skos:Concept;
+  skos:notation "nominalVoltage";
+  skos:prefLabel "Nominal voltage"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (h). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Nominal voltage, with temperature range when relevant [unit V, optional unit °C]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:maximumVoltage a skos:Concept;
+  skos:notation "maximumVoltage";
+  skos:prefLabel "Maximum voltage"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (h). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Maximum voltage, with temperature range when relevant [unit V, optional unit °C]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:originalPowerCapability a skos:Concept;
+  skos:notation "originalPowerCapability";
+  skos:prefLabel "Original power capability"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (i) - as defined in Annex IV (3) for “power” of the batteries in scope of the Annex. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Original power capability [unit W]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:powerLimit a skos:Concept;
+  skos:notation "powerLimit";
+  skos:prefLabel "Power limit"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (i) - as defined in Annex IV (3) for “power” of the batteries in scope of the Annex. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Power limits, with temperature range when relevant [unit W, optionally min_T °C … max_T °C]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:expectedLifetimeCycles a skos:Concept;
+  skos:notation "expectedLifetimeCycles";
+  skos:prefLabel "Expected battery lifetime in cycles"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (j) - as defined in Article 3 (1) (59) for “lifetime”. Public. EV: Mandatory, LMT: Mandatory, Industrial: Only applicable for some industrial batteries where lifetime can be expressed in cycles."@en;
+  skos:definition "Expected battery lifetime expressed in cycles [in number]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:cycleLifeReferenceTest a skos:Concept;
+  skos:notation "cycleLifeReferenceTest";
+  skos:prefLabel "Reference test used for expected battery lifetime expressed in cycles"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (j) - as defined in Article 3 (1) (59) for “lifetime”. Public. EV: Mandatory, LMT: Mandatory, Industrial: Only applicable for some industrial batteries where lifetime can be expressed in cycles."@en;
+  skos:definition "Reference test used for expected battery lifetime expressed in cycles [free text]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:capacityExhaustionThreshold a skos:Concept;
+  skos:notation "capacityExhaustionThreshold";
+  skos:prefLabel "Capacity threshold for exhaustion"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (k). Public. EV: Mandatory, LMT: Not to be filled/displayed, Industrial: Not to be filled/displayed."@en;
+  skos:definition "Capacity threshold for exhaustion [%]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:notInUseTemperatureRange a skos:Concept;
+  skos:notation "notInUseTemperatureRange";
+  skos:prefLabel "Temperature range the battery can withstand when not in use"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (l). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Temperature range the battery can withstand when not in use (reference test) [min_T °C … max_T °C + free text]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:notInUseTemperatureRangeTest a skos:Concept;
+  skos:notation "notInUseTemperatureRangeTest";
+  skos:prefLabel "Reference test for the temperature range the battery can withstand when not in use"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (l). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Temperature range the battery can withstand when not in use (reference test) [min_T °C … max_T °C + free text]"@en;
+  skos:broader bat:notInUseTemperatureRange;
+  dct:accessRights dpptype:publicType .
+
+bat:commercialWarrantyPeriod a skos:Concept;
+  skos:notation "commercialWarrantyPeriod";
+  skos:prefLabel "Period for which the commercial warranty for the calendar life applies"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (m). Public. EV: If applicable (if commercial warranty envisaged), LMT: If applicable (if commercial warranty envisaged), Industrial: If applicable (if commercial warranty envisaged)."@en;
+  skos:definition "Period for which the commercial warranty for the calendar life applies [months]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:initialRoundTripEnergyEfficiency a skos:Concept;
+  skos:notation "initialRoundTripEnergyEfficiency";
+  skos:prefLabel "Initial round-trip energy efficiency"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (n). Public. EV: Mandatory, LMT: Mandatory, Industrial: Only applicable for some industrial batteries."@en;
+  skos:definition "Initial round trip energy efficiency [%]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:roundTripEfficiencyAtHalfCycleLife a skos:Concept;
+  skos:notation "roundTripEfficiencyAtHalfCycleLife";
+  skos:prefLabel "Round-trip energy efficiency at 50% of cycle life"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (n) - as defined in Annex II 2 (e) for life cycle for the calculation of carbon footprint. Public. EV: Mandatory, LMT: Mandatory, Industrial: Only applicable for some industrial batteries."@en;
+  skos:definition "Round trip energy efficiency at 50 % of cycle-life [%]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:internalCellResistance a skos:Concept;
+  skos:notation "internalCellResistance";
+  skos:prefLabel "Internal battery cell resistance"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (o). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Internal battery cell resistance [unit Ω]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:internalPackResistance a skos:Concept;
+  skos:notation "internalPackResistance";
+  skos:prefLabel "Internal battery pack resistance"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (o). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Internal battery pack resistance [unit Ω]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:cycleLifeChargeCRate a skos:Concept;
+  skos:notation "cycleLifeChargeCRate";
+  skos:prefLabel "Charge C-rate of relevant cycle-life test"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (p). Public. EV: Mandatory, LMT: Mandatory, Industrial: Only applicable for some industrial batteries."@en;
+  skos:definition "Charge C-rate of relevant cycle-life test [number]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:cycleLifeDischargeCRate a skos:Concept;
+  skos:notation "cycleLifeDischargeCRate";
+  skos:prefLabel "Discharge C-rate used of relevant cycle-life test"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (p). Public. EV: Optional, LMT: Optional, Industrial: Optional."@en;
+  skos:definition "Discharge C-rate of relevant cycle-life test [number]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:separateCollectionSymbol a skos:Concept;
+  skos:notation "separateCollectionSymbol";
+  skos:prefLabel "Separate collection symbol"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (q) - Art. 13 (4) - Annex VI Part B. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The marking requirements laid down in Article 13(4) [Yes/No]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:chemicalSymbol a skos:Concept;
+  skos:notation "chemicalSymbol";
+  skos:prefLabel "Chemical symbol"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (q) - Art. 13 (5). Public. EV: Cadmium or lead symbol if applicable, LMT: Cadmium or lead symbol if applicable, Industrial: Cadmium or lead symbol if applicable."@en;
+  skos:definition "The marking requirements laid down in Article 13(5) [code list ]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:euDeclarationOfConformity a skos:Concept;
+  skos:notation "euDeclarationOfConformity";
+  skos:prefLabel "EU declaration of conformity"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (r) . Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The EU declaration of conformity referred to in Article 18 [a web link]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:wasteBatteryPreventionManagementInfo a skos:Concept;
+  skos:notation "wasteBatteryPreventionManagementInfo";
+  skos:prefLabel "Waste battery prevention and management information"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (s). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text]"@en;
+  dct:accessRights dpptype:publicType .
+
+bat:endUserRoleInWastePrevention a skos:Concept;
+  skos:notation "endUserRoleInWastePrevention";
+  skos:prefLabel "Role of end-users in waste prevention"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (s). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text]"@en;
+  skos:broader bat:wasteBatteryPreventionManagementInfo;
+  dct:accessRights dpptype:publicType .
+
+bat:endUserRoleInSeparateCollection a skos:Concept;
+  skos:notation "endUserRoleInSeparateCollection";
+  skos:prefLabel "Role of end-users in separate collection of waste batteries"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (s). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text]"@en;
+  skos:broader bat:wasteBatteryPreventionManagementInfo;
+  dct:accessRights dpptype:publicType .
+
+bat:separateCollectionPoints a skos:Concept;
+  skos:notation "separateCollectionPoints";
+  skos:prefLabel "Information on separate collection points"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (s). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text]"@en;
+  skos:broader bat:wasteBatteryPreventionManagementInfo;
+  dct:accessRights dpptype:publicType .
+
+bat:takeBackCollectionPoints a skos:Concept;
+  skos:notation "takeBackCollectionPoints";
+  skos:prefLabel "Information on take-back and collection points"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (s). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text]"@en;
+  skos:broader bat:wasteBatteryPreventionManagementInfo;
+  dct:accessRights dpptype:publicType .
+
+bat:preparationForReuseFacilities a skos:Concept;
+  skos:notation "preparationForReuseFacilities";
+  skos:prefLabel "Information on preparation for reuse facilities"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (s). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text]"@en;
+  skos:broader bat:wasteBatteryPreventionManagementInfo;
+  dct:accessRights dpptype:publicType .
+
+bat:preparationForRepurposingFacilities a skos:Concept;
+  skos:notation "preparationForRepurposingFacilities";
+  skos:prefLabel "Information on preparation-for-repurposing facilities"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (s). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text]"@en;
+  skos:broader bat:wasteBatteryPreventionManagementInfo;
+  dct:accessRights dpptype:publicType .
+
+bat:wasteBatteryTreatmentFacilities a skos:Concept;
+  skos:notation "wasteBatteryTreatmentFacilities";
+  skos:prefLabel "Information on treatment facilities for waste batteries"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (s). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text]"@en;
+  skos:broader bat:wasteBatteryPreventionManagementInfo;
+  dct:accessRights dpptype:publicType .
+
+bat:wasteBatterySafetyInstructions a skos:Concept;
+  skos:notation "wasteBatterySafetyInstructions";
+  skos:prefLabel "Safety instructions for handling waste batteries"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (s). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text]"@en;
+  skos:broader bat:wasteBatteryPreventionManagementInfo;
+  dct:accessRights dpptype:publicType .
+
+bat:batteryLabelSymbolMeaning a skos:Concept;
+  skos:notation "batteryLabelSymbolMeaning";
+  skos:prefLabel "Meaning of the labels and symbols on batteries"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (s). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text]"@en;
+  skos:broader bat:wasteBatteryPreventionManagementInfo;
+  dct:accessRights dpptype:publicType .
+
+bat:batterySubstancesImpact a skos:Concept;
+  skos:notation "batterySubstancesImpact";
+  skos:prefLabel "Impact of substances present in batteries on the environment and on human health or the safety of persons"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 1 (s). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text]"@en;
+  skos:broader bat:wasteBatteryPreventionManagementInfo;
+  dct:accessRights dpptype:publicType .
+
+bat:detailedComposition a skos:Concept;
+  skos:notation "detailedComposition";
+  skos:prefLabel "Detailed composition"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 2 (a). Restricted: Only to persons with legitimate interests, notified bodies, MS authorities and COM. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Detailed composition, including materials used in the cathode, anode and electrolyte [free text]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType1 .
+
+bat:sparePartReplacementDetails a skos:Concept;
+  skos:notation "sparePartReplacementDetails";
+  skos:prefLabel "Part numbers for components and contact details of sources for replacement spares"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 2 (b). Restricted: Only to persons with legitimate interests, notified bodies, MS authorities and COM. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Part numbers for components and contact details of sources for replacement spares [a web link] "@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType1 .
+
+bat:dismantlingInformation a skos:Concept;
+  skos:notation "dismantlingInformation";
+  skos:prefLabel "Dismantling information"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 2 (c). Restricted: Only to persons with legitimate interests, notified bodies, MS authorities and COM. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition """Dismantling information, including at least: 
+- exploded diagrams of the battery system/pack showing the location of battery cells, 
+- disassembly sequences, 
+- type and number of fastening techniques to be unlocked, 
+- tools required for disassembly, 
+- warnings if risk of damaging parts exist, 
+- amount of cells used and layout 
+[a web link]"""@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType1 .
+
+bat:safetyMeasures a skos:Concept;
+  skos:notation "safetyMeasures";
+  skos:prefLabel "Safety measures"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 2 (d). Restricted: Only to persons with legitimate interests, notified bodies, MS authorities and COM. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Safety measures [a web link]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType1 .
+
+bat:complianceTestReportResults a skos:Concept;
+  skos:notation "complianceTestReportResults";
+  skos:prefLabel "Results of test reports proving compliance"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 3. Restricted: Only to notified bodies, MS authorities and COM. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Results of test reports proving compliance with the requirements laid down in this Regulation or any delegated or implementing act adopted pursuant to this Regulation [a web link]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType2 .
+
+bat:ratedCapacity a skos:Concept;
+  skos:notation "ratedCapacity";
+  skos:prefLabel "Rated capacity"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (a) - as defined in Annex IV (1) for the batteries in the scope of the Annex. Restricted: Only to persons with legitimate interest (individual battery). EV: Same as data point 11 (capacity), LMT: Same as data point 11 (capacity), Industrial: Same as data point 11 (capacity); only for rechargeable batteries.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery."@en;
+  skos:definition "Rated capacity (Ah)"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:capacityFade a skos:Concept;
+  skos:notation "capacityFade";
+  skos:prefLabel "Capacity fade"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (a) - as defined in Annex III B (1) and Annex IV (2) for the batteries in the scope of the Annex. Restricted: Only to persons with legitimate interest (individual battery). EV: Mandatory, LMT: Mandatory, Industrial: Only for rechargeable batteries.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery."@en;
+  skos:definition "Capacity fade [%]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:powerCapability a skos:Concept;
+  skos:notation "powerCapability";
+  skos:prefLabel "Power capability"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (a) - as defined in Annex IV (3) for the batteries in the scope of the Annex. Restricted: Only to persons with legitimate interest (individual battery). EV: Mandatory, LMT: Mandatory, Industrial: Only for rechargeable batteries.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery."@en;
+  skos:definition "Power [unit W]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:powerFade a skos:Concept;
+  skos:notation "powerFade";
+  skos:prefLabel "Power fade"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (a) - as defined in Annex IV (4) for the batteries in the scope of the Annex. Restricted: Only to persons with legitimate interest (individual battery). EV: Mandatory, LMT: Mandatory, Industrial: Only for rechargeable batteries.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery."@en;
+  skos:definition "Power fade [%]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:internalResistance a skos:Concept;
+  skos:notation "internalResistance";
+  skos:prefLabel "Internal resistance"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (a) - as defined in Annex IV (5) for the batteries in the scope of the Annex. Restricted: Only to persons with legitimate interest (individual battery). EV: Mandatory, LMT: Mandatory, Industrial: Only for rechargeable batteries.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery."@en;
+  skos:definition "Internal resistance [unit Ω]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:internalResistanceIncrease a skos:Concept;
+  skos:notation "internalResistanceIncrease";
+  skos:prefLabel "Internal resistance increase"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (a). Restricted: Only to persons with legitimate interest (individual battery). EV: Mandatory, LMT: Mandatory, Industrial: Only for rechargeable batteries.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery."@en;
+  skos:definition "Internal resistance increase [%]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:roundTripEnergyEfficiency a skos:Concept;
+  skos:notation "roundTripEnergyEfficiency";
+  skos:prefLabel "Energy round trip efficiency"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (a) - as defined in Annex IV (6) for the batteries in the scope of the Annex. Restricted: Only to persons with legitimate interest (individual battery). EV: If applicable, LMT: If applicable, Industrial: Only for rechargeable batteries, if applicable.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery."@en;
+  skos:definition "Where applicable, energy round trip efficiency [%]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:roundTripEnergyEfficiencyFade a skos:Concept;
+  skos:notation "roundTripEnergyEfficiencyFade";
+  skos:prefLabel "Energy round trip efficiency fade"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (a). Restricted: Only to persons with legitimate interest (individual battery). EV: If applicable, LMT: If applicable, Industrial: Only for rechargeable batteries, if applicable.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery."@en;
+  skos:definition "Where applicable, energy round trip efficiency fade [%]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:expectedLifetimeCyclesRest a skos:Concept;
+  skos:notation "expectedLifetimeCyclesRest";
+  skos:prefLabel "Expected lifetime of the battery under the reference conditions in cycles"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (a) - as defined in Art 3 (1) (59) for lifetime. Restricted: Only to persons with legitimate interest (individual battery). EV: Mandatory, LMT: Mandatory, Industrial: Only for rechargeable batteries and except for non-cycle applications.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery."@en;
+  skos:definition "The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:expectedLifetimeYears a skos:Concept;
+  skos:notation "expectedLifetimeYears";
+  skos:prefLabel "Expected lifetime of the battery in years"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (a) - as defined in Art 3 (1) (59) for lifetime. Restricted: Only to persons with legitimate interest (individual battery). EV: Mandatory, LMT: Mandatory, Industrial: Only for rechargeable batteries.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery."@en;
+  skos:definition "The expected lifetime of the battery under the reference conditions for which it has been designed [years]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:stateOfCertifiedEnergy a skos:Concept;
+  skos:notation "stateOfCertifiedEnergy";
+  skos:prefLabel "State of certified energy (SOCE)"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (b). Restricted: Only to persons with legitimate interest (individual battery). EV: Mandatory, LMT: Not to be filled/displayed, Industrial: Not to be filled/displayed."@en;
+  skos:definition "Information on the state of health of the battery pursuant to Article 14: state of certified energy (SOCE) [%]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:remainingCapacity a skos:Concept;
+  skos:notation "remainingCapacity";
+  skos:prefLabel "Remaining capacity"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (b). Restricted: Only to persons with legitimate interest (individual battery). EV: Not to be filled/displayed, LMT: Mandatory, Industrial: Only for stationary battery energy storage systems and if they have a battery management system."@en;
+  skos:definition "Information on the state of health of the battery pursuant to Article 14: remaining capacity [unit Ah]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:remainingPowerCapability a skos:Concept;
+  skos:notation "remainingPowerCapability";
+  skos:prefLabel "Remaining power capability"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (b). Restricted: Only to persons with legitimate interest (individual battery). EV: Not to be filled/displayed, LMT: Mandatory, Industrial: Only for stationary battery energy storage systems and if they have a battery management system."@en;
+  skos:definition "Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability [unit W]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:remainingRoundTripEfficiency a skos:Concept;
+  skos:notation "remainingRoundTripEfficiency";
+  skos:prefLabel "Remaining round-trip efficiency"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (b). Restricted: Only to persons with legitimate interest (individual battery). EV: Not to be filled/displayed, LMT: Mandatory, Industrial: Only for stationary battery energy storage systems and if they have a battery management system."@en;
+  skos:definition "Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round-trip efficiency [%]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:selfDischargingRateSet a skos:Concept;
+  skos:notation "selfDischargingRateSet";
+  skos:prefLabel "Self-discharging rate set"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (b). Restricted: Only to persons with legitimate interest (individual battery). EV: Not to be filled/displayed, LMT: Mandatory, Industrial: Only for stationary battery energy storage systems and if they have a battery management system."@en;
+  skos:definition "Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:selfDischargingRate a skos:Concept;
+  skos:notation "selfDischargingRate";
+  skos:prefLabel "Self-discharging rates"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (b). Restricted: Only to persons with legitimate interest (individual battery). EV: Not to be filled/displayed, LMT: Mandatory, Industrial: Only for stationary battery energy storage systems and if they have a battery management system."@en;
+  skos:definition "Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year]"@en;
+  skos:broader bat:selfDischargingRateSet;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:ohmicResistance a skos:Concept;
+  skos:notation "ohmicResistance";
+  skos:prefLabel "Ohmic resistance"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (b). Restricted: Only to persons with legitimate interest (individual battery). EV: Not to be filled/displayed, LMT: Mandatory, Industrial: Only for stationary battery energy storage systems and if they have a battery management system."@en;
+  skos:definition "Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance [unit Ω]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:batteryStatus a skos:Concept;
+  skos:notation "batteryStatus";
+  skos:prefLabel "Battery status"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (c) - as defined in Article 3 (1) (32) for “remanufacturing” and 3 (2) (2)(a) for “waste”. Restricted: Only to persons with legitimate interest (individual battery). EV: Mandatory, LMT: Mandatory, Industrial: Mandatory."@en;
+  skos:definition "Information on the status of the battery, defined as ‘original’, ‘repurposed’, ‘re-used’, ‘remanufactured’ or ‘waste’ [code list]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:numberOfChargingCycles a skos:Concept;
+  skos:notation "numberOfChargingCycles";
+  skos:prefLabel "Number of charging cycles"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (d) . Restricted: Only to persons with legitimate interest (individual battery). EV: Applicable as soon as the battery starts to be used, LMT: Applicable as soon as the battery starts to be used, Industrial: Applicable as soon as the battery starts to be used."@en;
+  skos:definition "The number of charging cycles [number]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+<https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>
+  a owl:Ontology, skos:ConceptScheme;
+  owl:versionIRI <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary/1.0.0>;
+  skos:notation "battery-vocabulary";
+  skos:prefLabel "Battery Digital Product Passport Vocabulary"@en;
+  dct:title "Battery Digital Product Passport Vocabulary"@en;
+  skos:definition "Vocabulary of concepts used to support the battery digital product passport data model. Regulation (EU) 2023/1542."@en;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  dct:created "2026-10-30"^^xsd:date;
+  owl:versionInfo "1.0.0";
+  skos:hasTopConcept bat:numberOfDischargingCycles, bat:negativeEvents, bat:environmentalConditionHistogramSet,
+    bat:stateOfChargeHistogram;
+  dct:license <https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12>;
+  dct:creator "European Commission", "GROW-DIGITAL-PRODUCT-PASSPORT@ec.europa.eu" .
+
+bat:numberOfDischargingCycles a skos:Concept;
+  skos:notation "numberOfDischargingCycles";
+  skos:prefLabel "Number of discharging cycles"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (d) . Restricted: Only to persons with legitimate interest (individual battery). EV: Applicable as soon as the battery starts to be used, LMT: Applicable as soon as the battery starts to be used, Industrial: Applicable as soon as the battery starts to be used."@en;
+  skos:definition "The number of discharging cycles [number]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:negativeEvents a skos:Concept;
+  skos:notation "negativeEvents";
+  skos:prefLabel "Negative events"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (d) . Restricted: Only to persons with legitimate interest (individual battery). EV: Applicable as soon as the battery starts to be used, LMT: Applicable as soon as the battery starts to be used, Industrial: Applicable as soon as the battery starts to be used."@en;
+  skos:definition "Negative events, such as accidents [multiple free texts]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:environmentalConditionHistogramSet a skos:Concept;
+  skos:notation "environmentalConditionHistogramSet";
+  skos:prefLabel "Periodically recorded information on the operating environmental conditions"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (d) . Restricted: Only to persons with legitimate interest (individual battery). EV: Applicable as soon as the battery starts to be used, LMT: Applicable as soon as the battery starts to be used, Industrial: Applicable as soon as the battery starts to be used."@en;
+  skos:definition "Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:environmentalConditionHistogram a skos:Concept;
+  skos:notation "environmentalConditionHistogram";
+  skos:prefLabel "Environmental Condition Histogram"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (d) . Restricted: Only to persons with legitimate interest (individual battery). EV: Applicable as soon as the battery starts to be used, LMT: Applicable as soon as the battery starts to be used, Industrial: Applicable as soon as the battery starts to be used."@en;
+  skos:definition "Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units]"@en;
+  skos:broader bat:environmentalConditionHistogramSet;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .
+
+bat:stateOfChargeHistogram a skos:Concept;
+  skos:notation "stateOfChargeHistogram";
+  skos:prefLabel "Periodically recorded state of charge (SoC)"@en;
+  skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  dct:source <http://data.europa.eu/eli/reg/2023/1542/2026-08-13>;
+  euvoc:status concept-status:CURRENT;
+  dct:created "2026-10-30"^^xsd:date;
+  skos:topConceptOf <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary>;
+  skos:scopeNote "Regulation (EU) 2023/1542 - Annex XIII 4 (d) . Restricted: Only to persons with legitimate interest (individual battery). EV: Applicable as soon as the battery starts to be used, LMT: Applicable as soon as the battery starts to be used, Industrial: Applicable as soon as the battery starts to be used."@en;
+  skos:definition "Periodically recorded information on the state of charge [histogram, %]"@en;
+  dct:accessRights dpptype:restrictedType, battype:batteryRestrictedType3 .

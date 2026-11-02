@@ -1,0 +1,103 @@
+{
+  "$id": "https://repository.product-passport.ec.europa.eu/product/batteries/1.0.0/schemas/res3-batteries.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Battery Product - Restricted: Only to persons with legitimate interest (individual battery) (RES3)",
+  "description": "JSON Schema for the Restricted (RES3) properties of the Battery Product representation.",
+  "properties": {
+    "roundTripEnergyEfficiency": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-070"
+      }
+    },
+    "roundTripEnergyEfficiencyFade": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-071"
+      }
+    },
+    "batteryStatus": {
+      "type": "string",
+      "$comment": "Controlled vocabulary: https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status#.",
+      "pattern": "^https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status#[a-zA-Z]+$",
+      "minLength": 1,
+      "message": {
+        "type": "SEM-BAT-MSG-082"
+      }
+    },
+    "numberOfChargingCycles": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "message": {
+        "type": "SEM-BAT-MSG-083"
+      }
+    },
+    "numberOfDischargingCycles": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "message": {
+        "type": "SEM-BAT-MSG-084"
+      }
+    },
+    "negativeEvents": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/multiLanguage",
+      "message": {
+        "type": "SEM-BAT-MSG-085"
+      }
+    },
+    "environmentalConditionHistogramSet": {
+      "type": "object",
+      "properties": {
+        "environmentalConditionHistogram": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "allOf": [
+              {"$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/histogram"},
+              {
+                "properties": {
+                  "observedCharacteristic": {
+                    "type": "string",
+                    "minLength": 1,
+                    "$comment": "Controlled vocabulary: https://repository.product-passport.ec.europa.eu/core/vocabs/observed-characteristic#.",
+                    "pattern": "^https://repository.product-passport.ec.europa.eu/core/vocabs/observed-characteristic#[a-zA-Z]+$"
+                  }
+                },
+                "required": ["observedCharacteristic"]
+              }
+            ],
+            "unevaluatedProperties": false
+          },
+          "message": {
+            "type": "SEM-BAT-MSG-087"
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["environmentalConditionHistogram"],
+      "message": {
+        "type": "SEM-BAT-MSG-086"
+      }
+    },
+    "stateOfChargeHistogram": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/histogram",
+        "unevaluatedProperties": false
+      },
+      "message": {
+        "type": "SEM-BAT-MSG-088"
+      }
+    }
+  },
+  "required": [
+    "batteryStatus"
+  ]
+}

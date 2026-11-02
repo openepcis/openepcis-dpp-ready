@@ -62,6 +62,7 @@
 import { readFileSync, readdirSync, statSync } from "fs";
 import { join, dirname, relative } from "path";
 import { fileURLToPath } from "url";
+import { Parser } from "n3";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = join(__dirname, "..");
@@ -133,6 +134,10 @@ const NS_TO_PREFIX: [string, string][] = [
   ["https://dpp-keystone.org/spec/v2/terms#", "dppk:"],
   ["https://vocabulary.uncefact.org/untp/", "untp:"],
   ["https://w3id.org/eudpp#", "eudpp:"],
+  // EU DPP Registry data elements (see EU_DPP_TERMS); the prefixes our ontologies declare.
+  ["https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#", "eudppcore:"],
+  ["https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#", "eudppcom:"],
+  ["https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#", "eudppbat:"],
 ];
 
 /** `<https://schema.org/category>` -> `schema:category`; anything else is returned as is. */
@@ -189,6 +194,37 @@ const EUDPP_TERMS: Set<string> = (() => {
   if (terms.size < 100) throw new Error(`${mirror}: only ${terms.size} eudpp terms parsed; the mirror looks truncated`);
   return terms;
 })();
+
+/**
+ * 14. EU DPP Registry targets must exist in the mirror. extensions/upstream/eu-dpp/ontology/eu-dpp.ttl
+ * holds the seventeen SKOS vocabularies of the Commission's semantic data artifacts, and the host
+ * their IRIs point at (repository.product-passport.ec.europa.eu) did not resolve when release
+ * 1.0.0 came out, so the mirror is the only place a pointer can be checked. Covers the data
+ * elements under the eudppcore:/eudppcom:/eudppbat: prefixes and any full IRI under the base,
+ * which is how code-list values (battery-chemistry#…, measurement-unit#…) are written.
+ */
+const EU_DPP_BASE = "https://repository.product-passport.ec.europa.eu/";
+const EU_DPP_TERMS: Set<string> = (() => {
+  const mirror = join(PROJECT_ROOT, "extensions/upstream/eu-dpp/ontology/eu-dpp.ttl");
+  const subjects = new Set<string>();
+  for (const q of new Parser().parse(readFileSync(mirror, "utf8"))) {
+    if (q.subject.termType === "NamedNode" && q.subject.value.startsWith(EU_DPP_BASE)) subjects.add(q.subject.value);
+  }
+  if (subjects.size < 250) throw new Error(`${mirror}: only ${subjects.size} EU DPP subjects parsed; the mirror looks truncated`);
+  return subjects;
+})();
+
+/** Full IRI of an EU DPP target written as CURIE (prefixes from NS_TO_PREFIX) or <IRI>; null otherwise. */
+function euDppIri(target: string): string | null {
+  if (target.startsWith("<")) {
+    const iri = target.slice(1, -1);
+    return iri.startsWith(EU_DPP_BASE) ? iri : null;
+  }
+  for (const [ns, px] of NS_TO_PREFIX) {
+    if (ns.startsWith(EU_DPP_BASE) && target.startsWith(px)) return ns + target.slice(px.length);
+  }
+  return null;
+}
 
 /** Every CURIE or IRI target of a predicate, across a comma-separated object list. */
 function targetsOf(block: string, predicate: RegExp): string[] {
@@ -345,6 +381,19 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
           violations.push({
             file: rel, subject: subj, rule: "dead-eudpp-target", target,
             detail: `${pred} ${target} — no such term in the CIRPASS-2 EUDPP mirror (extensions/upstream/cirpass2-eudpp); the term was renamed or removed upstream, re-point it or drop the pointer`,
+          });
+        }
+      }
+    }
+
+    // 14. dead EU DPP Registry pointer (see EU_DPP_TERMS)
+    for (const [pred, re] of [["rdfs:seeAlso", SEEALSO_RE], ["skos:*Match", MATCH_RE]] as const) {
+      for (const target of targetsOf(block, re)) {
+        const iri = euDppIri(target);
+        if (iri && !EU_DPP_TERMS.has(iri)) {
+          violations.push({
+            file: rel, subject: subj, rule: "dead-eu-dpp-target", target,
+            detail: `${pred} ${target} — no such concept in the EU DPP Registry mirror (extensions/upstream/eu-dpp); re-point it or drop the pointer`,
           });
         }
       }

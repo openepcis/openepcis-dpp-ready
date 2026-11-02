@@ -1,0 +1,758 @@
+{
+  "@context": {
+    "@import": "../../../../core/1.0.0/contexts/core-context.jsonld",
+    "@protected": true,
+    "dpp": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#",
+    "bat": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#",
+    "dppcom": "https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#",
+    "dct": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "@base": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#",
+    "registrantIdentity":{
+        "@id": "bat:registrantIdentity",
+        "@type": "xsd:string"
+    },
+    "manufacturerIdentification": {
+      "@id": "bat:manufacturerIdentification",
+      "@context": {
+        "manufacturerName": {
+          "@id": "bat:manufacturerName",
+          "@type": "xsd:string"
+        },
+        "manufacturerTradeName": {
+          "@id": "bat:manufacturerTradeName",
+          "@type": "xsd:string"
+        },
+        "manufacturerTrademark": {
+          "@id": "bat:manufacturerTrademark",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "manufacturerPostalAddress": {
+      "@id": "bat:manufacturerPostalAddress",
+      "@type": "xsd:string"
+    },
+    "manufacturerContactDetails": {
+      "@id": "bat:manufacturerContactDetails",
+      "@context": {
+        "manufacturerWebsite": {
+          "@id": "bat:manufacturerWebsite",
+          "@type": "xsd:anyURI"
+        },
+        "manufacturerEmail": {
+          "@id": "bat:manufacturerEmail",
+          "@type": "xsd:anyURI"
+        }
+      }
+    },
+    "batteryCategory": {
+      "@id": "bat:batteryCategory",
+      "@context": {
+        "@vocab": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-category#"
+      },
+      "@type": "@vocab"
+    },
+    "batteryIdentification": {
+      "@id": "bat:batteryIdentification",
+      "@context": {
+        "modelIdentifier": {
+          "@id": "bat:modelIdentifier",
+          "@type": "xsd:string"
+        },
+        "batchNumber": {
+          "@id": "bat:batchNumber",
+          "@type": "xsd:string"
+        },
+        "serialNumber": {
+          "@id": "bat:serialNumber",
+          "@type": "xsd:string"
+        },
+        "productNumber": {
+          "@id": "bat:productNumber",
+          "@type": "xsd:string"
+        },
+        "otherIdentificationElement": {
+          "@id": "bat:otherIdentificationElement",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "manufacturingPlace": {
+      "@id": "bat:manufacturingPlace",
+      "@context": {
+        "manufacturingCity": {
+          "@id": "bat:manufacturingCity",
+          "@type": "xsd:string"
+        },
+        "manufacturingRegion": {
+          "@id": "bat:manufacturingRegion",
+          "@type": "xsd:string"
+        },
+        "manufacturingCountry": {
+          "@id": "bat:manufacturingCountry",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "manufacturingDate": {
+      "@id": "bat:manufacturingDate",
+      "@type": "xsd:gYearMonth"
+    },
+    "batteryWeight": {
+      "@id": "bat:batteryWeight",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "batteryCapacity": {
+      "@id": "bat:batteryCapacity",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "batteryChemistry": {
+      "@id": "bat:batteryChemistry",
+      "@context": {
+        "@vocab": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-chemistry#"
+      },
+      "@type": "@vocab"
+    },
+    "hazardousSubstances": {
+      "@id": "bat:hazardousSubstances",
+      "@type": "xsd:string"
+    },
+    "extinguishingAgent": {
+      "@id": "bat:extinguishingAgent",
+      "@container": "@language"
+    },
+    "criticalRawMaterials": {
+      "@id": "bat:criticalRawMaterials",
+      "@context": {
+        "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/critical-raw-material#"
+      },
+      "@type": "@vocab"
+    },
+    "renewableContentShare": {
+      "@id": "bat:renewableContentShare",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "minimalVoltage": {
+      "@id": "bat:minimalVoltage",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        },
+        "valueRange": {
+          "@id": "dppcom:valueRange",
+          "@context": {
+            "observedCharacteristic": {
+              "@id": "dppcom:observedCharacteristic",
+              "@context": {
+                "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/observed-characteristic#"
+              },
+              "@type": "@vocab"
+            },
+            "lowerBound": {
+              "@id": "dppcom:lowerBound",
+              "@type": "xsd:double"
+            },
+            "upperBound": {
+              "@id": "dppcom:upperBound",
+              "@type": "xsd:double"
+            },
+            "unit": {
+              "@id": "dppcom:unit",
+              "@context": {
+                "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+              },
+              "@type": "@vocab"
+            }
+          }
+        }
+      }
+    },
+    "nominalVoltage": {
+      "@id": "bat:nominalVoltage",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        },
+        "valueRange": {
+          "@id": "dppcom:valueRange",
+          "@context": {
+            "observedCharacteristic": {
+              "@id": "dppcom:observedCharacteristic",
+              "@context": {
+                "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/observed-characteristic#"
+              },
+              "@type": "@vocab"
+            },
+            "lowerBound": {
+              "@id": "dppcom:lowerBound",
+              "@type": "xsd:double"
+            },
+            "upperBound": {
+              "@id": "dppcom:upperBound",
+              "@type": "xsd:double"
+            },
+            "unit": {
+              "@id": "dppcom:unit",
+              "@context": {
+                "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+              },
+              "@type": "@vocab"
+            }
+          }
+        }
+      }
+    },
+    "maximumVoltage": {
+      "@id": "bat:maximumVoltage",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        },
+        "valueRange": {
+          "@id": "dppcom:valueRange",
+          "@context": {
+            "observedCharacteristic": {
+              "@id": "dppcom:observedCharacteristic",
+              "@context": {
+                "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/observed-characteristic#"
+              },
+              "@type": "@vocab"
+            },
+            "lowerBound": {
+              "@id": "dppcom:lowerBound",
+              "@type": "xsd:double"
+            },
+            "upperBound": {
+              "@id": "dppcom:upperBound",
+              "@type": "xsd:double"
+            },
+            "unit": {
+              "@id": "dppcom:unit",
+              "@context": {
+                "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+              },
+              "@type": "@vocab"
+            }
+          }
+        }
+      }
+    },
+    "originalPowerCapability": {
+      "@id": "bat:originalPowerCapability",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "powerLimit": {
+      "@id": "bat:powerLimit",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        },
+        "valueRange": {
+          "@id": "dppcom:valueRange",
+          "@context": {
+            "observedCharacteristic": {
+              "@id": "dppcom:observedCharacteristic",
+              "@context": {
+                "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/observed-characteristic#"
+              },
+              "@type": "@vocab"
+            },
+            "lowerBound": {
+              "@id": "dppcom:lowerBound",
+              "@type": "xsd:double"
+            },
+            "upperBound": {
+              "@id": "dppcom:upperBound",
+              "@type": "xsd:double"
+            },
+            "unit": {
+              "@id": "dppcom:unit",
+              "@context": {
+                "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+              },
+              "@type": "@vocab"
+            }
+          }
+        }
+      }
+    },
+    "notInUseTemperatureRange": {
+      "@id": "bat:notInUseTemperatureRange",
+      "@context": {
+        "notInUseTemperatureRangeTest": {
+          "@id": "bat:notInUseTemperatureRangeTest",
+          "@container": "@language"
+        },
+        "valueRange": {
+          "@id": "dppcom:valueRange",
+          "@context": {
+            "observedCharacteristic": {
+              "@id": "dppcom:observedCharacteristic",
+              "@context": {
+                "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/observed-characteristic#"
+              },
+              "@type": "@vocab"
+            },
+            "lowerBound": {
+              "@id": "dppcom:lowerBound",
+              "@type": "xsd:double"
+            },
+            "upperBound": {
+              "@id": "dppcom:upperBound",
+              "@type": "xsd:double"
+            },
+            "unit": {
+              "@id": "dppcom:unit",
+              "@context": {
+                "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+              },
+              "@type": "@vocab"
+            }
+          }
+        }
+      }
+    },
+    "commercialWarrantyPeriod": {
+      "@id": "bat:commercialWarrantyPeriod",
+      "@type": "xsd:integer"
+    },
+    "internalCellResistance": {
+      "@id": "bat:internalCellResistance",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "internalPackResistance": {
+      "@id": "bat:internalPackResistance",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "cycleLifeDischargeCRate": {
+      "@id": "bat:cycleLifeDischargeCRate",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "separateCollectionSymbol": {
+      "@id": "bat:separateCollectionSymbol",
+      "@type": "xsd:boolean"
+    },
+    "chemicalSymbol": {
+      "@id": "bat:chemicalSymbol",
+      "@context": {
+        "@vocab": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-chemical-symbol#"
+      },
+      "@type": "@vocab"
+    },
+    "euDeclarationOfConformity": {
+      "@id": "bat:euDeclarationOfConformity",
+      "@context": {
+        "resourceTitle": {
+          "@id": "dpp:resourceTitle",
+          "@type": "xsd:string"
+        },
+        "contentType": {
+          "@id": "dpp:contentType",
+          "@type": "xsd:string"
+        },
+        "url": {
+          "@id": "dpp:url",
+          "@type": "xsd:anyURI"
+        },
+        "language": {
+          "@id": "dpp:language",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "wasteBatteryPreventionManagementInfo": {
+      "@id": "bat:wasteBatteryPreventionManagementInfo",
+      "@context": {
+        "endUserRoleInWastePrevention": {
+          "@id": "bat:endUserRoleInWastePrevention",
+          "@container": "@language"
+        },
+        "endUserRoleInSeparateCollection": {
+          "@id": "bat:endUserRoleInSeparateCollection",
+          "@container": "@language"
+        },
+        "separateCollectionPoints": {
+          "@id": "bat:separateCollectionPoints",
+          "@container": "@language"
+        },
+        "takeBackCollectionPoints": {
+          "@id": "bat:takeBackCollectionPoints",
+          "@container": "@language"
+        },
+        "preparationForReuseFacilities": {
+          "@id": "bat:preparationForReuseFacilities",
+          "@container": "@language"
+        },
+        "preparationForRepurposingFacilities": {
+          "@id": "bat:preparationForRepurposingFacilities",
+          "@container": "@language"
+        },
+        "wasteBatteryTreatmentFacilities": {
+          "@id": "bat:wasteBatteryTreatmentFacilities",
+          "@container": "@language"
+        },
+        "wasteBatterySafetyInstructions": {
+          "@id": "bat:wasteBatterySafetyInstructions",
+          "@container": "@language"
+        },
+        "batteryLabelSymbolMeaning": {
+          "@id": "bat:batteryLabelSymbolMeaning",
+          "@container": "@language"
+        },
+        "batterySubstancesImpact": {
+          "@id": "bat:batterySubstancesImpact",
+          "@container": "@language"
+        }
+      }
+    },
+    "detailedComposition": {
+      "@id": "bat:detailedComposition",
+      "@container": "@language"
+    },
+    "sparePartReplacementDetails": {
+      "@id": "bat:sparePartReplacementDetails",
+      "@context": {
+        "resourceTitle": {
+          "@id": "dpp:resourceTitle",
+          "@type": "xsd:string"
+        },
+        "contentType": {
+          "@id": "dpp:contentType",
+          "@type": "xsd:string"
+        },
+        "url": {
+          "@id": "dpp:url",
+          "@type": "xsd:anyURI"
+        },
+        "language": {
+          "@id": "dpp:language",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "dismantlingInformation": {
+      "@id": "bat:dismantlingInformation",
+      "@context": {
+        "resourceTitle": {
+          "@id": "dpp:resourceTitle",
+          "@type": "xsd:string"
+        },
+        "contentType": {
+          "@id": "dpp:contentType",
+          "@type": "xsd:string"
+        },
+        "url": {
+          "@id": "dpp:url",
+          "@type": "xsd:anyURI"
+        },
+        "language": {
+          "@id": "dpp:language",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "safetyMeasures": {
+      "@id": "bat:safetyMeasures",
+      "@context": {
+        "resourceTitle": {
+          "@id": "dpp:resourceTitle",
+          "@type": "xsd:string"
+        },
+        "contentType": {
+          "@id": "dpp:contentType",
+          "@type": "xsd:string"
+        },
+        "url": {
+          "@id": "dpp:url",
+          "@type": "xsd:anyURI"
+        },
+        "language": {
+          "@id": "dpp:language",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "complianceTestReportResults": {
+      "@id": "bat:complianceTestReportResults",
+      "@context": {
+        "resourceTitle": {
+          "@id": "dpp:resourceTitle",
+          "@type": "xsd:string"
+        },
+        "contentType": {
+          "@id": "dpp:contentType",
+          "@type": "xsd:string"
+        },
+        "url": {
+          "@id": "dpp:url",
+          "@type": "xsd:anyURI"
+        },
+        "language": {
+          "@id": "dpp:language",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "roundTripEnergyEfficiency": {
+      "@id": "bat:roundTripEnergyEfficiency",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "roundTripEnergyEfficiencyFade": {
+      "@id": "bat:roundTripEnergyEfficiencyFade",
+      "@context": {
+        "unit": {
+          "@id": "dppcom:unit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "value": {
+          "@id": "dppcom:value",
+          "@type": "xsd:double"
+        }
+      }
+    },
+    "batteryStatus": {
+      "@id": "bat:batteryStatus",
+      "@context": {
+        "@vocab": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status#"
+      },
+      "@type": "@vocab"
+    },
+    "numberOfChargingCycles": {
+      "@id": "bat:numberOfChargingCycles",
+      "@type": "xsd:nonNegativeInteger"
+    },
+    "numberOfDischargingCycles": {
+      "@id": "bat:numberOfDischargingCycles",
+      "@type": "xsd:nonNegativeInteger"
+    },
+    "negativeEvents": {
+      "@id": "bat:negativeEvents",
+      "@container": "@language"
+    },
+    "environmentalConditionHistogramSet": {
+      "@id": "bat:environmentalConditionHistogramSet",
+      "@context": {
+        "environmentalConditionHistogram": {
+          "@id": "bat:environmentalConditionHistogram",
+          "@context": {
+            "observedCharacteristic": {
+              "@id": "dppcom:observedCharacteristic",
+              "@context": {
+                "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/observed-characteristic#"
+              },
+              "@type": "@vocab"
+            },
+            "binRangeUnit": {
+              "@id": "dppcom:binRangeUnit",
+              "@context": {
+                "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+              },
+              "@type": "@vocab"
+            },
+            "binValueUnit": {
+              "@id": "dppcom:binValueUnit",
+              "@context": {
+                "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+              },
+              "@type": "@vocab"
+            },
+            "bin": {
+              "@id": "dppcom:bin",
+              "@context": {
+                "lowerBound": {
+                  "@id": "dppcom:lowerBound",
+                  "@type": "xsd:double"
+                },
+                "upperBound": {
+                  "@id": "dppcom:upperBound",
+                  "@type": "xsd:double"
+                },
+                "binValue": {
+                  "@id": "dppcom:binValue",
+                  "@type": "xsd:double"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "stateOfChargeHistogram": {
+      "@id": "bat:stateOfChargeHistogram",
+      "@context": {
+        "observedCharacteristic": {
+          "@id": "dppcom:observedCharacteristic",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/observed-characteristic#"
+          },
+          "@type": "@vocab"
+        },
+        "binRangeUnit": {
+          "@id": "dppcom:binRangeUnit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "binValueUnit": {
+          "@id": "dppcom:binValueUnit",
+          "@context": {
+            "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#"
+          },
+          "@type": "@vocab"
+        },
+        "bin": {
+          "@id": "dppcom:bin",
+          "@context": {
+            "lowerBound": {
+              "@id": "dppcom:lowerBound",
+              "@type": "xsd:double"
+            },
+            "upperBound": {
+              "@id": "dppcom:upperBound",
+              "@type": "xsd:double"
+            },
+            "binValue": {
+              "@id": "dppcom:binValue",
+              "@type": "xsd:double"
+            }
+          }
+        }
+      }
+    }
+  },
+  "@type": "dpp:DigitalProductPassport"
+}

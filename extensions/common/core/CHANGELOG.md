@@ -4,6 +4,15 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+### Removed: `oec:lastDataUpdate`
+
+Duplicate of `oec:lastUpdated` (EN 18223 `lastUpdated`, EU DPP Registry `core-vocabulary#lastUpdate`
+exactMatch), removed without a deprecation phase together with the battery copy
+`eubat:lastDataUpdate`. Its mappings (`dppk:lastUpdate`, the BatteryPass-Ready v1.3 attribute #4)
+move to `oec:lastUpdated`; the detergent, EUDR and textile examples use `oec:lastUpdated`.
+`oec:passportIdentifier` now points `skos:narrowMatch` at the BatteryPass passport identifier
+(it was a broadMatch, the wrong direction for a cross-sector identifier).
+
 ### Breaking: performance, repairability and recyclability values move to `common/assessment`
 
 - `dpp-core` imports the new `common/assessment` module (`oea:`); its context imports the assessment

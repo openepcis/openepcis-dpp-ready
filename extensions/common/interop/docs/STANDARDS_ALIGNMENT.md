@@ -387,7 +387,7 @@ The following external resources frame OpenEPCIS's work and should be consulted 
 - **Detergents Regulation** — Regulation (EU) 2026/405
 
 ### EU infrastructure
-- **EU DPP Registry** — goes live July 2026 under ESPR; stores unique product, operator, and facility identifiers
+- **EU DPP Registry** — ESPR Article 13 registry of unique product, operator and facility identifiers. On 2026-10-30 the Commission published the Registry API guides and the **DPP Registry – Semantic Data Artifacts 1.0.0** (SKOS vocabularies, SHACL shapes per access view, JSON Schemas, JSON-LD contexts for the core passport and for batteries with the EV, LMT and industrial subgroups). The Registry fetches a passport from its UPI and validates it against these artifacts. Mirrored as `extensions/upstream/eu-dpp` (vocabularies) and `vendor/eu-dpp/1.0.0` (complete release); our battery and core terms anchor to the 110 data elements with graded SKOS relations, our code lists to the EU value lists with `skos:exactMatch`.
 - **EU Customs Single Window (CSV-CERTEX)** — ESPR customs interconnect; products cannot clear customs without a registered DPP once a product-specific Delegated Act enters into force
 
 ### Methodology

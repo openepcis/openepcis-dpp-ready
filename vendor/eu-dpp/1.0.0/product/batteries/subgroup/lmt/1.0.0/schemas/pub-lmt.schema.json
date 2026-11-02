@@ -1,0 +1,49 @@
+{
+  "$id": "https://repository.product-passport.ec.europa.eu/product/batteries/1.0.0/subgroup/lmt/schemas/pub-lmt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Light Means of Transport Batteries (LMT) Product subgroup - Public view",
+  "description": "JSON Schema for the public properties of the Light Means of Transport Batteries (LMT) Subgroup representation.",
+  "allOf": [
+    { "$ref": "https://repository.product-passport.ec.europa.eu/product/batteries/1.0.0/schemas/pub-batteries.schema.json" }
+  ],
+  "properties": {
+    "expectedLifetimeCycles": {
+      "type": "integer",
+      "minimum": 1,
+      "message": {
+        "type": "SEM-BAT-MSG-031"
+      }
+    },
+    "cycleLifeReferenceTest": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/multiLanguage",
+      "message": {
+        "type": "SEM-BAT-MSG-032"
+      }
+    },
+    "initialRoundTripEnergyEfficiency": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-037"
+      }
+    },
+    "roundTripEfficiencyAtHalfCycleLife": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-038"
+      }
+    },
+    "cycleLifeChargeCRate": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-041"
+      }
+    }
+  },
+  "required": [
+    "expectedLifetimeCycles",
+    "cycleLifeReferenceTest",
+    "initialRoundTripEnergyEfficiency",
+    "roundTripEfficiencyAtHalfCycleLife",
+    "cycleLifeChargeCRate"
+  ]
+}

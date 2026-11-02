@@ -67,6 +67,11 @@ public class AuditCommand implements Runnable {
     @CommandLine.Option(names = "--module", description = "Limit to one module slug (e.g. core, battery).")
     String module;
 
+    @CommandLine.Option(names = "--vocab",
+            description = "Grade only candidates from one upstream vocabulary id (e.g. eu-dpp), for a round "
+                    + "against a newly mirrored source without re-grading every other vocabulary.")
+    String vocab;
+
     @CommandLine.Option(names = "--limit", defaultValue = "0",
             description = "Audit at most N of our terms (0 = all). Useful for a quick dry-run.")
     int limit;
@@ -139,6 +144,7 @@ public class AuditCommand implements Runnable {
         List<OurTerm> ours = ourIndex.load(module);
         if (limit > 0 && ours.size() > limit) ours = ours.subList(0, limit);
         String scope = (module != null ? "module=" + module : "all modules")
+                + (vocab != null ? ", vocab=" + vocab : "")
                 + (limit > 0 ? " (limit " + limit + ")" : "") + ", " + ours.size() + " terms";
         System.err.println("audit: " + scope);
 
@@ -169,6 +175,7 @@ public class AuditCommand implements Runnable {
             Map<String, Pair> perTerm = new LinkedHashMap<>();
             int graded = 0;
             for (Candidate c : retriever.candidatesFor(t, kPerVocab)) {
+                if (vocab != null && !vocab.equals(c.term().vocabId())) continue;
                 boolean keep = c.exactLocalName() || c.score() >= minCosine;
                 if (!keep) continue;
                 if (!c.exactLocalName() && graded >= maxCandidates) continue;
@@ -178,6 +185,7 @@ public class AuditCommand implements Runnable {
             // Always (re-)grade existing mapping targets that exist upstream, to catch WRONG.
             for (ExistingMapping m : t.existing()) {
                 UpstreamTerm up = upstreamIndex.get(m.targetIri());
+                if (vocab != null && (up == null || !vocab.equals(up.vocabId()))) continue;
                 if (up != null && up.type() == t.type()) {
                     perTerm.put(up.iri(), new Pair(t, up, judge.scoreOf(t, up), true));
                 }

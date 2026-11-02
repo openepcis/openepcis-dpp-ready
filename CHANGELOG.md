@@ -9,6 +9,23 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### EU DPP Registry semantic data artifacts and the EC data-point guidance 3.2
+
+On 2026-10-30 the Commission published the DPP Registry semantic data artifacts 1.0.0 (core,
+batteries, subgroups EV / LMT / industrial). They are mirrored as `extensions/upstream/eu-dpp`
+(seventeen SKOS vocabularies) and `vendor/eu-dpp/1.0.0` (the release verbatim), synced by
+`pnpm sync:eu-dpp` from the pinned archive. vocab-sync indexes the 110 data elements as an
+upstream source; `check:mappings` rule 14 rejects a pointer the mirror does not hold.
+
+The Battery Passport data-point guidance moved to version 3.2 (19 October 2026): renumbered from
+data point 40, recycled content not yet required, two new battery terms. See
+`extensions/eu/battery/CHANGELOG.md`.
+
+Eight duplicates that the Registry data elements and EN 18223 now cover are removed without a
+deprecation phase (seven battery terms and `oec:lastDataUpdate`); the module changelogs list each
+with its replacement. `check:context-compat` lists removed terms instead of failing on them, and
+an allowlisted term is now also accepted where it occurs inside a scoped context.
+
 ### Breaking: measured and assessed values move to the new `common/assessment` module
 
 A new module below the core, `common/assessment` (`oea:`), models what was measured, tested or

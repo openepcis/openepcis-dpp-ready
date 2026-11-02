@@ -47,7 +47,7 @@ into seven SAMM aspect groups. Root keys: `EV`, `LMT`, `OtherIndustrial2kWh`,
 `Initial/Remaining RoundTripEnergyEfficiency`→`eubat:roundTripEfficiency`/`remainingRoundTripEfficiency`;
 `Initial Self-discharge`/`EvolutionOfSelf-dischargeRates`→`eubat:hasSelfDischargeRate`/`evolutionOfSelfDischarge`;
 `InitialInternalResistance…`/`InternalResistanceIncrease…`→`eubat:hasInternalResistance`/`internalResistanceIncrease`;
-`ExpectedLifetimeInCalendarYears`/`ExpectedLifetime-NumberOfChargeOrDischargeCycles`/`NumberOfFullChargingAndDischargingCycles`→`eubat:expectedLifetimeYears`/`expectedNumberOfCycles`/`numberOfFullCycles`;
+`ExpectedLifetimeInCalendarYears`/`ExpectedLifetime-NumberOfChargeOrDischargeCycles`/`NumberOfFullChargingAndDischargingCycles`→`eubat:expectedLifetimeYears`/`expectedCycleLife`/`hasCycleCount`;
 `EnergyThroughput`/`CapacityThroughput`→`eubat:hasEnergyThroughput`/`capacityThroughput`;
 `TemperatureInformation`/`TemperatureRangeIdleState{Lower,Upper}Boundary`→`eubat:` temperature range;
 **`TimeSpentInExtremeTemperatures{Above,Below}Boundary`, `TimeSpentChargingDuringExtremeTemperatures{Above,Below}Boundary`→`eubat:timeSpent…`** (new);

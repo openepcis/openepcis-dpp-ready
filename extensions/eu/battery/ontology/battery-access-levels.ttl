@@ -34,7 +34,7 @@
 # isCriticalRawMaterial/dismantlingInstructions/dataQualityAssessment/
 # dataProviderCertification/operatorInformation/operatorRole = AuthorizedOnly,
 # and hazardClass/hazardousSubstances/recycledContent/recyclabilityRate/
-# complianceStatus/carbonFootprint*/languageCode/lastDataUpdate/
+# complianceStatus/carbonFootprint*/languageCode/
 # verificationBody/thirdPartyAssurancesUrl = Public, matching dpp-core;
 # notifiedBody = AuthorizedOnly matching eucpr; euDeclarationOfConformity and
 # expectedLifetimeYears = Public matching eutex.
@@ -71,11 +71,6 @@
 # Public: battery identification & general information
 # (Annex XIII(1)(a) via Annex VI Part A; Art. 77(2))
 # =============================================================================
-
-eubat:batteryPassportIdentifier oec:defaultAccessLevel oec:Public ;
-    oec:accessLevelRationale "Art. 77(3): the unique passport identifier is the public entry point resolved from the QR code and cannot itself be gated." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
 eubat:batteryModelIdentifier oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Annex XIII(1)(a) via Annex VI Part A: battery model/type identification is public labelling information." ;
@@ -120,10 +115,6 @@ eubat:numberOfModules oec:defaultAccessLevel oec:Public ;
 
 eubat:languageCode oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Language codes are rendering metadata with no confidentiality content; dpp-core serves the same name Public." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-
-eubat:lastDataUpdate oec:defaultAccessLevel oec:Public ;
-    oec:accessLevelRationale "Art. 77(7) requires the passport to stay up to date, so the update timestamp is interpretation metadata every audience needs; dpp-core serves the same name Public." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
 eubat:hasComplianceStatus oec:defaultAccessLevel oec:Public ;
@@ -197,12 +188,13 @@ eubat:capacityThresholdForExhaustion oec:defaultAccessLevel oec:Public ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
-eubat:exhaustionThreshold oec:defaultAccessLevel oec:Public ;
-    oec:accessLevelRationale "Duplicate expression of the public exhaustion threshold (Annex XIII(1)(k)); tier kept identical to eubat:capacityThresholdForExhaustion." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:hasInitialCellInternalResistance oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(o): the internal cell resistance as a declared parameter is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
-eubat:hasInitialInternalResistance oec:defaultAccessLevel oec:Public ;
-    oec:accessLevelRationale "Annex XIII(1)(o): internal cell/pack resistance as a declared parameter is public battery-passport data." ;
+eubat:hasInitialPackInternalResistance oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(o): the internal pack resistance as a declared parameter is public battery-passport data." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
@@ -234,11 +226,6 @@ eubat:expectedCycleLife oec:defaultAccessLevel oec:Public ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
-eubat:expectedNumberOfCycles oec:defaultAccessLevel oec:Public ;
-    oec:accessLevelRationale "Annex XIII(1)(j): the manufacturer-declared expected number of full cycles is public battery-passport data." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-
 eubat:hasExpectedLifetimeCapacityThroughput oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Annex IV Part A/Annex XIII(1)(j): the declared lifetime capacity throughput is a public durability rating." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
@@ -248,10 +235,6 @@ eubat:hasExpectedLifetimeEnergyThroughput oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Annex IV Part A/Annex XIII(1)(j): the declared lifetime energy throughput is a public durability rating." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-
-eubat:capacityFadeThreshold oec:defaultAccessLevel oec:Public ;
-    oec:accessLevelRationale "The capacity-fade level that defines rated cycle life is part of the public declared durability ratings (Annex IV Part A), not battery-individual state." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
 eubat:resistanceIncreaseThreshold oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The resistance-increase level that defines rated cycle life is part of the public declared durability ratings (Annex IV Part A), not battery-individual state." ;
@@ -263,6 +246,10 @@ eubat:cRate oec:defaultAccessLevel oec:Public ;
 
 eubat:cRateLifeCycleTest oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Annex XIII(1)(p): the C-rate applied in the cycle-life test is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:dischargeCRateLifeCycleTest oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(p): the discharge C-rate of the cycle-life test is public battery-passport data." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
 eubat:depthOfDischargeInCycleLifeTest oec:defaultAccessLevel oec:Public ;
@@ -865,7 +852,7 @@ eubat:hasPowerFade oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
 eubat:hasInternalResistance oec:defaultAccessLevel oec:AuthorizedOnly ;
-    oec:accessLevelRationale "The current measured internal resistance is Annex VII health state — only the initial declared value (eubat:hasInitialInternalResistance) is public under Annex XIII(1)(o)." ;
+    oec:accessLevelRationale "The current measured internal resistance is Annex VII health state — only the initial declared cell and pack values (eubat:hasInitialCellInternalResistance, eubat:hasInitialPackInternalResistance) are public under Annex XIII(1)(o)." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
     oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
@@ -896,12 +883,6 @@ eubat:hasEvolutionOfSelfDischarge oec:defaultAccessLevel oec:AuthorizedOnly ;
 
 eubat:hasCycleCount oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part B: the number of charge-discharge cycles is battery-individual usage data for the Art. 14 legitimate-interest audience." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
-
-eubat:numberOfFullCycles oec:defaultAccessLevel oec:AuthorizedOnly ;
-    oec:accessLevelRationale "Annex VII Part B: full equivalent cycles are battery-individual usage data for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
     oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .

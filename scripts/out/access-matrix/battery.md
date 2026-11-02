@@ -2,7 +2,7 @@
 
 Regulatory frame: Battery Regulation (EU) 2023/1542, Annex XIII + Art. 14
 
-Coverage: 227 properties — 115 Public / 82 AuthorizedOnly / 5 Restricted / 25 inherited / 0 UNCLASSIFIED; 94 legally locked.
+Coverage: 223 properties — 112 Public / 81 AuthorizedOnly / 5 Restricted / 25 inherited / 0 UNCLASSIFIED; 92 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
@@ -11,10 +11,8 @@ Coverage: 227 properties — 115 Public / 82 AuthorizedOnly / 5 Restricted / 25 
 | `auditBody` | Audit Body | **Public** |  | eli/reg/2023/1542 | Art. 51 third-party verification is what makes the Art. 52(3) public report credible, so naming the auditor is public like eubat:hasVerificationBody. |
 | `authorizedServiceCenters` | Authorized Service Centers | **AuthorizedOnly** |  | eli/reg/2023/1542 | Service-center listings extend the Annex XIII(2)(b) spare-part/repair sourcing information addressed to professional repairers. |
 | `batteryModelIdentifier` | Battery Model Identifier | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(a) via Annex VI Part A: battery model/type identification is public labelling information. |
-| `batteryPassportIdentifier` | Battery Passport Identifier | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 77(3): the unique passport identifier is the public entry point resolved from the QR code and cannot itself be gated. |
 | `cadmiumSymbolRequired` | Cadmium Symbol Required | **Public** |  | eli/reg/2023/1542 | The Cd mark above 0.002 % cadmium is mandatory public labelling (Art. 13(6)/Annex VI Part B), so the flag restates on-battery information. |
 | `calculationStandard` | Calculation Standard | **Public** |  | eli/reg/2023/1542 | The calculation standard is methodology metadata of the public CF declaration required to interpret the public figure (Art. 7/Annex II). |
-| `capacityFadeThreshold` | Capacity Fade Threshold | **Public** |  | eli/reg/2023/1542 | The capacity-fade level that defines rated cycle life is part of the public declared durability ratings (Annex IV Part A), not battery-individual state. |
 | `capacityThresholdForExhaustion` | Capacity Threshold for Exhaustion | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(k): the capacity threshold for exhaustion is public battery-passport data. |
 | `carbonFootprintDeclarationId` | Carbon Footprint Declaration ID | **(inherited)** |  |  |  |
 | `carbonFootprintGeographicScope` | Carbon Footprint Geographic Scope | **Public** |  | eli/reg/2023/1542 | The geographic scope is methodology metadata of the public CF declaration and must be visible for the public figure to be interpretable (Art. 7/Annex II). |
@@ -35,6 +33,7 @@ Coverage: 227 properties — 115 Public / 82 AuthorizedOnly / 5 Restricted / 25 
 | `dataQualityAssessment` | Data Quality Assessment | **AuthorizedOnly** |  | eli/reg/2023/1542 | A-E data-quality ratings qualify professional use of the passport data; dpp-core serves the same name AuthorizedOnly. |
 | `declarationOfConformity` | Declaration of Conformity URL | **(inherited)** |  |  |  |
 | `depthOfDischargeInCycleLifeTest` | Depth of Discharge in Cycle Life Test | **Public** |  | eli/reg/2023/1542 | The depth of discharge used in the cycle-life test is a public reference test condition that makes the public lifetime ratings interpretable (Annex XIII(1)(j)). |
+| `dischargeCRateLifeCycleTest` | Discharge C-Rate Life Cycle Test | **Public** |  | eli/reg/2023/1542 | Annex XIII(1)(p): the discharge C-rate of the cycle-life test is public battery-passport data. |
 | `documentUrl` | Document URL | **(inherited)** |  |  |  |
 | `dueDiligencePolicyUrl` | Due Diligence Policy URL | **Public** |  | eli/reg/2023/1542 | Art. 48(2) requires the due-diligence policy to be communicated, and the Art. 52(3) public report covers it, so the policy link is public. |
 | `dueDiligenceReportUrl` | Due Diligence Report URL | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 52(3): operators must publicly report on their battery due-diligence policy, so the report link is public data. |
@@ -45,10 +44,8 @@ Coverage: 227 properties — 115 Public / 82 AuthorizedOnly / 5 Restricted / 25 
 | `euDeclarationOfConformityId` | EU Declaration of Conformity ID | **(inherited)** |  |  |  |
 | `eventDate` | Event Date | **AuthorizedOnly** |  | eli/reg/2023/1542 | When a negative event occurred is Annex VII Part B accident history evaluated by the Art. 14 legitimate-interest audience. |
 | `exceedanceThreshold` | Exceedance Threshold | **(inherited)** |  |  |  |
-| `exhaustionThreshold` | Exhaustion Threshold | **Public** |  | eli/reg/2023/1542 | Duplicate expression of the public exhaustion threshold (Annex XIII(1)(k)); tier kept identical to eubat:capacityThresholdForExhaustion. |
 | `expectedCycleLife` | Expected Cycle Life | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(j): expected lifetime expressed in cycles under reference test conditions is public battery-passport data. |
 | `expectedLifetimeYears` | Expected Lifetime (Years) | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(j): expected calendar lifetime is a public declared durability value; eutex serves the same name Public. |
-| `expectedNumberOfCycles` | Expected Number of Cycles | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(j): the manufacturer-declared expected number of full cycles is public battery-passport data. |
 | `expectedRemainingCycles` | Expected Remaining Cycles | **AuthorizedOnly** |  | eli/reg/2023/1542 | Estimated remaining cycles derive from the AuthorizedOnly SoH state and serve the Art. 14 expected-lifetime evaluation, unlike the public declared cycle-life rating. |
 | `expectedRemainingLifetimeMonths` | Expected Remaining Lifetime (Months) | **AuthorizedOnly** |  | eli/reg/2023/1542 | Estimated remaining lifetime derives from the AuthorizedOnly SoH state and serves the Art. 14 expected-lifetime evaluation, unlike the public declared lifetime rating. |
 | `exposureDurationMinutes` | Exposure Duration (Minutes) | **AuthorizedOnly** |  | eli/reg/2023/1542 | Per-excursion exposure duration is the granular form of the Annex VII Part B extreme-temperature history served to the Art. 14 audience. |
@@ -94,9 +91,10 @@ Coverage: 227 properties — 115 Public / 82 AuthorizedOnly / 5 Restricted / 25 
 | `hasHazardousSubstances` | Hazardous Substances | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(a) via Annex VI Part A: hazardous substances contained in the battery beyond Hg/Cd/Pb must be disclosed publicly; dpp-core serves the same name Public. |
 | `hasIncidentSeverity` | Incident Severity | **AuthorizedOnly** |  | eli/reg/2023/1542 | Severity grading qualifies the Annex VII Part B accident record for repurposers and recyclers judging reusability. |
 | `hasInitialCapacity` | Initial Capacity | **AuthorizedOnly** |  | eli/reg/2023/1542 | The capacity measured at commissioning (ILMD) is the battery-individual SoH baseline used by the Art. 14/Annex VII audience — the declared rating stays public separately. |
+| `hasInitialCellInternalResistance` | Initial Internal Cell Resistance | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(o): the internal cell resistance as a declared parameter is public battery-passport data. |
 | `hasInitialEnergy` | Initial Energy | **AuthorizedOnly** |  | eli/reg/2023/1542 | The energy measured at commissioning (ILMD) is the battery-individual SoH baseline used by the Art. 14/Annex VII audience — the declared rating stays public separately. |
-| `hasInitialInternalResistance` | Initial Internal Resistance | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(o): internal cell/pack resistance as a declared parameter is public battery-passport data. |
-| `hasInternalResistance` | Internal Resistance | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | The current measured internal resistance is Annex VII health state — only the initial declared value (eubat:hasInitialInternalResistance) is public under Annex XIII(1)(o). |
+| `hasInitialPackInternalResistance` | Initial Internal Pack Resistance | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(o): the internal pack resistance as a declared parameter is public battery-passport data. |
+| `hasInternalResistance` | Internal Resistance | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | The current measured internal resistance is Annex VII health state — only the initial declared cell and pack values (eubat:hasInitialCellInternalResistance, eubat:hasInitialPackInternalResistance) are public under Annex XIII(1)(o). |
 | `hasInternalResistanceIncrease` | Internal Resistance Increase | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part A: measured resistance increase is battery-individual degradation state for the Art. 14 legitimate-interest audience. |
 | `hasLabels` | Labels | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(q): the labels and markings required by Art. 13(3)-(4) and their meaning are public battery-passport data. |
 | `hasLabelSubject` | Label Subject | **(inherited)** |  |  |  |
@@ -160,7 +158,6 @@ Coverage: 227 properties — 115 Public / 82 AuthorizedOnly / 5 Restricted / 25 
 | `labelMeaning` | Label Meaning | **(inherited)** |  |  |  |
 | `labelSymbol` | Label Symbol | **(inherited)** |  |  |  |
 | `languageCode` | Language Code | **Public** |  | eli/reg/2023/1542 | Language codes are rendering metadata with no confidentiality content; dpp-core serves the same name Public. |
-| `lastDataUpdate` | Last Data Update | **Public** |  | eli/reg/2023/1542 | Art. 77(7) requires the passport to stay up to date, so the update timestamp is interpretation metadata every audience needs; dpp-core serves the same name Public. |
 | `leadPostConsumerShare` | Lead Post-Consumer Recycled Share | **Public** |  | eli/reg/2023/1542 | Voluntary post-consumer breakdown of the public Art. 8 lead share per the recycled-content calculation methodology; stays in the public block with the other three metals. |
 | `leadPreConsumerShare` | Lead Pre-Consumer Recycled Share | **Public** |  | eli/reg/2023/1542 | Voluntary pre-consumer breakdown of the public Art. 8 lead share per the recycled-content calculation methodology; stays in the public block with the other three metals. |
 | `leadRecycledShare` | Lead Recycled Share | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 8(1): the share of lead recovered from waste is a publicly documented percentage (no pre/post split required for lead). |
@@ -183,7 +180,6 @@ Coverage: 227 properties — 115 Public / 82 AuthorizedOnly / 5 Restricted / 25 
 | `notifiedBodyNumber` | Notified Body Number | **(inherited)** |  |  |  |
 | `numberOfCells` | Number of Cells | **Public** |  | eli/reg/2023/1542 | Cell count is coarse pack-architecture catalogue data, not the detailed composition reserved by Annex XIII(2)(a) (DIN DKE SPEC 99100 extension). |
 | `numberOfDeepDischargeEvents` | Number of Deep Discharge Events | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(4) via Annex VII: the count of deep-discharge events is battery-individual negative-event data for the Art. 14 legitimate-interest audience, matching eubat:hasNegativeEvents. |
-| `numberOfFullCycles` | Number of Full Cycles | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part B: full equivalent cycles are battery-individual usage data for the Art. 14 legitimate-interest audience. |
 | `numberOfModules` | Number of Modules | **Public** |  | eli/reg/2023/1542 | Module count is coarse pack-architecture catalogue data, not the detailed composition reserved by Annex XIII(2)(a) (DIN DKE SPEC 99100 extension). |
 | `operatorIdentifier` | Economic Operator Identifier | **AuthorizedOnly** |  | eli/reg/2023/1542 | The economic-operator identifier (GLN/EOID) serves customs and market-surveillance cross-checks, matching oec:economicOperatorId (AuthorizedOnly). |
 | `powerCapabilityRatio` | Power Capability Ratio | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex IV Part A/Annex XIII(1)(i): the ratio between nominal allowed power (W) and battery energy (Wh) is a public declared parameter. |

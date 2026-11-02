@@ -2,8 +2,8 @@
 
 Checks battery passport JSON-LD against the 71 data points of the European
 Commission guidance **"Digital Batteries Passport — data points by category"**
-(v1.0, 28 July 2026, Ares(2026)7579758) — the official EU list, mirrored as the
-[`ec-battery-passport-guidance/1.0`](../../extensions/eu/battery/vocab/ec-battery-passport-guidance-1.0.ttl)
+(version 3.2, 19 October 2026, superseding version 1.0 of 28 July 2026) — the official EU list, mirrored as the
+[`ec-battery-passport-guidance/3.2`](../../extensions/eu/battery/vocab/ec-battery-passport-guidance-3.2.ttl)
 registry.
 
 For each data point the checker reports, per battery category (EV / LMT /

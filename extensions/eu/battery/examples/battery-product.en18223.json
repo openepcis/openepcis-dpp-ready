@@ -1709,13 +1709,6 @@
           "value": "0.33"
         },
         {
-          "elementId": "capacityFadeThreshold",
-          "dictionaryReference": "https://ref.openepcis.org/extensions/eu/battery/capacityFadeThreshold",
-          "objectType": "SingleValuedDataElement",
-          "valueDataType": "xsd:decimal",
-          "value": 20
-        },
-        {
           "elementId": "capacityThresholdForExhaustion",
           "dictionaryReference": "https://ref.openepcis.org/extensions/eu/battery/capacityThresholdForExhaustion",
           "objectType": "SingleValuedDataElement",
@@ -1728,6 +1721,13 @@
           "objectType": "SingleValuedDataElement",
           "valueDataType": "xsd:decimal",
           "value": 80
+        },
+        {
+          "elementId": "dischargeCRateLifeCycleTest",
+          "dictionaryReference": "https://ref.openepcis.org/extensions/eu/battery/dischargeCRateLifeCycleTest",
+          "objectType": "SingleValuedDataElement",
+          "valueDataType": "xsd:decimal",
+          "value": "0.5"
         },
         {
           "elementId": "expectedCycleLife",
@@ -1792,8 +1792,32 @@
           ]
         },
         {
-          "elementId": "hasInitialInternalResistance",
-          "dictionaryReference": "https://ref.openepcis.org/extensions/eu/battery/hasInitialInternalResistance",
+          "elementId": "hasInitialCellInternalResistance",
+          "dictionaryReference": "https://ref.openepcis.org/extensions/eu/battery/hasInitialCellInternalResistance",
+          "objectType": "DataElementCollection",
+          "nodeTypes": [
+            "https://ref.gs1.org/voc/QuantitativeValue"
+          ],
+          "elements": [
+            {
+              "elementId": "unitCode",
+              "dictionaryReference": "https://ref.gs1.org/voc/unitCode",
+              "objectType": "SingleValuedDataElement",
+              "valueDataType": "xsd:string",
+              "value": "OHM"
+            },
+            {
+              "elementId": "value",
+              "dictionaryReference": "https://ref.gs1.org/voc/value",
+              "objectType": "SingleValuedDataElement",
+              "valueDataType": "xsd:decimal",
+              "value": "0.0009"
+            }
+          ]
+        },
+        {
+          "elementId": "hasInitialPackInternalResistance",
+          "dictionaryReference": "https://ref.openepcis.org/extensions/eu/battery/hasInitialPackInternalResistance",
           "objectType": "DataElementCollection",
           "nodeTypes": [
             "https://ref.gs1.org/voc/QuantitativeValue"
@@ -2405,13 +2429,6 @@
       ]
     },
     {
-      "elementId": "lastDataUpdate",
-      "dictionaryReference": "https://ref.openepcis.org/extensions/eu/battery/lastDataUpdate",
-      "objectType": "SingleValuedDataElement",
-      "valueDataType": "xsd:dateTime",
-      "value": "2024-03-20T14:30:00Z"
-    },
-    {
       "elementId": "leadSymbolRequired",
       "dictionaryReference": "https://ref.openepcis.org/extensions/eu/battery/leadSymbolRequired",
       "objectType": "SingleValuedDataElement",
@@ -2886,6 +2903,30 @@
       "dictionaryReference": "https://ref.gs1.org/voc/referencedFile",
       "objectType": "MultiValuedDataElement",
       "value": [
+        [
+          {
+            "elementId": "referencedFileType",
+            "dictionaryReference": "https://ref.gs1.org/voc/referencedFileType",
+            "objectType": "SingleValuedDataElement",
+            "valueDataType": "xsd:anyURI",
+            "reference": true,
+            "value": "https://ref.gs1.org/voc/ReferencedFileTypeCode-PRODUCT_IMAGE"
+          },
+          {
+            "elementId": "description",
+            "dictionaryReference": "https://schema.org/description",
+            "objectType": "SingleValuedDataElement",
+            "valueDataType": "xsd:string",
+            "value": "Product image"
+          },
+          {
+            "elementId": "encodingFormat",
+            "dictionaryReference": "https://schema.org/encodingFormat",
+            "objectType": "SingleValuedDataElement",
+            "valueDataType": "xsd:string",
+            "value": "image/png"
+          }
+        ],
         [
           {
             "elementId": "fileLanguageCode",
