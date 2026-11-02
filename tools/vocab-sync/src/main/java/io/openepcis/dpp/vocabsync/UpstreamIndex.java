@@ -41,20 +41,58 @@ public class UpstreamIndex {
     enum Kind {RDF, CONTEXT, SAMM}
 
     /** One upstream source: id, the term namespace to keep, where, and how to read it. */
-    record Source(String vocabId, String namespace, Path path, Kind kind, String prefix) {
+    record Source(String vocabId, String namespace, Path path, Kind kind, String prefix,
+                  String dataElementSchemeSuffix) {
         static Source rdf(String vocabId, String namespace, Path path) {
-            return new Source(vocabId, namespace, path, Kind.RDF, null);
+            return new Source(vocabId, namespace, path, Kind.RDF, null, null);
+        }
+
+        /**
+         * An RDF source whose data elements are SKOS concepts rather than RDF properties: a concept
+         * in a scheme whose IRI ends in {@code dataElementSchemeSuffix} is indexed as a property.
+         * The EU DPP Registry vocabularies work this way: {@code battery-vocabulary#batteryWeight}
+         * is a skos:Concept, and the Commission's own SHACL shapes use it as the sh:path of the
+         * passport field. The concepts of the other schemes (chemistries, units, statuses) stay
+         * code-list values.
+         */
+        static Source rdfDataElements(String vocabId, String namespace, Path path, String dataElementSchemeSuffix) {
+            return new Source(vocabId, namespace, path, Kind.RDF, null, dataElementSchemeSuffix);
         }
 
         static Source context(String vocabId, String namespace, String prefix, Path path) {
-            return new Source(vocabId, namespace, path, Kind.CONTEXT, prefix);
+            return new Source(vocabId, namespace, path, Kind.CONTEXT, prefix, null);
         }
 
         /** A SAMM (Eclipse ESMF) aspect model — samm:Property / samm:Entity with preferredName/description. */
         static Source samm(String vocabId, String namespace, Path path) {
-            return new Source(vocabId, namespace, path, Kind.SAMM, null);
+            return new Source(vocabId, namespace, path, Kind.SAMM, null, null);
+        }
+
+        /** The term type of {@code r} in this source; see {@link #rdfDataElements}. */
+        TermType typeOf(Resource r) {
+            TermType t = RdfSupport.termType(r);
+            if (t != TermType.OTHER || dataElementSchemeSuffix == null) return t;
+            if (!r.hasProperty(RDF.type, SKOS_CONCEPT)) return t;
+            var it = r.listProperties(SKOS_IN_SCHEME);
+            while (it.hasNext()) {
+                var o = it.next().getObject();
+                if (o.isURIResource() && o.asResource().getURI().endsWith(dataElementSchemeSuffix)) {
+                    return TermType.PROPERTY;
+                }
+            }
+            return t;
         }
     }
+
+    private static final Resource SKOS_CONCEPT =
+            org.apache.jena.rdf.model.ResourceFactory.createResource(RdfSupport.SKOS_NS + "Concept");
+    private static final org.apache.jena.rdf.model.Property SKOS_IN_SCHEME =
+            org.apache.jena.rdf.model.ResourceFactory.createProperty(RdfSupport.SKOS_NS, "inScheme");
+    private static final org.apache.jena.rdf.model.Property SKOS_SCOPE_NOTE =
+            org.apache.jena.rdf.model.ResourceFactory.createProperty(RdfSupport.SKOS_NS, "scopeNote");
+
+    /** EU DPP Registry semantic data artifacts: every vocabulary sits under this base. */
+    public static final String EU_DPP_BASE = "https://repository.product-passport.ec.europa.eu/";
 
     @Inject
     ObjectMapper mapper;
@@ -71,6 +109,7 @@ public class UpstreamIndex {
     @ConfigProperty(name = "vocab-sync.eudpp-voc") String eudppVoc;
     @ConfigProperty(name = "vocab-sync.cirpass2-textile-voc") String cirpass2TextileVoc;
     @ConfigProperty(name = "vocab-sync.cirpass2-battery-voc") String cirpass2BatteryVoc;
+    @ConfigProperty(name = "vocab-sync.eu-dpp-voc") String euDppVoc;
     @ConfigProperty(name = "vocab-sync.batterypass-root") String batterypassRoot;
     @ConfigProperty(name = "vocab-sync.batterypass-ready-vocab") String batterypassReadyVocab;
 
@@ -104,7 +143,7 @@ public class UpstreamIndex {
                 Resource r = subjects.next();
                 if (r.isAnon() || r.getURI() == null) continue;
                 if (!r.getURI().startsWith(s.namespace())) continue;
-                if (RdfSupport.termType(r) != TermType.OTHER) continue;
+                if (s.typeOf(r) != TermType.OTHER) continue;
                 if (!r.hasProperty(RDF.type)) continue;
                 if (r.hasProperty(RDF.type, OWL.Ontology)) continue;
                 String label = RdfSupport.firstString(r, RDFS.label, RdfSupport.SKOS_PREF_LABEL);
@@ -153,6 +192,7 @@ public class UpstreamIndex {
         if (iri.startsWith("urn:samm:io.BatteryPass")) return "batterypass";
         if (iri.startsWith("https://ref.openepcis.org/vocab/batterypass-ready/")) return "bpr";
         if (iri.startsWith("http://xmlns.com/foaf/")) return "foaf";
+        if (iri.startsWith(EU_DPP_BASE)) return "eu-dpp";
         return "other";
     }
 
@@ -193,6 +233,10 @@ public class UpstreamIndex {
         // fall outside the prefix and stay with the eudpp source above.
         sources.add(Source.rdf("cirpass2-textile", "https://w3id.org/eudpp/textile-", root.resolve(cirpass2TextileVoc)));
         sources.add(Source.rdf("cirpass2-battery", "https://w3id.org/eudpp/battery", root.resolve(cirpass2BatteryVoc)));
+        // EU DPP Registry semantic data artifacts (European Commission, release 1.0.0): in-repo
+        // mirror of the seventeen SKOS vocabularies. The data elements of the core, common and
+        // battery vocabularies are indexed as properties; the value schemes stay code lists.
+        sources.add(Source.rdfDataElements("eu-dpp", EU_DPP_BASE, root.resolve(euDppVoc), "-vocabulary"));
         // BatteryPass: Eclipse ESMF/SAMM aspect models (sibling checkout); index the latest version of
         // each aspect as a discovery source for the battery / circularity / carbon-footprint concepts.
         for (Path aspect : batteryPassAspects()) {
@@ -262,11 +306,18 @@ public class UpstreamIndex {
             Resource r = subjects.next();
             if (r.isAnon() || r.getURI() == null) continue;
             if (!r.getURI().startsWith(s.namespace())) continue;
-            TermType type = RdfSupport.termType(r);
+            TermType type = s.typeOf(r);
             if (type == TermType.OTHER) continue;
             if (byIri.containsKey(r.getURI())) continue;
             String label = RdfSupport.firstString(r, RDFS.label, RdfSupport.SKOS_PREF_LABEL);
             String comment = RdfSupport.firstString(r, RDFS.comment, RdfSupport.SKOS_DEFINITION);
+            if (s.dataElementSchemeSuffix() != null) {
+                // The scope note carries the legal source and the per-category obligation
+                // ("Article 77 (3) ... Public. EV: Mandatory, ..."), which a grader needs to tell
+                // two similarly named data points apart.
+                String scope = RdfSupport.firstString(r, SKOS_SCOPE_NOTE);
+                if (scope != null) comment = comment == null ? scope : comment + " " + scope;
+            }
             String domain = refLocals(r, RDFS.domain,
                     model.createProperty("https://schema.org/domainIncludes"),
                     model.createProperty("http://schema.org/domainIncludes"));
