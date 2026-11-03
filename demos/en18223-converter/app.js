@@ -31062,8 +31062,8 @@ var samples_default = [
       },
       "eubat:hasStateOfCertifiedEnergy": {
         type: "gs1:QuantitativeValue",
-        "gs1:value": "9.98",
-        "gs1:unitCode": "KWH"
+        "gs1:value": "97.5",
+        "gs1:unitCode": "P1"
       },
       "eubat:hasCapacityFade": {
         type: "gs1:QuantitativeValue",
@@ -31080,7 +31080,11 @@ var samples_default = [
         "gs1:value": "1.9",
         "gs1:unitCode": "OHM"
       },
-      "eubat:hasCycleCount": 640,
+      "eubat:hasCycleCount": {
+        type: "gs1:QuantitativeValue",
+        "gs1:value": 640,
+        "gs1:unitCode": "C62"
+      },
       "eubat:hasEnergyThroughput": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 6550,
@@ -35202,8 +35206,8 @@ var samples_default = [
       "eubat:expectedRemainingCycles": 2800,
       "eubat:hasRemainingCapacity": {
         type: "gs1:QuantitativeValue",
-        "gs1:value": "96.5",
-        "gs1:unitCode": "P1"
+        "gs1:value": "271.04",
+        "gs1:unitCode": "AMH"
       },
       "eubat:hasRemainingRoundTripEfficiency": {
         type: "gs1:QuantitativeValue",

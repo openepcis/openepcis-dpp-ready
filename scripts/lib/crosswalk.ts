@@ -253,6 +253,31 @@ function dateTimeStampProperties(p: Profile, direction: Direction): Set<string> 
   return set;
 }
 
+const DERIVED_INTEGERS = new Set(["positiveInteger", "nonNegativeInteger", "negativeInteger", "nonPositiveInteger", "long", "int", "short", "byte",
+  "unsignedLong", "unsignedInt", "unsignedShort", "unsignedByte"].map((t) => XSD + t));
+
+/**
+ * Properties whose values the mapping table types with a derived integer datatype in a direction's
+ * output (xw:theirDatatype for lift, xw:ourDatatype for lower). Oxigraph stores such a literal as
+ * xsd:integer; the engine types it back.
+ */
+const integerRanges = new Map<string, Map<string, string>>();
+function derivedIntegerProperties(p: Profile, direction: Direction, store: ox.Store): Map<string, string> {
+  const key = `${p.id}:${direction}`;
+  let map = integerRanges.get(key);
+  if (!map) {
+    map = new Map();
+    const q = direction === "lift"
+      ? `SELECT ?p ?dt WHERE { GRAPH <${G_MAP}> { ?row ?k ?p ; <https://ref.openepcis.org/extensions/common/interop/crosswalk#theirDatatype> ?dt . FILTER(?k IN (<https://ref.openepcis.org/extensions/common/interop/crosswalk#theirs>, <https://ref.openepcis.org/extensions/common/interop/crosswalk#euField>)) } }`
+      : `SELECT ?p ?dt WHERE { GRAPH <${G_MAP}> { ?row <https://ref.openepcis.org/extensions/common/interop/crosswalk#ours> ?p ; <https://ref.openepcis.org/extensions/common/interop/crosswalk#ourDatatype> ?dt } }`;
+    for (const row of store.query(q) as Map<string, ox.Term>[]) {
+      if (DERIVED_INTEGERS.has(row.get("dt")!.value)) map.set(row.get("p")!.value, row.get("dt")!.value);
+    }
+    integerRanges.set(key, map);
+  }
+  return map;
+}
+
 /** Run one direction of a profile over the input quads. */
 export function convert(p: Profile, direction: Direction, input: Quad[]): Conversion {
   const store = buildStore(p, direction, input);
@@ -292,9 +317,12 @@ export function convert(p: Profile, direction: Direction, input: Quad[]): Conver
     // Keep the store's blank-node labels: every rule must address the same node with the same
     // label, or a node splits into one per rule.
     const stamps = dateTimeStampProperties(p, direction);
+    const integers = derivedIntegerProperties(p, direction, store);
+    const retype = (q: Quad, dt: string) => DataFactory.quad(q.subject, q.predicate, DataFactory.literal(q.object.value, DataFactory.namedNode(dt)));
     const quads = (nt ? new Parser({ format: "application/n-triples", blankNodePrefix: "" }).parse(nt) : []).map((q) =>
-      q.object.termType === "Literal" && q.object.datatype.value === XSD + "dateTime" && stamps.has(q.predicate.value)
-        ? DataFactory.quad(q.subject, q.predicate, DataFactory.literal(q.object.value, DataFactory.namedNode(XSD + "dateTimeStamp")))
+      q.object.termType !== "Literal" ? q
+        : q.object.datatype.value === XSD + "dateTime" && stamps.has(q.predicate.value) ? retype(q, XSD + "dateTimeStamp")
+        : q.object.datatype.value === XSD + "integer" && integers.has(q.predicate.value) ? retype(q, integers.get(q.predicate.value)!)
         : q);
     let added = 0;
     for (const q of quads) {

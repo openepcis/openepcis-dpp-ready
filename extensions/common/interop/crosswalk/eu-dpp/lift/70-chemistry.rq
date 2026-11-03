@@ -1,0 +1,29 @@
+# Chemistry and substances: the chemistry code from the short name of the electrochemical system;
+# the hazardous substances by name; the critical raw materials among the battery's materials,
+# matched by name against the Registry's list (notation or label); the chemical symbols the label must show (cadmium,
+# lead, or none).
+CONSTRUCT {
+  ?r bat:batteryChemistry ?chem .
+  ?r bat:hazardousSubstances ?hz .
+  ?r bat:criticalRawMaterials ?crm .
+  ?r bat:chemicalSymbol ?sym .
+}
+WHERE {
+  GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
+  {
+    GRAPH <urn:xw:in> { ?r eubat:hasBatteryChemistry ?c . ?c schema:alternateName ?n }
+    ?chem xw:chemistryName ?cn . FILTER(LCASE(STR(?cn)) = LCASE(STR(?n)))
+  } UNION {
+    GRAPH <urn:xw:in> { ?r eubat:hasHazardousSubstances ?h . ?h schema:name ?hn }
+    BIND(STR(?hn) AS ?hz)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r eubat:hasMaterialComposition ?m . ?m eubat:isCriticalRawMaterial true ; schema:name ?mn }
+    GRAPH <urn:xw:bg> { ?crm skos:inScheme <https://repository.product-passport.ec.europa.eu/core/vocabs/critical-raw-material> ; skos:notation|skos:prefLabel ?not }
+    FILTER(LCASE(STR(?mn)) = LCASE(STR(?not)))
+  } UNION {
+    GRAPH <urn:xw:in> { ?r eubat:cadmiumSymbolRequired ?cd ; eubat:leadSymbolRequired ?pb }
+    VALUES (?which ?s) { ("cd" batsym:cadmiumSymbol) ("pb" batsym:leadSymbol) ("none" batsym:noneSymbol) }
+    FILTER((?which = "cd" && ?cd = true) || (?which = "pb" && ?pb = true) || (?which = "none" && ?cd = false && ?pb = false))
+    BIND(?s AS ?sym)
+  }
+}

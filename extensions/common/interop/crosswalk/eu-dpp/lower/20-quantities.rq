@@ -1,0 +1,24 @@
+# {unit, value} objects back to our values, in the container the row names (a node with the
+# product's IRI and the container's fragment). xw:Quantity: a gs1:QuantitativeValue with the
+# unit's default code; xw:Scalar: the bare number, only when the Registry's unit is the row's.
+CONSTRUCT {
+  ?r ?via ?n . ?n a ?ccls .
+  ?n ?p ?out . ?out a gs1:QuantitativeValue ; gs1:value ?dv ; gs1:unitCode ?code .
+}
+WHERE {
+  ?row xw:euField ?field ; xw:ours ?p ; xw:form ?form .
+  FILTER(?form IN (xw:Quantity, xw:Scalar))
+  FILTER NOT EXISTS { ?row xw:lowerSkip true }
+  OPTIONAL { ?row xw:via ?via . ?via xw:fragment ?frag ; xw:containerClass ?ccls }
+  GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport ; ?field ?q . ?q dppcom:value ?v ; dppcom:unit ?u }
+  FILTER(isIRI(?r))
+  BIND(IF(BOUND(?via), IRI(CONCAT(STR(?r), "#", ?frag)), ?r) AS ?n)
+  OPTIONAL { ?urow xw:euUnit ?u ; xw:unitCode ?c ; xw:lowerDefault true }
+  OPTIONAL { ?row xw:euUnit ?ru . OPTIONAL { ?row xw:factor ?rf } }
+  BIND(IF(?form = xw:Quantity, BNODE(), ?none1) AS ?qv)
+  BIND(IF(?form = xw:Quantity, STR(?c), ?none2) AS ?code)
+  BIND(IF(?form = xw:Quantity && BOUND(?c), xsd:decimal(?v), ?none3) AS ?dv)
+  BIND(IF(?form = xw:Scalar && ?u = ?ru, xsd:decimal(?v / COALESCE(?rf, 1)), ?none4) AS ?sv)
+  BIND(IF(?form = xw:Quantity, IF(BOUND(?dv), ?qv, ?none5), ?sv) AS ?out)
+  FILTER(BOUND(?out))
+}

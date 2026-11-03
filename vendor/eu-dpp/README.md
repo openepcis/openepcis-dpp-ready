@@ -45,5 +45,14 @@ Checked against the release itself, the Semantic Data Guide and the Registry API
 - The granularity is an IRI in the passport and a plain string in the Registry submission API.
 - The contexts end in an `@vocab` catch-all (`unknown#`), so an undeclared key expands silently
   instead of failing.
+- The subgroup contexts (`evb`, `ind`, `lmt`) `@import` the battery context, which `@import`s the
+  core context. JSON-LD 1.1 forbids an imported context to contain `@import` ("invalid context
+  entry"), so a conforming processor rejects every EV, LMT and industrial passport; the offline
+  loader (`scripts/lib/jsonld-loader.ts`) inlines the chain.
+- No list-valued term is declared `@set`: JSON-LD compaction writes a one-element list
+  (`contentSpecificationIds`, `batteryChemistry`, …) as a single value, which the JSON Schemas
+  reject. A JSON-LD consumer cannot reproduce the Registry's JSON from the RDF with the contexts alone.
 
-The Commission's own conformance examples do validate against the schemas of the release.
+The Commission's own conformance examples do validate against the schemas and the SHACL shapes of
+the release (`pnpm run check:crosswalk` checks all twenty; see
+[`extensions/common/interop/crosswalk/README.md`](../../extensions/common/interop/crosswalk/README.md)).

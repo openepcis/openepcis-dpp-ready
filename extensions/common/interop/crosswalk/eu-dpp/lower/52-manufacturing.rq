@@ -1,0 +1,24 @@
+# Manufacturing place: a place with a postal address (locality, region, country by its alpha-2
+# code). The manufacturing date is a month; no OpenEPCIS term holds a month, so it is not converted.
+CONSTRUCT {
+  ?r eubat:hasManufacturingPlace ?pl . ?pl a gs1:Place ; gs1:address ?a .
+  ?a a gs1:PostalAddress ; gs1:addressLocality ?city ; gs1:addressRegion ?region ; gs1:addressCountry ?c .
+  ?c a gs1:Country ; gs1:countryCode ?a2 .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport ; bat:manufacturingPlace ?mp }
+  FILTER(isIRI(?r))
+  BIND(IRI(CONCAT(STR(?r), "#manufacturing-place")) AS ?pl)
+  BIND(IRI(CONCAT(STR(?r), "#manufacturing-place-address")) AS ?a)
+  BIND(IRI(CONCAT(STR(?r), "#manufacturing-place-country")) AS ?cIri)
+  {
+    GRAPH <urn:xw:in> { ?mp bat:manufacturingCity ?ci } BIND(STR(?ci) AS ?city)
+  } UNION {
+    GRAPH <urn:xw:in> { ?mp bat:manufacturingRegion ?rg } BIND(STR(?rg) AS ?region)
+  } UNION {
+    GRAPH <urn:xw:in> { ?mp bat:manufacturingCountry ?a3 }
+    ?crow xw:alpha3 ?k ; xw:alpha2 ?a2v . FILTER(STR(?k) = STR(?a3))
+    BIND(STR(?a2v) AS ?a2)
+  }
+  BIND(IF(BOUND(?a2), ?cIri, ?none) AS ?c)
+}

@@ -1,0 +1,32 @@
+# The passport root becomes the product (its IRI is the unique product identifier), a battery when
+# the passport declares the batteries specification, with the passport header of the core.
+# contentSpecificationIds is not kept: the lift derives it from the product again. A battery passport
+# also states its granularity as the reporting granularity our battery shapes ask for.
+CONSTRUCT {
+  ?r a ?cls ; oec:passportIdentifier ?pid ; oec:lastUpdated ?lu ; oec:granularityLevel ?gl ; oec:hasReportingGranularity ?rg ; oec:passportStatus ?st .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport }
+  FILTER(isIRI(?r))
+  {
+    BIND(gs1:Product AS ?cls)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r dpp:contentSpecificationIds ?spec }
+    FILTER(STRSTARTS(STR(?spec), "https://repository.product-passport.ec.europa.eu/product/batteries/"))
+    BIND(eubat:Battery AS ?cls)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r dpp:digitalProductPassportId ?v } BIND(STRDT(STR(?v), xsd:anyURI) AS ?pid)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r dpp:lastUpdate ?lu }
+  } UNION {
+    GRAPH <urn:xw:in> { ?r dpp:granularity ?g }
+    ?level skos:exactMatch ?g ; skos:notation ?n . ?level a oec:GranularityLevel .
+    BIND(STR(?n) AS ?gl)
+    OPTIONAL { ?level xw:reportingGranularity ?rg0 }
+    BIND(IF(EXISTS { GRAPH <urn:xw:in> { ?r dpp:contentSpecificationIds ?bs } FILTER(CONTAINS(STR(?bs), "/product/batteries/")) }, ?rg0, ?none) AS ?rg)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r dpp:dppStatus ?eu }
+    ?row xw:euStatus ?eu ; xw:ourStatus ?s ; xw:lowerDefault true .
+    BIND(STR(?s) AS ?st)
+  }
+}

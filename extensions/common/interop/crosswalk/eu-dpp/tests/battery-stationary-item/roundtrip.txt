@@ -1,0 +1,102 @@
+# battery-stationary-item: lift then lower
+input 53 triples, lift 13, back 14
+
+## the way back compared with the input
+- missing 9  a gs1:QuantitativeValue
+- missing 9  gs1:unitCode
+- missing 9  gs1:value
+- missing 1  eubat:hasCapacityFade
+- missing 1  eubat:hasEnergyThroughput
+- missing 1  eubat:hasInternalResistance
+- missing 1  eubat:hasRemainingCapacity
+- missing 1  eubat:hasRemainingEnergy
+- missing 1  eubat:hasRemainingRoundTripEfficiency
+- missing 1  eubat:hasStateOfCertifiedEnergy
+- missing 1  eubat:hasStateOfCharge
+- missing 1  eubat:hasStateOfHealth
+- missing 1  eubat:puttingIntoService
+- missing 1  schema:schemaVersion
+- missing 1  schema:serialNumber
+
+## not converted (no rule handles these input terms)
+  1  eubat:hasEnergyThroughput
+  1  eubat:hasRemainingEnergy
+  1  eubat:hasStateOfCharge
+  1  eubat:hasStateOfHealth
+  1  eubat:puttingIntoService
+  1  schema:schemaVersion
+  1  schema:serialNumber
+
+## target-ontology axioms the lifted document does not satisfy (accepted gaps)
+none
+
+## target shapes and schemas: values the passport lacks
+  schema core / required: must have required property 'digitalProductPassportId'
+  schema pub-batteries / required: must have required property 'batteryCapacity'
+  schema pub-batteries / required: must have required property 'batteryCategory'
+  schema pub-batteries / required: must have required property 'batteryChemistry'
+  schema pub-batteries / required: must have required property 'batteryWeight'
+  schema pub-batteries / required: must have required property 'criticalRawMaterials'
+  schema pub-batteries / required: must have required property 'digitalProductPassportId'
+  schema pub-batteries / required: must have required property 'euDeclarationOfConformity'
+  schema pub-batteries / required: must have required property 'extinguishingAgent'
+  schema pub-batteries / required: must have required property 'hazardousSubstances'
+  schema pub-batteries / required: must have required property 'internalCellResistance'
+  schema pub-batteries / required: must have required property 'internalPackResistance'
+  schema pub-batteries / required: must have required property 'manufacturerIdentification'
+  schema pub-batteries / required: must have required property 'manufacturerPostalAddress'
+  schema pub-batteries / required: must have required property 'manufacturingDate'
+  schema pub-batteries / required: must have required property 'manufacturingPlace'
+  schema pub-batteries / required: must have required property 'maximumVoltage'
+  schema pub-batteries / required: must have required property 'minimalVoltage'
+  schema pub-batteries / required: must have required property 'nominalVoltage'
+  schema pub-batteries / required: must have required property 'notInUseTemperatureRange'
+  schema pub-batteries / required: must have required property 'originalPowerCapability'
+  schema pub-batteries / required: must have required property 'powerLimit'
+  schema pub-batteries / required: must have required property 'registrantIdentity'
+  schema pub-batteries / required: must have required property 'renewableContentShare'
+  schema pub-batteries / required: must have required property 'separateCollectionSymbol'
+  schema pub-batteries / required: must have required property 'wasteBatteryPreventionManagementInfo'
+  schema pub-batteries /batteryIdentification dependentRequired: must have property batchNumber when property modelIdentifier is present
+  schema res1-batteries / required: must have required property 'detailedComposition'
+  schema res1-batteries / required: must have required property 'dismantlingInformation'
+  schema res1-batteries / required: must have required property 'safetyMeasures'
+  schema res1-batteries / required: must have required property 'sparePartReplacementDetails'
+  schema res2-batteries / required: must have required property 'complianceTestReportResults'
+  shacl batteryCapacity MinCountConstraintComponent: SEM-BAT-MSG-022
+  shacl batteryCategory MinCountConstraintComponent: SEM-BAT-MSG-009
+  shacl batteryChemistry MinCountConstraintComponent: SEM-BAT-MSG-023
+  shacl batteryWeight MinCountConstraintComponent: SEM-BAT-MSG-021
+  shacl complianceTestReportResults MinCountConstraintComponent: SEM-BAT-MSG-063
+  shacl criticalRawMaterials MinCountConstraintComponent: SEM-BAT-MSG-026
+  shacl detailedComposition MinCountConstraintComponent: SEM-BAT-MSG-059
+  shacl digitalProductPassportId MinCountConstraintComponent: SEM-MSG-001
+  shacl dismantlingInformation MinCountConstraintComponent: SEM-BAT-MSG-061
+  shacl euDeclarationOfConformity MinCountConstraintComponent: SEM-BAT-MSG-045
+  shacl extinguishingAgent MinCountConstraintComponent: SEM-BAT-MSG-025
+  shacl hazardousSubstances MinCountConstraintComponent: SEM-BAT-MSG-024
+  shacl internalCellResistance MinCountConstraintComponent: SEM-BAT-MSG-039
+  shacl internalPackResistance MinCountConstraintComponent: SEM-BAT-MSG-040
+  shacl manufacturerIdentification MinCountConstraintComponent: SEM-BAT-MSG-001
+  shacl manufacturerPostalAddress MinCountConstraintComponent: SEM-BAT-MSG-005
+  shacl manufacturingDate MinCountConstraintComponent: SEM-BAT-MSG-020
+  shacl manufacturingPlace MinCountConstraintComponent: SEM-BAT-MSG-016
+  shacl maximumVoltage MinCountConstraintComponent: SEM-BAT-MSG-028
+  shacl minimalVoltage MinCountConstraintComponent: SEM-BAT-MSG-091
+  shacl nominalVoltage MinCountConstraintComponent: SEM-BAT-MSG-027
+  shacl notInUseTemperatureRange MinCountConstraintComponent: SEM-BAT-MSG-034
+  shacl originalPowerCapability MinCountConstraintComponent: SEM-BAT-MSG-029
+  shacl powerLimit MinCountConstraintComponent: SEM-BAT-MSG-030
+  shacl registrantIdentity MinCountConstraintComponent: SEM-BAT-MSG-089
+  shacl renewableContentShare MinCountConstraintComponent: SEM-BAT-MSG-090
+  shacl safetyMeasures MinCountConstraintComponent: SEM-BAT-MSG-062
+  shacl separateCollectionSymbol HasValueConstraintComponent: SEM-BAT-MSG-043
+  shacl separateCollectionSymbol MinCountConstraintComponent: SEM-BAT-MSG-043
+  shacl sparePartReplacementDetails MinCountConstraintComponent: SEM-BAT-MSG-060
+  shacl wasteBatteryPreventionManagementInfo MinCountConstraintComponent: SEM-BAT-MSG-046
+
+## target shapes and schemas: accepted defects of the target
+  gap 2  shacl batteryIdentification NodeConstraintComponent: SEM-BAT-MSG-010 [ OrConstraintComponent]
+
+## OpenEPCIS shapes the way back no longer satisfies
+  _ schemaVersion Less than 1 values

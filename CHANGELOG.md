@@ -9,6 +9,15 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Added: crosswalk to the EU DPP Registry
+
+The crosswalk gains an `eu-dpp` profile: OpenEPCIS passports convert to the Commission's Registry
+JSON and back, checked with the Commission's SHACL shapes and JSON Schemas and against its 20
+conformance examples, the first test data in the repository not written by us. The checks found
+defects in the Registry release (chained `@import`, no `@set`, region-only language tags), a bug in
+rdf-validate-shacl (logical constraints of property shapes), and two errors in our battery examples.
+See `extensions/common/interop/CHANGELOG.md` and `extensions/eu/battery/CHANGELOG.md`.
+
 ### Added: crosswalk checks against the target ontologies and every module example
 
 `pnpm run check:crosswalk` now also checks that every lift output satisfies the OWL and RDFS

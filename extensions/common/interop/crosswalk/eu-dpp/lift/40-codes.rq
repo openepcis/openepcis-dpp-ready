@@ -1,0 +1,9 @@
+# Battery category and status: our code value's skos:exactMatch into the Registry's value list.
+CONSTRUCT { ?r ?field ?eu . }
+WHERE {
+  GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
+  GRAPH <urn:xw:in> { ?r ?p ?code }
+  ?code skos:exactMatch ?eu .
+  VALUES (?ns ?field) { (batcat: bat:batteryCategory) (batsta: bat:batteryStatus) }
+  FILTER(STRSTARTS(STR(?eu), STR(?ns)))
+}

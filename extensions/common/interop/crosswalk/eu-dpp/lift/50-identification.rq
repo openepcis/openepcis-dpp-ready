@@ -1,0 +1,19 @@
+# Battery identification: model identifier, batch number, serial number and product number (the
+# GTIN) in one object.
+CONSTRUCT {
+  ?r bat:batteryIdentification _:id .
+  _:id bat:modelIdentifier ?model ; bat:batchNumber ?batch ; bat:serialNumber ?serial ; bat:productNumber ?gtin .
+}
+WHERE {
+  {
+    SELECT ?r (SAMPLE(STR(?m)) AS ?model) (SAMPLE(STR(?b)) AS ?batch) (SAMPLE(STR(?s)) AS ?serial) (SAMPLE(STR(?g)) AS ?gtin)
+    WHERE {
+      GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
+      OPTIONAL { GRAPH <urn:xw:in> { ?r eubat:batteryModelIdentifier ?m } }
+      OPTIONAL { GRAPH <urn:xw:in> { ?r gs1:hasBatchLotNumber ?b } }
+      OPTIONAL { GRAPH <urn:xw:in> { ?r gs1:hasSerialNumber ?s } }
+      OPTIONAL { GRAPH <urn:xw:in> { ?r gs1:gtin ?g } }
+    } GROUP BY ?r
+  }
+  FILTER(BOUND(?model) || BOUND(?batch) || BOUND(?serial) || BOUND(?gtin))
+}

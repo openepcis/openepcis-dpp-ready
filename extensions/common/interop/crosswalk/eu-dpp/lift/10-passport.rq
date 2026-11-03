@@ -1,0 +1,34 @@
+# The passport header (core specification): the product is the passport root. Its IRI is the
+# unique product identifier; the content specifications are those the roots entailment found. The
+# granularity comes from oec:granularityLevel, else from the battery reporting granularity.
+CONSTRUCT {
+  ?r a dpp:DigitalProductPassport ;
+     dpp:uniqueProductIdentifier ?upi ;
+     dpp:contentSpecificationIds ?specId ;
+     dpp:digitalProductPassportId ?pid ;
+     dpp:lastUpdate ?lu ;
+     dpp:granularity ?gran ;
+     dpp:dppStatus ?st .
+}
+WHERE {
+  GRAPH <urn:xw:roots> { ?r xw:spec "core/1.0.0" }
+  BIND(STR(?r) AS ?upi)
+  {
+    GRAPH <urn:xw:roots> { ?r xw:spec ?spec }
+    BIND(CONCAT("https://repository.product-passport.ec.europa.eu/", ?spec) AS ?specId)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r oec:passportIdentifier ?v } BIND(STR(?v) AS ?pid)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r oec:lastUpdated ?v } BIND(xsd:dateTime(STR(?v)) AS ?lu)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r oec:granularityLevel ?v }
+    ?level skos:notation ?n ; skos:exactMatch ?gran . FILTER(STR(?n) = STR(?v) && STRSTARTS(STR(?gran), STR(gran:)))
+  } UNION {
+    GRAPH <urn:xw:in> { ?r oec:hasReportingGranularity ?rgv }
+    FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?r oec:granularityLevel ?anyLevel } }
+    ?lvl xw:reportingGranularity ?rgv ; skos:exactMatch ?gran . FILTER(STRSTARTS(STR(?gran), STR(gran:)))
+  } UNION {
+    GRAPH <urn:xw:in> { ?r oec:passportStatus ?v }
+    ?row xw:ourStatus ?s ; xw:euStatus ?st . FILTER(STR(?s) = STR(?v))
+  }
+}
