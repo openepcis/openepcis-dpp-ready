@@ -5,6 +5,14 @@ was synced from upstream <https://gs1-epcis-reg.org/rail/>. The upstream
 vocabulary itself is versioned independently by GS1 AISBL — see
 [`VERSION`](./VERSION) for the upstream version currently mirrored.
 
+## 2026-11-05 — EPCIS examples removed
+
+GS1 took <https://gs1-epcis-reg.org/rail/> offline: since 2026-11-04 every path there, the
+context included, answers 404. The two EPCIS examples (`epcis/wheel-temperature-sensor.jsonld`,
+`epcis/refurbishment-event.jsonld`) named that context in their `@context` and could no longer be
+expanded by anyone outside this repository, so they are removed. The mirrored vocabulary, context
+and SHACL stay at upstream v1.6; `pnpm sync:rail` fails until the host is back.
+
 ## 2026-07-29 — local changes, no upstream sync
 
 The mirrored vocabulary is unchanged at upstream v1.6. What changed is how this repository serves
