@@ -9,6 +9,12 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### GS1 Rail EPCIS examples removed
+
+GS1 took `gs1-epcis-reg.org/rail/` offline (every path 404 since 2026-11-04), so the two rail
+EPCIS examples, which named the upstream context, are removed. The rail mirror itself stays; see
+`extensions/upstream/gs1-rail/CHANGELOG.md`.
+
 ### EU DPP Registry semantic data artifacts and the EC data-point guidance 3.2
 
 On 2026-10-30 the Commission published the DPP Registry semantic data artifacts 1.0.0 (core,
