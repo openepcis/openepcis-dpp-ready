@@ -114,6 +114,7 @@ public class UpstreamIndex {
     @ConfigProperty(name = "vocab-sync.eu-dpp-voc") String euDppVoc;
     @ConfigProperty(name = "vocab-sync.batterypass-root") String batterypassRoot;
     @ConfigProperty(name = "vocab-sync.batterypass-ready-vocab") String batterypassReadyVocab;
+    @ConfigProperty(name = "vocab-sync.batterypass-ready-2-vocab") String batterypassReady2Vocab;
 
     private List<Source> sourceList = List.of();
 
@@ -252,6 +253,9 @@ public class UpstreamIndex {
         // longlist (GEFEG publishes no IRIs). A distinct source from the Consortium SAMM above.
         sources.add(Source.rdf("bpr", "https://ref.openepcis.org/vocab/batterypass-ready/1.3#",
                 root.resolve(batterypassReadyVocab)));
+        // BatteryPass-Ready 2.0.1: the current battery passport data model (the SAMM model is archived).
+        sources.add(Source.rdf("bpr", "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#",
+                root.resolve(batterypassReady2Vocab)));
 
         sourceList = sources;
         terms = new ArrayList<>();
