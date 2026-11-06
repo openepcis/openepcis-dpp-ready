@@ -282,7 +282,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     name: "rail",
     dir: "extensions/upstream/gs1-rail",
     ttlFile: "gs1RailVoc.ttl",
-    namespace: "https://gs1-epcis-reg.org/rail/voc/data#",
+    namespace: "https://ref.gs1.ch/voc/rail/",
   },
   // Upstream mirror — CIRPASS-2 EUDPP Core Ontology (Semantic Treehouse /
   // TalTech). Terms live under the # namespace; the ontology nodes (CORE

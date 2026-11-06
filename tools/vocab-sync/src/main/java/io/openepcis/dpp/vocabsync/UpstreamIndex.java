@@ -187,7 +187,7 @@ public class UpstreamIndex {
                 || iri.startsWith("http://www.w3.org/ns/org#")) return "semic";
         if (iri.startsWith("https://dpp-keystone.org/")) return "dppk";
         if (iri.contains("uncefact.org")) return "untp";
-        if (iri.startsWith("https://gs1-epcis-reg.org/rail/")) return "rail";
+        if (iri.startsWith("https://ref.gs1.ch/voc/rail/") || iri.startsWith("https://gs1-epcis-reg.org/rail/")) return "rail";
         if (iri.startsWith("https://w3id.org/eudpp/textile-")) return "cirpass2-textile";
         if (iri.startsWith("https://w3id.org/eudpp/battery")) return "cirpass2-battery";
         if (iri.startsWith("https://w3id.org/eudpp")) return "eudpp";
@@ -225,11 +225,10 @@ public class UpstreamIndex {
         sources.add(Source.context("semic", "http://www.w3.org/ns/org#", "org", semicBridge));
         sources.add(Source.context("semic", "http://purl.org/vocab/cpsv#", "cpsv", semicBridge));
         sources.add(Source.context("foaf", "http://xmlns.com/foaf/0.1/", "foaf", semicBridge));
-        // GS1 Rail: index the full in-repo vocabulary mirror (a Layer-1 sectoral peer), not just the
-        // bridge context alias — so our terms can be aligned against the actual rail: terms.
-        sources.add(Source.rdf("rail", "https://gs1-epcis-reg.org/rail/voc/data#", root.resolve(railVoc)));
-        sources.add(Source.context("rail", "https://gs1-epcis-reg.org/rail/voc/data#", "rail",
-                interop.resolve("rail-bridge-context.jsonld")));
+        // GS1 Rail: index the full in-repo vocabulary mirror (a Layer-1 sectoral peer). Since 2.x the
+        // namespace is https://ref.gs1.ch/voc/rail/; the served rail bridge context keeps the 1.6
+        // IRIs it was published with, so it is no longer a discovery source.
+        sources.add(Source.rdf("rail", "https://ref.gs1.ch/voc/rail/", root.resolve(railVoc)));
         // CIRPASS-2 EUDPP: index the full in-repo upstream mirror (Layer-2 community profile),
         // so our terms can be aligned against the actual eudpp: terms instead of only the
         // seeAlso pointers already in dpp-core.

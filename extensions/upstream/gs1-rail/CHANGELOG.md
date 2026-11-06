@@ -5,6 +5,25 @@ was synced from upstream <https://gs1-epcis-reg.org/rail/>. The upstream
 vocabulary itself is versioned independently by GS1 AISBL — see
 [`VERSION`](./VERSION) for the upstream version currently mirrored.
 
+## 2026-11-06 — upstream v2.6, new namespace (GS1-Switzerland/WebOntology @ 1598a72)
+
+The 2026-11-05 entry was wrong about the host: GS1 moved the vocabulary to GS1 Switzerland. The
+old host now redirects to <https://ref.gs1.ch/voc/rail/>, which serves
+`github.com/GS1-Switzerland/WebOntology` (branch `stage`, `src/sectors/tran/rail`).
+
+- Vocabulary 1.6 → **2.6** (issued 2025-10-23), namespace
+  `https://gs1-epcis-reg.org/rail/voc/data#` → **`https://ref.gs1.ch/voc/rail/`**.
+- 75 terms (was 87): 13 added (wheel and brake measurements such as `wheelFlatMeasurement`,
+  `wheelQualityFactor`, `brakeTemperature`, `runDistance`, `travelDirection`, `revisionStatus`),
+  25 removed (the registry and access API layer: `apiKey`, `auth`, `visibility`,
+  `VisibilityStatus`, `resultsOverview`, `totalEventCount`, …), `breakThickness` corrected to
+  `brakeThickness`.
+- Our 13 ontology mappings point at terms that 2.6 keeps; they move to the new namespace.
+- **Served contexts unchanged:** `context/rail-context.jsonld` stays the 1.6 file and the interop
+  `rail-bridge-context.jsonld` keeps its 1.6 IRIs, because stored documents expand against them.
+  The 2.x context is mirrored beside it as `context/upstream-2.x/rail-context.jsonld`.
+- The sync now pins the upstream commit and fetches from GitHub; SHACL files follow upstream.
+
 ## 2026-11-05 — EPCIS examples removed
 
 GS1 took <https://gs1-epcis-reg.org/rail/> offline: since 2026-11-04 every path there, the

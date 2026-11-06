@@ -71,7 +71,7 @@ const PREFIXES: Record<string, string> = {
   adms: "http://www.w3.org/ns/adms#",
   cpsv: "http://purl.org/vocab/cpsv#",
   // GS1 Rail (sectoral upstream)
-  rail: "https://gs1-epcis-reg.org/rail/voc/data#",
+  rail: "https://ref.gs1.ch/voc/rail/",
 };
 
 const EXTRA_PREFIXES: Record<string, string> = {
