@@ -11,7 +11,8 @@
 @prefix schema: <https://schema.org/> .
 
 # DPP Keystone (dpp-keystone.org), a peer DPP profile this module aligns with.
-@prefix dppk: <https://dpp-keystone.org/spec/v2/terms#> .
+@prefix dppk: <https://dpp-keystone.org/spec/v3/terms#> .
+@prefix dppk-dopc: <https://dpp-keystone.org/spec/v3/terms/dopc#> .
 
 <https://ref.openepcis.org/extensions/eu/cpr/>
     a owl:Ontology ;
@@ -110,8 +111,8 @@ eucpr:hasReactionToFireClass
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
     dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-13501-1.aspx> ;
     skos:note "Reaction-to-fire classification per EN 13501-1, as required by the EU Construction Products Regulation (EU) 2024/3110."@en ;
-    rdfs:seeAlso dppk:reactionToFire ;
-    skos:closeMatch dppk:reactionToFire .
+    rdfs:seeAlso dppk-dopc:reactionToFire ;
+    skos:closeMatch dppk-dopc:reactionToFire .
 
 # =============================================================================
 # Construction Product Type (CPR Annex III families)
@@ -288,7 +289,7 @@ eucpr:hasCompressiveStrength
 # eucpr:declarationOfPerformanceUrl (above) carries a link to the DoP document.
 # For machine-readable DoP metadata, use the structured eucpr:DeclarationOfPerformance
 # block. Harvested from / aligned with the DPP Keystone CPR profile
-# (dppk:DeclarationOfPerformance / dppk:DoPCBlock).
+# (dppk:DoPCBlock).
 
 eucpr:DeclarationOfPerformance
     a owl:Class ;
@@ -300,8 +301,8 @@ bodies involved. Complements eucpr:declarationOfPerformanceUrl (the document lin
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     rdfs:seeAlso schema:Certification ;
     rdfs:seeAlso dppk:DoPCBlock ;
-    skos:exactMatch dppk:DeclarationOfPerformance ;
-    skos:note "Declaration of Performance per the EU Construction Products Regulation (EU) 2024/3110. Anchored to the DPP Keystone peer profile dppk:DeclarationOfPerformance / dppk:DoPCBlock."@en ;
+    skos:exactMatch dppk:DoPCBlock ;
+    skos:note "Declaration of Performance per the EU Construction Products Regulation (EU) 2024/3110. Anchored to the DPP Keystone peer profile dppk:DoPCBlock."@en ;
     skos:broadMatch schema:Certification .
 
 eucpr:hasDeclarationOfPerformance
@@ -312,10 +313,9 @@ eucpr:hasDeclarationOfPerformance
     rdfs:range eucpr:DeclarationOfPerformance ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
-    rdfs:seeAlso dppk:hasDoP ;
     rdfs:seeAlso dppk:dopc ;
-    skos:exactMatch dppk:hasDoP ;
-    skos:note "DoP link per CPR Article 12. Anchored to the DPP Keystone peer profile dppk:hasDoP / dppk:dopc."@en .
+    skos:exactMatch dppk:dopc ;
+    skos:note "DoP link per CPR Article 12. Anchored to the DPP Keystone peer profile dppk:dopc."@en .
 
 eucpr:declarationCode
     a owl:DatatypeProperty ;
@@ -325,10 +325,9 @@ eucpr:declarationCode
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
-    rdfs:seeAlso dppk:declarationCode ;
-    rdfs:seeAlso dppk:dopIdentifier ;
-    skos:exactMatch dppk:declarationCode ;
-    skos:note "DoP unique reference per CPR Article 12. Anchored to the DPP Keystone peer profile dppk:declarationCode / dppk:dopIdentifier."@en .
+    rdfs:seeAlso dppk-dopc:declarationCode ;
+    skos:exactMatch dppk-dopc:declarationCode ;
+    skos:note "DoP unique reference per CPR Article 12. Anchored to the DPP Keystone peer profile dppk-dopc:declarationCode."@en .
 
 eucpr:dateOfIssue
     a owl:DatatypeProperty ;
@@ -338,9 +337,9 @@ eucpr:dateOfIssue
     rdfs:range xsd:date ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
-    rdfs:seeAlso dppk:dateOfIssue ;
-    skos:exactMatch dppk:dateOfIssue ;
-    skos:note "DoP issue date per CPR Article 12. Anchored to the DPP Keystone peer profile dppk:dateOfIssue."@en ;
+    rdfs:seeAlso dppk-dopc:dateOfIssue ;
+    skos:exactMatch dppk-dopc:dateOfIssue ;
+    skos:note "DoP issue date per CPR Article 12. Anchored to the DPP Keystone peer profile dppk-dopc:dateOfIssue."@en ;
     rdfs:seeAlso schema:dateIssued .
 
 eucpr:AVCPSystem
@@ -372,8 +371,7 @@ eucpr:hasAvcpSystem
     rdfs:range eucpr:AVCPSystem ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
-    rdfs:seeAlso dppk:avsSystem ;
-    skos:note "AVCP system selector per CPR Annex V. Anchored to the DPP Keystone peer profile dppk:avsSystem."@en .
+    skos:note "AVCP system selector per CPR Annex V. DPP Keystone v3 models the AVCP systems as the individuals dppk-dopc:avcpSystem1 to avcpSystem4, with no property to map to."@en .
 
 eucpr:hasNotifiedBody
     a owl:ObjectProperty ;

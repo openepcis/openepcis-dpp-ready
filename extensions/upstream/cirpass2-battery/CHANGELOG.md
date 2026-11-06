@@ -6,6 +6,17 @@ OpenEPCIS DPP-Ready version.
 
 ## Sync log
 
+### 2026-11-06 — upstream Version 0.4.0 DRAFT, regenerated (ontologies-docs @ ff8a429)
+
+- Same version label, new content (`dct:modified` 2026-11-03): pin by commit, not by
+  version label.
+- 5 terms added, none removed: `SafetyInstruction`,
+  `battery-performance#chargeCRateOfCycleLifeTest`,
+  `battery-performance#dischargeCRateOfCycleLifeTest`,
+  `battery-performance#initialCellInternalResistance`,
+  `battery-performance#initialPackInternalResistance`.
+- **Licence:** now CC BY 4.0 (Apache License 2.0 fallback as software).
+
 ### 2026-10-29 — upstream Version 0.4.0 DRAFT (initial mirror, ontologies-docs @ a41561d)
 
 - Initial mirror of the EU DPP Battery Ontology 0.4.0 DRAFT (issued 2026-07-07,

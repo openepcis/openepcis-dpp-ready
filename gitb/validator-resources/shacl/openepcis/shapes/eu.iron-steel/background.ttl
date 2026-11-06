@@ -241,7 +241,7 @@ _:b7 rdf:first <https://ref.openepcis.org/extensions/common/assessment/GreaterTh
 <https://ref.openepcis.org/extensions/common/assessment/RecyclabilityScore> a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:label "Recyclability Score"@en;
     rdfs:comment "Method-specific recyclability score (a JRC textile 0-10 score, a PPWR percentage). A score does not by itself prove that the product will be collected or recycled. Replaces oec:recyclabilityScore."@en;
-    skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#recyclabilityScore>.
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#recyclabilityScore>.
 <https://ref.openepcis.org/extensions/common/assessment/RepairabilityScore> a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:label "Repairability Score"@en;
     rdfs:comment "Method-specific repairability score (French Indice de Réparabilité, EU repairability index; typically 0-10). Replaces oec:repairabilityScore."@en.
@@ -249,10 +249,10 @@ _:b7 rdf:first <https://ref.openepcis.org/extensions/common/assessment/GreaterTh
     rdfs:label "Repairability Class"@en;
     rdfs:comment "Repairability class band (A to E, A most repairable). Replaces oec:repairabilityClass."@en.
 <https://ref.openepcis.org/extensions/common/assessment/PerformanceClass> a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#energyEfficiencyClass>;
     rdfs:label "Performance Class"@en;
     rdfs:comment "Performance or efficiency class band (A to G energy-label style). Replaces oec:performanceClass."@en;
-    skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#performance>.
+    skos:broadMatch <https://dpp-keystone.org/spec/v3/terms#performance>.
 <https://ref.openepcis.org/extensions/common/assessment/ExpectedLifetime> a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:label "Expected Lifetime"@en;
     rdfs:comment "Lifetime the product is expected to reach under normal use (unitCode ANN). An estimate, not a measured property: it names its method and assumptions. Replaces oec:hasExpectedLifespan."@en;
@@ -599,7 +599,7 @@ _:b7 rdf:first <https://ref.openepcis.org/extensions/common/assessment/GreaterTh
     rdfs:comment "Aligned with UN Transparency Protocol patterns"@en;
     dcterms:source <https://untp.unece.org/docs/specification/>.
 oec:OperatorInformation a rdfs:Class;
-    rdfs:seeAlso gs1:Organization, schema:Organization, <http://www.w3.org/ns/legal#LegalEntity>, <https://w3id.org/eudpp#Actor>, <https://w3id.org/eudpp#LegalPerson>, <https://w3id.org/eudpp#ManufacturerRecord>, <https://dpp-keystone.org/spec/v2/terms#EconomicOperatorRole>;
+    rdfs:seeAlso gs1:Organization, schema:Organization, <http://www.w3.org/ns/legal#LegalEntity>, <https://w3id.org/eudpp#Actor>, <https://w3id.org/eudpp#LegalPerson>, <https://w3id.org/eudpp#ManufacturerRecord>, <https://dpp-keystone.org/spec/v3/terms#EconomicOperatorRole>;
     rdfs:subClassOf gs1:Organization;
     rdfs:label "Operator Information"@en;
     rdfs:comment "Economic operator information as required by various EU regulations.\nCaptures manufacturer, importer, distributor, and other operator roles.\nUse gs1:globalLocationNumber for operator identification (inherited from gs1:Organization).\nUse GS1 Digital Link format: https://id.gs1.org/417/{GLN}"@en;
@@ -1083,7 +1083,7 @@ oec:hasReportingGranularity a owl:ObjectProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/>;
     skos:note "BatteryPass-Ready v1.3 longlist attribute #3. Renamed from oec:granularity to free the 'granularity' key for the EN 18223 passport-level attribute (oec:granularityLevel)."@en;
-    skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#granularity>, <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#granularity>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#granularity>, <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#granularity>;
     rdfs:range oec:DPPGranularity;
     rdfs:domain gs1:Product.
 oec:lastUpdated a owl:DatatypeProperty;
@@ -1095,7 +1095,7 @@ oec:lastUpdated a owl:DatatypeProperty;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#lastUpdate>;
     rdfs:range xsd:dateTime;
     rdfs:domain oec:DigitalProductPassport;
-    skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/1.3#Date-timeOfLatestUpdateOfDPP>, <https://dpp-keystone.org/spec/v2/terms#lastUpdate>, <https://w3id.org/eudpp#lastUpdate>, <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#lastUpdate>.
+    skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/1.3#Date-timeOfLatestUpdateOfDPP>, <https://dpp-keystone.org/spec/v3/terms#lastUpdate>, <https://w3id.org/eudpp#lastUpdate>, <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#lastUpdate>.
 oec:DigitalProductPassport a rdfs:Class;
     rdfs:seeAlso <https://w3id.org/eudpp#DPP>, <https://w3id.org/eudpp#DPPEvent>, <https://w3id.org/eudpp#dppUrl>;
     rdfs:label "Digital Product Passport"@en;
@@ -1106,7 +1106,7 @@ oec:DigitalProductPassport a rdfs:Class;
     skos:broadMatch schema:DigitalDocument;
     skos:exactMatch <https://w3id.org/eudpp#DPP>.
 oec:ProductCategory a rdfs:Class;
-    rdfs:seeAlso gs1:Product, schema:Product, gs1:FoodBeverageTobaccoProduct, <https://dpp-keystone.org/spec/v2/terms#BatteryProduct>;
+    rdfs:seeAlso gs1:Product, schema:Product, gs1:FoodBeverageTobaccoProduct, <https://dpp-keystone.org/spec/v3/terms#BatteryProduct>;
     rdfs:label "Product Category"@en;
     rdfs:comment "ESPR priority product categories per Annex I and delegated acts."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -1457,7 +1457,7 @@ oec:hasDueDiligenceReport a owl:ObjectProperty;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     skos:broadMatch <urn:samm:io.BatteryPass.Labels:1.2.0#resultOfTestReport>;
     rdfs:range oec:DueDiligenceReport;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#dueDiligenceReport>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#dueDiligenceReport>.
 oec:reportUrl a owl:DatatypeProperty;
     rdfs:seeAlso <urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#supplyChainDueDiligenceReport>, gs1:referencedFileURL;
     rdfs:label "Report URL"@en;
@@ -1493,7 +1493,7 @@ oec:hasVerificationBody a owl:ObjectProperty;
     rdfs:range gs1:Organization;
     rdfs:domain oec:DueDiligenceReport.
 oec:hasHazardousSubstances a owl:ObjectProperty;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceIdentifier>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass>, <https://dpp-keystone.org/spec/v2/terms#substancesOfConcern>;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceIdentifier>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass>, <https://dpp-keystone.org/spec/v3/terms#substancesOfConcern>;
     rdfs:label "Hazardous Substances"@en;
     rdfs:comment "Hazardous substances present in the product."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -1512,13 +1512,13 @@ oec:hasHazardClass a owl:ObjectProperty;
     rdfs:domain oec:HazardousSubstance;
     skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass>.
 oec:casNumber a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#componentCasNumber>, <https://w3id.org/eudpp#casNumber>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#componentCasNumber>, <https://w3id.org/eudpp#casNumber>;
     rdfs:label "CAS Number"@en;
     rdfs:comment "Chemical Abstracts Service registry number."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#componentCasNumber>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#componentCasNumber>;
     rdfs:range xsd:string;
     rdfs:domain oec:HazardousSubstance;
     skos:exactMatch <https://w3id.org/eudpp#casNumber>.
@@ -1595,7 +1595,7 @@ oec:hasDocumentType a owl:ObjectProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#europeanAssessmentDocument>;
+    skos:broadMatch <https://dpp-keystone.org/spec/v3/terms#europeanAssessmentDocument>;
     rdfs:range oec:DocumentType;
     rdfs:domain oec:DocumentReference;
     skos:exactMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#documentType>.
@@ -1637,7 +1637,7 @@ oec:issueDate a owl:DatatypeProperty;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     rdfs:range xsd:date;
     rdfs:domain oec:DocumentReference;
-    skos:exactMatch <https://vocabulary.uncefact.org/untp/issueDate>, <https://dpp-keystone.org/spec/v2/terms#dateOfIssue>.
+    skos:exactMatch <https://vocabulary.uncefact.org/untp/issueDate>, <https://dpp-keystone.org/spec/v3/terms/dopc#dateOfIssue>.
 oec:hasConformityDeclaration a owl:ObjectProperty;
     rdfs:seeAlso <http://data.europa.eu/m8g/Evidence>, gs1:certification, gs1:ReferencedFileTypeCode-DECLARATION_OF_CONFORMITY, <https://vocabulary.uncefact.org/untp/ConformityAttestation>;
     rdfs:label "Conformity Declaration"@en;
@@ -1660,7 +1660,7 @@ oec:combinedNomenclatureCode a owl:DatatypeProperty;
     rdfs:domain gs1:Product;
     skos:relatedMatch gs1:gpcCategoryCode.
 oec:hasCircularityPerformance a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#performance>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#performance>;
     rdfs:label "Circularity Performance"@en;
     rdfs:comment "Circularity performance data for the product."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -1676,7 +1676,7 @@ oec:recyclableContent a owl:DatatypeProperty;
     rdfs:range xsd:decimal;
     rdfs:domain oec:CircularityPerformance.
 oec:endOfLifeInstructions a owl:DatatypeProperty;
-    rdfs:seeAlso gs1:consumerRecyclingInstructions, <https://dpp-keystone.org/spec/v2/terms#endOfLifeInstructions>, gs1:sustainabilityInfo, <https://w3id.org/eudpp#hasEndOfLifeManagementInstruction>;
+    rdfs:seeAlso gs1:consumerRecyclingInstructions, <https://dpp-keystone.org/spec/v3/terms#endOfLifeInstructions>, gs1:sustainabilityInfo, <https://w3id.org/eudpp#hasEndOfLifeManagementInstruction>;
     rdfs:label "End of Life Instructions"@en;
     rdfs:comment "URL to end-of-life handling instructions. For text-based recycling guidance, see gs1:consumerRecyclingInstructions."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -1687,7 +1687,7 @@ oec:endOfLifeInstructions a owl:DatatypeProperty;
     rdfs:range xsd:anyURI;
     rdfs:domain oec:CircularityPerformance;
     skos:narrowMatch <https://w3id.org/eudpp/textile-process#hasEndOfLifeInstruction>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#endOfLifeInstructions>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#endOfLifeInstructions>.
 oec:wastePreventionInfo a owl:DatatypeProperty;
     rdfs:seeAlso gs1:consumerRecyclingInstructions;
     rdfs:label "Waste Prevention Info"@en;
@@ -1698,7 +1698,7 @@ oec:wastePreventionInfo a owl:DatatypeProperty;
     skos:broadMatch gs1:sustainabilityInfo;
     rdfs:range xsd:anyURI;
     rdfs:domain oec:CircularityPerformance;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#wastePreventionInfo>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#wastePreventionInfo>.
 oec:separateCollectionInfo a owl:DatatypeProperty;
     rdfs:seeAlso gs1:consumerRecyclingInstructions;
     rdfs:label "Separate Collection Info"@en;
@@ -1710,7 +1710,7 @@ oec:separateCollectionInfo a owl:DatatypeProperty;
     rdfs:range xsd:anyURI;
     rdfs:domain oec:CircularityPerformance.
 oec:hasDismantlingInstructions a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#dismantlingInformation>, <https://w3id.org/eudpp#hasDisassemblyInstruction>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#dismantlingInformation>, <https://w3id.org/eudpp#hasDisassemblyInstruction>;
     rdfs:label "Dismantling Instructions"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
@@ -1718,7 +1718,7 @@ oec:hasDismantlingInstructions a owl:ObjectProperty;
     skos:broadMatch gs1:instructions, <urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation>;
     rdfs:range oec:DocumentReference;
     rdfs:domain oec:CircularityPerformance;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#disassemblyInstructions>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#disassemblyInstructions>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation>.
 oec:utilityFactor a owl:DatatypeProperty;
     rdfs:label "Utility Factor"@en;
     rdfs:comment "Durability of the product relative to industry average (1.0 = average). A value >1 indicates above-average durability."@en;
@@ -1729,7 +1729,7 @@ oec:utilityFactor a owl:DatatypeProperty;
     rdfs:range xsd:decimal;
     rdfs:domain oec:CircularityPerformance.
 oec:materialCircularityIndicator a owl:DatatypeProperty;
-    rdfs:seeAlso <https://ref.openepcis.org/extensions/common/assessment/RecyclabilityScore>, <https://dpp-keystone.org/spec/v2/terms#recyclabilityScore>, oec:hasRecyclabilityAssessment;
+    rdfs:seeAlso <https://ref.openepcis.org/extensions/common/assessment/RecyclabilityScore>, <https://dpp-keystone.org/spec/v3/terms#recyclabilityScore>, oec:hasRecyclabilityAssessment;
     rdfs:label "Material Circularity Indicator"@en;
     rdfs:comment "Overall circularity score combining recycled input, recyclability, and utility (0-1 scale)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -1746,31 +1746,31 @@ oec:hasRecyclabilityAssessment a owl:ObjectProperty;
     rdfs:range oec:RecyclabilityAssessment;
     skos:exactMatch <https://w3id.org/eudpp/textile-recyclability#hasRecyclabilityAssessment>.
 oec:hasRecycledContentDetails a owl:ObjectProperty;
-    rdfs:seeAlso oec:recyclableContent, <https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage>, <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition>, <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage>;
+    rdfs:seeAlso oec:recyclableContent, <https://dpp-keystone.org/spec/v3/terms#recycledContentPercentage>, <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContent>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledMaterialComposition>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContent>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContentMass>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledMaterialComposition>, <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContentPercentage>;
     rdfs:label "Recycled Content Details"@en;
     rdfs:comment "Detailed recycled content breakdown with pre/post-consumer splits."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en;
-    skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentMass>;
-    skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage>, <https://vocabulary.uncefact.org/untp/recycledMassFraction>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContentMass>;
+    skos:broadMatch <https://dpp-keystone.org/spec/v3/terms#recycledContentPercentage>, <https://vocabulary.uncefact.org/untp/recycledMassFraction>;
     rdfs:range oec:RecycledContent;
-    skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition>, <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage>, <https://w3id.org/eudpp/textile-recyclability#hasRecycledContentAspect>.
+    skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContent>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledMaterialComposition>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContent>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContentMass>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledMaterialComposition>, <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContentPercentage>, <https://w3id.org/eudpp/textile-recyclability#hasRecycledContentAspect>.
 oec:recycledContent a owl:DatatypeProperty;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v2/terms#packagingRecycledContent>;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v3/terms#packagingRecycledContent>;
     rdfs:label "Recycled Content"@en;
     rdfs:comment "Total fraction of recycled content (0-1 scale where 0.45 = 45%)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Value is a decimal fraction 0-1. Aligned with UNTP recycledContent."@en;
     skos:closeMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>;
-    skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent>;
+    skos:broadMatch <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContent>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContent>;
     rdfs:range xsd:decimal;
     rdfs:domain oec:RecycledContent;
-    skos:narrowMatch <https://dpp-keystone.org/spec/v2/terms#packagingRecycledContent>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage>.
+    skos:narrowMatch <https://dpp-keystone.org/spec/v3/terms#packagingRecycledContent>;
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#recycledContentPercentage>.
 oec:preConsumerRecycledContent a owl:DatatypeProperty;
-    rdfs:seeAlso oec:recyclableContent, <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://vocabulary.uncefact.org/untp/recycledMassFraction>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent>, gs1:textileMaterialContent;
+    rdfs:seeAlso oec:recyclableContent, <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://vocabulary.uncefact.org/untp/recycledMassFraction>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContent>, gs1:textileMaterialContent;
     rdfs:label "Pre-Consumer Recycled Content"@en;
     rdfs:comment "Fraction of pre-consumer (post-industrial) recycled content (0-1 scale)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -1779,9 +1779,9 @@ oec:preConsumerRecycledContent a owl:DatatypeProperty;
     skos:broadMatch <https://w3id.org/eudpp#materialRecycledContent>;
     rdfs:range xsd:decimal;
     rdfs:domain oec:RecycledContent;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent>, <urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContent>, <urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare>.
 oec:postConsumerRecycledContent a owl:DatatypeProperty;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent>;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContent>;
     rdfs:label "Post-Consumer Recycled Content"@en;
     rdfs:comment "Fraction of post-consumer recycled content (0-1 scale)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -1791,16 +1791,16 @@ oec:postConsumerRecycledContent a owl:DatatypeProperty;
     skos:broadMatch <https://w3id.org/eudpp#materialRecycledContent>;
     rdfs:range xsd:decimal;
     rdfs:domain oec:RecycledContent;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContent>.
 oec:hasMaterialComposition a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition>, <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition>, gs1:textileMaterialContent, <https://dpp-keystone.org/spec/v2/terms#fibreComposition>, <https://dpp-keystone.org/spec/v2/terms#packagingMaterialCompositionQuantity>, gs1:textileMaterialDescription, gs1:packagingMaterial, gs1:packagingMaterialType, <https://dpp-keystone.org/spec/v2/terms#packagingMaterialType>, <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledMaterial>, gs1:upperMaterialType;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledMaterialComposition>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledMaterialComposition>, gs1:textileMaterialContent, <https://dpp-keystone.org/spec/v3/terms#fibreComposition>, <https://dpp-keystone.org/spec/v3/terms#packagingMaterialCompositionQuantity>, gs1:textileMaterialDescription, gs1:packagingMaterial, gs1:packagingMaterialType, <https://dpp-keystone.org/spec/v3/terms#packagingMaterialType>, <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledMaterial>, gs1:upperMaterialType;
     rdfs:label "Material Composition"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     rdfs:range oec:MaterialComposition;
-    skos:narrowMatch <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition>, gs1:textileMaterialDescription, gs1:packagingMaterialType, gs1:textileMaterial, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#detailedComposition>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#materialComposition>.
+    skos:narrowMatch <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledMaterialComposition>, gs1:textileMaterialDescription, gs1:packagingMaterialType, gs1:textileMaterial, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#detailedComposition>;
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#materialComposition>.
 oec:massFraction a owl:DatatypeProperty;
     rdfs:seeAlso <https://vocabulary.uncefact.org/untp/massFraction>, <https://w3id.org/eudpp#materialPercentage>;
     rdfs:label "Mass Fraction"@en;
@@ -1822,7 +1822,7 @@ oec:isCriticalRawMaterial a owl:DatatypeProperty;
     rdfs:domain oec:MaterialComposition;
     skos:exactMatch <https://w3id.org/eudpp#isCriticalRawMaterial>.
 oec:componentName a owl:DatatypeProperty;
-    rdfs:seeAlso schema:name, <https://dpp-keystone.org/spec/v2/terms#componentName>, gs1:ingredientName;
+    rdfs:seeAlso schema:name, <https://dpp-keystone.org/spec/v3/terms#componentName>, gs1:ingredientName;
     rdfs:label "Component Name"@en;
     rdfs:comment "Human-readable name of the material or component (e.g. a fibre type, alloy, or constituent material)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -1832,10 +1832,10 @@ oec:componentName a owl:DatatypeProperty;
     rdfs:range xsd:string;
     rdfs:domain oec:MaterialComposition;
     skos:narrowMatch gs1:additiveName;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#componentName>;
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#componentName>;
     rdfs:subPropertyOf schema:name.
 oec:componentIdentifier a owl:DatatypeProperty;
-    rdfs:seeAlso schema:identifier, <https://dpp-keystone.org/spec/v2/terms#componentIdentifier>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier>;
+    rdfs:seeAlso schema:identifier, <https://dpp-keystone.org/spec/v3/terms#componentIdentifier>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier>;
     rdfs:label "Component Identifier"@en;
     rdfs:comment "Identifier for the material or component (e.g. an internal material code or GS1 identifier)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -1845,9 +1845,9 @@ oec:componentIdentifier a owl:DatatypeProperty;
     rdfs:range xsd:string;
     rdfs:domain oec:MaterialComposition;
     skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#componentIdentifier>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#componentId>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#componentIdentifier>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#componentId>.
 oec:hasEmissionsPerformance a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#performance>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#performance>;
     rdfs:label "Emissions Performance"@en;
     rdfs:comment "Emissions performance data container. Aligned with UNTP EmissionsPerformance."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -1873,7 +1873,7 @@ oec:carbonFootprintTotal a owl:DatatypeProperty;
     rdfs:range xsd:decimal;
     skos:exactMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint>.
 oec:hasCarbonFootprintProduction a owl:ObjectProperty;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint>, oec:carbonFootprintTotal, <https://dpp-keystone.org/spec/v2/terms#carbonFootprint>;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint>, oec:carbonFootprintTotal, <https://dpp-keystone.org/spec/v3/terms#carbonFootprint>;
     rdfs:label "Carbon Footprint: Production"@en;
     rdfs:comment "Lifecycle stage emissions from main product production. gs1:QuantitativeValue with unitCode 'KGM'."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -1891,7 +1891,7 @@ oec:declaredUnit a owl:DatatypeProperty;
     skos:note "Aligned with GDSN cfpFunctionalUnit and UNTP declaredUnit. Specifies the reference unit for measurements."@en;
     skos:broadMatch gs1:unitCode, <https://w3id.org/eudpp#hasMeasurementUnit>;
     rdfs:range xsd:string;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#declaredUnit>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms/dopc#declaredUnit>.
 oec:carbonFootprintStudyUrl a owl:DatatypeProperty;
     rdfs:seeAlso gs1:referencedFileURL;
     rdfs:label "Carbon Footprint Study URL"@en;
@@ -1984,7 +1984,7 @@ oec:economicOperatorId a owl:DatatypeProperty;
     skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en;
     rdfs:range xsd:string;
     rdfs:domain oec:OperatorInformation;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#economicOperatorId>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#economicOperatorId>.
 oec:eoriNumber a owl:DatatypeProperty;
     rdfs:label "EORI Number"@en;
     rdfs:comment "Economic Operators Registration and Identification (EORI) number for customs purposes."@en;
@@ -2022,23 +2022,23 @@ oec:hasFacilityCertifications a owl:ObjectProperty;
     rdfs:range gs1:CertificationDetails;
     rdfs:domain oec:FacilityInformation.
 oec:hasSubstancesOfConcern a owl:ObjectProperty;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstances>, <https://dpp-keystone.org/spec/v2/terms#substancesOfConcern>, gs1:ingredientOfConcern;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstances>, <https://dpp-keystone.org/spec/v3/terms#substancesOfConcern>, gs1:ingredientOfConcern;
     rdfs:label "Substances of Concern"@en;
     rdfs:comment "List of substances of concern present in the product per ESPR and SCIP database requirements."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272>;
     skos:note "Substance-of-concern pattern aligned with CLP (EC) 1272/2008 and the ECHA SCIP database. Reusable across regulation modules."@en;
     rdfs:range oec:SubstanceOfConcern;
-    skos:narrowMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#hazardousSubstances>, <https://dpp-keystone.org/spec/v2/terms#textileSubstancesOfConcern>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#substancesOfConcern>, <https://w3id.org/eudpp#containsSubstanceOfConcern>.
+    skos:narrowMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#hazardousSubstances>, <https://dpp-keystone.org/spec/v3/terms#textileSubstancesOfConcern>;
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#substancesOfConcern>, <https://w3id.org/eudpp#containsSubstanceOfConcern>.
 oec:ecNumber a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#componentEcNumber>, <https://w3id.org/eudpp#ecNumber>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#componentEcNumber>, <https://w3id.org/eudpp#ecNumber>;
     rdfs:label "EC Number"@en;
     rdfs:comment "European Community number for the substance (EINECS/ELINCS)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#componentEcNumber>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#componentEcNumber>;
     rdfs:range xsd:string;
     rdfs:domain oec:SubstanceOfConcern;
     skos:exactMatch <https://w3id.org/eudpp#ecNumber>.
@@ -2052,30 +2052,30 @@ oec:scipId a owl:DatatypeProperty;
     rdfs:range xsd:string;
     rdfs:domain oec:SubstanceOfConcern.
 oec:substanceLocation a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#componentLocationInProduct>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceLocation>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialLocation>, <http://www.w3.org/ns/locn#location>, <https://w3id.org/eudpp#substanceLocationDescription>, <https://w3id.org/eudpp#isLocatedInProduct>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#componentLocationInProduct>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceLocation>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialLocation>, <http://www.w3.org/ns/locn#location>, <https://w3id.org/eudpp#substanceLocationDescription>, <https://w3id.org/eudpp#isLocatedInProduct>;
     rdfs:label "Substance Location"@en;
     rdfs:comment "Location or component where the substance is present in the product."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272>;
     skos:note "Substance-of-concern pattern aligned with CLP (EC) 1272/2008 and the ECHA SCIP database. Reusable across regulation modules."@en;
-    skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#componentLocationInProduct>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#componentLocationInProduct>;
     skos:broadMatch <http://www.w3.org/ns/locn#location>, gs1:locationDescription;
     rdfs:range xsd:string;
     rdfs:domain oec:SubstanceOfConcern;
     skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceLocation>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialLocation>;
     skos:exactMatch <https://w3id.org/eudpp#substanceLocationDescription>.
 oec:safeUseInstructions a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#safeUseInstructions>, gs1:consumerSafetyInformation, <https://w3id.org/eudpp#hasSafeUseInstruction>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#safeUseInstructions>, gs1:consumerSafetyInformation, <https://w3id.org/eudpp#hasSafeUseInstruction>;
     rdfs:label "Safe Use Instructions"@en;
     rdfs:comment "Instructions for safe use of the product containing the substance of concern."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     skos:closeMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures>;
-    skos:broadMatch gs1:instructions, gs1:consumerSafetyInformation, gs1:consumerUsageInstructions, gs1:instructionsForUse, <https://dpp-keystone.org/spec/v2/terms#instructionsForUse>;
+    skos:broadMatch gs1:instructions, gs1:consumerSafetyInformation, gs1:consumerUsageInstructions, gs1:instructionsForUse, <https://dpp-keystone.org/spec/v3/terms#instructionsForUse>;
     rdfs:range xsd:string;
     rdfs:domain oec:SubstanceOfConcern;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#safeUseInstructions>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#safeUseInstructions>.
 oec:safeDisassemblyInstructions a owl:DatatypeProperty;
     rdfs:seeAlso <https://w3id.org/eudpp#hasDisassemblyInstruction>;
     rdfs:label "Safe Disassembly Instructions"@en;
@@ -2084,7 +2084,7 @@ oec:safeDisassemblyInstructions a owl:DatatypeProperty;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     skos:closeMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures>;
-    skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#endOfLifeInstructions>, gs1:instructions, <https://dpp-keystone.org/spec/v2/terms#disassemblyInstructions>, <urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation>;
+    skos:broadMatch <https://dpp-keystone.org/spec/v3/terms#endOfLifeInstructions>, gs1:instructions, <https://dpp-keystone.org/spec/v3/terms#disassemblyInstructions>, <urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation>;
     rdfs:range xsd:string;
     rdfs:domain oec:SubstanceOfConcern.
 oec:hasPerformanceInfo a owl:ObjectProperty;
@@ -2133,7 +2133,7 @@ oec:hasRepairInstructions a owl:ObjectProperty;
     rdfs:range oec:DocumentReference;
     rdfs:domain oec:RepairabilityInfo.
 oec:professionalRepairNetwork a owl:DatatypeProperty;
-    rdfs:seeAlso <http://data.europa.eu/m8g/contactPage>, <https://dpp-keystone.org/spec/v2/terms#repairServices>, <https://dpp-keystone.org/spec/v2/terms#repairService>;
+    rdfs:seeAlso <http://data.europa.eu/m8g/contactPage>, <https://dpp-keystone.org/spec/v3/terms#repairService>;
     rdfs:label "Professional Repair Network"@en;
     rdfs:comment "URL to find authorized repair service providers."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -2245,7 +2245,7 @@ oec:passportStatus a owl:DatatypeProperty;
     skos:closeMatch <https://w3id.org/eudpp#dppStatus>;
     rdfs:range xsd:string;
     rdfs:domain oec:DigitalProductPassport;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#dppStatus>, <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#dppStatus>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#dppStatus>, <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#dppStatus>.
 oec:passportExpiryDate a owl:DatatypeProperty;
     rdfs:seeAlso <https://w3id.org/eudpp#validUntil>;
     rdfs:label "Passport Expiry Date"@en;
@@ -2294,7 +2294,7 @@ oec:dppSchemaVersion a owl:DatatypeProperty;
     skos:closeMatch schema:schemaVersion;
     rdfs:range xsd:string;
     rdfs:domain oec:DigitalProductPassport;
-    skos:exactMatch <https://w3id.org/eudpp#dppSchemaVersion>, <https://dpp-keystone.org/spec/v2/terms#dppSchemaVersion>.
+    skos:exactMatch <https://w3id.org/eudpp#dppSchemaVersion>, <https://dpp-keystone.org/spec/v3/terms#dppSchemaVersion>.
 oec:facilityId a owl:DatatypeProperty;
     rdfs:seeAlso <https://w3id.org/eudpp#FacilityIdentifier>, <https://w3id.org/eudpp#hasUniqueFacilityIdentifier>;
     rdfs:label "Facility Identifier"@en;
@@ -2302,17 +2302,17 @@ oec:facilityId a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source "EN 18223:2026, 4.1.2.1; EN 18219:2026 (CEN/CENELEC JTC 24)";
     skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en;
-    skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#manufacturingFacility>;
+    skos:broadMatch <https://dpp-keystone.org/spec/v3/terms#manufacturingFacility>;
     rdfs:range xsd:string;
     rdfs:domain oec:DigitalProductPassport;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#facilityId>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#facilityId>.
 oec:contentSpecificationId a owl:DatatypeProperty;
     rdfs:label "Content Specification Identifier"@en;
     rdfs:comment "Reference to a horizontal or product-type content specification for the DPP (EN 18223 'contentSpecificationIds'). In EPCIS4DPP mirrors the declared GS1-Extensions namespaces."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)";
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#contentSpecificationIds>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#contentSpecificationIds>;
     rdfs:range xsd:anyURI;
     rdfs:domain oec:DigitalProductPassport;
     skos:exactMatch <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#contentSpecificationIds>.
@@ -2434,7 +2434,7 @@ oec:did a owl:DatatypeProperty;
     skos:broadMatch schema:identifier;
     rdfs:range xsd:anyURI.
 oec:identityCredentialUrl a owl:DatatypeProperty;
-    rdfs:seeAlso gs1:referencedFileURL, <https://untp.unece.org/docs/specification/DigitalIdentityAnchor/>, <https://www.w3.org/TR/vc-data-model-2.0/>, <https://dpp-keystone.org/spec/v2/terms#verifiableCredential>;
+    rdfs:seeAlso gs1:referencedFileURL, <https://untp.unece.org/docs/specification/DigitalIdentityAnchor/>, <https://www.w3.org/TR/vc-data-model-2.0/>;
     rdfs:label "Identity Credential URL"@en;
     rdfs:comment "URL to a verifiable credential proving identity (Digital Identity Anchor or similar)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -2773,14 +2773,14 @@ oec:hasDepositAmount a owl:ObjectProperty;
     rdfs:range gs1:QuantitativeValue;
     rdfs:domain oec:DepositReturnScheme.
 oec:hasDepositSchemeOperator a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#economicOperator>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#economicOperator>;
     rdfs:label "Deposit Scheme Operator"@en;
     rdfs:comment "The Producer Responsibility Organisation that operates the DRS (e.g. Pfand-System Deutschland for DE)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en;
     skos:closeMatch schema:serviceOperator;
-    skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#economicOperator>;
+    skos:broadMatch <https://dpp-keystone.org/spec/v3/terms#economicOperator>;
     rdfs:range gs1:Organization;
     rdfs:domain oec:DepositReturnScheme.
 oec:depositRedemptionChannelUrl a owl:DatatypeProperty;
@@ -2819,7 +2819,7 @@ oec:hasCarbonFootprintRawMaterial a owl:ObjectProperty;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en;
     skos:closeMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage>;
-    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint>, <https://dpp-keystone.org/spec/v2/terms#carbonFootprintAbsolute>, <https://dpp-keystone.org/spec/v2/terms#environmentalFootprint>;
+    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint>, <https://dpp-keystone.org/spec/v3/terms#carbonFootprintAbsolute>, <https://dpp-keystone.org/spec/v3/terms#environmentalFootprint>;
     rdfs:range gs1:QuantitativeValue;
     rdfs:domain oec:CarbonFootprintDeclaration.
 oec:hasCarbonFootprintDistribution a owl:ObjectProperty;
@@ -2830,7 +2830,7 @@ oec:hasCarbonFootprintDistribution a owl:ObjectProperty;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en;
     skos:closeMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage>;
-    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint>, <https://dpp-keystone.org/spec/v2/terms#carbonFootprintAbsolute>, <https://dpp-keystone.org/spec/v2/terms#environmentalFootprint>, <https://dpp-keystone.org/spec/v2/terms#carbonFootprint>;
+    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint>, <https://dpp-keystone.org/spec/v3/terms#carbonFootprintAbsolute>, <https://dpp-keystone.org/spec/v3/terms#environmentalFootprint>, <https://dpp-keystone.org/spec/v3/terms#carbonFootprint>;
     rdfs:range gs1:QuantitativeValue;
     rdfs:domain oec:CarbonFootprintDeclaration.
 oec:hasCarbonFootprintUse a owl:ObjectProperty;
@@ -2843,14 +2843,14 @@ oec:hasCarbonFootprintUse a owl:ObjectProperty;
     rdfs:range gs1:QuantitativeValue;
     rdfs:domain oec:CarbonFootprintDeclaration.
 oec:hasCarbonFootprintEndOfLife a owl:ObjectProperty;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint>, oec:carbonFootprintTotal, <https://dpp-keystone.org/spec/v2/terms#carbonFootprintAbsolute>, <https://dpp-keystone.org/spec/v2/terms#environmentalFootprint>, <https://dpp-keystone.org/spec/v2/terms#carbonFootprint>;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint>, oec:carbonFootprintTotal, <https://dpp-keystone.org/spec/v3/terms#carbonFootprintAbsolute>, <https://dpp-keystone.org/spec/v3/terms#environmentalFootprint>, <https://dpp-keystone.org/spec/v3/terms#carbonFootprint>;
     rdfs:label "Carbon Footprint: End of Life"@en;
     rdfs:comment "Lifecycle stage emissions from end-of-life and recycling. gs1:QuantitativeValue with unitCode 'KGM'."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en;
     skos:closeMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage>;
-    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint>, <https://dpp-keystone.org/spec/v2/terms#carbonFootprintAbsolute>, <https://dpp-keystone.org/spec/v2/terms#environmentalFootprint>, <https://dpp-keystone.org/spec/v2/terms#carbonFootprint>;
+    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint>, <https://dpp-keystone.org/spec/v3/terms#carbonFootprintAbsolute>, <https://dpp-keystone.org/spec/v3/terms#environmentalFootprint>, <https://dpp-keystone.org/spec/v3/terms#carbonFootprint>;
     rdfs:range gs1:QuantitativeValue;
     rdfs:domain oec:CarbonFootprintDeclaration.
 oec:carbonFootprintMethodology a owl:DatatypeProperty;
@@ -2867,7 +2867,7 @@ oec:hasCarbonFootprintDeclaration a owl:ObjectProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en;
-    skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#environmentalFootprint>;
+    skos:broadMatch <https://dpp-keystone.org/spec/v3/terms#environmentalFootprint>;
     rdfs:range oec:CarbonFootprintDeclaration.
 oec:RecyclabilityAssessment a owl:Class;
     rdfs:seeAlso <https://w3id.org/eudpp/textile-recyclability#RecyclabilityAssessment>;
@@ -2915,7 +2915,7 @@ oec:waterConsumption a owl:DatatypeProperty;
     rdfs:range xsd:decimal;
     rdfs:domain gs1:Product.
 oec:WDP a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#wdp>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#wdp>;
     rdfs:label "Water (user) deprivation potential"@en;
     skos:notation "WDP".
 oec:landUse a owl:DatatypeProperty;
@@ -2990,7 +2990,7 @@ oec:EnergyClassG a oec:EnergyEfficiencyClass;
     rdfs:label "Class G"@en;
     skos:notation "G".
 oec:hasEnergyEfficiencyClass a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass>, schema:energyEfficiencyScaleMin;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#energyEfficiencyClass>, schema:energyEfficiencyScaleMin;
     rdfs:label "Energy Efficiency Class"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
@@ -2998,7 +2998,7 @@ oec:hasEnergyEfficiencyClass a owl:ObjectProperty;
     skos:closeMatch schema:hasEnergyEfficiencyCategory;
     rdfs:range oec:EnergyEfficiencyClass;
     rdfs:domain oec:EnergyEfficiency;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#energyEfficiencyClass>.
 oec:hasAnnualEnergyConsumption a owl:ObjectProperty;
     rdfs:label "Annual Energy Consumption"@en;
     rdfs:comment "Annual energy consumption. gs1:QuantitativeValue with unitCode 'KWH'."@en;
@@ -3029,7 +3029,7 @@ oec:hasPowerConsumptionOff a owl:ObjectProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#power>, <https://dpp-keystone.org/spec/v2/terms#ratedPower>;
+    skos:broadMatch <https://dpp-keystone.org/spec/v3/terms#power>, <https://dpp-keystone.org/spec/v3/terms#ratedPower>;
     rdfs:range gs1:QuantitativeValue;
     rdfs:domain oec:EnergyEfficiency.
 oec:eprelRegistrationNumber a owl:DatatypeProperty;
@@ -3056,7 +3056,7 @@ oec:hasEnergyEfficiency a owl:ObjectProperty;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     rdfs:range oec:EnergyEfficiency;
-    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiency>, <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyFade>, <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>, <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyAt50Cycles>, <urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCertifiedEnergy>, <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyInitial>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#initialRoundTripEnergyEfficiency>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEfficiencyAtHalfCycleLife>.
+    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiency>, <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyFade>, <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>, <https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles>, <urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCertifiedEnergy>, <https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyInitial>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#initialRoundTripEnergyEfficiency>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEfficiencyAtHalfCycleLife>.
 oec:EndOfLifeProgram a owl:Class;
     rdfs:label "End-of-Life Program"@en;
     rdfs:comment "A take-back / collection / dismantling program operating across PPWR, WEEE, Battery, Textile take-back, and ELV. Distinct from EPR registration: EPR is the producer's compliance registration; this is the consumer-facing program with collection points, refunds, and dismantling guides."@en;
@@ -3225,7 +3225,7 @@ oec:isStrategicRawMaterial a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1252>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:broadMatch <https://w3id.org/eudpp#isCriticalRawMaterial>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#isCriticalRawMaterial>, <https://dpp-keystone.org/spec/v2/terms#criticalRawMaterials>;
+    skos:broadMatch <https://w3id.org/eudpp#isCriticalRawMaterial>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#isCriticalRawMaterial>, <https://dpp-keystone.org/spec/v3/terms#criticalRawMaterials>;
     rdfs:range xsd:boolean;
     rdfs:domain oec:MaterialComposition;
     skos:broader oec:isCriticalRawMaterial.
@@ -3235,7 +3235,7 @@ oec:crmListVersion a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#dppSchemaVersion>, <https://vocabulary.uncefact.org/untp/version>, <https://dpp-keystone.org/spec/v2/terms#versionNumber>;
+    skos:broadMatch <https://dpp-keystone.org/spec/v3/terms#dppSchemaVersion>, <https://vocabulary.uncefact.org/untp/version>, <https://dpp-keystone.org/spec/v3/terms#versionNumber>;
     rdfs:range xsd:string;
     rdfs:domain oec:MaterialComposition.
 oec:remanufacturingDate a owl:DatatypeProperty;
@@ -3249,7 +3249,7 @@ oec:remanufacturingDate a owl:DatatypeProperty;
     rdfs:domain schema:Product;
     skos:narrowMatch <https://gs1-epcis-reg.org/rail/voc/data#itemReconditioningDate>.
 oec:EnvironmentalProductDeclaration a owl:Class;
-    rdfs:seeAlso oec:EmissionsPerformance, oec:CarbonFootprintDeclaration, <https://dpp-keystone.org/spec/v2/terms#EPDBlock>, <https://w3id.org/eudpp#EPDStudy>, <https://w3id.org/eudpp#EPDDocument>;
+    rdfs:seeAlso oec:EmissionsPerformance, oec:CarbonFootprintDeclaration, <https://dpp-keystone.org/spec/v3/terms#EPDBlock>, <https://w3id.org/eudpp#EPDStudy>, <https://w3id.org/eudpp#EPDDocument>;
     rdfs:subClassOf schema:Certification;
     rdfs:label "Environmental Product Declaration"@en;
     rdfs:comment "A type III environmental declaration per EN 15804:2012+A2:2019 / ISO 14025,\nreporting life-cycle environmental impact indicators broken down by lifecycle module."@en;
@@ -3259,13 +3259,13 @@ oec:EnvironmentalProductDeclaration a owl:Class;
     skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity>;
     skos:exactMatch <https://w3id.org/eudpp#EPDDocument>.
 oec:ImpactIndicatorResult a owl:Class;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#ImpactValues>, <https://w3id.org/eudpp#LCAResult>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#ImpactValues>, <https://w3id.org/eudpp#LCAResult>;
     rdfs:label "Impact Indicator Result"@en;
     rdfs:comment "One environmental impact indicator (e.g. Global Warming Potential) reported within\nan EPD: its indicator type, declared unit, aggregate value, and optional per-lifecycle-module values."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "EN 15804 impact-indicator result. Anchored to DPP Keystone dppk:ImpactValues (peer DPP profile)."@en;
-    skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#ImpactValues>;
+    skos:note "EN 15804 impact-indicator result. Anchored to DPP Keystone dppk-epd:ImpactValues (peer DPP profile)."@en;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms/epd#ImpactValues>;
     skos:broadMatch <https://w3id.org/eudpp#LCIAResult>, <https://w3id.org/eudpp#LCAResult>, <https://w3id.org/eudpp/textile-assessment#MeasurementResult>.
 oec:LifecycleStageResult a owl:Class;
     rdfs:seeAlso <https://w3id.org/eudpp#LCAModuleValue>;
@@ -3284,51 +3284,51 @@ oec:ImpactIndicatorType a rdfs:Class;
     skos:note "EN 15804+A2 core impact category set."@en;
     skos:broadMatch <https://w3id.org/eudpp#LCIAImpactCategory>.
 oec:GWPTotal a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#gwp>, <https://w3id.org/eudpp#ind_GWPtotal>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#gwp>, <https://w3id.org/eudpp#ind_GWPtotal>;
     rdfs:label "Global Warming Potential, total"@en;
     skos:notation "GWP-total".
 oec:GWPFossil a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#gwpF>, <https://w3id.org/eudpp#ind_GWPfossil>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#gwpF>, <https://w3id.org/eudpp#ind_GWPfossil>;
     rdfs:label "Global Warming Potential, fossil"@en;
     skos:notation "GWP-fossil".
 oec:GWPBiogenic a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#gwpB>, <https://w3id.org/eudpp#ind_GWPbiogenic>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#gwpB>, <https://w3id.org/eudpp#ind_GWPbiogenic>;
     rdfs:label "Global Warming Potential, biogenic"@en;
     skos:notation "GWP-biogenic".
 oec:GWPLuluc a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#gwpLuluc>, <https://w3id.org/eudpp#ind_GWPluluc>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#gwpLuluc>, <https://w3id.org/eudpp#ind_GWPluluc>;
     rdfs:label "Global Warming Potential, land use and land-use change"@en;
     skos:notation "GWP-luluc".
 oec:ODP a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#odp>, <https://w3id.org/eudpp#ind_ODP>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#odp>, <https://w3id.org/eudpp#ind_ODP>;
     rdfs:label "Depletion potential of the stratospheric ozone layer"@en;
     skos:notation "ODP".
 oec:AP a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#ap>, <https://w3id.org/eudpp#ind_AP>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#ap>, <https://w3id.org/eudpp#ind_AP>;
     rdfs:label "Acidification potential"@en;
     skos:notation "AP".
 oec:EPFreshwater a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#epF>, <https://w3id.org/eudpp#ind_EPfreshwater>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#epF>, <https://w3id.org/eudpp#ind_EPfreshwater>;
     rdfs:label "Eutrophication potential, freshwater"@en;
     skos:notation "EP-freshwater".
 oec:EPMarine a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#epM>, <https://w3id.org/eudpp#ind_EPmarine>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#epM>, <https://w3id.org/eudpp#ind_EPmarine>;
     rdfs:label "Eutrophication potential, marine"@en;
     skos:notation "EP-marine".
 oec:EPTerrestrial a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#epT>, <https://w3id.org/eudpp#ind_EPterrestrial>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#epT>, <https://w3id.org/eudpp#ind_EPterrestrial>;
     rdfs:label "Eutrophication potential, terrestrial"@en;
     skos:notation "EP-terrestrial".
 oec:POCP a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#pocp>, <https://w3id.org/eudpp#ind_POCP>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#pocp>, <https://w3id.org/eudpp#ind_POCP>;
     rdfs:label "Formation potential of tropospheric ozone"@en;
     skos:notation "POCP".
 oec:ADPElements a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#adpe>, <https://w3id.org/eudpp#ind_ADPE>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#adpe>, <https://w3id.org/eudpp#ind_ADPE>;
     rdfs:label "Abiotic depletion potential, minerals and metals"@en;
     skos:notation "ADP-minerals&metals".
 oec:ADPFossil a oec:ImpactIndicatorType;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#adpf>, <https://w3id.org/eudpp#ind_ADPF>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#adpf>, <https://w3id.org/eudpp#ind_ADPF>;
     rdfs:label "Abiotic depletion potential, fossil resources"@en;
     skos:notation "ADP-fossil".
 oec:LifecycleStage a rdfs:Class;
@@ -3340,55 +3340,55 @@ oec:LifecycleStage a rdfs:Class;
     skos:note "EN 15804 modular lifecycle stages."@en;
     skos:exactMatch <https://w3id.org/eudpp#LifeCycleModule>.
 oec:StageA1 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#a1>, <https://w3id.org/eudpp#en15804moduleA1>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#a1>, <https://w3id.org/eudpp#en15804moduleA1>;
     rdfs:label "A1 Raw material supply"@en;
     skos:notation "A1".
 oec:StageA2 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#a2>, <https://w3id.org/eudpp#en15804moduleA2>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#a2>, <https://w3id.org/eudpp#en15804moduleA2>;
     rdfs:label "A2 Transport to manufacturer"@en;
     skos:notation "A2".
 oec:StageA3 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#a3>, <https://w3id.org/eudpp#en15804moduleA3>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#a3>, <https://w3id.org/eudpp#en15804moduleA3>;
     rdfs:label "A3 Manufacturing"@en;
     skos:notation "A3".
 oec:StageA4 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#a4>, <https://w3id.org/eudpp#en15804moduleA4>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#a4>, <https://w3id.org/eudpp#en15804moduleA4>;
     rdfs:label "A4 Transport to site"@en;
     skos:notation "A4".
 oec:StageA5 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#a5>, <https://w3id.org/eudpp#en15804moduleA5>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#a5>, <https://w3id.org/eudpp#en15804moduleA5>;
     rdfs:label "A5 Installation"@en;
     skos:notation "A5".
 oec:StageB1 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b1>, <https://w3id.org/eudpp#en15804moduleB1>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#b1>, <https://w3id.org/eudpp#en15804moduleB1>;
     rdfs:label "B1 Use"@en;
     skos:notation "B1".
 oec:StageB2 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b2>, <https://w3id.org/eudpp#en15804moduleB2>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#b2>, <https://w3id.org/eudpp#en15804moduleB2>;
     rdfs:label "B2 Maintenance"@en;
     skos:notation "B2".
 oec:StageB3 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b3>, <https://w3id.org/eudpp#en15804moduleB3>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#b3>, <https://w3id.org/eudpp#en15804moduleB3>;
     rdfs:label "B3 Repair"@en;
     skos:notation "B3".
 oec:StageB4 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b4>, <https://w3id.org/eudpp#en15804moduleB4>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#b4>, <https://w3id.org/eudpp#en15804moduleB4>;
     rdfs:label "B4 Replacement"@en;
     skos:notation "B4".
 oec:StageB5 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b5>, <https://w3id.org/eudpp#en15804moduleB5>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#b5>, <https://w3id.org/eudpp#en15804moduleB5>;
     rdfs:label "B5 Refurbishment"@en;
     skos:notation "B5".
 oec:StageB6 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b6>, <https://w3id.org/eudpp#en15804moduleB6>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#b6>, <https://w3id.org/eudpp#en15804moduleB6>;
     rdfs:label "B6 Operational energy use"@en;
     skos:notation "B6".
 oec:StageB7 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#b7>, <https://w3id.org/eudpp#en15804moduleB7>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#b7>, <https://w3id.org/eudpp#en15804moduleB7>;
     rdfs:label "B7 Operational water use"@en;
     skos:notation "B7".
 oec:StageC1 a oec:LifecycleStage;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#c1>, <https://w3id.org/eudpp#en15804moduleC1>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#c1>, <https://w3id.org/eudpp#en15804moduleC1>;
     rdfs:label "C1 Deconstruction / demolition"@en;
     skos:notation "C1".
 oec:StageC2 a oec:LifecycleStage;
@@ -3408,14 +3408,14 @@ oec:StageD a oec:LifecycleStage;
     rdfs:label "D Benefits and loads beyond the system boundary"@en;
     skos:notation "D".
 oec:hasEnvironmentalProductDeclaration a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#epd>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#epd>;
     rdfs:label "Environmental Product Declaration"@en;
     rdfs:comment "Links a product to its EN 15804 environmental product declaration."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "EN 15804 EPD link. Anchored to DPP Keystone dppk:epd (peer DPP profile)."@en;
     rdfs:range oec:EnvironmentalProductDeclaration;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#epd>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#epd>.
 oec:epdRegistrationNumber a owl:DatatypeProperty;
     rdfs:seeAlso <https://w3id.org/eudpp#registrationNumber>;
     rdfs:label "EPD Registration Number"@en;
@@ -3465,12 +3465,12 @@ oec:epdValidUntil a owl:DatatypeProperty;
     rdfs:domain oec:EnvironmentalProductDeclaration;
     skos:exactMatch schema:validUntil.
 oec:hasImpactIndicator a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#indicator>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#indicator>;
     rdfs:label "Impact Indicator"@en;
     rdfs:comment "An environmental impact indicator result reported within the EPD."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "EN 15804 impact indicator. Anchored to DPP Keystone dppk:indicator (peer DPP profile)."@en;
+    skos:note "EN 15804 impact indicator. Anchored to DPP Keystone dppk-epd:indicator (peer DPP profile)."@en;
     rdfs:range oec:ImpactIndicatorResult;
     rdfs:domain oec:EnvironmentalProductDeclaration.
 oec:hasIndicatorType a owl:ObjectProperty;
@@ -3524,7 +3524,7 @@ oec:stageValue a owl:DatatypeProperty;
     rdfs:comment "Indicator value for this lifecycle module, in the indicator's declared unit."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "EN 15804 modular value. DPP Keystone expresses these as flat dppk:a1..dppk:d properties; here normalised as oec:LifecycleStage + oec:stageValue pairs."@en;
+    skos:note "EN 15804 modular value. DPP Keystone expresses these as flat dppk-epd:a1..dppk-epd:d properties; here normalised as oec:LifecycleStage + oec:stageValue pairs."@en;
     skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage>, <http://data.europa.eu/m8g/value>, <urn:samm:io.BatteryPass.Performance:1.2.1#evolutionOfSelfDischargeValue>, <urn:samm:io.BatteryPass.Performance:1.2.1#energyThroughputValue>, <urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergyValue>, <urn:samm:io.BatteryPass.Performance:1.2.1#capacityFadeValue>;
     rdfs:range xsd:decimal;
     rdfs:domain oec:LifecycleStageResult.
@@ -3541,17 +3541,17 @@ oec:stageValue a owl:DatatypeProperty;
     <http://purl.org/vocab/vann/preferredNamespaceUri> "https://ref.openepcis.org/extensions/eu/iron-steel/";
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct> a owl:Class;
-    rdfs:seeAlso oec:IronSteel, <https://dpp-keystone.org/spec/v2/terms#IronSteelProduct>, <https://dpp-keystone.org/spec/v2/terms#ConstructionProduct>;
+    rdfs:seeAlso oec:IronSteel, <https://dpp-keystone.org/spec/v3/terms#IronSteelProduct>, <https://dpp-keystone.org/spec/v3/terms#ConstructionProduct>;
     rdfs:subClassOf gs1:Product;
     rdfs:label "Iron & Steel Product"@en;
     rdfs:comment "An iron or steel product (e.g. rebar, structural section, plate, coil,\nwire rod) subject to the ESPR iron & steel delegated act. Carrier for steel\nidentification, grade/designation, production route, and the Material Test\nCertificate. Reuse oec: terms for recycled content, substances of concern,\nenvironmental product declaration, and supporting documents."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "ESPR iron & steel product group. GS1 Web Vocabulary has gs1:Product but no\nsteel-specific identification or test-certificate structure. Anchored to the DPP Keystone\npeer profile dppk:IronSteelProduct and to the oec:IronSteel product category."@en;
-    skos:broadMatch gs1:Product, schema:Product, schema:IndividualProduct, <https://vocabulary.uncefact.org/untp/Product>, <https://dpp-keystone.org/spec/v2/terms#Product>, <https://w3id.org/eudpp#Product>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#IronSteelProduct>.
+    skos:broadMatch gs1:Product, schema:Product, schema:IndividualProduct, <https://vocabulary.uncefact.org/untp/Product>, <https://dpp-keystone.org/spec/v3/terms#Product>, <https://w3id.org/eudpp#Product>;
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#IronSteelProduct>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/heatNumber> a owl:DatatypeProperty;
-    rdfs:seeAlso schema:serialNumber, <https://dpp-keystone.org/spec/v2/terms#heatNumber>, gs1:hasBatchLotNumber;
+    rdfs:seeAlso schema:serialNumber, <https://dpp-keystone.org/spec/v3/terms#heatNumber>, gs1:hasBatchLotNumber;
     rdfs:label "Heat Number"@en;
     rdfs:comment "Heat (melt) number identifying the batch of molten steel from which the product was cast (EN 10168 traceability)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3560,20 +3560,20 @@ oec:stageValue a owl:DatatypeProperty;
     skos:closeMatch gs1:hasBatchLotNumber;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#heatNumber>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#heatNumber>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/castNumber> a owl:DatatypeProperty;
-    rdfs:seeAlso schema:serialNumber, gs1:hasBatchLotNumber, <https://dpp-keystone.org/spec/v2/terms#castNumber>;
+    rdfs:seeAlso schema:serialNumber, gs1:hasBatchLotNumber, <https://dpp-keystone.org/spec/v3/terms#castNumber>;
     rdfs:label "Cast Number"@en;
     rdfs:comment "Cast number identifying the casting run within a heat (EN 10168 traceability)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
     dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx>;
     skos:note "Steel traceability identifier per EN 10168. Closest GS1 generic is gs1:hasBatchLotNumber. schema:serialNumber stays an ungraded pointer: it is domained on schema:IndividualProduct, so it identifies one piece, while a cast number identifies the casting run."@en;
-    skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#heatNumber>, gs1:hasBatchLotNumber;
+    skos:broadMatch <https://dpp-keystone.org/spec/v3/terms#heatNumber>, gs1:hasBatchLotNumber;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#castNumber>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#castNumber>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/lotNumber> a owl:DatatypeProperty;
-    rdfs:seeAlso schema:serialNumber, gs1:hasBatchLotNumber, <https://dpp-keystone.org/spec/v2/terms#lotNumber>;
+    rdfs:seeAlso schema:serialNumber, gs1:hasBatchLotNumber, <https://dpp-keystone.org/spec/v3/terms#lotNumber>;
     rdfs:label "Lot Number"@en;
     rdfs:comment "Delivery lot number for the steel product."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3582,9 +3582,9 @@ oec:stageValue a owl:DatatypeProperty;
     skos:broadMatch gs1:hasBatchLotNumber;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#lotNumber>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#lotNumber>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/productNumber> a owl:DatatypeProperty;
-    rdfs:seeAlso schema:serialNumber, schema:productID, <https://dpp-keystone.org/spec/v2/terms#productNumber>;
+    rdfs:seeAlso schema:serialNumber, schema:productID, <https://dpp-keystone.org/spec/v3/terms#productNumber>;
     rdfs:label "Product Number"@en;
     rdfs:comment "Manufacturer product / article number for the steel product."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3594,9 +3594,9 @@ oec:stageValue a owl:DatatypeProperty;
     skos:broadMatch schema:serialNumber, gs1:productID;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#productNumber>, schema:mpn.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#productNumber>, schema:mpn.
 <https://ref.openepcis.org/extensions/eu/iron-steel/purchaserOrder> a owl:DatatypeProperty;
-    rdfs:seeAlso schema:orderNumber, <https://dpp-keystone.org/spec/v2/terms#purchaserOrder>;
+    rdfs:seeAlso schema:orderNumber, <https://dpp-keystone.org/spec/v3/terms#purchaserOrder>;
     rdfs:label "Purchaser Order"@en;
     rdfs:comment "Purchaser order reference associated with the steel delivery."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3605,9 +3605,9 @@ oec:stageValue a owl:DatatypeProperty;
     skos:broadMatch schema:orderNumber;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#purchaserOrder>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#purchaserOrder>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/steelGradeClassification> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#steelGradeClassification>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#steelGradeClassification>;
     rdfs:label "Steel Grade Classification"@en;
     rdfs:comment "Classification of the steel grade per EN 10020 (unalloyed, stainless, other alloy)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3615,9 +3615,9 @@ oec:stageValue a owl:DatatypeProperty;
     skos:note "Steel grade classification per EN 10020. No GS1, SEMICeu, or schema.org equivalent."@en;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#steelGradeClassification>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#steelGradeClassification>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/steelDesignation> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#steelDesignation>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#steelDesignation>;
     rdfs:label "Steel Designation"@en;
     rdfs:comment "Steel name / number designation per EN 10027 (e.g. S355J2 / 1.0577)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3625,9 +3625,9 @@ oec:stageValue a owl:DatatypeProperty;
     skos:note "Steel designation per EN 10027 (parts 1 name, 2 number). No GS1, SEMICeu, or schema.org equivalent."@en;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#steelDesignation>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#steelDesignation>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/meltAndPourCountry> a owl:DatatypeProperty;
-    rdfs:seeAlso schema:countryOfOrigin, <https://dpp-keystone.org/spec/v2/terms#meltAndPourCountry>, <https://dpp-keystone.org/spec/v2/terms#productionLocationCountry>, <https://vocabulary.uncefact.org/untp/addressCountry>, <https://dpp-keystone.org/spec/v2/terms#addressCountry>, <https://dpp-keystone.org/spec/v2/terms#countryOfOrigin>, <https://vocabulary.uncefact.org/untp/countryCode>;
+    rdfs:seeAlso schema:countryOfOrigin, <https://dpp-keystone.org/spec/v3/terms#meltAndPourCountry>, <https://dpp-keystone.org/spec/v3/terms#productionLocationCountry>, <https://vocabulary.uncefact.org/untp/addressCountry>, <https://dpp-keystone.org/spec/v3/terms#addressCountry>, <https://dpp-keystone.org/spec/v3/terms#countryOfOrigin>, <https://vocabulary.uncefact.org/untp/countryCode>;
     rdfs:label "Melt and Pour Country"@en;
     rdfs:comment "Country where the steel was melted and poured (ISO 3166-1 alpha-2). Relevant to origin and CBAM reporting."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3637,9 +3637,9 @@ oec:stageValue a owl:DatatypeProperty;
     skos:broadMatch gs1:countryOfOrigin, schema:addressCountry, gs1:countryOfOriginStatement, <https://vocabulary.uncefact.org/untp/countryOfProduction>, gs1:countryCode, <https://vocabulary.uncefact.org/untp/countryOfOperation>, <https://vocabulary.uncefact.org/untp/countryName>;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#meltAndPourCountry>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#meltAndPourCountry>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/cbamReportId> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#cbamReportId>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#cbamReportId>;
     rdfs:label "CBAM Report ID"@en;
     rdfs:comment "Identifier of the Carbon Border Adjustment Mechanism report associated with the steel product."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3648,7 +3648,7 @@ oec:stageValue a owl:DatatypeProperty;
     skos:closeMatch schema:reportNumber;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#cbamReportId>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#cbamReportId>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/TechnologyRoute> a owl:Class;
     rdfs:label "Steel Production Technology Route"@en;
     rdfs:comment "Primary steelmaking route, a key driver of embodied carbon."@en;
@@ -3677,7 +3677,7 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     rdfs:label "Other Route"@en;
     skos:notation "other".
 <https://ref.openepcis.org/extensions/eu/iron-steel/hasTechnologyRoute> a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#technologyRoute>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#technologyRoute>;
     rdfs:label "Technology Route"@en;
     rdfs:comment "Primary steelmaking route used to produce the product."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3685,18 +3685,18 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:note "Production-route classifier; DPP Keystone expresses dppk:technologyRoute as free text. No GS1, SEMICeu, or schema.org equivalent."@en;
     rdfs:range <https://ref.openepcis.org/extensions/eu/iron-steel/TechnologyRoute>;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#technologyRoute>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#technologyRoute>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate> a owl:Class;
-    rdfs:seeAlso schema:Certification, <https://dpp-keystone.org/spec/v2/terms#MaterialTestCertificate>;
+    rdfs:seeAlso schema:Certification, <https://dpp-keystone.org/spec/v3/terms#MaterialTestCertificate>;
     rdfs:label "Material Test Certificate"@en;
     rdfs:comment "An inspection document for metallic products per EN 10204 (type 2.1, 2.2,\n3.1, or 3.2), carrying the EN 10168 mechanical and chemical test parameters that\nsubstantiate the declared grade."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
     dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx>;
     skos:note "Mill test certificate (EN 10204 / EN 10168). schema:Certification is the generic\nupstream; this class names the steel inspection document and its EN 10168 parameter set.\nAnchored to the DPP Keystone peer profile dppk:MaterialTestCertificate."@en;
     skos:broadMatch gs1:CertificationDetails, schema:Certification;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#MaterialTestCertificate>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#MaterialTestCertificate>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/hasMtc> a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtc>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtc>;
     rdfs:label "Material Test Certificate"@en;
     rdfs:comment "Links a steel product to its Material Test Certificate (EN 10204)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3705,7 +3705,7 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:broadMatch gs1:certification, schema:hasCertification;
     rdfs:range <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtc>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtc>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcInspectionType> a owl:DatatypeProperty;
     rdfs:label "MTC Inspection Document Type"@en;
     rdfs:comment "EN 10204 inspection document type: 2.1, 2.2, 3.1, or 3.2."@en;
@@ -3716,7 +3716,7 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcNominalSize> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtcNominalSize>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcNominalSize>;
     rdfs:label "MTC Nominal Size"@en;
     rdfs:comment "Nominal dimension of the tested product (mm)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3726,9 +3726,9 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:broadMatch schema:size, <https://gs1-epcis-reg.org/rail/voc/data#setNominalValues>;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtcNominalSize>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcNominalSize>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcWeightTolerance> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtcWeightTolerance>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcWeightTolerance>;
     rdfs:label "MTC Weight Tolerance"@en;
     rdfs:comment "Permitted weight tolerance of the tested product (%)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3736,9 +3736,9 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:note "EN 10168 dimensional parameter."@en;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtcWeightTolerance>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcWeightTolerance>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcYieldStrength> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtcYieldStrength>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcYieldStrength>;
     rdfs:label "MTC Yield Strength"@en;
     rdfs:comment "Measured yield strength Re (MPa)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3746,7 +3746,7 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:note "EN 10168 mechanical parameter."@en;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtcYieldStrength>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcYieldStrength>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcTensileStrength> a owl:DatatypeProperty;
     rdfs:label "MTC Tensile Strength"@en;
     rdfs:comment "Measured ultimate tensile strength Rm (MPa)."@en;
@@ -3756,7 +3756,7 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcYieldStrengthRatio> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtcYieldStrengthRatio>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcYieldStrengthRatio>;
     rdfs:label "MTC Yield Strength Ratio"@en;
     rdfs:comment "Ratio of yield strength to tensile strength (Re/Rm)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3764,9 +3764,9 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:note "EN 10168 mechanical parameter."@en;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtcYieldStrengthRatio>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcYieldStrengthRatio>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcElongation> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtcElongation>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcElongation>;
     rdfs:label "MTC Elongation"@en;
     rdfs:comment "Percentage elongation after fracture (A%)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3774,9 +3774,9 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:note "EN 10168 mechanical parameter."@en;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtcElongation>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcElongation>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcRelativeRibArea> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtcRelativeRibArea>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcRelativeRibArea>;
     rdfs:label "MTC Relative Rib Area"@en;
     rdfs:comment "Relative rib area fR for ribbed reinforcing steel (bond performance)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3784,9 +3784,9 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:note "EN 10168 mechanical parameter for reinforcing steel."@en;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtcRelativeRibArea>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcRelativeRibArea>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcCarbonContent> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtcCarbonContent>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcCarbonContent>;
     rdfs:label "MTC Carbon Content"@en;
     rdfs:comment "Carbon content from the cast/ladle analysis (mass %)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3794,9 +3794,9 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:note "EN 10168 chemical parameter."@en;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtcCarbonContent>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcCarbonContent>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcPhosphorusContent> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtcPhosphorusContent>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcPhosphorusContent>;
     rdfs:label "MTC Phosphorus Content"@en;
     rdfs:comment "Phosphorus content from the cast analysis (mass %)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3804,9 +3804,9 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:note "EN 10168 chemical parameter."@en;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtcPhosphorusContent>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcPhosphorusContent>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcSulfurContent> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtcSulfurContent>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcSulfurContent>;
     rdfs:label "MTC Sulfur Content"@en;
     rdfs:comment "Sulfur content from the cast analysis (mass %)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3814,9 +3814,9 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:note "EN 10168 chemical parameter."@en;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtcSulfurContent>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcSulfurContent>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcCopperContent> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtcCopperContent>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcCopperContent>;
     rdfs:label "MTC Copper Content"@en;
     rdfs:comment "Copper content from the cast analysis (mass %)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3824,9 +3824,9 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:note "EN 10168 chemical parameter."@en;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtcCopperContent>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcCopperContent>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcNitrogenContent> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtcNitrogenContent>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcNitrogenContent>;
     rdfs:label "MTC Nitrogen Content"@en;
     rdfs:comment "Nitrogen content from the cast analysis (mass %)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3834,9 +3834,9 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:note "EN 10168 chemical parameter."@en;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtcNitrogenContent>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcNitrogenContent>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcCarbonEquivalent> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtcCarbonEquivalent>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcCarbonEquivalent>;
     rdfs:label "MTC Carbon Equivalent"@en;
     rdfs:comment "Carbon equivalent value (CEV / CET), a weldability indicator derived from the cast analysis."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3844,9 +3844,9 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:note "EN 10168 derived chemical parameter (weldability)."@en;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtcCarbonEquivalent>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcCarbonEquivalent>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcSteelProcess> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtcSteelProcess>, <https://vocabulary.uncefact.org/untp/processCategory>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcSteelProcess>, <https://vocabulary.uncefact.org/untp/processCategory>;
     rdfs:label "MTC Steel Process"@en;
     rdfs:comment "Steelmaking process recorded on the certificate (free text where the controlled eusteel:TechnologyRoute is not used)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3855,9 +3855,9 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:broadMatch <https://vocabulary.uncefact.org/untp/processCategory>;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtcSteelProcess>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcSteelProcess>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcFinishing> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtcFinishing>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcFinishing>;
     rdfs:label "MTC Finishing"@en;
     rdfs:comment "Finishing / delivery condition recorded on the certificate (e.g. hot-rolled, normalised, quenched and tempered)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3865,9 +3865,9 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:note "EN 10168 delivery-condition descriptor."@en;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtcFinishing>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcFinishing>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcRadiometricControl> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#mtcRadiometricControl>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcRadiometricControl>;
     rdfs:label "MTC Radiometric Control"@en;
     rdfs:comment "Radiometric (radioactivity) control result for the steel, where declared."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
@@ -3875,4 +3875,4 @@ _:b111 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:note "EN 10168 radiometric control parameter."@en;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#mtcRadiometricControl>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcRadiometricControl>.

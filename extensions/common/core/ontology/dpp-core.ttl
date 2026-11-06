@@ -37,7 +37,9 @@
 # Layer 2 community profile; aligned via the bridge in extensions/common/interop/.
 # Published namespace pinned to the v2 spec. Used for SKOS mapping anchors
 # (skos:exactMatch / skos:closeMatch / skos:broadMatch) from oec: terms to dppk: terms.
-@prefix dppk: <https://dpp-keystone.org/spec/v2/terms#> .
+@prefix dppk: <https://dpp-keystone.org/spec/v3/terms#> .
+@prefix dppk-epd: <https://dpp-keystone.org/spec/v3/terms/epd#> .
+@prefix dppk-dopc: <https://dpp-keystone.org/spec/v3/terms/dopc#> .
 # EU DPP Registry semantic data artifacts 1.0.0 (European Commission), mirrored under
 # extensions/upstream/eu-dpp. Data elements are SKOS concepts used as passport fields;
 # referenced only, never imported: graded SKOS from our terms, skos:exactMatch for code values.
@@ -1381,7 +1383,7 @@ oec:issueDate
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     skos:exactMatch untp:issueDate ;
-    skos:exactMatch dppk:dateOfIssue .
+    skos:exactMatch dppk-dopc:dateOfIssue .
 
 oec:hasConformityDeclaration
     a owl:ObjectProperty ;
@@ -1763,7 +1765,7 @@ oec:declaredUnit
     skos:note "Aligned with GDSN cfpFunctionalUnit and UNTP declaredUnit. Specifies the reference unit for measurements."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:exactMatch dppk:declaredUnit ;
+    skos:exactMatch dppk-dopc:declaredUnit ;
     skos:broadMatch gs1:unitCode ;
     skos:broadMatch <https://w3id.org/eudpp#hasMeasurementUnit> .
 
@@ -2133,7 +2135,7 @@ oec:professionalRepairNetwork
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
     rdfs:seeAlso cv:contactPage ;
-    rdfs:seeAlso dppk:repairServices ;
+    rdfs:seeAlso dppk:repairService ;
     rdfs:seeAlso dppk:repairService .
 
 oec:diyRepairPossible
@@ -2633,8 +2635,7 @@ proving DID-to-traditional-ID binding. Supports UNTP Digital Identity Anchor req
 No domain restriction - can be used on OperatorInformation, FacilityInformation, or any entity."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:seeAlso gs1:referencedFileURL ;
-    rdfs:seeAlso dppk:verifiableCredential .
+    rdfs:seeAlso gs1:referencedFileURL .
 
 # =============================================================================
 # Individual Trade Item Piece (ITIP) - GS1 Application Identifier 8026
@@ -3814,7 +3815,7 @@ oec:remanufacturingDate
 # (5 aggregate stages, GWP only) and the single-value oec:EmissionsPerformance.
 # Modelled normalised (indicator result -> per-stage result) to avoid a flat
 # explosion of indicator x stage properties. Anchored to the DPP Keystone EPD
-# block (dppk:EPDBlock / dppk:ImpactValues), a peer DPP profile.
+# block (dppk:EPDBlock / dppk-epd:ImpactValues), a peer DPP profile.
 
 oec:EnvironmentalProductDeclaration
     a owl:Class ;
@@ -3843,9 +3844,9 @@ oec:ImpactIndicatorResult
 an EPD: its indicator type, declared unit, aggregate value, and optional per-lifecycle-module values."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:seeAlso dppk:ImpactValues ;
-    skos:closeMatch dppk:ImpactValues ;
-    skos:note "EN 15804 impact-indicator result. Anchored to DPP Keystone dppk:ImpactValues (peer DPP profile)."@en ;
+    rdfs:seeAlso dppk-epd:ImpactValues ;
+    skos:closeMatch dppk-epd:ImpactValues ;
+    skos:note "EN 15804 impact-indicator result. Anchored to DPP Keystone dppk-epd:ImpactValues (peer DPP profile)."@en ;
     rdfs:seeAlso cirpass2:LCAResult ;
     skos:broadMatch <https://w3id.org/eudpp#LCIAResult> ;
     skos:broadMatch <https://w3id.org/eudpp#LCAResult> ;
@@ -3876,19 +3877,19 @@ oec:ImpactIndicatorType
     rdfs:seeAlso cirpass2:AreaOfProtection ;
     skos:broadMatch <https://w3id.org/eudpp#LCIAImpactCategory> .
 
-oec:GWPTotal     a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, total"@en ; skos:notation "GWP-total" ; rdfs:seeAlso dppk:gwp ; rdfs:seeAlso cirpass2:ind_GWPtotal .
-oec:GWPFossil    a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, fossil"@en ; skos:notation "GWP-fossil" ; rdfs:seeAlso dppk:gwpF ; rdfs:seeAlso cirpass2:ind_GWPfossil .
-oec:GWPBiogenic  a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, biogenic"@en ; skos:notation "GWP-biogenic" ; rdfs:seeAlso dppk:gwpB ; rdfs:seeAlso cirpass2:ind_GWPbiogenic .
-oec:GWPLuluc     a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, land use and land-use change"@en ; skos:notation "GWP-luluc" ; rdfs:seeAlso dppk:gwpLuluc ; rdfs:seeAlso cirpass2:ind_GWPluluc .
-oec:ODP          a oec:ImpactIndicatorType ; rdfs:label "Depletion potential of the stratospheric ozone layer"@en ; skos:notation "ODP" ; rdfs:seeAlso dppk:odp ; rdfs:seeAlso cirpass2:ind_ODP .
-oec:AP           a oec:ImpactIndicatorType ; rdfs:label "Acidification potential"@en ; skos:notation "AP" ; rdfs:seeAlso dppk:ap ; rdfs:seeAlso cirpass2:ind_AP .
-oec:EPFreshwater a oec:ImpactIndicatorType ; rdfs:label "Eutrophication potential, freshwater"@en ; skos:notation "EP-freshwater" ; rdfs:seeAlso dppk:epF ; rdfs:seeAlso cirpass2:ind_EPfreshwater .
-oec:EPMarine     a oec:ImpactIndicatorType ; rdfs:label "Eutrophication potential, marine"@en ; skos:notation "EP-marine" ; rdfs:seeAlso dppk:epM ; rdfs:seeAlso cirpass2:ind_EPmarine .
-oec:EPTerrestrial a oec:ImpactIndicatorType ; rdfs:label "Eutrophication potential, terrestrial"@en ; skos:notation "EP-terrestrial" ; rdfs:seeAlso dppk:epT ; rdfs:seeAlso cirpass2:ind_EPterrestrial .
-oec:POCP         a oec:ImpactIndicatorType ; rdfs:label "Formation potential of tropospheric ozone"@en ; skos:notation "POCP" ; rdfs:seeAlso dppk:pocp ; rdfs:seeAlso cirpass2:ind_POCP .
-oec:ADPElements  a oec:ImpactIndicatorType ; rdfs:label "Abiotic depletion potential, minerals and metals"@en ; skos:notation "ADP-minerals&metals" ; rdfs:seeAlso dppk:adpe ; rdfs:seeAlso cirpass2:ind_ADPE .
-oec:ADPFossil    a oec:ImpactIndicatorType ; rdfs:label "Abiotic depletion potential, fossil resources"@en ; skos:notation "ADP-fossil" ; rdfs:seeAlso dppk:adpf ; rdfs:seeAlso cirpass2:ind_ADPF .
-oec:WDP          a oec:ImpactIndicatorType ; rdfs:label "Water (user) deprivation potential"@en ; skos:notation "WDP" ; rdfs:seeAlso dppk:wdp .
+oec:GWPTotal     a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, total"@en ; skos:notation "GWP-total" ; rdfs:seeAlso dppk-epd:gwp ; rdfs:seeAlso cirpass2:ind_GWPtotal .
+oec:GWPFossil    a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, fossil"@en ; skos:notation "GWP-fossil" ; rdfs:seeAlso dppk-epd:gwpF ; rdfs:seeAlso cirpass2:ind_GWPfossil .
+oec:GWPBiogenic  a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, biogenic"@en ; skos:notation "GWP-biogenic" ; rdfs:seeAlso dppk-epd:gwpB ; rdfs:seeAlso cirpass2:ind_GWPbiogenic .
+oec:GWPLuluc     a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, land use and land-use change"@en ; skos:notation "GWP-luluc" ; rdfs:seeAlso dppk-epd:gwpLuluc ; rdfs:seeAlso cirpass2:ind_GWPluluc .
+oec:ODP          a oec:ImpactIndicatorType ; rdfs:label "Depletion potential of the stratospheric ozone layer"@en ; skos:notation "ODP" ; rdfs:seeAlso dppk-epd:odp ; rdfs:seeAlso cirpass2:ind_ODP .
+oec:AP           a oec:ImpactIndicatorType ; rdfs:label "Acidification potential"@en ; skos:notation "AP" ; rdfs:seeAlso dppk-epd:ap ; rdfs:seeAlso cirpass2:ind_AP .
+oec:EPFreshwater a oec:ImpactIndicatorType ; rdfs:label "Eutrophication potential, freshwater"@en ; skos:notation "EP-freshwater" ; rdfs:seeAlso dppk-epd:epF ; rdfs:seeAlso cirpass2:ind_EPfreshwater .
+oec:EPMarine     a oec:ImpactIndicatorType ; rdfs:label "Eutrophication potential, marine"@en ; skos:notation "EP-marine" ; rdfs:seeAlso dppk-epd:epM ; rdfs:seeAlso cirpass2:ind_EPmarine .
+oec:EPTerrestrial a oec:ImpactIndicatorType ; rdfs:label "Eutrophication potential, terrestrial"@en ; skos:notation "EP-terrestrial" ; rdfs:seeAlso dppk-epd:epT ; rdfs:seeAlso cirpass2:ind_EPterrestrial .
+oec:POCP         a oec:ImpactIndicatorType ; rdfs:label "Formation potential of tropospheric ozone"@en ; skos:notation "POCP" ; rdfs:seeAlso dppk-epd:pocp ; rdfs:seeAlso cirpass2:ind_POCP .
+oec:ADPElements  a oec:ImpactIndicatorType ; rdfs:label "Abiotic depletion potential, minerals and metals"@en ; skos:notation "ADP-minerals&metals" ; rdfs:seeAlso dppk-epd:adpe ; rdfs:seeAlso cirpass2:ind_ADPE .
+oec:ADPFossil    a oec:ImpactIndicatorType ; rdfs:label "Abiotic depletion potential, fossil resources"@en ; skos:notation "ADP-fossil" ; rdfs:seeAlso dppk-epd:adpf ; rdfs:seeAlso cirpass2:ind_ADPF .
+oec:WDP          a oec:ImpactIndicatorType ; rdfs:label "Water (user) deprivation potential"@en ; skos:notation "WDP" ; rdfs:seeAlso dppk-epd:wdp .
 
 # --- Lifecycle stage enumeration (EN 15804 modules A1-A5, B1-B7, C1-C4, D) ----
 
@@ -3902,19 +3903,19 @@ oec:LifecycleStage
     rdfs:seeAlso cirpass2:LifeCycleModule ;
     skos:exactMatch <https://w3id.org/eudpp#LifeCycleModule> .
 
-oec:StageA1 a oec:LifecycleStage ; rdfs:label "A1 Raw material supply"@en ; skos:notation "A1" ; rdfs:seeAlso dppk:a1 ; rdfs:seeAlso cirpass2:en15804moduleA1 .
-oec:StageA2 a oec:LifecycleStage ; rdfs:label "A2 Transport to manufacturer"@en ; skos:notation "A2" ; rdfs:seeAlso dppk:a2 ; rdfs:seeAlso cirpass2:en15804moduleA2 .
-oec:StageA3 a oec:LifecycleStage ; rdfs:label "A3 Manufacturing"@en ; skos:notation "A3" ; rdfs:seeAlso dppk:a3 ; rdfs:seeAlso cirpass2:en15804moduleA3 .
-oec:StageA4 a oec:LifecycleStage ; rdfs:label "A4 Transport to site"@en ; skos:notation "A4" ; rdfs:seeAlso dppk:a4 ; rdfs:seeAlso cirpass2:en15804moduleA4 .
-oec:StageA5 a oec:LifecycleStage ; rdfs:label "A5 Installation"@en ; skos:notation "A5" ; rdfs:seeAlso dppk:a5 ; rdfs:seeAlso cirpass2:en15804moduleA5 .
-oec:StageB1 a oec:LifecycleStage ; rdfs:label "B1 Use"@en ; skos:notation "B1" ; rdfs:seeAlso dppk:b1 ; rdfs:seeAlso cirpass2:en15804moduleB1 .
-oec:StageB2 a oec:LifecycleStage ; rdfs:label "B2 Maintenance"@en ; skos:notation "B2" ; rdfs:seeAlso dppk:b2 ; rdfs:seeAlso cirpass2:en15804moduleB2 .
-oec:StageB3 a oec:LifecycleStage ; rdfs:label "B3 Repair"@en ; skos:notation "B3" ; rdfs:seeAlso dppk:b3 ; rdfs:seeAlso cirpass2:en15804moduleB3 .
-oec:StageB4 a oec:LifecycleStage ; rdfs:label "B4 Replacement"@en ; skos:notation "B4" ; rdfs:seeAlso dppk:b4 ; rdfs:seeAlso cirpass2:en15804moduleB4 .
-oec:StageB5 a oec:LifecycleStage ; rdfs:label "B5 Refurbishment"@en ; skos:notation "B5" ; rdfs:seeAlso dppk:b5 ; rdfs:seeAlso cirpass2:en15804moduleB5 .
-oec:StageB6 a oec:LifecycleStage ; rdfs:label "B6 Operational energy use"@en ; skos:notation "B6" ; rdfs:seeAlso dppk:b6 ; rdfs:seeAlso cirpass2:en15804moduleB6 .
-oec:StageB7 a oec:LifecycleStage ; rdfs:label "B7 Operational water use"@en ; skos:notation "B7" ; rdfs:seeAlso dppk:b7 ; rdfs:seeAlso cirpass2:en15804moduleB7 .
-oec:StageC1 a oec:LifecycleStage ; rdfs:label "C1 Deconstruction / demolition"@en ; skos:notation "C1" ; rdfs:seeAlso dppk:c1 ; rdfs:seeAlso cirpass2:en15804moduleC1 .
+oec:StageA1 a oec:LifecycleStage ; rdfs:label "A1 Raw material supply"@en ; skos:notation "A1" ; rdfs:seeAlso dppk-epd:a1 ; rdfs:seeAlso cirpass2:en15804moduleA1 .
+oec:StageA2 a oec:LifecycleStage ; rdfs:label "A2 Transport to manufacturer"@en ; skos:notation "A2" ; rdfs:seeAlso dppk-epd:a2 ; rdfs:seeAlso cirpass2:en15804moduleA2 .
+oec:StageA3 a oec:LifecycleStage ; rdfs:label "A3 Manufacturing"@en ; skos:notation "A3" ; rdfs:seeAlso dppk-epd:a3 ; rdfs:seeAlso cirpass2:en15804moduleA3 .
+oec:StageA4 a oec:LifecycleStage ; rdfs:label "A4 Transport to site"@en ; skos:notation "A4" ; rdfs:seeAlso dppk-epd:a4 ; rdfs:seeAlso cirpass2:en15804moduleA4 .
+oec:StageA5 a oec:LifecycleStage ; rdfs:label "A5 Installation"@en ; skos:notation "A5" ; rdfs:seeAlso dppk-epd:a5 ; rdfs:seeAlso cirpass2:en15804moduleA5 .
+oec:StageB1 a oec:LifecycleStage ; rdfs:label "B1 Use"@en ; skos:notation "B1" ; rdfs:seeAlso dppk-epd:b1 ; rdfs:seeAlso cirpass2:en15804moduleB1 .
+oec:StageB2 a oec:LifecycleStage ; rdfs:label "B2 Maintenance"@en ; skos:notation "B2" ; rdfs:seeAlso dppk-epd:b2 ; rdfs:seeAlso cirpass2:en15804moduleB2 .
+oec:StageB3 a oec:LifecycleStage ; rdfs:label "B3 Repair"@en ; skos:notation "B3" ; rdfs:seeAlso dppk-epd:b3 ; rdfs:seeAlso cirpass2:en15804moduleB3 .
+oec:StageB4 a oec:LifecycleStage ; rdfs:label "B4 Replacement"@en ; skos:notation "B4" ; rdfs:seeAlso dppk-epd:b4 ; rdfs:seeAlso cirpass2:en15804moduleB4 .
+oec:StageB5 a oec:LifecycleStage ; rdfs:label "B5 Refurbishment"@en ; skos:notation "B5" ; rdfs:seeAlso dppk-epd:b5 ; rdfs:seeAlso cirpass2:en15804moduleB5 .
+oec:StageB6 a oec:LifecycleStage ; rdfs:label "B6 Operational energy use"@en ; skos:notation "B6" ; rdfs:seeAlso dppk-epd:b6 ; rdfs:seeAlso cirpass2:en15804moduleB6 .
+oec:StageB7 a oec:LifecycleStage ; rdfs:label "B7 Operational water use"@en ; skos:notation "B7" ; rdfs:seeAlso dppk-epd:b7 ; rdfs:seeAlso cirpass2:en15804moduleB7 .
+oec:StageC1 a oec:LifecycleStage ; rdfs:label "C1 Deconstruction / demolition"@en ; skos:notation "C1" ; rdfs:seeAlso dppk-epd:c1 ; rdfs:seeAlso cirpass2:en15804moduleC1 .
 oec:StageC2 a oec:LifecycleStage ; rdfs:label "C2 Transport to waste processing"@en ; skos:notation "C2" ; rdfs:seeAlso cirpass2:en15804moduleC2 .
 oec:StageC3 a oec:LifecycleStage ; rdfs:label "C3 Waste processing"@en ; skos:notation "C3" ; rdfs:seeAlso cirpass2:en15804moduleC3 .
 oec:StageC4 a oec:LifecycleStage ; rdfs:label "C4 Disposal"@en ; skos:notation "C4" ; rdfs:seeAlso cirpass2:en15804moduleC4 .
@@ -4002,8 +4003,8 @@ oec:hasImpactIndicator
     rdfs:range oec:ImpactIndicatorResult ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:seeAlso dppk:indicator ;
-    skos:note "EN 15804 impact indicator. Anchored to DPP Keystone dppk:indicator (peer DPP profile)."@en .
+    rdfs:seeAlso dppk-epd:indicator ;
+    skos:note "EN 15804 impact indicator. Anchored to DPP Keystone dppk-epd:indicator (peer DPP profile)."@en .
 
 oec:hasIndicatorType
     a owl:ObjectProperty ;
@@ -4070,7 +4071,7 @@ oec:stageValue
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso schema:value ;
-    skos:note "EN 15804 modular value. DPP Keystone expresses these as flat dppk:a1..dppk:d properties; here normalised as oec:LifecycleStage + oec:stageValue pairs."@en ;
+    skos:note "EN 15804 modular value. DPP Keystone expresses these as flat dppk-epd:a1..dppk-epd:d properties; here normalised as oec:LifecycleStage + oec:stageValue pairs."@en ;
     rdfs:seeAlso gs1:value ;
     skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage> ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapabilityValue> ;

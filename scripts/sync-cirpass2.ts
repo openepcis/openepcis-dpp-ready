@@ -33,8 +33,8 @@
  * by IRI only — no owl:imports, no class adoption
  * (see extensions/common/interop/docs/CIRPASS2_ALIGNMENT.md).
  *
- * Upstream licenses: CORE and Battery — Apache License 2.0 (CC BY 4.0 fallback
- * when treated as a document), (c) CIRPASS-2 project / TalTech (CORE) and the
+ * Upstream licenses: CORE and Battery — CC BY 4.0 since 2026-10-30 (Apache License 2.0
+ * fallback when treated as software), (c) CIRPASS-2 project / TalTech (CORE) and the
  * battery module authors; Textile — CC BY 4.0, CIRPASS-2 textile working group
  * (task T3.2 led by GS1 in Europe). The mirrors keep those licenses.
  */
@@ -49,7 +49,7 @@ const ROOT = join(__dirname, "..");
 
 const UPSTREAM_REPO = "CIRPASS-2/ontologies-docs";
 /** Pinned upstream commit. Bump deliberately, in the sync commit. */
-const UPSTREAM_COMMIT = "a41561dc9f8a237124d20b5ed5fc221360252fbb";
+const UPSTREAM_COMMIT = "ff8a429f232771e3b8c7326c6b9c1e2cb8b1e337";
 const RAW_BASE = `https://raw.githubusercontent.com/${UPSTREAM_REPO}/${UPSTREAM_COMMIT}`;
 
 const RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
@@ -105,7 +105,7 @@ const MIRRORS: Record<string, MirrorSpec> = {
     out: "extensions/upstream/cirpass2-eudpp/ontology/eudpp.ttl",
     prefixes: { eudpp: EUDPP_NS },
     license: [
-      "# Upstream license: Apache License 2.0 (CC BY 4.0 fallback as a document),",
+      "# Upstream license: CC BY 4.0 (Apache License 2.0 fallback as software),",
       "# (c) CIRPASS-2 project / TalTech.",
     ],
   },
@@ -151,7 +151,7 @@ const MIRRORS: Record<string, MirrorSpec> = {
       eudpp: EUDPP_NS,
     },
     license: [
-      "# Upstream license: Apache License 2.0 (CC BY 4.0 fallback as a document),",
+      "# Upstream license: CC BY 4.0 (Apache License 2.0 fallback as software),",
       "# (c) CIRPASS-2 project — battery ontology authors.",
     ],
   },

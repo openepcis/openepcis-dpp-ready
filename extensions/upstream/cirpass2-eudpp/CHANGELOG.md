@@ -5,6 +5,17 @@ Upstream mirror: this module tracks the CIRPASS-2 EUDPP Core Ontology releases
 
 ## Sync log
 
+### 2026-11-06 — upstream v2.2.0 (CIRPASS-2/ontologies-docs @ ff8a429)
+
+- CORE 2.1.0 → **2.2.0** (issued 2026-10-30). Module versions: ACTOR 2.2.0 → 2.3.0,
+  CONNECTOR 2.4.0 → 2.5.0, IDENT 1.2.0 → 1.3.0, MAT 1.1.0 → 1.2.0, P_DPP 2.2.0 → 2.3.0,
+  SOC 2.2.0 → 2.3.0; EVENT 1.0.0, COMP 1.0.0 and LCA 3.1 unchanged.
+- Same 536 named subjects: no term added or removed. The release changes ontology
+  metadata (creators, contributors, bibliographic citations, descriptions) and the
+  licence.
+- **Licence:** upstream moved from Apache License 2.0 to **CC BY 4.0** (Apache 2.0
+  fallback when treated as software). The mirror header and the sync script follow.
+
 ### 2026-10-29 — upstream v2.1.0 (CIRPASS-2/ontologies-docs @ a41561d)
 
 - CORE 2.0.5 → **2.1.0** (issued 2026-10-16; documentation refresh 2026-10-12,
