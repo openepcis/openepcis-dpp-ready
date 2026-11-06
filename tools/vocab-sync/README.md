@@ -93,13 +93,12 @@ depth in [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md):
   blind on purpose: it does not see the first proposal, so it cannot simply rubber-stamp it. The
   votes reconcile into a two-tier verdict (STRONG, WEAK, REJECT, SPLIT), and that panel is the real
   quality gate.
-- **A measured, counter-intuitive result.** On a 200-pair human-curated benchmark, the question of
-  whether a relation exists at all is answered correctly about 99% of the time. The question of
-  which graded relation it is tops out near 52% for every model tried, frontier hosted models
-  included, and a model's self-reported confidence does not track whether it picked the right
-  grade. Three things follow: a local 20B model (`gpt-oss-20b`) is enough for the bulk pass, the
-  confidence floor decides how many mappings get asserted, and the QA panel decides whether the
-  grades can be trusted.
+- **A measured, counter-intuitive result, and its correction.** Under the original rubric, which
+  graded relation holds topped out near 52% for every model tried, frontier hosted models included.
+  The ceiling was the rubric: a curator rubric (judge the data point, not its representation; list
+  the cases a curator never publishes) lifts every model by 10 to 30 points on the EU DPP Registry
+  gold set, Opus 5.5 and Sonnet 5.5 to 78 to 79%, the local `gpt-oss-20b` to 61%. See
+  [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md#2026-11-the-ceiling-was-the-rubric-not-the-model).
 - **Anti-hallucination guard.** A proposed mapping can only point at an IRI that genuinely exists in
   the upstream index, and that is re-checked again when the mapping is written. The tool cannot
   invent a target term.
@@ -180,7 +179,7 @@ Commands:
 | `smoke` | Grade one known pair to verify the endpoint and structured output. |
 | `stats [--module S]` | Load both indexes and print counts (no LLM). |
 | `retrieve --term NAME [--k K]` | Show embedding-retrieved candidates for one term (no grading). |
-| `audit [--module S] [--limit N] [--concurrency C] [--no-qa]` | Find MISSING/WEAK/WRONG mappings, QA-verify them → `docs/skos-alignment/skos-completeness-report.{md,json}`. |
+| `audit [--module S] [--limit N] [--concurrency C] [--no-qa] [--batch-model M] [--qa-batch-model M]` | Find MISSING/WEAK/WRONG mappings, QA-verify them → `docs/skos-alignment/skos-completeness-report.{md,json}`. `--batch-model` / `--qa-batch-model` grade through the Anthropic Message Batches API (half price; key from `ANTHROPIC_API_KEY` or `~/.config/anthropic/key`). `reverse --grade` takes the same two options. |
 | `apply --report R [--status …] [--confirmed-only] [--min-qa-confidence X] [--rewrite] [--apply]` | Insert/rewrite mappings into the TTLs (dry-run unless `--apply`). Below `--min-qa-confidence` (0.75) an add becomes a non-committal `rdfs:seeAlso` in place of a graded relation; re-parses and restores on invalid output. |
 | `provenance [--report R] [--approve F] [--xlsx P] [--min-qa-confidence X]` | From the report(s), write `docs/skos-alignment/skos-alignment-review.md` (review sheet) + `docs/skos-alignment/alignment-provenance.{ttl,json}` (audit trail). `--report` reads one report (vs the `*-opus.json` glob); `--xlsx` also writes the editable Excel curation workbook. |
 | `curate --report R [--xlsx P] [--stamp D] [--base-branch B] [--push]` | Read a curator-edited workbook and rebuild the `vocab-sync/upstream-<stamp>` branch from only the `Apply?=yes` rows (adds, rewrites, **and** removes). See [Curate via Excel](#curate-via-excel). |
@@ -191,7 +190,7 @@ Commands:
 | `fetch --from URL\|file --against cached [--save]` | Diff a refreshed upstream vocabulary against the cached copy (added/removed/changed terms) to decide when to re-audit. |
 | `fetch --all [--save]` | Refresh **every** configured upstream source (`vocab-sync.source.*.url`), diff each, and write `docs/skos-alignment/skos-upstream-delta.json`. |
 | `sync [--module S] [--stamp D] [--force] [--no-apply] [--no-qa] [--push] [--min-qa-confidence X]` | The regular-run loop: refresh upstream → if moved, re-audit (only changed pairs hit the LLM) → apply QA-confirmed mappings to a `vocab-sync/upstream-<stamp>` branch. See [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md#running-it-regularly-the-sync-loop). |
-| `benchmark [--goldset PATH] [--per-class N] [--models CSV] [--max-tokens T] [--tag S]` | Benchmark LLMs on graded-SKOS classification. Default gold set is the published STW↔Wikidata concordance (the proxy that chose the grader); `--goldset docs/skos-alignment/bench/gs1-grader-goldset.json` scores this project's own domain instead. Builds a balanced gold set, runs the field model-by-model (resumable JSONL log), and scores accuracy/F1/confusion/calibration → `docs/skos-alignment/bench/`. The report names the gold set it used. |
+| `benchmark [--goldset PATH] [--per-class N] [--models CSV] [--max-tokens T] [--tag S] [--batch]` | Benchmark LLMs on graded-SKOS classification. Default gold set is the published STW↔Wikidata concordance (the proxy that chose the grader); `--goldset docs/skos-alignment/bench/eu-dpp-goldset.json` scores the EU DPP Registry curation, the gold set to choose a grader by. `--batch` runs Anthropic models through the Message Batches API. Builds a balanced gold set, runs the field model-by-model (resumable JSONL log), and scores accuracy/F1/confusion/calibration → `docs/skos-alignment/bench/`. The report names the gold set it used. |
 
 Typical loop:
 
@@ -362,10 +361,11 @@ is a **local model** (`Qwen3-32B` 8-bit, or any flagship you load), so the whole
 locally with no API key and no data leaving the machine. Pairing two *different* local models
 (bulk vs QA) already gives model-family independence.
 
-> **A frontier hosted model adds no measured benefit on this task.** In the benchmark, Claude
-> Opus scored 52.5% exact-relation accuracy, statistically level with the local models
-> (52.0% to 52.5%). A hosted QA pass buys no accuracy here, only cost, an external dependency, and
-> data egress. See [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md).
+> **Under the curator rubric a hosted model pays (2026-11).** On the EU DPP Registry gold set,
+> Opus 5.5 and Sonnet 5.5 grade 17 to 18 points above the best local model, Haiku 5.5 ten points.
+> Under the original rubric Opus 4.8 was level with the local models (52.5% against 52.0%), which is
+> where the old advice to stay local came from. `--qa-batch-model` runs the panel through the
+> Anthropic Message Batches API. See [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md).
 
 The verifier is just another OpenAI-compatible endpoint, so you can point it anywhere (an Ollama
 cluster, a hosted vLLM, a frontier API) without code changes:

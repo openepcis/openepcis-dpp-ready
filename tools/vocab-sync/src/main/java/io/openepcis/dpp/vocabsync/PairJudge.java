@@ -34,10 +34,135 @@ public class PairJudge {
     @Inject VerdictCache verdicts;
     @Inject Embeddings embeddings;
 
+    @Inject AnthropicBatch anthropicBatch;
+
     @ConfigProperty(name = "quarkus.langchain4j.openai.qa.chat-model.model-name") String qaModelName;
+
+    /** Cache tag of the bulk grader when it is not the configured chat model (the batch path). */
+    private String graderTag;
 
     public String qaModelName() {
         return qaModelName;
+    }
+
+    /**
+     * Grade with an Anthropic model through the Message Batches API instead of the configured chat
+     * model. Its verdicts are cached under the model id, so they never mix with the local grader's.
+     */
+    public void useBatchGrader(String model) {
+        this.graderTag = model;
+    }
+
+    /** Run the QA panel on an Anthropic model through the Message Batches API. */
+    public void useBatchQa(String model) {
+        this.qaModelName = model;
+    }
+
+    /**
+     * Upstream terms that are serialisation slots of a data format rather than concepts. A mapping
+     * onto one says nothing about meaning ("a measurement is a kind of value"), so the curator
+     * never publishes it, and no model in the 2026-11-06 benchmark kept to that rule from the
+     * prompt alone (2 to 12 % on 51 slot pairs). The rule is applied here, before any model.
+     */
+    private static final Map<String, java.util.Set<String>> SLOTS = Map.of(
+            "eu-dpp", java.util.Set.of("url", "value", "unit", "language", "valueRange", "bin",
+                    "lowerBound", "upperBound", "recordedTime", "resourceTitle"),
+            "gs1", java.util.Set.of("value"));
+
+    /** Is {@code up} a serialisation slot (see {@link #SLOTS})? */
+    public static boolean isSlot(UpstreamTerm up) {
+        java.util.Set<String> s = SLOTS.get(up.vocabId());
+        return s != null && s.contains(up.localName());
+    }
+
+    private static Verdict slotVerdict() {
+        return new Verdict(Verdict.Relation.NONE, 1.0, "serialisation slot of the upstream format, not a concept");
+    }
+
+    private Verdict cachedGrade(OurTerm t, UpstreamTerm up, String sig) {
+        return graderTag == null ? verdicts.get(t.iri(), up.iri(), sig)
+                : verdicts.get(graderTag, t.iri(), up.iri(), sig);
+    }
+
+    private void cacheGrade(OurTerm t, UpstreamTerm up, String sig, Verdict v) {
+        if (graderTag == null) verdicts.put(t.iri(), up.iri(), sig, v);
+        else verdicts.put(graderTag, t.iri(), up.iri(), sig, v);
+    }
+
+    private static String userPrompt(OurTerm t, UpstreamTerm up) {
+        return GraderPrompts.fillUser(t.prefixedId(), t.type().label(), nz(t.label()), nz(t.comment()),
+                nz(t.domain()), nz(t.range()), up.vocabId(), up.iri(), up.type().label(),
+                nz(up.label()), nz(up.comment()), nz(up.domain()), nz(up.range()));
+    }
+
+    /**
+     * Batch pre-pass for the bulk grade: every pair without a cached verdict goes to the batch grader
+     * in one Message Batch, and each parsed verdict is cached. The normal reactive pass then only hits
+     * the cache. A pair whose reply failed or did not parse stays uncached and is graded by the
+     * configured chat model in that pass. Returns the number of verdicts cached.
+     */
+    public int prefillGrades(List<OurTerm> terms, List<UpstreamTerm> ups) {
+        if (graderTag == null) return 0;
+        List<AnthropicBatch.Request> reqs = new ArrayList<>();
+        Map<String, Object[]> byKey = new java.util.HashMap<>();
+        for (int i = 0; i < terms.size(); i++) {
+            OurTerm t = terms.get(i);
+            UpstreamTerm up = ups.get(i);
+            if (isSlot(up)) continue;
+            String sig = contentSig(t, up);
+            if (cachedGrade(t, up, sig) != null) continue;
+            String k = t.iri() + "\n" + up.iri();
+            if (byKey.putIfAbsent(k, new Object[]{t, up, sig}) != null) continue;
+            reqs.add(new AnthropicBatch.Request(k, GraderPrompts.SYSTEM,
+                    userPrompt(t, up) + GraderPrompts.JSON_INSTRUCTION));
+        }
+        System.err.printf("batch grade: %d uncached pair(s) for %s%n", reqs.size(), graderTag);
+        int n = 0;
+        for (var e : anthropicBatch.run(graderTag, reqs).entrySet()) {
+            Object[] p = byKey.get(e.getKey());
+            var v = VerdictParser.parse(e.getValue());
+            if (v.isEmpty()) continue;
+            cacheGrade((OurTerm) p[0], (UpstreamTerm) p[1], (String) p[2], v.get());
+            n++;
+        }
+        verdicts.save();
+        return n;
+    }
+
+    /**
+     * Batch pre-pass for the QA panel: every (finding, lens) judge without a cached vote goes into one
+     * Message Batch on the batch QA model, and each parsed vote is cached under that model and lens.
+     * {@link #qaPanelUni} then reconciles from the cache.
+     */
+    public int prefillQa(List<Finding> findings, Map<String, OurTerm> ourByIri,
+                         java.util.function.Function<String, UpstreamTerm> upByIri, int qaJudges) {
+        List<AnthropicBatch.Request> reqs = new ArrayList<>();
+        Map<String, String[]> byKey = new java.util.HashMap<>();
+        for (Finding f : findings) {
+            OurTerm t = ourByIri.get(f.ourIri());
+            UpstreamTerm up = upByIri.apply(f.upstreamIri());
+            if (t == null || up == null) continue;
+            String sig = contentSig(t, up);
+            for (String[] lens : selectedLenses(qaJudges)) {
+                String modelTag = qaModelName + "|" + lens[0];
+                if (verdicts.get(modelTag, f.ourIri(), f.upstreamIri(), sig) != null) continue;
+                String k = modelTag + "\n" + f.ourIri() + "\n" + f.upstreamIri();
+                if (byKey.putIfAbsent(k, new String[]{modelTag, f.ourIri(), f.upstreamIri(), sig}) != null) continue;
+                reqs.add(new AnthropicBatch.Request(k, GraderPrompts.QA_BLIND_SYSTEM,
+                        GraderPrompts.fillQaUser(lens[1], userPrompt(t, up)) + GraderPrompts.JSON_INSTRUCTION));
+            }
+        }
+        System.err.printf("batch QA: %d uncached judge vote(s) for %s%n", reqs.size(), qaModelName);
+        int n = 0;
+        for (var e : anthropicBatch.run(qaModelName, reqs).entrySet()) {
+            String[] p = byKey.get(e.getKey());
+            var v = VerdictParser.parse(e.getValue());
+            if (v.isEmpty()) continue;
+            verdicts.put(p[0], p[1], p[2], p[3], v.get());
+            n++;
+        }
+        verdicts.save();
+        return n;
     }
 
     /** Distinct QA lenses; a panel of these (run blind) gives decorrelated votes from the QA model. */
@@ -65,8 +190,9 @@ public class PairJudge {
      * terminal failure leaves the pair ungraded for the next run to retry.
      */
     public Uni<Verdict> gradeCachedUni(OurTerm t, UpstreamTerm up, int retries) {
+        if (isSlot(up)) return Uni.createFrom().item(slotVerdict());
         String sig = contentSig(t, up);
-        Verdict cached = verdicts.get(t.iri(), up.iri(), sig);
+        Verdict cached = cachedGrade(t, up, sig);
         if (cached != null) return Uni.createFrom().item(cached);
         // langchain4j's structured-output AiService is blocking, so run it as a deferred
         // Uni on the worker pool. merge(concurrency) upstream bounds how many run at once.
@@ -78,7 +204,7 @@ public class PairJudge {
                 .onFailure().retry()
                     .withBackOff(Duration.ofMillis(500), Duration.ofSeconds(8))
                     .atMost(Math.max(1, retries))
-                .onItem().invoke(v -> verdicts.put(t.iri(), up.iri(), sig, v))
+                .onItem().invoke(v -> cacheGrade(t, up, sig, v))
                 .onFailure().recoverWithItem(e ->
                         new Verdict(Verdict.Relation.NONE, 0, "grade failed: " + e.getMessage()));
     }
@@ -236,7 +362,7 @@ public class PairJudge {
      * that keeps the same IRI invalidates the cached verdict, so a re-run re-grades only moved pairs.
      */
     public static String contentSig(OurTerm t, UpstreamTerm up) {
-        String raw = String.join("\u0001",
+        String raw = String.join("\u0001", GraderPrompts.RUBRIC_VERSION,
                 t.type().label(), nz(t.label()), nz(t.comment()), nz(t.domain()), nz(t.range()),
                 up.type().label(), nz(up.label()), nz(up.comment()));
         try {

@@ -49,11 +49,14 @@ local model, so staying local is the recommendation.
 Concurrency is Mutiny throughout (`Multi … transformToUni(…).merge(N)` bounds in-flight requests;
 the blocking AiService call runs on the Vert.x worker pool with backoff retry).
 
-## Models (all local)
+## Models
+
+Local by default; since 2026-11 a hosted Anthropic model through the Batch API is the measured
+better grader (see [the ceiling was the rubric](#2026-11-the-ceiling-was-the-rubric-not-the-model)).
 
 | Role | Model | Why |
 |---|---|---|
-| Bulk grader | `gpt-oss-20b` (Q8) | Ties the frontier ceiling on this task at the lowest latency and zero parse failures. |
+| Bulk grader | `gpt-oss-20b` (Q8) | The best local grader at the lowest latency and zero parse failures. `--batch-model claude-sonnet-5-5` grades 17 points higher on the EU gold set. |
 | QA verifier | local flagship — `Qwen3-32B` 8-bit (or `qwen3.5-122b`) | An independent second opinion from a different model family; matches the ceiling locally. |
 | Embeddings | `nomic-embed-text` | Retrieval only; cached per model so vector spaces never mix. |
 
@@ -111,7 +114,7 @@ gold set and raw predictions are alongside it.
 
 **What didn't:**
 
-- **Opus adds no benefit.** Its 52.5% is statistically indistinguishable from the local 52.0–52.5%,
+- **Opus adds no benefit** (under the original rubric; superseded 2026-11, see below). Its 52.5% is statistically indistinguishable from the local 52.0–52.5%,
   so a hosted QA pass buys no accuracy — only an external dependency, a cost, and data leaving the
   machine. Its only marginal value is model-family independence, which an all-local pair already
   provides. Keep it available, default to local.
@@ -181,11 +184,82 @@ this machine and only does work when LM Studio is running.
 - **One-time:** changing the verdict-cache key format orphans old entries (harmless); the first run
   after the change re-grades, then steady state resumes.
 
+## 2026-11: the ceiling was the rubric, not the model
+
+The ~52 % ceiling above held for every model under the original rubric. Two things changed on
+2026-11-06, and the ceiling moved by twenty points.
+
+**A gold set that measures the real task.** `docs/skos-alignment/bench/eu-dpp-goldset.json` holds
+90 pairs from the EU DPP Registry curation of 2026-11-02: the 77 mappings that were written, each
+checked against the legal source of the EU data element, and the 13 declines with a stated reason.
+It carries what the production grader sees (prefixed id, type, domain, range, the EU scope note
+with the legal source) and a stratified dev/test split. Built by `tools/build-eu-goldset.py`. The
+117 proposals the curation neither wrote nor declined are in `eu-dpp-adjudication.json`; many are
+true relations that were simply not the best one per term, so they are not negatives.
+
+The older GS1 domain gold set is circular for model choice: its positives are mappings the
+`gpt-oss` pipeline proposed, so it rewards agreement with `gpt-oss`. On its 18 pairs that all four
+Claude 5 models reject, the models are mostly right (for example `Component Name` BROAD a GS1
+food-additive name). Use it to find mappings worth re-reading, not to rank graders.
+
+**A curator rubric** (`GraderPrompts.RUBRIC`, version `curator-3`), shared by the grader and the QA
+panel. The original rubric said "when uncertain between two grades, choose the weaker one", and
+that rule produced most of the errors: a model saw our structured value against the EU's literal
+or web link and downgraded the same data point to CLOSE. The curator rubric judges the data point,
+not its representation, prefers EXACT when both sides cite the same provision, says when one
+value of a bundled data point is NARROW, and lists the cases a curator never publishes (structural
+grouping, threshold versus measured value, rated versus measured, type versus thing, flag versus
+list, different referent). Serialisation slots (`url`, `value`, `unit`, ...) are not left to the
+model at all: no model kept to that rule from the prompt (2 to 12 % on 51 slot pairs), so
+`PairJudge` returns NONE for them before grading.
+
+EU DPP Registry gold set, 90 pairs, same prompt for every model:
+
+| Model | original rubric | curator rubric |
+|---|--:|--:|
+| claude-opus-5-5 | 52.2 % | 78.9 % |
+| claude-sonnet-5-5 | 56.7 % | 77.8 % |
+| claude-fable-5-1 | 61.1 % | 72.2 % |
+| claude-haiku-5-5 | 38.9 % | 71.1 % |
+| gpt-oss-20b | 46.7 % | 61.1 % |
+| gpt-oss-120b | | 58.9 % |
+
+The original-rubric column comes from the scratch harness of the same day (same pairs and fields,
+the vocabulary named "EU DPP Registry data model" instead of `eu-dpp`); the curator column is
+`benchmark --batch` on this tool. The dev half tuned the rubric and the test half confirmed it
+(Opus 77.3 %, Fable 72.7 %, Sonnet 70.5 % on test with the `curator-2` draft).
+
+The curator rubric does not cost the general task anything. On the STW ↔ Wikidata set, which has
+no data points and no legal sources, it moves the models within noise: Opus 5.5 56.5 %, Fable 5.1
+56.5 %, Sonnet 5.5 55.0 %, Haiku 5.5 51.0 %, `gpt-oss-20b` 52.5 % (52.0 % before).
+
+What the remaining errors are: mostly pairs where a reasonable curator could go either way
+(`contentSpecificationId` EXACT or CLOSE), and a few where the models are right and the
+curation is not (`hasPowerCapabilityAt80SoC`, whose own definition says "current", sits under
+the EU *original* power capability). Further prompt tuning against 46 dev pairs would fit the
+noise.
+
+What follows for the pipeline:
+
+- The rubric matters more than the model. It lifted the local `gpt-oss-20b` by 14 points too.
+- A hosted model now pays: Sonnet 5.5 and Opus 5.5 grade 17 to 18 points above the best local
+  model. Through the Message Batches API (`--batch-model`, `--qa-batch-model`, `benchmark --batch`)
+  that costs half the synchronous price, and the shared rubric is prompt-cached.
+- Haiku 5.5 under the curator rubric beats every local model by ten points, at the lowest price.
+- The rubric version is part of every verdict's cache key, so a rubric change re-grades instead of
+  serving verdicts the old rubric produced.
+
 ## Reproduce the benchmark
 
 ```bash
 # fully local; discovers loaded models, or pass --models
 java -jar target/quarkus-app/quarkus-run.jar benchmark --per-class 40
+
+# the EU DPP Registry gold set on Anthropic models through the Message Batches API
+java -jar target/quarkus-app/quarkus-run.jar benchmark --batch \
+  --goldset docs/skos-alignment/bench/eu-dpp-goldset.json \
+  --out docs/skos-alignment/bench/eu-dpp-grader-benchmark \
+  --models claude-opus-5-5,claude-sonnet-5-5,claude-haiku-5-5
 ```
 
 Same gold set + temperature 0 reproduces the numbers; a partial run resumes from the appended

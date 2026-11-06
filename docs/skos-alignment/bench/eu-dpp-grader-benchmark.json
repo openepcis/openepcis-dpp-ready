@@ -1,0 +1,424 @@
+{
+  "dataset" : "EU DPP Registry (the 2026-11-02 curation: written mappings + reasoned declines), graded SKOS classification",
+  "goldset" : "docs/skos-alignment/bench/eu-dpp-goldset.json",
+  "goldSize" : 90,
+  "models" : [ {
+    "model" : "claude-opus-5-5 [curator-3]",
+    "n" : 90,
+    "exactAccuracy" : 0.789,
+    "binaryAccuracy" : 0.911,
+    "parseFailRate" : 0.0,
+    "meanLatencyMs" : 0,
+    "perRelationF1" : {
+      "EXACT" : 0.909,
+      "CLOSE" : 0.353,
+      "BROAD" : 0.667,
+      "NARROW" : 0.774,
+      "NONE" : 0.75
+    },
+    "macroF1" : 0.691,
+    "confusion" : {
+      "BROAD" : {
+        "BROAD" : 4,
+        "CLOSE" : 1,
+        "NONE" : 1
+      },
+      "CLOSE" : {
+        "BROAD" : 1,
+        "CLOSE" : 3,
+        "EXACT" : 6,
+        "NONE" : 2
+      },
+      "EXACT" : {
+        "EXACT" : 40,
+        "NARROW" : 1
+      },
+      "NARROW" : {
+        "CLOSE" : 1,
+        "EXACT" : 1,
+        "NARROW" : 12,
+        "NONE" : 4
+      },
+      "NONE" : {
+        "BROAD" : 1,
+        "NONE" : 12
+      }
+    },
+    "calibration" : {
+      "0.5-0.7" : {
+        "n" : 22,
+        "exactAccuracy" : 0.545,
+        "asserted" : 14,
+        "assertedExactAccuracy" : 0.643
+      },
+      "0.7-0.8" : {
+        "n" : 11,
+        "exactAccuracy" : 0.818,
+        "asserted" : 9,
+        "assertedExactAccuracy" : 0.778
+      },
+      "0.8-0.9" : {
+        "n" : 41,
+        "exactAccuracy" : 0.854,
+        "asserted" : 34,
+        "assertedExactAccuracy" : 0.882
+      },
+      "0.9-1.0" : {
+        "n" : 16,
+        "exactAccuracy" : 0.938,
+        "asserted" : 14,
+        "assertedExactAccuracy" : 0.929
+      }
+    }
+  }, {
+    "model" : "claude-sonnet-5-5 [curator-3]",
+    "n" : 90,
+    "exactAccuracy" : 0.778,
+    "binaryAccuracy" : 0.911,
+    "parseFailRate" : 0.0,
+    "meanLatencyMs" : 0,
+    "perRelationF1" : {
+      "EXACT" : 0.879,
+      "CLOSE" : 0.444,
+      "BROAD" : 0.727,
+      "NARROW" : 0.778,
+      "NONE" : 0.667
+    },
+    "macroF1" : 0.699,
+    "confusion" : {
+      "BROAD" : {
+        "BROAD" : 4,
+        "EXACT" : 1,
+        "NONE" : 1
+      },
+      "CLOSE" : {
+        "CLOSE" : 4,
+        "EXACT" : 8
+      },
+      "EXACT" : {
+        "EXACT" : 40,
+        "NARROW" : 1
+      },
+      "NARROW" : {
+        "CLOSE" : 1,
+        "EXACT" : 1,
+        "NARROW" : 14,
+        "NONE" : 2
+      },
+      "NONE" : {
+        "BROAD" : 1,
+        "CLOSE" : 1,
+        "NARROW" : 3,
+        "NONE" : 8
+      }
+    },
+    "calibration" : {
+      "0.0-0.5" : {
+        "n" : 3,
+        "exactAccuracy" : 0.667,
+        "asserted" : 2,
+        "assertedExactAccuracy" : 0.5
+      },
+      "0.5-0.7" : {
+        "n" : 21,
+        "exactAccuracy" : 0.619,
+        "asserted" : 20,
+        "assertedExactAccuracy" : 0.65
+      },
+      "0.7-0.8" : {
+        "n" : 17,
+        "exactAccuracy" : 0.647,
+        "asserted" : 12,
+        "assertedExactAccuracy" : 0.667
+      },
+      "0.8-0.9" : {
+        "n" : 31,
+        "exactAccuracy" : 0.871,
+        "asserted" : 29,
+        "assertedExactAccuracy" : 0.862
+      },
+      "0.9-1.0" : {
+        "n" : 18,
+        "exactAccuracy" : 0.944,
+        "asserted" : 16,
+        "assertedExactAccuracy" : 0.938
+      }
+    }
+  }, {
+    "model" : "claude-fable-5-1 [curator-3]",
+    "n" : 90,
+    "exactAccuracy" : 0.722,
+    "binaryAccuracy" : 0.9,
+    "parseFailRate" : 0.0,
+    "meanLatencyMs" : 0,
+    "perRelationF1" : {
+      "EXACT" : 0.844,
+      "CLOSE" : 0.267,
+      "BROAD" : 0.462,
+      "NARROW" : 0.757,
+      "NONE" : 0.64
+    },
+    "macroF1" : 0.594,
+    "confusion" : {
+      "BROAD" : {
+        "BROAD" : 3,
+        "CLOSE" : 1,
+        "EXACT" : 1,
+        "NONE" : 1
+      },
+      "CLOSE" : {
+        "BROAD" : 1,
+        "CLOSE" : 2,
+        "EXACT" : 8,
+        "NONE" : 1
+      },
+      "EXACT" : {
+        "BROAD" : 1,
+        "EXACT" : 38,
+        "NARROW" : 2
+      },
+      "NARROW" : {
+        "EXACT" : 2,
+        "NARROW" : 14,
+        "NONE" : 2
+      },
+      "NONE" : {
+        "BROAD" : 2,
+        "NARROW" : 3,
+        "NONE" : 8
+      }
+    },
+    "calibration" : {
+      "0.5-0.7" : {
+        "n" : 17,
+        "exactAccuracy" : 0.471,
+        "asserted" : 15,
+        "assertedExactAccuracy" : 0.467
+      },
+      "0.7-0.8" : {
+        "n" : 9,
+        "exactAccuracy" : 0.333,
+        "asserted" : 8,
+        "assertedExactAccuracy" : 0.375
+      },
+      "0.8-0.9" : {
+        "n" : 22,
+        "exactAccuracy" : 0.682,
+        "asserted" : 15,
+        "assertedExactAccuracy" : 0.667
+      },
+      "0.9-1.0" : {
+        "n" : 42,
+        "exactAccuracy" : 0.929,
+        "asserted" : 40,
+        "assertedExactAccuracy" : 0.925
+      }
+    }
+  }, {
+    "model" : "claude-haiku-5-5 [curator-3]",
+    "n" : 90,
+    "exactAccuracy" : 0.711,
+    "binaryAccuracy" : 0.911,
+    "parseFailRate" : 0.0,
+    "meanLatencyMs" : 0,
+    "perRelationF1" : {
+      "EXACT" : 0.843,
+      "CLOSE" : 0.222,
+      "BROAD" : 0.615,
+      "NARROW" : 0.667,
+      "NONE" : 0.733
+    },
+    "macroF1" : 0.616,
+    "confusion" : {
+      "BROAD" : {
+        "BROAD" : 4,
+        "CLOSE" : 1,
+        "NARROW" : 1
+      },
+      "CLOSE" : {
+        "BROAD" : 1,
+        "CLOSE" : 2,
+        "EXACT" : 6,
+        "NARROW" : 1,
+        "NONE" : 2
+      },
+      "EXACT" : {
+        "CLOSE" : 2,
+        "EXACT" : 35,
+        "NARROW" : 4
+      },
+      "NARROW" : {
+        "CLOSE" : 1,
+        "EXACT" : 1,
+        "NARROW" : 12,
+        "NONE" : 4
+      },
+      "NONE" : {
+        "BROAD" : 2,
+        "NONE" : 11
+      }
+    },
+    "calibration" : {
+      "0.5-0.7" : {
+        "n" : 25,
+        "exactAccuracy" : 0.48,
+        "asserted" : 22,
+        "assertedExactAccuracy" : 0.455
+      },
+      "0.7-0.8" : {
+        "n" : 10,
+        "exactAccuracy" : 0.8,
+        "asserted" : 9,
+        "assertedExactAccuracy" : 0.889
+      },
+      "0.8-0.9" : {
+        "n" : 44,
+        "exactAccuracy" : 0.773,
+        "asserted" : 35,
+        "assertedExactAccuracy" : 0.829
+      },
+      "0.9-1.0" : {
+        "n" : 11,
+        "exactAccuracy" : 0.909,
+        "asserted" : 7,
+        "assertedExactAccuracy" : 0.857
+      }
+    }
+  }, {
+    "model" : "openai/gpt-oss-20b [curator-3]",
+    "n" : 90,
+    "exactAccuracy" : 0.611,
+    "binaryAccuracy" : 0.867,
+    "parseFailRate" : 0.0,
+    "meanLatencyMs" : 991,
+    "perRelationF1" : {
+      "EXACT" : 0.768,
+      "CLOSE" : 0.0,
+      "BROAD" : 0.571,
+      "NARROW" : 0.556,
+      "NONE" : 0.333
+    },
+    "macroF1" : 0.446,
+    "confusion" : {
+      "BROAD" : {
+        "BROAD" : 4,
+        "CLOSE" : 1,
+        "EXACT" : 1
+      },
+      "CLOSE" : {
+        "BROAD" : 1,
+        "EXACT" : 10,
+        "NARROW" : 1
+      },
+      "EXACT" : {
+        "EXACT" : 38,
+        "NARROW" : 3
+      },
+      "NARROW" : {
+        "EXACT" : 6,
+        "NARROW" : 10,
+        "NONE" : 2
+      },
+      "NONE" : {
+        "BROAD" : 3,
+        "EXACT" : 3,
+        "NARROW" : 4,
+        "NONE" : 3
+      }
+    },
+    "calibration" : {
+      "0.7-0.8" : {
+        "n" : 4,
+        "exactAccuracy" : 0.75,
+        "asserted" : 4,
+        "assertedExactAccuracy" : 0.75
+      },
+      "0.8-0.9" : {
+        "n" : 7,
+        "exactAccuracy" : 0.714,
+        "asserted" : 7,
+        "assertedExactAccuracy" : 0.714
+      },
+      "0.9-1.0" : {
+        "n" : 79,
+        "exactAccuracy" : 0.595,
+        "asserted" : 74,
+        "assertedExactAccuracy" : 0.595
+      }
+    }
+  }, {
+    "model" : "openai/gpt-oss-120b [curator-3]",
+    "n" : 90,
+    "exactAccuracy" : 0.589,
+    "binaryAccuracy" : 0.811,
+    "parseFailRate" : 0.056,
+    "meanLatencyMs" : 2239,
+    "perRelationF1" : {
+      "EXACT" : 0.831,
+      "CLOSE" : 0.0,
+      "BROAD" : 0.471,
+      "NARROW" : 0.611,
+      "NONE" : 0.111
+    },
+    "macroF1" : 0.405,
+    "confusion" : {
+      "BROAD" : {
+        "BROAD" : 4,
+        "CLOSE" : 1,
+        "EXACT" : 1
+      },
+      "CLOSE" : {
+        "BROAD" : 2,
+        "EXACT" : 6,
+        "NARROW" : 1,
+        "NONE" : 2,
+        "PARSEFAIL" : 1
+      },
+      "EXACT" : {
+        "CLOSE" : 1,
+        "EXACT" : 37,
+        "NARROW" : 3
+      },
+      "NARROW" : {
+        "EXACT" : 3,
+        "NARROW" : 11,
+        "NONE" : 2,
+        "PARSEFAIL" : 2
+      },
+      "NONE" : {
+        "BROAD" : 5,
+        "CLOSE" : 1,
+        "EXACT" : 1,
+        "NARROW" : 3,
+        "NONE" : 1,
+        "PARSEFAIL" : 2
+      }
+    },
+    "calibration" : {
+      "0.0-0.5" : {
+        "n" : 2,
+        "exactAccuracy" : 0.0,
+        "asserted" : 2,
+        "assertedExactAccuracy" : 0.0
+      },
+      "0.7-0.8" : {
+        "n" : 5,
+        "exactAccuracy" : 0.2,
+        "asserted" : 5,
+        "assertedExactAccuracy" : 0.2
+      },
+      "0.8-0.9" : {
+        "n" : 13,
+        "exactAccuracy" : 0.692,
+        "asserted" : 13,
+        "assertedExactAccuracy" : 0.692
+      },
+      "0.9-1.0" : {
+        "n" : 65,
+        "exactAccuracy" : 0.662,
+        "asserted" : 60,
+        "assertedExactAccuracy" : 0.7
+      }
+    }
+  } ]
+}

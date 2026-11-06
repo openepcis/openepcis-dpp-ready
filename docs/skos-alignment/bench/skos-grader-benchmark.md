@@ -1,12 +1,17 @@
 # SKOS grader benchmark — leaderboard
 
-Task: graded-SKOS relation classification (EXACT/CLOSE/BROAD/NARROW/NONE) against 200 STW↔Wikidata gold pairs, identical production prompt, temperature 0.
+Task: graded-SKOS relation classification (EXACT/CLOSE/BROAD/NARROW/NONE) against 200 STW↔Wikidata gold pairs, identical production prompt. The bracket after a model names the rubric it graded under (no bracket: the original rubric, before the curator rubric). Local models run at temperature 0; Anthropic models at their default, since they reject the parameter, and through the Batch API, so they have no latency.
 
 | Model | exact-acc | match/no-match | macroF1 | parse-fail | mean ms |
 |---|--:|--:|--:|--:|--:|
+| claude-opus-5-5 [curator-3] | 56.5% | 80.0% | 0.54 | 0.0% | 0 |
+| claude-fable-5-1 [curator-3] | 56.5% | 79.5% | 0.53 | 0.0% | 0 |
+| claude-sonnet-5-5 [curator-3] | 55.0% | 82.0% | 0.52 | 0.0% | 0 |
 | claude-opus-4-8 | 52.5% | 83.0% | 0.46 | 0.0% | 7935 |
 | lmstudio-community/Qwen3-32B-MLX-8bit | 52.5% | 85.0% | 0.50 | 0.0% | 25505 |
+| openai/gpt-oss-20b [curator-3] | 52.5% | 85.0% | 0.49 | 0.0% | 1116 |
 | openai/gpt-oss-20b | 52.0% | 86.5% | 0.47 | 0.0% | 1423 |
+| claude-haiku-5-5 [curator-3] | 51.0% | 79.0% | 0.49 | 0.0% | 0 |
 | qwen/qwen3-32b | 48.5% | 82.0% | 0.45 | 0.5% | 13295 |
 | lmstudio-community/Qwen3-32B-MLX-4bit | 48.5% | 82.0% | 0.45 | 0.5% | 14167 |
 | qwen/qwen3-coder-30b | 47.0% | 89.5% | 0.39 | 0.0% | 663 |

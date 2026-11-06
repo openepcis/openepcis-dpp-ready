@@ -120,6 +120,16 @@ public class ReverseCommand implements Runnable {
             description = "Skip the QA panel on graded findings.")
     boolean skipQa;
 
+    @CommandLine.Option(names = "--batch-model",
+            description = "Grade through the Anthropic Message Batches API with this model (e.g. "
+                    + "claude-fable-5-1) instead of the configured chat model: half price, results in "
+                    + "minutes. Verdicts are cached under the model id. Needs ANTHROPIC_API_KEY or the key file.")
+    String batchModel;
+
+    @CommandLine.Option(names = "--qa-batch-model",
+            description = "Run the QA panel through the Anthropic Message Batches API with this model.")
+    String qaBatchModel;
+
     @CommandLine.Option(names = "--qa-judges", defaultValue = "3", description = "QA panel size.")
     int qaJudges;
 
@@ -273,7 +283,12 @@ public class ReverseCommand implements Runnable {
                     if (n.lexical() || n.cosine() >= minCosine) work.add(new Pair(n.term(), upByIri.get(r.upstreamIri()), n.cosine()));
                 }
             }
-            System.err.printf("reverse: grading %d candidate pairs with %s%n", work.size(), bulkModelName);
+            if (batchModel != null) {
+                judge.useBatchGrader(batchModel);
+                judge.prefillGrades(work.stream().map(Pair::term).toList(), work.stream().map(Pair::up).toList());
+            }
+            System.err.printf("reverse: grading %d candidate pairs with %s%n", work.size(),
+                    batchModel != null ? batchModel : bulkModelName);
             AtomicInteger done = new AtomicInteger();
             int total = work.size();
             findings = Multi.createFrom().iterable(work)
@@ -295,6 +310,10 @@ public class ReverseCommand implements Runnable {
             verdicts.save();
 
             if (!skipQa && !findings.isEmpty()) {
+                if (qaBatchModel != null) {
+                    judge.useBatchQa(qaBatchModel);
+                    judge.prefillQa(findings, ourByIri, upByIri::get, qaJudges);
+                }
                 System.err.printf("reverse: QA panel on %d findings (%d judges, %s)%n",
                         findings.size(), judge.selectedLenses(qaJudges).size(), judge.qaModelName());
                 AtomicInteger qd = new AtomicInteger();

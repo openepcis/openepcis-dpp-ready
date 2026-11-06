@@ -68,6 +68,7 @@ public class BenchmarkCommand implements Runnable {
             "exactMatch", "EXACT", "closeMatch", "CLOSE", "broadMatch", "NARROW", "narrowMatch", "BROAD");
 
     @Inject ObjectMapper mapper;
+    @Inject io.openepcis.dpp.vocabsync.AnthropicBatch anthropicBatch;
 
     @ConfigProperty(name = "vocab-sync.repo-root") String repoRoot;
     @ConfigProperty(name = "quarkus.langchain4j.openai.base-url") String baseUrl;
@@ -112,6 +113,11 @@ public class BenchmarkCommand implements Runnable {
     @CommandLine.Option(names = "--max-tokens", defaultValue = "4096",
             description = "Completion token cap (raise for reasoning models that truncate the JSON).")
     int maxTokens;
+    @CommandLine.Option(names = "--batch", defaultValue = "false",
+            description = "Run the field (Anthropic model ids, e.g. claude-fable-5-1) through the Anthropic "
+                    + "Message Batches API instead of the OpenAI-compatible endpoint: half price, no latency "
+                    + "column. Needs ANTHROPIC_API_KEY or the key file.")
+    boolean batch;
     @CommandLine.Option(names = "--tag", defaultValue = "",
             description = "Suffix appended to each model's stored name, so a re-run (e.g. higher --max-tokens) "
                     + "is a distinct leaderboard row instead of colliding with cached predictions.")
@@ -281,47 +287,93 @@ public class BenchmarkCommand implements Runnable {
             throw new UncheckedIOException(e);
         }
         for (String model : field) {
-            String stored = model + tag; // tag -> distinct leaderboard row
-            String label = model + (tag.isEmpty() ? "" : " " + tag);
-            long todo = gold.stream().filter(g -> !done.contains(stored + " " + g.get("id").asText())).count();
-            if (todo == 0) { System.err.println("benchmark: " + label + " — all cached, skip"); continue; }
+            // The rubric is part of the row name: the same model under a different rubric is a
+            // different grader, and its cached predictions must not count as done.
+            String stored = model + tag + " [" + GraderPrompts.RUBRIC_VERSION + "]";
+            String label = stored;
+            List<ObjectNode> todo = gold.stream()
+                    .filter(g -> !done.contains(stored + " " + g.get("id").asText())).toList();
+            if (todo.isEmpty()) { System.err.println("benchmark: " + label + " — all cached, skip"); continue; }
+            System.err.printf("benchmark: %s — %d/%d to grade%n", label, todo.size(), gold.size());
+            if (batch) {
+                List<io.openepcis.dpp.vocabsync.AnthropicBatch.Request> reqs = new ArrayList<>();
+                for (ObjectNode g : todo) {
+                    reqs.add(new io.openepcis.dpp.vocabsync.AnthropicBatch.Request(g.get("id").asText(),
+                            GraderPrompts.SYSTEM, userPrompt(g) + GraderPrompts.JSON_INSTRUCTION));
+                }
+                Map<String, String> replies = anthropicBatch.run(model, reqs);
+                for (ObjectNode g : todo) {
+                    String reply = replies.get(g.get("id").asText());
+                    String[] pv = reply == null ? new String[]{"PARSEFAIL", "0", "batch request failed", ""}
+                            : parseVerdict(reply);
+                    appendLine(predPath, prediction(stored, g, pv, 0));
+                }
+                continue;
+            }
             if (!skipLmsLoad) lmsLoad(model);
-            System.err.printf("benchmark: %s — %d/%d to grade%n", label, todo, gold.size());
             int n = 0;
-            for (ObjectNode g : gold) {
-                String key = stored + " " + g.get("id").asText();
-                if (done.contains(key)) continue;
-                String user = GraderPrompts.fillUser(g.get("sourceLabel").asText(), "concept",
-                        g.get("sourceLabel").asText(), txt(g, "sourceDef"), "(none)", "(none)",
-                        "Wikidata", g.get("targetIri").asText(), "concept",
-                        g.get("targetLabel").asText(), txt(g, "targetDef"), "(none)", "(none)");
+            for (ObjectNode g : todo) {
                 long t0 = System.nanoTime();
                 String[] pv;
                 try {
-                    pv = viaLmStudio(model, user);
+                    pv = viaLmStudio(model, userPrompt(g));
                 } catch (Exception e) {
                     pv = new String[]{"PARSEFAIL", "0", "error: " + e.getMessage(), ""};
                 }
                 long ms = (System.nanoTime() - t0) / 1_000_000;
-                ObjectNode p = mapper.createObjectNode();
-                p.put("model", stored);
-                p.put("id", g.get("id").asText());
-                p.put("gold", g.get("gold").asText());
-                p.put("predicted", pv[0]);
-                p.put("confidence", safeD(pv[1]));
-                p.put("rationale", pv[2]);
-                p.put("latencyMs", ms);
-                p.put("parseOk", !pv[0].equals("PARSEFAIL"));
-                // raw reply kept on every row (capped) so the log can be re-scored offline if the parser
-                // improves, without re-running the model — the predictions are deterministic at temp 0.
-                if (pv.length > 3 && pv[3] != null && !pv[3].isEmpty()) {
-                    p.put("rawReply", pv[3].length() > 4000 ? pv[3].substring(0, 4000) : pv[3]);
-                }
-                appendLine(predPath, p);
-                done.add(key);
-                if (++n % 20 == 0) System.err.printf("  %s %d/%d%n", label, n, todo);
+                appendLine(predPath, prediction(stored, g, pv, ms));
+                done.add(stored + " " + g.get("id").asText());
+                if (++n % 20 == 0) System.err.printf("  %s %d/%d%n", label, n, todo.size());
             }
         }
+    }
+
+    /**
+     * The grader's user message for a gold pair. A domain gold set (EU, GS1) carries the fields the
+     * production grader fills from the ontology (prefixed id, type, domain, range); the STW set has
+     * labels and definitions only. The upstream vocabulary is named by its IRI, so a GS1 pair is no
+     * longer presented as "Wikidata".
+     */
+    private static String userPrompt(JsonNode g) {
+        String target = g.get("targetIri").asText();
+        String vocab = target.startsWith(WD_NS) ? "Wikidata"
+                : io.openepcis.dpp.vocabsync.UpstreamIndex.vocabIdForIri(target);
+        String upComment = txt(g, "targetDef");
+        String note = txt(g, "targetScopeNote");
+        if (note != null) upComment = upComment == null ? note : upComment + " " + note;
+        String context = txt(g, "targetContext");
+        if (context != null) upComment = upComment == null ? context : upComment + " " + context;
+        return GraderPrompts.fillUser(
+                g.has("sourceId") ? g.get("sourceId").asText() : g.get("sourceLabel").asText(),
+                g.has("sourceType") ? g.get("sourceType").asText() : "concept",
+                g.get("sourceLabel").asText(), txt(g, "sourceDef"),
+                orNone(g, "sourceDomain"), orNone(g, "sourceRange"),
+                vocab, target, g.has("targetType") ? g.get("targetType").asText()
+                        : g.has("sourceType") ? g.get("sourceType").asText() : "concept",
+                g.get("targetLabel").asText(), upComment, orNone(g, "targetDomain"), orNone(g, "targetRange"));
+    }
+
+    private static String orNone(JsonNode g, String f) {
+        String v = txt(g, f);
+        return v == null ? "(none)" : v;
+    }
+
+    private ObjectNode prediction(String stored, JsonNode g, String[] pv, long ms) {
+        ObjectNode p = mapper.createObjectNode();
+        p.put("model", stored);
+        p.put("id", g.get("id").asText());
+        p.put("gold", g.get("gold").asText());
+        p.put("predicted", pv[0]);
+        p.put("confidence", safeD(pv[1]));
+        p.put("rationale", pv[2]);
+        p.put("latencyMs", ms);
+        p.put("parseOk", !pv[0].equals("PARSEFAIL"));
+        // raw reply kept on every row (capped) so the log can be re-scored offline if the parser
+        // improves, without re-running the model.
+        if (pv.length > 3 && pv[3] != null && !pv[3].isEmpty()) {
+            p.put("rawReply", pv[3].length() > 4000 ? pv[3].substring(0, 4000) : pv[3]);
+        }
+        return p;
     }
 
     private List<String> resolveField() {
@@ -489,7 +541,10 @@ public class BenchmarkCommand implements Runnable {
         rows.forEach(board::add);
 
         writeJson(root.resolve(out + ".json"), report);
-        writeManifest(root.resolve("docs/skos-alignment/bench/benchmark-manifest.json"), gold.size(), byModel.keySet());
+        // One manifest per leaderboard: a shared file described whichever gold set ran last.
+        String manifest = out.endsWith("skos-grader-benchmark")
+                ? "docs/skos-alignment/bench/benchmark-manifest.json" : out + "-manifest.json";
+        writeManifest(root.resolve(manifest), gold.size(), byModel.keySet());
         writeMarkdown(root.resolve(out + ".md"), rows, gold.size());
         System.out.printf("%nbenchmark scored: %d models → %s.{md,json}%n", rows.size(), root.resolve(out));
     }
@@ -577,6 +632,9 @@ public class BenchmarkCommand implements Runnable {
                     + "graded SKOS classification";
         if (name.startsWith("skos-grader-goldset"))
             return "STW↔Wikidata (published skos:*Match), graded SKOS classification";
+        if (name.startsWith("eu-dpp-goldset"))
+            return "EU DPP Registry (the 2026-11-02 curation: written mappings + reasoned declines), "
+                    + "graded SKOS classification";
         return name + ", graded SKOS classification";
     }
 
@@ -585,6 +643,7 @@ public class BenchmarkCommand implements Runnable {
         String name = Path.of(goldset).getFileName().toString();
         if (name.startsWith("gs1-grader-goldset")) return "GS1 domain";
         if (name.startsWith("skos-grader-goldset")) return "STW↔Wikidata";
+        if (name.startsWith("eu-dpp-goldset")) return "EU DPP Registry";
         return name;
     }
 
@@ -593,7 +652,10 @@ public class BenchmarkCommand implements Runnable {
         sb.append("# SKOS grader benchmark — leaderboard\n\n");
         sb.append("Task: graded-SKOS relation classification (EXACT/CLOSE/BROAD/NARROW/NONE) against ")
                 .append(goldSize).append(" ").append(datasetShort())
-                .append(" gold pairs, identical production prompt, temperature 0.\n\n");
+                .append(" gold pairs, identical production prompt. The bracket after a model names the ")
+                .append("rubric it graded under (no bracket: the original rubric, before the curator rubric). Local models ")
+                .append("run at temperature 0; Anthropic models at their default, since they reject the ")
+                .append("parameter, and through the Batch API, so they have no latency.\n\n");
         sb.append("| Model | exact-acc | match/no-match | macroF1 | parse-fail | mean ms |\n");
         sb.append("|---|--:|--:|--:|--:|--:|\n");
         for (ObjectNode m : rows) {
@@ -616,7 +678,8 @@ public class BenchmarkCommand implements Runnable {
         m.put("goldSize", goldSize);
         m.put("perClass", perClass);
         m.put("prompt", "GraderPrompts (production-identical) + strict-JSON instruction");
-        m.put("temperature", 0);
+        m.put("rubric", GraderPrompts.RUBRIC_VERSION);
+        m.put("temperature", "0 on the OpenAI-compatible endpoint; Anthropic models at their default (Batch API)");
         m.put("hardware", "Apple M5 Max, 128 GB");
         m.put("baseUrl", baseUrl);
         ArrayNode ms = m.putArray("modelsRun");
