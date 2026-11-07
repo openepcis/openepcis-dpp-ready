@@ -22,6 +22,42 @@ them keep resolving, and the old domain cannot be taken over. Stored documents t
 context URLs keep working through the redirect; new documents use the `.org` URLs. Older entries
 in this changelog keep the `.io` URL because they describe those releases.
 
+### SKOS mappings re-audited against the November 2026 upstreams
+
+Every module was re-audited against CIRPASS-2 2.2.0, DPP Keystone v3, BatteryPass-Ready 2.0.1,
+schema.org 30.1, GS1 Web Vocabulary 1.18 and current SEMICeu, with Sonnet 5.5 as grader and an
+Opus 5.5 QA panel of three lenses. 195 mappings are added and 31 regraded; 180 existing relations
+are withdrawn where the grader and all three lenses rejected them at 0.8 or above, most of them
+from early bulk sweeps. The EU DPP Registry pairs were adjudicated first (117 candidates, 54
+added); the same data point is `skos:exactMatch` even where the scope differs slightly.
+
+Upstream mirrors move with it: CIRPASS-2 core 2.2.0 (now CC BY 4.0), DPP Keystone v3 and GS1 Rail
+2.6 under the GS1 Switzerland namespace `https://ref.gs1.ch/voc/rail/`. The archived Battery Pass
+SAMM model is succeeded by a BatteryPass-Ready 2.0.1 data-element vocabulary built from the
+GEFEG JSON Schemas. `vocab-sync` gains the curator-5 rubric, grading through the Anthropic Batch
+API and an adjudicated EU gold set; the triage rules are in `scripts/triage-skos-report.ts`.
+
+### EN 18239:2026 actor roles
+
+The core carries the EN 18239 actor-role vocabulary (`oec:ActorRole`) and role-based access
+grants, so access rights can be granted per data element to a role instead of to a single
+actor. `eudr:ActorRole` is folded into it. See `extensions/common/core/CHANGELOG.md`.
+
+### Published contexts may only grow
+
+`check:context-compat` compares every served context against the base revision: removing a term is
+allowed, redefining one fails the build. Deliberate exceptions live in
+`scripts/context-compat-allowlist.json`, each with its reason. `scripts/migrate-assessment.ts`
+migrates stored passports across the renames and moves of this release and proves itself with
+an RDF replay (`check:assessment-migration`).
+
+### The EU Test Bed conformance community is live
+
+The validator `openepcis` runs on the shared EU Interoperability Test Bed and reads its shapes
+from the public mirror `openepcis/validator-resources-openepcis`; the conformance community
+provisions itself through the ITB automation API, and its 16 self-tests passed there. See
+`gitb/README.md`.
+
 ### Duplicate terms removed after the 2026-11 re-audit
 
 Where two of our terms named the same data point, one stays: eight battery terms, the battery and
