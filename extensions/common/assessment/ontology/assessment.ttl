@@ -82,7 +82,11 @@ oea:Assessment
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Execution of an assessment method on a product. schema:Observation records an observed value but has no method, condition, protocol setting or criterion; GS1 Web Vocabulary has none of these. Follows the CIRPASS-2 AssessmentExecution pattern."@en ;
-    rdfs:seeAlso schema:Observation .
+    rdfs:seeAlso schema:Observation ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-assessment#AssessmentExecution> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-assessment#DurabilityAssessment> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-recyclability#RecyclabilityAssessment> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-recyclability#RecycledContentAssessment> .
 
 oea:TestExecution
     a owl:Class ;
@@ -91,7 +95,8 @@ oea:TestExecution
     rdfs:comment "An assessment that performs a test method under controlled test conditions, typically in a laboratory per ISO/IEC 17025."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://www.iso.org/standard/66912.html> ;
-    skos:note "Laboratory test as a kind of assessment. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Laboratory test as a kind of assessment. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-assessment#TestExecution> .
 
 oea:AssessmentMethod
     a owl:Class ;
@@ -100,7 +105,13 @@ oea:AssessmentMethod
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://www.iso.org/standard/66912.html> ;
     skos:note "Reusable method definition. schema:measurementMethod and schema:measurementTechnique point at a method but define no class for it; no GS1 or SEMICeu equivalent."@en ;
-    rdfs:seeAlso schema:measurementMethod .
+    rdfs:seeAlso schema:measurementMethod ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-assessment#TestMethod> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-recyclability#RecyclabilityScoringMethod> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-recyclability#RecyclabilityAssessmentMethod> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-assessment#RobustnessScoringMethod> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-recyclability#RecycledContentVerificationMethod> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-assessment#AgeingSimulationMethod> .
 
 oea:TestMethod
     a owl:Class ;
@@ -109,7 +120,8 @@ oea:TestMethod
     rdfs:comment "An assessment method that applies a controlled experimental or inspection procedure, usually defined by a test standard."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://www.iso.org/standard/66912.html> ;
-    skos:note "Laboratory or inspection method. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Laboratory or inspection method. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-assessment#AgeingSimulationMethod> .
 
 oea:AssessmentStandard
     a owl:Class ;
@@ -118,7 +130,9 @@ oea:AssessmentStandard
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://www.iso.org/standard/66912.html> ;
     skos:note "Reference document for a method. GS1 Web Vocabulary references documents only as files (gs1:referencedFile); schema.org has no standard class."@en ;
-    rdfs:seeAlso gs1:referencedFile .
+    rdfs:seeAlso gs1:referencedFile ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-assessment#AssessmentStandard> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-assessment#TestingStandard> .
 
 oea:AssessmentCondition
     a owl:Class ;
@@ -126,7 +140,8 @@ oea:AssessmentCondition
     rdfs:comment "A condition under which an assessment was performed or a result obtained: a specimen type, a pre-treatment, an environment, a use scenario. Stated as a condition type plus a coded value, a quantity, or a description."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://www.iso.org/standard/66912.html> ;
-    skos:note "Test condition record. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Test condition record. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-assessment#AssessmentCondition> .
 
 oea:ParameterSetting
     a owl:Class ;
@@ -134,7 +149,8 @@ oea:ParameterSetting
     rdfs:comment "The value a protocol parameter was set to in an assessment: 5 cleaning cycles, 40 °C, 12 kPa. A protocol parameter configures the test; it is not the product property the test observes."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://www.iso.org/standard/66912.html> ;
-    skos:note "Test protocol setting. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Test protocol setting. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-assessment#MeasurementParameterSetting> .
 
 # =============================================================================
 # Classes: what came out
@@ -148,7 +164,9 @@ oea:AssessmentResult
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://www.iso.org/standard/66912.html> ;
     skos:note "Result of one assessment. schema:Observation carries a value but no criterion or outcome; no GS1 equivalent."@en ;
-    rdfs:seeAlso schema:Observation .
+    rdfs:seeAlso schema:Observation ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-recyclability#RecyclingYieldResult> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-recyclability#RecyclabilityCriterionResult> .
 
 oea:MeasurementResult
     a owl:Class ;
@@ -157,7 +175,8 @@ oea:MeasurementResult
     rdfs:comment "An assessment result that records a quantitative value with its unit, or a grade on the scale the method defines (a 1-5 grey-scale rating has unitCode C62)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://www.iso.org/standard/66912.html> ;
-    skos:note "Quantitative test result. In an EPCIS event the same result can travel as a sensorReport (type, value, uom); see docs/EPCIS_BINDING.md."@en .
+    skos:note "Quantitative test result. In an EPCIS event the same result can travel as a sensorReport (type, value, uom); see docs/EPCIS_BINDING.md."@en ;
+    skos:broadMatch <https://w3id.org/eudpp/textile-assessment#AssessmentResult> .
 
 oea:CriterionResult
     a owl:Class ;
@@ -185,7 +204,8 @@ oea:Threshold
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://semiceu.github.io/CCCEV/releases/2.1.0/> ;
     skos:note "Quantitative criterion. CCCEV models limits as cccev:Constraint without operator or parameter."@en ;
-    rdfs:seeAlso cccev:Constraint .
+    rdfs:seeAlso cccev:Constraint ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-recyclability#RecycledContentPerformanceThreshold> .
 
 oea:Indicator
     a owl:Class ;
@@ -195,7 +215,9 @@ oea:Indicator
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Derived score or class. schema:Rating covers review ratings, not method-bound product indicators; no GS1 equivalent."@en ;
-    rdfs:seeAlso schema:Rating .
+    rdfs:seeAlso schema:Rating ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-indicator#LifetimeIndicator> ;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-indicator#DurabilityIndicator> .
 
 # =============================================================================
 # Classes: value spaces (open lists, extended by sector modules)
@@ -217,7 +239,8 @@ oea:MeasurementParameter
     rdfs:comment "A protocol parameter a test is configured with: number of cycles, temperature, duration, load, relative humidity. Distinct from the performance parameter the test observes."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://www.iso.org/standard/66912.html> ;
-    skos:note "Value space for protocol parameters. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Value space for protocol parameters. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-assessment#MeasurementParameter> .
 
 oea:ConditionType
     a owl:Class ;
@@ -355,7 +378,8 @@ oea:hasMethod
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://www.iso.org/standard/66912.html> ;
     skos:note "Method of an assessment. schema:measurementMethod is the nearest term and takes free text or a URL."@en ;
-    rdfs:seeAlso schema:measurementMethod .
+    rdfs:seeAlso schema:measurementMethod ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-assessment#appliesMethod> .
 
 oea:hasAssessedParameter
     a owl:ObjectProperty ;
@@ -375,7 +399,8 @@ oea:hasCondition
     rdfs:range oea:AssessmentCondition ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://www.iso.org/standard/66912.html> ;
-    skos:note "Test condition. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Test condition. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-assessment#hasCondition> .
 
 oea:hasParameterSetting
     a owl:ObjectProperty ;
@@ -459,7 +484,8 @@ oea:isDefinedByStandard
     rdfs:range oea:AssessmentStandard ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://www.iso.org/standard/66912.html> ;
-    skos:note "Method-to-standard link. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Method-to-standard link. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-assessment#isDefinedByStandard> .
 
 oea:methodUrl
     a owl:DatatypeProperty ;
@@ -538,7 +564,8 @@ oea:hasParameter
     rdfs:range oea:MeasurementParameter ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://www.iso.org/standard/66912.html> ;
-    skos:note "Protocol parameter of a setting. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Protocol parameter of a setting. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-assessment#settingForParameter> .
 
 oea:hasParameterValue
     a owl:ObjectProperty ;
@@ -573,7 +600,8 @@ oea:hasMeasuredValue
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://www.iso.org/standard/66912.html> ;
     skos:note "Measured quantity. In the EPCIS sensorReport form: value and uom."@en ;
-    rdfs:seeAlso schema:value .
+    rdfs:seeAlso schema:value ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-assessment#hasMeasuredValue> .
 
 oea:resultText
     a owl:DatatypeProperty ;
@@ -718,7 +746,8 @@ oea:isDerivedFrom
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Provenance of an indicator. No range: results, assessments and indicators all qualify."@en ;
-    rdfs:seeAlso dcterms:source .
+    rdfs:seeAlso dcterms:source ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-indicator#derivedFrom> .
 
 oea:hasDerivationMethod
     a owl:ObjectProperty ;
@@ -728,7 +757,8 @@ oea:hasDerivationMethod
     rdfs:range oea:AssessmentMethod ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Method of an indicator."@en .
+    skos:note "Method of an indicator."@en ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-indicator#derivedUsingMethod> .
 
 oea:calculationDescription
     a owl:DatatypeProperty ;
@@ -738,4 +768,5 @@ oea:calculationDescription
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Assumptions of an indicator. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Assumptions of an indicator. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-indicator#calculationDescription> .

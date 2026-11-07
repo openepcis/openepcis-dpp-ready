@@ -31,10 +31,15 @@
  *   HOLD  foreign or retired target a foreign schema.org CLASS (schema:AutoRepair for a repair
  *                                   provider), a foreign GS1 or schema.org domain, or a term
  *                                   schema.org has superseded.
+ *   HOLD  shared exact target       another of our terms is (or would be) exactMatch to the
+ *                                   same upstream term, so our side holds a duplicate; or our
+ *                                   term would be exactMatch to two terms of one vocabulary.
  *   APPLY direction flip            an existing graded relation whose direction the panel
  *                                   reverses: mechanical, the meaning was inverted.
  *   APPLY seeAlso upgrade           an existing rdfs:seeAlso the panel grades, above the
  *                                   confidence floor.
+ *   APPLY regrade                   an existing graded relation the whole panel regrades,
+ *                                   above the confidence floor.
  *   APPLY new mapping               only from 0.80 QA confidence up; below that the tool's
  *                                   own gate would emit rdfs:seeAlso instead.
  *
@@ -168,6 +173,7 @@ interface Finding {
   ourId: string; ourIri: string; ourType: string; upstreamIri: string; vocabId: string;
   proposedPredicate: string | null; existingPredicate: string | null;
   status: string; qaTier: string; qaConfidence: number; confidence: number; rationale: string;
+  qaRationale?: string;
 }
 
 /**
@@ -302,6 +308,12 @@ function verdict(f: Finding): { action: "APPLY" | "HOLD" | "SKIP"; reason: strin
     // `schema:contactPoints`, retired in favour of `schema:contactPoint`, which the term already
     // mapped to; `check:mappings` rejected it after the fact, which is the guard doing its job but
     // a wasted round trip.
+    // Not in the schema.org release check:mappings knows: in practice a pending.schema.org term
+    // (schema:DigitalProductPassport, schema:recycledContentPercentage in 30.1). Pending terms
+    // can still be renamed or dropped, so they wait until they are promoted to the core.
+    if (!(local in SCHEMA_DOMAINS)) {
+      return { action: "HOLD", reason: `schema:${local} is not in the checked schema.org release (pending)` };
+    }
     const superseded = (SCHEMA_DOMAINS as Record<string, { supersededBy?: string[] }>)[local]?.supersededBy;
     if (superseded?.length) {
       return { action: "HOLD", reason: `schema:${local} is superseded by schema:${superseded.join(", ")}` };
@@ -349,6 +361,17 @@ function verdict(f: Finding): { action: "APPLY" | "HOLD" | "SKIP"; reason: strin
       ? { action: "APPLY", reason: "new mapping above the floor" }
       : { action: "HOLD", reason: `new mapping below the ${FLOOR} floor` };
   }
+  // A regrade of an existing graded relation (closeMatch to exactMatch, exactMatch to narrowMatch)
+  // goes through when the whole QA panel names the same relation and is above the floor. The
+  // curator rubric made "same data point is exactMatch" the rule, so most of these are closeMatch
+  // assertions written under the older, stricter reading. A split panel stays with the curator.
+  const unanimous = /\{[A-Z]+=3\}/.test(f.qaRationale ?? "");
+  // The EU DPP Registry pairs were adjudicated one by one (docs/skos-alignment/bench/
+  // adjudication-2026-11-06.md); a panel does not overrule that.
+  if (f.vocabId === "eu-dpp") return { action: "HOLD", reason: `regrade ${f.existingPredicate} to ${f.proposedPredicate} against an adjudicated EU DPP Registry pair` };
+  if (f.existingPredicate?.startsWith("skos:") && unanimous && f.qaConfidence >= FLOOR) {
+    return { action: "APPLY", reason: `regrade ${f.existingPredicate} (unanimous panel, above the floor)` };
+  }
   return { action: "HOLD", reason: `regrade ${f.existingPredicate} to ${f.proposedPredicate}` };
 }
 
@@ -356,7 +379,42 @@ const path = process.argv[2];
 if (!path) { console.error("usage: tsx scripts/triage-skos-report.ts <report.json> [--json]"); process.exit(64); }
 const doc = JSON.parse(readFileSync(path, "utf8"));
 const findings: Finding[] = doc.findings ?? [];
-const rows = findings.map((f) => ({ f, ...verdict(f) }));
+/**
+ * Two of our terms exactMatch to one upstream term means one of ours is a duplicate, or one of the
+ * two pairs is really narrower. The battery panel proposed `eubat:hasDismantlingInstructions`,
+ * `hasDismantlingAndRemovalInformation` and `hasDismantlingDocuments` all as exactMatch to
+ * `cirpass2-battery:dismantlingInformation`. Each verdict is right in isolation; together they say
+ * our vocabulary carries the same data point three times. That is a curation question, so every
+ * exactMatch onto a target that already has (or would get) one from another of our terms is held.
+ */
+const exactSources = new Map<string, Set<string>>();
+for (const f of findings) {
+  const exact = f.proposedPredicate === "skos:exactMatch" || f.existingPredicate === "skos:exactMatch";
+  if (!exact || f.qaTier !== "STRONG" && f.status !== "OK") continue;
+  if (!exactSources.has(f.upstreamIri)) exactSources.set(f.upstreamIri, new Set());
+  exactSources.get(f.upstreamIri)!.add(f.ourId);
+}
+/** The mirror case: one of our terms exactMatch to two terms of the same vocabulary. */
+const exactTargets = new Map<string, Set<string>>();
+for (const f of findings) {
+  const exact = f.proposedPredicate === "skos:exactMatch" || f.existingPredicate === "skos:exactMatch";
+  if (!exact || f.qaTier !== "STRONG" && f.status !== "OK") continue;
+  const k = `${f.ourId}|${f.vocabId}`;
+  if (!exactTargets.has(k)) exactTargets.set(k, new Set());
+  exactTargets.get(k)!.add(f.upstreamIri);
+}
+const rows = findings.map((f) => {
+  const v = verdict(f);
+  const peers = [...(exactSources.get(f.upstreamIri) ?? [])].filter((id) => id !== f.ourId);
+  if (v.action === "APPLY" && f.proposedPredicate === "skos:exactMatch" && peers.length) {
+    return { f, action: "HOLD" as const, reason: `exactMatch target shared with ${peers.join(", ")}: duplicate terms on our side` };
+  }
+  const siblings = [...(exactTargets.get(`${f.ourId}|${f.vocabId}`) ?? [])].filter((t) => t !== f.upstreamIri);
+  if (v.action === "APPLY" && f.proposedPredicate === "skos:exactMatch" && siblings.length) {
+    return { f, action: "HOLD" as const, reason: `also exactMatch to ${siblings.map((t) => t.split(/[#/]/).pop()).join(", ")} in ${f.vocabId}: at most one can be the same data point` };
+  }
+  return { f, ...v };
+});
 const by = (a: string) => rows.filter((r) => r.action === a);
 
 if (process.argv.includes("--json")) {
