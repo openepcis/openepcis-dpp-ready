@@ -244,6 +244,46 @@ function repairability(o: Obj) {
   setOrAppend(o, "oea:hasIndicator", indicators);
 }
 
+/**
+ * Terms PR 17 removed as duplicates, keyed by the stored spelling (prefixed under the
+ * core and module contexts, bare under the operational contexts). The target may already
+ * be present: every battery example carried oec:lastUpdated next to eubat:lastDataUpdate,
+ * and capacityFadeThreshold sat next to the exhaustion threshold as a second wording of it.
+ */
+const RENAMED: Record<string, string> = {
+  "eubat:batteryPassportIdentifier": "oec:passportIdentifier",
+  "eubat:lastDataUpdate": "oec:lastUpdated",
+  "oec:lastDataUpdate": "oec:lastUpdated",
+  "eubat:exhaustionThreshold": "eubat:capacityThresholdForExhaustion",
+  "eubat:capacityFadeThreshold": "eubat:capacityThresholdForExhaustion",
+  "eubat:expectedNumberOfCycles": "eubat:expectedCycleLife",
+  "eubat:numberOfFullCycles": "eubat:hasCycleCount",
+  batteryPassportIdentifier: "passportIdentifier",
+  lastDataUpdate: "lastUpdated",
+  exhaustionThreshold: "capacityThresholdForExhaustion",
+  capacityFadeThreshold: "capacityThresholdForExhaustion",
+  expectedNumberOfCycles: "expectedCycleLife",
+  numberOfFullCycles: "hasCycleCount",
+};
+
+/** Removed without a one-to-one successor (guidance 3.2 #38 wants cell and pack values); reported, kept. */
+const REPORT_ONLY = new Set(["eubat:hasInitialInternalResistance", "hasInitialInternalResistance"]);
+
+/** What a run dropped or could not place; printed, never fatal. */
+export const notes: string[] = [];
+
+function rename(o: Obj, at: string) {
+  for (const [k, v] of Object.entries(o)) {
+    const to = RENAMED[k];
+    if (to) {
+      if (!(to in o)) o[to] = v;
+      else if (JSON.stringify(o[to]) !== JSON.stringify(v)) notes.push(`${at}.${k} = ${JSON.stringify(v)} dropped, ${to} = ${JSON.stringify(o[to])} stays`);
+      delete o[k];
+    }
+    if (REPORT_ONLY.has(k)) notes.push(`${at}.${k} = ${JSON.stringify(v)} has no successor in the context (cell or pack value?), left as is`);
+  }
+}
+
 const BY_TYPE: Record<string, (o: Obj) => void> = {
   DurabilityInfo: durability,
   MicroplasticInfo: microplastic,
@@ -253,14 +293,15 @@ const BY_TYPE: Record<string, (o: Obj) => void> = {
 };
 
 /** Migrate a document in place and return it. */
-export function migrate(doc: Json): Json {
+export function migrate(doc: Json, at = "$"): Json {
   if (Array.isArray(doc)) {
-    doc.forEach(migrate);
+    doc.forEach((v, i) => migrate(v, `${at}[${i}]`));
     return doc;
   }
   if (!doc || typeof doc !== "object") return doc;
-  for (const v of Object.values(doc)) migrate(v);
+  for (const [k, v] of Object.entries(doc)) migrate(v, `${at}.${k}`);
   for (const t of typeOf(doc)) BY_TYPE[t]?.(doc);
+  rename(doc, at);
   return doc;
 }
 
@@ -273,19 +314,30 @@ const REMOVED = new Set([
   "repairabilityScore", "repairabilityClass",
 ]);
 
-export function leftovers(doc: Json, at = "$", out: string[] = []): string[] {
-  if (Array.isArray(doc)) doc.forEach((v, i) => leftovers(v, `${at}[${i}]`, out));
+export function leftovers(doc: Json, at = "$", out: string[] = [], textile?: boolean): string[] {
+  // A bare key is one of the textile terms only under a textile context; eubat:expectedLifetimeYears
+  // and friends are other terms of the same name and stay bare under the battery operational context.
+  if (textile === undefined) textile = /\/textile\//.test(JSON.stringify(doc?.["@context"] ?? ""));
+  if (Array.isArray(doc)) doc.forEach((v, i) => leftovers(v, `${at}[${i}]`, out, textile));
   else if (doc && typeof doc === "object") {
     for (const [k, v] of Object.entries(doc)) {
-      // eubat:expectedLifetimeYears and friends are other terms of the same name
-      if (REMOVED.has(local(k)) && /^(eutex:|oec:|[^:]*$)/.test(k)) out.push(`${at}.${k}`);
-      leftovers(v, `${at}.${k}`, out);
+      const removed = REMOVED.has(local(k)) && (/^(eutex:|oec:)/.test(k) || (textile && !k.includes(":")));
+      if (removed || k in RENAMED) out.push(`${at}.${k}`);
+      leftovers(v, `${at}.${k}`, out, textile);
     }
   }
   return out;
 }
 
 const EXAMPLES = ["garment-product", "footwear-product", "hometextile-bedlinen", "organic-tee-product", "fjordline-aurora-model"];
+const BATTERY_EXAMPLES = ["amperia-staxwall-item", "amperia-staxwall-model", "battery-product-model", "batterypass-lmt-item", "amperia-staxwall-item.operational", "battery-product-model.operational"];
+
+/** Drop every key the predicate matches, at any depth. */
+function without(doc: Json, drop: (key: string) => boolean): Json {
+  if (Array.isArray(doc)) return doc.map((v) => without(v, drop));
+  if (!doc || typeof doc !== "object") return doc;
+  return Object.fromEntries(Object.entries(doc).filter(([k]) => !drop(k)).map(([k, v]) => [k, without(v, drop)]));
+}
 
 async function check(): Promise<number> {
   const jsonld = (await import("jsonld")).default as any;
@@ -293,11 +345,15 @@ async function check(): Promise<number> {
   const loader = await offlineDocumentLoader();
   const nquads = (doc: Json) => jsonld.canonize(doc, { algorithm: "URDNA2015", format: "application/n-quads", documentLoader: loader, safe: false });
   let failed = 0;
-  for (const name of EXAMPLES) {
-    const file = `extensions/eu/textile/examples/${name}.jsonld`;
+  const cases = [
+    // d1e28a7 predates the lastDataUpdate rename, so the timestamp is left out of the textile comparison
+    ...EXAMPLES.map((name) => ({ name, file: `extensions/eu/textile/examples/${name}.jsonld`, before: "d1e28a7^", after: "d1e28a7", ignore: (k: string) => /^(oec:)?last(DataUpdate|Updated)$/.test(k) })),
+    ...BATTERY_EXAMPLES.map((name) => ({ name, file: `extensions/eu/battery/examples/${name}.jsonld`, before: "3aa08bf", after: "0142308", ignore: (k: string) => /hasInitial(Cell|Pack)?InternalResistance$/.test(k) })),
+  ];
+  for (const { name, file, before, after, ignore } of cases) {
     const show = (rev: string) => JSON.parse(execFileSync("git", ["show", `${rev}:${file}`], { cwd: ROOT, encoding: "utf8" }));
-    const migrated = migrate(show("d1e28a7^"));
-    const expected = show("d1e28a7");
+    const migrated = without(migrate(show(before)), ignore);
+    const expected = without(show(after), ignore);
     migrated["@context"] = expected["@context"];
     const [a, b] = [await nquads(migrated), await nquads(expected)];
     const left = leftovers(migrated);
@@ -312,10 +368,10 @@ async function check(): Promise<number> {
     for (const l of [...bs].filter((x) => !as.has(x)).slice(0, 8)) console.error(`    - ${l}`);
   }
   if (failed) {
-    console.error(`✗ assessment migration: ${failed}/${EXAMPLES.length} example(s) differ from the hand migration in d1e28a7`);
+    console.error(`✗ assessment migration: ${failed}/${cases.length} example(s) differ from the hand migration (d1e28a7, 0142308)`);
     return 1;
   }
-  console.log(`✓ assessment migration: ${EXAMPLES.length} examples match the hand migration in d1e28a7 as RDF`);
+  console.log(`✓ assessment migration: ${cases.length} examples match the hand migrations in d1e28a7 and 0142308 as RDF`);
   return 0;
 }
 
@@ -328,6 +384,7 @@ async function main(): Promise<number> {
   }
   const doc = migrate(JSON.parse(await fs.readFile(args[0], "utf8")));
   const left = leftovers(doc);
+  for (const n of notes) console.error(`note: ${n}`);
   if (left.length) console.error(`old keys left: ${left.join(", ")}`);
   const text = JSON.stringify(doc, null, 2) + "\n";
   if (args[1]) await fs.writeFile(args[1], text);
