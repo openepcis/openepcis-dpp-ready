@@ -7,14 +7,14 @@ against, and the indicators (scores, classes, expected lifetimes) derived from t
 
 - **Namespace:** `https://ref.openepcis.org/extensions/common/assessment/`
 - **Prefix:** `oea:`
-- **Version:** 0.9.9 (Preview)
+- **Version:** 0.10.0 (Preview)
 - **Position:** below the DPP core. It imports only the GS1 Web Vocabulary, schema.org and
   CCCEV; `dpp-core` imports it, and its shapes travel with the core shapes in every GITB
   validation type. It is not a validation type of its own.
 
 ## Why it exists
 
-Until 0.9.9 the modules stated test outcomes as flat literals (`eutex:abrasionResistance 40000`,
+Until 0.10.0 the modules stated test outcomes as flat literals (`eutex:abrasionResistance 40000`,
 the unit, method and standard only in the property comment). The CIRPASS-2 EU DPP ontologies
 model the same facts as an assessment execution that produces results, and both communities need
 to read each other's data. This module adopts that pattern once, for every sector:
@@ -77,7 +77,7 @@ and the equivalent `sensorElementList` form.
 
 ## Status of the migration
 
-0.9.9 moves `common/core` (performance, repairability and recyclability values) and `eu/textile`
+0.10.0 moves `common/core` (performance, repairability and recyclability values) and `eu/textile`
 (durability, robustness, recyclability, microfibre release) onto this model. Detergent, CPR,
 electronics and PPWR follow; battery (performance and durability test values) and iron-steel
 (material test certificates) after them. Until then those modules still carry flat test values.

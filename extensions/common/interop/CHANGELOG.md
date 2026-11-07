@@ -4,6 +4,8 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-07
+
 ### Removed: bridge aliases for flat scores
 
 The CIRPASS-2, JTC 24 and DPP Keystone bridge contexts no longer alias `repairabilityScore`,

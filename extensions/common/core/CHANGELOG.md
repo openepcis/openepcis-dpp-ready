@@ -4,6 +4,8 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-07
+
 ### Changed: `oec:casNumber` and `oec:ecNumber` serve every module
 
 The battery and textile modules carried their own copies (`eubat:casNumber`, `eubat:ecNumber`,

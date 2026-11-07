@@ -9,6 +9,19 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-07
+
+### Breaking: the vocabulary namespace moves to `ref.openepcis.org`
+
+Every project-owned IRI moves from `https://ref.openepcis.io/` to `https://ref.openepcis.org/`:
+the module namespaces (`oec:`, `oea:`, `eubat:`, `eutex:`, ...), the context URLs, the version IRIs
+and the GITB validator bundle. The vocabulary stays citable by third parties under a
+conventional `.org` host and apart from the platform domain `epc.is`. `ref.openepcis.io` stays
+permanently as a 301 redirect to `.org`, so the published 0.9.7 to 0.9.9 folders and copies of
+them keep resolving, and the old domain cannot be taken over. Stored documents that name the old
+context URLs keep working through the redirect; new documents use the `.org` URLs. Older entries
+in this changelog keep the `.io` URL because they describe those releases.
+
 ### Duplicate terms removed after the 2026-11 re-audit
 
 Where two of our terms named the same data point, one stays: eight battery terms, the battery and

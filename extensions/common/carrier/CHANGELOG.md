@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-07
+
 - Any GS1 key can be bound, not only an SGTIN: LGTIN and GTIN (01), ITIP (8006), SSCC (00), GLN
   with or without extension (414, 254), party GLN (417), GRAI (8003), GIAI (8004), GDTI (253),
   GINC (401), GSIN (402), GCN (255), CPID (8010, 8011), GMN (8013). GSRN (8017, 8018) is excluded.

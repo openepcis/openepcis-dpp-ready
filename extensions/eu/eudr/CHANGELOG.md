@@ -4,6 +4,8 @@ All notable changes to the EUDR module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-07
+
 ### Removed: `eudr:ActorRole` — the supply-chain positions live in dpp-core
 
 `eudr:ActorRole` and its members `eudr:Producer`, `eudr:Operator`, `eudr:Trader`,

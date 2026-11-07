@@ -4,6 +4,8 @@ All notable changes to the OpenEPCIS assessment and test vocabulary.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-07
+
 ### Added
 
 - New module below the DPP core (`oea:`): `oea:Assessment`, `oea:TestExecution`,

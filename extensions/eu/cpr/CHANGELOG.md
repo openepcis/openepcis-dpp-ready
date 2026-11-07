@@ -2,6 +2,29 @@
 
 All notable changes to the CPR module will be documented in this file.
 
+## [Unreleased]
+
+## [0.10.0] - 2026-11-07
+
+### Breaking: namespace moves to `ref.openepcis.org`
+
+Every term IRI moves from `https://ref.openepcis.io/extensions/eu/cpr/` to
+`https://ref.openepcis.org/...`; see the root changelog.
+
+### Changed: mappings
+
+- DPP Keystone v3: the Declaration of Performance anchors move to `dppk:DoPCBlock`, `dppk:dopc`
+  and the `dppk-dopc:` terms (`declarationCode`, `dateOfIssue`, `reactionToFire`). v3 models the
+  AVCP systems as individuals with no property, so the AVCP selector loses its `dppk:avsSystem`
+  pointer.
+- GS1 Rail pointers follow the upstream to `https://ref.gs1.ch/voc/rail/`.
+- The 2026-11 re-audit withdraws ten `skos:broadMatch` assertions it rejected unanimously
+  (`schema:strengthValue`, two GS1 Rail value terms and seven BatteryPass SAMM value terms).
+
+### Added
+
+- The shortcut context declares the `oea:` prefix of `common/assessment`.
+
 ## [0.9.9] - 2026-08-04
 
 ### Added: wired into the extension-schema manifest

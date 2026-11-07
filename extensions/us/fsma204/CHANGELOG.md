@@ -4,6 +4,19 @@ All notable changes to the FSMA 204 extension are documented here. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this
 module adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+## [0.10.0] - 2026-11-07
+
+### Breaking: namespace moves to `ref.openepcis.org`
+
+Every term IRI moves from `https://ref.openepcis.io/extensions/us/fsma204/` to
+`https://ref.openepcis.org/...`; see the root changelog.
+
+### Added
+
+- The shortcut context declares the `oea:` prefix of `common/assessment`.
+
 ## [0.9.9] - 2026-08-04
 
 ## [0.9.8] - 2026-07-29
