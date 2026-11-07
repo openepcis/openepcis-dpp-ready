@@ -591,7 +591,8 @@ eutex:hasCareInstructions
     skos:broadMatch gs1:instructionsForUse ;
     rdfs:seeAlso dppk:instructionsForUse ;
     skos:broadMatch gs1:consumerUsageInstructions ;
-    skos:exactMatch <https://w3id.org/eudpp/textile-process#hasCareInstruction> .
+    skos:exactMatch <https://w3id.org/eudpp/textile-process#hasCareInstruction> ;
+    skos:exactMatch dppk:textileCareInstructions .
 
 eutex:hasWashingSymbol
     a owl:ObjectProperty ;
@@ -903,7 +904,8 @@ eutex:garmentType
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007> ;
     skos:note "Textile product classification / attribute per the EU Textile Labelling Regulation (EU) 1007/2011."@en ;
-    skos:broadMatch schema:category .
+    skos:broadMatch schema:category ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-core#hasTextileApparelProductType> .
 
 eutex:sizeRange
     a owl:DatatypeProperty ;
@@ -1427,7 +1429,7 @@ eutex:hasWasteOriginType
     rdfs:seeAlso dppk:preConsumerTypeOfWaste ;
     rdfs:seeAlso dppk:postConsumerTypeOfWaste ;
     skos:broadMatch <https://w3id.org/eudpp#hasMaterialOrigin> ;
-    skos:closeMatch <https://w3id.org/eudpp/textile-recyclability#hasRecycledContentSource> .
+    skos:exactMatch <https://w3id.org/eudpp/textile-recyclability#hasRecycledContentSource> .
 
 eutex:hasRecycledSourceType
     a owl:ObjectProperty ;
@@ -1775,7 +1777,8 @@ eutex:hasSubstancesOfConcern
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:hasSubstancesOfConcern ;
     rdfs:seeAlso gs1:ingredientOfConcern ;
-    skos:exactMatch <https://w3id.org/eudpp#containsSubstanceOfConcern> .
+    skos:exactMatch <https://w3id.org/eudpp#containsSubstanceOfConcern> ;
+    skos:exactMatch dppk:textileSubstancesOfConcern .
 
 eutex:hasSocType
     a owl:ObjectProperty ;
@@ -1787,22 +1790,7 @@ eutex:hasSocType
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-# eutex:casNumber removed; use oec:casNumber from core.
-
-eutex:ecNumber
-    a owl:DatatypeProperty ;
-    rdfs:label "EC Number"@en ;
-    rdfs:comment "European Community number (EINECS/ELINCS)."@en ;
-    rdfs:domain eutex:SubstanceOfConcern ;
-    rdfs:range xsd:string ;
-    rdfs:seeAlso schema:identifier ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:ecNumber ;
-    skos:exactMatch oec:ecNumber ;
-    skos:broadMatch schema:identifier ;
-    skos:exactMatch <https://w3id.org/eudpp#ecNumber> .
+# eutex:casNumber and eutex:ecNumber removed; use oec:casNumber and oec:ecNumber from core.
 
 eutex:substanceConcentration
     a owl:DatatypeProperty ;

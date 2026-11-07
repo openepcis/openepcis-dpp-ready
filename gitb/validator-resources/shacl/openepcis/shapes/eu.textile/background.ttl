@@ -570,6 +570,7 @@ _:b7 rdf:first <https://ref.openepcis.org/extensions/common/assessment/GreaterTh
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Coded indicator value. No range: any module's code list may supply it."@en;
+    skos:exactMatch <https://w3id.org/eudpp/textile-indicator#hasCategoricalValue>;
     rdfs:domain <https://ref.openepcis.org/extensions/common/assessment/Indicator>.
 <https://ref.openepcis.org/extensions/common/assessment/indicatorText> a owl:DatatypeProperty;
     rdfs:label "Indicator Text"@en;
@@ -1536,14 +1537,13 @@ oec:hasHazardClass a owl:ObjectProperty;
 oec:casNumber a owl:DatatypeProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#componentCasNumber>, <https://w3id.org/eudpp#casNumber>;
     rdfs:label "CAS Number"@en;
-    rdfs:comment "Chemical Abstracts Service registry number."@en;
+    rdfs:comment "Chemical Abstracts Service registry number of a substance or material, wherever the passport lists one (hazardous substance, substance of concern, battery material, ingredient). No rdfs:domain: the module shapes say where it is required."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:exactMatch <https://w3id.org/eudpp#casNumber>;
+    skos:exactMatch <https://w3id.org/eudpp#casNumber>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier>;
     skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#componentCasNumber>;
-    rdfs:range xsd:string;
-    rdfs:domain oec:HazardousSubstance.
+    rdfs:range xsd:string.
 oec:hasMaterialOrigin a owl:ObjectProperty;
     rdfs:seeAlso gs1:countryOfOrigin, <https://w3id.org/eudpp#MaterialOrigin>, <https://w3id.org/eudpp#hasMaterialOrigin>;
     rdfs:label "Material Origin"@en;
@@ -1855,7 +1855,7 @@ oec:componentName a owl:DatatypeProperty;
     rdfs:domain oec:MaterialComposition;
     rdfs:subPropertyOf schema:name.
 oec:componentIdentifier a owl:DatatypeProperty;
-    rdfs:seeAlso schema:identifier, <https://dpp-keystone.org/spec/v3/terms#componentIdentifier>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier>;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier>, schema:identifier, <https://dpp-keystone.org/spec/v3/terms#componentIdentifier>;
     rdfs:label "Component Identifier"@en;
     rdfs:comment "Identifier for the material or component (e.g. an internal material code or GS1 identifier)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -2053,16 +2053,16 @@ oec:hasSubstancesOfConcern a owl:ObjectProperty;
     skos:narrowMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#hazardousSubstances>, <https://dpp-keystone.org/spec/v3/terms#textileSubstancesOfConcern>;
     rdfs:range oec:SubstanceOfConcern.
 oec:ecNumber a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#componentEcNumber>, <https://w3id.org/eudpp#ecNumber>;
+    rdfs:seeAlso schema:identifier, <https://dpp-keystone.org/spec/v3/terms#componentEcNumber>, <https://w3id.org/eudpp#ecNumber>;
     rdfs:label "EC Number"@en;
-    rdfs:comment "European Community number for the substance (EINECS/ELINCS)."@en;
+    rdfs:comment "European Community number (EINECS/ELINCS) of a substance or material, wherever the passport lists one. No rdfs:domain: the module shapes say where it is required."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     skos:exactMatch <https://w3id.org/eudpp#ecNumber>;
+    skos:broadMatch schema:identifier;
     skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#componentEcNumber>;
-    rdfs:range xsd:string;
-    rdfs:domain oec:SubstanceOfConcern.
+    rdfs:range xsd:string.
 oec:scipId a owl:DatatypeProperty;
     rdfs:label "SCIP ID"@en;
     rdfs:comment "Identifier in the ECHA SCIP database (Substances of Concern In Products)."@en;
@@ -2311,7 +2311,7 @@ oec:dppSchemaVersion a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)";
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:exactMatch <https://w3id.org/eudpp#dppSchemaVersion>, <https://dpp-keystone.org/spec/v3/terms#dppSchemaVersion>;
+    skos:exactMatch <https://w3id.org/eudpp#dppSchemaVersion>, <https://dpp-keystone.org/spec/v3/terms#dppSchemaVersion>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#dppSchemaVersion>;
     skos:closeMatch schema:schemaVersion;
     rdfs:range xsd:string;
     rdfs:domain oec:DigitalProductPassport.
@@ -3992,7 +3992,7 @@ _:b140 rdf:first <https://ref.openepcis.org/extensions/eu/textile/DurabilityE>;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
     dcterms:source <https://www.iso.org/standard/74401.html>;
     skos:note "Textile care-labelling concept per ISO 3758 (GINETEX care symbols). No GS1, SEMICeu, or schema.org term covers textile care symbology."@en;
-    skos:exactMatch <https://w3id.org/eudpp/textile-process#hasCareInstruction>;
+    skos:exactMatch <https://w3id.org/eudpp/textile-process#hasCareInstruction>, <https://dpp-keystone.org/spec/v3/terms#textileCareInstructions>;
     skos:broadMatch gs1:instructions, gs1:consumerUsageInstructions, gs1:instructionsForUse;
     rdfs:range <https://ref.openepcis.org/extensions/eu/textile/CareInstruction>;
     rdfs:domain gs1:Product.
@@ -4222,6 +4222,7 @@ _:b140 rdf:first <https://ref.openepcis.org/extensions/eu/textile/DurabilityE>;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007>;
     skos:note "Textile product classification / attribute per the EU Textile Labelling Regulation (EU) 1007/2011."@en;
+    skos:exactMatch <https://w3id.org/eudpp/textile-core#hasTextileApparelProductType>;
     skos:broadMatch schema:category;
     rdfs:range xsd:string;
     rdfs:domain gs1:Product.
@@ -4610,8 +4611,8 @@ _:b166 rdf:first <https://ref.openepcis.org/extensions/eu/textile/Certified>;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
+    skos:exactMatch <https://w3id.org/eudpp/textile-recyclability#hasRecycledContentSource>;
     skos:broadMatch <https://w3id.org/eudpp#hasMaterialOrigin>;
-    skos:closeMatch <https://w3id.org/eudpp/textile-recyclability#hasRecycledContentSource>;
     rdfs:range <https://ref.openepcis.org/extensions/eu/textile/WasteOriginType>;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/RecycledContentDeclaration>.
 <https://ref.openepcis.org/extensions/eu/textile/hasRecycledSourceType> a owl:ObjectProperty;
@@ -4895,7 +4896,7 @@ _:b184 rdf:first <https://ref.openepcis.org/extensions/eu/textile/AquaticToxicit
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch <https://w3id.org/eudpp#containsSubstanceOfConcern>;
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#textileSubstancesOfConcern>, <https://w3id.org/eudpp#containsSubstanceOfConcern>;
     rdfs:range <https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern>;
     rdfs:domain gs1:Product.
 <https://ref.openepcis.org/extensions/eu/textile/hasSocType> a owl:ObjectProperty;
@@ -4905,17 +4906,6 @@ _:b184 rdf:first <https://ref.openepcis.org/extensions/eu/textile/AquaticToxicit
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
     rdfs:range <https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcernType>;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern>.
-<https://ref.openepcis.org/extensions/eu/textile/ecNumber> a owl:DatatypeProperty;
-    rdfs:seeAlso schema:identifier, oec:ecNumber;
-    rdfs:label "EC Number"@en;
-    rdfs:comment "European Community number (EINECS/ELINCS)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch oec:ecNumber, <https://w3id.org/eudpp#ecNumber>;
-    skos:broadMatch schema:identifier;
-    rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern>.
 <https://ref.openepcis.org/extensions/eu/textile/substanceConcentration> a owl:DatatypeProperty;
     rdfs:seeAlso schema:value, gs1:ingredientContentPercentage;

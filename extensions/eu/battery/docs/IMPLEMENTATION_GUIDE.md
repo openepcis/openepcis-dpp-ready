@@ -402,7 +402,7 @@ Per EU Battery Regulation 2023/1542 Annex XIII:
 | Material composition | `eubat:hasMaterialComposition` | `battery-product.jsonld` |
 | Hazardous substances | `eubat:hasHazardousSubstances` | `battery-product.jsonld` |
 | Recycled content | `eubat:hasRecycledContent` (pre/post consumer) | `battery-product.jsonld` |
-| Dismantling info | `eubat:hasDismantlingDocuments` | `battery-product.jsonld` |
+| Dismantling info | `eubat:hasDismantlingAndRemovalInformation` | `battery-product.jsonld` |
 | Spare parts | `eubat:hasSparePartSources` | `battery-product.jsonld` |
 | Labels | `eubat:hasLabels` | `battery-product.jsonld` |
 | Due diligence | `eubat:hasSupplyChainDueDiligence` | `battery-product.jsonld` |

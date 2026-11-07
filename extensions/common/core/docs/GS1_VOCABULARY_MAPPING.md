@@ -185,7 +185,7 @@ These have no GS1 Web Vocabulary equivalent and should remain in domain namespac
 - `eubat:hasRatedCapacity`, `eubat:hasRatedEnergy`, `eubat:hasNominalVoltage`
 - `eubat:lithiumRecycledShare`, `eubat:cobaltRecycledShare`, etc.
 - `eubat:CarbonFootprintTotal`, `eubat:CarbonFootprintProduction`, etc.
-- `eubat:extinguishingAgent`, `eubat:hasDismantlingInstructions`
+- `eubat:extinguishingAgent`, `eubat:hasDismantlingAndRemovalInformation`
 
 **DPP Core (no GS1 equivalent):**
 - `oec:OperatorInformation` with operator roles

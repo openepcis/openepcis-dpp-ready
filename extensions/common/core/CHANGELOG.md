@@ -4,6 +4,15 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed: `oec:casNumber` and `oec:ecNumber` serve every module
+
+The battery and textile modules carried their own copies (`eubat:casNumber`, `eubat:ecNumber`,
+`eutex:ecNumber`); those are removed and the core terms take over their mappings. Both core terms
+lose their `rdfs:domain`: under RDFS a domain is an inference, so a battery material carrying
+`oec:casNumber` would have become an `oec:HazardousSubstance`. The module shapes say where the
+numbers are required. Under the battery and textile operational contexts the bare `casNumber` and
+`ecNumber` now resolve to these terms.
+
 ### Removed: `oec:lastDataUpdate`
 
 Duplicate of `oec:lastUpdated` (EN 18223 `lastUpdated`, EU DPP Registry `core-vocabulary#lastUpdate`

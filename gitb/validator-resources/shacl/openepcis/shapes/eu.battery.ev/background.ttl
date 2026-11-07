@@ -570,6 +570,7 @@ _:b7 rdf:first <https://ref.openepcis.org/extensions/common/assessment/GreaterTh
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Coded indicator value. No range: any module's code list may supply it."@en;
+    skos:exactMatch <https://w3id.org/eudpp/textile-indicator#hasCategoricalValue>;
     rdfs:domain <https://ref.openepcis.org/extensions/common/assessment/Indicator>.
 <https://ref.openepcis.org/extensions/common/assessment/indicatorText> a owl:DatatypeProperty;
     rdfs:label "Indicator Text"@en;
@@ -1536,14 +1537,13 @@ oec:hasHazardClass a owl:ObjectProperty;
 oec:casNumber a owl:DatatypeProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#componentCasNumber>, <https://w3id.org/eudpp#casNumber>;
     rdfs:label "CAS Number"@en;
-    rdfs:comment "Chemical Abstracts Service registry number."@en;
+    rdfs:comment "Chemical Abstracts Service registry number of a substance or material, wherever the passport lists one (hazardous substance, substance of concern, battery material, ingredient). No rdfs:domain: the module shapes say where it is required."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:exactMatch <https://w3id.org/eudpp#casNumber>;
+    skos:exactMatch <https://w3id.org/eudpp#casNumber>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier>;
     skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#componentCasNumber>;
-    rdfs:range xsd:string;
-    rdfs:domain oec:HazardousSubstance.
+    rdfs:range xsd:string.
 oec:hasMaterialOrigin a owl:ObjectProperty;
     rdfs:seeAlso gs1:countryOfOrigin, <https://w3id.org/eudpp#MaterialOrigin>, <https://w3id.org/eudpp#hasMaterialOrigin>;
     rdfs:label "Material Origin"@en;
@@ -1855,7 +1855,7 @@ oec:componentName a owl:DatatypeProperty;
     rdfs:domain oec:MaterialComposition;
     rdfs:subPropertyOf schema:name.
 oec:componentIdentifier a owl:DatatypeProperty;
-    rdfs:seeAlso schema:identifier, <https://dpp-keystone.org/spec/v3/terms#componentIdentifier>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier>;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier>, schema:identifier, <https://dpp-keystone.org/spec/v3/terms#componentIdentifier>;
     rdfs:label "Component Identifier"@en;
     rdfs:comment "Identifier for the material or component (e.g. an internal material code or GS1 identifier)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -2053,16 +2053,16 @@ oec:hasSubstancesOfConcern a owl:ObjectProperty;
     skos:narrowMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#hazardousSubstances>, <https://dpp-keystone.org/spec/v3/terms#textileSubstancesOfConcern>;
     rdfs:range oec:SubstanceOfConcern.
 oec:ecNumber a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#componentEcNumber>, <https://w3id.org/eudpp#ecNumber>;
+    rdfs:seeAlso schema:identifier, <https://dpp-keystone.org/spec/v3/terms#componentEcNumber>, <https://w3id.org/eudpp#ecNumber>;
     rdfs:label "EC Number"@en;
-    rdfs:comment "European Community number for the substance (EINECS/ELINCS)."@en;
+    rdfs:comment "European Community number (EINECS/ELINCS) of a substance or material, wherever the passport lists one. No rdfs:domain: the module shapes say where it is required."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     skos:exactMatch <https://w3id.org/eudpp#ecNumber>;
+    skos:broadMatch schema:identifier;
     skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#componentEcNumber>;
-    rdfs:range xsd:string;
-    rdfs:domain oec:SubstanceOfConcern.
+    rdfs:range xsd:string.
 oec:scipId a owl:DatatypeProperty;
     rdfs:label "SCIP ID"@en;
     rdfs:comment "Identifier in the ECHA SCIP database (Substances of Concern In Products)."@en;
@@ -2311,7 +2311,7 @@ oec:dppSchemaVersion a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)";
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:exactMatch <https://w3id.org/eudpp#dppSchemaVersion>, <https://dpp-keystone.org/spec/v3/terms#dppSchemaVersion>;
+    skos:exactMatch <https://w3id.org/eudpp#dppSchemaVersion>, <https://dpp-keystone.org/spec/v3/terms#dppSchemaVersion>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#dppSchemaVersion>;
     skos:closeMatch schema:schemaVersion;
     rdfs:range xsd:string;
     rdfs:domain oec:DigitalProductPassport.
@@ -3616,6 +3616,7 @@ oec:stageValue a owl:DatatypeProperty;
     skos:broadMatch <https://w3id.org/eudpp#Substance>, schema:ChemicalSubstance, schema:Substance, <https://w3id.org/eudpp#SubstanceOfConcern>.
 <https://ref.openepcis.org/extensions/eu/battery/DismantlingDocument> a owl:Class;
     rdfs:seeAlso gs1:ReferencedFileDetails;
+    rdfs:subClassOf oec:DocumentReference;
     rdfs:label "Dismantling Document"@en;
     rdfs:comment "A document supporting battery dismantling, as specified in DIN DKE SPEC 99100."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
@@ -4482,16 +4483,6 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#batteryCondition>;
     rdfs:range xsd:integer;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification>.
-<https://ref.openepcis.org/extensions/eu/battery/expectedLifetimeYears> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#expectedLifetimeYears>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60>;
-    rdfs:label "Expected Lifetime (Years)"@en;
-    rdfs:comment "Expected calendar lifetime under normal operating conditions, in years."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime>, <https://dpp-keystone.org/spec/v3/terms#expectedLifetimeYears>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#expectedLifetimeYears>;
-    rdfs:range xsd:integer;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification>.
 <https://ref.openepcis.org/extensions/eu/battery/hasExpectedLifetimeEnergyThroughput> a owl:ObjectProperty;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#energyThroughput>;
     rdfs:label "Expected Lifetime Energy Throughput"@en;
@@ -4627,7 +4618,7 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#cycleLifeChargeCRate>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39>;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#cycleLifeChargeCRate>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39>, <https://w3id.org/eudpp/battery-performance#chargeCRateOfCycleLifeTest>;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#cRate>, <https://w3id.org/eudpp/battery-performance#cRateOfCycleLifeTest>, <https://dpp-keystone.org/spec/v3/terms#cRateCycleTest>;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification>.
@@ -4743,27 +4734,6 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:range <https://ref.openepcis.org/extensions/eu/battery/BatteryMaterial>;
     rdfs:domain gs1:Product;
     rdfs:subPropertyOf schema:hasPart.
-<https://ref.openepcis.org/extensions/eu/battery/casNumber> a owl:DatatypeProperty;
-    rdfs:seeAlso oec:casNumber;
-    rdfs:label "CAS Number"@en;
-    rdfs:comment "Chemical Abstracts Service registry number."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272>;
-    skos:note "Hazardous-substance classification aligned with CLP (EC) 1272/2008, as required by the EU Battery Regulation (EU) 2023/1542."@en;
-    skos:exactMatch oec:casNumber, <https://dpp-keystone.org/spec/v3/terms#componentCasNumber>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier>;
-    rdfs:range xsd:string;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/BatteryMaterial>.
-<https://ref.openepcis.org/extensions/eu/battery/ecNumber> a owl:DatatypeProperty;
-    rdfs:seeAlso oec:ecNumber;
-    rdfs:label "EC Number"@en;
-    rdfs:comment "European Community number (EINECS/ELINCS) for chemical substances."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272>;
-    skos:note "Hazardous-substance classification aligned with CLP (EC) 1272/2008, as required by the EU Battery Regulation (EU) 2023/1542."@en;
-    skos:exactMatch oec:ecNumber, <https://dpp-keystone.org/spec/v3/terms#componentEcNumber>;
-    skos:broadMatch <https://w3id.org/eudpp#ecNumber>;
-    rdfs:range xsd:string;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/BatteryMaterial>.
 <https://ref.openepcis.org/extensions/eu/battery/hasComponentLocation> a owl:ObjectProperty;
     rdfs:label "Component Location"@en;
     rdfs:comment "Component location in the battery (cathode, anode, etc.)."@en;
@@ -4809,8 +4779,7 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent>;
-    skos:broadMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#renewableContentShare>;
+    skos:broadMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#renewableContentShare>, <urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent>;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/BatteryMaterial>.
 <https://ref.openepcis.org/extensions/eu/battery/criticalRawMaterialsStatement> a owl:DatatypeProperty;
@@ -5006,28 +4975,6 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/MaterialRecoveryTarget>.
-<https://ref.openepcis.org/extensions/eu/battery/hasDismantlingInstructions> a owl:ObjectProperty;
-    rdfs:seeAlso oec:hasDismantlingInstructions, <https://dpp-keystone.org/spec/v3/terms#dismantlingInformation>, <urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48>;
-    rdfs:label "Dismantling Instructions"@en;
-    rdfs:comment "Reference to dismantling instructions document for safe disassembly of the battery."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation>;
-    skos:broadMatch gs1:instructions, <urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation>, <urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions>;
-    rdfs:range rdfs:Resource;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/EndOfLifeInfo>.
-<https://ref.openepcis.org/extensions/eu/battery/safetyInstructionsForDismantling> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#endOfLifeInstructions>, oec:hasDismantlingInstructions, <https://dpp-keystone.org/spec/v3/terms#safetyMeasures>, <https://dpp-keystone.org/spec/v3/terms#safetyDataSheet>;
-    rdfs:label "Safety Instructions for Dismantling"@en;
-    rdfs:comment "URL to specific safety requirements for battery dismantling."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures>;
-    skos:broadMatch gs1:instructions, <https://dpp-keystone.org/spec/v3/terms#dismantlingInformation>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation>, gs1:consumerSafetyInformation, <urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions>, <urn:samm:io.BatteryPass.Circularity:1.2.0#safetyMeasures>, gs1:safetyInfo, <https://w3id.org/eudpp/battery#dismantlingInformation>, <https://w3id.org/eudpp/battery#safetyMeasures>;
-    rdfs:range xsd:anyURI;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/EndOfLifeInfo>.
 <https://ref.openepcis.org/extensions/eu/battery/hasDismantlingTime> a owl:ObjectProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#dismantlingInformation>;
     rdfs:label "Estimated Dismantling Time"@en;
@@ -5088,8 +5035,7 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#renewableContentShare>, <https://dpp-keystone.org/spec/v3/terms#renewableContent>;
-    skos:closeMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent>;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#renewableContentShare>, <https://dpp-keystone.org/spec/v3/terms#renewableContent>, <urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#renewableContentShare>;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/EndOfLifeInfo>.
 <https://ref.openepcis.org/extensions/eu/battery/safetyInstructions> a owl:DatatypeProperty;
@@ -5104,17 +5050,6 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     skos:closeMatch gs1:safetyInfo;
     rdfs:range xsd:anyURI;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/EndOfLifeInfo>.
-<https://ref.openepcis.org/extensions/eu/battery/hasDismantlingDocuments> a owl:ObjectProperty;
-    rdfs:seeAlso gs1:ReferencedFileDetails, oec:hasDismantlingInstructions, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48>;
-    rdfs:label "Dismantling Documents"@en;
-    rdfs:comment "Documents supporting battery dismantling per DIN DKE SPEC 99100."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation>;
-    skos:broadMatch <https://dpp-keystone.org/spec/v3/terms#documents>;
-    rdfs:range <https://ref.openepcis.org/extensions/eu/battery/DismantlingDocument>;
-    rdfs:domain gs1:Product.
 <https://ref.openepcis.org/extensions/eu/battery/hasDocumentType> a owl:ObjectProperty;
     rdfs:seeAlso oec:hasDocumentType, gs1:referencedFileType;
     rdfs:label "Document Type"@en;
@@ -5693,6 +5628,7 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
+    skos:exactMatch <urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#supplyChainDueDiligenceReport>, <https://w3id.org/eudpp/battery#dueDiligenceReport>;
     skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#dueDiligenceReport>;
     rdfs:range xsd:anyURI;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/SupplyChainDueDiligence>.
@@ -5935,17 +5871,6 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:range gs1:QuantitativeValue;
     rdfs:domain gs1:Product;
     oec:hasReportingGranularity oec:ItemLevel.
-<https://ref.openepcis.org/extensions/eu/battery/hasRemainingEnergy> a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#remainingCapacity>, <https://dpp-keystone.org/spec/v3/terms#remainingUsableEnergy>;
-    rdfs:label "Remaining Energy"@en;
-    rdfs:comment "Current maximum energy. Use gs1:QuantitativeValue with unitCode 'KWH'."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
-    skos:note "State-of-health passport data property per Annex XIII."@en;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergyValue>;
-    rdfs:range gs1:QuantitativeValue;
-    rdfs:domain gs1:Product;
-    oec:hasReportingGranularity oec:ItemLevel.
 <https://ref.openepcis.org/extensions/eu/battery/hasCapacityFade> a owl:ObjectProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#capacityFade>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-52>;
     rdfs:label "Capacity Fade"@en;
@@ -6017,14 +5942,14 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:domain gs1:Product;
     oec:hasReportingGranularity oec:ItemLevel.
 <https://ref.openepcis.org/extensions/eu/battery/hasRemainingRoundTripEfficiency> a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles>, <https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyRemaining>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-64>;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>, <https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles>, <https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyRemaining>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-64>;
     rdfs:label "Remaining Round Trip Efficiency"@en;
     rdfs:comment "Current round trip energy efficiency. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     skos:note "State-of-health passport data property per Annex XIII."@en;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiency>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency>, <urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency>, <https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyRemaining>, <urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiencyValue>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingRoundTripEfficiency>;
-    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>, <https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles>;
+    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiency>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency>, <urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency>, <https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyRemaining>, <urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiencyValue>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingRoundTripEfficiency>, <https://w3id.org/eudpp/battery-performance#remainingRoundTripEnergyEfficiency>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#remainingRoundTripEnergyEfficiency>;
+    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>, <https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles>, <https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife>;
     rdfs:range gs1:QuantitativeValue;
     rdfs:domain gs1:Product;
     oec:hasReportingGranularity oec:ItemLevel.
@@ -6039,19 +5964,6 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency>;
     rdfs:range gs1:QuantitativeValue;
     rdfs:domain gs1:Product.
-<https://ref.openepcis.org/extensions/eu/battery/hasSelfDischargeRate> a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#selfDischargeCurrent>, <https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution>;
-    rdfs:label "Self Discharge Rate"@en;
-    rdfs:comment "Current self-discharge rate. Use gs1:QuantitativeValue with unitCode 'P1' (percent per month)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
-    skos:note "State-of-health passport data property per Annex XIII."@en;
-    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#currentSelfDischargingRateValue>;
-    skos:narrowMatch <https://w3id.org/eudpp/battery-performance#initialSelfDischargeRate>;
-    skos:broadMatch <https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution>;
-    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#selfDischargeCurrent>;
-    rdfs:range gs1:QuantitativeValue;
-    rdfs:domain gs1:Product.
 <https://ref.openepcis.org/extensions/eu/battery/hasEvolutionOfSelfDischarge> a owl:ObjectProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65>;
     rdfs:label "Evolution of Self Discharge"@en;
@@ -6059,7 +5971,7 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     skos:note "State-of-health passport data property per Annex XIII."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution>, <urn:samm:io.BatteryPass.Performance:1.2.1#evolutionOfSelfDischarge>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRateSet>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#evolutionOfSelfDischargeRates>;
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution>, <urn:samm:io.BatteryPass.Performance:1.2.1#evolutionOfSelfDischarge>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRateSet>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#evolutionOfSelfDischargeRates>, <https://w3id.org/eudpp/battery-performance#selfDischargeRateEvolution>;
     skos:narrowMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRate>;
     rdfs:range gs1:QuantitativeValue;
     rdfs:domain gs1:Product.
@@ -6162,16 +6074,18 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#ratedEnergy>, <https://dpp-keystone.org/spec/v3/terms#certifiedUsableEnergy>, <https://w3id.org/eudpp/battery-performance#certifiedUsableBatteryEnergy>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#certifiedUsableBatteryEnergy>;
     rdfs:range gs1:QuantitativeValue.
 <https://ref.openepcis.org/extensions/eu/battery/hasRemainingUsableEnergy> a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#remainingUsableEnergy>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#remainingCapacity>, <https://dpp-keystone.org/spec/v3/terms#remainingUsableEnergy>;
     rdfs:label "Remaining Usable Energy"@en;
-    rdfs:comment "The current remaining usable energy capacity."@en;
+    rdfs:comment "Current remaining usable energy of the battery. Use gs1:QuantitativeValue with unitCode 'KWH'."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#remainingUsableEnergy>, <https://w3id.org/eudpp/battery-performance#remainingUsableBatteryEnergy>;
+    skos:note "State-of-health passport data property per Annex XIII(4) and Annex VII Part A."@en;
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#remainingUsableEnergy>, <https://w3id.org/eudpp/battery-performance#remainingUsableBatteryEnergy>, <urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergyValue>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#remainingUsableBatteryEnergy>;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergy>;
     skos:closeMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingCapacity>;
-    rdfs:range gs1:QuantitativeValue.
+    rdfs:range gs1:QuantitativeValue;
+    rdfs:domain gs1:Product;
+    oec:hasReportingGranularity oec:ItemLevel.
 <https://ref.openepcis.org/extensions/eu/battery/soceMeasurementId> a owl:DatatypeProperty;
     rdfs:label "SOCE Measurement ID"@en;
     rdfs:comment "Unique identifier for the SOCE measurement."@en;
@@ -6338,8 +6252,7 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability>, <https://dpp-keystone.org/spec/v3/terms#powerRemaining>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingPowerCapability>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#remainingPowerCapability>;
-    skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability>;
+    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability>, <https://dpp-keystone.org/spec/v3/terms#powerRemaining>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingPowerCapability>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#remainingPowerCapability>;
     rdfs:range <https://ref.openepcis.org/extensions/eu/battery/PowerCapabilityAtSoC>.
 <https://ref.openepcis.org/extensions/eu/battery/hasPowerCapabilityAt80SoC> a owl:ObjectProperty;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability>, <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability>;
@@ -6360,15 +6273,18 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability>, <urn:samm:io.BatteryPass.Performance:1.2.1#powerCapabilityAt>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability>, <https://w3id.org/eudpp/battery-performance#remainingPowerCapability>;
     rdfs:range gs1:QuantitativeValue.
 <https://ref.openepcis.org/extensions/eu/battery/hasCurrentSelfDischargingRate> a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#selfDischargeCurrent>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65>, <https://dpp-keystone.org/spec/v3/terms#selfDischargeCurrent>;
     rdfs:label "Current Self-Discharging Rate"@en;
     rdfs:comment "Current rate of self-discharge of the battery. Use unitCode 'P1' (percent) per UN/CEFACT Rec 20; period typically per month."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
-    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#currentSelfDischargingRate)."@en;
-    skos:broadMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRateSet>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRate>;
+    skos:note "State-of-health passport data property per Annex XIII(4) and Annex VII Part A. BatteryPass-Ready: currentSelfDischargingRate (SAMM io.BatteryPass.Performance)."@en;
+    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#currentSelfDischargingRateValue>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#currentSelfDischargeRate>, <https://w3id.org/eudpp/battery-performance#currentSelfDischargeRate>, <urn:samm:io.BatteryPass.Performance:1.2.1#currentSelfDischargingRate>;
+    skos:broadMatch <https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRateSet>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRate>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#selfDischargeCurrent>;
     rdfs:range gs1:QuantitativeValue;
-    rdfs:domain oec:PerformanceInfo.
+    rdfs:domain gs1:Product;
+    oec:hasReportingGranularity oec:ItemLevel.
 <https://ref.openepcis.org/extensions/eu/battery/atSoC> a owl:DatatypeProperty;
     rdfs:label "Test Condition: at State of Charge"@en;
     rdfs:comment "State-of-charge test condition (0-1) at which a performance metric was measured. Annotates a measurement record."@en;
@@ -6378,28 +6294,16 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#atSoC>;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCharge>;
     rdfs:range xsd:decimal.
-<https://ref.openepcis.org/extensions/eu/battery/roundTripEnergyEfficiency> a owl:DatatypeProperty;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>, <https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36>, <https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyRemaining>;
-    rdfs:label "Round-Trip Energy Efficiency"@en;
-    rdfs:comment "Current round-trip energy efficiency on the 0-1 decimal scale (0.92 = 92%)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
-    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#roundTripEnergyEfficiency). Aligned with the 0-1 ratio convention used throughout oec:."@en;
-    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency>, <urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingRoundTripEfficiency>;
-    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>, <https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles>, <https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife>;
-    rdfs:range xsd:decimal;
-    rdfs:domain oec:PerformanceInfo.
 <https://ref.openepcis.org/extensions/eu/battery/hasExpectedLifetime> a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#expectedLifetimeYears>;
+    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60>, <https://dpp-keystone.org/spec/v3/terms#expectedLifetimeYears>;
     rdfs:label "Expected Lifetime"@en;
-    rdfs:comment "Manufacturer-declared expected service life of the battery. Use unitCode 'MON' (months) or 'ANN' (years) per UN/CEFACT Rec 20."@en;
+    rdfs:comment "Expected lifetime of the battery in calendar years under the reference conditions it was designed for. Use gs1:QuantitativeValue with unitCode 'ANN' (years) per UN/CEFACT Rec 20."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
-    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#expectedLifetime). ESPR Article 7 durability declaration."@en;
-    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#expectedLifetimeYears>;
-    skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime>, <https://dpp-keystone.org/spec/v3/terms#expectedLifetimeYears>;
+    skos:note "EU Battery Regulation (EU) 2023/1542 Annex XIII(1)(j), EC guidance data point 60. BatteryPass-Ready: expectedLifetime (SAMM io.BatteryPass.Performance)."@en;
+    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime>, <https://dpp-keystone.org/spec/v3/terms#expectedLifetimeYears>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#expectedLifetimeYears>, <https://w3id.org/eudpp/battery-performance#expectedLifetimeCalendarYears>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#expectedLifetimeInCalendarYears>;
     rdfs:range gs1:QuantitativeValue;
-    rdfs:domain gs1:Product.
+    rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification>.
 <https://ref.openepcis.org/extensions/eu/battery/hasBatteryMass> a owl:ObjectProperty;
     rdfs:seeAlso gs1:netWeight, <https://dpp-keystone.org/spec/v3/terms#batteryMass>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-10>;
     rdfs:label "Battery Mass"@en;
@@ -6413,25 +6317,25 @@ _:b190 rdf:first <https://ref.openepcis.org/extensions/eu/battery/AuthoritiesOnl
     rdfs:domain gs1:Product;
     rdfs:subPropertyOf gs1:netWeight.
 <https://ref.openepcis.org/extensions/eu/battery/hasDismantlingAndRemovalInformation> a owl:ObjectProperty;
-    rdfs:seeAlso oec:hasDismantlingInstructions, <https://dpp-keystone.org/spec/v3/terms#dismantlingInformation>;
+    rdfs:seeAlso gs1:ReferencedFileDetails, oec:hasDismantlingInstructions, <https://dpp-keystone.org/spec/v3/terms#dismantlingInformation>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48>;
     rdfs:label "Dismantling and Removal Information"@en;
-    rdfs:comment "Reference to the dismantling and removal instructions document required by EU Battery Regulation Annex VIII §B."@en;
+    rdfs:comment "Documents with the dismantling and removal information of the battery: exploded diagrams, disassembly sequences, fastening techniques, tools, warnings and cell layout. Each document is typed per DIN DKE SPEC 99100 (bill of material, 3D model, dismantling manual, removal manual, ...)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
-    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation). EU Battery Regulation Annex VIII §B safety information."@en;
-    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation>;
-    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#dismantlingInformation>, <urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation>;
-    rdfs:range oec:DocumentReference;
+    skos:note "EU Battery Regulation (EU) 2023/1542 Annex XIII(2)(c), EC guidance data point 48. BatteryPass-Ready: dismantlingAndRemovalInformation (SAMM io.BatteryPass.Circularity)."@en;
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#dismantlingInformation>, <urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation>, <https://w3id.org/eudpp/battery#dismantlingInformation>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#dismantlingInformation>;
+    skos:broadMatch gs1:instructions, <https://dpp-keystone.org/spec/v3/terms#documents>;
+    rdfs:range <https://ref.openepcis.org/extensions/eu/battery/DismantlingDocument>;
     rdfs:domain gs1:Product.
-<https://ref.openepcis.org/extensions/eu/battery/safetyMeasures> a owl:DatatypeProperty;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation>, <https://dpp-keystone.org/spec/v3/terms#safetyMeasures>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49>;
+<https://ref.openepcis.org/extensions/eu/battery/hasSafetyMeasures> a owl:ObjectProperty;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation>, <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49>, <https://dpp-keystone.org/spec/v3/terms#safetyMeasures>, <https://dpp-keystone.org/spec/v3/terms#safetyDataSheet>;
     rdfs:label "Safety Measures"@en;
-    rdfs:comment "End-of-life handling safety guidance: short text or URL fragment."@en;
+    rdfs:comment "Documents with the safety measures for handling and dismantling the battery, addressed to persons with a legitimate interest. Each is an oec:DocumentReference carrying oec:documentUrl."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
-    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Circularity:1.2.0#safetyMeasures). Pair with eubat:hasDismantlingAndRemovalInformation for full Annex VIII coverage."@en;
-    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures>, <https://dpp-keystone.org/spec/v3/terms#safetyMeasures>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#wasteBatterySafetyInstructions>;
+    skos:note "EU Battery Regulation (EU) 2023/1542 Annex XIII(2)(d), EC guidance data point 49 (safety measures, a web link). BatteryPass-Ready: safetyMeasures (SAMM io.BatteryPass.Circularity)."@en;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures>, <https://dpp-keystone.org/spec/v3/terms#safetyMeasures>, <urn:samm:io.BatteryPass.Circularity:1.2.0#safetyMeasures>, <https://w3id.org/eudpp/battery#safetyMeasures>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#wasteBatterySafetyInstructions>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#safetyMeasures>;
     skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions>;
-    skos:broadMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation>, gs1:consumerSafetyInformation, gs1:safetyInfo;
-    rdfs:range xsd:string;
-    rdfs:domain gs1:Product.
+    skos:broadMatch gs1:instructions, gs1:consumerSafetyInformation, gs1:safetyInfo;
+    rdfs:range oec:DocumentReference;
+    rdfs:domain <https://ref.openepcis.org/extensions/eu/battery/EndOfLifeInfo>.

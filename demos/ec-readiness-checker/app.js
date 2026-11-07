@@ -24,9 +24,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js
+// ../wt-cur/node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js
 var require_base64_js = __commonJS({
-  "node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js"(exports) {
     "use strict";
     exports.byteLength = byteLength;
     exports.toByteArray = toByteArray;
@@ -125,9 +125,9 @@ var require_base64_js = __commonJS({
   }
 });
 
-// node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js
+// ../wt-cur/node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js
 var require_ieee754 = __commonJS({
-  "node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js"(exports) {
     exports.read = function(buffer, offset, isLE, mLen, nBytes) {
       var e, m;
       var eLen = nBytes * 8 - mLen - 1;
@@ -208,9 +208,9 @@ var require_ieee754 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js
+// ../wt-cur/node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js
 var require_buffer = __commonJS({
-  "node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js"(exports) {
     "use strict";
     var base64 = require_base64_js();
     var ieee754 = require_ieee754();
@@ -1800,9 +1800,9 @@ var require_buffer = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js
 var require_primordials = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js"(exports, module) {
     "use strict";
     var AggregateError = class extends Error {
       constructor(errors) {
@@ -1921,9 +1921,9 @@ var require_primordials = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js
 var require_inspect = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js"(exports, module) {
     "use strict";
     module.exports = {
       format(format, ...args) {
@@ -1972,9 +1972,9 @@ var require_inspect = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js
 var require_errors = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js"(exports, module) {
     "use strict";
     var { format, inspect } = require_inspect();
     var { AggregateError: CustomAggregateError } = require_primordials();
@@ -2290,9 +2290,9 @@ var require_errors = __commonJS({
   }
 });
 
-// node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js
+// ../wt-cur/node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js
 var require_browser = __commonJS({
-  "node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js"(exports, module) {
     "use strict";
     var { AbortController, AbortSignal } = typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : (
       /* otherwise */
@@ -2304,9 +2304,9 @@ var require_browser = __commonJS({
   }
 });
 
-// node_modules/.pnpm/events@3.3.0/node_modules/events/events.js
+// ../wt-cur/node_modules/.pnpm/events@3.3.0/node_modules/events/events.js
 var require_events = __commonJS({
-  "node_modules/.pnpm/events@3.3.0/node_modules/events/events.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/events@3.3.0/node_modules/events/events.js"(exports, module) {
     "use strict";
     var R = typeof Reflect === "object" ? Reflect : null;
     var ReflectApply = R && typeof R.apply === "function" ? R.apply : function ReflectApply2(target, receiver, args) {
@@ -2673,9 +2673,9 @@ var require_events = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js
 var require_util = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js"(exports, module) {
     "use strict";
     var bufferModule = require_buffer();
     var { format, inspect } = require_inspect();
@@ -2812,9 +2812,9 @@ var require_util = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js
 var require_validators = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js"(exports, module) {
     "use strict";
     var {
       ArrayIsArray,
@@ -3076,9 +3076,9 @@ var require_validators = __commonJS({
   }
 });
 
-// node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js
+// ../wt-cur/node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js
 var require_browser2 = __commonJS({
-  "node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js"(exports, module) {
     var process2 = module.exports = {};
     var cachedSetTimeout;
     var cachedClearTimeout;
@@ -3238,9 +3238,9 @@ var require_browser2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js
 var require_utils = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js"(exports, module) {
     "use strict";
     var { SymbolAsyncIterator, SymbolIterator, SymbolFor } = require_primordials();
     var kIsDestroyed = SymbolFor("nodejs.stream.destroyed");
@@ -3447,9 +3447,9 @@ var require_utils = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
 var require_end_of_stream = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var { AbortError, codes } = require_errors();
@@ -3699,9 +3699,9 @@ var require_end_of_stream = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js
 var require_destroy = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var {
@@ -3964,9 +3964,9 @@ var require_destroy = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js
 var require_legacy = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js"(exports, module) {
     "use strict";
     var { ArrayIsArray, ObjectSetPrototypeOf } = require_primordials();
     var { EventEmitter: EE } = require_events();
@@ -4042,9 +4042,9 @@ var require_legacy = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js
 var require_add_abort_signal = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js"(exports, module) {
     "use strict";
     var { SymbolDispose } = require_primordials();
     var { AbortError, codes } = require_errors();
@@ -4093,9 +4093,9 @@ var require_add_abort_signal = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js
 var require_buffer_list = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module) {
     "use strict";
     var { StringPrototypeSlice, SymbolIterator, TypedArrayPrototypeSet, Uint8Array: Uint8Array2 } = require_primordials();
     var { Buffer: Buffer3 } = require_buffer();
@@ -4248,9 +4248,9 @@ var require_buffer_list = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js
 var require_state = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js"(exports, module) {
     "use strict";
     var { MathFloor, NumberIsInteger } = require_primordials();
     var { validateInteger } = require_validators();
@@ -4290,9 +4290,9 @@ var require_state = __commonJS({
   }
 });
 
-// node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js
+// ../wt-cur/node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js
 var require_safe_buffer = __commonJS({
-  "node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js"(exports, module) {
     var buffer = require_buffer();
     var Buffer3 = buffer.Buffer;
     function copyProps(src, dst) {
@@ -4348,9 +4348,9 @@ var require_safe_buffer = __commonJS({
   }
 });
 
-// node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js
+// ../wt-cur/node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js
 var require_string_decoder = __commonJS({
-  "node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js"(exports) {
     "use strict";
     var Buffer3 = require_safe_buffer().Buffer;
     var isEncoding = Buffer3.isEncoding || function(encoding) {
@@ -4586,9 +4586,9 @@ var require_string_decoder = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js
 var require_from = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var { PromisePrototypeThen, SymbolAsyncIterator, SymbolIterator } = require_primordials();
@@ -4681,9 +4681,9 @@ var require_from = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js
 var require_readable = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var {
@@ -5647,9 +5647,9 @@ var require_readable = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js
 var require_writable = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var {
@@ -6268,9 +6268,9 @@ var require_writable = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js
 var require_duplexify = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js"(exports, module) {
     var process2 = require_browser2();
     var bufferModule = require_buffer();
     var {
@@ -6615,9 +6615,9 @@ var require_duplexify = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js
 var require_duplex = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js"(exports, module) {
     "use strict";
     var {
       ObjectDefineProperties,
@@ -6732,9 +6732,9 @@ var require_duplex = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js
 var require_transform = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js"(exports, module) {
     "use strict";
     var { ObjectSetPrototypeOf, Symbol: Symbol2 } = require_primordials();
     module.exports = Transform;
@@ -6834,9 +6834,9 @@ var require_transform = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js
 var require_passthrough = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js"(exports, module) {
     "use strict";
     var { ObjectSetPrototypeOf } = require_primordials();
     module.exports = PassThrough;
@@ -6853,9 +6853,9 @@ var require_passthrough = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js
 var require_pipeline = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports, module) {
     var process2 = require_browser2();
     var { ArrayIsArray, Promise: Promise2, SymbolAsyncIterator, SymbolDispose } = require_primordials();
     var eos = require_end_of_stream();
@@ -7281,9 +7281,9 @@ var require_pipeline = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js
 var require_compose = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js"(exports, module) {
     "use strict";
     var { pipeline } = require_pipeline();
     var Duplex = require_duplex();
@@ -7474,9 +7474,9 @@ var require_compose = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js
 var require_operators = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js"(exports, module) {
     "use strict";
     var AbortController = globalThis.AbortController || require_browser().AbortController;
     var {
@@ -7879,9 +7879,9 @@ var require_operators = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js
 var require_promises = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js"(exports, module) {
     "use strict";
     var { ArrayPrototypePop, Promise: Promise2 } = require_primordials();
     var { isIterable, isNodeStream, isWebStream } = require_utils();
@@ -7921,9 +7921,9 @@ var require_promises = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js
 var require_stream = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js"(exports, module) {
     "use strict";
     var { Buffer: Buffer3 } = require_buffer();
     var { ObjectDefineProperty, ObjectKeys, ReflectApply } = require_primordials();
@@ -8040,9 +8040,9 @@ var require_stream = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js
 var require_browser3 = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js"(exports, module) {
     "use strict";
     var CustomStream = require_stream();
     var promises = require_promises();
@@ -8076,9 +8076,9 @@ var require_browser3 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js
 var require_IdentifierIssuer = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js"(exports, module) {
     "use strict";
     module.exports = class IdentifierIssuer {
       /**
@@ -8149,9 +8149,9 @@ var require_IdentifierIssuer = __commonJS({
   }
 });
 
-// node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js
+// ../wt-cur/node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js
 var require_setImmediate = __commonJS({
-  "node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js"(exports) {
     (function(global2, undefined2) {
       "use strict";
       if (global2.setImmediate) {
@@ -8297,9 +8297,9 @@ var require_setImmediate = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js
 var require_platform_browser = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js"(exports) {
     "use strict";
     require_setImmediate();
     exports.setImmediate = setImmediate;
@@ -8319,9 +8319,9 @@ var require_platform_browser = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js
 var require_MessageDigest_webcrypto = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js"(exports, module) {
     "use strict";
     var { bufferToHex, crypto } = require_platform_browser();
     var algorithmMap = /* @__PURE__ */ new Map([
@@ -8363,9 +8363,9 @@ var require_MessageDigest_webcrypto = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js
 var require_Permuter = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js"(exports, module) {
     "use strict";
     module.exports = class Permuter {
       /**
@@ -8428,9 +8428,9 @@ var require_Permuter = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js
 var require_NQuads = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js"(exports, module) {
     "use strict";
     var RDF2 = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     var RDF_LANGSTRING = RDF2 + "langString";
@@ -8744,9 +8744,9 @@ var require_NQuads = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js
 var require_RDFC10 = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js"(exports, module) {
     "use strict";
     var IdentifierIssuer = require_IdentifierIssuer();
     var MessageDigest = require_MessageDigest_webcrypto();
@@ -9065,9 +9065,9 @@ var require_RDFC10 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js
 var require_RDFC10Sync = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js"(exports, module) {
     "use strict";
     var IdentifierIssuer = require_IdentifierIssuer();
     var MessageDigest = require_MessageDigest_webcrypto();
@@ -9374,9 +9374,9 @@ var require_RDFC10Sync = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js
 var require_lib = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js"(exports) {
     "use strict";
     var RDFC10 = require_RDFC10();
     var RDFC10Sync = require_RDFC10Sync();
@@ -9447,16 +9447,16 @@ var require_lib = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js
 var require_rdf_canonize = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js"(exports, module) {
     module.exports = require_lib();
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js
 var require_types = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js"(exports, module) {
     "use strict";
     var api = {};
     module.exports = api;
@@ -9472,9 +9472,9 @@ var require_types = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js
 var require_graphTypes = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js"(exports, module) {
     "use strict";
     var types = require_types();
     var api = {};
@@ -9523,9 +9523,9 @@ var require_graphTypes = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js
 var require_JsonLdError = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js"(exports, module) {
     "use strict";
     module.exports = class JsonLdError extends Error {
       /**
@@ -9545,9 +9545,9 @@ var require_JsonLdError = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js
 var require_util2 = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js"(exports, module) {
     "use strict";
     var graphTypes = require_graphTypes();
     var types = require_types();
@@ -9801,9 +9801,9 @@ var require_util2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js
 var require_constants = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js"(exports, module) {
     "use strict";
     var RDF2 = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     var XSD2 = "http://www.w3.org/2001/XMLSchema#";
@@ -9831,9 +9831,9 @@ var require_constants = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js
 var require_RequestQueue = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js"(exports, module) {
     "use strict";
     module.exports = class RequestQueue {
       /**
@@ -9865,9 +9865,9 @@ var require_RequestQueue = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js
 var require_url = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js"(exports, module) {
     "use strict";
     var types = require_types();
     var api = {};
@@ -10068,9 +10068,9 @@ var require_url = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js
 var require_xhr = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js"(exports, module) {
     "use strict";
     var { parseLinkHeader, buildHeaders } = require_util2();
     var { LINK_HEADER_CONTEXT } = require_constants();
@@ -10166,9 +10166,9 @@ var require_xhr = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js
 var require_platform_browser2 = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js"(exports, module) {
     "use strict";
     var xhrLoader = require_xhr();
     var api = {};
@@ -10192,9 +10192,9 @@ var require_platform_browser2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js
+// ../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js
 var require_iterator = __commonJS({
-  "node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js"(exports, module) {
     "use strict";
     module.exports = function(Yallist) {
       Yallist.prototype[Symbol.iterator] = function* () {
@@ -10206,9 +10206,9 @@ var require_iterator = __commonJS({
   }
 });
 
-// node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js
+// ../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js
 var require_yallist = __commonJS({
-  "node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js"(exports, module) {
     "use strict";
     module.exports = Yallist;
     Yallist.Node = Node;
@@ -10575,9 +10575,9 @@ var require_yallist = __commonJS({
   }
 });
 
-// node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js
+// ../wt-cur/node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js
 var require_lru_cache = __commonJS({
-  "node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js"(exports, module) {
     "use strict";
     var Yallist = require_yallist();
     var MAX = Symbol("max");
@@ -10844,9 +10844,9 @@ var require_lru_cache = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js
 var require_ResolvedContext = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js"(exports, module) {
     "use strict";
     var LRU = require_lru_cache();
     var MAX_ACTIVE_CONTEXTS = 10;
@@ -10870,9 +10870,9 @@ var require_ResolvedContext = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js
 var require_ContextResolver = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js"(exports, module) {
     "use strict";
     var {
       isArray: _isArray,
@@ -11078,17 +11078,17 @@ var require_ContextResolver = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js
 var require_NQuads2 = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js"(exports, module) {
     "use strict";
     module.exports = require_rdf_canonize().NQuads;
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js
 var require_events2 = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var {
@@ -11203,9 +11203,9 @@ var require_events2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js
 var require_context = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js"(exports, module) {
     "use strict";
     var util = require_util2();
     var JsonLdError = require_JsonLdError();
@@ -12413,9 +12413,9 @@ var require_context = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js
 var require_expand = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var {
@@ -13474,9 +13474,9 @@ var require_expand = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js
 var require_nodeMap = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js"(exports, module) {
     "use strict";
     var { isKeyword } = require_context();
     var graphTypes = require_graphTypes();
@@ -13697,9 +13697,9 @@ var require_nodeMap = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js
 var require_flatten = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js"(exports, module) {
     "use strict";
     var {
       isSubjectReference: _isSubjectReference
@@ -13724,9 +13724,9 @@ var require_flatten = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js
 var require_fromRdf = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var graphTypes = require_graphTypes();
@@ -13995,9 +13995,9 @@ var require_fromRdf = __commonJS({
   }
 });
 
-// node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js
+// ../wt-cur/node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js
 var require_canonicalize = __commonJS({
-  "node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js"(exports, module) {
     "use strict";
     module.exports = function serialize(object) {
       if (typeof object === "number" && isNaN(object)) {
@@ -14032,9 +14032,9 @@ var require_canonicalize = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js
 var require_toRdf = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js"(exports, module) {
     "use strict";
     var { createNodeMap } = require_nodeMap();
     var { isKeyword } = require_context();
@@ -14383,9 +14383,9 @@ var require_toRdf = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js
 var require_frame = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js"(exports, module) {
     "use strict";
     var { isKeyword } = require_context();
     var graphTypes = require_graphTypes();
@@ -14912,9 +14912,9 @@ var require_frame = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js
 var require_compact = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var {
@@ -15812,9 +15812,9 @@ var require_compact = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js
 var require_JsonLdProcessor = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js"(exports, module) {
     "use strict";
     module.exports = (jsonld2) => {
       class JsonLdProcessor {
@@ -15861,9 +15861,9 @@ var require_JsonLdProcessor = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js
 var require_jsonld = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js"(exports, module) {
     var canonize = require_rdf_canonize();
     var platform = require_platform_browser2();
     var util = require_util2();
@@ -16453,9 +16453,9 @@ var require_jsonld = __commonJS({
   }
 });
 
-// node_modules/.pnpm/ms@2.1.3/node_modules/ms/index.js
+// ../wt-cur/node_modules/.pnpm/ms@2.1.3/node_modules/ms/index.js
 var require_ms = __commonJS({
-  "node_modules/.pnpm/ms@2.1.3/node_modules/ms/index.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/ms@2.1.3/node_modules/ms/index.js"(exports, module) {
     var s = 1e3;
     var m = s * 60;
     var h = m * 60;
@@ -16569,9 +16569,9 @@ var require_ms = __commonJS({
   }
 });
 
-// node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/common.js
+// ../wt-cur/node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/common.js
 var require_common = __commonJS({
-  "node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/common.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/common.js"(exports, module) {
     function setup(env) {
       createDebug.debug = createDebug;
       createDebug.default = createDebug;
@@ -16746,9 +16746,9 @@ var require_common = __commonJS({
   }
 });
 
-// node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/browser.js
+// ../wt-cur/node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/browser.js
 var require_browser4 = __commonJS({
-  "node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/browser.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/browser.js"(exports, module) {
     exports.formatArgs = formatArgs;
     exports.save = save;
     exports.load = load;
@@ -16916,9 +16916,9 @@ var require_browser4 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/BlankNode.js
+// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/BlankNode.js
 var require_BlankNode = __commonJS({
-  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/BlankNode.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/BlankNode.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.BlankNode = void 0;
@@ -16935,9 +16935,9 @@ var require_BlankNode = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DefaultGraph.js
+// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DefaultGraph.js
 var require_DefaultGraph = __commonJS({
-  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DefaultGraph.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DefaultGraph.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DefaultGraph = void 0;
@@ -16955,9 +16955,9 @@ var require_DefaultGraph = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/NamedNode.js
+// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/NamedNode.js
 var require_NamedNode = __commonJS({
-  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/NamedNode.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/NamedNode.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.NamedNode = void 0;
@@ -16974,9 +16974,9 @@ var require_NamedNode = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Literal.js
+// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Literal.js
 var require_Literal = __commonJS({
-  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Literal.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Literal.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Literal = void 0;
@@ -17016,9 +17016,9 @@ var require_Literal = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Quad.js
+// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Quad.js
 var require_Quad = __commonJS({
-  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Quad.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Quad.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Quad = void 0;
@@ -17039,9 +17039,9 @@ var require_Quad = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Variable.js
+// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Variable.js
 var require_Variable = __commonJS({
-  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Variable.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Variable.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Variable = void 0;
@@ -17058,9 +17058,9 @@ var require_Variable = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DataFactory.js
+// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DataFactory.js
 var require_DataFactory = __commonJS({
-  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DataFactory.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DataFactory.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DataFactory = void 0;
@@ -17183,9 +17183,9 @@ var require_DataFactory = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/index.js
+// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/index.js
 var require_rdf_data_factory = __commonJS({
-  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/index.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/index.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -17214,9 +17214,9 @@ var require_rdf_data_factory = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/Translator.js
+// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/Translator.js
 var require_Translator = __commonJS({
-  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/Translator.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/Translator.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Translator = void 0;
@@ -17279,9 +17279,9 @@ var require_Translator = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerBoolean.js
+// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerBoolean.js
 var require_TypeHandlerBoolean = __commonJS({
-  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerBoolean.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerBoolean.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.TypeHandlerBoolean = void 0;
@@ -17312,9 +17312,9 @@ var require_TypeHandlerBoolean = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerDate.js
+// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerDate.js
 var require_TypeHandlerDate = __commonJS({
-  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerDate.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerDate.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.TypeHandlerDate = void 0;
@@ -17387,9 +17387,9 @@ var require_TypeHandlerDate = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberDouble.js
+// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberDouble.js
 var require_TypeHandlerNumberDouble = __commonJS({
-  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberDouble.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberDouble.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.TypeHandlerNumberDouble = void 0;
@@ -17427,9 +17427,9 @@ var require_TypeHandlerNumberDouble = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberInteger.js
+// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberInteger.js
 var require_TypeHandlerNumberInteger = __commonJS({
-  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberInteger.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberInteger.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.TypeHandlerNumberInteger = void 0;
@@ -17469,9 +17469,9 @@ var require_TypeHandlerNumberInteger = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerString.js
+// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerString.js
 var require_TypeHandlerString = __commonJS({
-  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerString.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerString.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.TypeHandlerString = void 0;
@@ -17503,9 +17503,9 @@ var require_TypeHandlerString = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/index.js
+// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/index.js
 var require_handler = __commonJS({
-  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/index.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/index.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -17532,17 +17532,17 @@ var require_handler = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/ITypeHandler.js
+// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/ITypeHandler.js
 var require_ITypeHandler = __commonJS({
-  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/ITypeHandler.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/ITypeHandler.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
   }
 });
 
-// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/index.js
+// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/index.js
 var require_rdf_literal = __commonJS({
-  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/index.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/index.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -17735,10 +17735,10 @@ function evaluateReadiness(matrix2, docs, options = {}) {
   };
 }
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
 var import_buffer = __toESM(require_buffer());
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/IRIs.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/IRIs.js
 var RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 var XSD = "http://www.w3.org/2001/XMLSchema#";
 var SWAP = "http://www.w3.org/2000/10/swap/";
@@ -17770,7 +17770,7 @@ var IRIs_default = {
   }
 };
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
 var { xsd } = IRIs_default;
 var escapeSequence = /\\u([a-fA-F0-9]{4})|\\U([a-fA-F0-9]{8})|\\([^])/g;
 var escapeReplacements = {
@@ -18188,7 +18188,7 @@ var N3Lexer = class {
   }
 };
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3DataFactory.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3DataFactory.js
 var { rdf, xsd: xsd2 } = IRIs_default;
 var DEFAULTGRAPH;
 var _blankNodeCounter = 0;
@@ -18488,7 +18488,7 @@ function fromQuad(inQuad) {
   return quad(fromTerm(inQuad.subject), fromTerm(inQuad.predicate), fromTerm(inQuad.object), fromTerm(inQuad.graph));
 }
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Parser.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Parser.js
 var blankNodePrefix = 0;
 var N3Parser = class {
   constructor(options) {
@@ -19422,17 +19422,17 @@ function initDataFactory(parser, factory3) {
 }
 initDataFactory(N3Parser.prototype, N3DataFactory_default);
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Util.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Util.js
 function isDefaultGraph(term2) {
   return !!term2 && term2.termType === "DefaultGraph";
 }
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/Util.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/Util.js
 function escapeRegex(regex) {
   return regex.replace(/[\]\/\(\)\*\+\?\.\\\$]/g, "\\$&");
 }
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/BaseIRI.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/BaseIRI.js
 var BASE_UNSUPPORTED = /^:?[^:?#]*(?:[?#]|$)|^file:|^[^:]*:\/*[^?#]+?\/(?:\.\.?(?:\/|$)|\/)/i;
 var SUFFIX_SUPPORTED = /^(?:(?:[^/?#]{3,}|\.?[^/?#.]\.?)(?:\/[^/?#]{3,}|\.?[^/?#.]\.?)*\/?)?(?:[?#]|$)/;
 var CURRENT = "./";
@@ -19504,7 +19504,7 @@ var BaseIRI = class _BaseIRI {
   }
 };
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Writer.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Writer.js
 var DEFAULTGRAPH2 = N3DataFactory_default.defaultGraph();
 var { rdf: rdf2, xsd: xsd3 } = IRIs_default;
 var escape = /["\\\t\n\r\b\f\u0000-\u0019\ud800-\udbff]/;
@@ -19809,7 +19809,7 @@ function characterReplacer(character) {
   return result;
 }
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Store.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Store.js
 var import_readable_stream = __toESM(require_browser3());
 var ITERATOR = Symbol("iter");
 function merge(target, source, depth = 4) {
@@ -20818,31 +20818,31 @@ var DatasetCoreAndReadableStream = class _DatasetCoreAndReadableStream extends i
 // scripts/lib/shacl-run.ts
 var import_jsonld = __toESM(require_jsonld(), 1);
 
-// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/blankNode.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/blankNode.js
 function blankNode2(blankNode4) {
   return "_:" + blankNode4.value;
 }
 var blankNode_default = blankNode2;
 
-// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/dataset.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/dataset.js
 function dataset(dataset2, toNT2) {
   return [...dataset2].map((quad3) => toNT2(quad3)).join("\n") + "\n";
 }
 var dataset_default = dataset;
 
-// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/defaultGraph.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/defaultGraph.js
 function defaultGraph2() {
   return "";
 }
 var defaultGraph_default = defaultGraph2;
 
-// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/namedNode.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/namedNode.js
 function namedNode2(namedNode5) {
   return "<" + namedNode5.value + ">";
 }
 var namedNode_default = namedNode2;
 
-// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/literal.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/literal.js
 var echarRegEx = /["\\\\\n\r]/;
 var echarRegExAll = /["\\\\\n\r]/g;
 var echarReplacement = {
@@ -20872,7 +20872,7 @@ function literal2(literal4) {
 }
 var literal_default = literal2;
 
-// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/quad.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/quad.js
 function quad2(quad3, toNT2) {
   const subjectString = toNT2(quad3.subject);
   const predicateString = toNT2(quad3.predicate);
@@ -20882,13 +20882,13 @@ function quad2(quad3, toNT2) {
 }
 var quad_default = quad2;
 
-// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/variable.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/variable.js
 function variable2(variable3) {
   return "?" + variable3.value;
 }
 var variable_default = variable2;
 
-// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/index.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/index.js
 function toNT(term2) {
   if (!term2) {
     return null;
@@ -20918,7 +20918,7 @@ function toNT(term2) {
 }
 var to_ntriples_default = toNT;
 
-// node_modules/.pnpm/@rdfjs+term-set@2.0.3/node_modules/@rdfjs/term-set/TermSet.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+term-set@2.0.3/node_modules/@rdfjs/term-set/TermSet.js
 function quietToNT(term2) {
   try {
     return to_ntriples_default(term2);
@@ -20978,7 +20978,7 @@ var TermSet = class {
 };
 var TermSet_default = TermSet;
 
-// node_modules/.pnpm/@rdfjs+environment@1.0.0/node_modules/@rdfjs/environment/Environment.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+environment@1.0.0/node_modules/@rdfjs/environment/Environment.js
 var Environment = class _Environment {
   constructor(factories, { bind = false } = {}) {
     this._factories = factories.slice();
@@ -21007,7 +21007,7 @@ var Environment = class _Environment {
 };
 var Environment_default = Environment;
 
-// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/BlankNode.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/BlankNode.js
 var BlankNode2 = class {
   constructor(id) {
     this.value = id;
@@ -21019,7 +21019,7 @@ var BlankNode2 = class {
 BlankNode2.prototype.termType = "BlankNode";
 var BlankNode_default = BlankNode2;
 
-// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/DefaultGraph.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/DefaultGraph.js
 var DefaultGraph2 = class {
   equals(other) {
     return !!other && other.termType === this.termType;
@@ -21029,7 +21029,7 @@ DefaultGraph2.prototype.termType = "DefaultGraph";
 DefaultGraph2.prototype.value = "";
 var DefaultGraph_default = DefaultGraph2;
 
-// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/fromTerm.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/fromTerm.js
 function fromTerm2(factory3, original) {
   if (!original) {
     return null;
@@ -21060,7 +21060,7 @@ function fromTerm2(factory3, original) {
 }
 var fromTerm_default = fromTerm2;
 
-// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/Literal.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/Literal.js
 var Literal2 = class {
   constructor(value, language, datatype, direction = "") {
     this.value = value;
@@ -21075,7 +21075,7 @@ var Literal2 = class {
 Literal2.prototype.termType = "Literal";
 var Literal_default = Literal2;
 
-// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/NamedNode.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/NamedNode.js
 var NamedNode2 = class {
   constructor(iri) {
     this.value = iri;
@@ -21087,7 +21087,7 @@ var NamedNode2 = class {
 NamedNode2.prototype.termType = "NamedNode";
 var NamedNode_default = NamedNode2;
 
-// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/Quad.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/Quad.js
 var Quad2 = class {
   constructor(subject, predicate, object, graph) {
     this.subject = subject;
@@ -21103,7 +21103,7 @@ Quad2.prototype.termType = "Quad";
 Quad2.prototype.value = "";
 var Quad_default = Quad2;
 
-// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/Variable.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/Variable.js
 var Variable2 = class {
   constructor(name) {
     this.value = name;
@@ -21115,7 +21115,7 @@ var Variable2 = class {
 Variable2.prototype.termType = "Variable";
 var Variable_default = Variable2;
 
-// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/Factory.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/Factory.js
 var dirLangStringDatatype = new NamedNode_default("http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString");
 var langStringDatatype = new NamedNode_default("http://www.w3.org/1999/02/22-rdf-syntax-ns#langString");
 var stringDatatype = new NamedNode_default("http://www.w3.org/2001/XMLSchema#string");
@@ -21178,7 +21178,7 @@ DataFactory2.exports = [
 ];
 var Factory_default = DataFactory2;
 
-// node_modules/.pnpm/@rdfjs+dataset@2.0.3/node_modules/@rdfjs/dataset/DatasetCore.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+dataset@2.0.3/node_modules/@rdfjs/dataset/DatasetCore.js
 function isString(s) {
   return typeof s === "string" || s instanceof String;
 }
@@ -21482,7 +21482,7 @@ var DatasetCore = class {
 };
 var DatasetCore_default = DatasetCore;
 
-// node_modules/.pnpm/@rdfjs+dataset@2.0.3/node_modules/@rdfjs/dataset/Factory.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+dataset@2.0.3/node_modules/@rdfjs/dataset/Factory.js
 var Factory = class {
   dataset(quads) {
     return new DatasetCore_default(quads);
@@ -21491,7 +21491,7 @@ var Factory = class {
 Factory.exports = ["dataset"];
 var Factory_default2 = Factory;
 
-// node_modules/.pnpm/@rdfjs+term-map@2.0.2/node_modules/@rdfjs/term-map/TermMap.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+term-map@2.0.2/node_modules/@rdfjs/term-map/TermMap.js
 var TermMap = class {
   constructor(entries) {
     this.index = /* @__PURE__ */ new Map();
@@ -21548,7 +21548,7 @@ var TermMap = class {
 };
 var TermMap_default = TermMap;
 
-// node_modules/.pnpm/@rdfjs+term-map@2.0.2/node_modules/@rdfjs/term-map/Factory.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+term-map@2.0.2/node_modules/@rdfjs/term-map/Factory.js
 var Factory2 = class {
   termMap(entries) {
     return new TermMap_default(entries);
@@ -21557,11 +21557,11 @@ var Factory2 = class {
 Factory2.exports = ["termMap"];
 var Factory_default3 = Factory2;
 
-// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/index.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/index.js
 var factory = new Factory_default();
 var data_model_default = factory;
 
-// node_modules/.pnpm/@rdfjs+namespace@2.0.1/node_modules/@rdfjs/namespace/index.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+namespace@2.0.1/node_modules/@rdfjs/namespace/index.js
 var handler = {
   apply: (target, thisArg, args) => target(args[0]),
   get: (target, property) => target(property)
@@ -21572,7 +21572,7 @@ function namespace(baseIRI, { factory: factory3 = data_model_default } = {}) {
 }
 var namespace_default = namespace;
 
-// node_modules/.pnpm/@rdfjs+namespace@2.0.1/node_modules/@rdfjs/namespace/Factory.js
+// ../wt-cur/node_modules/.pnpm/@rdfjs+namespace@2.0.1/node_modules/@rdfjs/namespace/Factory.js
 var Factory3 = class {
   namespace(baseIRI) {
     return namespace_default(baseIRI, { factory: this });
@@ -21581,7 +21581,7 @@ var Factory3 = class {
 Factory3.exports = ["namespace"];
 var Factory_default4 = Factory3;
 
-// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/namespace.js
+// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/namespace.js
 var namespace_default2 = (factory3) => {
   const xsd5 = factory3.namespace("http://www.w3.org/2001/XMLSchema#");
   const rdf3 = factory3.namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
@@ -21594,7 +21594,7 @@ var namespace_default2 = (factory3) => {
   };
 };
 
-// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/toArray.js
+// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/toArray.js
 function toArray(value, defaultValue) {
   if (typeof value === "undefined" || value === null) {
     return defaultValue;
@@ -21608,13 +21608,13 @@ function toArray(value, defaultValue) {
   return [value];
 }
 
-// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/environment.js
+// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/environment.js
 var environment_default = new Environment_default([
   Factory_default4,
   Factory_default
 ]);
 
-// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/fromPrimitive.js
+// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/fromPrimitive.js
 var { xsd: xsd4 } = namespace_default2(environment_default);
 function booleanToLiteral(value, factory3 = environment_default) {
   if (typeof value !== "boolean") {
@@ -21641,7 +21641,7 @@ function toLiteral(value, factory3 = environment_default) {
   return booleanToLiteral(value, factory3) || numberToLiteral(value, factory3) || stringToLiteral(value, factory3);
 }
 
-// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/term.js
+// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/term.js
 function blankNode3(value, factory3) {
   if (value && typeof value !== "string") {
     throw new Error("Blank node identifier must be a string");
@@ -21690,7 +21690,7 @@ function term(value, type = "Literal", languageOrDatatype, factory3) {
   throw new Error("unknown type");
 }
 
-// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/toTermArray.js
+// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/toTermArray.js
 function toTermArray(items, type, languageOrDatatype, factory3) {
   if ((typeof items === "undefined" || items === null) && !type) {
     return items;
@@ -21704,7 +21704,7 @@ function toTermArray(items, type, languageOrDatatype, factory3) {
   }, []);
 }
 
-// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/languageTag.js
+// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/languageTag.js
 var ns = namespace_default2(environment_default);
 function mapLiteralsByLanguage(map, current) {
   const notLiteral = current.termType !== "Literal";
@@ -21740,7 +21740,7 @@ function filterTaggedLiterals(terms, { language }) {
   return languages.map(getLiteralsForLanguage).find(Boolean) || [];
 }
 
-// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/Context.js
+// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/Context.js
 var Context = class _Context {
   constructor({ dataset: dataset2, graph, value, factory: factory3, namespace: namespace2 }) {
     this.dataset = dataset2;
@@ -21863,7 +21863,7 @@ var Context = class _Context {
   }
 };
 
-// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/Clownface.js
+// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/Clownface.js
 var Clownface = class _Clownface {
   constructor({ dataset: dataset2, graph, term: term2, value, factory: factory3, _context }) {
     this.factory = factory3;
@@ -22239,12 +22239,12 @@ var Clownface = class _Clownface {
   }
 };
 
-// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/index.js
+// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/index.js
 function factory2({ dataset: dataset2, graph, term: term2, value, factory: factory3 = environment_default, _context }) {
   return new Clownface({ dataset: dataset2, graph, term: term2, value, factory: factory3, _context });
 }
 
-// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/Factory.js
+// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/Factory.js
 var ClownfaceFactory = class {
   clownface({ ...args } = {}) {
     if (!args.dataset && typeof this.dataset === "function") {
@@ -22256,7 +22256,7 @@ var ClownfaceFactory = class {
 ClownfaceFactory.exports = ["clownface"];
 var Factory_default5 = ClownfaceFactory;
 
-// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/defaultEnv.js
+// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/defaultEnv.js
 var defaultEnv_default = new Environment_default([
   Factory_default,
   Factory_default2,
@@ -22265,7 +22265,7 @@ var defaultEnv_default = new Environment_default([
   Factory_default3
 ]);
 
-// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/namespaces.js
+// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/namespaces.js
 function prepareNamespaces(factory3) {
   return {
     sh: namespace_default("http://www.w3.org/ns/shacl#", { factory: factory3 }),
@@ -22277,7 +22277,7 @@ function prepareNamespaces(factory3) {
 }
 var namespaces_default = prepareNamespaces();
 
-// node_modules/.pnpm/@vocabulary+sh@1.1.6_@rdfjs+types@2.0.1/node_modules/@vocabulary/sh/index.js
+// ../wt-cur/node_modules/.pnpm/@vocabulary+sh@1.1.6_@rdfjs+types@2.0.1/node_modules/@vocabulary/sh/index.js
 var sh_default = ({ factory: factory3 }) => {
   const f = factory3;
   const ns1 = "http://www.w3.org/ns/shacl#";
@@ -23782,7 +23782,7 @@ var sh_default = ({ factory: factory3 }) => {
   ];
 };
 
-// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/node-set.js
+// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/node-set.js
 var NodeSet = class extends TermSet_default {
   addAll(nodes) {
     for (const node of nodes) {
@@ -23792,7 +23792,7 @@ var NodeSet = class extends TermSet_default {
 };
 var node_set_default = NodeSet;
 
-// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/property-path.js
+// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/property-path.js
 function extractPropertyPath(pathNode, ns2, allowNamedNodeInList) {
   if (pathNode.term.termType === "NamedNode" && !allowNamedNodeInList) {
     return pathNode.term;
@@ -23899,7 +23899,7 @@ function flatMap(arr, func) {
   return [...arr].reduce((acc, x) => acc.concat(func(x)), []);
 }
 
-// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/dataset-utils.js
+// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/dataset-utils.js
 function* extractStructure(dataset2, startNode, visited = new TermSet_default()) {
   if (startNode.termType !== "BlankNode" || visited.has(startNode)) {
     return;
@@ -23959,7 +23959,7 @@ function rdfListToArray(listNode) {
   return [...listNode.list?.() || []].map(({ term: term2 }) => term2);
 }
 
-// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/shapes-graph.js
+// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/shapes-graph.js
 var ShapesGraph = class {
   _components;
   _parametersMap;
@@ -24213,10 +24213,10 @@ var Shape = class _Shape {
 };
 var shapes_graph_default = ShapesGraph;
 
-// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validation-engine.js
+// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validation-engine.js
 var import_debug = __toESM(require_browser4(), 1);
 
-// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validation-report.js
+// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validation-report.js
 var ValidationReport = class {
   constructor(pointer, options = {}) {
     this.factory = options.factory || defaultEnv_default;
@@ -24268,7 +24268,7 @@ var ValidationResult = class _ValidationResult {
 };
 var validation_report_default = ValidationReport;
 
-// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validation-engine.js
+// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validation-engine.js
 var error = (0, import_debug.default)("validation-engine::error");
 var defaultMaxNodeChecks = 50;
 var ValidationEngine = class _ValidationEngine {
@@ -24577,340 +24577,340 @@ function copyResult(resultPointer, targetPointer, predicate) {
 }
 var validation_engine_default = ValidationEngine;
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/acl.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/acl.js
 var builder = namespace_default("http://www.w3.org/ns/auth/acl#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/as.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/as.js
 var builder2 = namespace_default("https://www.w3.org/ns/activitystreams#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/bibo.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/bibo.js
 var builder3 = namespace_default("http://purl.org/ontology/bibo/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cc.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cc.js
 var builder4 = namespace_default("http://creativecommons.org/ns#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cert.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cert.js
 var builder5 = namespace_default("http://www.w3.org/ns/auth/cert#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cnt.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cnt.js
 var builder6 = namespace_default("http://www.w3.org/2011/content#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/constant.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/constant.js
 var builder7 = namespace_default("http://qudt.org/vocab/constant/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/crm.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/crm.js
 var builder8 = namespace_default("http://www.cidoc-crm.org/cidoc-crm/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/csvw.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/csvw.js
 var builder9 = namespace_default("http://www.w3.org/ns/csvw#");
 var strict = builder9;
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ctag.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ctag.js
 var builder10 = namespace_default("http://commontag.org/ns#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cur.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cur.js
 var builder11 = namespace_default("http://qudt.org/vocab/currency/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dash-sparql.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dash-sparql.js
 var builder12 = namespace_default("http://datashapes.org/sparql#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dash.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dash.js
 var builder13 = namespace_default("http://datashapes.org/dash#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dbo.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dbo.js
 var builder14 = namespace_default("http://dbpedia.org/ontology/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dc11.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dc11.js
 var builder15 = namespace_default("http://purl.org/dc/elements/1.1/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcam.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcam.js
 var builder16 = namespace_default("http://purl.org/dc/dcam/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcat.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcat.js
 var builder17 = namespace_default("http://www.w3.org/ns/dcat#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcmitype.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcmitype.js
 var builder18 = namespace_default("http://purl.org/dc/dcmitype/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcterms.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcterms.js
 var builder19 = namespace_default("http://purl.org/dc/terms/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dig.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dig.js
 var builder20 = namespace_default("http://www.ics.forth.gr/isl/CRMdig/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/discipline.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/discipline.js
 var builder21 = namespace_default("http://qudt.org/vocab/discipline/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/doap.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/doap.js
 var builder22 = namespace_default("http://usefulinc.com/ns/doap#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dprod.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dprod.js
 var builder23 = namespace_default("https://ekgf.github.io/dprod/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dpv.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dpv.js
 var builder24 = namespace_default("http://www.w3.org/ns/dpv#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dqv.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dqv.js
 var builder25 = namespace_default("http://www.w3.org/ns/dqv#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dtype.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dtype.js
 var builder26 = namespace_default("http://www.linkedmodel.org/schema/dtype#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/duv.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/duv.js
 var builder27 = namespace_default("http://www.w3.org/ns/duv#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/earl.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/earl.js
 var builder28 = namespace_default("http://www.w3.org/ns/earl#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ebucore.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ebucore.js
 var builder29 = namespace_default("http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/exif.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/exif.js
 var builder30 = namespace_default("http://www.w3.org/2003/12/exif/ns#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/foaf.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/foaf.js
 var builder31 = namespace_default("http://xmlns.com/foaf/0.1/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/frbr.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/frbr.js
 var builder32 = namespace_default("http://purl.org/vocab/frbr/core#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/geo.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/geo.js
 var builder33 = namespace_default("http://www.opengis.net/ont/geosparql#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/geof.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/geof.js
 var builder34 = namespace_default("http://www.opengis.net/def/function/geosparql/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/geor.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/geor.js
 var builder35 = namespace_default("http://www.opengis.net/def/rule/geosparql/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gml.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gml.js
 var builder36 = namespace_default("http://www.opengis.net/ont/gml#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gn.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gn.js
 var builder37 = namespace_default("http://www.geonames.org/ontology#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gr.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gr.js
 var builder38 = namespace_default("http://purl.org/goodrelations/v1#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/grddl.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/grddl.js
 var builder39 = namespace_default("http://www.w3.org/2003/g/data-view#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gs1.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gs1.js
 var builder40 = namespace_default("https://gs1.org/voc/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gtfs.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gtfs.js
 var builder41 = namespace_default("http://vocab.gtfs.org/terms#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/http.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/http.js
 var builder42 = namespace_default("http://www.w3.org/2011/http#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/hydra.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/hydra.js
 var builder43 = namespace_default("http://www.w3.org/ns/hydra/core#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ical.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ical.js
 var builder44 = namespace_default("http://www.w3.org/2002/12/cal/icaltzd#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/la.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/la.js
 var builder45 = namespace_default("https://linked.art/ns/terms/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ldp.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ldp.js
 var builder46 = namespace_default("http://www.w3.org/ns/ldp#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/list.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/list.js
 var builder47 = namespace_default("http://www.w3.org/2000/10/swap/list#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/locn.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/locn.js
 var builder48 = namespace_default("http://www.w3.org/ns/locn#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/log.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/log.js
 var builder49 = namespace_default("http://www.w3.org/2000/10/swap/log#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/lvont.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/lvont.js
 var builder50 = namespace_default("http://lexvo.org/ontology#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/m4i.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/m4i.js
 var builder51 = namespace_default("http://w3id.org/nfdi4ing/metadata4ing#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ma.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ma.js
 var builder52 = namespace_default("http://www.w3.org/ns/ma-ont#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/mads.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/mads.js
 var builder53 = namespace_default("http://www.loc.gov/mads/rdf/v1#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/math.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/math.js
 var builder54 = namespace_default("http://www.w3.org/2000/10/swap/math#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/oa.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/oa.js
 var builder55 = namespace_default("http://www.w3.org/ns/oa#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/og.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/og.js
 var builder56 = namespace_default("http://ogp.me/ns#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/oidc.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/oidc.js
 var builder57 = namespace_default("http://www.w3.org/ns/solid/oidc#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/org.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/org.js
 var builder58 = namespace_default("http://www.w3.org/ns/org#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/owl.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/owl.js
 var builder59 = namespace_default("http://www.w3.org/2002/07/owl#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/pim.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/pim.js
 var builder60 = namespace_default("http://www.w3.org/ns/pim/space#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/prefix.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/prefix.js
 var builder61 = namespace_default("http://qudt.org/vocab/prefix/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/prov.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/prov.js
 var builder62 = namespace_default("http://www.w3.org/ns/prov#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/qb.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/qb.js
 var builder63 = namespace_default("http://purl.org/linked-data/cube#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/qkdv.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/qkdv.js
 var builder64 = namespace_default("http://qudt.org/vocab/dimensionvector/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/quantitykind.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/quantitykind.js
 var builder65 = namespace_default("http://qudt.org/vocab/quantitykind/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/qudt.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/qudt.js
 var builder66 = namespace_default("http://qudt.org/schema/qudt/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdau.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdau.js
 var builder67 = namespace_default("http://rdaregistry.info/Elements/u/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdf.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdf.js
 var builder68 = namespace_default("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 var strict2 = builder68;
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdfa.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdfa.js
 var builder69 = namespace_default("http://www.w3.org/ns/rdfa#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdfs.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdfs.js
 var builder70 = namespace_default("http://www.w3.org/2000/01/rdf-schema#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rev.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rev.js
 var builder71 = namespace_default("http://purl.org/stuff/rev#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rico.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rico.js
 var builder72 = namespace_default("https://www.ica.org/standards/RiC/ontology#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rr.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rr.js
 var builder73 = namespace_default("http://www.w3.org/ns/r2rml#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rss.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rss.js
 var builder74 = namespace_default("http://purl.org/rss/1.0/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/schema.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/schema.js
 var builder75 = namespace_default("http://schema.org/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sd.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sd.js
 var builder76 = namespace_default("http://www.w3.org/ns/sparql-service-description#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sdmx.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sdmx.js
 var builder77 = namespace_default("http://purl.org/linked-data/sdmx#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sem.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sem.js
 var builder78 = namespace_default("http://semanticweb.cs.vu.nl/2009/11/sem/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/set.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/set.js
 var builder79 = namespace_default("http://www.w3.org/2000/10/swap/set#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sf.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sf.js
 var builder80 = namespace_default("http://www.opengis.net/ont/sf#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sh.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sh.js
 var builder81 = namespace_default("http://www.w3.org/ns/shacl#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/shex.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/shex.js
 var builder82 = namespace_default("http://www.w3.org/ns/shex#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/shsh.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/shsh.js
 var builder83 = namespace_default("http://www.w3.org/ns/shacl-shacl#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sioc.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sioc.js
 var builder84 = namespace_default("http://rdfs.org/sioc/ns#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/skos.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/skos.js
 var builder85 = namespace_default("http://www.w3.org/2004/02/skos/core#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/skosxl.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/skosxl.js
 var builder86 = namespace_default("http://www.w3.org/2008/05/skos-xl#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/solid.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/solid.js
 var builder87 = namespace_default("http://www.w3.org/ns/solid/terms#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sosa.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sosa.js
 var builder88 = namespace_default("http://www.w3.org/ns/sosa/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sou.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sou.js
 var builder89 = namespace_default("http://qudt.org/vocab/sou/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ssn.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ssn.js
 var builder90 = namespace_default("http://www.w3.org/ns/ssn/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/stat.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/stat.js
 var builder91 = namespace_default("http://www.w3.org/ns/posix/stat#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/string.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/string.js
 var builder92 = namespace_default("http://www.w3.org/2000/10/swap/string#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/test.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/test.js
 var builder93 = namespace_default("http://www.w3.org/2006/03/test-description#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/time.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/time.js
 var builder94 = namespace_default("http://www.w3.org/2006/time#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/unit.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/unit.js
 var builder95 = namespace_default("http://qudt.org/vocab/unit/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vaem.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vaem.js
 var builder96 = namespace_default("http://www.linkedmodel.org/schema/vaem#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vann.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vann.js
 var builder97 = namespace_default("http://purl.org/vocab/vann/");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vcard.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vcard.js
 var builder98 = namespace_default("http://www.w3.org/2006/vcard/ns#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/void.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/void.js
 var builder99 = namespace_default("http://rdfs.org/ns/void#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vs.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vs.js
 var builder100 = namespace_default("http://www.w3.org/2003/06/sw-vocab-status/ns#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vso.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vso.js
 var builder101 = namespace_default("http://purl.org/vso/ns#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/wdrs.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/wdrs.js
 var builder102 = namespace_default("http://www.w3.org/2007/05/powder-s#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/wgs.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/wgs.js
 var builder103 = namespace_default("http://www.w3.org/2003/01/geo/wgs84_pos#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xhv.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xhv.js
 var builder104 = namespace_default("http://www.w3.org/1999/xhtml/vocab#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xkos.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xkos.js
 var builder105 = namespace_default("http://rdf-vocabulary.ddialliance.org/xkos#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xsd.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xsd.js
 var builder106 = namespace_default("http://www.w3.org/2001/XMLSchema#");
 var strict3 = builder106;
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rif.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rif.js
 var builder107 = namespace_default("http://www.w3.org/2007/rif#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/v.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/v.js
 var builder108 = namespace_default("http://rdf.data-vocabulary.org/#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/wdr.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/wdr.js
 var builder109 = namespace_default("http://www.w3.org/2007/05/powder#");
 
-// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xml.js
+// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xml.js
 var builder110 = namespace_default("http://www.w3.org/XML/1998/namespace/");
 
-// node_modules/.pnpm/rdf-validate-datatype@0.2.2/node_modules/rdf-validate-datatype/src/validators.js
+// ../wt-cur/node_modules/.pnpm/rdf-validate-datatype@0.2.2/node_modules/rdf-validate-datatype/src/validators.js
 var Registry = class {
   validators;
   constructor() {
@@ -25049,7 +25049,7 @@ validators.register(strict3.NMTOKENS, () => true);
 validators.register(strict2.XMLLiteral, () => true);
 validators.register(strict2.HTML, () => true);
 
-// node_modules/.pnpm/rdf-validate-datatype@0.2.2/node_modules/rdf-validate-datatype/src/validate-term.js
+// ../wt-cur/node_modules/.pnpm/rdf-validate-datatype@0.2.2/node_modules/rdf-validate-datatype/src/validate-term.js
 function validateTerm(term2) {
   if (term2.termType !== "Literal") {
     throw new Error("Cannot validate non-literal terms");
@@ -25061,7 +25061,7 @@ function validateTerm(term2) {
   return true;
 }
 
-// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validators.js
+// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validators.js
 var import_rdf_literal = __toESM(require_rdf_literal(), 1);
 var validateAnd = {
   validate(context, focusNode, valueNode, constraint) {
@@ -25505,7 +25505,7 @@ var validators_default = {
   validateXone
 };
 
-// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validators-registry.js
+// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validators-registry.js
 var validators_registry_default = [
   [namespaces_default.sh.AndConstraintComponent, validators_default.validateAnd],
   [namespaces_default.sh.ClassConstraintComponent, validators_default.validateClass],
@@ -25537,7 +25537,7 @@ var validators_registry_default = [
   [namespaces_default.sh.XoneConstraintComponent, validators_default.validateXone]
 ];
 
-// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/index.js
+// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/index.js
 var SHACLValidator = class {
   importsLoaded = false;
   /**
@@ -26614,7 +26614,6 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:roundTripEnergyEfficiency",
         "eubat:roundTripEfficiency"
       ]
     },
@@ -26897,8 +26896,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasDismantlingDocuments",
-        "eubat:hasDismantlingInstructions"
+        "eubat:hasDismantlingAndRemovalInformation"
       ]
     },
     {
@@ -26920,7 +26918,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:safetyMeasures",
+        "eubat:hasSafetyMeasures",
         "eubat:safetyInstructions"
       ]
     },
@@ -27189,7 +27187,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:expectedLifetimeYears",
+        "eubat:hasExpectedLifetime",
         "eubat:expectedRemainingLifetimeMonths"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
@@ -27764,9 +27762,7 @@ ecbp:dp-36-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( oec:hasPerformanceInfo eubat:roundTripEnergyEfficiency ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 36 (EV, mandatory): Initial round trip energy efficiency [%] \u2014 expected eubat:roundTripEnergyEfficiency / eubat:roundTripEfficiency" ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 36 (EV, mandatory): Initial round trip energy efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> .
 
 ecbp:dp-37-ev
@@ -27864,18 +27860,16 @@ ecbp:dp-48-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasDismantlingDocuments ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:hasDismantlingInstructions ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 48 (EV, mandatory): Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link] \u2014 expected eubat:hasDismantlingDocuments / eubat:hasDismantlingInstructions" ;
+    sh:property [ sh:path eubat:hasDismantlingAndRemovalInformation ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 48 (EV, mandatory): Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link] \u2014 expected eubat:hasDismantlingAndRemovalInformation" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48> .
 
 ecbp:dp-49-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:safetyMeasures ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:safetyInstructions ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasEndOfLifeInfo eubat:hasSafetyMeasures ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:safetyInstructions ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 49 (EV, mandatory): Safety measures [a web link] \u2014 expected eubat:safetyMeasures / eubat:safetyInstructions" ;
+    sh:message "EC data point 49 (EV, mandatory): Safety measures [a web link] \u2014 expected eubat:hasSafetyMeasures / eubat:safetyInstructions" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49> .
 
 ecbp:dp-50-ev
@@ -27956,9 +27950,9 @@ ecbp:dp-60-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedLifetimeYears ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 60 (EV, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:expectedLifetimeYears / eubat:expectedRemainingLifetimeMonths" ;
+    sh:message "EC data point 60 (EV, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:hasExpectedLifetime / eubat:expectedRemainingLifetimeMonths" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
 
 ecbp:dp-61-ev
@@ -28259,9 +28253,7 @@ ecbp:dp-36-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( oec:hasPerformanceInfo eubat:roundTripEnergyEfficiency ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 36 (LMT, mandatory): Initial round trip energy efficiency [%] \u2014 expected eubat:roundTripEnergyEfficiency / eubat:roundTripEfficiency" ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 36 (LMT, mandatory): Initial round trip energy efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> .
 
 ecbp:dp-37-lmt
@@ -28359,18 +28351,16 @@ ecbp:dp-48-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasDismantlingDocuments ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:hasDismantlingInstructions ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 48 (LMT, mandatory): Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link] \u2014 expected eubat:hasDismantlingDocuments / eubat:hasDismantlingInstructions" ;
+    sh:property [ sh:path eubat:hasDismantlingAndRemovalInformation ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 48 (LMT, mandatory): Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link] \u2014 expected eubat:hasDismantlingAndRemovalInformation" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48> .
 
 ecbp:dp-49-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:safetyMeasures ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:safetyInstructions ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasEndOfLifeInfo eubat:hasSafetyMeasures ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:safetyInstructions ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 49 (LMT, mandatory): Safety measures [a web link] \u2014 expected eubat:safetyMeasures / eubat:safetyInstructions" ;
+    sh:message "EC data point 49 (LMT, mandatory): Safety measures [a web link] \u2014 expected eubat:hasSafetyMeasures / eubat:safetyInstructions" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49> .
 
 ecbp:dp-50-lmt
@@ -28451,9 +28441,9 @@ ecbp:dp-60-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedLifetimeYears ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 60 (LMT, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:expectedLifetimeYears / eubat:expectedRemainingLifetimeMonths" ;
+    sh:message "EC data point 60 (LMT, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:hasExpectedLifetime / eubat:expectedRemainingLifetimeMonths" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
 
 ecbp:dp-62-lmt
@@ -28481,7 +28471,7 @@ ecbp:dp-65-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasEvolutionOfSelfDischarge ; sh:minCount 1 ] [ sh:path ( oec:hasPerformanceInfo eubat:hasCurrentSelfDischargingRate ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path eubat:hasEvolutionOfSelfDischarge ; sh:minCount 1 ] [ sh:path eubat:hasCurrentSelfDischargingRate ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
     sh:message "EC data point 65 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year] \u2014 expected eubat:hasEvolutionOfSelfDischarge / eubat:hasCurrentSelfDischargingRate" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65> .
@@ -28784,9 +28774,7 @@ ecbp:dp-36-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( oec:hasPerformanceInfo eubat:roundTripEnergyEfficiency ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Warning ;
-    sh:message "EC data point 36 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Initial round trip energy efficiency [%] \u2014 expected eubat:roundTripEnergyEfficiency / eubat:roundTripEfficiency" ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 36 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Initial round trip energy efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> .
 
 ecbp:dp-37-industrial
@@ -28884,18 +28872,16 @@ ecbp:dp-48-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasDismantlingDocuments ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:hasDismantlingInstructions ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 48 (industrial, mandatory): Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link] \u2014 expected eubat:hasDismantlingDocuments / eubat:hasDismantlingInstructions" ;
+    sh:property [ sh:path eubat:hasDismantlingAndRemovalInformation ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 48 (industrial, mandatory): Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link] \u2014 expected eubat:hasDismantlingAndRemovalInformation" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48> .
 
 ecbp:dp-49-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:safetyMeasures ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:safetyInstructions ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasEndOfLifeInfo eubat:hasSafetyMeasures ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:safetyInstructions ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 49 (industrial, mandatory): Safety measures [a web link] \u2014 expected eubat:safetyMeasures / eubat:safetyInstructions" ;
+    sh:message "EC data point 49 (industrial, mandatory): Safety measures [a web link] \u2014 expected eubat:hasSafetyMeasures / eubat:safetyInstructions" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49> .
 
 ecbp:dp-50-industrial
@@ -28976,9 +28962,9 @@ ecbp:dp-60-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedLifetimeYears ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 60 (industrial, provide if the condition applies: Only for rechargeable batteries): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:expectedLifetimeYears / eubat:expectedRemainingLifetimeMonths" ;
+    sh:message "EC data point 60 (industrial, provide if the condition applies: Only for rechargeable batteries): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:hasExpectedLifetime / eubat:expectedRemainingLifetimeMonths" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
 
 ecbp:dp-62-industrial
@@ -29006,7 +28992,7 @@ ecbp:dp-65-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasEvolutionOfSelfDischarge ; sh:minCount 1 ] [ sh:path ( oec:hasPerformanceInfo eubat:hasCurrentSelfDischargingRate ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path eubat:hasEvolutionOfSelfDischarge ; sh:minCount 1 ] [ sh:path eubat:hasCurrentSelfDischargingRate ; sh:minCount 1 ] ) ;
     sh:severity sh:Warning ;
     sh:message "EC data point 65 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year] \u2014 expected eubat:hasEvolutionOfSelfDischarge / eubat:hasCurrentSelfDischargingRate" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65> .
@@ -29198,7 +29184,11 @@ var battery_product_model_default = {
       "gs1:unitCode": "OHM"
     },
     "eubat:expectedCycleLife": 6e3,
-    "eubat:expectedLifetimeYears": 15,
+    "eubat:hasExpectedLifetime": {
+      type: "gs1:QuantitativeValue",
+      "gs1:value": 15,
+      "gs1:unitCode": "ANN"
+    },
     "eubat:roundTripEfficiency": 96,
     "eubat:capacityThresholdForExhaustion": 70,
     "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
@@ -29663,7 +29653,11 @@ var battery_product_default = {
     },
     "eubat:initialSelfDischarge": "1.5",
     "eubat:expectedCycleLife": 6e3,
-    "eubat:expectedLifetimeYears": 15,
+    "eubat:hasExpectedLifetime": {
+      type: "gs1:QuantitativeValue",
+      "gs1:value": 15,
+      "gs1:unitCode": "ANN"
+    },
     "eubat:hasExpectedLifetimeEnergyThroughput": {
       type: "gs1:QuantitativeValue",
       "gs1:value": 85800,
@@ -29749,8 +29743,8 @@ var battery_product_default = {
         "@value": "Lithium",
         "@language": "en"
       },
-      "eubat:casNumber": "7439-93-2",
-      "eubat:ecNumber": "231-102-5",
+      "oec:casNumber": "7439-93-2",
+      "oec:ecNumber": "231-102-5",
       "eubat:hasComponentLocation": {
         "@id": "eubat:Cathode"
       },
@@ -29772,8 +29766,8 @@ var battery_product_default = {
         "@value": "Iron",
         "@language": "en"
       },
-      "eubat:casNumber": "7439-89-6",
-      "eubat:ecNumber": "231-096-4",
+      "oec:casNumber": "7439-89-6",
+      "oec:ecNumber": "231-096-4",
       "eubat:hasComponentLocation": {
         "@id": "eubat:Cathode"
       },
@@ -29791,8 +29785,8 @@ var battery_product_default = {
         "@value": "Graphite",
         "@language": "en"
       },
-      "eubat:casNumber": "7782-42-5",
-      "eubat:ecNumber": "231-955-3",
+      "oec:casNumber": "7782-42-5",
+      "oec:ecNumber": "231-955-3",
       "eubat:hasComponentLocation": {
         "@id": "eubat:Anode"
       },
@@ -29811,8 +29805,8 @@ var battery_product_default = {
         "@value": "Phosphorus",
         "@language": "en"
       },
-      "eubat:casNumber": "7723-14-0",
-      "eubat:ecNumber": "231-768-7",
+      "oec:casNumber": "7723-14-0",
+      "oec:ecNumber": "231-768-7",
       "eubat:hasComponentLocation": {
         "@id": "eubat:Cathode"
       },
@@ -30115,7 +30109,7 @@ var battery_product_default = {
       }
     }
   ],
-  "eubat:hasDismantlingDocuments": [
+  "eubat:hasDismantlingAndRemovalInformation": [
     {
       id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#dismantle-bom",
       type: "eubat:DismantlingDocument",
@@ -30183,10 +30177,10 @@ var battery_product_default = {
         "eubat:recoveryRate": 95
       }
     ],
-    "eubat:hasDismantlingInstructions": {
-      id: "https://files.example.org/files/products/09521002005004/docs/document.pdf"
+    "eubat:hasSafetyMeasures": {
+      type: "oec:DocumentReference",
+      "oec:documentUrl": "https://files.example.org/files/products/09521002005004/docs/dismantling-safety.pdf"
     },
-    "eubat:safetyInstructionsForDismantling": "https://files.example.org/files/products/09521002005004/docs/dismantling-safety.pdf",
     "eubat:hasDismantlingTime": {
       type: "gs1:QuantitativeValue",
       "gs1:value": 45,
@@ -30593,10 +30587,12 @@ var portable_ebike_battery_default = {
       }
     ]
   },
-  "eubat:hasDismantlingDocuments": [
+  "eubat:hasDismantlingAndRemovalInformation": [
     {
       type: "eubat:DismantlingDocument",
-      "eubat:hasDocumentType": { "@id": "eubat:DismantlingManual" },
+      "eubat:hasDocumentType": {
+        "@id": "eubat:DismantlingManual"
+      },
       "eubat:documentUrl": "https://files.example.org/files/products/09521003000442/docs/document.pdf",
       "eubat:mimeType": "application/pdf",
       "eubat:languageCode": "en"
@@ -31198,7 +31194,6 @@ var battery_context_default = {
       eubat: "https://ref.openepcis.org/extensions/eu/battery/",
       gs1: "https://ref.gs1.org/voc/",
       oec: "https://ref.openepcis.org/extensions/common/core/",
-      rdfs: "http://www.w3.org/2000/01/rdf-schema#",
       xsd: "http://www.w3.org/2001/XMLSchema#",
       schema: "https://schema.org/",
       cv: "http://data.europa.eu/m8g/",
@@ -31300,10 +31295,6 @@ var battery_context_default = {
       },
       "eubat:expectedCycleLife": {
         "@id": "eubat:expectedCycleLife",
-        "@type": "xsd:integer"
-      },
-      "eubat:expectedLifetimeYears": {
-        "@id": "eubat:expectedLifetimeYears",
         "@type": "xsd:integer"
       },
       "eubat:hasExpectedLifetimeEnergyThroughput": {
@@ -31506,14 +31497,6 @@ var battery_context_default = {
         "@id": "eubat:recoveryRate",
         "@type": "xsd:decimal"
       },
-      "eubat:hasDismantlingInstructions": {
-        "@id": "eubat:hasDismantlingInstructions",
-        "@type": "@id"
-      },
-      "eubat:safetyInstructionsForDismantling": {
-        "@id": "eubat:safetyInstructionsForDismantling",
-        "@type": "xsd:anyURI"
-      },
       "eubat:hasDismantlingTime": {
         "@id": "eubat:hasDismantlingTime",
         "@type": "@id"
@@ -31537,10 +31520,6 @@ var battery_context_default = {
       "eubat:safetyInstructions": {
         "@id": "eubat:safetyInstructions",
         "@type": "xsd:anyURI"
-      },
-      "eubat:hasDismantlingDocuments": {
-        "@id": "eubat:hasDismantlingDocuments",
-        "@type": "@id"
       },
       "eubat:documentUrl": {
         "@id": "eubat:documentUrl",
@@ -31734,10 +31713,6 @@ var battery_context_default = {
         "@id": "eubat:hasRemainingCapacity",
         "@type": "@id"
       },
-      "eubat:hasRemainingEnergy": {
-        "@id": "eubat:hasRemainingEnergy",
-        "@type": "@id"
-      },
       "eubat:hasCapacityFade": {
         "@id": "eubat:hasCapacityFade",
         "@type": "@id"
@@ -31768,10 +31743,6 @@ var battery_context_default = {
       },
       "eubat:hasRoundTripEfficiencyFade": {
         "@id": "eubat:hasRoundTripEfficiencyFade",
-        "@type": "@id"
-      },
-      "eubat:hasSelfDischargeRate": {
-        "@id": "eubat:hasSelfDischargeRate",
         "@type": "@id"
       },
       "eubat:hasEvolutionOfSelfDischarge": {
@@ -31866,6 +31837,10 @@ var battery_context_default = {
         "@id": "eubat:hasDismantlingAndRemovalInformation",
         "@type": "@id"
       },
+      "eubat:hasSafetyMeasures": {
+        "@id": "eubat:hasSafetyMeasures",
+        "@type": "@id"
+      },
       "eubat:hasExpectedLifetime": {
         "@id": "eubat:hasExpectedLifetime",
         "@type": "@id"
@@ -31877,14 +31852,6 @@ var battery_context_default = {
       "eubat:hasNegativeEvents": {
         "@id": "eubat:hasNegativeEvents",
         "@type": "@id"
-      },
-      "eubat:roundTripEnergyEfficiency": {
-        "@id": "eubat:roundTripEnergyEfficiency",
-        "@type": "xsd:decimal"
-      },
-      "eubat:safetyMeasures": {
-        "@id": "eubat:safetyMeasures",
-        "@type": "xsd:string"
       },
       "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
         "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",

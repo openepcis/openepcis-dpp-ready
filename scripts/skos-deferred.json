@@ -2,11 +2,6 @@
   "_comment": "Mapping proposals a curator has looked at and deliberately parked. The triage skips them so an automated pass cannot re-propose what a human already decided to leave alone; they stay listed in docs/skos-alignment/OPEN_DECISIONS.md. Remove an entry to put it back in scope.",
   "deferred": [
     {
-      "ourId": "eubat:hasDismantlingInstructions",
-      "upstreamIri": "urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation",
-      "reason": "Direction flip rejected: our term references the dismantling instructions document, the SAMM term is the whole dismantling-and-removal information block (documents plus removal data). Ours is the narrower one, so the existing skos:broadMatch stands."
-    },
-    {
       "ourId": "eubat:hasHazardousSubstances",
       "upstreamIri": "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstances",
       "reason": "Direction flip rejected: same-named peers at the same granularity (per-substance entries with class/concentration/location on both sides). Neither hierarchy direction holds; the honest grade would be closeMatch, and flipping broad to narrow just trades one overclaim for the other."
@@ -225,6 +220,11 @@
       "ourId": "eubat:lithiumRecycledShare",
       "upstreamIri": "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#preConsumerShare",
       "reason": "Inverted: a metal-specific recycled share is not broader than BatteryPass's preConsumerShare, which is the generic one. If anything ours is the narrower term."
+    },
+    {
+      "ourId": "eubat:safetyInstructions",
+      "upstreamIri": "urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions",
+      "reason": "Decided 2026-11-07: eubat:safetyInstructions stays a separate, Public term (end-user safe-use information, Art. 74(1)(f)); eubat:hasSafetyMeasures carries the Annex XIII 2 (d) safety measures for persons with a legitimate interest. The SAMM safetyInstructions sit inside safetyMeasures, so the existing broadMatch stands. The adjudicated exactMatch to the EU safetyMeasures element is kept as adjudicated."
     }
   ]
 }

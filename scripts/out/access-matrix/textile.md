@@ -2,7 +2,7 @@
 
 Regulatory frame: ESPR textile delegated act (draft) / Textile Labelling 1007/2011
 
-Coverage: 81 properties — 60 Public / 18 AuthorizedOnly / 0 Restricted / 3 inherited / 0 UNCLASSIFIED; 3 legally locked.
+Coverage: 80 properties — 60 Public / 17 AuthorizedOnly / 0 Restricted / 3 inherited / 0 UNCLASSIFIED; 3 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
@@ -14,7 +14,6 @@ Coverage: 81 properties — 60 Public / 18 AuthorizedOnly / 0 Restricted / 3 inh
 | `chemicalPurpose` | Chemical Purpose | **AuthorizedOnly** |  | eli/reg/2024/1781 | The purpose of a production chemical is part of the confidential formulation detail, not of the public hazard disclosure. |
 | `concentrationRange` | Concentration Range | **AuthorizedOnly** |  | eli/reg/2024/1781 | Concentration ranges exist precisely because the exact value is confidential; the range stays with the professional-detail record. |
 | `containsAnimalNonTextileParts` | Contains Non-Textile Parts of Animal Origin | **Public** | 🔒 eli/reg/2011/1007 | eli/reg/2011/1007 | Non-textile parts of animal origin must be indicated on the consumer label per Regulation (EU) 1007/2011 Art. 12 (labelling per Arts. 14-16). |
-| `ecNumber` | EC Number | **AuthorizedOnly** |  | eli/reg/2024/1781 | The EC substance identifier belongs to the detailed chemical declaration; kept AuthorizedOnly to match the shared oec:ecNumber alias in every module. |
 | `endOfLifeDestination` | End of Life Destination | **Public** |  | eli/reg/2024/1781 | What happens to returned items is consumer-facing take-back information that motivates participation. |
 | `endOfLifeHandling` | End of Life Handling | **Public** |  | eli/reg/2024/1781 | Special end-of-life handling instructions caused by a substance of concern are safety-relevant to consumers and waste operators (ESPR Art. 7(5)). |
 | `environmentalFootprintClass` | Environmental Footprint Class | **Public** |  | eli/reg/2024/1781 | The footprint performance class is a consumer-facing band designed for point-of-sale comparison. |

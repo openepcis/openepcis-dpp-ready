@@ -1213,16 +1213,16 @@ oec:hasHazardClass
 oec:casNumber
     a owl:DatatypeProperty ;
     rdfs:label "CAS Number"@en ;
-    rdfs:comment "Chemical Abstracts Service registry number."@en ;
-    rdfs:domain oec:HazardousSubstance ;
+    rdfs:comment "Chemical Abstracts Service registry number of a substance or material, wherever the passport lists one (hazardous substance, substance of concern, battery material, ingredient). No rdfs:domain: the module shapes say where it is required."@en ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     rdfs:seeAlso dppk:componentCasNumber ;
-    skos:closeMatch dppk:componentCasNumber ;
     rdfs:seeAlso cirpass2:casNumber ;
-    skos:exactMatch <https://w3id.org/eudpp#casNumber> .
+    skos:exactMatch <https://w3id.org/eudpp#casNumber> ;
+    skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier> ;
+    skos:closeMatch dppk:componentCasNumber .
 
 oec:hasMaterialOrigin
     a owl:ObjectProperty ;
@@ -1975,16 +1975,17 @@ oec:hasSubstancesOfConcern
 oec:ecNumber
     a owl:DatatypeProperty ;
     rdfs:label "EC Number"@en ;
-    rdfs:comment "European Community number for the substance (EINECS/ELINCS)."@en ;
-    rdfs:domain oec:SubstanceOfConcern ;
+    rdfs:comment "European Community number (EINECS/ELINCS) of a substance or material, wherever the passport lists one. No rdfs:domain: the module shapes say where it is required."@en ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     rdfs:seeAlso dppk:componentEcNumber ;
-    skos:closeMatch dppk:componentEcNumber ;
     rdfs:seeAlso cirpass2:ecNumber ;
-    skos:exactMatch <https://w3id.org/eudpp#ecNumber> .
+    skos:exactMatch <https://w3id.org/eudpp#ecNumber> ;
+    rdfs:seeAlso schema:identifier ;
+    skos:broadMatch schema:identifier ;
+    skos:closeMatch dppk:componentEcNumber .
 
 oec:scipId
     a owl:DatatypeProperty ;
@@ -2395,7 +2396,8 @@ oec:dppSchemaVersion
     rdfs:seeAlso cirpass2:dppSchemaVersion ;
     skos:exactMatch dppk:dppSchemaVersion ;
     skos:closeMatch schema:schemaVersion ;
-    skos:exactMatch <https://w3id.org/eudpp#dppSchemaVersion> .
+    skos:exactMatch <https://w3id.org/eudpp#dppSchemaVersion> ;
+    skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#dppSchemaVersion> .
 
 oec:facilityId
     a owl:DatatypeProperty ;

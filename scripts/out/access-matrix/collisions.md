@@ -17,11 +17,9 @@ must be reconciled or explicitly waived (scripts/access-level-waivers.json).
 | `assessmentDate` | assessment: Public, electronics: Public | consistent |
 | `biodegradationPercentage` | dpp-core: Public, detergent: Public | consistent |
 | `carbonFootprintStudyUrl` | dpp-core: Public, battery: Public | consistent |
-| `casNumber` | dpp-core: AuthorizedOnly, battery: AuthorizedOnly | consistent |
 | `concentration` | dpp-core: AuthorizedOnly, battery: AuthorizedOnly | consistent |
 | `dataProviderCertification` | dpp-core: AuthorizedOnly, battery: AuthorizedOnly | consistent |
 | `dataQualityAssessment` | dpp-core: AuthorizedOnly, battery: AuthorizedOnly | consistent |
-| `ecNumber` | dpp-core: AuthorizedOnly, battery: AuthorizedOnly, textile: AuthorizedOnly | consistent |
 | `eprelProductUrl` | dpp-core: Public, electronics: Public | consistent |
 | `eprelRegistrationNumber` | dpp-core: Public, electronics: Public | consistent |
 | `hasAnnualEnergyConsumption` | dpp-core: Public, electronics: Public | consistent |
@@ -29,7 +27,6 @@ must be reconciled or explicitly waived (scripts/access-level-waivers.json).
 | `hasCarbonFootprintDeclaration` | dpp-core: Public, battery: Public | consistent |
 | `hasCarbonFootprintDistribution` | dpp-core: Public, battery: Public | consistent |
 | `hasCarbonFootprintProduction` | dpp-core: Public, battery: Public | consistent |
-| `hasDismantlingInstructions` | dpp-core: AuthorizedOnly, battery: AuthorizedOnly | consistent |
 | `hasEnergyEfficiency` | dpp-core: Public, electronics: Public | consistent |
 | `hasEnergyEfficiencyClass` | dpp-core: Public, electronics: Public | consistent |
 | `hasEuDeclarationOfConformity` | battery: Public, textile: Public | consistent |
