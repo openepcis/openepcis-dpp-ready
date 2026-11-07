@@ -396,7 +396,34 @@ function verdict(f: Finding): { action: "APPLY" | "REMOVE" | "HOLD" | "SKIP"; re
 const path = process.argv[2];
 if (!path) { console.error("usage: tsx scripts/triage-skos-report.ts <report.json> [--json]"); process.exit(64); }
 const doc = JSON.parse(readFileSync(path, "utf8"));
-const findings: Finding[] = doc.findings ?? [];
+/**
+ * A report outlives the ontology it graded: a term removed since (a duplicate folded into its
+ * survivor) still has findings, and they would keep the survivor's exactMatch held as "shared".
+ * Only findings for terms the ontologies still define are triaged.
+ */
+function definedTerms(): Set<string> {
+  const out = new Set<string>();
+  const walk = (dir: string) => {
+    for (const e of readdirSync(dir)) {
+      const f = join(dir, e);
+      if (statSync(f).isDirectory()) walk(f);
+      else if (/\/ontology\/[^/]+\.ttl$/.test(f) && !f.endsWith("-access-levels.ttl")) {
+        for (const line of readFileSync(f, "utf8").split("\n")) {
+          const m = /^([a-z][\w-]*:\w+)\s*$/.exec(line);
+          if (m) out.add(m[1]);
+        }
+      }
+    }
+  };
+  walk("extensions");
+  return out;
+}
+const DEFINED = definedTerms();
+const allFindings: Finding[] = doc.findings ?? [];
+const findings: Finding[] = allFindings.filter((f) => DEFINED.has(f.ourId));
+if (findings.length < allFindings.length) {
+  console.error(`skipped ${allFindings.length - findings.length} finding(s) for ${new Set(allFindings.filter((f) => !DEFINED.has(f.ourId)).map((f) => f.ourId)).size} term(s) no longer defined`);
+}
 /**
  * Two of our terms exactMatch to one upstream term means one of ours is a duplicate, or one of the
  * two pairs is really narrower. The battery panel proposed `eubat:hasDismantlingInstructions`,
@@ -405,18 +432,24 @@ const findings: Finding[] = doc.findings ?? [];
  * our vocabulary carries the same data point three times. That is a curation question, so every
  * exactMatch onto a target that already has (or would get) one from another of our terms is held.
  */
+/**
+ * A pair claims the upstream term when it already is an exactMatch, or when its proposal would
+ * be applied (STRONG and above the floor). A weaker competing proposal is not a claim: it would
+ * never be written, so it must not hold the pair that would.
+ */
+const claimsExact = (f: Finding) =>
+  f.existingPredicate === "skos:exactMatch"
+  || (f.proposedPredicate === "skos:exactMatch" && f.qaTier === "STRONG" && f.qaConfidence >= FLOOR);
 const exactSources = new Map<string, Set<string>>();
 for (const f of findings) {
-  const exact = f.proposedPredicate === "skos:exactMatch" || f.existingPredicate === "skos:exactMatch";
-  if (!exact || f.qaTier !== "STRONG" && f.status !== "OK") continue;
+  if (!claimsExact(f)) continue;
   if (!exactSources.has(f.upstreamIri)) exactSources.set(f.upstreamIri, new Set());
   exactSources.get(f.upstreamIri)!.add(f.ourId);
 }
 /** The mirror case: one of our terms exactMatch to two terms of the same vocabulary. */
 const exactTargets = new Map<string, Set<string>>();
 for (const f of findings) {
-  const exact = f.proposedPredicate === "skos:exactMatch" || f.existingPredicate === "skos:exactMatch";
-  if (!exact || f.qaTier !== "STRONG" && f.status !== "OK") continue;
+  if (!claimsExact(f)) continue;
   const k = `${f.ourId}|${f.vocabId}`;
   if (!exactTargets.has(k)) exactTargets.set(k, new Set());
   exactTargets.get(k)!.add(f.upstreamIri);
