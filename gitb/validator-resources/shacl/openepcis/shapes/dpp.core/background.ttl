@@ -1083,7 +1083,7 @@ oec:hasReportingGranularity a owl:ObjectProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/>;
     skos:note "BatteryPass-Ready v1.3 longlist attribute #3. Renamed from oec:granularity to free the 'granularity' key for the EN 18223 passport-level attribute (oec:granularityLevel)."@en;
-    skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#granularity>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#granularity>, <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#granularity>;
     rdfs:range oec:DPPGranularity;
     rdfs:domain gs1:Product.
 oec:lastUpdated a owl:DatatypeProperty;
@@ -1426,7 +1426,7 @@ oec:hasOperatorInformation a owl:ObjectProperty;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en;
     rdfs:range oec:OperatorInformation;
-    skos:narrowMatch gs1:manufacturer.
+    skos:narrowMatch gs1:manufacturer, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#manufacturerIdentification>.
 oec:hasOperatorRole a owl:ObjectProperty;
     rdfs:seeAlso <http://data.europa.eu/m8g/role>;
     rdfs:label "Operator Role"@en;
@@ -1578,6 +1578,7 @@ oec:hazardImpact a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272>;
     skos:note "Substance-of-concern pattern aligned with CLP (EC) 1272/2008 and the ECHA SCIP database. Reusable across regulation modules."@en;
+    skos:closeMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#batterySubstancesImpact>;
     rdfs:range rdf:langString;
     rdfs:domain oec:HazardousSubstance.
 oec:hasDocuments a owl:ObjectProperty;
@@ -1717,7 +1718,7 @@ oec:hasDismantlingInstructions a owl:ObjectProperty;
     skos:broadMatch gs1:instructions, <urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation>;
     rdfs:range oec:DocumentReference;
     rdfs:domain oec:CircularityPerformance;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#disassemblyInstructions>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#disassemblyInstructions>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation>.
 oec:utilityFactor a owl:DatatypeProperty;
     rdfs:label "Utility Factor"@en;
     rdfs:comment "Durability of the product relative to industry average (1.0 = average). A value >1 indicates above-average durability."@en;
@@ -1798,7 +1799,7 @@ oec:hasMaterialComposition a owl:ObjectProperty;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     rdfs:range oec:MaterialComposition;
-    skos:narrowMatch <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition>, gs1:textileMaterialDescription, gs1:packagingMaterialType, gs1:textileMaterial;
+    skos:narrowMatch <https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition>, gs1:textileMaterialDescription, gs1:packagingMaterialType, gs1:textileMaterial, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#detailedComposition>;
     skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#materialComposition>.
 oec:massFraction a owl:DatatypeProperty;
     rdfs:seeAlso <https://vocabulary.uncefact.org/untp/massFraction>, <https://w3id.org/eudpp#materialPercentage>;
@@ -1958,7 +1959,7 @@ oec:granularityLevel a owl:DatatypeProperty;
     skos:note "EN 18223 'granularity'. Allowed values model/batch/item; in EPCIS4DPP derived from the GS1 Digital Link AIs (01 model, 01+10 batch, 01+21 item)."@en;
     rdfs:range xsd:string;
     rdfs:domain oec:DigitalProductPassport;
-    skos:exactMatch <https://w3id.org/eudpp#granularity>, <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#granularity>.
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#granularity>, <https://w3id.org/eudpp#granularity>.
 oec:complianceDate a owl:DatatypeProperty;
     rdfs:seeAlso schema:auditDate, gs1:certificationAuditDate;
     rdfs:label "Compliance Date"@en;
@@ -2000,7 +2001,8 @@ oec:hasFacilityInformation a owl:ObjectProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en;
-    rdfs:range oec:FacilityInformation.
+    rdfs:range oec:FacilityInformation;
+    skos:narrowMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#manufacturingPlace>.
 oec:facilityType a owl:DatatypeProperty;
     rdfs:label "Facility Type"@en;
     rdfs:comment "Type of facility (manufacturing, processing, assembly, etc.)."@en;
@@ -2027,7 +2029,7 @@ oec:hasSubstancesOfConcern a owl:ObjectProperty;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272>;
     skos:note "Substance-of-concern pattern aligned with CLP (EC) 1272/2008 and the ECHA SCIP database. Reusable across regulation modules."@en;
     rdfs:range oec:SubstanceOfConcern;
-    skos:narrowMatch <https://dpp-keystone.org/spec/v2/terms#textileSubstancesOfConcern>;
+    skos:narrowMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#hazardousSubstances>, <https://dpp-keystone.org/spec/v2/terms#textileSubstancesOfConcern>;
     skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#substancesOfConcern>, <https://w3id.org/eudpp#containsSubstanceOfConcern>.
 oec:ecNumber a owl:DatatypeProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#componentEcNumber>, <https://w3id.org/eudpp#ecNumber>;
@@ -2069,6 +2071,7 @@ oec:safeUseInstructions a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
+    skos:closeMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures>;
     skos:broadMatch gs1:instructions, gs1:consumerSafetyInformation, gs1:consumerUsageInstructions, gs1:instructionsForUse, <https://dpp-keystone.org/spec/v2/terms#instructionsForUse>;
     rdfs:range xsd:string;
     rdfs:domain oec:SubstanceOfConcern;
@@ -2080,6 +2083,7 @@ oec:safeDisassemblyInstructions a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
+    skos:closeMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures>;
     skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#endOfLifeInstructions>, gs1:instructions, <https://dpp-keystone.org/spec/v2/terms#disassemblyInstructions>, <urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation>;
     rdfs:range xsd:string;
     rdfs:domain oec:SubstanceOfConcern.
@@ -2124,6 +2128,7 @@ oec:hasRepairInstructions a owl:ObjectProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en;
+    skos:closeMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation>;
     skos:broadMatch gs1:instructions, gs1:serviceInfo, <https://w3id.org/eudpp#webLink>;
     rdfs:range oec:DocumentReference;
     rdfs:domain oec:RepairabilityInfo.
@@ -2198,8 +2203,9 @@ oec:hasProductCategory a owl:ObjectProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:broadMatch schema:category, gs1:additionalProductClassificationCode, <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryCategory>;
-    rdfs:range oec:ProductCategory.
+    skos:broadMatch schema:category, gs1:additionalProductClassificationCode;
+    rdfs:range oec:ProductCategory;
+    skos:narrowMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryCategory>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#batteryCategory>.
 oec:passportIdentifier a owl:DatatypeProperty;
     rdfs:seeAlso <https://w3id.org/eudpp#DPPIdentifier>;
     rdfs:label "Passport Identifier"@en;
@@ -2236,10 +2242,10 @@ oec:passportStatus a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)";
     skos:note "EN 18223 'dppStatus'. Base values active/inactive/archived/invalid; EPCIS4DPP adds draft/withdrawn/suspended. cirpass2:dppStatus is the same JTC 24 member with a capitalized value enumeration, hence closeMatch rather than exactMatch."@en;
-    skos:closeMatch <https://w3id.org/eudpp#dppStatus>, <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#dppStatus>;
+    skos:closeMatch <https://w3id.org/eudpp#dppStatus>;
     rdfs:range xsd:string;
     rdfs:domain oec:DigitalProductPassport;
-    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#dppStatus>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#dppStatus>, <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#dppStatus>.
 oec:passportExpiryDate a owl:DatatypeProperty;
     rdfs:seeAlso <https://w3id.org/eudpp#validUntil>;
     rdfs:label "Passport Expiry Date"@en;
@@ -2255,8 +2261,9 @@ oec:hasPassportIssuer a owl:ObjectProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "ESPR Article 9 requires clear identification of the responsible economic operator."@en;
-    skos:closeMatch schema:issuedBy, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#registrantIdentity>;
-    rdfs:range oec:OperatorInformation.
+    skos:closeMatch schema:issuedBy;
+    rdfs:range oec:OperatorInformation;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#registrantIdentity>.
 oec:isEnergyRelated a owl:DatatypeProperty;
     rdfs:seeAlso oec:energyEfficiencyClass, <https://w3id.org/eudpp#isEnergyRelated>;
     rdfs:label "Is Energy-Related Product"@en;
@@ -2305,9 +2312,10 @@ oec:contentSpecificationId a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)";
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#contentSpecificationIds>, <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#contentSpecificationIds>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v2/terms#contentSpecificationIds>;
     rdfs:range xsd:anyURI;
-    rdfs:domain oec:DigitalProductPassport.
+    rdfs:domain oec:DigitalProductPassport;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#contentSpecificationIds>.
 oec:DataElement a rdfs:Class;
     rdfs:label "Data Element"@en;
     rdfs:comment "Abstract base for a DPP data point (EN 18223 4.1.2.3). Not used directly; see its subclasses."@en;
@@ -2629,6 +2637,7 @@ oec:bioBasedFraction a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Distinct from biodegradability (a separate test result) and compostability (a separate certification category)."@en;
+    skos:closeMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#renewableContentShare>;
     skos:broadMatch <https://vocabulary.uncefact.org/untp/massFraction>;
     rdfs:range xsd:decimal.
 oec:Biodegradability a owl:Class;
@@ -3047,7 +3056,7 @@ oec:hasEnergyEfficiency a owl:ObjectProperty;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     rdfs:range oec:EnergyEfficiency;
-    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiency>, <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyFade>, <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>, <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyAt50Cycles>, <urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCertifiedEnergy>, <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyInitial>.
+    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiency>, <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyFade>, <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife>, <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyAt50Cycles>, <urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCertifiedEnergy>, <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyInitial>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#initialRoundTripEnergyEfficiency>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency>, <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEfficiencyAtHalfCycleLife>.
 oec:EndOfLifeProgram a owl:Class;
     rdfs:label "End-of-Life Program"@en;
     rdfs:comment "A take-back / collection / dismantling program operating across PPWR, WEEE, Battery, Textile take-back, and ELV. Distinct from EPR registration: EPR is the producer's compliance registration; this is the consumer-facing program with collection points, refunds, and dismantling guides."@en;
@@ -3089,7 +3098,8 @@ oec:dismantlingGuideUrl a owl:DatatypeProperty;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     rdfs:range xsd:anyURI;
-    rdfs:domain oec:EndOfLifeProgram.
+    rdfs:domain oec:EndOfLifeProgram;
+    skos:exactMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation>.
 oec:hasEndOfLifeProgram a owl:ObjectProperty;
     rdfs:label "End-of-Life Program"@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
