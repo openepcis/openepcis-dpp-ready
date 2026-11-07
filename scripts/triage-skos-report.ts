@@ -40,6 +40,8 @@
  *                                   confidence floor.
  *   APPLY regrade                   an existing graded relation the whole panel regrades,
  *                                   above the confidence floor.
+ *   REMOVE rejected mapping         an existing graded relation the grader and all three QA
+ *                                   lenses call NONE, above the floor, unless recorded.
  *   APPLY new mapping               only from 0.80 QA confidence up; below that the tool's
  *                                   own gate would emit rdfs:seeAlso instead.
  *
@@ -173,7 +175,7 @@ interface Finding {
   ourId: string; ourIri: string; ourType: string; upstreamIri: string; vocabId: string;
   proposedPredicate: string | null; existingPredicate: string | null;
   status: string; qaTier: string; qaConfidence: number; confidence: number; rationale: string;
-  qaRationale?: string;
+  qaRationale?: string; relation?: string;
 }
 
 /**
@@ -239,7 +241,23 @@ function targetKind(iri: string): "class" | "property" | null {
   return null;
 }
 
-function verdict(f: Finding): { action: "APPLY" | "HOLD" | "SKIP"; reason: string } {
+function verdict(f: Finding): { action: "APPLY" | "REMOVE" | "HOLD" | "SKIP"; reason: string } {
+  // An existing graded relation that the grader and all three QA lenses call NONE, above the
+  // floor, is withdrawn. The 2026-11 re-audit found 186 such assertions, most from early bulk
+  // sweeps: eubat:hasEventLocation under schema:sportsActivityLocation, oec:value under rail
+  // sensor slots, a construction-product value under battery self-discharge. Allowlisted and
+  // deferred pairs are recorded decisions and stay.
+  if (f.status === "WRONG" && f.qaTier === "REJECT" && f.relation === "NONE"
+      && f.existingPredicate?.startsWith("skos:")
+      && /\{NONE=3\}/.test(f.qaRationale ?? "") && f.qaConfidence >= FLOOR) {
+    const curie = curieOf(f.upstreamIri);
+    if (ALLOWED_PAIRS.has(`${f.ourId}|${curie}`)) {
+      return { action: "HOLD", reason: "panel rejects a pair recorded in mapping-allowlist.json" };
+    }
+    const parked = DEFERRED.get(`${f.ourId}|${f.upstreamIri}`);
+    if (parked) return { action: "HOLD", reason: `panel rejects a pair deferred by a curator: ${parked}` };
+    return { action: "REMOVE", reason: "grader and the whole panel find no relation" };
+  }
   if (f.qaTier !== "STRONG") return { action: "SKIP", reason: `QA tier ${f.qaTier}` };
   if (!f.proposedPredicate) return { action: "SKIP", reason: "panel proposes no relation" };
   if (f.status === "OK") return { action: "SKIP", reason: "already asserted" };
@@ -419,16 +437,17 @@ const by = (a: string) => rows.filter((r) => r.action === a);
 
 if (process.argv.includes("--json")) {
   console.log(JSON.stringify(
-    by("APPLY").map((r) => ({
+    [...by("APPLY"), ...by("REMOVE")].map((r) => ({
       ourId: r.f.ourId, upstreamIri: r.f.upstreamIri, predicate: r.f.proposedPredicate,
       existing: r.f.existingPredicate, qa: r.f.qaConfidence, reason: r.reason,
+      ...(r.action === "REMOVE" ? { remove: true } : {}),
     })), null, 2));
   process.exit(0);
 }
 
 console.log(`${path.split("/").pop()}: ${findings.length} finding(s)`);
-console.log(`  APPLY ${by("APPLY").length}   HOLD ${by("HOLD").length}   SKIP ${by("SKIP").length}\n`);
-for (const label of ["APPLY", "HOLD"] as const) {
+console.log(`  APPLY ${by("APPLY").length}   REMOVE ${by("REMOVE").length}   HOLD ${by("HOLD").length}   SKIP ${by("SKIP").length}\n`);
+for (const label of ["APPLY", "REMOVE", "HOLD"] as const) {
   const list = by(label).sort((a, b) => b.f.qaConfidence - a.f.qaConfidence);
   if (!list.length) continue;
   console.log(`=== ${label} (${list.length})`);

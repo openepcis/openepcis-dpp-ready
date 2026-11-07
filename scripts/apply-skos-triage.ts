@@ -5,6 +5,7 @@
  * Dry-run by default; `--write` edits the TTL. Two operations only:
  *   regrade  an existing graded relation the panel regrades (a direction flip, or closeMatch
  *            to exactMatch and the like), edited in place so nothing else about the line changes;
+ *   remove   an existing graded relation the triage withdraws, its line dropped;
  *   insert   a new graded relation, or a graded relation beside an existing rdfs:seeAlso,
  *            placed as the last triple of the subject's block.
  *
@@ -91,7 +92,7 @@ function ontologyFiles(): string[] {
   return out;
 }
 
-interface Item { ourId: string; upstreamIri: string; predicate: string; existing: string | null; qa: number }
+interface Item { ourId: string; upstreamIri: string; predicate: string; existing: string | null; qa: number; remove?: boolean }
 
 const report = process.argv[2];
 const write = process.argv.includes("--write");
@@ -103,7 +104,7 @@ const items: Item[] = JSON.parse(
 if (!items.length) { console.log("nothing to apply"); process.exit(0); }
 
 const files = ontologyFiles();
-let regraded = 0, inserted = 0, missed = 0;
+let regraded = 0, inserted = 0, removed = 0, missed = 0;
 
 for (const it of items) {
   let done = false;
@@ -118,6 +119,20 @@ for (const it of items) {
 
     const forms = targetForms(it.upstreamIri, declaredPrefixes(raw));
     const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    if (it.remove) {
+      // withdraw a rejected relation: drop its line, and move the block's terminating `.` up
+      // when it was the last triple
+      const i = masked.findIndex((l, j) => j > start && j <= end && forms.some((f) =>
+        new RegExp(`^\\s+${esc(it.existing!)}\\s+${esc(f)}\\s*[;.]\\s*$`).test(l)));
+      if (i < 0) continue;
+      if (write) {
+        if (masked[i].trimEnd().endsWith(".")) lines[i - 1] = lines[i - 1].trimEnd().replace(/\s*;$/, " .");
+        lines.splice(i, 1);
+        writeFileSync(file, lines.join("\n"));
+      }
+      console.log(`  remove ${it.ourId.padEnd(36)} ${it.existing} ${forms[0]}`);
+      removed++; done = true; break;
+    }
     // idempotent: the relation may already be there, for instance from an earlier sweep
     const already = masked.slice(start, end + 1).some((l) =>
       forms.some((f) => new RegExp(`^\\s+${it.predicate}\\s+${esc(f)}\\s*[;.]\\s*$`).test(l)));
@@ -150,5 +165,5 @@ for (const it of items) {
   if (!done) { console.log(`  MISS   ${it.ourId} ${it.upstreamIri}`); missed++; }
 }
 
-console.log(`\n${write ? "wrote" : "DRY-RUN"}: ${regraded} regrade(s), ${inserted} insert(s), ${missed} not found`);
+console.log(`\n${write ? "wrote" : "DRY-RUN"}: ${regraded} regrade(s), ${inserted} insert(s), ${removed} removal(s), ${missed} not found`);
 if (write) console.log("Now run: rapper -i turtle -c on the touched TTLs, then pnpm run check:mappings && pnpm run build");
