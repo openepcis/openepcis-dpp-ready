@@ -96,8 +96,9 @@ depth in [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md):
 - **A measured, counter-intuitive result, and its correction.** Under the original rubric, which
   graded relation holds topped out near 52% for every model tried, frontier hosted models included.
   The ceiling was the rubric: a curator rubric (judge the data point, not its representation; list
-  the cases a curator never publishes) lifts every model by 10 to 30 points on the EU DPP Registry
-  gold set, Opus 5.5 and Sonnet 5.5 to 78 to 79%, the local `gpt-oss-20b` to 61%. See
+  the cases a curator never publishes) and the context of each upstream element lift Opus 5.5 to
+  89% on the EU DPP Registry gold set, Sonnet 5.5 to 86%, and the best local model
+  (`qwen3.8-27b` with reasoning on) to 77%. See
   [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md#2026-11-the-ceiling-was-the-rubric-not-the-model).
 - **Anti-hallucination guard.** A proposed mapping can only point at an IRI that genuinely exists in
   the upstream index, and that is re-checked again when the mapping is written. The tool cannot
@@ -147,11 +148,13 @@ The pipeline, the model choices, and what made sense vs what didn't are document
 [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md); the leaderboard and matrices are in
 [`docs/skos-alignment/bench/skos-grader-benchmark.md`](../../docs/skos-alignment/bench/skos-grader-benchmark.md).
 
-Headline findings (200 balanced gold pairs, identical production prompt, temperature 0):
+Headline findings of the original STW run (200 balanced gold pairs, original rubric, temperature 0).
+They are history: on the EU DPP Registry gold set under the curator rubric the hosted models lead,
+see [QA verifier model](#qa-verifier-model-local-first-fully-oss) and `docs/AI_PIPELINE.md`.
 
-- **`gpt-oss-20b` ties the frontier ceiling** (52.0% exact-relation accuracy versus Claude Opus
-  52.5%) at 5.6× the speed with zero parse failures, so the local bulk-grader default holds. You do
-  not need a hosted model for the high-volume pass.
+- **Under the original rubric `gpt-oss-20b` tied the frontier models** (52.0% exact-relation
+  accuracy versus Claude Opus 4.8 at 52.5%) at 5.6× the speed with zero parse failures. That was the
+  rubric's ceiling, not the models'.
 - **What the confidence floor controls.** For the bulk grader, whether a relation exists is about
   99% reliable at any confidence. Which graded relation is correct stays about 50% regardless of
   confidence. So the floor trims the low-confidence tail and routes those adds to `rdfs:seeAlso`.
@@ -159,7 +162,8 @@ Headline findings (200 balanced gold pairs, identical production prompt, tempera
   0.80 is reasonable; raising it does not buy better grades.
 - **Prefer precision over size:** an 8-bit Qwen3-32B beats its own 4-bit by +4 points and a 4-bit
   122B by six points, reaching the ceiling. Reasoning-tuned models ran slower with no gain in
-  accuracy.
+  accuracy under the original rubric; under the curator rubric reasoning lifts a local model by ten
+  points.
 
 ## Run it
 
@@ -362,10 +366,11 @@ locally with no API key and no data leaving the machine. Pairing two *different*
 (bulk vs QA) already gives model-family independence.
 
 > **Under the curator rubric a hosted model pays (2026-11).** On the EU DPP Registry gold set,
-> Opus 5.5 and Sonnet 5.5 grade 17 to 18 points above the best local model, Haiku 5.5 ten points.
+> Opus 5.5 grades 88.9%, 13 points above the best local model; Sonnet 5.5 85.6%, Haiku 5.5 77.8%.
 > Under the original rubric Opus 4.8 was level with the local models (52.5% against 52.0%), which is
-> where the old advice to stay local came from. `--qa-batch-model` runs the panel through the
-> Anthropic Message Batches API. See [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md).
+> where the old advice to stay local came from. Recommended for anything that gets published:
+> `--batch-model claude-sonnet-5-5 --qa-batch-model claude-opus-5-5` (Anthropic Message Batches
+> API). See [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md#models).
 
 The verifier is just another OpenAI-compatible endpoint, so you can point it anywhere (an Ollama
 cluster, a hosted vLLM, a frontier API) without code changes:

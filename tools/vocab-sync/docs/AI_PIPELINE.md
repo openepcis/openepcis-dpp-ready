@@ -51,17 +51,19 @@ the blocking AiService call runs on the Vert.x worker pool with backoff retry).
 
 ## Models
 
-Local by default; since 2026-11 a hosted Anthropic model through the Batch API is the measured
-better grader (see [the ceiling was the rubric](#2026-11-the-ceiling-was-the-rubric-not-the-model)).
+Since 2026-11 the measured best setup is hosted: Claude Opus 5.5 through the Anthropic Message
+Batches API, at half the synchronous price with the shared rubric prompt-cached (see
+[2026-11](#2026-11-the-ceiling-was-the-rubric-not-the-model)). The local chain still runs end to
+end with no API key and stays the fallback.
 
-| Role | Model | Why |
-|---|---|---|
-| Bulk grader | `gpt-oss-20b` (Q8) | The best local grader at the lowest latency and zero parse failures. `--batch-model claude-sonnet-5-5` grades 17 points higher on the EU gold set. |
-| QA verifier | local flagship — `Qwen3-32B` 8-bit (or `qwen3.5-122b`) | An independent second opinion from a different model family; matches the ceiling locally. |
-| Embeddings | `nomic-embed-text` | Retrieval only; cached per model so vector spaces never mix. |
+| Role | Recommended | Local fallback | Why |
+|---|---|---|---|
+| Bulk grader | `--batch-model claude-sonnet-5-5` (or `claude-opus-5-5`) | `qwen3.8-27b`, reasoning off | Sonnet 85.6 %, Opus 88.9 % on the EU gold set; `qwen3.8-27b` 73.3 % at 3.5 s per pair. The grader only pre-sorts; the panel decides. |
+| QA panel | `--qa-batch-model claude-opus-5-5` | `qwen3.8-27b`, `--reasoning-effort medium` | The panel decides what is published, so it gets the strongest model: Opus is first on every gold set that measures the real task. Locally `qwen3.8-27b` with reasoning reaches 76.7 %, one point behind Haiku 5.5, at 34 s per pair. |
+| Embeddings | `nomic-embed-text` (local) | same | Retrieval only; cached per model so vector spaces never mix. |
 
-Repoint any of them with env vars (`LLM_BASE_URL` / `LLM_CHAT_MODEL` / `LLM_EMBED_MODEL`, and the
-`QA_*` set for the verifier). Defaults target LM Studio on `localhost:1234`.
+Repoint the local roles with env vars (`LLM_BASE_URL` / `LLM_CHAT_MODEL` / `LLM_EMBED_MODEL`, and
+the `QA_*` set for the verifier). Defaults target LM Studio on `localhost:1234`.
 
 ## The confidence floor is volume control, not quality control
 
@@ -186,66 +188,88 @@ this machine and only does work when LM Studio is running.
 
 ## 2026-11: the ceiling was the rubric, not the model
 
-The ~52 % ceiling above held for every model under the original rubric. Two things changed on
-2026-11-06, and the ceiling moved by twenty points.
+The ~52 % ceiling above held for every model under the original rubric. Four things changed on
+2026-11-06, and the ceiling moved by more than thirty points.
 
 **A gold set that measures the real task.** `docs/skos-alignment/bench/eu-dpp-goldset.json` holds
-90 pairs from the EU DPP Registry curation of 2026-11-02: the 77 mappings that were written, each
-checked against the legal source of the EU data element, and the 13 declines with a stated reason.
+90 pairs from the hand curation against the EU DPP Registry: the mappings that were written, each
+checked against the legal source of the EU data element, and the declines with a stated reason.
 It carries what the production grader sees (prefixed id, type, domain, range, the EU scope note
-with the legal source) and a stratified dev/test split. Built by `tools/build-eu-goldset.py`. The
-117 proposals the curation neither wrote nor declined are in `eu-dpp-adjudication.json`; many are
-true relations that were simply not the best one per term, so they are not negatives.
+with the legal source, the element's parent group) and a dev/test split from a hash of the pair
+id, so adding pairs never moves an existing one. Built by `tools/build-eu-goldset.py`.
 
-The older GS1 domain gold set is circular for model choice: its positives are mappings the
-`gpt-oss` pipeline proposed, so it rewards agreement with `gpt-oss`. On its 18 pairs that all four
-Claude 5 models reject, the models are mostly right (for example `Component Name` BROAD a GS1
-food-additive name). Use it to find mappings worth re-reading, not to rank graders.
+The 117 pairs decided in the model-assisted adjudication of 2026-11-06 are a second file,
+`eu-dpp-adjudicated.json`. The same models graded them, so they check consistency, not accuracy,
+and they never enter the headline leaderboard.
 
-**A curator rubric** (`GraderPrompts.RUBRIC`, version `curator-3`), shared by the grader and the QA
+The GS1 domain gold set is circular for model choice: its positives are mappings the `gpt-oss`
+pipeline proposed, so it rewards agreement with `gpt-oss`. Its 21 pairs that all four Claude 5
+models reject are mostly wrong mappings (packaging terms for product terms, generic value slots,
+`eoriNumber` against a regulatory record reference). Use it to find mappings worth re-reading, not
+to rank graders.
+
+**A curator rubric** (`GraderPrompts.RUBRIC`, version `curator-5`), shared by the grader and the QA
 panel. The original rubric said "when uncertain between two grades, choose the weaker one", and
 that rule produced most of the errors: a model saw our structured value against the EU's literal
 or web link and downgraded the same data point to CLOSE. The curator rubric judges the data point,
-not its representation, prefers EXACT when both sides cite the same provision, says when one
-value of a bundled data point is NARROW, and lists the cases a curator never publishes (structural
-grouping, threshold versus measured value, rated versus measured, type versus thing, flag versus
-list, different referent). Serialisation slots (`url`, `value`, `unit`, ...) are not left to the
-model at all: no model kept to that rule from the prompt (2 to 12 % on 51 slot pairs), so
-`PairJudge` returns NONE for them before grading.
+not its representation; the same data point is EXACT even when the scope differs in a minor way
+(the project's curation policy since 2026-11-06); one value of a bundled data point is NARROW; and
+it lists the cases a curator never publishes (structural grouping, threshold versus measured value,
+rated versus measured, type versus thing, flag versus list, different referent). Serialisation
+slots (`url`, `value`, `unit`, ...) are not left to the model at all: no model kept to that rule
+from the prompt (2 to 12 % on 51 slot pairs), so `PairJudge` returns NONE for them before grading.
 
-EU DPP Registry gold set, 90 pairs, same prompt for every model:
+**Element context.** The EU DPP Registry copies the legal text of a whole provision onto every
+element it splits into (`serialNumber`, `productNumber` and `otherIdentificationElement` all carry
+the definition of Annex VI Part A 2). Every model then read "Serial number" as the whole provision.
+`UpstreamIndex` now names the parent group and says when a definition is shared with siblings, and
+the rubric says the label names the element in that case.
 
-| Model | original rubric | curator rubric |
+**Thinking.** The Claude 5 models think by default. A local model with reasoning off answers in a
+second but loses ten points; with reasoning at `medium` it closes most of the gap to Haiku.
+
+EU DPP Registry gold set, 90 pairs, same prompt for every model (graded relation; in brackets
+whether a mapping exists at all):
+
+| Model | original rubric | curator-5 |
 |---|--:|--:|
-| claude-opus-5-5 | 52.2 % | 78.9 % |
-| claude-sonnet-5-5 | 56.7 % | 77.8 % |
-| claude-fable-5-1 | 61.1 % | 72.2 % |
-| claude-haiku-5-5 | 38.9 % | 71.1 % |
-| gpt-oss-20b | 46.7 % | 61.1 % |
-| gpt-oss-120b | | 58.9 % |
+| claude-opus-5-5 | 52.2 % | **88.9 %** (97.8 %) |
+| claude-sonnet-5-5 | 56.7 % | 85.6 % (93.3 %) |
+| claude-fable-5-1 | 61.1 % | 82.2 % (93.3 %) |
+| claude-haiku-5-5 | 38.9 % | 77.8 % (92.2 %) |
+| qwen3.8-27b, reasoning medium | | 76.7 % (91.1 %), 34 s per pair |
+| qwen3.6-35b-a3b, reasoning medium | | 75.6 % (88.9 %), 16.6 s per pair |
+| qwen3.8-27b, reasoning off | | 73.3 % (87.8 %), 3.5 s per pair |
+| gpt-oss-120b, reasoning medium | | 72.2 % (85.6 %), 5.5 s per pair |
+| qwen3.6-35b-a3b, reasoning off | | 65.6 % (82.2 %), 0.9 s per pair |
+| gpt-oss-20b, reasoning off | 46.7 % | 60.0 % (81.1 %), 1.1 s per pair |
+| gpt-oss-120b, reasoning off | | 60.0 % (78.9 %), 10 % parse failures |
 
-The original-rubric column comes from the scratch harness of the same day (same pairs and fields,
-the vocabulary named "EU DPP Registry data model" instead of `eu-dpp`); the curator column is
-`benchmark --batch` on this tool. The dev half tuned the rubric and the test half confirmed it
-(Opus 77.3 %, Fable 72.7 %, Sonnet 70.5 % on test with the `curator-2` draft).
+The original-rubric column comes from the scratch harness of the same day (same pairs and fields);
+the curator-5 column is `benchmark` on this tool, the Anthropic rows through `--batch`. The gold
+labels follow the 2026-11-06 curation, which raised seven CLOSE mappings to EXACT under the
+same-data-point policy.
 
 The curator rubric does not cost the general task anything. On the STW ↔ Wikidata set, which has
-no data points and no legal sources, it moves the models within noise: Opus 5.5 56.5 %, Fable 5.1
-56.5 %, Sonnet 5.5 55.0 %, Haiku 5.5 51.0 %, `gpt-oss-20b` 52.5 % (52.0 % before).
+no data points and no legal sources, the models stay within noise of their old scores (Opus 5.5
+56.0 %, Sonnet 5.5 56.0 %, Fable 5.1 56.5 %), and whether a mapping exists at all rises (Sonnet
+82.0 % to 87.5 %).
 
-What the remaining errors are: mostly pairs where a reasonable curator could go either way
-(`contentSpecificationId` EXACT or CLOSE), and a few where the models are right and the
-curation is not (`hasPowerCapabilityAt80SoC`, whose own definition says "current", sits under
-the EU *original* power capability). Further prompt tuning against 46 dev pairs would fit the
-noise.
+What the remaining errors are: pairs where a reasonable curator could go either way, and the
+power-capability group, where the models were right and the curation was not: our
+`hasPowerCapabilityAt80SoC` is defined as the current value and sat under the EU *original*
+power capability. That mapping is corrected.
 
 What follows for the pipeline:
 
-- The rubric matters more than the model. It lifted the local `gpt-oss-20b` by 14 points too.
-- A hosted model now pays: Sonnet 5.5 and Opus 5.5 grade 17 to 18 points above the best local
-  model. Through the Message Batches API (`--batch-model`, `--qa-batch-model`, `benchmark --batch`)
-  that costs half the synchronous price, and the shared rubric is prompt-cached.
-- Haiku 5.5 under the curator rubric beats every local model by ten points, at the lowest price.
+- Opus 5.5 is the grader and panel to use when the result is published. Its lead over the
+  best local model is 13 points on the graded relation and 9 on whether a mapping exists.
+- The rubric matters as much as the model. It lifted the local models by 13 to 15 points too.
+- Local reasoning pays, at a cost in time: `qwen3.8-27b` at `--reasoning-effort medium` is the
+  best local model measured (76.7 %), one point behind Haiku 5.5. With reasoning off it keeps
+  73.3 % at a tenth of the time, which makes it the local bulk grader.
+- The way back to a local-only pipeline at the same quality is the Opus-checked verdicts the audits
+  now produce: they are the examples and training data a local grader needs.
 - The rubric version is part of every verdict's cache key, so a rubric change re-grades instead of
   serving verdicts the old rubric produced.
 
@@ -260,6 +284,12 @@ java -jar target/quarkus-app/quarkus-run.jar benchmark --batch \
   --goldset docs/skos-alignment/bench/eu-dpp-goldset.json \
   --out docs/skos-alignment/bench/eu-dpp-grader-benchmark \
   --models claude-opus-5-5,claude-sonnet-5-5,claude-haiku-5-5
+
+# a local model with reasoning on, as its own leaderboard row
+java -jar target/quarkus-app/quarkus-run.jar benchmark \
+  --goldset docs/skos-alignment/bench/eu-dpp-goldset.json \
+  --out docs/skos-alignment/bench/eu-dpp-grader-benchmark \
+  --models qwen/qwen3.8-27b --reasoning-effort medium --max-tokens 16384 --tag " think-medium"
 ```
 
 Same gold set + temperature 0 reproduces the numbers; a partial run resumes from the appended

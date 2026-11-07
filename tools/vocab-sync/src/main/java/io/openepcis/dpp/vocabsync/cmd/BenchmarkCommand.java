@@ -633,8 +633,11 @@ public class BenchmarkCommand implements Runnable {
         if (name.startsWith("skos-grader-goldset"))
             return "STW↔Wikidata (published skos:*Match), graded SKOS classification";
         if (name.startsWith("eu-dpp-goldset"))
-            return "EU DPP Registry (the 2026-11-02 curation: written mappings + reasoned declines), "
+            return "EU DPP Registry (hand curation: written mappings + reasoned declines), "
                     + "graded SKOS classification";
+        if (name.startsWith("eu-dpp-adjudicated"))
+            return "EU DPP Registry, model-assisted adjudication of 2026-11-06 (a consistency check: "
+                    + "the same models decided these pairs), graded SKOS classification";
         return name + ", graded SKOS classification";
     }
 
@@ -644,6 +647,7 @@ public class BenchmarkCommand implements Runnable {
         if (name.startsWith("gs1-grader-goldset")) return "GS1 domain";
         if (name.startsWith("skos-grader-goldset")) return "STW↔Wikidata";
         if (name.startsWith("eu-dpp-goldset")) return "EU DPP Registry";
+        if (name.startsWith("eu-dpp-adjudicated")) return "EU DPP adjudicated";
         return name;
     }
 

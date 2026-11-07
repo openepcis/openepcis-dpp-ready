@@ -38,6 +38,25 @@
   "split": "dev"
  },
  {
+  "id": "eubat:hasDismantlingAndRemovalInformation~dismantlingInformation~EXACT",
+  "gold": "EXACT",
+  "evidence": "written",
+  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingAndRemovalInformation",
+  "sourceId": "eubat:hasDismantlingAndRemovalInformation",
+  "sourceType": "property",
+  "sourceLabel": "Dismantling and Removal Information",
+  "sourceDef": "Reference to the dismantling and removal instructions document required by EU Battery Regulation Annex VIII §B.",
+  "sourceDomain": "gs1:Product",
+  "sourceRange": "oec:DocumentReference",
+  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation",
+  "targetLabel": "Dismantling information",
+  "targetDef": "Dismantling information, including at least: \n- exploded diagrams of the battery system/pack showing the location of battery cells, \n- disassembly sequences, \n- type and number of fastening techniques to be unlocked, \n- tools required for disassembly, \n- warnings if risk of damaging parts exist, \n- amount of cells used and layout \n[a web link]",
+  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 2 (c). Restricted: Only to persons with legitimate interests, notified bodies, MS authorities and COM. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
+  "targetContext": null,
+  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
+  "split": "dev"
+ },
+ {
   "id": "oec:granularityLevel~granularity~EXACT",
   "gold": "EXACT",
   "evidence": "written",
@@ -54,7 +73,7 @@
   "targetScopeNote": null,
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary",
-  "split": "dev"
+  "split": "test"
  },
  {
   "id": "oec:passportIdentifier~digitalProductPassportId~EXACT",
@@ -70,6 +89,63 @@
   "targetIri": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#digitalProductPassportId",
   "targetLabel": "digitalProductPassportId",
   "targetDef": "Identifier of an instance of the digital product passport.",
+  "targetScopeNote": null,
+  "targetContext": null,
+  "targetScheme": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary",
+  "split": "dev"
+ },
+ {
+  "id": "oec:passportStatus~dppStatus~EXACT",
+  "gold": "EXACT",
+  "evidence": "written",
+  "sourceIri": "https://ref.openepcis.org/extensions/common/core/passportStatus",
+  "sourceId": "oec:passportStatus",
+  "sourceType": "property",
+  "sourceLabel": "Passport Status",
+  "sourceDef": "Lifecycle status of this DPP (EN 18223 'dppStatus'): a lowercase string token (see oec:PassportStatus).",
+  "sourceDomain": "oec:DigitalProductPassport",
+  "sourceRange": "xsd:string",
+  "targetIri": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#dppStatus",
+  "targetLabel": "dppStatus",
+  "targetDef": "The current lifecycle status of a digital product passport.",
+  "targetScopeNote": null,
+  "targetContext": null,
+  "targetScheme": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary",
+  "split": "test"
+ },
+ {
+  "id": "oec:hasPassportIssuer~registrantIdentity~EXACT",
+  "gold": "EXACT",
+  "evidence": "written",
+  "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasPassportIssuer",
+  "sourceId": "oec:hasPassportIssuer",
+  "sourceType": "property",
+  "sourceLabel": "Passport Issuer",
+  "sourceDef": "Economic operator responsible for issuing and maintaining this Digital Product Passport.",
+  "sourceDomain": null,
+  "sourceRange": "oec:OperatorInformation",
+  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#registrantIdentity",
+  "targetLabel": "Identity of who is registering and/or is responsible for the battery passport",
+  "targetDef": "Identity of who is registering and/or is responsible for the battery passport [name]",
+  "targetScopeNote": "Regulation (EU) 2023/1542 - Article 77 (3) - as defined in Article 77 (4). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
+  "targetContext": null,
+  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
+  "split": "test"
+ },
+ {
+  "id": "oec:contentSpecificationId~contentSpecificationIds~EXACT",
+  "gold": "EXACT",
+  "evidence": "written",
+  "sourceIri": "https://ref.openepcis.org/extensions/common/core/contentSpecificationId",
+  "sourceId": "oec:contentSpecificationId",
+  "sourceType": "property",
+  "sourceLabel": "Content Specification Identifier",
+  "sourceDef": "Reference to a horizontal or product-type content specification for the DPP (EN 18223 'contentSpecificationIds'). In EPCIS4DPP mirrors the declared GS1-Extensions namespaces.",
+  "sourceDomain": "oec:DigitalProductPassport",
+  "sourceRange": "xsd:anyURI",
+  "targetIri": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#contentSpecificationIds",
+  "targetLabel": "contentSpecificationIds",
+  "targetDef": "Identifiers of content specifications, schemas or data models that govern the structure of the digital product passport content.",
   "targetScopeNote": null,
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary",
@@ -92,7 +168,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex VI Part A 3. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
+  "split": "test"
  },
  {
   "id": "eubat:batteryModelIdentifier~modelIdentifier~EXACT",
@@ -111,7 +187,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex VI Part A 2. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
   "targetContext": "Part of: Battery identification. The definition above is the legal text of the whole provision, shared with 4 sibling elements; this element is only the part its label names.",
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
+  "split": "dev"
  },
  {
   "id": "eubat:hasBatteryChemistry~batteryChemistry~EXACT",
@@ -187,7 +263,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (h). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
+  "split": "test"
  },
  {
   "id": "eubat:hasMinimumVoltage~minimalVoltage~EXACT",
@@ -225,7 +301,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (h). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
+  "split": "dev"
  },
  {
   "id": "eubat:hasMaximumPermittedBatteryPower~powerLimit~EXACT",
@@ -244,7 +320,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (i) - as defined in Annex IV (3) for “power” of the batteries in scope of the Annex. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
+  "split": "test"
  },
  {
   "id": "eubat:expectedCycleLife~expectedLifetimeCycles~EXACT",
@@ -282,7 +358,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 4 (a) - as defined in Art 3 (1) (59) for lifetime. Restricted: Only to persons with legitimate interest (individual battery). EV: Mandatory, LMT: Mandatory, Industrial: Only for rechargeable batteries.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
+  "split": "dev"
  },
  {
   "id": "eubat:roundTripEfficiency~initialRoundTripEnergyEfficiency~EXACT",
@@ -304,6 +380,25 @@
   "split": "test"
  },
  {
+  "id": "eubat:roundTripEnergyEfficiency~roundTripEnergyEfficiency~EXACT",
+  "gold": "EXACT",
+  "evidence": "written",
+  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/roundTripEnergyEfficiency",
+  "sourceId": "eubat:roundTripEnergyEfficiency",
+  "sourceType": "property",
+  "sourceLabel": "Round-Trip Energy Efficiency",
+  "sourceDef": "Current round-trip energy efficiency on the 0-1 decimal scale (0.92 = 92%).",
+  "sourceDomain": "oec:PerformanceInfo",
+  "sourceRange": "xsd:decimal",
+  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency",
+  "targetLabel": "Energy round trip efficiency",
+  "targetDef": "Where applicable, energy round trip efficiency [%]",
+  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 4 (a) - as defined in Annex IV (6) for the batteries in the scope of the Annex. Restricted: Only to persons with legitimate interest (individual battery). EV: If applicable, LMT: If applicable, Industrial: Only for rechargeable batteries, if applicable.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery.",
+  "targetContext": null,
+  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
+  "split": "dev"
+ },
+ {
   "id": "eubat:roundTripEfficiencyAt50PercentCycleLife~roundTripEfficiencyAtHalfCycleLife~EXACT",
   "gold": "EXACT",
   "evidence": "written",
@@ -320,7 +415,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (n) - as defined in Annex II 2 (e) for life cycle for the calculation of carbon footprint. Public. EV: Mandatory, LMT: Mandatory, Industrial: Only applicable for some industrial batteries.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
+  "split": "test"
  },
  {
   "id": "eubat:hasInitialCellInternalResistance~internalCellResistance~EXACT",
@@ -377,6 +472,25 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (k). Public. EV: Mandatory, LMT: Not to be filled/displayed, Industrial: Not to be filled/displayed.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
+  "split": "test"
+ },
+ {
+  "id": "eubat:lifetimeReferenceTest~cycleLifeReferenceTest~EXACT",
+  "gold": "EXACT",
+  "evidence": "written",
+  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/lifetimeReferenceTest",
+  "sourceId": "eubat:lifetimeReferenceTest",
+  "sourceType": "property",
+  "sourceLabel": "Lifetime Reference Test",
+  "sourceDef": "URL or reference to the standard test used for lifetime determination.",
+  "sourceDomain": "eubat:TechnicalSpecification",
+  "sourceRange": "xsd:anyURI",
+  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#cycleLifeReferenceTest",
+  "targetLabel": "Reference test used for expected battery lifetime expressed in cycles",
+  "targetDef": "Reference test used for expected battery lifetime expressed in cycles [free text]",
+  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (j) - as defined in Article 3 (1) (59) for “lifetime”. Public. EV: Mandatory, LMT: Mandatory, Industrial: Only applicable for some industrial batteries where lifetime can be expressed in cycles.",
+  "targetContext": null,
+  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
   "split": "dev"
  },
  {
@@ -415,7 +529,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (p). Public. EV: Optional, LMT: Optional, Industrial: Optional.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
+  "split": "test"
  },
  {
   "id": "eubat:hasOriginalPowerCapability~originalPowerCapability~EXACT",
@@ -456,6 +570,25 @@
   "split": "dev"
  },
  {
+  "id": "eubat:safetyMeasures~safetyMeasures~EXACT",
+  "gold": "EXACT",
+  "evidence": "written",
+  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/safetyMeasures",
+  "sourceId": "eubat:safetyMeasures",
+  "sourceType": "property",
+  "sourceLabel": "Safety Measures",
+  "sourceDef": "End-of-life handling safety guidance: short text or URL fragment.",
+  "sourceDomain": "gs1:Product",
+  "sourceRange": "xsd:string",
+  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures",
+  "targetLabel": "Safety measures",
+  "targetDef": "Safety measures [a web link]",
+  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 2 (d). Restricted: Only to persons with legitimate interests, notified bodies, MS authorities and COM. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
+  "targetContext": null,
+  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
+  "split": "test"
+ },
+ {
   "id": "eubat:extinguishingAgent~extinguishingAgent~EXACT",
   "gold": "EXACT",
   "evidence": "written",
@@ -494,6 +627,25 @@
   "split": "test"
  },
  {
+  "id": "eubat:labelMeaning~batteryLabelSymbolMeaning~EXACT",
+  "gold": "EXACT",
+  "evidence": "written",
+  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/labelMeaning",
+  "sourceId": "eubat:labelMeaning",
+  "sourceType": "property",
+  "sourceLabel": "Label Meaning",
+  "sourceDef": "Human-readable meaning of the label.",
+  "sourceDomain": "eubat:Label",
+  "sourceRange": "rdf:langString",
+  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#batteryLabelSymbolMeaning",
+  "targetLabel": "Meaning of the labels and symbols on batteries",
+  "targetDef": "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text]",
+  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (s). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
+  "targetContext": "Part of: Waste battery prevention and management information. The definition above is the legal text of the whole provision, shared with 9 sibling elements; this element is only the part its label names.",
+  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
+  "split": "dev"
+ },
+ {
   "id": "eubat:hasEuDeclarationOfConformity~euDeclarationOfConformity~EXACT",
   "gold": "EXACT",
   "evidence": "written",
@@ -508,6 +660,25 @@
   "targetLabel": "EU declaration of conformity",
   "targetDef": "The EU declaration of conformity referred to in Article 18 [a web link]",
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (r) . Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
+  "targetContext": null,
+  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
+  "split": "dev"
+ },
+ {
+  "id": "eubat:resultOfTestReport~complianceTestReportResults~EXACT",
+  "gold": "EXACT",
+  "evidence": "written",
+  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/resultOfTestReport",
+  "sourceId": "eubat:resultOfTestReport",
+  "sourceType": "property",
+  "sourceLabel": "Result of Test Report URL",
+  "sourceDef": "URL to test report results.",
+  "sourceDomain": "gs1:Product",
+  "sourceRange": "xsd:anyURI",
+  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#complianceTestReportResults",
+  "targetLabel": "Results of test reports proving compliance",
+  "targetDef": "Results of test reports proving compliance with the requirements laid down in this Regulation or any delegated or implementing act adopted pursuant to this Regulation [a web link]",
+  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 3. Restricted: Only to notified bodies, MS authorities and COM. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
   "split": "dev"
@@ -586,7 +757,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 4 (a) - as defined in Annex IV (4) for the batteries in the scope of the Annex. Restricted: Only to persons with legitimate interest (individual battery). EV: Mandatory, LMT: Mandatory, Industrial: Only for rechargeable batteries.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
+  "split": "test"
  },
  {
   "id": "eubat:hasInternalResistance~internalResistance~EXACT",
@@ -662,7 +833,26 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 4 (a). Restricted: Only to persons with legitimate interest (individual battery). EV: If applicable, LMT: If applicable, Industrial: Only for rechargeable batteries, if applicable.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
+  "split": "test"
+ },
+ {
+  "id": "eubat:hasEvolutionOfSelfDischarge~selfDischargingRateSet~EXACT",
+  "gold": "EXACT",
+  "evidence": "written",
+  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/hasEvolutionOfSelfDischarge",
+  "sourceId": "eubat:hasEvolutionOfSelfDischarge",
+  "sourceType": "property",
+  "sourceLabel": "Evolution of Self Discharge",
+  "sourceDef": "Change in self-discharge rate. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
+  "sourceDomain": "gs1:Product",
+  "sourceRange": "gs1:QuantitativeValue",
+  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRateSet",
+  "targetLabel": "Self-discharging rate set",
+  "targetDef": "Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year]",
+  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 4 (b). Restricted: Only to persons with legitimate interest (individual battery). EV: Not to be filled/displayed, LMT: Mandatory, Industrial: Only for stationary battery energy storage systems and if they have a battery management system.",
+  "targetContext": null,
+  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
+  "split": "test"
  },
  {
   "id": "eubat:hasRemainingPowerCapability~remainingPowerCapability~EXACT",
@@ -681,26 +871,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 4 (b). Restricted: Only to persons with legitimate interest (individual battery). EV: Not to be filled/displayed, LMT: Mandatory, Industrial: Only for stationary battery energy storage systems and if they have a battery management system.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
- },
- {
-  "id": "eubat:roundTripEnergyEfficiency~roundTripEnergyEfficiency~EXACT",
-  "gold": "EXACT",
-  "evidence": "written",
-  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/roundTripEnergyEfficiency",
-  "sourceId": "eubat:roundTripEnergyEfficiency",
-  "sourceType": "property",
-  "sourceLabel": "Round-Trip Energy Efficiency",
-  "sourceDef": "Current round-trip energy efficiency on the 0-1 decimal scale (0.92 = 92%).",
-  "sourceDomain": "oec:PerformanceInfo",
-  "sourceRange": "xsd:decimal",
-  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency",
-  "targetLabel": "Energy round trip efficiency",
-  "targetDef": "Where applicable, energy round trip efficiency [%]",
-  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 4 (a) - as defined in Annex IV (6) for the batteries in the scope of the Annex. Restricted: Only to persons with legitimate interest (individual battery). EV: If applicable, LMT: If applicable, Industrial: Only for rechargeable batteries, if applicable.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery.",
-  "targetContext": null,
-  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
+  "split": "dev"
  },
  {
   "id": "eubat:hasBatteryMass~batteryWeight~EXACT",
@@ -722,44 +893,6 @@
   "split": "test"
  },
  {
-  "id": "eubat:hasDismantlingAndRemovalInformation~dismantlingInformation~EXACT",
-  "gold": "EXACT",
-  "evidence": "written",
-  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingAndRemovalInformation",
-  "sourceId": "eubat:hasDismantlingAndRemovalInformation",
-  "sourceType": "property",
-  "sourceLabel": "Dismantling and Removal Information",
-  "sourceDef": "Reference to the dismantling and removal instructions document required by EU Battery Regulation Annex VIII §B.",
-  "sourceDomain": "gs1:Product",
-  "sourceRange": "oec:DocumentReference",
-  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation",
-  "targetLabel": "Dismantling information",
-  "targetDef": "Dismantling information, including at least: \n- exploded diagrams of the battery system/pack showing the location of battery cells, \n- disassembly sequences, \n- type and number of fastening techniques to be unlocked, \n- tools required for disassembly, \n- warnings if risk of damaging parts exist, \n- amount of cells used and layout \n[a web link]",
-  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 2 (c). Restricted: Only to persons with legitimate interests, notified bodies, MS authorities and COM. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
-  "targetContext": null,
-  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
- },
- {
-  "id": "eubat:safetyMeasures~safetyMeasures~EXACT",
-  "gold": "EXACT",
-  "evidence": "written",
-  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/safetyMeasures",
-  "sourceId": "eubat:safetyMeasures",
-  "sourceType": "property",
-  "sourceLabel": "Safety Measures",
-  "sourceDef": "End-of-life handling safety guidance: short text or URL fragment.",
-  "sourceDomain": "gs1:Product",
-  "sourceRange": "xsd:string",
-  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures",
-  "targetLabel": "Safety measures",
-  "targetDef": "Safety measures [a web link]",
-  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 2 (d). Restricted: Only to persons with legitimate interests, notified bodies, MS authorities and COM. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
-  "targetContext": null,
-  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
- },
- {
   "id": "eubat:hasNegativeEvents~negativeEvents~EXACT",
   "gold": "EXACT",
   "evidence": "written",
@@ -776,83 +909,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 4 (d) . Restricted: Only to persons with legitimate interest (individual battery). EV: Applicable as soon as the battery starts to be used, LMT: Applicable as soon as the battery starts to be used, Industrial: Applicable as soon as the battery starts to be used.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
- },
- {
-  "id": "oec:passportStatus~dppStatus~CLOSE",
-  "gold": "CLOSE",
-  "evidence": "written",
-  "sourceIri": "https://ref.openepcis.org/extensions/common/core/passportStatus",
-  "sourceId": "oec:passportStatus",
-  "sourceType": "property",
-  "sourceLabel": "Passport Status",
-  "sourceDef": "Lifecycle status of this DPP (EN 18223 'dppStatus'): a lowercase string token (see oec:PassportStatus).",
-  "sourceDomain": "oec:DigitalProductPassport",
-  "sourceRange": "xsd:string",
-  "targetIri": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#dppStatus",
-  "targetLabel": "dppStatus",
-  "targetDef": "The current lifecycle status of a digital product passport.",
-  "targetScopeNote": null,
-  "targetContext": null,
-  "targetScheme": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary",
   "split": "test"
- },
- {
-  "id": "oec:hasPassportIssuer~registrantIdentity~CLOSE",
-  "gold": "CLOSE",
-  "evidence": "written",
-  "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasPassportIssuer",
-  "sourceId": "oec:hasPassportIssuer",
-  "sourceType": "property",
-  "sourceLabel": "Passport Issuer",
-  "sourceDef": "Economic operator responsible for issuing and maintaining this Digital Product Passport.",
-  "sourceDomain": null,
-  "sourceRange": "oec:OperatorInformation",
-  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#registrantIdentity",
-  "targetLabel": "Identity of who is registering and/or is responsible for the battery passport",
-  "targetDef": "Identity of who is registering and/or is responsible for the battery passport [name]",
-  "targetScopeNote": "Regulation (EU) 2023/1542 - Article 77 (3) - as defined in Article 77 (4). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
-  "targetContext": null,
-  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
- },
- {
-  "id": "oec:contentSpecificationId~contentSpecificationIds~CLOSE",
-  "gold": "CLOSE",
-  "evidence": "written",
-  "sourceIri": "https://ref.openepcis.org/extensions/common/core/contentSpecificationId",
-  "sourceId": "oec:contentSpecificationId",
-  "sourceType": "property",
-  "sourceLabel": "Content Specification Identifier",
-  "sourceDef": "Reference to a horizontal or product-type content specification for the DPP (EN 18223 'contentSpecificationIds'). In EPCIS4DPP mirrors the declared GS1-Extensions namespaces.",
-  "sourceDomain": "oec:DigitalProductPassport",
-  "sourceRange": "xsd:anyURI",
-  "targetIri": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#contentSpecificationIds",
-  "targetLabel": "contentSpecificationIds",
-  "targetDef": "Identifiers of content specifications, schemas or data models that govern the structure of the digital product passport content.",
-  "targetScopeNote": null,
-  "targetContext": null,
-  "targetScheme": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary",
-  "split": "dev"
- },
- {
-  "id": "eubat:lifetimeReferenceTest~cycleLifeReferenceTest~CLOSE",
-  "gold": "CLOSE",
-  "evidence": "written",
-  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/lifetimeReferenceTest",
-  "sourceId": "eubat:lifetimeReferenceTest",
-  "sourceType": "property",
-  "sourceLabel": "Lifetime Reference Test",
-  "sourceDef": "URL or reference to the standard test used for lifetime determination.",
-  "sourceDomain": "eubat:TechnicalSpecification",
-  "sourceRange": "xsd:anyURI",
-  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#cycleLifeReferenceTest",
-  "targetLabel": "Reference test used for expected battery lifetime expressed in cycles",
-  "targetDef": "Reference test used for expected battery lifetime expressed in cycles [free text]",
-  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (j) - as defined in Article 3 (1) (59) for “lifetime”. Public. EV: Mandatory, LMT: Mandatory, Industrial: Only applicable for some industrial batteries where lifetime can be expressed in cycles.",
-  "targetContext": null,
-  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
  },
  {
   "id": "eubat:criticalRawMaterialsStatement~criticalRawMaterials~CLOSE",
@@ -869,44 +926,6 @@
   "targetLabel": "Critical raw materials present in the battery",
   "targetDef": "Critical raw materials present in the battery in a concentration of more than 0,1 % weight by weight [code list]",
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex VI Part A 10 - as defined in List of raw materials in Annex X (1). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
-  "targetContext": null,
-  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
- },
- {
-  "id": "eubat:labelMeaning~batteryLabelSymbolMeaning~CLOSE",
-  "gold": "CLOSE",
-  "evidence": "written",
-  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/labelMeaning",
-  "sourceId": "eubat:labelMeaning",
-  "sourceType": "property",
-  "sourceLabel": "Label Meaning",
-  "sourceDef": "Human-readable meaning of the label.",
-  "sourceDomain": "eubat:Label",
-  "sourceRange": "rdf:langString",
-  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#batteryLabelSymbolMeaning",
-  "targetLabel": "Meaning of the labels and symbols on batteries",
-  "targetDef": "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f) [multiple free text]",
-  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (s). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
-  "targetContext": "Part of: Waste battery prevention and management information. The definition above is the legal text of the whole provision, shared with 9 sibling elements; this element is only the part its label names.",
-  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
- },
- {
-  "id": "eubat:resultOfTestReport~complianceTestReportResults~CLOSE",
-  "gold": "CLOSE",
-  "evidence": "written",
-  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/resultOfTestReport",
-  "sourceId": "eubat:resultOfTestReport",
-  "sourceType": "property",
-  "sourceLabel": "Result of Test Report URL",
-  "sourceDef": "URL to test report results.",
-  "sourceDomain": "gs1:Product",
-  "sourceRange": "xsd:anyURI",
-  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#complianceTestReportResults",
-  "targetLabel": "Results of test reports proving compliance",
-  "targetDef": "Results of test reports proving compliance with the requirements laid down in this Regulation or any delegated or implementing act adopted pursuant to this Regulation [a web link]",
-  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 3. Restricted: Only to notified bodies, MS authorities and COM. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
   "split": "test"
@@ -947,7 +966,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 4 (d) . Restricted: Only to persons with legitimate interest (individual battery). EV: Applicable as soon as the battery starts to be used, LMT: Applicable as soon as the battery starts to be used, Industrial: Applicable as soon as the battery starts to be used.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
+  "split": "dev"
  },
  {
   "id": "eubat:hasInternalResistance~ohmicResistance~CLOSE",
@@ -966,26 +985,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 4 (b). Restricted: Only to persons with legitimate interest (individual battery). EV: Not to be filled/displayed, LMT: Mandatory, Industrial: Only for stationary battery energy storage systems and if they have a battery management system.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
- },
- {
-  "id": "eubat:hasEvolutionOfSelfDischarge~selfDischargingRateSet~CLOSE",
-  "gold": "CLOSE",
-  "evidence": "written",
-  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/hasEvolutionOfSelfDischarge",
-  "sourceId": "eubat:hasEvolutionOfSelfDischarge",
-  "sourceType": "property",
-  "sourceLabel": "Evolution of Self Discharge",
-  "sourceDef": "Change in self-discharge rate. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
-  "sourceDomain": "gs1:Product",
-  "sourceRange": "gs1:QuantitativeValue",
-  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRateSet",
-  "targetLabel": "Self-discharging rate set",
-  "targetDef": "Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year]",
-  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 4 (b). Restricted: Only to persons with legitimate interest (individual battery). EV: Not to be filled/displayed, LMT: Mandatory, Industrial: Only for stationary battery energy storage systems and if they have a battery management system.",
-  "targetContext": null,
-  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
+  "split": "dev"
  },
  {
   "id": "eubat:expectedRemainingCycles~expectedLifetimeCyclesRest~CLOSE",
@@ -1004,7 +1004,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 4 (a) - as defined in Art 3 (1) (59) for lifetime. Restricted: Only to persons with legitimate interest (individual battery). EV: Mandatory, LMT: Mandatory, Industrial: Only for rechargeable batteries and except for non-cycle applications.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
+  "split": "dev"
  },
  {
   "id": "eubat:cathodeActiveMaterial~detailedComposition~NARROW",
@@ -1099,7 +1099,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (i) - as defined in Annex IV (3) for “power” of the batteries in scope of the Annex. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
+  "split": "test"
  },
  {
   "id": "eubat:hasPowerCapability~powerCapability~NARROW",
@@ -1118,7 +1118,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 4 (a) - as defined in Annex IV (3) for the batteries in the scope of the Annex. Restricted: Only to persons with legitimate interest (individual battery). EV: Mandatory, LMT: Mandatory, Industrial: Only for rechargeable batteries.The dynamic dimension of this item is to reflect that the parameters may need to be updated where there is a status change of the battery.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
+  "split": "test"
  },
  {
   "id": "eubat:renewableContentShare~renewableContentShare~NARROW",
@@ -1292,44 +1292,6 @@
   "split": "dev"
  },
  {
-  "id": "eubat:hasPowerCapabilityAt80SoC~originalPowerCapability~NARROW",
-  "gold": "NARROW",
-  "evidence": "written",
-  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/hasPowerCapabilityAt80SoC",
-  "sourceId": "eubat:hasPowerCapabilityAt80SoC",
-  "sourceType": "property",
-  "sourceLabel": "Power Capability at 80% SoC",
-  "sourceDef": "Current power capability at 80% state of charge. Use unitCode 'KWT' (UN/CEFACT Rec 20).",
-  "sourceDomain": null,
-  "sourceRange": "gs1:QuantitativeValue",
-  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#originalPowerCapability",
-  "targetLabel": "Original power capability",
-  "targetDef": "Original power capability [unit W]",
-  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (i) - as defined in Annex IV (3) for “power” of the batteries in scope of the Annex. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
-  "targetContext": null,
-  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
- },
- {
-  "id": "eubat:hasPowerCapabilityAt20SoC~originalPowerCapability~NARROW",
-  "gold": "NARROW",
-  "evidence": "written",
-  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/hasPowerCapabilityAt20SoC",
-  "sourceId": "eubat:hasPowerCapabilityAt20SoC",
-  "sourceType": "property",
-  "sourceLabel": "Power Capability at 20% SoC",
-  "sourceDef": "Current power capability at 20% state of charge. Use unitCode 'KWT' (UN/CEFACT Rec 20).",
-  "sourceDomain": null,
-  "sourceRange": "gs1:QuantitativeValue",
-  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#originalPowerCapability",
-  "targetLabel": "Original power capability",
-  "targetDef": "Original power capability [unit W]",
-  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (i) - as defined in Annex IV (3) for “power” of the batteries in scope of the Annex. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
-  "targetContext": null,
-  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
- },
- {
   "id": "eubat:hasCurrentSelfDischargingRate~selfDischargingRate~NARROW",
   "gold": "NARROW",
   "evidence": "written",
@@ -1365,7 +1327,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex VI Part A 8 - as defined in Article 3 (1) (52). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
+  "split": "dev"
  },
  {
   "id": "eubat:hasHazardousSubstances~hazardousSubstances~BROAD",
@@ -1384,7 +1346,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex VI Part A 8 - as defined in Article 3 (1) (52). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
+  "split": "test"
  },
  {
   "id": "oec:hasConformityDeclaration~euDeclarationOfConformity~BROAD",
@@ -1422,7 +1384,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (p). Public. EV: Mandatory, LMT: Mandatory, Industrial: Only applicable for some industrial batteries.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
+  "split": "dev"
  },
  {
   "id": "eubat:cRate~cycleLifeDischargeCRate~BROAD",
@@ -1460,7 +1422,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Article 77 (3) - as defined in Article 77 (4). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
+  "split": "test"
  },
  {
   "id": "eubat:carbonFootprintDeclarationId~otherIdentificationElement~NONE",
@@ -1504,7 +1466,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 2 (d). Restricted: Only to persons with legitimate interests, notified bodies, MS authorities and COM. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
+  "split": "dev"
  },
  {
   "id": "eubat:hasEndOfLifeInfo~dismantlingInformation~NONE",
@@ -1526,7 +1488,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 2 (c). Restricted: Only to persons with legitimate interests, notified bodies, MS authorities and COM. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
+  "split": "dev"
  },
  {
   "id": "eubat:hasEndOfLifeInfo~wasteBatteryTreatmentFacilities~NONE",
@@ -1592,6 +1554,28 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (q) - Art. 13 (5). Public. EV: Cadmium or lead symbol if applicable, LMT: Cadmium or lead symbol if applicable, Industrial: Cadmium or lead symbol if applicable.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
+  "split": "dev"
+ },
+ {
+  "id": "eubat:hasPowerCapabilityAt20SoC~originalPowerCapability~NONE",
+  "gold": "NONE",
+  "evidence": "explicit",
+  "auditRelation": "NARROW",
+  "auditQaTier": "REJECT",
+  "auditRun": "battery",
+  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/hasPowerCapabilityAt20SoC",
+  "sourceId": "eubat:hasPowerCapabilityAt20SoC",
+  "sourceType": "property",
+  "sourceLabel": "Power Capability at 20% SoC",
+  "sourceDef": "Current power capability at 20% state of charge. Use unitCode 'KWT' (UN/CEFACT Rec 20).",
+  "sourceDomain": null,
+  "sourceRange": "gs1:QuantitativeValue",
+  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#originalPowerCapability",
+  "targetLabel": "Original power capability",
+  "targetDef": "Original power capability [unit W]",
+  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (i) - as defined in Annex IV (3) for “power” of the batteries in scope of the Annex. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
+  "targetContext": null,
+  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
   "split": "test"
  },
  {
@@ -1617,6 +1601,28 @@
   "split": "dev"
  },
  {
+  "id": "eubat:hasPowerCapabilityAt80SoC~originalPowerCapability~NONE",
+  "gold": "NONE",
+  "evidence": "explicit",
+  "auditRelation": "NARROW",
+  "auditQaTier": "STRONG",
+  "auditRun": "battery",
+  "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/hasPowerCapabilityAt80SoC",
+  "sourceId": "eubat:hasPowerCapabilityAt80SoC",
+  "sourceType": "property",
+  "sourceLabel": "Power Capability at 80% SoC",
+  "sourceDef": "Current power capability at 80% state of charge. Use unitCode 'KWT' (UN/CEFACT Rec 20).",
+  "sourceDomain": null,
+  "sourceRange": "gs1:QuantitativeValue",
+  "targetIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#originalPowerCapability",
+  "targetLabel": "Original power capability",
+  "targetDef": "Original power capability [unit W]",
+  "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (i) - as defined in Annex IV (3) for “power” of the batteries in scope of the Annex. Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
+  "targetContext": null,
+  "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
+  "split": "test"
+ },
+ {
   "id": "eubat:cadmiumSymbolRequired~chemicalSymbol~NONE",
   "gold": "NONE",
   "evidence": "explicit",
@@ -1636,7 +1642,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (q) - Art. 13 (5). Public. EV: Cadmium or lead symbol if applicable, LMT: Cadmium or lead symbol if applicable, Industrial: Cadmium or lead symbol if applicable.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
+  "split": "test"
  },
  {
   "id": "eubat:hasInitialCapacity~batteryCapacity~NONE",
@@ -1724,7 +1730,7 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (s). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
   "targetContext": null,
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "test"
+  "split": "dev"
  },
  {
   "id": "eubat:hasEndOfLifeInfo~wasteBatterySafetyInstructions~NONE",
@@ -1746,6 +1752,6 @@
   "targetScopeNote": "Regulation (EU) 2023/1542 - Annex XIII 1 (s). Public. EV: Mandatory, LMT: Mandatory, Industrial: Mandatory.",
   "targetContext": "Part of: Waste battery prevention and management information. The definition above is the legal text of the whole provision, shared with 9 sibling elements; this element is only the part its label names.",
   "targetScheme": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary",
-  "split": "dev"
+  "split": "test"
  }
 ]
