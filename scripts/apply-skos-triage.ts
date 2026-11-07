@@ -3,8 +3,9 @@
  * Write the APPLY set of `triage-skos-report.ts` into the module ontologies.
  *
  * Dry-run by default; `--write` edits the TTL. Two operations only:
- *   flip     an existing `skos:narrowMatch` / `skos:broadMatch` whose direction the panel
- *            reverses, edited in place so nothing else about the line changes;
+ *   regrade  an existing graded relation the panel regrades (a direction flip, or closeMatch
+ *            to exactMatch and the like), edited in place so nothing else about the line changes;
+ *   remove   an existing graded relation the triage withdraws, its line dropped;
  *   insert   a new graded relation, or a graded relation beside an existing rdfs:seeAlso,
  *            placed as the last triple of the subject's block.
  *
@@ -30,7 +31,9 @@ const NS_TO_PREFIX: [string, string][] = [
   ["http://www.w3.org/ns/locn#", "locn:"],
   ["http://www.w3.org/ns/adms#", "adms:"],
   ["http://xmlns.com/foaf/0.1/", "foaf:"],
-  ["https://dpp-keystone.org/spec/v2/terms#", "dppk:"],
+  ["https://dpp-keystone.org/spec/v3/terms/epd#", "dppk-epd:"],
+  ["https://dpp-keystone.org/spec/v3/terms/dopc#", "dppk-dopc:"],
+  ["https://dpp-keystone.org/spec/v3/terms#", "dppk:"],
   ["https://vocabulary.uncefact.org/untp/", "untp:"],
   ["https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#", "eudppcore:"],
   ["https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#", "eudppcom:"],
@@ -44,17 +47,28 @@ const NS_TO_PREFIX: [string, string][] = [
  * `@prefix untp:`, so writing `untp:processCategory` there produced a file that no longer
  * parsed. Reading is safe either way; writing has to respect the file's own prefixes.
  */
-function targetForms(iri: string, declared: Set<string>): string[] {
+function targetForms(iri: string, declared: Map<string, string>): string[] {
   const forms = [`<${iri}>`];
+  // any prefix the file declares can already be in use on the line (cirpass2-battery:, bpr:, ...)
+  for (const [px, ns] of declared) {
+    const local = iri.slice(ns.length);
+    if (iri.startsWith(ns) && /^[A-Za-z_][\w-]*$/.test(local) && !forms.includes(px + local)) forms.push(px + local);
+  }
+  // a new triple prefers the conventional prefix, when the file declares it for that namespace
   for (const [ns, px] of NS_TO_PREFIX) {
-    if (iri.startsWith(ns) && declared.has(px)) forms.unshift(px + iri.slice(ns.length));
+    if (iri.startsWith(ns) && declared.get(px) === ns) {
+      const f = px + iri.slice(ns.length);
+      forms.splice(forms.indexOf(f), 1);
+      forms.unshift(f);
+      break;
+    }
   }
   return forms;
 }
 
-/** Prefixes the file declares, as `gs1:`, `schema:`, and so on. */
-function declaredPrefixes(ttl: string): Set<string> {
-  return new Set([...ttl.matchAll(/^@prefix\s+([A-Za-z][\w-]*:)/gm)].map((m) => m[1]));
+/** Prefixes the file declares, `gs1:` to its namespace IRI. */
+function declaredPrefixes(ttl: string): Map<string, string> {
+  return new Map([...ttl.matchAll(/^@prefix\s+([A-Za-z][\w-]*:)\s*<([^>]*)>/gm)].map((m) => [m[1], m[2]]));
 }
 
 // Blank long literals AND comment lines, keeping every newline. A comment that happens to
@@ -78,7 +92,7 @@ function ontologyFiles(): string[] {
   return out;
 }
 
-interface Item { ourId: string; upstreamIri: string; predicate: string; existing: string | null; qa: number }
+interface Item { ourId: string; upstreamIri: string; predicate: string; existing: string | null; qa: number; remove?: boolean }
 
 const report = process.argv[2];
 const write = process.argv.includes("--write");
@@ -90,7 +104,7 @@ const items: Item[] = JSON.parse(
 if (!items.length) { console.log("nothing to apply"); process.exit(0); }
 
 const files = ontologyFiles();
-let flipped = 0, inserted = 0, missed = 0;
+let regraded = 0, inserted = 0, removed = 0, missed = 0;
 
 for (const it of items) {
   let done = false;
@@ -105,20 +119,38 @@ for (const it of items) {
 
     const forms = targetForms(it.upstreamIri, declaredPrefixes(raw));
     const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    if (it.remove) {
+      // withdraw a rejected relation: drop its line, and move the block's terminating `.` up
+      // when it was the last triple
+      const i = masked.findIndex((l, j) => j > start && j <= end && forms.some((f) =>
+        new RegExp(`^\\s+${esc(it.existing!)}\\s+${esc(f)}\\s*[;.]\\s*$`).test(l)));
+      if (i < 0) continue;
+      if (write) {
+        if (masked[i].trimEnd().endsWith(".")) lines[i - 1] = lines[i - 1].trimEnd().replace(/\s*;$/, " .");
+        lines.splice(i, 1);
+        writeFileSync(file, lines.join("\n"));
+      }
+      console.log(`  remove ${it.ourId.padEnd(36)} ${it.existing} ${forms[0]}`);
+      removed++; done = true; break;
+    }
     // idempotent: the relation may already be there, for instance from an earlier sweep
     const already = masked.slice(start, end + 1).some((l) =>
       forms.some((f) => new RegExp(`^\\s+${it.predicate}\\s+${esc(f)}\\s*[;.]\\s*$`).test(l)));
     if (already) { console.log(`  have   ${it.ourId.padEnd(36)} ${it.predicate} ${forms[0]}`); done = true; break; }
-    // flip in place when the pair already exists with the other direction
-    if (it.existing === "skos:narrowMatch" || it.existing === "skos:broadMatch") {
+    // regrade in place when the pair already exists under another graded relation: a direction
+    // flip, or closeMatch / exactMatch / narrowMatch / broadMatch to one of the others
+    if (it.existing?.startsWith("skos:")) {
       for (let i = start; i <= end; i++) {
         const hit = forms.some((f) => new RegExp(`^\\s+${it.existing}\\s+${f.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*[;.]\\s*$`).test(masked[i]));
         if (!hit) continue;
         if (write) { lines[i] = lines[i].replace(it.existing, it.predicate); writeFileSync(file, lines.join("\n")); }
-        console.log(`  flip   ${it.ourId.padEnd(36)} ${it.existing} -> ${it.predicate}  ${forms[0]}`);
-        flipped++; done = true; break;
+        console.log(`  regrade ${it.ourId.padEnd(36)} ${it.existing} -> ${it.predicate}  ${forms[0]}`);
+        regraded++; done = true; break;
       }
       if (done) break;
+      // the pair exists but not on a line of its own (a comma list): never add a second relation
+      console.log(`  MISS   ${it.ourId} ${it.existing} ${forms[0]} is not on a line of its own`);
+      missed++; done = true; break;
     }
     if (done) break;
     // otherwise append the relation as the block's last triple
@@ -133,5 +165,5 @@ for (const it of items) {
   if (!done) { console.log(`  MISS   ${it.ourId} ${it.upstreamIri}`); missed++; }
 }
 
-console.log(`\n${write ? "wrote" : "DRY-RUN"}: ${flipped} flip(s), ${inserted} insert(s), ${missed} not found`);
+console.log(`\n${write ? "wrote" : "DRY-RUN"}: ${regraded} regrade(s), ${inserted} insert(s), ${removed} removal(s), ${missed} not found`);
 if (write) console.log("Now run: rapper -i turtle -c on the touched TTLs, then pnpm run check:mappings && pnpm run build");

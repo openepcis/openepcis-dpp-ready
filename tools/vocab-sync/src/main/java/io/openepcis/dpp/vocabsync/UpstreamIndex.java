@@ -104,6 +104,7 @@ public class UpstreamIndex {
     @ConfigProperty(name = "vocab-sync.semic-dir") String semicDir;
     @ConfigProperty(name = "vocab-sync.dppk-dir") String dppkDir;
     @ConfigProperty(name = "vocab-sync.dppk-namespace") String dppkNamespace;
+    @ConfigProperty(name = "vocab-sync.dppk-ontology") java.util.Optional<String> dppkOntology;
     @ConfigProperty(name = "vocab-sync.untp-context") String untpContext;
     @ConfigProperty(name = "vocab-sync.untp-namespace") String untpNamespace;
     @ConfigProperty(name = "vocab-sync.rail-voc") String railVoc;
@@ -113,6 +114,7 @@ public class UpstreamIndex {
     @ConfigProperty(name = "vocab-sync.eu-dpp-voc") String euDppVoc;
     @ConfigProperty(name = "vocab-sync.batterypass-root") String batterypassRoot;
     @ConfigProperty(name = "vocab-sync.batterypass-ready-vocab") String batterypassReadyVocab;
+    @ConfigProperty(name = "vocab-sync.batterypass-ready-2-vocab") String batterypassReady2Vocab;
 
     private List<Source> sourceList = List.of();
 
@@ -186,7 +188,7 @@ public class UpstreamIndex {
                 || iri.startsWith("http://www.w3.org/ns/org#")) return "semic";
         if (iri.startsWith("https://dpp-keystone.org/")) return "dppk";
         if (iri.contains("uncefact.org")) return "untp";
-        if (iri.startsWith("https://gs1-epcis-reg.org/rail/")) return "rail";
+        if (iri.startsWith("https://ref.gs1.ch/voc/rail/") || iri.startsWith("https://gs1-epcis-reg.org/rail/")) return "rail";
         if (iri.startsWith("https://w3id.org/eudpp/textile-")) return "cirpass2-textile";
         if (iri.startsWith("https://w3id.org/eudpp/battery")) return "cirpass2-battery";
         if (iri.startsWith("https://w3id.org/eudpp")) return "eudpp";
@@ -206,6 +208,11 @@ public class UpstreamIndex {
         sources.add(Source.rdf("semic", "http://www.w3.org/ns/adms#", root.resolve(semicDir).resolve("semic-adms.jsonld")));
         sources.add(Source.rdf("semic", "http://www.w3.org/ns/locn#", root.resolve(semicDir).resolve("semic-locn.jsonld")));
         sources.add(Source.context("untp", untpNamespace, "untp", root.resolve(untpContext)));
+        // DPP Keystone v3 publishes an OWL ontology with labels, definitions, domain and range;
+        // read it first so its terms win over the bare names the contexts give. The namespace stem
+        // covers the v3 sub-namespaces (terms/epd#, terms/dopc#, terms/unit#, terms/signature#).
+        dppkOntology.filter(p -> !p.isBlank()).ifPresent(p -> sources.add(Source.rdf("dppk",
+                dppkNamespace.replaceAll("#$", ""), root.resolve(p))));
         for (Path ctx : dppkContexts(root)) {
             sources.add(Source.context("dppk", dppkNamespace, "dppk", ctx));
         }
@@ -219,11 +226,10 @@ public class UpstreamIndex {
         sources.add(Source.context("semic", "http://www.w3.org/ns/org#", "org", semicBridge));
         sources.add(Source.context("semic", "http://purl.org/vocab/cpsv#", "cpsv", semicBridge));
         sources.add(Source.context("foaf", "http://xmlns.com/foaf/0.1/", "foaf", semicBridge));
-        // GS1 Rail: index the full in-repo vocabulary mirror (a Layer-1 sectoral peer), not just the
-        // bridge context alias — so our terms can be aligned against the actual rail: terms.
-        sources.add(Source.rdf("rail", "https://gs1-epcis-reg.org/rail/voc/data#", root.resolve(railVoc)));
-        sources.add(Source.context("rail", "https://gs1-epcis-reg.org/rail/voc/data#", "rail",
-                interop.resolve("rail-bridge-context.jsonld")));
+        // GS1 Rail: index the full in-repo vocabulary mirror (a Layer-1 sectoral peer). Since 2.x the
+        // namespace is https://ref.gs1.ch/voc/rail/; the served rail bridge context keeps the 1.6
+        // IRIs it was published with, so it is no longer a discovery source.
+        sources.add(Source.rdf("rail", "https://ref.gs1.ch/voc/rail/", root.resolve(railVoc)));
         // CIRPASS-2 EUDPP: index the full in-repo upstream mirror (Layer-2 community profile),
         // so our terms can be aligned against the actual eudpp: terms instead of only the
         // seeAlso pointers already in dpp-core.
@@ -247,6 +253,9 @@ public class UpstreamIndex {
         // longlist (GEFEG publishes no IRIs). A distinct source from the Consortium SAMM above.
         sources.add(Source.rdf("bpr", "https://ref.openepcis.org/vocab/batterypass-ready/1.3#",
                 root.resolve(batterypassReadyVocab)));
+        // BatteryPass-Ready 2.0.1: the current battery passport data model (the SAMM model is archived).
+        sources.add(Source.rdf("bpr", "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#",
+                root.resolve(batterypassReady2Vocab)));
 
         sourceList = sources;
         terms = new ArrayList<>();
@@ -462,7 +471,9 @@ public class UpstreamIndex {
             JsonNode root = mapper.reader()
                     .with(com.fasterxml.jackson.core.JsonParser.Feature.ALLOW_COMMENTS)
                     .readTree(Files.readString(s.path()));
-            collectContextTerms(root.has("@context") ? root.get("@context") : root, s);
+            Map<String, String> subPrefixes = new HashMap<>();
+            collectSubPrefixes(root, s.prefix() + "-", subPrefixes);
+            collectContextTerms(root.has("@context") ? root.get("@context") : root, s, subPrefixes);
         } catch (Exception e) {
             System.err.println("upstream: context parse failed for " + s.path() + ": " + e.getMessage());
         }
@@ -473,10 +484,10 @@ public class UpstreamIndex {
      * defines its property terms deep inside per-type sub-contexts (e.g. Product → materialProvenance
      * → massFraction), so a flat top-level scan would miss most of the vocabulary. Terms dedup by IRI.
      */
-    private void collectContextTerms(JsonNode ctx, Source s) {
+    private void collectContextTerms(JsonNode ctx, Source s, Map<String, String> subPrefixes) {
         if (ctx == null) return;
         if (ctx.isArray()) {
-            for (JsonNode n : ctx) collectContextTerms(n, s);
+            for (JsonNode n : ctx) collectContextTerms(n, s, subPrefixes);
             return;
         }
         if (!ctx.isObject()) return;
@@ -490,9 +501,24 @@ public class UpstreamIndex {
                         : (v.isObject() && v.has("@id") ? v.get("@id").asText() : null);
                 if (id != null && !(v.isTextual() && (id.endsWith("#") || id.endsWith("/")))) {
                     String local = null;
+                    String ns = s.namespace();
                     if (id.startsWith(s.prefix() + ":")) local = id.substring(s.prefix().length() + 1);
                     else if (id.startsWith(s.namespace())) local = id.substring(s.namespace().length());
-                    String iri = local == null ? null : s.namespace() + local;
+                    else {
+                        for (Map.Entry<String, String> sp : subPrefixes.entrySet()) {
+                            if (id.startsWith(sp.getKey() + ":")) {
+                                local = id.substring(sp.getKey().length() + 1);
+                                ns = sp.getValue();
+                                break;
+                            }
+                            if (id.startsWith(sp.getValue())) {
+                                local = id.substring(sp.getValue().length());
+                                ns = sp.getValue();
+                                break;
+                            }
+                        }
+                    }
+                    String iri = local == null ? null : ns + local;
                     if (local != null && !local.isBlank() && !byIri.containsKey(iri)) {
                         TermType type = Character.isUpperCase(local.charAt(0)) ? TermType.CLASS : TermType.PROPERTY;
                         add(new UpstreamTerm(s.vocabId(), iri, local, key, null, type, null));
@@ -500,7 +526,32 @@ public class UpstreamIndex {
                 }
             }
             // UNTP-style nesting: an entry may carry its own @context defining further terms.
-            if (v.isObject() && v.has("@context")) collectContextTerms(v.get("@context"), s);
+            if (v.isObject() && v.has("@context")) collectContextTerms(v.get("@context"), s, subPrefixes);
+        }
+    }
+
+    /**
+     * Prefixes that extend the source prefix with a sub-namespace, declared anywhere in the
+     * context. DPP Keystone v3 moved its EPD indicators to {@code dppk-epd:} and its DoPC fields to
+     * {@code dppk-dopc:}; they are the same vocabulary, so their terms are indexed under it.
+     */
+    private static void collectSubPrefixes(JsonNode n, String stem, Map<String, String> out) {
+        if (n == null) return;
+        if (n.isArray()) {
+            for (JsonNode x : n) collectSubPrefixes(x, stem, out);
+            return;
+        }
+        if (!n.isObject()) return;
+        Iterator<Map.Entry<String, JsonNode>> it = n.fields();
+        while (it.hasNext()) {
+            Map.Entry<String, JsonNode> e = it.next();
+            JsonNode v = e.getValue();
+            if (e.getKey().startsWith(stem) && v.isTextual()
+                    && (v.asText().endsWith("#") || v.asText().endsWith("/"))) {
+                out.put(e.getKey(), v.asText());
+            } else if (v.isObject() || v.isArray()) {
+                collectSubPrefixes(v, stem, out);
+            }
         }
     }
 

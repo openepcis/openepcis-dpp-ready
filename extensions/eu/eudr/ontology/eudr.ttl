@@ -222,8 +222,7 @@ eudr:hasCountryList
     skos:narrowMatch gs1:countryOfOrigin ;
     skos:broadMatch <https://vocabulary.uncefact.org/untp/originCountry> ;
     skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#countryOfOrigin> ;
-    skos:broadMatch <https://vocabulary.uncefact.org/untp/countryOfProduction> ;
-    skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#meltAndPourCountry> .
+    skos:broadMatch <https://vocabulary.uncefact.org/untp/countryOfProduction> .
 
 eudr:hasOriginList
     a owl:ObjectProperty ;
@@ -247,12 +246,8 @@ eudr:hasOriginDetails
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/eudr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch <https://vocabulary.uncefact.org/untp/originCountry> ;
-    skos:closeMatch gs1:countryOfOriginStatement ;
     skos:narrowMatch gs1:provenanceStatement ;
-    skos:closeMatch <https://schema.org/countryOfOrigin> ;
-    skos:narrowMatch gs1:countryOfOrigin ;
-    skos:narrowMatch <https://dpp-keystone.org/spec/v2/terms#countryOfOrigin> .
+    skos:narrowMatch gs1:countryOfOrigin .
 
 eudr:geofence
     a owl:DatatypeProperty ;
@@ -290,8 +285,7 @@ eudr:hasAreaSize
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/eudr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
-    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:broadMatch <https://schema.org/size> .
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:hasProducerIdentification
     a owl:ObjectProperty ;
@@ -423,8 +417,7 @@ eudr:DueDiligenceStatement
     rdfs:comment "A due diligence statement submitted to the EUDR Information System (EUIS) per Article 4. Subclasses gs1:RegulatoryIdentifier: the GS1 EUDR standard carries DDS references as regulatory identifiers (gs1:RegulatoryIdentifierType-DUE_DILIGENCE_STATEMENT with reference and verification numbers)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/eudr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
-    skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. The statement record itself has no GS1, SEMICeu, or schema.org equivalent; its reference numbers reuse the gs1:RegulatoryIdentifier pattern."@en ;
-    skos:broadMatch <https://schema.org/Statement> .
+    skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. The statement record itself has no GS1, SEMICeu, or schema.org equivalent; its reference numbers reuse the gs1:RegulatoryIdentifier pattern."@en .
 
 eudr:RiskAssessment
     a owl:Class ;
@@ -446,8 +439,7 @@ eudr:hasDueDiligenceStatement
     rdfs:range eudr:DueDiligenceStatement ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/eudr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
-    skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:closeMatch <urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#supplyChainDueDiligenceReport> .
+    skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:statementDate
     a owl:DatatypeProperty ;
@@ -526,7 +518,6 @@ eudr:hasTransformationLocation
     skos:note "Geolocation of production plots per EUDR (EU) 2023/1115 Article 9. Geometry is carried via SEMICeu Core Location (locn:)."@en ;
     skos:broadMatch <https://schema.org/location> ;
     skos:broadMatch locn:location ;
-    skos:broadMatch <https://schema.org/sportsActivityLocation> ;
     skos:broadMatch locn:Location .
 
 # =============================================================================
@@ -576,12 +567,8 @@ eudr:hasFscCertification
     skos:broadMatch <https://schema.org/hasCertification> ;
     skos:broadMatch gs1:certification ;
     skos:broadMatch gs1:certificationIdentification ;
-    skos:broadMatch <https://schema.org/certificationIdentification> ;
     skos:narrowMatch gs1:certificationType ;
-    skos:broadMatch gs1:certificationInfo ;
-    skos:broadMatch gs1:certificationStartDate ;
-    skos:broadMatch gs1:certificationEndDate ;
-    skos:broadMatch gs1:certificationAuditDate .
+    skos:broadMatch gs1:certificationInfo .
 
 # =============================================================================
 # Business Transaction Types for EUDR

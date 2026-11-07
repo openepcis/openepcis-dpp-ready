@@ -196,15 +196,10 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     prefix: "usfsma",
     imports: [DPP_CORE_IMPORT],
   },
-  {
-    name: "rail",
-    dir: "extensions/upstream/gs1-rail",
-    ttlFile: "gs1RailVoc.ttl",
-    namespace: "https://gs1-epcis-reg.org/rail/voc/data#",
-    prefix: "rail",
-    imports: [EPCIS_BASE_IMPORT],
-    bareTermAliases: true,
-  },
+  // GS1 Rail is not generated: extensions/upstream/gs1-rail/context/rail-context.jsonld is the
+  // served v1.6 context and stays frozen. The mirrored vocabulary moved to v2.6 under
+  // https://ref.gs1.ch/voc/rail/ (2026-11-06); regenerating the context from it would redefine
+  // every rail term that stored documents expand against.
 ];
 
 const NAMESPACE_TO_PREFIX: Record<string, string> = {

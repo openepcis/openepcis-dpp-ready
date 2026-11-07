@@ -11,7 +11,7 @@
 @prefix schema: <https://schema.org/> .
 
 # DPP Keystone (dpp-keystone.org), a peer DPP profile this module aligns with.
-@prefix dppk: <https://dpp-keystone.org/spec/v2/terms#> .
+@prefix dppk: <https://dpp-keystone.org/spec/v3/terms#> .
 
 <https://ref.openepcis.org/extensions/eu/iron-steel/>
     a owl:Ontology ;
@@ -135,7 +135,6 @@ eusteel:productNumber
     skos:note "Manufacturer product number. Anchored to schema:productID and schema:mpn. GS1 Web Vocabulary has no product/model-number property."@en ;
     rdfs:seeAlso schema:serialNumber ;
     skos:exactMatch schema:mpn ;
-    skos:broadMatch schema:serialNumber ;
     skos:closeMatch schema:productID ;
     skos:broadMatch gs1:productID .
 
@@ -200,7 +199,6 @@ eusteel:meltAndPourCountry
     rdfs:seeAlso dppk:addressCountry ;
     rdfs:seeAlso dppk:countryOfOrigin ;
     skos:broadMatch <https://vocabulary.uncefact.org/untp/countryOfOperation> ;
-    skos:broadMatch <https://vocabulary.uncefact.org/untp/countryName> ;
     rdfs:seeAlso <https://vocabulary.uncefact.org/untp/countryCode> .
 
 eusteel:cbamReportId
@@ -309,8 +307,7 @@ eusteel:mtcNominalSize
     skos:exactMatch dppk:mtcNominalSize ;
     skos:note "EN 10168 dimensional parameter."@en ;
     skos:broadMatch schema:size ;
-    skos:closeMatch gs1:sizeDimension ;
-    skos:broadMatch <https://gs1-epcis-reg.org/rail/voc/data#setNominalValues> .
+    skos:closeMatch gs1:sizeDimension .
 
 eusteel:mtcWeightTolerance
     a owl:DatatypeProperty ;

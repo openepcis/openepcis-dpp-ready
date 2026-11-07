@@ -35,6 +35,7 @@ const ALLOWLIST_PATH = join(__dirname, "extension-terms-allowlist.json");
 const OWNED_NAMESPACES = [
   "https://ref.openepcis.org/extensions/",
   "https://gs1-epcis-reg.org/rail/voc/data#",
+  "https://ref.gs1.ch/voc/rail/",
 ];
 
 const isOwned = (iri: string) => OWNED_NAMESPACES.some((ns) => iri.startsWith(ns));

@@ -1,15 +1,15 @@
 # GS1 Rail Vocabulary — upstream mirror
 
-**Status:** Mirror (upstream v1.6, last upstream update 2026-04-25) • **Layer:** 2 (sectoral upstream profile; peer to GS1 Web Vocabulary, used directly for railway-specific concepts) • **Licence:** Apache 2.0 (upstream)
+**Status:** Mirror (upstream v2.6, issued 2025-10-23, namespace `https://ref.gs1.ch/voc/rail/`; served context frozen at v1.6) • **Layer:** 2 (sectoral upstream profile; peer to GS1 Web Vocabulary, used directly for railway-specific concepts) • **Licence:** Apache 2.0 (upstream)
 
 This module mirrors the **GS1 Rail Vocabulary** published by GS1 AISBL with
 GS1 Switzerland. The authoritative source is upstream:
 
-- **Vocabulary home:** <https://gs1-epcis-reg.org/rail/>
-- **JSON-LD vocabulary:** <https://gs1-epcis-reg.org/rail/voc/data/gs1RailVoc.jsonld>
-- **JSON-LD context:** <https://gs1-epcis-reg.org/rail/rail-context.jsonld>
-- **SHACL — Rail-specific:** <https://gs1-epcis-reg.org/rail/voc/data/Rail-SHACL.json>
-- **SHACL — Rail EPCIS generic:** <https://gs1-epcis-reg.org/rail/voc/data/Rail-EPCIS-SHACL-Generic.json>
+- **Vocabulary home:** <https://ref.gs1.ch/voc/rail/> (the old <https://gs1-epcis-reg.org/rail/> redirects there)
+- **Source repository:** <https://github.com/GS1-Switzerland/WebOntology> (`src/sectors/tran/rail`)
+- **JSON-LD vocabulary:** <https://ref.gs1.ch/voc/rail/gs1RailVoc.jsonld>
+- **JSON-LD context (2.x):** mirrored as `context/upstream-2.x/rail-context.jsonld`; the served `context/rail-context.jsonld` is the v1.6 file
+- **SHACL:** `src/sectors/tran/rail/shacl/` upstream, mirrored under `validation/`
 
 The native namespace `https://gs1-epcis-reg.org/rail/voc/data#` (prefix `rail:`)
 is preserved verbatim. We do **not** rebrand rail terms under

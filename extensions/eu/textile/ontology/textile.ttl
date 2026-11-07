@@ -16,7 +16,7 @@
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix locn:  <http://www.w3.org/ns/locn#> .
 # DPP Keystone (dpp-keystone.org), a peer DPP profile this module aligns with.
-@prefix dppk:  <https://dpp-keystone.org/spec/v2/terms#> .
+@prefix dppk:  <https://dpp-keystone.org/spec/v3/terms#> .
 
 # =============================================================================
 # Ontology Declaration
@@ -106,7 +106,8 @@ identifier and trade-item attributes apply unchanged."""@en ;
     skos:broadMatch <https://w3id.org/eudpp#Product> ;
     skos:narrowMatch <https://w3id.org/eudpp/textile-core#TextileApparel> ;
     skos:narrowMatch <https://w3id.org/eudpp/textile-core#ElectronicTextile> ;
-    skos:narrowMatch <https://w3id.org/eudpp/textile-core#SmartTextile> .
+    skos:narrowMatch <https://w3id.org/eudpp/textile-core#SmartTextile> ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-core#TextileProduct> .
 
 eutex:CareInstruction
     a owl:Class ;
@@ -136,7 +137,8 @@ number of wash cycles, pilling resistance, and dimensional stability. GS1 Web Vo
 textile-specific durability metrics. Aligned with oec:PerformanceInfo pattern."""@en ;
     skos:broadMatch <https://w3id.org/eudpp#Durability> ;
     skos:broadMatch <https://w3id.org/eudpp#QualityIndicator> ;
-    skos:broadMatch <https://w3id.org/eudpp/textile-durability#Durability> .
+    skos:broadMatch <https://w3id.org/eudpp/textile-durability#Durability> ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-assessment#DurabilityAssessment> .
 
 eutex:TakeBackProgram
     a owl:Class ;
@@ -245,7 +247,8 @@ because it also covers non-wearable categories (HomeTextiles, TechnicalTextiles)
     skos:narrowMatch <https://w3id.org/eudpp/textile-core#PPETextileApparel> ;
     skos:narrowMatch <https://w3id.org/eudpp/textile-core#ToyTextileApparel> ;
     skos:narrowMatch <https://w3id.org/eudpp/textile-core#MedicalDeviceTextileApparel> ;
-    skos:broadMatch <https://w3id.org/eudpp/textile-core#TextileProduct> .
+    skos:broadMatch <https://w3id.org/eudpp/textile-core#TextileProduct> ;
+    skos:broadMatch dppk:TextileProduct .
 
 eutex:TextileFootwear
     a owl:Class ;
@@ -567,7 +570,6 @@ eutex:hasFiberCertification
     rdfs:seeAlso schema:material ;
     skos:broadMatch schema:hasCertification ;
     skos:broadMatch gs1:certification ;
-    skos:broadMatch schema:certificationIdentification ;
     rdfs:seeAlso gs1:certificationIdentification ;
     skos:broadMatch gs1:certificationInfo .
 
@@ -588,7 +590,8 @@ eutex:hasCareInstructions
     skos:broadMatch gs1:instructions ;
     skos:broadMatch gs1:instructionsForUse ;
     rdfs:seeAlso dppk:instructionsForUse ;
-    skos:broadMatch gs1:consumerUsageInstructions .
+    skos:broadMatch gs1:consumerUsageInstructions ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-process#hasCareInstruction> .
 
 eutex:hasWashingSymbol
     a owl:ObjectProperty ;
@@ -790,8 +793,8 @@ eutex:hasRepairServices
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
     skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
     rdfs:seeAlso oec:CircularityPerformance ;
-    rdfs:seeAlso dppk:repairServices ;
-    skos:exactMatch dppk:repairServices .
+    rdfs:seeAlso dppk:repairService ;
+    skos:exactMatch dppk:repairService .
 
 eutex:isRepairable
     a owl:DatatypeProperty ;
@@ -814,7 +817,6 @@ eutex:repairGuideUrl
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
     skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
-    skos:broadMatch gs1:referencedFileURL ;
     skos:broadMatch gs1:instructions .
 
 eutex:sparePartsAvailable
@@ -1042,7 +1044,6 @@ eutex:hasCutAndSewFacility
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Textile production / facility attribute per ESPR 2024/1781 and the PEFCR for Apparel & Footwear. No GS1 equivalent."@en ;
     rdfs:seeAlso gs1:manufacturingPlant ;
-    skos:broadMatch gs1:location ;
     rdfs:seeAlso schema:countryOfAssembly ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace> ;
     rdfs:seeAlso dppk:manufacturingFacility ;
@@ -1322,7 +1323,8 @@ declarations with specific categorisation not available in GS1 or core DPP vocab
 Complements oec:RecycledContent with textile-specific regulatory detail.
 See also schema:QuantitativeValue for the secondary material fraction."""@en ;
     skos:broadMatch oec:RecycledContent ;
-    rdfs:seeAlso <https://w3id.org/eudpp/textile-recyclability#RecycledContentDeclaration> .
+    rdfs:seeAlso <https://w3id.org/eudpp/textile-recyclability#RecycledContentDeclaration> ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-recyclability#RecycledContentDeclaration> .
 
 # Waste Origin Type enumeration
 eutex:WasteOriginType
@@ -1409,7 +1411,9 @@ eutex:secondaryMaterialFraction
     rdfs:seeAlso dppk:materialComposition ;
     rdfs:seeAlso dppk:packagingMaterialCompositionQuantity ;
     rdfs:seeAlso untp:massFraction ;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent> .
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent> ;
+    skos:exactMatch dppk:recycledContentPercentage ;
+    skos:exactMatch <https://w3id.org/eudpp/textile-recyclability#hasRecycledContentMassFractionValue> .
 
 eutex:hasWasteOriginType
     a owl:ObjectProperty ;
@@ -1569,8 +1573,7 @@ eutex:hasEnvironmentalFootprint
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:carbonFootprintTotal ;
     skos:exactMatch dppk:environmentalFootprint ;
-    rdfs:seeAlso dppk:carbonFootprintGeneralInfo ;
-    skos:narrowMatch dppk:carbonFootprintAbsolute .
+    rdfs:seeAlso dppk:carbonFootprintGeneralInfo .
 
 eutex:carbonFootprintManufacturing
     a owl:DatatypeProperty ;
@@ -1608,7 +1611,8 @@ eutex:benchmarkPerformance
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso dppk:environmentalFootprintBenchmarkPercentage ;
-    rdfs:seeAlso dppk:carbonFootprintBenchmarkPercentage .
+    rdfs:seeAlso dppk:carbonFootprintBenchmarkPercentage ;
+    skos:exactMatch dppk:environmentalFootprintBenchmarkPercentage .
 
 eutex:hasDataTypeIndicator
     a owl:ObjectProperty ;
@@ -1628,8 +1632,7 @@ eutex:pefcrReference
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:broadMatch <https://w3id.org/eudpp#dictionaryReference> .
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eutex:hasLciaCategories
     a owl:ObjectProperty ;
@@ -1651,8 +1654,7 @@ eutex:hasLciaCategoryCode
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso schema:hasCategoryCode ;
-    skos:broadMatch schema:category .
+    rdfs:seeAlso schema:hasCategoryCode .
 
 eutex:lciaValue
     a owl:DatatypeProperty ;
@@ -1852,7 +1854,8 @@ eutex:safeUseInstructions
     skos:exactMatch dppk:safeUseInstructions ;
     rdfs:seeAlso gs1:consumerUsageInstructions ;
     rdfs:seeAlso gs1:instructions ;
-    skos:broadMatch gs1:consumerSafetyInformation .
+    skos:broadMatch gs1:consumerSafetyInformation ;
+    skos:exactMatch <https://w3id.org/eudpp#hasSafeUseInstruction> .
 
 eutex:endOfLifeHandling
     a owl:DatatypeProperty ;
@@ -2116,7 +2119,6 @@ eutex:euEcolabel
     rdfs:seeAlso dppk:euEcolabel ;
     skos:exactMatch dppk:euEcolabel ;
     skos:note "EU Ecolabel flag per Regulation (EC) 66/2010. Anchored to the DPP Keystone peer profile dppk:euEcolabel. Use gs1:CertificationDetails for the full certificate where available."@en ;
-    skos:broadMatch untp:productLabel ;
     rdfs:seeAlso gs1:compulsoryAdditionalLabelInformation .
 
 eutex:hasEuDeclarationOfConformity
@@ -2129,7 +2131,8 @@ eutex:hasEuDeclarationOfConformity
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso dppk:euDeclarationOfConformity ;
     skos:exactMatch dppk:euDeclarationOfConformity ;
-    skos:note "EU Declaration of Conformity per the ESPR textile delegated act. Reuses oec:DocumentReference; anchored to the DPP Keystone peer profile dppk:euDeclarationOfConformity."@en .
+    skos:note "EU Declaration of Conformity per the ESPR textile delegated act. Reuses oec:DocumentReference; anchored to the DPP Keystone peer profile dppk:euDeclarationOfConformity."@en ;
+    skos:exactMatch <https://w3id.org/eudpp#hasEUDeclarationOfConformity> .
 
 eutex:weightExcludingTrims
     a owl:DatatypeProperty ;

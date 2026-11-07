@@ -1,5 +1,5 @@
 # CIRPASS-2 EU DPP Battery Ontology — upstream mirror (Version 0.4.0 DRAFT, issued 2026-07-07).
-# Source: github.com/CIRPASS-2/ontologies-docs @ a41561d
+# Source: github.com/CIRPASS-2/ontologies-docs @ ff8a429
 #   (Battery/battery-ontology-complete/ontology.ttl),
 # the files behind https://cirpass-2.github.io/ontologies-docs/. Verbatim merge; upstream IRIs
 # preserved, nothing rebranded. Term IRIs dereference via https://w3id.org/eudpp (Semantic
@@ -31,19 +31,19 @@
 <https://w3id.org/eudpp/battery> a owl:Ontology;
     owl:versionIRI <https://w3id.org/eudpp/battery/0.4.0>;
     dcterms:bibliographicCitation "EU DPP Battery Ontology. Draft version 0.4.0."@en;
-    dcterms:contributor "Arnab Sinha"@en;
+    dcterms:contributor "Arnab Sinha";
     dcterms:created "2026-07-07"^^xsd:date;
-    dcterms:creator "Marc-Andree Wolf"@en, "Nader Jelassi"@en;
-    dcterms:description "Sectoral ontology for battery Digital Product Passports under Regulation (EU) 2023/1542. This umbrella module declares the Battery product class; battery data is organised in nine companion modules: battery-performance (electrochemical performance, durability and in-use state), battery-materials (chemistry and material location), battery-labeling (labels and symbols), battery-categories (the five Art. 3(1) battery categories), battery-chemistries (the ten labelling chemistries), battery-locations (cathode, anode, electrolyte), battery-metals (the four metals whose recycled content Art. 8(1) requires), battery-statuses (the five Annex XIII 4(c) lifecycle statuses) and battery-extinguisher-classes; battery-cf-shapes carries the carbon footprint SHACL profile. It extends the CIRPASS-2 cross-sectoral CORE ontology by direct reference, following the approach of the Textile sector modules."@en;
+    dcterms:creator "Marc-Andree Wolf", "Nader Jelassi";
+    dcterms:description "Sectoral ontology for battery Digital Product Passports under Regulation (EU) 2023/1542. This umbrella module declares the Battery product class and the SafetyInstruction class; battery data is organised in nine companion modules: battery-performance (electrochemical performance, durability and in-use state), battery-materials (chemistry and material location), battery-labeling (labels and symbols), battery-categories (the five Art. 3(1) battery categories), battery-chemistries (the ten labelling chemistries), battery-locations (cathode, anode, electrolyte), battery-metals (the four metals whose recycled content Art. 8(1) requires), battery-statuses (the five Annex XIII 4(c) lifecycle statuses) and battery-extinguisher-classes; battery-cf-shapes carries the carbon footprint SHACL profile. It extends the CIRPASS-2 cross-sectoral CORE ontology by direct reference, following the approach of the Textile sector modules."@en;
     dcterms:issued "2026-07-07"^^xsd:date;
-    dcterms:license <https://www.apache.org/licenses/LICENSE-2.0>, "This ontology is licensed under the Apache License, Version 2.0. In case of dispute over Apache 2.0 applicability, or in case considering the ontology as a document, this ontology document is to be considered licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0)."@en;
-    dcterms:modified "2026-09-03"^^xsd:date;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/>, "This ontology is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0). In case of dispute over CC BY 4.0 applicability, or in case considering the ontology as a software or part of it, this ontology is to be considered licensed under the Apache License, Version 2.0."@en;
+    dcterms:modified "2026-11-03"^^xsd:date;
     dcterms:references "Regulation (EU) 2023/1542 (Batteries Regulation)"@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2023/1542/oj>;
     dcterms:title "EU DPP Battery Ontology"@en;
     vann:preferredNamespacePrefix "bat";
     vann:preferredNamespaceUri "https://w3id.org/eudpp/battery#";
-    rdfs:comment "Developed against the CIRPASS-2 CORE ontology v2.0.5 (refresh of 25 August 2026; P_DPP v2.0.6 of 27 August 2026, MAT v1.0.2). External references are pinned to these versions."@en;
+    rdfs:comment "Developed against the CIRPASS-2 CORE ontology of October 2026 (P_DPP v2.1.0, MAT v1.1.0). External references are pinned to these versions."@en;
     rdfs:label "EU DPP Battery Ontology"@en;
     rdfs:seeAlso <https://w3id.org/eudpp/battery-categories>, <https://w3id.org/eudpp/battery-cf-shapes>, <https://w3id.org/eudpp/battery-chemistries>, <https://w3id.org/eudpp/battery-extinguisher-classes>, <https://w3id.org/eudpp/battery-labeling>, <https://w3id.org/eudpp/battery-locations>, <https://w3id.org/eudpp/battery-materials>, <https://w3id.org/eudpp/battery-metals>, <https://w3id.org/eudpp/battery-performance>, <https://w3id.org/eudpp/battery-statuses>;
     owl:versionInfo "Version 0.4.0 DRAFT"@en.
@@ -71,6 +71,7 @@ skos:scopeNote a owl:AnnotationProperty.
 skos:topConceptOf a owl:AnnotationProperty.
 eudpp:codeSet a owl:AnnotationProperty.
 eudpp:codeValue a owl:AnnotationProperty.
+eudpp:materialTypeScheme a owl:AnnotationProperty.
 bat-performance:measurementUnit a owl:AnnotationProperty;
     rdfs:comment "The measurement unit of the annotated datatype property, as an IRI of the SI Digital Framework (https://si-digital-framework.org/SI/units/). Used because the values are plain typed literals in this pass and not dpp:QuantitativeProperty instances, so dpp:hasMeasurementUnit - an object property on QuantitativeProperty - does not apply. Where the unit has no IRI in the framework the annotation is absent and the unit stays in rdfs:comment; the cases are listed in the module header."@en;
     rdfs:label "measurement unit"@en;
@@ -102,7 +103,7 @@ bat-statuses:BatteryStatusScheme a skos:ConceptScheme, owl:NamedIndividual;
     rdfs:label "Battery lifecycle statuses per Annex XIII 4(c)"@en;
     skos:hasTopConcept bat-statuses:Original, bat-statuses:ReUsed, bat-statuses:Remanufactured, bat-statuses:Repurposed, bat-statuses:Waste;
     skos:prefLabel "Battery lifecycle statuses per Annex XIII 4(c)"@en;
-    skos:scopeNote "Closed list of five terms. The status is dynamic at individual-battery granularity: it is updated on placing on the market and on every status change. A new battery passport is issued when the battery has been remanufactured, repurposed or subjected to a treatment operation preparing for re-use or repurposing and is placed on the market again; the link back to the previous passport is carried by the CORE property dpp:linkToPreviousDPP, not by this vocabulary. Access to the battery status is restricted to persons with a legitimate interest — a conformance rule expressed in the SHACL shapes, not in this ontology."@en;
+    skos:scopeNote "Closed list of five terms. The status is dynamic at individual-battery granularity: it is updated on placing on the market and on every status change. A new battery passport is issued when the battery has been remanufactured, repurposed or subjected to a treatment operation preparing for re-use or repurposing and is placed on the market again; the link back to the previous passport is carried by the CORE, not by this vocabulary: dpp:linkToPreviousDPP, and since P_DPP v2.1.0 the object properties linking a passport to its previous and next passports (ontologies-core#56). Access to the battery status is restricted to persons with a legitimate interest — a conformance rule expressed in the SHACL shapes, not in this ontology."@en;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-statuses>.
 bat-labeling:extinguishingAgent a owl:ObjectProperty;
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 24 (Regulation (EU) 2023/1542, Annex VI Part A (9)); Spherity Battery Pass ontology v0.1, extinguishingAgent"@en;
@@ -250,12 +251,20 @@ eudpp:Product a owl:Class.
 bat:safetyMeasures a owl:DatatypeProperty;
     dcterms:references "Regulation (EU) 2023/1542, Annex XIII 2(d)"@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2023/1542/oj>;
-    rdfs:comment "Link to the safety measures applicable to the battery. The document the URL points at is a digital instruction in the sense of the cross-sectoral class eudpp:DigitalInstruction (P_DPP), and the correspondence is recorded here as rdfs:seeAlso. It is deliberately not a SKOS mapping: this is a datatype property carrying a URL, eudpp:DigitalInstruction is a class of documents, and an alignment between the two would not hold at audit. Re-expressing this property on a CORE document pattern is the subject of ontologies-battery#11 and is deferred until that pattern is settled."@en;
+    rdfs:comment "Deprecated on 6 October 2026 and kept for existing data: the safety measures are now a bat:SafetyInstruction, subclass of eudpp:DigitalInstruction (P_DPP), reached through dpp:hasProperty with its URL on dpp:webLink (ontologies-core#45). Link to the safety measures applicable to the battery."@en;
     rdfs:label "safety measures"@en;
-    rdfs:seeAlso eudpp:DigitalInstruction;
+    rdfs:seeAlso bat:SafetyInstruction;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery>;
     rdfs:domain bat:Battery;
-    rdfs:range xsd:anyURI.
+    rdfs:range xsd:anyURI;
+    owl:deprecated true.
+bat:SafetyInstruction a owl:Class;
+    dcterms:references "Regulation (EU) 2023/1542, Annex XIII 2(d); BatteryPass-Ready Data Attribute Long List v1.3, attribute 47"@en;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2023/1542/oj>;
+    rdfs:comment "Instruction manual giving the safety measures to be taken when handling the battery, including dismantling. A digital instruction in the sense of the cross-sectoral class eudpp:DigitalInstruction (P_DPP): reached from the battery through dpp:hasProperty, with its URL on dpp:webLink. Declared here so that the safety measures can be told apart from the other instructions of a battery; replaces the datatype property bat:safetyMeasures (ontologies-core#45)."@en;
+    rdfs:label "Safety instruction"@en;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery>;
+    rdfs:subClassOf eudpp:DigitalInstruction.
 bat:testReportResults a owl:DatatypeProperty;
     dcterms:references "Regulation (EU) 2023/1542, Annex XIII 3"@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2023/1542/oj>;
@@ -324,7 +333,7 @@ bat-performance:asOfDate a owl:DatatypeProperty;
     rdfs:range xsd:dateTimeStamp.
 bat-performance:cRateOfCycleLifeTest a owl:DatatypeProperty;
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 87"@en;
-    rdfs:comment "Measurement parameter for 'Expected lifetime: Number of charge-discharge cycles': applied charge and discharge rate in terms of rated capacity (C-rate) of the relevant cycle-life reference test. Unit: ampere per ampere-hour (A/Ah)."@en;
+    rdfs:comment "Measurement parameter for 'Expected lifetime: Number of charge-discharge cycles': applied charge and discharge rate in terms of rated capacity (C-rate) of the relevant cycle-life reference test. Unit: ampere per ampere-hour (A/Ah). Version 3.2 of the Commission guidance separates the charge C-rate (data point 39) from the discharge C-rate (data point 40): use the subproperties chargeCRateOfCycleLifeTest and dischargeCRateOfCycleLifeTest."@en;
     rdfs:label "C-rate of relevant cycle-life test"@en;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-performance>;
     rdfs:domain bat-performance:BatteryPerformance;
@@ -357,6 +366,14 @@ bat-performance:certifiedUsableBatteryEnergy a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-performance>;
     rdfs:domain bat-performance:BatteryPerformance;
     rdfs:range xsd:decimal.
+bat-performance:chargeCRateOfCycleLifeTest a owl:DatatypeProperty;
+    dcterms:references "Guidance Document: Digital Batteries Passport – data points by category, version 3.2 (19 October 2026), data point 39 (Regulation (EU) 2023/1542, Annex XIII (1p))"@en;
+    rdfs:comment "Charge rate, in terms of rated capacity (C-rate), applied in the relevant cycle-life reference test: data point 39 of the Commission guidance. Unit: ampere per ampere-hour (A/Ah)."@en;
+    rdfs:label "charge C-rate of relevant cycle-life test"@en;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-performance>;
+    rdfs:domain bat-performance:BatteryPerformance;
+    rdfs:range xsd:decimal;
+    rdfs:subPropertyOf bat-performance:cRateOfCycleLifeTest.
 bat-performance:currentSelfDischargeRate a owl:DatatypeProperty;
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 79"@en;
     rdfs:comment "The change of the self-discharge rate in an idle state of the battery in reference conditions (temperature etc.) at aging parameter x, e.g. after a certain amount of storage time or number of cycles. Unit: percent per month (%/month)."@en;
@@ -371,6 +388,14 @@ bat-performance:cycleLifeReferenceTest a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-performance>;
     rdfs:domain bat-performance:BatteryPerformance;
     rdfs:range xsd:string.
+bat-performance:dischargeCRateOfCycleLifeTest a owl:DatatypeProperty;
+    dcterms:references "Guidance Document: Digital Batteries Passport – data points by category, version 3.2 (19 October 2026), data point 40 (Regulation (EU) 2023/1542, Annex XIII (1p))"@en;
+    rdfs:comment "Discharge rate, in terms of rated capacity (C-rate), applied in the relevant cycle-life reference test: data point 40 of the Commission guidance. Unit: ampere per ampere-hour (A/Ah)."@en;
+    rdfs:label "discharge C-rate of relevant cycle-life test"@en;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-performance>;
+    rdfs:domain bat-performance:BatteryPerformance;
+    rdfs:range xsd:decimal;
+    rdfs:subPropertyOf bat-performance:cRateOfCycleLifeTest.
 bat-performance:energyThroughput a owl:DatatypeProperty;
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 88"@en;
     rdfs:comment "The overall sum of the energy throughput over the battery lifetime at a specific time during usage. Unit: kilowatt-hour (kWh)."@en;
@@ -392,14 +417,32 @@ bat-performance:expectedLifetimeCycles a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-performance>;
     rdfs:domain bat-performance:BatteryDurability;
     rdfs:range xsd:integer.
+bat-performance:initialCellInternalResistance a owl:DatatypeProperty;
+    dcterms:references "Guidance Document: Digital Batteries Passport – data points by category, version 3.2 (19 October 2026), data point 38 (Regulation (EU) 2023/1542, Annex XIII (1o))"@en;
+    rdfs:comment "Initial internal resistance at battery cell level: the cell value of data point 38 of the Commission guidance (internal battery cell resistance). Unit: ohm."@en;
+    rdfs:label "initial internal resistance of battery cell"@en;
+    bat-performance:measurementUnit <https://si-digital-framework.org/SI/units/ohm>;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-performance>;
+    rdfs:domain bat-performance:BatteryPerformance;
+    rdfs:range xsd:decimal;
+    rdfs:subPropertyOf bat-performance:initialInternalResistance.
 bat-performance:initialInternalResistance a owl:DatatypeProperty;
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 81"@en;
-    rdfs:comment "'Quotient of change of voltage of a battery by the corresponding change in discharge current under specified conditions' (IEV 482 03 36), at begin of life, for battery cell and pack (module recommended). Unit: ohm."@en;
+    rdfs:comment "'Quotient of change of voltage of a battery by the corresponding change in discharge current under specified conditions' (IEV 482 03 36), at begin of life, for battery cell and pack (module recommended). Unit: ohm. Version 3.2 of the Commission guidance gives the cell and pack values as two items of data point 38: use the subproperties initialCellInternalResistance and initialPackInternalResistance."@en;
     rdfs:label "initial internal resistance of battery cell and pack"@en;
     bat-performance:measurementUnit <https://si-digital-framework.org/SI/units/ohm>;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-performance>;
     rdfs:domain bat-performance:BatteryPerformance;
     rdfs:range xsd:decimal.
+bat-performance:initialPackInternalResistance a owl:DatatypeProperty;
+    dcterms:references "Guidance Document: Digital Batteries Passport – data points by category, version 3.2 (19 October 2026), data point 38 (Regulation (EU) 2023/1542, Annex XIII (1o))"@en;
+    rdfs:comment "Initial internal resistance at battery pack level: the pack value of data point 38 of the Commission guidance (internal battery pack resistance). Unit: ohm."@en;
+    rdfs:label "initial internal resistance of battery pack"@en;
+    bat-performance:measurementUnit <https://si-digital-framework.org/SI/units/ohm>;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-performance>;
+    rdfs:domain bat-performance:BatteryPerformance;
+    rdfs:range xsd:decimal;
+    rdfs:subPropertyOf bat-performance:initialInternalResistance.
 bat-performance:initialRoundTripEnergyEfficiency a owl:DatatypeProperty;
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 74"@en;
     rdfs:comment "The ratio of the net energy delivered by a battery during a discharge test to the total energy required to restore the initial state of charge by a standard charge (see Regulation (EU) 2023/1542, Annex IV (6)). Unit: percent (%)."@en;
@@ -625,6 +668,7 @@ bat-performance:timeSpentInExtremeTemperaturesBelowBoundary a owl:DatatypeProper
     rdfs:range xsd:decimal.
 skos:ConceptScheme a owl:Class.
 eudpp:ClassificationCode a owl:Class.
+eudpp:DigitalInstruction a owl:Class.
 eudpp:Durability a owl:Class.
 eudpp:MaterialOfComposition a owl:Class.
 eudpp:MaterialType a owl:Class.
@@ -705,7 +749,7 @@ bat-chemistries:BatteryChemistryScheme a skos:ConceptScheme, owl:NamedIndividual
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en;
     dcterms:source "Draft Implementing Act on the harmonised format and technical specifications for the labelling of batteries, under Regulation (EU) 2023/1542, Annex VI Part A (7). Not yet adopted; the ten terms of this scheme are the draft ones."@en;
     rdfs:label "Battery chemistries per the draft labelling Implementing Act"@en;
-    skos:editorialNote "Re-check flag. The Implementing Act is still a draft: the ten terms and their notations are to be re-checked on adoption. CIRPASS-2/ontologies-core#25 introduces eudpp:materialTypeScheme on the MAT material type; once it exists, the ten individuals are to carry it, pointing at batchem:BatteryChemistryScheme, so that the CORE mechanism and SKOS both carry the value."@en;
+    skos:editorialNote "Re-check flag. The Implementing Act is still a draft: the ten terms and their notations are to be re-checked on adoption. The ten individuals carry eudpp:materialTypeScheme (MAT v1.1.0, CIRPASS-2/ontologies-core#25), pointing at batchem:BatteryChemistryScheme, so that the CORE mechanism and SKOS both carry the scheme."@en;
     skos:hasTopConcept bat-chemistries:LiIonLCO, bat-chemistries:LiIonLFP, bat-chemistries:LiIonLMO, bat-chemistries:LiIonNCA, bat-chemistries:LiIonNMC, bat-chemistries:LiMetal, bat-chemistries:NaIon, bat-chemistries:NiCd, bat-chemistries:NiMH, bat-chemistries:Pb;
     skos:prefLabel "Battery chemistries per the draft labelling Implementing Act"@en;
     skos:scopeNote "Closed list of ten terms. For secondary (rechargeable) batteries whose electrochemical composition does not correspond to any of these, the composition shall be indicated based on the molecular formula of the cathode and/or anode — that fallback is not a concept of this scheme and is to be handled by the SHACL shapes."@en;
@@ -718,6 +762,7 @@ bat-chemistries:LiIonLCO a skos:Concept, eudpp:MaterialType, owl:NamedIndividual
     skos:notation "Li-ion LCO";
     skos:prefLabel "Lithium ion LCO"@en;
     skos:topConceptOf bat-chemistries:BatteryChemistryScheme;
+    eudpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries>.
 bat-chemistries:LiIonLFP a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en;
@@ -727,6 +772,7 @@ bat-chemistries:LiIonLFP a skos:Concept, eudpp:MaterialType, owl:NamedIndividual
     skos:notation "Li-ion LFP";
     skos:prefLabel "Lithium ion LFP"@en;
     skos:topConceptOf bat-chemistries:BatteryChemistryScheme;
+    eudpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries>.
 bat-chemistries:LiIonLMO a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en;
@@ -736,6 +782,7 @@ bat-chemistries:LiIonLMO a skos:Concept, eudpp:MaterialType, owl:NamedIndividual
     skos:notation "Li-ion LMO";
     skos:prefLabel "Lithium ion LMO"@en;
     skos:topConceptOf bat-chemistries:BatteryChemistryScheme;
+    eudpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries>.
 bat-chemistries:LiIonNCA a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en;
@@ -745,6 +792,7 @@ bat-chemistries:LiIonNCA a skos:Concept, eudpp:MaterialType, owl:NamedIndividual
     skos:notation "Li-ion NCA";
     skos:prefLabel "Lithium ion NCA"@en;
     skos:topConceptOf bat-chemistries:BatteryChemistryScheme;
+    eudpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries>.
 bat-chemistries:LiIonNMC a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en;
@@ -754,6 +802,7 @@ bat-chemistries:LiIonNMC a skos:Concept, eudpp:MaterialType, owl:NamedIndividual
     skos:notation "Li-ion NMC";
     skos:prefLabel "Lithium ion NMC"@en;
     skos:topConceptOf bat-chemistries:BatteryChemistryScheme;
+    eudpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries>.
 bat-chemistries:LiMetal a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en;
@@ -763,6 +812,7 @@ bat-chemistries:LiMetal a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     skos:notation "Li-metal";
     skos:prefLabel "Lithium metal"@en;
     skos:topConceptOf bat-chemistries:BatteryChemistryScheme;
+    eudpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries>.
 bat-chemistries:NaIon a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en;
@@ -772,6 +822,7 @@ bat-chemistries:NaIon a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     skos:notation "Na-ion";
     skos:prefLabel "Sodium-ion"@en;
     skos:topConceptOf bat-chemistries:BatteryChemistryScheme;
+    eudpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries>.
 bat-chemistries:NiCd a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en;
@@ -781,6 +832,7 @@ bat-chemistries:NiCd a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     skos:notation "Ni-Cd";
     skos:prefLabel "Nickel cadmium"@en;
     skos:topConceptOf bat-chemistries:BatteryChemistryScheme;
+    eudpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries>.
 bat-chemistries:NiMH a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en;
@@ -790,6 +842,7 @@ bat-chemistries:NiMH a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     skos:notation "Ni-MH";
     skos:prefLabel "Nickel metal hydride"@en;
     skos:topConceptOf bat-chemistries:BatteryChemistryScheme;
+    eudpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries>.
 bat-chemistries:Pb a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en;
@@ -799,6 +852,7 @@ bat-chemistries:Pb a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     skos:notation "Pb";
     skos:prefLabel "Lead acid"@en;
     skos:topConceptOf bat-chemistries:BatteryChemistryScheme;
+    eudpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries>.
 bat-extinguisher-classes:ClassA a skos:Concept, owl:NamedIndividual;
     dcterms:references "Spherity Battery Pass ontology v0.1, extinguishingAgent"@en;
@@ -896,6 +950,7 @@ bat-metals:Cobalt a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     skos:prefLabel "Cobalt"@en;
     skos:scopeNote "Recycled share is measured on the cobalt present in active materials, recovered from battery manufacturing waste or post-consumer waste. Long list attributes 49 and 52."@en;
     skos:topConceptOf bat-metals:BatteryMetalScheme;
+    eudpp:materialTypeScheme "https://w3id.org/eudpp/battery-metals#BatteryMetalScheme"^^xsd:anyURI;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-metals>.
 bat-metals:Lead a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     dcterms:references "Regulation (EU) 2023/1542, Art. 8(1); BatteryPass-Ready Data Attribute Long List v1.3, attribute 54"@en;
@@ -907,6 +962,7 @@ bat-metals:Lead a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     skos:prefLabel "Lead"@en;
     skos:scopeNote "Lead is the exception in Art. 8(1): the recycled share is measured on the lead present in THE BATTERY, not in active materials, and recovered from waste without the manufacturing / post-consumer split. Long list attribute 54, which has no pre- and post-consumer counterpart."@en;
     skos:topConceptOf bat-metals:BatteryMetalScheme;
+    eudpp:materialTypeScheme "https://w3id.org/eudpp/battery-metals#BatteryMetalScheme"^^xsd:anyURI;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-metals>.
 bat-metals:Lithium a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     dcterms:references "Regulation (EU) 2023/1542, Art. 8(1); BatteryPass-Ready Data Attribute Long List v1.3, attributes 50 and 53"@en;
@@ -917,6 +973,7 @@ bat-metals:Lithium a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     skos:prefLabel "Lithium"@en;
     skos:scopeNote "Recycled share is measured on the lithium present in active materials, recovered from battery manufacturing waste or post-consumer waste. Long list attributes 50 and 53."@en;
     skos:topConceptOf bat-metals:BatteryMetalScheme;
+    eudpp:materialTypeScheme "https://w3id.org/eudpp/battery-metals#BatteryMetalScheme"^^xsd:anyURI;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-metals>.
 bat-metals:Nickel a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     dcterms:references "Regulation (EU) 2023/1542, Art. 8(1); BatteryPass-Ready Data Attribute Long List v1.3, attributes 48 and 51"@en;
@@ -927,6 +984,7 @@ bat-metals:Nickel a skos:Concept, eudpp:MaterialType, owl:NamedIndividual;
     skos:prefLabel "Nickel"@en;
     skos:scopeNote "Recycled share is measured on the nickel present in active materials, recovered from battery manufacturing waste or post-consumer waste. Long list attributes 48 and 51."@en;
     skos:topConceptOf bat-metals:BatteryMetalScheme;
+    eudpp:materialTypeScheme "https://w3id.org/eudpp/battery-metals#BatteryMetalScheme"^^xsd:anyURI;
     rdfs:isDefinedBy <https://w3id.org/eudpp/battery-metals>.
 bat-statuses:Original a skos:Concept, owl:NamedIndividual;
     dcterms:references "Regulation (EU) 2023/1542, Annex XIII 4(c)"@en;

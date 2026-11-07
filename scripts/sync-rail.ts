@@ -35,24 +35,31 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const MODULE_DIR = path.join(ROOT, "extensions/upstream/gs1-rail");
 
-const RAIL_NS = "https://gs1-epcis-reg.org/rail/voc/data#";
-const UPSTREAM_BASE = "https://gs1-epcis-reg.org/rail";
+/**
+ * Since version 2.x GS1 Switzerland publishes the vocabulary from github.com/GS1-Switzerland/WebOntology
+ * (served at https://ref.gs1.ch/voc/rail/; the old gs1-epcis-reg.org host redirects there) under the
+ * namespace https://ref.gs1.ch/voc/rail/. Pinned by commit, bumped deliberately in the sync commit.
+ */
+const RAIL_NS = "https://ref.gs1.ch/voc/rail/";
+const UPSTREAM_COMMIT = "1598a7283684407a57725a1644b71e0fe56f80c2";
+const UPSTREAM_BASE = `https://raw.githubusercontent.com/GS1-Switzerland/WebOntology/${UPSTREAM_COMMIT}/src/sectors/tran/rail`;
 
 interface MirrorTarget {
   url: string;
   outFile: string;
 }
 
+// The 1.6 JSON-LD context (context/rail-context.jsonld) stays frozen: it is served as a context
+// and stored documents expand against it, so a namespace change there would redefine every term.
+// The 2.x context is mirrored beside it for reference. The upstream examples were removed on
+// 2026-11-05 and upstream publishes none for 2.x.
 const VERBATIM: MirrorTarget[] = [
-  { url: `${UPSTREAM_BASE}/rail-context.jsonld`, outFile: "context/rail-context.jsonld" },
-  { url: `${UPSTREAM_BASE}/voc/data/Rail-SHACL.json`, outFile: "validation/Rail-SHACL.json" },
-  { url: `${UPSTREAM_BASE}/voc/data/Rail-EPCIS-SHACL-Generic.json`, outFile: "validation/Rail-EPCIS-SHACL-Generic.json" },
-  { url: `${UPSTREAM_BASE}/examples/Example1.jsonld`, outFile: "examples/Example1.jsonld" },
-  { url: `${UPSTREAM_BASE}/examples/Example2.jsonld`, outFile: "examples/Example2.jsonld" },
-  { url: `${UPSTREAM_BASE}/examples/Example3.jsonld`, outFile: "examples/Example3.jsonld" },
+  { url: `${UPSTREAM_BASE}/ontologies/rail-context.jsonld`, outFile: "context/upstream-2.x/rail-context.jsonld" },
+  { url: `${UPSTREAM_BASE}/shacl/Rail-SHACL.json`, outFile: "validation/Rail-SHACL.json" },
+  { url: `${UPSTREAM_BASE}/shacl/Rail-EPCIS-SHACL-Generic.json`, outFile: "validation/Rail-EPCIS-SHACL-Generic.json" },
 ];
 
-const VOCAB_URL = `${UPSTREAM_BASE}/voc/data/gs1RailVoc.jsonld`;
+const VOCAB_URL = `${UPSTREAM_BASE}/vocabularies/gs1RailVoc.jsonld`;
 const VOCAB_TTL_OUT = "ontology/gs1RailVoc.ttl";
 
 async function fetchText(url: string): Promise<string> {
@@ -70,7 +77,7 @@ async function writeFile(rel: string, text: string): Promise<void> {
 
 /**
  * Convert the upstream JSON-LD vocabulary to Turtle, preserving the
- * upstream namespace https://gs1-epcis-reg.org/rail/voc/data# verbatim.
+ * upstream namespace https://ref.gs1.ch/voc/rail/ verbatim.
  *
  * jsonld.toRDF produces N-Quads; we re-parse with N3 and re-emit as
  * Turtle so the output uses prefix declarations our build pipeline
@@ -93,6 +100,7 @@ async function convertVocabToTurtle(jsonldText: string): Promise<string> {
   const writer = new N3Writer({
     prefixes: {
       rail: RAIL_NS,
+      disco: "https://ref.gs1.ch/voc/disco/",
       gs1: "https://ref.gs1.org/voc/",
       schema: "https://schema.org/",
       epcis: "https://ref.gs1.org/epcis/",

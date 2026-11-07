@@ -1,6 +1,6 @@
 # CIRPASS-2 EUDPP Core Ontology — upstream mirror
 
-**Status:** Mirror (upstream v2.1.0, issued 2026-10-16; documentation refresh of 2026-10-12, CORE 2.1.0 with LCA import of 2026-10-22) • **Layer:** 2 (community upstream profile — EU DPP pilot programme, input to CEN/CENELEC JTC 24) • **Licence:** Apache 2.0, CC BY 4.0 fallback as a document (upstream)
+**Status:** Mirror (upstream v2.2.0, issued 2026-10-30; CC BY 4.0) • **Layer:** 2 (community upstream profile — EU DPP pilot programme, input to CEN/CENELEC JTC 24) • **Licence:** Apache 2.0, CC BY 4.0 fallback as a document (upstream)
 
 This module mirrors the **EUDPP Core Ontology** published by the CIRPASS-2
 project (authored at TalTech). The authoritative sources are upstream:
@@ -49,14 +49,14 @@ The W3ID IRIs remain the identity of every term; only the file source moved.
 
 | Module | Version | Contents |
 |---|---|---|
-| CORE | 2.1.0 | umbrella, `owl:imports` of the nine modules below (LCA included since 2.1.0) |
-| ACTOR | 2.2.0 | `Actor`, `LegalPerson`/`NaturalPerson`, role assignments, `ManufacturerRecord`, facilities |
-| CONNECTOR (CON) | 2.4.0 | cross-module object properties (`hasSubstancePresence`, `hasLCAResult`, `hasPreviousDPP`/`hasNextDPP`, …) |
+| CORE | 2.2.0 | umbrella, `owl:imports` of the nine modules below (LCA included since 2.1.0) |
+| ACTOR | 2.3.0 | `Actor`, `LegalPerson`/`NaturalPerson`, role assignments, `ManufacturerRecord`, facilities |
+| CONNECTOR (CON) | 2.5.0 | cross-module object properties (`hasSubstancePresence`, `hasLCAResult`, `hasPreviousDPP`/`hasNextDPP`, …) |
 | EVENT | 1.0.0 | ESPR product and DPP events; references GS1 EPCIS/CBV IRIs instead of re-declaring them (the 0.1.0 carrier clone is gone) |
-| IDENT | 1.2.0 | identifier schemes with granularity, pattern, issuer, jurisdiction; `FacilityIdentifierScheme` |
-| MAT | 1.1.0 | material composition, origin, recycled-content type, material type scheme/value |
-| P_DPP | 2.2.0 | `DPP`, `Product`, `ProductStatus`, quantitative properties, `dppUrl`/`dppBackupUrl`/`dppSchemaVersion` |
-| SOC | 2.2.0 | `SubstancePresence`, `SubstanceIdentifier`(+ scheme: CAS/EC/ECHA), `ConcentrationRange`/`MaximumConcentration`, ESPR Art. 2(27) criteria (a)–(d) as `SoCQualificationAssertion`, management instructions |
+| IDENT | 1.3.0 | identifier schemes with granularity, pattern, issuer, jurisdiction; `FacilityIdentifierScheme` |
+| MAT | 1.2.0 | material composition, origin, recycled-content type, material type scheme/value |
+| P_DPP | 2.3.0 | `DPP`, `Product`, `ProductStatus`, quantitative properties, `dppUrl`/`dppBackupUrl`/`dppSchemaVersion` |
+| SOC | 2.3.0 | `SubstancePresence`, `SubstanceIdentifier`(+ scheme: CAS/EC/ECHA), `ConcentrationRange`/`MaximumConcentration`, ESPR Art. 2(27) criteria (a)–(d) as `SoCQualificationAssertion`, management instructions |
 | COMP | 1.0.0 | declarations of conformity, harmonised standards, common specifications, NLF modules A–H1 |
 | LCA | 3.1 | ILCD+EPD model rebuilt: `LCAStudy`/`EPDStudy`, `LCAResult` → `LCIAResult`/`InventoryIndicatorResult`/…, `LCAModuleValue` per `LifeCycleModule` (A1–D), EN 15804+A2 indicators `ind_*`, EF 3.1 impact categories, PCR/PEFCR, reviews, licence types |
 
