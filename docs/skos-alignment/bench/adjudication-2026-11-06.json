@@ -1,0 +1,2814 @@
+[
+ {
+  "src": "eubat:hasNominalVoltage",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasNominalVoltage",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#minimalVoltage",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "direction": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Annex XIII 1(h) lists minimal, nominal and maximum voltage as sibling values, and the candidate is the minimal-voltage element, a different data point from the nominal operating voltage.",
+   "sonnet": "Nominal voltage is a rated value, while the candidate is the minimal voltage limit under Annex XIII 1(h), which is a different data point.",
+   "fable": "Annex XIII 1(h) lists minimal, nominal and maximum voltage as distinct sibling elements, so the minimal-voltage data point is a different quantity from the nominal voltage ours carries, and a separate nominalVoltage element is the proper target.",
+   "haiku": "The upstream element is the minimal voltage limit from Regulation (EU) 2023/1542 Annex XIII, which is a threshold, while our term is the rated nominal operating voltage, so they are different data points and a limit is not a rated value."
+  }
+ },
+ {
+  "src": "eubat:safetyInstructionsForDismantling",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/safetyInstructionsForDismantling",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures",
+  "final": "EXACT",
+  "by": "auto",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "skeptic": "EXACT",
+   "scope": "EXACT",
+   "direction": "EXACT"
+  },
+  "why": {
+   "opus": "Both name the web-linked safety-measures data point of Regulation (EU) 2023/1542 Annex XIII 2(d), which belongs to the dismantling and end-of-life information block, so limiting ours to dismantling safety does not make it a different data point.",
+   "sonnet": "Both are web-link data points for safety measures in the Annex XIII 2 dismantling and end-of-life information context of Regulation (EU) 2023/1542, so they most likely name the same data point, though the upstream label is more general.",
+   "fable": "Both are a web link carrying the Annex XIII 2(d) 'safety measures' data point, which in the Regulation's dismantling-information context is the safety requirements for handling/dismantling the battery; the dismantling qualifier in our definition is its legal context, not a different element.",
+   "haiku": "Both terms are a web link to the dismantling safety measures that Annex XIII point 2(d) of Regulation (EU) 2023/1542 requires, so the upstream cites the same legal provision and the same data point, with the restricted access scope not changing the grade."
+  }
+ },
+ {
+  "src": "eubat:hasTemperatureRangeStorage",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasTemperatureRangeStorage",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#notInUseTemperatureRange",
+  "final": "EXACT",
+  "by": "auto",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "direction": "EXACT",
+   "scope": "EXACT",
+   "skeptic": "EXACT"
+  },
+  "why": {
+   "opus": "Both name the allowable temperature range for a battery that is stored and not in use, the data point in Regulation (EU) 2023/1542 Annex XIII 1(l); the structured range object versus the min/max-plus-text encoding is only a difference in representation.",
+   "sonnet": "Both describe the temperature range a battery tolerates when not in use (storage), corresponding to Annex XIII 1(l) of Regulation (EU) 2023/1542; the structured range versus min/max plus free text is only a representation difference.",
+   "fable": "Both name the storage/not-in-use temperature range the battery can withstand per Annex XIII 1(l) of Regulation 2023/1542, differing only in representation (structured range object vs min/max plus free text).",
+   "haiku": "Both terms name the allowable temperature range for a battery when it is not in use (storage), and the upstream definition cites the same Annex XIII 1(l) provision; the differing range representation (structured object versus min/max plus free text) does not change the grade."
+  }
+ },
+ {
+  "src": "eubat:hasTemperatureRangeStorage",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasTemperatureRangeStorage",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#notInUseTemperatureRangeTest",
+  "final": "NONE",
+  "by": "claude",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "EXACT",
+   "fable": "NONE",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "scope": "BROAD",
+   "direction": "EXACT",
+   "skeptic": "BROAD"
+  },
+  "why": {
+   "opus": "The upstream element is the reference-test sub-element of the Annex XIII 1(l) bundle, which describes the test method, while our term carries the storage temperature range value itself, so they are different data points.",
+   "sonnet": "Both name the temperature range the battery can withstand when not in use (storage), which is the Annex XIII 1(l) data point; the 'reference test' wording and the free-text qualifier are representation differences only.",
+   "fable": "The candidate is the reference test method sub-element of the not-in-use temperature range bundle, whereas our term carries the allowable range values themselves, so they are different data points (test reference vs. range).",
+   "haiku": "Both cite the same Annex XIII 1(l) provision for the temperature range the battery can withstand when not in use, which is the storage range, and the upstream range values are the same data point with an added test-reference qualifier; the label naming a 'reference test' and its 'Part of' link make this less certain."
+  },
+  "note": "das Element ist der Referenztest, nicht der Bereich; der Bereich selbst ist notInUseTemperatureRange"
+ },
+ {
+  "src": "eubat:cathodeActiveMaterial",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/cathodeActiveMaterial",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#batteryChemistry",
+  "final": "CLOSE",
+  "by": "sven",
+  "votes": {
+   "opus": "CLOSE",
+   "sonnet": "NARROW",
+   "fable": "NARROW",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "direction": "CLOSE",
+   "scope": "CLOSE",
+   "skeptic": "NARROW"
+  },
+  "why": {
+   "opus": "The Annex VI Part A 7 data point is a single code-list classification of the whole battery's chemistry (such as LFP or NMC), whereas ours records the cathode active material's chemical formula, so the two overlap in subject but are different data points rather than parts of a bundled value.",
+   "sonnet": "Cathode active material is one component of the battery chemistry data point (Annex VI Part A 7), which covers the overall chemistry, so ours is a part of the bundled upstream value.",
+   "fable": "The upstream element is the overall battery chemistry code per Annex VI Part A point 7, while ours captures only the cathode active material composition, one constituent of that chemistry (its domain is eubat:BatteryChemistry), so ours is a special case of the upstream data point.",
+   "haiku": "Both concern battery chemistry, but the upstream element is the overall chemistry code list from Annex VI Part A point 7, while our term is the cathode active material composition, a different data point that overlaps with it."
+  }
+ },
+ {
+  "src": "eubat:hasDismantlingInstructions",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingInstructions",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation",
+  "final": "EXACT",
+  "by": "auto",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "scope": "EXACT",
+   "skeptic": "EXACT",
+   "direction": "EXACT"
+  },
+  "why": {
+   "opus": "Both name the Annex XIII 2(c) dismantling data point, provided as a link to a document. Our 'instructions for safe disassembly' document is the same deliverable the upstream lists as including diagrams, sequences, fastenings, tools and warnings, rather than one of its sub-values.",
+   "sonnet": "Both name the same data point, a link to the dismantling/disassembly document for the battery under Annex XIII 2(c) of Regulation (EU) 2023/1542; the upstream's listed contents only describe what the document holds.",
+   "fable": "Both name the same data point\u2014a reference (web link/resource) to the battery's dismantling instructions per Regulation (EU) 2023/1542 Annex XIII 2(c)\u2014and the upstream's enumerated minimum content merely elaborates what such instructions contain, not a different concept.",
+   "haiku": "Both name the same data point, dismantling information/instructions for safe disassembly from Regulation (EU) 2023/1542 Annex XIII 2(c), and the upstream's web-link representation does not change the grade, though its bundled content list makes this less than certain."
+  }
+ },
+ {
+  "src": "eubat:hasDismantlingInstructions",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingInstructions",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#wasteBatterySafetyInstructions",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "CLOSE",
+   "fable": "NONE",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "skeptic": "NONE",
+   "scope": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element is public end-user information on safely handling waste batteries under Article 74(1). Our term is the dismantling and disassembly instructions document, which is a separate, restricted-access legal data point (Annex XIII point 2), so the two are different data points.",
+   "sonnet": "Both concern safe end-of-life handling of the battery, but dismantling instructions (a document for safe disassembly) and safety instructions for handling waste batteries (Annex XIII 1(s)) are distinct data points, each covering content the other excludes.",
+   "fable": "The candidate is the Article 74(1)(d) end-user safety-handling information for waste batteries, whereas our term is the Annex XIII 3(c) dismantling/disassembly information, a separate data element with a different referent.",
+   "haiku": "The upstream element is defined by its label as safety instructions for handling waste batteries, drawn from a shared Article 74(1) provision, so it overlaps with our safe-disassembly instructions reference but is not the same data point."
+  }
+ },
+ {
+  "src": "eubat:anodeActiveMaterial",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/anodeActiveMaterial",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#batteryChemistry",
+  "final": "NARROW",
+  "by": "majority",
+  "votes": {
+   "opus": "NARROW",
+   "sonnet": "NARROW",
+   "fable": "NARROW",
+   "haiku": "NARROW"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "direction": "NONE",
+   "scope": "NARROW"
+  },
+  "why": {
+   "opus": "The upstream Annex VI Part A point 7 element gives the overall battery chemistry, and the anode active material is one constituent that partly characterises it, so ours is a narrower part. The match is weak because the upstream is a single code-list value rather than an explicit multi-component composition.",
+   "sonnet": "Anode active material is one component of the overall battery chemistry (Annex VI Part A 7), which also covers cathode and electrolyte, so ours is a part of that bundled data point.",
+   "fable": "Anode active material composition is one constituent of the overall battery chemistry data point (Annex VI Part A point 7), which bundles cathode, anode and electrolyte chemistry, so ours is a part of the upstream element.",
+   "haiku": "The upstream battery chemistry data point (Annex VI Part A point 7) bundles the battery's overall chemistry, of which the anode active material is one component, so our term is a narrower special case of it."
+  }
+ },
+ {
+  "src": "eubat:carbonFootprintDeclarationId",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/carbonFootprintDeclarationId",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#digitalProductPassportId",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "skeptic": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Different referent: ours identifies a carbon footprint declaration document, while the upstream element identifies an instance of the digital product passport itself.",
+   "sonnet": "The identifiers have different referents: ours identifies a carbon footprint declaration document, while the upstream one identifies an instance of the digital product passport.",
+   "fable": "Ours identifies a carbon footprint declaration document while the candidate identifies a digital product passport instance, a different referent.",
+   "haiku": "Our term identifies a carbon footprint declaration, while the upstream identifies the digital product passport instance, a different referent, so no mapping should be published."
+  }
+ },
+ {
+  "src": "eubat:hasMinimumVoltage",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasMinimumVoltage",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#nominalVoltage",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "direction": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Ours is the minimum allowable voltage, a discharge limit that protects against deep discharge, while the candidate is the nominal operating voltage under Annex XIII 1(h), so they are different data points (a limit versus a rated value).",
+   "sonnet": "Minimum allowable voltage is a lower limit that prevents deep discharge, while nominal voltage is a rated value, so they are different data points under the rule that a threshold or limit is not a rated value.",
+   "fable": "Minimum allowable voltage (a lower discharge limit) is a different data point from the nominal voltage of Annex XIII 1(h); a limit/threshold is not the rated nominal value.",
+   "haiku": "Our term is a minimum allowable voltage limit to prevent deep discharge, while the upstream term is the rated nominal voltage (Annex XIII 1(h)), so a limit is not the same data point as a rated value and the rules exclude this pairing."
+  }
+ },
+ {
+  "src": "eubat:expectedCycleLife",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/expectedCycleLife",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#expectedLifetimeCyclesRest",
+  "final": "NONE",
+  "by": "claude",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "skeptic": "EXACT",
+   "scope": "EXACT",
+   "direction": "EXACT"
+  },
+  "why": {
+   "opus": "Both definitions describe the expected battery lifetime expressed as a number of charge-discharge cycles under the reference conditions of Annex XIII 4(a) of Regulation (EU) 2023/1542, and the 'Rest' suffix only marks restricted access.",
+   "sonnet": "Both name the expected battery lifetime in cycles under reference conditions (Regulation (EU) 2023/1542 Annex XIII 4(a)); the access restriction and non-cycle exemption are qualifiers that do not change the data point.",
+   "fable": "Both name the expected number of charge-discharge cycles under reference conditions (Annex XIII 4(a)); the access-restriction qualifier does not change the data point.",
+   "haiku": "Both terms name the same data point, the expected number of charge-discharge cycles under reference conditions, and the upstream definition cites the same Annex XIII 4(a) provision of Regulation (EU) 2023/1542; the differences in restriction and applicability do not change the data point."
+  },
+  "note": "schon exactMatch auf das statische expectedLifetimeCycles (Annex XIII 1 j); Rest ist der dynamische Wert nach 4 a"
+ },
+ {
+  "src": "eubat:roundTripEfficiency",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/roundTripEfficiency",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency",
+  "final": "EXACT",
+  "by": "sven",
+  "votes": {
+   "opus": "NARROW",
+   "sonnet": "EXACT",
+   "fable": "NARROW",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "direction": "EXACT",
+   "scope": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element cites Annex XIII 4(a) and Annex IV(6), a data point covering round-trip efficiency over the battery's life (initial and later, updated on status change), so our initial-only value is one of the values it comprises.",
+   "sonnet": "Both name the energy round-trip efficiency percentage of a battery under Regulation (EU) 2023/1542 Annex IV(6)/XIII, and the 'initial' qualifier on our side is only a minor scope difference.",
+   "fable": "Both name the Annex IV(6) round-trip energy efficiency percentage, but the upstream element under Annex XIII 4(a) covers the value at placing on the market and its later status-change updates, while ours is restricted to the initial value only, making ours a special case.",
+   "haiku": "Both cite the same provision (Regulation (EU) 2023/1542 Annex XIII 4(a), defined in Annex IV(6)) and describe the same energy round-trip efficiency percentage; the upstream's applicability and access restrictions are representation or scope details that do not change the data point."
+  }
+ },
+ {
+  "src": "eubat:hasDismantlingDocuments",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingDocuments",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation",
+  "final": "EXACT",
+  "by": "majority",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "direction": "EXACT",
+   "skeptic": "EXACT",
+   "scope": "EXACT"
+  },
+  "why": {
+   "opus": "Both name the battery dismantling information data point required by Regulation (EU) 2023/1542 Annex XIII 2(c), which DIN DKE SPEC 99100 implements; the upstream supplies it as a web link and ours as document objects, a representation difference only.",
+   "sonnet": "Both name the same data point, the dismantling documentation of the battery (Annex XIII 2(c) dismantling information, supplied as documents or a web link), and differing representation (document objects vs web link) does not lower the grade.",
+   "fable": "Both name the battery passport's dismantling information data point (Annex XIII 2(c), as implemented by DIN DKE SPEC 99100); a structured document object versus a web link is only a representation difference.",
+   "haiku": "Both concern battery dismantling information, but ours points to documents under DIN DKE SPEC 99100 while the upstream element is the content mandated by Regulation (EU) 2023/1542 Annex XIII 2(c), so they cite different provisions and are not the same data point."
+  }
+ },
+ {
+  "src": "eubat:informationOnCollection",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/informationOnCollection",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#separateCollectionPoints",
+  "final": "BROAD",
+  "by": "sven",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "BROAD"
+  },
+  "qa": {
+   "direction": "EXACT",
+   "skeptic": "EXACT",
+   "scope": "EXACT"
+  },
+  "why": {
+   "opus": "Both name the Annex XIII 1(s) / Article 74(1) data point on where and how waste batteries are separately collected; the URL-versus-text representation and the small extra mention of procedures are minor scope differences that do not change the data point.",
+   "sonnet": "The upstream label names the element covering separate collection points (Art. 74(1) info on collection), and our 'Information on Collection' URL to collection points and procedures carries the same data point; representation (URL vs free text) does not change the grade.",
+   "fable": "Both name the Article 74(1)(b)/Annex XIII 1(s) data point on where and how waste batteries are separately collected; the URL-versus-free-text representation and the minor 'procedures' wording do not change the grade.",
+   "haiku": "Upstream covers only separate collection points, while our term also covers collection procedures, so ours is the broader concept; the URL-versus-text difference is only representation and does not change the grade."
+  }
+ },
+ {
+  "src": "eubat:informationOnCollection",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/informationOnCollection",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#takeBackCollectionPoints",
+  "final": "BROAD",
+  "by": "sven",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "CLOSE",
+   "fable": "EXACT",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "skeptic": "EXACT",
+   "direction": "EXACT",
+   "scope": "EXACT"
+  },
+  "why": {
+   "opus": "Both name the Annex XIII 1(s) / Article 74(1) data point on where and how waste batteries are taken back and collected, and a URL versus free-text representation does not change the grade.",
+   "sonnet": "Both concern collection points for waste batteries, but ours is a URL covering collection points and procedures while the upstream element names take-back and collection points. The shared definition is only the provision's context, so the data points overlap without being identical.",
+   "fable": "Both name the same Annex XIII 1(s) / Art. 74(1) data point about take-back and collection points for waste batteries; our URL versus their free text is only a representation difference.",
+   "haiku": "Both concern information on collection points, but the upstream element is the take-back and collection-point information from Article 74(1) and ours also covers collection procedures, so the scopes overlap without being the same data point."
+  }
+ },
+ {
+  "src": "eubat:hasRemainingRoundTripEfficiency",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasRemainingRoundTripEfficiency",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency",
+  "final": "EXACT",
+  "by": "majority",
+  "votes": {
+   "opus": "NARROW",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "scope": "EXACT",
+   "direction": "EXACT",
+   "skeptic": "EXACT"
+  },
+  "why": {
+   "opus": "The upstream element is the general Annex XIII 4(a) energy round trip efficiency, which holds the value at placing on the market and is updated on status change, so our current/remaining value is one case of that broader data point.",
+   "sonnet": "The upstream element is the Annex XIII 4(a) dynamic state-of-health value, updated on status change, which corresponds to our current (remaining) round trip efficiency, though it also refers to the Annex IV (6) definition.",
+   "fable": "Both name the battery's round trip energy efficiency as a percentage, and the upstream element is explicitly dynamic (updated on status change), i.e. the current value rather than a rated or initial one, matching our 'current' definition.",
+   "haiku": "Both cite the same provision (Regulation (EU) 2023/1542 Annex XIII point 4(a), as defined in Annex IV) for the same round-trip energy efficiency quantity, and the upstream dynamic-update note matches our 'current' value, so the difference is representational."
+  }
+ },
+ {
+  "src": "eubat:hasRemainingRoundTripEfficiency",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasRemainingRoundTripEfficiency",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiencyFade",
+  "final": "NONE",
+  "by": "sven",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "CLOSE",
+   "fable": "CLOSE",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "skeptic": "NONE",
+   "scope": "NONE"
+  },
+  "why": {
+   "opus": "Ours is the current remaining round-trip efficiency value, whereas the upstream element is the fade, meaning the relative decrease from the initial efficiency; the regulation lists these as separate state-of-health parameters, so they are different measured quantities.",
+   "sonnet": "Both concern round trip efficiency degradation over battery life under Annex XIII 4(a), but fade (loss relative to initial) is a different data point from the current remaining efficiency value.",
+   "fable": "Both concern the battery's current round-trip energy efficiency state under Annex XIII 4(a), but ours is the current efficiency value while the candidate is the fade (loss relative to initial), a sibling data point rather than the same one.",
+   "haiku": "Both concern battery round trip energy efficiency, but the upstream element is the fade (degradation) of that efficiency, a different data point from the current efficiency value that our term describes."
+  }
+ },
+ {
+  "src": "eubat:hasRemainingRoundTripEfficiency",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasRemainingRoundTripEfficiency",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEfficiencyAtHalfCycleLife",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "CLOSE",
+   "fable": "NONE",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "direction": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element is a declared efficiency value at a fixed point, 50% of cycle life (Annex XIII 1(n)), while ours is the current, measured state-of-health efficiency, so the rule separating declared from measured or remaining values excludes a mapping.",
+   "sonnet": "Both concern round-trip energy efficiency, but ours is the current (remaining) value at any time while the upstream is a specific value at 50% of cycle life, so they are different data points; the 'current vs. fixed-point' distinction prevents EXACT.",
+   "fable": "The candidate is a declared value at a fixed lifecycle milestone (50 % of cycle life, Annex XIII 1(n)), whereas ours is the current/remaining measured efficiency (Annex XIII part 4 state-of-health data), so declared versus current values are different data points.",
+   "haiku": "Both concern battery round-trip efficiency, but ours is the current (remaining) value while the upstream element is defined at 50% of cycle life under Annex XIII, so they are different data points."
+  }
+ },
+ {
+  "src": "eubat:safetyMeasures",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/safetyMeasures",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#wasteBatterySafetyInstructions",
+  "final": "EXACT",
+  "by": "auto",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "skeptic": "EXACT",
+   "scope": "EXACT",
+   "direction": "EXACT"
+  },
+  "why": {
+   "opus": "Both name the same data point: safety guidance for handling the battery at end of life, i.e. the waste-battery safety instructions element of Annex XIII 1(s); the text-or-URL representation does not change the grade.",
+   "sonnet": "Both name end-of-life safety guidance for handling waste batteries; the upstream label identifies the specific element in Annex XIII 1(s), and differences in representation (text or URL) do not lower the grade.",
+   "fable": "Both name the same data point: end-of-life safety guidance for handling waste batteries under Annex XIII 1(s)/Article 74(1), with only representation (text vs URL fragment) differing.",
+   "haiku": "Both describe the same data point, safety guidance for handling batteries at end of life, and the upstream label names this one element of the shared Article 74(1) provision, so the bundling does not split it from ours."
+  }
+ },
+ {
+  "src": "eubat:safetyMeasures",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/safetyMeasures",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#preparationForReuseFacilities",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "scope": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "The candidate element covers only the information on preparation-for-reuse facilities within the shared Article 74(1) provision. That is a different referent from end-of-life handling safety guidance.",
+   "sonnet": "Our term is end-of-life safety guidance, while the upstream element names information on preparation for reuse facilities (Annex XIII 1(s)), which is a different data point; they share only the waste-battery context.",
+   "fable": "The candidate names the sibling element on preparation-for-reuse facilities within the Article 74(1) bundle, whereas ours carries the separate safety-instructions element, so they are different data points rather than overlapping concepts.",
+   "haiku": "Our term is end-of-life safety guidance text, while the upstream element names information on preparation-for-reuse facilities, a different data point; the shared Article 74(1) legal text only supplies context, and no sibling element covers safety guidance."
+  }
+ },
+ {
+  "src": "eubat:hasCurrentSelfDischargingRate",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasCurrentSelfDischargingRate",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRateSet",
+  "final": "NARROW",
+  "by": "sven",
+  "votes": {
+   "opus": "NARROW",
+   "sonnet": "CLOSE",
+   "fable": "NARROW",
+   "haiku": "NARROW"
+  },
+  "qa": {
+   "scope": "EXACT",
+   "direction": "EXACT",
+   "skeptic": "NARROW"
+  },
+  "why": {
+   "opus": "The upstream element under Annex XIII 4(b) is a timestamped series recording how the self-discharging rate evolves, so our single current rate is one value within that set rather than the whole data point.",
+   "sonnet": "Both concern battery self-discharge under Annex XIII 4(b), but ours is a single current rate while upstream is the evolution (a timestamped series) of rates per year, so they overlap without being the same data point.",
+   "fable": "The upstream Annex XIII 4(b) element is the timestamped evolution (series) of self-discharging rates, of which our single current-rate value is one entry, so ours is the special case of the bundled data point.",
+   "haiku": "The upstream element is the whole evolution of self-discharging rates as timestamped values under Annex XIII 4(b), so OUR single current rate is one value that the upstream data point comprises rather than the same data point."
+  }
+ },
+ {
+  "src": "eubat:hasMinimumTemperature",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasMinimumTemperature",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#notInUseTemperatureRange",
+  "final": "NARROW",
+  "by": "majority",
+  "votes": {
+   "opus": "NARROW",
+   "sonnet": "NARROW",
+   "fable": "NONE",
+   "haiku": "NARROW"
+  },
+  "qa": {
+   "scope": "NARROW",
+   "direction": "NARROW",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "The upstream Annex XIII 1(l) data element is a bundled range of min_T and max_T, and our property carries only the minimum value of a battery temperature range, making it one part of that data point.",
+   "sonnet": "The upstream data point bundles min and max temperatures of the not-in-use range, and our generic minimum-bound property carries only one of those values (rule 4).",
+   "fable": "Our property is a generic lower-bound slot of any eubat:TemperatureRange (in-use or not-in-use), not the specific Annex XIII 1(l) not-in-use range data point, which would instead map to the property whose range is the TemperatureRange object itself.",
+   "haiku": "The upstream data point is the whole temperature range the battery withstands when not in use, which legally bundles a min_T and max_T plus free text under Annex XIII 1(l), so our minimum-only property is one value comprised by it and therefore narrower."
+  }
+ },
+ {
+  "src": "eubat:expectedRemainingLifetimeMonths",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/expectedRemainingLifetimeMonths",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#expectedLifetimeYears",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element is the total expected lifetime the battery was designed for under reference conditions (Annex XIII 4(a)), whereas ours is the estimated remaining useful lifetime, and an original or design value is not a remaining one.",
+   "sonnet": "Ours is an estimated remaining (current) lifetime in months, while the upstream is the designed expected lifetime under reference conditions in years, so a remaining value is not the same data point as an original or designed one.",
+   "fable": "The upstream element is the total expected lifetime under design reference conditions (Annex XIII 4(a)), a declared original value, whereas ours is the remaining useful lifetime estimate, and an original value is not a remaining one.",
+   "haiku": "The upstream element is the declared design lifetime under reference conditions (Annex XIII 4(a), in years), whereas our term is the estimated remaining lifetime in months, so a declared value is not a remaining one."
+  }
+ },
+ {
+  "src": "eubat:hasMaximumPermittedBatteryPower",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasMaximumPermittedBatteryPower",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#originalPowerCapability",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NARROW",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Ours is the maximum permitted power limit, a separate Annex XIII data point, whereas the candidate is the original power capability under Annex XIII 1(i). A permitted limit is not the battery's actual power capability, so no mapping should be published.",
+   "sonnet": "The upstream 'power' data point from Annex IV (3) of Regulation 2023/1542 bundles several power values, and our single maximum permitted battery power is one of them, so ours is the narrower term (rule 4).",
+   "fable": "Ours is the declared power limit ('limits' sibling in Annex XIII 1(i)), whereas the candidate is the measured original power capability at beginning of life, so a limit is being compared with a measured value, not the same data point.",
+   "haiku": "Our term is a regulatory limit (maximum permitted power), while the upstream element is the battery's original power capability, a rated value the upstream definition does not describe as a permitted maximum, so these are different data points and the threshold-versus-rated distinction applies."
+  }
+ },
+ {
+  "src": "eubat:hasMaximumPermittedBatteryPower",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasMaximumPermittedBatteryPower",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NARROW",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "scope": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element is the dynamic, state-of-health power capability under Annex XIII 4(a), which is a measured and updated value, whereas ours is a declared maximum permitted power limit, so threshold and measured value must not be mapped.",
+   "sonnet": "The upstream 'Power capability' element (Annex XIII 4(a), referring to Annex IV (3)) bundles several power values, and our maximum permitted battery power is one of them, so ours is the narrower term.",
+   "fable": "Ours is a declared maximum permitted limit, whereas the upstream element is the dynamic measured power capability under Annex XIII 4(a)/Annex IV updated on status change, so it is a limit versus a measured value.",
+   "haiku": "Our term is a declared maximum permitted limit on battery power, while the upstream Power capability is a performance parameter from Annex XIII 4(a) and Annex IV(3), so they are different data points, not the same one or overlapping subjects with a clean grade."
+  }
+ },
+ {
+  "src": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/timeSpentInExtremeTemperaturesBelowBoundary",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#environmentalConditionHistogram",
+  "final": "NARROW",
+  "by": "majority",
+  "votes": {
+   "opus": "NARROW",
+   "sonnet": "NARROW",
+   "fable": "NARROW",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "NARROW",
+   "skeptic": "NARROW"
+  },
+  "why": {
+   "opus": "The upstream data element covers all periodically recorded operating environmental conditions, including temperature, under Annex XIII 4(d), so cumulative time below the lower temperature boundary is one value within that bundled record.",
+   "sonnet": "Our term carries one bin (time below the lower temperature boundary) of the upstream temperature histogram under Annex XIII 4(d), so it is a part of that bundled data point.",
+   "fable": "Both derive from Annex XIII 4(d) operating environmental condition records, and our cumulative time below the lower temperature boundary is one component value of the histogram of temperature exposure that the upstream data point comprises.",
+   "haiku": "The candidate is a histogram container of periodically recorded operating conditions across many dimensions, while our term is a single cumulative-time scalar below a temperature boundary, so this is a structural grouping rather than the same or a comparable data point."
+  }
+ },
+ {
+  "src": "eubat:hasMaximumDischargingPower",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasMaximumDischargingPower",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#originalPowerCapability",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NARROW",
+   "fable": "NONE",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Ours is the maximum allowed (permitted limit) discharging power, while the upstream element is the original power capability from Annex XIII 1(i) and Annex IV(3), a different data point: a permitted limit is not a capability value.",
+   "sonnet": "The upstream original power capability under Annex XIII 1(i) / Annex IV(3) bundles power values, and our maximum discharging power is one component of it, so ours is narrower.",
+   "fable": "Ours is an allowed limit (maximum permitted discharging power) while the candidate is the original measured power capability under Annex XIII 1(i)/Annex IV(3), so a threshold versus a measured original value is a different data point.",
+   "haiku": "Both concern battery discharging power, but ours is a maximum allowed limit while the upstream is the original (rated) power capability from Annex IV, so they are overlapping but distinct data points, and the unit difference (kW vs W) does not affect the grade."
+  }
+ },
+ {
+  "src": "eubat:hasMaximumDischargingPower",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasMaximumDischargingPower",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability",
+  "final": "NONE",
+  "by": "sven",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NARROW",
+   "fable": "NARROW",
+   "haiku": "NARROW"
+  },
+  "qa": {
+   "scope": "NONE",
+   "skeptic": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element is the dynamic power capability under Annex XIII 4(a), a value updated as the battery's status changes, whereas ours is the maximum allowed discharging power limit, so a limit is being set against a current performance value.",
+   "sonnet": "Upstream 'Power capability' (Annex IV(3)/XIII 4(a)) is a general power figure that can cover charge and discharge limits, so our discharging-only maximum is one component of it.",
+   "fable": "The upstream element per Annex IV(3) bundles charge and discharge power limits, and our term carries only the discharge value, making it one component of that bundled data point.",
+   "haiku": "The upstream 'Power capability' is a general power parameter from Annex XIII 4(a) that covers the battery's power in both directions, so our discharging-only maximum is one value within that bundled data point, though the 'maximum allowed' limit wording makes the match uncertain."
+  }
+ },
+ {
+  "src": "eubat:hasEvolutionOfSelfDischarge",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasEvolutionOfSelfDischarge",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRate",
+  "final": "BROAD",
+  "by": "sven",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "direction": "EXACT",
+   "scope": "EXACT",
+   "skeptic": "EXACT"
+  },
+  "why": {
+   "opus": "Both name the evolution of self-discharging rates under Regulation (EU) 2023/1542 Annex XIII 4(b), expressed in percent; the upstream timestamp is an optional qualifier and does not change the data point.",
+   "sonnet": "Both name the evolution of self-discharging rate under Regulation (EU) 2023/1542 Annex XIII 4(b), and the upstream label 'Self-discharging rates' is only the element name for that provision, with differences in representation (timestamp/percent per year vs. a percent quantity) not affecting the grade.",
+   "fable": "Both name the evolution of self-discharge rate under Annex XIII 4(b) as a percentage change over time; the timestamp qualifier and structured value object are representational differences only.",
+   "haiku": "Both define the same data point, the evolution of the self-discharge rate, and the upstream definition cites the same provision (Annex XIII 4(b) of Regulation 2023/1542); the timestamp and per-year unit are representation details, not a different quantity."
+  }
+ },
+ {
+  "src": "eubat:expectedRemainingCycles",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/expectedRemainingCycles",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#expectedLifetimeCycles",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element is the declared expected total battery lifetime in cycles (Annex XIII 1(j)), whereas ours is an estimate of the cycles still remaining, and an original or declared value is not a remaining one.",
+   "sonnet": "Our term is the estimated remaining cycles, a current-state value, while the upstream term is the expected total battery lifetime in cycles under Annex XIII 1(j); a remaining value is not the original or total expected value.",
+   "fable": "The upstream element is the declared total expected lifetime in cycles under Annex XIII 1(j), whereas ours is an estimate of cycles still remaining, and an original/declared lifetime value is not a remaining one.",
+   "haiku": "The upstream element is the total expected lifetime in cycles from Annex XIII 1(j), while our term is the estimated remaining cycles, and an original or total value is not a remaining one."
+  }
+ },
+ {
+  "src": "eubat:hasInternalResistance",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasInternalResistance",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalPackResistance",
+  "final": "EXACT",
+  "by": "auto",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "direction": "EXACT",
+   "skeptic": "EXACT",
+   "scope": "EXACT"
+  },
+  "why": {
+   "opus": "Both definitions describe the battery-level internal resistance in ohms, the data point required by Annex XIII 1(o) of Regulation (EU) 2023/1542, and neither specifies a different measurement stage or a cell-only scope.",
+   "sonnet": "Both denote the battery's internal resistance in ohms; the upstream element (Annex XIII 1(o) of Regulation 2023/1542) specifies it at pack level, a minor scope difference that does not change the data point.",
+   "fable": "Both name the internal resistance of the battery as a whole (the pack) in Ohms per Annex XIII 1(o); our generic 'battery' resistance on a Product is the pack-level value, so representation differences do not lower the grade.",
+   "haiku": "Both terms name the battery's internal resistance in Ohms, and the upstream definition cites Regulation (EU) 2023/1542 Annex XIII 1(o), so the same legal data point is likely; the 'pack' qualifier is the main reason for less than full certainty."
+  }
+ },
+ {
+  "src": "eubat:hasInternalResistance",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasInternalResistance",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalCellResistance",
+  "final": "BROAD",
+  "by": "sven",
+  "votes": {
+   "opus": "BROAD",
+   "sonnet": "EXACT",
+   "fable": "BROAD",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "skeptic": "CLOSE",
+   "scope": "BROAD",
+   "direction": "BROAD"
+  },
+  "why": {
+   "opus": "Our definition covers battery internal resistance in general, with no cell or pack level stated, while the upstream element under Annex XIII 1(o) is limited to cell-level resistance, so the upstream term is a special case of ours.",
+   "sonnet": "Both denote the battery's internal resistance in ohms, which is the Annex XIII 1(o) data point; the cell versus battery wording is only a minor scope difference.",
+   "fable": "Our definition covers battery internal resistance generally (cell or pack level, Annex XIII 1(o) bundles both), while the upstream element is restricted to the cell-level resistance, making it a special case of ours.",
+   "haiku": "Both terms name the same quantity, internal resistance of the battery in ohms, and the upstream definition cites the regulatory provision (Regulation 2023/1542 Annex XIII 1(o)) for that measure; the residual uncertainty is whether 'battery' (product) versus 'battery cell' is a scope difference."
+  }
+ },
+ {
+  "src": "eubat:hasDismantlingAndRemovalInformation",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingAndRemovalInformation",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#wasteBatteryPreventionManagementInfo",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NARROW"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element covers the Article 74(1)(a)\u2013(f) end-user information on waste prevention, collection and take-back, which does not include the dismantling and removal instructions document that our term references.",
+   "sonnet": "The upstream element carries end-user waste prevention and collection information under Article 74(1)(a)-(f) (Annex XIII 1(s)), whereas ours is a reference to the dismantling and removal instructions document. These are different data points with different legal sources.",
+   "fable": "Ours references the dismantling/removal instructions document, a distinct data point from the end-user waste prevention and collection information under Article 74(1)(a)-(f) / Annex XIII 1(s), which does not cover disassembly instructions.",
+   "haiku": "The upstream element is a bundled legal provision (Article 74(1)(a)-(f), Annex XIII 1(s)) on waste battery prevention and management, and our dismantling and removal document reference is plausibly one of the items it legally comprises, though the two cite different annex points and our range is a document reference rather than free text."
+  }
+ },
+ {
+  "src": "eubat:hasPowerCapabilityAt20SoC",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasPowerCapabilityAt20SoC",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability",
+  "final": "NARROW",
+  "by": "auto",
+  "votes": {
+   "opus": "NARROW",
+   "sonnet": "NARROW",
+   "fable": "NARROW",
+   "haiku": "NARROW"
+  },
+  "qa": {
+   "direction": "NARROW",
+   "scope": "NARROW",
+   "skeptic": "NARROW"
+  },
+  "why": {
+   "opus": "The upstream dynamic power-capability data element (Annex XIII 4(a) via Annex IV(3)) covers current power capability measured at several states of charge, so our value at 20% SoC is one component of that bundled data point.",
+   "sonnet": "Upstream power capability (Annex IV(3)/XIII 4(a)) bundles power at several states of charge, and our term carries only the 20% SoC value, so it is a part of that bundle.",
+   "fable": "The upstream element covers the Annex IV(3)/Annex XIII 4(a) power capability parameter as a whole (values at different states of charge and limits), while ours carries only the current value at 20% SoC, one component of that bundle.",
+   "haiku": "Our term is specifically the power capability at 20% state of charge, while the upstream Annex XIII 4(a) power capability is the general, unqualified power figure, so ours is a special case of it (unit differences do not change the grade)."
+  }
+ },
+ {
+  "src": "eubat:hasPowerCapabilityAt20SoC",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasPowerCapabilityAt20SoC",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerLimit",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "direction": "NONE",
+   "scope": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element is the declared power limit, a threshold, under Annex XIII 1(i), whereas ours is a current power-capability value at a specific state of charge; a limit is not the current value.",
+   "sonnet": "Our term is a current (measured) power capability at 20% SoC, whereas the upstream term is a power limit (a threshold or rated value) under Annex IV(3), and a limit is not a measured value.",
+   "fable": "The upstream element is the declared power limit under Annex XIII 1(i), whereas ours is a current measured power capability at a specific SoC, so it is a threshold versus a measured value (and rated versus current) rather than the same data point.",
+   "haiku": "The upstream term is a declared power limit, optionally with a temperature range, under Annex XIII/IV, while ours is a current power capability measured at a specific 20% state-of-charge condition, so a limit is not the measured value and no mapping should be published."
+  }
+ },
+ {
+  "src": "eubat:hasCycleCount",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasCycleCount",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#numberOfDischargingCycles",
+  "final": "CLOSE",
+  "by": "sven",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "scope": "EXACT",
+   "direction": "EXACT",
+   "skeptic": "EXACT"
+  },
+  "why": {
+   "opus": "Both record the battery's accumulated count of full charge-discharge cycles, the Annex XIII 4(d) usage data point, and any difference in counting method is minor.",
+   "sonnet": "Both name the count of charge-discharge cycles the battery has undergone (Annex XIII 4(d) of Regulation 2023/1542 refers to the number of charging and discharging cycles), so the data point is the same even though the labels differ slightly and ours uses a QuantitativeValue.",
+   "fable": "Both record the count of charge-discharge cycles the battery has undergone (Annex XIII 4(d)), differing only in a minor counting nuance (full cycles vs discharging cycles) and representation.",
+   "haiku": "Both terms count the battery's charge-discharge cycles, and the upstream definition cites Regulation (EU) 2023/1542 Annex XIII 4(d) for the same quantity; the slight difference in counting wording (full cycles versus discharging cycles) does not change the data point."
+  }
+ },
+ {
+  "src": "eubat:hasSupplierContact",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasSupplierContact",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#manufacturerContactDetails",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "CLOSE",
+   "fable": "CLOSE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "skeptic": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Our property is the contact point of a supplier organisation. The upstream element is specifically the manufacturer's web and email contact under Annex VI Part A 1, so the referents differ (supplier vs manufacturer).",
+   "sonnet": "Both are organisation contact details for a party in the battery supply chain, but ours covers the supplier while upstream covers the manufacturer (Annex VI Part A 1), so they are different roles and data points.",
+   "fable": "Both express contact details of a battery-related organisation, but ours is scoped to the supplier role (gs1:Organization with a generic ContactPoint) while the upstream element is the manufacturer's web/email under Annex VI Part A(1), so the referents overlap without coinciding.",
+   "haiku": "Our term is the contact point of a supplier organisation, while the upstream data element is the web and email address of the battery manufacturer under Annex VI Part A point 1, so the referent (supplier versus manufacturer) differs."
+  }
+ },
+ {
+  "src": "eubat:hasSupplierContact",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasSupplierContact",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#manufacturerPostalAddress",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "direction": "NONE",
+   "scope": "NONE"
+  },
+  "why": {
+   "opus": "Ours is a generic contact point for a supplier organisation, while the candidate is the manufacturer's postal address under Annex VI Part A 1, so the referent and the data point both differ.",
+   "sonnet": "Ours is a supplier's contact point (a different role, and a contact point rather than only a postal address), while the upstream element is the manufacturer's postal address under Annex VI Part A 1, so they are different data points and referents.",
+   "fable": "Our undefined property gives a generic contact point of a supplier organisation, whereas the candidate is specifically the manufacturer's postal address under Annex VI Part A(1) \u2014 a different referent (supplier vs manufacturer) and a different data point (postal address vs contact point).",
+   "haiku": "Both concern contact information for an economic operator, but ours is a contact-point object for a supplier while the upstream element is a postal address for the manufacturer only, so each covers cases the other excludes (non-manufacturer suppliers and non-postal contacts versus manufacturer postal addresses)."
+  }
+ },
+ {
+  "src": "eubat:hasMaterialComposition",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasMaterialComposition",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#detailedComposition",
+  "final": "EXACT",
+  "by": "majority",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "CLOSE",
+   "fable": "EXACT",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "direction": "EXACT",
+   "scope": "EXACT",
+   "skeptic": "EXACT"
+  },
+  "why": {
+   "opus": "Both describe the battery's detailed material composition by component location (cathode, anode, electrolyte) under Annex XIII 2(a); our structured percentages and critical-raw-material flag are representation detail, not a different data point.",
+   "sonnet": "Both describe battery material composition, but ours is a structured list of materials with percentages, locations and critical raw material status, while the upstream Annex XIII 2(a) element is a free-text detailed composition of cathode, anode and electrolyte materials, so each covers cases the other excludes.",
+   "fable": "Both name the battery's material composition data point (materials with their location such as cathode/anode/electrolyte); the structured-object versus free-text representation and the added percentage/CRM qualifiers do not change the grade.",
+   "haiku": "Both concern the materials that make up the battery, but they are different data points: ours covers all construction materials with percentages, locations and critical raw material status, while the upstream element is free-text composition limited to cathode, anode and electrolyte under Annex XIII 2(a), so each covers cases the other excludes."
+  }
+ },
+ {
+  "src": "eubat:hasOriginalPowerCapability",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasOriginalPowerCapability",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability",
+  "final": "NONE",
+  "by": "claude",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "NONE",
+   "fable": "PARSEFAIL",
+   "haiku": "NARROW"
+  },
+  "qa": {
+   "scope": "NARROW",
+   "direction": "NONE",
+   "skeptic": "EXACT"
+  },
+  "why": {
+   "opus": "The upstream element cites Annex IV (3) of Regulation (EU) 2023/1542, which is the original power capability in watts, the same data point as ours. Our SoC-level breakdown (80% and 20%) is only a structured representation of that value.",
+   "sonnet": "Our term is the original (initial) power capability at 80% and 20% SoC, whereas the upstream element under Annex XIII 4(a) is a dynamic value updated on status change, so it reflects the current capability rather than the original one.",
+   "fable": "",
+   "haiku": "Our term is the original power capability measured at specific SoC levels (80% and 20%), a special case of the general power capability data point in Annex XIII 4(a) that the upstream definition covers, so ours is narrower."
+  },
+  "note": "powerCapability ist der dynamische Wert nach Annex XIII 4 a, original steht in 1 i"
+ },
+ {
+  "src": "eubat:cRateLifeCycleTest",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/cRateLifeCycleTest",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#cycleLifeDischargeCRate",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "CLOSE",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "direction": "NONE",
+   "scope": "NONE"
+  },
+  "why": {
+   "opus": "Our definition restricts the term to the charge C-rate of the cycle-life test (data point 39), while the candidate is the discharge C-rate (data point 40), which our vocabulary maps through its own separate sibling term.",
+   "sonnet": "Our term is the charge C-rate (data point 39) of the life cycle test, while the upstream element is the discharge C-rate, which corresponds to our separate term eubat:dischargeCRateLifeCycleTest (data point 40), so they are different data points.",
+   "fable": "Our term is defined as the charge C-rate of the lifecycle test (data point 39) with the discharge C-rate split into a sibling term, whereas the candidate is specifically the discharge C-rate (data point 40) of the same test, so they share the subject but are different data points.",
+   "haiku": "Both concern the C-rate of the same cycle-life test, but our term is the charge C-rate (data point 39) while the upstream element is the discharge C-rate (Annex XIII 1(p)), so they are different data points on the same subject that each exclude the other's case."
+  }
+ },
+ {
+  "src": "eubat:hasPowerCapabilityAt80SoC",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasPowerCapabilityAt80SoC",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability",
+  "final": "NARROW",
+  "by": "auto",
+  "votes": {
+   "opus": "NARROW",
+   "sonnet": "NARROW",
+   "fable": "NARROW",
+   "haiku": "NARROW"
+  },
+  "qa": {
+   "scope": "NARROW",
+   "skeptic": "NARROW",
+   "direction": "NARROW"
+  },
+  "why": {
+   "opus": "The upstream Annex XIII 4(a) dynamic power-capability data point covers the current power capability at more than one state of charge, so our current value at 80% SoC is one of the values it comprises.",
+   "sonnet": "The upstream power capability (Annex XIII 4(a), via Annex IV 3) bundles power at several states of charge (80% and 20%), and our term carries only the 80% SoC value, so it is a part of that bundle (rule 4).",
+   "fable": "Both describe the dynamic (status-updated) power capability of Annex XIII 4(a)/Annex IV, but the upstream element bundles the power-capability values at the specified states of charge (80 % and 20 % SoC) while ours carries only the 80 % SoC value, making ours one component of the upstream data point.",
+   "haiku": "Our term is the power capability at a specific 80% state-of-charge condition, which is a special case of the general power capability data point the upstream definition describes, and the upstream definition does not mention the 80% SoC condition."
+  }
+ },
+ {
+  "src": "eubat:hasStateOfHealth",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasStateOfHealth",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#stateOfCertifiedEnergy",
+  "final": "CLOSE",
+  "by": "majority",
+  "votes": {
+   "opus": "CLOSE",
+   "sonnet": "CLOSE",
+   "fable": "CLOSE",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "scope": "CLOSE",
+   "skeptic": "CLOSE",
+   "direction": "CLOSE"
+  },
+  "why": {
+   "opus": "Both express battery state of health as a percentage, but ours is relative to original capacity while SOCE under Annex XIII 4(b) is relative to certified energy, so they are distinct state-of-health indicators on the same subject.",
+   "sonnet": "Ours is state of health as a percentage of original capacity, while SOCE is the separate certified-energy-based state-of-health measure in Annex XIII 4(b), so they overlap in subject but are different data points.",
+   "fable": "Both express battery state of health as a percentage under Annex XIII 4, but ours is defined against original capacity while SOCE is the energy-based indicator (remaining vs certified energy), a sibling SoH parameter rather than the same quantity.",
+   "haiku": "Both define the same data point, a battery's state of health as a percentage of original capacity, and the upstream definition explicitly frames SOCE as the state of health under Annex XIII 4(b) of Regulation (EU) 2023/1542, so the differing labels and missing domain/range do not change the grade."
+  }
+ },
+ {
+  "src": "eubat:hasExpectedLifetime",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasExpectedLifetime",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#expectedLifetimeYears",
+  "final": "EXACT",
+  "by": "auto",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "skeptic": "EXACT",
+   "scope": "EXACT",
+   "direction": "EXACT"
+  },
+  "why": {
+   "opus": "Both describe the same Annex XIII expected-lifetime data point, the designed or declared service life of the battery, and the years-versus-months unit difference is only representation.",
+   "sonnet": "Both name the manufacturer-declared expected battery lifetime (Annex XIII 4(a) of Regulation 2023/1542); the difference between years only and months or years is a unit or representation choice that does not change the grade.",
+   "fable": "Both name the manufacturer-declared expected service life of the battery (Annex XIII 4(a)); the unit restriction to years versus months-or-years is a representation difference that does not change the grade.",
+   "haiku": "Both define the manufacturer-declared expected service life of the battery under the Regulation (EU) 2023/1542 Annex XIII 4(a) and Art 3(1)(59) lifetime concept, so the difference of months-or-years versus years is only a unit representation difference."
+  }
+ },
+ {
+  "src": "eubat:hasPowerCapability",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasPowerCapability",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#originalPowerCapability",
+  "final": "NARROW",
+  "by": "sven",
+  "votes": {
+   "opus": "NARROW",
+   "sonnet": "CLOSE",
+   "fable": "BROAD",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "direction": "NARROW",
+   "scope": "NARROW",
+   "skeptic": "BROAD"
+  },
+  "why": {
+   "opus": "Annex XIII 1(i) original power capability is a bundle of power values at specified states of charge, and our property carries a single such kW value at one SoC, making it one component of the upstream data point.",
+   "sonnet": "Both concern battery power capability, but ours is the power value at a specified SoC (within a PowerCapabilityAtSoC object) while the upstream is the original rated power per Annex IV(3), so they are different data points with overlapping subject.",
+   "fable": "Our property is a generic power-capability value at a specified SoC (usable for original or remaining states), whereas the upstream element is specifically the original value per Annex XIII 1(i)/Annex IV(3), making it a special case of ours.",
+   "haiku": "Both concern battery power capability, but ours is a value at a specified state of charge while the upstream is the original (beginning-of-life) power under Annex XIII, so they are overlapping but different data points."
+  }
+ },
+ {
+  "src": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#environmentalConditionHistogram",
+  "final": "NARROW",
+  "by": "majority",
+  "votes": {
+   "opus": "NARROW",
+   "sonnet": "NARROW",
+   "fable": "NARROW",
+   "haiku": "NARROW"
+  },
+  "qa": {
+   "direction": "CLOSE",
+   "skeptic": "NARROW",
+   "scope": "CLOSE"
+  },
+  "why": {
+   "opus": "Annex XIII 4(d) covers periodically recorded information on operating environmental conditions, including temperature, and the cumulative time spent charging above the upper temperature boundary is one specific value within that broader temperature record.",
+   "sonnet": "Our term is one bin-like value (charging time above the upper temperature boundary) within the bundled Annex XIII 4(d) environmental condition histogram, so it is a part of the broader upstream data point.",
+   "fable": "Both derive from Annex XIII 4(d) operating environmental conditions; ours is a single aggregated time-in-temperature-band value for charging, i.e. one component of the broader periodically recorded temperature histogram rather than the whole record.",
+   "haiku": "The upstream Environmental Condition Histogram legally bundles temperature-condition values under Annex XIII 4(d), and our term is one specific value within that bundle (cumulative time charging above the upper boundary), so ours is the narrower data point."
+  }
+ },
+ {
+  "src": "eubat:roundTripEfficiencyAt50PercentCycleLife",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/roundTripEfficiencyAt50PercentCycleLife",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency",
+  "final": "NONE",
+  "by": "sven",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NARROW",
+   "fable": "NONE",
+   "haiku": "NARROW"
+  },
+  "qa": {
+   "scope": "NARROW",
+   "skeptic": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element under Annex XIII 4(a) is a dynamic value updated as the battery's status changes, whereas ours is a declared expected efficiency at 50% of rated cycle life; a declared value is not a current or measured one.",
+   "sonnet": "The upstream element under Annex XIII 4(a)/Annex IV(6) covers round trip efficiency generally, including both the initial value and the value at 50% of cycle life, so our term carries only one of the bundled values.",
+   "fable": "Ours is an expected (declared) efficiency projected at 50% of rated cycle life, whereas the upstream element is the measured/current energy round trip efficiency (Annex IV(6), dynamically updated), so it is a declared-versus-measured distinction rather than the same data point.",
+   "haiku": "Our term is a round trip efficiency specifically at 50% of rated cycle life, a special case of the general energy round trip efficiency that the upstream Annex XIII 4(a) data element describes, so it is narrower rather than the same data point."
+  }
+ },
+ {
+  "src": "eubat:manufacturerIdentifier",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/manufacturerIdentifier",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#uniqueProductIdentifier",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Ours identifies the manufacturing operator (an organisation, e.g. a GLN), whereas the candidate identifies the product itself, so the two have different referents.",
+   "sonnet": "Ours identifies the battery manufacturer (an operator), while the upstream identifies a product, so the referents differ.",
+   "fable": "Different referent: ours identifies the manufacturer organisation (an operator), while the upstream data element identifies the product itself.",
+   "haiku": "Our term identifies the manufacturer operator (a GLN on OperatorInformation), while the upstream uniqueProductIdentifier identifies a product, so they have different referents and no mapping should be published."
+  }
+ },
+ {
+  "src": "eubat:declarationOfConformity",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/declarationOfConformity",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#euDeclarationOfConformity",
+  "final": "EXACT",
+  "by": "auto",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "scope": "EXACT",
+   "skeptic": "EXACT",
+   "direction": "EXACT"
+  },
+  "why": {
+   "opus": "Both denote the web link to the EU declaration of conformity required by Regulation (EU) 2023/1542 Annex XIII 1(r), so they are the same data point; that ours sits on an Evidence node is only a representation difference.",
+   "sonnet": "Both name the EU Declaration of Conformity under Article 18 and Annex XIII 1(r) of Regulation (EU) 2023/1542, and the upstream element is itself a web link, so the URL representation does not change the match.",
+   "fable": "Both name the web link to the EU declaration of conformity under Regulation 2023/1542 Annex XIII 1(r); ours being a URL property on an Evidence node versus a flat data element is a representation difference only.",
+   "haiku": "Both terms name the same data point, the EU declaration of conformity provided as a web link under Annex XIII point 1(r) of Regulation (EU) 2023/1542, and differ only in representation (xsd:anyURI versus a web link), which does not change the grade."
+  }
+ },
+ {
+  "src": "eubat:repurposingPotential",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/repurposingPotential",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#batteryStatus",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Our term is an assessment of whether the battery is suitable for a second life, while the upstream element is a code-list status recording the battery's actual life-cycle state (original, repurposed, re-used, remanufactured, waste), so they are different data points (potential versus current state).",
+   "sonnet": "Repurposing potential is an assessment of suitability for second-life use, whereas battery status is a categorical lifecycle state (original, repurposed, re-used, remanufactured, waste), so these are different data points, one a prospective assessment and the other the current status.",
+   "fable": "Ours is an assessment of future suitability for second-life use, whereas the upstream is a code-list status of the battery's current lifecycle state (original/repurposed/waste), a different data point (potential vs. current status).",
+   "haiku": "Our term is a prospective assessment of a battery's suitability for second-life use, while the upstream data element records the battery's current status category (original, repurposed, re-used, remanufactured or waste), so they are different data points and a classification is not an assessment."
+  }
+ },
+ {
+  "src": "eubat:hasInitialCapacity",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasInitialCapacity",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#ratedCapacity",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "skeptic": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Ours is the capacity measured at commissioning, while the candidate is the rated (nominal) capacity under Annex IV(1), and a rated value is not a measured or initial one.",
+   "sonnet": "Our term is a measured initial capacity at commissioning, while the upstream term is the rated (declared) capacity under Annex IV, and a rated value is not a measured initial one.",
+   "fable": "Our term is a measured capacity at commissioning while the candidate is the rated/declared capacity per Annex IV(1), and rated-versus-measured values are distinct data points.",
+   "haiku": "Our term is the measured capacity at commissioning, while the upstream is the rated (declared) capacity from Annex XIII 4(a), and a rated value is not an initial or measured one."
+  }
+ },
+ {
+  "src": "eubat:hazardImpact",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hazardImpact",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#batterySubstancesImpact",
+  "final": "CLOSE",
+  "by": "sven",
+  "votes": {
+   "opus": "CLOSE",
+   "sonnet": "CLOSE",
+   "fable": "EXACT",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "scope": "NARROW",
+   "direction": "NARROW",
+   "skeptic": "EXACT"
+  },
+  "why": {
+   "opus": "Both describe the impact of hazardous substances in a battery, but ours is a per-substance description attached to the composition record, while the upstream element is general end-of-life information under Article 74(1) and Annex XIII 1(s), so the subject overlaps but the data points differ.",
+   "sonnet": "Both describe the impact of hazardous substances, but ours is a per-substance description on HazardousSubstance while the upstream is the battery-level data element on the environmental and health impact of substances, so they overlap without being the same data point.",
+   "fable": "Both name the Article 74(1)(c) data point describing the impact of (hazardous) substances in the battery on environment, health or safety; ours is merely the per-substance free-text instance of that same element.",
+   "haiku": "Both concern the impact of substances on environment and health, but the upstream element is a battery-level waste-management information item from Article 74(1) of Regulation (EU) 2023/1542, while ours is a description of the hazard impact of a single hazardous substance, so they are overlapping subjects rather than the same data point."
+  }
+ },
+ {
+  "src": "eubat:batteryModelIdentifier",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/batteryModelIdentifier",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#batteryIdentification",
+  "final": "NARROW",
+  "by": "auto",
+  "votes": {
+   "opus": "NARROW",
+   "sonnet": "NARROW",
+   "fable": "NARROW",
+   "haiku": "NARROW"
+  },
+  "qa": {
+   "direction": "NARROW",
+   "skeptic": "NARROW",
+   "scope": "NARROW"
+  },
+  "why": {
+   "opus": "The upstream data element under Annex VI Part A 2 of Regulation 2023/1542 bundles model identification with a batch, serial or product number, so our model identifier carries only one of the values it comprises.",
+   "sonnet": "The upstream data point legally bundles model identification with batch/serial/product number (at least one of), and our term carries only the model identifier value.",
+   "fable": "The upstream element per Annex VI Part A 2 bundles model identification together with batch/serial or product number, while ours carries only the model identification component, making ours a part of that bundled data point.",
+   "haiku": "The upstream Annex VI Part A 2 element is a bundled identification that legally comprises model identification, batch or serial number, or product number, so our model identifier is one of the values it covers and therefore narrower."
+  }
+ },
+ {
+  "src": "eubat:batteryModelIdentifier",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/batteryModelIdentifier",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#uniqueProductIdentifier",
+  "final": "NONE",
+  "by": "sven",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NARROW",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "direction": "NARROW",
+   "skeptic": "NONE",
+   "scope": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element is the unique identifier of the passport's product, which for batteries is item-level, whereas ours is a manufacturer-assigned model designation shared by every unit of a model, so the two have different referents.",
+   "sonnet": "A battery model identifier names a model shared by many items, whereas a unique product identifier identifies an individual product, so they are different referents and not the same data point.",
+   "fable": "The ESPR/DPP Registry unique product identifier may be assigned at model, batch or item level, so a manufacturer-assigned model-level identifier is one special case of the upstream data point rather than the same element.",
+   "haiku": "Both are identifier properties for a product, but the upstream term is a unique identifier for an individual product while ours identifies a model shared by many products, so they cover overlapping subjects without being the same data point."
+  }
+ },
+ {
+  "src": "eubat:hasRemainingPowerCapability",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasRemainingPowerCapability",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability",
+  "final": "EXACT",
+  "by": "majority",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "scope": "NARROW",
+   "skeptic": "EXACT",
+   "direction": "EXACT"
+  },
+  "why": {
+   "opus": "The upstream element is the dynamic, state-of-health power capability under Annex XIII 4(a), updated as the battery's status changes, which is the same current or remaining data point as ours; reporting it per SoC level is only a structural qualifier.",
+   "sonnet": "The upstream element is the Annex XIII 4(a) state-of-health power capability, which is dynamic and updated as the battery's status changes; this matches our current (remaining) power capability at SoC levels, and the SoC structure is only a representation difference.",
+   "fable": "Both denote the dynamic (current/updated-on-status-change) power capability of the individual battery per Annex XIII 4(a)/Annex IV(3); our structured representation at SoC levels versus a watt literal is only a representation difference.",
+   "haiku": "Both concern battery power capability, but our term is a current/remaining value broken down by state-of-charge levels in a structured object, whereas the upstream data element is a single power value in watts, so they are overlapping but different data points."
+  }
+ },
+ {
+  "src": "eubat:electrolyteType",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/electrolyteType",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#batteryChemistry",
+  "final": "NONE",
+  "by": "sven",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NARROW",
+   "fable": "NARROW",
+   "haiku": "NARROW"
+  },
+  "qa": {
+   "direction": "NONE",
+   "skeptic": "NONE",
+   "scope": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element is the single battery-chemistry code from Annex VI Part A point 7, which classifies the overall cell chemistry and does not legally comprise a separate electrolyte-type value, so the electrolyte classification is a different data point.",
+   "sonnet": "Electrolyte type is one facet of battery chemistry (Annex VI Part A 7), which is the broader data point (a code list of chemistries such as cathode, anode and electrolyte), so ours is the narrower term.",
+   "fable": "Our term captures one constituent aspect (the electrolyte) of the overall battery chemistry that the upstream Annex VI Part A point 7 code list designates as a single data point, so ours is a special case of the broader chemistry element.",
+   "haiku": "The upstream Battery chemistry data point, cited to Annex VI Part A point 7 of Regulation 2023/1542, bundles the battery's chemistry, which includes the electrolyte, so our narrower electrolyte-type property is one value that the upstream data point legally comprises."
+  }
+ },
+ {
+  "src": "eubat:electrolyteType",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/electrolyteType",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#detailedComposition",
+  "final": "NARROW",
+  "by": "auto",
+  "votes": {
+   "opus": "NARROW",
+   "sonnet": "NARROW",
+   "fable": "NARROW",
+   "haiku": "NARROW"
+  },
+  "qa": {
+   "scope": "NARROW",
+   "skeptic": "NARROW",
+   "direction": "NARROW"
+  },
+  "why": {
+   "opus": "Under Annex XIII 2(a), the detailed composition data point bundles the materials used in the cathode, anode and electrolyte, and our term carries only the electrolyte's characterisation, which is one component of that bundle.",
+   "sonnet": "The upstream detailed composition legally bundles cathode, anode and electrolyte materials, and our electrolyte type carries only the electrolyte part, so per rule 4 it is NARROW.",
+   "fable": "The upstream data point bundles cathode, anode and electrolyte composition under Annex XIII 2(a), and our term carries only the electrolyte component, making it one part of that bundled value per rule 4.",
+   "haiku": "The upstream Annex XIII 2(a) detailed composition bundles cathode, anode and electrolyte materials, so our electrolyte-type property is one special case of that bundled data point and therefore narrower."
+  }
+ },
+ {
+  "src": "eubat:recommendedAction",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/recommendedAction",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Annex XIII 2(d) gives general safety-measure information for the battery model, whereas ours records a follow-up action recommended after a specific incident, so they describe different referents.",
+   "sonnet": "Ours is an incident-specific recommended follow-up action, whereas the upstream is the Annex XIII 2(d) safety-measures data element (general safety measures information for the battery), so they are different data points.",
+   "fable": "Ours is a per-incident follow-up recommendation attached to an incident record, whereas the upstream element is the battery's general safety-measures document under Annex XIII 2(d), a different data point with a different referent.",
+   "haiku": "Both concern safety-related actions, but the upstream element is a general battery safety-measures link under Annex XIII 2(d), whereas our term is a follow-up action recommended after a specific incident, so they are different data points."
+  }
+ },
+ {
+  "src": "eubat:resistanceIncreaseThreshold",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/resistanceIncreaseThreshold",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalResistanceIncrease",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "direction": "NONE",
+   "scope": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element (Annex XIII 4(a), dynamic and updated as the battery's status changes) is the measured or current internal resistance increase, whereas ours is the end-of-cycle-life threshold, and a threshold is not the measured value.",
+   "sonnet": "Ours is a threshold (percentage at which rated cycle life ends), whereas the upstream Annex XIII 4(a) element is the dynamic, measured internal resistance increase of the battery, and a threshold is not a measured value.",
+   "fable": "Our term is a declared threshold defining end of rated cycle life, whereas the upstream element is the dynamic measured internal resistance increase of an individual battery under Annex XIII 4(a), so this is threshold versus measured value.",
+   "haiku": "Our term is a threshold, the resistance increase at which end of rated cycle life is reached, while the upstream element is a measured or current internal resistance increase, and the grading rules exclude threshold-versus-measured pairs."
+  }
+ },
+ {
+  "src": "eubat:hasRemainingUsableEnergy",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasRemainingUsableEnergy",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingCapacity",
+  "final": "CLOSE",
+  "by": "majority",
+  "votes": {
+   "opus": "CLOSE",
+   "sonnet": "CLOSE",
+   "fable": "CLOSE",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "direction": "CLOSE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Both are state-of-health values under Annex XIII 4(b). The upstream element is remaining charge capacity in Ah, while ours is remaining usable energy in Wh, which is a distinct quantity tracked separately in battery passports.",
+   "sonnet": "Both describe current state-of-health values, but remaining capacity in Ah (Annex XIII 4(b)) is a different quantity from remaining usable energy in Wh, so they are related but distinct data points.",
+   "fable": "Both express the battery's current remaining state-of-health capacity under Annex XIII 4(b), but ours is an energy quantity (Wh) while the candidate is charge capacity in Ah, so they are related but distinct data points.",
+   "haiku": "Both concern the remaining capacity of a battery, but the upstream data point is a charge capacity in Ah from the state-of-health provision of Annex XIII 4(b), while our term is a usable energy quantity, so they are overlapping but distinct data points."
+  }
+ },
+ {
+  "src": "eubat:criticalRawMaterialsStatement",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/criticalRawMaterialsStatement",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#detailedComposition",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "CLOSE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "skeptic": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Ours is a statement on critical raw materials content. The candidate is the restricted Annex XIII 2(a) free-text composition of the cathode, anode and electrolyte, which is a different data point from a different provision, not one that legally comprises a CRM statement.",
+   "sonnet": "A statement about critical raw materials content under the CRM Act is a different data point from the detailed composition of cathode, anode and electrolyte materials under Annex XIII 2(a); critical raw materials are not one of the values that composition legally comprises.",
+   "fable": "Both concern the battery's material content, but ours is the public critical-raw-materials statement (Annex XIII 1(h)/CRM Act) while the candidate is the restricted detailed electrode/electrolyte composition under Annex XIII 2(a), so they overlap in subject without being the same data point.",
+   "haiku": "Our term is a statement on critical raw material content under the EU CRM Act for products generally, while the upstream element is the battery-specific detailed material composition of cathode, anode and electrolyte under Regulation (EU) 2023/1542, so they are different data points rather than the same or a bundled subset."
+  }
+ },
+ {
+  "src": "eubat:roundTripEnergyEfficiency",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/roundTripEnergyEfficiency",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEfficiencyAtHalfCycleLife",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "CLOSE",
+   "fable": "NONE",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "skeptic": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Ours is the current measured round-trip efficiency, while the upstream element is the declared efficiency at 50% of cycle life under Annex XIII 1(n); a declared value at a fixed life point is not a current value.",
+   "sonnet": "Both concern round-trip energy efficiency, but ours is the current value at any point in life while the upstream is the Annex XIII 1(n) value specifically at 50% of cycle life, so they are different data points.",
+   "fable": "The upstream element is a declared specification value fixed at the 50 %-of-cycle-life point (Annex XIII 1(n)), whereas ours is the current measured efficiency of the battery at any point in time, so they are a declared versus measured pair rather than the same data point.",
+   "haiku": "Both concern round-trip energy efficiency, but ours is the current value while the upstream element is specifically the value at 50% of cycle life, so they are overlapping but distinct data points (Annex XIII 1(n) and Annex II 2(e) context), and the upstream also uses a percent scale rather than a 0-1 decimal, which does not change the grade."
+  }
+ },
+ {
+  "src": "eubat:roundTripEnergyEfficiency",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/roundTripEnergyEfficiency",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingRoundTripEfficiency",
+  "final": "EXACT",
+  "by": "auto",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "direction": "EXACT",
+   "scope": "EXACT",
+   "skeptic": "EXACT"
+  },
+  "why": {
+   "opus": "Both name the battery's present, state-of-health round-trip efficiency under Annex XIII 4(b), not the initial or rated value, and a 0-1 decimal versus a percentage is only a representation difference.",
+   "sonnet": "Both name the current (remaining) round-trip energy efficiency of the battery as a state-of-health value (Annex XIII 4(b)); the 0-1 versus percent scale is only a representation difference.",
+   "fable": "Both denote the current/remaining round-trip efficiency of the battery as a state-of-health datum (Annex XIII 4(b)); the 0-1 decimal versus percent representation does not change the grade.",
+   "haiku": "Both cite the state-of-health provision of Regulation (EU) 2023/1542 Annex XIII 4(b) and describe the battery's present round-trip efficiency, differing only in units (0-1 decimal versus percent), which does not change the grade."
+  }
+ },
+ {
+  "src": "eubat:nickelPostConsumerShare",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/nickelPostConsumerShare",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#renewableContentShare",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "skeptic": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Ours is the share of nickel recovered from post-consumer waste (recycled content, Annex XIII 1(e)), whereas the candidate is the share of renewable content under Annex XIII 1(f), a different data point.",
+   "sonnet": "Nickel post-consumer recycled share is the recycled content of nickel (Annex XIII 1(e)), while the upstream renewable content share (Annex XIII 1(f)) is a different data point, so no mapping applies.",
+   "fable": "Our term is the post-consumer recycled share of nickel (Annex XIII 1(e)-type recycled content), whereas the candidate is the share of renewable content under Annex XIII 1(f), a different data point on a different material basis.",
+   "haiku": "The upstream data point is the share of renewable content under Annex XIII 1(f), while our term is the post-consumer recycled share of nickel specifically, so they are different data points and not even overlapping subjects."
+  }
+ },
+ {
+  "src": "eubat:hasRatedMaximumPower",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasRatedMaximumPower",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#originalPowerCapability",
+  "final": "NONE",
+  "by": "sven",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "EXACT",
+   "fable": "NONE",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "skeptic": "CLOSE",
+   "scope": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element is the original (initial, beginning-of-life) power capability under Annex XIII 1 and Annex IV (3), whereas ours is a rated maximum power, and a rated value is not an initial or measured one.",
+   "sonnet": "Both name the battery's declared maximum power output, since the upstream element is defined by reference to Annex IV (3) \"power\", which is the rated power. The difference in unit (kW versus W) and the label \"original\" do not change the grade.",
+   "fable": "A rated/nominal maximum power is a declared specification value, whereas the upstream element is the battery's original (initial, as-manufactured) power capability per Annex IV(3), and the rated-versus-original distinction bars a mapping.",
+   "haiku": "Both concern the battery's power, but our term is a rated maximum power while the upstream data point is the original power capability as defined in Annex IV(3), which is an initial value rather than the same rated quantity, so they overlap without being the same data point."
+  }
+ },
+ {
+  "src": "eubat:hasRatedMaximumPower",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasRatedMaximumPower",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerLimit",
+  "final": "NARROW",
+  "by": "majority",
+  "votes": {
+   "opus": "NARROW",
+   "sonnet": "EXACT",
+   "fable": "NARROW",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "scope": "NARROW",
+   "direction": "NARROW",
+   "skeptic": "NARROW"
+  },
+  "why": {
+   "opus": "The upstream Annex XIII 1(i) power limit is a bundled declared data point covering charge and discharge power limits, and our rated maximum output power carries only the discharge-side value of it.",
+   "sonnet": "Both name the maximum rated power limit of the battery, which Annex XIII 1(i) and Annex IV(3) of Regulation (EU) 2023/1542 define as 'power'; the unit (kW vs W) and the optional temperature range do not change the data point.",
+   "fable": "Annex IV(3) power limits bundle both charge and discharge power values, while our rated maximum power output carries only the discharge (output) side, so it is one of the values the upstream data point comprises.",
+   "haiku": "Both concern battery power, but the upstream element is an operational power limit (in W, with an optional temperature range, per Annex XIII/IV) rather than the rated maximum power output in kW, so they overlap without being the same data point."
+  }
+ },
+ {
+  "src": "eubat:hasRatedMaximumPower",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasRatedMaximumPower",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "EXACT",
+   "fable": "NONE",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "direction": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element cites Annex XIII 4(a) and is explicitly dynamic, updated on status change, so it is the current or remaining power capability rather than our rated maximum power, and a rated value is not a measured or remaining one.",
+   "sonnet": "Both describe the battery's rated maximum power, which Annex IV (3) of Regulation 2023/1542 names as power capability; the W vs kW unit difference does not change the grade.",
+   "fable": "",
+   "haiku": "Both concern battery power, but our term is a fixed rated maximum output while the upstream 'Power capability' is a dynamic parameter updated with battery status, so they are different data points."
+  }
+ },
+ {
+  "src": "eubat:hasManufacturingPlace",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasManufacturingPlace",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#manufacturingCountry",
+  "final": "BROAD",
+  "by": "majority",
+  "votes": {
+   "opus": "BROAD",
+   "sonnet": "BROAD",
+   "fable": "BROAD",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "skeptic": "BROAD",
+   "scope": "BROAD",
+   "direction": "BROAD"
+  },
+  "why": {
+   "opus": "The upstream element is only the country part of the Annex VI Part A 3 place of manufacture (town, region, country), while our term carries the whole manufacturing location, so the candidate is one component of our broader data point.",
+   "sonnet": "Upstream element is only the country part of the bundled place-of-manufacture provision (town, region, country), while our term models the entire manufacturing facility/place, so upstream is a special case of ours.",
+   "fable": "Both derive from Annex VI Part A point 3 'place of manufacture', but the candidate is only the country component of that bundled place while ours is the whole manufacturing-plant location, so the upstream is a part/special case of ours.",
+   "haiku": "Both concern the manufacturing location, but ours is a facility object (GLN, certifications, identifiers) while the upstream element is only the country part of the place-of-manufacture provision, so neither is a special case of the other."
+  }
+ },
+ {
+  "src": "eubat:hasManufacturingPlace",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasManufacturingPlace",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#manufacturingRegion",
+  "final": "BROAD",
+  "by": "auto",
+  "votes": {
+   "opus": "BROAD",
+   "sonnet": "BROAD",
+   "fable": "BROAD",
+   "haiku": "BROAD"
+  },
+  "qa": {
+   "direction": "BROAD",
+   "scope": "BROAD",
+   "skeptic": "BROAD"
+  },
+  "why": {
+   "opus": "Ours is the whole manufacturing place under Annex VI Part A 3, while the upstream element carries only the region component of that bundled provision, which makes it a special case of ours.",
+   "sonnet": "Our term is the whole manufacturing place (a facility with GLN and other identifiers), while the upstream 'Region of manufacture' is only the region part of the bundled 'Place of manufacture' provision (Annex VI Part A 3), so the upstream term is a special case of ours.",
+   "fable": "Our property names the whole place of manufacture (Annex VI Part A 3) while the candidate is only the region component among its town/region/country sibling elements, making the upstream a narrower part of ours.",
+   "haiku": "The upstream element names only the region component of the place of manufacture, so it is a narrower special case of our whole manufacturing-place facility object, which also carries GLN, certifications and identifiers; this is a partial overlap rather than the same data point."
+  }
+ },
+ {
+  "src": "eubat:hasManufacturingPlace",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasManufacturingPlace",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#manufacturingCity",
+  "final": "BROAD",
+  "by": "majority",
+  "votes": {
+   "opus": "BROAD",
+   "sonnet": "BROAD",
+   "fable": "BROAD",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "skeptic": "BROAD",
+   "direction": "BROAD",
+   "scope": "BROAD"
+  },
+  "why": {
+   "opus": "Annex VI Part A 3 defines the place of manufacture as a bundle of town, region and country, and the upstream element carries only the town/city part, while our term is the whole manufacturing location, so the upstream term is the narrower component.",
+   "sonnet": "Our term covers the whole place of manufacture (Annex VI Part A 3) as a facility object, while the upstream element is only the town/city component of that bundled provision.",
+   "fable": "Our property denotes the whole place of manufacture (Annex VI Part A 3) as a facility object, whereas the candidate is only the town/city component of that bundled place-of-manufacture data point, so the upstream element is a part of ours.",
+   "haiku": "Both concern the place of manufacture, but our term is the whole facility object with GLN and certifications while the upstream data element covers only the town/city literal, which is one component of that place, so they overlap without being the same data point."
+  }
+ },
+ {
+  "src": "eubat:safetyInstructions",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/safetyInstructions",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures",
+  "final": "EXACT",
+  "by": "auto",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "scope": "EXACT",
+   "direction": "EXACT",
+   "skeptic": "EXACT"
+  },
+  "why": {
+   "opus": "Both are a web link to the battery's safety instructions or measures document, which Annex XIII 2(d) of Regulation (EU) 2023/1542 sets out as part of the end-of-life and dismantling information, so they name the same data point.",
+   "sonnet": "Both are a web link to the general safety instructions/measures document required for batteries under Annex XIII 2(d) of Regulation (EU) 2023/1542, so only the label differs.",
+   "fable": "Both are a web link to the safety measures/instructions document required under Annex XIII point 2(d), which the EndOfLifeInfo grouping of our term reflects; the wording difference (instructions vs measures) does not change the data point.",
+   "haiku": "Both terms are a web link to safety instructions or measures for handling the battery at end of life, and the upstream definition cites Annex XIII 2(d) of Regulation (EU) 2023/1542, so they name the same data point under different labels."
+  }
+ },
+ {
+  "src": "eubat:hasTemperatureRangeIdleState",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasTemperatureRangeIdleState",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#notInUseTemperatureRangeTest",
+  "final": "NONE",
+  "by": "claude",
+  "votes": {
+   "opus": "BROAD",
+   "sonnet": "EXACT",
+   "fable": "NONE",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "scope": "EXACT",
+   "direction": "EXACT",
+   "skeptic": "EXACT"
+  },
+  "why": {
+   "opus": "Both refer to the Annex XIII 1(l) idle-state temperature range. The upstream element is explicitly only one part (the reference-test component) of that bundled data point, while our term carries the whole range.",
+   "sonnet": "Both name the temperature range the battery can withstand when idle or not in use under Annex XIII 1(l) of Regulation (EU) 2023/1542; the upstream 'reference test' wording and its free-text qualifier are representation differences.",
+   "fable": "The label names the reference-test sibling element of the Annex XIII 1(l) bundle, i.e. the test method, whereas our property carries the temperature range value itself, which maps to the parent element rather than this test-reference part.",
+   "haiku": "Both terms name the same data point, the temperature range a battery can withstand when not in use or idle, and the upstream definition cites Annex XIII 1(l) of Regulation (EU) 2023/1542; the reference-test qualifier and the min/max-plus-text representation do not change the grade."
+  },
+  "note": "das Element ist der Referenztest, nicht der Bereich; Definition nur vom Geschwister geerbt"
+ },
+ {
+  "src": "oec:hasProductCategory",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasProductCategory",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#batteryCategory",
+  "final": "BROAD",
+  "by": "sven",
+  "votes": {
+   "opus": "BROAD",
+   "sonnet": "BROAD",
+   "fable": "BROAD",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "BROAD",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element classifies batteries into the categories defined in Regulation (EU) 2023/1542 Article 3, which is a battery-specific case of our general product-category classification, although our definition is tied to ESPR rather than the Battery Regulation.",
+   "sonnet": "Our generic ESPR product category classification is broader than the battery category, which is the battery-specific case (EV, LMT, industrial under Regulation 2023/1542), so ours is the broader term.",
+   "fable": "The upstream element is a sector-specific category classification (EV/LMT/industrial under Regulation 2023/1542 Art. 3) which is a special case of our generic product-category classification property, though ours is anchored in ESPR rather than the Battery Regulation.",
+   "haiku": "Both concern product categorisation, but ours is the general ESPR product-category classification across all product groups while the upstream is the battery-specific three-code Battery Regulation category (EV, LMT, industrial), so each covers cases the other excludes."
+  }
+ },
+ {
+  "src": "oec:hasEnergyEfficiency",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasEnergyEfficiency",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#initialRoundTripEnergyEfficiency",
+  "final": "BROAD",
+  "by": "auto",
+  "votes": {
+   "opus": "BROAD",
+   "sonnet": "BROAD",
+   "fable": "BROAD",
+   "haiku": "BROAD"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "scope": "BROAD",
+   "direction": "BROAD"
+  },
+  "why": {
+   "opus": "Our property points to a general energy-efficiency object with no definition limiting it to the initial value, so the upstream Annex XIII 1(n) initial round-trip efficiency is one special case of the efficiency our term covers.",
+   "sonnet": "Our generic energy efficiency property (range oec:EnergyEfficiency) is broader than the upstream initial round-trip efficiency of a battery, which is one specific kind of energy efficiency value, so the upstream term is a special case of ours.",
+   "fable": "Our property points to a general EnergyEfficiency concept covering initial, fade and remaining values, whereas the upstream element is the specific initial round-trip energy efficiency value under Annex XIII 1(n), making it a special case of ours.",
+   "haiku": "Our term is a generic Energy Efficiency property with no definition, while the upstream element is a specific case (initial round-trip efficiency of a battery, per Regulation (EU) 2023/1542 Annex XIII), so ours is broader."
+  }
+ },
+ {
+  "src": "oec:hasEnergyEfficiency",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasEnergyEfficiency",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency",
+  "final": "BROAD",
+  "by": "auto",
+  "votes": {
+   "opus": "BROAD",
+   "sonnet": "BROAD",
+   "fable": "BROAD",
+   "haiku": "BROAD"
+  },
+  "qa": {
+   "scope": "BROAD",
+   "skeptic": "NONE",
+   "direction": "BROAD"
+  },
+  "why": {
+   "opus": "Our undefined property points to a structured EnergyEfficiency object that likely groups several round-trip efficiency values (initial, at 50% cycle life, remaining, fade), so the upstream Annex XIII 4(a) round-trip efficiency is a special case of our broader concept.",
+   "sonnet": "Our generic energy efficiency property (range oec:EnergyEfficiency) is broader than the upstream battery-specific round-trip efficiency, which is a special case of energy efficiency.",
+   "fable": "Our undefined generic property points to an EnergyEfficiency object covering any energy-efficiency figure, whereas the upstream element is the specific battery round-trip efficiency per Annex IV(6)/Annex XIII 4(a), i.e. a special case of ours.",
+   "haiku": "Our term is a generic 'Energy Efficiency' with no definition, while the upstream data point is specifically the battery energy round trip efficiency defined under Regulation (EU) 2023/1542 Annex XIII, so the upstream term is a special case of ours."
+  }
+ },
+ {
+  "src": "oec:hasEnergyEfficiency",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasEnergyEfficiency",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiencyFade",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "BROAD",
+   "fable": "NONE",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "direction": "NONE",
+   "scope": "NONE"
+  },
+  "why": {
+   "opus": "Our property points to a structured energy-efficiency object that groups several efficiency values, while the candidate is the single Annex XIII 4(a) fade data point; fade is a change over time, not the efficiency itself.",
+   "sonnet": "Our generic energy efficiency property (range oec:EnergyEfficiency) is broader than the upstream battery-specific round-trip energy efficiency fade, which is one special case of energy efficiency data under Annex XIII 4(a).",
+   "fable": "The upstream element is a degradation measure (fade in %) under Annex XIII 4(a), a distinct data point from a general energy-efficiency value or structured efficiency object, so no mapping should be published.",
+   "haiku": "Both concern battery energy efficiency, but the upstream element measures the fade (degradation over time) of round-trip efficiency, which is a different data point from the efficiency value itself, so neither fully covers the other."
+  }
+ },
+ {
+  "src": "oec:hasEnergyEfficiency",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasEnergyEfficiency",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEfficiencyAtHalfCycleLife",
+  "final": "BROAD",
+  "by": "auto",
+  "votes": {
+   "opus": "BROAD",
+   "sonnet": "BROAD",
+   "fable": "BROAD",
+   "haiku": "BROAD"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "direction": "BROAD",
+   "scope": "BROAD"
+  },
+  "why": {
+   "opus": "Our property points to a general energy-efficiency object with no lifecycle restriction, while the upstream element (Annex XIII 1(n)) is the round-trip efficiency at one specific point, 50 % of cycle life, so it is a special case of ours.",
+   "sonnet": "Our generic energy efficiency property (range oec:EnergyEfficiency) is broader than the upstream round-trip efficiency at 50% of cycle life, which is one specific special case of it.",
+   "fable": "Our property is a generic energy-efficiency link (range oec:EnergyEfficiency) while the upstream element is one specific efficiency figure\u2014round-trip efficiency measured at 50% of cycle life per Annex XIII 1(n)\u2014so the upstream is a special case of ours.",
+   "haiku": "Our term is a generic energy efficiency property, while the upstream data point is one specific metric, round-trip efficiency at 50% cycle life defined by Annex XIII of Regulation (EU) 2023/1542, so the upstream term is a special case of ours."
+  }
+ },
+ {
+  "src": "oec:hasEnergyEfficiency",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasEnergyEfficiency",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingRoundTripEfficiency",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "BROAD",
+   "haiku": "BROAD"
+  },
+  "qa": {
+   "scope": "NONE",
+   "skeptic": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Our undefined property points to a structured EnergyEfficiency object that likely groups several efficiency values, such as initial, rated and remaining ones, so it is a container rather than the single remaining round-trip efficiency state-of-health value from Annex XIII 4(b), and no definition supports a narrower mapping.",
+   "sonnet": "Our generic energy-efficiency property (range oec:EnergyEfficiency, likely an energy-class or rated efficiency object) is not the measured remaining round-trip efficiency state-of-health value, and rated/declared values do not map to remaining values.",
+   "fable": "Our undefined, generic energy-efficiency property (ranging over an EnergyEfficiency object) covers any efficiency measure, whereas the candidate is the specific Annex XIII 4(b) remaining round-trip efficiency value, a special case of ours.",
+   "haiku": "Our term is a generic Energy Efficiency property, while the upstream data element is one specific battery state-of-health measure (remaining round-trip efficiency per Annex XIII 4(b)), so the upstream term is a special case of ours."
+  }
+ },
+ {
+  "src": "oec:hasEnergyEfficiency",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasEnergyEfficiency",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#stateOfCertifiedEnergy",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "scope": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Our term points to a structured energy-efficiency object, while the candidate is the state-of-health metric SOCE under Annex XIII 4(b), a measured percentage of remaining certified energy, so they are different data points.",
+   "sonnet": "Our generic energy efficiency property (range EnergyEfficiency class) is a different data point from the battery state of certified energy (SOCE, a state-of-health percentage under Annex XIII 4(b)), so no mapping should be published.",
+   "fable": "Our term points to an energy efficiency concept (ratio of energy out to energy in), whereas SOCE is a state-of-health metric (remaining certified energy as a percentage of initial), a different data point despite both relating to energy.",
+   "haiku": "Energy Efficiency and state of certified energy (SOCE) are different data points: SOCE is a battery state-of-health measure of remaining certified energy under Annex XIII 4(b), not an efficiency ratio."
+  }
+ },
+ {
+  "src": "oec:eprComplianceUrl",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/eprComplianceUrl",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#complianceTestReportResults",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "scope": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Ours links to an EPR scheme operator's verification endpoint or certificate for a producer's extended producer responsibility, whereas the candidate is the battery's test-report results proving regulatory compliance under Annex XIII, a different referent and subject.",
+   "sonnet": "Ours is a link to an EPR scheme operator's verification endpoint or compliance certificate, whereas the upstream is a link to test report results proving compliance with Regulation 2023/1542 under Annex XIII; these are different data points and referents.",
+   "fable": "Ours is a link to an EPR scheme operator's producer-registration verification/certificate, whereas the candidate is a link to test report results proving product compliance with the Battery Regulation\u2014a different referent and subject.",
+   "haiku": "Our term is a URL to an EPR scheme operator's verification endpoint or producer compliance certificate, while the upstream is a link to battery test report results under Regulation (EU) 2023/1542 Annex XIII, so they name different data points in different subject areas."
+  }
+ },
+ {
+  "src": "oec:eprComplianceUrl",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/eprComplianceUrl",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#euDeclarationOfConformity",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "scope": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Ours links to an EPR scheme operator's verification endpoint or certificate for the producer's extended producer responsibility obligations, whereas the candidate is the product's EU declaration of conformity under Article 18, a different document with a different legal referent.",
+   "sonnet": "An EPR scheme operator's verification endpoint or compliance certificate is a different document from the EU declaration of conformity under Article 18 of Regulation 2023/1542, so these are different data points.",
+   "fable": "Our term links to an EPR scheme operator's verification/compliance evidence for the producer, whereas the candidate is the product's EU declaration of conformity under Article 18 of Regulation 2023/1542 \u2014 a different document with a different referent and legal basis.",
+   "haiku": "Our term is the URL of an EPR scheme operator's verification endpoint or compliance certificate for a producer, while the upstream term is the battery EU declaration of conformity under Article 18 of Regulation (EU) 2023/1542; these are different documents and different subjects, so no mapping should be published."
+  }
+ },
+ {
+  "src": "oec:eprComplianceUrl",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/eprComplianceUrl",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#manufacturerWebsite",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "skeptic": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Our term links to an EPR scheme operator's verification endpoint or compliance certificate, while the candidate is the manufacturer's general website under Annex VI Part A contact details, so the referent is different.",
+   "sonnet": "Our term is an EPR scheme operator's verification endpoint or compliance certificate URL, while the upstream term is the manufacturer's own website under Annex VI Part A contact details, so they are different data points with different referents.",
+   "fable": "Our term points to an EPR scheme operator's verification endpoint or compliance certificate, whereas the upstream element is the manufacturer's own website address under Annex VI Part A 1 \u2014 a different referent (scheme operator/certificate vs manufacturer contact).",
+   "haiku": "Our term is a compliance verification URL for an EPR scheme, whereas the upstream element is the manufacturer's general website from the battery regulation's contact-details provision, so they name different data points."
+  }
+ },
+ {
+  "src": "oec:reportUrl",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/reportUrl",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#complianceTestReportResults",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "direction": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Our term links to a supply-chain due diligence report, while the candidate (Annex XIII 3) holds the results of compliance test reports, so the two point to different documents.",
+   "sonnet": "Ours is a link to a due diligence report (supply-chain due diligence under Art. 48), while the upstream is a link to compliance test report results (Annex XIII 3); these are different documents and data points.",
+   "fable": "Ours is a link to the due diligence report (Annex XIII point 2/Art. 52 context), while the candidate is the compliance test report results under Annex XIII 3 \u2014 a different document and different referent.",
+   "haiku": "Our term is the URL of a due diligence report, whereas the upstream element is the results of compliance test reports under Annex XIII, so they name different documents and data points."
+  }
+ },
+ {
+  "src": "oec:hasImpactIndicator",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasImpactIndicator",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#batterySubstancesImpact",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "scope": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Ours is a quantified LCA impact indicator result within an EPD, whereas the upstream element is free-text end-user information under Article 74(1) about the hazards that battery substances pose to the environment and human health, so the two are different data points with different referents.",
+   "sonnet": "Our term links an EPD to a quantified environmental impact indicator result (e.g. GWP), while the upstream element is a battery-specific free-text statement on the impact of substances under Annex XIII 1(s), so they are different data points.",
+   "fable": "Ours links an EPD to a quantified LCA impact indicator result (e.g. GWP), whereas the candidate is free-text waste-prevention information about hazards of substances in batteries under Art. 74(1) \u2014 a different data point and referent.",
+   "haiku": "Our term is a property linking an EPD to its LCA impact indicator results, while the upstream element is a free-text waste-management information field about substances in batteries (Art. 74(1) of Regulation 2023/1542), so the data points and subject areas differ."
+  }
+ },
+ {
+  "src": "oec:hasReportingGranularity",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasReportingGranularity",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#granularity",
+  "final": "CLOSE",
+  "by": "sven",
+  "votes": {
+   "opus": "CLOSE",
+   "sonnet": "CLOSE",
+   "fable": "NONE",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "direction": "NONE",
+   "scope": "CLOSE"
+  },
+  "why": {
+   "opus": "The upstream element is the level at which the unique product identifier applies, which is the passport-level granularity our definition explicitly sets apart, while ours is the per-attribute reporting level; they share the model/batch/item scale but are different data points.",
+   "sonnet": "Both describe a model/batch/item granularity level, but ours is a BatteryPass per-attribute reporting granularity that explicitly differs from the passport-level granularity, while the upstream element is the level at which a unique product identifier applies, so they are related but different data points.",
+   "fable": "Our definition explicitly scopes the term to per-attribute reporting granularity and distinguishes it from the passport/identifier-level granularity that the upstream element describes, so the referents differ and the upstream should instead be mapped to oec:granularityLevel.",
+   "haiku": "Both cover the same subject, the level of model, batch or item granularity, but ours governs per-attribute reporting granularity (adding model-per-site) while the upstream element governs the level at which a unique product identifier applies, so they are not the same data point."
+  }
+ },
+ {
+  "src": "oec:hasDismantlingInstructions",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasDismantlingInstructions",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation",
+  "final": "EXACT",
+  "by": "auto",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "direction": "EXACT",
+   "scope": "EXACT",
+   "skeptic": "EXACT"
+  },
+  "why": {
+   "opus": "Both name the battery passport's dismantling documentation provided as a web link or document (Annex XIII 2(c)), which covers disassembly sequences, tools and diagrams; the 'instructions' versus 'information' wording and the document-reference range are differences of representation, not of data point.",
+   "sonnet": "Both name the same data point, dismantling instructions for the product, supplied as a document reference or web link; the upstream definition lists required content and our term has no conflicting scope.",
+   "fable": "Both denote the same data point \u2014 a document/web link giving dismantling (disassembly) information for the product per Annex XIII 2(c) \u2014 and the structured DocumentReference versus web link is only a representation difference.",
+   "haiku": "Both properties point to the same data point, the dismantling information/instructions for the battery required under Regulation (EU) 2023/1542 Annex XIII 2(c); the difference between a DocumentReference object and a web link is only representation."
+  }
+ },
+ {
+  "src": "oec:hasFacilityInformation",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasFacilityInformation",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#manufacturingPlace",
+  "final": "BROAD",
+  "by": "sven",
+  "votes": {
+   "opus": "CLOSE",
+   "sonnet": "BROAD",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "BROAD",
+   "direction": "BROAD",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Both concern the battery manufacturing plant, but ours carries general facility details for manufacturing or processing sites, while the upstream element is only the plant's geographical location (town, region, country) under Annex VI Part A 3, so they overlap without being the same data point.",
+   "sonnet": "Our property covers general manufacturing or processing facility details (an object), while the upstream element is the specific manufacturing-plant location (town, region, country) of a battery, a special case of ours.",
+   "fable": "Our property points to a structured facility-details object (identity, role, location, etc.) covering manufacturing or processing sites, whereas the candidate is the single geographical-location field of the battery manufacturing plant under Annex VI Part A 3, so it is a container versus one field rather than the same or a specialised data point.",
+   "haiku": "Our term is a structured container of manufacturing or processing facility details (range FacilityInformation), while the upstream data element is a single field giving the place of manufacture, so this is a structural grouping rather than the same data point."
+  }
+ },
+ {
+  "src": "oec:documentUrl",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/documentUrl",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#manufacturerWebsite",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "scope": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Our property is the locator of a referenced document, whereas the candidate is the manufacturer's website contact detail under Annex VI Part A 1, so the referents differ (a document versus an organisation's web presence) even though both are URLs.",
+   "sonnet": "Ours is a generic URL pointing to a document in a document reference, while the upstream is the manufacturer's website address, so they are different data points with different referents.",
+   "fable": "Our property is the URL of a referenced document (domain DocumentReference), whereas the candidate is the manufacturer's website address as a contact detail \u2014 a different referent despite both being web addresses.",
+   "haiku": "Our term is a generic URL to a document within a DocumentReference, whereas the upstream element is the manufacturer's web address, which is a different referent (an organisation's website, not a document), so no mapping applies."
+  }
+ },
+ {
+  "src": "oec:value",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/value",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#binValue",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "scope": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Both terms are generic serialisation slots of a data format, one for a data element's value and one for a histogram bin's Y-axis value, so neither names a concept that could be mapped.",
+   "sonnet": "Our term is a generic serialisation slot for any data element's value, while the upstream term is a specific histogram bin value (Y-axis), so no concept-level mapping applies.",
+   "fable": "Both are generic serialisation slots (a data-element value and a histogram bin value) rather than concepts, so no mapping should be published.",
+   "haiku": "Our term is the generic value of a SingleValuedDataElement or MultiLanguageValue (EN 18223), whereas the candidate is the Y-axis value of a histogram bin, a different data point in a different domain; the candidate is also a serialisation-level slot-like element, not a concept matching ours."
+  }
+ },
+ {
+  "src": "oec:elementId",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/elementId",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#uniqueProductIdentifier",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Our property identifies a data element within its container under EN 18223, while the candidate identifies a product, so the two identifiers have different referents.",
+   "sonnet": "Our term identifies a DataElement (a data field) within its container, whereas the upstream term identifies a product, so the referents differ.",
+   "fable": "Our term identifies a DataElement within a data-structure container (EN 18223), whereas the candidate identifies the physical product itself \u2014 a different referent entirely.",
+   "haiku": "Our term identifies a DataElement within its container, whereas the upstream uniqueProductIdentifier identifies a product, so they have different referents and subject areas."
+  }
+ },
+ {
+  "src": "oec:concentration",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/concentration",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#criticalRawMaterials",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element is a list of the critical raw materials present above a 0.1 % threshold, so it names which materials are present; ours is the measured percentage concentration of a hazardous substance, a different data point and referent.",
+   "sonnet": "Ours is a percentage concentration of a hazardous substance, while the upstream element lists which critical raw materials are present above 0.1% w/w, so these are different data points and not a match.",
+   "fable": "Ours is a measured percentage concentration value of a hazardous substance, while the candidate is a code list of critical raw materials present above a 0.1% threshold\u2014a list of substances, not a concentration value, and a different referent (critical raw materials vs hazardous substances).",
+   "haiku": "The upstream element is a list identifying which critical raw materials exceed 0.1% w/w, not a concentration value, and it concerns critical raw materials rather than hazardous substances, so it is a different data point and a list rather than a measured percentage."
+  }
+ },
+ {
+  "src": "oec:hasDataElement",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasDataElement",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#otherIdentificationElement",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "skeptic": "NONE",
+   "scope": "NONE"
+  },
+  "why": {
+   "opus": "Our term is a generic structural membership property linking a passport or collection to any of its data elements, while the candidate is one specific battery identification field from Annex VI Part A of Regulation 2023/1542, so there is no shared data point.",
+   "sonnet": "Our term is a generic structural membership property linking a passport or collection to its data elements, while the candidate is one specific battery identification data point (other identification element, Annex VI Part A 2), so no mapping applies.",
+   "fable": "Our property is a structural membership link from a passport/collection to any generic DataElement (range oec:DataElement), whereas the candidate is a specific identification data point under Annex VI Part A 2; a structural grouping/link versus one content field warrants no mapping.",
+   "haiku": "Our term is a generic membership property linking a container to any member DataElement, while the upstream is one specific battery identification data point (other identification element), so it is not the same data point and not a special case of a structural link."
+  }
+ },
+ {
+  "src": "oec:safeDisassemblyInstructions",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/safeDisassemblyInstructions",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation",
+  "final": "CLOSE",
+  "by": "majority",
+  "votes": {
+   "opus": "CLOSE",
+   "sonnet": "CLOSE",
+   "fable": "CLOSE",
+   "haiku": "NARROW"
+  },
+  "qa": {
+   "direction": "CLOSE",
+   "skeptic": "NONE",
+   "scope": "CLOSE"
+  },
+  "why": {
+   "opus": "Both describe disassembly guidance, but ours covers safe handling of components containing a substance of concern on any product, while the upstream Annex XIII 2(c) element covers whole-battery dismantling (diagrams, sequences, tools) regardless of substances, so each covers cases the other excludes.",
+   "sonnet": "Both concern safe disassembly guidance, but ours is scoped to components containing a substance of concern while the upstream is battery dismantling information (Annex XIII 2(c)) with specific contents, so they overlap without being the same data point.",
+   "fable": "Both concern disassembly guidance, but ours is scoped to safe handling of components containing a specific substance of concern (domain SubstanceOfConcern) while the upstream element is the whole-battery dismantling package (exploded diagrams, sequences, fasteners, tools) under Annex XIII 2(c), so they overlap without being the same data point.",
+   "haiku": "Upstream Dismantling information is a bundled legal element (Annex XIII 2(c)) covering diagrams, disassembly sequences, tools and damage warnings, and our term is the narrower safety-focused subset about disassembling substance-containing components, so ours is a special case of it."
+  }
+ },
+ {
+  "src": "oec:safeDisassemblyInstructions",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/safeDisassemblyInstructions",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures",
+  "final": "CLOSE",
+  "by": "auto",
+  "votes": {
+   "opus": "CLOSE",
+   "sonnet": "CLOSE",
+   "fable": "CLOSE",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "scope": "CLOSE",
+   "direction": "CLOSE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Annex XIII 2(d) covers general battery safety measures, while dismantling information is a separate element (2(c)); ours is about safely disassembling and handling components containing a substance of concern, so the subjects overlap but the data points differ.",
+   "sonnet": "Both concern safety guidance, but ours is limited to safe disassembly and handling of components containing a substance of concern, while the upstream element (Annex XIII 2(d)) covers general battery safety measures, so each includes cases the other excludes.",
+   "fable": "Both concern safety precautions during handling of the product, but ours is substance-specific disassembly guidance (domain SubstanceOfConcern, overlapping Annex XIII 2(c) dismantling information) while the upstream Annex XIII 2(d) element is the battery's general safety measures, so they are overlapping but distinct data points.",
+   "haiku": "Both concern safety information for handling the product, but the upstream is a battery-level safety-measures link from Regulation 2023/1542 Annex XIII 2(d), not disassembly instructions for substance-bearing components, so they overlap without being the same data point."
+  }
+ },
+ {
+  "src": "oec:hasOperatorInformation",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasOperatorInformation",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#manufacturerContactDetails",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "BROAD",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Our term points to a structured record of the responsible economic operator, while the candidate is only the manufacturer's optional web and email contact field, so this is a container-versus-single-field and operator-versus-manufacturer mismatch rather than the same data point.",
+   "sonnet": "Ours names the economic operator responsible for the product (an operator object), while the upstream is only the manufacturer's optional web and email contact details, which is a different data point.",
+   "fable": "Upstream names only the web/email contact details of the manufacturer (Annex VI Part A 1), a specific constituent of the responsible economic operator's information that our object-valued property covers as a whole, so ours is the broader concept.",
+   "haiku": "Our term is a container property whose range bundles operator information, while the upstream is a single data element for the manufacturer's optional web and email contact details, which is a structural grouping rather than the same or a narrower data point."
+  }
+ },
+ {
+  "src": "oec:hasOperatorInformation",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasOperatorInformation",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#manufacturerIdentification",
+  "final": "BROAD",
+  "by": "sven",
+  "votes": {
+   "opus": "BROAD",
+   "sonnet": "CLOSE",
+   "fable": "BROAD",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "BROAD",
+   "direction": "BROAD",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Our term covers whichever economic operator is responsible for the product, while the upstream element identifies only the manufacturer under Annex VI Part A 1, so the upstream term is a special case of ours.",
+   "sonnet": "Our term links to the economic operator responsible for the product (a structured object that may be a manufacturer, importer or other role), while the upstream element identifies the manufacturer by name, trade name or trademark per Annex VI Part A 1, so the two overlap without being the same data point.",
+   "fable": "Our term covers any responsible economic operator with a structured information object, while the candidate is restricted to the manufacturer's name/trade name/trademark under Annex VI Part A 1, making it a special case of ours.",
+   "haiku": "Our term is a property whose range is a container object for economic-operator information, while the upstream data element is a single field (manufacturer name, trade name or trademark), so this is a structural grouping case rather than the same data point."
+  }
+ },
+ {
+  "src": "oec:dismantlingGuideUrl",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/dismantlingGuideUrl",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation",
+  "final": "EXACT",
+  "by": "sven",
+  "votes": {
+   "opus": "BROAD",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "skeptic": "CLOSE",
+   "direction": "EXACT",
+   "scope": "CLOSE"
+  },
+  "why": {
+   "opus": "Both name a web link to dismantling instructions, but ours covers dismantling or repair guides for any product, while the upstream element is the battery-specific case required by Annex XIII 2(c) of Regulation (EU) 2023/1542; ours is public whereas the upstream is access-restricted, which keeps confidence moderate.",
+   "sonnet": "Both are a web link to dismantling/disassembly information for end-of-life handling, so the data point is the same; differences in access restriction (public vs. restricted) and the battery-specific content list are scope details that do not lower the grade.",
+   "fable": "Both are a web link to the dismantling guidance document intended for end-of-life/repair actors (Annex XIII 2(c)); access restriction and the 'repair' wording are scope nuances, not a different data point.",
+   "haiku": "Both concern dismantling information, but the upstream element is the restricted, multi-part Annex XIII 2(c) dismantling information (which may be given as a web link), while our term is a public guide URL for end-of-life processors, so they overlap without being the same data point."
+  }
+ },
+ {
+  "src": "oec:hasMaterialComposition",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasMaterialComposition",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#detailedComposition",
+  "final": "BROAD",
+  "by": "majority",
+  "votes": {
+   "opus": "BROAD",
+   "sonnet": "CLOSE",
+   "fable": "BROAD",
+   "haiku": "EXACT"
+  },
+  "qa": {
+   "scope": "BROAD",
+   "skeptic": "BROAD",
+   "direction": "BROAD"
+  },
+  "why": {
+   "opus": "Our property names a product's material composition in general, while the upstream element is the battery-specific special case under Annex XIII 2(a) of Regulation (EU) 2023/1542, which lists cathode, anode and electrolyte materials.",
+   "sonnet": "Both concern the material composition of a product, but the upstream element is the battery-specific detailed composition (cathode, anode, electrolyte materials, Annex XIII 2(a)), while ours is a generic composition property with an object range, so each covers cases the other excludes.",
+   "fable": "Our generic property links any product to a MaterialComposition object, whereas the upstream element is the battery-specific detailed composition (cathode, anode, electrolyte materials) under Annex XIII 2(a), a special case of ours.",
+   "haiku": "Both properties express the battery's material composition, and the upstream definition (Annex XIII 2(a) detailed composition of cathode, anode and electrolyte materials) names the same data point, with the structured-object versus free-text difference being representation only."
+  }
+ },
+ {
+  "src": "oec:hasRepairInstructions",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasRepairInstructions",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation",
+  "final": "CLOSE",
+  "by": "majority",
+  "votes": {
+   "opus": "CLOSE",
+   "sonnet": "CLOSE",
+   "fable": "CLOSE",
+   "haiku": "BROAD"
+  },
+  "qa": {
+   "skeptic": "CLOSE",
+   "direction": "CLOSE",
+   "scope": "CLOSE"
+  },
+  "why": {
+   "opus": "Both concern documentation for taking the product apart for repair, but the upstream Annex XIII 2(c) element is battery dismantling information (diagrams, disassembly sequences, tools) serving repair, repurposing and recycling, while ours covers repair manuals generally, so each covers cases the other excludes.",
+   "sonnet": "Both are links to technical documentation for working on a product, but repair instructions and manuals are a different data point from battery dismantling information (Annex XIII 2(c)), so each covers cases the other excludes.",
+   "fable": "Both are documentary links supporting repair/disassembly of the product, but repair manuals cover diagnostics and part replacement beyond disassembly while Annex XIII 2(c) dismantling information also serves recyclers, so they are overlapping but distinct data points.",
+   "haiku": "The upstream element is specifically the dismantling information required by Regulation (EU) 2023/1542 Annex XIII 2(c), a special case of the general repair instructions and manuals that our term references, so the upstream term is narrower than ours."
+  }
+ },
+ {
+  "src": "oec:safeUseInstructions",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/safeUseInstructions",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures",
+  "final": "CLOSE",
+  "by": "sven",
+  "votes": {
+   "opus": "CLOSE",
+   "sonnet": "CLOSE",
+   "fable": "NARROW",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Both cover safety guidance, but ours is safe-use instruction tied to a substance of concern, while the upstream Annex XIII 2(d) element is general battery safety measures (a restricted link for handling and dismantling). Their subjects overlap, but they are not the same data point.",
+   "sonnet": "Both give safety guidance for use, but ours is scoped to a substance of concern while the upstream element is the battery-level safety measures required by Annex XIII 2(d), so they are overlapping but different data points.",
+   "fable": "Safe-use instructions tied to a substance of concern are one specific kind of safety information within the general battery 'safety measures' element of Annex XIII 2(d), so ours is a special case of the upstream data point.",
+   "haiku": "Both concern safety guidance for a product, but the upstream Annex XIII 2(d) battery safety measures cover the battery as a whole rather than instructions for handling a substance of concern, so they are overlapping but distinct data points."
+  }
+ },
+ {
+  "src": "oec:professionalRepairNetwork",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/professionalRepairNetwork",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#manufacturerWebsite",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "direction": "NONE",
+   "scope": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element is the manufacturer's general website, part of the manufacturer contact details under Annex VI Part A 1, whereas ours is a link for locating authorised repair service providers, so the two have different referents.",
+   "sonnet": "Our term is a URL for finding authorized repair service providers, while the upstream element is the manufacturer's website within the manufacturer contact details, so they are different data points with different referents.",
+   "fable": "Our term is a URL locating authorized repair service providers, whereas the candidate is the manufacturer's general web address under Annex VI Part A contact details \u2014 a different referent and data point despite both being URLs.",
+   "haiku": "Our term is a URL to find authorised repair service providers, while the upstream element is the manufacturer's general web address (one part of the contact-details provision), so they name different data points."
+  }
+ },
+ {
+  "src": "oec:hasSubstancesOfConcern",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasSubstancesOfConcern",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#hazardousSubstances",
+  "final": "BROAD",
+  "by": "majority",
+  "votes": {
+   "opus": "BROAD",
+   "sonnet": "BROAD",
+   "fable": "BROAD",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "skeptic": "CLOSE",
+   "scope": "BROAD",
+   "direction": "BROAD"
+  },
+  "why": {
+   "opus": "ESPR substances of concern cover hazardous (CLP-classified) substances in any product, so the battery-specific list of hazardous substances other than Hg, Cd and Pb under Annex VI Part A 8 of Regulation 2023/1542 is a special case of ours.",
+   "sonnet": "Our general list of substances of concern (ESPR/SCIP) is broader than the battery-specific hazardous substances data element, which excludes mercury, cadmium and lead and is limited to batteries under Regulation 2023/1542 Annex VI Part A 8.",
+   "fable": "The upstream element is a battery-specific subset (hazardous substances per Battery Regulation Art. 3(1)(52), excluding Hg/Cd/Pb) of the generic list of substances of concern in any product that our term carries under ESPR/SCIP.",
+   "haiku": "Both concern hazardous or concern substances in a product, but the upstream element is a battery-specific free-text list that excludes mercury, cadmium and lead, while our term is a structured list of substances of concern under ESPR and SCIP, so each covers cases the other excludes."
+  }
+ },
+ {
+  "src": "oec:bioBasedFraction",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/bioBasedFraction",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#renewableContentShare",
+  "final": "CLOSE",
+  "by": "majority",
+  "votes": {
+   "opus": "CLOSE",
+   "sonnet": "CLOSE",
+   "fable": "EXACT",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "direction": "CLOSE",
+   "scope": "NARROW",
+   "skeptic": "CLOSE"
+  },
+  "why": {
+   "opus": "The upstream element is the battery-specific Annex XIII 1(f) share of renewable content, while ours is a generic mass fraction from biological feedstock for any product or material; the subjects overlap but are different data points, since 'renewable' and 'bio-based' are not strictly the same notion.",
+   "sonnet": "Both express the share of renewable/bio-based content, but ours is a general mass fraction of product derived from renewable biological feedstock while the upstream is the battery-specific renewable content share (Annex XIII 1(f)) with different scope and possibly a different measurement basis, so they overlap without being the same data point.",
+   "fable": "Both denote the proportion of the product's material derived from renewable (biological) feedstock; the percent-vs-fraction representation does not change the data point, and 'renewable content' in Annex XIII 1(f) refers to bio-based material share.",
+   "haiku": ""
+  }
+ },
+ {
+  "src": "oec:hasRecycledContentDetails",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasRecycledContentDetails",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#renewableContentShare",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "direction": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Renewable content share (Annex XIII 1(f)) is a separate data point from the recycled content breakdown, since renewable material is not recycled material, and ours is a structured container of pre- and post-consumer recycled values.",
+   "sonnet": "Recycled content (pre/post-consumer splits) is a different data point from renewable content share (Annex XIII 1(f)); recycled and renewable are distinct concepts.",
+   "fable": "Renewable content share (Annex XIII 1(f), share of bio-based/renewable material) is a different data point from recycled content breakdown by pre/post-consumer origin; our term is also a structured container rather than a single percentage.",
+   "haiku": "Our term covers a breakdown of recycled content into pre- and post-consumer splits, while the upstream element is the share of renewable content under Annex XIII of Regulation (EU) 2023/1542, which is a different data point."
+  }
+ },
+ {
+  "src": "oec:tradeItemPieceOf",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/tradeItemPieceOf",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#uniqueProductIdentifier",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "scope": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Our property is an object link from an individual piece to its parent multi-piece trade item, whereas the candidate is an identifier string for a product, so they are a relationship and an identifier attribute rather than the same data point.",
+   "sonnet": "Ours is a relationship linking a piece to its parent multi-piece trade item, whereas the upstream term is an identifier data element for a product, so they are different data points.",
+   "fable": "Ours is a structural part-to-whole link from a piece to its parent product entity, whereas the candidate is an identifier string for a product; different referent and data point.",
+   "haiku": "Our term is an object property linking a piece to its parent multi-piece trade item (range gs1:Product), while the upstream data element is a string identifier of the product itself, so the two name different referents and data points."
+  }
+ },
+ {
+  "src": "oec:hazardImpact",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hazardImpact",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#batterySubstancesImpact",
+  "final": "CLOSE",
+  "by": "majority",
+  "votes": {
+   "opus": "CLOSE",
+   "sonnet": "CLOSE",
+   "fable": "BROAD",
+   "haiku": "CLOSE"
+  },
+  "qa": {
+   "scope": "CLOSE",
+   "direction": "CLOSE",
+   "skeptic": "NARROW"
+  },
+  "why": {
+   "opus": "Both describe the environmental and health impact of hazardous substances, but ours is a per-substance hazard description on any hazardous substance, while the upstream element is battery-level free-text waste-management information under Article 74(1) and Annex XIII 1(s), so each covers cases the other excludes.",
+   "sonnet": "Both describe the impact of hazardous substances, but ours is a generic per-substance description of hazard impact while the upstream is the battery-specific Annex XIII 1(s) element on environmental, health and safety impact, so they overlap without being the same data point.",
+   "fable": "Both describe the environmental/health impact of hazardous substances, but ours applies to any hazardous substance in any product while the upstream element is restricted to substances present in batteries under Art. 74(1) of Regulation (EU) 2023/1542, making it a special case of ours.",
+   "haiku": "Both concern the impact of hazardous substances on health and the environment, but the upstream element is a battery-level waste-management disclosure drawn from a shared legal provision, while our property is a per-substance hazard description, so they are overlapping but distinct data points."
+  }
+ },
+ {
+  "src": "oec:hasPerformanceInfo",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasPerformanceInfo",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#complianceTestReportResults",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "direction": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Our term is a container grouping many performance and durability fields, while the candidate is a single restricted data element linking to compliance test report results under Annex XIII point 3, so this is a structural grouping mismatch with a different referent.",
+   "sonnet": "Our term is a container linking to a performance and durability information section, while the upstream is a single data element (a web link to compliance test report results), so this is a structural grouping mismatch.",
+   "fable": "Our term is a structural container bundling performance and durability fields, while the candidate is a single data element (link to compliance test report results under Annex XIII 3), so no mapping applies.",
+   "haiku": "Our term is a property whose range groups product performance and durability information, while the upstream element is a single compliance test-report result link under Annex XIII, so they are different data points and the upstream is not a special case of ours."
+  }
+ },
+ {
+  "src": "oec:hasPerformanceInfo",
+  "srcIri": "https://ref.openepcis.org/extensions/common/core/hasPerformanceInfo",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingRoundTripEfficiency",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "scope": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "Our term is a structural container bundling many performance and durability fields, while the candidate is one specific state-of-health data element (Annex XIII 4(b)), so no mapping applies under the structural-grouping rule.",
+   "sonnet": "Our term is a container property that links to a whole performance-information section, while the candidate is a single data element (remaining round-trip efficiency), so this is a structural-grouping mismatch.",
+   "fable": "Our term is a structural container linking to a whole PerformanceInfo object bundling many fields, whereas the candidate is one specific measured state-of-health data point (Annex XIII 4(b)), so no mapping should be published.",
+   "haiku": "Our term is a container property (range oec:PerformanceInfo) grouping product performance and durability information, while the candidate is a single battery state-of-health data element (remaining round-trip efficiency), which is one field within such a grouping, so the structural-grouping rule applies."
+  }
+ },
+ {
+  "src": "eusteel:heatNumber",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/iron-steel/heatNumber",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#batchNumber",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element is the batch number of a battery under the Battery Regulation's battery identification provision, while ours identifies the molten-steel heat of an iron or steel product under EN 10168, so the referents belong to different product domains.",
+   "sonnet": "A steel heat number identifies the molten-steel melt a product was cast from, whereas the battery batch number identifies a battery production batch under Regulation 2023/1542 Annex VI, so the subject areas and referents differ.",
+   "fable": "The upstream element is the battery-specific batch identifier mandated by Regulation (EU) 2023/1542 Annex VI, whereas ours is a steel melt identifier under EN 10168 for a different product class, so no cross-sector mapping should be published.",
+   "haiku": "The upstream element is a battery model/batch/serial identifier from Regulation (EU) 2023/1542, a different subject area and data point from a steel heat (melt) number traced under EN 10168, so no mapping should be published."
+  }
+ },
+ {
+  "src": "euelec:modelIdentifier",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/electronics/modelIdentifier",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#otherIdentificationElement",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "skeptic": "NONE",
+   "scope": "NONE"
+  },
+  "why": {
+   "opus": "The provision is shared with sibling elements, and this element names only the residual 'another element allowing identification' slot, while the model identification is a separate sibling data point, so the two are different data points.",
+   "sonnet": "The upstream element is the 'other identification element' sibling of the Annex VI Part A 2 provision, i.e. a catch-all identifier for batch, serial or product number, so it is a different data point from the manufacturer's model identifier.",
+   "fable": "The candidate names only the residual 'another element allowing their identification' of Annex VI Part A 2, while model identification is a separate sibling element in that provision, so the two are different data points.",
+   "haiku": "The label names only the residual 'other identification element', which is not the model number; the model identification part of the shared Annex VI provision belongs to a sibling element, so the candidate is a different data point from our manufacturer's model identifier."
+  }
+ },
+ {
+  "src": "eubat:batteryModelIdentifier",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/batteryModelIdentifier",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#otherIdentificationElement",
+  "final": "NONE",
+  "by": "majority",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "CLOSE",
+   "fable": "NONE",
+   "haiku": "NARROW"
+  },
+  "qa": {
+   "direction": "NONE",
+   "scope": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Annex VI Part A 2 lists model identification as its own sibling element, and this upstream element covers only the residual 'another element allowing identification', so it is a different data point from the model identifier.",
+   "sonnet": "Both concern battery identification under Annex VI Part A 2, but the upstream element is a catch-all 'other identification element' rather than the manufacturer's model identifier, which is likely a separate sibling element.",
+   "fable": "The candidate is the residual 'another element allowing identification' slot of Annex VI Part A point 2, whose sibling 'model identification' element is the actual counterpart of our manufacturer-assigned model identifier, so this element covers identifiers other than the model identification.",
+   "haiku": "The upstream definition is the shared legal text of Annex VI Part A point 2, which bundles model identification with batch or serial numbers and product numbers, so our model identifier is one of the values that upstream provision comprises, making ours the narrower term."
+  }
+ },
+ {
+  "src": "eusteel:productNumber",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/iron-steel/productNumber",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#productNumber",
+  "final": "NONE",
+  "by": "sven",
+  "votes": {
+   "opus": "EXACT",
+   "sonnet": "EXACT",
+   "fable": "EXACT",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "direction": "EXACT",
+   "scope": "EXACT",
+   "skeptic": "EXACT"
+  },
+  "why": {
+   "opus": "Both name the manufacturer's product number used to identify the product, and the upstream element has no domain restriction, so the battery provision context does not change the data point.",
+   "sonnet": "Both name the manufacturer's product/article number as an identifying element; the label names the element and the battery-specific legal context only frames it, so the data point is the same.",
+   "fable": "Both name the manufacturer's product number identifying the product itself; the upstream element is only the 'product number' part of the Annex VI Part A 2 provision, and the battery-vs-steel product domain does not change the data point.",
+   "haiku": "The upstream element is a battery-identification value from Regulation (EU) 2023/1542 Annex VI, which falls in a different subject area from the steel product passport, so no mapping should be published despite the shared label 'product number'."
+  }
+ },
+ {
+  "src": "euelec:componentPartNumber",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/electronics/componentPartNumber",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#productNumber",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "direction": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "Our term identifies a component part inside an electronic product, while the upstream element is the product number of the battery itself under the Battery Regulation Annex VI labelling provision, so the two identify different referents.",
+   "sonnet": "Ours is a manufacturer's part number for a component within a product, while the upstream is the battery's own product number under Annex VI Part A 2, so the referents differ (component versus the battery product).",
+   "fable": "Ours identifies a component within a product by its manufacturer's part number, whereas the upstream element is the identifying product number of the battery itself under Annex VI Part A 2, so the referents differ.",
+   "haiku": "The upstream element identifies the battery model as a whole under the battery identification provision of Regulation (EU) 2023/1542, while our term is the manufacturer's part number of a component, so the referent differs."
+  }
+ },
+ {
+  "src": "eusteel:lotNumber",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/iron-steel/lotNumber",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#productNumber",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "skeptic": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element is only the battery 'product number' part of a shared provision whose siblings cover the batch and serial number, so it does not name a delivery lot number, and it applies to batteries rather than steel products.",
+   "sonnet": "Ours is a delivery lot number for a steel product, while the upstream is a battery 'product number' (a model/serial-type identifier from Regulation 2023/1542 Annex VI), so they are different data points in different product domains.",
+   "fable": "The candidate names only the 'product number' part of the Annex VI Part A point 2 bundle, while the batch/lot identifier is a separate sibling element, so the referents differ (product-level identifier vs delivery lot identifier).",
+   "haiku": "The upstream element is a battery product number from Regulation (EU) 2023/1542 Annex VI, a different subject area from our steel delivery lot number, so no mapping should be published."
+  }
+ },
+ {
+  "src": "euelec:modelIdentifier",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/electronics/modelIdentifier",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#serialNumber",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "skeptic": "NONE",
+   "scope": "NONE",
+   "direction": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element covers only the serial/batch number part of the shared Annex VI Part A provision, which identifies individual items, while our term is the model identifier, a separate sibling element of that provision.",
+   "sonnet": "The upstream element is named for the serial number, which identifies an individual unit, whereas ours is the model identifier shared by a whole product type; the shared provision text only supplies context, so they are different data points.",
+   "fable": "The upstream element is specifically the serial number sibling of the Annex VI Part A 2 provision, an instance-level identifier, whereas ours is the model-level identifier that corresponds to the separate 'model identification' sibling.",
+   "haiku": "Per the label-naming rule, the upstream data point is the serial number element, which is a different identifier from a manufacturer's model number, and the shared legal text only supplies context, so no mapping should be published."
+  }
+ },
+ {
+  "src": "eusteel:heatNumber",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/iron-steel/heatNumber",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#serialNumber",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "scope": "NONE",
+   "direction": "NONE",
+   "skeptic": "NONE"
+  },
+  "why": {
+   "opus": "The upstream element is the serial-number part of a battery identification provision under the Battery Regulation, whereas ours is a steel melt-batch traceability code under EN 10168, so the referent and subject area both differ.",
+   "sonnet": "A steel heat number identifies the molten batch the steel was cast from, while the battery serial number identifies an individual battery unit under Annex VI Part A of Regulation 2023/1542, so they are different data points in different product domains.",
+   "fable": "A steel heat (melt) batch identifier under EN 10168 is a different data point from a battery's individual serial number under Regulation 2023/1542 Annex VI, differing in both referent (batch vs unit) and subject area.",
+   "haiku": "The upstream element is a battery serial or batch identifier from Regulation (EU) 2023/1542, a different subject area and data point from the steel heat (melt) number used for EN 10168 traceability."
+  }
+ },
+ {
+  "src": "eubat:hasDismantlingAndRemovalInformation",
+  "srcIri": "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingAndRemovalInformation",
+  "tgtIri": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#wasteBatterySafetyInstructions",
+  "final": "NONE",
+  "by": "auto",
+  "votes": {
+   "opus": "NONE",
+   "sonnet": "NONE",
+   "fable": "NONE",
+   "haiku": "NONE"
+  },
+  "qa": {
+   "direction": "NONE",
+   "skeptic": "NONE",
+   "scope": "NONE"
+  },
+  "why": {
+   "opus": "Ours references the dismantling and removal instructions document for interested parties, while the candidate is the Article 74(1) public safety instructions for handling waste batteries, which is a different data point with a different referent.",
+   "sonnet": "Ours is the dismantling and removal instructions document (Annex VIII), whereas the upstream element is safety instructions for handling waste batteries (Annex XIII 1(s)); these are different data points under different provisions.",
+   "fable": "Dismantling/removal instructions (Annex XIII point 2(c)-type content) are a different data element from the Article 74(1) safety instructions for handling waste batteries (Annex XIII 1(s)), which is a separate sibling element.",
+   "haiku": "Our term references the dismantling and removal instructions document from Annex VIII \u00a7B, while the upstream element is the free-text safety instructions for handling waste batteries under Article 74(1) and Annex XIII, which is a different data point despite the shared waste-battery subject."
+  }
+ }
+]

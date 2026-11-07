@@ -9,6 +9,7 @@ import jakarta.inject.Inject;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ResIterator;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
@@ -298,6 +299,36 @@ public class UpstreamIndex {
         return String.join("/", out.stream().limit(4).toList());
     }
 
+    /**
+     * The registry copies the legal text of a whole provision onto every element it splits into
+     * (serialNumber, productNumber and otherIdentificationElement all carry the definition of
+     * Annex VI Part A 2). Name the parent group, and say when the definition is shared, so the grader
+     * takes the element from its label instead of reading the provision as the element.
+     */
+    static String elementContext(Model model, Resource r) {
+        var bp = model.createProperty(RdfSupport.SKOS_NS, "broader");
+        Statement b = r.getProperty(bp);
+        if (b == null || !b.getObject().isURIResource()) return null;
+        Resource parent = b.getObject().asResource();
+        String parentLabel = RdfSupport.firstString(parent, RDFS.label, RdfSupport.SKOS_PREF_LABEL);
+        StringBuilder out = new StringBuilder("Part of: ")
+                .append(parentLabel != null ? parentLabel : parent.getLocalName()).append('.');
+        String def = RdfSupport.firstString(r, RdfSupport.SKOS_DEFINITION);
+        if (def != null) {
+            int siblings = 0;
+            for (var it = model.listSubjectsWithProperty(bp, parent); it.hasNext(); ) {
+                Resource sib = it.next();
+                if (!sib.equals(r) && def.equals(RdfSupport.firstString(sib, RdfSupport.SKOS_DEFINITION))) siblings++;
+            }
+            if (siblings > 0) {
+                out.append(" The definition above is the legal text of the whole provision, shared with ")
+                        .append(siblings).append(siblings == 1 ? " sibling element" : " sibling elements")
+                        .append("; this element is only the part its label names.");
+            }
+        }
+        return out.toString();
+    }
+
     private void loadRdf(Source s) {
         Model model = RDFDataMgr.loadModel(s.path().toString());
         String version = firstVersion(model, s.namespace());
@@ -317,6 +348,8 @@ public class UpstreamIndex {
                 // two similarly named data points apart.
                 String scope = RdfSupport.firstString(r, SKOS_SCOPE_NOTE);
                 if (scope != null) comment = comment == null ? scope : comment + " " + scope;
+                String context = elementContext(model, r);
+                if (context != null) comment = comment == null ? context : comment + " " + context;
             }
             String domain = refLocals(r, RDFS.domain,
                     model.createProperty("https://schema.org/domainIncludes"),

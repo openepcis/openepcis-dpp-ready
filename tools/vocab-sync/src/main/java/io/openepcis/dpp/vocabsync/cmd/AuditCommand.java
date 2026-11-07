@@ -6,7 +6,6 @@ import io.openepcis.dpp.vocabsync.Embeddings;
 import io.openepcis.dpp.vocabsync.Grader;
 import io.openepcis.dpp.vocabsync.OurIndex;
 import io.openepcis.dpp.vocabsync.PairJudge;
-import io.openepcis.dpp.vocabsync.QaGrader;
 import io.openepcis.dpp.vocabsync.RdfSupport;
 import io.openepcis.dpp.vocabsync.ReportWriter;
 import io.openepcis.dpp.vocabsync.Retriever;
@@ -122,6 +121,16 @@ public class AuditCommand implements Runnable {
                     + "(applied as closeMatch), a NONE majority is REJECT, no majority is SPLIT (review).")
     int qaJudges;
 
+    @CommandLine.Option(names = "--batch-model",
+            description = "Grade through the Anthropic Message Batches API with this model (e.g. "
+                    + "claude-fable-5-1) instead of the configured chat model: half price, results in "
+                    + "minutes. Verdicts are cached under the model id. Needs ANTHROPIC_API_KEY or the key file.")
+    String batchModel;
+
+    @CommandLine.Option(names = "--qa-batch-model",
+            description = "Run the QA panel through the Anthropic Message Batches API with this model.")
+    String qaBatchModel;
+
     @CommandLine.Option(names = "--qa-rejudge-from",
             description = "Re-run the QA panel ONLY on findings whose tier in this prior report JSON is in "
                     + "--qa-rejudge-tiers, and carry every other finding's QA verdict over unchanged. Point "
@@ -194,6 +203,11 @@ public class AuditCommand implements Runnable {
         }
         System.err.printf("audit: %d terms → %d candidate pairs to grade%n", ours.size(), work.size());
 
+        if (batchModel != null) {
+            judge.useBatchGrader(batchModel);
+            judge.prefillGrades(work.stream().map(Pair::term).toList(), work.stream().map(Pair::up).toList());
+        }
+
         // 2) Grade reactively: bounded in-flight requests via Mutiny merge(concurrency),
         //    declarative backoff retry per pair, verdicts cached on success only.
         AtomicInteger done = new AtomicInteger();
@@ -252,8 +266,12 @@ public class AuditCommand implements Runnable {
                     .filter(f -> f.confidence() >= qaMinConfidence)
                     .filter(f -> !targeted || rejudge.contains(key(f)))
                     .toList();
+            if (qaBatchModel != null) {
+                judge.useBatchQa(qaBatchModel);
+                judge.prefillQa(toQa, ourByIri, upstreamIndex::get, qaJudges);
+            }
             System.err.printf("QA: verifying %d / %d findings with a %d-judge blind panel on %s%n",
-                    toQa.size(), findings.size(), judge.selectedLenses(qaJudges).size(), qaModelName);
+                    toQa.size(), findings.size(), judge.selectedLenses(qaJudges).size(), judge.qaModelName());
             AtomicInteger qd = new AtomicInteger();
             int qaTotal = toQa.size();
             List<Finding> verified = Multi.createFrom().iterable(toQa)

@@ -9,115 +9,18 @@ import io.quarkiverse.langchain4j.RegisterAiService;
 import jakarta.enterprise.context.ApplicationScoped;
 
 /**
- * Second-tier QA verifier. A stronger model (the {@code qa} config — local flagship by
- * default, or Claude Opus when pointed at Anthropic) independently re-judges a mapping the
- * bulk grader proposed. It is shown the bulk verdict and asked to confirm or correct it, so
- * a wrong-but-confident bulk relation is caught before the finding is reported as confirmed.
+ * Second-tier QA panel. A model (the {@code qa} config: a local flagship by default) re-judges each
+ * mapping the bulk grader proposed, blind: it is not shown the bulk verdict, so it cannot anchor on
+ * it. The panel uses the same curator rubric as the grader ({@link GraderPrompts#RUBRIC}); each
+ * judge gets a lens line that focuses it, so a panel of lenses gives decorrelated votes.
  */
 @RegisterAiService
 @ApplicationScoped
 @ModelName("qa")
 public interface QaGrader {
 
-    @SystemMessage("""
-            You are the senior QA reviewer for cross-vocabulary term alignment in a Digital
-            Product Passport ontology. A first-pass grader has proposed a graded-SKOS relation
-            between OUR term and ONE upstream term. Independently decide the correct relation;
-            do not defer to the first pass.
-
-            Return exactly one relation, judged from OUR term's perspective:
-              EXACT  — same concept, interchangeable (skos:exactMatch).
-              CLOSE  — strongly overlapping but not identical scope (skos:closeMatch).
-              BROAD  — OUR term is BROADER; the upstream term is a narrower special case
-                       (written as skos:narrowMatch — the object is the narrower concept).
-              NARROW — OUR term is NARROWER; the upstream term is more general
-                       (written as skos:broadMatch — the object is the broader concept).
-              NONE   — not the same concept; reject the proposed mapping.
-
-            Be stricter than the first pass. Judge meaning, not name similarity: a shared label
-            with a different definition, domain, or range is NONE. A term whose
-            domain or range places it in a foreign subject area (food/beverage, nutrition,
-            medicine, vehicles, film/TV, software artifacts, payments, commercial offers) is NONE. A class matches only a class,
-            a property only a property. When uncertain between two grades, choose the weaker;
-            when uncertain that it is a match at all, return NONE. confidence is your own
-            0.0–1.0 certainty. rationale is one sentence naming the deciding factor; if you
-            overturn the first pass, say why.
-            """)
-    @UserMessage("""
-            OUR TERM
-              id:        {ourId}
-              type:      {ourType}
-              label:     {ourLabel}
-              definition:{ourComment}
-              domain:    {ourDomain}
-              range:     {ourRange}
-
-            UPSTREAM CANDIDATE
-              vocabulary:{upVocab}
-              iri:       {upIri}
-              type:      {upType}
-              label:     {upLabel}
-              definition:{upComment}
-              domain:    {upDomain}
-              range:     {upRange}
-
-            FIRST-PASS PROPOSAL (verify or correct)
-              relation:  {bulkRelation}
-              rationale: {bulkRationale}
-            """)
-    Verdict verify(@V("ourId") String ourId, @V("ourType") String ourType,
-                   @V("ourLabel") String ourLabel, @V("ourComment") String ourComment,
-                   @V("ourDomain") String ourDomain, @V("ourRange") String ourRange,
-                   @V("upVocab") String upVocab, @V("upIri") String upIri,
-                   @V("upType") String upType, @V("upLabel") String upLabel,
-                   @V("upComment") String upComment,
-                   @V("upDomain") String upDomain, @V("upRange") String upRange,
-                   @V("bulkRelation") String bulkRelation, @V("bulkRationale") String bulkRationale);
-
-    /**
-     * Blind panel judge: decides the relation from scratch, NOT shown any first-pass proposal (so it
-     * cannot anchor on it). {@code lens} is a one-line directive prepended to the user message that
-     * focuses this judge (e.g. definition-scope, subsumption-direction, strict-skeptic) so a panel of
-     * lenses gives decorrelated votes. The system rubric is the same graded-SKOS definition.
-     */
-    @SystemMessage("""
-            You are a senior reviewer aligning terms from a Digital Product Passport ontology to an
-            upstream vocabulary. Decide the single best graded-SKOS relation between OUR term and ONE
-            upstream term, judged from OUR term's perspective:
-              EXACT  — same concept, interchangeable (skos:exactMatch).
-              CLOSE  — strongly overlapping but not identical scope (skos:closeMatch).
-              BROAD  — OUR term is BROADER; the upstream term is a narrower special case
-                       (written as skos:narrowMatch — the object is the narrower concept).
-              NARROW — OUR term is NARROWER; the upstream term is more general
-                       (written as skos:broadMatch — the object is the broader concept).
-              NONE   — not the same concept; assert no mapping.
-            Judge meaning, not name similarity: a shared label with a different definition, domain, or
-            range is NONE. A term whose
-            domain or range places it in a foreign subject area (food/beverage, nutrition,
-            medicine, vehicles, film/TV, software artifacts, payments, commercial offers) is NONE. A class matches only a class, a property only a property. When uncertain
-            between two grades choose the weaker; when uncertain it is a match at all, return NONE.
-            confidence is your own 0.0–1.0 certainty; rationale is one sentence naming the deciding factor.
-            """)
-    @UserMessage("""
-            {lens}
-
-            OUR TERM
-              id:        {ourId}
-              type:      {ourType}
-              label:     {ourLabel}
-              definition:{ourComment}
-              domain:    {ourDomain}
-              range:     {ourRange}
-
-            UPSTREAM CANDIDATE
-              vocabulary:{upVocab}
-              iri:       {upIri}
-              type:      {upType}
-              label:     {upLabel}
-              definition:{upComment}
-              domain:    {upDomain}
-              range:     {upRange}
-            """)
+    @SystemMessage(GraderPrompts.QA_BLIND_SYSTEM)
+    @UserMessage(GraderPrompts.QA_BLIND_USER)
     Verdict judgeBlind(@V("lens") String lens, @V("ourId") String ourId, @V("ourType") String ourType,
                        @V("ourLabel") String ourLabel, @V("ourComment") String ourComment,
                        @V("ourDomain") String ourDomain, @V("ourRange") String ourRange,
