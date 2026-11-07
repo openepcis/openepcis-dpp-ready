@@ -9,6 +9,14 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Duplicate terms removed after the 2026-11 re-audit
+
+Where two of our terms named the same data point, one stays: eight battery terms, the battery and
+textile copies of the CAS and EC numbers, and a new `eubat:hasSafetyMeasures` that replaces two
+safety wordings. `scripts/migrate-assessment.ts` migrates stored passports, including the moves to
+another node and the new value shapes. Details in `extensions/eu/battery/CHANGELOG.md`,
+`extensions/common/core/CHANGELOG.md` and `extensions/eu/textile/CHANGELOG.md`.
+
 ### GS1 Rail EPCIS examples removed
 
 GS1 took `gs1-epcis-reg.org/rail/` offline (every path 404 since 2026-11-04), so the two rail

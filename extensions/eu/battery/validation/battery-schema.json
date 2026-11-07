@@ -113,7 +113,7 @@
             "$ref": "#/$defs/Label"
           }
         },
-        "hasDismantlingDocuments": {
+        "hasDismantlingAndRemovalInformation": {
           "type": "array",
           "items": {
             "$ref": "#/$defs/DismantlingDocument"
@@ -222,8 +222,9 @@
           "type": "integer",
           "description": "Expected number of full charge-discharge cycles."
         },
-        "expectedLifetimeYears": {
-          "type": "integer"
+        "hasExpectedLifetime": {
+          "$ref": "#/$defs/QuantitativeValue",
+          "description": "Expected lifetime in calendar years (unitCode ANN)."
         },
         "roundTripEfficiency": {
           "type": "number",
@@ -308,9 +309,18 @@
         "@type": {
           "const": "EndOfLifeInfo"
         },
-        "hasDismantlingInstructions": {
-          "type": "string",
-          "format": "uri"
+        "hasSafetyMeasures": {
+          "type": "array",
+          "description": "Documents with the safety measures for handling and dismantling (Annex XIII 2 (d)).",
+          "items": {
+            "type": "object",
+            "properties": {
+              "documentUrl": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          }
         },
         "extinguishingAgent": {
           "type": "string",

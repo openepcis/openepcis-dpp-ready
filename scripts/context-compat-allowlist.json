@@ -33,5 +33,60 @@
     "file": "extensions/eu/battery/context/battery-context-batterypass-bridge.jsonld",
     "term": "numberOfFullChargingAndDischargingCycles",
     "reason": "eubat:numberOfFullCycles deleted as a duplicate of eubat:hasCycleCount (EU battery-vocabulary numberOfChargingCycles)."
+  },
+  {
+    "file": "extensions/eu/battery/context/battery-context-batterypass-bridge.jsonld",
+    "term": "expectedLifetime",
+    "reason": "eubat:expectedLifetimeYears deleted as a duplicate of eubat:hasExpectedLifetime (2026-11). The key carries a bare year count and the surviving term a gs1:QuantitativeValue, so the key keeps the upstream SAMM IRI bpsamm-perf:expectedLifetime (exactMatch of eubat:hasExpectedLifetime) and the value stays lossless."
+  },
+  {
+    "file": "extensions/eu/battery/context/battery-context-batterypass-bridge.jsonld",
+    "term": "expectedLifetimeInCalendarYears",
+    "reason": "Same as expectedLifetime: eubat:expectedLifetimeYears deleted, the bare year count lands on the upstream SAMM IRI bpsamm-perf:expectedLifetime."
+  },
+  {
+    "file": "extensions/eu/battery/context/battery-context-batterypass-bridge.jsonld",
+    "term": "remainingEnergy",
+    "reason": "eubat:hasRemainingEnergy deleted as a duplicate of eubat:hasRemainingUsableEnergy (Annex VII Part A remaining usable energy, same gs1:QuantitativeValue shape); the key keeps its meaning."
+  },
+  {
+    "file": "extensions/eu/battery/context/battery-context-batterypass-bridge.jsonld",
+    "term": "currentSelfDischargingRate",
+    "reason": "eubat:hasSelfDischargeRate deleted as a duplicate of eubat:hasCurrentSelfDischargingRate (same data point, same gs1:QuantitativeValue shape); the key keeps its meaning."
+  },
+  {
+    "file": "extensions/eu/battery/context/battery-context-batterypass-bridge.jsonld",
+    "term": "batteryMaterialIdentifier",
+    "reason": "eubat:casNumber deleted as a module copy of oec:casNumber (same name, same tier AuthorizedOnly, same string value); the key keeps its meaning."
+  },
+  {
+    "file": "extensions/eu/battery/context/battery-context-batterypass-bridge.jsonld",
+    "term": "dismantlingAndRemovalInformation",
+    "reason": "eubat:hasDismantlingDocuments deleted as a duplicate of eubat:hasDismantlingAndRemovalInformation, whose range is now eubat:DismantlingDocument; same typed document list, container unchanged."
+  },
+  {
+    "file": "extensions/eu/battery/context/battery-context-batterypass-bridge.jsonld",
+    "term": "dismantlingInformationManualsForTheRemovalAndTheDisassemblyOfTheBatteryPack",
+    "reason": "Same as dismantlingAndRemovalInformation: eubat:hasDismantlingDocuments deleted, the documents land on eubat:hasDismantlingAndRemovalInformation."
+  },
+  {
+    "file": "extensions/eu/battery/context/battery-operational-context.jsonld",
+    "term": "casNumber",
+    "reason": "The battery shortcut layer no longer shadows the dpp-core alias: eubat:casNumber was deleted as a module copy of oec:casNumber (same name, same tier, same string value). Stored battery passports are migrated by scripts/migrate-assessment.ts."
+  },
+  {
+    "file": "extensions/eu/battery/context/battery-operational-context.jsonld",
+    "term": "ecNumber",
+    "reason": "Same as casNumber: eubat:ecNumber deleted as a module copy of oec:ecNumber."
+  },
+  {
+    "file": "extensions/eu/battery/context/battery-operational-context.jsonld",
+    "term": "hasDismantlingInstructions",
+    "reason": "eubat:hasDismantlingInstructions deleted; battery dismantling documents live on eubat:hasDismantlingAndRemovalInformation, and the bare name now resolves to the dpp-core term of the same meaning (oec:hasDismantlingInstructions). Stored battery passports are migrated by scripts/migrate-assessment.ts."
+  },
+  {
+    "file": "extensions/eu/textile/context/textile-operational-context.jsonld",
+    "term": "ecNumber",
+    "reason": "The textile shortcut layer no longer shadows the dpp-core alias: eutex:ecNumber was deleted as a module copy of oec:ecNumber (same name, same tier, same string value), as eutex:casNumber was before."
   }
 ]

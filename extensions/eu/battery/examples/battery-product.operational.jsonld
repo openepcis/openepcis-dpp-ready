@@ -121,7 +121,7 @@
   },
   "hasCellType": "PrismaticCell",
   "hasComplianceStatus": "Compliant",
-  "hasDismantlingDocuments": [
+  "hasDismantlingAndRemovalInformation": [
     {
       "documentUrl": "https://files.example.org/files/products/09521002005004/docs/document.pdf",
       "hasDocumentType": "BillOfMaterial",
@@ -155,7 +155,6 @@
         "@value": "Class D fire extinguisher or dry sand"
       }
     ],
-    "hasDismantlingInstructions": "https://files.example.org/files/products/09521002005004/docs/document.pdf",
     "hasDismantlingTime": {
       "type": "QuantitativeValue",
       "unitCode": "MIN",
@@ -179,11 +178,14 @@
         "recoveryRate": 95
       }
     ],
+    "hasSafetyMeasures": {
+      "type": "DocumentReference",
+      "url": "https://files.example.org/files/products/09521002005004/docs/dismantling-safety.pdf"
+    },
     "informationOnCollection": "https://files.example.org/files/products/09521002005004/docs/collection-information.pdf",
     "recyclabilityRate": 95,
     "renewableContent": "3.2",
     "safetyInstructions": "https://files.example.org/files/products/09521002005004/docs/safety-instructions.pdf",
-    "safetyInstructionsForDismantling": "https://files.example.org/files/products/09521002005004/docs/dismantling-safety.pdf",
     "separateCollection": "https://files.example.org/files/products/09521002005004/docs/separate-collection.pdf",
     "wastePrevention": "https://files.example.org/files/products/09521002005004/docs/waste-prevention.pdf"
   },
@@ -447,7 +449,11 @@
     "depthOfDischargeInCycleLifeTest": 80,
     "dischargeCRateLifeCycleTest": "0.5",
     "expectedCycleLife": 6000,
-    "expectedLifetimeYears": 15,
+    "hasExpectedLifetime": {
+      "type": "QuantitativeValue",
+      "unitCode": "ANN",
+      "value": 15
+    },
     "hasExpectedLifetimeCapacityThroughput": {
       "type": "QuantitativeValue",
       "unitCode": "AMH",

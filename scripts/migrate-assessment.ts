@@ -264,6 +264,15 @@ const RENAMED: Record<string, string> = {
   capacityFadeThreshold: "capacityThresholdForExhaustion",
   expectedNumberOfCycles: "expectedCycleLife",
   numberOfFullCycles: "hasCycleCount",
+  // 2026-11 duplicates with the same value shape on the same node. The bare casNumber and
+  // ecNumber need no rename: the operational context now resolves them to oec: directly.
+  "eubat:casNumber": "oec:casNumber",
+  "eubat:ecNumber": "oec:ecNumber",
+  "eutex:ecNumber": "oec:ecNumber",
+  "eubat:hasSelfDischargeRate": "eubat:hasCurrentSelfDischargingRate",
+  "eubat:hasRemainingEnergy": "eubat:hasRemainingUsableEnergy",
+  hasSelfDischargeRate: "hasCurrentSelfDischargingRate",
+  hasRemainingEnergy: "hasRemainingUsableEnergy",
 };
 
 /** Removed without a one-to-one successor (guidance 3.2 #38 wants cell and pack values); reported, kept. */
@@ -272,17 +281,186 @@ const REPORT_ONLY = new Set(["eubat:hasInitialInternalResistance", "hasInitialIn
 /** What a run dropped or could not place; printed, never fatal. */
 export const notes: string[] = [];
 
-function rename(o: Obj, at: string) {
+/** Put `value` under `to` where `from` stood, keeping the key order of `o`. */
+function replaceKey(o: Obj, from: string, to: string, value: Json) {
+  const entries = Object.entries(o).filter(([k]) => k !== to).map(([k, v]) => (k === from ? [to, value] : [k, v]));
+  for (const k of Object.keys(o)) delete o[k];
+  for (const [k, v] of entries) o[k] = v;
+}
+
+/** Bare keys are renamed only in our own documents: under the BatteryPass bridge they are external keys. */
+function rename(o: Obj, at: string, own = true) {
   for (const [k, v] of Object.entries(o)) {
-    const to = RENAMED[k];
+    const to = own || k.includes(":") ? RENAMED[k] : undefined;
     if (to) {
-      if (!(to in o)) o[to] = v;
-      else if (JSON.stringify(o[to]) !== JSON.stringify(v)) notes.push(`${at}.${k} = ${JSON.stringify(v)} dropped, ${to} = ${JSON.stringify(o[to])} stays`);
-      delete o[k];
+      if (!(to in o)) replaceKey(o, k, to, v);
+      else {
+        if (JSON.stringify(o[to]) !== JSON.stringify(v)) notes.push(`${at}.${k} = ${JSON.stringify(v)} dropped, ${to} = ${JSON.stringify(o[to])} stays`);
+        delete o[k];
+      }
     }
     if (REPORT_ONLY.has(k)) notes.push(`${at}.${k} = ${JSON.stringify(v)} has no successor in the context (cell or pack value?), left as is`);
   }
 }
+
+/**
+ * 2026-11 battery duplicates whose survivor sits on another node or carries another value shape.
+ * New keys are written prefixed (eubat:, oec:, gs1:): a CURIE resolves under the module context
+ * and under the operational context alike, a bare alias only under the latter.
+ */
+const keyOf = (o: Obj, name: string) => Object.keys(o).find((k) => local(k) === name && (!k.includes(":") || k.startsWith("eubat:")));
+const urlOf = (v: Json): string | undefined =>
+  typeof v === "string" ? v : v && typeof v === "object" ? (v["@id"] ?? v.id ?? v["@value"]) : undefined;
+const docUrl = (d: Json): string | undefined => {
+  if (!d || typeof d !== "object") return urlOf(d);
+  const k = Object.keys(d).find((x) => local(x) === "documentUrl");
+  return k ? urlOf(d[k]) : undefined;
+};
+
+/** Two places to the right in the decimal string: 0.92 -> 92, "0.925" -> "92.5". */
+function percentOfRatio(v: Json): Json {
+  const s = String(v).trim();
+  const m = /^(\d*)(?:\.(\d*))?$/.exec(s);
+  if (!m) return v;
+  const frac = (m[2] ?? "").padEnd(2, "0");
+  const int = ((m[1] || "0") + frac.slice(0, 2)).replace(/^0+(?=\d)/, "");
+  const out = frac.length > 2 ? `${int}.${frac.slice(2)}` : int;
+  return typeof v === "number" ? Number(out) : out;
+}
+
+/** On a technical specification: the year count becomes the has* quantity with unit ANN. */
+function technicalSpecification(o: Obj, at: string) {
+  const k = keyOf(o, "expectedLifetimeYears");
+  if (!k) return;
+  const v = o[k];
+  const to = Object.keys(o).find((x) => local(x) === "hasExpectedLifetime");
+  if (to) {
+    notes.push(`${at}.${k} = ${JSON.stringify(v)} dropped, ${to} = ${JSON.stringify(o[to])} stays`);
+    delete o[k];
+  } else replaceKey(o, k, "eubat:hasExpectedLifetime", v && typeof v === "object" ? v : qv(v, "ANN"));
+}
+
+function appendDocs(o: Obj, key: string, docs: Obj[], at: string) {
+  const existing = o[key] === undefined ? [] : [o[key]].flat();
+  const urls = new Set(existing.map(docUrl).filter(Boolean));
+  for (const d of docs) {
+    const u = docUrl(d);
+    if (u && urls.has(u)) {
+      notes.push(`${at}: dismantling document ${u} already listed, not added twice`);
+      continue;
+    }
+    if (u) urls.add(u);
+    existing.push(d);
+  }
+  if (existing.length) o[key] = existing;
+}
+
+/** On a battery passport (the node that carries the technical specification or end-of-life info). */
+function batteryProduct(o: Obj, at: string) {
+  const perfKey = Object.keys(o).find((k) => local(k) === "hasPerformanceInfo");
+  const eolKey = Object.keys(o).find((k) => local(k) === "hasEndOfLifeInfo");
+  const dismantlingKey = () => Object.keys(o).find((k) => local(k) === "hasDismantlingAndRemovalInformation") ?? "eubat:hasDismantlingAndRemovalInformation";
+
+  for (const k of Object.keys(o).filter((x) => local(x) === "hasTechnicalSpecifications" && (!x.includes(":") || x.startsWith("eubat:")))) {
+    for (const ts of [o[k]].flat()) if (ts && typeof ts === "object") technicalSpecification(ts, `${at}.${k}`);
+  }
+
+  // performance info: the current round-trip efficiency (0-1) and self-discharge rate move up to the product
+  let movedFromPerf = false;
+  for (const perf of perfKey ? [o[perfKey]].flat() : []) {
+    if (!perf || typeof perf !== "object") continue;
+    const rte = keyOf(perf, "roundTripEnergyEfficiency");
+    if (rte) {
+      const v = perf[rte];
+      delete perf[rte];
+      movedFromPerf = true;
+      const to = Object.keys(o).find((k) => local(k) === "hasRemainingRoundTripEfficiency");
+      if (to) notes.push(`${at}.${perfKey}.${rte} = ${JSON.stringify(v)} dropped, ${to} = ${JSON.stringify(o[to])} stays`);
+      else if (Number(v) > 1) {
+        notes.push(`${at}.${perfKey}.${rte} = ${JSON.stringify(v)} is above 1, taken as a percentage already`);
+        o["eubat:hasRemainingRoundTripEfficiency"] = qv(v, "P1");
+      } else o["eubat:hasRemainingRoundTripEfficiency"] = qv(percentOfRatio(v), "P1");
+    }
+    const sd = Object.keys(perf).find((k) => local(k) === "hasCurrentSelfDischargingRate" && (!k.includes(":") || k.startsWith("eubat:")));
+    if (sd) {
+      const v = perf[sd];
+      delete perf[sd];
+      movedFromPerf = true;
+      const to = Object.keys(o).find((k) => local(k) === "hasCurrentSelfDischargingRate");
+      if (to) notes.push(`${at}.${perfKey}.${sd} = ${JSON.stringify(v)} dropped, ${to} = ${JSON.stringify(o[to])} stays`);
+      else o["eubat:hasCurrentSelfDischargingRate"] = v;
+    }
+  }
+  if (movedFromPerf && perfKey && [o[perfKey]].flat().every((p) => p && typeof p === "object" && Object.keys(p).every((k) => ["type", "@type", "id", "@id"].includes(k)))) {
+    delete o[perfKey];
+  }
+
+  // dismantling documents: one product-level list
+  const docsKey = keyOf(o, "hasDismantlingDocuments");
+  if (docsKey) {
+    const docs = [o[docsKey]].flat();
+    const to = dismantlingKey();
+    // the list itself is kept whole (documents of several types may share one file)
+    if (o[to] === undefined) replaceKey(o, docsKey, to, docs);
+    else {
+      delete o[docsKey];
+      appendDocs(o, to, docs, at);
+    }
+  }
+
+  const eols = eolKey ? [o[eolKey]].flat().filter((e) => e && typeof e === "object") : [];
+  for (const eol of eols) {
+    const di = keyOf(eol, "hasDismantlingInstructions");
+    if (di) {
+      const urls = [eol[di]].flat().map(urlOf).filter(Boolean) as string[];
+      delete eol[di];
+      appendDocs(o, dismantlingKey(), urls.map((u) => ({ type: "eubat:DismantlingDocument", "eubat:hasDocumentType": ref("eubat:DismantlingManual"), "eubat:documentUrl": u })), `${at}.${eolKey}`);
+    }
+  }
+
+  // safety measures (Annex XIII(2)(d)): document references on the end-of-life info
+  const measures: Obj[] = [];
+  const sm = keyOf(o, "safetyMeasures");
+  if (sm) {
+    for (const v of [o[sm]].flat()) {
+      const u = urlOf(v);
+      if (u && /^https?:\/\//.test(u)) measures.push({ type: "oec:DocumentReference", "oec:documentUrl": u });
+      else notes.push(`${at}.${sm} = ${JSON.stringify(v)} is not a link and has no place in eubat:hasSafetyMeasures, left as is`);
+    }
+    if (measures.length) delete o[sm];
+  }
+  let slot: string | undefined;
+  for (const eol of eols) {
+    const sd = keyOf(eol, "safetyInstructionsForDismantling");
+    if (!sd) continue;
+    for (const v of [eol[sd]].flat()) {
+      const u = urlOf(v);
+      if (u) measures.push({ type: "oec:DocumentReference", "oec:documentUrl": u });
+    }
+    if (eol === eols[0]) slot = sd;
+    else delete eol[sd];
+  }
+  if (measures.length) {
+    let eol = eols[0];
+    if (!eol) {
+      eol = { type: "eubat:EndOfLifeInfo" };
+      o[eolKey ?? "eubat:hasEndOfLifeInfo"] = eol;
+    }
+    const key = Object.keys(eol).find((k) => local(k) === "hasSafetyMeasures") ?? "eubat:hasSafetyMeasures";
+    const existing = eol[key] === undefined ? [] : [eol[key]].flat();
+    const seen = new Set(existing.map(docUrl));
+    for (const m of measures) if (!seen.has(docUrl(m))) { existing.push(m); seen.add(docUrl(m)); }
+    const value = existing.length === 1 ? existing[0] : existing;
+    if (slot && !(key in eol)) replaceKey(eol, slot, key, value);
+    else {
+      if (slot) delete eol[slot];
+      eol[key] = value;
+    }
+  }
+}
+
+const isBatteryProduct = (o: Obj) =>
+  Object.keys(o).some((k) => ["hasTechnicalSpecifications", "hasEndOfLifeInfo", "hasPerformanceInfo", "hasDismantlingDocuments", "safetyMeasures"].includes(local(k)) && (!k.includes(":") || /^(eubat|oec):/.test(k)));
 
 const BY_TYPE: Record<string, (o: Obj) => void> = {
   DurabilityInfo: durability,
@@ -292,16 +470,22 @@ const BY_TYPE: Record<string, (o: Obj) => void> = {
   RepairabilityInfo: repairability,
 };
 
-/** Migrate a document in place and return it. */
-export function migrate(doc: Json, at = "$"): Json {
+/**
+ * Migrate a document in place and return it. A document read through the BatteryPass bridge
+ * context speaks the external BatteryPass keys (its safetyMeasures is a different term), so the
+ * battery moves skip it.
+ */
+export function migrate(doc: Json, at = "$", battery?: boolean): Json {
+  if (battery === undefined) battery = !/batterypass-bridge/.test(JSON.stringify(doc?.["@context"] ?? ""));
   if (Array.isArray(doc)) {
-    doc.forEach((v, i) => migrate(v, `${at}[${i}]`));
+    doc.forEach((v, i) => migrate(v, `${at}[${i}]`, battery));
     return doc;
   }
   if (!doc || typeof doc !== "object") return doc;
-  for (const [k, v] of Object.entries(doc)) migrate(v, `${at}.${k}`);
+  for (const [k, v] of Object.entries(doc)) migrate(v, `${at}.${k}`, battery);
   for (const t of typeOf(doc)) BY_TYPE[t]?.(doc);
-  rename(doc, at);
+  rename(doc, at, battery);
+  if (battery && isBatteryProduct(doc)) batteryProduct(doc, at);
   return doc;
 }
 
@@ -314,16 +498,28 @@ const REMOVED = new Set([
   "repairabilityScore", "repairabilityClass",
 ]);
 
-export function leftovers(doc: Json, at = "$", out: string[] = [], textile?: boolean): string[] {
-  // A bare key is one of the textile terms only under a textile context; eubat:expectedLifetimeYears
-  // and friends are other terms of the same name and stay bare under the battery operational context.
-  if (textile === undefined) textile = /\/textile\//.test(JSON.stringify(doc?.["@context"] ?? ""));
-  if (Array.isArray(doc)) doc.forEach((v, i) => leftovers(v, `${at}[${i}]`, out, textile));
+/** Battery terms removed as duplicates in 2026-11 whose successor needed a move or a new shape. */
+const BATTERY_REMOVED = new Set([
+  "expectedLifetimeYears", "roundTripEnergyEfficiency", "hasDismantlingDocuments", "hasDismantlingInstructions",
+  "safetyMeasures", "safetyInstructionsForDismantling",
+]);
+
+export function leftovers(doc: Json, at = "$", out: string[] = [], textile?: boolean, battery?: boolean, bridge?: boolean): string[] {
+  // A bare key is one of the textile terms only under a textile context, and one of the battery
+  // terms only under the battery operational context; bare hasDismantlingInstructions is the
+  // dpp-core term there and is left alone.
+  const ctx = JSON.stringify(doc?.["@context"] ?? "");
+  if (textile === undefined) textile = /\/textile\//.test(ctx);
+  if (bridge === undefined) bridge = /batterypass-bridge/.test(ctx);
+  if (battery === undefined) battery = /\/battery\//.test(ctx) && !bridge;
+  if (Array.isArray(doc)) doc.forEach((v, i) => leftovers(v, `${at}[${i}]`, out, textile, battery, bridge));
   else if (doc && typeof doc === "object") {
     for (const [k, v] of Object.entries(doc)) {
       const removed = REMOVED.has(local(k)) && (/^(eutex:|oec:)/.test(k) || (textile && !k.includes(":")));
-      if (removed || k in RENAMED) out.push(`${at}.${k}`);
-      leftovers(v, `${at}.${k}`, out, textile);
+      const batteryRemoved = BATTERY_REMOVED.has(local(k)) && (k.startsWith("eubat:") || (battery && !k.includes(":") && k !== "hasDismantlingInstructions"));
+      const renamed = k in RENAMED && (k.includes(":") || !bridge);
+      if (removed || batteryRemoved || renamed) out.push(`${at}.${k}`);
+      leftovers(v, `${at}.${k}`, out, textile, battery, bridge);
     }
   }
   return out;
@@ -339,7 +535,83 @@ function without(doc: Json, drop: (key: string) => boolean): Json {
   return Object.fromEntries(Object.entries(doc).filter(([k]) => !drop(k)).map(([k, v]) => [k, without(v, drop)]));
 }
 
+const BAT = "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld";
+const BAT_OP = "https://ref.openepcis.org/extensions/eu/battery/battery-operational-context.jsonld";
+const BRIDGE = "https://ref.openepcis.org/extensions/eu/battery/battery-context-batterypass-bridge.jsonld";
+
+/** Shapes the examples do not exercise: each input must migrate to exactly the expected document. */
+const SYNTHETIC: { name: string; input: Obj; expected: Obj }[] = [
+  {
+    name: "performance info moves up, ratio becomes a percentage",
+    input: {
+      "@context": BAT, type: "eubat:Battery",
+      "oec:hasPerformanceInfo": { type: "oec:PerformanceInfo", "eubat:roundTripEnergyEfficiency": 0.925, "eubat:hasCurrentSelfDischargingRate": qv(2, "P1") },
+      "eubat:hasSelfDischargeRate": qv(3, "P1"),
+    },
+    expected: {
+      "@context": BAT, type: "eubat:Battery",
+      "eubat:hasCurrentSelfDischargingRate": qv(3, "P1"),
+      "eubat:hasRemainingRoundTripEfficiency": qv(92.5, "P1"),
+    },
+  },
+  {
+    name: "safety measures without end-of-life info, string ratio",
+    input: { "@context": BAT, "eubat:safetyMeasures": "https://x.example/safety.pdf", "oec:hasPerformanceInfo": { "eubat:roundTripEnergyEfficiency": "0.9", "eubat:hasNegativeEvents": [] } },
+    expected: {
+      "@context": BAT,
+      "oec:hasPerformanceInfo": { "eubat:hasNegativeEvents": [] },
+      "eubat:hasRemainingRoundTripEfficiency": qv("90", "P1"),
+      "eubat:hasEndOfLifeInfo": { type: "eubat:EndOfLifeInfo", "eubat:hasSafetyMeasures": { type: "oec:DocumentReference", "oec:documentUrl": "https://x.example/safety.pdf" } },
+    },
+  },
+  {
+    name: "operational spelling",
+    input: {
+      "@context": BAT_OP,
+      hasTechnicalSpecifications: { type: "TechnicalSpecification", expectedLifetimeYears: 12 },
+      hasRemainingEnergy: { type: "QuantitativeValue", value: 9, unitCode: "KWH" },
+      hasEndOfLifeInfo: { type: "EndOfLifeInfo", hasDismantlingInstructions: "https://x.example/manual.pdf", safetyInstructionsForDismantling: "https://x.example/ds.pdf" },
+      hasMaterialComposition: [{ casNumber: "7439-93-2", ecNumber: "231-102-5" }],
+    },
+    expected: {
+      "@context": BAT_OP,
+      hasTechnicalSpecifications: { type: "TechnicalSpecification", "eubat:hasExpectedLifetime": qv(12, "ANN") },
+      hasRemainingUsableEnergy: { type: "QuantitativeValue", value: 9, unitCode: "KWH" },
+      hasEndOfLifeInfo: { type: "EndOfLifeInfo", "eubat:hasSafetyMeasures": { type: "oec:DocumentReference", "oec:documentUrl": "https://x.example/ds.pdf" } },
+      hasMaterialComposition: [{ casNumber: "7439-93-2", ecNumber: "231-102-5" }],
+      "eubat:hasDismantlingAndRemovalInformation": [
+        { type: "eubat:DismantlingDocument", "eubat:hasDocumentType": { "@id": "eubat:DismantlingManual" }, "eubat:documentUrl": "https://x.example/manual.pdf" },
+      ],
+    },
+  },
+  {
+    name: "BatteryPass bridge keys stay external",
+    input: { "@context": BRIDGE, batteryPassportIdentifier: "urn:x", safetyMeasures: "https://x.example/s.pdf", batteryMaterials: [{ "eubat:casNumber": "1-1-1" }] },
+    expected: { "@context": BRIDGE, batteryPassportIdentifier: "urn:x", safetyMeasures: "https://x.example/s.pdf", batteryMaterials: [{ "oec:casNumber": "1-1-1" }] },
+  },
+  {
+    name: "dpp-core dismantling instructions and textile EC number",
+    input: { "@context": "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld", "oec:hasCircularityPerformance": { hasDismantlingInstructions: { "oec:documentUrl": "https://x.example/d.pdf" } }, "oec:hasSubstancesOfConcern": [{ "eutex:ecNumber": "200-001-8" }] },
+    expected: { "@context": "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld", "oec:hasCircularityPerformance": { hasDismantlingInstructions: { "oec:documentUrl": "https://x.example/d.pdf" } }, "oec:hasSubstancesOfConcern": [{ "oec:ecNumber": "200-001-8" }] },
+  },
+];
+
 async function check(): Promise<number> {
+  let synthFailed = 0;
+  for (const { name, input, expected } of SYNTHETIC) {
+    notes.length = 0;
+    const got = migrate(structuredClone(input));
+    const left = leftovers(got);
+    if (JSON.stringify(got) === JSON.stringify(expected) && !left.length) {
+      console.log(`  ok  synthetic: ${name}`);
+      continue;
+    }
+    synthFailed++;
+    console.error(`  FAIL synthetic: ${name}${left.length ? ` (old keys left: ${left.join(", ")})` : ""}`);
+    console.error(`    got      ${JSON.stringify(got)}`);
+    console.error(`    expected ${JSON.stringify(expected)}`);
+  }
+  notes.length = 0;
   const jsonld = (await import("jsonld")).default as any;
   const { offlineDocumentLoader } = await import("./lib/jsonld-loader.ts");
   const loader = await offlineDocumentLoader();
@@ -367,11 +639,12 @@ async function check(): Promise<number> {
     for (const l of [...as].filter((x) => !bs.has(x)).slice(0, 8)) console.error(`    + ${l}`);
     for (const l of [...bs].filter((x) => !as.has(x)).slice(0, 8)) console.error(`    - ${l}`);
   }
-  if (failed) {
-    console.error(`✗ assessment migration: ${failed}/${cases.length} example(s) differ from the hand migration (d1e28a7, 0142308)`);
+  if (failed || synthFailed) {
+    if (failed) console.error(`✗ migration: ${failed}/${cases.length} example(s) differ from their reference revision`);
+    if (synthFailed) console.error(`✗ migration: ${synthFailed}/${SYNTHETIC.length} synthetic case(s) differ`);
     return 1;
   }
-  console.log(`✓ assessment migration: ${cases.length} examples match the hand migrations in d1e28a7 and 0142308 as RDF`);
+  console.log(`✓ migration: ${cases.length} examples match their reference revisions as RDF, ${SYNTHETIC.length} synthetic cases exact`);
   return 0;
 }
 

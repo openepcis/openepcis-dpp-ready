@@ -88,6 +88,9 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/ReferencedFileDetails"
       ],
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/core/DocumentReference"
+      ],
       "broadMatch": [
         "https://schema.org/DigitalDocument",
         "https://w3id.org/eudpp#DocumentFormattedProperty"
@@ -488,30 +491,6 @@
       "accessLevel": "Public",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "accessLevelRationale": "Art. 7(1)(f): a web link to the public version of the CF study is mandatory public data; dpp-core serves the same name Public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/casNumber",
-      "localName": "casNumber",
-      "label": "CAS Number",
-      "comment": "Chemical Abstracts Service registry number.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/BatteryMaterial"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/casNumber"
-      ],
-      "exactMatch": [
-        "https://ref.openepcis.org/extensions/common/core/casNumber",
-        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier",
-        "https://dpp-keystone.org/spec/v3/terms#componentCasNumber"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "CAS numbers inside the material breakdown enable formulation reconstruction and belong to the Annex XIII(2)(a) detail tier; dpp-core serves the same name AuthorizedOnly.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
@@ -980,32 +959,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/ecNumber",
-      "localName": "ecNumber",
-      "label": "EC Number",
-      "comment": "European Community number (EINECS/ELINCS) for chemical substances.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/BatteryMaterial"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/ecNumber"
-      ],
-      "exactMatch": [
-        "https://ref.openepcis.org/extensions/common/core/ecNumber",
-        "https://dpp-keystone.org/spec/v3/terms#componentEcNumber"
-      ],
-      "broadMatch": [
-        "https://w3id.org/eudpp#ecNumber"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "EC numbers inside the material breakdown are formulation-level identifiers under Annex XIII(2)(a); dpp-core and eutex serve the same name AuthorizedOnly.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/electrolyteComposition",
       "localName": "electrolyteComposition",
       "label": "Electrolyte Composition",
@@ -1153,32 +1106,6 @@
       "accessLevel": "Public",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "accessLevelRationale": "Annex XIII(1)(j): expected lifetime expressed in cycles under reference test conditions is public battery-passport data.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/expectedLifetimeYears",
-      "localName": "expectedLifetimeYears",
-      "label": "Expected Lifetime (Years)",
-      "comment": "Expected calendar lifetime under normal operating conditions, in years.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#expectedLifetimeYears",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#expectedLifetimeYears",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#expectedLifetimeYears"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex XIII(1)(j): expected calendar lifetime is a public declared durability value; eutex serves the same name Public.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
@@ -1848,16 +1775,24 @@
       "label": "Current Self-Discharging Rate",
       "comment": "Current rate of self-discharge of the battery. Use unitCode 'P1' (percent) per UN/CEFACT Rec 20; period typically per month.",
       "domain": [
-        "https://ref.openepcis.org/extensions/common/core/PerformanceInfo"
+        "https://ref.gs1.org/voc/Product"
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
       "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#selfDischargeCurrent",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65"
+        "https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution",
+        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65",
+        "https://dpp-keystone.org/spec/v3/terms#selfDischargeCurrent"
+      ],
+      "exactMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#currentSelfDischargingRateValue"
+      ],
+      "closeMatch": [
+        "https://dpp-keystone.org/spec/v3/terms#selfDischargeCurrent"
       ],
       "broadMatch": [
+        "https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution",
         "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRateSet",
         "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRate"
       ],
@@ -1917,35 +1852,7 @@
       "id": "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingAndRemovalInformation",
       "localName": "hasDismantlingAndRemovalInformation",
       "label": "Dismantling and Removal Information",
-      "comment": "Reference to the dismantling and removal instructions document required by EU Battery Regulation Annex VIII §B.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/common/core/DocumentReference"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/hasDismantlingInstructions",
-        "https://dpp-keystone.org/spec/v3/terms#dismantlingInformation"
-      ],
-      "exactMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation",
-        "https://dpp-keystone.org/spec/v3/terms#dismantlingInformation"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex XIII(2)(c): dismantling information including disassembly sequences and removal instructions is reserved for persons with a legitimate interest.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingDocuments",
-      "localName": "hasDismantlingDocuments",
-      "label": "Dismantling Documents",
-      "comment": "Documents supporting battery dismantling per DIN DKE SPEC 99100.",
+      "comment": "Documents with the dismantling and removal information of the battery: exploded diagrams, disassembly sequences, fastening techniques, tools, warnings and cell layout. Each document is typed per DIN DKE SPEC 99100 (bill of material, 3D model, dismantling manual, removal manual, ...).",
       "domain": [
         "https://ref.gs1.org/voc/Product"
       ],
@@ -1954,50 +1861,25 @@
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/ReferencedFileDetails",
-        "https://ref.openepcis.org/extensions/common/core/hasDismantlingInstructions",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48"
-      ],
-      "exactMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation"
-      ],
-      "broadMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#documents"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex XIII(2)(c): the exploded diagrams and supporting documents ARE the dismantling information reserved for the legitimate-interest audience (structured per DIN DKE SPEC 99100).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingInstructions",
-      "localName": "hasDismantlingInstructions",
-      "label": "Dismantling Instructions",
-      "comment": "Reference to dismantling instructions document for safe disassembly of the battery.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/EndOfLifeInfo"
-      ],
-      "range": [
-        "rdfs:Resource"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/hasDismantlingInstructions",
         "https://dpp-keystone.org/spec/v3/terms#dismantlingInformation",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions",
+        "https://ref.openepcis.org/extensions/common/core/hasDismantlingInstructions",
         "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48"
       ],
       "exactMatch": [
         "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation"
       ],
-      "broadMatch": [
+      "closeMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions",
+        "https://dpp-keystone.org/spec/v3/terms#dismantlingInformation"
+      ],
+      "broadMatch": [
+        "https://dpp-keystone.org/spec/v3/terms#documents",
         "https://ref.gs1.org/voc/instructions"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "AuthorizedOnly",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex XIII(2)(c): dismantling instructions are reserved for persons with a legitimate interest; dpp-core serves the same name AuthorizedOnly.",
+      "accessLevelRationale": "Annex XIII(2)(c): dismantling information including disassembly sequences and removal instructions is reserved for persons with a legitimate interest.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
@@ -2215,21 +2097,20 @@
       "id": "https://ref.openepcis.org/extensions/eu/battery/hasExpectedLifetime",
       "localName": "hasExpectedLifetime",
       "label": "Expected Lifetime",
-      "comment": "Manufacturer-declared expected service life of the battery. Use unitCode 'MON' (months) or 'ANN' (years) per UN/CEFACT Rec 20.",
+      "comment": "Expected lifetime of the battery in calendar years under the reference conditions it was designed for. Use gs1:QuantitativeValue with unitCode 'ANN' (years) per UN/CEFACT Rec 20.",
       "domain": [
-        "https://ref.gs1.org/voc/Product"
+        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
       "seeAlso": [
+        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60",
         "https://dpp-keystone.org/spec/v3/terms#expectedLifetimeYears"
       ],
       "exactMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#expectedLifetimeYears"
-      ],
-      "closeMatch": [
         "https://dpp-keystone.org/spec/v3/terms#expectedLifetimeYears",
+        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#expectedLifetimeYears",
         "urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -3313,37 +3194,6 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasRemainingEnergy",
-      "localName": "hasRemainingEnergy",
-      "label": "Remaining Energy",
-      "comment": "Current maximum energy. Use gs1:QuantitativeValue with unitCode 'KWH'.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#remainingCapacity",
-        "https://dpp-keystone.org/spec/v3/terms#remainingUsableEnergy"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergyValue"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part A: remaining energy is battery-individual health state for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/hasRemainingPowerCapability",
       "localName": "hasRemainingPowerCapability",
       "label": "Remaining Power Capability",
@@ -3390,6 +3240,7 @@
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
       "seeAlso": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
         "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles",
         "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyRemaining",
         "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-64"
@@ -3404,6 +3255,7 @@
       ],
       "narrowMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
+        "https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife",
         "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -3423,16 +3275,21 @@
       "id": "https://ref.openepcis.org/extensions/eu/battery/hasRemainingUsableEnergy",
       "localName": "hasRemainingUsableEnergy",
       "label": "Remaining Usable Energy",
-      "comment": "The current remaining usable energy capacity.",
+      "comment": "Current remaining usable energy of the battery. Use gs1:QuantitativeValue with unitCode 'KWH'.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
       "seeAlso": [
+        "https://dpp-keystone.org/spec/v3/terms#remainingCapacity",
         "https://dpp-keystone.org/spec/v3/terms#remainingUsableEnergy"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v3/terms#remainingUsableEnergy",
-        "https://w3id.org/eudpp/battery-performance#remainingUsableBatteryEnergy"
+        "https://w3id.org/eudpp/battery-performance#remainingUsableBatteryEnergy",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergyValue"
       ],
       "closeMatch": [
         "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingCapacity"
@@ -3524,44 +3381,43 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasSelfDischargeRate",
-      "localName": "hasSelfDischargeRate",
-      "label": "Self Discharge Rate",
-      "comment": "Current self-discharge rate. Use gs1:QuantitativeValue with unitCode 'P1' (percent per month).",
+      "id": "https://ref.openepcis.org/extensions/eu/battery/hasSafetyMeasures",
+      "localName": "hasSafetyMeasures",
+      "label": "Safety Measures",
+      "comment": "Documents with the safety measures for handling and dismantling the battery, addressed to persons with a legitimate interest. Each is an oec:DocumentReference carrying oec:documentUrl.",
       "domain": [
-        "https://ref.gs1.org/voc/Product"
+        "https://ref.openepcis.org/extensions/eu/battery/EndOfLifeInfo"
       ],
       "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
+        "https://ref.openepcis.org/extensions/common/core/DocumentReference"
       ],
       "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#selfDischargeCurrent",
-        "https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution"
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation",
+        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49",
+        "https://dpp-keystone.org/spec/v3/terms#safetyMeasures",
+        "https://dpp-keystone.org/spec/v3/terms#safetyDataSheet"
       ],
       "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#currentSelfDischargingRateValue"
-      ],
-      "closeMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#selfDischargeCurrent"
+        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures",
+        "https://dpp-keystone.org/spec/v3/terms#safetyMeasures",
+        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#wasteBatterySafetyInstructions"
       ],
       "broadMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution"
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation",
+        "https://ref.gs1.org/voc/consumerSafetyInformation",
+        "https://ref.gs1.org/voc/safetyInfo",
+        "https://ref.gs1.org/voc/instructions",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#safetyMeasures",
+        "https://w3id.org/eudpp/battery#safetyMeasures"
       ],
       "narrowMatch": [
-        "https://w3id.org/eudpp/battery-performance#initialSelfDischargeRate"
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "AuthorizedOnly",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part A: the current self-discharge rate is battery-individual health state for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
+      "accessLevelRationale": "Annex XIII(2)(d): end-of-life handling safety measures accompany the dismantling information for the legitimate-interest audience.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/battery/hasSparePartSources",
@@ -5131,46 +4987,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/roundTripEnergyEfficiency",
-      "localName": "roundTripEnergyEfficiency",
-      "label": "Round-Trip Energy Efficiency",
-      "comment": "Current round-trip energy efficiency on the 0-1 decimal scale (0.92 = 92%).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/PerformanceInfo"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36",
-        "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles",
-        "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyRemaining"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingRoundTripEfficiency"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
-        "https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife",
-        "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "The current measured round-trip efficiency is Annex VII health state — only the initial declared value (eubat:roundTripEfficiency) is public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/safetyInstructions",
       "localName": "safetyInstructions",
       "label": "Safety Instructions",
@@ -5197,78 +5013,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
       "accessLevelRationale": "General safe-use and handling instructions address end users (Art. 74(1)(f)); only dismantling-specific safety measures are reserved to Annex XIII(2)(d).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/safetyInstructionsForDismantling",
-      "localName": "safetyInstructionsForDismantling",
-      "label": "Safety Instructions for Dismantling",
-      "comment": "URL to specific safety requirements for battery dismantling.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/EndOfLifeInfo"
-      ],
-      "range": [
-        "xsd:anyURI"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/hasDismantlingInstructions",
-        "https://dpp-keystone.org/spec/v3/terms#safetyMeasures",
-        "https://dpp-keystone.org/spec/v3/terms#safetyDataSheet",
-        "https://dpp-keystone.org/spec/v3/terms#endOfLifeInstructions"
-      ],
-      "exactMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures"
-      ],
-      "broadMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#dismantlingInformation",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions",
-        "https://ref.gs1.org/voc/instructions",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#dismantlingInformation",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#safetyMeasures",
-        "https://ref.gs1.org/voc/safetyInfo",
-        "https://ref.gs1.org/voc/consumerSafetyInformation",
-        "https://w3id.org/eudpp/battery#dismantlingInformation",
-        "https://w3id.org/eudpp/battery#safetyMeasures"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex XIII(2)(d): safety measures for the dismantling process address trained professionals, not the general public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/safetyMeasures",
-      "localName": "safetyMeasures",
-      "label": "Safety Measures",
-      "comment": "End-of-life handling safety guidance: short text or URL fragment.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation",
-        "https://dpp-keystone.org/spec/v3/terms#safetyMeasures",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#safetyMeasures",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#safetyMeasures",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#wasteBatterySafetyInstructions"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation",
-        "https://ref.gs1.org/voc/safetyInfo",
-        "https://ref.gs1.org/voc/consumerSafetyInformation"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex XIII(2)(d): end-of-life handling safety measures accompany the dismantling information for the legitimate-interest audience.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
@@ -5414,7 +5158,7 @@
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
       "accessLevel": "Public",
-      "accessLevelRationale": "The CAS number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike eubat:casNumber it carries no formulation context.",
+      "accessLevelRationale": "The CAS number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike oec:casNumber inside the material breakdown it carries no formulation context.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
@@ -5433,7 +5177,7 @@
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
       "accessLevel": "Public",
-      "accessLevelRationale": "The EC number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike eubat:ecNumber it carries no formulation context.",
+      "accessLevelRationale": "The EC number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike oec:ecNumber inside the material breakdown it carries no formulation context.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {

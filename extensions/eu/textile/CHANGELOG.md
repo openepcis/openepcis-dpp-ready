@@ -4,6 +4,12 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [Unreleased]
 
+### Removed: `eutex:ecNumber`
+
+A module copy of `oec:ecNumber` (same name, same AuthorizedOnly tier), removed like
+`eutex:casNumber` before it. The substance-of-concern shape checks `oec:ecNumber`;
+`scripts/migrate-assessment.ts` renames stored values.
+
 ### Breaking: durability, robustness, recyclability and microfibre release use `common/assessment`
 
 - `eutex:DurabilityInfo`, `eutex:RobustnessAssessment` and `eutex:MicroplasticInfo` are

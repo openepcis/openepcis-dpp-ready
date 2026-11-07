@@ -45,9 +45,9 @@ into seven SAMM aspect groups. Root keys: `EV`, `LMT`, `OtherIndustrial2kWh`,
 `CapacityFade`/`PowerFade`/`EnergyRoundTripEfficiencyFade`→`eubat:hasCapacityFade`/`powerFade`/`roundTripEfficiencyFade`;
 `StateOfChargeSoC`/`StateOfCertifiedEnergySOCE`→`eubat:hasStateOfCharge`/`stateOfCertifiedEnergy`;
 `Initial/Remaining RoundTripEnergyEfficiency`→`eubat:roundTripEfficiency`/`remainingRoundTripEfficiency`;
-`Initial Self-discharge`/`EvolutionOfSelf-dischargeRates`→`eubat:hasSelfDischargeRate`/`evolutionOfSelfDischarge`;
+`Initial Self-discharge`/`EvolutionOfSelf-dischargeRates`→`eubat:initialSelfDischarge`/`hasEvolutionOfSelfDischarge`;
 `InitialInternalResistance…`/`InternalResistanceIncrease…`→`eubat:hasInternalResistance`/`internalResistanceIncrease`;
-`ExpectedLifetimeInCalendarYears`/`ExpectedLifetime-NumberOfChargeOrDischargeCycles`/`NumberOfFullChargingAndDischargingCycles`→`eubat:expectedLifetimeYears`/`expectedCycleLife`/`hasCycleCount`;
+`ExpectedLifetimeInCalendarYears`/`ExpectedLifetime-NumberOfChargeOrDischargeCycles`/`NumberOfFullChargingAndDischargingCycles`→`eubat:hasExpectedLifetime`/`expectedCycleLife`/`hasCycleCount`;
 `EnergyThroughput`/`CapacityThroughput`→`eubat:hasEnergyThroughput`/`capacityThroughput`;
 `TemperatureInformation`/`TemperatureRangeIdleState{Lower,Upper}Boundary`→`eubat:` temperature range;
 **`TimeSpentInExtremeTemperatures{Above,Below}Boundary`, `TimeSpentChargingDuringExtremeTemperatures{Above,Below}Boundary`→`eubat:timeSpent…`** (new);

@@ -36,8 +36,8 @@
 # and hazardClass/hazardousSubstances/recycledContent/recyclabilityRate/
 # complianceStatus/carbonFootprint*/languageCode/
 # verificationBody/thirdPartyAssurancesUrl = Public, matching dpp-core;
-# notifiedBody = AuthorizedOnly matching eucpr; euDeclarationOfConformity and
-# expectedLifetimeYears = Public matching eutex.
+# notifiedBody = AuthorizedOnly matching eucpr; euDeclarationOfConformity
+# = Public matching eutex.
 
 @prefix eubat: <https://ref.openepcis.org/extensions/eu/battery/> .
 @prefix oec:   <https://ref.openepcis.org/extensions/common/core/> .
@@ -213,11 +213,6 @@ eubat:initialSelfDischarge oec:defaultAccessLevel oec:Public ;
 
 eubat:hasExpectedLifetime oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Annex XIII(1)(j): the expected battery lifetime under reference conditions is public battery-passport data." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-
-eubat:expectedLifetimeYears oec:defaultAccessLevel oec:Public ;
-    oec:accessLevelRationale "Annex XIII(1)(j): expected calendar lifetime is a public declared durability value; eutex serves the same name Public." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
@@ -487,11 +482,11 @@ eubat:hasHazardClass oec:defaultAccessLevel oec:Public ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
 eubat:substanceCasNumber oec:defaultAccessLevel oec:Public ;
-    oec:accessLevelRationale "The CAS number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike eubat:casNumber it carries no formulation context." ;
+    oec:accessLevelRationale "The CAS number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike oec:casNumber inside the material breakdown it carries no formulation context." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
 eubat:substanceEcNumber oec:defaultAccessLevel oec:Public ;
-    oec:accessLevelRationale "The EC number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike eubat:ecNumber it carries no formulation context." ;
+    oec:accessLevelRationale "The EC number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike oec:ecNumber inside the material breakdown it carries no formulation context." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
 # =============================================================================
@@ -652,14 +647,6 @@ eubat:hasComponentLocation oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Where a material sits in the battery (cathode/anode/electrolyte) is Annex XIII(2)(a) composition detail for professional users." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
-eubat:casNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
-    oec:accessLevelRationale "CAS numbers inside the material breakdown enable formulation reconstruction and belong to the Annex XIII(2)(a) detail tier; dpp-core serves the same name AuthorizedOnly." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-
-eubat:ecNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
-    oec:accessLevelRationale "EC numbers inside the material breakdown are formulation-level identifiers under Annex XIII(2)(a); dpp-core and eutex serve the same name AuthorizedOnly." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-
 eubat:isCriticalRawMaterial oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Per-material CRM flags serve recyclers' recovery obligations inside the Annex XIII(2)(a) composition detail — the public CRM disclosure is eubat:criticalRawMaterialsStatement; dpp-core serves the same name AuthorizedOnly." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
@@ -690,22 +677,7 @@ eubat:hasDismantlingAndRemovalInformation oec:defaultAccessLevel oec:AuthorizedO
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
-eubat:hasDismantlingInstructions oec:defaultAccessLevel oec:AuthorizedOnly ;
-    oec:accessLevelRationale "Annex XIII(2)(c): dismantling instructions are reserved for persons with a legitimate interest; dpp-core serves the same name AuthorizedOnly." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-
-eubat:hasDismantlingDocuments oec:defaultAccessLevel oec:AuthorizedOnly ;
-    oec:accessLevelRationale "Annex XIII(2)(c): the exploded diagrams and supporting documents ARE the dismantling information reserved for the legitimate-interest audience (structured per DIN DKE SPEC 99100)." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-
-eubat:safetyInstructionsForDismantling oec:defaultAccessLevel oec:AuthorizedOnly ;
-    oec:accessLevelRationale "Annex XIII(2)(d): safety measures for the dismantling process address trained professionals, not the general public." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-
-eubat:safetyMeasures oec:defaultAccessLevel oec:AuthorizedOnly ;
+eubat:hasSafetyMeasures oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex XIII(2)(d): end-of-life handling safety measures accompany the dismantling information for the legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
@@ -791,12 +763,6 @@ eubat:hasRemainingCapacity oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
     oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
-eubat:hasRemainingEnergy oec:defaultAccessLevel oec:AuthorizedOnly ;
-    oec:accessLevelRationale "Annex VII Part A: remaining energy is battery-individual health state for the Art. 14 legitimate-interest audience." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
-
 eubat:hasRemainingUsableEnergy oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: remaining usable energy is battery-individual health state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
@@ -827,12 +793,6 @@ eubat:hasRemainingRoundTripEfficiency oec:defaultAccessLevel oec:AuthorizedOnly 
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
     oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
 
-eubat:roundTripEnergyEfficiency oec:defaultAccessLevel oec:AuthorizedOnly ;
-    oec:accessLevelRationale "The current measured round-trip efficiency is Annex VII health state — only the initial declared value (eubat:roundTripEfficiency) is public." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
-
 eubat:hasRoundTripEfficiencyFade oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: measured efficiency fade is battery-individual degradation state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
@@ -859,12 +819,6 @@ eubat:hasInternalResistance oec:defaultAccessLevel oec:AuthorizedOnly ;
 
 eubat:hasInternalResistanceIncrease oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Annex VII Part A: measured resistance increase is battery-individual degradation state for the Art. 14 legitimate-interest audience." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
-    oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .
-
-eubat:hasSelfDischargeRate oec:defaultAccessLevel oec:AuthorizedOnly ;
-    oec:accessLevelRationale "Annex VII Part A: the current self-discharge rate is battery-individual health state for the Art. 14 legitimate-interest audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
     oec:accessGrantedToRole oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler, oec:MarketSurveillanceAuthority, oec:NotifiedActor .

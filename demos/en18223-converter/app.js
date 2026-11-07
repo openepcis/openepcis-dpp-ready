@@ -28,9 +28,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js
 var require_IdentifierIssuer = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js"(exports, module) {
     "use strict";
     module.exports = class IdentifierIssuer {
       /**
@@ -101,9 +101,9 @@ var require_IdentifierIssuer = __commonJS({
   }
 });
 
-// node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js
+// ../wt-cur/node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js
 var require_setImmediate = __commonJS({
-  "node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js"(exports) {
     (function(global2, undefined2) {
       "use strict";
       if (global2.setImmediate) {
@@ -249,9 +249,9 @@ var require_setImmediate = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js
 var require_platform_browser = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js"(exports) {
     "use strict";
     require_setImmediate();
     exports.setImmediate = setImmediate;
@@ -271,9 +271,9 @@ var require_platform_browser = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js
 var require_MessageDigest_webcrypto = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js"(exports, module) {
     "use strict";
     var { bufferToHex, crypto } = require_platform_browser();
     var algorithmMap = /* @__PURE__ */ new Map([
@@ -315,9 +315,9 @@ var require_MessageDigest_webcrypto = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js
 var require_Permuter = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js"(exports, module) {
     "use strict";
     module.exports = class Permuter {
       /**
@@ -380,9 +380,9 @@ var require_Permuter = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js
 var require_NQuads = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js"(exports, module) {
     "use strict";
     var RDF2 = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     var RDF_LANGSTRING = RDF2 + "langString";
@@ -696,9 +696,9 @@ var require_NQuads = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js
 var require_RDFC10 = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js"(exports, module) {
     "use strict";
     var IdentifierIssuer = require_IdentifierIssuer();
     var MessageDigest = require_MessageDigest_webcrypto();
@@ -1017,9 +1017,9 @@ var require_RDFC10 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js
 var require_RDFC10Sync = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js"(exports, module) {
     "use strict";
     var IdentifierIssuer = require_IdentifierIssuer();
     var MessageDigest = require_MessageDigest_webcrypto();
@@ -1326,9 +1326,9 @@ var require_RDFC10Sync = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js
 var require_lib = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js"(exports) {
     "use strict";
     var RDFC10 = require_RDFC10();
     var RDFC10Sync = require_RDFC10Sync();
@@ -1399,16 +1399,16 @@ var require_lib = __commonJS({
   }
 });
 
-// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js
+// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js
 var require_rdf_canonize = __commonJS({
-  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js"(exports, module) {
     module.exports = require_lib();
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js
 var require_types = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js"(exports, module) {
     "use strict";
     var api = {};
     module.exports = api;
@@ -1424,9 +1424,9 @@ var require_types = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js
 var require_graphTypes = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js"(exports, module) {
     "use strict";
     var types = require_types();
     var api = {};
@@ -1475,9 +1475,9 @@ var require_graphTypes = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js
 var require_JsonLdError = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js"(exports, module) {
     "use strict";
     module.exports = class JsonLdError extends Error {
       /**
@@ -1497,9 +1497,9 @@ var require_JsonLdError = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js
 var require_util = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js"(exports, module) {
     "use strict";
     var graphTypes = require_graphTypes();
     var types = require_types();
@@ -1753,9 +1753,9 @@ var require_util = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js
 var require_constants = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js"(exports, module) {
     "use strict";
     var RDF2 = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     var XSD3 = "http://www.w3.org/2001/XMLSchema#";
@@ -1783,9 +1783,9 @@ var require_constants = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js
 var require_RequestQueue = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js"(exports, module) {
     "use strict";
     module.exports = class RequestQueue {
       /**
@@ -1817,9 +1817,9 @@ var require_RequestQueue = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js
 var require_url = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js"(exports, module) {
     "use strict";
     var types = require_types();
     var api = {};
@@ -2020,9 +2020,9 @@ var require_url = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js
 var require_xhr = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js"(exports, module) {
     "use strict";
     var { parseLinkHeader, buildHeaders } = require_util();
     var { LINK_HEADER_CONTEXT } = require_constants();
@@ -2118,9 +2118,9 @@ var require_xhr = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js
 var require_platform_browser2 = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js"(exports, module) {
     "use strict";
     var xhrLoader = require_xhr();
     var api = {};
@@ -2144,9 +2144,9 @@ var require_platform_browser2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js
+// ../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js
 var require_iterator = __commonJS({
-  "node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js"(exports, module) {
     "use strict";
     module.exports = function(Yallist) {
       Yallist.prototype[Symbol.iterator] = function* () {
@@ -2158,9 +2158,9 @@ var require_iterator = __commonJS({
   }
 });
 
-// node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js
+// ../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js
 var require_yallist = __commonJS({
-  "node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js"(exports, module) {
     "use strict";
     module.exports = Yallist;
     Yallist.Node = Node;
@@ -2527,9 +2527,9 @@ var require_yallist = __commonJS({
   }
 });
 
-// node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js
+// ../wt-cur/node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js
 var require_lru_cache = __commonJS({
-  "node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js"(exports, module) {
     "use strict";
     var Yallist = require_yallist();
     var MAX = Symbol("max");
@@ -2796,9 +2796,9 @@ var require_lru_cache = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js
 var require_ResolvedContext = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js"(exports, module) {
     "use strict";
     var LRU = require_lru_cache();
     var MAX_ACTIVE_CONTEXTS = 10;
@@ -2822,9 +2822,9 @@ var require_ResolvedContext = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js
 var require_ContextResolver = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js"(exports, module) {
     "use strict";
     var {
       isArray: _isArray,
@@ -3030,17 +3030,17 @@ var require_ContextResolver = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js
 var require_NQuads2 = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js"(exports, module) {
     "use strict";
     module.exports = require_rdf_canonize().NQuads;
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js
 var require_events = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var {
@@ -3155,9 +3155,9 @@ var require_events = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js
 var require_context = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js"(exports, module) {
     "use strict";
     var util = require_util();
     var JsonLdError = require_JsonLdError();
@@ -4365,9 +4365,9 @@ var require_context = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js
 var require_expand = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var {
@@ -5426,9 +5426,9 @@ var require_expand = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js
 var require_nodeMap = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js"(exports, module) {
     "use strict";
     var { isKeyword } = require_context();
     var graphTypes = require_graphTypes();
@@ -5649,9 +5649,9 @@ var require_nodeMap = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js
 var require_flatten = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js"(exports, module) {
     "use strict";
     var {
       isSubjectReference: _isSubjectReference
@@ -5676,9 +5676,9 @@ var require_flatten = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js
 var require_fromRdf = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var graphTypes = require_graphTypes();
@@ -5947,9 +5947,9 @@ var require_fromRdf = __commonJS({
   }
 });
 
-// node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js
+// ../wt-cur/node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js
 var require_canonicalize = __commonJS({
-  "node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js"(exports, module) {
     "use strict";
     module.exports = function serialize(object) {
       if (typeof object === "number" && isNaN(object)) {
@@ -5984,9 +5984,9 @@ var require_canonicalize = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js
 var require_toRdf = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js"(exports, module) {
     "use strict";
     var { createNodeMap } = require_nodeMap();
     var { isKeyword } = require_context();
@@ -6335,9 +6335,9 @@ var require_toRdf = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js
 var require_frame = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js"(exports, module) {
     "use strict";
     var { isKeyword } = require_context();
     var graphTypes = require_graphTypes();
@@ -6864,9 +6864,9 @@ var require_frame = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js
 var require_compact = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var {
@@ -7764,9 +7764,9 @@ var require_compact = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js
 var require_JsonLdProcessor = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js"(exports, module) {
     "use strict";
     module.exports = (jsonld3) => {
       class JsonLdProcessor {
@@ -7813,9 +7813,9 @@ var require_JsonLdProcessor = __commonJS({
   }
 });
 
-// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js
+// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js
 var require_jsonld = __commonJS({
-  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js"(exports, module) {
     var canonize = require_rdf_canonize();
     var platform = require_platform_browser2();
     var util = require_util();
@@ -8405,9 +8405,9 @@ var require_jsonld = __commonJS({
   }
 });
 
-// node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js
+// ../wt-cur/node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js
 var require_base64_js = __commonJS({
-  "node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js"(exports) {
     "use strict";
     exports.byteLength = byteLength;
     exports.toByteArray = toByteArray;
@@ -8506,9 +8506,9 @@ var require_base64_js = __commonJS({
   }
 });
 
-// node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js
+// ../wt-cur/node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js
 var require_ieee754 = __commonJS({
-  "node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js"(exports) {
     exports.read = function(buffer, offset, isLE, mLen, nBytes) {
       var e, m;
       var eLen = nBytes * 8 - mLen - 1;
@@ -8589,9 +8589,9 @@ var require_ieee754 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js
+// ../wt-cur/node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js
 var require_buffer = __commonJS({
-  "node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js"(exports) {
     "use strict";
     var base64 = require_base64_js();
     var ieee754 = require_ieee754();
@@ -10181,9 +10181,9 @@ var require_buffer = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js
 var require_primordials = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js"(exports, module) {
     "use strict";
     var AggregateError = class extends Error {
       constructor(errors) {
@@ -10302,9 +10302,9 @@ var require_primordials = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js
 var require_inspect = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js"(exports, module) {
     "use strict";
     module.exports = {
       format(format, ...args) {
@@ -10353,9 +10353,9 @@ var require_inspect = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js
 var require_errors = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js"(exports, module) {
     "use strict";
     var { format, inspect } = require_inspect();
     var { AggregateError: CustomAggregateError } = require_primordials();
@@ -10671,9 +10671,9 @@ var require_errors = __commonJS({
   }
 });
 
-// node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js
+// ../wt-cur/node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js
 var require_browser = __commonJS({
-  "node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js"(exports, module) {
     "use strict";
     var { AbortController, AbortSignal } = typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : (
       /* otherwise */
@@ -10685,9 +10685,9 @@ var require_browser = __commonJS({
   }
 });
 
-// node_modules/.pnpm/events@3.3.0/node_modules/events/events.js
+// ../wt-cur/node_modules/.pnpm/events@3.3.0/node_modules/events/events.js
 var require_events2 = __commonJS({
-  "node_modules/.pnpm/events@3.3.0/node_modules/events/events.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/events@3.3.0/node_modules/events/events.js"(exports, module) {
     "use strict";
     var R = typeof Reflect === "object" ? Reflect : null;
     var ReflectApply = R && typeof R.apply === "function" ? R.apply : function ReflectApply2(target, receiver, args) {
@@ -11054,9 +11054,9 @@ var require_events2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js
 var require_util2 = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js"(exports, module) {
     "use strict";
     var bufferModule = require_buffer();
     var { format, inspect } = require_inspect();
@@ -11193,9 +11193,9 @@ var require_util2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js
 var require_validators = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js"(exports, module) {
     "use strict";
     var {
       ArrayIsArray,
@@ -11457,9 +11457,9 @@ var require_validators = __commonJS({
   }
 });
 
-// node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js
+// ../wt-cur/node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js
 var require_browser2 = __commonJS({
-  "node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js"(exports, module) {
     var process2 = module.exports = {};
     var cachedSetTimeout;
     var cachedClearTimeout;
@@ -11619,9 +11619,9 @@ var require_browser2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js
 var require_utils = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js"(exports, module) {
     "use strict";
     var { SymbolAsyncIterator, SymbolIterator, SymbolFor } = require_primordials();
     var kIsDestroyed = SymbolFor("nodejs.stream.destroyed");
@@ -11828,9 +11828,9 @@ var require_utils = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
 var require_end_of_stream = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var { AbortError, codes } = require_errors();
@@ -12080,9 +12080,9 @@ var require_end_of_stream = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js
 var require_destroy = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var {
@@ -12345,9 +12345,9 @@ var require_destroy = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js
 var require_legacy = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js"(exports, module) {
     "use strict";
     var { ArrayIsArray, ObjectSetPrototypeOf } = require_primordials();
     var { EventEmitter: EE } = require_events2();
@@ -12423,9 +12423,9 @@ var require_legacy = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js
 var require_add_abort_signal = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js"(exports, module) {
     "use strict";
     var { SymbolDispose } = require_primordials();
     var { AbortError, codes } = require_errors();
@@ -12474,9 +12474,9 @@ var require_add_abort_signal = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js
 var require_buffer_list = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module) {
     "use strict";
     var { StringPrototypeSlice, SymbolIterator, TypedArrayPrototypeSet, Uint8Array: Uint8Array2 } = require_primordials();
     var { Buffer: Buffer3 } = require_buffer();
@@ -12629,9 +12629,9 @@ var require_buffer_list = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js
 var require_state = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js"(exports, module) {
     "use strict";
     var { MathFloor, NumberIsInteger } = require_primordials();
     var { validateInteger } = require_validators();
@@ -12671,9 +12671,9 @@ var require_state = __commonJS({
   }
 });
 
-// node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js
+// ../wt-cur/node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js
 var require_safe_buffer = __commonJS({
-  "node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js"(exports, module) {
     var buffer = require_buffer();
     var Buffer3 = buffer.Buffer;
     function copyProps(src, dst) {
@@ -12729,9 +12729,9 @@ var require_safe_buffer = __commonJS({
   }
 });
 
-// node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js
+// ../wt-cur/node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js
 var require_string_decoder = __commonJS({
-  "node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js"(exports) {
+  "../wt-cur/node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js"(exports) {
     "use strict";
     var Buffer3 = require_safe_buffer().Buffer;
     var isEncoding = Buffer3.isEncoding || function(encoding) {
@@ -12967,9 +12967,9 @@ var require_string_decoder = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js
 var require_from = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var { PromisePrototypeThen, SymbolAsyncIterator, SymbolIterator } = require_primordials();
@@ -13062,9 +13062,9 @@ var require_from = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js
 var require_readable = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var {
@@ -14028,9 +14028,9 @@ var require_readable = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js
 var require_writable = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var {
@@ -14649,9 +14649,9 @@ var require_writable = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js
 var require_duplexify = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js"(exports, module) {
     var process2 = require_browser2();
     var bufferModule = require_buffer();
     var {
@@ -14996,9 +14996,9 @@ var require_duplexify = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js
 var require_duplex = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js"(exports, module) {
     "use strict";
     var {
       ObjectDefineProperties,
@@ -15113,9 +15113,9 @@ var require_duplex = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js
 var require_transform = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js"(exports, module) {
     "use strict";
     var { ObjectSetPrototypeOf, Symbol: Symbol2 } = require_primordials();
     module.exports = Transform3;
@@ -15215,9 +15215,9 @@ var require_transform = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js
 var require_passthrough = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js"(exports, module) {
     "use strict";
     var { ObjectSetPrototypeOf } = require_primordials();
     module.exports = PassThrough;
@@ -15234,9 +15234,9 @@ var require_passthrough = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js
 var require_pipeline = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports, module) {
     var process2 = require_browser2();
     var { ArrayIsArray, Promise: Promise2, SymbolAsyncIterator, SymbolDispose } = require_primordials();
     var eos = require_end_of_stream();
@@ -15662,9 +15662,9 @@ var require_pipeline = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js
 var require_compose = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js"(exports, module) {
     "use strict";
     var { pipeline } = require_pipeline();
     var Duplex = require_duplex();
@@ -15855,9 +15855,9 @@ var require_compose = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js
 var require_operators = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js"(exports, module) {
     "use strict";
     var AbortController = globalThis.AbortController || require_browser().AbortController;
     var {
@@ -16260,9 +16260,9 @@ var require_operators = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js
 var require_promises = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js"(exports, module) {
     "use strict";
     var { ArrayPrototypePop, Promise: Promise2 } = require_primordials();
     var { isIterable, isNodeStream, isWebStream } = require_utils();
@@ -16302,9 +16302,9 @@ var require_promises = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js
 var require_stream = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js"(exports, module) {
     "use strict";
     var { Buffer: Buffer3 } = require_buffer();
     var { ObjectDefineProperty, ObjectKeys, ReflectApply } = require_primordials();
@@ -16421,9 +16421,9 @@ var require_stream = __commonJS({
   }
 });
 
-// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js
+// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js
 var require_browser3 = __commonJS({
-  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js"(exports, module) {
+  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js"(exports, module) {
     "use strict";
     var CustomStream = require_stream();
     var promises = require_promises();
@@ -16756,10 +16756,10 @@ function compressEN18223(passport, opts = defaultOptions) {
 // scripts/en18223/serialize.ts
 var import_jsonld2 = __toESM(require_jsonld(), 1);
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
 var import_buffer = __toESM(require_buffer());
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/IRIs.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/IRIs.js
 var RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 var XSD2 = "http://www.w3.org/2001/XMLSchema#";
 var SWAP = "http://www.w3.org/2000/10/swap/";
@@ -16791,7 +16791,7 @@ var IRIs_default = {
   }
 };
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
 var { xsd } = IRIs_default;
 var escapeSequence = /\\u([a-fA-F0-9]{4})|\\U([a-fA-F0-9]{8})|\\([^])/g;
 var escapeReplacements = {
@@ -17209,7 +17209,7 @@ var N3Lexer = class {
   }
 };
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3DataFactory.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3DataFactory.js
 var { rdf, xsd: xsd2 } = IRIs_default;
 var DEFAULTGRAPH;
 var _blankNodeCounter = 0;
@@ -17509,7 +17509,7 @@ function fromQuad(inQuad) {
   return quad(fromTerm(inQuad.subject), fromTerm(inQuad.predicate), fromTerm(inQuad.object), fromTerm(inQuad.graph));
 }
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Parser.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Parser.js
 var blankNodePrefix = 0;
 var N3Parser = class {
   constructor(options) {
@@ -18443,7 +18443,7 @@ function initDataFactory(parser, factory) {
 }
 initDataFactory(N3Parser.prototype, N3DataFactory_default);
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Util.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Util.js
 var N3Util_exports = {};
 __export(N3Util_exports, {
   inDefaultGraph: () => inDefaultGraph,
@@ -18499,12 +18499,12 @@ function prefixes(defaultPrefixes, factory) {
   return processPrefix;
 }
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/Util.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/Util.js
 function escapeRegex(regex) {
   return regex.replace(/[\]\/\(\)\*\+\?\.\\\$]/g, "\\$&");
 }
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/BaseIRI.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/BaseIRI.js
 var BASE_UNSUPPORTED = /^:?[^:?#]*(?:[?#]|$)|^file:|^[^:]*:\/*[^?#]+?\/(?:\.\.?(?:\/|$)|\/)/i;
 var SUFFIX_SUPPORTED = /^(?:(?:[^/?#]{3,}|\.?[^/?#.]\.?)(?:\/[^/?#]{3,}|\.?[^/?#.]\.?)*\/?)?(?:[?#]|$)/;
 var CURRENT = "./";
@@ -18576,7 +18576,7 @@ var BaseIRI = class _BaseIRI {
   }
 };
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Writer.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Writer.js
 var DEFAULTGRAPH2 = N3DataFactory_default.defaultGraph();
 var { rdf: rdf2, xsd: xsd3 } = IRIs_default;
 var escape = /["\\\t\n\r\b\f\u0000-\u0019\ud800-\udbff]/;
@@ -18881,7 +18881,7 @@ function characterReplacer(character) {
   return result;
 }
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Store.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Store.js
 var import_readable_stream = __toESM(require_browser3());
 var ITERATOR = Symbol("iter");
 function merge(target, source, depth = 4) {
@@ -19887,14 +19887,14 @@ var DatasetCoreAndReadableStream = class _DatasetCoreAndReadableStream extends i
   }
 };
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StoreFactory.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StoreFactory.js
 var N3DatasetCoreFactory = class {
   dataset(quads) {
     return new N3Store(quads);
   }
 };
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Reasoner.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Reasoner.js
 function getRulesFromDataset(dataset) {
   const rules = [];
   for (const { subject, object } of dataset.match(null, N3DataFactory_default.namedNode("http://www.w3.org/2000/10/swap/log#implies"), null, N3DataFactory_default.defaultGraph())) {
@@ -20064,7 +20064,7 @@ function termEq(t1, t2) {
   return t1.value === t2.value;
 }
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StreamParser.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StreamParser.js
 var import_readable_stream2 = __toESM(require_browser3());
 var N3StreamParser = class extends import_readable_stream2.Transform {
   constructor(options) {
@@ -20122,7 +20122,7 @@ var N3StreamParser = class extends import_readable_stream2.Transform {
   }
 };
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StreamWriter.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StreamWriter.js
 var import_readable_stream3 = __toESM(require_browser3());
 var N3StreamWriter = class extends import_readable_stream3.Transform {
   constructor(options) {
@@ -20162,7 +20162,7 @@ var N3StreamWriter = class extends import_readable_stream3.Transform {
   }
 };
 
-// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/index.js
+// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/index.js
 var src_default = {
   Lexer: N3Lexer,
   Parser: N3Parser,
@@ -20808,7 +20808,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/carbonFootprintDeclarationId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/carbonFootprintGeographicScope": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/carbonFootprintStudyUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/eu/battery/casNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/cathodeActiveMaterial": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/ceMarkingIndicator": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/battery/cobaltPostConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
@@ -20828,7 +20827,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/documentUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/dueDiligencePolicyUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/dueDiligenceReportUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/eu/battery/ecNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/electrolyteComposition": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/electrolyteType": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/estimatedImpact": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
@@ -20836,7 +20834,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/eventDate": "http://www.w3.org/2001/XMLSchema#dateTime",
   "https://ref.openepcis.org/extensions/eu/battery/exceedanceThreshold": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/expectedCycleLife": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.org/extensions/eu/battery/expectedLifetimeYears": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/expectedRemainingCycles": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/expectedRemainingLifetimeMonths": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/exposureDurationMinutes": "http://www.w3.org/2001/XMLSchema#integer",
@@ -20864,9 +20861,7 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/hasComponentLocation": "https://ref.openepcis.org/extensions/eu/battery/ComponentLocation",
   "https://ref.openepcis.org/extensions/eu/battery/hasCurrentSelfDischargingRate": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasCycleCount": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingAndRemovalInformation": "https://ref.openepcis.org/extensions/common/core/DocumentReference",
-  "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingDocuments": "https://ref.openepcis.org/extensions/eu/battery/DismantlingDocument",
-  "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingInstructions": "http://www.w3.org/2000/01/rdf-schema#Resource",
+  "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingAndRemovalInformation": "https://ref.openepcis.org/extensions/eu/battery/DismantlingDocument",
   "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingTime": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasDocumentType": "https://ref.openepcis.org/extensions/eu/battery/DismantlingDocumentType",
   "https://ref.openepcis.org/extensions/eu/battery/hasEndOfLifeInfo": "https://ref.openepcis.org/extensions/eu/battery/EndOfLifeInfo",
@@ -20916,14 +20911,13 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/hasRatedMaximumPower": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasRecycledContent": "https://ref.openepcis.org/extensions/eu/battery/RecycledContent",
   "https://ref.openepcis.org/extensions/eu/battery/hasRemainingCapacity": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasRemainingEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasRemainingPowerCapability": "https://ref.openepcis.org/extensions/eu/battery/PowerCapabilityAtSoC",
   "https://ref.openepcis.org/extensions/eu/battery/hasRemainingRoundTripEfficiency": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasRemainingUsableEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasRepurposingEntity": "https://ref.gs1.org/voc/Organization",
   "https://ref.openepcis.org/extensions/eu/battery/hasResponsibleSourcingStandard": "https://ref.openepcis.org/extensions/eu/battery/ResponsibleSourcingStandard",
   "https://ref.openepcis.org/extensions/eu/battery/hasRoundTripEfficiencyFade": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasSelfDischargeRate": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.org/extensions/eu/battery/hasSafetyMeasures": "https://ref.openepcis.org/extensions/common/core/DocumentReference",
   "https://ref.openepcis.org/extensions/eu/battery/hasSparePartSources": "https://ref.gs1.org/voc/Organization",
   "https://ref.openepcis.org/extensions/eu/battery/hasStateOfCertifiedEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasStateOfCharge": "https://ref.gs1.org/voc/QuantitativeValue",
@@ -20990,10 +20984,7 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/riskAssessmentSummary": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/roundTripEfficiency": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/roundTripEfficiencyAt50PercentCycleLife": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/eu/battery/roundTripEnergyEfficiency": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/safetyInstructions": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/eu/battery/safetyInstructionsForDismantling": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/eu/battery/safetyMeasures": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/separateCollection": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/separateCollectionSymbolUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/shippingName": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
@@ -21225,7 +21216,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/textile/chemicalPurpose": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/textile/concentrationRange": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/textile/containsAnimalNonTextileParts": "http://www.w3.org/2001/XMLSchema#boolean",
-  "https://ref.openepcis.org/extensions/eu/textile/ecNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/textile/endOfLifeDestination": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/textile/endOfLifeHandling": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/textile/environmentalFootprintClass": "http://www.w3.org/2001/XMLSchema#integer",
@@ -23365,7 +23355,6 @@ var contexts_default = {
       cccev: "http://data.europa.eu/m8g/",
       xsd: "http://www.w3.org/2001/XMLSchema#",
       eubat: "https://ref.openepcis.org/extensions/eu/battery/",
-      rdfs: "http://www.w3.org/2000/01/rdf-schema#",
       AccessLevel: "eubat:AccessLevel",
       AuthoritiesOnly: "eubat:AuthoritiesOnly",
       AuthorizedAccess: "eubat:AuthorizedAccess",
@@ -23485,10 +23474,6 @@ var contexts_default = {
         "@id": "eubat:carbonFootprintStudyUrl",
         "@type": "@id"
       },
-      casNumber: {
-        "@id": "eubat:casNumber",
-        "@type": "xsd:string"
-      },
       cathodeActiveMaterial: {
         "@id": "eubat:cathodeActiveMaterial",
         "@type": "xsd:string"
@@ -23551,10 +23536,6 @@ var contexts_default = {
         "@id": "eubat:dueDiligenceReportUrl",
         "@type": "@id"
       },
-      ecNumber: {
-        "@id": "eubat:ecNumber",
-        "@type": "xsd:string"
-      },
       electrolyteComposition: {
         "@id": "eubat:electrolyteComposition",
         "@type": "xsd:string"
@@ -23576,10 +23557,6 @@ var contexts_default = {
       },
       expectedCycleLife: {
         "@id": "eubat:expectedCycleLife",
-        "@type": "xsd:integer"
-      },
-      expectedLifetimeYears: {
-        "@id": "eubat:expectedLifetimeYears",
         "@type": "xsd:integer"
       },
       expectedRemainingCycles: {
@@ -23723,14 +23700,6 @@ var contexts_default = {
       },
       hasDismantlingAndRemovalInformation: {
         "@id": "eubat:hasDismantlingAndRemovalInformation",
-        "@type": "@id"
-      },
-      hasDismantlingDocuments: {
-        "@id": "eubat:hasDismantlingDocuments",
-        "@type": "@id"
-      },
-      hasDismantlingInstructions: {
-        "@id": "eubat:hasDismantlingInstructions",
         "@type": "@id"
       },
       hasDismantlingTime: {
@@ -23995,10 +23964,6 @@ var contexts_default = {
         "@id": "eubat:hasRemainingCapacity",
         "@type": "@id"
       },
-      hasRemainingEnergy: {
-        "@id": "eubat:hasRemainingEnergy",
-        "@type": "@id"
-      },
       hasRemainingPowerCapability: {
         "@id": "eubat:hasRemainingPowerCapability",
         "@type": "@id"
@@ -24031,8 +23996,8 @@ var contexts_default = {
         "@id": "eubat:hasRoundTripEfficiencyFade",
         "@type": "@id"
       },
-      hasSelfDischargeRate: {
-        "@id": "eubat:hasSelfDischargeRate",
+      hasSafetyMeasures: {
+        "@id": "eubat:hasSafetyMeasures",
         "@type": "@id"
       },
       hasSparePartSources: {
@@ -24312,21 +24277,9 @@ var contexts_default = {
         "@id": "eubat:roundTripEfficiencyAt50PercentCycleLife",
         "@type": "xsd:decimal"
       },
-      roundTripEnergyEfficiency: {
-        "@id": "eubat:roundTripEnergyEfficiency",
-        "@type": "xsd:decimal"
-      },
       safetyInstructions: {
         "@id": "eubat:safetyInstructions",
         "@type": "@id"
-      },
-      safetyInstructionsForDismantling: {
-        "@id": "eubat:safetyInstructionsForDismantling",
-        "@type": "@id"
-      },
-      safetyMeasures: {
-        "@id": "eubat:safetyMeasures",
-        "@type": "xsd:string"
       },
       separateCollection: {
         "@id": "eubat:separateCollection",
@@ -24503,10 +24456,6 @@ var contexts_default = {
       containsAnimalNonTextileParts: {
         "@id": "eutex:containsAnimalNonTextileParts",
         "@type": "xsd:boolean"
-      },
-      ecNumber: {
-        "@id": "eutex:ecNumber",
-        "@type": "xsd:string"
       },
       endOfLifeDestination: "eutex:endOfLifeDestination",
       endOfLifeHandling: {
@@ -28287,7 +28236,6 @@ var contexts_default = {
         eubat: "https://ref.openepcis.org/extensions/eu/battery/",
         gs1: "https://ref.gs1.org/voc/",
         oec: "https://ref.openepcis.org/extensions/common/core/",
-        rdfs: "http://www.w3.org/2000/01/rdf-schema#",
         xsd: "http://www.w3.org/2001/XMLSchema#",
         schema: "https://schema.org/",
         cv: "http://data.europa.eu/m8g/",
@@ -28389,10 +28337,6 @@ var contexts_default = {
         },
         "eubat:expectedCycleLife": {
           "@id": "eubat:expectedCycleLife",
-          "@type": "xsd:integer"
-        },
-        "eubat:expectedLifetimeYears": {
-          "@id": "eubat:expectedLifetimeYears",
           "@type": "xsd:integer"
         },
         "eubat:hasExpectedLifetimeEnergyThroughput": {
@@ -28595,14 +28539,6 @@ var contexts_default = {
           "@id": "eubat:recoveryRate",
           "@type": "xsd:decimal"
         },
-        "eubat:hasDismantlingInstructions": {
-          "@id": "eubat:hasDismantlingInstructions",
-          "@type": "@id"
-        },
-        "eubat:safetyInstructionsForDismantling": {
-          "@id": "eubat:safetyInstructionsForDismantling",
-          "@type": "xsd:anyURI"
-        },
         "eubat:hasDismantlingTime": {
           "@id": "eubat:hasDismantlingTime",
           "@type": "@id"
@@ -28626,10 +28562,6 @@ var contexts_default = {
         "eubat:safetyInstructions": {
           "@id": "eubat:safetyInstructions",
           "@type": "xsd:anyURI"
-        },
-        "eubat:hasDismantlingDocuments": {
-          "@id": "eubat:hasDismantlingDocuments",
-          "@type": "@id"
         },
         "eubat:documentUrl": {
           "@id": "eubat:documentUrl",
@@ -28823,10 +28755,6 @@ var contexts_default = {
           "@id": "eubat:hasRemainingCapacity",
           "@type": "@id"
         },
-        "eubat:hasRemainingEnergy": {
-          "@id": "eubat:hasRemainingEnergy",
-          "@type": "@id"
-        },
         "eubat:hasCapacityFade": {
           "@id": "eubat:hasCapacityFade",
           "@type": "@id"
@@ -28857,10 +28785,6 @@ var contexts_default = {
         },
         "eubat:hasRoundTripEfficiencyFade": {
           "@id": "eubat:hasRoundTripEfficiencyFade",
-          "@type": "@id"
-        },
-        "eubat:hasSelfDischargeRate": {
-          "@id": "eubat:hasSelfDischargeRate",
           "@type": "@id"
         },
         "eubat:hasEvolutionOfSelfDischarge": {
@@ -28955,6 +28879,10 @@ var contexts_default = {
           "@id": "eubat:hasDismantlingAndRemovalInformation",
           "@type": "@id"
         },
+        "eubat:hasSafetyMeasures": {
+          "@id": "eubat:hasSafetyMeasures",
+          "@type": "@id"
+        },
         "eubat:hasExpectedLifetime": {
           "@id": "eubat:hasExpectedLifetime",
           "@type": "@id"
@@ -28966,14 +28894,6 @@ var contexts_default = {
         "eubat:hasNegativeEvents": {
           "@id": "eubat:hasNegativeEvents",
           "@type": "@id"
-        },
-        "eubat:roundTripEnergyEfficiency": {
-          "@id": "eubat:roundTripEnergyEfficiency",
-          "@type": "xsd:decimal"
-        },
-        "eubat:safetyMeasures": {
-          "@id": "eubat:safetyMeasures",
-          "@type": "xsd:string"
         },
         "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
           "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
@@ -28995,7 +28915,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/battery/battery-context-batterypass-bridge.jsonld": {
-    _comment: "This context interprets incoming BatteryPass documents as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). One BatteryPass data model, referenced through two renderings. (1) bpsamm-* = the Battery Pass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl \u2014 the canonical form. (2) bpr: = an OpenEPCIS-hosted reference namespace for the few GEFEG BatteryPass-Ready longlist v1.3 attributes with no SAMM equivalent (DPP-information group #1-#4) plus the flat lossless-carrier keys below; GEFEG (thebatterypass.eu) is the Consortium's publication and validation channel and publishes no RDF IRIs. No SAMM 1.3.0 / DPPInformation submodel exists. Target-selection rule: every key resolves to the highest layer that already covers the concept (gs1: > oec: > eubat:); no key mints a new IRI. Where the longlist carries one flat value that OpenEPCIS models structurally across several terms (materialsUsedInCathode -> eubat:hasBatteryChemistry + eubat:hasMaterialComposition; symbolsForCadmiumAndLead -> eubat:cadmiumSymbolRequired + eubat:leadSymbolRequired; carbonFootprintLabel -> eubat:hasLabels/eubat:labelSymbol + eubat:CarbonFootprintLabel; informationOnAccidents -> eubat:hasNegativeEvents) no 1:1 project term exists, so the key keeps its upstream bpr: IRI and the incoming value is preserved losslessly rather than forced into a partial match. Attribute [5] batteryPassportIdentifier (the DPP identifier) and [6] batteryIdentifier (the unique battery/product identifier) are DISTINCT longlist attributes and map to different IRIs \u2014 oec:passportIdentifier vs gs1:productID. The single initial internal resistance of the longlist and of SAMM keeps its upstream SAMM IRI, because the EU guidance 3.2 asks for a cell and a pack value (eubat:hasInitialCellInternalResistance, eubat:hasInitialPackInternalResistance) and one undifferentiated value fills neither. Quantity carriers use the longlist's bare {value, unitCode} shape, aliased onto gs1:value/gs1:unitCode with the same xsd:decimal coercion the prefixed terms carry, so examples/batterypass-v1.3.jsonld validates against validation/batterypass-v1.3-schema.json (85/85 required attributes) while staying graph-identical.",
+    _comment: "This context interprets incoming BatteryPass documents as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). One BatteryPass data model, referenced through two renderings. (1) bpsamm-* = the Battery Pass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl \u2014 the canonical form. (2) bpr: = an OpenEPCIS-hosted reference namespace for the few GEFEG BatteryPass-Ready longlist v1.3 attributes with no SAMM equivalent (DPP-information group #1-#4) plus the flat lossless-carrier keys below; GEFEG (thebatterypass.eu) is the Consortium's publication and validation channel and publishes no RDF IRIs. No SAMM 1.3.0 / DPPInformation submodel exists. Target-selection rule: every key resolves to the highest layer that already covers the concept (gs1: > oec: > eubat:); no key mints a new IRI. Where the longlist carries one flat value that OpenEPCIS models structurally across several terms (materialsUsedInCathode -> eubat:hasBatteryChemistry + eubat:hasMaterialComposition; symbolsForCadmiumAndLead -> eubat:cadmiumSymbolRequired + eubat:leadSymbolRequired; carbonFootprintLabel -> eubat:hasLabels/eubat:labelSymbol + eubat:CarbonFootprintLabel; informationOnAccidents -> eubat:hasNegativeEvents) no 1:1 project term exists, so the key keeps its upstream bpr: IRI and the incoming value is preserved losslessly rather than forced into a partial match. Attribute [5] batteryPassportIdentifier (the DPP identifier) and [6] batteryIdentifier (the unique battery/product identifier) are DISTINCT longlist attributes and map to different IRIs \u2014 oec:passportIdentifier vs gs1:productID. The expected lifetime arrives as a bare year count and eubat:hasExpectedLifetime carries a gs1:QuantitativeValue, so both lifetime keys keep the upstream SAMM IRI bpsamm-perf:expectedLifetime (exactMatch of eubat:hasExpectedLifetime) and the value stays lossless. The single initial internal resistance of the longlist and of SAMM keeps its upstream SAMM IRI, because the EU guidance 3.2 asks for a cell and a pack value (eubat:hasInitialCellInternalResistance, eubat:hasInitialPackInternalResistance) and one undifferentiated value fills neither. Quantity carriers use the longlist's bare {value, unitCode} shape, aliased onto gs1:value/gs1:unitCode with the same xsd:decimal coercion the prefixed terms carry, so examples/batterypass-v1.3.jsonld validates against validation/batterypass-v1.3-schema.json (85/85 required attributes) while staying graph-identical.",
     "@context": {
       "@version": 1.1,
       gs1: "https://ref.gs1.org/voc/",
@@ -29179,7 +29099,7 @@ var contexts_default = {
         "@type": "@id"
       },
       expectedLifetime: {
-        "@id": "eubat:expectedLifetimeYears",
+        "@id": "bpsamm-perf:expectedLifetime",
         "@type": "xsd:integer"
       },
       cRate: {
@@ -29247,7 +29167,7 @@ var contexts_default = {
         "@type": "@id"
       },
       remainingEnergy: {
-        "@id": "eubat:hasRemainingEnergy",
+        "@id": "eubat:hasRemainingUsableEnergy",
         "@type": "@id"
       },
       remainingCapacity: {
@@ -29267,7 +29187,7 @@ var contexts_default = {
         "@type": "@id"
       },
       currentSelfDischargingRate: {
-        "@id": "eubat:hasSelfDischargeRate",
+        "@id": "eubat:hasCurrentSelfDischargingRate",
         "@type": "@id"
       },
       remainingRoundTripEnergyEfficiency: {
@@ -29390,7 +29310,7 @@ var contexts_default = {
         "@type": "@id"
       },
       batteryMaterialIdentifier: {
-        "@id": "eubat:casNumber"
+        "@id": "oec:casNumber"
       },
       batteryMaterialName: {
         "@id": "schema:name"
@@ -29464,7 +29384,7 @@ var contexts_default = {
         "@id": "eubat:substanceCasNumber"
       },
       dismantlingAndRemovalInformation: {
-        "@id": "eubat:hasDismantlingDocuments",
+        "@id": "eubat:hasDismantlingAndRemovalInformation",
         "@container": "@list"
       },
       documentType: {
@@ -29636,7 +29556,7 @@ var contexts_default = {
       },
       informationOfDueDiligenceReport: "eubat:dueDiligenceReportUrl",
       dismantlingInformationManualsForTheRemovalAndTheDisassemblyOfTheBatteryPack: {
-        "@id": "eubat:hasDismantlingDocuments",
+        "@id": "eubat:hasDismantlingAndRemovalInformation",
         "@container": "@set"
       },
       partNumbersForComponents: {
@@ -29704,7 +29624,7 @@ var contexts_default = {
         "@type": "@id"
       },
       expectedLifetimeInCalendarYears: {
-        "@id": "eubat:expectedLifetimeYears",
+        "@id": "bpsamm-perf:expectedLifetime",
         "@type": "@id"
       },
       expectedLifetimeNumberOfChargeDischargeCycles: {
@@ -31417,7 +31337,7 @@ var samples_default = [
         "gs1:value": 195,
         "gs1:unitCode": "AMH"
       },
-      "eubat:hasRemainingEnergy": {
+      "eubat:hasRemainingUsableEnergy": {
         type: "gs1:QuantitativeValue",
         "gs1:value": "9.98",
         "gs1:unitCode": "KWH"
@@ -31631,7 +31551,11 @@ var samples_default = [
           "gs1:unitCode": "OHM"
         },
         "eubat:expectedCycleLife": 8e3,
-        "eubat:expectedLifetimeYears": 15,
+        "eubat:hasExpectedLifetime": {
+          type: "gs1:QuantitativeValue",
+          "gs1:value": 15,
+          "gs1:unitCode": "ANN"
+        },
         "eubat:roundTripEfficiency": 95,
         "eubat:capacityThresholdForExhaustion": 70,
         "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
@@ -31922,7 +31846,11 @@ var samples_default = [
           "gs1:unitCode": "OHM"
         },
         "eubat:expectedCycleLife": 6e3,
-        "eubat:expectedLifetimeYears": 15,
+        "eubat:hasExpectedLifetime": {
+          type: "gs1:QuantitativeValue",
+          "gs1:value": 15,
+          "gs1:unitCode": "ANN"
+        },
         "eubat:roundTripEfficiency": 96,
         "eubat:capacityThresholdForExhaustion": 70,
         "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
@@ -32296,7 +32224,11 @@ var samples_default = [
         },
         "eubat:initialSelfDischarge": "1.5",
         "eubat:expectedCycleLife": 6e3,
-        "eubat:expectedLifetimeYears": 15,
+        "eubat:hasExpectedLifetime": {
+          type: "gs1:QuantitativeValue",
+          "gs1:value": 15,
+          "gs1:unitCode": "ANN"
+        },
         "eubat:hasExpectedLifetimeEnergyThroughput": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 85800,
@@ -32382,8 +32314,8 @@ var samples_default = [
             "@value": "Lithium",
             "@language": "en"
           },
-          "eubat:casNumber": "7439-93-2",
-          "eubat:ecNumber": "231-102-5",
+          "oec:casNumber": "7439-93-2",
+          "oec:ecNumber": "231-102-5",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Cathode"
           },
@@ -32405,8 +32337,8 @@ var samples_default = [
             "@value": "Iron",
             "@language": "en"
           },
-          "eubat:casNumber": "7439-89-6",
-          "eubat:ecNumber": "231-096-4",
+          "oec:casNumber": "7439-89-6",
+          "oec:ecNumber": "231-096-4",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Cathode"
           },
@@ -32424,8 +32356,8 @@ var samples_default = [
             "@value": "Graphite",
             "@language": "en"
           },
-          "eubat:casNumber": "7782-42-5",
-          "eubat:ecNumber": "231-955-3",
+          "oec:casNumber": "7782-42-5",
+          "oec:ecNumber": "231-955-3",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Anode"
           },
@@ -32444,8 +32376,8 @@ var samples_default = [
             "@value": "Phosphorus",
             "@language": "en"
           },
-          "eubat:casNumber": "7723-14-0",
-          "eubat:ecNumber": "231-768-7",
+          "oec:casNumber": "7723-14-0",
+          "oec:ecNumber": "231-768-7",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Cathode"
           },
@@ -32748,7 +32680,7 @@ var samples_default = [
           }
         }
       ],
-      "eubat:hasDismantlingDocuments": [
+      "eubat:hasDismantlingAndRemovalInformation": [
         {
           id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#dismantle-bom",
           type: "eubat:DismantlingDocument",
@@ -32816,10 +32748,10 @@ var samples_default = [
             "eubat:recoveryRate": 95
           }
         ],
-        "eubat:hasDismantlingInstructions": {
-          id: "https://files.example.org/files/products/09521002005004/docs/document.pdf"
+        "eubat:hasSafetyMeasures": {
+          type: "oec:DocumentReference",
+          "oec:documentUrl": "https://files.example.org/files/products/09521002005004/docs/dismantling-safety.pdf"
         },
-        "eubat:safetyInstructionsForDismantling": "https://files.example.org/files/products/09521002005004/docs/dismantling-safety.pdf",
         "eubat:hasDismantlingTime": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 45,
@@ -33169,7 +33101,11 @@ var samples_default = [
         },
         "eubat:initialSelfDischarge": "1.5",
         "eubat:expectedCycleLife": 6e3,
-        "eubat:expectedLifetimeYears": 15,
+        "eubat:hasExpectedLifetime": {
+          type: "gs1:QuantitativeValue",
+          "gs1:value": 15,
+          "gs1:unitCode": "ANN"
+        },
         "eubat:hasExpectedLifetimeEnergyThroughput": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 85800,
@@ -33254,8 +33190,8 @@ var samples_default = [
             "@value": "Lithium",
             "@language": "en"
           },
-          "eubat:casNumber": "7439-93-2",
-          "eubat:ecNumber": "231-102-5",
+          "oec:casNumber": "7439-93-2",
+          "oec:ecNumber": "231-102-5",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Cathode"
           },
@@ -33277,8 +33213,8 @@ var samples_default = [
             "@value": "Iron",
             "@language": "en"
           },
-          "eubat:casNumber": "7439-89-6",
-          "eubat:ecNumber": "231-096-4",
+          "oec:casNumber": "7439-89-6",
+          "oec:ecNumber": "231-096-4",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Cathode"
           },
@@ -33296,8 +33232,8 @@ var samples_default = [
             "@value": "Graphite",
             "@language": "en"
           },
-          "eubat:casNumber": "7782-42-5",
-          "eubat:ecNumber": "231-955-3",
+          "oec:casNumber": "7782-42-5",
+          "oec:ecNumber": "231-955-3",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Anode"
           },
@@ -33316,8 +33252,8 @@ var samples_default = [
             "@value": "Phosphorus",
             "@language": "en"
           },
-          "eubat:casNumber": "7723-14-0",
-          "eubat:ecNumber": "231-768-7",
+          "oec:casNumber": "7723-14-0",
+          "oec:ecNumber": "231-768-7",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Cathode"
           },
@@ -33620,7 +33556,7 @@ var samples_default = [
           }
         }
       ],
-      "eubat:hasDismantlingDocuments": [
+      "eubat:hasDismantlingAndRemovalInformation": [
         {
           id: "https://id.gs1.org/01/09521234010012/21/EV-2025-000142#dismantle-bom",
           type: "eubat:DismantlingDocument",
@@ -33688,10 +33624,10 @@ var samples_default = [
             "eubat:recoveryRate": 95
           }
         ],
-        "eubat:hasDismantlingInstructions": {
-          id: "https://files.example.org/files/products/09521002005004/docs/document.pdf"
+        "eubat:hasSafetyMeasures": {
+          type: "oec:DocumentReference",
+          "oec:documentUrl": "https://files.example.org/files/products/09521002005004/docs/dismantling-safety.pdf"
         },
-        "eubat:safetyInstructionsForDismantling": "https://files.example.org/files/products/09521002005004/docs/dismantling-safety.pdf",
         "eubat:hasDismantlingTime": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 45,
@@ -34074,7 +34010,11 @@ var samples_default = [
         },
         "eubat:initialSelfDischarge": "1.5",
         "eubat:expectedCycleLife": 6e3,
-        "eubat:expectedLifetimeYears": 15,
+        "eubat:hasExpectedLifetime": {
+          type: "gs1:QuantitativeValue",
+          "gs1:value": 15,
+          "gs1:unitCode": "ANN"
+        },
         "eubat:hasExpectedLifetimeEnergyThroughput": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 85800,
@@ -34159,8 +34099,8 @@ var samples_default = [
             "@value": "Lithium",
             "@language": "en"
           },
-          "eubat:casNumber": "7439-93-2",
-          "eubat:ecNumber": "231-102-5",
+          "oec:casNumber": "7439-93-2",
+          "oec:ecNumber": "231-102-5",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Cathode"
           },
@@ -34182,8 +34122,8 @@ var samples_default = [
             "@value": "Iron",
             "@language": "en"
           },
-          "eubat:casNumber": "7439-89-6",
-          "eubat:ecNumber": "231-096-4",
+          "oec:casNumber": "7439-89-6",
+          "oec:ecNumber": "231-096-4",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Cathode"
           },
@@ -34201,8 +34141,8 @@ var samples_default = [
             "@value": "Graphite",
             "@language": "en"
           },
-          "eubat:casNumber": "7782-42-5",
-          "eubat:ecNumber": "231-955-3",
+          "oec:casNumber": "7782-42-5",
+          "oec:ecNumber": "231-955-3",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Anode"
           },
@@ -34221,8 +34161,8 @@ var samples_default = [
             "@value": "Phosphorus",
             "@language": "en"
           },
-          "eubat:casNumber": "7723-14-0",
-          "eubat:ecNumber": "231-768-7",
+          "oec:casNumber": "7723-14-0",
+          "oec:ecNumber": "231-768-7",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Cathode"
           },
@@ -34525,7 +34465,7 @@ var samples_default = [
           }
         }
       ],
-      "eubat:hasDismantlingDocuments": [
+      "eubat:hasDismantlingAndRemovalInformation": [
         {
           id: "https://id.gs1.org/01/09521234040019/21/PB-2025-011204#dismantle-bom",
           type: "eubat:DismantlingDocument",
@@ -34593,10 +34533,10 @@ var samples_default = [
             "eubat:recoveryRate": 95
           }
         ],
-        "eubat:hasDismantlingInstructions": {
-          id: "https://files.example.org/files/products/09521002005004/docs/document.pdf"
+        "eubat:hasSafetyMeasures": {
+          type: "oec:DocumentReference",
+          "oec:documentUrl": "https://files.example.org/files/products/09521002005004/docs/dismantling-safety.pdf"
         },
-        "eubat:safetyInstructionsForDismantling": "https://files.example.org/files/products/09521002005004/docs/dismantling-safety.pdf",
         "eubat:hasDismantlingTime": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 45,
@@ -34942,7 +34882,11 @@ var samples_default = [
         },
         "eubat:initialSelfDischarge": "1.5",
         "eubat:expectedCycleLife": 6e3,
-        "eubat:expectedLifetimeYears": 15,
+        "eubat:hasExpectedLifetime": {
+          type: "gs1:QuantitativeValue",
+          "gs1:value": 15,
+          "gs1:unitCode": "ANN"
+        },
         "eubat:hasExpectedLifetimeEnergyThroughput": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 85800,
@@ -35027,8 +34971,8 @@ var samples_default = [
             "@value": "Lithium",
             "@language": "en"
           },
-          "eubat:casNumber": "7439-93-2",
-          "eubat:ecNumber": "231-102-5",
+          "oec:casNumber": "7439-93-2",
+          "oec:ecNumber": "231-102-5",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Cathode"
           },
@@ -35050,8 +34994,8 @@ var samples_default = [
             "@value": "Iron",
             "@language": "en"
           },
-          "eubat:casNumber": "7439-89-6",
-          "eubat:ecNumber": "231-096-4",
+          "oec:casNumber": "7439-89-6",
+          "oec:ecNumber": "231-096-4",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Cathode"
           },
@@ -35069,8 +35013,8 @@ var samples_default = [
             "@value": "Graphite",
             "@language": "en"
           },
-          "eubat:casNumber": "7782-42-5",
-          "eubat:ecNumber": "231-955-3",
+          "oec:casNumber": "7782-42-5",
+          "oec:ecNumber": "231-955-3",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Anode"
           },
@@ -35089,8 +35033,8 @@ var samples_default = [
             "@value": "Phosphorus",
             "@language": "en"
           },
-          "eubat:casNumber": "7723-14-0",
-          "eubat:ecNumber": "231-768-7",
+          "oec:casNumber": "7723-14-0",
+          "oec:ecNumber": "231-768-7",
           "eubat:hasComponentLocation": {
             "@id": "eubat:Cathode"
           },
@@ -35393,7 +35337,7 @@ var samples_default = [
           }
         }
       ],
-      "eubat:hasDismantlingDocuments": [
+      "eubat:hasDismantlingAndRemovalInformation": [
         {
           id: "https://id.gs1.org/01/09521234020011/21/LMT-2025-004821#dismantle-bom",
           type: "eubat:DismantlingDocument",
@@ -35461,10 +35405,10 @@ var samples_default = [
             "eubat:recoveryRate": 95
           }
         ],
-        "eubat:hasDismantlingInstructions": {
-          id: "https://files.example.org/files/products/09521002005004/docs/document.pdf"
+        "eubat:hasSafetyMeasures": {
+          type: "oec:DocumentReference",
+          "oec:documentUrl": "https://files.example.org/files/products/09521002005004/docs/dismantling-safety.pdf"
         },
-        "eubat:safetyInstructionsForDismantling": "https://files.example.org/files/products/09521002005004/docs/dismantling-safety.pdf",
         "eubat:hasDismantlingTime": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 45,
@@ -35916,7 +35860,7 @@ var samples_default = [
           }
         ]
       },
-      "eubat:hasDismantlingDocuments": [
+      "eubat:hasDismantlingAndRemovalInformation": [
         {
           type: "eubat:DismantlingDocument",
           "eubat:hasDocumentType": {

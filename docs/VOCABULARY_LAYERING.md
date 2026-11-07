@@ -69,7 +69,7 @@ reads as a relation and is named **`hasXyz`** (`oec:hasBackupCopyHost`,
 `eutex:hasFiberCertification`). The established `is…` (boolean-style
 object references such as `isPartOf` readings) and `…Of` names stay as
 they are; datatype properties keep attribute-style names
-(`oec:passportStatus`, `eubat:casNumber`). Upstream mirrors under
+(`oec:passportStatus`, `oec:casNumber`). Upstream mirrors under
 `extensions/upstream/` are never renamed. The convention converged in the
 2026-08 rename wave (301 properties) and is enforced mechanically:
 `pnpm run check:mappings` rejects a new attribute-named object property

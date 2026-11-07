@@ -362,7 +362,7 @@ Maps to EU Battery Regulation 2023/1542 Annex XIII:
 | Material composition | `eubat:hasMaterialComposition` |
 | Hazardous substances | `eubat:hasHazardousSubstances` |
 | Recycled content | Pre/post consumer split per material |
-| Dismantling info | `eubat:hasDismantlingDocuments` |
+| Dismantling info | `eubat:hasDismantlingAndRemovalInformation` |
 | Spare parts | `eubat:hasSparePartSources` |
 | Labels | `eubat:hasLabels` with symbols |
 | Due diligence | `eubat:hasSupplyChainDueDiligence` |

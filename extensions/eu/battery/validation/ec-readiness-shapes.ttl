@@ -282,9 +282,7 @@ ecbp:dp-36-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( oec:hasPerformanceInfo eubat:roundTripEnergyEfficiency ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 36 (EV, mandatory): Initial round trip energy efficiency [%] — expected eubat:roundTripEnergyEfficiency / eubat:roundTripEfficiency" ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 36 (EV, mandatory): Initial round trip energy efficiency [%] — expected eubat:roundTripEfficiency" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> .
 
 ecbp:dp-37-ev
@@ -382,18 +380,16 @@ ecbp:dp-48-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasDismantlingDocuments ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:hasDismantlingInstructions ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 48 (EV, mandatory): Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link] — expected eubat:hasDismantlingDocuments / eubat:hasDismantlingInstructions" ;
+    sh:property [ sh:path eubat:hasDismantlingAndRemovalInformation ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 48 (EV, mandatory): Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link] — expected eubat:hasDismantlingAndRemovalInformation" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48> .
 
 ecbp:dp-49-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:safetyMeasures ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:safetyInstructions ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasEndOfLifeInfo eubat:hasSafetyMeasures ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:safetyInstructions ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 49 (EV, mandatory): Safety measures [a web link] — expected eubat:safetyMeasures / eubat:safetyInstructions" ;
+    sh:message "EC data point 49 (EV, mandatory): Safety measures [a web link] — expected eubat:hasSafetyMeasures / eubat:safetyInstructions" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49> .
 
 ecbp:dp-50-ev
@@ -474,9 +470,9 @@ ecbp:dp-60-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedLifetimeYears ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 60 (EV, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] — expected eubat:expectedLifetimeYears / eubat:expectedRemainingLifetimeMonths" ;
+    sh:message "EC data point 60 (EV, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] — expected eubat:hasExpectedLifetime / eubat:expectedRemainingLifetimeMonths" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
 
 ecbp:dp-61-ev
@@ -777,9 +773,7 @@ ecbp:dp-36-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( oec:hasPerformanceInfo eubat:roundTripEnergyEfficiency ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 36 (LMT, mandatory): Initial round trip energy efficiency [%] — expected eubat:roundTripEnergyEfficiency / eubat:roundTripEfficiency" ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 36 (LMT, mandatory): Initial round trip energy efficiency [%] — expected eubat:roundTripEfficiency" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> .
 
 ecbp:dp-37-lmt
@@ -877,18 +871,16 @@ ecbp:dp-48-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasDismantlingDocuments ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:hasDismantlingInstructions ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 48 (LMT, mandatory): Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link] — expected eubat:hasDismantlingDocuments / eubat:hasDismantlingInstructions" ;
+    sh:property [ sh:path eubat:hasDismantlingAndRemovalInformation ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 48 (LMT, mandatory): Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link] — expected eubat:hasDismantlingAndRemovalInformation" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48> .
 
 ecbp:dp-49-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:safetyMeasures ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:safetyInstructions ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasEndOfLifeInfo eubat:hasSafetyMeasures ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:safetyInstructions ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 49 (LMT, mandatory): Safety measures [a web link] — expected eubat:safetyMeasures / eubat:safetyInstructions" ;
+    sh:message "EC data point 49 (LMT, mandatory): Safety measures [a web link] — expected eubat:hasSafetyMeasures / eubat:safetyInstructions" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49> .
 
 ecbp:dp-50-lmt
@@ -969,9 +961,9 @@ ecbp:dp-60-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedLifetimeYears ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 60 (LMT, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] — expected eubat:expectedLifetimeYears / eubat:expectedRemainingLifetimeMonths" ;
+    sh:message "EC data point 60 (LMT, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] — expected eubat:hasExpectedLifetime / eubat:expectedRemainingLifetimeMonths" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
 
 ecbp:dp-62-lmt
@@ -999,7 +991,7 @@ ecbp:dp-65-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasEvolutionOfSelfDischarge ; sh:minCount 1 ] [ sh:path ( oec:hasPerformanceInfo eubat:hasCurrentSelfDischargingRate ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path eubat:hasEvolutionOfSelfDischarge ; sh:minCount 1 ] [ sh:path eubat:hasCurrentSelfDischargingRate ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
     sh:message "EC data point 65 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year] — expected eubat:hasEvolutionOfSelfDischarge / eubat:hasCurrentSelfDischargingRate" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65> .
@@ -1302,9 +1294,7 @@ ecbp:dp-36-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( oec:hasPerformanceInfo eubat:roundTripEnergyEfficiency ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Warning ;
-    sh:message "EC data point 36 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Initial round trip energy efficiency [%] — expected eubat:roundTripEnergyEfficiency / eubat:roundTripEfficiency" ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 36 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Initial round trip energy efficiency [%] — expected eubat:roundTripEfficiency" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> .
 
 ecbp:dp-37-industrial
@@ -1402,18 +1392,16 @@ ecbp:dp-48-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasDismantlingDocuments ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:hasDismantlingInstructions ) ; sh:minCount 1 ] ) ;
-    sh:severity sh:Violation ;
-    sh:message "EC data point 48 (industrial, mandatory): Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link] — expected eubat:hasDismantlingDocuments / eubat:hasDismantlingInstructions" ;
+    sh:property [ sh:path eubat:hasDismantlingAndRemovalInformation ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 48 (industrial, mandatory): Dismantling information, including at least: - exploded diagrams of the battery system/pack showing the location of battery cells, - disassembly sequences, - type and number of fastening techniques to be unlocked, - tools required for disassembly, - warnings if risk of damaging parts exist, - amount of cells used and layout [a web link] — expected eubat:hasDismantlingAndRemovalInformation" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48> .
 
 ecbp:dp-49-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:safetyMeasures ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:safetyInstructions ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasEndOfLifeInfo eubat:hasSafetyMeasures ) ; sh:minCount 1 ] [ sh:path ( eubat:hasEndOfLifeInfo eubat:safetyInstructions ) ; sh:minCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 49 (industrial, mandatory): Safety measures [a web link] — expected eubat:safetyMeasures / eubat:safetyInstructions" ;
+    sh:message "EC data point 49 (industrial, mandatory): Safety measures [a web link] — expected eubat:hasSafetyMeasures / eubat:safetyInstructions" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49> .
 
 ecbp:dp-50-industrial
@@ -1494,9 +1482,9 @@ ecbp:dp-60-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedLifetimeYears ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 60 (industrial, provide if the condition applies: Only for rechargeable batteries): The expected lifetime of the battery under the reference conditions for which it has been designed [years] — expected eubat:expectedLifetimeYears / eubat:expectedRemainingLifetimeMonths" ;
+    sh:message "EC data point 60 (industrial, provide if the condition applies: Only for rechargeable batteries): The expected lifetime of the battery under the reference conditions for which it has been designed [years] — expected eubat:hasExpectedLifetime / eubat:expectedRemainingLifetimeMonths" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
 
 ecbp:dp-62-industrial
@@ -1524,7 +1512,7 @@ ecbp:dp-65-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasEvolutionOfSelfDischarge ; sh:minCount 1 ] [ sh:path ( oec:hasPerformanceInfo eubat:hasCurrentSelfDischargingRate ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path eubat:hasEvolutionOfSelfDischarge ; sh:minCount 1 ] [ sh:path eubat:hasCurrentSelfDischargingRate ; sh:minCount 1 ] ) ;
     sh:severity sh:Warning ;
     sh:message "EC data point 65 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year] — expected eubat:hasEvolutionOfSelfDischarge / eubat:hasCurrentSelfDischargingRate" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65> .

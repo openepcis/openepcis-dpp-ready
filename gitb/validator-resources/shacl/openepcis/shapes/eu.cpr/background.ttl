@@ -1536,14 +1536,12 @@ oec:hasHazardClass a owl:ObjectProperty;
 oec:casNumber a owl:DatatypeProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#componentCasNumber>, <https://w3id.org/eudpp#casNumber>;
     rdfs:label "CAS Number"@en;
-    rdfs:comment "Chemical Abstracts Service registry number."@en;
+    rdfs:comment "Chemical Abstracts Service registry number of a substance or material, wherever the passport lists one (hazardous substance, substance of concern, battery material, ingredient). No rdfs:domain: the module shapes say where it is required."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:exactMatch <https://w3id.org/eudpp#casNumber>;
-    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#componentCasNumber>;
-    rdfs:range xsd:string;
-    rdfs:domain oec:HazardousSubstance.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#componentCasNumber>, <https://w3id.org/eudpp#casNumber>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier>;
+    rdfs:range xsd:string.
 oec:hasMaterialOrigin a owl:ObjectProperty;
     rdfs:seeAlso gs1:countryOfOrigin, <https://w3id.org/eudpp#MaterialOrigin>, <https://w3id.org/eudpp#hasMaterialOrigin>;
     rdfs:label "Material Origin"@en;
@@ -1855,7 +1853,7 @@ oec:componentName a owl:DatatypeProperty;
     rdfs:domain oec:MaterialComposition;
     rdfs:subPropertyOf schema:name.
 oec:componentIdentifier a owl:DatatypeProperty;
-    rdfs:seeAlso schema:identifier, <https://dpp-keystone.org/spec/v3/terms#componentIdentifier>, <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier>;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier>, schema:identifier, <https://dpp-keystone.org/spec/v3/terms#componentIdentifier>;
     rdfs:label "Component Identifier"@en;
     rdfs:comment "Identifier for the material or component (e.g. an internal material code or GS1 identifier)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -2053,16 +2051,15 @@ oec:hasSubstancesOfConcern a owl:ObjectProperty;
     skos:narrowMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#hazardousSubstances>, <https://dpp-keystone.org/spec/v3/terms#textileSubstancesOfConcern>;
     rdfs:range oec:SubstanceOfConcern.
 oec:ecNumber a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#componentEcNumber>, <https://w3id.org/eudpp#ecNumber>;
+    rdfs:seeAlso schema:identifier, <https://dpp-keystone.org/spec/v3/terms#componentEcNumber>, <https://w3id.org/eudpp#ecNumber>;
     rdfs:label "EC Number"@en;
-    rdfs:comment "European Community number for the substance (EINECS/ELINCS)."@en;
+    rdfs:comment "European Community number (EINECS/ELINCS) of a substance or material, wherever the passport lists one. No rdfs:domain: the module shapes say where it is required."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:exactMatch <https://w3id.org/eudpp#ecNumber>;
-    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#componentEcNumber>;
-    rdfs:range xsd:string;
-    rdfs:domain oec:SubstanceOfConcern.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#componentEcNumber>, <https://w3id.org/eudpp#ecNumber>;
+    skos:broadMatch schema:identifier;
+    rdfs:range xsd:string.
 oec:scipId a owl:DatatypeProperty;
     rdfs:label "SCIP ID"@en;
     rdfs:comment "Identifier in the ECHA SCIP database (Substances of Concern In Products)."@en;

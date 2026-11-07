@@ -4,6 +4,41 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+### Removed: duplicate terms on our side (re-audit 2026-11)
+
+The 2026-11 re-audit found several of our terms mapped `skos:exactMatch` onto the same upstream
+data element. Where they name the same data point, one term stays; nothing is deprecated. Where the
+surviving term sits on another node or carries another value shape, `scripts/migrate-assessment.ts`
+moves the value (the examples are migrated with it).
+
+| Removed | Use instead | Migration |
+|---|---|---|
+| `eubat:expectedLifetimeYears` | `eubat:hasExpectedLifetime` | year count becomes a `gs1:QuantitativeValue` with unitCode `ANN`; the term now sits on `eubat:TechnicalSpecification` next to `eubat:expectedCycleLife` |
+| `eubat:roundTripEnergyEfficiency` | `eubat:hasRemainingRoundTripEfficiency` | the 0-1 ratio on `oec:PerformanceInfo` becomes a percentage quantity (unitCode `P1`) on the battery |
+| `eubat:hasSelfDischargeRate` | `eubat:hasCurrentSelfDischargingRate` | rename; the term now sits on the battery like the other state-of-health values |
+| `eubat:hasRemainingEnergy` | `eubat:hasRemainingUsableEnergy` | rename |
+| `eubat:hasDismantlingDocuments` | `eubat:hasDismantlingAndRemovalInformation` | rename; its range is now `eubat:DismantlingDocument` (a subclass of `oec:DocumentReference`) |
+| `eubat:hasDismantlingInstructions` | `eubat:hasDismantlingAndRemovalInformation` | the link on the end-of-life info becomes a dismantling-manual document on the battery, unless the list already holds that file |
+| `eubat:safetyMeasures`, `eubat:safetyInstructionsForDismantling` | `eubat:hasSafetyMeasures` (new) | each link becomes an `oec:DocumentReference` on the end-of-life info (Annex XIII 2 (d), guidance #49) |
+| `eubat:casNumber`, `eubat:ecNumber` | `oec:casNumber`, `oec:ecNumber` | rename; same name, same AuthorizedOnly tier |
+
+Kept, because they are not duplicates: `eubat:declarationOfConformity` (the URL on the
+declaration that `eubat:hasEuDeclarationOfConformity` links), `eubat:dueDiligenceReportUrl` (on
+the due-diligence node), `eubat:renewableContentShare` (per material, while
+`eubat:renewableContent` is the battery's share), `eubat:hasEvolutionOfSelfDischarge` (the series,
+not the current value) and `eubat:safetyInstructions` (public end-user instructions, Art. 74(1)(f)).
+`eubat:substanceCasNumber` and `eubat:substanceEcNumber` stay as well: they are Public, because the
+hazardous substances are disclosed under Annex VI Part A, while the CAS and EC numbers in the
+material breakdown are AuthorizedOnly, and field access merges tiers by local name.
+
+The guidance registries (1.0 and 3.2), the readiness shapes, the access tiers, the extension schema
+and the GITB bundle follow. Data point 36 (initial round-trip efficiency) is now carried by
+`eubat:roundTripEfficiency` alone. The BatteryPass bridge keeps every key: `remainingEnergy`,
+`currentSelfDischargingRate`, `batteryMaterialIdentifier` and the two dismantling keys land on the
+surviving terms, and both expected-lifetime keys keep the upstream SAMM IRI because they carry a
+bare year count. The EPCIS examples measure `eubat:hasRemainingUsableEnergy`. The re-pointed keys
+are listed with their reason in `scripts/context-compat-allowlist.json`.
+
 ### Changed: EC data-point guidance version 3.2
 
 The Commission replaced the Battery Passport data-point guidance: version 3.2 of 19 October 2026
