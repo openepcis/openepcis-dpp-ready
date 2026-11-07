@@ -1,6 +1,6 @@
 # CIRPASS-2 EU DPP Battery Ontology — upstream mirror
 
-**Status:** Mirror (upstream Version 0.4.0 **DRAFT**, issued 2026-07-07, modified 2026-11-03; CC BY 4.0) • **Layer:** 2 (sectoral upstream profile of the CIRPASS-2 EU DPP pilot programme) • **Licence:** Apache 2.0, CC BY 4.0 fallback as a document (upstream)
+**Status:** Mirror (upstream Version 0.4.0 **DRAFT**, issued 2026-07-07, modified 2026-11-03; CC BY 4.0) • **Layer:** 2 (sectoral upstream profile of the CIRPASS-2 EU DPP pilot programme) • **Licence:** CC BY 4.0, Apache 2.0 fallback as software (upstream, since 2026-10-30)
 
 This module mirrors the **EU DPP Battery Ontology**, the CIRPASS-2 sectoral
 extension of the [EUDPP Core Ontology](../cirpass2-eudpp/README.md) for
