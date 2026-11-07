@@ -2,6 +2,28 @@
 
 All notable changes to the Detergent module will be documented in this file.
 
+## [Unreleased]
+
+## [0.10.0] - 2026-11-07
+
+### Breaking: namespace moves to `ref.openepcis.org`
+
+Every term IRI moves from `https://ref.openepcis.io/extensions/eu/detergent/` to
+`https://ref.openepcis.org/...`; see the root changelog.
+
+### Changed: mappings
+
+- The 2026-11 re-audit adds `skos:broadMatch dppk:Product` (DPP Keystone v3) and withdraws
+  `schema:activeIngredient` and `schema:activityDuration`, which it rejected unanimously.
+
+### Changed: examples
+
+- The examples use `oec:lastUpdated` instead of the removed `oec:lastDataUpdate`.
+
+### Added
+
+- The shortcut context declares the `oea:` prefix of `common/assessment`.
+
 ## [0.9.9] - 2026-08-04
 
 ### Changed: schema descriptions cite the regulation

@@ -1,6 +1,6 @@
 # CIRPASS-2 EUDPP Core Ontology — upstream mirror
 
-**Status:** Mirror (upstream v2.2.0, issued 2026-10-30; CC BY 4.0) • **Layer:** 2 (community upstream profile — EU DPP pilot programme, input to CEN/CENELEC JTC 24) • **Licence:** Apache 2.0, CC BY 4.0 fallback as a document (upstream)
+**Status:** Mirror (upstream v2.2.0, issued 2026-10-30; CC BY 4.0) • **Layer:** 2 (community upstream profile — EU DPP pilot programme, input to CEN/CENELEC JTC 24) • **Licence:** CC BY 4.0, Apache 2.0 fallback as software (upstream, since 2026-10-30)
 
 This module mirrors the **EUDPP Core Ontology** published by the CIRPASS-2
 project (authored at TalTech). The authoritative sources are upstream:

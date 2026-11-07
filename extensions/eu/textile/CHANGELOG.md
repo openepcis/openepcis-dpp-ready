@@ -4,6 +4,8 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-07
+
 ### Removed: `eutex:ecNumber`
 
 A module copy of `oec:ecNumber` (same name, same AuthorizedOnly tier), removed like

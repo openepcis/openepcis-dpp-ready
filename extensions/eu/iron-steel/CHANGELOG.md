@@ -2,6 +2,25 @@
 
 All notable changes to the DPP Iron & Steel module will be documented in this file.
 
+## [Unreleased]
+
+## [0.10.0] - 2026-11-07
+
+### Breaking: namespace moves to `ref.openepcis.org`
+
+Every term IRI moves from `https://ref.openepcis.io/extensions/eu/iron-steel/` to
+`https://ref.openepcis.org/...`; see the root changelog.
+
+### Changed: mappings
+
+- DPP Keystone pointers move to v3 (`https://dpp-keystone.org/spec/v3/terms#`).
+- The 2026-11 re-audit withdraws `schema:serialNumber`, `untp:countryName` and the GS1 Rail
+  `setNominalValues` pointer, which it rejected unanimously.
+
+### Added
+
+- The shortcut context declares the `oea:` prefix of `common/assessment`.
+
 ## [0.9.9] - 2026-08-04
 
 ## [0.9.8] - 2026-07-29

@@ -4,6 +4,8 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-07
+
 ### Removed: duplicate terms on our side (re-audit 2026-11)
 
 The 2026-11 re-audit found several of our terms mapped `skos:exactMatch` onto the same upstream

@@ -4,6 +4,8 @@ All notable changes to the PPWR module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-07
+
 ### Changed: the recyclability score is `oea:RecyclabilityScore`
 
 The observation event reports the score with `sensorReport.type` `oea:RecyclabilityScore` (the

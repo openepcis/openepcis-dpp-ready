@@ -4,6 +4,8 @@ All notable changes to the Electronics module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-07
+
 ### Changed: pointers to removed core properties
 
 `euelec:recyclabilityRate` and the repairability-class pointer now point at `oea:RecyclabilityRate` and
