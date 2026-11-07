@@ -61,6 +61,13 @@ The EPCIS binding has two equivalent forms: the assessment object at event level
 `sensorElementList` form (`sensorReport.type` is the performance parameter, `dataProcessingMethod` the
 test method). See `extensions/common/assessment/docs/EPCIS_BINDING.md`.
 
+### `common/carrier` binds any GS1 key
+
+A data carrier can be bound to every GS1 key the Digital Link resolver resolves (GSRN excluded),
+not only an SGTIN: instances and GLNs in `epcList`, classes in `quantityList` as `epcClass`;
+`carrier:diversification` `identifier` and the `{id}` URL placeholder. New GIAI example set. See
+[`extensions/common/carrier/CHANGELOG.md`](extensions/common/carrier/CHANGELOG.md).
+
 ### CIRPASS-2 ontologies, October 2026 release
 
 CIRPASS-2 refreshed its ontology documentation on 2026-10-12 and released the EUDPP
