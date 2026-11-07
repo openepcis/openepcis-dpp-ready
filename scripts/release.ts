@@ -11,6 +11,7 @@
  *   package.json                        "version"
  *   extensions/{region}/{slug}/VERSION  the module version
  *   .../ontology/*.ttl                  owl:versionInfo + owl:versionIRI
+ *   .../validation/*.ttl                owl:versionInfo of the sh:ShapesGraph (not ec-readiness)
  *   .../CHANGELOG.md                    the `## [Unreleased]` heading becomes `## [x.y.z] - DATE`
  *   README.md                           status badge, the TL;DR sentence, both module tables
  *   CLAUDE.md                           the module table
@@ -124,11 +125,23 @@ for (const m of OWNED) {
     stamp(`extensions/${m.path}/ontology/${f}`, `${m.path}/ontology/${f} → ${version}`, (s) =>
       s
         .replace(/(owl:versionInfo\s+")[^"]+(")/g, `$1${version}$2`)
-        // versionIRI ends in the version: .../extensions/eu/battery/0.9.7
+        // versionIRI ends in the version: .../extensions/eu/battery/0.9.7. The host is left open:
+        // a pattern pinned to ref.openepcis.io matched nothing after the move to .org, so the
+        // versionIRIs stayed at 0.9.9 while --check, which only sees a non-matching edit, passed.
         .replace(
-          new RegExp(`(owl:versionIRI\\s+<https://ref\\.openepcis\\.io/extensions/${m.path}/)[\\d.]+(>)`, "g"),
+          new RegExp(`(owl:versionIRI\\s+<[^>]*/extensions/${m.path}/)[\\d.]+(>)`, "g"),
           `$1${version}$2`,
         ));
+  }
+
+  // Shapes graphs carry the module version on their sh:ShapesGraph node. ec-readiness-shapes.ttl
+  // is versioned by the EC guidance it implements (3.2), not by this repository, and is skipped.
+  const valDir = join(m.dir, "validation");
+  if (!existsSync(valDir)) continue;
+  for (const f of readdirSync(valDir)) {
+    if (!f.endsWith(".ttl") || f.startsWith("ec-readiness")) continue;
+    stamp(`extensions/${m.path}/validation/${f}`, `${m.path}/validation/${f} → ${version}`, (s) =>
+      s.replace(/(a sh:ShapesGraph(?:(?!\s\.\n)[\s\S])*?owl:versionInfo\s+")[^"]+(")/g, `$1${version}$2`));
   }
 }
 
