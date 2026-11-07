@@ -187,14 +187,12 @@ From `skos-completeness-assessment-2026-11-06.json`. 113 confirmed findings the 
 
 ## battery
 
-From `skos-completeness-battery-2026-11-06.json`. 214 confirmed findings the triage did not apply.
+From `skos-completeness-battery-2026-11-07.json`. 212 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
-| 0.89 | `eubat:cRateLifeCycleTest` | `skos:exactMatch` | `cirpass2-battery:chargeCRateOfCycleLifeTest` | also exactMatch to cRateOfCycleLifeTest in cirpass2-battery: at most one can be the same data point |
 | 0.89 | `eubat:batteryModelIdentifier` | skos:broadMatch to `-` | `batterypass:batteryPassportIdentifier` | panel rejects a pair deferred by a curator: Different referents: ours identifies the battery model, theirs identifies the passport document about it. Neither subsumes the other. |
 | 0.87 | `eubat:hasCarbonFootprintPerformanceClass` | `skos:exactMatch` | `dppk:batteryCarbonFootprintClass` | also exactMatch to carbonFootprintClass in dppk: at most one can be the same data point |
-| 0.87 | `eubat:renewableContent` | skos:closeMatch to `skos:exactMatch` | `batterypass:renewableContent` | exactMatch target shared with eubat:renewableContentShare: duplicate terms on our side |
 | 0.87 | `eubat:hasNegativeEvents` | skos:closeMatch to `skos:exactMatch` | `batterypass:negativeEvents` | also exactMatch to negativeEvent in batterypass: at most one can be the same data point |
 | 0.87 | `eubat:hasRatedMaximumPower` | skos:broadMatch to `skos:exactMatch` | `batterypass:ratedMaximumPower` | deferred by a curator: Direction flip rejected: both sides are the same single rated-maximum-power value. A hierarchy claim overstates in either direction; closeMatch would be the honest grade. |
 | 0.86 | `eubat:hasHazardousSubstances` | skos:broadMatch to `skos:exactMatch` | `batterypass:hazardousSubstances` | deferred by a curator: Direction flip rejected: same-named peers at the same granularity (per-substance entries with class/concentration/location on both sides). Neither hierarchy direction holds; the honest grade would be closeMatch, and flipping broad to narrow just trades one overclaim for the other. |
@@ -214,18 +212,16 @@ From `skos-completeness-battery-2026-11-06.json`. 214 confirmed findings the tri
 | 0.79 | `eubat:hasRemainingPowerCapability` | `skos:exactMatch` | `cirpass2-battery:remainingPowerCapability` | new mapping below the 0.8 floor |
 | 0.79 | `eubat:electrolyteType` | `skos:broadMatch` | `dppk:batteryChemistry` | new mapping below the 0.8 floor |
 | 0.78 | `eubat:substanceEcNumber` | skos:broadMatch to `skos:exactMatch` | `eudpp:ecNumber` | regrade skos:broadMatch to skos:exactMatch |
-| 0.78 | `eubat:hasDismantlingAndRemovalInformation` | skos:closeMatch to `skos:exactMatch` | `batterypass:dismantlingAndRemovalInformation` | regrade skos:closeMatch to skos:exactMatch |
-| 0.78 | `eubat:hasDismantlingAndRemovalInformation` | skos:closeMatch to `skos:exactMatch` | `dppk:dismantlingInformation` | regrade skos:closeMatch to skos:exactMatch |
 | 0.77 | `eubat:hasTemperatureRangeStorage` | rdfs:seeAlso to `skos:exactMatch` | `batterypass:temperatureRangeIdleState` | seeAlso upgrade below the 0.8 floor |
 | 0.77 | `eubat:hasRecycledContent` | skos:broadMatch to `skos:exactMatch` | `batterypass:recycledContent` | deferred by a curator: Direction flip rejected: the SAMM recycledContent is also per-material with pre/post-consumer shares, so the two blocks share granularity. Neither broad nor narrow holds; closeMatch would be the honest grade. |
-| 0.77 | `eubat:hasCurrentSelfDischargingRate` | `skos:exactMatch` | `batterypass:currentSelfDischargingRateValue` | new mapping below the 0.8 floor |
+| 0.77 | `eubat:hasCurrentSelfDischargingRate` | skos:closeMatch to `skos:exactMatch` | `dppk:selfDischargeCurrent` | regrade skos:closeMatch to skos:exactMatch |
 | 0.77 | `eubat:hasMaximumDischargingPower` | `skos:broadMatch` | `cirpass2-battery:maximumPermittedBatteryPower` | new mapping below the 0.8 floor |
 | 0.77 | `eubat:substanceCasNumber` | skos:broadMatch to `skos:exactMatch` | `eudpp:casNumber` | regrade skos:broadMatch to skos:exactMatch |
 | 0.77 | `eubat:cobaltPostConsumerShare` | skos:closeMatch to `skos:broadMatch` | `batterypass:postConsumerShare` | regrade skos:closeMatch to skos:broadMatch |
 | 0.77 | `eubat:ComponentLocation` | `skos:exactMatch` | `cirpass2-battery:BatteryLocation` | our term is a type, target is the entity |
 | 0.77 | `eubat:dueDiligenceReportUrl` | skos:closeMatch to `skos:exactMatch` | `dppk:dueDiligenceReport` | regrade skos:closeMatch to skos:exactMatch |
+| 0.77 | `eubat:hasSafetyMeasures` | skos:narrowMatch to `skos:exactMatch` | `batterypass:safetyInstructions` | regrade skos:narrowMatch to skos:exactMatch |
 | 0.77 | `eubat:hasEvolutionOfSelfDischarge` | `skos:exactMatch` | `cirpass2-battery:currentSelfDischargeRate` | new mapping below the 0.8 floor |
-| 0.75 | `eubat:hasCurrentSelfDischargingRate` | rdfs:seeAlso to `skos:exactMatch` | `dppk:selfDischargeCurrent` | seeAlso upgrade below the 0.8 floor |
 | 0.75 | `eubat:hasCapacityFade` | `skos:exactMatch` | `batterypass:capacityFadeValue` | new mapping below the 0.8 floor |
 | 0.75 | `eubat:lithiumPreConsumerShare` | `skos:broadMatch` | `batterypass:preConsumerShare` | new mapping below the 0.8 floor |
 | 0.75 | `eubat:hasRecycledContent` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:preConsumerRecycledMaterialComposition` | seeAlso upgrade below the 0.8 floor |
@@ -269,7 +265,6 @@ From `skos-completeness-battery-2026-11-06.json`. 214 confirmed findings the tri
 | 0.70 | `eubat:BatteryChemistry` | `skos:exactMatch` | `batterypass:BatteryChemistryEntity` | new mapping below the 0.8 floor |
 | 0.70 | `eubat:hasPowerCapabilityAt80SoC` | `skos:broadMatch` | `dppk:powerRemaining` | new mapping below the 0.8 floor |
 | 0.69 | `eubat:hasPowerCapabilityAt80SoC` | `skos:broadMatch` | `cirpass2-battery:remainingPowerCapability` | new mapping below the 0.8 floor |
-| 0.69 | `eubat:hasRemainingUsableEnergy` | `skos:exactMatch` | `batterypass:remainingEnergyValue` | new mapping below the 0.8 floor |
 | 0.69 | `eubat:hasSupplyChainDueDiligence` | `skos:exactMatch` | `dppk:dueDiligenceReport` | new mapping below the 0.8 floor |
 | 0.69 | `eubat:separateCollectionSymbolUrl` | `skos:broadMatch` | `cirpass2-battery:labelingSymbol` | new mapping below the 0.8 floor |
 | 0.69 | `eubat:hasInternalResistance` | rdfs:seeAlso to `skos:exactMatch` | `other:InternalResistance` | our term is a property, target is a class |
@@ -290,30 +285,30 @@ From `skos-completeness-battery-2026-11-06.json`. 214 confirmed findings the tri
 | 0.65 | `eubat:operatorIdentifier` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:manufacturerInformation` | seeAlso upgrade below the 0.8 floor |
 | 0.65 | `eubat:hasManufacturingPlace` | skos:broadMatch to `skos:exactMatch` | `gs1:manufacturingPlant` | regrade skos:broadMatch to skos:exactMatch |
 | 0.65 | `eubat:leadRecycledShare` | `skos:broadMatch` | `dppk:recycledContentPercentage` | new mapping below the 0.8 floor |
+| 0.65 | `eubat:hasExpectedLifetime` | `skos:closeMatch` | `eu-dpp:expectedLifetimeCyclesRest` | new mapping below the 0.8 floor |
 | 0.65 | `eubat:hasStateOfHealth` | rdfs:seeAlso to `skos:exactMatch` | `other:StateOfHealth` | our term is a property, target is a class |
 | 0.64 | `eubat:concentration` | `skos:exactMatch` | `eudpp:hasConcentration` | new mapping below the 0.8 floor |
 | 0.64 | `eubat:hasTemperatureRangeStorage` | `skos:narrowMatch` | `dppk:temperatureIdleLower` | new mapping below the 0.8 floor |
 | 0.64 | `eubat:separateCollectionSymbolUrl` | `skos:exactMatch` | `eu-dpp:separateCollectionSymbol` | new mapping below the 0.8 floor |
 | 0.64 | `eubat:hasInternalResistance` | skos:broadMatch to `skos:narrowMatch` | `batterypass:ohmicResistance` | direction flip toward a peer profile below the 0.8 floor |
 | 0.64 | `eubat:hasSupplierContact` | `skos:broadMatch` | `schemaorg:contactPoints` | schema:contactPoints is superseded by schema:contactPoint |
+| 0.64 | `eubat:hasExpectedLifetime` | `skos:closeMatch` | `cirpass2-battery:expectedLifetimeCycles` | new mapping below the 0.8 floor |
 | 0.64 | `eubat:hasNotifiedBody` | `skos:exactMatch` | `eudpp:conformityAttestedBy` | new mapping below the 0.8 floor |
 | 0.64 | `eubat:hasTemperatureRangeIdleState` | `skos:exactMatch` | `eu-dpp:notInUseTemperatureRangeTest` | new mapping below the 0.8 floor |
 | 0.63 | `eubat:timeSpentInExtremeTemperaturesAboveBoundary` | `skos:narrowMatch` | `dppk:timeChargingTempUpper` | new mapping below the 0.8 floor |
 | 0.63 | `eubat:hasInternalResistance` | skos:closeMatch to `skos:exactMatch` | `eu-dpp:ohmicResistance` | regrade skos:closeMatch to skos:exactMatch against an adjudicated EU DPP Registry pair |
 | 0.63 | `eubat:hazardImpact` | skos:closeMatch to `skos:exactMatch` | `dppk:hazardousSubstancesImpact` | regrade skos:closeMatch to skos:exactMatch |
 | 0.63 | `eubat:hasTemperatureRangeIdleState` | `skos:narrowMatch` | `cirpass2-battery:temperatureRangeIdleStateUpperBoundary` | new mapping below the 0.8 floor |
-| 0.62 | `eubat:hasExpectedLifetime` | `skos:closeMatch` | `batterypass:expectedNumberOfCycles` | new mapping below the 0.8 floor |
+| 0.62 | `eubat:hasExpectedLifetime` | `skos:closeMatch` | `dppk:expectedLifetimeCycles` | new mapping below the 0.8 floor |
 | 0.62 | `eubat:hasInternalResistance` | `skos:narrowMatch` | `dppk:internalResistanceDynamic` | new mapping below the 0.8 floor |
 | 0.62 | `eubat:lithiumRecycledShare` | `skos:broadMatch` | `dppk:recycledContentPercentage` | new mapping below the 0.8 floor |
-| 0.62 | `eubat:hasExpectedLifetime` | `skos:closeMatch` | `eu-dpp:expectedLifetimeCycles` | new mapping below the 0.8 floor |
-| 0.61 | `eubat:hasExpectedLifetime` | `skos:closeMatch` | `dppk:expectedLifetimeCycles` | new mapping below the 0.8 floor |
 | 0.61 | `eubat:criticalRawMaterialsStatement` | `skos:exactMatch` | `dppk:criticalRawMaterials` | new mapping below the 0.8 floor |
-| 0.61 | `eubat:hasExpectedLifetime` | `skos:closeMatch` | `cirpass2-battery:expectedLifetimeCycles` | new mapping below the 0.8 floor |
 | 0.61 | `eubat:manufacturerIdentifier` | `skos:broadMatch` | `batterypass:operatorInformation` | new mapping below the 0.8 floor |
 | 0.61 | `eubat:hasBatteryChemistry` | skos:broadMatch to `skos:closeMatch` | `batterypass:batteryMaterials` | regrade skos:broadMatch to skos:closeMatch |
 | 0.61 | `eubat:hasInternalResistance` | `skos:narrowMatch` | `cirpass2-battery:initialPackInternalResistance` | new mapping below the 0.8 floor |
 | 0.61 | `eubat:hasInitialPackInternalResistance` | `skos:broadMatch` | `dppk:internalResistanceOhmic` | new mapping below the 0.8 floor |
 | 0.61 | `eubat:hasPowerCapabilityAt80SoC` | `skos:broadMatch` | `batterypass:remainingPowerCapabilityValue` | new mapping below the 0.8 floor |
+| 0.61 | `eubat:hasExpectedLifetime` | `skos:closeMatch` | `eu-dpp:expectedLifetimeCycles` | new mapping below the 0.8 floor |
 | 0.61 | `eubat:hasInitialCapacity` | `skos:broadMatch` | `other:Capacity` | our term is a property, target is a class |
 | 0.61 | `eubat:hasRemainingPowerCapability` | `skos:exactMatch` | `batterypass:remainingPowerCapabilityValue` | new mapping below the 0.8 floor |
 | 0.61 | `eubat:nickelPostConsumerShare` | rdfs:seeAlso to `skos:broadMatch` | `dppk:recycledContentPercentage` | seeAlso upgrade below the 0.8 floor |
@@ -335,18 +330,20 @@ From `skos-completeness-battery-2026-11-06.json`. 214 confirmed findings the tri
 | 0.60 | `eubat:dataProviderCertification` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:hasCertification` | seeAlso upgrade below the 0.8 floor |
 | 0.59 | `eubat:separateCollectionSymbolUrl` | `skos:broadMatch` | `batterypass:labels` | new mapping below the 0.8 floor |
 | 0.59 | `eubat:measurementCertificateUrl` | skos:closeMatch to `skos:broadMatch` | `gs1:certificationInfo` | regrade skos:closeMatch to skos:broadMatch |
+| 0.59 | `eubat:hasExpectedLifetime` | `skos:closeMatch` | `batterypass:expectedNumberOfCycles` | new mapping below the 0.8 floor |
 | 0.59 | `eubat:cobaltPostConsumerShare` | rdfs:seeAlso to `skos:broadMatch` | `dppk:recycledContentPercentage` | seeAlso upgrade below the 0.8 floor |
 | 0.59 | `eubat:cobaltRecycledShare` | `skos:broadMatch` | `schemaorg:recycledContentPercentage` | schema:recycledContentPercentage is not in the checked schema.org release (pending) |
-| 0.58 | `eubat:hasExpectedLifetime` | `skos:closeMatch` | `eu-dpp:expectedLifetimeCyclesRest` | new mapping below the 0.8 floor |
 | 0.58 | `eubat:lithiumRecycledShare` | `skos:broadMatch` | `schemaorg:recycledContentPercentage` | schema:recycledContentPercentage is not in the checked schema.org release (pending) |
 | 0.58 | `eubat:hasTemperatureRangeStorage` | `skos:narrowMatch` | `cirpass2-battery:temperatureRangeIdleStateLowerBoundary` | new mapping below the 0.8 floor |
 | 0.58 | `eubat:hasRecycledContent` | `skos:narrowMatch` | `dppk:recycledContentPercentage` | new mapping below the 0.8 floor |
 | 0.58 | `eubat:hasInitialCellInternalResistance` | `skos:broadMatch` | `dppk:internalResistance` | new mapping below the 0.8 floor |
 | 0.58 | `eubat:dueDiligencePolicyUrl` | `skos:broadMatch` | `batterypass:supplyChainDueDiligenceReport` | new mapping below the 0.8 floor |
+| 0.58 | `eubat:hasDismantlingAndRemovalInformation` | `skos:closeMatch` | `dppk:disassemblyInstructions` | new mapping below the 0.8 floor |
 | 0.58 | `eubat:hasComponentLocation` | `skos:narrowMatch` | `batterypass:hazardousSubstanceLocation` | new mapping below the 0.8 floor |
 | 0.58 | `eubat:hasInitialPackInternalResistance` | `skos:broadMatch` | `dppk:internalResistance` | new mapping below the 0.8 floor |
 | 0.58 | `eubat:hasStateOfHealth` | `skos:closeMatch` | `cirpass2-battery:stateOfCertifiedEnergy` | new mapping below the 0.8 floor |
 | 0.58 | `eubat:labelSymbol` | `skos:narrowMatch` | `dppk:separateCollectionSymbol` | new mapping below the 0.8 floor |
+| 0.58 | `eubat:hasRemainingUsableEnergy` | `skos:closeMatch` | `cirpass2-battery:stateOfCertifiedEnergy` | new mapping below the 0.8 floor |
 | 0.57 | `eubat:expectedCycleLife` | `skos:closeMatch` | `batterypass:expectedLifetime` | new mapping below the 0.8 floor |
 | 0.57 | `eubat:expectedCycleLife` | `skos:closeMatch` | `dppk:expectedLifetimeYears` | new mapping below the 0.8 floor |
 | 0.57 | `eubat:hasRemainingCapacity` | `skos:closeMatch` | `dppk:remainingUsableEnergy` | new mapping below the 0.8 floor |
@@ -356,7 +353,6 @@ From `skos-completeness-battery-2026-11-06.json`. 214 confirmed findings the tri
 | 0.57 | `eubat:lithiumRecycledShare` | `skos:closeMatch` | `dppk:preConsumerRecycledMaterialComposition` | new mapping below the 0.8 floor |
 | 0.57 | `eubat:hasRecycledContent` | `skos:narrowMatch` | `eudpp:materialRecycledContent` | new mapping below the 0.8 floor |
 | 0.57 | `eubat:hasInitialCellInternalResistance` | `skos:broadMatch` | `dppk:internalResistanceOhmic` | new mapping below the 0.8 floor |
-| 0.57 | `eubat:hasRemainingUsableEnergy` | `skos:closeMatch` | `cirpass2-battery:stateOfCertifiedEnergy` | new mapping below the 0.8 floor |
 | 0.57 | `eubat:hasRemainingUsableEnergy` | `skos:closeMatch` | `batterypass:stateOfCertifiedEnergy` | new mapping below the 0.8 floor |
 | 0.55 | `eubat:hasSubstanceLocation` | `skos:closeMatch` | `cirpass2-battery:hasBatteryLocation` | new mapping below the 0.8 floor |
 | 0.55 | `eubat:cathodeActiveMaterial` | skos:closeMatch to `skos:broadMatch` | `eu-dpp:batteryChemistry` | regrade skos:closeMatch to skos:broadMatch against an adjudicated EU DPP Registry pair |
@@ -373,7 +369,6 @@ From `skos-completeness-battery-2026-11-06.json`. 214 confirmed findings the tri
 | 0.55 | `eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary` | `skos:broadMatch` | `dppk:timeExtremeTempUpper` | new mapping below the 0.8 floor |
 | 0.55 | `eubat:verificationDate` | rdfs:seeAlso to `skos:closeMatch` | `schemaorg:auditDate` | seeAlso upgrade below the 0.8 floor |
 | 0.55 | `eubat:TemperatureRange` | `skos:exactMatch` | `batterypass:TemperatureConditionsEntity` | new mapping below the 0.8 floor |
-| 0.55 | `eubat:hasRemainingUsableEnergy` | `skos:closeMatch` | `eu-dpp:stateOfCertifiedEnergy` | new mapping below the 0.8 floor |
 | 0.55 | `eubat:renewableContentShare` | `skos:closeMatch` | `eudpp:materialIsSustainableRenewable` | new mapping below the 0.8 floor |
 | 0.55 | `eubat:hasSupplyChainDueDiligence` | `skos:narrowMatch` | `cirpass2-battery:dueDiligenceAudit` | new mapping below the 0.8 floor |
 | 0.55 | `eubat:hasCarbonFootprintDeclaration` | `skos:closeMatch` | `dppk:carbonFootprintLabel` | new mapping below the 0.8 floor |
@@ -396,6 +391,9 @@ From `skos-completeness-battery-2026-11-06.json`. 214 confirmed findings the tri
 | 0.53 | `eubat:separateCollection` | `skos:closeMatch` | `eu-dpp:endUserRoleInSeparateCollection` | new mapping below the 0.8 floor |
 | 0.53 | `eubat:hasMaximumVoltage` | `skos:broadMatch` | `dppk:voltage` | new mapping below the 0.8 floor |
 | 0.53 | `eubat:CarbonFootprintDeclaration` | skos:narrowMatch to `skos:closeMatch` | `eudpp:CarbonFootprint` | regrade skos:narrowMatch to skos:closeMatch |
+| 0.53 | `eubat:hasRemainingUsableEnergy` | rdfs:seeAlso to `skos:closeMatch` | `dppk:remainingCapacity` | seeAlso upgrade below the 0.8 floor |
+| 0.53 | `eubat:hasRemainingUsableEnergy` | `skos:closeMatch` | `batterypass:stateOfCertifiedEnergyValue` | new mapping below the 0.8 floor |
+| 0.53 | `eubat:hasSafetyMeasures` | skos:exactMatch to `skos:closeMatch` | `eu-dpp:wasteBatterySafetyInstructions` | regrade skos:exactMatch to skos:closeMatch against an adjudicated EU DPP Registry pair |
 | 0.53 | `eubat:hasCarbonFootprintDeclaration` | `skos:narrowMatch` | `dppk:carbonFootprintAbsolute` | new mapping below the 0.8 floor |
 | 0.53 | `eubat:safetyInstructions` | `skos:closeMatch` | `dppk:safetyDataSheet` | new mapping below the 0.8 floor |
 | 0.52 | `eubat:NegativeEvent` | `skos:broadMatch` | `untp:LifecycleEvent` | new mapping below the 0.8 floor |
@@ -412,7 +410,7 @@ No held findings: everything the panel confirmed was either applied or filtered 
 
 ## core
 
-From `skos-completeness-core-2026-11-06.json`. 224 confirmed findings the triage did not apply.
+From `skos-completeness-core-2026-11-07.json`. 226 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
@@ -466,7 +464,6 @@ From `skos-completeness-core-2026-11-06.json`. 224 confirmed findings the triage
 | 0.71 | `oec:combinedNomenclatureCode` | `skos:broadMatch` | `eudpp:commodityCode` | new mapping below the 0.8 floor |
 | 0.71 | `oec:hasDismantlingInstructions` | skos:broadMatch to `skos:exactMatch` | `batterypass:dismantlingAndRemovalInformation` | regrade skos:broadMatch to skos:exactMatch |
 | 0.71 | `oec:hasConformityDeclaration` | skos:narrowMatch to `skos:exactMatch` | `eu-dpp:euDeclarationOfConformity` | regrade skos:narrowMatch to skos:exactMatch against an adjudicated EU DPP Registry pair |
-| 0.71 | `oec:casNumber` | `skos:exactMatch` | `batterypass:batteryMaterialIdentifier` | new mapping below the 0.8 floor |
 | 0.71 | `oec:SubstanceOfConcern` | rdfs:seeAlso to `skos:exactMatch` | `eudpp:SubstanceOfConcern` | seeAlso upgrade below the 0.8 floor |
 | 0.71 | `oec:postConsumerRecycledContent` | `skos:exactMatch` | `batterypass:postConsumerShare` | new mapping below the 0.8 floor |
 | 0.71 | `oec:economicOperatorId` | rdfs:seeAlso to `skos:broadMatch` | `gs1:additionalOrganizationID` | seeAlso upgrade below the 0.8 floor |
@@ -490,6 +487,7 @@ From `skos-completeness-core-2026-11-06.json`. 224 confirmed findings the triage
 | 0.69 | `oec:hasHazardousSubstances` | `skos:narrowMatch` | `dppk:hazardousSubstances` | new mapping below the 0.8 floor |
 | 0.69 | `oec:granularityLevel` | `skos:exactMatch` | `untp:idGranularity` | new mapping below the 0.8 floor |
 | 0.69 | `oec:hasPerformanceInfo` | `skos:narrowMatch` | `dppk:performance` | new mapping below the 0.8 floor |
+| 0.69 | `oec:ecNumber` | skos:exactMatch to `skos:narrowMatch` | `dppk:componentEcNumber` | regrade skos:exactMatch to skos:narrowMatch |
 | 0.68 | `oec:FacilityInformation` | rdfs:seeAlso to `skos:broadMatch` | `eudpp:Facility` | seeAlso upgrade below the 0.8 floor |
 | 0.68 | `oec:activityClassification` | `skos:exactMatch` | `gs1:organizationClassification` | new mapping below the 0.8 floor |
 | 0.68 | `oec:compostabilityStandard` | `skos:broadMatch` | `gs1:certificationStandard` | new mapping below the 0.8 floor |
@@ -499,6 +497,7 @@ From `skos-completeness-core-2026-11-06.json`. 224 confirmed findings the triage
 | 0.68 | `oec:postConsumerRecycledContent` | `skos:broadMatch` | `schemaorg:recycledContentPercentage` | schema:recycledContentPercentage is not in the checked schema.org release (pending) |
 | 0.67 | `oec:collectionPointDirectoryUrl` | `skos:broadMatch` | `batterypass:informationOnCollection` | new mapping below the 0.8 floor |
 | 0.67 | `oec:activityClassification` | rdfs:seeAlso to `skos:narrowMatch` | `other:isic` | seeAlso upgrade below the 0.8 floor |
+| 0.67 | `oec:casNumber` | skos:exactMatch to `skos:narrowMatch` | `dppk:componentCasNumber` | regrade skos:exactMatch to skos:narrowMatch |
 | 0.67 | `oec:recycledContent` | `skos:exactMatch` | `cirpass2-textile:hasRecycledContentMassFractionValue` | new mapping below the 0.8 floor |
 | 0.66 | `oec:reportUrl` | `skos:exactMatch` | `cirpass2-battery:dueDiligenceReport` | new mapping below the 0.8 floor |
 | 0.66 | `oec:facilityId` | rdfs:seeAlso to `skos:exactMatch` | `eudpp:hasUniqueFacilityIdentifier` | seeAlso upgrade below the 0.8 floor |
@@ -628,6 +627,7 @@ From `skos-completeness-core-2026-11-06.json`. 224 confirmed findings the triage
 | 0.53 | `oec:ImpactIndicatorResult` | `skos:narrowMatch` | `eudpp:RecycledMaterialsUseResult` | new mapping below the 0.8 floor |
 | 0.53 | `oec:regulatoryPermitIdentification` | `skos:closeMatch` | `schemaorg:certificationIdentification` | new mapping below the 0.8 floor |
 | 0.53 | `oec:RecycledContent` | rdfs:seeAlso to `skos:closeMatch` | `eudpp:RecycledMaterialsUseResult` | seeAlso upgrade below the 0.8 floor |
+| 0.53 | `oec:ecNumber` | `skos:closeMatch` | `eudpp:echaNumber` | new mapping below the 0.8 floor |
 | 0.53 | `oec:hasPassportIssuer` | skos:closeMatch to `skos:broadMatch` | `schemaorg:issuedBy` | regrade skos:closeMatch to skos:broadMatch |
 | 0.53 | `oec:professionalRepairNetwork` | `skos:closeMatch` | `cirpass2-textile:hasRepairService` | new mapping below the 0.8 floor |
 | 0.53 | `oec:RepairProvider` | `skos:closeMatch` | `cirpass2-textile:RepairService` | new mapping below the 0.8 floor |
@@ -919,16 +919,16 @@ From `skos-completeness-textile-2026-11-06.json`. 135 confirmed findings the tri
 
 ## Where the pipeline contradicts itself
 
-307 assertion(s) the ontology already carries were marked `WRONG` by the
+184 assertion(s) the ontology already carries were marked `WRONG` by the
 bulk grader and then had the correction rejected by the QA panel. Nothing was applied, so
 each one is either a mapping worth re-reading or a prompt worth improving. A worked example:
 the textile panel rejected `eutex:additionalCareInstructions skos:narrowMatch
 schema:additionalProperty` at 0.97 confidence, and it does look inverted, since
 `schema:additionalProperty` is a general extension slot rather than a narrower concept.
 
-- **battery**: 109
-- **core**: 87
+- **battery**: 42
 - **electronics**: 40
+- **core**: 31
 - **textile**: 23
 - **eudr**: 20
 - **cpr**: 12
