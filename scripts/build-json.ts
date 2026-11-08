@@ -188,6 +188,11 @@ interface OntologyModule {
    *  instead of one flat skos:Concept list. The EU DPP vocabularies are seventeen schemes
    *  whose values would otherwise land in a single list of 294 entries. */
   groupConceptsByScheme?: boolean;
+  /** Keep colliding local names bare instead of prefixing them with their namespace segment.
+   *  served-fields needs this: its local names ARE the bare field names the resolver stores and
+   *  the field-access defaults key on, so GS1 contactPoint and schema.org contactPoint must both
+   *  stay "contactPoint" (the resolver tells them apart by the schema: key prefix). */
+  keepCollidingLocalNames?: boolean;
 }
 
 // Ontology modules configuration
@@ -223,6 +228,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     namespace: "https://ref.gs1.org/voc/",
     extraNamespaces: ["https://ref.openepcis.org/masterdata/served-fields/", "https://schema.org/"],
     ontologyIri: "https://ref.openepcis.org/masterdata/served-fields/",
+    keepCollidingLocalNames: true,
   },
   {
     name: "battery",
@@ -708,7 +714,7 @@ function extractOntologyData(store: Store, module: OntologyModule): OntologyData
   const enumClassIds = new Set(enumerations.map((e) => e.id));
   const regularClasses = classes.filter((c) => !enumClassIds.has(c.id));
 
-  if (module.extraNamespaces?.length) {
+  if (module.extraNamespaces?.length && !module.keepCollidingLocalNames) {
     disambiguateLocalNames(module.name, [regularClasses, properties, enumerations, ...enumerations.map((e) => e.values)], nsFor);
   }
 
