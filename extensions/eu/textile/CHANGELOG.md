@@ -4,6 +4,20 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed: `textile-schema.json` follows the assessment move
+
+- `DurabilityInfo`, `RobustnessAssessment`, `RecyclabilityAssessment` and `MicroplasticInfo`
+  carry the assessment properties (`hasMethod`, `hasResult`, `hasSubAssessment`, `hasIndicator`,
+  ...) instead of the flat values removed in 0.10.0. `MicroplasticInfo` keeps
+  `syntheticFiberContent` and `microplasticMitigationMeasures`, `RecyclabilityAssessment`
+  `hasApplicableRecyclingTechnology`.
+- The definitions only those values used are gone: `DurabilityClass`, `SpiralityTestResult`,
+  `DimensionalChangeTestResult`, `VisualInspectionResult`, `SortingFactors`,
+  `TechnicalRecyclability`, `MicroplasticRiskLevel`, `TestStandard`.
+- `fiberComposition` is `textileMaterial`, a list of `TextileMaterialDetails`
+  (`textileMaterialDescription`, `textileMaterialPercentage` and the eutex traceability
+  properties), the way the examples write it; `FiberType` went with the old `fiberType` key.
+
 ## [0.10.0] - 2026-11-07
 
 ### Removed: `eutex:ecNumber`

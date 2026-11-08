@@ -9,6 +9,32 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Fixed: the module JSON Schemas name existing terms again, and a guard keeps them there
+
+The hand-written module schemas (`<slug>-schema.json`, published as `<slug>-json-schema.json`) had
+drifted from the ontologies since 0.9.6: 63 property keys named no existing term. They still
+described the flat textile durability, robustness, recyclability and microplastic values and the
+core performance and repairability scores that moved to `common/assessment`, carried renamed keys
+(`lastDataUpdate`, `lastUpdate`, `cnCode`, `category`, `batteryPassportIdentifier`) and a few that
+were never defined (`displaySize`, `displayResolution`, `fiberComposition`, `wasteCode`). The
+schemas leave additional properties open, so nothing was rejected; the stale keys just stopped
+checking the data they were written for. The dpp-api validates writes with these schemas, the DDM
+builds its forms from them, the resolver checks textile master data and the GITB JSON validator
+serves them. Details per module in the core, battery, detergent, electronics and textile
+changelogs.
+
+`pnpm run check:json-schemas` (part of `pnpm run build`) resolves every key through the module's
+standard, shortcut and operational contexts and fails when the IRI it lands on is not defined.
+Against the 0.10.0 schemas it reports the 63 keys; against these it passes.
+
+### Fixed: served-fields keeps the bare `contactPoint`
+
+Since 0.10.0 `build:json` renamed the two colliding `contactPoint` fields of
+`masterdata/served-fields` (GS1 and schema.org) to `voc.contactPoint` and
+`schema.org.contactPoint`. The disambiguation was written for the CIRPASS-2 textile mirror; in
+served-fields the local names are the stored field names the resolver's field-access defaults key
+on, so both terms stopped matching. served-fields now opts out (`keepCollidingLocalNames`).
+
 ## [0.10.0] - 2026-11-07
 
 ### Breaking: the vocabulary namespace moves to `ref.openepcis.org`
