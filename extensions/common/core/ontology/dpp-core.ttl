@@ -1213,7 +1213,7 @@ oec:hasHazardClass
 oec:casNumber
     a owl:DatatypeProperty ;
     rdfs:label "CAS Number"@en ;
-    rdfs:comment "Chemical Abstracts Service registry number of a substance or material, wherever the passport lists one (hazardous substance, substance of concern, battery material, ingredient). No rdfs:domain: the module shapes say where it is required."@en ;
+    rdfs:comment "Chemical Abstracts Service registry number of a substance or material, wherever the passport lists one: a battery material, a hazardous substance, a substance of concern, a detergent ingredient or fragrance allergen. One term for every position; who may see it follows the node that carries it (oec:accessLevelInherited). No rdfs:domain: the module shapes say where it is required."@en ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
@@ -1222,7 +1222,8 @@ oec:casNumber
     rdfs:seeAlso cirpass2:casNumber ;
     skos:exactMatch <https://w3id.org/eudpp#casNumber> ;
     skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier> ;
-    skos:closeMatch dppk:componentCasNumber .
+    skos:closeMatch dppk:componentCasNumber ;
+    skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceIdentifier> .
 
 oec:hasMaterialOrigin
     a owl:ObjectProperty ;
@@ -1975,7 +1976,7 @@ oec:hasSubstancesOfConcern
 oec:ecNumber
     a owl:DatatypeProperty ;
     rdfs:label "EC Number"@en ;
-    rdfs:comment "European Community number (EINECS/ELINCS) of a substance or material, wherever the passport lists one. No rdfs:domain: the module shapes say where it is required."@en ;
+    rdfs:comment "European Community number (EINECS/ELINCS) of a substance or material, wherever the passport lists one. One term for every position; who may see it follows the node that carries it (oec:accessLevelInherited). No rdfs:domain: the module shapes say where it is required."@en ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;

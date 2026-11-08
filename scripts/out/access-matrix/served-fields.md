@@ -32,6 +32,8 @@ Coverage: 152 properties — 122 Public / 30 AuthorizedOnly / 0 Restricted / 0 i
 | `consumerSafetyInformation` | Consumer Safety Information | **Public** |  | eli/reg/2024/1781 | Safety information exists to protect the end user and must reach every anonymous scanner of the product. |
 | `consumerStorageInstructions` | Consumer Storage Instructions | **Public** |  | eli/reg/2024/1781 | Storage instructions are normally held on the label or accompany the product, so they are already public consumer information. |
 | `consumerUsageInstructions` | Consumer Usage Instructions | **Public** |  | eli/reg/2024/1781 | Usage instructions are label-carried consumer information ESPR Annex III explicitly directs at customers. |
+| `contactPoint` | Contact Point | **Public** |  | https://ref.gs1.org/voc/ | Published contact points are how the organization asks to be reached and are ordinary business-directory content. |
+| `contactPoint` | Contact Point | **Public** |  | eli/reg/2024/1781 | A contact point of the responsible party is how a consumer reaches the brand for support, safety or recall questions. |
 | `countryOfAssembly` | Country Of Assembly | **Public** |  | eli/reg/2024/1781 | Country of assembly is an origin fact at country granularity, revealing no supplier or facility identity. |
 | `countryOfLastProcessing` | Country Of Last Processing | **Public** |  | eli/reg/2024/1781 | Country of last processing is origin information at country granularity, consistent with on-label origin marking. |
 | `countryOfOrigin` | Country Of Origin | **Public** |  | eli/reg/2024/1781 | Country of origin is a consumer-facing declaration frequently required on the label of the target market. |
@@ -143,7 +145,6 @@ Coverage: 152 properties — 122 Public / 30 AuthorizedOnly / 0 Restricted / 0 i
 | `replacedProduct` | Replaced Product | **Public** |  | eli/reg/2024/1781 | The predecessor-product link is the public catalogue history of what this product permanently replaces. |
 | `responsibleForLocation` | Responsible For Location | **AuthorizedOnly** |  | eli/reg/2024/1781 | The places an organization is responsible for map internal accountability across the site network — B2B operational structure. |
 | `responsibleOrganization` | Responsible Organization | **AuthorizedOnly** |  | eli/reg/2024/1781 | The organization directly responsible for a place is internal accountability structure, distinct from the public operator identity. |
-| `schema.org.contactPoint` | Contact Point | **Public** |  | eli/reg/2024/1781 | A contact point of the responsible party is how a consumer reaches the brand for support, safety or recall questions. |
 | `schemaVersion` | Schema Version | **AuthorizedOnly** |  | eli/reg/2024/1781 | The schema version is technical record metadata that serves systems processing the passport, not consumer information. |
 | `sellByDate` | Sell By Date | **Public** |  | eli/reg/2024/1781 | The sell-by date is marked on retail packaging and lets the consumer judge product freshness at the shelf. |
 | `sizeCode` | Size Code | **Public** |  | eli/reg/2024/1781 | The size is printed on the label of the product and is what the consumer selects at the point of sale. |
@@ -156,5 +157,4 @@ Coverage: 152 properties — 122 Public / 30 AuthorizedOnly / 0 Restricted / 0 i
 | `textileMaterial` | Textile Material | **Public** |  | eli/reg/2024/1781 | The fibre composition of a textile product is mandatory label content and the first fact a consumer checks before buying or washing it. |
 | `usesManagedLocation` | Uses Managed Location | **AuthorizedOnly** |  | eli/reg/2024/1781 | Which managed spaces an organization uses reveals its operational footprint and supplier relationships. |
 | `variantDescription` | Variant Description | **Public** |  | eli/reg/2024/1781 | The variant description distinguishes retail variants the consumer chooses between at point of sale. |
-| `voc.contactPoint` | Contact Point | **Public** |  | https://ref.gs1.org/voc/ | Published contact points are how the organization asks to be reached and are ordinary business-directory content. |
 | `warningCopyDescription` | Warning Copy Description | **Public** |  | eli/reg/2024/1781 | Warning copy reproduces caution information printed on the package and is critical consumer safety content. |

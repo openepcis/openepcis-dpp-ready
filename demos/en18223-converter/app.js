@@ -20991,8 +20991,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/soceMeasurementId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/spareParts": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/stateOfChargeLevel": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/eu/battery/substanceCasNumber": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/battery/substanceEcNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/supplyChainIndex": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/supplyChainMappingAvailable": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/battery/temperatureExcursionId": "http://www.w3.org/2001/XMLSchema#string",
@@ -21028,7 +21026,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/cpr/hasTechnicalAssessmentBody": "https://ref.openepcis.org/extensions/common/core/OperatorInformation",
   "https://ref.openepcis.org/extensions/eu/cpr/hasThermalConductivity": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/cpr/hasValidationReports": "https://ref.openepcis.org/extensions/common/core/DocumentReference",
-  "https://ref.openepcis.org/extensions/eu/detergent/allergenCasNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/detergent/allergenConcentration": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/detergent/biodegradationPercentage": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/detergent/dosageInstructions": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
@@ -24304,14 +24301,6 @@ var contexts_default = {
         "@id": "eubat:stateOfChargeLevel",
         "@type": "xsd:decimal"
       },
-      substanceCasNumber: {
-        "@id": "eubat:substanceCasNumber",
-        "@type": "xsd:string"
-      },
-      substanceEcNumber: {
-        "@id": "eubat:substanceEcNumber",
-        "@type": "xsd:string"
-      },
       supplyChainIndex: {
         "@id": "eubat:supplyChainIndex",
         "@type": "xsd:decimal"
@@ -26310,10 +26299,6 @@ var contexts_default = {
       SignalWord: "eudet:SignalWord",
       SurfactantBiodegradability: "eudet:SurfactantBiodegradability",
       SurfactantType: "eudet:SurfactantType",
-      allergenCasNumber: {
-        "@id": "eudet:allergenCasNumber",
-        "@type": "xsd:string"
-      },
       allergenConcentration: {
         "@id": "eudet:allergenConcentration",
         "@type": "xsd:decimal"
@@ -29381,7 +29366,7 @@ var contexts_default = {
         }
       },
       hazardousSubstanceIdentifier: {
-        "@id": "eubat:substanceCasNumber"
+        "@id": "oec:casNumber"
       },
       dismantlingAndRemovalInformation: {
         "@id": "eubat:hasDismantlingAndRemovalInformation",
@@ -32397,8 +32382,8 @@ var samples_default = [
             "@value": "Lithium hexafluorophosphate (LiPF6)",
             "@language": "en"
           },
-          "eubat:substanceCasNumber": "21324-40-3",
-          "eubat:substanceEcNumber": "244-334-7",
+          "oec:casNumber": "21324-40-3",
+          "oec:ecNumber": "244-334-7",
           "eubat:hasHazardClass": {
             "@id": "eubat:AcuteToxicity"
           },
@@ -32418,8 +32403,8 @@ var samples_default = [
             "@value": "Ethylene carbonate",
             "@language": "en"
           },
-          "eubat:substanceCasNumber": "96-49-1",
-          "eubat:substanceEcNumber": "202-510-0",
+          "oec:casNumber": "96-49-1",
+          "oec:ecNumber": "202-510-0",
           "eubat:hasHazardClass": {
             "@id": "eubat:EyeDamageOrIrritation"
           },
@@ -33273,8 +33258,8 @@ var samples_default = [
             "@value": "Lithium hexafluorophosphate (LiPF6)",
             "@language": "en"
           },
-          "eubat:substanceCasNumber": "21324-40-3",
-          "eubat:substanceEcNumber": "244-334-7",
+          "oec:casNumber": "21324-40-3",
+          "oec:ecNumber": "244-334-7",
           "eubat:hasHazardClass": {
             "@id": "eubat:AcuteToxicity"
           },
@@ -33294,8 +33279,8 @@ var samples_default = [
             "@value": "Ethylene carbonate",
             "@language": "en"
           },
-          "eubat:substanceCasNumber": "96-49-1",
-          "eubat:substanceEcNumber": "202-510-0",
+          "oec:casNumber": "96-49-1",
+          "oec:ecNumber": "202-510-0",
           "eubat:hasHazardClass": {
             "@id": "eubat:EyeDamageOrIrritation"
           },
@@ -34182,8 +34167,8 @@ var samples_default = [
             "@value": "Lithium hexafluorophosphate (LiPF6)",
             "@language": "en"
           },
-          "eubat:substanceCasNumber": "21324-40-3",
-          "eubat:substanceEcNumber": "244-334-7",
+          "oec:casNumber": "21324-40-3",
+          "oec:ecNumber": "244-334-7",
           "eubat:hasHazardClass": {
             "@id": "eubat:AcuteToxicity"
           },
@@ -34203,8 +34188,8 @@ var samples_default = [
             "@value": "Ethylene carbonate",
             "@language": "en"
           },
-          "eubat:substanceCasNumber": "96-49-1",
-          "eubat:substanceEcNumber": "202-510-0",
+          "oec:casNumber": "96-49-1",
+          "oec:ecNumber": "202-510-0",
           "eubat:hasHazardClass": {
             "@id": "eubat:EyeDamageOrIrritation"
           },
@@ -35054,8 +35039,8 @@ var samples_default = [
             "@value": "Lithium hexafluorophosphate (LiPF6)",
             "@language": "en"
           },
-          "eubat:substanceCasNumber": "21324-40-3",
-          "eubat:substanceEcNumber": "244-334-7",
+          "oec:casNumber": "21324-40-3",
+          "oec:ecNumber": "244-334-7",
           "eubat:hasHazardClass": {
             "@id": "eubat:AcuteToxicity"
           },
@@ -35075,8 +35060,8 @@ var samples_default = [
             "@value": "Ethylene carbonate",
             "@language": "en"
           },
-          "eubat:substanceCasNumber": "96-49-1",
-          "eubat:substanceEcNumber": "202-510-0",
+          "oec:casNumber": "96-49-1",
+          "oec:ecNumber": "202-510-0",
           "eubat:hasHazardClass": {
             "@id": "eubat:EyeDamageOrIrritation"
           },
@@ -35795,8 +35780,8 @@ var samples_default = [
             "@value": "Cobalt (cathode active material constituent)",
             "@language": "en"
           },
-          "eubat:substanceCasNumber": "7440-48-4",
-          "eubat:substanceEcNumber": "231-158-0",
+          "oec:casNumber": "7440-48-4",
+          "oec:ecNumber": "231-158-0",
           "eubat:hasHazardClass": {
             "@id": "eubat:Carcinogenicity"
           },
@@ -35811,8 +35796,8 @@ var samples_default = [
             "@value": "Lithium hexafluorophosphate (LiPF6)",
             "@language": "en"
           },
-          "eubat:substanceCasNumber": "21324-40-3",
-          "eubat:substanceEcNumber": "244-334-7",
+          "oec:casNumber": "21324-40-3",
+          "oec:ecNumber": "244-334-7",
           "eubat:hasHazardClass": {
             "@id": "eubat:AcuteToxicity"
           },
@@ -42515,14 +42500,14 @@ var samples_default = [
           id: "https://id.gs1.org/01/09521234200017#allergen-linalool",
           type: "eudet:FragranceAllergen",
           "schema:name": "Linalool",
-          "eudet:allergenCasNumber": "78-70-6",
+          "oec:casNumber": "78-70-6",
           "eudet:allergenConcentration": "0.15"
         },
         {
           id: "https://id.gs1.org/01/09521234200017#allergen-limonene",
           type: "eudet:FragranceAllergen",
           "schema:name": "Limonene",
-          "eudet:allergenCasNumber": "5989-27-5",
+          "oec:casNumber": "5989-27-5",
           "eudet:allergenConcentration": "0.08"
         }
       ],

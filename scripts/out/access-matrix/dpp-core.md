@@ -2,7 +2,7 @@
 
 Regulatory frame: ESPR 2024/1781 Art. 7–9, Annex III
 
-Coverage: 187 properties — 123 Public / 36 AuthorizedOnly / 6 Restricted / 22 inherited / 0 UNCLASSIFIED; 10 legally locked.
+Coverage: 187 properties — 123 Public / 34 AuthorizedOnly / 6 Restricted / 24 inherited / 0 UNCLASSIFIED; 10 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
@@ -13,7 +13,7 @@ Coverage: 187 properties — 123 Public / 36 AuthorizedOnly / 6 Restricted / 22 
 | `carbonFootprintMethodology` | Carbon Footprint Methodology | **Public** |  | eli/reg/2024/1781 | A public CF number is only meaningful and checkable with its methodology reference (ISO 14067/PEF citation). |
 | `carbonFootprintStudyUrl` | Carbon Footprint Study URL | **Public** |  | eli/reg/2023/1542 | The Battery Regulation requires a public web link to the underlying CF study (Reg. 2023/1542 Annex XIII(1)); battery module serves the same name Public. |
 | `carbonFootprintTotal` | Carbon Footprint Total | **Public** |  | eli/reg/2024/1781 | The total lifecycle CF figure is the headline public value of the CF declaration (Battery Reg. Annex XIII(1) precedent; UNTP alignment). |
-| `casNumber` | CAS Number | **AuthorizedOnly** |  | eli/reg/2023/1542 | Substance registry numbers combined with fractions enable full formulation reconstruction; they serve professional and authority use (battery Annex XIII(2) precedent). |
+| `casNumber` | CAS Number | **(inherited)** |  |  |  |
 | `collectionPointDirectoryUrl` | Collection Point Directory URL | **Public** |  | eli/dir/2008/98 | A directory of physical collection points is only useful if consumers can reach it (WFD Art. 8a(2) information duty). |
 | `combinedNomenclatureCode` | Combined Nomenclature Code | **Public** |  | eli/reg/2024/1781 | The CN commodity code is published on customs declarations and delimits which product law applies, so it carries no commercial confidence beyond the public product classification. |
 | `complianceDate` | Compliance Date | **Public** |  | eli/reg/2024/1781 | The verification date qualifies the public compliance assertion it accompanies. |
@@ -35,7 +35,7 @@ Coverage: 187 properties — 123 Public / 36 AuthorizedOnly / 6 Restricted / 22 
 | `diyRepairPossible` | DIY Repair Possible | **Public** |  | eli/reg/2024/1781 | Whether self-repair is possible is consumer purchase information of the same kind as the repairability score (ESPR Annex I(b)). |
 | `documentUrl` | Document URL | **(inherited)** |  |  |  |
 | `dppSchemaVersion` | DPP Schema Version | **Public** |  | eli/reg/2024/1781 | Every reader needs the schema version to parse the passport at all, so it belongs to the ESPR Art. 9(1) public baseline. |
-| `ecNumber` | EC Number | **AuthorizedOnly** |  | eli/reg/2023/1542 | EC numbers are formulation-level substance identifiers for professional and authority use; textile module agrees on AuthorizedOnly. |
+| `ecNumber` | EC Number | **(inherited)** |  |  |  |
 | `economicOperatorId` | Economic Operator ID | **AuthorizedOnly** |  | eli/reg/2024/1781 | The ESPR Art. 77 operator registry identifier serves customs and market-surveillance cross-checks (Art. 9(2)), not consumers. |
 | `elementId` | Element Id | **(inherited)** |  |  |  |
 | `endOfLifeInstructions` | End of Life Instructions | **Public** |  | eli/reg/2024/1781 | End-of-life handling instructions are directed at end users (ESPR Annex I(m); WFD consumer-information duties). |

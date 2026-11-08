@@ -609,13 +609,19 @@ oec:concentration oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The CLP label already discloses presence; exact concentrations are trade-secret-adjacent and serve professional risk assessment (battery Annex XIII(2) precedent)." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
-oec:casNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
-    oec:accessLevelRationale "Substance registry numbers combined with fractions enable full formulation reconstruction; they serve professional and authority use (battery Annex XIII(2) precedent)." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+# One CAS number term for every position (material breakdown, hazardous-substance list,
+# substance of concern, detergent ingredient and allergen). Its tier is the node's that carries it:
+# AuthorizedOnly inside oec:/eubat:hasMaterialComposition, Public in the Annex VI Part A hazardous-
+# substance list. Until 0.10.1 the Public positions needed their own copies (eubat:substanceCasNumber,
+# eudet:allergenCasNumber) because tiers merge by local name.
+oec:casNumber oec:accessLevelInherited true .
 
-oec:ecNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
-    oec:accessLevelRationale "EC numbers are formulation-level substance identifiers for professional and authority use; textile module agrees on AuthorizedOnly." ;
-    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+# One EC number term for every position (material breakdown, hazardous-substance list,
+# substance of concern, detergent ingredient and allergen). Its tier is the node's that carries it:
+# AuthorizedOnly inside oec:/eubat:hasMaterialComposition, Public in the Annex VI Part A hazardous-
+# substance list. Until 0.10.1 the Public positions needed their own copies (eubat:substanceEcNumber,
+# eudet:allergenCasNumber) because tiers merge by local name.
+oec:ecNumber oec:accessLevelInherited true .
 
 oec:substanceLocation oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Where a substance sits in the product is dismantling/processing detail for waste operators (battery Annex XIII(2); SCIP notification detail)." ;
