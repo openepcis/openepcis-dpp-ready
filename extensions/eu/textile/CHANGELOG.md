@@ -4,6 +4,8 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.1] - 2026-11-08
+
 ### Fixed: `textile-schema.json` follows the assessment move
 
 - `DurabilityInfo`, `RobustnessAssessment`, `RecyclabilityAssessment` and `MicroplasticInfo`

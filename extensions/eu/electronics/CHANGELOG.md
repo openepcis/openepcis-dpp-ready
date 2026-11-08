@@ -4,6 +4,8 @@ All notable changes to the Electronics module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.1] - 2026-11-08
+
 ### Fixed: `electronics-schema.json`
 
 - `ElectronicDevice.category` is `deviceCategory`.

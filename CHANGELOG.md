@@ -9,6 +9,8 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.10.1] - 2026-11-08
+
 ### Fixed: the module JSON Schemas name existing terms again, and a guard keeps them there
 
 The hand-written module schemas (`<slug>-schema.json`, published as `<slug>-json-schema.json`) had

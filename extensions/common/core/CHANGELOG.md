@@ -4,6 +4,8 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.1] - 2026-11-08
+
 ### Fixed: `dpp-core-schema.json` follows the assessment move
 
 - Root: `lastDataUpdate` removed; `lastUpdated` was already there.

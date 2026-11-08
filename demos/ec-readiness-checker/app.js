@@ -30615,7 +30615,7 @@ var portable_ebike_battery_default = {
 
 // extensions/common/core/context/dpp-core-context.jsonld
 var dpp_core_context_default = {
-  _comment: "OpenEPCIS DPP Core Vocabulary v0.10.0, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
+  _comment: "OpenEPCIS DPP Core Vocabulary v0.10.1, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
   "@context": [
     "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld",
     {
@@ -31184,7 +31184,7 @@ var dpp_core_context_default = {
 
 // extensions/eu/battery/context/battery-context.jsonld
 var battery_context_default = {
-  _comment: "OpenEPCIS Battery Vocabulary v0.10.0, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
+  _comment: "OpenEPCIS Battery Vocabulary v0.10.1, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
   "@context": [
     "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
     {
