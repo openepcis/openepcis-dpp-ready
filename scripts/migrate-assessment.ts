@@ -645,8 +645,9 @@ async function check(): Promise<number> {
   const cases = [
     // d1e28a7 predates the lastDataUpdate rename, so the timestamp is left out of the textile comparison
     ...EXAMPLES.map((name) => ({ name, file: `extensions/eu/textile/examples/${name}.jsonld`, before: "d1e28a7^", after: "d1e28a7", ignore: (k: string) => /^(oec:)?last(DataUpdate|Updated)$/.test(k) })),
-    // 45ccb2f carries the 2026-11 duplicate removal on top of the PR 17 renames of 0142308
-    ...BATTERY_EXAMPLES.map((name) => ({ name, file: `extensions/eu/battery/examples/${name}.jsonld`, before: "3aa08bf", after: "45ccb2f", ignore: (k: string) => /hasInitial(Cell|Pack)?InternalResistance$/.test(k) })),
+    // 9add685 carries the one CAS/EC term on top of the 2026-11 duplicate removal (45ccb2f) and the
+    // PR 17 renames of 0142308
+    ...BATTERY_EXAMPLES.map((name) => ({ name, file: `extensions/eu/battery/examples/${name}.jsonld`, before: "3aa08bf", after: "9add685", ignore: (k: string) => /hasInitial(Cell|Pack)?InternalResistance$/.test(k) })),
   ];
   for (const { name, file, before, after, ignore } of cases) {
     const show = (rev: string) => JSON.parse(execFileSync("git", ["show", `${rev}:${file}`], { cwd: ROOT, encoding: "utf8" }));

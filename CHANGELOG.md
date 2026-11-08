@@ -9,6 +9,21 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### One CAS and one EC number term; the tier follows the carrying node
+
+`eubat:substanceCasNumber`, `eubat:substanceEcNumber` and `eudet:allergenCasNumber` are removed;
+`oec:casNumber` and `oec:ecNumber` serve every position and declare `oec:accessLevelInherited`.
+The copies existed only because field-access tiers merge by local name, while what makes a CAS
+number sensitive is where it stands: next to mass fractions in the material breakdown
+(AuthorizedOnly) or in the Annex VI Part A hazardous-substance list (Public). Those positions are
+tiered already. The copies' own tiers never took effect: the resolver and the VC issuer judged
+nested keys by their parent, which resolver !206 and vc !30 change (nested terms are now enforced
+at any depth). `scripts/migrate-assessment.ts` renames the three keys in stored passports.
+
+`pnpm run report:nested-tiers` lists every term tiered stricter than a parent that embeds it (47
+today, 8 of them mandated): exactly the fields nested enforcement withholds from readers below
+their tier.
+
 ## [0.10.1] - 2026-11-08
 
 ### Fixed: the module JSON Schemas name existing terms again, and a guard keeps them there

@@ -4,6 +4,14 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed: `oec:casNumber` and `oec:ecNumber` inherit the tier of their node
+
+Both now declare `oec:accessLevelInherited` instead of AuthorizedOnly and replace the battery and
+detergent copies (see the battery and detergent changelogs). Inside `hasMaterialComposition` they
+stay AuthorizedOnly with their parent, in the hazardous-substance list and the substances of
+concern they are Public with theirs. The mapping to BatteryPass `hazardousSubstanceIdentifier`
+moved here.
+
 ## [0.10.1] - 2026-11-08
 
 ### Fixed: `dpp-core-schema.json` follows the assessment move
