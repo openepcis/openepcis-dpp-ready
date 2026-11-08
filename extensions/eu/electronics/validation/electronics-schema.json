@@ -16,7 +16,7 @@
           "type": "string",
           "description": "Manufacturer-assigned model identifier (commercial reference)."
         },
-        "category": {
+        "deviceCategory": {
           "$ref": "#/$defs/DeviceCategory"
         },
         "hasRepairabilityIndex": {
@@ -392,15 +392,6 @@
           "type": "string",
           "format": "uri",
           "description": "Resolvable URL to the producer-responsibility collection scheme covering this product."
-        },
-        "wasteCode": {
-          "type": "string",
-          "description": "European Waste Catalogue (EWC) code applicable at end of life."
-        },
-        "recyclingInstructions": {
-          "type": "string",
-          "format": "uri",
-          "description": "Resolvable URL to recycling / dismantling instructions for waste-treatment operators."
         }
       }
     },
@@ -455,13 +446,19 @@
           "type": "string",
           "description": "Display technology (e.g. LCD-IPS, OLED, mini-LED, e-ink)."
         },
-        "displaySize": {
+        "hasScreenDiagonal": {
           "$ref": "#/$defs/QuantitativeValue",
-          "description": "Diagonal display size, typically expressed in inches."
+          "description": "Screen diagonal, typically in inches (unitCode INH)."
         },
-        "displayResolution": {
-          "type": "string",
-          "description": "Native resolution, e.g. \"3840x2160\"."
+        "screenResolutionWidth": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Native horizontal resolution in pixels."
+        },
+        "screenResolutionHeight": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Native vertical resolution in pixels."
         },
         "hasRefreshRate": {
           "$ref": "#/$defs/QuantitativeValue",
