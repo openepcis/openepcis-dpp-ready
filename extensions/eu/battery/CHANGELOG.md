@@ -4,6 +4,8 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-11-09
+
 ### Removed: `eubat:substanceCasNumber`, `eubat:substanceEcNumber`
 
 Replaced by `oec:casNumber` and `oec:ecNumber` on `eubat:HazardousSubstance`; the shape, the

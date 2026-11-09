@@ -4,6 +4,8 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-11-09
+
 ### Changed: `oec:casNumber` and `oec:ecNumber` inherit the tier of their node
 
 Both now declare `oec:accessLevelInherited` instead of AuthorizedOnly and replace the battery and
