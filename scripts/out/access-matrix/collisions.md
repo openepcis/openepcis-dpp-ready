@@ -18,6 +18,7 @@ must be reconciled or explicitly waived (scripts/access-level-waivers.json).
 | `biodegradationPercentage` | dpp-core: Public, detergent: Public | consistent |
 | `carbonFootprintStudyUrl` | dpp-core: Public, battery: Public | consistent |
 | `concentration` | dpp-core: AuthorizedOnly, battery: AuthorizedOnly | consistent |
+| `contactPoint` | served-fields: Public, served-fields: Public | consistent |
 | `dataProviderCertification` | dpp-core: AuthorizedOnly, battery: AuthorizedOnly | consistent |
 | `dataQualityAssessment` | dpp-core: AuthorizedOnly, battery: AuthorizedOnly | consistent |
 | `eprelProductUrl` | dpp-core: Public, electronics: Public | consistent |

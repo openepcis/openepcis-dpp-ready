@@ -2,7 +2,7 @@
 
 Regulatory frame: Battery Regulation (EU) 2023/1542, Annex XIII + Art. 14
 
-Coverage: 214 properties — 111 Public / 73 AuthorizedOnly / 5 Restricted / 25 inherited / 0 UNCLASSIFIED; 85 legally locked.
+Coverage: 212 properties — 109 Public / 73 AuthorizedOnly / 5 Restricted / 25 inherited / 0 UNCLASSIFIED; 85 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
@@ -200,8 +200,6 @@ Coverage: 214 properties — 111 Public / 73 AuthorizedOnly / 5 Restricted / 25 
 | `soceMeasurementId` | SOCE Measurement ID | **(inherited)** |  |  |  |
 | `spareParts` | Spare Parts | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(2)(b): part numbers for components are reserved for persons with a legitimate interest. |
 | `stateOfChargeLevel` | State of Charge Level | **(inherited)** |  |  |  |
-| `substanceCasNumber` | Substance CAS Number | **Public** |  | eli/reg/2023/1542 | The CAS number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike oec:casNumber inside the material breakdown it carries no formulation context. |
-| `substanceEcNumber` | Substance EC Number | **Public** |  | eli/reg/2023/1542 | The EC number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike oec:ecNumber inside the material breakdown it carries no formulation context. |
 | `supplyChainIndex` | Supply Chain Index | **AuthorizedOnly** |  | eli/reg/2023/1542 | A proprietary supply-chain score is detailed chain data behind the public Art. 52(3) report summary, for the legitimate-interest audience. |
 | `supplyChainMappingAvailable` | Supply Chain Mapping Available | **Public** |  | eli/reg/2023/1542 | The boolean only advertises that detailed mapping exists; the mapping data itself stays with the legitimate-interest audience. |
 | `temperatureExcursionId` | Temperature Excursion ID | **(inherited)** |  |  |  |

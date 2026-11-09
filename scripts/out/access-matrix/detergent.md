@@ -2,11 +2,10 @@
 
 Regulatory frame: Detergents Regulation 648/2004 (+ 2024 revision)
 
-Coverage: 31 properties — 22 Public / 9 AuthorizedOnly / 0 Restricted / 0 inherited / 0 UNCLASSIFIED; 5 legally locked.
+Coverage: 30 properties — 22 Public / 8 AuthorizedOnly / 0 Restricted / 0 inherited / 0 UNCLASSIFIED; 4 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
-| `allergenCasNumber` | Allergen CAS Number | **AuthorizedOnly** | 🔒 eli/reg/2004/648 | eli/reg/2004/648 | CAS-level substance identification is Annex VII C datasheet content for medical personnel; the public list uses INCI names. |
 | `allergenConcentration` | Allergen Concentration | **AuthorizedOnly** | 🔒 eli/reg/2004/648 | eli/reg/2004/648 | Exact allergen concentrations belong to the Annex VII C ingredient datasheet Reg. (EC) 648/2004 reserves for medical personnel; the public label carries presence above threshold instead. |
 | `biodegradationPercentage` | Biodegradation Percentage | **Public** |  | eli/reg/2004/648 | The headline biodegradation percentage substantiates the pass/fail claim against the 60% Annex III threshold; aligned with core oec:biodegradationPercentage (Public). |
 | `dosageInstructions` | Dosage Instructions | **Public** |  | eli/reg/2004/648 | Dosage instructions are on-pack consumer information required for laundry detergents by Reg. (EC) 648/2004 Art. 11(4). |

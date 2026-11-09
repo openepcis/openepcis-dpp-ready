@@ -29826,8 +29826,8 @@ var battery_product_default = {
         "@value": "Lithium hexafluorophosphate (LiPF6)",
         "@language": "en"
       },
-      "eubat:substanceCasNumber": "21324-40-3",
-      "eubat:substanceEcNumber": "244-334-7",
+      "oec:casNumber": "21324-40-3",
+      "oec:ecNumber": "244-334-7",
       "eubat:hasHazardClass": {
         "@id": "eubat:AcuteToxicity"
       },
@@ -29847,8 +29847,8 @@ var battery_product_default = {
         "@value": "Ethylene carbonate",
         "@language": "en"
       },
-      "eubat:substanceCasNumber": "96-49-1",
-      "eubat:substanceEcNumber": "202-510-0",
+      "oec:casNumber": "96-49-1",
+      "oec:ecNumber": "202-510-0",
       "eubat:hasHazardClass": {
         "@id": "eubat:EyeDamageOrIrritation"
       },
@@ -30522,8 +30522,8 @@ var portable_ebike_battery_default = {
         "@value": "Cobalt (cathode active material constituent)",
         "@language": "en"
       },
-      "eubat:substanceCasNumber": "7440-48-4",
-      "eubat:substanceEcNumber": "231-158-0",
+      "oec:casNumber": "7440-48-4",
+      "oec:ecNumber": "231-158-0",
       "eubat:hasHazardClass": {
         "@id": "eubat:Carcinogenicity"
       },
@@ -30538,8 +30538,8 @@ var portable_ebike_battery_default = {
         "@value": "Lithium hexafluorophosphate (LiPF6)",
         "@language": "en"
       },
-      "eubat:substanceCasNumber": "21324-40-3",
-      "eubat:substanceEcNumber": "244-334-7",
+      "oec:casNumber": "21324-40-3",
+      "oec:ecNumber": "244-334-7",
       "eubat:hasHazardClass": {
         "@id": "eubat:AcuteToxicity"
       },

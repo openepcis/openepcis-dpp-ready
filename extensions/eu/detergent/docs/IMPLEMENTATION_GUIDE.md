@@ -103,7 +103,7 @@ Disclose allergens present above the threshold:
     {
       "type": "FragranceAllergen",
       "allergenName": "Linalool",
-      "allergenCasNumber": "78-70-6",
+      "casNumber": "78-70-6",
       "allergenConcentration": 0.15
     }
   ]

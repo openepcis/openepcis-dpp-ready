@@ -4,6 +4,12 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+### Removed: `eubat:substanceCasNumber`, `eubat:substanceEcNumber`
+
+Replaced by `oec:casNumber` and `oec:ecNumber` on `eubat:HazardousSubstance`; the shape, the
+module schema and the BatteryPass bridge key `hazardousSubstanceIdentifier` point there. The
+Public tier they carried now comes from `hasHazardousSubstances`.
+
 ## [0.10.1] - 2026-11-08
 
 ### Fixed: `battery-schema.json`

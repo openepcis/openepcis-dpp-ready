@@ -4,6 +4,14 @@ All notable changes to the Detergent module will be documented in this file.
 
 ## [Unreleased]
 
+### Removed: `eudet:allergenCasNumber`
+
+Replaced by `oec:casNumber` on `eudet:FragranceAllergen`. Its AuthorizedOnly tier was never
+enforced (the allergen list is Public and nested tiers followed the parent); with
+`oec:accessLevelInherited` the CAS number is Public with the allergen list, which names the same
+substance by its INCI name. `eudet:allergenConcentration` keeps its own AuthorizedOnly tier, which
+nested enforcement now applies.
+
 ## [0.10.1] - 2026-11-08
 
 ### Fixed: `detergent-schema.json`

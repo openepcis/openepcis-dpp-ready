@@ -351,7 +351,7 @@ export function exportGefeg(src: Q, category: string): Q {
   set(materials, "MaterialsUsedInCathodeAnodeAndElectrolyte", matUsed || undefined);
   const haz = Array.isArray(src.hazardousSubstances)
     ? (src.hazardousSubstances as Q[])
-        .map((h) => `${tail(h.hazardClass as string)} (CAS ${h.substanceCasNumber})`)
+        .map((h) => `${tail(h.hazardClass as string)} (CAS ${h.casNumber})`)
         .join("; ")
     : undefined;
   set(materials, "HazardousSubstances", haz);

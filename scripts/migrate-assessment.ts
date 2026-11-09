@@ -273,6 +273,13 @@ const RENAMED: Record<string, string> = {
   "eubat:hasRemainingEnergy": "eubat:hasRemainingUsableEnergy",
   hasSelfDischargeRate: "hasCurrentSelfDischargingRate",
   hasRemainingEnergy: "hasRemainingUsableEnergy",
+  // 0.10.2: one CAS and one EC term for every position; the tier follows the carrying node
+  "eubat:substanceCasNumber": "oec:casNumber",
+  "eubat:substanceEcNumber": "oec:ecNumber",
+  "eudet:allergenCasNumber": "oec:casNumber",
+  substanceCasNumber: "casNumber",
+  substanceEcNumber: "ecNumber",
+  allergenCasNumber: "casNumber",
 };
 
 /** Removed without a one-to-one successor (guidance 3.2 #38 wants cell and pack values); reported, kept. */
@@ -594,6 +601,24 @@ const SYNTHETIC: { name: string; input: Obj; expected: Obj }[] = [
     input: { "@context": "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld", "oec:hasCircularityPerformance": { hasDismantlingInstructions: { "oec:documentUrl": "https://x.example/d.pdf" } }, "oec:hasSubstancesOfConcern": [{ "eutex:ecNumber": "200-001-8" }] },
     expected: { "@context": "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld", "oec:hasCircularityPerformance": { hasDismantlingInstructions: { "oec:documentUrl": "https://x.example/d.pdf" } }, "oec:hasSubstancesOfConcern": [{ "oec:ecNumber": "200-001-8" }] },
   },
+  {
+    name: "hazardous-substance and allergen CAS numbers join the one CAS term",
+    input: {
+      "@context": BAT,
+      "eubat:hasHazardousSubstances": [{ type: "eubat:HazardousSubstance", "eubat:substanceCasNumber": "7439-92-1", "eubat:substanceEcNumber": "231-100-4" }],
+      "eudet:hasFragranceAllergens": [{ "schema:name": "Linalool", "eudet:allergenCasNumber": "78-70-6" }],
+    },
+    expected: {
+      "@context": BAT,
+      "eubat:hasHazardousSubstances": [{ type: "eubat:HazardousSubstance", "oec:casNumber": "7439-92-1", "oec:ecNumber": "231-100-4" }],
+      "eudet:hasFragranceAllergens": [{ "schema:name": "Linalool", "oec:casNumber": "78-70-6" }],
+    },
+  },
+  {
+    name: "operational CAS spelling, bridge key untouched",
+    input: { "@context": BAT_OP, hasHazardousSubstances: [{ substanceCasNumber: "7439-92-1", substanceEcNumber: "231-100-4" }] },
+    expected: { "@context": BAT_OP, hasHazardousSubstances: [{ casNumber: "7439-92-1", ecNumber: "231-100-4" }] },
+  },
 ];
 
 async function check(): Promise<number> {
@@ -620,8 +645,9 @@ async function check(): Promise<number> {
   const cases = [
     // d1e28a7 predates the lastDataUpdate rename, so the timestamp is left out of the textile comparison
     ...EXAMPLES.map((name) => ({ name, file: `extensions/eu/textile/examples/${name}.jsonld`, before: "d1e28a7^", after: "d1e28a7", ignore: (k: string) => /^(oec:)?last(DataUpdate|Updated)$/.test(k) })),
-    // 45ccb2f carries the 2026-11 duplicate removal on top of the PR 17 renames of 0142308
-    ...BATTERY_EXAMPLES.map((name) => ({ name, file: `extensions/eu/battery/examples/${name}.jsonld`, before: "3aa08bf", after: "45ccb2f", ignore: (k: string) => /hasInitial(Cell|Pack)?InternalResistance$/.test(k) })),
+    // 9add685 carries the one CAS/EC term on top of the 2026-11 duplicate removal (45ccb2f) and the
+    // PR 17 renames of 0142308
+    ...BATTERY_EXAMPLES.map((name) => ({ name, file: `extensions/eu/battery/examples/${name}.jsonld`, before: "3aa08bf", after: "9add685", ignore: (k: string) => /hasInitial(Cell|Pack)?InternalResistance$/.test(k) })),
   ];
   for (const { name, file, before, after, ignore } of cases) {
     const show = (rev: string) => JSON.parse(execFileSync("git", ["show", `${rev}:${file}`], { cwd: ROOT, encoding: "utf8" }));
