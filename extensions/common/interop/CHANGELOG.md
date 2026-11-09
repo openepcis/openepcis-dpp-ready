@@ -4,6 +4,15 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+### Changed: DPP Keystone bridge on spec v3
+
+`dpp-keystone-bridge-context.jsonld` binds `dppk:` to `https://dpp-keystone.org/spec/v3/terms#`;
+v3 is the only specification DPP Keystone publishes, and the module ontologies have cited it since
+0.10.0. The four remaining v2 references in the detergent and EUDR mappings (
+`textileSubstancesOfConcern`, `safetyDataSheet`, `countryOfOrigin`, `Product`) move with it; each
+local name exists unchanged in v3. The namespace change is listed in
+`scripts/context-compat-allowlist.json` as an intended redefinition.
+
 ## [0.10.0] - 2026-11-07
 
 ### Removed: bridge aliases for flat scores
