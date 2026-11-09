@@ -38,11 +38,12 @@
           "type": "string",
           "description": "Season and year of the collection."
         },
-        "fiberComposition": {
+        "textileMaterial": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/FiberComposition"
-          }
+            "$ref": "#/$defs/TextileMaterialDetails"
+          },
+          "description": "Fibre composition as gs1:TextileMaterialDetails, one entry per fibre, extended with the eutex traceability properties."
         },
         "hasCareInstructions": {
           "$ref": "#/$defs/CareInstruction",
@@ -191,70 +192,6 @@
         "TextileAccessories"
       ]
     },
-    "FiberComposition": {
-      "type": "object",
-      "title": "Fiber Composition",
-      "description": "Detailed fiber composition information with traceability.",
-      "properties": {
-        "@type": {
-          "const": "FiberComposition"
-        },
-        "fiberType": {
-          "$ref": "#/$defs/FiberType"
-        },
-        "fiberPercentage": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 100
-        },
-        "fiberOrigin": {
-          "type": "string",
-          "description": "Country or region of fiber origin (ISO 3166-1 alpha-2 code)."
-        },
-        "isRecycledFiber": {
-          "type": "boolean"
-        },
-        "recycledContentSource": {
-          "type": "string",
-          "description": "Source of recycled content (pre-consumer, post-consumer, ocean plastic, etc.)."
-        },
-        "hasFiberCertification": {
-          "type": "object",
-          "description": "Certification specific to this fiber using gs1:CertificationDetails pattern."
-        }
-      },
-      "required": [
-        "fiberType",
-        "fiberPercentage"
-      ]
-    },
-    "FiberType": {
-      "type": "string",
-      "title": "Fiber Type",
-      "description": "Fiber types as defined in EU Textile Labelling Regulation 1007/2011 Annex I.",
-      "enum": [
-        "Cotton",
-        "Wool",
-        "Silk",
-        "Linen",
-        "Hemp",
-        "Polyester",
-        "Polyamide",
-        "Elastane",
-        "Viscose",
-        "Lyocell",
-        "Modal",
-        "Acrylic",
-        "Polypropylene",
-        "RecycledPolyester",
-        "RecycledCotton",
-        "RecycledWool",
-        "OrganicCotton",
-        "Cashmere",
-        "Leather",
-        "Rubber"
-      ]
-    },
     "CareInstruction": {
       "type": "object",
       "title": "Care Instruction",
@@ -319,254 +256,97 @@
     "DurabilityInfo": {
       "type": "object",
       "title": "Durability Information",
-      "description": "Product durability metrics per ESPR requirements.",
+      "description": "Product durability metrics per ESPR requirements. Modelled as an oea:Assessment since 0.10.0: tests, scores and classes are sub-assessments, results and indicators.",
       "properties": {
         "@type": {
           "const": "DurabilityInfo"
         },
-        "expectedWashCycles": {
-          "type": "integer",
-          "minimum": 0
+        "hasMethod": {
+          "description": "Method the assessment applied (oea:hasMethod): an individual naming the test or calculation method and its standard."
         },
-        "hasDurabilityClass": {
-          "$ref": "#/$defs/DurabilityClass"
+        "hasCondition": {
+          "description": "Conditions the assessment ran under (oea:hasCondition)."
         },
-        "pillingResistance": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 5,
-          "description": "Pilling resistance rating (1-5 per ISO 12945, where 5 is best)."
+        "hasParameterSetting": {
+          "description": "Protocol settings of the method (oea:hasParameterSetting)."
         },
-        "colorFastness": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 5,
-          "description": "Color fastness rating (1-5 per ISO 105, where 5 is best)."
+        "hasResult": {
+          "description": "Results the assessment produced (oea:hasResult): measurement, criterion or categorical results."
         },
-        "dimensionalStability": {
-          "type": "number",
-          "description": "Maximum dimensional change (shrinkage/stretch) as percentage."
+        "hasSubAssessment": {
+          "description": "Component assessments (oea:hasSubAssessment), e.g. the individual tests of a composite score."
         },
-        "abrasionResistance": {
-          "type": "integer",
-          "description": "Abrasion resistance in Martindale cycles."
+        "hasIndicator": {
+          "description": "Indicators derived from the results (oea:hasIndicator): scores, classes, expected lifetimes."
         },
-        "hasTensileStrength": {
-          "$ref": "#/$defs/QuantitativeValue"
-        },
-        "hasTearStrength": {
-          "$ref": "#/$defs/QuantitativeValue"
-        },
-        "expectedLifetimeYears": {
-          "type": "integer",
-          "minimum": 0
+        "hasOutcome": {
+          "description": "Overall outcome against the applicable criteria (oea:hasOutcome)."
         }
       }
-    },
-    "DurabilityClass": {
-      "type": "string",
-      "title": "Durability Class",
-      "description": "Durability rating A-E per ESPR.",
-      "enum": [
-        "DurabilityA",
-        "DurabilityB",
-        "DurabilityC",
-        "DurabilityD",
-        "DurabilityE"
-      ]
     },
     "RobustnessAssessment": {
       "type": "object",
       "title": "Robustness Assessment",
-      "description": "Composite robustness assessment (0-10) per EU Preparatory Study 3rd Milestone.",
+      "description": "Composite robustness assessment (0-10) per EU Preparatory Study 3rd Milestone. Modelled as an oea:Assessment since 0.10.0: tests, scores and classes are sub-assessments, results and indicators.",
       "properties": {
         "@type": {
           "const": "RobustnessAssessment"
         },
-        "robustnessScore": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 10
+        "hasMethod": {
+          "description": "Method the assessment applied (oea:hasMethod): an individual naming the test or calculation method and its standard."
         },
-        "cleaningCyclesBeforeTest": {
-          "type": "integer",
-          "minimum": 0
+        "hasCondition": {
+          "description": "Conditions the assessment ran under (oea:hasCondition)."
         },
-        "hasRobustnessTestFabricType": {
-          "$ref": "#/$defs/FabricType"
+        "hasParameterSetting": {
+          "description": "Protocol settings of the method (oea:hasParameterSetting)."
         },
-        "hasSpiralityTest": {
-          "$ref": "#/$defs/SpiralityTestResult"
+        "hasResult": {
+          "description": "Results the assessment produced (oea:hasResult): measurement, criterion or categorical results."
         },
-        "hasDimensionalChangeTest": {
-          "$ref": "#/$defs/DimensionalChangeTestResult"
+        "hasSubAssessment": {
+          "description": "Component assessments (oea:hasSubAssessment), e.g. the individual tests of a composite score."
         },
-        "hasVisualInspection": {
-          "$ref": "#/$defs/VisualInspectionResult"
-        }
-      }
-    },
-    "SpiralityTestResult": {
-      "type": "object",
-      "title": "Spirality Test Result",
-      "description": "Spirality test result per ISO 16322-3 (0-3 points).",
-      "properties": {
-        "@type": {
-          "const": "SpiralityTestResult"
+        "hasIndicator": {
+          "description": "Indicators derived from the results (oea:hasIndicator): scores, classes, expected lifetimes."
         },
-        "spiralityScore": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 3
-        },
-        "spiralityPercentage": {
-          "type": "number",
-          "minimum": 0
-        },
-        "spiralityTestMethod": {
-          "type": "string"
-        },
-        "hasTestStandard": {
-          "$ref": "#/$defs/TestStandard"
-        }
-      }
-    },
-    "DimensionalChangeTestResult": {
-      "type": "object",
-      "title": "Dimensional Change Test Result",
-      "description": "Dimensional change test result per ISO 3759 (0-3 points).",
-      "properties": {
-        "@type": {
-          "const": "DimensionalChangeTestResult"
-        },
-        "dimensionalChangeScore": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 3
-        },
-        "dimensionalChangePercentage": {
-          "type": "number",
-          "minimum": 0
-        },
-        "dimensionalChangeTestMethod": {
-          "type": "string"
-        },
-        "hasTestStandard": {
-          "$ref": "#/$defs/TestStandard"
-        }
-      }
-    },
-    "VisualInspectionResult": {
-      "type": "object",
-      "title": "Visual Inspection Result",
-      "description": "Visual inspection result per ISO 15487 (0-4 points).",
-      "properties": {
-        "@type": {
-          "const": "VisualInspectionResult"
-        },
-        "visualInspectionScore": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 4
-        },
-        "colourChangeRating": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 5
-        },
-        "fabricAppearanceRating": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 5
-        },
-        "seamAppearanceRating": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 5
-        },
-        "nonTextilePartsRating": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 5
-        },
-        "visualInspectionTestMethod": {
-          "type": "string"
-        },
-        "hasTestStandard": {
-          "$ref": "#/$defs/TestStandard"
+        "hasOutcome": {
+          "description": "Overall outcome against the applicable criteria (oea:hasOutcome)."
         }
       }
     },
     "RecyclabilityAssessment": {
       "type": "object",
       "title": "Recyclability Assessment",
-      "description": "Recyclability assessment (0-10) per EU Preparatory Study 3rd Milestone.",
+      "description": "Recyclability assessment (0-10) per EU Preparatory Study 3rd Milestone. Modelled as an oea:Assessment since 0.10.0: tests, scores and classes are sub-assessments, results and indicators.",
       "properties": {
         "@type": {
           "const": "RecyclabilityAssessment"
         },
-        "recyclabilityScore": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 10
-        },
-        "isRecyclable": {
-          "type": "boolean"
-        },
-        "elastaneContentPercent": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 100
-        },
-        "hasSortingFactors": {
-          "$ref": "#/$defs/SortingFactors"
-        },
-        "hasTechnicalRecyclability": {
-          "$ref": "#/$defs/TechnicalRecyclability"
-        }
-      }
-    },
-    "SortingFactors": {
-      "type": "object",
-      "title": "Sorting Factors",
-      "description": "Sorting factors affecting recyclability (+1 point each).",
-      "properties": {
-        "@type": {
-          "const": "SortingFactors"
-        },
-        "sameInnerOuterComposition": {
-          "type": "boolean"
-        },
-        "freeFromPrintings": {
-          "type": "boolean"
-        },
-        "freeFromCoatings": {
-          "type": "boolean"
-        },
-        "freeFromSequins": {
-          "type": "boolean"
-        },
-        "freeFromDyes": {
-          "type": "boolean"
-        },
-        "isMonoMaterial": {
-          "type": "boolean"
-        }
-      }
-    },
-    "TechnicalRecyclability": {
-      "type": "object",
-      "title": "Technical Recyclability",
-      "description": "Technical recyclability based on applicable recycling technology.",
-      "properties": {
-        "@type": {
-          "const": "TechnicalRecyclability"
-        },
-        "technicalRecyclabilityScore": {
-          "type": "number"
-        },
         "hasApplicableRecyclingTechnology": {
-          "$ref": "#/$defs/RecyclingTechnology"
+          "$ref": "#/$defs/RecyclingTechnology",
+          "description": "Recycling technology the assessment applies to."
+        },
+        "hasMethod": {
+          "description": "Method the assessment applied (oea:hasMethod): an individual naming the test or calculation method and its standard."
+        },
+        "hasCondition": {
+          "description": "Conditions the assessment ran under (oea:hasCondition)."
+        },
+        "hasParameterSetting": {
+          "description": "Protocol settings of the method (oea:hasParameterSetting)."
+        },
+        "hasResult": {
+          "description": "Results the assessment produced (oea:hasResult): measurement, criterion or categorical results."
+        },
+        "hasSubAssessment": {
+          "description": "Component assessments (oea:hasSubAssessment), e.g. the individual tests of a composite score."
+        },
+        "hasIndicator": {
+          "description": "Indicators derived from the results (oea:hasIndicator): scores, classes, expected lifetimes."
+        },
+        "hasOutcome": {
+          "description": "Overall outcome against the applicable criteria (oea:hasOutcome)."
         }
       }
     },
@@ -787,33 +567,13 @@
         "AquaticToxicity"
       ]
     },
-    "TestStandard": {
-      "type": "string",
-      "title": "Test Standard",
-      "description": "Test standards for textile robustness and durability testing.",
-      "enum": [
-        "ISO6330",
-        "ISO16322_3",
-        "ISO3759",
-        "ISO15487",
-        "ISO105",
-        "ISO12945",
-        "ISO12947"
-      ]
-    },
     "MicroplasticInfo": {
       "type": "object",
       "title": "Microplastic Information",
-      "description": "Information about microfiber shedding from synthetic textiles.",
+      "description": "Information about microfiber shedding from synthetic textiles. Modelled as an oea:Assessment since 0.10.0: tests, scores and classes are sub-assessments, results and indicators.",
       "properties": {
         "@type": {
           "const": "MicroplasticInfo"
-        },
-        "hasMicroplasticRiskLevel": {
-          "$ref": "#/$defs/MicroplasticRiskLevel"
-        },
-        "hasSheddingRate": {
-          "$ref": "#/$defs/QuantitativeValue"
         },
         "syntheticFiberContent": {
           "type": "number",
@@ -822,18 +582,29 @@
         },
         "microplasticMitigationMeasures": {
           "type": "string"
+        },
+        "hasMethod": {
+          "description": "Method the assessment applied (oea:hasMethod): an individual naming the test or calculation method and its standard."
+        },
+        "hasCondition": {
+          "description": "Conditions the assessment ran under (oea:hasCondition)."
+        },
+        "hasParameterSetting": {
+          "description": "Protocol settings of the method (oea:hasParameterSetting)."
+        },
+        "hasResult": {
+          "description": "Results the assessment produced (oea:hasResult): measurement, criterion or categorical results."
+        },
+        "hasSubAssessment": {
+          "description": "Component assessments (oea:hasSubAssessment), e.g. the individual tests of a composite score."
+        },
+        "hasIndicator": {
+          "description": "Indicators derived from the results (oea:hasIndicator): scores, classes, expected lifetimes."
+        },
+        "hasOutcome": {
+          "description": "Overall outcome against the applicable criteria (oea:hasOutcome)."
         }
       }
-    },
-    "MicroplasticRiskLevel": {
-      "type": "string",
-      "title": "Microplastic Risk Level",
-      "description": "Risk classification for microfiber shedding.",
-      "enum": [
-        "LowShedding",
-        "MediumShedding",
-        "HighShedding"
-      ]
     },
     "TakeBackProgram": {
       "type": "object",
@@ -919,6 +690,37 @@
         "unitCode": {
           "type": "string",
           "description": "UN/CEFACT Rec. 20 unit code."
+        }
+      }
+    },
+    "TextileMaterialDetails": {
+      "type": "object",
+      "title": "Textile Material Details",
+      "description": "One fibre of the composition (gs1:TextileMaterialDetails) with the eutex traceability extensions.",
+      "properties": {
+        "textileMaterialDescription": {
+          "description": "Fibre name, a language-tagged string or a list of them (gs1:textileMaterialDescription)."
+        },
+        "textileMaterialPercentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Share of this fibre by mass, in percent (gs1:textileMaterialPercentage)."
+        },
+        "fiberOrigin": {
+          "type": "string",
+          "description": "Country or region of fiber origin (ISO 3166-1 alpha-2 code)."
+        },
+        "isRecycledFiber": {
+          "type": "boolean"
+        },
+        "recycledContentSource": {
+          "type": "string",
+          "description": "Source of recycled content (pre-consumer, post-consumer, ocean plastic, etc.)."
+        },
+        "hasFiberCertification": {
+          "type": "object",
+          "description": "Certification specific to this fiber using gs1:CertificationDetails pattern."
         }
       }
     }

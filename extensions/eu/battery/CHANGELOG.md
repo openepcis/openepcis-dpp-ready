@@ -4,6 +4,15 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.1] - 2026-11-08
+
+### Fixed: `battery-schema.json`
+
+- `Battery.hasExpectedLifetime` removed. Since 0.10.0 the expected lifetime sits on
+  `eubat:TechnicalSpecification`, where the schema already lists it.
+- `Battery.lastUpdate` is `lastUpdated` (also in `required`), `batteryPassportIdentifier` is
+  `passportIdentifier`; the old names only survive in the BatteryPass bridge contexts.
+
 ## [0.10.0] - 2026-11-07
 
 ### Removed: duplicate terms on our side (re-audit 2026-11)

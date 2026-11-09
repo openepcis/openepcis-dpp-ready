@@ -36,17 +36,6 @@
       "pattern": "^[A-Z]{2}[A-Z0-9]{1,15}$",
       "description": "EORI number (e.g., DE123456789012345)"
     },
-    "RepairabilityClass": {
-      "type": "string",
-      "enum": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E"
-      ],
-      "description": "Repairability class from A (most repairable) to E (least repairable)"
-    },
     "OperatorRole": {
       "type": "string",
       "enum": [
@@ -363,14 +352,6 @@
         "@type": {
           "const": "RepairabilityInfo"
         },
-        "repairabilityScore": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 10
-        },
-        "repairabilityClass": {
-          "$ref": "#/$defs/RepairabilityClass"
-        },
         "hasSparePartsAvailability": {
           "type": "object"
         },
@@ -394,29 +375,34 @@
     },
     "PerformanceInfo": {
       "type": "object",
-      "description": "Product performance and durability information",
+      "description": "Performance assessment (subclass of oea:Assessment): guaranteed lifespan, plus the method, results and indicators of the common/assessment module.",
       "properties": {
         "@type": {
           "const": "PerformanceInfo"
         },
-        "hasExpectedLifespan": {
-          "type": "object"
-        },
         "hasGuaranteedLifespan": {
           "type": "object"
         },
-        "usageCycles": {
-          "type": "integer",
-          "minimum": 0
+        "hasMethod": {
+          "description": "Method the assessment applied (oea:hasMethod): an individual naming the test or calculation method and its standard."
         },
-        "hasTechnicalLifetime": {
-          "type": "object"
+        "hasCondition": {
+          "description": "Conditions the assessment ran under (oea:hasCondition)."
         },
-        "performanceClass": {
-          "type": "string"
+        "hasParameterSetting": {
+          "description": "Protocol settings of the method (oea:hasParameterSetting)."
         },
-        "testedConditions": {
-          "type": "string"
+        "hasResult": {
+          "description": "Results the assessment produced (oea:hasResult): measurement, criterion or categorical results."
+        },
+        "hasSubAssessment": {
+          "description": "Component assessments (oea:hasSubAssessment), e.g. the individual tests of a composite score."
+        },
+        "hasIndicator": {
+          "description": "Indicators derived from the results (oea:hasIndicator): scores, classes, expected lifetimes."
+        },
+        "hasOutcome": {
+          "description": "Overall outcome against the applicable criteria (oea:hasOutcome)."
         }
       }
     },
@@ -616,10 +602,6 @@
     },
     "declaredUnit": {
       "type": "string"
-    },
-    "lastDataUpdate": {
-      "type": "string",
-      "format": "date-time"
     },
     "dataQualityAssessment": {
       "type": "string"

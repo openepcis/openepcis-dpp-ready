@@ -21313,7 +21313,7 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld": {
-    _comment: "OpenEPCIS DPP Core Vocabulary v0.10.0, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS DPP Core Vocabulary v0.10.1, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld",
       {
@@ -28226,7 +28226,7 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld": {
-    _comment: "OpenEPCIS Battery Vocabulary v0.10.0, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Battery Vocabulary v0.10.1, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29678,7 +29678,7 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld": {
-    _comment: "OpenEPCIS Assessment and Test Vocabulary v0.10.0, generated from extensions/common/assessment/ontology/assessment.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/assessment/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Assessment and Test Vocabulary v0.10.1, generated from extensions/common/assessment/ontology/assessment.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/assessment/context/.context-overrides.json for non-derivable hints.",
     "@context": {
       "@version": 1.1,
       id: "@id",
@@ -29850,7 +29850,7 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.org/extensions/common/carrier/carrier-context.jsonld": {
-    _comment: "OpenEPCIS Data Carrier Authentication Vocabulary v0.10.0, generated from extensions/common/carrier/ontology/carrier.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/carrier/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Data Carrier Authentication Vocabulary v0.10.1, generated from extensions/common/carrier/ontology/carrier.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/carrier/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29871,7 +29871,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld": {
-    _comment: "OpenEPCIS Textile DPP Vocabulary v0.10.0, generated from extensions/eu/textile/ontology/textile.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/textile/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Textile DPP Vocabulary v0.10.1, generated from extensions/eu/textile/ontology/textile.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/textile/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30069,7 +30069,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld": {
-    _comment: "OpenEPCIS Electronics Vocabulary v0.10.0, generated from extensions/eu/electronics/ontology/electronics.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/electronics/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Electronics Vocabulary v0.10.1, generated from extensions/eu/electronics/ontology/electronics.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/electronics/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30295,7 +30295,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld": {
-    _comment: "OpenEPCIS EUDR Vocabulary v0.10.0, generated from extensions/eu/eudr/ontology/eudr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/eudr/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS EUDR Vocabulary v0.10.1, generated from extensions/eu/eudr/ontology/eudr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/eudr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30493,7 +30493,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/ppwr/ppwr-context.jsonld": {
-    _comment: "OpenEPCIS PPWR Vocabulary v0.10.0, generated from extensions/eu/ppwr/ontology/ppwr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/ppwr/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS PPWR Vocabulary v0.10.1, generated from extensions/eu/ppwr/ontology/ppwr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/ppwr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30706,7 +30706,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/cpr/cpr-context.jsonld": {
-    _comment: "OpenEPCIS CPR Vocabulary v0.10.0, generated from extensions/eu/cpr/ontology/cpr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/cpr/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS CPR Vocabulary v0.10.1, generated from extensions/eu/cpr/ontology/cpr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/cpr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30756,7 +30756,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/detergent/detergent-context.jsonld": {
-    _comment: "OpenEPCIS Detergent Vocabulary v0.10.0, generated from extensions/eu/detergent/ontology/detergent.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/detergent/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Detergent Vocabulary v0.10.1, generated from extensions/eu/detergent/ontology/detergent.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/detergent/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30880,7 +30880,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/us/fsma204/fsma204-context.jsonld": {
-    _comment: "OpenEPCIS FSMA 204 Vocabulary v0.10.0, generated from extensions/us/fsma204/ontology/fsma204.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/us/fsma204/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS FSMA 204 Vocabulary v0.10.1, generated from extensions/us/fsma204/ontology/fsma204.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/us/fsma204/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30906,7 +30906,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/iron-steel/iron-steel-context.jsonld": {
-    _comment: "OpenEPCIS Iron & Steel Vocabulary v0.10.0, generated from extensions/eu/iron-steel/ontology/iron-steel.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/iron-steel/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Iron & Steel Vocabulary v0.10.1, generated from extensions/eu/iron-steel/ontology/iron-steel.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/iron-steel/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {

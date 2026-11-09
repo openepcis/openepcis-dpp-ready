@@ -4,6 +4,16 @@ All notable changes to the Electronics module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.1] - 2026-11-08
+
+### Fixed: `electronics-schema.json`
+
+- `ElectronicDevice.category` is `deviceCategory`.
+- `DisplaySpecification.displaySize` is `hasScreenDiagonal` (a quantitative value) and
+  `displayResolution` is `screenResolutionWidth` plus `screenResolutionHeight`, the terms the
+  ontology defines.
+- `WEEECompliance.wasteCode` and `recyclingInstructions` removed; no term ever backed them.
+
 ## [0.10.0] - 2026-11-07
 
 ### Changed: pointers to removed core properties

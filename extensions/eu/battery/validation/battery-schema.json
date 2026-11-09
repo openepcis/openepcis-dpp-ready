@@ -54,7 +54,7 @@
           "$ref": "#/$defs/DPPGranularity",
           "description": "Reporting granularity of the DPP. Mandatory per BatteryPass-Ready v1.3 #3."
         },
-        "lastUpdate": {
+        "lastUpdated": {
           "type": "string",
           "format": "date-time",
           "description": "Date-time of latest update of DPP. Mandatory per BatteryPass-Ready v1.3 #4."
@@ -63,17 +63,13 @@
           "$ref": "#/$defs/BatteryChemistry",
           "description": "Recommended — Battery Regulation (EU) 2023/1542 Annex XIII public data point: the electrochemical system of the battery (cathode, anode, electrolyte composition)."
         },
-        "batteryPassportIdentifier": {
+        "passportIdentifier": {
           "type": "string",
           "description": "Recommended — Battery Regulation (EU) 2023/1542 Art. 77(3) / Annex XIII: unique identifier of the battery passport; in this implementation the GS1 Digital Link URI (@id) is the primary identifier."
         },
         "hasBatteryMass": {
           "$ref": "#/$defs/QuantitativeValue",
           "description": "Recommended — Battery Regulation (EU) 2023/1542 Annex VI Part A weight declaration: net mass of the battery in kilograms (unitCode KGM)."
-        },
-        "hasExpectedLifetime": {
-          "$ref": "#/$defs/QuantitativeValue",
-          "description": "Recommended — manufacturer-declared expected service life (BatteryPass-Ready v1.3 Performance submodel; ESPR Art. 7 durability declaration)."
         },
         "hasCarbonFootprintDeclaration": {
           "description": "Recommended — Battery Regulation (EU) 2023/1542 Art. 7 / Annex II: carbon footprint declaration per battery model and manufacturing plant, phased in per battery category; a public passport data point (Annex XIII)."
@@ -135,38 +131,70 @@
         "schemaVersion",
         "dppStatus",
         "granularity",
-        "lastUpdate"
+        "lastUpdated"
       ]
     },
     "DPPStatus": {
       "type": "string",
       "title": "DPP Status",
       "description": "Lifecycle status of the Digital Product Passport per EN 18222. Suspended added in v1.3 alignment.",
-      "enum": ["Draft", "Active", "Updated", "Withdrawn", "Archived", "Suspended"]
+      "enum": [
+        "Draft",
+        "Active",
+        "Updated",
+        "Withdrawn",
+        "Archived",
+        "Suspended"
+      ]
     },
     "DPPGranularity": {
       "type": "string",
       "title": "DPP Granularity",
       "description": "Reporting granularity introduced by BatteryPass-Ready v1.3.",
-      "enum": ["ModelLevel", "BatchLevel", "ItemLevel"]
+      "enum": [
+        "ModelLevel",
+        "BatchLevel",
+        "ItemLevel"
+      ]
     },
     "BatteryCategory": {
       "type": "string",
       "title": "Battery Category",
       "description": "Categories of batteries as defined by EU Battery Regulation.",
-      "enum": ["LMTBattery", "EVBattery", "IndustrialBattery", "StationaryBattery", "PortableBattery", "SLIBattery"]
+      "enum": [
+        "LMTBattery",
+        "EVBattery",
+        "IndustrialBattery",
+        "StationaryBattery",
+        "PortableBattery",
+        "SLIBattery"
+      ]
     },
     "BatteryStatus": {
       "type": "string",
       "title": "Battery Status",
       "description": "Lifecycle status of the battery.",
-      "enum": ["Original", "Repurposed", "Reused", "Remanufactured", "Waste"]
+      "enum": [
+        "Original",
+        "Repurposed",
+        "Reused",
+        "Remanufactured",
+        "Waste"
+      ]
     },
     "ComponentLocation": {
       "type": "string",
       "title": "Component Location",
       "description": "Component location in the battery.",
-      "enum": ["Cathode", "Anode", "Electrolyte", "Separator", "Casing", "CurrentCollector", "BMS"]
+      "enum": [
+        "Cathode",
+        "Anode",
+        "Electrolyte",
+        "Separator",
+        "Casing",
+        "CurrentCollector",
+        "BMS"
+      ]
     },
     "BatteryChemistry": {
       "type": "object",
@@ -258,7 +286,9 @@
           "description": "Whether this material is on the EU Critical Raw Materials list."
         }
       },
-      "required": ["materialName"]
+      "required": [
+        "materialName"
+      ]
     },
     "RecycledContent": {
       "type": "object",
@@ -367,7 +397,9 @@
           "$ref": "#/$defs/ComponentLocation"
         }
       },
-      "required": ["substanceName"]
+      "required": [
+        "substanceName"
+      ]
     },
     "HazardClass": {
       "type": "string",
@@ -421,7 +453,9 @@
           "type": "number"
         }
       },
-      "required": ["dueDiligenceReportUrl"]
+      "required": [
+        "dueDiligenceReportUrl"
+      ]
     },
     "Label": {
       "type": "object",
@@ -446,7 +480,16 @@
     "LabelSubject": {
       "type": "string",
       "title": "Label Subject",
-      "enum": ["SeparateCollection", "CadmiumContent", "LeadContent", "MercuryContent", "CarbonFootprintLabel", "ExtinguishingAgentLabel", "CapacityLabel", "QRCodeLabel"]
+      "enum": [
+        "SeparateCollection",
+        "CadmiumContent",
+        "LeadContent",
+        "MercuryContent",
+        "CarbonFootprintLabel",
+        "ExtinguishingAgentLabel",
+        "CapacityLabel",
+        "QRCodeLabel"
+      ]
     },
     "DismantlingDocument": {
       "type": "object",
@@ -475,7 +518,15 @@
     "DismantlingDocumentType": {
       "type": "string",
       "title": "Dismantling Document Type",
-      "enum": ["BillOfMaterial", "Model3D", "DismantlingManual", "RemovalManual", "SafetyDataSheet", "OtherManual", "Drawing"]
+      "enum": [
+        "BillOfMaterial",
+        "Model3D",
+        "DismantlingManual",
+        "RemovalManual",
+        "SafetyDataSheet",
+        "OtherManual",
+        "Drawing"
+      ]
     },
     "SparePartSupplier": {
       "type": "object",

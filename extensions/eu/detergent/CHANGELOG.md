@@ -4,6 +4,12 @@ All notable changes to the Detergent module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.1] - 2026-11-08
+
+### Fixed: `detergent-schema.json`
+
+- `DetergentProduct.cnCode` is `customsCommodityCode` (`oec:customsCommodityCode`).
+
 ## [0.10.0] - 2026-11-07
 
 ### Breaking: namespace moves to `ref.openepcis.org`

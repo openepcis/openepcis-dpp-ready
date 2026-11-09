@@ -4,6 +4,18 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.1] - 2026-11-08
+
+### Fixed: `dpp-core-schema.json` follows the assessment move
+
+- Root: `lastDataUpdate` removed; `lastUpdated` was already there.
+- `PerformanceInfo` (an `oea:Assessment`): `hasExpectedLifespan`, `usageCycles`,
+  `hasTechnicalLifetime`, `performanceClass` and `testedConditions` removed; the assessment
+  properties (`hasMethod`, `hasCondition`, `hasParameterSetting`, `hasResult`,
+  `hasSubAssessment`, `hasIndicator`, `hasOutcome`) added. `hasGuaranteedLifespan` stays.
+- `RepairabilityInfo`: `repairabilityScore` and `repairabilityClass` removed (indicators now);
+  the unused `RepairabilityClass` definition with them.
+
 ## [0.10.0] - 2026-11-07
 
 ### Changed: `oec:casNumber` and `oec:ecNumber` serve every module
