@@ -2,7 +2,7 @@
 
 Mapping between OpenEPCIS DPP-Ready and the **DPP Keystone** profile
 (`dpp-keystone.org`, prefix `dppk:`, namespace
-`https://dpp-keystone.org/spec/v2/terms#`, spec **v2**). DPP Keystone is a peer
+`https://dpp-keystone.org/spec/v3/terms#`, spec **v3**). DPP Keystone is a peer
 DPP profile published as JSON-LD + JSON Schema; OpenEPCIS treats it as a Layer-2
 community profile and anchors to it via graded SKOS mapping relations
 (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`) in the module
