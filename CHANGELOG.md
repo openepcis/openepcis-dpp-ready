@@ -35,7 +35,7 @@ was a string.
 
 ### Added: crosswalk covers EUDPP core
 
-The `cirpass2` crosswalk profile converts complete passports to and from EUDPP core 2.1.0:
+The `cirpass2` crosswalk profile converts complete passports to and from EUDPP core 2.2.0:
 product, DPP node, identifiers (GTIN, GLN, LEI), actors and their roles, facilities, addresses,
 materials, substances of concern with their presence and ESPR criteria, documents and the
 declaration of conformity, regulations, product quantities, recycled content, circularity,

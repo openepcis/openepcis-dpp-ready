@@ -19,6 +19,10 @@ defects of the release are accepted (language tags need a region; a model identi
 number); what the OpenEPCIS battery model cannot hold is listed in the crosswalk README. The engine
 restores derived integer datatypes Oxigraph normalises; the offline loader resolves the Registry's
 contexts from `vendor/eu-dpp` and inlines their chained `@import`, which JSON-LD 1.1 forbids.
+The rows use the battery terms of 0.11.0 (`hasExpectedLifetime`, `hasRemainingRoundTripEfficiency`,
+`hasSafetyMeasures` as a document on the end-of-life information, `hasDismantlingAndRemovalInformation`);
+the Registry's current and remaining round-trip efficiency share one term, so lowering keeps the
+remaining value (`xw:lowerUnless`).
 
 ### Added: crosswalk checks against the CIRPASS-2 ontologies and every module example
 
@@ -47,7 +51,7 @@ upstream (`docs/upstream/cirpass2/2026-10-31-eudpp-core-gaps.md`).
 
 ### Added: crosswalk profiles `cirpass2` and `keystone`
 
-Rule-driven conversion to and from CIRPASS-2 (textile 1.1.2, EUDPP 2.1.0) and DPP Keystone v2, with
+Rule-driven conversion to and from CIRPASS-2 (textile 1.1.2, EUDPP 2.2.0) and DPP Keystone v3, with
 round-trip test cases, committed goldens and loss reports (`crosswalk/README.md`). The CIRPASS-2
 alignment doc points to it; a draft upstream issue lists six things CIRPASS-2 assessment data
 cannot express (`docs/upstream/cirpass2/`).

@@ -7,8 +7,8 @@ profile carries round-trip test cases whose results are committed and reviewed.
 
 | Profile | Target | Covers today |
 |---|---|---|
-| [`cirpass2`](cirpass2/) | CIRPASS-2 EU DPP ontologies (EUDPP core 2.1.0, textile 1.1.2) | **EUDPP core:** product, DPP, identifiers (GTIN, GLN, LEI), actors and roles, facilities, addresses, materials, substances of concern, documents, declaration of conformity, regulations, quantities, recycled content, circularity, carbon footprint, EPD/LCIA, product events. **Assessments:** executions, tests, results, criteria (also a sector module's own), thresholds, indicators, units, EPCIS events (object and sensorReport form). **Textile:** durability, robustness, recyclability |
-| [`keystone`](keystone/) | DPP Keystone v2 (`dppk:`) | the JRC robustness and recyclability scores (flat on the product) |
+| [`cirpass2`](cirpass2/) | CIRPASS-2 EU DPP ontologies (EUDPP core 2.2.0, textile 1.1.2) | **EUDPP core:** product, DPP, identifiers (GTIN, GLN, LEI), actors and roles, facilities, addresses, materials, substances of concern, documents, declaration of conformity, regulations, quantities, recycled content, circularity, carbon footprint, EPD/LCIA, product events. **Assessments:** executions, tests, results, criteria (also a sector module's own), thresholds, indicators, units, EPCIS events (object and sensorReport form). **Textile:** durability, robustness, recyclability |
+| [`keystone`](keystone/) | DPP Keystone v3 (`dppk:`) | the JRC robustness and recyclability scores (flat on the product) |
 | [`eu-dpp`](eu-dpp/) | EU DPP Registry semantic data artifacts 1.0.0 (the Commission's passport JSON: core, batteries, EV / LMT / industrial) | **Core:** passport identifier, unique product identifier, granularity, status, last update, content specifications, for every product passport. **Batteries:** identification, manufacturer, manufacturing place and date, category, status, chemistry, hazardous substances, critical raw materials, label symbols, weight, capacities, voltages, power limit, resistances, efficiencies, C-rates, lifetimes, cycle counts, state-of-health values, temperature range, warranty, documents. Checked with the Commission's SHACL shapes and JSON Schemas, and against its 20 conformance examples |
 
 BatteryPass follows once the battery module is on the assessment model.
@@ -151,7 +151,7 @@ cases; each sector step of the crosswalk turns those lines into rules or gaps.
 
 ## Known gaps of the CIRPASS-2 profile
 
-What CIRPASS-2 (textile 1.1.2, EUDPP 2.1.0) has no place for, and how the profile carries it.
+What CIRPASS-2 (textile 1.1.2, EUDPP 2.2.0) has no place for, and how the profile carries it.
 Items 1 to 6 (assessments) are filed upstream as [CIRPASS-2/ontologies-docs#3](https://github.com/CIRPASS-2/ontologies-docs/issues/3), text in
 [`../docs/upstream/cirpass2/2026-10-31-assessment-gaps.md`](../docs/upstream/cirpass2/2026-10-31-assessment-gaps.md).
 
@@ -213,7 +213,8 @@ container. Code values pair through the `skos:exactMatch` our ontologies already
 chemistry list goes by the short name of the electrochemical system, countries from alpha-2 to
 alpha-3, the warranty from years to months, kW to W. Data elements a subgroup excludes
 (`sh:maxCount 0`: an EV passport states its state of certified energy, the others their remaining
-capacity) are written only where allowed.
+capacity) are written only where allowed. The rows follow the Registry adjudication of 2026-11-06
+recorded in the battery and core ontologies (`skos:exactMatch` to the Registry vocabularies).
 
 Checking the target side needed three workarounds, each confined to the checker:
 
@@ -252,7 +253,8 @@ What the OpenEPCIS battery model cannot hold, found by lowering the Commission's
 |---|---|
 | `manufacturingDate` (year and month) | `gs1:productionDate` is a full date; a month is not lowered |
 | `manufacturerTradeName`, `manufacturerTrademark` | no term |
-| `complianceTestReportResults`, `safetyMeasures` as documents (content type, title, language) | a bare URL (`eubat:resultOfTestReport`) or text (`eubat:safetyMeasures`); the Registry requires the content type |
+| `complianceTestReportResults` as a document (content type, title, language) | a bare URL (`eubat:resultOfTestReport`); the Registry requires the content type |
+| `roundTripEnergyEfficiency` and `remainingRoundTripEfficiency` as two values | one term (`eubat:hasRemainingRoundTripEfficiency`, adjudication of 2026-11-06); lowering keeps the remaining value, lifting writes it to both |
 | `euDeclarationOfConformity` content type, title, language | `cccev:Evidence` with the URL only |
 | `originalPowerCapability`, `powerCapability` (one value) | values per state of charge (80 % and 20 %) |
 | `numberOfDischargingCycles` | only the full cycle count |

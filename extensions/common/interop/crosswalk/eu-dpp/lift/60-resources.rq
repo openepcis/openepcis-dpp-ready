@@ -3,7 +3,8 @@
 # URL, MIME type, language, name), xw:Url a bare URL; a text that is not a URL is not converted. Of
 # several candidates the one of the element's main row wins (the row lowering writes back), then a
 # dismantling manual, then the first by URL. A language goes along only in the Registry's form
-# (language-REGION, "en-GB"); a plain "en" would be rejected.
+# (language-REGION, "en-GB"); a plain "en" would be rejected. The document sits on the product or on
+# the container xw:via names.
 CONSTRUCT {
   ?r ?field ?res .
   ?res dpp:url ?url ; dpp:contentType ?mime ; dpp:language ?lang ; dpp:resourceTitle ?title .
@@ -13,8 +14,9 @@ WHERE {
     SELECT ?r ?field (MIN(?key) AS ?best) WHERE {
       ?row xw:euField ?field ; xw:ours ?p ; xw:form ?form .
       FILTER(?form IN (xw:Document, xw:Url))
+      OPTIONAL { ?row xw:via ?via }
       GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
-      GRAPH <urn:xw:in> { ?r ?p ?o }
+      { GRAPH <urn:xw:in> { ?r ?p ?o } } UNION { GRAPH <urn:xw:in> { ?r ?via ?c . ?c ?p ?o } }
       OPTIONAL { GRAPH <urn:xw:in> { ?o ?up ?u0 } FILTER(?up IN (oec:documentUrl, eubat:documentUrl, eubat:declarationOfConformity)) }
       FILTER(BOUND(?u0) || (isLiteral(?o) && REGEX(STR(?o), "^https?://")))
       BIND(IF(EXISTS { ?row xw:lowerSkip true }, "1", "0") AS ?rank1)
@@ -23,7 +25,8 @@ WHERE {
     } GROUP BY ?r ?field
   }
   ?row xw:euField ?field ; xw:ours ?p ; xw:form ?form .
-  GRAPH <urn:xw:in> { ?r ?p ?o }
+  OPTIONAL { ?row xw:via ?via2 }
+  { GRAPH <urn:xw:in> { ?r ?p ?o } } UNION { GRAPH <urn:xw:in> { ?r ?via2 ?c2 . ?c2 ?p ?o } }
   OPTIONAL { GRAPH <urn:xw:in> { ?o ?up ?u0 } FILTER(?up IN (oec:documentUrl, eubat:documentUrl, eubat:declarationOfConformity)) }
   FILTER(BOUND(?u0) || (isLiteral(?o) && REGEX(STR(?o), "^https?://")))
   BIND(IF(EXISTS { ?row xw:lowerSkip true }, "1", "0") AS ?rank1)

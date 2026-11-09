@@ -1,5 +1,5 @@
 # battery-industrial-item: lift then lower
-input 521 triples, lift 89, back 118
+input 525 triples, lift 91, back 124
 
 ## the way back compared with the input
 - missing 1  a cccev:PublicOrganisation
@@ -56,6 +56,8 @@ input 521 triples, lift 89, back 118
 - missing 23  gs1:unitCode
 - missing 23  gs1:value
 - missing 1  gs1:warrantyScopeDescription
+- missing 6  oec:casNumber
+- missing 6  oec:ecNumber
 - missing 1  oec:hasMaterialOrigin
 - missing 2  oec:isRegulationCompliant
 - missing 1  oec:regulatoryActStatus
@@ -68,7 +70,6 @@ input 521 triples, lift 89, back 118
 - missing 1  eubat:carbonFootprintDeclarationId
 - missing 1  eubat:carbonFootprintGeographicScope
 - missing 1  eubat:carbonFootprintStudyUrl
-- missing 4  eubat:casNumber
 - missing 1  eubat:cathodeActiveMaterial
 - missing 1  eubat:ceMarkingIndicator
 - missing 1  eubat:cobaltPostConsumerShare
@@ -85,7 +86,6 @@ input 521 triples, lift 89, back 118
 - missing 4  eubat:documentUrl
 - missing 1  eubat:dueDiligencePolicyUrl
 - missing 1  eubat:dueDiligenceReportUrl
-- missing 4  eubat:ecNumber
 - missing 1  eubat:electrolyteType
 - missing 1  eubat:euDeclarationOfConformityId
 - missing 1  eubat:extendedWarrantyAvailable
@@ -100,8 +100,7 @@ input 521 triples, lift 89, back 118
 - missing 1  eubat:hasCellType
 - missing 1  eubat:hasComplianceStatus
 - missing 4  eubat:hasComponentLocation
-- missing 4  eubat:hasDismantlingDocuments
-- missing 1  eubat:hasDismantlingInstructions
+- missing 3  eubat:hasDismantlingAndRemovalInformation
 - missing 1  eubat:hasDismantlingTime
 - missing 4  eubat:hasDocumentType
 - missing 1  eubat:hasExpectedLifetimeCapacityThroughput
@@ -167,14 +166,11 @@ input 521 triples, lift 89, back 118
 - missing 1  eubat:resistanceIncreaseThreshold
 - missing 1  eubat:riskAssessmentSummary
 - missing 1  eubat:safetyInstructions
-- missing 1  eubat:safetyInstructionsForDismantling
 - missing 1  eubat:separateCollection
 - missing 1  eubat:separateCollectionSymbolUrl
 - missing 1  eubat:shippingName
 - missing 1  eubat:spareParts
 - missing 2  eubat:stateOfChargeLevel
-- missing 2  eubat:substanceCasNumber
-- missing 2  eubat:substanceEcNumber
 - missing 1  eubat:supplyChainIndex
 - missing 1  eubat:supplyChainMappingAvailable
 - missing 1  eubat:testReportNumber
@@ -202,7 +198,6 @@ input 521 triples, lift 89, back 118
 + extra   1  oec:hasPassportIssuer
 + extra   1  oec:mimeType
 + extra   1  eubat:hasBatteryMass
-+ extra   1  eubat:hasDismantlingAndRemovalInformation
 + extra   1  schema:address
 
 ## not converted (no rule handles these input terms)
@@ -239,6 +234,8 @@ input 521 triples, lift 89, back 118
   2  gs1:regulatoryInformation
   3  gs1:telephone
   1  gs1:warrantyScopeDescription
+  6  oec:casNumber
+  6  oec:ecNumber
   1  oec:hasMaterialOrigin
   2  oec:isRegulationCompliant
   1  oec:regulatoryActStatus
@@ -250,7 +247,6 @@ input 521 triples, lift 89, back 118
   1  eubat:carbonFootprintDeclarationId
   1  eubat:carbonFootprintGeographicScope
   1  eubat:carbonFootprintStudyUrl
-  4  eubat:casNumber
   1  eubat:cathodeActiveMaterial
   1  eubat:ceMarkingIndicator
   1  eubat:cobaltPostConsumerShare
@@ -266,7 +262,6 @@ input 521 triples, lift 89, back 118
   1  eubat:depthOfDischargeInCycleLifeTest
   1  eubat:dueDiligencePolicyUrl
   1  eubat:dueDiligenceReportUrl
-  4  eubat:ecNumber
   1  eubat:electrolyteType
   1  eubat:euDeclarationOfConformityId
   1  eubat:extendedWarrantyAvailable
@@ -281,7 +276,6 @@ input 521 triples, lift 89, back 118
   1  eubat:hasCellType
   1  eubat:hasComplianceStatus
   4  eubat:hasComponentLocation
-  1  eubat:hasDismantlingInstructions
   1  eubat:hasDismantlingTime
   1  eubat:hasExpectedLifetimeCapacityThroughput
   1  eubat:hasExpectedLifetimeEnergyThroughput
@@ -337,13 +331,10 @@ input 521 triples, lift 89, back 118
   1  eubat:resistanceIncreaseThreshold
   1  eubat:riskAssessmentSummary
   1  eubat:safetyInstructions
-  1  eubat:safetyInstructionsForDismantling
   1  eubat:separateCollection
   1  eubat:shippingName
   1  eubat:spareParts
   2  eubat:stateOfChargeLevel
-  2  eubat:substanceCasNumber
-  2  eubat:substanceEcNumber
   1  eubat:supplyChainIndex
   1  eubat:supplyChainMappingAvailable
   1  eubat:testReportNumber
@@ -390,11 +381,11 @@ none
   schema pub-ind /nominalVoltage required: must have required property 'valueRange'
   schema pub-ind /notInUseTemperatureRange required: must have required property 'notInUseTemperatureRangeTest'
   schema res1-batteries / required: must have required property 'detailedComposition'
-  schema res1-batteries / required: must have required property 'safetyMeasures'
   schema res1-batteries / required: must have required property 'sparePartReplacementDetails'
+  schema res1-batteries /safetyMeasures required: must have required property 'contentType'
   schema res1-ind / required: must have required property 'detailedComposition'
-  schema res1-ind / required: must have required property 'safetyMeasures'
   schema res1-ind / required: must have required property 'sparePartReplacementDetails'
+  schema res1-ind /safetyMeasures required: must have required property 'contentType'
   schema res2-batteries /complianceTestReportResults required: must have required property 'contentType'
   schema res2-ind /complianceTestReportResults required: must have required property 'contentType'
   shacl complianceTestReportResults NodeConstraintComponent: SEM-BAT-MSG-063 [contentType MinCountConstraintComponent]
@@ -410,7 +401,7 @@ none
   shacl notInUseTemperatureRange NodeConstraintComponent: SEM-BAT-MSG-034 [notInUseTemperatureRangeTest MinCountConstraintComponent]
   shacl originalPowerCapability MinCountConstraintComponent: SEM-BAT-MSG-029
   shacl powerLimit MinCountConstraintComponent: SEM-BAT-MSG-030
-  shacl safetyMeasures MinCountConstraintComponent: SEM-BAT-MSG-062
+  shacl safetyMeasures NodeConstraintComponent: SEM-BAT-MSG-062 [contentType MinCountConstraintComponent]
   shacl sparePartReplacementDetails MinCountConstraintComponent: SEM-BAT-MSG-060
   shacl wasteBatteryPreventionManagementInfo MinCountConstraintComponent: SEM-BAT-MSG-046
 

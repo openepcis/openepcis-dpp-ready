@@ -82,6 +82,9 @@ bat:batteryStatus   xw:codeNamespace "https://repository.product-passport.ec.eur
 # Registry's unit (a 0–1 ratio into percent). xw:subgroup marks data elements only the
 # subgroup specifications (EV, LMT, industrial) define, xw:forbiddenIn the subgroups whose shapes
 # exclude one (sh:maxCount 0: an EV passport states SOCE, the others remaining capacity).
+# xw:lowerUnless: lowering takes this element only when the passport lacks the one named. The
+# Registry's current and remaining round-trip efficiency are one OpenEPCIS term (adjudication of
+# 2026-11-06); lifting writes both, lowering keeps the remaining one.
 [] xw:euField bat:batteryWeight ; xw:ours eubat:hasBatteryMass ; xw:form xw:Quantity .
 [] xw:euField bat:batteryWeight ; xw:ours gs1:netWeight ; xw:form xw:Quantity ; xw:lowerSkip true .
 [] xw:euField bat:batteryCapacity ; xw:ours eubat:hasRatedCapacity ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications .
@@ -104,7 +107,7 @@ bat:batteryStatus   xw:codeNamespace "https://repository.product-passport.ec.eur
 [] xw:euField bat:capacityExhaustionThreshold ; xw:ours eubat:capacityThresholdForExhaustion ; xw:form xw:Scalar ; xw:euUnit unit:percent ; xw:via eubat:hasTechnicalSpecifications ; xw:subgroup true ; xw:forbiddenIn "product/batteries/subgroup/ind/1.0.0", "product/batteries/subgroup/lmt/1.0.0" .
 [] xw:euField bat:initialRoundTripEnergyEfficiency ; xw:ours eubat:roundTripEfficiency ; xw:form xw:Scalar ; xw:euUnit unit:percent ; xw:via eubat:hasTechnicalSpecifications ; xw:subgroup true .
 [] xw:euField bat:roundTripEfficiencyAtHalfCycleLife ; xw:ours eubat:roundTripEfficiencyAt50PercentCycleLife ; xw:form xw:Scalar ; xw:euUnit unit:percent ; xw:via eubat:hasTechnicalSpecifications ; xw:subgroup true .
-[] xw:euField bat:roundTripEnergyEfficiency ; xw:ours eubat:roundTripEnergyEfficiency ; xw:form xw:Scalar ; xw:euUnit unit:percent ; xw:factor 100 ; xw:via oec:hasPerformanceInfo .
+[] xw:euField bat:roundTripEnergyEfficiency ; xw:ours eubat:hasRemainingRoundTripEfficiency ; xw:form xw:Quantity ; xw:lowerUnless bat:remainingRoundTripEfficiency .
 [] xw:euField bat:cycleLifeChargeCRate ; xw:ours eubat:cRateLifeCycleTest ; xw:form xw:Scalar ; xw:euUnit unit:reciprocalHour ; xw:via eubat:hasTechnicalSpecifications ; xw:subgroup true .
 [] xw:euField bat:cycleLifeDischargeCRate ; xw:ours eubat:dischargeCRateLifeCycleTest ; xw:form xw:Scalar ; xw:euUnit unit:reciprocalHour ; xw:via eubat:hasTechnicalSpecifications .
 
@@ -113,7 +116,7 @@ bat:batteryStatus   xw:codeNamespace "https://repository.product-passport.ec.eur
 # xw:ourDatatype ours (lowering). A count may be a gs1:QuantitativeValue on our side: xw:ourUnit
 # is then the unit code the lowering writes.
 [] xw:euField bat:expectedLifetimeCycles ; xw:ours eubat:expectedCycleLife ; xw:form xw:Plain ; xw:theirDatatype xsd:positiveInteger ; xw:ourDatatype xsd:integer ; xw:via eubat:hasTechnicalSpecifications ; xw:subgroup true .
-[] xw:euField bat:expectedLifetimeYears ; xw:ours eubat:expectedLifetimeYears ; xw:form xw:Plain ; xw:theirDatatype xsd:positiveInteger ; xw:ourDatatype xsd:integer ; xw:via eubat:hasTechnicalSpecifications ; xw:subgroup true .
+[] xw:euField bat:expectedLifetimeYears ; xw:ours eubat:hasExpectedLifetime ; xw:form xw:Plain ; xw:theirDatatype xsd:positiveInteger ; xw:ourDatatype xsd:integer ; xw:ourUnit "ANN" ; xw:via eubat:hasTechnicalSpecifications ; xw:subgroup true .
 [] xw:euField bat:expectedLifetimeCyclesRest ; xw:ours eubat:expectedRemainingCycles ; xw:form xw:Plain ; xw:theirDatatype xsd:positiveInteger ; xw:ourDatatype xsd:integer ; xw:subgroup true .
 [] xw:euField bat:numberOfChargingCycles ; xw:ours eubat:hasCycleCount ; xw:form xw:Plain ; xw:theirDatatype xsd:nonNegativeInteger ; xw:ourDatatype xsd:integer ; xw:ourUnit "C62" .
 [] xw:euField bat:extinguishingAgent ; xw:ours eubat:extinguishingAgent ; xw:form xw:Text ; xw:via eubat:hasEndOfLifeInfo .
@@ -129,11 +132,10 @@ bat:batteryStatus   xw:codeNamespace "https://repository.product-passport.ec.eur
 # conformity (cccev:Evidence) with eubat:declarationOfConformity, or a bare URL. Lowering writes an
 # oec:DocumentReference, for the declaration a cccev:Evidence with its URL.
 [] xw:euField bat:dismantlingInformation ; xw:ours eubat:hasDismantlingAndRemovalInformation ; xw:form xw:Document .
-[] xw:euField bat:dismantlingInformation ; xw:ours eubat:hasDismantlingDocuments ; xw:form xw:Document ; xw:lowerSkip true .
 [] xw:euField bat:euDeclarationOfConformity ; xw:ours eubat:hasEuDeclarationOfConformity ; xw:form xw:Document .
 [] xw:euField bat:euDeclarationOfConformity ; xw:ours oec:hasConformityDeclaration ; xw:form xw:Document ; xw:lowerSkip true .
 [] xw:euField bat:complianceTestReportResults ; xw:ours eubat:resultOfTestReport ; xw:form xw:Url .
-[] xw:euField bat:safetyMeasures ; xw:ours eubat:safetyMeasures ; xw:form xw:Url .
+[] xw:euField bat:safetyMeasures ; xw:ours eubat:hasSafetyMeasures ; xw:form xw:Document ; xw:via eubat:hasEndOfLifeInfo .
 
 # ---------------------------------------------------------------- battery chemistry
 # The Registry's chemistry list against the short name OpenEPCIS gives the electrochemical system

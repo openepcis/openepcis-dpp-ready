@@ -6,12 +6,12 @@ MAT, SOC, COMP, LCA). Companion of
 
 ---
 
-**Title:** EUDPP core 2.1.0: what a complete product passport cannot express (found by a round-trip converter)
+**Title:** EUDPP core 2.2.0: what a complete product passport cannot express (found by a round-trip converter)
 
 **Summary**
 
 We convert complete Digital Product Passports between our EPCIS-based vocabulary (OpenEPCIS
-DPP-Ready) and EUDPP core 2.1.0 in both directions, with round-trip tests over passports of
+DPP-Ready) and EUDPP core 2.2.0 in both directions, with round-trip tests over passports of
 several sectors (textile, electronics, construction products, steel) and a passport written in
 EUDPP terms only. Product, DPP, identifiers, actors and roles, materials, substances of concern,
 declaration of conformity, quantities, carbon footprint, EPD results and product events map
@@ -122,7 +122,7 @@ our own test passport, until our check caught it).
 
 **How we checked**
 
-Every converted document is checked against the OWL/RDFS axioms of EUDPP 2.1.0 and textile 1.1.2
+Every converted document is checked against the OWL/RDFS axioms of EUDPP 2.2.0 and textile 1.1.2
 as a consumer validates data (closed world: domain, range, `allValuesFrom`, `someValuesFrom`,
 `hasValue`, cardinalities). Items 13 to 16 and 8 are the findings no mapping can avoid.
 
