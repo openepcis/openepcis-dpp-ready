@@ -9,6 +9,8 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-11-09
+
 ### One CAS and one EC number term; the tier follows the carrying node
 
 `eubat:substanceCasNumber`, `eubat:substanceEcNumber` and `eudet:allergenCasNumber` are removed;

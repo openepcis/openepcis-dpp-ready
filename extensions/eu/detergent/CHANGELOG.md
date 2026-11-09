@@ -4,6 +4,8 @@ All notable changes to the Detergent module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-11-09
+
 ### Removed: `eudet:allergenCasNumber`
 
 Replaced by `oec:casNumber` on `eudet:FragranceAllergen`. Its AuthorizedOnly tier was never
