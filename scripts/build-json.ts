@@ -17,7 +17,7 @@
  */
 
 import { Parser, Store, DataFactory, Quad } from "n3";
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -193,6 +193,12 @@ interface OntologyModule {
    *  the field-access defaults key on, so GS1 contactPoint and schema.org contactPoint must both
    *  stay "contactPoint" (the resolver tells them apart by the schema: key prefix). */
   keepCollidingLocalNames?: boolean;
+  /** Directory of SHACL shapes (searched recursively for *.ttl under a shapes/ folder) that give
+   *  SKOS-only vocabularies their roles: a concept used as sh:path is listed as a property (range
+   *  from sh:datatype, sh:class, or the concept scheme a SPARQL constraint restricts it to; domain
+   *  from the shape's sh:targetClass), one used as sh:targetClass as a class. The EU DPP Registry
+   *  publishes its data elements as skos:Concepts and types them only in its shapes. */
+  shapesDir?: string;
 }
 
 // Ontology modules configuration
@@ -358,6 +364,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ontologyIri: "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary",
     publishTermNamespace: true,
     groupConceptsByScheme: true,
+    shapesDir: "vendor/eu-dpp/1.0.0",
   },
 ];
 
@@ -653,6 +660,46 @@ function disambiguateLocalNames(
   }
 }
 
+/** SHACL roles of SKOS concepts (see OntologyModule.shapesDir). */
+function shapeRoles(dir: string): { properties: Map<string, { domain: Set<string>; range: Set<string> }>; classes: Set<string> } {
+  const SH = "http://www.w3.org/ns/shacl#";
+  const files: string[] = [];
+  const walk = (d: string) => {
+    for (const e of readdirSync(d, { withFileTypes: true })) {
+      const f = join(d, e.name);
+      if (e.isDirectory()) walk(f);
+      else if (e.name.endsWith(".ttl") && f.includes("/shapes/")) files.push(f);
+    }
+  };
+  walk(join(PROJECT_ROOT, dir));
+  const shapes = new Store();
+  for (const f of files.sort()) shapes.addQuads(new Parser().parse(readFileSync(f, "utf8")));
+  const classes = new Set(shapes.getQuads(null, `${SH}targetClass`, null, null).map((q) => q.object.value));
+  const properties = new Map<string, { domain: Set<string>; range: Set<string> }>();
+  // Every property shape, also those nested in sh:node / sh:or structures without a target class.
+  for (const pathQuad of shapes.getQuads(null, `${SH}path`, null, null)) {
+    const ps = pathQuad.subject;
+    const path = pathQuad.object;
+    if (path.termType !== "NamedNode") continue;
+    const entry = properties.get(path.value) ?? { domain: new Set<string>(), range: new Set<string>() };
+    for (const owner of shapes.getSubjects(`${SH}property`, ps, null)) {
+      for (const t of shapes.getObjects(owner, `${SH}targetClass`, null)) entry.domain.add(t.value);
+    }
+    for (const d of shapes.getObjects(ps, `${SH}datatype`, null)) entry.range.add(d.value);
+    for (const c of shapes.getObjects(ps, `${SH}class`, null)) entry.range.add(c.value);
+    for (const n of shapes.getObjects(ps, `${SH}node`, null)) {
+      for (const t of shapes.getObjects(n, `${SH}targetClass`, null)) entry.range.add(t.value);
+    }
+    for (const c of shapes.getObjects(ps, `${SH}sparql`, null)) {
+      for (const sel of shapes.getObjects(c, `${SH}select`, null)) {
+        for (const m of sel.value.matchAll(/skos:inScheme\s+<([^>]+)>/g)) entry.range.add(m[1]);
+      }
+    }
+    properties.set(path.value, entry);
+  }
+  return { properties, classes };
+}
+
 function extractOntologyData(store: Store, module: OntologyModule): OntologyData {
   const namespace = module.namespace;
   // Namespaces whose subjects belong to this dataset, longest first so a
@@ -710,6 +757,26 @@ function extractOntologyData(store: Store, module: OntologyModule): OntologyData
   // Also collect individuals that are instances of external classes (e.g., gs1:MeasurementType)
   const externalEnums = extractExternalEnumerations(store, termNamespaces, nsFor, allSubjects, module.groupConceptsByScheme);
   enumerations.push(...externalEnums);
+
+  // SKOS-only vocabularies: concepts the shapes use as paths or target classes are terms, not values.
+  if (module.shapesDir) {
+    const roles = shapeRoles(module.shapesDir);
+    for (const e of enumerations) {
+      e.values = e.values.filter((v) => {
+        const prop = roles.properties.get(v.id);
+        if (prop) {
+          properties.push({ ...v, ...(prop.domain.size && { domain: [...prop.domain].sort() }), ...(prop.range.size && { range: [...prop.range].sort() }) });
+          return false;
+        }
+        if (roles.classes.has(v.id)) {
+          classes.push({ ...v });
+          return false;
+        }
+        return true;
+      });
+    }
+    for (let i = enumerations.length - 1; i >= 0; i--) if (!enumerations[i].values.length) enumerations.splice(i, 1);
+  }
 
   const enumClassIds = new Set(enumerations.map((e) => e.id));
   const regularClasses = classes.filter((c) => !enumClassIds.has(c.id));
