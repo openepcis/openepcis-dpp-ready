@@ -1,0 +1,16 @@
+# EUDPP core: an operator's role becomes an eudpp:ActorRoleAssignment of the actor, in the
+# context of the product that names the operator. Roles pair one to one where CIRPASS-2 names
+# them; the others keep their IRI, typed with the target role class (101-…).
+CONSTRUCT {
+  ?ra a eudpp:ActorRoleAssignment ; eudpp:hasActor ?op ; eudpp:hasRole ?role2 ; eudpp:inContextOfProduct ?prod .
+  ?role2 a ?roleClass .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?op oec:hasOperatorRole ?role }
+  OPTIONAL { GRAPH <urn:xw:in> { ?p0 oec:hasOperatorInformation ?op } BIND(?p0 AS ?prod) }
+  OPTIONAL { ?role xw:sameCode ?rc }
+  OPTIONAL { ?role a ?rk . ?rk xw:codeClass ?ck . FILTER NOT EXISTS { ?role xw:sameCode ?anyCode } }
+  BIND(COALESCE(?rc, ?role) AS ?role2)
+  BIND(IF(BOUND(?ck), ?ck, ?unbound) AS ?roleClass)
+  BIND(BNODE() AS ?ra)
+}

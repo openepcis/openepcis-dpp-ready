@@ -1,8 +1,0 @@
-# A CIRPASS-2 product described in master data is a gs1:Product. Products that are only the
-# EPCs of a carried EPCIS event stay untyped, as they are in an OpenEPCIS event.
-CONSTRUCT { ?p a gs1:Product . }
-WHERE {
-  GRAPH <urn:xw:in> { ?p a eudpp:Product }
-  FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?pe eudpp:isRepresentedByCarrier ?e . ?e epcis:epcList ?p } }
-  FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?pe2 eudpp:isRepresentedByCarrier ?e2 . ?e2 epcis:quantityList ?ql . ?ql epcis:epcClass ?p } }
-}

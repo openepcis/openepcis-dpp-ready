@@ -16,7 +16,7 @@
  * default graph, profile prefixes predeclared) and prints the rows: for debugging rules.
  */
 import { readFileSync, writeFileSync } from "node:fs";
-import { convert, debugQuery, loadInput, loadProfile, toTurtle, type Direction } from "./lib/crosswalk.ts";
+import { convert, debugQuery, loadBackground, loadInput, loadProfile, toTurtle, type Direction } from "./lib/crosswalk.ts";
 
 const args = process.argv.slice(2);
 const opt = (name: string) => {
@@ -33,6 +33,7 @@ if (!input || !direction) {
 }
 
 const profile = loadProfile(profileId);
+await loadBackground(profile);
 const quads = await loadInput(input);
 const queryFile = opt("--query");
 if (queryFile) {

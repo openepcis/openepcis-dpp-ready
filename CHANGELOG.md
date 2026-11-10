@@ -9,6 +9,18 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Added: crosswalk covers EUDPP core
+
+The `cirpass2` crosswalk profile converts complete passports to and from EUDPP core 2.1.0:
+product, DPP node, identifiers (GTIN, GLN, LEI), actors and their roles, facilities, addresses,
+materials, substances of concern with their presence and ESPR criteria, documents and the
+declaration of conformity, regulations, product quantities, recycled content, circularity,
+carbon footprint, EPD results and product events of every EPCIS event. Sector assessments keep
+their class through the round trip. What EUDPP has no term for travels in schema.org, GS1 Web
+Vocabulary or Dublin Core, or is listed as not converted; the gaps are drafted for upstream. New
+round-trip cases from the textile, electronics, construction, steel and carrier examples and a
+passport written in EUDPP terms only.
+
 ### Added: crosswalk to CIRPASS-2 and DPP Keystone, checked by round trips
 
 `extensions/common/interop/crosswalk/` converts OpenEPCIS data, both master data and EPCIS events

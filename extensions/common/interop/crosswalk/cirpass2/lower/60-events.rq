@@ -1,6 +1,6 @@
-# EPCIS event records travel back verbatim (the GS1 IRIs are ours as well).
-CONSTRUCT { ?e ?ep ?eo . }
+# EPCIS statements travel back verbatim (the GS1 IRIs are ours as well).
+CONSTRUCT { ?s ?p ?o . }
 WHERE {
-  GRAPH <urn:xw:in> { ?pe eudpp:isRepresentedByCarrier ?e . ?e ?ep ?eo . }
-  FILTER(?ep = rdf:type || STRSTARTS(STR(?ep), STR(epcis:)))
+  GRAPH <urn:xw:in> { ?s ?p ?o }
+  FILTER(STRSTARTS(STR(?p), STR(epcis:)) || (?p = rdf:type && STRSTARTS(STR(?o), STR(epcis:))))
 }

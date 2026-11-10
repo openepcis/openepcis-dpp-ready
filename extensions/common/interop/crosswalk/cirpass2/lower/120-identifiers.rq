@@ -1,0 +1,16 @@
+# EUDPP core: identifiers back to GS1 keys (GTIN, GLN), the LEI (schema:leiCode) or, without a scheme, to the
+# economic-operator / facility identifier.
+CONSTRUCT { ?s ?p ?v . }
+WHERE {
+  GRAPH <urn:xw:in> { ?s ?link ?id . ?id eudpp:identifierValue ?v }
+  OPTIONAL { GRAPH <urn:xw:in> { ?id eudpp:hasScheme ?scheme } }
+  BIND(COALESCE(?scheme, xw:none) AS ?sch)
+  VALUES (?link ?sch ?p) {
+    (eudpp:hasUniqueProductIdentifier  eudpp:GTIN gs1:gtin)
+    (eudpp:hasUniqueOperatorIdentifier eudpp:GLN  gs1:globalLocationNumber)
+    (eudpp:hasUniqueOperatorIdentifier xw:none    oec:economicOperatorId)
+    (eudpp:hasUniqueOperatorIdentifier eudpp:LEI  schema:leiCode)
+    (eudpp:hasUniqueFacilityIdentifier eudpp:GLN  gs1:globalLocationNumber)
+    (eudpp:hasUniqueFacilityIdentifier xw:none    oec:facilityId)
+  }
+}

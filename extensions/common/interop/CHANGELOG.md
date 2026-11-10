@@ -4,6 +4,15 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+### Added: EUDPP core in the `cirpass2` crosswalk
+
+Product, DPP, identifiers, actors and roles, facilities, materials, substances of concern,
+documents, regulations, quantities, circularity, carbon footprint, EPD and product events convert
+both ways; GS1 Web Vocabulary and schema.org statements without an EUDPP term travel unchanged;
+classes the target lacks travel as `dcterms:type`. Ten round-trip cases more, and the gate records
+the OpenEPCIS shapes an inbound document does not satisfy. Thirteen EUDPP core gaps are drafted for
+upstream (`docs/upstream/cirpass2/2026-10-31-eudpp-core-gaps.md`).
+
 ### Added: crosswalk profiles `cirpass2` and `keystone`
 
 Rule-driven conversion to and from CIRPASS-2 (textile 1.1.2, EUDPP 2.1.0) and DPP Keystone v2, with

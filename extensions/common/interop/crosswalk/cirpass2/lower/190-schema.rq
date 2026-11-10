@@ -1,0 +1,20 @@
+# schema.org statements travel back unchanged, except those a rule converts: a row's xw:theirs
+# on a subject of the row's host class, a material's country of origin and the country's
+# identifier, an address country; statements on nodes without an OpenEPCIS counterpart (the DPP
+# node, a product's own LCA study) go to the product by their rules.
+CONSTRUCT { ?s ?p ?o . }
+WHERE {
+  GRAPH <urn:xw:in> { ?s ?p ?o }
+  FILTER(STRSTARTS(STR(?p), STR(schema:)))
+  FILTER(?p NOT IN (schema:countryOfOrigin, schema:identifier, schema:addressCountry))
+  FILTER(!isIRI(?s) || !STRENDS(STR(?s), "#lca-study"))
+  FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?s a eudpp:DPP } }
+  FILTER NOT EXISTS {
+    ?row xw:theirs ?p ; xw:host ?h .
+    { GRAPH <urn:xw:in> { ?s dcterms:type ?lc } GRAPH <urn:xw:bg> { ?lc a ?k9 } FILTER(?k9 IN (owl:Class, rdfs:Class)) }
+        UNION { GRAPH <urn:xw:in> { ?s a ?ec } ?ec xw:nodeLowerTo ?lc . FILTER(!isIRI(?s) || !STRENDS(STR(?s), "#lca-study"))
+                FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?s dcterms:type ?lcx } GRAPH <urn:xw:bg> { ?lcx a ?k9x } FILTER(?k9x IN (owl:Class, rdfs:Class)) }
+                FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?scf a eudpp:CarbonFootprint ; eudpp:hasPerModuleValue ?s } } }
+    ?lc rdfs:subClassOf* ?h .
+  }
+}

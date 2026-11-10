@@ -1,0 +1,23 @@
+# EUDPP core: what a substance presence says goes back to the substance: location,
+# concentration (mass fraction → percentage), instructions. A textile substance of concern
+# (dcterms:type eutex:SubstanceOfConcern) takes the textile properties. A presence whose
+# product names no eudpp:containsSubstanceOfConcern links product and substance itself.
+CONSTRUCT {
+  ?soc oec:substanceLocation ?loc ; ?concP ?pct ; ?safeP ?safeText ; oec:safeDisassemblyInstructions ?disText ;
+       eutex:endOfLifeHandling ?eolText .
+  ?prod oec:hasSubstancesOfConcern ?socLinked .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?prod eudpp:hasSubstancePresence ?pres . ?pres eudpp:concernsSubstance ?soc }
+  BIND(EXISTS { GRAPH <urn:xw:in> { ?soc dcterms:type eutex:SubstanceOfConcern } } AS ?textile)
+  OPTIONAL { GRAPH <urn:xw:in> { ?pres eudpp:substanceLocationDescription ?loc } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?pres eudpp:hasConcentration ?c . ?c eudpp:numericalValue ?frac }
+             BIND(xsd:decimal(xsd:decimal(?frac) * 100) AS ?pct) }
+  OPTIONAL { GRAPH <urn:xw:in> { ?pres eudpp:hasSafeUseInstruction ?si . ?si dcterms:description ?safeText } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?pres eudpp:hasDisassemblyInstruction ?di . ?di dcterms:description ?disText } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?pres eudpp:hasEndOfLifeManagementInstruction ?ei . ?ei dcterms:description ?eol0 } }
+  BIND(IF(?textile, ?eol0, ?unbound0) AS ?eolText)
+  BIND(IF(?textile, eutex:substanceConcentration, oec:concentration) AS ?concP)
+  BIND(IF(?textile, eutex:safeUseInstructions, oec:safeUseInstructions) AS ?safeP)
+  BIND(IF(EXISTS { GRAPH <urn:xw:in> { ?prod eudpp:containsSubstanceOfConcern ?soc } }, ?unbound1, ?soc) AS ?socLinked)
+}

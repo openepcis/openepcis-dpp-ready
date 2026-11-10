@@ -1,0 +1,18 @@
+# EUDPP core: every input node of a mapped class (xw:nodeClass, most specific mapped class wins)
+# gets the target class. When the node has a class lowering would not restore by default (the
+# target class's xw:nodeLowerTo), all its classes travel as dcterms:type, so the way back
+# restores exactly them.
+CONSTRUCT { ?n a ?cls . ?n dcterms:type ?keep . }
+WHERE {
+  GRAPH <urn:xw:in> { ?n a ?t }
+  ?t rdfs:subClassOf* ?s . ?s xw:nodeClass ?c0 .
+  FILTER NOT EXISTS { ?t rdfs:subClassOf* ?s2 . ?s2 xw:nodeClass ?x2 ; rdfs:subClassOf+ ?s . FILTER(?s2 != ?s) }
+  BIND(IF(?c0 = xw:none || (?c0 = eudpp:DocumentFormattedProperty &&
+          EXISTS { GRAPH <urn:xw:in> { ?n oec:hasDocumentType ?dt } ?dt xw:documentClass ?dcls }), ?unbound, ?c0) AS ?cls)
+  OPTIONAL { ?c0 xw:nodeLowerTo ?default }
+  OPTIONAL {
+    GRAPH <urn:xw:in> { ?n a ?any }
+    FILTER(!BOUND(?default) || EXISTS { GRAPH <urn:xw:in> { ?n a ?other } FILTER(?other != ?default) })
+    BIND(?any AS ?keep)
+  }
+}

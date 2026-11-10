@@ -1,0 +1,6 @@
+# EUDPP core: a qualification criterion of a textile substance of concern back to its SoC type.
+CONSTRUCT { ?soc eutex:hasSocType ?t . }
+WHERE {
+  GRAPH <urn:xw:in> { ?soc eudpp:hasQualificationAssertion ?qa . ?qa eudpp:hasSoCCriterion ?crit . ?soc dcterms:type eutex:SubstanceOfConcern }
+  ?t xw:sameCode ?crit .
+}

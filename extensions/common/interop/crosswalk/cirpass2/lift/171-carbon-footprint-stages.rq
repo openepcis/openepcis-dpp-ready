@@ -1,0 +1,16 @@
+# EUDPP core: values per stage of a carbon footprint declaration are module values of its
+# CarbonFootprint result (the total's node), marked with dcterms:type <the OpenEPCIS stage
+# property>: Battery Regulation stages are not EN 15804 modules.
+CONSTRUCT {
+  ?tot eudpp:hasPerModuleValue ?sv .
+  ?sv a eudpp:LCAModuleValue ; dcterms:type ?sp ; eudpp:numericalValue ?snv ; eudpp:hasMeasurementUnit ?sunit .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?st oec:carbonFootprintTotal ?tot . ?st ?sp ?sv . ?sv gs1:value ?sval ; gs1:unitCode ?scode }
+  FILTER(!isLiteral(?tot))
+  VALUES ?sp { oec:hasCarbonFootprintRawMaterial oec:hasCarbonFootprintProduction oec:hasCarbonFootprintDistribution
+               oec:hasCarbonFootprintUse oec:hasCarbonFootprintEndOfLife }
+  OPTIONAL { ?srow xw:unitCode ?scode ; xw:siUnit ?ssi ; xw:factor ?sf }
+  BIND(xsd:decimal(xsd:decimal(?sval) * COALESCE(?sf, 1.0)) AS ?snv)
+  BIND(COALESCE(?ssi, IRI(CONCAT("https://vocabulary.uncefact.org/UnitMeasureCode#", ?scode))) AS ?sunit)
+}

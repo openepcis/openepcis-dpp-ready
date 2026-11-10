@@ -25,10 +25,10 @@ import { join } from "node:path";
 import type { Quad } from "n3";
 import { Store } from "n3";
 import {
-  canonical, convert, listProfiles, loadInput, loadProfile, parseTurtle, predicateDelta, ROOT, toTurtle, vocabularyLeaks,
+  canonical, convert, listProfiles, loadBackground, loadInput, moduleOntologies, loadProfile, parseTurtle, predicateDelta, ROOT, toTurtle, vocabularyLeaks,
   type Conversion, type Profile,
 } from "./lib/crosswalk.ts";
-import { materialiseSubProperties, parseTurtle as parseStore, stripOwlImports, validate } from "./lib/shacl-run.ts";
+import { materialiseSubProperties, parseTurtle as parseStore, stripOwlImports, stripSparqlConstraints, validate } from "./lib/shacl-run.ts";
 
 const WRITE = process.argv.includes("--write");
 let failures = 0;
@@ -63,7 +63,10 @@ function unhandledText(c: Conversion, p: Profile): string[] {
 
 async function golden(path: string, actual: string, label: string): Promise<void> {
   if (WRITE) {
-    writeFileSync(path, actual);
+    // Keep a Turtle golden that is canonically unchanged: blank-node labels must not churn.
+    const same = path.endsWith(".ttl") && existsSync(path)
+      && (await canonical(parseTurtle(readFileSync(path, "utf8")))) === (await canonical(parseTurtle(actual)));
+    if (!same) writeFileSync(path, actual);
     return;
   }
   if (!existsSync(path)) {
@@ -89,7 +92,10 @@ async function shaclViolations(p: Profile, quads: Quad[]): Promise<string[]> {
   if (!shapeCache) {
     const shapes = parseStore(...p.shapes.files.map((f) => readFileSync(join(ROOT, f), "utf8")));
     stripOwlImports(shapes);
-    const background = parseStore(...p.vocabulary.lower.files.map((f) => readFileSync(join(ROOT, f), "utf8")));
+    // As in check-shapes: rdf-validate-shacl cannot evaluate sh:sparql; the ITB parity gate does.
+    stripSparqlConstraints(shapes);
+    // Every module ontology: test documents use sector classes under the shapes' targets.
+    const background = parseStore(...moduleOntologies().map((f) => readFileSync(join(ROOT, f), "utf8")));
     stripOwlImports(background);
     shapeCache = { shapes, background };
   }
@@ -134,8 +140,14 @@ async function runCase(p: Profile, dir: string): Promise<void> {
   const lowerOut = firstDir === "lift" ? back.quads : first.quads;
   hardCheck(`${name} lift output leaks`, vocabularyLeaks(p, "lift", liftOut));
   hardCheck(`${name} lower output leaks`, vocabularyLeaks(p, "lower", lowerOut));
-  hardCheck(`${name} OpenEPCIS side violates SHACL`, await shaclViolations(p, firstDir === "lift" ? input : first.quads));
-  hardCheck(`${name} lowered round trip violates SHACL`, firstDir === "lift" ? await shaclViolations(p, back.quads) : []);
+  // Our own documents (and their round trip) must satisfy our shapes. A document from another
+  // vocabulary may lack what OpenEPCIS requires (e.g. a facility name CIRPASS-2 has no term for):
+  // those findings are part of the committed report, so only a new one fails.
+  const inboundFindings = firstDir === "lower" ? await shaclViolations(p, first.quads) : [];
+  if (firstDir === "lift") {
+    hardCheck(`${name} OpenEPCIS side violates SHACL`, await shaclViolations(p, input));
+    hardCheck(`${name} lowered round trip violates SHACL`, await shaclViolations(p, back.quads));
+  }
 
   const expectedFile = join(dir, firstDir === "lift" ? `expected.${p.id}.ttl` : "expected.ours.ttl");
   await golden(expectedFile, await toTurtle(first.quads, p.prefixes), `${name} ${firstDir}`);
@@ -148,6 +160,11 @@ async function runCase(p: Profile, dir: string): Promise<void> {
     "",
     ...unhandledText(first, p),
     "",
+    ...(firstDir === "lower"
+      ? ["## OpenEPCIS shapes the converted document does not satisfy",
+         ...(inboundFindings.length ? [...new Set(inboundFindings.map((f) => f.replace(/^n3-\d+ /, "")))].sort().map((f) => `  ${f}`) : ["none"]),
+         ""]
+      : []),
   ].join("\n");
   await golden(join(dir, "roundtrip.txt"), report, `${name} round trip`);
   console.log(`  ${WRITE ? "wrote" : "ok  "} ${name} (${firstDir}: ${input.length} → ${first.quads.length} → ${back.quads.length})`);
@@ -155,6 +172,7 @@ async function runCase(p: Profile, dir: string): Promise<void> {
 
 for (const id of listProfiles()) {
   const p = loadProfile(id);
+  await loadBackground(p);
   const testsDir = join(p.dir, "tests");
   if (!existsSync(testsDir)) continue;
   console.log(`crosswalk ${id}`);

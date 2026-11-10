@@ -1,8 +1,12 @@
 # Each OpenEPCIS assessment becomes a CIRPASS-2 assessment execution of the most specific
 # mapped class, assessing the product it hangs on. An assessment reached from an EPCIS event
 # assesses the event's EPCs (or EPC classes); a sub-assessment assesses its root's product.
+# A class of a sector module the mapping table does not name travels as dcterms:type, so the
+# way back restores it; the date of an assessment without an event as dcterms:date.
 CONSTRUCT {
   ?a a ?cls ;
+     dcterms:type ?marker ;
+     dcterms:date ?date ;
      txt-assessment:assessesProduct ?prod .
   ?prod a eudpp:Product ;
         ?productLink ?a .
@@ -13,6 +17,8 @@ WHERE {
   ?s xw:liftClass ?cls ; rdfs:subClassOf* oea:Assessment .
   FILTER NOT EXISTS { ?t rdfs:subClassOf* ?s2 . ?s2 xw:liftClass ?c2 ; rdfs:subClassOf+ ?s . FILTER(?s2 != ?s) }
   OPTIONAL { ?cls xw:productLink ?productLink }
+  BIND(IF(EXISTS { ?t xw:liftClass ?anyCls } || EXISTS { ?t xw:entryProperty ?anyEntry }, ?noMarker, ?t) AS ?marker)
+  OPTIONAL { GRAPH <urn:xw:in> { ?a oea:assessmentDate ?date } }
   OPTIONAL {
     GRAPH <urn:xw:in> { ?root oea:hasSubAssessment* ?a . ?x ?p ?root . }
     ?p rdfs:subPropertyOf* oea:hasAssessment .

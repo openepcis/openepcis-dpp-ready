@@ -1,0 +1,11 @@
+# EUDPP core: material percentage back to a mass fraction (÷100), material type value back to
+# the material's name.
+CONSTRUCT { ?m oec:massFraction ?f . ?m schema:name ?name . }
+WHERE {
+  {
+    GRAPH <urn:xw:in> { ?m eudpp:materialPercentage ?pct }
+    BIND(xsd:decimal(xsd:decimal(?pct) / 100) AS ?f)
+  } UNION {
+    GRAPH <urn:xw:in> { ?m eudpp:hasMaterialType ?mt . ?mt eudpp:materialTypeValue ?name }
+  }
+}

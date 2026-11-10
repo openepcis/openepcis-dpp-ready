@@ -1,5 +1,5 @@
-# Indicators: the kind from the indicator class (canonical partner, or the CIRPASS-2 class
-# itself, adopted as an indicator kind); held by the assessment named in dcterms:source, or
+# Indicators: the kind named by dcterms:type, else from the indicator class (canonical partner,
+# or the CIRPASS-2 class itself, adopted as an indicator kind); held by the assessment named in dcterms:source, or
 # else by the product. Awarded points (dcterms:type oea:awardedScore) are lowered in 45-….
 CONSTRUCT {
   ?holder oea:hasIndicator ?i .
@@ -22,8 +22,9 @@ WHERE {
     } GROUP BY ?i
   }
   OPTIONAL { GRAPH <urn:xw:in> { ?i a ?ic } FILTER(?ic != txt-indicator:Indicator) FILTER NOT EXISTS { ?ic xw:lowerTo ?any } }
-  BIND(COALESCE(?mappedKind, ?ic) AS ?kind)
-  BIND(IF(BOUND(?mappedKind), ?nothing, oea:IndicatorKind) AS ?kindType)
+  OPTIONAL { GRAPH <urn:xw:in> { ?i dcterms:type ?marked } GRAPH <urn:xw:bg> { ?marked a ?mk } ?mk rdfs:subClassOf* oea:IndicatorKind . }
+  BIND(COALESCE(?marked, ?mappedKind, ?ic) AS ?kind)
+  BIND(IF(BOUND(?mappedKind) || BOUND(?marked), ?nothing, oea:IndicatorKind) AS ?kindType)
   OPTIONAL { GRAPH <urn:xw:in> { ?i dcterms:source ?src } }
   BIND(COALESCE(?src, ?prod) AS ?holder)
   OPTIONAL { GRAPH <urn:xw:in> { ?i txt-indicator:hasQuantitativeValue ?qv } }

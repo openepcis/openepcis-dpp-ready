@@ -1,0 +1,24 @@
+# EUDPP core: the DPP node's identifier, validity and last update go to its product. A
+# timestamp at midnight UTC was a date; other timestamps keep their date part (our properties
+# are dates).
+CONSTRUCT { ?prod ?p ?v . }
+WHERE {
+  GRAPH <urn:xw:in> { ?dpp a eudpp:DPP }
+  OPTIONAL { GRAPH <urn:xw:in> { ?dpp eudpp:appliesToProduct ?pa } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?pb eudpp:hasDPP ?dpp } }
+  BIND(COALESCE(?pa, ?pb) AS ?prod)
+  FILTER(BOUND(?prod))
+  {
+    GRAPH <urn:xw:in> { ?dpp ?q ?ts }
+    VALUES (?q ?p) { (eudpp:validFrom oec:passportIssueDate) (eudpp:validUntil oec:passportExpiryDate) }
+    BIND(STRDT(SUBSTR(STR(?ts), 1, 10), xsd:date) AS ?v)
+  } UNION {
+    GRAPH <urn:xw:in> { ?dpp eudpp:lastUpdate ?ts }
+    BIND(oec:lastUpdated AS ?p)
+    BIND(STRDT(STR(?ts), xsd:dateTime) AS ?v)
+  } UNION {
+    GRAPH <urn:xw:in> { ?dpp eudpp:hasDigitalProductPassportId ?id . ?id eudpp:identifierValue ?iv }
+    BIND(oec:passportIdentifier AS ?p)
+    BIND(STRDT(STR(?iv), xsd:anyURI) AS ?v)
+  }
+}

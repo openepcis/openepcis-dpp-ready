@@ -7,7 +7,7 @@ CONSTRUCT {
      oea:hasObservedParameter ?param ;
      oea:hasMeasuredValue ?qv ;
      oea:resultText ?text ;
-     oea:isEvaluatedAgainst ?crit ;
+     ?critP ?crit ;
      oea:hasOutcome ?out .
   ?param a ?ptype .
 }
@@ -15,7 +15,10 @@ WHERE {
   GRAPH <urn:xw:in> { ?x txt-assessment:producesResult ?r . ?r a ?rt }
   FILTER(?rt IN (txt-assessment:MeasurementResult, txt-assessment:AssessmentResult, txt-recyclability:RecyclabilityCriterionResult))
   FILTER (?rt != txt-recyclability:RecyclabilityCriterionResult || EXISTS { GRAPH <urn:xw:in> { ?r txt-assessment:hasMeasuredValue ?anyv } })
-  BIND(IF(EXISTS { GRAPH <urn:xw:in> { ?r txt-assessment:hasMeasuredValue ?mv } }, oea:MeasurementResult, oea:AssessmentResult) AS ?rcls)
+  BIND(EXISTS { GRAPH <urn:xw:in> { ?r dcterms:type oea:CriterionResult } } AS ?isCritResult)
+  BIND(IF(?isCritResult, oea:CriterionResult,
+          IF(EXISTS { GRAPH <urn:xw:in> { ?r txt-assessment:hasMeasuredValue ?mv } }, oea:MeasurementResult, oea:AssessmentResult)) AS ?rcls)
+  BIND(IF(?isCritResult, oea:hasCriterion, oea:isEvaluatedAgainst) AS ?critP)
   OPTIONAL {
     { GRAPH <urn:xw:in> { ?r dcterms:subject ?pnode } }
     UNION

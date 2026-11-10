@@ -20,104 +20,112 @@
 @prefix txt-indicator: <https://w3id.org/eudpp/textile-indicator#>.
 @prefix txt-recyclability: <https://w3id.org/eudpp/textile-recyclability#>.
 @prefix txt-structure: <https://w3id.org/eudpp/textile-structure#>.
+@prefix schema: <https://schema.org/>.
+@prefix euelec: <https://ref.openepcis.org/extensions/eu/electronics/>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
 
-_:a0dc31005cff01480c2bafc4206b1189 a txt-assessment:TestExecution;
+_:a082504616f144de04d1ad2e2d7f6f10 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "4"^^xsd:decimal.
+_:a26cb224cbfd769b82785c6fc750f6cd dcterms:type eutex:SpecimenFabricType;
+    a txt-assessment:AssessmentCondition;
+    rdf:value eutex:WovenNonDenim.
+_:a3dc5d80cc2ece0e610cbbb29217ce04 dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:adf195b555de53a203c7bc5853496775;
+    txt-indicator:hasQuantitativeValue _:d7b47dfe44124417ec0cb9b438b2c114.
+_:a798925b00eb5226c1cec8b032726e18 dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:c058afd782512c70952fba7ede5948ea;
+    txt-indicator:hasQuantitativeValue _:dca525baec3796705a56a36e4cd117b9.
+_:a7d3938835dc5a034a3060672be58d70 dcterms:subject eutex:ColourChange;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:a082504616f144de04d1ad2e2d7f6f10.
+_:adf195b555de53a203c7bc5853496775 a txt-assessment:TestExecution;
     txt-assessment:appliesMethod eutex:SpiralityTest;
     txt-assessment:assessesPerformanceParameter eutex:Spirality;
     txt-assessment:assessesProduct <https://id.gs1.org/01/09521234000013/21/WJ-2025-00301>;
-    txt-assessment:producesResult _:e870f375db1887ab90ac1d86bd0e8eb6.
-_:a311ea077c6f14407476c9e4dfb12f1f dcterms:type eutex:SpecimenFabricType;
-    a txt-assessment:AssessmentCondition;
-    rdf:value eutex:WovenNonDenim.
-_:a37258a03a5660746c646bc3355c7158 a txt-connector:QuantitativeValue;
-    txt-connector:hasMeasurementUnit units:one;
-    txt-connector:numericValue "3"^^xsd:decimal.
-_:a770d288cff5c6b72c7a2e4b4b907529 a txt-connector:QuantitativeValue;
-    txt-connector:hasMeasurementUnit units:one;
-    txt-connector:numericValue "4"^^xsd:decimal.
-_:a8efc81b8652785e21b94401e484ec65 dcterms:subject eutex:FabricAppearance;
-    a txt-assessment:MeasurementResult;
-    txt-assessment:hasMeasuredValue _:fb7dda95755508b95cef87c2f840a8d6.
-_:acb4bf2bd646466915f8c1abfb433b5a a txt-connector:QuantitativeValue;
-    txt-connector:hasMeasurementUnit units:one;
-    txt-connector:numericValue 0.032.
-_:acf55e6d35fdd24d9cf57332743074e5 a txt-connector:QuantitativeValue;
+    txt-assessment:producesResult _:c921e54b8b75b5d1576ecdd98053152.
+_:b3487cf8b722e1c4cebd7100e41fbf88 epcis:eventList <urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567005>.
+_:b567b2cd66435fe0ddefe0f381a2e535 a txt-connector:QuantitativeValue;
     txt-connector:hasMeasurementUnit units:one;
     txt-connector:numericValue "5"^^xsd:decimal.
-_:b780f323c358c9455ed7fa4315f226ed a txt-assessment:TestExecution;
+_:b815ba1a6887533e0b7c20525cca051f a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "8"^^xsd:decimal.
+_:c058afd782512c70952fba7ede5948ea a txt-assessment:TestExecution;
     txt-assessment:appliesMethod eutex:AppearanceAfterWashingTest;
     txt-assessment:assessesPerformanceParameter eutex:ColourChange, eutex:FabricAppearance, eutex:NonTextilePartsAppearance, eutex:SeamAppearance;
     txt-assessment:assessesProduct <https://id.gs1.org/01/09521234000013/21/WJ-2025-00301>;
-    txt-assessment:producesResult _:a8efc81b8652785e21b94401e484ec65, _:c80ec4c105b8e487effb6493da71edd9, _:d9de183ce4ee0b1faefce37d18ee8b1d, _:fd212cc4b62e3f44ce1af72d9de8817b.
-_:bc53ea9ac4214d9ff48e9f2d74e3b256 dcterms:hasPart _:a0dc31005cff01480c2bafc4206b1189, _:b780f323c358c9455ed7fa4315f226ed, _:dd0fea71afe5604b2539382aaea3f5f4;
+    txt-assessment:producesResult _:a7d3938835dc5a034a3060672be58d70, _:d405635553a815326f21d55b5de7e40, _:d8da48517a7dd29ba03a04cc28cdfa31, _:fc4caf4fcd42cbc70b83e037eb67328b.
+_:c66f7bbba8a607e4814d4303358d1c00 dcterms:created "2025-10-01T14:00:00Z"^^xsd:dateTime;
+    a epcis:EPCISDocument;
+    owl:versionInfo "2.0";
+    epcis:epcisBody _:b3487cf8b722e1c4cebd7100e41fbf88.
+_:c921e54b8b75b5d1576ecdd98053152 dcterms:subject eutex:Spirality;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:fcce195d39a817e6e10c62e4d53cb114.
+_:cea1a6ae18965ad997732c15351ac0b2 a txt-assessment:TestExecution;
+    txt-assessment:appliesMethod eutex:DimensionalChangeTest;
+    txt-assessment:assessesPerformanceParameter eutex:DimensionalStability;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521234000013/21/WJ-2025-00301>;
+    txt-assessment:producesResult _:dd4cbcaa3b8f097a160f0f3bf64c00f6.
+_:d01d2557a4c195ebc777c826a9c777c3 dcterms:hasPart _:adf195b555de53a203c7bc5853496775, _:c058afd782512c70952fba7ede5948ea, _:cea1a6ae18965ad997732c15351ac0b2;
     dcterms:relation <urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567005#product-event>;
     a txt-assessment:DurabilityAssessment;
     txt-assessment:appliesMethod eutex:JRCRobustnessScoring;
     txt-assessment:assessesProduct <https://id.gs1.org/01/09521234000013/21/WJ-2025-00301>;
-    txt-assessment:hasCondition _:a311ea077c6f14407476c9e4dfb12f1f;
-    txt-assessment:hasParameterSetting _:d208755258caf44b68e4d25746fa7f76.
-_:c80ec4c105b8e487effb6493da71edd9 dcterms:subject eutex:SeamAppearance;
-    a txt-assessment:MeasurementResult;
-    txt-assessment:hasMeasuredValue _:acf55e6d35fdd24d9cf57332743074e5.
-_:c8e5350253a37b028879c3227d7a5424 a txt-connector:QuantitativeValue;
-    txt-connector:hasMeasurementUnit units:one;
-    txt-connector:numericValue "5"^^xsd:decimal.
-_:cec94c531fdba25dd741f1d87ac4cc8b a txt-connector:QuantitativeValue;
-    txt-connector:hasMeasurementUnit units:one;
-    txt-connector:numericValue "8"^^xsd:decimal.
-_:cfa2d8472742403197209acc61466558 dcterms:source _:bc53ea9ac4214d9ff48e9f2d74e3b256;
-    a txt-indicator:RobustnessScore;
-    txt-indicator:derivedUsingMethod eutex:JRCRobustnessScoring;
-    txt-indicator:hasQuantitativeValue _:cec94c531fdba25dd741f1d87ac4cc8b.
-_:d16211fb196156f4e88c759b427f8382 dcterms:type oea:awardedScore;
-    a txt-indicator:PerformanceIndicator;
-    txt-indicator:derivedFrom _:dd0fea71afe5604b2539382aaea3f5f4;
-    txt-indicator:hasQuantitativeValue _:f4def4776a116717acd55247d8970b3c.
-_:d18a731f740ccc5da03d6241c78e1ca6 a txt-connector:QuantitativeValue;
-    txt-connector:hasMeasurementUnit units:one;
-    txt-connector:numericValue "4"^^xsd:decimal.
-_:d208755258caf44b68e4d25746fa7f76 a txt-assessment:MeasurementParameterSetting;
-    txt-assessment:hasParameterValue _:c8e5350253a37b028879c3227d7a5424;
-    txt-assessment:settingForParameter oea:NumberOfCycles.
-_:d924ba87bf56d61f3e761568832a6f8f a txt-connector:QuantitativeValue;
-    txt-connector:hasMeasurementUnit units:one;
-    txt-connector:numericValue "3"^^xsd:decimal.
-_:d9de183ce4ee0b1faefce37d18ee8b1d dcterms:subject eutex:ColourChange;
-    a txt-assessment:MeasurementResult;
-    txt-assessment:hasMeasuredValue _:d18a731f740ccc5da03d6241c78e1ca6.
-_:dd0fea71afe5604b2539382aaea3f5f4 a txt-assessment:TestExecution;
-    txt-assessment:appliesMethod eutex:DimensionalChangeTest;
-    txt-assessment:assessesPerformanceParameter eutex:DimensionalStability;
-    txt-assessment:assessesProduct <https://id.gs1.org/01/09521234000013/21/WJ-2025-00301>;
-    txt-assessment:producesResult _:e07e53882e985ebb0f89f5da93031e2d.
-_:e07e53882e985ebb0f89f5da93031e2d dcterms:subject eutex:DimensionalStability;
-    a txt-assessment:MeasurementResult;
-    txt-assessment:hasMeasuredValue _:acb4bf2bd646466915f8c1abfb433b5a.
-_:e152f887f24d00c681ec0fa16757dbe8 dcterms:type oea:awardedScore;
-    a txt-indicator:PerformanceIndicator;
-    txt-indicator:derivedFrom _:a0dc31005cff01480c2bafc4206b1189;
-    txt-indicator:hasQuantitativeValue _:a37258a03a5660746c646bc3355c7158.
-_:e870f375db1887ab90ac1d86bd0e8eb6 dcterms:subject eutex:Spirality;
-    a txt-assessment:MeasurementResult;
-    txt-assessment:hasMeasuredValue _:ebe2120a85093e7698ee68dfe7dcd0f5.
-_:e87b26d52873d86cc3c0d83ed6728290 dcterms:type oea:awardedScore;
-    a txt-indicator:PerformanceIndicator;
-    txt-indicator:derivedFrom _:b780f323c358c9455ed7fa4315f226ed;
-    txt-indicator:hasQuantitativeValue _:d924ba87bf56d61f3e761568832a6f8f.
-_:ebe2120a85093e7698ee68dfe7dcd0f5 a txt-connector:QuantitativeValue;
-    txt-connector:hasMeasurementUnit units:one;
-    txt-connector:numericValue 0.042.
-_:f4def4776a116717acd55247d8970b3c a txt-connector:QuantitativeValue;
+    txt-assessment:hasCondition _:a26cb224cbfd769b82785c6fc750f6cd;
+    txt-assessment:hasParameterSetting _:e3ba7c7d87bbf3e62896e8525130b4b1.
+_:d05c9a83b55f87226822b3e40ba6a74f a txt-connector:QuantitativeValue;
     txt-connector:hasMeasurementUnit units:one;
     txt-connector:numericValue "2"^^xsd:decimal.
-_:fb7dda95755508b95cef87c2f840a8d6 a txt-connector:QuantitativeValue;
+_:d405635553a815326f21d55b5de7e40 dcterms:subject eutex:SeamAppearance;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:b567b2cd66435fe0ddefe0f381a2e535.
+_:d58acdb3055470fa7d7a9b2d3bee666c a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 0.032.
+_:d7b47dfe44124417ec0cb9b438b2c114 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "3"^^xsd:decimal.
+_:d8da48517a7dd29ba03a04cc28cdfa31 dcterms:subject eutex:FabricAppearance;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:f0619dd71dc7e60ad24d6eaabb65d05f.
+_:dca525baec3796705a56a36e4cd117b9 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "3"^^xsd:decimal.
+_:dd4cbcaa3b8f097a160f0f3bf64c00f6 dcterms:subject eutex:DimensionalStability;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:d58acdb3055470fa7d7a9b2d3bee666c.
+_:e0fc1b10d87ae6e852730dc60f219553 a txt-connector:QuantitativeValue;
     txt-connector:hasMeasurementUnit units:one;
     txt-connector:numericValue "4"^^xsd:decimal.
-_:fd212cc4b62e3f44ce1af72d9de8817b dcterms:subject eutex:NonTextilePartsAppearance;
+_:e1d1fb4e3513f042343f4cc828d9396c dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:cea1a6ae18965ad997732c15351ac0b2;
+    txt-indicator:hasQuantitativeValue _:d05c9a83b55f87226822b3e40ba6a74f.
+_:e3ba7c7d87bbf3e62896e8525130b4b1 a txt-assessment:MeasurementParameterSetting;
+    txt-assessment:hasParameterValue _:f637ec090726912167deba73775cee9;
+    txt-assessment:settingForParameter oea:NumberOfCycles.
+_:f0619dd71dc7e60ad24d6eaabb65d05f a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "4"^^xsd:decimal.
+_:f637ec090726912167deba73775cee9 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "5"^^xsd:decimal.
+_:fc4caf4fcd42cbc70b83e037eb67328b dcterms:subject eutex:NonTextilePartsAppearance;
     a txt-assessment:MeasurementResult;
-    txt-assessment:hasMeasuredValue _:a770d288cff5c6b72c7a2e4b4b907529.
+    txt-assessment:hasMeasuredValue _:e0fc1b10d87ae6e852730dc60f219553.
+_:fcce195d39a817e6e10c62e4d53cb114 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 0.042.
+_:ffa4351cea5a04c1402ecf1e68294293 dcterms:source _:d01d2557a4c195ebc777c826a9c777c3;
+    a txt-indicator:RobustnessScore;
+    txt-indicator:derivedUsingMethod eutex:JRCRobustnessScoring;
+    txt-indicator:hasQuantitativeValue _:b815ba1a6887533e0b7c20525cca051f.
 <https://id.gs1.org/01/09521234000013/21/WJ-2025-00301> a eudpp:Product;
-    txt-indicator:hasIndicator _:cfa2d8472742403197209acc61466558, _:d16211fb196156f4e88c759b427f8382, _:e152f887f24d00c681ec0fa16757dbe8, _:e87b26d52873d86cc3c0d83ed6728290.
+    txt-indicator:hasIndicator _:a3dc5d80cc2ece0e610cbbb29217ce04, _:a798925b00eb5226c1cec8b032726e18, _:e1d1fb4e3513f042343f4cc828d9396c, _:ffa4351cea5a04c1402ecf1e68294293.
 oea:NumberOfCycles a txt-assessment:NumberOfCycles.
 eutex:AppearanceAfterWashingTest a txt-assessment:TestMethod;
     rdfs:label "Appearance After Washing Test"@en;
@@ -166,6 +174,6 @@ eutex:SpiralityTest a txt-assessment:TestMethod;
     epcis:bizStep cbv:BizStep-inspecting;
     epcis:disposition cbv:Disp-active;
     epcis:epcList <https://id.gs1.org/01/09521234000013/21/WJ-2025-00301>;
-    epcis:eventTime "2025-10-01T14:00:00Z"^^xsd:dateTime;
+    epcis:eventTime "2025-10-01T14:00:00Z"^^xsd:dateTimeStamp;
     epcis:eventTimeZoneOffset "+01:00";
     epcis:readPoint <https://id.gs1.org/414/9521234000068>.
