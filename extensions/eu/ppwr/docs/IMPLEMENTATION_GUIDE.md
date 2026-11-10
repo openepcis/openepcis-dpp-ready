@@ -11,9 +11,9 @@ PPWR-specific concepts:
 - **`euppwr:Packaging`** — subclass of `gs1:PackagingDetails`, the carrier
   for the PPWR-specific data points.
 - **`euppwr:hasPackagingTier`** — Sales / Grouped / Transport (PPWR Article 3).
-- **`euppwr:hasRecyclabilityGrade`** — A / B / C (PPWR Article 6, Annex II).
+- **Recyclability grade** — A / B / C (PPWR Article 6, Annex II): an `oea:Indicator` of kind `euppwr:RecyclabilityPerformanceGrade` in an `oec:RecyclabilityAssessment` on the packaging.
 - **`euppwr:harmonisedSymbol`** — URI of an Article 12 harmonised label.
-- **`euppwr:designForRecyclingMethodology`** — D4R methodology citation.
+- **Design-for-recycling methodology** — the assessment's `oea:hasMethod` (RecyClass, CEFLEX D4ACE, APR; inline with `oea:methodName`); in the sensorReport form `sensorMetadata.dataProcessingMethod`.
 - **`euppwr:depositRefundIssued`** / **`euppwr:containerCondition`** —
   EPCIS event-level deposit-return observations.
 - **`euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION`** —
@@ -60,7 +60,7 @@ in Europe PPWR white paper), type the root node as both `gs1:Product` and
    (per-component GTINs for packaging components; GRAI (AI 8003) for
    reusable/returnable packaging assets).
 2. **Packaging tier** — `euppwr:hasPackagingTier` ∈ {Sales, Grouped, Transport}.
-3. **Recyclability grade** — `euppwr:hasRecyclabilityGrade` ∈ {A, B, C}
+3. **Recyclability grade** — indicator `euppwr:RecyclabilityPerformanceGrade` ∈ {A, B, C}
    (mandatory from 2030; A ≥ 95%, B ≥ 80%, C ≥ 70% of unit weight).
 4. **Material composition** — `gs1:packagingMaterial` entries with
    `gs1:packagingMaterialType` codes and composition quantities.
@@ -154,7 +154,7 @@ pyshacl -s extensions/eu/ppwr/validation/ppwr-shapes.ttl -d <your-doc>.jsonld
 The PPWR shapes require:
 
 - `euppwr:hasPackagingTier` ∈ {Sales, Grouped, Transport}
-- `euppwr:hasRecyclabilityGrade` ∈ {A, B, C} (when present)
+- recyclability grade indicator ∈ {A, B, C} (when present)
 - every `gs1:packagingMaterial` entry names a `gs1:packagingMaterialType`
 - every `gs1:hasReturnablePackageDeposit` card states
   `gs1:returnablePackageDepositAmount`

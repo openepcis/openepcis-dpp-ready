@@ -4,6 +4,22 @@ All notable changes to the Electronics module will be documented in this file.
 
 ## [Unreleased]
 
+### Breaking: repairability index and WEEE rates on `common/assessment`
+
+- `euelec:RepairabilityIndex` is an `oea:Assessment` applying `euelec:FrenchRepairabilityIndexMethod`;
+  the five criteria (`euelec:Documentation` … `euelec:ProductSpecific`) are `oea:Criterion`
+  individuals (20 points each), each scored by an `oea:CriterionResult` (`oea:awardedScore`,
+  `oea:resultText`); total, display score and class are indicators (`euelec:RepairabilityTotalScore`,
+  `oea:RepairabilityScore`, `oea:RepairabilityClass`); date and body use `oea:assessmentDate` /
+  `oea:hasAssessmentBody`.
+- Removed: `euelec:RepairCriterion`, `euelec:RepairCriterionType`, `totalScore`, `displayScore`,
+  `hasRepairabilityClass`, `hasRepairCriteria`, `hasCriterionType`, `criterionScore`,
+  `criterionMaxScore`, `criterionDetails`, `assessmentDate`, `hasAssessmentBody`.
+- `euelec:recyclabilityRate` / `euelec:recoverabilityRate` left `euelec:WEEECompliance`: the rates are
+  results of an `oec:RecyclabilityAssessment` on the product (`oea:RecyclabilityRate`,
+  `oea:RecoverableRate`).
+- Energy-label values stay as they are (declared EPREL data).
+
 ## [0.10.1] - 2026-11-08
 
 ### Fixed: `electronics-schema.json`

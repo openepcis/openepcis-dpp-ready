@@ -80,57 +80,89 @@
   },
   "euelec:hasRepairabilityIndex": {
     "type": "euelec:RepairabilityIndex",
-    "euelec:totalScore": 68,
-    "euelec:displayScore": "6.8",
-    "euelec:hasRepairabilityClass": {
-      "@id": "euelec:RepairClassB"
+    "oea:hasMethod": {
+      "@id": "euelec:FrenchRepairabilityIndexMethod"
     },
-    "euelec:assessmentDate": "2025-01-12",
-    "euelec:hasRepairCriteria": [
+    "oea:assessmentDate": "2025-01-12",
+    "oea:hasResult": [
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:Documentation"
         },
-        "euelec:criterionScore": 15,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "Service manual available, basic troubleshooting guide"
+        "oea:awardedScore": 15,
+        "oea:resultText": "Service manual available, basic troubleshooting guide"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:Disassembly"
         },
-        "euelec:criterionScore": 14,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "Standard screws, modular stand, 12 steps to access power board"
+        "oea:awardedScore": 14,
+        "oea:resultText": "Standard screws, modular stand, 12 steps to access power board"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:SparePartsAvailability"
         },
-        "euelec:criterionScore": 15,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "Power board, control board available for 7 years"
+        "oea:awardedScore": 15,
+        "oea:resultText": "Power board, control board available for 7 years"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:SparePartsPricing"
         },
-        "euelec:criterionScore": 12,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "Power board: 18% of device price, Panel: not available separately"
+        "oea:awardedScore": 12,
+        "oea:resultText": "Power board: 18% of device price, Panel: not available separately"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:ProductSpecific"
         },
-        "euelec:criterionScore": 12,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "Firmware updates via USB, factory reset capability"
+        "oea:awardedScore": 12,
+        "oea:resultText": "Firmware updates via USB, factory reset capability"
+      }
+    ],
+    "oea:hasIndicator": [
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "euelec:RepairabilityTotalScore"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 68,
+          "gs1:unitCode": "C62"
+        },
+        "oea:hasDerivationMethod": {
+          "@id": "euelec:FrenchRepairabilityIndexMethod"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:RepairabilityScore"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "6.8",
+          "gs1:unitCode": "C62"
+        },
+        "oea:hasDerivationMethod": {
+          "@id": "euelec:FrenchRepairabilityIndexMethod"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:RepairabilityClass"
+        },
+        "oea:hasCategoricalValue": {
+          "@id": "euelec:RepairClassB"
+        }
       }
     ]
   },
@@ -236,9 +268,7 @@
       "type": "gs1:Country",
       "gs1:countryCode": "SE"
     },
-    "euelec:collectionSchemeUrl": "https://www.nordic-displays.example.com/sustainability/recycling",
-    "euelec:recyclabilityRate": "0.88",
-    "euelec:recoverabilityRate": "0.93"
+    "euelec:collectionSchemeUrl": "https://www.nordic-displays.example.com/sustainability/recycling"
   },
   "euelec:hasRohsCompliance": {
     "type": "euelec:RoHSCompliance",
@@ -275,5 +305,32 @@
     "gs1:globalLocationNumber": "9521234000006",
     "oec:economicOperatorId": "EU-EOID-SE-2024-345678",
     "schema:vatID": "SE123456789001"
+  },
+  "oec:hasRecyclabilityAssessment": {
+    "type": "oec:RecyclabilityAssessment",
+    "oea:hasResult": [
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "oea:RecyclabilityRate"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "0.88",
+          "gs1:unitCode": "C62"
+        }
+      },
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "oea:RecoverableRate"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "0.93",
+          "gs1:unitCode": "C62"
+        }
+      }
+    ]
   }
 }

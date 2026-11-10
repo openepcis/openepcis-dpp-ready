@@ -8,6 +8,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521234000044",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/cpr/",
     "https://schema.org/"
@@ -15,22 +16,22 @@
   "declarationOfPerformanceUrl": "https://manufacturer.example/dop/CEM-I-52-5-N-2026-001.pdf",
   "essentialCharacteristic": [
     {
-      "characteristicName": "Compressive Strength (28 days)",
       "harmonisedStandard": "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30253,5839",
-      "hasCharacteristicValue": {
+      "hasMeasuredValue": {
         "type": "QuantitativeValue",
         "unitCode": "N20",
         "value": "52.5"
-      }
+      },
+      "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/cpr/CompressiveStrength"
     },
     {
-      "characteristicName": "Initial Setting Time",
       "harmonisedStandard": "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30253,5839",
-      "hasCharacteristicValue": {
+      "hasMeasuredValue": {
         "type": "QuantitativeValue",
         "unitCode": "MIN",
         "value": 75
-      }
+      },
+      "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/cpr/InitialSettingTime"
     }
   ],
   "gtin": "09521234600015",
@@ -60,6 +61,11 @@
     }
   },
   "hasConstructionProductType": "Cement",
+  "hasIndicator": {
+    "type": "Indicator",
+    "hasCategoricalValue": "https://ref.openepcis.org/extensions/eu/cpr/FireClassA1",
+    "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/cpr/ReactionToFire"
+  },
   "hasMaterialComposition": [
     {
       "documentTitle": "Portland clinker",
@@ -74,7 +80,6 @@
       "massFraction": "0.05"
     }
   ],
-  "hasReactionToFireClass": "FireClassA1",
   "hasRecycledContentDetails": {
     "type": "RecycledContent",
     "preConsumerRecycledContent": "0.35",

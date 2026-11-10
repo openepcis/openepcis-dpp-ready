@@ -8,6 +8,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521987000049",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/ppwr/",
     "https://schema.org/"
@@ -34,7 +35,14 @@
     "url": "https://www.ecoflow.example.com/compliance/carton-doc-2026-007.pdf"
   },
   "hasPackagingTier": "Grouped",
-  "hasRecyclabilityGrade": "GradeA",
+  "hasRecyclabilityAssessment": {
+    "type": "RecyclabilityAssessment",
+    "hasIndicator": {
+      "type": "Indicator",
+      "hasCategoricalValue": "https://ref.openepcis.org/extensions/eu/ppwr/GradeA",
+      "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/ppwr/RecyclabilityPerformanceGrade"
+    }
+  },
   "hasRecycledContentDetails": {
     "type": "RecycledContent",
     "postConsumerRecycledContent": "0.8",

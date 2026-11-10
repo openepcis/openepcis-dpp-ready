@@ -9,6 +9,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521234000006",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/detergent/",
     "https://schema.org/"
@@ -25,15 +26,31 @@
       "@value": "Place 1 capsule in the main dispenser compartment. Do not unwrap. Do not handle with wet hands. Suitable for all dishwasher types."
     }
   ],
-  "filmBiodegradabilityPercentage": "94.7",
-  "filmBiodegradable": true,
   "gtin": "09521234200024",
   "hStatements": [
     "H318",
     "H315",
     "H412"
   ],
+  "hasAssessment": {
+    "type": "Assessment",
+    "hasOutcome": "Satisfied",
+    "isEvaluatedAgainst": "https://ref.openepcis.org/extensions/eu/detergent/PhosphorusLimit"
+  },
   "hasCustomsCommodityCodeType": "CN8",
+  "hasFilmBiodegradability": {
+    "type": "Biodegradability",
+    "hasResult": {
+      "type": "MeasurementResult",
+      "hasMeasuredValue": {
+        "type": "QuantitativeValue",
+        "unitCode": "P1",
+        "value": "94.7"
+      },
+      "hasObservedParameter": "https://ref.openepcis.org/extensions/common/assessment/Biodegradation",
+      "hasOutcome": "Satisfied"
+    }
+  },
   "hasIngredientList": [
     {
       "casNumber": "15630-89-4",
@@ -104,11 +121,28 @@
   "hasSignalWord": "Danger",
   "hasSurfactantBiodegradability": {
     "type": "SurfactantBiodegradability",
-    "biodegradationPercentage": "89.1",
-    "hasSurfactantType": "NonIonic",
-    "hasTestMethod": "OECD301F",
-    "passesUltimateBiodegradability": true,
-    "testDurationDays": 28
+    "hasMethod": "https://ref.openepcis.org/extensions/common/core/OECD301F",
+    "hasParameterSetting": {
+      "type": "ParameterSetting",
+      "hasParameter": "https://ref.openepcis.org/extensions/common/assessment/Duration",
+      "hasParameterValue": {
+        "type": "QuantitativeValue",
+        "unitCode": "DAY",
+        "value": 28
+      }
+    },
+    "hasResult": {
+      "type": "MeasurementResult",
+      "hasMeasuredValue": {
+        "type": "QuantitativeValue",
+        "unitCode": "P1",
+        "value": "89.1"
+      },
+      "hasObservedParameter": "https://ref.openepcis.org/extensions/common/assessment/Biodegradation",
+      "hasOutcome": "Satisfied",
+      "isEvaluatedAgainst": "https://ref.openepcis.org/extensions/eu/detergent/UltimateBiodegradabilityThreshold"
+    },
+    "hasSurfactantType": "NonIonic"
   },
   "hazardPictograms": [
     "GHS05",
@@ -145,7 +179,6 @@
   ],
   "passportIssueDate": "2026-09-01",
   "passportVersion": "1.0",
-  "phosphateCompliant": true,
   "phosphorusContentPercent": "0.3",
   "productDescription": [
     {

@@ -8,6 +8,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521234000006",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/electronics/",
     "https://schema.org/"
@@ -206,6 +207,27 @@
     "hasOperatorRole": "Manufacturer",
     "vatIdentificationNumber": "NL123456789B01"
   },
+  "hasRecyclabilityAssessment": {
+    "type": "RecyclabilityAssessment",
+    "hasResult": [
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "0.92"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate"
+      },
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "0.96"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/common/assessment/RecoverableRate"
+      }
+    ]
+  },
   "hasRecycledContentDetails": {
     "type": "RecycledContent",
     "postConsumerRecycledContent": "0.24",
@@ -215,41 +237,58 @@
   "hasRepairabilityIndex": {
     "type": "RepairabilityIndex",
     "assessmentDate": "2025-01-15",
-    "displayScore": "8.5",
-    "hasRepairCriteria": [
+    "hasIndicator": [
       {
-        "criterionDetails": "Comprehensive service manuals, maintenance guides, and API documentation",
-        "criterionMaxScore": 20,
-        "criterionScore": 18,
-        "hasCriterionType": "Documentation"
+        "hasDerivationMethod": "https://ref.openepcis.org/extensions/eu/electronics/FrenchRepairabilityIndexMethod",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/electronics/RepairabilityTotalScore",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": 85
+        }
       },
       {
-        "criterionDetails": "Tool-less hot-swap design for all major components",
-        "criterionMaxScore": 20,
-        "criterionScore": 19,
-        "hasCriterionType": "Disassembly"
+        "hasDerivationMethod": "https://ref.openepcis.org/extensions/eu/electronics/FrenchRepairabilityIndexMethod",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/RepairabilityScore",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "8.5"
+        }
       },
       {
-        "criterionDetails": "All spare parts available for 10 years, 24-hour delivery SLA",
-        "criterionMaxScore": 20,
-        "criterionScore": 17,
-        "hasCriterionType": "SparePartsAvailability"
-      },
-      {
-        "criterionDetails": "Component pricing published, volume discounts available",
-        "criterionMaxScore": 20,
-        "criterionScore": 15,
-        "hasCriterionType": "SparePartsPricing"
-      },
-      {
-        "criterionDetails": "10 years firmware support, remote diagnostics, modular expansion",
-        "criterionMaxScore": 20,
-        "criterionScore": 16,
-        "hasCriterionType": "ProductSpecific"
+        "hasCategoricalValue": "https://ref.openepcis.org/extensions/eu/electronics/RepairClassA",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/RepairabilityClass"
       }
     ],
-    "hasRepairabilityClass": "RepairClassA",
-    "totalScore": 85
+    "hasMethod": "https://ref.openepcis.org/extensions/eu/electronics/FrenchRepairabilityIndexMethod",
+    "hasResult": [
+      {
+        "awardedScore": 18,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/Documentation",
+        "resultText": "Comprehensive service manuals, maintenance guides, and API documentation"
+      },
+      {
+        "awardedScore": 19,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/Disassembly",
+        "resultText": "Tool-less hot-swap design for all major components"
+      },
+      {
+        "awardedScore": 17,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/SparePartsAvailability",
+        "resultText": "All spare parts available for 10 years, 24-hour delivery SLA"
+      },
+      {
+        "awardedScore": 15,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/SparePartsPricing",
+        "resultText": "Component pricing published, volume discounts available"
+      },
+      {
+        "awardedScore": 16,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/ProductSpecific",
+        "resultText": "10 years firmware support, remote diagnostics, modular expansion"
+      }
+    ]
   },
   "hasRohsCompliance": {
     "type": "RoHSCompliance",
@@ -278,8 +317,6 @@
       "type": "Country",
       "countryCode": "NL"
     },
-    "recoverabilityRate": "0.96",
-    "recyclabilityRate": "0.92",
     "weeeCategory": "WEEE4_LargeEquipment",
     "weeeRegistrationCountry": "NL",
     "weeeRegistrationNumber": "NL-2024-EE-56789"

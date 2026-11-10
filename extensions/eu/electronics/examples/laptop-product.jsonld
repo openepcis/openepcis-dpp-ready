@@ -81,60 +81,92 @@
   },
   "euelec:hasRepairabilityIndex": {
     "type": "euelec:RepairabilityIndex",
-    "euelec:totalScore": "76.5",
-    "euelec:displayScore": "7.7",
-    "euelec:hasRepairabilityClass": {
-      "@id": "euelec:RepairClassB"
+    "oea:hasMethod": {
+      "@id": "euelec:FrenchRepairabilityIndexMethod"
     },
-    "euelec:assessmentDate": "2025-01-18",
-    "euelec:repairabilityLabelUrl": "https://www.greentech-computers.example.com/products/greenbook-pro-15/repairability-label.png",
-    "euelec:hasRepairCriteria": [
+    "oea:assessmentDate": "2025-01-18",
+    "oea:hasResult": [
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:Documentation"
         },
-        "euelec:criterionScore": "17.5",
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "Complete service manual with teardown videos in 12 languages"
+        "oea:awardedScore": "17.5",
+        "oea:resultText": "Complete service manual with teardown videos in 12 languages"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:Disassembly"
         },
-        "euelec:criterionScore": 16,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "Single screw type, modular internals, battery accessible in 3 steps"
+        "oea:awardedScore": 16,
+        "oea:resultText": "Single screw type, modular internals, battery accessible in 3 steps"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:SparePartsAvailability"
         },
-        "euelec:criterionScore": 15,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "Major components available for 7 years through authorized partners"
+        "oea:awardedScore": 15,
+        "oea:resultText": "Major components available for 7 years through authorized partners"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:SparePartsPricing"
         },
-        "euelec:criterionScore": 13,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "Battery: 12%, SSD: 8%, RAM: 5%, Display: 28% of device price"
+        "oea:awardedScore": 13,
+        "oea:resultText": "Battery: 12%, SSD: 8%, RAM: 5%, Display: 28% of device price"
       },
       {
-        "type": "euelec:RepairCriterion",
-        "euelec:hasCriterionType": {
+        "type": "oea:CriterionResult",
+        "oea:hasCriterion": {
           "@id": "euelec:ProductSpecific"
         },
-        "euelec:criterionScore": 15,
-        "euelec:criterionMaxScore": 20,
-        "euelec:criterionDetails": "6 years OS updates, user-upgradeable RAM and SSD, data recovery mode"
+        "oea:awardedScore": 15,
+        "oea:resultText": "6 years OS updates, user-upgradeable RAM and SSD, data recovery mode"
       }
-    ]
+    ],
+    "oea:hasIndicator": [
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "euelec:RepairabilityTotalScore"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "76.5",
+          "gs1:unitCode": "C62"
+        },
+        "oea:hasDerivationMethod": {
+          "@id": "euelec:FrenchRepairabilityIndexMethod"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:RepairabilityScore"
+        },
+        "oea:hasIndicatorValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "7.7",
+          "gs1:unitCode": "C62"
+        },
+        "oea:hasDerivationMethod": {
+          "@id": "euelec:FrenchRepairabilityIndexMethod"
+        }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "oea:RepairabilityClass"
+        },
+        "oea:hasCategoricalValue": {
+          "@id": "euelec:RepairClassB"
+        }
+      }
+    ],
+    "euelec:repairabilityLabelUrl": "https://www.greentech-computers.example.com/products/greenbook-pro-15/repairability-label.png"
   },
   "euelec:hasSoftwareSupport": {
     "type": "euelec:SoftwareSupport",
@@ -327,9 +359,7 @@
       "type": "gs1:Country",
       "gs1:countryCode": "FR"
     },
-    "euelec:collectionSchemeUrl": "https://www.greentech-computers.example.com/sustainability/recycling",
-    "euelec:recyclabilityRate": "0.86",
-    "euelec:recoverabilityRate": "0.91"
+    "euelec:collectionSchemeUrl": "https://www.greentech-computers.example.com/sustainability/recycling"
   },
   "euelec:hasRohsCompliance": {
     "type": "euelec:RoHSCompliance",
@@ -431,5 +461,32 @@
     "oec:reportUrl": "https://www.greentech-computers.example.com/sustainability/due-diligence/2024-report.pdf",
     "oec:reportDate": "2024-12-15",
     "oec:thirdPartyAssurancesUrl": "https://www.greentech-computers.example.com/sustainability/due-diligence/third-party-audit.pdf"
+  },
+  "oec:hasRecyclabilityAssessment": {
+    "type": "oec:RecyclabilityAssessment",
+    "oea:hasResult": [
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "oea:RecyclabilityRate"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "0.86",
+          "gs1:unitCode": "C62"
+        }
+      },
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "oea:RecoverableRate"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "0.91",
+          "gs1:unitCode": "C62"
+        }
+      }
+    ]
   }
 }

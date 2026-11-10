@@ -146,24 +146,8 @@
       "seeAlso": [
         "https://ref.openepcis.org/extensions/common/core/RepairabilityInfo"
       ],
-      "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/RepairCriterion",
-      "localName": "RepairCriterion",
-      "label": "Repair Criterion",
-      "comment": "An individual criterion score within the French Repairability Index.",
-      "seeAlso": [
-        "http://data.europa.eu/m8g/Criterion",
-        "http://data.europa.eu/m8g/Constraint",
-        "https://vocabulary.uncefact.org/untp/Criterion",
-        "https://schema.org/Rating"
-      ],
       "subClassOf": [
-        "http://data.europa.eu/m8g/Criterion"
-      ],
-      "broadMatch": [
-        "http://data.europa.eu/m8g/Criterion"
+        "https://ref.openepcis.org/extensions/common/assessment/Assessment"
       ],
       "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
     },
@@ -231,22 +215,6 @@
     }
   ],
   "properties": [
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/assessmentDate",
-      "localName": "assessmentDate",
-      "label": "Assessment Date",
-      "comment": "Date when the repairability assessment was performed.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex"
-      ],
-      "range": [
-        "xsd:date"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The assessment date tells consumers how current the public repairability score is.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     {
       "id": "https://ref.openepcis.org/extensions/eu/electronics/avoidedEmissionsKgCO2e",
       "localName": "avoidedEmissionsKgCO2e",
@@ -361,66 +329,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/criterionDetails",
-      "localName": "criterionDetails",
-      "label": "Criterion Details",
-      "comment": "Detailed explanation of the criterion score.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/RepairCriterion"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "seeAlso": [
-        "https://schema.org/ratingExplanation"
-      ],
-      "source": "https://www.ecologie.gouv.fr/indice-reparabilite",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The criterion explanation is part of the published substantiation of the repairability index.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/criterionMaxScore",
-      "localName": "criterionMaxScore",
-      "label": "Criterion Max Score",
-      "comment": "Maximum possible score for this criterion (typically 20).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/RepairCriterion"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://schema.org/maxValue"
-      ],
-      "closeMatch": [
-        "https://schema.org/bestRating"
-      ],
-      "source": "https://www.ecologie.gouv.fr/indice-reparabilite",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The criterion maximum makes the public per-criterion score interpretable.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/criterionScore",
-      "localName": "criterionScore",
-      "label": "Criterion Score",
-      "comment": "Score for this criterion (0-20 scale).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/RepairCriterion"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "http://data.europa.eu/m8g/SupportedValue"
-      ],
-      "source": "https://www.ecologie.gouv.fr/indice-reparabilite",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Per-criterion scores substantiate the public repairability index.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/electronics/dataWiped",
       "localName": "dataWiped",
       "label": "Data Wiped",
@@ -455,25 +363,6 @@
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "The intake condition assessment is a treatment-operator judgement about one waste item (Dir. 2012/19/EU Art. 8), not product information.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2012/19"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/displayScore",
-      "localName": "displayScore",
-      "label": "Display Score",
-      "comment": "Consumer-facing repairability score (0-10 scale, totalScore/10).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "closeMatch": [
-        "https://schema.org/ratingValue"
-      ],
-      "source": "https://www.ecologie.gouv.fr/indice-reparabilite",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The 0-10 display score is the consumer-facing figure printed on the repairability label.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/electronics/displayTechnology",
@@ -652,22 +541,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2017/1369"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/hasAssessmentBody",
-      "localName": "hasAssessmentBody",
-      "label": "Assessment Body",
-      "comment": "Organization that performed the repairability assessment.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/Organization"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Who assessed the repairability index is transparency information that makes the public score credible.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/electronics/hasAvoidedEmissions",
       "localName": "hasAvoidedEmissions",
       "label": "Avoided Emissions",
@@ -780,22 +653,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/hasCriterionType",
-      "localName": "hasCriterionType",
-      "label": "Criterion Type",
-      "comment": "Type of repair criterion being scored.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/RepairCriterion"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/electronics/RepairCriterionType"
-      ],
-      "source": "https://www.ecologie.gouv.fr/indice-reparabilite",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The criterion type identifies which published repairability criterion a score belongs to.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/electronics/hasDisplaySpecification",
       "localName": "hasDisplaySpecification",
       "label": "Display Specification",
@@ -876,7 +733,7 @@
       ],
       "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj",
       "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Pre-treatment recoverability estimates are recycler planning data; the public tier carries the design-level euelec:recyclabilityRate and euelec:recoverabilityRate.",
+      "accessLevelRationale": "Pre-treatment recoverability estimates are recycler planning data; the public tier carries the design-level recyclability and recoverable rates (oec:hasRecyclabilityAssessment).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2012/19"
     },
     {
@@ -1107,25 +964,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg_del/2019/2013"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/hasRepairabilityClass",
-      "localName": "hasRepairabilityClass",
-      "label": "Repairability Class",
-      "comment": "EU Right to Repair classification (A-E grade).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/electronics/EURepairabilityClass"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/assessment/RepairabilityClass"
-      ],
-      "source": "https://www.ecologie.gouv.fr/indice-reparabilite",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The A-E repairability class is the consumer-facing band of the repair assessment; aligned with core oec:repairabilityClass (Public).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/electronics/hasRepairabilityIndex",
       "localName": "hasRepairabilityIndex",
       "label": "Repairability Index",
@@ -1157,22 +995,6 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "What one repair actually cost is transaction data; the publicly required figure is the spare-part price (euelec:hasSparePartPrice, Public).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/hasRepairCriteria",
-      "localName": "hasRepairCriteria",
-      "label": "Repair Criteria",
-      "comment": "List of individual criterion scores.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/electronics/RepairCriterion"
-      ],
-      "source": "https://www.ecologie.gouv.fr/indice-reparabilite",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Per-criterion scores are published alongside the repairability index so consumers can see how the score was reached.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1562,22 +1384,6 @@
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/recoverabilityRate",
-      "localName": "recoverabilityRate",
-      "label": "Recoverability Rate",
-      "comment": "Fraction of device that can be recovered (recycling + energy recovery, 0-1 scale).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/WEEECompliance"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The recoverable fraction is a consumer-facing circularity claim tied to the WEEE recovery targets (Dir. 2012/19/EU Annex V).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2012/19"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/electronics/recoveryRate",
       "localName": "recoveryRate",
       "label": "Recovery Rate",
@@ -1589,31 +1395,11 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate",
-        "https://ref.openepcis.org/extensions/eu/electronics/recoverabilityRate"
+        "https://ref.openepcis.org/extensions/eu/electronics/recoverabilityRate",
+        "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate"
       ],
       "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj",
       "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/recyclabilityRate",
-      "localName": "recyclabilityRate",
-      "label": "Recyclability Rate",
-      "comment": "Fraction of device that can be recycled (0-1 scale).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/WEEECompliance"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/recyclableContent",
-        "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The recyclable fraction is a consumer-facing circularity claim tied to the WEEE recovery targets (Dir. 2012/19/EU Annex V); aligned with core oec:recyclabilityRate (Public).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2012/19"
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/electronics/recyclingProcess",
@@ -1643,8 +1429,8 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/eu/electronics/recyclabilityRate",
-        "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate"
+        "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate",
+        "https://ref.openepcis.org/extensions/eu/electronics/recyclabilityRate"
       ],
       "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj",
       "accessLevelInherited": true
@@ -1927,22 +1713,6 @@
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/totalScore",
-      "localName": "totalScore",
-      "label": "Total Score",
-      "comment": "Total repairability score (0-100 scale, sum of 5 criteria).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "source": "https://www.ecologie.gouv.fr/indice-reparabilite",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The 0-100 total score is the published aggregate behind the consumer-facing repairability label.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/electronics/treatmentCertificate",
       "localName": "treatmentCertificate",
       "label": "Treatment Certificate",
@@ -2109,6 +1879,20 @@
   ],
   "enumerations": [
     {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/AssessmentMethod",
+      "localName": "AssessmentMethod",
+      "label": "AssessmentMethod",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/electronics/FrenchRepairabilityIndexMethod",
+          "localName": "FrenchRepairabilityIndexMethod",
+          "label": "French Repairability Index (Indice de Réparabilité)",
+          "comment": "Five criteria of 20 points each (documentation, disassembly, spare parts availability, spare parts pricing, product-specific); the 0-100 total divided by 10 is the consumer display score."
+        }
+      ]
+    },
+    {
       "id": "https://ref.openepcis.org/extensions/eu/electronics/ComponentType",
       "localName": "ComponentType",
       "label": "Component Type",
@@ -2203,6 +1987,44 @@
           "localName": "TrackpadComponent",
           "label": "Trackpad",
           "comment": "Trackpad or touchpad component."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/Criterion",
+      "localName": "Criterion",
+      "label": "Criterion",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/electronics/Disassembly",
+          "localName": "Disassembly",
+          "label": "Disassembly",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/electronics/Documentation",
+          "localName": "Documentation",
+          "label": "Documentation",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/electronics/ProductSpecific",
+          "localName": "ProductSpecific",
+          "label": "Product Specific Criteria",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/electronics/SparePartsAvailability",
+          "localName": "SparePartsAvailability",
+          "label": "SparePartsAvailability",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/electronics/SparePartsPricing",
+          "localName": "SparePartsPricing",
+          "label": "SparePartsPricing",
+          "comment": ""
         }
       ]
     },
@@ -2399,40 +2221,16 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/RepairCriterionType",
-      "localName": "RepairCriterionType",
-      "label": "Repair Criterion Type",
-      "comment": "Types of criteria in the French Repairability Index (5 criteria, 20 points each).",
+      "id": "https://ref.openepcis.org/extensions/common/assessment/IndicatorKind",
+      "localName": "IndicatorKind",
+      "label": "IndicatorKind",
+      "comment": "",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/electronics/Disassembly",
-          "localName": "Disassembly",
-          "label": "Disassembly",
-          "comment": "Ease of disassembly, reassembly, and tools required (20 points max)."
-        },
-        {
-          "id": "https://ref.openepcis.org/extensions/eu/electronics/Documentation",
-          "localName": "Documentation",
-          "label": "Documentation",
-          "comment": "Availability and quality of repair documentation (20 points max)."
-        },
-        {
-          "id": "https://ref.openepcis.org/extensions/eu/electronics/ProductSpecific",
-          "localName": "ProductSpecific",
-          "label": "Product Specific Criteria",
-          "comment": "Category-specific criteria such as software support duration (20 points max)."
-        },
-        {
-          "id": "https://ref.openepcis.org/extensions/eu/electronics/SparePartsAvailability",
-          "localName": "SparePartsAvailability",
-          "label": "Spare Parts Availability",
-          "comment": "Duration of spare parts availability and access channels (20 points max)."
-        },
-        {
-          "id": "https://ref.openepcis.org/extensions/eu/electronics/SparePartsPricing",
-          "localName": "SparePartsPricing",
-          "label": "Spare Parts Pricing",
-          "comment": "Ratio of spare part prices to product price (20 points max)."
+          "id": "https://ref.openepcis.org/extensions/eu/electronics/RepairabilityTotalScore",
+          "localName": "RepairabilityTotalScore",
+          "label": "Repairability Total Score",
+          "comment": "Sum of the five criterion scores of euelec:FrenchRepairabilityIndexMethod (0-100, unitCode C62)."
         }
       ]
     },

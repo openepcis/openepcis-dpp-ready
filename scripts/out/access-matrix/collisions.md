@@ -14,8 +14,6 @@ must be reconciled or explicitly waived (scripts/access-level-waivers.json).
 
 | Local name | Module tiers | Effect |
 |---|---|---|
-| `assessmentDate` | assessment: Public, electronics: Public | consistent |
-| `biodegradationPercentage` | dpp-core: Public, detergent: Public | consistent |
 | `carbonFootprintStudyUrl` | dpp-core: Public, battery: Public | consistent |
 | `concentration` | dpp-core: AuthorizedOnly, battery: AuthorizedOnly | consistent |
 | `contactPoint` | served-fields: Public, served-fields: Public | consistent |
@@ -24,7 +22,6 @@ must be reconciled or explicitly waived (scripts/access-level-waivers.json).
 | `eprelProductUrl` | dpp-core: Public, electronics: Public | consistent |
 | `eprelRegistrationNumber` | dpp-core: Public, electronics: Public | consistent |
 | `hasAnnualEnergyConsumption` | dpp-core: Public, electronics: Public | consistent |
-| `hasAssessmentBody` | assessment: Public, electronics: Public | consistent |
 | `hasCarbonFootprintDeclaration` | dpp-core: Public, battery: Public | consistent |
 | `hasCarbonFootprintDistribution` | dpp-core: Public, battery: Public | consistent |
 | `hasCarbonFootprintProduction` | dpp-core: Public, battery: Public | consistent |
@@ -45,7 +42,6 @@ must be reconciled or explicitly waived (scripts/access-level-waivers.json).
 | `hasVerificationBody` | dpp-core: Public, battery: Public | consistent |
 | `isCriticalRawMaterial` | dpp-core: AuthorizedOnly, battery: AuthorizedOnly | consistent |
 | `languageCode` | dpp-core: Public, battery: Public | consistent |
-| `recyclabilityRate` | battery: Public, electronics: Public | consistent |
 | `safeUseInstructions` | dpp-core: Public, textile: Public | consistent |
 | `takeBackIncentive` | dpp-core: Public, textile: Public | consistent |
 | `takeBackUrl` | dpp-core: Public, textile: Public | consistent |

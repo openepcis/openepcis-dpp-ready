@@ -10,7 +10,7 @@ concepts live in `eucpr:`:
 
 - **`eucpr:ConstructionProduct`** — extends `gs1:Product`.
 - **`eucpr:hasConstructionProductType`** — enum of Annex III families.
-- **`eucpr:hasReactionToFireClass`** — A1..F per EN 13501-1.
+- **Reaction-to-fire class** — an `oea:Indicator` of kind `eucpr:ReactionToFire` with an `eucpr:ReactionToFireClass` value (A1..F per EN 13501-1).
 - **`eucpr:declarationOfPerformanceUrl`** — DoP/DoC document reference.
 - **`eucpr:EssentialCharacteristic`** — name + value + harmonised standard.
 
@@ -62,7 +62,7 @@ The CPR shape requires:
 
 - `eucpr:hasConstructionProductType` (exactly one)
 - `eucpr:declarationOfPerformanceUrl` (at least one)
-- `eucpr:hasReactionToFireClass` ∈ {A1..F} when present
+- reaction-to-fire indicator value ∈ {A1..F} when present
 - `eucpr:hasEssentialCharacteristic` with name + value + (optional) harmonised
   standard
 

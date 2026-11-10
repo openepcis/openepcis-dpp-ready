@@ -4,6 +4,11 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+### Removed: Keystone aliases for CPR shortcuts
+
+The DPP Keystone bridge no longer aliases `thermalConductivity` and `compressiveStrength`: CPR states
+them as essential-characteristic results.
+
 ### Changed: DPP Keystone bridge on spec v3
 
 `dpp-keystone-bridge-context.jsonld` binds `dppk:` to `https://dpp-keystone.org/spec/v3/terms#`;

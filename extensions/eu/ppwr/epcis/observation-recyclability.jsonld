@@ -8,7 +8,7 @@
   "schemaVersion": "2.0",
   "creationDate": "2026-05-04T10:00:00.000Z",
   "_comment_architecture": [
-    "Recyclability-grade declaration observation. Captures the Annex II design-for-recycling assessment result (grade, score, methodology) for a packaging lot as event-level sensor data. The lot is class-level (AI 01 + AI 10), so it travels in quantityList, not epcList.",
+    "Recyclability-grade declaration observation in the sensorReport form of the common/assessment EPCIS binding: sensorMetadata.dataProcessingMethod names the design-for-recycling methodology (RecyClass), bizRules the PPWR Annex II basis; the reports carry the grade (indicator kind euppwr:RecyclabilityPerformanceGrade, coded value as stringValue) and the score (oea:RecyclabilityScore). The lot is class-level (AI 01 + AI 10), so it travels in quantityList, not epcList.",
     "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
     "gs1:masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
@@ -56,21 +56,18 @@
             "sensorMetadata": {
               "time": "2026-05-04T09:30:00.000Z",
               "deviceMetadata": "https://www.cen.eu/work/areas/packaging/Pages/EN-13430.aspx",
-              "dataProcessingMethod": "https://eur-lex.europa.eu/eli/reg/2025/40/annex/II"
+              "dataProcessingMethod": "https://recyclass.eu/recyclability/",
+              "bizRules": "https://eur-lex.europa.eu/eli/reg/2025/40/annex/II"
             },
             "sensorReport": [
               {
-                "type": "euppwr:hasRecyclabilityGrade",
-                "stringValue": "A"
+                "type": "euppwr:RecyclabilityPerformanceGrade",
+                "stringValue": "https://ref.openepcis.org/extensions/eu/ppwr/GradeA"
               },
               {
                 "type": "oea:RecyclabilityScore",
-                "value": "92.5",
+                "value": 92.5,
                 "uom": "P1"
-              },
-              {
-                "type": "euppwr:designForRecyclingMethodology",
-                "stringValue": "RecyClass v2.6"
               }
             ]
           }

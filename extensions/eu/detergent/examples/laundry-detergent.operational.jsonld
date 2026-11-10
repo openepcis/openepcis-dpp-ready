@@ -9,6 +9,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521234000006",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/detergent/",
     "https://schema.org/"
@@ -42,6 +43,11 @@
     "H315",
     "H319"
   ],
+  "hasAssessment": {
+    "type": "Assessment",
+    "hasOutcome": "Satisfied",
+    "isEvaluatedAgainst": "https://ref.openepcis.org/extensions/eu/detergent/PhosphorusLimit"
+  },
   "hasBiodegradabilityTestReport": {
     "type": "DocumentReference",
     "contentType": "application/pdf",
@@ -148,18 +154,52 @@
   "hasSignalWord": "Warning",
   "hasSurfactantBiodegradability": [
     {
-      "biodegradationPercentage": "82.5",
-      "hasSurfactantType": "Anionic",
-      "hasTestMethod": "OECD301B",
-      "passesUltimateBiodegradability": true,
-      "testDurationDays": 28
+      "hasMethod": "https://ref.openepcis.org/extensions/common/core/OECD301B",
+      "hasParameterSetting": {
+        "type": "ParameterSetting",
+        "hasParameter": "https://ref.openepcis.org/extensions/common/assessment/Duration",
+        "hasParameterValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "DAY",
+          "value": 28
+        }
+      },
+      "hasResult": {
+        "type": "MeasurementResult",
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "P1",
+          "value": "82.5"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/common/assessment/Biodegradation",
+        "hasOutcome": "Satisfied",
+        "isEvaluatedAgainst": "https://ref.openepcis.org/extensions/eu/detergent/UltimateBiodegradabilityThreshold"
+      },
+      "hasSurfactantType": "Anionic"
     },
     {
-      "biodegradationPercentage": "76.3",
-      "hasSurfactantType": "NonIonic",
-      "hasTestMethod": "OECD301B",
-      "passesUltimateBiodegradability": true,
-      "testDurationDays": 28
+      "hasMethod": "https://ref.openepcis.org/extensions/common/core/OECD301B",
+      "hasParameterSetting": {
+        "type": "ParameterSetting",
+        "hasParameter": "https://ref.openepcis.org/extensions/common/assessment/Duration",
+        "hasParameterValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "DAY",
+          "value": 28
+        }
+      },
+      "hasResult": {
+        "type": "MeasurementResult",
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "P1",
+          "value": "76.3"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/common/assessment/Biodegradation",
+        "hasOutcome": "Satisfied",
+        "isEvaluatedAgainst": "https://ref.openepcis.org/extensions/eu/detergent/UltimateBiodegradabilityThreshold"
+      },
+      "hasSurfactantType": "NonIonic"
     }
   ],
   "hazardPictograms": "GHS07",
@@ -193,7 +233,6 @@
   ],
   "passportIssueDate": "2026-09-01",
   "passportVersion": "1.0",
-  "phosphateCompliant": true,
   "phosphorusContentPercent": 0,
   "productDescription": [
     {

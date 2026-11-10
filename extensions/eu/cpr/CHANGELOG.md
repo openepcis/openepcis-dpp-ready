@@ -4,6 +4,17 @@ All notable changes to the CPR module will be documented in this file.
 
 ## [Unreleased]
 
+### Breaking: essential characteristics are measurement results
+
+- `eucpr:EssentialCharacteristic` is an `oea:MeasurementResult`: the characteristic is
+  `oea:hasObservedParameter` from a new catalogue (`eucpr:CompressiveStrength`,
+  `eucpr:InitialSettingTime`, `eucpr:ThermalConductivity`, `eucpr:Density`,
+  `eucpr:WaterVapourDiffusionResistance`), the declared performance `oea:hasMeasuredValue`;
+  `eucpr:harmonisedStandard` stays.
+- Removed: `eucpr:characteristicName`, `eucpr:hasCharacteristicValue`, the shortcuts
+  `eucpr:hasThermalConductivity` / `eucpr:hasCompressiveStrength`, and `eucpr:hasReactionToFireClass`
+  (an `oea:Indicator` of kind `eucpr:ReactionToFire` with an `eucpr:ReactionToFireClass` value).
+
 ## [0.10.0] - 2026-11-07
 
 ### Breaking: namespace moves to `ref.openepcis.org`

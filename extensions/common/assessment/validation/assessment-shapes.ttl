@@ -108,6 +108,12 @@ oea-sh:AssessmentMethodShape
         sh:class oea:AssessmentStandard
     ] ;
     sh:property [
+        sh:path oea:methodName ;
+        sh:name "methodName"@en ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
         sh:path oea:methodUrl ;
         sh:name "methodUrl"@en ;
         sh:datatype xsd:anyURI ;
@@ -257,12 +263,11 @@ oea-sh:CriterionResultShape
         sh:minCount 1 ;
         sh:maxCount 1
     ] ;
-    sh:property [
-        sh:path oea:hasOutcome ;
-        sh:name "hasOutcome"@en ;
-        sh:minCount 1 ;
-        sh:message "A criterion result states whether its criterion is met."@en
-    ] .
+    sh:or (
+        [ sh:path oea:hasOutcome ; sh:minCount 1 ]
+        [ sh:path oea:awardedScore ; sh:minCount 1 ]
+    ) ;
+    sh:message "A criterion result states whether its criterion is met (oea:hasOutcome) or the points it earns (oea:awardedScore)."@en .
 
 # =============================================================================
 # Criterion and threshold

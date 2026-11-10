@@ -2,23 +2,18 @@
 
 Regulatory frame: Energy Labelling 2017/1369 (EPREL) / Ecodesign
 
-Coverage: 102 properties — 51 Public / 32 AuthorizedOnly / 0 Restricted / 19 inherited / 0 UNCLASSIFIED; 5 legally locked.
+Coverage: 90 properties — 39 Public / 32 AuthorizedOnly / 0 Restricted / 19 inherited / 0 UNCLASSIFIED; 5 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
-| `assessmentDate` | Assessment Date | **Public** |  | eli/reg/2024/1781 | The assessment date tells consumers how current the public repairability score is. |
 | `avoidedEmissionsKgCO2e` | Avoided Emissions (kg CO2e) | **(inherited)** |  |  |  |
 | `batteryMassGrams` | Battery Mass (grams) | **(inherited)** |  |  |  |
 | `calculationMethod` | Calculation Method | **(inherited)** |  |  |  |
 | `collectionMethod` | Collection Method | **AuthorizedOnly** |  | eli/dir/2012/19 | Which collection route one item took is take-back scheme operating data; the public tier carries the scheme itself via euelec:collectionSchemeUrl. |
 | `collectionSchemeUrl` | Collection Scheme URL | **Public** |  | eli/dir/2012/19 | Dir. 2012/19/EU Art. 14 requires users to be informed about return and collection systems, so the scheme link must be public to serve its purpose. |
 | `componentPartNumber` | Component Part Number | **AuthorizedOnly** |  | eli/reg/2024/1781 | Manufacturer part numbers reveal sourcing relationships and are professional repair/recycling detail. |
-| `criterionDetails` | Criterion Details | **Public** |  | eli/reg/2024/1781 | The criterion explanation is part of the published substantiation of the repairability index. |
-| `criterionMaxScore` | Criterion Max Score | **Public** |  | eli/reg/2024/1781 | The criterion maximum makes the public per-criterion score interpretable. |
-| `criterionScore` | Criterion Score | **Public** |  | eli/reg/2024/1781 | Per-criterion scores substantiate the public repairability index. |
 | `dataWiped` | Data Wiped | **AuthorizedOnly** |  | eli/dir/2012/19 | Data-erasure assertions concern one device's handling before re-use and are evidence for the operator and the previous owner, not public product data. |
 | `deviceCondition` | Device Condition | **AuthorizedOnly** |  | eli/dir/2012/19 | The intake condition assessment is a treatment-operator judgement about one waste item (Dir. 2012/19/EU Art. 8), not product information. |
-| `displayScore` | Display Score | **Public** |  | eli/reg/2024/1781 | The 0-10 display score is the consumer-facing figure printed on the repairability label. |
 | `displayTechnology` | Display Technology | **Public** |  | eli/reg_del/2019/2013 | The panel technology is ordinary public spec-sheet information. |
 | `energyLabelUrl` | Energy Label URL | **Public** | 🔒 eli/reg/2017/1369 | eli/reg/2017/1369 | The energy-label image is itself a public label; EPREL serves it in its public part (Reg. (EU) 2017/1369 Art. 12(3)). |
 | `energyRecoveryRate` | Energy Recovery Rate | **(inherited)** |  |  |  |
@@ -28,18 +23,16 @@ Coverage: 102 properties — 51 Public / 32 AuthorizedOnly / 0 Restricted / 19 i
 | `firmwareVersion` | Firmware Version | **Public** |  | eli/reg/2023/1670 | The current firmware version is device-state transparency a user can read from the device itself. |
 | `handlingNote` | Handling Note | **(inherited)** |  |  |  |
 | `hasAnnualEnergyConsumption` | Annual Energy Consumption | **Public** | 🔒 eli/reg/2017/1369 | eli/reg/2017/1369 | Annual energy consumption appears on the public energy label and product information sheet in EPREL (Reg. (EU) 2017/1369 Art. 12(3)); aligned with core oec:hasAnnualEnergyConsumption (Public). |
-| `hasAssessmentBody` | Assessment Body | **Public** |  | eli/reg/2024/1781 | Who assessed the repairability index is transparency information that makes the public score credible. |
 | `hasAvoidedEmissions` | Avoided Emissions | **AuthorizedOnly** |  | eli/reg/2024/1781 | Avoided-emissions estimates are recycler claims about one treatment operation; unlike a substantiated product carbon footprint they are not verified label data, so they are not published by default. |
 | `hasBatteryDisposition` | Battery Disposition | **AuthorizedOnly** |  | eli/dir/2012/19 | How the removed battery was handled is treatment-chain evidence for the selective-treatment duty (Dir. 2012/19/EU Annex VII). |
 | `hasBillOfMaterials` | Bill of Materials | **AuthorizedOnly** |  | eli/reg/2024/1781 | The component BOM is design and sourcing detail for repairers, recyclers and authorities with a legitimate interest, not consumer information. |
 | `hasComponentPassport` | Component Passport | **AuthorizedOnly** |  | eli/reg/2024/1781 | Links into nested component passports expose the component supply chain and are aimed at professional actors (CIRPASS-2 multi-component tracking). |
 | `hasComponents` | Components | **AuthorizedOnly** |  | eli/reg/2024/1781 | The component list is BOM content and shares the BOM's legitimate-interest tier. |
 | `hasComponentType` | Component Type | **Public** |  | eli/reg/2024/1781 | The component type (battery, display) names the part a public repair statement refers to, without exposing sourcing detail. |
-| `hasCriterionType` | Criterion Type | **Public** |  | eli/reg/2024/1781 | The criterion type identifies which published repairability criterion a score belongs to. |
 | `hasDisplaySpecification` | Display Specification | **Public** |  | eli/reg_del/2019/2013 | Display specifications are spec-sheet data, published in the public EPREL fiche for displays under Reg. (EU) 2019/2013. |
 | `hasEnergyEfficiency` | Energy Efficiency | **Public** |  | eli/reg/2017/1369 | The energy-label information container carries data that Reg. (EU) 2017/1369 puts on the public label and in the public part of EPREL. |
 | `hasEnergyEfficiencyClass` | Energy Efficiency Class | **Public** | 🔒 eli/reg/2017/1369 | eli/reg/2017/1369 | The A-G energy class is printed on the public energy label and published in the public part of EPREL (Reg. (EU) 2017/1369 Art. 12(3)). |
-| `hasEstimatedRecoverableMaterials` | Estimated Recoverable Materials | **AuthorizedOnly** |  | eli/dir/2012/19 | Pre-treatment recoverability estimates are recycler planning data; the public tier carries the design-level euelec:recyclabilityRate and euelec:recoverabilityRate. |
+| `hasEstimatedRecoverableMaterials` | Estimated Recoverable Materials | **AuthorizedOnly** |  | eli/dir/2012/19 | Pre-treatment recoverability estimates are recycler planning data; the public tier carries the design-level recyclability and recoverable rates (oec:hasRecyclabilityAssessment). |
 | `hasFeatureSupportYears` | Feature Support Years | **Public** |  | eli/reg/2023/1670 | The feature-update period is a consumer-facing support commitment of the same nature as security support. |
 | `hasHazardousMaterialsIdentified` | Hazardous Materials Identified | **AuthorizedOnly** |  | eli/dir/2012/19 | Selective-treatment findings (Dir. 2012/19/EU Annex VII) are addressed to treatment operators; the consumer-facing substance summary lives in the RoHS and substance-of-concern fields. |
 | `hasHazardousWasteRecord` | Hazardous Waste Record | **AuthorizedOnly** |  | eli/dir/2008/98 | Hazardous waste consignment records are regulatory documentation held between the operator and the competent authority (Dir. 2008/98/EC). |
@@ -52,10 +45,8 @@ Coverage: 102 properties — 51 Public / 32 AuthorizedOnly / 0 Restricted / 19 i
 | `hasPowerConsumptionStandby` | Power Consumption Standby | **Public** |  | eli/reg/2017/1369 | Standby power is product-information-sheet data of the energy-labelling framework, public where a delegated act applies; aligned with core oec:hasPowerConsumptionStandby (Public). |
 | `hasRecyclingFacility` | Recycling Facility | **AuthorizedOnly** |  | eli/dir/2012/19 | Which authorised operator treated one item is supply-chain detail for schemes and authorities; the facility's own master data is resolver-served under its GLN. |
 | `hasRefreshRate` | Refresh Rate | **Public** |  | eli/reg_del/2019/2013 | Refresh rate is ordinary public spec-sheet information. |
-| `hasRepairabilityClass` | Repairability Class | **Public** |  | eli/reg/2024/1781 | The A-E repairability class is the consumer-facing band of the repair assessment; aligned with core oec:repairabilityClass (Public). |
 | `hasRepairabilityIndex` | Repairability Index | **Public** |  | eli/reg/2024/1781 | The repairability index is a consumer-facing point-of-sale label (French Indice de Reparabilite; ESPR Annex I repairability). |
 | `hasRepairCost` | Repair Cost | **AuthorizedOnly** |  | eli/reg/2024/1781 | What one repair actually cost is transaction data; the publicly required figure is the spare-part price (euelec:hasSparePartPrice, Public). |
-| `hasRepairCriteria` | Repair Criteria | **Public** |  | eli/reg/2024/1781 | Per-criterion scores are published alongside the repairability index so consumers can see how the score was reached. |
 | `hasReplacedComponentPassport` | Replaced Component Passport | **AuthorizedOnly** |  | eli/reg/2024/1781 | Links into component passports expose the component supply chain, matching the tier of euelec:hasComponentPassport. |
 | `hasReplacementDifficulty` | Replacement Difficulty | **Public** |  | eli/reg/2024/1781 | Replacement difficulty is consumer repair information that informs the repair-or-replace decision. |
 | `hasRohsCompliance` | RoHS Compliance | **Public** |  | eli/dir/2011/65 | RoHS conformity information backs the CE marking, a public conformity claim (Dir. 2011/65/EU). |
@@ -78,9 +69,7 @@ Coverage: 102 properties — 51 Public / 32 AuthorizedOnly / 0 Restricted / 19 i
 | `nextDisposition` | Next Disposition | **AuthorizedOnly** |  | eli/dir/2012/19 | The intended onward route of a removed part is treatment-chain planning data (Dir. 2012/19/EU Art. 8). |
 | `osVersion` | OS Version | **Public** |  | eli/reg/2023/1670 | The current OS version is device-state transparency a user can read from the device itself. |
 | `previousVersion` | Previous Version | **(inherited)** |  |  |  |
-| `recoverabilityRate` | Recoverability Rate | **Public** |  | eli/dir/2012/19 | The recoverable fraction is a consumer-facing circularity claim tied to the WEEE recovery targets (Dir. 2012/19/EU Annex V). |
 | `recoveryRate` | Recovery Rate | **(inherited)** |  |  |  |
-| `recyclabilityRate` | Recyclability Rate | **Public** |  | eli/dir/2012/19 | The recyclable fraction is a consumer-facing circularity claim tied to the WEEE recovery targets (Dir. 2012/19/EU Annex V); aligned with core oec:recyclabilityRate (Public). |
 | `recyclingProcess` | Recycling Process | **AuthorizedOnly** |  | eli/dir/2012/19 | The applied treatment process is operator process data (Dir. 2012/19/EU Art. 8 and Annex VIII). |
 | `recyclingRate` | Recycling Rate | **(inherited)** |  |  |  |
 | `removalReason` | Removal Reason | **AuthorizedOnly** |  | eli/reg/2024/1781 | Why a part failed on one device is service-history and failure-analysis data; the public tier carries the aggregate durability and repairability figures. |
@@ -98,7 +87,6 @@ Coverage: 102 properties — 51 Public / 32 AuthorizedOnly / 0 Restricted / 19 i
 | `sortingDecision` | Sorting Decision | **AuthorizedOnly** |  | eli/dir/2012/19 | The routing decision taken at a sorting facility is operational treatment data (Dir. 2012/19/EU Art. 8). |
 | `totalInputMassGrams` | Total Input Mass (grams) | **(inherited)** |  |  |  |
 | `totalRecoveredMassGrams` | Total Recovered Mass (grams) | **(inherited)** |  |  |  |
-| `totalScore` | Total Score | **Public** |  | eli/reg/2024/1781 | The 0-100 total score is the published aggregate behind the consumer-facing repairability label. |
 | `treatmentCertificate` | Treatment Certificate | **(inherited)** |  |  |  |
 | `treatmentMethod` | Treatment Method | **(inherited)** |  |  |  |
 | `updateChannel` | Update Channel | **Public** |  | eli/reg/2023/1670 | How to obtain updates is consumer use information required for the update commitment to be actionable. |

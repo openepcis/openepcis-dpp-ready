@@ -2,7 +2,7 @@
 
 Regulatory frame: ESPR 2024/1781 Art. 7, Annex I (assessment evidence)
 
-Coverage: 40 properties — 39 Public / 0 AuthorizedOnly / 1 Restricted / 0 inherited / 0 UNCLASSIFIED; 0 legally locked.
+Coverage: 41 properties — 40 Public / 0 AuthorizedOnly / 1 Restricted / 0 inherited / 0 UNCLASSIFIED; 0 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
@@ -42,6 +42,7 @@ Coverage: 40 properties — 39 Public / 0 AuthorizedOnly / 1 Restricted / 0 inhe
 | `isDerivedFrom` | Derived From | **Public** |  | eli/reg/2024/1781 | Provenance of a public indicator. |
 | `isEvaluatedAgainst` | Evaluated Against | **Public** |  | eli/reg/2024/1781 | Criterion of a public result. |
 | `maxScore` | Maximum Score | **Public** |  | eli/reg/2024/1781 | Weight of a published criterion. |
+| `methodName` | Method Name | **Public** |  | eli/reg/2024/1781 | Name of a public method. |
 | `methodUrl` | Method URL | **Public** |  | eli/reg/2024/1781 | Reference to a public method. |
 | `resultText` | Result Text | **Public** |  | eli/reg/2024/1781 | Textual finding of a public assessment. |
 | `standardCode` | Standard Code | **Public** |  | eli/reg/2024/1781 | Designation of a public standard. |

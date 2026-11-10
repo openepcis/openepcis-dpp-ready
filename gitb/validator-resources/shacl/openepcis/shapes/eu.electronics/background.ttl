@@ -104,7 +104,7 @@
 <https://ref.openepcis.org/extensions/common/assessment/CriterionResult> a owl:Class;
     rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/AssessmentResult>;
     rdfs:label "Criterion Result"@en;
-    rdfs:comment "An assessment result that records whether one criterion is met, and the points a scoring method awards for it, without a measured value of its own."@en;
+    rdfs:comment "An assessment result that records whether one criterion is met (oea:hasOutcome), the points a scoring method awards for it (oea:awardedScore), or both, without a measured value of its own."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Per-criterion outcome of a scoring scheme (sorting factors of a recyclability score, repair criteria of a repairability index). No GS1, SEMICeu, or schema.org equivalent."@en.
@@ -252,6 +252,9 @@ _:b7 rdf:first <https://ref.openepcis.org/extensions/common/assessment/GreaterTh
     rdfs:seeAlso <https://w3id.org/eudpp#RecyclingCollectionRate>;
     rdfs:label "Recycling Collection Rate"@en;
     rdfs:comment "Fraction of products of this type actually collected for recycling under the applicable collection scheme. Replaces oec:recyclingCollectionRate."@en.
+<https://ref.openepcis.org/extensions/common/assessment/Biodegradation> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Biodegradation"@en;
+    rdfs:comment "Share of a substance or material biodegraded under the test method's conditions (ultimate aerobic biodegradation, unitCode P1). Replaces oec:biodegradationPercentage."@en.
 <https://ref.openepcis.org/extensions/common/assessment/RecyclabilityScore> a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:label "Recyclability Score"@en;
     rdfs:comment "Method-specific recyclability score (a JRC textile 0-10 score, a PPWR percentage). A score does not by itself prove that the product will be collected or recycled. Replaces oec:recyclabilityScore."@en;
@@ -387,6 +390,14 @@ _:b7 rdf:first <https://ref.openepcis.org/extensions/common/assessment/GreaterTh
     skos:note "Method-to-standard link. No GS1, SEMICeu, or schema.org equivalent."@en;
     skos:exactMatch <https://w3id.org/eudpp/textile-assessment#isDefinedByStandard>;
     rdfs:range <https://ref.openepcis.org/extensions/common/assessment/AssessmentStandard>;
+    rdfs:domain <https://ref.openepcis.org/extensions/common/assessment/AssessmentMethod>.
+<https://ref.openepcis.org/extensions/common/assessment/methodName> a owl:DatatypeProperty;
+    rdfs:label "Method Name"@en;
+    rdfs:comment "Name and version of the method, for a method stated inline rather than as a named individual (\"RecyClass v2.6\")."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/>;
+    dcterms:source <https://www.iso.org/standard/66912.html>;
+    skos:note "Method name. schema:measurementMethod accepts free text in the same role."@en;
+    rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/common/assessment/AssessmentMethod>.
 <https://ref.openepcis.org/extensions/common/assessment/methodUrl> a owl:DatatypeProperty;
     rdfs:label "Method URL"@en;
@@ -2657,9 +2668,9 @@ oec:bioBasedFraction a owl:DatatypeProperty;
     skos:closeMatch <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#renewableContentShare>;
     rdfs:range xsd:decimal.
 oec:Biodegradability a owl:Class;
-    rdfs:subClassOf schema:Observation;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/TestExecution>;
     rdfs:label "Biodegradability"@en;
-    rdfs:comment "An observed biodegradability result for a substance or material, typically per ISO 14593 / OECD 301B/D/F / OECD 310 test methods. Represents a measurement, not a regulatory category."@en;
+    rdfs:comment "A biodegradability test of a substance or material, an oea:TestExecution: oea:hasMethod names the oec:BiodegradabilityTestMethod (ISO 14593, OECD 301B/D/F, OECD 310), the test duration is an oea:hasParameterSetting (oea:Duration), the result an oea:MeasurementResult observing oea:Biodegradation (unitCode P1), and a pass threshold is oea:isEvaluatedAgainst with oea:hasOutcome. A measurement, not a regulatory category."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en.
@@ -2669,10 +2680,11 @@ oec:hasBiodegradability a owl:ObjectProperty;
     rdfs:comment "Links a product, material, or substance to its observed biodegradability result."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Entry property for the oec:Biodegradability observation: without it the class and its oec:biodegradationPercentage / oec:hasBiodegradabilityTestMethod members are unreachable from the product. GS1 has no biodegradability property (gs1:consumerRecyclingInstructions is free text about recycling), SEMICeu has none, and schema.org offers only the generic schema:hasMeasurement."@en;
+    skos:note "Entry property for the oec:Biodegradability observation: without it the test and its oea: results are unreachable from the product. GS1 has no biodegradability property (gs1:consumerRecyclingInstructions is free text about recycling), SEMICeu has none, and schema.org offers only the generic schema:hasMeasurement."@en;
     skos:broadMatch schema:hasMeasurement;
     rdfs:range oec:Biodegradability;
-    rdfs:domain gs1:Product.
+    rdfs:domain gs1:Product;
+    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasAssessment>.
 oec:hasCompostability a owl:ObjectProperty;
     rdfs:seeAlso schema:hasCertification, gs1:PackagingMarkedLabelAccreditationCode;
     rdfs:label "Compostability"@en;
@@ -2690,16 +2702,9 @@ oec:Compostability a owl:Class;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     skos:broadMatch schema:Certification.
-oec:biodegradationPercentage a owl:DatatypeProperty;
-    rdfs:label "Biodegradation Percentage"@en;
-    rdfs:comment "Percentage of substance biodegraded under the test method conditions. Use unitCode 'P1' (UN/CEFACT Rec 20) when expressed via gs1:QuantitativeValue."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain oec:Biodegradability.
 oec:BiodegradabilityTestMethod a owl:Class;
     rdfs:seeAlso <http://data.europa.eu/m8g/Criterion>;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/TestMethod>;
     rdfs:label "Biodegradability Test Method"@en;
     rdfs:comment "The standardised laboratory method used to assess biodegradability."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -2726,15 +2731,6 @@ _:b95 rdf:first oec:OECD310;
     rdf:rest rdf:nil.
 oec:OECD310 a oec:BiodegradabilityTestMethod;
     rdfs:label "OECD 310 (sealed vessel CO2 evolution)"@en.
-oec:hasBiodegradabilityTestMethod a owl:ObjectProperty;
-    rdfs:label "Biodegradability Test Method"@en;
-    rdfs:comment "The test method used to determine the biodegradability percentage."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    skos:broadMatch schema:measurementMethod;
-    rdfs:range oec:BiodegradabilityTestMethod;
-    rdfs:domain oec:Biodegradability.
 oec:CompostabilityType a owl:Class;
     rdfs:label "Compostability Type"@en;
     rdfs:comment "Classification of how a product can be composted."@en;
@@ -3555,20 +3551,12 @@ oec:stageValue a owl:DatatypeProperty;
     rdfs:seeAlso <https://eur-lex.europa.eu/eli/reg/2024/1781>, <https://ref.gs1.org/voc/>, gs1:CertificationDetails, <https://ref.gs1.org/standards/epcis/>, <https://ref.gs1.org/standards/>, <https://untp.unece.org/docs/specification/>, <https://www.ecologie.gouv.fr/indice-reparabilite>.
 <https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex> a owl:Class;
     rdfs:seeAlso oec:RepairabilityInfo;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/Assessment>;
     rdfs:label "Repairability Index"@en;
     rdfs:comment "French Repairability Index (Indice de Réparabilité) assessment using the official\n5-criteria, 100-point scoring methodology. The score is displayed to consumers as 0-10 scale ;\n    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;\n    skos:note \"Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent.\"@en .\n\nFive Criteria (20 points each):\n1. Documentation - Availability of repair documentation\n2. Disassembly - Ease of disassembly and tools required\n3. Spare Parts Availability - Duration and access to spare parts\n4. Spare Parts Pricing - Ratio of part prices to product price\n5. Product Specific - Category-specific criteria (e.g., software support for smartphones)\n\nTotal score (0-100) is converted to display score (0-10) for consumer labeling."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>;
     skos:note "Required extension: The French Repairability Index uses a specific 5-criteria methodology\nthat is not available in GS1 Web Vocabulary. Links to oec:RepairabilityInfo for base patterns."@en.
-<https://ref.openepcis.org/extensions/eu/electronics/RepairCriterion> a owl:Class;
-    rdfs:seeAlso <http://data.europa.eu/m8g/Criterion>, <http://data.europa.eu/m8g/Constraint>, schema:Rating, <https://vocabulary.uncefact.org/untp/Criterion>;
-    rdfs:subClassOf <http://data.europa.eu/m8g/Criterion>;
-    rdfs:label "Repair Criterion"@en;
-    rdfs:comment "An individual criterion score within the French Repairability Index."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>;
-    skos:note "A RepairCriterion is a specific kind of cccev:Criterion (EU SEMICeu CCCEV): the five Repairability-Index criteria (Documentation, Disassembly, SparePartsAvailability, SparePartsPricing, ProductSpecific) each scored against an InformationConcept within the broader Repairability Requirement. Modelled as rdfs:subClassOf rather than owl:equivalentClass because cccev:Criterion is broader and covers any conformity-evaluation criterion. CCCEV is the EU foundation that JTC 24 / CIRPASS-2 lean on for conformity / scoring."@en;
-    skos:broadMatch <http://data.europa.eu/m8g/Criterion>.
 <https://ref.openepcis.org/extensions/eu/electronics/SoftwareSupport> a owl:Class;
     rdfs:seeAlso <https://www.iso.org/standard/43447.html>, <https://dpp-keystone.org/spec/v3/terms#softwareUpdatePolicy>;
     rdfs:label "Software Support"@en;
@@ -3740,44 +3728,31 @@ _:b124 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/Wearable>;
 <https://ref.openepcis.org/extensions/eu/electronics/Wearable> a <https://ref.openepcis.org/extensions/eu/electronics/DeviceCategory>;
     rdfs:label "Wearable Device"@en;
     rdfs:comment "Wearable electronic device including smartwatches and fitness trackers."@en.
-<https://ref.openepcis.org/extensions/eu/electronics/RepairCriterionType> a owl:Class;
-    rdfs:seeAlso <http://data.europa.eu/m8g/Criterion>, oec:RepairabilityInfo, <https://vocabulary.uncefact.org/untp/Criterion>;
-    rdfs:label "Repair Criterion Type"@en;
-    rdfs:comment "Types of criteria in the French Repairability Index (5 criteria, 20 points each)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en;
-    owl:oneOf _:b125.
-_:b125 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/Documentation>;
-    rdf:rest _:b126.
-<https://ref.openepcis.org/extensions/eu/electronics/Documentation> a <https://ref.openepcis.org/extensions/eu/electronics/RepairCriterionType>;
+<https://ref.openepcis.org/extensions/eu/electronics/Documentation> a <https://ref.openepcis.org/extensions/common/assessment/Criterion>;
     rdfs:label "Documentation"@en;
-    rdfs:comment "Availability and quality of repair documentation (20 points max)."@en;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>.
-_:b126 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/Disassembly>;
-    rdf:rest _:b127.
-<https://ref.openepcis.org/extensions/eu/electronics/Disassembly> a <https://ref.openepcis.org/extensions/eu/electronics/RepairCriterionType>;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
+    <https://ref.openepcis.org/extensions/common/assessment/criterionDescription> "Availability and quality of repair documentation.";
+    <https://ref.openepcis.org/extensions/common/assessment/maxScore> "20"^^xsd:decimal.
+<https://ref.openepcis.org/extensions/eu/electronics/Disassembly> a <https://ref.openepcis.org/extensions/common/assessment/Criterion>;
     rdfs:label "Disassembly"@en;
-    rdfs:comment "Ease of disassembly, reassembly, and tools required (20 points max)."@en;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>.
-_:b127 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/SparePartsAvailability>;
-    rdf:rest _:b128.
-<https://ref.openepcis.org/extensions/eu/electronics/SparePartsAvailability> a <https://ref.openepcis.org/extensions/eu/electronics/RepairCriterionType>;
-    rdfs:label "Spare Parts Availability"@en;
-    rdfs:comment "Duration of spare parts availability and access channels (20 points max)."@en;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>.
-_:b128 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/SparePartsPricing>;
-    rdf:rest _:b129.
-<https://ref.openepcis.org/extensions/eu/electronics/SparePartsPricing> a <https://ref.openepcis.org/extensions/eu/electronics/RepairCriterionType>;
-    rdfs:label "Spare Parts Pricing"@en;
-    rdfs:comment "Ratio of spare part prices to product price (20 points max)."@en;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>.
-_:b129 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/ProductSpecific>;
-    rdf:rest rdf:nil.
-<https://ref.openepcis.org/extensions/eu/electronics/ProductSpecific> a <https://ref.openepcis.org/extensions/eu/electronics/RepairCriterionType>;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
+    <https://ref.openepcis.org/extensions/common/assessment/criterionDescription> "Ease of disassembly, reassembly and tools required.";
+    <https://ref.openepcis.org/extensions/common/assessment/maxScore> "20"^^xsd:decimal.
+<https://ref.openepcis.org/extensions/eu/electronics/SparePartsAvailability> a <https://ref.openepcis.org/extensions/common/assessment/Criterion>;
+    rdfs:label "SparePartsAvailability"@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
+    <https://ref.openepcis.org/extensions/common/assessment/criterionDescription> "Duration of spare parts availability and access channels.";
+    <https://ref.openepcis.org/extensions/common/assessment/maxScore> "20"^^xsd:decimal.
+<https://ref.openepcis.org/extensions/eu/electronics/SparePartsPricing> a <https://ref.openepcis.org/extensions/common/assessment/Criterion>;
+    rdfs:label "SparePartsPricing"@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
+    <https://ref.openepcis.org/extensions/common/assessment/criterionDescription> "Ratio of spare part prices to the product price.";
+    <https://ref.openepcis.org/extensions/common/assessment/maxScore> "20"^^xsd:decimal.
+<https://ref.openepcis.org/extensions/eu/electronics/ProductSpecific> a <https://ref.openepcis.org/extensions/common/assessment/Criterion>;
     rdfs:label "Product Specific Criteria"@en;
-    rdfs:comment "Category-specific criteria such as software support duration (20 points max)."@en;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>.
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
+    <https://ref.openepcis.org/extensions/common/assessment/criterionDescription> "Category-specific criteria such as software support duration.";
+    <https://ref.openepcis.org/extensions/common/assessment/maxScore> "20"^^xsd:decimal.
 <https://ref.openepcis.org/extensions/eu/electronics/EURepairabilityClass> a owl:Class;
     rdfs:seeAlso schema:Class;
     rdfs:label "EU Repairability Class"@en;
@@ -3785,28 +3760,28 @@ _:b129 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/ProductSpe
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en;
-    owl:oneOf _:b130.
-_:b130 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/RepairClassA>;
-    rdf:rest _:b131.
+    owl:oneOf _:b125.
+_:b125 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/RepairClassA>;
+    rdf:rest _:b126.
 <https://ref.openepcis.org/extensions/eu/electronics/RepairClassA> a <https://ref.openepcis.org/extensions/eu/electronics/EURepairabilityClass>;
     rdfs:label "Repairability Class A"@en;
     rdfs:comment "Highest repairability (score 8.1-10.0). Easily repairable by consumers and professionals."@en.
-_:b131 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/RepairClassB>;
-    rdf:rest _:b132.
+_:b126 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/RepairClassB>;
+    rdf:rest _:b127.
 <https://ref.openepcis.org/extensions/eu/electronics/RepairClassB> a <https://ref.openepcis.org/extensions/eu/electronics/EURepairabilityClass>;
     rdfs:label "Repairability Class B"@en;
     rdfs:comment "High repairability (score 6.1-8.0). Good repair support available."@en.
-_:b132 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/RepairClassC>;
-    rdf:rest _:b133.
+_:b127 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/RepairClassC>;
+    rdf:rest _:b128.
 <https://ref.openepcis.org/extensions/eu/electronics/RepairClassC> a <https://ref.openepcis.org/extensions/eu/electronics/EURepairabilityClass>;
     rdfs:label "Repairability Class C"@en;
     rdfs:comment "Moderate repairability (score 4.1-6.0). Some repair limitations."@en.
-_:b133 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/RepairClassD>;
-    rdf:rest _:b134.
+_:b128 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/RepairClassD>;
+    rdf:rest _:b129.
 <https://ref.openepcis.org/extensions/eu/electronics/RepairClassD> a <https://ref.openepcis.org/extensions/eu/electronics/EURepairabilityClass>;
     rdfs:label "Repairability Class D"@en;
     rdfs:comment "Limited repairability (score 2.1-4.0). Significant repair barriers."@en.
-_:b134 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/RepairClassE>;
+_:b129 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/RepairClassE>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.org/extensions/eu/electronics/RepairClassE> a <https://ref.openepcis.org/extensions/eu/electronics/EURepairabilityClass>;
     rdfs:label "Repairability Class E"@en;
@@ -3819,38 +3794,38 @@ _:b134 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/RepairClas
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021>;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en;
     skos:broadMatch schema:EUEnergyEfficiencyEnumeration, schema:EnergyEfficiencyEnumeration;
-    owl:oneOf _:b135.
-_:b135 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassA>;
-    rdf:rest _:b136.
+    owl:oneOf _:b130.
+_:b130 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassA>;
+    rdf:rest _:b131.
 <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassA> a <https://ref.openepcis.org/extensions/eu/electronics/EnergyEfficiencyClass>;
     rdfs:label "Energy Class A"@en;
     rdfs:comment "Most energy efficient (green label)."@en.
-_:b136 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassB>;
-    rdf:rest _:b137.
+_:b131 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassB>;
+    rdf:rest _:b132.
 <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassB> a <https://ref.openepcis.org/extensions/eu/electronics/EnergyEfficiencyClass>;
     rdfs:label "Energy Class B"@en;
     rdfs:comment "Very energy efficient."@en.
-_:b137 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassC>;
-    rdf:rest _:b138.
+_:b132 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassC>;
+    rdf:rest _:b133.
 <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassC> a <https://ref.openepcis.org/extensions/eu/electronics/EnergyEfficiencyClass>;
     rdfs:label "Energy Class C"@en;
     rdfs:comment "Energy efficient."@en.
-_:b138 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassD>;
-    rdf:rest _:b139.
+_:b133 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassD>;
+    rdf:rest _:b134.
 <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassD> a <https://ref.openepcis.org/extensions/eu/electronics/EnergyEfficiencyClass>;
     rdfs:label "Energy Class D"@en;
     rdfs:comment "Average energy efficiency."@en.
-_:b139 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassE>;
-    rdf:rest _:b140.
+_:b134 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassE>;
+    rdf:rest _:b135.
 <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassE> a <https://ref.openepcis.org/extensions/eu/electronics/EnergyEfficiencyClass>;
     rdfs:label "Energy Class E"@en;
     rdfs:comment "Below average energy efficiency."@en.
-_:b140 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassF>;
-    rdf:rest _:b141.
+_:b135 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassF>;
+    rdf:rest _:b136.
 <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassF> a <https://ref.openepcis.org/extensions/eu/electronics/EnergyEfficiencyClass>;
     rdfs:label "Energy Class F"@en;
     rdfs:comment "Low energy efficiency."@en.
-_:b141 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassG>;
+_:b136 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassG>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.org/extensions/eu/electronics/EnergyClassG> a <https://ref.openepcis.org/extensions/eu/electronics/EnergyEfficiencyClass>;
     rdfs:label "Energy Class G"@en;
@@ -3863,115 +3838,115 @@ _:b141 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnergyClas
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj>;
     skos:note "E-waste / separate-collection concept per the WEEE Directive 2012/19/EU. Aligns approximately with the DPP Keystone field dppk:weeeCategory. No GS1, SEMICeu, or schema.org equivalent."@en;
     skos:broadMatch schema:CategoryCode;
-    owl:oneOf _:b142;
+    owl:oneOf _:b137;
     skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#weeeCategory>.
-_:b142 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/WEEE1_TemperatureExchange>;
-    rdf:rest _:b143.
+_:b137 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/WEEE1_TemperatureExchange>;
+    rdf:rest _:b138.
 <https://ref.openepcis.org/extensions/eu/electronics/WEEE1_TemperatureExchange> a <https://ref.openepcis.org/extensions/eu/electronics/WEEECategory>;
     rdfs:label "WEEE Category 1: Temperature Exchange Equipment"@en;
     rdfs:comment "Refrigerators, freezers, air conditioners, heat pumps."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj>.
-_:b143 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/WEEE2_ScreensMonitors>;
-    rdf:rest _:b144.
+_:b138 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/WEEE2_ScreensMonitors>;
+    rdf:rest _:b139.
 <https://ref.openepcis.org/extensions/eu/electronics/WEEE2_ScreensMonitors> a <https://ref.openepcis.org/extensions/eu/electronics/WEEECategory>;
     rdfs:label "WEEE Category 2: Screens and Monitors"@en;
     rdfs:comment "Televisions, monitors, laptops, notebooks, tablets."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj>.
-_:b144 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/WEEE3_Lamps>;
-    rdf:rest _:b145.
+_:b139 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/WEEE3_Lamps>;
+    rdf:rest _:b140.
 <https://ref.openepcis.org/extensions/eu/electronics/WEEE3_Lamps> a <https://ref.openepcis.org/extensions/eu/electronics/WEEECategory>;
     rdfs:label "WEEE Category 3: Lamps"@en;
     rdfs:comment "Fluorescent lamps, LED lamps, high-intensity discharge lamps."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj>.
-_:b145 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/WEEE4_LargeEquipment>;
-    rdf:rest _:b146.
+_:b140 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/WEEE4_LargeEquipment>;
+    rdf:rest _:b141.
 <https://ref.openepcis.org/extensions/eu/electronics/WEEE4_LargeEquipment> a <https://ref.openepcis.org/extensions/eu/electronics/WEEECategory>;
     rdfs:label "WEEE Category 4: Large Equipment"@en;
     rdfs:comment "Washing machines, dishwashers, electric stoves, large printing machines, large medical devices."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj>.
-_:b146 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/WEEE5_SmallEquipment>;
-    rdf:rest _:b147.
+_:b141 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/WEEE5_SmallEquipment>;
+    rdf:rest _:b142.
 <https://ref.openepcis.org/extensions/eu/electronics/WEEE5_SmallEquipment> a <https://ref.openepcis.org/extensions/eu/electronics/WEEECategory>;
     rdfs:label "WEEE Category 5: Small Equipment"@en;
     rdfs:comment "Vacuum cleaners, microwaves, ventilation equipment, toasters, shavers, scales, calculators, radios, video cameras, small electrical and electronic tools."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj>.
-_:b147 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/WEEE6_SmallIT>;
+_:b142 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/WEEE6_SmallIT>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.org/extensions/eu/electronics/WEEE6_SmallIT> a <https://ref.openepcis.org/extensions/eu/electronics/WEEECategory>;
     rdfs:label "WEEE Category 6: Small IT and Telecommunication Equipment"@en;
     rdfs:comment "Mobile phones, GPS, pocket calculators, routers, personal computers, printers, telephones."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj>.
 _:b108 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/BatteryComponent>;
-    rdf:rest _:b148.
+    rdf:rest _:b143.
 <https://ref.openepcis.org/extensions/eu/electronics/BatteryComponent> a <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>;
     rdfs:label "Battery"@en;
     rdfs:comment "Rechargeable battery component. May link to Battery module DPP."@en.
-_:b148 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/DisplayComponent>;
-    rdf:rest _:b149.
+_:b143 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/DisplayComponent>;
+    rdf:rest _:b144.
 <https://ref.openepcis.org/extensions/eu/electronics/DisplayComponent> a <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>;
     rdfs:label "Display"@en;
     rdfs:comment "Display panel (LCD, OLED, etc.)."@en.
-_:b149 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/ProcessorComponent>;
-    rdf:rest _:b150.
+_:b144 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/ProcessorComponent>;
+    rdf:rest _:b145.
 <https://ref.openepcis.org/extensions/eu/electronics/ProcessorComponent> a <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>;
     rdfs:label "Processor"@en;
     rdfs:comment "Central processing unit (CPU) or system-on-chip (SoC)."@en.
-_:b150 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/MemoryComponent>;
-    rdf:rest _:b151.
+_:b145 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/MemoryComponent>;
+    rdf:rest _:b146.
 <https://ref.openepcis.org/extensions/eu/electronics/MemoryComponent> a <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>;
     rdfs:label "Memory"@en;
     rdfs:comment "Random access memory (RAM) module."@en.
-_:b151 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/StorageComponent>;
-    rdf:rest _:b152.
+_:b146 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/StorageComponent>;
+    rdf:rest _:b147.
 <https://ref.openepcis.org/extensions/eu/electronics/StorageComponent> a <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>;
     rdfs:label "Storage"@en;
     rdfs:comment "Data storage device (SSD, HDD, eMMC)."@en.
-_:b152 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/MotherboardComponent>;
-    rdf:rest _:b153.
+_:b147 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/MotherboardComponent>;
+    rdf:rest _:b148.
 <https://ref.openepcis.org/extensions/eu/electronics/MotherboardComponent> a <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>;
     rdfs:label "Motherboard"@en;
     rdfs:comment "Main circuit board."@en.
-_:b153 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/PowerSupplyComponent>;
-    rdf:rest _:b154.
+_:b148 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/PowerSupplyComponent>;
+    rdf:rest _:b149.
 <https://ref.openepcis.org/extensions/eu/electronics/PowerSupplyComponent> a <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>;
     rdfs:label "Power Supply"@en;
     rdfs:comment "Power supply unit or charging circuit."@en.
-_:b154 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/CoolingSystemComponent>;
-    rdf:rest _:b155.
+_:b149 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/CoolingSystemComponent>;
+    rdf:rest _:b150.
 <https://ref.openepcis.org/extensions/eu/electronics/CoolingSystemComponent> a <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>;
     rdfs:label "Cooling System"@en;
     rdfs:comment "Thermal management components (fans, heat sinks)."@en.
-_:b155 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/CameraComponent>;
-    rdf:rest _:b156.
+_:b150 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/CameraComponent>;
+    rdf:rest _:b151.
 <https://ref.openepcis.org/extensions/eu/electronics/CameraComponent> a <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>;
     rdfs:label "Camera"@en;
     rdfs:comment "Camera module."@en.
-_:b156 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/SpeakerComponent>;
-    rdf:rest _:b157.
+_:b151 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/SpeakerComponent>;
+    rdf:rest _:b152.
 <https://ref.openepcis.org/extensions/eu/electronics/SpeakerComponent> a <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>;
     rdfs:label "Speaker"@en;
     rdfs:comment "Audio speaker component."@en.
-_:b157 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/MicrophoneComponent>;
-    rdf:rest _:b158.
+_:b152 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/MicrophoneComponent>;
+    rdf:rest _:b153.
 <https://ref.openepcis.org/extensions/eu/electronics/MicrophoneComponent> a <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>;
     rdfs:label "Microphone"@en;
     rdfs:comment "Microphone component."@en.
-_:b158 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/KeyboardComponent>;
-    rdf:rest _:b159.
+_:b153 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/KeyboardComponent>;
+    rdf:rest _:b154.
 <https://ref.openepcis.org/extensions/eu/electronics/KeyboardComponent> a <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>;
     rdfs:label "Keyboard"@en;
     rdfs:comment "Keyboard or keypad component."@en.
-_:b159 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/TrackpadComponent>;
-    rdf:rest _:b160.
+_:b154 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/TrackpadComponent>;
+    rdf:rest _:b155.
 <https://ref.openepcis.org/extensions/eu/electronics/TrackpadComponent> a <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>;
     rdfs:label "Trackpad"@en;
     rdfs:comment "Trackpad or touchpad component."@en.
-_:b160 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/ConnectorComponent>;
-    rdf:rest _:b161.
+_:b155 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/ConnectorComponent>;
+    rdf:rest _:b156.
 <https://ref.openepcis.org/extensions/eu/electronics/ConnectorComponent> a <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>;
     rdfs:label "Connector"@en;
     rdfs:comment "Port, connector, or cable component."@en.
-_:b161 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnclosureComponent>;
+_:b156 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnclosureComponent>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.org/extensions/eu/electronics/EnclosureComponent> a <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>;
     rdfs:label "Enclosure"@en;
@@ -3983,23 +3958,23 @@ _:b161 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/EnclosureC
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en;
-    owl:oneOf _:b162.
-_:b162 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/UserReplaceable>;
-    rdf:rest _:b163.
+    owl:oneOf _:b157.
+_:b157 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/UserReplaceable>;
+    rdf:rest _:b158.
 <https://ref.openepcis.org/extensions/eu/electronics/UserReplaceable> a <https://ref.openepcis.org/extensions/eu/electronics/ReplacementDifficulty>;
     rdfs:label "User Replaceable"@en;
     rdfs:comment "Can be replaced by user without tools or with basic tools."@en.
-_:b163 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/ToolRequired>;
-    rdf:rest _:b164.
+_:b158 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/ToolRequired>;
+    rdf:rest _:b159.
 <https://ref.openepcis.org/extensions/eu/electronics/ToolRequired> a <https://ref.openepcis.org/extensions/eu/electronics/ReplacementDifficulty>;
     rdfs:label "Tool Required"@en;
     rdfs:comment "Requires specialized tools but can be done by skilled user."@en.
-_:b164 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/ProfessionalOnly>;
-    rdf:rest _:b165.
+_:b159 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/ProfessionalOnly>;
+    rdf:rest _:b160.
 <https://ref.openepcis.org/extensions/eu/electronics/ProfessionalOnly> a <https://ref.openepcis.org/extensions/eu/electronics/ReplacementDifficulty>;
     rdfs:label "Professional Only"@en;
     rdfs:comment "Requires professional repair service."@en.
-_:b165 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/NotReplaceable>;
+_:b160 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/NotReplaceable>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.org/extensions/eu/electronics/NotReplaceable> a <https://ref.openepcis.org/extensions/eu/electronics/ReplacementDifficulty>;
     rdfs:label "Not Replaceable"@en;
@@ -4014,6 +3989,15 @@ _:b165 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/NotReplace
     skos:broadMatch schema:identifier, <http://www.w3.org/ns/adms#identifier>;
     rdfs:range xsd:string;
     rdfs:domain gs1:Product.
+<https://ref.openepcis.org/extensions/eu/electronics/FrenchRepairabilityIndexMethod> a <https://ref.openepcis.org/extensions/common/assessment/AssessmentMethod>;
+    rdfs:label "French Repairability Index (Indice de Réparabilité)"@en;
+    rdfs:comment "Five criteria of 20 points each (documentation, disassembly, spare parts availability, spare parts pricing, product-specific); the 0-100 total divided by 10 is the consumer display score."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
+    <https://ref.openepcis.org/extensions/common/assessment/methodUrl> "https://www.ecologie.gouv.fr/indice-reparabilite"^^xsd:anyURI.
+<https://ref.openepcis.org/extensions/eu/electronics/RepairabilityTotalScore> a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
+    rdfs:label "Repairability Total Score"@en;
+    rdfs:comment "Sum of the five criterion scores of euelec:FrenchRepairabilityIndexMethod (0-100, unitCode C62)."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>.
 <https://ref.openepcis.org/extensions/eu/electronics/hasRepairabilityIndex> a owl:ObjectProperty;
     rdfs:label "Repairability Index"@en;
     rdfs:comment "French Repairability Index (Indice de Réparabilité) assessment."@en;
@@ -4021,93 +4005,8 @@ _:b165 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/NotReplace
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en;
     rdfs:range <https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex>;
-    rdfs:domain gs1:Product.
-<https://ref.openepcis.org/extensions/eu/electronics/totalScore> a owl:DatatypeProperty;
-    rdfs:label "Total Score"@en;
-    rdfs:comment "Total repairability score (0-100 scale, sum of 5 criteria)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex>.
-<https://ref.openepcis.org/extensions/eu/electronics/displayScore> a owl:DatatypeProperty;
-    rdfs:label "Display Score"@en;
-    rdfs:comment "Consumer-facing repairability score (0-10 scale, totalScore/10)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No exact GS1 or SEMICeu equivalent; loosely related to the generic schema:ratingValue."@en;
-    skos:closeMatch schema:ratingValue;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex>.
-<https://ref.openepcis.org/extensions/eu/electronics/hasRepairabilityClass> a owl:ObjectProperty;
-    rdfs:seeAlso <https://ref.openepcis.org/extensions/common/assessment/RepairabilityClass>;
-    rdfs:label "Repairability Class"@en;
-    rdfs:comment "EU Right to Repair classification (A-E grade)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range <https://ref.openepcis.org/extensions/eu/electronics/EURepairabilityClass>;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex>.
-<https://ref.openepcis.org/extensions/eu/electronics/hasRepairCriteria> a owl:ObjectProperty;
-    rdfs:label "Repair Criteria"@en;
-    rdfs:comment "List of individual criterion scores."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range <https://ref.openepcis.org/extensions/eu/electronics/RepairCriterion>;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex>.
-<https://ref.openepcis.org/extensions/eu/electronics/hasCriterionType> a owl:ObjectProperty;
-    rdfs:label "Criterion Type"@en;
-    rdfs:comment "Type of repair criterion being scored."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range <https://ref.openepcis.org/extensions/eu/electronics/RepairCriterionType>;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/electronics/RepairCriterion>.
-<https://ref.openepcis.org/extensions/eu/electronics/criterionScore> a owl:DatatypeProperty;
-    rdfs:seeAlso <http://data.europa.eu/m8g/SupportedValue>;
-    rdfs:label "Criterion Score"@en;
-    rdfs:comment "Score for this criterion (0-20 scale)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>;
-    skos:note "The score is the cccev:SupportedValue (EU SEMICeu CCCEV) for the InformationConcept that this criterion measures."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/electronics/RepairCriterion>.
-<https://ref.openepcis.org/extensions/eu/electronics/criterionMaxScore> a owl:DatatypeProperty;
-    rdfs:seeAlso schema:maxValue;
-    rdfs:label "Criterion Max Score"@en;
-    rdfs:comment "Maximum possible score for this criterion (typically 20)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:closeMatch schema:bestRating;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/electronics/RepairCriterion>.
-<https://ref.openepcis.org/extensions/eu/electronics/criterionDetails> a owl:DatatypeProperty;
-    rdfs:seeAlso schema:ratingExplanation;
-    rdfs:label "Criterion Details"@en;
-    rdfs:comment "Detailed explanation of the criterion score."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite>;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:string;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/electronics/RepairCriterion>.
-<https://ref.openepcis.org/extensions/eu/electronics/assessmentDate> a owl:DatatypeProperty;
-    rdfs:label "Assessment Date"@en;
-    rdfs:comment "Date when the repairability assessment was performed."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:date;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex>.
-<https://ref.openepcis.org/extensions/eu/electronics/hasAssessmentBody> a owl:ObjectProperty;
-    rdfs:label "Assessment Body"@en;
-    rdfs:comment "Organization that performed the repairability assessment."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range gs1:Organization;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex>.
+    rdfs:domain gs1:Product;
+    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasAssessment>.
 <https://ref.openepcis.org/extensions/eu/electronics/repairabilityLabelUrl> a owl:DatatypeProperty;
     rdfs:label "Repairability Label URL"@en;
     rdfs:comment "URL to the official repairability label image."@en;
@@ -4397,23 +4296,6 @@ _:b165 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/NotReplace
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj>;
     skos:note "E-waste / separate-collection concept per the WEEE Directive 2012/19/EU. No GS1, SEMICeu, or schema.org equivalent."@en;
     rdfs:range xsd:anyURI;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/electronics/WEEECompliance>.
-<https://ref.openepcis.org/extensions/eu/electronics/recyclabilityRate> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate>, oec:recyclableContent;
-    rdfs:label "Recyclability Rate"@en;
-    rdfs:comment "Fraction of device that can be recycled (0-1 scale)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/electronics/WEEECompliance>.
-<https://ref.openepcis.org/extensions/eu/electronics/recoverabilityRate> a owl:DatatypeProperty;
-    rdfs:label "Recoverability Rate"@en;
-    rdfs:comment "Fraction of device that can be recovered (recycling + energy recovery, 0-1 scale)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/electronics/WEEECompliance>.
 <https://ref.openepcis.org/extensions/eu/electronics/hasRohsCompliance> a owl:ObjectProperty;
     rdfs:label "RoHS Compliance"@en;

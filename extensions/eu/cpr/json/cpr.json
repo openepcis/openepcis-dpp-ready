@@ -8,7 +8,7 @@
       "id": "https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct",
       "localName": "ConstructionProduct",
       "label": "Construction Product",
-      "comment": "A construction product subject to EU Regulation 2024/3110 (revised\nCPR). Carrier for the regulation's DPP and Declaration-of-Performance data.\nUse eucpr:declarationOfPerformanceUrl, eucpr:hasEssentialCharacteristic, and\neucpr:hasReactionToFireClass for the substantive declarations; reuse oec: terms\nfor recycled content, carbon footprint, hazardous substances, etc.",
+      "comment": "A construction product subject to EU Regulation 2024/3110 (revised\nCPR). Carrier for the regulation's DPP and Declaration-of-Performance data.\nUse eucpr:declarationOfPerformanceUrl and eucpr:hasEssentialCharacteristic for the\nsubstantive declarations (the reaction-to-fire class is an oea:Indicator of kind\neucpr:ReactionToFire); reuse oec: terms\nfor recycled content, carbon footprint, hazardous substances, etc.",
       "seeAlso": [
         "https://dpp-keystone.org/spec/v3/terms#ConstructionProduct"
       ],
@@ -49,31 +49,17 @@
       "id": "https://ref.openepcis.org/extensions/eu/cpr/EssentialCharacteristic",
       "localName": "EssentialCharacteristic",
       "label": "Essential Characteristic",
-      "comment": "A single declared essential characteristic (e.g. compressive strength, thermal conductivity, water vapour permeability) per CPR Annex III. Pair name + value + unit + harmonised standard reference.",
+      "comment": "A declared essential characteristic per CPR Annex III, an oea:MeasurementResult: oea:hasObservedParameter names the characteristic (an eucpr: performance parameter such as eucpr:ThermalConductivity), oea:hasMeasuredValue carries the declared performance as gs1:QuantitativeValue, eucpr:harmonisedStandard the hEN it is declared under.",
       "seeAlso": [
         "https://dpp-keystone.org/spec/v3/terms#ProductCharacteristic"
+      ],
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/MeasurementResult"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
     }
   ],
   "properties": [
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/cpr/characteristicName",
-      "localName": "characteristicName",
-      "label": "Characteristic Name",
-      "comment": "",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/cpr/EssentialCharacteristic"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#characteristicName"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
-      "accessLevelInherited": true
-    },
     {
       "id": "https://ref.openepcis.org/extensions/eu/cpr/dateOfIssue",
       "localName": "dateOfIssue",
@@ -179,53 +165,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasCharacteristicValue",
-      "localName": "hasCharacteristicValue",
-      "label": "Characteristic Value",
-      "comment": "Quantitative value of the essential characteristic. gs1:QuantitativeValue with the unitCode appropriate for the characteristic (e.g. 'N31' for MPa, 'F94' for W/(m·K)).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/cpr/EssentialCharacteristic"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://ref.gs1.org/voc/value",
-        "https://schema.org/value",
-        "https://schema.org/maxValue",
-        "https://schema.org/minValue",
-        "http://data.europa.eu/m8g/providesValueFor"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncreaseValue"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
-      "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasCompressiveStrength",
-      "localName": "hasCompressiveStrength",
-      "label": "Compressive Strength",
-      "comment": "Declared compressive strength of the product. gs1:QuantitativeValue with unitCode 'N31' (MPa).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#compressiveStrength"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#compressiveStrength"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2024/3110",
-      "accessLevelRationale": "Declared compressive strength is an essential characteristic published in the DoP.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/cpr/hasConstructionProductType",
       "localName": "hasConstructionProductType",
       "label": "Construction Product Type",
@@ -326,29 +265,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasReactionToFireClass",
-      "localName": "hasReactionToFireClass",
-      "label": "Reaction-to-fire Class",
-      "comment": "EN 13501-1 reaction-to-fire classification of the construction product.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/cpr/ReactionToFireClass"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms/dopc#reactionToFire"
-      ],
-      "closeMatch": [
-        "https://dpp-keystone.org/spec/v3/terms/dopc#reactionToFire"
-      ],
-      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-13501-1.aspx",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2024/3110",
-      "accessLevelRationale": "The EN 13501-1 reaction-to-fire class is a safety-critical declared characteristic published in the DoP.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/cpr/hasTechnicalAssessmentBody",
       "localName": "hasTechnicalAssessmentBody",
       "label": "Technical Assessment Body",
@@ -368,29 +284,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "TAB involvement is assessment-process detail for authorities and professional users of the ETA route.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasThermalConductivity",
-      "localName": "hasThermalConductivity",
-      "label": "Thermal Conductivity",
-      "comment": "Declared thermal conductivity λ of the product. gs1:QuantitativeValue with unitCode 'F94' (W/(m·K)).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#thermalConductivity"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#thermalConductivity"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2024/3110",
-      "accessLevelRationale": "Declared thermal conductivity is an essential characteristic published in the DoP.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
@@ -529,6 +422,67 @@
           "localName": "WindowAndDoor",
           "label": "Window or Door",
           "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/IndicatorKind",
+      "localName": "IndicatorKind",
+      "label": "IndicatorKind",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/ReactionToFire",
+          "localName": "ReactionToFire",
+          "label": "Reaction to Fire",
+          "comment": "EN 13501-1 reaction-to-fire classification; the coded value is an eucpr:ReactionToFireClass individual.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms/dopc#reactionToFire"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter",
+      "localName": "PerformanceParameter",
+      "label": "PerformanceParameter",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/CompressiveStrength",
+          "localName": "CompressiveStrength",
+          "label": "Compressive Strength",
+          "comment": "Declared compressive strength (unitCode N20 MPa for cement classes, N31 for N/mm²).",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#compressiveStrength"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/Density",
+          "localName": "Density",
+          "label": "Density",
+          "comment": "Declared bulk density (unitCode KMQ, kg/m³)."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/InitialSettingTime",
+          "localName": "InitialSettingTime",
+          "label": "Initial Setting Time",
+          "comment": "Initial setting time of a cement (unitCode MIN)."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/ThermalConductivity",
+          "localName": "ThermalConductivity",
+          "label": "Thermal Conductivity",
+          "comment": "Declared thermal conductivity λD (unitCode F94, W/(m·K)).",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#thermalConductivity"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/WaterVapourDiffusionResistance",
+          "localName": "WaterVapourDiffusionResistance",
+          "label": "Water Vapour Diffusion Resistance",
+          "comment": "Water vapour diffusion resistance factor μ (unitCode C62)."
         }
       ]
     },

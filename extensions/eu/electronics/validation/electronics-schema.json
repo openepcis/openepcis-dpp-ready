@@ -82,59 +82,82 @@
     "RepairabilityIndex": {
       "type": "object",
       "title": "Repairability Index",
-      "description": "French Repairability Index (Indice de Réparabilité) assessment per the official 5-criteria, 100-point methodology, extended with the EU Repairability Class (A–E) introduced by Right-to-Repair Directive 2024/1799.",
+      "description": "French repairability index (hasMethod euelec:FrenchRepairabilityIndexMethod): one oea:CriterionResult per criterion (euelec:Documentation, Disassembly, SparePartsAvailability, SparePartsPricing, ProductSpecific) with awardedScore 0-20; total, display score and A-E class are indicators. See common/assessment (oea:).",
       "properties": {
         "@type": {
           "const": "RepairabilityIndex"
-        },
-        "totalScore": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 100,
-          "description": "Overall repairability score on the 0–100 scale (0 = least repairable, 100 = most repairable). Required per ESPR repairability-disclosure obligation."
-        },
-        "displayScore": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 10,
-          "description": "Score as displayed to consumers on the indicator label (0.0 to 10.0, one decimal). Required."
-        },
-        "hasRepairabilityClass": {
-          "$ref": "#/$defs/EURepairabilityClass",
-          "description": "EU Repairability Class (A best, E worst) per Right-to-Repair Directive 2024/1799. Required."
-        },
-        "hasRepairCriteria": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/RepairCriterion"
-          },
-          "minItems": 1,
-          "description": "Five-criterion breakdown of the repairability assessment. Required."
-        },
-        "assessmentDate": {
-          "type": "string",
-          "format": "date",
-          "description": "Date the repairability assessment was carried out. Required."
-        },
-        "hasAssessmentBody": {
-          "type": "string",
-          "description": "Identifier of the organisation that performed the assessment (recommend GLN). Required."
         },
         "repairabilityLabelUrl": {
           "type": "string",
           "format": "uri",
           "description": "Resolvable URL to the consumer-facing repairability label artefact. Required."
+        },
+        "hasMethod": {
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "oea:hasMethod: the assessment method, the IRI of a published oea:AssessmentMethod individual or an inline method."
+        },
+        "hasCondition": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasCondition: oea:AssessmentCondition object(s)."
+        },
+        "hasParameterSetting": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasParameterSetting: oea:ParameterSetting object(s) (protocol parameter + gs1:QuantitativeValue)."
+        },
+        "hasSubAssessment": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasSubAssessment: the tests of a composite assessment (oea:TestExecution objects)."
+        },
+        "hasResult": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasResult: oea:MeasurementResult / oea:CriterionResult object(s)."
+        },
+        "hasIndicator": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasIndicator: oea:Indicator object(s) for scores, classes and expected lifetimes."
+        },
+        "hasOutcome": {
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "oea:hasOutcome: Satisfied, NotSatisfied or NotAssessed."
+        },
+        "assessmentDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "hasAssessmentBody": {
+          "type": [
+            "string",
+            "object"
+          ]
+        },
+        "hasEvidence": {
+          "type": [
+            "object",
+            "array"
+          ]
         }
-      },
-      "required": [
-        "totalScore",
-        "displayScore",
-        "hasRepairabilityClass",
-        "hasRepairCriteria",
-        "assessmentDate",
-        "hasAssessmentBody",
-        "repairabilityLabelUrl"
-      ]
+      }
     },
     "EURepairabilityClass": {
       "type": "string",
@@ -146,51 +169,6 @@
         "RepairClassC",
         "RepairClassD",
         "RepairClassE"
-      ]
-    },
-    "RepairCriterion": {
-      "type": "object",
-      "title": "Repair Criterion",
-      "description": "An individual criterion score within the French Repairability Index 5-criterion methodology.",
-      "properties": {
-        "@type": {
-          "const": "RepairCriterion"
-        },
-        "hasCriterionType": {
-          "$ref": "#/$defs/RepairCriterionType",
-          "description": "Which of the five criteria this entry scores. Required."
-        },
-        "criterionScore": {
-          "type": "number",
-          "minimum": 0,
-          "description": "Score achieved on this criterion (≥ 0). Required."
-        },
-        "criterionMaxScore": {
-          "type": "number",
-          "minimum": 0,
-          "description": "Maximum possible score for this criterion under the methodology. Required."
-        },
-        "criterionDetails": {
-          "type": "string",
-          "description": "Free-text justification or sub-criterion breakdown for the score."
-        }
-      },
-      "required": [
-        "hasCriterionType",
-        "criterionScore",
-        "criterionMaxScore"
-      ]
-    },
-    "RepairCriterionType": {
-      "type": "string",
-      "title": "Repair Criterion Type",
-      "description": "The five French Repairability Index criteria.",
-      "enum": [
-        "Documentation",
-        "Disassembly",
-        "SparePartsAvailability",
-        "SparePartsPricing",
-        "ProductSpecific"
       ]
     },
     "SoftwareSupport": {
@@ -498,9 +476,6 @@
     },
     {
       "$ref": "#/$defs/RepairabilityIndex"
-    },
-    {
-      "$ref": "#/$defs/RepairCriterion"
     },
     {
       "$ref": "#/$defs/SoftwareSupport"

@@ -8,6 +8,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521234000037",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/ppwr/",
     "https://schema.org/"
@@ -51,7 +52,14 @@
       "hazardImpact": "absent"
     },
     "hasPackagingTier": "Sales",
-    "hasRecyclabilityGrade": "GradeC",
+    "hasRecyclabilityAssessment": {
+      "type": "RecyclabilityAssessment",
+      "hasIndicator": {
+        "type": "Indicator",
+        "hasCategoricalValue": "https://ref.openepcis.org/extensions/eu/ppwr/GradeC",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/ppwr/RecyclabilityPerformanceGrade"
+      }
+    },
     "packagingMaterial": [
       {
         "documentTitle": "Outer layer: PET",

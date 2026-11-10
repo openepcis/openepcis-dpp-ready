@@ -22,8 +22,14 @@
   "eucpr:hasConstructionProductType": {
     "@id": "eucpr:Cement"
   },
-  "eucpr:hasReactionToFireClass": {
-    "@id": "eucpr:FireClassA1"
+  "oea:hasIndicator": {
+    "type": "oea:Indicator",
+    "oea:hasIndicatorKind": {
+      "@id": "eucpr:ReactionToFire"
+    },
+    "oea:hasCategoricalValue": {
+      "@id": "eucpr:FireClassA1"
+    }
   },
   "eucpr:declarationOfPerformanceUrl": "https://manufacturer.example/dop/CEM-I-52-5-N-2026-001.pdf",
   "gs1:manufacturer": {
@@ -35,8 +41,10 @@
   "eucpr:hasEssentialCharacteristic": [
     {
       "type": "eucpr:EssentialCharacteristic",
-      "eucpr:characteristicName": "Compressive Strength (28 days)",
-      "eucpr:hasCharacteristicValue": {
+      "oea:hasObservedParameter": {
+        "@id": "eucpr:CompressiveStrength"
+      },
+      "oea:hasMeasuredValue": {
         "type": "gs1:QuantitativeValue",
         "gs1:value": "52.5",
         "gs1:unitCode": "N20"
@@ -45,8 +53,10 @@
     },
     {
       "type": "eucpr:EssentialCharacteristic",
-      "eucpr:characteristicName": "Initial Setting Time",
-      "eucpr:hasCharacteristicValue": {
+      "oea:hasObservedParameter": {
+        "@id": "eucpr:InitialSettingTime"
+      },
+      "oea:hasMeasuredValue": {
         "type": "gs1:QuantitativeValue",
         "gs1:value": 75,
         "gs1:unitCode": "MIN"
