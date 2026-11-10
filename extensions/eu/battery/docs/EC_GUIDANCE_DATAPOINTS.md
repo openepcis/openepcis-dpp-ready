@@ -36,14 +36,14 @@ OpenEPCIS battery vocabulary (`eubat:` plus `gs1:` / `schema:` / `oec:`).
 Against version 1.0 (2026-07-28):
 
 - **Renumbering from #40.** The C-rate of the relevant cycle-life test (1.0 #39) is split into a
-  charge C-rate (#39, carried by `eubat:cRateLifeCycleTest`) and a new, optional discharge
-  C-rate (#40, `eubat:dischargeCRateLifeCycleTest`). 1.0 #40–45 become #41–46; 1.0 #46 (part
+  charge C-rate (#39, carried by `eubat:ChargeCRate`) and a new, optional discharge
+  C-rate (#40, `eubat:DischargeCRate`). 1.0 #40–45 become #41–46; 1.0 #46 (part
   numbers for components) and #47 (contact details of sources for replacement spares) merge into
   #47. From #48 the numbers are unchanged.
 - **Recycled content (#20–23)** is no longer mandatory as of February 2027: "to be applied as
   envisaged by Article 8".
 - **Internal resistance (#38)** names two values, cell and pack
-  (`eubat:hasInitialCellInternalResistance`, `eubat:hasInitialPackInternalResistance`).
+  (`eubat:InitialCellInternalResistance`, `eubat:InitialPackInternalResistance`).
 - **Rated capacity (#51)** reads "same as data point 11" for all three categories.
 - New columns "As defined in" and "Type of information" (`ecbp:definedIn`,
   `ecbp:typeOfInformation`); every condition is quoted from the new table.
@@ -72,7 +72,7 @@ Applicability: **M** mandatory · **O** optional · **C** conditional (see note)
 | 15 | Critical raw materials present in the battery in a concentration of more than 0,1 % wei… | BR Annex VI A (10) | M | M | M | static | `eubat:isCriticalRawMaterial`, `eubat:criticalRawMaterialsStatement` |
 | 16 | The material composition of the battery, including its chemistry, hazardous substances … | BR Annex XIII 1 (b) | - | - | - | static | `eubat:hasMaterialComposition` |
 | 17 | The carbon footprint declaration | BR Annex XIII 1 (c) | P | P | P | static | `eubat:hasCarbonFootprintDeclaration`, `eubat:CarbonFootprintDeclaration` |
-| 18 | The carbon footprint label | BR Annex XIII 1 (c) | P | P | P | static | `eubat:hasCarbonFootprintPerformanceClass` |
+| 18 | The carbon footprint label | BR Annex XIII 1 (c) | P | P | P | static | `eubat:CarbonFootprintPerformanceClass` |
 | 19 | Information on responsible sourcing as indicated in the report on battery due diligence… | BR Annex XIII 1 (d) | P | P | P | static | `eubat:hasSupplyChainDueDiligence`, `eubat:dueDiligenceReportUrl` |
 | 20 | Percentage share of cobalt that is present in active materials and that has been recove… | BR Annex XIII 1 (e) | P | P | P | static | `eubat:cobaltRecycledShare` |
 | 21 | Percentage share of lithium that is present in active materials and that has been recov… | BR Annex XIII 1 (e) | P | P | P | static | `eubat:lithiumRecycledShare` |
@@ -83,18 +83,18 @@ Applicability: **M** mandatory · **O** optional · **C** conditional (see note)
 | 26 | Minimal voltage, with temperature range when relevant [unit V, optional unit °C] | BR Annex XIII 1 (h) | M | M | M | static | `eubat:hasMinimumVoltage` |
 | 27 | Nominal voltage, with temperature range when relevant [unit V, optional unit °C] | BR Annex XIII 1 (h) | M | M | M | static | `eubat:hasNominalVoltage` |
 | 28 | Maximum voltage, with temperature range when relevant [unit V, optional unit °C] | BR Annex XIII 1 (h) | M | M | M | static | `eubat:hasMaximumVoltage` |
-| 29 | Original power capability [unit W] | BR Annex XIII 1 (i) | M | M | M | static | `eubat:hasOriginalPowerCapability` |
+| 29 | Original power capability [unit W] | BR Annex XIII 1 (i) | M | M | M | static | `eubat:PowerCapability` |
 | 30 | Power limits, with temperature range when relevant [unit W, optionally min_T °C … max_T… | BR Annex XIII 1 (i) | M | M | M | static | `eubat:hasMaximumPermittedBatteryPower`, `eubat:hasMaximumChargingPower`, `eubat:hasMaximumDischargingPower` |
-| 31 | Expected battery lifetime expressed in cycles [in number] | BR Annex XIII 1 (j) | M | M | C | static | `eubat:expectedCycleLife` |
-| 32 | Reference test used for expected battery lifetime expressed in cycles [free text] | BR Annex XIII 1 (j) | M | M | C | static | `eubat:lifetimeReferenceTest` |
-| 33 | Capacity threshold for exhaustion [%] | BR Annex XIII 1 (k) | M | - | - | static | `eubat:capacityThresholdForExhaustion` |
+| 31 | Expected battery lifetime expressed in cycles [in number] | BR Annex XIII 1 (j) | M | M | C | static | `eubat:CycleLife` |
+| 32 | Reference test used for expected battery lifetime expressed in cycles [free text] | BR Annex XIII 1 (j) | M | M | C | static | `eubat:hasPerformanceTest` |
+| 33 | Capacity threshold for exhaustion [%] | BR Annex XIII 1 (k) | M | - | - | static | `eubat:CapacityExhaustionThreshold` |
 | 34 | Temperature range the battery can withstand when not in use (reference test) [min_T °C … | BR Annex XIII 1 (l) | M | M | M | static | `eubat:hasTemperatureRangeIdleState` |
 | 35 | Period for which the commercial warranty for the calendar life applies [months] | BR Annex XIII 1 (m) | C | C | C | static | `eubat:warrantyConditions`, `gs1:warranty` |
-| 36 | Initial round trip energy efficiency [%] | BR Annex XIII 1 (n) | M | M | C | static | `eubat:roundTripEfficiency` |
-| 37 | Round trip energy efficiency at 50 % of cycle-life [%] | BR Annex XIII 1 (n) | M | M | C | static | `eubat:roundTripEfficiencyAt50PercentCycleLife` |
-| 38 | Internal battery cell resistance [unit Ω] and internal battery pack resistance [unit Ω] | BR Annex XIII 1 (o) | M | M | M | static | `eubat:hasInitialCellInternalResistance`, `eubat:hasInitialPackInternalResistance` |
-| 39 | Charge C-rate of relevant cycle-life test [number] | BR Annex XIII 1 (p) | M | M | C | static | `eubat:cRateLifeCycleTest` |
-| 40 | Discharge C-rate of relevant cycle-life test [number] | BR Annex XIII 1 (p) | O | O | O | static | `eubat:dischargeCRateLifeCycleTest` |
+| 36 | Initial round trip energy efficiency [%] | BR Annex XIII 1 (n) | M | M | C | static | `eubat:InitialRoundTripEfficiency` |
+| 37 | Round trip energy efficiency at 50 % of cycle-life [%] | BR Annex XIII 1 (n) | M | M | C | static | `eubat:RoundTripEfficiencyAt50PercentCycleLife` |
+| 38 | Internal battery cell resistance [unit Ω] and internal battery pack resistance [unit Ω] | BR Annex XIII 1 (o) | M | M | M | static | `eubat:InitialCellInternalResistance`, `eubat:InitialPackInternalResistance` |
+| 39 | Charge C-rate of relevant cycle-life test [number] | BR Annex XIII 1 (p) | M | M | C | static | `eubat:ChargeCRate` |
+| 40 | Discharge C-rate of relevant cycle-life test [number] | BR Annex XIII 1 (p) | O | O | O | static | `eubat:DischargeCRate` |
 | 41 | The marking requirements laid down in Article 13(4) [Yes/No] | BR Annex XIII 1 (q) | M | M | M | static | `eubat:hasLabels`, `eubat:separateCollectionSymbolUrl` |
 | 42 | The marking requirements laid down in Article 13(5) [code list] | BR Annex XIII 1 (q) | C | C | C | static | `eubat:cadmiumSymbolRequired`, `eubat:leadSymbolRequired` |
 | 43 | The EU declaration of conformity referred to in Article 18 [a web link] | BR Annex XIII 1 (r) | M | M | M | static | `eubat:hasEuDeclarationOfConformity` |
@@ -106,26 +106,26 @@ Applicability: **M** mandatory · **O** optional · **C** conditional (see note)
 | 49 | Safety measures [a web link] | BR Annex XIII 2 (d) | M | M | M | static | `eubat:hasSafetyMeasures`, `eubat:safetyInstructions` |
 | 50 | Results of test reports proving compliance with the requirements laid down in this Regu… | BR Annex XIII 3 | M | M | M | static | `eubat:resultOfTestReport`, `eubat:testReportNumber` |
 | 51 | Rated capacity [unit Ah] | BR Annex XIII 4 (a) | M | M | M | dynamic | `eubat:hasRatedCapacity` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
-| 52 | Capacity fade [%] | BR Annex XIII 4 (a) | M | M | C | dynamic | `eubat:hasCapacityFade` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
-| 53 | Power [unit W] | BR Annex XIII 4 (a) | M | M | C | dynamic | `eubat:hasPowerCapability` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
-| 54 | Power fade [%] | BR Annex XIII 4 (a) | M | M | C | dynamic | `eubat:hasPowerFade` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
-| 55 | Internal resistance [unit Ω] | BR Annex XIII 4 (a) | M | M | C | dynamic | `eubat:hasInternalResistance` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
-| 56 | Internal resistance increase [%] | BR Annex XIII 4 (a) | M | M | C | dynamic | `eubat:hasInternalResistanceIncrease` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
-| 57 | Where applicable, energy round trip efficiency [%] | BR Annex XIII 4 (a) | C | C | C | dynamic | `eubat:roundTripEfficiency` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
-| 58 | Where applicable, energy round trip efficiency fade [%] | BR Annex XIII 4 (a) | C | C | C | dynamic | `eubat:hasRoundTripEfficiencyFade` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
-| 59 | The expected lifetime of the battery under the reference conditions for which it has be… | BR Annex XIII 4 (a) | M | M | C | dynamic | `eubat:expectedRemainingCycles` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
-| 60 | The expected lifetime of the battery under the reference conditions for which it has be… | BR Annex XIII 4 (a) | M | M | C | dynamic | `eubat:hasExpectedLifetime`, `eubat:expectedRemainingLifetimeMonths` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
-| 61 | Information on the state of health of the battery pursuant to Article 14: state of cert… | BR Annex XIII 4 (b) | M | - | - | dynamic | `eubat:hasStateOfCertifiedEnergy` → [`epcis/state-of-certified-energy.jsonld`](../epcis/state-of-certified-energy.jsonld) |
-| 62 | Information on the state of health of the battery pursuant to Article 14: remaining cap… | BR Annex XIII 4 (b) | - | M | C | dynamic | `eubat:hasRemainingCapacity` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
-| 63 | Information on the state of health of the battery pursuant to Article 14: where possibl… | BR Annex XIII 4 (b) | - | M | C | dynamic | `eubat:hasRemainingPowerCapability` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
-| 64 | Information on the state of health of the battery pursuant to Article 14: where possibl… | BR Annex XIII 4 (b) | - | M | C | dynamic | `eubat:hasRemainingRoundTripEfficiency` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
-| 65 | Information on the state of health of the battery pursuant to Article 14: where possibl… | BR Annex XIII 4 (b) | - | M | C | dynamic | `eubat:hasEvolutionOfSelfDischarge`, `eubat:hasCurrentSelfDischargingRate` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
-| 66 | Information on the state of health of the battery pursuant to Article 14: where possibl… | BR Annex XIII 4 (b) | - | M | C | dynamic | `eubat:hasInternalResistance` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
+| 52 | Capacity fade [%] | BR Annex XIII 4 (a) | M | M | C | dynamic | `eubat:CapacityFade` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
+| 53 | Power [unit W] | BR Annex XIII 4 (a) | M | M | C | dynamic | `eubat:PowerCapability` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
+| 54 | Power fade [%] | BR Annex XIII 4 (a) | M | M | C | dynamic | `eubat:PowerFade` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
+| 55 | Internal resistance [unit Ω] | BR Annex XIII 4 (a) | M | M | C | dynamic | `eubat:InternalResistance` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
+| 56 | Internal resistance increase [%] | BR Annex XIII 4 (a) | M | M | C | dynamic | `eubat:InternalResistanceIncrease` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
+| 57 | Where applicable, energy round trip efficiency [%] | BR Annex XIII 4 (a) | C | C | C | dynamic | `eubat:InitialRoundTripEfficiency` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
+| 58 | Where applicable, energy round trip efficiency fade [%] | BR Annex XIII 4 (a) | C | C | C | dynamic | `eubat:RoundTripEfficiencyFade` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
+| 59 | The expected lifetime of the battery under the reference conditions for which it has be… | BR Annex XIII 4 (a) | M | M | C | dynamic | `eubat:RemainingCycles` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
+| 60 | The expected lifetime of the battery under the reference conditions for which it has be… | BR Annex XIII 4 (a) | M | M | C | dynamic | `eubat:hasExpectedLifetime`, `eubat:RemainingLifetime` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
+| 61 | Information on the state of health of the battery pursuant to Article 14: state of cert… | BR Annex XIII 4 (b) | M | - | - | dynamic | `eubat:StateOfCertifiedEnergy` → [`epcis/state-of-certified-energy.jsonld`](../epcis/state-of-certified-energy.jsonld) |
+| 62 | Information on the state of health of the battery pursuant to Article 14: remaining cap… | BR Annex XIII 4 (b) | - | M | C | dynamic | `eubat:RemainingCapacity` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
+| 63 | Information on the state of health of the battery pursuant to Article 14: where possibl… | BR Annex XIII 4 (b) | - | M | C | dynamic | `eubat:PowerCapability` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
+| 64 | Information on the state of health of the battery pursuant to Article 14: where possibl… | BR Annex XIII 4 (b) | - | M | C | dynamic | `eubat:RemainingRoundTripEfficiency` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
+| 65 | Information on the state of health of the battery pursuant to Article 14: where possibl… | BR Annex XIII 4 (b) | - | M | C | dynamic | `eubat:SelfDischargeEvolution`, `eubat:SelfDischargeRate` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
+| 66 | Information on the state of health of the battery pursuant to Article 14: where possibl… | BR Annex XIII 4 (b) | - | M | C | dynamic | `eubat:InternalResistance` → [`epcis/state-of-health.jsonld`](../epcis/state-of-health.jsonld) |
 | 67 | Information on the status of the battery, defined as ‘original’, ‘repurposed’, ‘re-used… | BR Annex XIII 4 (c) | M | M | M | dynamic | `schema:status`, `eubat:BatteryStatus` → [`epcis/commissioning.jsonld`](../epcis/commissioning.jsonld) |
-| 68 | The number of charging and discharging cycles [number] | BR Annex XIII 4 (d) | C | C | C | dynamic | `eubat:hasCycleCount` → [`epcis/amperia-staxwall-lifecycle.jsonld`](../epcis/amperia-staxwall-lifecycle.jsonld) |
+| 68 | The number of charging and discharging cycles [number] | BR Annex XIII 4 (d) | C | C | C | dynamic | `eubat:FullCycleCount` → [`epcis/amperia-staxwall-lifecycle.jsonld`](../epcis/amperia-staxwall-lifecycle.jsonld) |
 | 69 | Negative events, such as accidents [multiple free texts] | BR Annex XIII 4 (d) | C | C | C | dynamic | `eubat:hasNegativeEvents`, `eubat:NegativeEvent` → [`epcis/negative-event.jsonld`](../epcis/negative-event.jsonld) |
-| 70 | Periodically recorded information on the operating environmental conditions, including … | BR Annex XIII 4 (d) | C | C | C | dynamic | `eubat:timeSpentInExtremeTemperaturesAboveBoundary`, `eubat:timeSpentInExtremeTemperaturesBelowBoundary` → [`epcis/temperature-extreme.jsonld`](../epcis/temperature-extreme.jsonld) |
-| 71 | Periodically recorded information on the state of charge [histogram, %] | BR Annex XIII 4 (d) | C | C | C | dynamic | `eubat:hasStateOfCharge` → [`epcis/amperia-staxwall-lifecycle.jsonld`](../epcis/amperia-staxwall-lifecycle.jsonld) |
+| 70 | Periodically recorded information on the operating environmental conditions, including … | BR Annex XIII 4 (d) | C | C | C | dynamic | `eubat:TimeAboveTemperatureBoundary`, `eubat:TimeBelowTemperatureBoundary` → [`epcis/temperature-extreme.jsonld`](../epcis/temperature-extreme.jsonld) |
+| 71 | Periodically recorded information on the state of charge [histogram, %] | BR Annex XIII 4 (d) | C | C | C | dynamic | `eubat:StateOfCharge` → [`epcis/amperia-staxwall-lifecycle.jsonld`](../epcis/amperia-staxwall-lifecycle.jsonld) |
 
 ## Coverage result
 

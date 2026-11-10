@@ -1,0 +1,14 @@
+# Material test certificate: the certificate is a dppk:MaterialTestCertificate under dppk:mtc,
+# each result observing a mapped parameter its flat xsd:double. The product is a Keystone product.
+CONSTRUCT {
+  ?prod a dppk:Product ; dppk:mtc ?a .
+  ?a a dppk:MaterialTestCertificate ; ?flat ?d .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?prod eusteel:hasMtc ?a }
+  OPTIONAL {
+    GRAPH <urn:xw:in> { ?a oea:hasResult ?r . ?r oea:hasObservedParameter ?p ; oea:hasMeasuredValue ?q . ?q gs1:value ?v }
+    ?p xw:resultProperty ?flat .
+    BIND(xsd:double(?v) AS ?d)
+  }
+}

@@ -124,14 +124,14 @@ export function reconstruct(opts: ReconstructOpts): ReconstructResult {
     folded[key] = val;
   };
 
-  const capacityFade = latest("eubat:hasCapacityFade");
-  const soc = latest("eubat:hasStateOfCharge");
-  const remainingCapacity = latest("eubat:hasRemainingCapacity");
-  const cycles = maxVal("eubat:hasCycleCount");
-  const energyThroughput = latest("eubat:hasEnergyThroughput");
-  const remainingRte = latest("eubat:hasRemainingRoundTripEfficiency");
-  const soce = latest("eubat:hasStateOfCertifiedEnergy");
-  const internalR = latest("eubat:hasInternalResistance");
+  const capacityFade = latest("eubat:CapacityFade");
+  const soc = latest("eubat:StateOfCharge");
+  const remainingCapacity = latest("eubat:RemainingCapacity");
+  const cycles = maxVal("eubat:FullCycleCount");
+  const energyThroughput = latest("eubat:EnergyThroughput");
+  const remainingRte = latest("eubat:RemainingRoundTripEfficiency");
+  const soce = latest("eubat:StateOfCertifiedEnergy");
+  const internalR = latest("eubat:InternalResistance");
 
   set(perf, "CapacityFade", percent(capacityFade));
   set(perf, "StateOfChargeSoC", percent(soc));

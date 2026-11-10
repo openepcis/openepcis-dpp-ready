@@ -1,0 +1,18 @@
+# Battery status and the carbon footprint performance class back to our concepts (the class as the
+# handle of the carbon footprint declaration's indicator). The category is the header's (10-header).
+CONSTRUCT {
+  ?r schema:status ?code .
+  ?r eubat:hasCarbonFootprintDeclaration ?cf . ?cf a eubat:CarbonFootprintDeclaration ; <urn:xw:v:hasCarbonFootprintPerformanceClass> ?cc .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?r a bprx:BatteryPassport }
+  FILTER(isIRI(?r))
+  {
+    GRAPH <urn:xw:flat> { ?r bpr:batteryStatus ?sn } GRAPH <urn:xw:in> { ?sn bprx:batteryStatusValues ?v }
+    ?srow xw:bprField bpr:batteryStatus ; xw:code ?code ; xw:label ?l . FILTER(STR(?l) = STR(?v))
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:carbonFootprintPerformanceClass ?v }
+    ?frow xw:bprField bpr:carbonFootprintPerformanceClass ; xw:code ?cc ; xw:label ?l2 . FILTER(STR(?l2) = STR(?v))
+    BIND(IRI(CONCAT(STR(?r), "#cfp")) AS ?cf)
+  }
+}

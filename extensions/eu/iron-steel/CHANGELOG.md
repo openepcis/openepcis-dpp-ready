@@ -4,6 +4,16 @@ All notable changes to the DPP Iron & Steel module will be documented in this fi
 
 ## [Unreleased]
 
+### Breaking: material test certificate values are results
+
+`eusteel:MaterialTestCertificate` is an `oea:Assessment`. The twelve EN 10168 test values
+(`eusteel:mtcYieldStrength` … `mtcRadiometricControl`) are removed; each is an
+`oea:MeasurementResult` observing a new `eusteel:` performance parameter (`eusteel:YieldStrength`,
+`TensileStrength` in MPA, `Elongation` and the chemistry in P1, …) with its UN/CEFACT unit. Document
+type, steel process, finishing, nominal size and weight tolerance stay as certificate properties.
+`eusteel:YieldStrengthRatio` is defined as Rm/Re (the EN 10080 k value), which is what the examples
+carried; the removed property said Re/Rm.
+
 ## [0.12.0] - 2026-11-10
 
 ### Fixed: the rolling TransformationEvent is valid EPCIS 2.0

@@ -80,17 +80,30 @@ Replace simple boolean `isRecycledFiber` with structured `RecycledContentDeclara
 
 ### Environmental Footprint
 
-Report per PEFCR Apparel & Footwear methodology:
+Report per PEFCR Apparel & Footwear methodology. The footprint is an `oea:Assessment`: the PEFCR is
+its method, each impact category an `eutex:LCIACategory` result with a UN/CEFACT unit, and the
+headline figures are indicators.
 
 ```json
 {
-  "environmentalFootprint": {
+  "eutex:hasEnvironmentalFootprint": {
     "type": "eutex:EnvironmentalFootprint",
-    "carbonFootprintManufacturing": 18.5,
-    "pefSingleScore": 42.3,
-    "benchmarkPerformance": -15.2,
-    "dataTypeIndicator": "MixedData",
-    "pefcrReference": "PEFCR Apparel & Footwear v1.3"
+    "eutex:hasDataTypeIndicator": { "@id": "eutex:MixedData" },
+    "oea:hasMethod": { "type": "oea:AssessmentMethod", "oea:methodName": "PEFCR Apparel & Footwear v1.3" },
+    "eutex:hasLciaCategories": [{
+      "type": "eutex:LCIACategory",
+      "oea:hasObservedParameter": { "@id": "eutex:GWP" },
+      "oea:hasMeasuredValue": { "type": "gs1:QuantitativeValue", "gs1:value": 18.5, "gs1:unitCode": "KGM" },
+      "oec:declaredUnit": "kg CO2-eq"
+    }],
+    "oea:hasIndicator": [
+      { "type": "oea:Indicator", "oea:hasIndicatorKind": { "@id": "eutex:ManufacturingCarbonFootprint" },
+        "oea:hasIndicatorValue": { "type": "gs1:QuantitativeValue", "gs1:value": 18.5, "gs1:unitCode": "KGM" } },
+      { "type": "oea:Indicator", "oea:hasIndicatorKind": { "@id": "eutex:PEFSingleScore" },
+        "oea:hasIndicatorValue": { "type": "gs1:QuantitativeValue", "gs1:value": 42.3, "gs1:unitCode": "C62" } },
+      { "type": "oea:Indicator", "oea:hasIndicatorKind": { "@id": "eutex:BenchmarkPerformance" },
+        "oea:hasIndicatorValue": { "type": "gs1:QuantitativeValue", "gs1:value": -15.2, "gs1:unitCode": "P1" } }
+    ]
   }
 }
 ```

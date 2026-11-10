@@ -1,0 +1,200 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix schema: <https://schema.org/> .
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix eubat: <https://ref.openepcis.org/extensions/eu/battery/> .
+@prefix bpr: <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#> .
+@prefix bprx: <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1/json#> .
+
+# Pairing tables of the OpenEPCIS ↔ BatteryPass-Ready 2.0.1 crosswalk. The rules in lift/ and
+# lower/ read them; nothing here is ontology. A 2.0.1 document is one record per battery item: a
+# header (bpr:dppHeader) and seven data groups under bpr:batteryPassportData (structure.ttl, generated
+# from the schemas). The rules address every data element flat on the passport root; the lift's
+# reshape nests them, the lower's entail flattens them (graph <urn:xw:flat>). Measured values are
+# value containers ({percentageValue, percentUnit}, {kilowattHourValue, kilowattHourUnit}, ...) whose
+# keys are bprx: (vocab/batterypass-ready-2.0.1-json.ttl). OpenEPCIS keeps the same values on the
+# product or on a container node of it; xw:via names that container. Values OpenEPCIS states as
+# results of the battery state or the performance test travel as the virtual flat handles of
+# shared/battery-handles.ttl, as in the eu-dpp profile.
+
+# ---------------------------------------------------------------- battery categories
+# Our category (schema:category) against the 2.0.1 category value and the category's schema (the
+# schema file name in structure.ttl). BatteryPass-Ready splits industrial batteries by stationary
+# use and by a battery management system; OpenEPCIS has no statement on the latter, so an industrial
+# battery without BMS lowers to eubat:IndustrialBattery and lifts back as other industrial.
+[] xw:ourCategory eubat:EVBattery ; xw:theirCategory "electric vehicle battery" ; xw:schema "EV" .
+[] xw:ourCategory eubat:LMTBattery ; xw:theirCategory "LMT battery" ; xw:schema "LMT" .
+[] xw:ourCategory eubat:StationaryBattery ; xw:theirCategory "industrial/stationary battery" ; xw:schema "Stationary_Industrial_Above_2kWh" .
+[] xw:ourCategory eubat:IndustrialBattery ; xw:theirCategory "industrial/non-stationary battery" ; xw:schema "Other_Industrial_Above_2kWh" .
+[] xw:ourCategory eubat:IndustrialBattery ; xw:theirCategory "industrial battery without BMS" ; xw:schema "Industrial_Without_BMS" ; xw:lowerOnly true .
+
+# ---------------------------------------------------------------- codes
+# Battery status and the carbon footprint performance class: our concept against the 2.0.1 value.
+[] xw:bprField bpr:batteryStatus ; xw:code eubat:Original ; xw:label "original" .
+[] xw:bprField bpr:batteryStatus ; xw:code eubat:Reused ; xw:label "re-used" .
+[] xw:bprField bpr:batteryStatus ; xw:code eubat:Remanufactured ; xw:label "remanufactured" .
+[] xw:bprField bpr:batteryStatus ; xw:code eubat:Repurposed ; xw:label "repurposed" .
+[] xw:bprField bpr:batteryStatus ; xw:code eubat:Waste ; xw:label "waste" .
+[] xw:bprField bpr:carbonFootprintPerformanceClass ; xw:code eubat:CFClassA ; xw:label "A" .
+[] xw:bprField bpr:carbonFootprintPerformanceClass ; xw:code eubat:CFClassB ; xw:label "B" .
+[] xw:bprField bpr:carbonFootprintPerformanceClass ; xw:code eubat:CFClassC ; xw:label "C" .
+[] xw:bprField bpr:carbonFootprintPerformanceClass ; xw:code eubat:CFClassD ; xw:label "D" .
+[] xw:bprField bpr:carbonFootprintPerformanceClass ; xw:code eubat:CFClassE ; xw:label "E" .
+
+# The 2.0.1 chemistry list against the short name OpenEPCIS gives the electrochemical system
+# (schema:alternateName of eubat:hasBatteryChemistry); lowering writes the first name.
+[] xw:chemistry "Li-ion LCO" ; xw:chemistryName "LCO" .
+[] xw:chemistry "Li-ion LFP" ; xw:chemistryName "LFP" .
+[] xw:chemistry "Li-ion LMO" ; xw:chemistryName "LMO" .
+[] xw:chemistry "Li-ion NCA" ; xw:chemistryName "NCA" .
+[] xw:chemistry "Li-ion NMC" ; xw:chemistryName "NMC" .
+[] xw:chemistry "Li-metal" ; xw:chemistryName "Li-metal" .
+[] xw:chemistry "Na-ion" ; xw:chemistryName "Na-ion", "SIB" .
+[] xw:chemistry "Ni-Cd" ; xw:chemistryName "NiCd" .
+[] xw:chemistry "Ni-MH" ; xw:chemistryName "NiMH" .
+[] xw:chemistry "Pb" ; xw:chemistryName "Pb", "lead-acid" .
+
+# ---------------------------------------------------------------- units
+# UN/CEFACT Rec 20 codes against the units of the 2.0.1 value containers. xw:factor converts our
+# value into theirs (kW → W). Lowering uses the row marked xw:lowerDefault for a unit. A measured
+# value lifts only into a container whose unit list has the converted unit. The carbon footprint
+# per functional unit is in kg CO2e per kWh by definition of our property (eubat:hasCarbonFootprintTotal
+# and the stage contributions), with the unit code of its numerator, kg.
+[] xw:unitCode "P1" ; xw:theirUnit "%" ; xw:lowerDefault true .
+[] xw:unitCode "P1" ; xw:theirUnit "%/month" ; xw:lowerDefault true .
+[] xw:unitCode "AMH" ; xw:theirUnit "Ah" ; xw:lowerDefault true .
+[] xw:unitCode "E09" ; xw:theirUnit "mAh" ; xw:lowerDefault true .
+[] xw:unitCode "KWH" ; xw:theirUnit "kWh" ; xw:lowerDefault true .
+[] xw:unitCode "VLT" ; xw:theirUnit "V" ; xw:lowerDefault true .
+[] xw:unitCode "WTT" ; xw:theirUnit "W" ; xw:lowerDefault true .
+[] xw:unitCode "KWT" ; xw:theirUnit "W" ; xw:factor 1000 .
+[] xw:unitCode "OHM" ; xw:theirUnit "Ohm" ; xw:lowerDefault true .
+[] xw:unitCode "CEL" ; xw:theirUnit "°C" ; xw:lowerDefault true .
+[] xw:unitCode "KGM" ; xw:theirUnit "kg" ; xw:lowerDefault true .
+[] xw:unitCode "GRM" ; xw:theirUnit "g" ; xw:lowerDefault true .
+[] xw:unitCode "C62" ; xw:theirUnit "A/Ah" ; xw:lowerDefault true .
+[] xw:unitCode "KGM" ; xw:theirUnit "kgCO2-eq/kWh" ; xw:lowerDefault true .
+[] xw:unitCode "KGM" ; xw:theirUnit "kgCO2-eq" ; xw:lowerDefault true .
+
+# ---------------------------------------------------------------- containers
+# Lowering puts a value back into the container its row names, as a node with the product's IRI
+# and the fragment our examples use.
+eubat:hasTechnicalSpecifications xw:fragment "specs" ; xw:containerClass eubat:TechnicalSpecification .
+eubat:hasEndOfLifeInfo xw:fragment "eol" ; xw:containerClass eubat:EndOfLifeInfo .
+eubat:hasRecycledContent xw:fragment "recycled" ; xw:containerClass eubat:RecycledContent .
+eubat:hasCarbonFootprintDeclaration xw:fragment "cfp" ; xw:containerClass eubat:CarbonFootprintDeclaration .
+eubat:hasSupplyChainDueDiligence xw:fragment "due-diligence" ; xw:containerClass eubat:SupplyChainDueDiligence .
+
+# ---------------------------------------------------------------- measured and declared values
+# xw:Quantity: our value is a gs1:QuantitativeValue. xw:Scalar: a bare number in xw:ourUnit. Both
+# become a value container: xw:valueSlot and xw:unitSlot are its keys, xw:unit the units it admits.
+# An integer value slot gets the rounded value; a value that rounds to zero without being zero is
+# not representable (internal resistance in whole ohms) and is not converted.
+# xw:lowerSkip: a second OpenEPCIS term for the same element, read on the way up only.
+[] xw:bprField bpr:batteryMass ; xw:ours eubat:hasBatteryMass ; xw:form xw:Quantity ;
+   xw:valueSlot bprx:gramKilogramValue ; xw:unitSlot bprx:gramKilogramUnit ; xw:unit "kg", "g" .
+[] xw:bprField bpr:batteryMass ; xw:ours gs1:netWeight ; xw:form xw:Quantity ; xw:lowerSkip true ;
+   xw:valueSlot bprx:gramKilogramValue ; xw:unitSlot bprx:gramKilogramUnit ; xw:unit "kg", "g" .
+[] xw:bprField bpr:ratedCapacity ; xw:ours eubat:hasRatedCapacity ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications ;
+   xw:valueSlot bprx:amperehourMiliamperehourValue ; xw:unitSlot bprx:ampereHourMiliamperehourUnit ; xw:unit "Ah", "mAh" .
+[] xw:bprField bpr:remainingCapacity ; xw:ours <urn:xw:v:hasRemainingCapacity> ; xw:form xw:Quantity ;
+   xw:valueSlot bprx:amperehourMiliamperehourValue ; xw:unitSlot bprx:ampereHourMiliamperehourUnit ; xw:unit "Ah", "mAh" .
+[] xw:bprField bpr:capacityFade ; xw:ours <urn:xw:v:hasCapacityFade> ; xw:form xw:Quantity ;
+   xw:valueSlot bprx:percentageValue ; xw:unitSlot bprx:percentUnit ; xw:unit "%" .
+[] xw:bprField bpr:certifiedUsableBatteryEnergy ; xw:ours eubat:hasCertifiedUsableEnergy ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications ;
+   xw:valueSlot bprx:kilowattHourValue ; xw:unitSlot bprx:kilowattHourUnit ; xw:unit "kWh" .
+[] xw:bprField bpr:remainingUsableBatteryEnergy ; xw:ours <urn:xw:v:hasRemainingUsableEnergy> ; xw:form xw:Quantity ;
+   xw:valueSlot bprx:kilowattHourValue ; xw:unitSlot bprx:kilowattHourUnit ; xw:unit "kWh" .
+[] xw:bprField bpr:stateOfCertifiedEnergySOCE ; xw:ours <urn:xw:v:hasStateOfCertifiedEnergy> ; xw:form xw:Quantity ;
+   xw:valueSlot bprx:percentageValue ; xw:unitSlot bprx:percentUnit ; xw:unit "%" .
+[] xw:bprField bpr:stateOfChargeSoC ; xw:ours <urn:xw:v:hasStateOfCharge> ; xw:form xw:Quantity ;
+   xw:valueSlot bprx:percentageValue ; xw:unitSlot bprx:percentUnit ; xw:unit "%" .
+[] xw:bprField bpr:minimumVoltage ; xw:ours eubat:hasMinimumVoltage ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications ;
+   xw:valueSlot bprx:voltValue ; xw:unitSlot bprx:voltUnit ; xw:unit "V" .
+[] xw:bprField bpr:maximumVoltage ; xw:ours eubat:hasMaximumVoltage ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications ;
+   xw:valueSlot bprx:voltValue ; xw:unitSlot bprx:voltUnit ; xw:unit "V" .
+[] xw:bprField bpr:nominalVoltage ; xw:ours eubat:hasNominalVoltage ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications ;
+   xw:valueSlot bprx:voltValue ; xw:unitSlot bprx:voltUnit ; xw:unit "V" .
+[] xw:bprField bpr:powerFade ; xw:ours <urn:xw:v:hasPowerFade> ; xw:form xw:Quantity ;
+   xw:valueSlot bprx:percentageValue ; xw:unitSlot bprx:percentUnit ; xw:unit "%" .
+[] xw:bprField bpr:maximumPermittedBatteryPower ; xw:ours eubat:hasMaximumPermittedBatteryPower ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications ;
+   xw:valueSlot bprx:wattValue ; xw:unitSlot bprx:wattUnit ; xw:unit "W" .
+[] xw:bprField bpr:initialRoundTripEnergyEfficiency ; xw:ours <urn:xw:v:roundTripEfficiency> ; xw:form xw:Scalar ; xw:ourUnit "P1" ; xw:via eubat:hasTechnicalSpecifications ;
+   xw:valueSlot bprx:percentageValue ; xw:unitSlot bprx:percentUnit ; xw:unit "%" .
+[] xw:bprField bpr:roundTripEnergyEfficiencyAt50PerCentOfCycleLife ; xw:ours <urn:xw:v:roundTripEfficiencyAt50PercentCycleLife> ; xw:form xw:Scalar ; xw:ourUnit "P1" ; xw:via eubat:hasTechnicalSpecifications ;
+   xw:valueSlot bprx:percentageValue ; xw:unitSlot bprx:percentUnit ; xw:unit "%" .
+[] xw:bprField bpr:energyRoundTripEfficiencyFade ; xw:ours <urn:xw:v:hasRoundTripEfficiencyFade> ; xw:form xw:Quantity ;
+   xw:valueSlot bprx:percentageValue ; xw:unitSlot bprx:percentUnit ; xw:unit "%" .
+[] xw:bprField bpr:remainingRoundTripEnergyEfficiency ; xw:ours <urn:xw:v:hasRemainingRoundTripEfficiency> ; xw:form xw:Quantity ;
+   xw:valueSlot bprx:percentageValue ; xw:unitSlot bprx:percentUnit ; xw:unit "%" .
+[] xw:bprField bpr:cRateOfRelevantCycleLifeTest ; xw:ours <urn:xw:v:cRateLifeCycleTest> ; xw:form xw:Scalar ; xw:ourUnit "C62" ; xw:via eubat:hasTechnicalSpecifications ;
+   xw:valueSlot bprx:amperePerAmpereHourValue ; xw:unitSlot bprx:amperePerAmpereHourUnit ; xw:unit "A/Ah" .
+[] xw:bprField bpr:capacityThresholdForExhaustion ; xw:ours <urn:xw:v:capacityThresholdForExhaustion> ; xw:form xw:Scalar ; xw:ourUnit "P1" ; xw:via eubat:hasTechnicalSpecifications ;
+   xw:valueSlot bprx:percentageValue ; xw:unitSlot bprx:percentUnit ; xw:unit "%" .
+[] xw:bprField bpr:initialSelfDischargeRate ; xw:ours <urn:xw:v:initialSelfDischarge> ; xw:form xw:Scalar ; xw:ourUnit "P1" ; xw:via eubat:hasTechnicalSpecifications ;
+   xw:valueSlot bprx:percentPerMonthValue ; xw:unitSlot bprx:percentPerMonthUnit ; xw:unit "%/month" .
+[] xw:bprField bpr:currentSelfDischargeRate ; xw:ours <urn:xw:v:hasCurrentSelfDischargingRate> ; xw:form xw:Quantity ;
+   xw:valueSlot bprx:percentPerMonthValue ; xw:unitSlot bprx:percentPerMonthUnit ; xw:unit "%/month" .
+[] xw:bprField bpr:evolutionOfSelfDischargeRates ; xw:ours <urn:xw:v:hasEvolutionOfSelfDischarge> ; xw:form xw:Quantity ;
+   xw:valueSlot bprx:percentageValue ; xw:unitSlot bprx:percentUnit ; xw:unit "%" .
+[] xw:bprField bpr:presentInternalResistanceOfPack ; xw:ours <urn:xw:v:hasInternalResistance> ; xw:form xw:Quantity ;
+   xw:valueSlot bpr:ohmValueForBatteryPack ; xw:unitSlot bprx:ohmUnit ; xw:unit "Ohm" .
+[] xw:bprField bpr:nickelRecycledContentShare ; xw:ours eubat:nickelRecycledShare ; xw:form xw:Scalar ; xw:ourUnit "P1" ; xw:via eubat:hasRecycledContent ;
+   xw:valueSlot bprx:percentageValue ; xw:unitSlot bprx:percentUnit ; xw:unit "%" .
+[] xw:bprField bpr:cobaltRecycledContentShare ; xw:ours eubat:cobaltRecycledShare ; xw:form xw:Scalar ; xw:ourUnit "P1" ; xw:via eubat:hasRecycledContent ;
+   xw:valueSlot bprx:percentageValue ; xw:unitSlot bprx:percentUnit ; xw:unit "%" .
+[] xw:bprField bpr:lithiumRecycledContentShare ; xw:ours eubat:lithiumRecycledShare ; xw:form xw:Scalar ; xw:ourUnit "P1" ; xw:via eubat:hasRecycledContent ;
+   xw:valueSlot bprx:percentageValue ; xw:unitSlot bprx:percentUnit ; xw:unit "%" .
+[] xw:bprField bpr:leadRecycledContentShare ; xw:ours eubat:leadRecycledShare ; xw:form xw:Scalar ; xw:ourUnit "P1" ; xw:via eubat:hasRecycledContent ;
+   xw:valueSlot bprx:percentageValue ; xw:unitSlot bprx:percentUnit ; xw:unit "%" .
+[] xw:bprField bpr:renewableContentShare ; xw:ours eubat:renewableContent ; xw:form xw:Scalar ; xw:ourUnit "P1" ; xw:via eubat:hasEndOfLifeInfo ;
+   xw:valueSlot bprx:percentageValue ; xw:unitSlot bprx:percentUnit ; xw:unit "%" .
+[] xw:bprField bpr:batteryCarbonFootprintPerFunctionalUnit ; xw:ours eubat:hasCarbonFootprintTotal ; xw:form xw:Quantity ; xw:via eubat:hasCarbonFootprintDeclaration ;
+   xw:valueSlot bprx:kgCO2EquivalentPerKilowattHourValue ; xw:unitSlot bprx:kgCO2EquivalentPerKilowattHourUnit ; xw:unit "kgCO2-eq/kWh" .
+[] xw:bprField bpr:contributionOfRawMaterialAcquisitionAndPreProcessingLifecycleStage ; xw:ours eubat:hasCarbonFootprintRawMaterialExtraction ; xw:form xw:Quantity ; xw:via eubat:hasCarbonFootprintDeclaration ;
+   xw:valueSlot bprx:kgCO2EquivalentPerKilowattHourValue ; xw:unitSlot bprx:kgCO2EquivalentPerKilowattHourUnit ; xw:unit "kgCO2-eq/kWh" .
+[] xw:bprField bpr:contributionOfMainProductProductionLifecycleStage ; xw:ours eubat:hasCarbonFootprintProduction ; xw:form xw:Quantity ; xw:via eubat:hasCarbonFootprintDeclaration ;
+   xw:valueSlot bprx:kgCO2EquivalentPerKilowattHourValue ; xw:unitSlot bprx:kgCO2EquivalentPerKilowattHourUnit ; xw:unit "kgCO2-eq/kWh" .
+[] xw:bprField bpr:contributionOfDistributionLifecycleStage ; xw:ours eubat:hasCarbonFootprintDistribution ; xw:form xw:Quantity ; xw:via eubat:hasCarbonFootprintDeclaration ;
+   xw:valueSlot bprx:kgCO2EquivalentPerKilowattHourValue ; xw:unitSlot bprx:kgCO2EquivalentPerKilowattHourUnit ; xw:unit "kgCO2-eq/kWh" .
+[] xw:bprField bpr:contributionOfEndOfLifeAndRecyclingLifecycleStage ; xw:ours eubat:hasCarbonFootprintRecycling ; xw:form xw:Quantity ; xw:via eubat:hasCarbonFootprintDeclaration ;
+   xw:valueSlot bprx:kgCO2EquivalentPerKilowattHourValue ; xw:unitSlot bprx:kgCO2EquivalentPerKilowattHourUnit ; xw:unit "kgCO2-eq/kWh" .
+[] xw:bprField bpr:absoluteBatteryCarbonFootprint ; xw:ours eubat:hasAbsoluteCarbonFootprint ; xw:form xw:Quantity ; xw:via eubat:hasCarbonFootprintDeclaration ;
+   xw:valueSlot bprx:kgCO2EquivalentValue ; xw:unitSlot bprx:kgCO2EquivalentUnit ; xw:unit "kgCO2-eq" .
+
+# ---------------------------------------------------------------- plain values
+# Numbers and texts 2.0.1 states without a container. xw:theirDatatype is theirs, xw:ourDatatype
+# ours (lowering); a count or duration may be a gs1:QuantitativeValue on our side: xw:ourUnit is
+# then the unit code lowering writes. xw:Text: a text (a language-tagged one lifts as its text;
+# lowering writes a plain string, 2.0.1 states no language).
+[] xw:bprField bpr:expectedLifetimeInCalendarYears ; xw:ours eubat:hasExpectedLifetime ; xw:form xw:Plain ; xw:theirDatatype xsd:double ; xw:ourUnit "ANN" ; xw:via eubat:hasTechnicalSpecifications .
+[] xw:bprField bpr:expectedLifetimeNumberOfChargeDischargeCycles ; xw:ours <urn:xw:v:expectedCycleLife> ; xw:form xw:Plain ; xw:theirDatatype xsd:integer ; xw:ourDatatype xsd:integer ; xw:via eubat:hasTechnicalSpecifications .
+[] xw:bprField bpr:numberOfFullChargingAndDischargingCycles ; xw:ours <urn:xw:v:hasCycleCount> ; xw:form xw:Plain ; xw:theirDatatype xsd:integer ; xw:ourUnit "C62" .
+[] xw:bprField bpr:numberOfDeepDischargeEvents ; xw:ours <urn:xw:v:numberOfDeepDischargeEvents> ; xw:form xw:Plain ; xw:theirDatatype xsd:integer ; xw:ourDatatype xsd:integer .
+[] xw:bprField bpr:cycleLifeReferenceTest ; xw:ours <urn:xw:v:lifetimeReferenceTest> ; xw:form xw:Text ; xw:via eubat:hasTechnicalSpecifications .
+[] xw:bprField bpr:batteryModelIdentifier ; xw:ours eubat:batteryModelIdentifier ; xw:form xw:Text .
+[] xw:bprField bpr:batterySerialNumber ; xw:ours gs1:hasSerialNumber ; xw:form xw:Text .
+[] xw:bprField bpr:manufacturingDate ; xw:ours gs1:productionDate ; xw:form xw:Text ; xw:ourDatatype xsd:date .
+[] xw:bprField bpr:dateOfPuttingTheBatteryIntoService ; xw:ours eubat:puttingIntoService ; xw:form xw:Text ; xw:ourDatatype xsd:date .
+[] xw:bprField bpr:webLinkToPublicCarbonFootprintStudy ; xw:ours eubat:carbonFootprintStudyUrl ; xw:form xw:Text ; xw:ourDatatype xsd:anyURI ; xw:via eubat:hasCarbonFootprintDeclaration .
+[] xw:bprField bpr:thirdPartyAssurancesOfRecognisedSchemes ; xw:ours eubat:thirdPartyAssurancesUrl ; xw:form xw:Text ; xw:ourDatatype xsd:anyURI ; xw:via eubat:hasSupplyChainDueDiligence .
+[] xw:bprField bpr:supplyChainIndices ; xw:ours eubat:supplyChainIndex ; xw:form xw:Text ; xw:ourDatatype xsd:decimal ; xw:via eubat:hasSupplyChainDueDiligence .
+
+# ---------------------------------------------------------------- related resources
+# A 2.0.1 resource is {contentType, url, language, resourceTitle}. xw:Document reads a document node
+# (oec:DocumentReference, a dismantling document, a declaration of conformity: URL, MIME type,
+# language, name), xw:Url a bare URL. xw:docType picks the dismantling document of that type;
+# lowering writes the document with it. A language goes along only in the 2.0.1 form
+# (language-REGION, "en-GB"); OpenEPCIS writes ISO 639 codes ("en").
+[] xw:bprField bpr:dismantlingInformation ; xw:ours eubat:hasDismantlingAndRemovalInformation ; xw:form xw:Document ; xw:docType eubat:DismantlingManual .
+[] xw:bprField bpr:partNumbersForComponents ; xw:ours eubat:hasDismantlingAndRemovalInformation ; xw:form xw:Document ; xw:docType eubat:BillOfMaterial .
+[] xw:bprField bpr:safetyMeasures ; xw:ours eubat:hasSafetyMeasures ; xw:form xw:Document ; xw:via eubat:hasEndOfLifeInfo .
+[] xw:bprField bpr:euDeclarationOfConformity ; xw:ours eubat:hasEuDeclarationOfConformity ; xw:form xw:Document .
+[] xw:bprField bpr:informationOnTheRoleOfEndUsersInContributingToWastePrevention ; xw:ours eubat:wastePrevention ; xw:form xw:Url ; xw:via eubat:hasEndOfLifeInfo .
+[] xw:bprField bpr:informationOnTheRoleOfEndUsersInContributingToTheSeparateCollectionOfWasteBatteries ; xw:ours eubat:separateCollection ; xw:form xw:Url ; xw:via eubat:hasEndOfLifeInfo .
+[] xw:bprField bpr:informationOnBatteryCollectionPreparationForSecondLifeAndOnTreatmentAtEndOfLife ; xw:ours eubat:informationOnCollection ; xw:form xw:Url ; xw:via eubat:hasEndOfLifeInfo .
+[] xw:bprField bpr:informationOfDueDiligenceReport ; xw:ours eubat:dueDiligenceReportUrl ; xw:form xw:Url ; xw:via eubat:hasSupplyChainDueDiligence .
+[] xw:bprField bpr:resultsOfTestReportsProvingCompliance ; xw:ours eubat:resultOfTestReport ; xw:form xw:Url .
+[] xw:bprField bpr:separateCollectionSymbol ; xw:ours eubat:separateCollectionSymbolUrl ; xw:form xw:Url .

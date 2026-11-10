@@ -47,4 +47,6 @@ WHERE {
     OPTIONAL { ?param xw:liftType ?ptype }
     BIND(COALESCE(?ptype, txt-assessment:MeasurementParameter) AS ?pcls)
   }
+  # An assessment class with an EUDPP core node class is converted by the EUDPP core rules (175).
+  FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?a a ?at9 } ?at9 rdfs:subClassOf* ?n9 . ?n9 xw:nodeClass ?anyNode9 }
 }

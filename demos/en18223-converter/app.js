@@ -28,9 +28,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js
 var require_IdentifierIssuer = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js"(exports, module) {
     "use strict";
     module.exports = class IdentifierIssuer {
       /**
@@ -101,9 +101,9 @@ var require_IdentifierIssuer = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js
+// node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js
 var require_setImmediate = __commonJS({
-  "../wt-cur/node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js"(exports) {
+  "node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js"(exports) {
     (function(global2, undefined2) {
       "use strict";
       if (global2.setImmediate) {
@@ -249,9 +249,9 @@ var require_setImmediate = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js
 var require_platform_browser = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js"(exports) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js"(exports) {
     "use strict";
     require_setImmediate();
     exports.setImmediate = setImmediate;
@@ -271,9 +271,9 @@ var require_platform_browser = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js
 var require_MessageDigest_webcrypto = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js"(exports, module) {
     "use strict";
     var { bufferToHex, crypto } = require_platform_browser();
     var algorithmMap = /* @__PURE__ */ new Map([
@@ -315,9 +315,9 @@ var require_MessageDigest_webcrypto = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js
 var require_Permuter = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js"(exports, module) {
     "use strict";
     module.exports = class Permuter {
       /**
@@ -380,9 +380,9 @@ var require_Permuter = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js
 var require_NQuads = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js"(exports, module) {
     "use strict";
     var RDF2 = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     var RDF_LANGSTRING = RDF2 + "langString";
@@ -696,9 +696,9 @@ var require_NQuads = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js
 var require_RDFC10 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js"(exports, module) {
     "use strict";
     var IdentifierIssuer = require_IdentifierIssuer();
     var MessageDigest = require_MessageDigest_webcrypto();
@@ -1017,9 +1017,9 @@ var require_RDFC10 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js
 var require_RDFC10Sync = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js"(exports, module) {
     "use strict";
     var IdentifierIssuer = require_IdentifierIssuer();
     var MessageDigest = require_MessageDigest_webcrypto();
@@ -1326,9 +1326,9 @@ var require_RDFC10Sync = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js
 var require_lib = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js"(exports) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js"(exports) {
     "use strict";
     var RDFC10 = require_RDFC10();
     var RDFC10Sync = require_RDFC10Sync();
@@ -1399,16 +1399,16 @@ var require_lib = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js
 var require_rdf_canonize = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js"(exports, module) {
     module.exports = require_lib();
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js
 var require_types = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js"(exports, module) {
     "use strict";
     var api = {};
     module.exports = api;
@@ -1424,9 +1424,9 @@ var require_types = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js
 var require_graphTypes = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js"(exports, module) {
     "use strict";
     var types = require_types();
     var api = {};
@@ -1475,9 +1475,9 @@ var require_graphTypes = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js
 var require_JsonLdError = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js"(exports, module) {
     "use strict";
     module.exports = class JsonLdError extends Error {
       /**
@@ -1497,9 +1497,9 @@ var require_JsonLdError = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js
 var require_util = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js"(exports, module) {
     "use strict";
     var graphTypes = require_graphTypes();
     var types = require_types();
@@ -1753,9 +1753,9 @@ var require_util = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js
 var require_constants = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js"(exports, module) {
     "use strict";
     var RDF2 = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     var XSD3 = "http://www.w3.org/2001/XMLSchema#";
@@ -1783,9 +1783,9 @@ var require_constants = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js
 var require_RequestQueue = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js"(exports, module) {
     "use strict";
     module.exports = class RequestQueue {
       /**
@@ -1817,9 +1817,9 @@ var require_RequestQueue = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js
 var require_url = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js"(exports, module) {
     "use strict";
     var types = require_types();
     var api = {};
@@ -2020,9 +2020,9 @@ var require_url = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js
 var require_xhr = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js"(exports, module) {
     "use strict";
     var { parseLinkHeader, buildHeaders } = require_util();
     var { LINK_HEADER_CONTEXT } = require_constants();
@@ -2118,9 +2118,9 @@ var require_xhr = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js
 var require_platform_browser2 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js"(exports, module) {
     "use strict";
     var xhrLoader = require_xhr();
     var api = {};
@@ -2144,9 +2144,9 @@ var require_platform_browser2 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js
+// node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js
 var require_iterator = __commonJS({
-  "../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js"(exports, module) {
+  "node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js"(exports, module) {
     "use strict";
     module.exports = function(Yallist) {
       Yallist.prototype[Symbol.iterator] = function* () {
@@ -2158,9 +2158,9 @@ var require_iterator = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js
+// node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js
 var require_yallist = __commonJS({
-  "../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js"(exports, module) {
+  "node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js"(exports, module) {
     "use strict";
     module.exports = Yallist;
     Yallist.Node = Node;
@@ -2527,9 +2527,9 @@ var require_yallist = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js
+// node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js
 var require_lru_cache = __commonJS({
-  "../wt-cur/node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js"(exports, module) {
+  "node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js"(exports, module) {
     "use strict";
     var Yallist = require_yallist();
     var MAX = Symbol("max");
@@ -2796,9 +2796,9 @@ var require_lru_cache = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js
 var require_ResolvedContext = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js"(exports, module) {
     "use strict";
     var LRU = require_lru_cache();
     var MAX_ACTIVE_CONTEXTS = 10;
@@ -2822,9 +2822,9 @@ var require_ResolvedContext = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js
 var require_ContextResolver = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js"(exports, module) {
     "use strict";
     var {
       isArray: _isArray,
@@ -3030,17 +3030,17 @@ var require_ContextResolver = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js
 var require_NQuads2 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js"(exports, module) {
     "use strict";
     module.exports = require_rdf_canonize().NQuads;
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js
 var require_events = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var {
@@ -3155,9 +3155,9 @@ var require_events = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js
 var require_context = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js"(exports, module) {
     "use strict";
     var util = require_util();
     var JsonLdError = require_JsonLdError();
@@ -4365,9 +4365,9 @@ var require_context = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js
 var require_expand = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var {
@@ -5426,9 +5426,9 @@ var require_expand = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js
 var require_nodeMap = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js"(exports, module) {
     "use strict";
     var { isKeyword } = require_context();
     var graphTypes = require_graphTypes();
@@ -5649,9 +5649,9 @@ var require_nodeMap = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js
 var require_flatten = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js"(exports, module) {
     "use strict";
     var {
       isSubjectReference: _isSubjectReference
@@ -5676,9 +5676,9 @@ var require_flatten = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js
 var require_fromRdf = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var graphTypes = require_graphTypes();
@@ -5947,9 +5947,9 @@ var require_fromRdf = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js
+// node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js
 var require_canonicalize = __commonJS({
-  "../wt-cur/node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js"(exports, module) {
+  "node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js"(exports, module) {
     "use strict";
     module.exports = function serialize(object) {
       if (typeof object === "number" && isNaN(object)) {
@@ -5984,9 +5984,9 @@ var require_canonicalize = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js
 var require_toRdf = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js"(exports, module) {
     "use strict";
     var { createNodeMap } = require_nodeMap();
     var { isKeyword } = require_context();
@@ -6335,9 +6335,9 @@ var require_toRdf = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js
 var require_frame = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js"(exports, module) {
     "use strict";
     var { isKeyword } = require_context();
     var graphTypes = require_graphTypes();
@@ -6864,9 +6864,9 @@ var require_frame = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js
 var require_compact = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var {
@@ -7764,9 +7764,9 @@ var require_compact = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js
 var require_JsonLdProcessor = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js"(exports, module) {
     "use strict";
     module.exports = (jsonld3) => {
       class JsonLdProcessor {
@@ -7813,9 +7813,9 @@ var require_JsonLdProcessor = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js
 var require_jsonld = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js"(exports, module) {
     var canonize = require_rdf_canonize();
     var platform = require_platform_browser2();
     var util = require_util();
@@ -8405,9 +8405,9 @@ var require_jsonld = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js
+// node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js
 var require_base64_js = __commonJS({
-  "../wt-cur/node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js"(exports) {
+  "node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js"(exports) {
     "use strict";
     exports.byteLength = byteLength;
     exports.toByteArray = toByteArray;
@@ -8506,9 +8506,9 @@ var require_base64_js = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js
+// node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js
 var require_ieee754 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js"(exports) {
+  "node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js"(exports) {
     exports.read = function(buffer, offset, isLE, mLen, nBytes) {
       var e, m;
       var eLen = nBytes * 8 - mLen - 1;
@@ -8589,9 +8589,9 @@ var require_ieee754 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js
+// node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js
 var require_buffer = __commonJS({
-  "../wt-cur/node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js"(exports) {
+  "node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js"(exports) {
     "use strict";
     var base64 = require_base64_js();
     var ieee754 = require_ieee754();
@@ -10181,9 +10181,9 @@ var require_buffer = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js
 var require_primordials = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js"(exports, module) {
     "use strict";
     var AggregateError = class extends Error {
       constructor(errors) {
@@ -10302,9 +10302,9 @@ var require_primordials = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js
 var require_inspect = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js"(exports, module) {
     "use strict";
     module.exports = {
       format(format, ...args) {
@@ -10353,9 +10353,9 @@ var require_inspect = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js
 var require_errors = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js"(exports, module) {
     "use strict";
     var { format, inspect } = require_inspect();
     var { AggregateError: CustomAggregateError } = require_primordials();
@@ -10671,9 +10671,9 @@ var require_errors = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js
+// node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js
 var require_browser = __commonJS({
-  "../wt-cur/node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js"(exports, module) {
+  "node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js"(exports, module) {
     "use strict";
     var { AbortController, AbortSignal } = typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : (
       /* otherwise */
@@ -10685,9 +10685,9 @@ var require_browser = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/events@3.3.0/node_modules/events/events.js
+// node_modules/.pnpm/events@3.3.0/node_modules/events/events.js
 var require_events2 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/events@3.3.0/node_modules/events/events.js"(exports, module) {
+  "node_modules/.pnpm/events@3.3.0/node_modules/events/events.js"(exports, module) {
     "use strict";
     var R = typeof Reflect === "object" ? Reflect : null;
     var ReflectApply = R && typeof R.apply === "function" ? R.apply : function ReflectApply2(target, receiver, args) {
@@ -11054,9 +11054,9 @@ var require_events2 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js
 var require_util2 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js"(exports, module) {
     "use strict";
     var bufferModule = require_buffer();
     var { format, inspect } = require_inspect();
@@ -11193,9 +11193,9 @@ var require_util2 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js
 var require_validators = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js"(exports, module) {
     "use strict";
     var {
       ArrayIsArray,
@@ -11457,9 +11457,9 @@ var require_validators = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js
+// node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js
 var require_browser2 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js"(exports, module) {
+  "node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js"(exports, module) {
     var process2 = module.exports = {};
     var cachedSetTimeout;
     var cachedClearTimeout;
@@ -11619,9 +11619,9 @@ var require_browser2 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js
 var require_utils = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js"(exports, module) {
     "use strict";
     var { SymbolAsyncIterator, SymbolIterator, SymbolFor } = require_primordials();
     var kIsDestroyed = SymbolFor("nodejs.stream.destroyed");
@@ -11828,9 +11828,9 @@ var require_utils = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
 var require_end_of_stream = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var { AbortError, codes } = require_errors();
@@ -12080,9 +12080,9 @@ var require_end_of_stream = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js
 var require_destroy = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var {
@@ -12345,9 +12345,9 @@ var require_destroy = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js
 var require_legacy = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js"(exports, module) {
     "use strict";
     var { ArrayIsArray, ObjectSetPrototypeOf } = require_primordials();
     var { EventEmitter: EE } = require_events2();
@@ -12423,9 +12423,9 @@ var require_legacy = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js
 var require_add_abort_signal = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js"(exports, module) {
     "use strict";
     var { SymbolDispose } = require_primordials();
     var { AbortError, codes } = require_errors();
@@ -12474,9 +12474,9 @@ var require_add_abort_signal = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js
 var require_buffer_list = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module) {
     "use strict";
     var { StringPrototypeSlice, SymbolIterator, TypedArrayPrototypeSet, Uint8Array: Uint8Array2 } = require_primordials();
     var { Buffer: Buffer3 } = require_buffer();
@@ -12629,9 +12629,9 @@ var require_buffer_list = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js
 var require_state = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js"(exports, module) {
     "use strict";
     var { MathFloor, NumberIsInteger } = require_primordials();
     var { validateInteger } = require_validators();
@@ -12671,9 +12671,9 @@ var require_state = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js
+// node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js
 var require_safe_buffer = __commonJS({
-  "../wt-cur/node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js"(exports, module) {
+  "node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js"(exports, module) {
     var buffer = require_buffer();
     var Buffer3 = buffer.Buffer;
     function copyProps(src, dst) {
@@ -12729,9 +12729,9 @@ var require_safe_buffer = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js
+// node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js
 var require_string_decoder = __commonJS({
-  "../wt-cur/node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js"(exports) {
+  "node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js"(exports) {
     "use strict";
     var Buffer3 = require_safe_buffer().Buffer;
     var isEncoding = Buffer3.isEncoding || function(encoding) {
@@ -12967,9 +12967,9 @@ var require_string_decoder = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js
 var require_from = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var { PromisePrototypeThen, SymbolAsyncIterator, SymbolIterator } = require_primordials();
@@ -13062,9 +13062,9 @@ var require_from = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js
 var require_readable = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var {
@@ -14028,9 +14028,9 @@ var require_readable = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js
 var require_writable = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var {
@@ -14649,9 +14649,9 @@ var require_writable = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js
 var require_duplexify = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js"(exports, module) {
     var process2 = require_browser2();
     var bufferModule = require_buffer();
     var {
@@ -14996,9 +14996,9 @@ var require_duplexify = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js
 var require_duplex = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js"(exports, module) {
     "use strict";
     var {
       ObjectDefineProperties,
@@ -15113,9 +15113,9 @@ var require_duplex = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js
 var require_transform = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js"(exports, module) {
     "use strict";
     var { ObjectSetPrototypeOf, Symbol: Symbol2 } = require_primordials();
     module.exports = Transform3;
@@ -15215,9 +15215,9 @@ var require_transform = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js
 var require_passthrough = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js"(exports, module) {
     "use strict";
     var { ObjectSetPrototypeOf } = require_primordials();
     module.exports = PassThrough;
@@ -15234,9 +15234,9 @@ var require_passthrough = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js
 var require_pipeline = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports, module) {
     var process2 = require_browser2();
     var { ArrayIsArray, Promise: Promise2, SymbolAsyncIterator, SymbolDispose } = require_primordials();
     var eos = require_end_of_stream();
@@ -15662,9 +15662,9 @@ var require_pipeline = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js
 var require_compose = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js"(exports, module) {
     "use strict";
     var { pipeline } = require_pipeline();
     var Duplex = require_duplex();
@@ -15855,9 +15855,9 @@ var require_compose = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js
 var require_operators = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js"(exports, module) {
     "use strict";
     var AbortController = globalThis.AbortController || require_browser().AbortController;
     var {
@@ -16260,9 +16260,9 @@ var require_operators = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js
 var require_promises = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js"(exports, module) {
     "use strict";
     var { ArrayPrototypePop, Promise: Promise2 } = require_primordials();
     var { isIterable, isNodeStream, isWebStream } = require_utils();
@@ -16302,9 +16302,9 @@ var require_promises = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js
 var require_stream = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js"(exports, module) {
     "use strict";
     var { Buffer: Buffer3 } = require_buffer();
     var { ObjectDefineProperty, ObjectKeys, ReflectApply } = require_primordials();
@@ -16421,9 +16421,9 @@ var require_stream = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js
 var require_browser3 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js"(exports, module) {
     "use strict";
     var CustomStream = require_stream();
     var promises = require_promises();
@@ -16756,10 +16756,10 @@ function compressEN18223(passport, opts = defaultOptions) {
 // scripts/en18223/serialize.ts
 var import_jsonld2 = __toESM(require_jsonld(), 1);
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
 var import_buffer = __toESM(require_buffer());
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/IRIs.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/IRIs.js
 var RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 var XSD2 = "http://www.w3.org/2001/XMLSchema#";
 var SWAP = "http://www.w3.org/2000/10/swap/";
@@ -16791,7 +16791,7 @@ var IRIs_default = {
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
 var { xsd } = IRIs_default;
 var escapeSequence = /\\u([a-fA-F0-9]{4})|\\U([a-fA-F0-9]{8})|\\([^])/g;
 var escapeReplacements = {
@@ -17209,7 +17209,7 @@ var N3Lexer = class {
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3DataFactory.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3DataFactory.js
 var { rdf, xsd: xsd2 } = IRIs_default;
 var DEFAULTGRAPH;
 var _blankNodeCounter = 0;
@@ -17509,7 +17509,7 @@ function fromQuad(inQuad) {
   return quad(fromTerm(inQuad.subject), fromTerm(inQuad.predicate), fromTerm(inQuad.object), fromTerm(inQuad.graph));
 }
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Parser.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Parser.js
 var blankNodePrefix = 0;
 var N3Parser = class {
   constructor(options) {
@@ -18443,7 +18443,7 @@ function initDataFactory(parser, factory) {
 }
 initDataFactory(N3Parser.prototype, N3DataFactory_default);
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Util.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Util.js
 var N3Util_exports = {};
 __export(N3Util_exports, {
   inDefaultGraph: () => inDefaultGraph,
@@ -18499,12 +18499,12 @@ function prefixes(defaultPrefixes, factory) {
   return processPrefix;
 }
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/Util.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/Util.js
 function escapeRegex(regex) {
   return regex.replace(/[\]\/\(\)\*\+\?\.\\\$]/g, "\\$&");
 }
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/BaseIRI.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/BaseIRI.js
 var BASE_UNSUPPORTED = /^:?[^:?#]*(?:[?#]|$)|^file:|^[^:]*:\/*[^?#]+?\/(?:\.\.?(?:\/|$)|\/)/i;
 var SUFFIX_SUPPORTED = /^(?:(?:[^/?#]{3,}|\.?[^/?#.]\.?)(?:\/[^/?#]{3,}|\.?[^/?#.]\.?)*\/?)?(?:[?#]|$)/;
 var CURRENT = "./";
@@ -18576,7 +18576,7 @@ var BaseIRI = class _BaseIRI {
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Writer.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Writer.js
 var DEFAULTGRAPH2 = N3DataFactory_default.defaultGraph();
 var { rdf: rdf2, xsd: xsd3 } = IRIs_default;
 var escape = /["\\\t\n\r\b\f\u0000-\u0019\ud800-\udbff]/;
@@ -18881,7 +18881,7 @@ function characterReplacer(character) {
   return result;
 }
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Store.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Store.js
 var import_readable_stream = __toESM(require_browser3());
 var ITERATOR = Symbol("iter");
 function merge(target, source, depth = 4) {
@@ -19887,14 +19887,14 @@ var DatasetCoreAndReadableStream = class _DatasetCoreAndReadableStream extends i
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StoreFactory.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StoreFactory.js
 var N3DatasetCoreFactory = class {
   dataset(quads) {
     return new N3Store(quads);
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Reasoner.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Reasoner.js
 function getRulesFromDataset(dataset) {
   const rules = [];
   for (const { subject, object } of dataset.match(null, N3DataFactory_default.namedNode("http://www.w3.org/2000/10/swap/log#implies"), null, N3DataFactory_default.defaultGraph())) {
@@ -20064,7 +20064,7 @@ function termEq(t1, t2) {
   return t1.value === t2.value;
 }
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StreamParser.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StreamParser.js
 var import_readable_stream2 = __toESM(require_browser3());
 var N3StreamParser = class extends import_readable_stream2.Transform {
   constructor(options) {
@@ -20122,7 +20122,7 @@ var N3StreamParser = class extends import_readable_stream2.Transform {
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StreamWriter.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StreamWriter.js
 var import_readable_stream3 = __toESM(require_browser3());
 var N3StreamWriter = class extends import_readable_stream3.Transform {
   constructor(options) {
@@ -20162,7 +20162,7 @@ var N3StreamWriter = class extends import_readable_stream3.Transform {
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/index.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/index.js
 var src_default = {
   Lexer: N3Lexer,
   Parser: N3Parser,
@@ -20699,7 +20699,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/common/core/hasHazardousSubstances": "https://ref.openepcis.org/extensions/common/core/HazardousSubstance",
   "https://ref.openepcis.org/extensions/common/core/hasHazardSignalWord": "https://ref.openepcis.org/extensions/common/core/HazardSignalWord",
   "https://ref.openepcis.org/extensions/common/core/hasImpactIndicator": "https://ref.openepcis.org/extensions/common/core/ImpactIndicatorResult",
-  "https://ref.openepcis.org/extensions/common/core/hasIndicatorType": "https://ref.openepcis.org/extensions/common/core/ImpactIndicatorType",
   "https://ref.openepcis.org/extensions/common/core/hasLifecycleStage": "https://ref.openepcis.org/extensions/common/core/LifecycleStage",
   "https://ref.openepcis.org/extensions/common/core/hasLifecycleStageResult": "https://ref.openepcis.org/extensions/common/core/LifecycleStageResult",
   "https://ref.openepcis.org/extensions/common/core/hasMaterialComposition": "https://ref.openepcis.org/extensions/common/core/MaterialComposition",
@@ -20731,23 +20730,17 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/common/core/hazardPictogramCode": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/hazardStatement": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/identityCredentialUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/common/core/indicatorTotalValue": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/common/core/indicatorUnit": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/isCriticalRawMaterial": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/common/core/isEnergyRelated": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/common/core/isRegulationCompliant": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/common/core/isStrategicRawMaterial": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/common/core/issueDate": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.org/extensions/common/core/iupacName": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/common/core/landUse": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/language": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/languageCode": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/lastUpdated": "http://www.w3.org/2001/XMLSchema#dateTime",
   "https://ref.openepcis.org/extensions/common/core/massFraction": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/common/core/materialCircularityIndicator": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/common/core/materialFootprint": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/mimeType": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/common/core/packagingWasteAmount": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/passportExpiryDate": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.org/extensions/common/core/passportIdentifier": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/common/core/passportIssueDate": "http://www.w3.org/2001/XMLSchema#date",
@@ -20759,9 +20752,7 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/common/core/previousPassportVersion": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/common/core/primarySourcedRatio": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/productCategoryRules": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/common/core/productToPackagingRatio": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/professionalRepairNetwork": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/common/core/recyclableContent": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/recycledContent": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/registrationNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/regulatoryActStatus": "http://www.w3.org/2001/XMLSchema#string",
@@ -20778,7 +20769,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/common/core/scipId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/separateCollectionInfo": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/common/core/socThreshold": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/common/core/stageValue": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/substanceLocation": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/substanceTradeName": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/supplyChainTransparencyUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
@@ -20789,12 +20779,9 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/common/core/tradeItemPieceDescription": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/tradeItemPieceNumber": "http://www.w3.org/2001/XMLSchema#positiveInteger",
   "https://ref.openepcis.org/extensions/common/core/tradeItemPieceOf": "https://ref.gs1.org/voc/Product",
-  "https://ref.openepcis.org/extensions/common/core/utilityFactor": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/valueDataType": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/verifiedRatio": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/common/core/wasteGenerationAmount": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/wastePreventionInfo": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/common/core/waterConsumption": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/anodeActiveMaterial": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/atSoC": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/auditBody": "http://www.w3.org/2001/XMLSchema#string",
@@ -20802,7 +20789,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/batteryModelIdentifier": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/cadmiumSymbolRequired": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/battery/calculationStandard": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/battery/capacityThresholdForExhaustion": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/carbonFootprintDeclarationId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/carbonFootprintGeographicScope": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/carbonFootprintStudyUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
@@ -20814,14 +20800,11 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/concentration": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/conflictMineralFree": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/battery/cRate": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/eu/battery/cRateLifeCycleTest": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/criticalRawMaterialsStatement": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/dangerousGoodsPackingInstructions": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/dataProviderCertification": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/dataQualityAssessment": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/declarationOfConformity": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/eu/battery/depthOfDischargeInCycleLifeTest": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/eu/battery/dischargeCRateLifeCycleTest": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/documentUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/dueDiligencePolicyUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/dueDiligenceReportUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
@@ -20831,9 +20814,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/euDeclarationOfConformityId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/eventDate": "http://www.w3.org/2001/XMLSchema#dateTime",
   "https://ref.openepcis.org/extensions/eu/battery/exceedanceThreshold": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/eu/battery/expectedCycleLife": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.org/extensions/eu/battery/expectedRemainingCycles": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.org/extensions/eu/battery/expectedRemainingLifetimeMonths": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/exposureDurationMinutes": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/exposureEndTime": "http://www.w3.org/2001/XMLSchema#dateTime",
   "https://ref.openepcis.org/extensions/eu/battery/extendedWarrantyAvailable": "http://www.w3.org/2001/XMLSchema#boolean",
@@ -20844,11 +20824,9 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/hasBattery": "https://ref.gs1.org/voc/Product",
   "https://ref.openepcis.org/extensions/eu/battery/hasBatteryChemistry": "https://ref.openepcis.org/extensions/eu/battery/BatteryChemistry",
   "https://ref.openepcis.org/extensions/eu/battery/hasBatteryMass": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasCapacityFade": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasCapacityThroughput": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.org/extensions/eu/battery/hasBatteryState": "https://ref.openepcis.org/extensions/eu/battery/BatteryStateAssessment",
   "https://ref.openepcis.org/extensions/eu/battery/hasCarbonFootprintDeclaration": "https://ref.openepcis.org/extensions/eu/battery/CarbonFootprintDeclaration",
   "https://ref.openepcis.org/extensions/eu/battery/hasCarbonFootprintDistribution": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasCarbonFootprintPerformanceClass": "https://ref.openepcis.org/extensions/eu/battery/CarbonFootprintClass",
   "https://ref.openepcis.org/extensions/eu/battery/hasCarbonFootprintProduction": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasCarbonFootprintRawMaterialExtraction": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasCarbonFootprintRecycling": "https://ref.gs1.org/voc/QuantitativeValue",
@@ -20857,29 +20835,17 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/hasCertifiedUsableEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasComplianceStatus": "https://ref.openepcis.org/extensions/eu/battery/ComplianceStatus",
   "https://ref.openepcis.org/extensions/eu/battery/hasComponentLocation": "https://ref.openepcis.org/extensions/eu/battery/ComponentLocation",
-  "https://ref.openepcis.org/extensions/eu/battery/hasCurrentSelfDischargingRate": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasCycleCount": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingAndRemovalInformation": "https://ref.openepcis.org/extensions/eu/battery/DismantlingDocument",
   "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingTime": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasDocumentType": "https://ref.openepcis.org/extensions/eu/battery/DismantlingDocumentType",
   "https://ref.openepcis.org/extensions/eu/battery/hasEndOfLifeInfo": "https://ref.openepcis.org/extensions/eu/battery/EndOfLifeInfo",
-  "https://ref.openepcis.org/extensions/eu/battery/hasEnergyThroughput": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasEuDeclarationOfConformity": "http://data.europa.eu/m8g/Evidence",
   "https://ref.openepcis.org/extensions/eu/battery/hasEventLocation": "https://ref.gs1.org/voc/Place",
   "https://ref.openepcis.org/extensions/eu/battery/hasEventType": "https://ref.openepcis.org/extensions/eu/battery/NegativeEventType",
-  "https://ref.openepcis.org/extensions/eu/battery/hasEvolutionOfSelfDischarge": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasExpectedLifetime": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasExpectedLifetimeCapacityThroughput": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasExpectedLifetimeEnergyThroughput": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasHazardClass": "https://ref.openepcis.org/extensions/eu/battery/HazardClass",
   "https://ref.openepcis.org/extensions/eu/battery/hasHazardousSubstances": "https://ref.openepcis.org/extensions/eu/battery/HazardousSubstance",
   "https://ref.openepcis.org/extensions/eu/battery/hasIncidentSeverity": "https://ref.openepcis.org/extensions/eu/battery/IncidentSeverity",
-  "https://ref.openepcis.org/extensions/eu/battery/hasInitialCapacity": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasInitialCellInternalResistance": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasInitialEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasInitialPackInternalResistance": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasInternalResistance": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasInternalResistanceIncrease": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasLabels": "https://ref.openepcis.org/extensions/eu/battery/Label",
   "https://ref.openepcis.org/extensions/eu/battery/hasLabelSubject": "https://ref.openepcis.org/extensions/eu/battery/LabelSubject",
   "https://ref.openepcis.org/extensions/eu/battery/hasManufacturingPlace": "https://ref.openepcis.org/extensions/common/core/FacilityInformation",
@@ -20899,27 +20865,15 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/hasNotifiedBody": "http://data.europa.eu/m8g/PublicOrganisation",
   "https://ref.openepcis.org/extensions/eu/battery/hasOperatorInformation": "https://ref.openepcis.org/extensions/common/core/OperatorInformation",
   "https://ref.openepcis.org/extensions/eu/battery/hasOperatorRole": "https://ref.openepcis.org/extensions/common/core/OperatorRole",
-  "https://ref.openepcis.org/extensions/eu/battery/hasOriginalPowerCapability": "https://ref.openepcis.org/extensions/eu/battery/PowerCapabilityAtSoC",
-  "https://ref.openepcis.org/extensions/eu/battery/hasPowerCapability": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasPowerCapabilityAt20SoC": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasPowerCapabilityAt80SoC": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasPowerFade": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.org/extensions/eu/battery/hasPerformanceTest": "https://ref.openepcis.org/extensions/eu/battery/PerformanceDurabilityTest",
   "https://ref.openepcis.org/extensions/eu/battery/hasRatedCapacity": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasRatedEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasRatedMaximumPower": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasRecycledContent": "https://ref.openepcis.org/extensions/eu/battery/RecycledContent",
-  "https://ref.openepcis.org/extensions/eu/battery/hasRemainingCapacity": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasRemainingPowerCapability": "https://ref.openepcis.org/extensions/eu/battery/PowerCapabilityAtSoC",
-  "https://ref.openepcis.org/extensions/eu/battery/hasRemainingRoundTripEfficiency": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasRemainingUsableEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasRepurposingEntity": "https://ref.gs1.org/voc/Organization",
   "https://ref.openepcis.org/extensions/eu/battery/hasResponsibleSourcingStandard": "https://ref.openepcis.org/extensions/eu/battery/ResponsibleSourcingStandard",
-  "https://ref.openepcis.org/extensions/eu/battery/hasRoundTripEfficiencyFade": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasSafetyMeasures": "https://ref.openepcis.org/extensions/common/core/DocumentReference",
   "https://ref.openepcis.org/extensions/eu/battery/hasSparePartSources": "https://ref.gs1.org/voc/Organization",
-  "https://ref.openepcis.org/extensions/eu/battery/hasStateOfCertifiedEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasStateOfCharge": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.org/extensions/eu/battery/hasStateOfHealth": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.org/extensions/eu/battery/hasSubstanceLocation": "https://ref.openepcis.org/extensions/eu/battery/ComponentLocation",
   "https://ref.openepcis.org/extensions/eu/battery/hasSupplierContact": "https://ref.gs1.org/voc/ContactPoint",
   "https://ref.openepcis.org/extensions/eu/battery/hasSupplyChainDueDiligence": "https://ref.openepcis.org/extensions/eu/battery/SupplyChainDueDiligence",
@@ -20934,7 +20888,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/incidentId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/incidentReportUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/informationOnCollection": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/eu/battery/initialSelfDischarge": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/inspectorId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/isCriticalRawMaterial": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/battery/isSubstanceOfConcern": "http://www.w3.org/2001/XMLSchema#boolean",
@@ -20946,7 +20899,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/leadRecycledShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/leadSymbolRequired": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/battery/lifecycleStage": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/battery/lifetimeReferenceTest": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/lithiumPostConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/lithiumPreConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/lithiumRecycledShare": "http://www.w3.org/2001/XMLSchema#decimal",
@@ -20962,7 +20914,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/notifiedBodyName": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/notifiedBodyNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/numberOfCells": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.org/extensions/eu/battery/numberOfDeepDischargeEvents": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/numberOfModules": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/operatorIdentifier": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/powerCapabilityRatio": "http://www.w3.org/2001/XMLSchema#decimal",
@@ -20977,28 +20928,20 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/repurposingDate": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.org/extensions/eu/battery/repurposingGuidelines": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/repurposingPotential": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-  "https://ref.openepcis.org/extensions/eu/battery/resistanceIncreaseThreshold": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/resultOfTestReport": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/riskAssessmentSummary": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-  "https://ref.openepcis.org/extensions/eu/battery/roundTripEfficiency": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/eu/battery/roundTripEfficiencyAt50PercentCycleLife": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/safetyInstructions": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/separateCollection": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/separateCollectionSymbolUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/shippingName": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/soceMeasurementId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/spareParts": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-  "https://ref.openepcis.org/extensions/eu/battery/stateOfChargeLevel": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/supplyChainIndex": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/supplyChainMappingAvailable": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/battery/temperatureExcursionId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/temperatureExcursionReportUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/testReportNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/thirdPartyAssurancesUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/eu/battery/timeSpentChargingDuringExtremeTemperaturesAboveBoundary": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.org/extensions/eu/battery/timeSpentChargingDuringExtremeTemperaturesBelowBoundary": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.org/extensions/eu/battery/timeSpentInExtremeTemperaturesAboveBoundary": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.org/extensions/eu/battery/timeSpentInExtremeTemperaturesBelowBoundary": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/transportationSafetyClass": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/transportConditions": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/verificationBodyName": "http://www.w3.org/2001/XMLSchema#string",
@@ -21043,9 +20986,7 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/detergent/pStatements": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/detergent/strainDesignation": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/detergent/weightPercentRange": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/electronics/avoidedEmissionsKgCO2e": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/electronics/batteryMassGrams": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/eu/electronics/calculationMethod": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/collectionMethod": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/collectionSchemeUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/electronics/componentPartNumber": "http://www.w3.org/2001/XMLSchema#string",
@@ -21053,7 +20994,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/electronics/deviceCondition": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/displayTechnology": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/energyLabelUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/eu/electronics/energyRecoveryRate": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/electronics/eprelProductUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/electronics/eprelRegistrationNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/featureUpdateEndDate": "http://www.w3.org/2001/XMLSchema#date",
@@ -21105,9 +21045,7 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/electronics/nextDisposition": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/osVersion": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/previousVersion": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/electronics/recoveryRate": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/electronics/recyclingProcess": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/electronics/recyclingRate": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/electronics/removalReason": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/repairabilityLabelUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/electronics/repairDescription": "http://www.w3.org/2001/XMLSchema#string",
@@ -21121,8 +21059,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/electronics/securityUpdateEndDate": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.org/extensions/eu/electronics/separatelyTreated": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/electronics/sortingDecision": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/electronics/totalInputMassGrams": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/eu/electronics/totalRecoveredMassGrams": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/electronics/treatmentCertificate": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/treatmentMethod": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/updateChannel": "http://www.w3.org/2001/XMLSchema#anyURI",
@@ -21179,16 +21115,12 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/ppwr/reuseSystemName": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/ppwr/rotationCount": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/textile/additionalCareInstructions": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-  "https://ref.openepcis.org/extensions/eu/textile/benchmarkPerformance": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/textile/biodegradable": "http://www.w3.org/2001/XMLSchema#boolean",
-  "https://ref.openepcis.org/extensions/eu/textile/carbonFootprintClass": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.org/extensions/eu/textile/carbonFootprintManufacturing": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/textile/chemicalPurpose": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/textile/concentrationRange": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/textile/containsAnimalNonTextileParts": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/textile/endOfLifeDestination": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/textile/endOfLifeHandling": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/textile/environmentalFootprintClass": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/textile/euEcolabel": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/textile/fiberOrigin": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/textile/garmentType": "http://www.w3.org/2001/XMLSchema#string",
@@ -21212,7 +21144,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/textile/hasFinishingFacility": "https://ref.openepcis.org/extensions/common/core/FacilityInformation",
   "https://ref.openepcis.org/extensions/eu/textile/hasIroningSymbol": "https://ref.openepcis.org/extensions/eu/textile/CareSymbolCode",
   "https://ref.openepcis.org/extensions/eu/textile/hasLciaCategories": "https://ref.openepcis.org/extensions/eu/textile/LCIACategory",
-  "https://ref.openepcis.org/extensions/eu/textile/hasLciaCategoryCode": "https://ref.openepcis.org/extensions/eu/textile/LCIACategoryCode",
   "https://ref.openepcis.org/extensions/eu/textile/hasMicroplasticInfo": "https://ref.openepcis.org/extensions/eu/textile/MicroplasticInfo",
   "https://ref.openepcis.org/extensions/eu/textile/hasRecyclabilityAssessment": "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment",
   "https://ref.openepcis.org/extensions/eu/textile/hasRecycledContentDeclaration": "https://ref.openepcis.org/extensions/eu/textile/RecycledContentDeclaration",
@@ -21232,15 +21163,11 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/textile/isMRSLCompliant": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/textile/isRecycledFiber": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/textile/isRepairable": "http://www.w3.org/2001/XMLSchema#boolean",
-  "https://ref.openepcis.org/extensions/eu/textile/lciaUnit": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/textile/lciaValue": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/textile/maxConcentration": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/textile/meetsTargetThreshold": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/textile/microplasticMitigationMeasures": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/textile/organicContentMass": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/textile/organicContentPercentage": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/eu/textile/pefcrReference": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/textile/pefSingleScore": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/textile/pfasFree": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/textile/productionWastePercentage": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/textile/recycledContentSource": "http://www.w3.org/2001/XMLSchema#string",
@@ -21283,7 +21210,7 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld": {
-    _comment: "OpenEPCIS DPP Core Vocabulary v0.10.1, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS DPP Core Vocabulary v0.12.0, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld",
       {
@@ -21532,18 +21459,6 @@ var contexts_default = {
         "oec:hasCircularityPerformance": {
           "@id": "oec:hasCircularityPerformance",
           "@type": "@id"
-        },
-        "oec:recyclableContent": {
-          "@id": "oec:recyclableContent",
-          "@type": "xsd:decimal"
-        },
-        "oec:utilityFactor": {
-          "@id": "oec:utilityFactor",
-          "@type": "xsd:decimal"
-        },
-        "oec:materialCircularityIndicator": {
-          "@id": "oec:materialCircularityIndicator",
-          "@type": "xsd:decimal"
         },
         "oec:endOfLifeInstructions": {
           "@id": "oec:endOfLifeInstructions",
@@ -21808,30 +21723,6 @@ var contexts_default = {
         },
         "oec:socThreshold": {
           "@id": "oec:socThreshold",
-          "@type": "xsd:decimal"
-        },
-        "oec:waterConsumption": {
-          "@id": "oec:waterConsumption",
-          "@type": "xsd:decimal"
-        },
-        "oec:landUse": {
-          "@id": "oec:landUse",
-          "@type": "xsd:decimal"
-        },
-        "oec:materialFootprint": {
-          "@id": "oec:materialFootprint",
-          "@type": "xsd:decimal"
-        },
-        "oec:wasteGenerationAmount": {
-          "@id": "oec:wasteGenerationAmount",
-          "@type": "xsd:decimal"
-        },
-        "oec:packagingWasteAmount": {
-          "@id": "oec:packagingWasteAmount",
-          "@type": "xsd:decimal"
-        },
-        "oec:productToPackagingRatio": {
-          "@id": "oec:productToPackagingRatio",
           "@type": "xsd:decimal"
         },
         "oec:productCategoryRules": {
@@ -22661,25 +22552,6 @@ var contexts_default = {
         "@id": "oea:hasIndicatorKind",
         "@type": "@id"
       },
-      hasIndicatorType: {
-        "@id": "oec:hasIndicatorType",
-        "@type": "@vocab",
-        "@context": {
-          ADPElements: "oec:ADPElements",
-          ADPFossil: "oec:ADPFossil",
-          AP: "oec:AP",
-          EPFreshwater: "oec:EPFreshwater",
-          EPMarine: "oec:EPMarine",
-          EPTerrestrial: "oec:EPTerrestrial",
-          GWPBiogenic: "oec:GWPBiogenic",
-          GWPFossil: "oec:GWPFossil",
-          GWPLuluc: "oec:GWPLuluc",
-          GWPTotal: "oec:GWPTotal",
-          ODP: "oec:ODP",
-          POCP: "oec:POCP",
-          WDP: "oec:WDP"
-        }
-      },
       hasIndicatorValue: {
         "@id": "oea:hasIndicatorValue",
         "@type": "@id"
@@ -22938,14 +22810,6 @@ var contexts_default = {
         "@id": "oea:indicatorText",
         "@type": "xsd:string"
       },
-      indicatorTotalValue: {
-        "@id": "oec:indicatorTotalValue",
-        "@type": "xsd:decimal"
-      },
-      indicatorUnit: {
-        "@id": "oec:indicatorUnit",
-        "@type": "xsd:string"
-      },
       isCriticalRawMaterial: {
         "@id": "oec:isCriticalRawMaterial",
         "@type": "xsd:boolean"
@@ -22978,10 +22842,6 @@ var contexts_default = {
         "@id": "oec:iupacName",
         "@type": "xsd:string"
       },
-      landUse: {
-        "@id": "oec:landUse",
-        "@type": "xsd:decimal"
-      },
       language: {
         "@id": "oec:language",
         "@type": "xsd:string"
@@ -23002,18 +22862,10 @@ var contexts_default = {
         "@id": "oec:massFraction",
         "@type": "xsd:decimal"
       },
-      materialCircularityIndicator: {
-        "@id": "oec:materialCircularityIndicator",
-        "@type": "xsd:decimal"
-      },
       materialComposition: {
         "@id": "oec:hasMaterialComposition",
         "@type": "@id",
         "@container": "@set"
-      },
-      materialFootprint: {
-        "@id": "oec:materialFootprint",
-        "@type": "xsd:decimal"
       },
       materialName: "schema:name",
       maxScore: {
@@ -23038,10 +22890,6 @@ var contexts_default = {
         "@container": "@set"
       },
       name: "schema:name",
-      packagingWasteAmount: {
-        "@id": "oec:packagingWasteAmount",
-        "@type": "xsd:decimal"
-      },
       passportExpiryDate: {
         "@id": "oec:passportExpiryDate",
         "@type": "xsd:date"
@@ -23087,17 +22935,9 @@ var contexts_default = {
         "@type": "xsd:anyURI"
       },
       productModel: "schema:ProductModel",
-      productToPackagingRatio: {
-        "@id": "oec:productToPackagingRatio",
-        "@type": "xsd:decimal"
-      },
       professionalRepairNetwork: {
         "@id": "oec:professionalRepairNetwork",
         "@type": "@id"
-      },
-      recyclableContent: {
-        "@id": "oec:recyclableContent",
-        "@type": "xsd:decimal"
       },
       recycledContent: {
         "@id": "oec:recycledContent",
@@ -23183,10 +23023,6 @@ var contexts_default = {
         "@id": "schema:deliveryTime",
         "@type": "@id"
       },
-      stageValue: {
-        "@id": "oec:stageValue",
-        "@type": "xsd:decimal"
-      },
       standardCode: {
         "@id": "oea:standardCode",
         "@type": "xsd:string"
@@ -23265,10 +23101,6 @@ var contexts_default = {
         "@id": "schema:url",
         "@type": "@id"
       },
-      utilityFactor: {
-        "@id": "oec:utilityFactor",
-        "@type": "xsd:decimal"
-      },
       validUntil: {
         "@id": "schema:validUntil",
         "@type": "xsd:date"
@@ -23287,17 +23119,9 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       warrantyScope: "gs1:warrantyScopeDescription",
-      wasteGenerationAmount: {
-        "@id": "oec:wasteGenerationAmount",
-        "@type": "xsd:decimal"
-      },
       wastePreventionInfo: {
         "@id": "oec:wastePreventionInfo",
         "@type": "@id"
-      },
-      waterConsumption: {
-        "@id": "oec:waterConsumption",
-        "@type": "xsd:decimal"
       }
     }
   },
@@ -23320,7 +23144,9 @@ var contexts_default = {
       BatteryCategory: "eubat:BatteryCategory",
       BatteryChemistry: "eubat:BatteryChemistry",
       BatteryMaterial: "eubat:BatteryMaterial",
+      BatteryStateAssessment: "eubat:BatteryStateAssessment",
       BatteryStatus: "eubat:BatteryStatus",
+      CapacityExhaustionThreshold: "eubat:CapacityExhaustionThreshold",
       CarbonFootprintClass: "eubat:CarbonFootprintClass",
       CarbonFootprintDeclaration: "eubat:CarbonFootprintDeclaration",
       CellType: "eubat:CellType",
@@ -23338,7 +23164,7 @@ var contexts_default = {
       MaterialRecoveryTarget: "eubat:MaterialRecoveryTarget",
       NegativeEvent: "eubat:NegativeEvent",
       NegativeEventType: "eubat:NegativeEventType",
-      PowerCapabilityAtSoC: "eubat:PowerCapabilityAtSoC",
+      PerformanceDurabilityTest: "eubat:PerformanceDurabilityTest",
       PublicAccess: "eubat:PublicAccess",
       PublicOrganisation: {
         "@id": "cv:PublicOrganisation"
@@ -23346,6 +23172,7 @@ var contexts_default = {
       RecycledContent: "eubat:RecycledContent",
       "RegulationTypeCode-BATTERY_DIRECTIVE": "gs1:RegulationTypeCode-BATTERY_DIRECTIVE",
       "RegulationTypeCode-CE": "gs1:RegulationTypeCode-CE",
+      ResistanceIncreaseThreshold: "eubat:ResistanceIncreaseThreshold",
       ResponsibleSourcingStandard: "eubat:ResponsibleSourcingStandard",
       SupplyChainDueDiligence: "eubat:SupplyChainDueDiligence",
       TechnicalSpecification: "eubat:TechnicalSpecification",
@@ -23404,10 +23231,6 @@ var contexts_default = {
         "@id": "eubat:cRate",
         "@type": "xsd:decimal"
       },
-      cRateLifeCycleTest: {
-        "@id": "eubat:cRateLifeCycleTest",
-        "@type": "xsd:decimal"
-      },
       cadmiumSymbolRequired: {
         "@id": "eubat:cadmiumSymbolRequired",
         "@type": "xsd:boolean"
@@ -23415,10 +23238,6 @@ var contexts_default = {
       calculationStandard: {
         "@id": "eubat:calculationStandard",
         "@type": "xsd:string"
-      },
-      capacityThresholdForExhaustion: {
-        "@id": "eubat:capacityThresholdForExhaustion",
-        "@type": "xsd:decimal"
       },
       carbonFootprintDeclarationId: {
         "@id": "eubat:carbonFootprintDeclarationId",
@@ -23474,14 +23293,6 @@ var contexts_default = {
         "@id": "eubat:declarationOfConformity",
         "@type": "@id"
       },
-      depthOfDischargeInCycleLifeTest: {
-        "@id": "eubat:depthOfDischargeInCycleLifeTest",
-        "@type": "xsd:decimal"
-      },
-      dischargeCRateLifeCycleTest: {
-        "@id": "eubat:dischargeCRateLifeCycleTest",
-        "@type": "xsd:decimal"
-      },
       documentUrl: {
         "@id": "eubat:documentUrl",
         "@type": "@id"
@@ -23512,18 +23323,6 @@ var contexts_default = {
       exceedanceThreshold: {
         "@id": "eubat:exceedanceThreshold",
         "@type": "xsd:decimal"
-      },
-      expectedCycleLife: {
-        "@id": "eubat:expectedCycleLife",
-        "@type": "xsd:integer"
-      },
-      expectedRemainingCycles: {
-        "@id": "eubat:expectedRemainingCycles",
-        "@type": "xsd:integer"
-      },
-      expectedRemainingLifetimeMonths: {
-        "@id": "eubat:expectedRemainingLifetimeMonths",
-        "@type": "xsd:integer"
       },
       exposureDurationMinutes: {
         "@id": "eubat:exposureDurationMinutes",
@@ -23567,12 +23366,8 @@ var contexts_default = {
         "@id": "eubat:hasBatteryMass",
         "@type": "@id"
       },
-      hasCapacityFade: {
-        "@id": "eubat:hasCapacityFade",
-        "@type": "@id"
-      },
-      hasCapacityThroughput: {
-        "@id": "eubat:hasCapacityThroughput",
+      hasBatteryState: {
+        "@id": "eubat:hasBatteryState",
         "@type": "@id"
       },
       hasCarbonFootprintDeclaration: {
@@ -23582,17 +23377,6 @@ var contexts_default = {
       hasCarbonFootprintDistribution: {
         "@id": "eubat:hasCarbonFootprintDistribution",
         "@type": "@id"
-      },
-      hasCarbonFootprintPerformanceClass: {
-        "@id": "eubat:hasCarbonFootprintPerformanceClass",
-        "@type": "@vocab",
-        "@context": {
-          CFClassA: "eubat:CFClassA",
-          CFClassB: "eubat:CFClassB",
-          CFClassC: "eubat:CFClassC",
-          CFClassD: "eubat:CFClassD",
-          CFClassE: "eubat:CFClassE"
-        }
       },
       hasCarbonFootprintProduction: {
         "@id": "eubat:hasCarbonFootprintProduction",
@@ -23648,14 +23432,6 @@ var contexts_default = {
           Separator: "eubat:Separator"
         }
       },
-      hasCurrentSelfDischargingRate: {
-        "@id": "eubat:hasCurrentSelfDischargingRate",
-        "@type": "@id"
-      },
-      hasCycleCount: {
-        "@id": "eubat:hasCycleCount",
-        "@type": "@id"
-      },
       hasDismantlingAndRemovalInformation: {
         "@id": "eubat:hasDismantlingAndRemovalInformation",
         "@type": "@id"
@@ -23681,10 +23457,6 @@ var contexts_default = {
         "@id": "eubat:hasEndOfLifeInfo",
         "@type": "@id"
       },
-      hasEnergyThroughput: {
-        "@id": "eubat:hasEnergyThroughput",
-        "@type": "@id"
-      },
       hasEuDeclarationOfConformity: {
         "@id": "eubat:hasEuDeclarationOfConformity",
         "@type": "@id"
@@ -23707,20 +23479,8 @@ var contexts_default = {
           WaterIngress: "eubat:WaterIngress"
         }
       },
-      hasEvolutionOfSelfDischarge: {
-        "@id": "eubat:hasEvolutionOfSelfDischarge",
-        "@type": "@id"
-      },
       hasExpectedLifetime: {
         "@id": "eubat:hasExpectedLifetime",
-        "@type": "@id"
-      },
-      hasExpectedLifetimeCapacityThroughput: {
-        "@id": "eubat:hasExpectedLifetimeCapacityThroughput",
-        "@type": "@id"
-      },
-      hasExpectedLifetimeEnergyThroughput: {
-        "@id": "eubat:hasExpectedLifetimeEnergyThroughput",
         "@type": "@id"
       },
       hasHazardClass: {
@@ -23752,30 +23512,6 @@ var contexts_default = {
           Minor: "eubat:Minor",
           Moderate: "eubat:Moderate"
         }
-      },
-      hasInitialCapacity: {
-        "@id": "eubat:hasInitialCapacity",
-        "@type": "@id"
-      },
-      hasInitialCellInternalResistance: {
-        "@id": "eubat:hasInitialCellInternalResistance",
-        "@type": "@id"
-      },
-      hasInitialEnergy: {
-        "@id": "eubat:hasInitialEnergy",
-        "@type": "@id"
-      },
-      hasInitialPackInternalResistance: {
-        "@id": "eubat:hasInitialPackInternalResistance",
-        "@type": "@id"
-      },
-      hasInternalResistance: {
-        "@id": "eubat:hasInternalResistance",
-        "@type": "@id"
-      },
-      hasInternalResistanceIncrease: {
-        "@id": "eubat:hasInternalResistanceIncrease",
-        "@type": "@id"
       },
       hasLabelSubject: {
         "@id": "eubat:hasLabelSubject",
@@ -23882,24 +23618,8 @@ var contexts_default = {
           AuthorisedRepresentative: "oec:AuthorisedRepresentative"
         }
       },
-      hasOriginalPowerCapability: {
-        "@id": "eubat:hasOriginalPowerCapability",
-        "@type": "@id"
-      },
-      hasPowerCapability: {
-        "@id": "eubat:hasPowerCapability",
-        "@type": "@id"
-      },
-      hasPowerCapabilityAt20SoC: {
-        "@id": "eubat:hasPowerCapabilityAt20SoC",
-        "@type": "@id"
-      },
-      hasPowerCapabilityAt80SoC: {
-        "@id": "eubat:hasPowerCapabilityAt80SoC",
-        "@type": "@id"
-      },
-      hasPowerFade: {
-        "@id": "eubat:hasPowerFade",
+      hasPerformanceTest: {
+        "@id": "eubat:hasPerformanceTest",
         "@type": "@id"
       },
       hasRatedCapacity: {
@@ -23918,22 +23638,6 @@ var contexts_default = {
         "@id": "eubat:hasRecycledContent",
         "@type": "@id"
       },
-      hasRemainingCapacity: {
-        "@id": "eubat:hasRemainingCapacity",
-        "@type": "@id"
-      },
-      hasRemainingPowerCapability: {
-        "@id": "eubat:hasRemainingPowerCapability",
-        "@type": "@id"
-      },
-      hasRemainingRoundTripEfficiency: {
-        "@id": "eubat:hasRemainingRoundTripEfficiency",
-        "@type": "@id"
-      },
-      hasRemainingUsableEnergy: {
-        "@id": "eubat:hasRemainingUsableEnergy",
-        "@type": "@id"
-      },
       hasRepurposingEntity: {
         "@id": "eubat:hasRepurposingEntity",
         "@type": "@id"
@@ -23950,28 +23654,12 @@ var contexts_default = {
           RMI: "eubat:RMI"
         }
       },
-      hasRoundTripEfficiencyFade: {
-        "@id": "eubat:hasRoundTripEfficiencyFade",
-        "@type": "@id"
-      },
       hasSafetyMeasures: {
         "@id": "eubat:hasSafetyMeasures",
         "@type": "@id"
       },
       hasSparePartSources: {
         "@id": "eubat:hasSparePartSources",
-        "@type": "@id"
-      },
-      hasStateOfCertifiedEnergy: {
-        "@id": "eubat:hasStateOfCertifiedEnergy",
-        "@type": "@id"
-      },
-      hasStateOfCharge: {
-        "@id": "eubat:hasStateOfCharge",
-        "@type": "@id"
-      },
-      hasStateOfHealth: {
-        "@id": "eubat:hasStateOfHealth",
         "@type": "@id"
       },
       hasSubstanceLocation: {
@@ -24036,10 +23724,6 @@ var contexts_default = {
         "@id": "eubat:informationOnCollection",
         "@type": "@id"
       },
-      initialSelfDischarge: {
-        "@id": "eubat:initialSelfDischarge",
-        "@type": "xsd:decimal"
-      },
       inspectorId: {
         "@id": "eubat:inspectorId",
         "@type": "xsd:string"
@@ -24080,10 +23764,6 @@ var contexts_default = {
       lifecycleStage: {
         "@id": "eubat:lifecycleStage",
         "@type": "xsd:string"
-      },
-      lifetimeReferenceTest: {
-        "@id": "eubat:lifetimeReferenceTest",
-        "@type": "@id"
       },
       lithiumPostConsumerShare: {
         "@id": "eubat:lithiumPostConsumerShare",
@@ -24152,10 +23832,6 @@ var contexts_default = {
         "@id": "eubat:numberOfCells",
         "@type": "xsd:integer"
       },
-      numberOfDeepDischargeEvents: {
-        "@id": "eubat:numberOfDeepDischargeEvents",
-        "@type": "xsd:integer"
-      },
       numberOfModules: {
         "@id": "eubat:numberOfModules",
         "@type": "xsd:integer"
@@ -24218,23 +23894,11 @@ var contexts_default = {
         "@type": "@id"
       },
       repurposingPotential: "eubat:repurposingPotential",
-      resistanceIncreaseThreshold: {
-        "@id": "eubat:resistanceIncreaseThreshold",
-        "@type": "xsd:decimal"
-      },
       resultOfTestReport: {
         "@id": "eubat:resultOfTestReport",
         "@type": "@id"
       },
       riskAssessmentSummary: "eubat:riskAssessmentSummary",
-      roundTripEfficiency: {
-        "@id": "eubat:roundTripEfficiency",
-        "@type": "xsd:decimal"
-      },
-      roundTripEfficiencyAt50PercentCycleLife: {
-        "@id": "eubat:roundTripEfficiencyAt50PercentCycleLife",
-        "@type": "xsd:decimal"
-      },
       safetyInstructions: {
         "@id": "eubat:safetyInstructions",
         "@type": "@id"
@@ -24258,10 +23922,6 @@ var contexts_default = {
         "@type": "xsd:string"
       },
       spareParts: "eubat:spareParts",
-      stateOfChargeLevel: {
-        "@id": "eubat:stateOfChargeLevel",
-        "@type": "xsd:decimal"
-      },
       supplyChainIndex: {
         "@id": "eubat:supplyChainIndex",
         "@type": "xsd:decimal"
@@ -24285,22 +23945,6 @@ var contexts_default = {
       thirdPartyAssurancesUrl: {
         "@id": "eubat:thirdPartyAssurancesUrl",
         "@type": "@id"
-      },
-      timeSpentChargingDuringExtremeTemperaturesAboveBoundary: {
-        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
-        "@type": "xsd:integer"
-      },
-      timeSpentChargingDuringExtremeTemperaturesBelowBoundary: {
-        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
-        "@type": "xsd:integer"
-      },
-      timeSpentInExtremeTemperaturesAboveBoundary: {
-        "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
-        "@type": "xsd:integer"
-      },
-      timeSpentInExtremeTemperaturesBelowBoundary: {
-        "@id": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
-        "@type": "xsd:integer"
       },
       transportConditions: "eubat:transportConditions",
       transportationSafetyClass: {
@@ -24378,21 +24022,9 @@ var contexts_default = {
       TextileProduct: "eutex:TextileProduct",
       WasteOriginType: "eutex:WasteOriginType",
       additionalCareInstructions: "eutex:additionalCareInstructions",
-      benchmarkPerformance: {
-        "@id": "eutex:benchmarkPerformance",
-        "@type": "xsd:decimal"
-      },
       biodegradable: {
         "@id": "eutex:biodegradable",
         "@type": "xsd:boolean"
-      },
-      carbonFootprintClass: {
-        "@id": "eutex:carbonFootprintClass",
-        "@type": "xsd:integer"
-      },
-      carbonFootprintManufacturing: {
-        "@id": "eutex:carbonFootprintManufacturing",
-        "@type": "xsd:decimal"
       },
       chemicalName: "schema:name",
       chemicalPurpose: {
@@ -24411,10 +24043,6 @@ var contexts_default = {
       endOfLifeHandling: {
         "@id": "eutex:endOfLifeHandling",
         "@type": "xsd:string"
-      },
-      environmentalFootprintClass: {
-        "@id": "eutex:environmentalFootprintClass",
-        "@type": "xsd:integer"
       },
       euEcolabel: {
         "@id": "eutex:euEcolabel",
@@ -24662,18 +24290,6 @@ var contexts_default = {
         "@id": "eutex:hasLciaCategories",
         "@type": "@id"
       },
-      hasLciaCategoryCode: {
-        "@id": "eutex:hasLciaCategoryCode",
-        "@type": "@vocab",
-        "@context": {
-          Acidification: "eutex:Acidification",
-          Ecotoxicity: "eutex:Ecotoxicity",
-          Eutrophication: "eutex:Eutrophication",
-          GWP: "eutex:GWP",
-          HumanToxicity: "eutex:HumanToxicity",
-          WaterUse: "eutex:WaterUse"
-        }
-      },
       hasMicroplasticInfo: {
         "@id": "eutex:hasMicroplasticInfo",
         "@type": "@id"
@@ -24798,14 +24414,6 @@ var contexts_default = {
         "@type": "@id",
         "@container": "@set"
       },
-      lciaUnit: {
-        "@id": "eutex:lciaUnit",
-        "@type": "xsd:string"
-      },
-      lciaValue: {
-        "@id": "eutex:lciaValue",
-        "@type": "xsd:decimal"
-      },
       maxConcentration: {
         "@id": "eutex:maxConcentration",
         "@type": "xsd:decimal"
@@ -24822,14 +24430,6 @@ var contexts_default = {
       organicContentPercentage: {
         "@id": "eutex:organicContentPercentage",
         "@type": "xsd:decimal"
-      },
-      pefSingleScore: {
-        "@id": "eutex:pefSingleScore",
-        "@type": "xsd:decimal"
-      },
-      pefcrReference: {
-        "@id": "eutex:pefcrReference",
-        "@type": "xsd:string"
       },
       pfasFree: {
         "@id": "eutex:pfasFree",
@@ -24995,17 +24595,9 @@ var contexts_default = {
           }
         }
       },
-      avoidedEmissionsKgCO2e: {
-        "@id": "euelec:avoidedEmissionsKgCO2e",
-        "@type": "xsd:decimal"
-      },
       batteryMassGrams: {
         "@id": "euelec:batteryMassGrams",
         "@type": "xsd:decimal"
-      },
-      calculationMethod: {
-        "@id": "euelec:calculationMethod",
-        "@type": "xsd:string"
       },
       collectionMethod: {
         "@id": "euelec:collectionMethod",
@@ -25067,10 +24659,6 @@ var contexts_default = {
       energyLabelUrl: {
         "@id": "euelec:energyLabelUrl",
         "@type": "@id"
-      },
-      energyRecoveryRate: {
-        "@id": "euelec:energyRecoveryRate",
-        "@type": "xsd:decimal"
       },
       eprelProductUrl: {
         "@id": "euelec:eprelProductUrl",
@@ -25321,17 +24909,9 @@ var contexts_default = {
         "@id": "gs1:productionDate",
         "@type": "xsd:date"
       },
-      recoveryRate: {
-        "@id": "euelec:recoveryRate",
-        "@type": "xsd:decimal"
-      },
       recyclingProcess: {
         "@id": "euelec:recyclingProcess",
         "@type": "xsd:string"
-      },
-      recyclingRate: {
-        "@id": "euelec:recyclingRate",
-        "@type": "xsd:decimal"
       },
       removalReason: {
         "@id": "euelec:removalReason",
@@ -25384,14 +24964,6 @@ var contexts_default = {
       sortingDecision: {
         "@id": "euelec:sortingDecision",
         "@type": "xsd:string"
-      },
-      totalInputMassGrams: {
-        "@id": "euelec:totalInputMassGrams",
-        "@type": "xsd:decimal"
-      },
-      totalRecoveredMassGrams: {
-        "@id": "euelec:totalRecoveredMassGrams",
-        "@type": "xsd:decimal"
       },
       treatmentCertificate: {
         "@id": "euelec:treatmentCertificate",
@@ -28007,7 +27579,7 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld": {
-    _comment: "OpenEPCIS Battery Vocabulary v0.10.1, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Battery Vocabulary v0.12.0, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -28016,6 +27588,7 @@ var contexts_default = {
         type: "@type",
         eubat: "https://ref.openepcis.org/extensions/eu/battery/",
         gs1: "https://ref.gs1.org/voc/",
+        oea: "https://ref.openepcis.org/extensions/common/assessment/",
         oec: "https://ref.openepcis.org/extensions/common/core/",
         xsd: "http://www.w3.org/2001/XMLSchema#",
         schema: "https://schema.org/",
@@ -28116,54 +27689,6 @@ var contexts_default = {
           "@id": "eubat:hasMaximumDischargingCurrent",
           "@type": "@id"
         },
-        "eubat:expectedCycleLife": {
-          "@id": "eubat:expectedCycleLife",
-          "@type": "xsd:integer"
-        },
-        "eubat:hasExpectedLifetimeEnergyThroughput": {
-          "@id": "eubat:hasExpectedLifetimeEnergyThroughput",
-          "@type": "@id"
-        },
-        "eubat:hasExpectedLifetimeCapacityThroughput": {
-          "@id": "eubat:hasExpectedLifetimeCapacityThroughput",
-          "@type": "@id"
-        },
-        "eubat:roundTripEfficiency": {
-          "@id": "eubat:roundTripEfficiency",
-          "@type": "xsd:decimal"
-        },
-        "eubat:roundTripEfficiencyAt50PercentCycleLife": {
-          "@id": "eubat:roundTripEfficiencyAt50PercentCycleLife",
-          "@type": "xsd:decimal"
-        },
-        "eubat:depthOfDischargeInCycleLifeTest": {
-          "@id": "eubat:depthOfDischargeInCycleLifeTest",
-          "@type": "xsd:decimal"
-        },
-        "eubat:resistanceIncreaseThreshold": {
-          "@id": "eubat:resistanceIncreaseThreshold",
-          "@type": "xsd:decimal"
-        },
-        "eubat:hasInitialCellInternalResistance": {
-          "@id": "eubat:hasInitialCellInternalResistance",
-          "@type": "@id"
-        },
-        "eubat:hasInitialPackInternalResistance": {
-          "@id": "eubat:hasInitialPackInternalResistance",
-          "@type": "@id"
-        },
-        "eubat:initialSelfDischarge": {
-          "@id": "eubat:initialSelfDischarge",
-          "@type": "xsd:decimal"
-        },
-        "eubat:capacityThresholdForExhaustion": {
-          "@id": "eubat:capacityThresholdForExhaustion",
-          "@type": "xsd:decimal"
-        },
-        "eubat:lifetimeReferenceTest": {
-          "@id": "eubat:lifetimeReferenceTest",
-          "@type": "xsd:anyURI"
-        },
         "eubat:powerCapabilityRatio": {
           "@id": "eubat:powerCapabilityRatio",
           "@type": "xsd:decimal"
@@ -28171,34 +27696,6 @@ var contexts_default = {
         "eubat:cRate": {
           "@id": "eubat:cRate",
           "@type": "xsd:decimal"
-        },
-        "eubat:cRateLifeCycleTest": {
-          "@id": "eubat:cRateLifeCycleTest",
-          "@type": "xsd:decimal"
-        },
-        "eubat:dischargeCRateLifeCycleTest": {
-          "@id": "eubat:dischargeCRateLifeCycleTest",
-          "@type": "xsd:decimal"
-        },
-        "eubat:hasOriginalPowerCapability": {
-          "@id": "eubat:hasOriginalPowerCapability",
-          "@type": "@id"
-        },
-        "eubat:stateOfChargeLevel": {
-          "@id": "eubat:stateOfChargeLevel",
-          "@type": "xsd:decimal"
-        },
-        "eubat:hasPowerCapability": {
-          "@id": "eubat:hasPowerCapability",
-          "@type": "@id"
-        },
-        "eubat:hasPowerCapabilityAt80SoC": {
-          "@id": "eubat:hasPowerCapabilityAt80SoC",
-          "@type": "@id"
-        },
-        "eubat:hasPowerCapabilityAt20SoC": {
-          "@id": "eubat:hasPowerCapabilityAt20SoC",
-          "@type": "@id"
         },
         "eubat:hasTemperatureRangeStorage": {
           "@id": "eubat:hasTemperatureRangeStorage",
@@ -28516,89 +28013,13 @@ var contexts_default = {
           "@id": "eubat:authorizedServiceCenters",
           "@type": "xsd:anyURI"
         },
-        "eubat:hasStateOfHealth": {
-          "@id": "eubat:hasStateOfHealth",
-          "@type": "@id"
-        },
-        "eubat:hasStateOfCharge": {
-          "@id": "eubat:hasStateOfCharge",
-          "@type": "@id"
-        },
-        "eubat:hasStateOfCertifiedEnergy": {
-          "@id": "eubat:hasStateOfCertifiedEnergy",
-          "@type": "@id"
-        },
-        "eubat:hasCycleCount": {
-          "@id": "eubat:hasCycleCount",
-          "@type": "@id"
-        },
-        "eubat:hasRemainingCapacity": {
-          "@id": "eubat:hasRemainingCapacity",
-          "@type": "@id"
-        },
-        "eubat:hasCapacityFade": {
-          "@id": "eubat:hasCapacityFade",
-          "@type": "@id"
-        },
-        "eubat:hasPowerFade": {
-          "@id": "eubat:hasPowerFade",
-          "@type": "@id"
-        },
-        "eubat:hasInternalResistance": {
-          "@id": "eubat:hasInternalResistance",
-          "@type": "@id"
-        },
-        "eubat:hasInternalResistanceIncrease": {
-          "@id": "eubat:hasInternalResistanceIncrease",
-          "@type": "@id"
-        },
-        "eubat:hasEnergyThroughput": {
-          "@id": "eubat:hasEnergyThroughput",
-          "@type": "@id"
-        },
-        "eubat:hasCapacityThroughput": {
-          "@id": "eubat:hasCapacityThroughput",
-          "@type": "@id"
-        },
-        "eubat:hasRemainingRoundTripEfficiency": {
-          "@id": "eubat:hasRemainingRoundTripEfficiency",
-          "@type": "@id"
-        },
-        "eubat:hasRoundTripEfficiencyFade": {
-          "@id": "eubat:hasRoundTripEfficiencyFade",
-          "@type": "@id"
-        },
-        "eubat:hasEvolutionOfSelfDischarge": {
-          "@id": "eubat:hasEvolutionOfSelfDischarge",
-          "@type": "@id"
-        },
         "eubat:exposureDurationMinutes": {
           "@id": "eubat:exposureDurationMinutes",
           "@type": "xsd:integer"
         },
-        "eubat:hasInitialCapacity": {
-          "@id": "eubat:hasInitialCapacity",
-          "@type": "@id"
-        },
-        "eubat:hasInitialEnergy": {
-          "@id": "eubat:hasInitialEnergy",
-          "@type": "@id"
-        },
         "eubat:hasCertifiedUsableEnergy": {
           "@id": "eubat:hasCertifiedUsableEnergy",
           "@type": "@id"
-        },
-        "eubat:hasRemainingUsableEnergy": {
-          "@id": "eubat:hasRemainingUsableEnergy",
-          "@type": "@id"
-        },
-        "eubat:expectedRemainingCycles": {
-          "@id": "eubat:expectedRemainingCycles",
-          "@type": "xsd:integer"
-        },
-        "eubat:expectedRemainingLifetimeMonths": {
-          "@id": "eubat:expectedRemainingLifetimeMonths",
-          "@type": "xsd:integer"
         },
         "eubat:nextScheduledMeasurement": {
           "@id": "eubat:nextScheduledMeasurement",
@@ -28636,10 +28057,6 @@ var contexts_default = {
           "@id": "eubat:incidentReportUrl",
           "@type": "xsd:anyURI"
         },
-        "eubat:hasRemainingPowerCapability": {
-          "@id": "eubat:hasRemainingPowerCapability",
-          "@type": "@id"
-        },
         "gs1:value": {
           "@id": "gs1:value",
           "@type": "xsd:decimal"
@@ -28650,10 +28067,6 @@ var contexts_default = {
         },
         "eubat:hasBatteryMass": {
           "@id": "eubat:hasBatteryMass",
-          "@type": "@id"
-        },
-        "eubat:hasCurrentSelfDischargingRate": {
-          "@id": "eubat:hasCurrentSelfDischargingRate",
           "@type": "@id"
         },
         "eubat:hasDismantlingAndRemovalInformation": {
@@ -28675,22 +28088,6 @@ var contexts_default = {
         "eubat:hasNegativeEvents": {
           "@id": "eubat:hasNegativeEvents",
           "@type": "@id"
-        },
-        "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
-          "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
-          "@type": "xsd:integer"
-        },
-        "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary": {
-          "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
-          "@type": "xsd:integer"
-        },
-        "eubat:timeSpentInExtremeTemperaturesAboveBoundary": {
-          "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
-          "@type": "xsd:integer"
-        },
-        "eubat:timeSpentInExtremeTemperaturesBelowBoundary": {
-          "@id": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
-          "@type": "xsd:integer"
         }
       }
     ]
@@ -28864,15 +28261,15 @@ var contexts_default = {
         "@type": "@id"
       },
       expectedNumberOfCycles: {
-        "@id": "eubat:expectedCycleLife",
+        "@id": "bpsamm-perf:expectedNumberOfCycles",
         "@type": "xsd:integer"
       },
       initialSelfDischarge: {
-        "@id": "eubat:initialSelfDischarge",
+        "@id": "bpr:InitialSelf-dischargeRate",
         "@type": "xsd:decimal"
       },
       roundtripEfficiency: {
-        "@id": "eubat:roundTripEfficiency",
+        "@id": "bpsamm-perf:roundtripEfficiency",
         "@type": "xsd:decimal"
       },
       initialInternalResistance: {
@@ -28892,15 +28289,15 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       capacityThresholdForExhaustion: {
-        "@id": "eubat:capacityThresholdForExhaustion",
+        "@id": "bpsamm-perf:capacityThresholdForExhaustion",
         "@type": "xsd:decimal"
       },
       lifetimeReferenceTest: {
-        "@id": "eubat:lifetimeReferenceTest",
+        "@id": "bpr:Cycle-lifeReferenceTest",
         "@type": "@id"
       },
       cRateLifeCycleTest: {
-        "@id": "eubat:cRateLifeCycleTest",
+        "@id": "bpr:C-rateOfRelevantCycle-lifeTest",
         "@type": "xsd:decimal"
       },
       temperatureRangeIdleState: {
@@ -28908,71 +28305,71 @@ var contexts_default = {
         "@type": "@id"
       },
       roundTripEfficiencyAt50PercentCycleLife: {
-        "@id": "eubat:roundTripEfficiencyAt50PercentCycleLife",
+        "@id": "bpsamm-perf:roundTripEfficiencyAt50PercentCycleLife",
         "@type": "xsd:decimal"
       },
       roundTripEfficiencyFade: {
-        "@id": "eubat:hasRoundTripEfficiencyFade",
+        "@id": "bpsamm-perf:roundTripEfficiencyFade",
         "@type": "@id"
       },
       powerFade: {
-        "@id": "eubat:hasPowerFade",
+        "@id": "bpsamm-perf:powerFade",
         "@type": "@id"
       },
       originalPowerCapability: {
-        "@id": "eubat:hasOriginalPowerCapability",
+        "@id": "bpsamm-perf:originalPowerCapability",
         "@type": "@id"
       },
       remainingPowerCapability: {
-        "@id": "eubat:hasRemainingPowerCapability",
+        "@id": "bpsamm-perf:remainingPowerCapability",
         "@type": "@id"
       },
       energyThroughput: {
-        "@id": "eubat:hasEnergyThroughput",
+        "@id": "bpsamm-perf:energyThroughput",
         "@type": "@id"
       },
       capacityThroughput: {
-        "@id": "eubat:hasCapacityThroughput",
+        "@id": "bpsamm-perf:capacityThroughput",
         "@type": "@id"
       },
       numberOfFullCycles: {
-        "@id": "eubat:hasCycleCount",
+        "@id": "bpsamm-perf:numberOfFullCycles",
         "@type": "@id"
       },
       stateOfCertifiedEnergy: {
-        "@id": "eubat:hasStateOfCertifiedEnergy",
+        "@id": "bpsamm-perf:stateOfCertifiedEnergy",
         "@type": "@id"
       },
       capacityFade: {
-        "@id": "eubat:hasCapacityFade",
+        "@id": "bpsamm-perf:capacityFade",
         "@type": "@id"
       },
       remainingEnergy: {
-        "@id": "eubat:hasRemainingUsableEnergy",
+        "@id": "bpsamm-perf:remainingEnergy",
         "@type": "@id"
       },
       remainingCapacity: {
-        "@id": "eubat:hasRemainingCapacity",
+        "@id": "bpsamm-perf:remainingCapacity",
         "@type": "@id"
       },
       stateOfCharge: {
-        "@id": "eubat:hasStateOfCharge",
+        "@id": "bpsamm-perf:stateOfCharge",
         "@type": "@id"
       },
       internalResistanceIncrease: {
-        "@id": "eubat:hasInternalResistanceIncrease",
+        "@id": "bpsamm-perf:internalResistanceIncrease",
         "@type": "@id"
       },
       evolutionOfSelfDischarge: {
-        "@id": "eubat:hasEvolutionOfSelfDischarge",
+        "@id": "bpsamm-perf:evolutionOfSelfDischarge",
         "@type": "@id"
       },
       currentSelfDischargingRate: {
-        "@id": "eubat:hasCurrentSelfDischargingRate",
+        "@id": "bpsamm-perf:currentSelfDischargingRate",
         "@type": "@id"
       },
       remainingRoundTripEnergyEfficiency: {
-        "@id": "eubat:hasRemainingRoundTripEfficiency",
+        "@id": "bpsamm-perf:remainingRoundTripEnergyEfficiency",
         "@type": "@id"
       },
       lastUpdate: {
@@ -28990,19 +28387,19 @@ var contexts_default = {
         "@id": "schema:storageRequirements"
       },
       timeExtremeHighTemp: {
-        "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
+        "@id": "bpsamm-perf:timeExtremeHighTemp",
         "@type": "xsd:integer"
       },
       timeExtremeLowTemp: {
-        "@id": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
+        "@id": "bpsamm-perf:timeExtremeLowTemp",
         "@type": "xsd:integer"
       },
       timeExtremeHighTempCharging: {
-        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
+        "@id": "bpsamm-perf:timeExtremeHighTempCharging",
         "@type": "xsd:integer"
       },
       timeExtremeLowTempCharging: {
-        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
+        "@id": "bpsamm-perf:timeExtremeLowTempCharging",
         "@type": "xsd:integer"
       },
       minimum: {
@@ -29014,11 +28411,11 @@ var contexts_default = {
         "@type": "@id"
       },
       atSoC: {
-        "@id": "eubat:stateOfChargeLevel",
+        "@id": "bpsamm-perf:atSoC",
         "@type": "xsd:decimal"
       },
       powerCapabilityAt: {
-        "@id": "eubat:hasPowerCapability",
+        "@id": "bpsamm-perf:powerCapabilityAt",
         "@type": "@id"
       },
       ohmicResistance: {
@@ -29054,7 +28451,7 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       carbonFootprintPerformanceClass: {
-        "@id": "eubat:hasCarbonFootprintPerformanceClass",
+        "@id": "bpsamm-carbon:carbonFootprintPerformanceClass",
         "@type": "@vocab",
         "@context": {
           A: "eubat:CFClassA",
@@ -29381,19 +28778,19 @@ var contexts_default = {
         "@type": "@id"
       },
       initialRoundTripEnergyEfficiency: {
-        "@id": "eubat:roundTripEfficiency",
+        "@id": "bpsamm-perf:roundtripEfficiency",
         "@type": "xsd:decimal"
       },
       roundTripEnergyEfficiencyAt50PercentOfCycleLife: {
-        "@id": "eubat:roundTripEfficiencyAt50PercentCycleLife",
+        "@id": "bpsamm-perf:roundTripEfficiencyAt50PercentCycleLife",
         "@type": "xsd:decimal"
       },
       energyRoundTripEfficiencyFade: {
-        "@id": "eubat:hasRoundTripEfficiencyFade",
+        "@id": "bpsamm-perf:roundTripEfficiencyFade",
         "@type": "xsd:decimal"
       },
       evolutionOfSelfDischargeRates: {
-        "@id": "eubat:hasEvolutionOfSelfDischarge",
+        "@id": "bpsamm-perf:evolutionOfSelfDischarge",
         "@type": "@id"
       },
       initialInternalResistanceOfBatteryCellAndPack: {
@@ -29401,7 +28798,7 @@ var contexts_default = {
         "@type": "@id"
       },
       internalResistanceIncreaseOfPack: {
-        "@id": "eubat:hasInternalResistanceIncrease",
+        "@id": "bpsamm-perf:internalResistanceIncrease",
         "@type": "@id"
       },
       expectedLifetimeInCalendarYears: {
@@ -29409,15 +28806,15 @@ var contexts_default = {
         "@type": "@id"
       },
       expectedLifetimeNumberOfChargeDischargeCycles: {
-        "@id": "eubat:expectedCycleLife",
+        "@id": "bpsamm-perf:expectedNumberOfCycles",
         "@type": "@id"
       },
       numberOfFullChargingAndDischargingCycles: {
-        "@id": "eubat:hasCycleCount",
+        "@id": "bpsamm-perf:numberOfFullCycles",
         "@type": "@id"
       },
-      cycleLifeReferenceTest: "eubat:lifetimeReferenceTest",
-      cRateOfRelevantCycleLifeTest: "eubat:cRateLifeCycleTest",
+      cycleLifeReferenceTest: "bpr:Cycle-lifeReferenceTest",
+      cRateOfRelevantCycleLifeTest: "bpr:C-rateOfRelevantCycle-lifeTest",
       temperatureRangeIdleStateLowerBoundary: {
         "@id": "eubat:hasMinimumTemperature",
         "@type": "@id"
@@ -29427,23 +28824,19 @@ var contexts_default = {
         "@type": "@id"
       },
       timeSpentInExtremeTemperaturesAboveBoundary: {
-        "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
+        "@id": "bpsamm-perf:timeExtremeHighTemp",
         "@type": "xsd:integer"
       },
       timeSpentInExtremeTemperaturesBelowBoundary: {
-        "@id": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
+        "@id": "bpsamm-perf:timeExtremeLowTemp",
         "@type": "xsd:integer"
       },
       timeSpentChargingDuringExtremeTemperaturesAboveBoundary: {
-        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
+        "@id": "bpsamm-perf:timeExtremeHighTempCharging",
         "@type": "xsd:integer"
       },
       timeSpentChargingDuringExtremeTemperaturesBelowBoundary: {
-        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
-        "@type": "xsd:integer"
-      },
-      numberOfDeepDischargeEvents: {
-        "@id": "eubat:numberOfDeepDischargeEvents",
+        "@id": "bpsamm-perf:timeExtremeLowTempCharging",
         "@type": "xsd:integer"
       },
       informationOnAccidents: "bpr:InformationOnAccidents",
@@ -29455,11 +28848,15 @@ var contexts_default = {
         "@id": "gs1:value",
         "@type": "xsd:decimal"
       },
-      unitCode: "gs1:unitCode"
+      unitCode: "gs1:unitCode",
+      numberOfDeepDischargeEvents: {
+        "@id": "bpr:NumberOfDeepDischargeEvents",
+        "@type": "xsd:integer"
+      }
     }
   },
   "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld": {
-    _comment: "OpenEPCIS Assessment and Test Vocabulary v0.10.1, generated from extensions/common/assessment/ontology/assessment.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/assessment/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Assessment and Test Vocabulary v0.12.0, generated from extensions/common/assessment/ontology/assessment.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/assessment/context/.context-overrides.json for non-derivable hints.",
     "@context": {
       "@version": 1.1,
       id: "@id",
@@ -29635,7 +29032,7 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.org/extensions/common/carrier/carrier-context.jsonld": {
-    _comment: "OpenEPCIS Data Carrier Authentication Vocabulary v0.10.1, generated from extensions/common/carrier/ontology/carrier.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/carrier/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Data Carrier Authentication Vocabulary v0.12.0, generated from extensions/common/carrier/ontology/carrier.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/carrier/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29656,7 +29053,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld": {
-    _comment: "OpenEPCIS Textile DPP Vocabulary v0.10.1, generated from extensions/eu/textile/ontology/textile.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/textile/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Textile DPP Vocabulary v0.12.0, generated from extensions/eu/textile/ontology/textile.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/textile/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29816,26 +29213,10 @@ var contexts_default = {
           "@id": "eutex:hasEnvironmentalFootprint",
           "@type": "@id"
         },
-        "eutex:carbonFootprintManufacturing": {
-          "@id": "eutex:carbonFootprintManufacturing",
-          "@type": "xsd:decimal"
-        },
-        "eutex:pefSingleScore": {
-          "@id": "eutex:pefSingleScore",
-          "@type": "xsd:decimal"
-        },
-        "eutex:benchmarkPerformance": {
-          "@id": "eutex:benchmarkPerformance",
-          "@type": "xsd:decimal"
-        },
         "eutex:hasLciaCategories": {
           "@id": "eutex:hasLciaCategories",
           "@type": "@id",
           "@container": "@set"
-        },
-        "eutex:lciaValue": {
-          "@id": "eutex:lciaValue",
-          "@type": "xsd:decimal"
         },
         "eutex:hasSubstancesOfConcern": {
           "@id": "eutex:hasSubstancesOfConcern",
@@ -29854,7 +29235,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld": {
-    _comment: "OpenEPCIS Electronics Vocabulary v0.10.1, generated from extensions/eu/electronics/ontology/electronics.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/electronics/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Electronics Vocabulary v0.12.0, generated from extensions/eu/electronics/ontology/electronics.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/electronics/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30044,7 +29425,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld": {
-    _comment: "OpenEPCIS EUDR Vocabulary v0.10.1, generated from extensions/eu/eudr/ontology/eudr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/eudr/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS EUDR Vocabulary v0.12.0, generated from extensions/eu/eudr/ontology/eudr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/eudr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30242,7 +29623,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/ppwr/ppwr-context.jsonld": {
-    _comment: "OpenEPCIS PPWR Vocabulary v0.10.1, generated from extensions/eu/ppwr/ontology/ppwr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/ppwr/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS PPWR Vocabulary v0.12.0, generated from extensions/eu/ppwr/ontology/ppwr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/ppwr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30451,7 +29832,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/cpr/cpr-context.jsonld": {
-    _comment: "OpenEPCIS CPR Vocabulary v0.10.1, generated from extensions/eu/cpr/ontology/cpr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/cpr/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS CPR Vocabulary v0.12.0, generated from extensions/eu/cpr/ontology/cpr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/cpr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30498,7 +29879,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/detergent/detergent-context.jsonld": {
-    _comment: "OpenEPCIS Detergent Vocabulary v0.10.1, generated from extensions/eu/detergent/ontology/detergent.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/detergent/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Detergent Vocabulary v0.12.0, generated from extensions/eu/detergent/ontology/detergent.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/detergent/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30598,7 +29979,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/us/fsma204/fsma204-context.jsonld": {
-    _comment: "OpenEPCIS FSMA 204 Vocabulary v0.10.1, generated from extensions/us/fsma204/ontology/fsma204.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/us/fsma204/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS FSMA 204 Vocabulary v0.12.0, generated from extensions/us/fsma204/ontology/fsma204.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/us/fsma204/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30624,7 +30005,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/iron-steel/iron-steel-context.jsonld": {
-    _comment: "OpenEPCIS Iron & Steel Vocabulary v0.10.1, generated from extensions/eu/iron-steel/ontology/iron-steel.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/iron-steel/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Iron & Steel Vocabulary v0.12.0, generated from extensions/eu/iron-steel/ontology/iron-steel.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/iron-steel/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30633,6 +30014,7 @@ var contexts_default = {
         type: "@type",
         eusteel: "https://ref.openepcis.org/extensions/eu/iron-steel/",
         gs1: "https://ref.gs1.org/voc/",
+        oea: "https://ref.openepcis.org/extensions/common/assessment/",
         xsd: "http://www.w3.org/2001/XMLSchema#",
         oec: "https://ref.openepcis.org/extensions/common/core/",
         schema: "https://schema.org/",
@@ -30664,22 +30046,6 @@ var contexts_default = {
           "@id": "eusteel:meltAndPourCountry",
           "@type": "xsd:string"
         },
-        "eusteel:mtcCarbonContent": {
-          "@id": "eusteel:mtcCarbonContent",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcCarbonEquivalent": {
-          "@id": "eusteel:mtcCarbonEquivalent",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcCopperContent": {
-          "@id": "eusteel:mtcCopperContent",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcElongation": {
-          "@id": "eusteel:mtcElongation",
-          "@type": "xsd:decimal"
-        },
         "eusteel:mtcFinishing": {
           "@id": "eusteel:mtcFinishing",
           "@type": "xsd:string"
@@ -30688,48 +30054,16 @@ var contexts_default = {
           "@id": "eusteel:mtcInspectionType",
           "@type": "xsd:string"
         },
-        "eusteel:mtcNitrogenContent": {
-          "@id": "eusteel:mtcNitrogenContent",
-          "@type": "xsd:decimal"
-        },
         "eusteel:mtcNominalSize": {
           "@id": "eusteel:mtcNominalSize",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcPhosphorusContent": {
-          "@id": "eusteel:mtcPhosphorusContent",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcRadiometricControl": {
-          "@id": "eusteel:mtcRadiometricControl",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcRelativeRibArea": {
-          "@id": "eusteel:mtcRelativeRibArea",
           "@type": "xsd:decimal"
         },
         "eusteel:mtcSteelProcess": {
           "@id": "eusteel:mtcSteelProcess",
           "@type": "xsd:string"
         },
-        "eusteel:mtcSulfurContent": {
-          "@id": "eusteel:mtcSulfurContent",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcTensileStrength": {
-          "@id": "eusteel:mtcTensileStrength",
-          "@type": "xsd:decimal"
-        },
         "eusteel:mtcWeightTolerance": {
           "@id": "eusteel:mtcWeightTolerance",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcYieldStrength": {
-          "@id": "eusteel:mtcYieldStrength",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcYieldStrengthRatio": {
-          "@id": "eusteel:mtcYieldStrengthRatio",
           "@type": "xsd:decimal"
         },
         "eusteel:productNumber": {
@@ -30800,22 +30134,6 @@ var contexts_default = {
         "@id": "eusteel:meltAndPourCountry",
         "@type": "xsd:string"
       },
-      mtcCarbonContent: {
-        "@id": "eusteel:mtcCarbonContent",
-        "@type": "xsd:decimal"
-      },
-      mtcCarbonEquivalent: {
-        "@id": "eusteel:mtcCarbonEquivalent",
-        "@type": "xsd:decimal"
-      },
-      mtcCopperContent: {
-        "@id": "eusteel:mtcCopperContent",
-        "@type": "xsd:decimal"
-      },
-      mtcElongation: {
-        "@id": "eusteel:mtcElongation",
-        "@type": "xsd:decimal"
-      },
       mtcFinishing: {
         "@id": "eusteel:mtcFinishing",
         "@type": "xsd:string"
@@ -30824,48 +30142,16 @@ var contexts_default = {
         "@id": "eusteel:mtcInspectionType",
         "@type": "xsd:string"
       },
-      mtcNitrogenContent: {
-        "@id": "eusteel:mtcNitrogenContent",
-        "@type": "xsd:decimal"
-      },
       mtcNominalSize: {
         "@id": "eusteel:mtcNominalSize",
-        "@type": "xsd:decimal"
-      },
-      mtcPhosphorusContent: {
-        "@id": "eusteel:mtcPhosphorusContent",
-        "@type": "xsd:decimal"
-      },
-      mtcRadiometricControl: {
-        "@id": "eusteel:mtcRadiometricControl",
-        "@type": "xsd:decimal"
-      },
-      mtcRelativeRibArea: {
-        "@id": "eusteel:mtcRelativeRibArea",
         "@type": "xsd:decimal"
       },
       mtcSteelProcess: {
         "@id": "eusteel:mtcSteelProcess",
         "@type": "xsd:string"
       },
-      mtcSulfurContent: {
-        "@id": "eusteel:mtcSulfurContent",
-        "@type": "xsd:decimal"
-      },
-      mtcTensileStrength: {
-        "@id": "eusteel:mtcTensileStrength",
-        "@type": "xsd:decimal"
-      },
       mtcWeightTolerance: {
         "@id": "eusteel:mtcWeightTolerance",
-        "@type": "xsd:decimal"
-      },
-      mtcYieldStrength: {
-        "@id": "eusteel:mtcYieldStrength",
-        "@type": "xsd:decimal"
-      },
-      mtcYieldStrengthRatio: {
-        "@id": "eusteel:mtcYieldStrengthRatio",
         "@type": "xsd:decimal"
       },
       productNumber: {
@@ -30993,11 +30279,17 @@ var samples_default = [
           "gs1:value": "8.4",
           "gs1:unitCode": "KGM"
         },
-        "eubat:hasCarbonFootprintPerformanceClass": {
-          "@id": "eubat:CFClassB"
-        },
         "eubat:carbonFootprintStudyUrl": "https://files.example.org/files/products/09521234002000/docs/carbon-footprint-study.pdf",
-        "eubat:carbonFootprintDeclarationId": "CFP-2026-AMPERIA-STAX10-AMP01"
+        "eubat:carbonFootprintDeclarationId": "CFP-2026-AMPERIA-STAX10-AMP01",
+        "oea:hasIndicator": {
+          type: "oea:Indicator",
+          "oea:hasIndicatorKind": {
+            "@id": "eubat:CarbonFootprintPerformanceClass"
+          },
+          "oea:hasCategoricalValue": {
+            "@id": "eubat:CFClassB"
+          }
+        }
       },
       "eubat:hasEndOfLifeInfo": {
         id: "https://id.gs1.org/01/09521234002000/10/LOT-2026-AMP01#eol",
@@ -31040,57 +30332,122 @@ var samples_default = [
         "@id": "eubat:Original"
       },
       "eubat:puttingIntoService": "2026-02-10",
-      "eubat:hasStateOfHealth": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "97.5",
-        "gs1:unitCode": "P1"
-      },
-      "eubat:hasStateOfCharge": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": 62,
-        "gs1:unitCode": "P1"
-      },
-      "eubat:hasRemainingCapacity": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": 195,
-        "gs1:unitCode": "AMH"
-      },
-      "eubat:hasRemainingUsableEnergy": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "9.98",
-        "gs1:unitCode": "KWH"
-      },
-      "eubat:hasStateOfCertifiedEnergy": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "97.5",
-        "gs1:unitCode": "P1"
-      },
-      "eubat:hasCapacityFade": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "2.5",
-        "gs1:unitCode": "P1"
-      },
-      "eubat:hasRemainingRoundTripEfficiency": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": 94,
-        "gs1:unitCode": "P1"
-      },
-      "eubat:hasInternalResistance": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "1.9",
-        "gs1:unitCode": "OHM"
-      },
-      "eubat:hasCycleCount": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": 640,
-        "gs1:unitCode": "C62"
-      },
-      "eubat:hasEnergyThroughput": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": 6550,
-        "gs1:unitCode": "KWH"
-      },
-      "oec:passportStatus": "active"
+      "oec:passportStatus": "active",
+      "eubat:hasBatteryState": {
+        type: "eubat:BatteryStateAssessment",
+        "oea:hasResult": [
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:StateOfHealth"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "97.5",
+              "gs1:unitCode": "P1"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:StateOfCharge"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 62,
+              "gs1:unitCode": "P1"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:StateOfCertifiedEnergy"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "97.5",
+              "gs1:unitCode": "P1"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:FullCycleCount"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 640,
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:RemainingCapacity"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 195,
+              "gs1:unitCode": "AMH"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:CapacityFade"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "2.5",
+              "gs1:unitCode": "P1"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:InternalResistance"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "1.9",
+              "gs1:unitCode": "OHM"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:EnergyThroughput"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 6550,
+              "gs1:unitCode": "KWH"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:RemainingRoundTripEfficiency"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 94,
+              "gs1:unitCode": "P1"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:RemainingUsableEnergy"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "9.98",
+              "gs1:unitCode": "KWH"
+            }
+          }
+        ]
+      }
     }
   },
   {
@@ -31267,20 +30624,11 @@ var samples_default = [
           "gs1:value": 5,
           "gs1:unitCode": "KWT"
         },
-        "eubat:hasInitialPackInternalResistance": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": "1.8",
-          "gs1:unitCode": "OHM"
-        },
-        "eubat:expectedCycleLife": 8e3,
         "eubat:hasExpectedLifetime": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 15,
           "gs1:unitCode": "ANN"
         },
-        "eubat:roundTripEfficiency": 95,
-        "eubat:capacityThresholdForExhaustion": 70,
-        "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
         "eubat:hasTemperatureRangeIdleState": {
           id: "https://id.gs1.org/01/09521234002000#temp-idle",
           type: "eubat:TemperatureRange",
@@ -31294,6 +30642,62 @@ var samples_default = [
             "gs1:value": 55,
             "gs1:unitCode": "CEL"
           }
+        },
+        "eubat:hasPerformanceTest": {
+          type: "eubat:PerformanceDurabilityTest",
+          "oea:hasMethod": {
+            type: "oea:TestMethod",
+            "oea:methodUrl": "https://www.iec.ch/standards/62660-1"
+          },
+          "oea:isEvaluatedAgainst": {
+            type: "eubat:CapacityExhaustionThreshold",
+            "oea:hasThresholdParameter": {
+              "@id": "eubat:StateOfCertifiedEnergy"
+            },
+            "oea:hasComparisonOperator": {
+              "@id": "oea:LessThan"
+            },
+            "oea:hasThresholdValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 70,
+              "gs1:unitCode": "P1"
+            }
+          },
+          "oea:hasResult": [
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialPackInternalResistance"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "1.8",
+                "gs1:unitCode": "OHM"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialRoundTripEfficiency"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 95,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:CycleLife"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 8e3,
+                "gs1:unitCode": "C62"
+              }
+            }
+          ]
         }
       },
       "gs1:manufacturersWarranty": {
@@ -31411,11 +30815,17 @@ var samples_default = [
           "gs1:value": "8.6",
           "gs1:unitCode": "KGM"
         },
-        "eubat:hasCarbonFootprintPerformanceClass": {
-          "@id": "eubat:CFClassB"
-        },
         "eubat:carbonFootprintStudyUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-cfp-study.pdf",
-        "eubat:carbonFootprintDeclarationId": "CFP-2024-ECOCELL-IM500-001"
+        "eubat:carbonFootprintDeclarationId": "CFP-2024-ECOCELL-IM500-001",
+        "oea:hasIndicator": {
+          type: "oea:Indicator",
+          "oea:hasIndicatorKind": {
+            "@id": "eubat:CarbonFootprintPerformanceClass"
+          },
+          "oea:hasCategoricalValue": {
+            "@id": "eubat:CFClassB"
+          }
+        }
       },
       "eubat:hasEndOfLifeInfo": {
         id: "https://id.gs1.org/01/09521002005004/10/LOT-2024-0312#eol",
@@ -31562,20 +30972,11 @@ var samples_default = [
           "gs1:value": "7.5",
           "gs1:unitCode": "KWT"
         },
-        "eubat:hasInitialPackInternalResistance": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": "2.1",
-          "gs1:unitCode": "OHM"
-        },
-        "eubat:expectedCycleLife": 6e3,
         "eubat:hasExpectedLifetime": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 15,
           "gs1:unitCode": "ANN"
         },
-        "eubat:roundTripEfficiency": 96,
-        "eubat:capacityThresholdForExhaustion": 70,
-        "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
         "eubat:hasTemperatureRangeIdleState": {
           id: "https://id.gs1.org/01/09521002005004#temp-idle",
           type: "eubat:TemperatureRange",
@@ -31589,6 +30990,62 @@ var samples_default = [
             "gs1:value": 60,
             "gs1:unitCode": "CEL"
           }
+        },
+        "eubat:hasPerformanceTest": {
+          type: "eubat:PerformanceDurabilityTest",
+          "oea:hasMethod": {
+            type: "oea:TestMethod",
+            "oea:methodUrl": "https://www.iec.ch/standards/62660-1"
+          },
+          "oea:isEvaluatedAgainst": {
+            type: "eubat:CapacityExhaustionThreshold",
+            "oea:hasThresholdParameter": {
+              "@id": "eubat:StateOfCertifiedEnergy"
+            },
+            "oea:hasComparisonOperator": {
+              "@id": "oea:LessThan"
+            },
+            "oea:hasThresholdValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 70,
+              "gs1:unitCode": "P1"
+            }
+          },
+          "oea:hasResult": [
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialPackInternalResistance"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "2.1",
+                "gs1:unitCode": "OHM"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialRoundTripEfficiency"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 96,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:CycleLife"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 6e3,
+                "gs1:unitCode": "C62"
+              }
+            }
+          ]
         }
       },
       "gs1:manufacturersWarranty": {
@@ -31912,65 +31369,13 @@ var samples_default = [
           "gs1:value": 140,
           "gs1:unitCode": "AMP"
         },
-        "eubat:hasOriginalPowerCapability": [
-          {
-            id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#power-80",
-            type: "eubat:PowerCapabilityAtSoC",
-            "eubat:stateOfChargeLevel": 80,
-            "eubat:hasPowerCapability": {
-              type: "gs1:QuantitativeValue",
-              "gs1:value": "7.2",
-              "gs1:unitCode": "KWT"
-            }
-          },
-          {
-            id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#power-20",
-            type: "eubat:PowerCapabilityAtSoC",
-            "eubat:stateOfChargeLevel": 20,
-            "eubat:hasPowerCapability": {
-              type: "gs1:QuantitativeValue",
-              "gs1:value": "6.8",
-              "gs1:unitCode": "KWT"
-            }
-          }
-        ],
-        "eubat:hasInitialCellInternalResistance": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": "0.0009",
-          "gs1:unitCode": "OHM"
-        },
-        "eubat:hasInitialPackInternalResistance": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": "2.1",
-          "gs1:unitCode": "OHM"
-        },
-        "eubat:initialSelfDischarge": "1.5",
-        "eubat:expectedCycleLife": 6e3,
         "eubat:hasExpectedLifetime": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 15,
           "gs1:unitCode": "ANN"
         },
-        "eubat:hasExpectedLifetimeEnergyThroughput": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 85800,
-          "gs1:unitCode": "KWH"
-        },
-        "eubat:hasExpectedLifetimeCapacityThroughput": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 168e4,
-          "gs1:unitCode": "AMH"
-        },
-        "eubat:depthOfDischargeInCycleLifeTest": 80,
-        "eubat:resistanceIncreaseThreshold": 50,
-        "eubat:roundTripEfficiency": 96,
-        "eubat:capacityThresholdForExhaustion": 70,
-        "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
         "eubat:powerCapabilityRatio": "0.52",
         "eubat:cRate": "0.5",
-        "eubat:cRateLifeCycleTest": "0.33",
-        "eubat:dischargeCRateLifeCycleTest": "0.5",
-        "eubat:roundTripEfficiencyAt50PercentCycleLife": 94,
         "eubat:hasTemperatureRangeStorage": {
           id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#temp-storage",
           type: "eubat:TemperatureRange",
@@ -32026,6 +31431,222 @@ var samples_default = [
             "gs1:value": 60,
             "gs1:unitCode": "CEL"
           }
+        },
+        "eubat:hasPerformanceTest": {
+          type: "eubat:PerformanceDurabilityTest",
+          "oea:hasMethod": {
+            type: "oea:TestMethod",
+            "oea:methodUrl": "https://www.iec.ch/standards/62660-1"
+          },
+          "oea:hasParameterSetting": [
+            {
+              type: "oea:ParameterSetting",
+              "oea:hasParameter": {
+                "@id": "eubat:DepthOfDischarge"
+              },
+              "oea:hasParameterValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 80,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:ParameterSetting",
+              "oea:hasParameter": {
+                "@id": "eubat:ChargeCRate"
+              },
+              "oea:hasParameterValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "0.33",
+                "gs1:unitCode": "C62"
+              }
+            },
+            {
+              type: "oea:ParameterSetting",
+              "oea:hasParameter": {
+                "@id": "eubat:DischargeCRate"
+              },
+              "oea:hasParameterValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "0.5",
+                "gs1:unitCode": "C62"
+              }
+            }
+          ],
+          "oea:isEvaluatedAgainst": [
+            {
+              type: "eubat:CapacityExhaustionThreshold",
+              "oea:hasThresholdParameter": {
+                "@id": "eubat:StateOfCertifiedEnergy"
+              },
+              "oea:hasComparisonOperator": {
+                "@id": "oea:LessThan"
+              },
+              "oea:hasThresholdValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 70,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "eubat:ResistanceIncreaseThreshold",
+              "oea:hasThresholdParameter": {
+                "@id": "eubat:InternalResistanceIncrease"
+              },
+              "oea:hasComparisonOperator": {
+                "@id": "oea:GreaterThanOrEqual"
+              },
+              "oea:hasThresholdValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 50,
+                "gs1:unitCode": "P1"
+              }
+            }
+          ],
+          "oea:hasResult": [
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialCellInternalResistance"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "0.0009",
+                "gs1:unitCode": "OHM"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialPackInternalResistance"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "2.1",
+                "gs1:unitCode": "OHM"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialSelfDischargeRate"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "1.5",
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialRoundTripEfficiency"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 96,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:RoundTripEfficiencyAt50PercentCycleLife"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 94,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:CycleLife"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 6e3,
+                "gs1:unitCode": "C62"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:LifetimeEnergyThroughput"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 85800,
+                "gs1:unitCode": "KWH"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:LifetimeCapacityThroughput"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 168e4,
+                "gs1:unitCode": "AMH"
+              }
+            }
+          ],
+          "oea:hasSubAssessment": [
+            {
+              id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#power-80",
+              type: "oea:TestExecution",
+              "oea:hasCondition": {
+                type: "oea:AssessmentCondition",
+                "oea:hasConditionType": {
+                  "@id": "eubat:StateOfChargeLevel"
+                },
+                "oea:hasConditionValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": 80,
+                  "gs1:unitCode": "P1"
+                }
+              },
+              "oea:hasResult": {
+                type: "oea:MeasurementResult",
+                "oea:hasObservedParameter": {
+                  "@id": "eubat:PowerCapability"
+                },
+                "oea:hasMeasuredValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": "7.2",
+                  "gs1:unitCode": "KWT"
+                }
+              }
+            },
+            {
+              id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#power-20",
+              type: "oea:TestExecution",
+              "oea:hasCondition": {
+                type: "oea:AssessmentCondition",
+                "oea:hasConditionType": {
+                  "@id": "eubat:StateOfChargeLevel"
+                },
+                "oea:hasConditionValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": 20,
+                  "gs1:unitCode": "P1"
+                }
+              },
+              "oea:hasResult": {
+                type: "oea:MeasurementResult",
+                "oea:hasObservedParameter": {
+                  "@id": "eubat:PowerCapability"
+                },
+                "oea:hasMeasuredValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": "6.8",
+                  "gs1:unitCode": "KWT"
+                }
+              }
+            }
+          ]
         }
       },
       "eubat:hasMaterialComposition": [
@@ -32199,9 +31820,6 @@ var samples_default = [
           "gs1:value": "8.6",
           "gs1:unitCode": "KGM"
         },
-        "eubat:hasCarbonFootprintPerformanceClass": {
-          "@id": "eubat:CFClassB"
-        },
         "eubat:carbonFootprintStudyUrl": "https://files.example.org/files/products/09521002005004/docs/carbon-footprint-study.pdf",
         "eubat:functionalUnit": "1 kWh of total energy throughput over battery lifetime",
         "eubat:calculationStandard": "ISO 14067:2018",
@@ -32214,6 +31832,15 @@ var samples_default = [
           "eubat:verificationDate": "2024-02-28",
           "eubat:verificationCertificateUrl": "https://files.example.org/files/products/09521002005004/docs/verification-certificate.pdf",
           "eubat:verificationStandard": "ISO 14064-3:2019"
+        },
+        "oea:hasIndicator": {
+          type: "oea:Indicator",
+          "oea:hasIndicatorKind": {
+            "@id": "eubat:CarbonFootprintPerformanceClass"
+          },
+          "oea:hasCategoricalValue": {
+            "@id": "eubat:CFClassB"
+          }
         }
       },
       "gs1:manufacturersWarranty": {
@@ -32794,59 +32421,13 @@ var samples_default = [
           "gs1:value": 140,
           "gs1:unitCode": "AMP"
         },
-        "eubat:hasOriginalPowerCapability": [
-          {
-            id: "https://id.gs1.org/01/09521234010012/21/EV-2025-000142#power-80",
-            type: "eubat:PowerCapabilityAtSoC",
-            "eubat:stateOfChargeLevel": 80,
-            "eubat:hasPowerCapability": {
-              type: "gs1:QuantitativeValue",
-              "gs1:value": "7.2",
-              "gs1:unitCode": "KWT"
-            }
-          },
-          {
-            id: "https://id.gs1.org/01/09521234010012/21/EV-2025-000142#power-20",
-            type: "eubat:PowerCapabilityAtSoC",
-            "eubat:stateOfChargeLevel": 20,
-            "eubat:hasPowerCapability": {
-              type: "gs1:QuantitativeValue",
-              "gs1:value": "6.8",
-              "gs1:unitCode": "KWT"
-            }
-          }
-        ],
-        "eubat:hasInitialPackInternalResistance": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": "2.1",
-          "gs1:unitCode": "OHM"
-        },
-        "eubat:initialSelfDischarge": "1.5",
-        "eubat:expectedCycleLife": 6e3,
         "eubat:hasExpectedLifetime": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 15,
           "gs1:unitCode": "ANN"
         },
-        "eubat:hasExpectedLifetimeEnergyThroughput": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 85800,
-          "gs1:unitCode": "KWH"
-        },
-        "eubat:hasExpectedLifetimeCapacityThroughput": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 168e4,
-          "gs1:unitCode": "AMH"
-        },
-        "eubat:depthOfDischargeInCycleLifeTest": 80,
-        "eubat:resistanceIncreaseThreshold": 50,
-        "eubat:roundTripEfficiency": 96,
-        "eubat:capacityThresholdForExhaustion": 70,
-        "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
         "eubat:powerCapabilityRatio": "0.52",
         "eubat:cRate": "0.5",
-        "eubat:cRateLifeCycleTest": "0.33",
-        "eubat:roundTripEfficiencyAt50PercentCycleLife": 94,
         "eubat:hasTemperatureRangeStorage": {
           id: "https://id.gs1.org/01/09521234010012/21/EV-2025-000142#temp-storage",
           type: "eubat:TemperatureRange",
@@ -32902,6 +32483,200 @@ var samples_default = [
             "gs1:value": 60,
             "gs1:unitCode": "CEL"
           }
+        },
+        "eubat:hasPerformanceTest": {
+          type: "eubat:PerformanceDurabilityTest",
+          "oea:hasMethod": {
+            type: "oea:TestMethod",
+            "oea:methodUrl": "https://www.iec.ch/standards/62660-1"
+          },
+          "oea:hasParameterSetting": [
+            {
+              type: "oea:ParameterSetting",
+              "oea:hasParameter": {
+                "@id": "eubat:DepthOfDischarge"
+              },
+              "oea:hasParameterValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 80,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:ParameterSetting",
+              "oea:hasParameter": {
+                "@id": "eubat:ChargeCRate"
+              },
+              "oea:hasParameterValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "0.33",
+                "gs1:unitCode": "C62"
+              }
+            }
+          ],
+          "oea:isEvaluatedAgainst": [
+            {
+              type: "eubat:CapacityExhaustionThreshold",
+              "oea:hasThresholdParameter": {
+                "@id": "eubat:StateOfCertifiedEnergy"
+              },
+              "oea:hasComparisonOperator": {
+                "@id": "oea:LessThan"
+              },
+              "oea:hasThresholdValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 70,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "eubat:ResistanceIncreaseThreshold",
+              "oea:hasThresholdParameter": {
+                "@id": "eubat:InternalResistanceIncrease"
+              },
+              "oea:hasComparisonOperator": {
+                "@id": "oea:GreaterThanOrEqual"
+              },
+              "oea:hasThresholdValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 50,
+                "gs1:unitCode": "P1"
+              }
+            }
+          ],
+          "oea:hasResult": [
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialPackInternalResistance"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "2.1",
+                "gs1:unitCode": "OHM"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialSelfDischargeRate"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "1.5",
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialRoundTripEfficiency"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 96,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:RoundTripEfficiencyAt50PercentCycleLife"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 94,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:CycleLife"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 6e3,
+                "gs1:unitCode": "C62"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:LifetimeEnergyThroughput"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 85800,
+                "gs1:unitCode": "KWH"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:LifetimeCapacityThroughput"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 168e4,
+                "gs1:unitCode": "AMH"
+              }
+            }
+          ],
+          "oea:hasSubAssessment": [
+            {
+              id: "https://id.gs1.org/01/09521234010012/21/EV-2025-000142#power-80",
+              type: "oea:TestExecution",
+              "oea:hasCondition": {
+                type: "oea:AssessmentCondition",
+                "oea:hasConditionType": {
+                  "@id": "eubat:StateOfChargeLevel"
+                },
+                "oea:hasConditionValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": 80,
+                  "gs1:unitCode": "P1"
+                }
+              },
+              "oea:hasResult": {
+                type: "oea:MeasurementResult",
+                "oea:hasObservedParameter": {
+                  "@id": "eubat:PowerCapability"
+                },
+                "oea:hasMeasuredValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": "7.2",
+                  "gs1:unitCode": "KWT"
+                }
+              }
+            },
+            {
+              id: "https://id.gs1.org/01/09521234010012/21/EV-2025-000142#power-20",
+              type: "oea:TestExecution",
+              "oea:hasCondition": {
+                type: "oea:AssessmentCondition",
+                "oea:hasConditionType": {
+                  "@id": "eubat:StateOfChargeLevel"
+                },
+                "oea:hasConditionValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": 20,
+                  "gs1:unitCode": "P1"
+                }
+              },
+              "oea:hasResult": {
+                type: "oea:MeasurementResult",
+                "oea:hasObservedParameter": {
+                  "@id": "eubat:PowerCapability"
+                },
+                "oea:hasMeasuredValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": "6.8",
+                  "gs1:unitCode": "KWT"
+                }
+              }
+            }
+          ]
         }
       },
       "eubat:hasMaterialComposition": [
@@ -33075,9 +32850,6 @@ var samples_default = [
           "gs1:value": "8.6",
           "gs1:unitCode": "KGM"
         },
-        "eubat:hasCarbonFootprintPerformanceClass": {
-          "@id": "eubat:CFClassB"
-        },
         "eubat:carbonFootprintStudyUrl": "https://files.example.org/files/products/09521002005004/docs/carbon-footprint-study.pdf",
         "eubat:functionalUnit": "1 kWh of total energy throughput over battery lifetime",
         "eubat:calculationStandard": "ISO 14067:2018",
@@ -33090,6 +32862,15 @@ var samples_default = [
           "eubat:verificationDate": "2024-02-28",
           "eubat:verificationCertificateUrl": "https://files.example.org/files/products/09521002005004/docs/verification-certificate.pdf",
           "eubat:verificationStandard": "ISO 14064-3:2019"
+        },
+        "oea:hasIndicator": {
+          type: "oea:Indicator",
+          "oea:hasIndicatorKind": {
+            "@id": "eubat:CarbonFootprintPerformanceClass"
+          },
+          "oea:hasCategoricalValue": {
+            "@id": "eubat:CFClassB"
+          }
         }
       },
       "gs1:manufacturersWarranty": {
@@ -33402,48 +33183,109 @@ var samples_default = [
           "gs1:fileLanguageCode": "en"
         }
       ],
-      "eubat:hasCapacityFade": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "3.2",
-        "gs1:unitCode": "P1"
-      },
-      "eubat:hasPowerFade": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "2.5",
-        "gs1:unitCode": "P1"
-      },
-      "eubat:hasInternalResistance": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "0.015",
-        "gs1:unitCode": "OHM"
-      },
-      "eubat:hasInternalResistanceIncrease": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "4.0",
-        "gs1:unitCode": "P1"
-      },
-      "eubat:expectedRemainingCycles": 2800,
-      "eubat:hasStateOfCertifiedEnergy": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "96.8",
-        "gs1:unitCode": "P1"
-      },
-      "eubat:hasRemainingPowerCapability": {
-        id: "https://id.gs1.org/01/09521234010012/21/EV-2025-000142#remaining-power",
-        type: "eubat:PowerCapabilityAtSoC",
-        "eubat:stateOfChargeLevel": 100,
-        "eubat:hasPowerCapability": {
-          id: "https://id.gs1.org/01/09521234010012/21/EV-2025-000142#rpc-value",
-          type: "gs1:QuantitativeValue",
-          "gs1:value": "11500",
-          "gs1:unitCode": "WTT"
-        }
-      },
       _comment_ec_review: [
         "SKELETON eu.battery.ev \u2014 abgeleitet von battery-product.jsonld, EC-konform (check:ec-readiness --category ev --shacl).",
         "REVIEW: Modell-/Performance-Werte (Voltages, Chemistry, Mass, Recycled-Content, Specs) aus Vorlage, je Kategorie/Produkt fachlich zu pruefen.",
         "SOH-Werte (CapacityFade/RemainingPowerCapability/RemainingCapacity/SOCE \u2026) sind repraesentative Platzhalter."
-      ]
+      ],
+      "eubat:hasBatteryState": {
+        type: "eubat:BatteryStateAssessment",
+        "oea:hasResult": [
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:StateOfCertifiedEnergy"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "96.8",
+              "gs1:unitCode": "P1"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:CapacityFade"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "3.2",
+              "gs1:unitCode": "P1"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:PowerFade"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "2.5",
+              "gs1:unitCode": "P1"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:InternalResistance"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "0.015",
+              "gs1:unitCode": "OHM"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:InternalResistanceIncrease"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "4.0",
+              "gs1:unitCode": "P1"
+            }
+          }
+        ],
+        "oea:hasSubAssessment": {
+          id: "https://id.gs1.org/01/09521234010012/21/EV-2025-000142#remaining-power",
+          type: "oea:TestExecution",
+          "oea:hasCondition": {
+            type: "oea:AssessmentCondition",
+            "oea:hasConditionType": {
+              "@id": "eubat:StateOfChargeLevel"
+            },
+            "oea:hasConditionValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 100,
+              "gs1:unitCode": "P1"
+            }
+          },
+          "oea:hasResult": {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:PowerCapability"
+            },
+            "oea:hasMeasuredValue": {
+              id: "https://id.gs1.org/01/09521234010012/21/EV-2025-000142#rpc-value",
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "11500",
+              "gs1:unitCode": "WTT"
+            }
+          }
+        },
+        "oea:hasIndicator": {
+          type: "oea:Indicator",
+          "oea:hasIndicatorKind": {
+            "@id": "eubat:RemainingCycles"
+          },
+          "oea:hasIndicatorValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 2800,
+            "gs1:unitCode": "C62"
+          }
+        }
+      }
     }
   },
   {
@@ -33703,59 +33545,13 @@ var samples_default = [
           "gs1:value": 140,
           "gs1:unitCode": "AMP"
         },
-        "eubat:hasOriginalPowerCapability": [
-          {
-            id: "https://id.gs1.org/01/09521234040019/21/PB-2025-011204#power-80",
-            type: "eubat:PowerCapabilityAtSoC",
-            "eubat:stateOfChargeLevel": 80,
-            "eubat:hasPowerCapability": {
-              type: "gs1:QuantitativeValue",
-              "gs1:value": "7.2",
-              "gs1:unitCode": "KWT"
-            }
-          },
-          {
-            id: "https://id.gs1.org/01/09521234040019/21/PB-2025-011204#power-20",
-            type: "eubat:PowerCapabilityAtSoC",
-            "eubat:stateOfChargeLevel": 20,
-            "eubat:hasPowerCapability": {
-              type: "gs1:QuantitativeValue",
-              "gs1:value": "6.8",
-              "gs1:unitCode": "KWT"
-            }
-          }
-        ],
-        "eubat:hasInitialPackInternalResistance": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": "2.1",
-          "gs1:unitCode": "OHM"
-        },
-        "eubat:initialSelfDischarge": "1.5",
-        "eubat:expectedCycleLife": 6e3,
         "eubat:hasExpectedLifetime": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 15,
           "gs1:unitCode": "ANN"
         },
-        "eubat:hasExpectedLifetimeEnergyThroughput": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 85800,
-          "gs1:unitCode": "KWH"
-        },
-        "eubat:hasExpectedLifetimeCapacityThroughput": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 168e4,
-          "gs1:unitCode": "AMH"
-        },
-        "eubat:depthOfDischargeInCycleLifeTest": 80,
-        "eubat:resistanceIncreaseThreshold": 50,
-        "eubat:roundTripEfficiency": 96,
-        "eubat:capacityThresholdForExhaustion": 70,
-        "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
         "eubat:powerCapabilityRatio": "0.52",
         "eubat:cRate": "0.5",
-        "eubat:cRateLifeCycleTest": "0.33",
-        "eubat:roundTripEfficiencyAt50PercentCycleLife": 94,
         "eubat:hasTemperatureRangeStorage": {
           id: "https://id.gs1.org/01/09521234040019/21/PB-2025-011204#temp-storage",
           type: "eubat:TemperatureRange",
@@ -33811,6 +33607,200 @@ var samples_default = [
             "gs1:value": 60,
             "gs1:unitCode": "CEL"
           }
+        },
+        "eubat:hasPerformanceTest": {
+          type: "eubat:PerformanceDurabilityTest",
+          "oea:hasMethod": {
+            type: "oea:TestMethod",
+            "oea:methodUrl": "https://www.iec.ch/standards/62660-1"
+          },
+          "oea:hasParameterSetting": [
+            {
+              type: "oea:ParameterSetting",
+              "oea:hasParameter": {
+                "@id": "eubat:DepthOfDischarge"
+              },
+              "oea:hasParameterValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 80,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:ParameterSetting",
+              "oea:hasParameter": {
+                "@id": "eubat:ChargeCRate"
+              },
+              "oea:hasParameterValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "0.33",
+                "gs1:unitCode": "C62"
+              }
+            }
+          ],
+          "oea:isEvaluatedAgainst": [
+            {
+              type: "eubat:CapacityExhaustionThreshold",
+              "oea:hasThresholdParameter": {
+                "@id": "eubat:StateOfCertifiedEnergy"
+              },
+              "oea:hasComparisonOperator": {
+                "@id": "oea:LessThan"
+              },
+              "oea:hasThresholdValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 70,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "eubat:ResistanceIncreaseThreshold",
+              "oea:hasThresholdParameter": {
+                "@id": "eubat:InternalResistanceIncrease"
+              },
+              "oea:hasComparisonOperator": {
+                "@id": "oea:GreaterThanOrEqual"
+              },
+              "oea:hasThresholdValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 50,
+                "gs1:unitCode": "P1"
+              }
+            }
+          ],
+          "oea:hasResult": [
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialPackInternalResistance"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "2.1",
+                "gs1:unitCode": "OHM"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialSelfDischargeRate"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "1.5",
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialRoundTripEfficiency"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 96,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:RoundTripEfficiencyAt50PercentCycleLife"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 94,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:CycleLife"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 6e3,
+                "gs1:unitCode": "C62"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:LifetimeEnergyThroughput"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 85800,
+                "gs1:unitCode": "KWH"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:LifetimeCapacityThroughput"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 168e4,
+                "gs1:unitCode": "AMH"
+              }
+            }
+          ],
+          "oea:hasSubAssessment": [
+            {
+              id: "https://id.gs1.org/01/09521234040019/21/PB-2025-011204#power-80",
+              type: "oea:TestExecution",
+              "oea:hasCondition": {
+                type: "oea:AssessmentCondition",
+                "oea:hasConditionType": {
+                  "@id": "eubat:StateOfChargeLevel"
+                },
+                "oea:hasConditionValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": 80,
+                  "gs1:unitCode": "P1"
+                }
+              },
+              "oea:hasResult": {
+                type: "oea:MeasurementResult",
+                "oea:hasObservedParameter": {
+                  "@id": "eubat:PowerCapability"
+                },
+                "oea:hasMeasuredValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": "7.2",
+                  "gs1:unitCode": "KWT"
+                }
+              }
+            },
+            {
+              id: "https://id.gs1.org/01/09521234040019/21/PB-2025-011204#power-20",
+              type: "oea:TestExecution",
+              "oea:hasCondition": {
+                type: "oea:AssessmentCondition",
+                "oea:hasConditionType": {
+                  "@id": "eubat:StateOfChargeLevel"
+                },
+                "oea:hasConditionValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": 20,
+                  "gs1:unitCode": "P1"
+                }
+              },
+              "oea:hasResult": {
+                type: "oea:MeasurementResult",
+                "oea:hasObservedParameter": {
+                  "@id": "eubat:PowerCapability"
+                },
+                "oea:hasMeasuredValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": "6.8",
+                  "gs1:unitCode": "KWT"
+                }
+              }
+            }
+          ]
         }
       },
       "eubat:hasMaterialComposition": [
@@ -33984,9 +33974,6 @@ var samples_default = [
           "gs1:value": "8.6",
           "gs1:unitCode": "KGM"
         },
-        "eubat:hasCarbonFootprintPerformanceClass": {
-          "@id": "eubat:CFClassB"
-        },
         "eubat:carbonFootprintStudyUrl": "https://files.example.org/files/products/09521002005004/docs/carbon-footprint-study.pdf",
         "eubat:functionalUnit": "1 kWh of total energy throughput over battery lifetime",
         "eubat:calculationStandard": "ISO 14067:2018",
@@ -33999,6 +33986,15 @@ var samples_default = [
           "eubat:verificationDate": "2024-02-28",
           "eubat:verificationCertificateUrl": "https://files.example.org/files/products/09521002005004/docs/verification-certificate.pdf",
           "eubat:verificationStandard": "ISO 14064-3:2019"
+        },
+        "oea:hasIndicator": {
+          type: "oea:Indicator",
+          "oea:hasIndicatorKind": {
+            "@id": "eubat:CarbonFootprintPerformanceClass"
+          },
+          "oea:hasCategoricalValue": {
+            "@id": "eubat:CFClassB"
+          }
         }
       },
       "gs1:manufacturersWarranty": {
@@ -34575,59 +34571,13 @@ var samples_default = [
           "gs1:value": 140,
           "gs1:unitCode": "AMP"
         },
-        "eubat:hasOriginalPowerCapability": [
-          {
-            id: "https://id.gs1.org/01/09521234020011/21/LMT-2025-004821#power-80",
-            type: "eubat:PowerCapabilityAtSoC",
-            "eubat:stateOfChargeLevel": 80,
-            "eubat:hasPowerCapability": {
-              type: "gs1:QuantitativeValue",
-              "gs1:value": "7.2",
-              "gs1:unitCode": "KWT"
-            }
-          },
-          {
-            id: "https://id.gs1.org/01/09521234020011/21/LMT-2025-004821#power-20",
-            type: "eubat:PowerCapabilityAtSoC",
-            "eubat:stateOfChargeLevel": 20,
-            "eubat:hasPowerCapability": {
-              type: "gs1:QuantitativeValue",
-              "gs1:value": "6.8",
-              "gs1:unitCode": "KWT"
-            }
-          }
-        ],
-        "eubat:hasInitialPackInternalResistance": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": "2.1",
-          "gs1:unitCode": "OHM"
-        },
-        "eubat:initialSelfDischarge": "1.5",
-        "eubat:expectedCycleLife": 6e3,
         "eubat:hasExpectedLifetime": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 15,
           "gs1:unitCode": "ANN"
         },
-        "eubat:hasExpectedLifetimeEnergyThroughput": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 85800,
-          "gs1:unitCode": "KWH"
-        },
-        "eubat:hasExpectedLifetimeCapacityThroughput": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 168e4,
-          "gs1:unitCode": "AMH"
-        },
-        "eubat:depthOfDischargeInCycleLifeTest": 80,
-        "eubat:resistanceIncreaseThreshold": 50,
-        "eubat:roundTripEfficiency": 96,
-        "eubat:capacityThresholdForExhaustion": 70,
-        "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
         "eubat:powerCapabilityRatio": "0.52",
         "eubat:cRate": "0.5",
-        "eubat:cRateLifeCycleTest": "0.33",
-        "eubat:roundTripEfficiencyAt50PercentCycleLife": 94,
         "eubat:hasTemperatureRangeStorage": {
           id: "https://id.gs1.org/01/09521234020011/21/LMT-2025-004821#temp-storage",
           type: "eubat:TemperatureRange",
@@ -34683,6 +34633,200 @@ var samples_default = [
             "gs1:value": 60,
             "gs1:unitCode": "CEL"
           }
+        },
+        "eubat:hasPerformanceTest": {
+          type: "eubat:PerformanceDurabilityTest",
+          "oea:hasMethod": {
+            type: "oea:TestMethod",
+            "oea:methodUrl": "https://www.iec.ch/standards/62660-1"
+          },
+          "oea:hasParameterSetting": [
+            {
+              type: "oea:ParameterSetting",
+              "oea:hasParameter": {
+                "@id": "eubat:DepthOfDischarge"
+              },
+              "oea:hasParameterValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 80,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:ParameterSetting",
+              "oea:hasParameter": {
+                "@id": "eubat:ChargeCRate"
+              },
+              "oea:hasParameterValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "0.33",
+                "gs1:unitCode": "C62"
+              }
+            }
+          ],
+          "oea:isEvaluatedAgainst": [
+            {
+              type: "eubat:CapacityExhaustionThreshold",
+              "oea:hasThresholdParameter": {
+                "@id": "eubat:StateOfCertifiedEnergy"
+              },
+              "oea:hasComparisonOperator": {
+                "@id": "oea:LessThan"
+              },
+              "oea:hasThresholdValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 70,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "eubat:ResistanceIncreaseThreshold",
+              "oea:hasThresholdParameter": {
+                "@id": "eubat:InternalResistanceIncrease"
+              },
+              "oea:hasComparisonOperator": {
+                "@id": "oea:GreaterThanOrEqual"
+              },
+              "oea:hasThresholdValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 50,
+                "gs1:unitCode": "P1"
+              }
+            }
+          ],
+          "oea:hasResult": [
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialPackInternalResistance"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "2.1",
+                "gs1:unitCode": "OHM"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialSelfDischargeRate"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "1.5",
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialRoundTripEfficiency"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 96,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:RoundTripEfficiencyAt50PercentCycleLife"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 94,
+                "gs1:unitCode": "P1"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:CycleLife"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 6e3,
+                "gs1:unitCode": "C62"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:LifetimeEnergyThroughput"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 85800,
+                "gs1:unitCode": "KWH"
+              }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:LifetimeCapacityThroughput"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 168e4,
+                "gs1:unitCode": "AMH"
+              }
+            }
+          ],
+          "oea:hasSubAssessment": [
+            {
+              id: "https://id.gs1.org/01/09521234020011/21/LMT-2025-004821#power-80",
+              type: "oea:TestExecution",
+              "oea:hasCondition": {
+                type: "oea:AssessmentCondition",
+                "oea:hasConditionType": {
+                  "@id": "eubat:StateOfChargeLevel"
+                },
+                "oea:hasConditionValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": 80,
+                  "gs1:unitCode": "P1"
+                }
+              },
+              "oea:hasResult": {
+                type: "oea:MeasurementResult",
+                "oea:hasObservedParameter": {
+                  "@id": "eubat:PowerCapability"
+                },
+                "oea:hasMeasuredValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": "7.2",
+                  "gs1:unitCode": "KWT"
+                }
+              }
+            },
+            {
+              id: "https://id.gs1.org/01/09521234020011/21/LMT-2025-004821#power-20",
+              type: "oea:TestExecution",
+              "oea:hasCondition": {
+                type: "oea:AssessmentCondition",
+                "oea:hasConditionType": {
+                  "@id": "eubat:StateOfChargeLevel"
+                },
+                "oea:hasConditionValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": 20,
+                  "gs1:unitCode": "P1"
+                }
+              },
+              "oea:hasResult": {
+                type: "oea:MeasurementResult",
+                "oea:hasObservedParameter": {
+                  "@id": "eubat:PowerCapability"
+                },
+                "oea:hasMeasuredValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": "6.8",
+                  "gs1:unitCode": "KWT"
+                }
+              }
+            }
+          ]
         }
       },
       "eubat:hasMaterialComposition": [
@@ -34856,9 +35000,6 @@ var samples_default = [
           "gs1:value": "8.6",
           "gs1:unitCode": "KGM"
         },
-        "eubat:hasCarbonFootprintPerformanceClass": {
-          "@id": "eubat:CFClassB"
-        },
         "eubat:carbonFootprintStudyUrl": "https://files.example.org/files/products/09521002005004/docs/carbon-footprint-study.pdf",
         "eubat:functionalUnit": "1 kWh of total energy throughput over battery lifetime",
         "eubat:calculationStandard": "ISO 14067:2018",
@@ -34871,6 +35012,15 @@ var samples_default = [
           "eubat:verificationDate": "2024-02-28",
           "eubat:verificationCertificateUrl": "https://files.example.org/files/products/09521002005004/docs/verification-certificate.pdf",
           "eubat:verificationStandard": "ISO 14064-3:2019"
+        },
+        "oea:hasIndicator": {
+          type: "oea:Indicator",
+          "oea:hasIndicatorKind": {
+            "@id": "eubat:CarbonFootprintPerformanceClass"
+          },
+          "oea:hasCategoricalValue": {
+            "@id": "eubat:CFClassB"
+          }
         }
       },
       "gs1:manufacturersWarranty": {
@@ -35183,58 +35333,131 @@ var samples_default = [
           "gs1:fileLanguageCode": "en"
         }
       ],
-      "eubat:hasCapacityFade": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "3.2",
-        "gs1:unitCode": "P1"
-      },
-      "eubat:hasPowerFade": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "2.5",
-        "gs1:unitCode": "P1"
-      },
-      "eubat:hasInternalResistance": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "0.015",
-        "gs1:unitCode": "OHM"
-      },
-      "eubat:hasInternalResistanceIncrease": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "4.0",
-        "gs1:unitCode": "P1"
-      },
-      "eubat:expectedRemainingCycles": 2800,
-      "eubat:hasRemainingCapacity": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "271.04",
-        "gs1:unitCode": "AMH"
-      },
-      "eubat:hasRemainingRoundTripEfficiency": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "95.0",
-        "gs1:unitCode": "P1"
-      },
-      "eubat:hasEvolutionOfSelfDischarge": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": "1.2",
-        "gs1:unitCode": "P1"
-      },
-      "eubat:hasRemainingPowerCapability": {
-        id: "https://id.gs1.org/01/09521234020011/21/LMT-2025-004821#remaining-power",
-        type: "eubat:PowerCapabilityAtSoC",
-        "eubat:stateOfChargeLevel": 100,
-        "eubat:hasPowerCapability": {
-          id: "https://id.gs1.org/01/09521234020011/21/LMT-2025-004821#rpc-value",
-          type: "gs1:QuantitativeValue",
-          "gs1:value": "11500",
-          "gs1:unitCode": "WTT"
-        }
-      },
       _comment_ec_review: [
         "SKELETON eu.battery.lmt \u2014 abgeleitet von battery-product.jsonld, EC-konform (check:ec-readiness --category lmt --shacl).",
         "REVIEW: Modell-/Performance-Werte (Voltages, Chemistry, Mass, Recycled-Content, Specs) aus Vorlage, je Kategorie/Produkt fachlich zu pruefen.",
         "SOH-Werte (CapacityFade/RemainingPowerCapability/RemainingCapacity/SOCE \u2026) sind repraesentative Platzhalter."
-      ]
+      ],
+      "eubat:hasBatteryState": {
+        type: "eubat:BatteryStateAssessment",
+        "oea:hasResult": [
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:RemainingCapacity"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "271.04",
+              "gs1:unitCode": "AMH"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:CapacityFade"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "3.2",
+              "gs1:unitCode": "P1"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:PowerFade"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "2.5",
+              "gs1:unitCode": "P1"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:InternalResistance"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "0.015",
+              "gs1:unitCode": "OHM"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:InternalResistanceIncrease"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "4.0",
+              "gs1:unitCode": "P1"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:RemainingRoundTripEfficiency"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "95.0",
+              "gs1:unitCode": "P1"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:SelfDischargeEvolution"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "1.2",
+              "gs1:unitCode": "P1"
+            }
+          }
+        ],
+        "oea:hasSubAssessment": {
+          id: "https://id.gs1.org/01/09521234020011/21/LMT-2025-004821#remaining-power",
+          type: "oea:TestExecution",
+          "oea:hasCondition": {
+            type: "oea:AssessmentCondition",
+            "oea:hasConditionType": {
+              "@id": "eubat:StateOfChargeLevel"
+            },
+            "oea:hasConditionValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 100,
+              "gs1:unitCode": "P1"
+            }
+          },
+          "oea:hasResult": {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:PowerCapability"
+            },
+            "oea:hasMeasuredValue": {
+              id: "https://id.gs1.org/01/09521234020011/21/LMT-2025-004821#rpc-value",
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "11500",
+              "gs1:unitCode": "WTT"
+            }
+          }
+        },
+        "oea:hasIndicator": {
+          type: "oea:Indicator",
+          "oea:hasIndicatorKind": {
+            "@id": "eubat:RemainingCycles"
+          },
+          "oea:hasIndicatorValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 2800,
+            "gs1:unitCode": "C62"
+          }
+        }
+      }
     }
   },
   {
@@ -35462,7 +35685,20 @@ var samples_default = [
           "gs1:value": "0.5",
           "gs1:unitCode": "KWT"
         },
-        "eubat:expectedCycleLife": 800
+        "eubat:hasPerformanceTest": {
+          type: "eubat:PerformanceDurabilityTest",
+          "oea:hasResult": {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:CycleLife"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 800,
+              "gs1:unitCode": "C62"
+            }
+          }
+        }
       },
       "eubat:hasRecycledContent": {
         type: "eubat:RecycledContent",
@@ -35504,11 +35740,17 @@ var samples_default = [
           "gs1:value": 3,
           "gs1:unitCode": "KGM"
         },
-        "eubat:hasCarbonFootprintPerformanceClass": {
-          "@id": "eubat:CFClassB"
-        },
         "eubat:carbonFootprintDeclarationId": "CFP-2026-VELO-VP48-001",
-        "eubat:carbonFootprintGeographicScope": "EU production, mixed material sourcing"
+        "eubat:carbonFootprintGeographicScope": "EU production, mixed material sourcing",
+        "oea:hasIndicator": {
+          type: "oea:Indicator",
+          "oea:hasIndicatorKind": {
+            "@id": "eubat:CarbonFootprintPerformanceClass"
+          },
+          "oea:hasCategoricalValue": {
+            "@id": "eubat:CFClassB"
+          }
+        }
       },
       "eubat:hasHazardousSubstances": [
         {
@@ -35890,10 +36132,31 @@ var samples_default = [
       },
       "oec:hasCircularityPerformance": {
         type: "oec:CircularityPerformance",
-        "oec:recyclableContent": "0.88",
-        "oec:materialCircularityIndicator": "0.55",
-        "oec:utilityFactor": "1.2",
-        "oec:endOfLifeInstructions": "https://www.nordic-displays.example.com/sustainability/end-of-life"
+        "oec:endOfLifeInstructions": "https://www.nordic-displays.example.com/sustainability/end-of-life",
+        "oea:hasIndicator": [
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:MaterialCircularityIndicator"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "0.55",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:UtilityFactor"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "1.2",
+              "gs1:unitCode": "C62"
+            }
+          }
+        ]
       },
       "oec:hasRecycledContentDetails": {
         type: "oec:RecycledContent",
@@ -36321,10 +36584,31 @@ var samples_default = [
       },
       "oec:hasCircularityPerformance": {
         type: "oec:CircularityPerformance",
-        "oec:recyclableContent": "0.86",
-        "oec:materialCircularityIndicator": "0.68",
-        "oec:utilityFactor": "1.25",
-        "oec:endOfLifeInstructions": "https://www.greentech-computers.example.com/sustainability/end-of-life/greenbook-pro-15"
+        "oec:endOfLifeInstructions": "https://www.greentech-computers.example.com/sustainability/end-of-life/greenbook-pro-15",
+        "oea:hasIndicator": [
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:MaterialCircularityIndicator"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "0.68",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:UtilityFactor"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "1.25",
+              "gs1:unitCode": "C62"
+            }
+          }
+        ]
       },
       "oec:hasRecycledContentDetails": {
         type: "oec:RecycledContent",
@@ -36738,10 +37022,31 @@ var samples_default = [
       },
       "oec:hasCircularityPerformance": {
         type: "oec:CircularityPerformance",
-        "oec:recyclableContent": "0.92",
-        "oec:materialCircularityIndicator": "0.78",
-        "oec:utilityFactor": "1.4",
-        "oec:endOfLifeInstructions": "https://www.euroserver.example.com/sustainability/end-of-life/dcpx5"
+        "oec:endOfLifeInstructions": "https://www.euroserver.example.com/sustainability/end-of-life/dcpx5",
+        "oea:hasIndicator": [
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:MaterialCircularityIndicator"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "0.78",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:UtilityFactor"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "1.4",
+              "gs1:unitCode": "C62"
+            }
+          }
+        ]
       },
       "oec:hasRecycledContentDetails": {
         type: "oec:RecycledContent",
@@ -37135,9 +37440,30 @@ var samples_default = [
       },
       "oec:hasCircularityPerformance": {
         type: "oec:CircularityPerformance",
-        "oec:recyclableContent": "0.85",
-        "oec:materialCircularityIndicator": "0.62",
-        "oec:utilityFactor": "1.15"
+        "oea:hasIndicator": [
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:MaterialCircularityIndicator"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "0.62",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:UtilityFactor"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "1.15",
+              "gs1:unitCode": "C62"
+            }
+          }
+        ]
       },
       "oec:hasRecycledContentDetails": {
         type: "oec:RecycledContent",
@@ -37409,29 +37735,72 @@ var samples_default = [
       "eutex:hasEnvironmentalFootprint": {
         id: "https://id.gs1.org/01/09521234003007/10/LOT-2026-FJ03#footprint",
         type: "eutex:EnvironmentalFootprint",
-        "eutex:carbonFootprintManufacturing": "14.8",
-        "eutex:pefSingleScore": "38.1",
-        "eutex:benchmarkPerformance": "-18.4",
         "eutex:hasDataTypeIndicator": {
           "@id": "eutex:MixedData"
         },
-        "eutex:pefcrReference": "PEFCR Apparel & Footwear v1.3",
         "eutex:hasLciaCategories": [
           {
             type: "eutex:LCIACategory",
-            "eutex:hasLciaCategoryCode": {
+            "oea:hasObservedParameter": {
               "@id": "eutex:GWP"
             },
-            "eutex:lciaValue": "14.8",
-            "eutex:lciaUnit": "kg CO2-eq"
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "14.8",
+              "gs1:unitCode": "KGM"
+            },
+            "oec:declaredUnit": "kg CO2-eq"
           },
           {
             type: "eutex:LCIACategory",
-            "eutex:hasLciaCategoryCode": {
+            "oea:hasObservedParameter": {
               "@id": "eutex:WaterUse"
             },
-            "eutex:lciaValue": "2.1",
-            "eutex:lciaUnit": "m3 world-eq"
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "2.1",
+              "gs1:unitCode": "MTQ"
+            },
+            "oec:declaredUnit": "m3 world-eq"
+          }
+        ],
+        "oea:hasMethod": {
+          type: "oea:AssessmentMethod",
+          "oea:methodName": "PEFCR Apparel & Footwear v1.3"
+        },
+        "oea:hasIndicator": [
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:ManufacturingCarbonFootprint"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "14.8",
+              "gs1:unitCode": "KGM"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:PEFSingleScore"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "38.1",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:BenchmarkPerformance"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "-18.4",
+              "gs1:unitCode": "P1"
+            }
           }
         ]
       },
@@ -38518,29 +38887,72 @@ var samples_default = [
       "eutex:hasEnvironmentalFootprint": {
         id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#footprint",
         type: "eutex:EnvironmentalFootprint",
-        "eutex:carbonFootprintManufacturing": "8.2",
-        "eutex:pefSingleScore": "28.7",
-        "eutex:benchmarkPerformance": -22,
         "eutex:hasDataTypeIndicator": {
           "@id": "eutex:MixedData"
         },
-        "eutex:pefcrReference": "PEFCR Apparel & Footwear v1.3",
         "eutex:hasLciaCategories": [
           {
             type: "eutex:LCIACategory",
-            "eutex:hasLciaCategoryCode": {
+            "oea:hasObservedParameter": {
               "@id": "eutex:GWP"
             },
-            "eutex:lciaValue": "8.2",
-            "eutex:lciaUnit": "kg CO2-eq"
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "8.2",
+              "gs1:unitCode": "KGM"
+            },
+            "oec:declaredUnit": "kg CO2-eq"
           },
           {
             type: "eutex:LCIACategory",
-            "eutex:hasLciaCategoryCode": {
+            "oea:hasObservedParameter": {
               "@id": "eutex:WaterUse"
             },
-            "eutex:lciaValue": "0.5",
-            "eutex:lciaUnit": "m3 world-eq"
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "0.5",
+              "gs1:unitCode": "MTQ"
+            },
+            "oec:declaredUnit": "m3 world-eq"
+          }
+        ],
+        "oea:hasMethod": {
+          type: "oea:AssessmentMethod",
+          "oea:methodName": "PEFCR Apparel & Footwear v1.3"
+        },
+        "oea:hasIndicator": [
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:ManufacturingCarbonFootprint"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "8.2",
+              "gs1:unitCode": "KGM"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:PEFSingleScore"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "28.7",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:BenchmarkPerformance"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": -22,
+              "gs1:unitCode": "P1"
+            }
           }
         ]
       },
@@ -39512,29 +39924,72 @@ var samples_default = [
       "eutex:hasEnvironmentalFootprint": {
         id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#footprint",
         type: "eutex:EnvironmentalFootprint",
-        "eutex:carbonFootprintManufacturing": "18.5",
-        "eutex:pefSingleScore": "42.3",
-        "eutex:benchmarkPerformance": "-15.2",
         "eutex:hasDataTypeIndicator": {
           "@id": "eutex:MixedData"
         },
-        "eutex:pefcrReference": "PEFCR Apparel & Footwear v1.3",
         "eutex:hasLciaCategories": [
           {
             type: "eutex:LCIACategory",
-            "eutex:hasLciaCategoryCode": {
+            "oea:hasObservedParameter": {
               "@id": "eutex:GWP"
             },
-            "eutex:lciaValue": "18.5",
-            "eutex:lciaUnit": "kg CO2-eq"
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "18.5",
+              "gs1:unitCode": "KGM"
+            },
+            "oec:declaredUnit": "kg CO2-eq"
           },
           {
             type: "eutex:LCIACategory",
-            "eutex:hasLciaCategoryCode": {
+            "oea:hasObservedParameter": {
               "@id": "eutex:WaterUse"
             },
-            "eutex:lciaValue": "2.8",
-            "eutex:lciaUnit": "m3 world-eq"
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "2.8",
+              "gs1:unitCode": "MTQ"
+            },
+            "oec:declaredUnit": "m3 world-eq"
+          }
+        ],
+        "oea:hasMethod": {
+          type: "oea:AssessmentMethod",
+          "oea:methodName": "PEFCR Apparel & Footwear v1.3"
+        },
+        "oea:hasIndicator": [
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:ManufacturingCarbonFootprint"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "18.5",
+              "gs1:unitCode": "KGM"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:PEFSingleScore"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "42.3",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:BenchmarkPerformance"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "-15.2",
+              "gs1:unitCode": "P1"
+            }
           }
         ]
       },
@@ -40331,8 +40786,21 @@ var samples_default = [
       ],
       "eutex:hasEnvironmentalFootprint": {
         type: "eutex:EnvironmentalFootprint",
-        "eutex:carbonFootprintManufacturing": "6.4",
-        "eutex:pefcrReference": "PEFCR Apparel & Footwear v2.0 (2023)"
+        "oea:hasMethod": {
+          type: "oea:AssessmentMethod",
+          "oea:methodName": "PEFCR Apparel & Footwear v2.0 (2023)"
+        },
+        "oea:hasIndicator": {
+          type: "oea:Indicator",
+          "oea:hasIndicatorKind": {
+            "@id": "eutex:ManufacturingCarbonFootprint"
+          },
+          "oea:hasIndicatorValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": "6.4",
+            "gs1:unitCode": "KGM"
+          }
+        }
       },
       "gs1:regulatoryInformation": [
         {

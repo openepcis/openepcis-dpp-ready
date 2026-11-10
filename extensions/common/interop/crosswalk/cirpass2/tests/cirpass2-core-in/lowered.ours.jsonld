@@ -1,39 +1,106 @@
 {
-  "@context": "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+  "@context": [
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld"
+  ],
   "@graph": [
     {
-      "id": "_:a1a9f95c65fffed4f120039ccf60bb10",
-      "type": "oec:ImpactIndicatorResult",
-      "oec:hasIndicatorType": {
-        "id": "oec:GWPFossil"
-      },
-      "oec:hasLifecycleStageResult": [
-        {
-          "id": "_:a8b22a7d792a420c141d66b420c21b10"
-        },
-        {
-          "id": "_:fecfc305d49c6cb0bc55758a55964920"
-        }
-      ],
-      "oec:indicatorTotalValue": {
-        "type": "xsd:decimal",
-        "@value": "13.9"
-      },
-      "oec:indicatorUnit": "kg CO2 eq"
+      "id": "_:ad471e68ee9b35dd16942b2833b7809c",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "KGM",
+      "gs1:value": "4.8"
     },
     {
-      "id": "_:a8b22a7d792a420c141d66b420c21b10",
+      "id": "_:b043bb64ba4e572aff8bc147ecca88c0",
       "type": "oec:LifecycleStageResult",
+      "oea:hasMeasuredValue": "_:ad471e68ee9b35dd16942b2833b7809c",
+      "oea:hasObservedParameter": "oec:GWPFossil",
       "oec:hasLifecycleStage": {
         "id": "oec:StageA3"
-      },
-      "oec:stageValue": {
-        "type": "xsd:decimal",
-        "@value": "4.8"
       }
     },
     {
-      "id": "_:acab82d34601bc446c57405a76fb0b2a",
+      "id": "_:b6020bd5d85dc7ca98acf9512ed3d114",
+      "type": "gs1:Country",
+      "gs1:countryCode": "PL"
+    },
+    {
+      "id": "_:be59d9c8059913b935d577613347c99",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "KGM",
+      "gs1:value": "1.2"
+    },
+    {
+      "id": "_:c0680e9e00f2aaf392294cc9ba62509a",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "KGM",
+      "gs1:value": "9.1"
+    },
+    {
+      "id": "_:c0d6e5835d15161247000ff67921e2b4",
+      "type": "oec:MaterialComposition",
+      "oec:isCriticalRawMaterial": "false",
+      "oec:massFraction": "0.625",
+      "schema:name": "Stainless steel"
+    },
+    {
+      "id": "_:c85161362f5d69148e8f3fc8255e1854",
+      "type": "gs1:PostalAddress",
+      "gs1:addressCountry": {
+        "id": "_:e0bf8612dae18505bf90cc28e28d6f06"
+      },
+      "gs1:addressLocality": "Poznań",
+      "gs1:postalCode": "60-101",
+      "gs1:streetAddress": "ul. Przemysłowa 12"
+    },
+    {
+      "id": "_:d0dd0e6a4c9362fb64c49a1750d25b55",
+      "type": "gs1:Brand",
+      "gs1:brandName": "Kalda"
+    },
+    {
+      "id": "_:e0bf8612dae18505bf90cc28e28d6f06",
+      "type": "gs1:Country",
+      "gs1:countryCode": "PL"
+    },
+    {
+      "id": "_:e65027ab88dd75c49ec5776d3de90f41",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "KGM",
+      "gs1:value": "13.9"
+    },
+    {
+      "id": "_:e65fe4e2a22989ab59661e5fd848b02",
+      "type": "oec:ImpactIndicatorResult",
+      "oea:hasMeasuredValue": "_:e65027ab88dd75c49ec5776d3de90f41",
+      "oea:hasObservedParameter": "oec:GWPFossil",
+      "oec:declaredUnit": "kg CO2 eq",
+      "oec:hasLifecycleStageResult": [
+        {
+          "id": "_:b043bb64ba4e572aff8bc147ecca88c0"
+        },
+        {
+          "id": "_:e6cd5683f75bedbce05dbdc4acd63c7e"
+        }
+      ]
+    },
+    {
+      "id": "_:e6cd5683f75bedbce05dbdc4acd63c7e",
+      "type": "oec:LifecycleStageResult",
+      "oea:hasMeasuredValue": "_:c0680e9e00f2aaf392294cc9ba62509a",
+      "oea:hasObservedParameter": "oec:GWPFossil",
+      "oec:hasLifecycleStage": {
+        "id": "oec:StageA1"
+      }
+    },
+    {
+      "id": "_:f7e7c62b704d8b09684f6d51b39ce7e5",
+      "type": "gs1:RegulatoryInformation",
+      "gs1:regulatoryAct": "EU 2024/1781",
+      "oec:isRegulationCompliant": "true"
+    },
+    {
+      "id": "_:f7fc41cf056fd44821571f4b5943cb00",
       "type": "schema:GeoCoordinates",
       "schema:latitude": {
         "type": "xsd:decimal",
@@ -45,78 +112,23 @@
       }
     },
     {
-      "id": "_:bf47fa1a12b16649e003a2ad8a109ed3",
-      "type": "gs1:Country",
-      "gs1:countryCode": "PL"
-    },
-    {
-      "id": "_:d48f26f3450a5d2a5a58663d4a1e808e",
-      "type": "gs1:RegulatoryInformation",
-      "gs1:regulatoryAct": "EU 2024/1781",
-      "oec:isRegulationCompliant": "true"
-    },
-    {
-      "id": "_:d85f1774a3fb5165911376b8c901fc66",
-      "type": "gs1:Country",
-      "gs1:countryCode": "PL"
-    },
-    {
-      "id": "_:da36da69387fbb3da37288be70c0e59c",
-      "type": "gs1:QuantitativeValue",
-      "gs1:unitCode": "KGM",
-      "gs1:value": "1.2"
-    },
-    {
-      "id": "_:e264285945d8020da72fbe272bb0f5eb",
-      "type": "oec:MaterialComposition",
-      "oec:isCriticalRawMaterial": "false",
-      "oec:massFraction": "0.625",
-      "schema:name": "Stainless steel"
-    },
-    {
-      "id": "_:eea4ec3e6256e643aed8f4f6de968149",
-      "type": "gs1:PostalAddress",
-      "gs1:addressCountry": {
-        "id": "_:d85f1774a3fb5165911376b8c901fc66"
-      },
-      "gs1:addressLocality": "Poznań",
-      "gs1:postalCode": "60-101",
-      "gs1:streetAddress": "ul. Przemysłowa 12"
-    },
-    {
-      "id": "_:efd76d089f98c445483eb0d17ba2c86f",
-      "type": "gs1:Brand",
-      "gs1:brandName": "Kalda"
-    },
-    {
-      "id": "_:fecfc305d49c6cb0bc55758a55964920",
-      "type": "oec:LifecycleStageResult",
-      "oec:hasLifecycleStage": {
-        "id": "oec:StageA1"
-      },
-      "oec:stageValue": {
-        "type": "xsd:decimal",
-        "@value": "9.1"
-      }
-    },
-    {
       "id": "https://id.gs1.org/01/09524000000019",
       "type": "gs1:Product",
       "gs1:brand": {
-        "id": "_:efd76d089f98c445483eb0d17ba2c86f"
+        "id": "_:d0dd0e6a4c9362fb64c49a1750d25b55"
       },
       "gs1:countryOfOrigin": {
-        "id": "_:bf47fa1a12b16649e003a2ad8a109ed3"
+        "id": "_:b6020bd5d85dc7ca98acf9512ed3d114"
       },
       "gs1:gtin": "09524000000019",
       "gs1:manufacturer": {
         "id": "https://id.gs1.org/417/9524000000019"
       },
-      "gs1:netWeight": "_:da36da69387fbb3da37288be70c0e59c",
+      "gs1:netWeight": "_:be59d9c8059913b935d577613347c99",
       "gs1:productDescription": "Electric kettle, 1.7 l",
       "gs1:productName": "Kettle KX-200",
       "gs1:regulatoryInformation": {
-        "id": "_:d48f26f3450a5d2a5a58663d4a1e808e"
+        "id": "_:f7e7c62b704d8b09684f6d51b39ce7e5"
       },
       "oec:customsCommodityCode": "8516719000",
       "oec:dppSchemaVersion": "1.0.0",
@@ -130,7 +142,7 @@
       },
       "oec:hasFacilityInformation": "https://id.gs1.org/414/9524000000033",
       "oec:hasMaterialComposition": [
-        "_:e264285945d8020da72fbe272bb0f5eb"
+        "_:c0d6e5835d15161247000ff67921e2b4"
       ],
       "oec:hasOperatorInformation": "https://id.gs1.org/417/9524000000026",
       "oec:hasPassportIssuer": "https://id.gs1.org/417/9524000000019",
@@ -148,14 +160,14 @@
       "type": "oec:FacilityInformation",
       "gs1:globalLocationNumber": "9524000000033",
       "schema:geo": {
-        "id": "_:acab82d34601bc446c57405a76fb0b2a"
+        "id": "_:f7fc41cf056fd44821571f4b5943cb00"
       },
       "schema:name": "Kalda Poznań plant"
     },
     {
       "id": "https://id.gs1.org/417/9524000000019",
       "type": "gs1:Organization",
-      "gs1:address": "_:eea4ec3e6256e643aed8f4f6de968149",
+      "gs1:address": "_:c85161362f5d69148e8f3fc8255e1854",
       "gs1:globalLocationNumber": "9524000000019",
       "gs1:organizationName": "Kalda Sp. z o.o.",
       "oec:hasOperatorRole": {
@@ -190,7 +202,7 @@
         "@value": "2030-06-30"
       },
       "oec:hasImpactIndicator": {
-        "id": "_:a1a9f95c65fffed4f120039ccf60bb10"
+        "id": "_:e65fe4e2a22989ab59661e5fd848b02"
       }
     },
     {

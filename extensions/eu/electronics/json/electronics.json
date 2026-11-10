@@ -8,10 +8,13 @@
       "id": "https://ref.openepcis.org/extensions/eu/electronics/AvoidedEmissionsEstimate",
       "localName": "AvoidedEmissionsEstimate",
       "label": "Avoided Emissions Estimate",
-      "comment": "An estimate of the greenhouse-gas emissions avoided by recovering materials from a\nWEEE item instead of producing them primarily, with the calculation basis used.",
+      "comment": "An estimate of the greenhouse-gas emissions avoided by recovering materials from a\nWEEE item instead of producing them primarily, with the calculation basis used. An oea:Assessment: the\nestimate is an oea:Indicator of kind euelec:AvoidedEmissions (unitCode KGM, kg CO2e), the calculation\nbasis its oea:hasMethod.",
       "seeAlso": [
         "https://ref.openepcis.org/extensions/common/core/CarbonFootprintDeclaration",
         "https://ref.openepcis.org/extensions/common/core/StageC3"
+      ],
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/Assessment"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -53,12 +56,10 @@
       "subClassOf": [
         "https://ref.gs1.org/voc/Product"
       ],
-      "closeMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#Component"
-      ],
       "broadMatch": [
         "https://ref.gs1.org/voc/Product",
-        "https://schema.org/Product"
+        "https://schema.org/Product",
+        "https://dpp-keystone.org/spec/v3/terms#Component"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -117,10 +118,13 @@
       "id": "https://ref.openepcis.org/extensions/eu/electronics/MaterialRecoveryResult",
       "localName": "MaterialRecoveryResult",
       "label": "Material Recovery Result",
-      "comment": "The aggregate outcome of a WEEE treatment operation on one item: total input mass,\ntotal recovered mass, and the recovery, recycling and energy-recovery rates that WEEE Directive\n2012/19/EU Annex V expresses as minimum targets per equipment category.",
+      "comment": "The aggregate outcome of a WEEE treatment operation on one item: total input mass,\ntotal recovered mass, and the recovery, recycling and energy-recovery rates that WEEE Directive\n2012/19/EU Annex V expresses as minimum targets per equipment category. An oea:Assessment of the item,\ncarried out in the treatment event: each figure is an oea:MeasurementResult observing\neuelec:TreatmentInputMass, euelec:RecoveredMass (GRM), euelec:AchievedRecoveryRate,\neuelec:AchievedRecyclingRate or euelec:EnergyRecoveryRate (C62, 0-1).",
       "seeAlso": [
         "https://ref.openepcis.org/extensions/eu/electronics/WEEECompliance",
         "https://ref.openepcis.org/extensions/common/core/RecyclabilityAssessment"
+      ],
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/Assessment"
       ],
       "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj"
     },
@@ -216,24 +220,6 @@
   ],
   "properties": [
     {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/avoidedEmissionsKgCO2e",
-      "localName": "avoidedEmissionsKgCO2e",
-      "label": "Avoided Emissions (kg CO2e)",
-      "comment": "Estimated avoided emissions in kilograms of CO2 equivalent.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/AvoidedEmissionsEstimate"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/StageC3",
-        "https://ref.openepcis.org/extensions/common/core/carbonFootprintTotal"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/electronics/batteryMassGrams",
       "localName": "batteryMassGrams",
       "label": "Battery Mass (grams)",
@@ -251,29 +237,6 @@
         "https://schema.org/weight"
       ],
       "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj",
-      "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/calculationMethod",
-      "localName": "calculationMethod",
-      "label": "Calculation Method",
-      "comment": "Basis on which the avoided-emissions figure was calculated.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/AvoidedEmissionsEstimate"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/carbonFootprintMethodology"
-      ],
-      "closeMatch": [
-        "https://ref.openepcis.org/extensions/common/core/carbonFootprintMethodology"
-      ],
-      "broadMatch": [
-        "https://schema.org/measurementMethod"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevelInherited": true
     },
     {
@@ -396,24 +359,6 @@
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2017/1369",
       "accessLevelRationale": "The energy-label image is itself a public label; EPREL serves it in its public part (Reg. (EU) 2017/1369 Art. 12(3)).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/energyRecoveryRate",
-      "localName": "energyRecoveryRate",
-      "label": "Energy Recovery Rate",
-      "comment": "Fraction of the item's mass sent to energy recovery rather than material recycling (0-1 scale).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/MaterialRecoveryResult"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/eu/electronics/recoveryRate",
-        "https://ref.gs1.org/voc/PackagingRecyclingProcessTypeCode-ENERGY_RECOVERABLE"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj",
-      "accessLevelInherited": true
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/electronics/eprelProductUrl",
@@ -1384,24 +1329,6 @@
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/recoveryRate",
-      "localName": "recoveryRate",
-      "label": "Recovery Rate",
-      "comment": "Achieved recovery rate for the item: recovered mass divided by input mass (0-1 scale).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/MaterialRecoveryResult"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/eu/electronics/recoverabilityRate",
-        "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj",
-      "accessLevelInherited": true
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/electronics/recyclingProcess",
       "localName": "recyclingProcess",
       "label": "Recycling Process",
@@ -1416,24 +1343,6 @@
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "The applied treatment process is operator process data (Dir. 2012/19/EU Art. 8 and Annex VIII).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2012/19"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/recyclingRate",
-      "localName": "recyclingRate",
-      "label": "Recycling Rate",
-      "comment": "Achieved rate of preparing for re-use and recycling for the item (0-1 scale), excluding energy recovery.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/MaterialRecoveryResult"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate",
-        "https://ref.openepcis.org/extensions/eu/electronics/recyclabilityRate"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj",
-      "accessLevelInherited": true
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/electronics/removalReason",
@@ -1674,43 +1583,6 @@
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "The routing decision taken at a sorting facility is operational treatment data (Dir. 2012/19/EU Art. 8).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2012/19"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/totalInputMassGrams",
-      "localName": "totalInputMassGrams",
-      "label": "Total Input Mass (grams)",
-      "comment": "Mass in grams of the item that entered the treatment operation.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/MaterialRecoveryResult"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://ref.gs1.org/voc/netWeight"
-      ],
-      "broadMatch": [
-        "https://schema.org/weight"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj",
-      "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/electronics/totalRecoveredMassGrams",
-      "localName": "totalRecoveredMassGrams",
-      "label": "Total Recovered Mass (grams)",
-      "comment": "Mass in grams recovered from the item across all output streams.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/electronics/MaterialRecoveryResult"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/eu/electronics/totalInputMassGrams"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj",
-      "accessLevelInherited": true
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/electronics/treatmentCertificate",
@@ -2227,10 +2099,70 @@
       "comment": "",
       "values": [
         {
+          "id": "https://ref.openepcis.org/extensions/eu/electronics/AvoidedEmissions",
+          "localName": "AvoidedEmissions",
+          "label": "Avoided Emissions",
+          "comment": "Estimated greenhouse-gas emissions avoided by recovering materials instead of producing them primarily (unitCode KGM, kg CO2e). A counterfactual credit, not a lifecycle stage of the product. Replaces euelec:avoidedEmissionsKgCO2e.",
+          "seeAlso": [
+            "https://ref.openepcis.org/extensions/common/core/StageC3",
+            "https://ref.openepcis.org/extensions/common/core/carbonFootprintTotal"
+          ]
+        },
+        {
           "id": "https://ref.openepcis.org/extensions/eu/electronics/RepairabilityTotalScore",
           "localName": "RepairabilityTotalScore",
           "label": "Repairability Total Score",
           "comment": "Sum of the five criterion scores of euelec:FrenchRepairabilityIndexMethod (0-100, unitCode C62)."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter",
+      "localName": "PerformanceParameter",
+      "label": "PerformanceParameter",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/electronics/AchievedRecoveryRate",
+          "localName": "AchievedRecoveryRate",
+          "label": "Achieved Recovery Rate",
+          "comment": "Recovered mass divided by input mass for one treatment operation (unitCode C62, 0-1), measured against the WEEE Annex V recovery targets. The design-level figure is oea:RecoverableRate. Replaces euelec:recoveryRate.",
+          "seeAlso": [
+            "https://ref.openepcis.org/extensions/common/assessment/RecoverableRate"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/electronics/AchievedRecyclingRate",
+          "localName": "AchievedRecyclingRate",
+          "label": "Achieved Recycling Rate",
+          "comment": "Share prepared for re-use and recycled in one treatment operation, excluding energy recovery (unitCode C62, 0-1), measured against the WEEE Annex V recycling targets. The design-level figure is oea:RecyclabilityRate. Replaces euelec:recyclingRate.",
+          "seeAlso": [
+            "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/electronics/EnergyRecoveryRate",
+          "localName": "EnergyRecoveryRate",
+          "label": "Energy Recovery Rate",
+          "comment": "Share of the item's mass sent to energy recovery rather than material recycling (unitCode C62, 0-1). Replaces euelec:energyRecoveryRate.",
+          "seeAlso": [
+            "https://ref.gs1.org/voc/PackagingRecyclingProcessTypeCode-ENERGY_RECOVERABLE"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/electronics/RecoveredMass",
+          "localName": "RecoveredMass",
+          "label": "Recovered Mass",
+          "comment": "Mass recovered from the item across all output streams (unitCode GRM). Replaces euelec:totalRecoveredMassGrams."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/electronics/TreatmentInputMass",
+          "localName": "TreatmentInputMass",
+          "label": "Treatment Input Mass",
+          "comment": "Mass of the item that entered the treatment operation (unitCode GRM). Replaces euelec:totalInputMassGrams.",
+          "seeAlso": [
+            "https://ref.gs1.org/voc/netWeight"
+          ]
         }
       ]
     },

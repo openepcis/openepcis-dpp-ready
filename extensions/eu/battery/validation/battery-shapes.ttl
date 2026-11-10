@@ -1,4 +1,5 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
 @prefix eubat: <https://ref.openepcis.org/extensions/eu/battery/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
@@ -187,10 +188,14 @@ eubat:CarbonFootprintDeclarationShape a sh:NodeShape ;
         sh:minCount 1
     ] ;
     sh:property [
-        sh:path eubat:hasCarbonFootprintPerformanceClass ;
+        sh:path oea:hasIndicator ;
         sh:name "Carbon Footprint Performance Class" ;
-        sh:class eubat:CarbonFootprintClass ;
-        sh:minCount 1
+        sh:qualifiedValueShape [
+            sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:CarbonFootprintPerformanceClass ] ;
+            sh:property [ sh:path oea:hasCategoricalValue ; sh:class eubat:CarbonFootprintClass ; sh:minCount 1 ]
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "The carbon footprint declaration states its performance class: an oea:Indicator of kind eubat:CarbonFootprintPerformanceClass with an eubat:CarbonFootprintClass value"@en
     ] ;
     sh:property [
         sh:path eubat:carbonFootprintStudyUrl ;
@@ -252,12 +257,11 @@ eubat:TechnicalSpecificationShape a sh:NodeShape ;
         sh:class gs1:QuantitativeValue
     ] ;
     sh:property [
-        sh:path eubat:expectedCycleLife ;
-        sh:datatype xsd:integer
-    ] ;
-    sh:property [
-        sh:path eubat:roundTripEfficiency ;
-        sh:datatype xsd:decimal
+        sh:path eubat:hasPerformanceTest ;
+        sh:name "Performance and Durability Test" ;
+        sh:class eubat:PerformanceDurabilityTest ;
+        sh:maxCount 1 ;
+        sh:message "The tested values (cycle life, round-trip efficiency, initial resistance, ...) are results of one eubat:PerformanceDurabilityTest"@en
     ] .
 
 # -----------------------------------------------------------------------------

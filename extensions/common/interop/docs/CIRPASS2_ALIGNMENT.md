@@ -126,8 +126,8 @@ the restraint:
 | `oec:CircularityPerformance` | `cirpass2:CircularEconomyIndicator` | |
 | `oec:RecycledContent` | `cirpass2:RecycledMaterialsUseResult` | LCA 3.1 (was `RecycledMaterialsUse`) |
 | `oea:RecoverableRate` / `oea:RecyclingCollectionRate` (performance parameters) | `cirpass2:RecoverableRate` / `cirpass2:RecyclingCollectionRate` | |
-| `oec:waterConsumption` / `oec:landUse` / `oec:materialFootprint` | `cirpass2:WaterConsumptionResult` / `cirpass2:LandUseResult` / `cirpass2:MaterialFootprint`, `cirpass2:InventoryIndicatorResult` | ESPR Annex I parameters; LCA 3.1 models them as inventory-indicator results |
-| `oec:wasteGenerationAmount` / `oec:packagingWasteAmount` / `oec:productToPackagingRatio` | `cirpass2:WasteGenerationAmount` / `cirpass2:PackagingWasteAmount` / `cirpass2:ProductToPackagingRatio` | |
+| indicator kinds `oec:WaterConsumption` / `oec:LandUse` / `oec:MaterialFootprint` | `cirpass2:WaterConsumptionResult` / `cirpass2:LandUseResult` / `cirpass2:MaterialFootprint`, `cirpass2:InventoryIndicatorResult` | ESPR Annex I parameters; LCA 3.1 models them as inventory-indicator results |
+| indicator kinds `oec:WasteGeneration` / `oec:PackagingWaste` / `oec:ProductToPackagingRatio` | `cirpass2:WasteGenerationAmount` / `cirpass2:PackagingWasteAmount` / `cirpass2:ProductToPackagingRatio` | |
 | `oec:EmissionsPerformance` / `oec:CarbonFootprintDeclaration` | `cirpass2:CarbonFootprint`, `cirpass2:LCIAResult` | audit-graded `skos:narrowMatch` on `CarbonFootprint`; `EnvironmentalFootprint` no longer exists, a characterised impact result is `LCIAResult` |
 | `oec:EnvironmentalProductDeclaration` | `cirpass2:EPDStudy`, `cirpass2:EPDDocument` | LCA module |
 | `oec:LifecycleStage` (StageA1–D) | `cirpass2:LifeCycleModule`; per stage `cirpass2:en15804moduleA1` … `en15804moduleC4`, `cirpass2:moduleD` | EN 15804 modules on both sides; upstream reuses `eudpp:moduleD` for both the EN 15804 module D and the NLF conformity module D |

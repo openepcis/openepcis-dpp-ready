@@ -622,7 +622,11 @@ Keycloak token, calls `ReadDPPById`; the response is the EN 18223
   "dppStatus": "active",
   "type": ["gs1:Product", "eubat:Battery"],
   "eubat:hasRatedCapacity": { "@type": "gs1:QuantitativeValue", "value": 75, "unitCode": "kWh" },
-  "eubat:hasStateOfHealth": 0.92,
+  "eubat:hasBatteryState": {
+    "type": "eubat:BatteryStateAssessment",
+    "oea:hasResult": { "type": "oea:MeasurementResult", "oea:hasObservedParameter": { "@id": "eubat:StateOfHealth" },
+      "oea:hasMeasuredValue": { "type": "gs1:QuantitativeValue", "value": 92, "unitCode": "P1" } }
+  },
   "oec:recycledContent": 0.16
 }
 ```

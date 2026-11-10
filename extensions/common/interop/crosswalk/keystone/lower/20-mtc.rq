@@ -1,0 +1,18 @@
+# A Keystone material test certificate: an eusteel:MaterialTestCertificate under eusteel:hasMtc,
+# each mapped flat value a measurement result with the parameter's unit.
+CONSTRUCT {
+  ?prod eusteel:hasMtc ?m .
+  ?m a eusteel:MaterialTestCertificate ; oea:hasResult ?r .
+  ?r a oea:MeasurementResult ; oea:hasObservedParameter ?p ; oea:hasMeasuredValue ?q .
+  ?q a gs1:QuantitativeValue ; gs1:value ?v ; gs1:unitCode ?unit .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?prod dppk:mtc ?m }
+  OPTIONAL {
+    GRAPH <urn:xw:in> { ?m ?flat ?d }
+    ?p xw:resultProperty ?flat ; xw:resultUnit ?unit .
+    BIND(xsd:decimal(?d) AS ?v)
+    BIND(BNODE() AS ?r)
+    BIND(BNODE() AS ?q)
+  }
+}

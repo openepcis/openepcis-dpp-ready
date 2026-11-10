@@ -4,6 +4,28 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+### Breaking: life-cycle and circularity figures on `common/assessment`
+
+Third wave of the assessment model.
+
+- An EPD is an `oea:Assessment`. `oec:ImpactIndicatorResult` and `oec:LifecycleStageResult` are
+  `oea:MeasurementResult`s: `oec:hasIndicatorType` is replaced by `oea:hasObservedParameter` (the
+  `oec:ImpactIndicatorType` values are `oea:PerformanceParameter`s), `oec:indicatorTotalValue`,
+  `oec:indicatorUnit` and `oec:stageValue` by `oea:hasMeasuredValue` with the UN/CEFACT unit of the
+  reference substance (KGM, C34, 3B, MTQ). The unit as stated stays in `oec:declaredUnit`; a stage
+  result names the category of its indicator.
+- `oec:materialCircularityIndicator` and `oec:utilityFactor` are indicators of kind
+  `oec:MaterialCircularityIndicator` and `oec:UtilityFactor` on the circularity container.
+  `oec:recyclableContent` is removed: the recyclable share is a result observing
+  `oea:RecyclabilityRate` in the product's `oec:RecyclabilityAssessment` (the electronics examples
+  stated the same value twice).
+- `oec:waterConsumption`, `oec:landUse`, `oec:materialFootprint`, `oec:wasteGenerationAmount`,
+  `oec:packagingWasteAmount` and `oec:productToPackagingRatio` are indicators of kinds
+  `oec:WaterConsumption` (MTQ), `oec:LandUse` (MTK), `oec:MaterialFootprint`, `oec:WasteGeneration`,
+  `oec:PackagingWaste` (KGM) and `oec:ProductToPackagingRatio` (C62) on the product.
+- The UNTP, JTC 24 and CIRPASS-2 bridge contexts no longer alias the removed flat terms.
+  `scripts/migrate-assessment.ts` rewrites stored passports.
+
 ## [0.12.0] - 2026-11-10
 
 ### Fixed: entry properties of assessments

@@ -55,6 +55,40 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
     },
     {
+      "id": "https://ref.openepcis.org/extensions/eu/battery/BatteryStateAssessment",
+      "localName": "BatteryStateAssessment",
+      "label": "Battery State Assessment",
+      "comment": "The state of health and use of one battery as last determined (by its battery management\nsystem or a diagnostic tool), an oea:Assessment: each value is an oea:MeasurementResult observing\nan eubat: performance parameter (eubat:StateOfHealth, eubat:StateOfCertifiedEnergy, eubat:FullCycleCount,\n...), the remaining power capability at a state of charge a sub-assessment with that condition, and the\nestimates (remaining cycles, remaining lifetime) indicators. In an EPCIS event the same values are\nsensorReports whose type is the parameter IRI.",
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#BatteryCondition"
+      ],
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/Assessment"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/eu/battery/CapacityExhaustionThreshold",
+      "localName": "CapacityExhaustionThreshold",
+      "label": "Capacity Exhaustion Threshold",
+      "comment": "State of certified energy below which the battery counts as exhausted (oea:hasThresholdParameter eubat:StateOfCertifiedEnergy, oea:LessThan, unitCode P1). Replaces eubat:capacityThresholdForExhaustion.",
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v3/terms#exhaustionCapacityThreshold",
+        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-33"
+      ],
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/Threshold"
+      ],
+      "closeMatch": [
+        "https://dpp-keystone.org/spec/v3/terms#exhaustionCapacityThreshold",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#capacityThresholdForExhaustion",
+        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#capacityExhaustionThreshold",
+        "https://w3id.org/eudpp/battery-performance#capacityThresholdForExhaustion",
+        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#capacityThresholdForExhaustion"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/CarbonFootprintDeclaration",
       "localName": "CarbonFootprintDeclaration",
       "label": "Carbon Footprint Declaration",
@@ -173,12 +207,15 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/PowerCapabilityAtSoC",
-      "localName": "PowerCapabilityAtSoC",
-      "label": "Power Capability at SoC",
-      "comment": "Power capability measurement at a specific state of charge level (80% or 20%).",
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#PowerCapabilityAtEntity"
+      "id": "https://ref.openepcis.org/extensions/eu/battery/PerformanceDurabilityTest",
+      "localName": "PerformanceDurabilityTest",
+      "label": "Performance and Durability Test",
+      "comment": "The tests behind the performance and durability values a battery declares (Annex IV,\nAnnex XIII 1 (o)-(p)), an oea:TestExecution: the reference test as oea:hasMethod, depth of discharge\nand C-rates as protocol settings, the capacity exhaustion and resistance increase thresholds the cycle\nlife is judged against, initial internal resistance, self-discharge, round-trip efficiency and cycle\nlife as results, the original power capability at a state of charge a sub-assessment with that\ncondition.",
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#BatteryTechnicalProperties"
+      ],
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/TestExecution"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
     },
@@ -199,6 +236,16 @@
       ],
       "broadMatch": [
         "https://w3id.org/eudpp#RecycledMaterialsUseResult"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/eu/battery/ResistanceIncreaseThreshold",
+      "localName": "ResistanceIncreaseThreshold",
+      "label": "Resistance Increase Threshold",
+      "comment": "Internal resistance increase at which the battery reaches the end of its cycle life (oea:hasThresholdParameter eubat:InternalResistanceIncrease, oea:GreaterThanOrEqual, unitCode P1). Replaces eubat:resistanceIncreaseThreshold.",
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/Threshold"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
     },
@@ -403,34 +450,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/capacityThresholdForExhaustion",
-      "localName": "capacityThresholdForExhaustion",
-      "label": "Capacity Threshold for Exhaustion",
-      "comment": "SOCE percentage threshold below which the battery is considered exhausted.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#exhaustionCapacityThreshold",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-33"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#exhaustionCapacityThreshold",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#capacityThresholdForExhaustion",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#capacityExhaustionThreshold",
-        "https://w3id.org/eudpp/battery-performance#capacityThresholdForExhaustion",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#capacityThresholdForExhaustion"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex XIII(1)(k): the capacity threshold for exhaustion is public battery-passport data.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/carbonFootprintDeclarationId",
       "localName": "carbonFootprintDeclarationId",
       "label": "Carbon Footprint Declaration ID",
@@ -628,7 +647,6 @@
       ],
       "broadMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
-        "https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContent",
         "https://vocabulary.uncefact.org/untp/recycledMassFraction",
         "https://w3id.org/eudpp#materialRecycledContent",
         "https://dpp-keystone.org/spec/v3/terms#recycledContentPercentage"
@@ -704,36 +722,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
       "accessLevelRationale": "Annex XIII(1)(p): the C-rate of the relevant cycle-life test is public battery-passport data.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/cRateLifeCycleTest",
-      "localName": "cRateLifeCycleTest",
-      "label": "C-Rate Life Cycle Test",
-      "comment": "C-rate used for lifecycle testing. Since the EC data-point guidance version 3.2 this is the charge C-rate (data point 39); the discharge C-rate of the same test has its own term, eubat:dischargeCRateLifeCycleTest (data point 40).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#cRateCycleTest",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39"
-      ],
-      "exactMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#cycleLifeChargeCRate",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39",
-        "https://w3id.org/eudpp/battery-performance#chargeCRateOfCycleLifeTest"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#cRate",
-        "https://w3id.org/eudpp/battery-performance#cRateOfCycleLifeTest",
-        "https://dpp-keystone.org/spec/v3/terms#cRateCycleTest"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Annex XIII(1)(p): the C-rate applied in the cycle-life test is public battery-passport data.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
@@ -848,51 +836,6 @@
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/depthOfDischargeInCycleLifeTest",
-      "localName": "depthOfDischargeInCycleLifeTest",
-      "label": "Depth of Discharge in Cycle Life Test",
-      "comment": "Depth of discharge (DoD) percentage used for cycle life testing.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The depth of discharge used in the cycle-life test is a public reference test condition that makes the public lifetime ratings interpretable (Annex XIII(1)(j)).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/dischargeCRateLifeCycleTest",
-      "localName": "dischargeCRateLifeCycleTest",
-      "label": "Discharge C-Rate Life Cycle Test",
-      "comment": "Discharge C-rate of the relevant cycle-life test (Annex XIII 1 (p)), in 1/h. The charge C-rate of the same test is eubat:cRateLifeCycleTest.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/eu/battery/cRateLifeCycleTest",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-40"
-      ],
-      "exactMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#cycleLifeDischargeCRate",
-        "https://w3id.org/eudpp/battery-performance#dischargeCRateOfCycleLifeTest"
-      ],
-      "broadMatch": [
-        "https://w3id.org/eudpp/battery-performance#cRateOfCycleLifeTest",
-        "https://dpp-keystone.org/spec/v3/terms#cRateCycleTest",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#cRateLifeCycleTest"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Annex XIII(1)(p): the discharge C-rate of the cycle-life test is public battery-passport data.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/documentUrl",
       "localName": "documentUrl",
       "label": "Document URL",
@@ -951,11 +894,12 @@
         "https://dpp-keystone.org/spec/v3/terms#dueDiligenceReport"
       ],
       "exactMatch": [
+        "https://dpp-keystone.org/spec/v3/terms#dueDiligenceReport",
         "https://w3id.org/eudpp/battery#dueDiligenceReport",
         "urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#supplyChainDueDiligenceReport"
       ],
       "closeMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#dueDiligenceReport"
+        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#informationOfDueDiligenceReport"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -1008,6 +952,7 @@
         "rdf:langString"
       ],
       "broadMatch": [
+        "https://dpp-keystone.org/spec/v3/terms#batteryChemistry",
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryChemistry",
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials",
         "https://ref.openepcis.org/vocab/batterypass-ready/1.3#MaterialsUsedInCathodeAnodeAndElectrolyte",
@@ -1081,72 +1026,6 @@
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/expectedCycleLife",
-      "localName": "expectedCycleLife",
-      "label": "Expected Cycle Life",
-      "comment": "Expected number of full charge-discharge cycles under reference test conditions.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#expectedLifetimeCycles",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#expectedLifetimeCycles",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#expectedLifetimeCycles",
-        "https://w3id.org/eudpp/battery-performance#expectedLifetimeCycles",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#expectedLifetimeNumberOfChargeDischargeCycles"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#batteryCondition"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex XIII(1)(j): expected lifetime expressed in cycles under reference test conditions is public battery-passport data.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/expectedRemainingCycles",
-      "localName": "expectedRemainingCycles",
-      "label": "Expected Remaining Cycles",
-      "comment": "Estimated remaining charge-discharge cycles.",
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-59"
-      ],
-      "closeMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#expectedLifetimeCyclesRest"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Estimated remaining cycles derive from the AuthorizedOnly SoH state and serve the Art. 14 expected-lifetime evaluation, unlike the public declared cycle-life rating.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/expectedRemainingLifetimeMonths",
-      "localName": "expectedRemainingLifetimeMonths",
-      "label": "Expected Remaining Lifetime (Months)",
-      "comment": "Estimated remaining useful lifetime in months.",
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Estimated remaining lifetime derives from the AuthorizedOnly SoH state and serves the Art. 14 expected-lifetime evaluation, unlike the public declared lifetime rating.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/battery/exposureDurationMinutes",
@@ -1403,64 +1282,20 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasCapacityFade",
-      "localName": "hasCapacityFade",
-      "label": "Capacity Fade",
-      "comment": "Capacity degradation as a percentage of rated capacity, computed as ((rated − remaining) / rated) × 100. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
+      "id": "https://ref.openepcis.org/extensions/eu/battery/hasBatteryState",
+      "localName": "hasBatteryState",
+      "label": "Battery State",
+      "comment": "The battery's current state of health and use.",
       "domain": [
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#capacityFade",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-52"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#capacityFade",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#capacityFade",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#capacityFade",
-        "https://w3id.org/eudpp/battery-performance#capacityFade",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#capacityFade"
+        "https://ref.openepcis.org/extensions/eu/battery/BatteryStateAssessment"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "AuthorizedOnly",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part A: measured capacity fade is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasCapacityThroughput",
-      "localName": "hasCapacityThroughput",
-      "label": "Capacity Throughput",
-      "comment": "Cumulative capacity throughput. Use gs1:QuantitativeValue with unitCode 'AMH'.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#capacityThroughput"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#capacityThroughput",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#capacityThroughputValue",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#capacityThroughput",
-        "https://w3id.org/eudpp/battery-performance#capacityThroughput"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part B: cumulative capacity throughput is battery-individual usage data for the Art. 14 legitimate-interest audience.",
+      "accessLevelRationale": "Art. 14(1)/Annex VII: state-of-health data (state of health and charge, SOCE, cycles, capacity and power fade, resistance, throughput, temperature exposure, remaining power capability and lifetime) is BMS-readable for the legitimate-interest audience, not the general public.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "accessGrantedToRole": [
         "IndependentOperator",
@@ -1536,33 +1371,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasCarbonFootprintPerformanceClass",
-      "localName": "hasCarbonFootprintPerformanceClass",
-      "label": "Carbon Footprint Performance Class",
-      "comment": "Performance class for carbon footprint (A-E).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/CarbonFootprintDeclaration"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/battery/CarbonFootprintClass"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#carbonFootprintClass",
-        "https://dpp-keystone.org/spec/v3/terms#performance",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-18"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#carbonFootprintClass",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerformanceClass",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#carbonFootprintPerformanceClass"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Art. 7(2)/Annex XIII(1)(c): the CF performance class is public labelling information.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/hasCarbonFootprintProduction",
       "localName": "hasCarbonFootprintProduction",
       "label": "Carbon Footprint - Production",
@@ -1613,6 +1421,9 @@
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint",
         "https://dpp-keystone.org/spec/v3/terms#carbonFootprint"
+      ],
+      "exactMatch": [
+        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#contributionOfRawMaterialAcquisitionAndPreProcessingLifecycleStage"
       ],
       "broadMatch": [
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
@@ -1675,7 +1486,8 @@
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
       ],
       "exactMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint"
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
+        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#batteryCarbonFootprintPerFunctionalUnit"
       ],
       "closeMatch": [
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint"
@@ -1773,88 +1585,6 @@
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "Where a material sits in the battery (cathode/anode/electrolyte) is Annex XIII(2)(a) composition detail for professional users.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasCurrentSelfDischargingRate",
-      "localName": "hasCurrentSelfDischargingRate",
-      "label": "Current Self-Discharging Rate",
-      "comment": "Current rate of self-discharge of the battery. Use unitCode 'P1' (percent) per UN/CEFACT Rec 20; period typically per month.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65",
-        "https://dpp-keystone.org/spec/v3/terms#selfDischargeCurrent"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#currentSelfDischargingRateValue",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#currentSelfDischargeRate",
-        "https://w3id.org/eudpp/battery-performance#currentSelfDischargeRate",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#currentSelfDischargingRate"
-      ],
-      "closeMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#selfDischargeCurrent"
-      ],
-      "broadMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRateSet",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRate"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part A: the current self-discharge rate is battery-individual health state for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasCycleCount",
-      "localName": "hasCycleCount",
-      "label": "Cycle Count",
-      "comment": "Number of full charge-discharge cycles. Use gs1:QuantitativeValue with unitCode 'C62' (count).",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#cycleCountFull",
-        "https://w3id.org/emmo/domain/battery#CycleNumber",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#cycleCountFull",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCycles",
-        "https://w3id.org/eudpp/battery-performance#numberOfFullCycles",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#numberOfFullChargingAndDischargingCycles"
-      ],
-      "closeMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#numberOfChargingCycles",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#numberOfDischargingCycles"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part B: the number of charge-discharge cycles is battery-individual usage data for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/battery/hasDismantlingAndRemovalInformation",
@@ -1963,41 +1693,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasEnergyThroughput",
-      "localName": "hasEnergyThroughput",
-      "label": "Energy Throughput",
-      "comment": "Cumulative energy throughput. Use gs1:QuantitativeValue with unitCode 'KWH'.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#energyThroughput"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#energyThroughput",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#energyThroughputValue",
-        "https://w3id.org/eudpp/battery-performance#energyThroughput"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#energyThroughput"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part B: cumulative energy throughput is battery-individual usage data for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/hasEuDeclarationOfConformity",
       "localName": "hasEuDeclarationOfConformity",
       "label": "EU Declaration of Conformity",
@@ -2015,7 +1710,8 @@
         "urn:samm:io.BatteryPass.Labels:1.2.0#declarationOfConformity",
         "https://dpp-keystone.org/spec/v3/terms#euDeclarationOfConformity",
         "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#euDeclarationOfConformity",
-        "https://w3id.org/eudpp#hasEUDeclarationOfConformity"
+        "https://w3id.org/eudpp#hasEUDeclarationOfConformity",
+        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#euDeclarationOfConformity"
       ],
       "closeMatch": [
         "https://vocabulary.uncefact.org/untp/conformityCertificate"
@@ -2065,44 +1761,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasEvolutionOfSelfDischarge",
-      "localName": "hasEvolutionOfSelfDischarge",
-      "label": "Evolution of Self Discharge",
-      "comment": "Change in self-discharge rate. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#evolutionOfSelfDischarge",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRateSet",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#evolutionOfSelfDischargeRates",
-        "https://w3id.org/eudpp/battery-performance#selfDischargeRateEvolution"
-      ],
-      "narrowMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRate"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part A: the evolution of self-discharge is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/hasExpectedLifetime",
       "localName": "hasExpectedLifetime",
       "label": "Expected Lifetime",
@@ -2128,43 +1786,6 @@
       "accessLevel": "Public",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "accessLevelRationale": "Annex XIII(1)(j): the expected battery lifetime under reference conditions is public battery-passport data.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasExpectedLifetimeCapacityThroughput",
-      "localName": "hasExpectedLifetimeCapacityThroughput",
-      "label": "Expected Lifetime Capacity Throughput",
-      "comment": "Total capacity throughput expected over battery lifetime in Ah. Use unitCode 'AMH' (UN/CEFACT Rec 20).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex IV Part A/Annex XIII(1)(j): the declared lifetime capacity throughput is a public durability rating.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasExpectedLifetimeEnergyThroughput",
-      "localName": "hasExpectedLifetimeEnergyThroughput",
-      "label": "Expected Lifetime Energy Throughput",
-      "comment": "Total energy throughput expected over battery lifetime in kWh. Use unitCode 'KWH' (UN/CEFACT Rec 20).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#energyThroughput"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex IV Part A/Annex XIII(1)(j): the declared lifetime energy throughput is a public durability rating.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
@@ -2235,172 +1856,6 @@
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "Severity grading qualifies the Annex VII Part B accident record for repurposers and recyclers judging reusability.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasInitialCapacity",
-      "localName": "hasInitialCapacity",
-      "label": "Initial Capacity",
-      "comment": "Measured capacity at commissioning (ILMD).",
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The capacity measured at commissioning (ILMD) is the battery-individual SoH baseline used by the Art. 14/Annex VII audience — the declared rating stays public separately.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasInitialCellInternalResistance",
-      "localName": "hasInitialCellInternalResistance",
-      "label": "Initial Internal Cell Resistance",
-      "comment": "Initial internal resistance of the battery cell at commissioning in Ohms (Annex XIII 1 (o)). Use unitCode 'OHM' (UN/CEFACT Rec 20). Annex XIII 1 (o) asks for both the cell and the pack value; the pack value is eubat:hasInitialPackInternalResistance.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38"
-      ],
-      "exactMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalCellResistance",
-        "https://w3id.org/eudpp/battery-performance#initialCellInternalResistance"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance",
-        "https://dpp-keystone.org/spec/v3/terms#internalResistanceInitial",
-        "https://w3id.org/eudpp/battery-performance#initialInternalResistance",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#initialInternalResistanceOfBatteryCellAndPackModuleRecommended"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex XIII(1)(o): the internal cell resistance as a declared parameter is public battery-passport data.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasInitialEnergy",
-      "localName": "hasInitialEnergy",
-      "label": "Initial Energy",
-      "comment": "Measured energy at commissioning (ILMD).",
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The energy measured at commissioning (ILMD) is the battery-individual SoH baseline used by the Art. 14/Annex VII audience — the declared rating stays public separately.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasInitialPackInternalResistance",
-      "localName": "hasInitialPackInternalResistance",
-      "label": "Initial Internal Pack Resistance",
-      "comment": "Initial internal resistance of the battery pack at commissioning in Ohms (Annex XIII 1 (o)). Use unitCode 'OHM' (UN/CEFACT Rec 20). Annex XIII 1 (o) asks for both the cell and the pack value; the cell value is eubat:hasInitialCellInternalResistance.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38"
-      ],
-      "exactMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalPackResistance",
-        "https://w3id.org/eudpp/battery-performance#initialPackInternalResistance",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#ohmicResistance"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance",
-        "https://dpp-keystone.org/spec/v3/terms#internalResistanceInitial",
-        "https://w3id.org/eudpp/battery-performance#initialInternalResistance",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#initialInternalResistanceOfBatteryCellAndPackModuleRecommended"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex XIII(1)(o): the internal pack resistance as a declared parameter is public battery-passport data.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasInternalResistance",
-      "localName": "hasInternalResistance",
-      "label": "Internal Resistance",
-      "comment": "Battery internal resistance in Ohms. Use unitCode 'OHM' (UN/CEFACT Rec 20).",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://w3id.org/emmo/domain/battery#InternalResistance",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-55",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-66"
-      ],
-      "exactMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalPackResistance",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalResistance"
-      ],
-      "closeMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#ohmicResistance"
-      ],
-      "broadMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#internalResistanceInitial",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#ohmicResistance"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalCellResistance",
-        "https://w3id.org/eudpp/battery-performance#initialInternalResistance"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "The current measured internal resistance is Annex VII health state — only the initial declared cell and pack values (eubat:hasInitialCellInternalResistance, eubat:hasInitialPackInternalResistance) are public under Annex XIII(1)(o).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasInternalResistanceIncrease",
-      "localName": "hasInternalResistanceIncrease",
-      "label": "Internal Resistance Increase",
-      "comment": "Percentage increase in internal resistance. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#internalResistanceIncrease",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-56"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#internalResistanceIncrease",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncrease",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalResistanceIncrease",
-        "https://w3id.org/eudpp/battery-performance#internalResistanceIncrease"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part A: measured resistance increase is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/battery/hasLabels",
@@ -2571,7 +2026,8 @@
         "urn:samm:io.BatteryPass.Performance:1.2.1#ratedMaximumPower"
       ],
       "broadMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerLimit"
+        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerLimit",
+        "https://w3id.org/eudpp/battery-performance#maximumPermittedBatteryPower"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -2638,8 +2094,8 @@
         "https://ref.openepcis.org/extensions/eu/battery/hasRatedMaximumPower",
         "https://dpp-keystone.org/spec/v3/terms#powerMaximumPermitted",
         "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-30",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability",
-        "https://w3id.org/eudpp/battery-performance#maximumPermittedBatteryPower"
+        "https://w3id.org/eudpp/battery-performance#maximumPermittedBatteryPower",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability"
       ],
       "exactMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#ratedMaximumPower",
@@ -2903,157 +2359,27 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasOriginalPowerCapability",
-      "localName": "hasOriginalPowerCapability",
-      "label": "Original Power Capability",
-      "comment": "Original power capability at specific SoC levels (80% and 20%).",
+      "id": "https://ref.openepcis.org/extensions/eu/battery/hasPerformanceTest",
+      "localName": "hasPerformanceTest",
+      "label": "Performance and Durability Test",
+      "comment": "The performance and durability tests behind the declared technical specification.",
       "domain": [
         "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/battery/PowerCapabilityAtSoC"
+        "https://ref.openepcis.org/extensions/eu/battery/PerformanceDurabilityTest"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-29"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#originalPowerCapability",
-        "https://w3id.org/eudpp/battery-performance#originalPowerCapability",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#originalPowerCapability",
-        "https://dpp-keystone.org/spec/v3/terms#powerOriginal"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability"
+        "https://dpp-keystone.org/spec/v3/terms#referenceTestCycleLife",
+        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-32",
+        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#cycleLifeReferenceTest",
+        "https://ref.openepcis.org/vocab/batterypass-ready/1.3#Cycle-lifeReferenceTest"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex XIII(1)(i): original power capability (with limits and temperature boundaries) is public battery-passport data.",
+      "accessLevelRationale": "Annex XIII(1)(j)-(p): expected cycle life, initial internal resistance, self-discharge and round-trip efficiency, original power capability, the cycle-life test conditions and thresholds and the reference test are public battery-passport data.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasPowerCapability",
-      "localName": "hasPowerCapability",
-      "label": "Power Capability",
-      "comment": "Power capability value in kW at the specified SoC. Use unitCode 'KWT' (UN/CEFACT Rec 20).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/PowerCapabilityAtSoC"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#ratedMaximumPower",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#powerCapabilityAt",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-53"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#originalPowerCapability",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasPowerCapabilityAt20SoC",
-      "localName": "hasPowerCapabilityAt20SoC",
-      "label": "Power Capability at 20% SoC",
-      "comment": "Current power capability at 20% state of charge. Use unitCode 'KWT' (UN/CEFACT Rec 20).",
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#ratedMaximumPower",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability",
-        "https://w3id.org/eudpp/battery-performance#originalPowerCapability"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#powerCapabilityAt",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability",
-        "https://w3id.org/eudpp/battery-performance#remainingPowerCapability"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Current power capability at 20 % SoC is a measured expression of the Annex VII remaining-power-capability state for the Art. 14 audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasPowerCapabilityAt80SoC",
-      "localName": "hasPowerCapabilityAt80SoC",
-      "label": "Power Capability at 80% SoC",
-      "comment": "Current power capability at 80% state of charge. Use unitCode 'KWT' (UN/CEFACT Rec 20).",
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#powerCapabilityAt",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Current power capability at 80 % SoC is a measured expression of the Annex VII remaining-power-capability state for the Art. 14 audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasPowerFade",
-      "localName": "hasPowerFade",
-      "label": "Power Fade",
-      "comment": "Power capability degradation as a percentage of original power capability, computed as ((original − remaining) / original) × 100. Use unitCode 'P1' (UN/CEFACT Rec 20).",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#powerFade",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-54"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#powerFade",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#powerFade",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerFade",
-        "https://w3id.org/eudpp/battery-performance#powerFade",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#powerFade"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part A: measured power fade is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/battery/hasRatedCapacity",
@@ -3169,160 +2495,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasRemainingCapacity",
-      "localName": "hasRemainingCapacity",
-      "label": "Remaining Capacity",
-      "comment": "Current maximum capacity. Use gs1:QuantitativeValue with unitCode 'AMH'.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#remainingCapacity",
-        "https://w3id.org/emmo/domain/battery#Capacity",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-62"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#remainingCapacity",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingCapacity",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingCapacity",
-        "https://w3id.org/eudpp/battery-performance#remainingCapacity",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#remainingCapacity"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part A: remaining capacity is battery-individual health state for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasRemainingPowerCapability",
-      "localName": "hasRemainingPowerCapability",
-      "label": "Remaining Power Capability",
-      "comment": "Current power capability measurements at various SoC levels.",
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/battery/PowerCapabilityAtSoC"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#ratedPower",
-        "https://dpp-keystone.org/spec/v3/terms#powerRemaining",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-63"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability",
-        "https://dpp-keystone.org/spec/v3/terms#powerRemaining",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingPowerCapability",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#remainingPowerCapability"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part A: remaining power capability is battery-individual health state for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasRemainingRoundTripEfficiency",
-      "localName": "hasRemainingRoundTripEfficiency",
-      "label": "Remaining Round Trip Efficiency",
-      "comment": "Current round trip energy efficiency. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
-        "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles",
-        "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyRemaining",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-64"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency",
-        "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyRemaining",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiencyValue",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiency",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingRoundTripEfficiency",
-        "https://w3id.org/eudpp/battery-performance#remainingRoundTripEnergyEfficiency",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#remainingRoundTripEnergyEfficiency"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
-        "https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife",
-        "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part A: remaining round-trip efficiency is battery-individual health state for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasRemainingUsableEnergy",
-      "localName": "hasRemainingUsableEnergy",
-      "label": "Remaining Usable Energy",
-      "comment": "Current remaining usable energy of the battery. Use gs1:QuantitativeValue with unitCode 'KWH'.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#remainingCapacity",
-        "https://dpp-keystone.org/spec/v3/terms#remainingUsableEnergy"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#remainingUsableEnergy",
-        "https://w3id.org/eudpp/battery-performance#remainingUsableBatteryEnergy",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergyValue",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#remainingUsableBatteryEnergy"
-      ],
-      "closeMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingCapacity"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergy"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part A: remaining usable energy is battery-individual health state for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/hasRepurposingEntity",
       "localName": "hasRepurposingEntity",
       "label": "Repurposing Entity",
@@ -3353,44 +2525,6 @@
       "accessLevel": "Public",
       "accessLevelRationale": "Naming the due-diligence scheme followed (Art. 50 recognised schemes) is part of the public policy communication.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasRoundTripEfficiencyFade",
-      "localName": "hasRoundTripEfficiencyFade",
-      "label": "Round Trip Efficiency Fade",
-      "comment": "Degradation of round trip efficiency, computed as ((initial RTE − remaining RTE) / initial RTE) × 100. Use unitCode 'P1' (UN/CEFACT Rec 20).",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyFade",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-58"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyFade",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyFade",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiencyFade",
-        "https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyFade",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#energyRoundTripEfficiencyFade"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part A: measured efficiency fade is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/battery/hasSafetyMeasures",
@@ -3458,110 +2592,6 @@
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "accessLevelRationale": "Annex XIII(2)(b): sources for spare parts are reserved for persons with a legitimate interest.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasStateOfCertifiedEnergy",
-      "localName": "hasStateOfCertifiedEnergy",
-      "label": "State of Certified Energy",
-      "comment": "SOCE ratio of remaining to certified usable energy. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#soce",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-61"
-      ],
-      "exactMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#stateOfCertifiedEnergy",
-        "https://dpp-keystone.org/spec/v3/terms#soce",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCertifiedEnergyValue",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCertifiedEnergy",
-        "https://w3id.org/eudpp/battery-performance#stateOfCertifiedEnergy",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#stateOfCertifiedEnergySOCE"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part A: SoCE is battery-individual health state for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasStateOfCharge",
-      "localName": "hasStateOfCharge",
-      "label": "State of Charge",
-      "comment": "Current charge level as percentage. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#stateOfCharge",
-        "https://w3id.org/emmo/domain/battery#StateOfCharge",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-71"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCharge",
-        "https://dpp-keystone.org/spec/v3/terms#stateOfCharge",
-        "https://w3id.org/eudpp/battery-performance#stateOfCharge",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#stateOfChargeSoC"
-      ],
-      "closeMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#stateOfChargeHistogram"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part A: state of charge is battery-individual BMS data for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/hasStateOfHealth",
-      "localName": "hasStateOfHealth",
-      "label": "State of Health",
-      "comment": "Battery state of health as percentage of original capacity. Use unitCode 'P1' (UN/CEFACT Rec 20).",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://w3id.org/emmo/domain/battery#StateOfHealth"
-      ],
-      "closeMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#stateOfCertifiedEnergy"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Art. 14(1)/Annex VII: state-of-health data is BMS-readable for the legitimate-interest audience, not the general public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/battery/hasSubstanceLocation",
@@ -3855,6 +2885,9 @@
       "exactMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#informationOnCollection"
       ],
+      "closeMatch": [
+        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#informationOnBatteryCollectionPreparationForSecondLifeAndOnTreatmentAtEndOfLife"
+      ],
       "broadMatch": [
         "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#wasteBatteryPreventionManagementInfo"
       ],
@@ -3866,31 +2899,6 @@
       "accessLevel": "Public",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "accessLevelRationale": "Art. 74(1)(b)/Annex XIII(1)(s): collection points and take-back information must reach end users publicly.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/initialSelfDischarge",
-      "localName": "initialSelfDischarge",
-      "label": "Initial Self Discharge",
-      "comment": "Initial self-discharge rate as percentage per month.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#selfDischargeInitial"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#selfDischargeInitial",
-        "https://w3id.org/eudpp/battery-performance#initialSelfDischargeRate",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#initialSelfDischarge",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#initialSelfDischargeRate"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The initial (declared) self-discharge rate belongs to the public Annex IV Part A performance ratings — only its measured evolution is BMS state data under Annex XIII(4).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
@@ -4166,33 +3174,6 @@
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/lifetimeReferenceTest",
-      "localName": "lifetimeReferenceTest",
-      "label": "Lifetime Reference Test",
-      "comment": "URL or reference to the standard test used for lifetime determination.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "xsd:anyURI"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#referenceTestCycleLife",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-32"
-      ],
-      "exactMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#cycleLifeReferenceTest",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#lifetimeReferenceTest"
-      ],
-      "closeMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#referenceTestCycleLife"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The reference test standard behind the public lifetime ratings must be public for those ratings to be checkable (Annex XIII(1)(j)).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/lithiumPostConsumerShare",
       "localName": "lithiumPostConsumerShare",
       "label": "Lithium Post-Consumer Recycled Share",
@@ -4231,6 +3212,7 @@
       "broadMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
         "https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledMaterialComposition",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare",
         "https://dpp-keystone.org/spec/v3/terms#recycledContentPercentage"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -4539,45 +3521,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/numberOfDeepDischargeEvents",
-      "localName": "numberOfDeepDischargeEvents",
-      "label": "Number of Deep Discharge Events",
-      "comment": "Cumulative count of deep-discharge events recorded over the battery lifetime.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/eu/battery/DeepDischarge",
-        "https://ref.openepcis.org/extensions/eu/battery/hasNegativeEvents"
-      ],
-      "exactMatch": [
-        "https://w3id.org/eudpp/battery-performance#numberOfDeepDischargeEvents",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#numberOfDeepDischargeEvents",
-        "https://dpp-keystone.org/spec/v3/terms#eventsDeepDischarge"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#negativeEvents"
-      ],
-      "broader": [
-        "https://ref.openepcis.org/extensions/eu/battery/hasNegativeEvents"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex XIII(4) via Annex VII: the count of deep-discharge events is battery-individual negative-event data for the Art. 14 legitimate-interest audience, matching eubat:hasNegativeEvents.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/numberOfModules",
       "localName": "numberOfModules",
       "label": "Number of Modules",
@@ -4872,22 +3815,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/resistanceIncreaseThreshold",
-      "localName": "resistanceIncreaseThreshold",
-      "label": "Resistance Increase Threshold",
-      "comment": "Internal resistance increase percentage at which battery reaches end of rated cycle life.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The resistance-increase level that defines rated cycle life is part of the public declared durability ratings (Annex IV Part A), not battery-individual state.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/resultOfTestReport",
       "localName": "resultOfTestReport",
       "label": "Result of Test Report URL",
@@ -4906,6 +3833,9 @@
         "https://w3id.org/eudpp/battery#testReportResults",
         "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#complianceTestReportResults",
         "https://dpp-keystone.org/spec/v3/terms#testReports"
+      ],
+      "closeMatch": [
+        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#resultsOfTestReportsProvingCompliance"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Restricted",
@@ -4927,72 +3857,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
       "accessLevelRationale": "Art. 52(3): the public due-diligence report summarises identified supply-chain risks and their mitigation, so the summary (not the underlying data) is public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/roundTripEfficiency",
-      "localName": "roundTripEfficiency",
-      "label": "Round Trip Efficiency",
-      "comment": "Initial round-trip energy efficiency as percentage.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyInitial",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-57",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyInitial",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency",
-        "https://w3id.org/eudpp/battery-performance#initialRoundTripEnergyEfficiency",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#initialRoundTripEnergyEfficiency",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#initialRoundTripEnergyEfficiency"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
-        "https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex XIII(1)(n): the initial round-trip energy efficiency is public battery-passport data.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/roundTripEfficiencyAt50PercentCycleLife",
-      "localName": "roundTripEfficiencyAt50PercentCycleLife",
-      "label": "Round Trip Efficiency at 50% Cycle Life",
-      "comment": "Expected round trip efficiency at 50% of rated cycle life.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles",
-        "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyRemaining",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-37"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
-        "https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEfficiencyAtHalfCycleLife",
-        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#roundTripEnergyEfficiencyAt50PerCentOfCycleLife"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency",
-        "https://dpp-keystone.org/spec/v3/terms#efficiency"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Annex XIII(1)(n): round-trip efficiency expected at 50 % of cycle life is a public declared value.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
@@ -5043,6 +3907,9 @@
       "exactMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#separateCollection"
       ],
+      "closeMatch": [
+        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#informationOnTheRoleOfEndUsersInContributingToTheSeparateCollectionOfWasteBatteries"
+      ],
       "broadMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#informationOnCollection",
         "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#wasteBatteryPreventionManagementInfo"
@@ -5070,6 +3937,9 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v3/terms#separateCollectionSymbol",
         "https://w3id.org/eudpp/battery-labeling#separateCollectionSymbol"
+      ],
+      "closeMatch": [
+        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#separateCollectionSymbol"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -5129,26 +3999,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/stateOfChargeLevel",
-      "localName": "stateOfChargeLevel",
-      "label": "State of Charge Level",
-      "comment": "The SoC level at which power capability is measured (e.g., 80 or 20).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/battery/PowerCapabilityAtSoC"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#stateOfCharge"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCharge"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevelInherited": true
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/supplyChainIndex",
       "localName": "supplyChainIndex",
       "label": "Supply Chain Index",
@@ -5164,7 +4014,8 @@
         "urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#supplyChainIndicies"
       ],
       "exactMatch": [
-        "urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#supplyChainIndicies"
+        "urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#supplyChainIndicies",
+        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#supplyChainIndices"
       ],
       "closeMatch": [
         "https://dpp-keystone.org/spec/v3/terms#supplyChainIndices"
@@ -5253,156 +4104,13 @@
       "exactMatch": [
         "https://ref.openepcis.org/extensions/common/core/thirdPartyAssurancesUrl",
         "https://dpp-keystone.org/spec/v3/terms#supplyChainAssurances",
-        "urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#thirdPartyAussurances"
+        "urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#thirdPartyAussurances",
+        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#thirdPartyAssurancesOfRecognisedSchemes"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
       "accessLevelRationale": "Third-party assurance links substantiate the public due-diligence claims and are public by function; dpp-core serves the same name Public.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
-      "localName": "timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
-      "label": "Time Spent Charging During Extreme Temperatures Above Boundary",
-      "comment": "Cumulative time the battery spent charging above the upper temperature boundary, in minutes.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTempCharging",
-        "https://w3id.org/eudpp/battery-performance#timeSpentChargingInExtremeTemperaturesAboveBoundary",
-        "https://dpp-keystone.org/spec/v3/terms#timeChargingTempUpper"
-      ],
-      "broadMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#environmentalConditionHistogram"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part B: charging-in-extreme-temperature history is battery-individual usage data for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
-      "localName": "timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
-      "label": "Time Spent Charging During Extreme Temperatures Below Boundary",
-      "comment": "Cumulative time the battery spent charging below the lower temperature boundary, in minutes.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTempCharging",
-        "https://w3id.org/eudpp/battery-performance#timeSpentChargingInExtremeTemperaturesBelowBoundary",
-        "https://dpp-keystone.org/spec/v3/terms#timeChargingTempLower"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTemp"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part B: charging-in-extreme-temperature history is battery-individual usage data for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/timeSpentInExtremeTemperaturesAboveBoundary",
-      "localName": "timeSpentInExtremeTemperaturesAboveBoundary",
-      "label": "Time Spent in Extreme Temperatures Above Boundary",
-      "comment": "Cumulative time the battery spent above the upper temperature boundary, in minutes.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTempCharging",
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTemp",
-        "https://w3id.org/eudpp/battery-performance#timeSpentInExtremeTemperaturesAboveBoundary",
-        "https://dpp-keystone.org/spec/v3/terms#timeExtremeTempUpper"
-      ],
-      "broadMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#environmentalConditionHistogramSet"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTempCharging",
-        "https://w3id.org/eudpp/battery-performance#timeSpentChargingInExtremeTemperaturesAboveBoundary"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part B: temperature-exposure history is battery-individual usage data for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/battery/timeSpentInExtremeTemperaturesBelowBoundary",
-      "localName": "timeSpentInExtremeTemperaturesBelowBoundary",
-      "label": "Time Spent in Extreme Temperatures Below Boundary",
-      "comment": "Cumulative time the battery spent below the lower temperature boundary, in minutes.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTempCharging"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTemp",
-        "https://w3id.org/eudpp/battery-performance#timeSpentInExtremeTemperaturesBelowBoundary",
-        "https://dpp-keystone.org/spec/v3/terms#timeExtremeTempLower"
-      ],
-      "broadMatch": [
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#environmentalConditionHistogramSet",
-        "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#environmentalConditionHistogram"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTempCharging"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessLevelRationale": "Annex VII Part B: temperature-exposure history is battery-individual usage data for the Art. 14 legitimate-interest audience.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "accessGrantedToRole": [
-        "IndependentOperator",
-        "MarketSurveillanceAuthority",
-        "NotifiedActor",
-        "ProfessionalRepairer",
-        "Recycler"
-      ]
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/battery/transportationSafetyClass",
@@ -5551,6 +4259,9 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v3/terms#wastePreventionInfo",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#wastePrevention"
+      ],
+      "closeMatch": [
+        "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#informationOnTheRoleOfEndUsersInContributingToWastePrevention"
       ],
       "broadMatch": [
         "https://ref.gs1.org/voc/sustainabilityInfo",
@@ -5873,6 +4584,26 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/ConditionType",
+      "localName": "ConditionType",
+      "label": "ConditionType",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/StateOfChargeLevel",
+          "localName": "StateOfChargeLevel",
+          "label": "State of Charge Level",
+          "comment": "State of charge a power capability is measured at, as oea:hasConditionValue (unitCode P1, e.g. 80 or 20). Replaces eubat:stateOfChargeLevel.",
+          "closeMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCharge"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#stateOfCharge"
+          ]
+        }
+      ]
+    },
+    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/DismantlingDocumentType",
       "localName": "DismantlingDocumentType",
       "label": "Dismantling Document Type",
@@ -6023,6 +4754,51 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/IndicatorKind",
+      "localName": "IndicatorKind",
+      "label": "IndicatorKind",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/CarbonFootprintPerformanceClass",
+          "localName": "CarbonFootprintPerformanceClass",
+          "label": "Carbon Footprint Performance Class",
+          "comment": "Carbon footprint performance class A to E (Regulation (EU) 2023/1542 Art. 7(2)), its value an eubat:CarbonFootprintClass. Replaces eubat:hasCarbonFootprintPerformanceClass.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#carbonFootprintClass",
+            "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerformanceClass",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#carbonFootprintPerformanceClass"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#carbonFootprintClass",
+            "https://dpp-keystone.org/spec/v3/terms#performance",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-18"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/RemainingCycles",
+          "localName": "RemainingCycles",
+          "label": "Remaining Cycles",
+          "comment": "Estimated remaining full charge-discharge cycles (unitCode C62). Replaces eubat:expectedRemainingCycles.",
+          "closeMatch": [
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#expectedLifetimeCyclesRest"
+          ],
+          "seeAlso": [
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-59"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/RemainingLifetime",
+          "localName": "RemainingLifetime",
+          "label": "Remaining Lifetime",
+          "comment": "Estimated remaining useful lifetime (unitCode MON). Replaces eubat:expectedRemainingLifetimeMonths.",
+          "seeAlso": [
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60"
+          ]
+        }
+      ]
+    },
+    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/LabelSubject",
       "localName": "LabelSubject",
       "label": "Label Subject",
@@ -6117,6 +4893,59 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/MeasurementParameter",
+      "localName": "MeasurementParameter",
+      "label": "MeasurementParameter",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/ChargeCRate",
+          "localName": "ChargeCRate",
+          "label": "Charge C-Rate",
+          "comment": "Charge C-rate of the cycle-life test, in 1/h (EC data point 39) (unitCode C62). Replaces eubat:cRateLifeCycleTest.",
+          "closeMatch": [
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#cycleLifeChargeCRate",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39",
+            "https://w3id.org/eudpp/battery-performance#chargeCRateOfCycleLifeTest",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#cRateOfRelevantCycleLifeTest"
+          ],
+          "broadMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#cRate",
+            "https://w3id.org/eudpp/battery-performance#cRateOfCycleLifeTest",
+            "https://dpp-keystone.org/spec/v3/terms#cRateCycleTest"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#cRateCycleTest",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/DepthOfDischarge",
+          "localName": "DepthOfDischarge",
+          "label": "Depth of Discharge",
+          "comment": "Depth of discharge the cycle-life test cycles the battery to (unitCode P1). Replaces eubat:depthOfDischargeInCycleLifeTest."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/DischargeCRate",
+          "localName": "DischargeCRate",
+          "label": "Discharge C-Rate",
+          "comment": "Discharge C-rate of the cycle-life test, in 1/h (Annex XIII 1 (p), EC data point 40) (unitCode C62). Replaces eubat:dischargeCRateLifeCycleTest.",
+          "closeMatch": [
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#cycleLifeDischargeCRate",
+            "https://w3id.org/eudpp/battery-performance#dischargeCRateOfCycleLifeTest"
+          ],
+          "broadMatch": [
+            "https://w3id.org/eudpp/battery-performance#cRateOfCycleLifeTest",
+            "https://dpp-keystone.org/spec/v3/terms#cRateCycleTest",
+            "https://ref.openepcis.org/vocab/batterypass-ready/1.3#C-rateOfRelevantCycle-lifeTest"
+          ],
+          "seeAlso": [
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-40"
+          ]
+        }
+      ]
+    },
+    {
       "id": "https://ref.openepcis.org/extensions/eu/battery/NegativeEventType",
       "localName": "NegativeEventType",
       "label": "Negative Event Type",
@@ -6169,6 +4998,591 @@
           "localName": "WaterIngress",
           "label": "Water Ingress",
           "comment": "Water or moisture penetration into the battery pack."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter",
+      "localName": "PerformanceParameter",
+      "label": "PerformanceParameter",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/CapacityFade",
+          "localName": "CapacityFade",
+          "label": "Capacity Fade",
+          "comment": "Capacity degradation as a percentage of the rated capacity, ((rated - remaining) / rated) x 100 (unitCode P1). Replaces eubat:hasCapacityFade.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#capacityFade",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#capacityFade",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#capacityFade",
+            "https://w3id.org/eudpp/battery-performance#capacityFade",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#capacityFade"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#capacityFade",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-52"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/CapacityThroughput",
+          "localName": "CapacityThroughput",
+          "label": "Capacity Throughput",
+          "comment": "Cumulative capacity throughput (unitCode AMH). Replaces eubat:hasCapacityThroughput.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#capacityThroughput",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#capacityThroughputValue",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#capacityThroughput",
+            "https://w3id.org/eudpp/battery-performance#capacityThroughput"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#capacityThroughput",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#capacityThroughputValue"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/ChargingTimeAboveTemperatureBoundary",
+          "localName": "ChargingTimeAboveTemperatureBoundary",
+          "label": "Charging Time Above Temperature Boundary",
+          "comment": "Cumulative time the battery spent charging above the upper temperature boundary (unitCode MIN). Replaces eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary.",
+          "closeMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTempCharging",
+            "https://w3id.org/eudpp/battery-performance#timeSpentChargingInExtremeTemperaturesAboveBoundary",
+            "https://dpp-keystone.org/spec/v3/terms#timeChargingTempUpper"
+          ],
+          "broadMatch": [
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#environmentalConditionHistogram"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/ChargingTimeBelowTemperatureBoundary",
+          "localName": "ChargingTimeBelowTemperatureBoundary",
+          "label": "Charging Time Below Temperature Boundary",
+          "comment": "Cumulative time the battery spent charging below the lower temperature boundary (unitCode MIN). Replaces eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary.",
+          "closeMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTempCharging",
+            "https://w3id.org/eudpp/battery-performance#timeSpentChargingInExtremeTemperaturesBelowBoundary",
+            "https://dpp-keystone.org/spec/v3/terms#timeChargingTempLower"
+          ],
+          "broadMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTemp"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/CycleLife",
+          "localName": "CycleLife",
+          "label": "Cycle Life",
+          "comment": "Number of full charge-discharge cycles the battery reaches in the cycle-life test until the exhaustion threshold (unitCode C62). Replaces eubat:expectedCycleLife.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#expectedLifetimeCycles",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#expectedLifetimeCycles",
+            "https://w3id.org/eudpp/battery-performance#expectedLifetimeCycles",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#expectedLifetimeNumberOfChargeDischargeCycles"
+          ],
+          "broadMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#batteryCondition"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#expectedLifetimeCycles",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/DeepDischargeEvents",
+          "localName": "DeepDischargeEvents",
+          "label": "Deep Discharge Events",
+          "comment": "Cumulative count of deep-discharge events over the battery lifetime (unitCode C62). Replaces eubat:numberOfDeepDischargeEvents.",
+          "closeMatch": [
+            "https://w3id.org/eudpp/battery-performance#numberOfDeepDischargeEvents",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#numberOfDeepDischargeEvents",
+            "https://dpp-keystone.org/spec/v3/terms#eventsDeepDischarge"
+          ],
+          "broadMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#negativeEvents"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/EnergyThroughput",
+          "localName": "EnergyThroughput",
+          "label": "Energy Throughput",
+          "comment": "Cumulative energy throughput (unitCode KWH). Replaces eubat:hasEnergyThroughput.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#energyThroughput",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#energyThroughputValue",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#energyThroughput",
+            "https://w3id.org/eudpp/battery-performance#energyThroughput"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#energyThroughput"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/FullCycleCount",
+          "localName": "FullCycleCount",
+          "label": "Full Cycle Count",
+          "comment": "Number of full charge-discharge cycles (unitCode C62). Replaces eubat:hasCycleCount.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#cycleCountFull",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCycles",
+            "https://w3id.org/eudpp/battery-performance#numberOfFullCycles",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#numberOfChargingCycles",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#numberOfDischargingCycles",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#numberOfFullChargingAndDischargingCycles"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#cycleCountFull",
+            "https://w3id.org/emmo/domain/battery#CycleNumber",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCyclesValue"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/InitialCapacity",
+          "localName": "InitialCapacity",
+          "label": "Initial Capacity",
+          "comment": "Capacity measured at commissioning (unitCode AMH). Replaces eubat:hasInitialCapacity."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/InitialCellInternalResistance",
+          "localName": "InitialCellInternalResistance",
+          "label": "Initial Cell Internal Resistance",
+          "comment": "Internal resistance of the battery cell at the beginning of life (Annex XIII 1 (o)) (unitCode OHM). Replaces eubat:hasInitialCellInternalResistance.",
+          "closeMatch": [
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalCellResistance",
+            "https://w3id.org/eudpp/battery-performance#initialCellInternalResistance"
+          ],
+          "broadMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#internalResistanceInitial",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance",
+            "https://w3id.org/eudpp/battery-performance#initialInternalResistance",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#initialInternalResistanceOfBatteryCellAndPackModuleRecommended"
+          ],
+          "seeAlso": [
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/InitialEnergy",
+          "localName": "InitialEnergy",
+          "label": "Initial Energy",
+          "comment": "Energy measured at commissioning (unitCode KWH). Replaces eubat:hasInitialEnergy."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/InitialPackInternalResistance",
+          "localName": "InitialPackInternalResistance",
+          "label": "Initial Pack Internal Resistance",
+          "comment": "Internal resistance of the battery pack at the beginning of life (Annex XIII 1 (o)) (unitCode OHM). Replaces eubat:hasInitialPackInternalResistance.",
+          "closeMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#ohmicResistance",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalPackResistance",
+            "https://w3id.org/eudpp/battery-performance#initialPackInternalResistance"
+          ],
+          "broadMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#internalResistanceInitial",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance",
+            "https://w3id.org/eudpp/battery-performance#initialInternalResistance",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#initialInternalResistanceOfBatteryCellAndPackModuleRecommended"
+          ],
+          "seeAlso": [
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/InitialRoundTripEfficiency",
+          "localName": "InitialRoundTripEfficiency",
+          "label": "Initial Round Trip Efficiency",
+          "comment": "Round-trip energy efficiency at the beginning of life (unitCode P1). Replaces eubat:roundTripEfficiency.",
+          "closeMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency",
+            "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyInitial",
+            "https://w3id.org/eudpp/battery-performance#initialRoundTripEnergyEfficiency",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#initialRoundTripEnergyEfficiency",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#initialRoundTripEnergyEfficiency"
+          ],
+          "narrowMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
+            "https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife"
+          ],
+          "seeAlso": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
+            "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyInitial",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-57",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/InitialSelfDischargeRate",
+          "localName": "InitialSelfDischargeRate",
+          "label": "Initial Self-Discharge Rate",
+          "comment": "Self-discharge rate at the beginning of life, in percent per month (unitCode P1). Replaces eubat:initialSelfDischarge.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#selfDischargeInitial",
+            "https://w3id.org/eudpp/battery-performance#initialSelfDischargeRate",
+            "https://ref.openepcis.org/vocab/batterypass-ready/1.3#InitialSelf-dischargeRate",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#initialSelfDischargeRate"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#selfDischargeInitial"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/InternalResistance",
+          "localName": "InternalResistance",
+          "label": "Internal Resistance",
+          "comment": "Current internal resistance of the battery (unitCode OHM). Replaces eubat:hasInternalResistance.",
+          "closeMatch": [
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalResistance",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#ohmicResistance",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalPackResistance",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#presentInternalResistanceOfPack"
+          ],
+          "broadMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#internalResistanceInitial",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#ohmicResistance"
+          ],
+          "narrowMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance",
+            "https://w3id.org/eudpp/battery-performance#initialInternalResistance",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalCellResistance"
+          ],
+          "seeAlso": [
+            "https://w3id.org/emmo/domain/battery#InternalResistance",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-55",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-66"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/InternalResistanceIncrease",
+          "localName": "InternalResistanceIncrease",
+          "label": "Internal Resistance Increase",
+          "comment": "Increase of the internal resistance over the initial value, in percent (unitCode P1). Replaces eubat:hasInternalResistanceIncrease.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#internalResistanceIncrease",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncrease",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#internalResistanceIncrease",
+            "https://w3id.org/eudpp/battery-performance#internalResistanceIncrease"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#internalResistanceIncrease",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-56",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncreaseValue"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/LifetimeCapacityThroughput",
+          "localName": "LifetimeCapacityThroughput",
+          "label": "Lifetime Capacity Throughput",
+          "comment": "Capacity throughput over the battery lifetime in the cycle-life test (unitCode AMH). Replaces eubat:hasExpectedLifetimeCapacityThroughput."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/LifetimeEnergyThroughput",
+          "localName": "LifetimeEnergyThroughput",
+          "label": "Lifetime Energy Throughput",
+          "comment": "Energy throughput over the battery lifetime in the cycle-life test (unitCode KWH). Replaces eubat:hasExpectedLifetimeEnergyThroughput.",
+          "seeAlso": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#energyThroughput"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/PowerCapability",
+          "localName": "PowerCapability",
+          "label": "Power Capability",
+          "comment": "Power capability at the state of charge the assessment states as its condition (eubat:StateOfChargeLevel); original in the performance test, remaining in the battery state (unitCode KWT). Replaces eubat:hasPowerCapability, eubat:hasRemainingPowerCapability, eubat:hasOriginalPowerCapability, eubat:hasPowerCapabilityAt80SoC, eubat:hasPowerCapabilityAt20SoC.",
+          "closeMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#originalPowerCapability",
+            "https://dpp-keystone.org/spec/v3/terms#powerRemaining",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingPowerCapability",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#remainingPowerCapability",
+            "https://w3id.org/eudpp/battery-performance#originalPowerCapability",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#originalPowerCapability",
+            "https://dpp-keystone.org/spec/v3/terms#powerOriginal"
+          ],
+          "broadMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#powerCapabilityAt",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerCapability",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#originalPowerCapability",
+            "https://w3id.org/eudpp/battery-performance#remainingPowerCapability"
+          ],
+          "seeAlso": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#ratedMaximumPower",
+            "https://dpp-keystone.org/spec/v3/terms#ratedPower",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#powerCapabilityAt",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-53",
+            "https://dpp-keystone.org/spec/v3/terms#powerRemaining",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-63",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-29",
+            "https://w3id.org/eudpp/battery-performance#originalPowerCapability",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapabilityValue",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#PowerCapabilityAtEntity"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/PowerFade",
+          "localName": "PowerFade",
+          "label": "Power Fade",
+          "comment": "Power capability degradation as a percentage of the original power capability, ((original - remaining) / original) x 100 (unitCode P1). Replaces eubat:hasPowerFade.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#powerFade",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#powerFade",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#powerFade",
+            "https://w3id.org/eudpp/battery-performance#powerFade",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#powerFade"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#powerFade",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-54"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/RemainingCapacity",
+          "localName": "RemainingCapacity",
+          "label": "Remaining Capacity",
+          "comment": "Current maximum capacity (unitCode AMH). Replaces eubat:hasRemainingCapacity.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#remainingCapacity",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#remainingCapacity",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingCapacity",
+            "https://w3id.org/eudpp/battery-performance#remainingCapacity",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#remainingCapacity"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#remainingCapacity",
+            "https://w3id.org/emmo/domain/battery#Capacity",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-62",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#remainingCapacityValue"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/RemainingRoundTripEfficiency",
+          "localName": "RemainingRoundTripEfficiency",
+          "label": "Remaining Round Trip Efficiency",
+          "comment": "Current round-trip energy efficiency (unitCode P1). Replaces eubat:hasRemainingRoundTripEfficiency.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyRemaining",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiencyValue",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiency",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingRoundTripEfficiency",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiency",
+            "https://w3id.org/eudpp/battery-performance#remainingRoundTripEnergyEfficiency",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#remainingRoundTripEnergyEfficiency"
+          ],
+          "narrowMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
+            "https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyRemaining",
+            "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-64",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/RemainingUsableEnergy",
+          "localName": "RemainingUsableEnergy",
+          "label": "Remaining Usable Energy",
+          "comment": "Current remaining usable energy (unitCode KWH). Replaces eubat:hasRemainingUsableEnergy.",
+          "closeMatch": [
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#remainingCapacity",
+            "https://dpp-keystone.org/spec/v3/terms#remainingUsableEnergy",
+            "https://w3id.org/eudpp/battery-performance#remainingUsableBatteryEnergy",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergyValue",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#remainingUsableBatteryEnergy"
+          ],
+          "broadMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergy"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#remainingCapacity",
+            "https://dpp-keystone.org/spec/v3/terms#remainingUsableEnergy"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/RoundTripEfficiencyAt50PercentCycleLife",
+          "localName": "RoundTripEfficiencyAt50PercentCycleLife",
+          "label": "Round Trip Efficiency at 50% Cycle Life",
+          "comment": "Round-trip energy efficiency at half of the cycle life (unitCode P1). Replaces eubat:roundTripEfficiencyAt50PercentCycleLife.",
+          "closeMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
+            "https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEfficiencyAtHalfCycleLife",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#roundTripEnergyEfficiencyAt50PerCentOfCycleLife"
+          ],
+          "broadMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency",
+            "https://dpp-keystone.org/spec/v3/terms#efficiency"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyRemaining",
+            "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyAt50Cycles",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-37"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/RoundTripEfficiencyFade",
+          "localName": "RoundTripEfficiencyFade",
+          "label": "Round Trip Efficiency Fade",
+          "comment": "Degradation of the round-trip efficiency, ((initial - remaining) / initial) x 100 (unitCode P1). Replaces eubat:hasRoundTripEfficiencyFade.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyFade",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyFade",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#roundTripEnergyEfficiencyFade",
+            "https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyFade",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#energyRoundTripEfficiencyFade"
+          ],
+          "broadMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#roundTripEfficiencyFade",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-58"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/SelfDischargeEvolution",
+          "localName": "SelfDischargeEvolution",
+          "label": "Evolution of Self-Discharge",
+          "comment": "Change of the self-discharge rate against its initial value (unitCode P1). Replaces eubat:hasEvolutionOfSelfDischarge.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#evolutionOfSelfDischarge",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRateSet",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#evolutionOfSelfDischargeRates",
+            "https://w3id.org/eudpp/battery-performance#selfDischargeRateEvolution"
+          ],
+          "narrowMatch": [
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRate"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/SelfDischargeRate",
+          "localName": "SelfDischargeRate",
+          "label": "Self-Discharge Rate",
+          "comment": "Current self-discharge rate, in percent per month (unitCode P1). Replaces eubat:hasCurrentSelfDischargingRate.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#selfDischargeCurrent",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#currentSelfDischargingRateValue",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#currentSelfDischargeRate",
+            "https://w3id.org/eudpp/battery-performance#currentSelfDischargeRate",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#currentSelfDischargingRate"
+          ],
+          "broadMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRateSet",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#selfDischargingRate"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#selfDischargeEvolution",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65",
+            "https://dpp-keystone.org/spec/v3/terms#selfDischargeCurrent"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/StateOfCertifiedEnergy",
+          "localName": "StateOfCertifiedEnergy",
+          "label": "State of Certified Energy",
+          "comment": "SOCE: remaining usable energy as a percentage of the certified usable energy (unitCode P1). Replaces eubat:hasStateOfCertifiedEnergy.",
+          "closeMatch": [
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#stateOfCertifiedEnergy",
+            "https://dpp-keystone.org/spec/v3/terms#soce",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCertifiedEnergyValue",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCertifiedEnergy",
+            "https://w3id.org/eudpp/battery-performance#stateOfCertifiedEnergy",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#stateOfCertifiedEnergySOCE"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#soce",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-61"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/StateOfCharge",
+          "localName": "StateOfCharge",
+          "label": "State of Charge",
+          "comment": "Charge level as a percentage of the current maximum capacity (unitCode P1). Replaces eubat:hasStateOfCharge.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#stateOfCharge",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCharge",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#stateOfChargeHistogram",
+            "https://w3id.org/eudpp/battery-performance#stateOfCharge",
+            "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#stateOfChargeSoC"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#stateOfCharge",
+            "https://w3id.org/emmo/domain/battery#StateOfCharge",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-71"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/StateOfHealth",
+          "localName": "StateOfHealth",
+          "label": "State of Health",
+          "comment": "Battery state of health as a percentage of the original capacity (unitCode P1). Replaces eubat:hasStateOfHealth.",
+          "closeMatch": [
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#stateOfCertifiedEnergy"
+          ],
+          "seeAlso": [
+            "https://w3id.org/emmo/domain/battery#StateOfHealth"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/TimeAboveTemperatureBoundary",
+          "localName": "TimeAboveTemperatureBoundary",
+          "label": "Time Above Temperature Boundary",
+          "comment": "Cumulative time the battery spent above the upper temperature boundary (unitCode MIN). Replaces eubat:timeSpentInExtremeTemperaturesAboveBoundary.",
+          "closeMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTemp",
+            "https://w3id.org/eudpp/battery-performance#timeSpentInExtremeTemperaturesAboveBoundary",
+            "https://dpp-keystone.org/spec/v3/terms#timeExtremeTempUpper"
+          ],
+          "broadMatch": [
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#environmentalConditionHistogramSet"
+          ],
+          "narrowMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTempCharging",
+            "https://w3id.org/eudpp/battery-performance#timeSpentChargingInExtremeTemperaturesAboveBoundary"
+          ],
+          "seeAlso": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTempCharging",
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/battery/TimeBelowTemperatureBoundary",
+          "localName": "TimeBelowTemperatureBoundary",
+          "label": "Time Below Temperature Boundary",
+          "comment": "Cumulative time the battery spent below the lower temperature boundary (unitCode MIN). Replaces eubat:timeSpentInExtremeTemperaturesBelowBoundary.",
+          "closeMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTemp",
+            "https://w3id.org/eudpp/battery-performance#timeSpentInExtremeTemperaturesBelowBoundary",
+            "https://dpp-keystone.org/spec/v3/terms#timeExtremeTempLower"
+          ],
+          "broadMatch": [
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#environmentalConditionHistogramSet",
+            "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#environmentalConditionHistogram"
+          ],
+          "narrowMatch": [
+            "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTempCharging"
+          ],
+          "seeAlso": [
+            "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70",
+            "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTempCharging"
+          ]
         }
       ]
     },

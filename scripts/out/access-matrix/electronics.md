@@ -2,13 +2,11 @@
 
 Regulatory frame: Energy Labelling 2017/1369 (EPREL) / Ecodesign
 
-Coverage: 90 properties — 39 Public / 32 AuthorizedOnly / 0 Restricted / 19 inherited / 0 UNCLASSIFIED; 5 legally locked.
+Coverage: 83 properties — 39 Public / 32 AuthorizedOnly / 0 Restricted / 12 inherited / 0 UNCLASSIFIED; 5 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
-| `avoidedEmissionsKgCO2e` | Avoided Emissions (kg CO2e) | **(inherited)** |  |  |  |
 | `batteryMassGrams` | Battery Mass (grams) | **(inherited)** |  |  |  |
-| `calculationMethod` | Calculation Method | **(inherited)** |  |  |  |
 | `collectionMethod` | Collection Method | **AuthorizedOnly** |  | eli/dir/2012/19 | Which collection route one item took is take-back scheme operating data; the public tier carries the scheme itself via euelec:collectionSchemeUrl. |
 | `collectionSchemeUrl` | Collection Scheme URL | **Public** |  | eli/dir/2012/19 | Dir. 2012/19/EU Art. 14 requires users to be informed about return and collection systems, so the scheme link must be public to serve its purpose. |
 | `componentPartNumber` | Component Part Number | **AuthorizedOnly** |  | eli/reg/2024/1781 | Manufacturer part numbers reveal sourcing relationships and are professional repair/recycling detail. |
@@ -16,7 +14,6 @@ Coverage: 90 properties — 39 Public / 32 AuthorizedOnly / 0 Restricted / 19 in
 | `deviceCondition` | Device Condition | **AuthorizedOnly** |  | eli/dir/2012/19 | The intake condition assessment is a treatment-operator judgement about one waste item (Dir. 2012/19/EU Art. 8), not product information. |
 | `displayTechnology` | Display Technology | **Public** |  | eli/reg_del/2019/2013 | The panel technology is ordinary public spec-sheet information. |
 | `energyLabelUrl` | Energy Label URL | **Public** | 🔒 eli/reg/2017/1369 | eli/reg/2017/1369 | The energy-label image is itself a public label; EPREL serves it in its public part (Reg. (EU) 2017/1369 Art. 12(3)). |
-| `energyRecoveryRate` | Energy Recovery Rate | **(inherited)** |  |  |  |
 | `eprelProductUrl` | EPREL Product URL | **Public** | 🔒 eli/reg/2017/1369 | eli/reg/2017/1369 | The EPREL product page is the public register entry itself (Reg. (EU) 2017/1369 Art. 12(3)). |
 | `eprelRegistrationNumber` | EPREL Registration Number | **Public** | 🔒 eli/reg/2017/1369 | eli/reg/2017/1369 | The EPREL registration number keys the public register entry and is visible in every public EPREL URL (Reg. (EU) 2017/1369 Art. 12(3)). |
 | `featureUpdateEndDate` | Feature Update End Date | **Public** |  | eli/reg/2023/1670 | The feature-update end date is the concrete form of the public update-support commitment. |
@@ -69,9 +66,7 @@ Coverage: 90 properties — 39 Public / 32 AuthorizedOnly / 0 Restricted / 19 in
 | `nextDisposition` | Next Disposition | **AuthorizedOnly** |  | eli/dir/2012/19 | The intended onward route of a removed part is treatment-chain planning data (Dir. 2012/19/EU Art. 8). |
 | `osVersion` | OS Version | **Public** |  | eli/reg/2023/1670 | The current OS version is device-state transparency a user can read from the device itself. |
 | `previousVersion` | Previous Version | **(inherited)** |  |  |  |
-| `recoveryRate` | Recovery Rate | **(inherited)** |  |  |  |
 | `recyclingProcess` | Recycling Process | **AuthorizedOnly** |  | eli/dir/2012/19 | The applied treatment process is operator process data (Dir. 2012/19/EU Art. 8 and Annex VIII). |
-| `recyclingRate` | Recycling Rate | **(inherited)** |  |  |  |
 | `removalReason` | Removal Reason | **AuthorizedOnly** |  | eli/reg/2024/1781 | Why a part failed on one device is service-history and failure-analysis data; the public tier carries the aggregate durability and repairability figures. |
 | `repairabilityLabelUrl` | Repairability Label URL | **Public** |  | eli/reg/2024/1781 | The repairability label image is a public consumer label. |
 | `repairDescription` | Repair Description | **AuthorizedOnly** |  | eli/reg/2024/1781 | The repair narrative is service-history detail of one device. |
@@ -85,8 +80,6 @@ Coverage: 90 properties — 39 Public / 32 AuthorizedOnly / 0 Restricted / 19 in
 | `securityUpdateEndDate` | Security Update End Date | **Public** |  | eli/reg/2023/1670 | The security-update end date is the concrete form of the public update-support commitment. |
 | `separatelyTreated` | Separately Treated | **(inherited)** |  |  |  |
 | `sortingDecision` | Sorting Decision | **AuthorizedOnly** |  | eli/dir/2012/19 | The routing decision taken at a sorting facility is operational treatment data (Dir. 2012/19/EU Art. 8). |
-| `totalInputMassGrams` | Total Input Mass (grams) | **(inherited)** |  |  |  |
-| `totalRecoveredMassGrams` | Total Recovered Mass (grams) | **(inherited)** |  |  |  |
 | `treatmentCertificate` | Treatment Certificate | **(inherited)** |  |  |  |
 | `treatmentMethod` | Treatment Method | **(inherited)** |  |  |  |
 | `updateChannel` | Update Channel | **Public** |  | eli/reg/2023/1670 | How to obtain updates is consumer use information required for the update commitment to be actionable. |

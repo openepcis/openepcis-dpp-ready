@@ -36,16 +36,31 @@ heat/cast, `21` (serial) for an individually serialised item.
 
 ## 3. Material Test Certificate (EN 10204)
 
-Attach the mill certificate via `eusteel:hasMtc`. Declare the EN 10204 inspection
-document type (`mtcInspectionType`: `2.1`, `2.2`, `3.1`, `3.2`) and the EN 10168
-parameters that substantiate the grade:
+Attach the mill certificate via `eusteel:hasMtc`. The certificate is an `oea:Assessment`
+(common/assessment). It declares the EN 10204 inspection document type (`mtcInspectionType`:
+`2.1`, `2.2`, `3.1`, `3.2`) and describes the tested product (`mtcNominalSize`,
+`mtcWeightTolerance`, `mtcSteelProcess`, `mtcFinishing`). Each EN 10168 value that
+substantiates the grade is an `oea:MeasurementResult` under `oea:hasResult`, naming its
+parameter and carrying the value with its UN/CEFACT unit:
 
-- Mechanical: `mtcYieldStrength`, `mtcTensileStrength`, `mtcYieldStrengthRatio`,
-  `mtcElongation`, `mtcRelativeRibArea`, `mtcNominalSize`, `mtcWeightTolerance`.
-- Chemical (cast analysis): `mtcCarbonContent`, `mtcPhosphorusContent`,
-  `mtcSulfurContent`, `mtcCopperContent`, `mtcNitrogenContent`,
-  `mtcCarbonEquivalent`.
-- Process: `mtcSteelProcess`, `mtcFinishing`, `mtcRadiometricControl`.
+- Mechanical: `eusteel:YieldStrength`, `eusteel:TensileStrength` (MPA),
+  `eusteel:YieldStrengthRatio`, `eusteel:RelativeRibArea` (C62), `eusteel:Elongation` (P1).
+- Chemical (cast analysis, P1): `eusteel:CarbonContent`, `eusteel:PhosphorusContent`,
+  `eusteel:SulfurContent`, `eusteel:CopperContent`, `eusteel:NitrogenContent`,
+  `eusteel:CarbonEquivalent`.
+- Radiometric control: `eusteel:RadiometricControl`.
+
+```json
+"eusteel:hasMtc": {
+  "type": "eusteel:MaterialTestCertificate",
+  "eusteel:mtcInspectionType": "3.1",
+  "oea:hasResult": [{
+    "type": "oea:MeasurementResult",
+    "oea:hasObservedParameter": { "@id": "eusteel:YieldStrength" },
+    "oea:hasMeasuredValue": { "type": "gs1:QuantitativeValue", "gs1:value": 540, "gs1:unitCode": "MPA" }
+  }]
+}
+```
 
 ## 4. Cross-cutting data — reuse `oec:`
 

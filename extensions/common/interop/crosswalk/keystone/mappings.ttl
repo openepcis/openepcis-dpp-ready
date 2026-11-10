@@ -1,15 +1,46 @@
 @prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#> .
 @prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix eusteel: <https://ref.openepcis.org/extensions/eu/iron-steel/> .
 @prefix eutex: <https://ref.openepcis.org/extensions/eu/textile/> .
 @prefix dppk: <https://dpp-keystone.org/spec/v3/terms#> .
 
 # DPP Keystone states a score as a flat xsd:double on the product. A score of an indicator
 # kind listed here maps to that property; lowering it recreates the indicator inside an
-# assessment of the given class, applying the given method.
+# assessment of the given class, applying the given method (if any), with the given unit
+# (xw:flatUnit, default C62). xw:lowerFrom names a further Keystone property that lowers to
+# the same kind without being lifted to (Keystone splits what we state once).
 eutex:RobustnessScore  xw:flatProperty dppk:robustnessScore ;
     xw:hostClass eutex:RobustnessAssessment ; xw:hostEntry eutex:hasRobustnessAssessment ;
     xw:hostMethod eutex:JRCRobustnessScoring .
 oea:RecyclabilityScore xw:flatProperty dppk:recyclabilityScore ;
     xw:hostClass eutex:RecyclabilityAssessment ; xw:hostEntry eutex:hasRecyclabilityAssessment ;
     xw:hostMethod eutex:JRCRecyclabilityScoring .
+
+# Environmental footprint (PEFCR): indicators of the eutex:EnvironmentalFootprint assessment.
+eutex:ManufacturingCarbonFootprint xw:flatProperty dppk:carbonFootprint ; xw:flatUnit "KGM" ;
+    xw:hostClass eutex:EnvironmentalFootprint ; xw:hostEntry eutex:hasEnvironmentalFootprint .
+eutex:PEFSingleScore xw:flatProperty dppk:environmentalFootprint ;
+    xw:hostClass eutex:EnvironmentalFootprint ; xw:hostEntry eutex:hasEnvironmentalFootprint .
+eutex:CarbonFootprintClass xw:flatProperty dppk:carbonFootprintClass ;
+    xw:hostClass eutex:EnvironmentalFootprint ; xw:hostEntry eutex:hasEnvironmentalFootprint .
+eutex:EnvironmentalFootprintClass xw:flatProperty dppk:environmentalFootprintClass ;
+    xw:hostClass eutex:EnvironmentalFootprint ; xw:hostEntry eutex:hasEnvironmentalFootprint .
+eutex:BenchmarkPerformance xw:flatProperty dppk:environmentalFootprintBenchmarkPercentage ; xw:flatUnit "P1" ;
+    xw:lowerFrom dppk:carbonFootprintBenchmarkPercentage ;
+    xw:hostClass eutex:EnvironmentalFootprint ; xw:hostEntry eutex:hasEnvironmentalFootprint .
+
+# Material test certificate: Keystone states each test value flat on the dppk:MaterialTestCertificate
+# (dppk:mtc). A result observing a parameter listed here maps to that property; lowering it
+# recreates the result with the given unit inside the eusteel:MaterialTestCertificate.
+eusteel:YieldStrength      xw:resultProperty dppk:mtcYieldStrength ; xw:resultUnit "MPA" .
+eusteel:YieldStrengthRatio xw:resultProperty dppk:mtcYieldStrengthRatio ; xw:resultUnit "C62" .
+eusteel:Elongation         xw:resultProperty dppk:mtcElongation ; xw:resultUnit "P1" .
+eusteel:RelativeRibArea    xw:resultProperty dppk:mtcRelativeRibArea ; xw:resultUnit "C62" .
+eusteel:CarbonContent      xw:resultProperty dppk:mtcCarbonContent ; xw:resultUnit "P1" .
+eusteel:PhosphorusContent  xw:resultProperty dppk:mtcPhosphorusContent ; xw:resultUnit "P1" .
+eusteel:SulfurContent      xw:resultProperty dppk:mtcSulfurContent ; xw:resultUnit "P1" .
+eusteel:CopperContent      xw:resultProperty dppk:mtcCopperContent ; xw:resultUnit "P1" .
+eusteel:NitrogenContent    xw:resultProperty dppk:mtcNitrogenContent ; xw:resultUnit "P1" .
+eusteel:CarbonEquivalent   xw:resultProperty dppk:mtcCarbonEquivalent ; xw:resultUnit "P1" .
+eusteel:RadiometricControl xw:resultProperty dppk:mtcRadiometricControl ; xw:resultUnit "C62" .

@@ -1,17 +1,38 @@
 {
   "@context": [
     "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld",
     "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld"
   ],
   "@graph": [
     {
-      "id": "_:bc5bccd19a923f8a61940ceb6fe162de",
+      "id": "_:a0fb181945ff2eddfe1aed29af7c07d9",
+      "type": "eubat:BatteryStateAssessment",
+      "oea:hasResult": [
+        "_:abfefd190aea9be79899bcaa5509498c",
+        "_:c5b624eac392a7e7c5c935a42a32e33a"
+      ]
+    },
+    {
+      "id": "_:a48ba6de19fd92c4e5a94893358e2c38",
       "type": "gs1:QuantitativeValue",
       "gs1:unitCode": "C62",
       "gs1:value": "640"
     },
     {
-      "id": "_:bf50886b032280fe4d18c34b79aeb1a3",
+      "id": "_:abfefd190aea9be79899bcaa5509498c",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:e403c2341fa933ffed78888335b3663c",
+      "oea:hasObservedParameter": "eubat:RemainingRoundTripEfficiency"
+    },
+    {
+      "id": "_:c5b624eac392a7e7c5c935a42a32e33a",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:a48ba6de19fd92c4e5a94893358e2c38",
+      "oea:hasObservedParameter": "eubat:FullCycleCount"
+    },
+    {
+      "id": "_:e403c2341fa933ffed78888335b3663c",
       "type": "gs1:QuantitativeValue",
       "gs1:unitCode": "P1",
       "gs1:value": "94"
@@ -31,8 +52,9 @@
       "oec:lastUpdated": "2026-06-01T07:20:00Z",
       "oec:passportStatus": "active",
       "eubat:batteryModelIdentifier": "AMP-STAX-10",
-      "eubat:hasCycleCount": "_:bc5bccd19a923f8a61940ceb6fe162de",
-      "eubat:hasRemainingRoundTripEfficiency": "_:bf50886b032280fe4d18c34b79aeb1a3",
+      "eubat:hasBatteryState": {
+        "id": "_:a0fb181945ff2eddfe1aed29af7c07d9"
+      },
       "schema:status": {
         "id": "eubat:Original"
       }

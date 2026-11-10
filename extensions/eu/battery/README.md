@@ -246,9 +246,21 @@ looks like separate sources are renderings of that model through different chann
   the canonical semantic form, real published versions **1.2.0** (Performance
   **1.2.1**). Referenced via the `bpsamm-*` prefixes and under the real
   `urn:samm:io.BatteryPass.*` URNs; these carry the SKOS mappings in `battery.ttl`.
-- **GEFEG BatteryPass-Ready** (thebatterypass.eu / batterypass-ready.gefeg.com) —
-  the Consortium's **publication and validation channel**: the **v1.3 attribute
-  longlist** plus the **v1.0 validation** test environment. Its canonical repo
+- **BatteryPass-Ready data model 2.0.1** (git.gefeg.com/bp/BatteryPassDataModel,
+  maintained by acatech for the BatteryPass-Ready consortium) — the **current** battery
+  passport data model: JSON Schema per battery category, a JTC 24 style header
+  (`dppHeader`) and seven data groups, no IRIs. Vendored under
+  [`vendor/batterypass-ready/2.0.1`](../../../vendor/batterypass-ready/README.md); its
+  122 data elements have OpenEPCIS-hosted IRIs (`bpr:`,
+  `https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#`,
+  [`vocab/batterypass-ready-2.0.1.ttl`](./vocab/batterypass-ready-2.0.1.ttl)) that the
+  SKOS mappings in `battery.ttl` target; SAMM IRIs remain where 2.0.1 has no element.
+  A 2.0.1 document reads as RDF with
+  [`context/batterypass-ready-2.0.1-context.jsonld`](./context/batterypass-ready-2.0.1-context.jsonld)
+  and converts to and from OpenEPCIS through the crosswalk profile
+  [`batterypass`](../../common/interop/crosswalk/README.md#the-batterypass-ready-201-profile).
+- **GEFEG BatteryPass-Ready, older state** (thebatterypass.eu / batterypass-ready.gefeg.com) —
+  the **v1.3 attribute longlist** plus the **v1.0 validation** test environment. Its canonical repo
   (`git.gefeg.com/bp/BatteryPassDataModel`) is the Consortium data-model repo. It
   publishes no RDF IRIs; only its **longlist-only attributes** (the DPP-information
   group #1–#4, which have no SAMM equivalent) plus four flat lossless-carrier keys
@@ -263,7 +275,11 @@ looks like separate sources are renderings of that model through different chann
 
 The bridge contexts enable **bidirectional compatibility**:
 
-- **`battery-context-batterypass-bridge.jsonld`**: Add to BatteryPass documents to interpret them using OpenEPCIS/GS1 vocabulary. Maps SAMM (`bpsamm-*`, 1.2.x) and GEFEG BatteryPass-Ready (`bpr:`) terms to `eubat:`/`oec:`/`gs1:` equivalents.
+- **`batterypass-ready-2.0.1-context.jsonld`**: reads a BatteryPass-Ready 2.0.1 document as RDF,
+  key by key (data elements `bpr:`, value-container keys `bprx:`); `pnpm run export:batterypass-ready`
+  writes the 2.0.1 document of an OpenEPCIS passport (crosswalk profile `batterypass`).
+
+- **`battery-context-batterypass-bridge.jsonld`**: Add to BatteryPass documents of the older state to interpret them using OpenEPCIS/GS1 vocabulary. Maps SAMM (`bpsamm-*`, 1.2.x) and GEFEG BatteryPass-Ready v1.3 (`bpr:` 1.3) terms to `eubat:`/`oec:`/`gs1:` equivalents (crosswalk profile `batterypass-1.3`).
 
 - **`battery-context-to-batterypass.jsonld`**: the JSON-LD serialization of the BatteryPass
   rendering itself. Its keys are the published BatteryPass attribute names and each expands to
@@ -277,7 +293,18 @@ context maps a *key* to an IRI and cannot redirect one IRI onto another, so no c
 translate `eubat:` IRIs into `urn:samm:` IRIs. That relation is carried as RDF by the graded SKOS
 mappings in `ontology/battery.ttl`, where a reasoner or a SPARQL `CONSTRUCT` can act on it.
 
-### BatteryPass-Ready conformance (GEFEG test environment — LIVE)
+### BatteryPass-Ready 2.0.1 conformance (offline)
+
+`pnpm run export:batterypass-ready -- <passport.jsonld>` writes the 2.0.1 document of an item-level
+battery passport and lists the required values the passport does not state.
+[`scripts/test-batterypass-ready.ts`](../../../scripts/test-batterypass-ready.ts) (part of `pnpm test`)
+exports the battery item examples and checks them against the vendored schema of their category
+(no wrong form; a document without its unique product identifier is rejected), runs the
+plausibility checks below, and lowers a 2.0.1 input document to OpenEPCIS. What does not convert is
+listed in the crosswalk README. The GEFEG test environment validated data model 1.0 when 2.0.1 was
+vendored; `pnpm run validate:batterypass-live -- --list` shows which schemas it offers.
+
+### BatteryPass-Ready conformance, older state (GEFEG test environment — LIVE, data model 1.0)
 
 The GEFEG **BatteryPass-Ready** test environment at
 [batterypass-ready.gefeg.com](https://batterypass-ready.gefeg.com/) is **live**

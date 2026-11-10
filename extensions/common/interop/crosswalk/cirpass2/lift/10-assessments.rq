@@ -16,6 +16,9 @@ WHERE {
   ?t rdfs:subClassOf* ?s .
   ?s xw:liftClass ?cls ; rdfs:subClassOf* oea:Assessment .
   FILTER NOT EXISTS { ?t rdfs:subClassOf* ?s2 . ?s2 xw:liftClass ?c2 ; rdfs:subClassOf+ ?s . FILTER(?s2 != ?s) }
+  # An assessment class with an EUDPP core node class (an EPD is an eudpp:EPDStudy) is converted
+  # by the EUDPP core rules, not as a textile assessment execution.
+  FILTER NOT EXISTS { ?t rdfs:subClassOf* ?n . ?n xw:nodeClass ?anyNode }
   OPTIONAL { ?cls xw:productLink ?productLink }
   BIND(IF(EXISTS { ?t xw:liftClass ?anyCls } || EXISTS { ?t xw:entryProperty ?anyEntry }, ?noMarker, ?t) AS ?marker)
   OPTIONAL { GRAPH <urn:xw:in> { ?a oea:assessmentDate ?date } }

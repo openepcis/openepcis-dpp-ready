@@ -4,6 +4,45 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+### Added: BatteryPass-Ready 2.0.1 crosswalk profile
+
+- New profile `batterypass`: OpenEPCIS battery item passports convert to BatteryPass-Ready 2.0.1
+  documents (the GEFEG JSON Schemas, vendored under `vendor/batterypass-ready/2.0.1`) and back: header,
+  identifiers and product data, performance and durability, carbon footprint, materials and hazardous
+  substances, circularity, due diligence, labels and conformity. Every lift output is checked against
+  the schema of the battery's category; the document is read as RDF with the new
+  `batterypass-ready-2.0.1-context.jsonld`. Cases: the EV, LMT and industrial battery examples and a
+  stationary 2.0.1 document. What does not convert is listed in the README.
+- The target JSON layer (`scripts/lib/crosswalk-target.ts`) takes a profile's own context and one
+  schema per value of the document (`"context"`, `"schemaBy"`, `"typedStrings"`), besides the
+  Registry's content specifications; its caches are per profile.
+
+### Added: BatteryPass crosswalk profile for the older state; virtual handles
+
+- New profile `batterypass-1.3`: the measured and tested battery values that BatteryPass (SAMM 1.2.x,
+  BatteryPass-Ready v1.3) states flat convert to and from the battery state and performance test of
+  `common/assessment`; all other statements are OpenEPCIS on both sides and travel unchanged. Cases:
+  the EV battery example, and the BatteryPass v1.3 reference passport read through the bridge.
+- Engine: virtual flat handles (`<urn:xw:v:…>`) and a reshape phase (`lower/reshape/*.ru` over the
+  output). Shared entail and reshape updates (`shared/battery-*.ru`, `profile.json` `"updates"`) let
+  the `eu-dpp` profile keep its battery rows unchanged; its lift output is identical to before.
+- `cirpass2`: a report of another type in a sensor element that became a test execution is no longer
+  left untyped in the output (it is not converted).
+
+### Changed: crosswalk follows the third assessment wave
+
+- `cirpass2`: EPD impact indicators and module values carry their measured value with an SI unit
+  (`eudpp:hasMeasurementUnit`); the material circularity indicator and utility factor stay
+  `eudpp:CircularEconomyIndicator`s. The textile environmental footprint is converted for the first
+  time: an `eudpp:LCAStudy` whose LCIA category results quantify the EF 3.1 indicators
+  (`eudpp:ind_EF_climateChange`, `ind_EF_waterUse`, …), its PEFCR as `dcterms:conformsTo`.
+  A method of the publisher's own now comes back on the way back (the lowering rule never bound it).
+- `keystone`: the footprint figures (`dppk:carbonFootprint`, `environmentalFootprint`, the classes,
+  the benchmark percentages) and the material test certificate values (`dppk:mtcYieldStrength` …)
+  convert to and from indicators and results; new round-trip case `keystone-mtc-in`. The DPP
+  Keystone bridge context no longer aliases them.
+- The UNTP, JTC 24 and CIRPASS-2 bridge contexts drop the aliases of the removed core terms.
+
 ## [0.12.0] - 2026-11-10
 
 ### Added: EU DPP Registry crosswalk profile

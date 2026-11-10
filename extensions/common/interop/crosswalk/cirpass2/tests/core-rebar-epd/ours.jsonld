@@ -27,7 +27,9 @@
   "eusteel:steelGradeClassification": "Non-alloy quality steel (EN 10020)",
   "eusteel:steelDesignation": "B500B / 1.0439",
   "eusteel:meltAndPourCountry": "DE",
-  "eusteel:hasTechnologyRoute": {"@id": "eusteel:ElectricArcFurnace"},
+  "eusteel:hasTechnologyRoute": {
+    "@id": "eusteel:ElectricArcFurnace"
+  },
   "eusteel:cbamReportId": "CBAM-2026-DE-0099421",
   "gs1:manufacturer": {
     "id": "https://id.gs1.org/417/9521234000051",
@@ -39,19 +41,131 @@
     "type": "eusteel:MaterialTestCertificate",
     "eusteel:mtcInspectionType": "3.1",
     "eusteel:mtcNominalSize": 16,
-    "eusteel:mtcYieldStrength": 547,
-    "eusteel:mtcTensileStrength": 632,
-    "eusteel:mtcYieldStrengthRatio": "1.16",
-    "eusteel:mtcElongation": "14.2",
-    "eusteel:mtcRelativeRibArea": "0.075",
-    "eusteel:mtcCarbonContent": "0.21",
-    "eusteel:mtcPhosphorusContent": "0.024",
-    "eusteel:mtcSulfurContent": "0.031",
-    "eusteel:mtcCopperContent": "0.42",
-    "eusteel:mtcNitrogenContent": "0.011",
-    "eusteel:mtcCarbonEquivalent": "0.41",
     "eusteel:mtcSteelProcess": "Electric arc furnace, continuous casting",
-    "eusteel:mtcFinishing": "Hot-rolled"
+    "eusteel:mtcFinishing": "Hot-rolled",
+    "oea:hasResult": [
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "eusteel:YieldStrength"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 547,
+          "gs1:unitCode": "MPA"
+        }
+      },
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "eusteel:TensileStrength"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 632,
+          "gs1:unitCode": "MPA"
+        }
+      },
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "eusteel:YieldStrengthRatio"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "1.16",
+          "gs1:unitCode": "C62"
+        }
+      },
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "eusteel:Elongation"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "14.2",
+          "gs1:unitCode": "P1"
+        }
+      },
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "eusteel:RelativeRibArea"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "0.075",
+          "gs1:unitCode": "C62"
+        }
+      },
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "eusteel:CarbonContent"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "0.21",
+          "gs1:unitCode": "P1"
+        }
+      },
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "eusteel:PhosphorusContent"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "0.024",
+          "gs1:unitCode": "P1"
+        }
+      },
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "eusteel:SulfurContent"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "0.031",
+          "gs1:unitCode": "P1"
+        }
+      },
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "eusteel:CopperContent"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "0.42",
+          "gs1:unitCode": "P1"
+        }
+      },
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "eusteel:NitrogenContent"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "0.011",
+          "gs1:unitCode": "P1"
+        }
+      },
+      {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "eusteel:CarbonEquivalent"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "0.41",
+          "gs1:unitCode": "P1"
+        }
+      }
+    ]
   },
   "oec:hasRecycledContentDetails": {
     "type": "oec:RecycledContent",
@@ -80,26 +194,59 @@
     "oec:hasImpactIndicator": [
       {
         "type": "oec:ImpactIndicatorResult",
-        "oec:hasIndicatorType": {"id": "oec:GWPTotal"},
-        "oec:indicatorUnit": "kg CO2 eq / t",
-        "oec:indicatorTotalValue": 640,
+        "oea:hasObservedParameter": {
+          "id": "oec:GWPTotal"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 640,
+          "gs1:unitCode": "KGM"
+        },
         "oec:hasLifecycleStageResult": [
           {
             "type": "oec:LifecycleStageResult",
-            "oec:hasLifecycleStage": {"id": "oec:StageA1"},
-            "oec:stageValue": 180
+            "oec:hasLifecycleStage": {
+              "id": "oec:StageA1"
+            },
+            "oea:hasObservedParameter": {
+              "id": "oec:GWPTotal"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 180,
+              "gs1:unitCode": "KGM"
+            }
           },
           {
             "type": "oec:LifecycleStageResult",
-            "oec:hasLifecycleStage": {"id": "oec:StageA2"},
-            "oec:stageValue": 60
+            "oec:hasLifecycleStage": {
+              "id": "oec:StageA2"
+            },
+            "oea:hasObservedParameter": {
+              "id": "oec:GWPTotal"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 60,
+              "gs1:unitCode": "KGM"
+            }
           },
           {
             "type": "oec:LifecycleStageResult",
-            "oec:hasLifecycleStage": {"id": "oec:StageA3"},
-            "oec:stageValue": 400
+            "oec:hasLifecycleStage": {
+              "id": "oec:StageA3"
+            },
+            "oea:hasObservedParameter": {
+              "id": "oec:GWPTotal"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 400,
+              "gs1:unitCode": "KGM"
+            }
           }
-        ]
+        ],
+        "oec:declaredUnit": "kg CO2 eq / t"
       }
     ]
   },

@@ -185,7 +185,7 @@ const MUTATIONS: Mutation[] = [
       const line = nq
         .split("\n")
         .find((l) =>
-          /<https:\/\/ref\.openepcis\.io\/extensions\/[^>]*(recycledContent|recyclableContent|materialCircularityIndicator)>/.test(
+          /<https:\/\/ref\.openepcis\.org\/extensions\/[^>]*\/(recycledContent|preConsumerRecycledContent|postConsumerRecycledContent)>/.test(
             l,
           ),
         );

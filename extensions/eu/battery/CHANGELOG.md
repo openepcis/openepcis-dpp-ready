@@ -4,6 +4,55 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+### Added: BatteryPass-Ready 2.0.1
+
+- `context/batterypass-ready-2.0.1-context.jsonld` reads a BatteryPass-Ready 2.0.1 document (the current
+  data model, `vendor/batterypass-ready/2.0.1`) as RDF; `vocab/batterypass-ready-2.0.1-json.ttl` names the
+  keys of its value containers (`bprx:`). Both are generated (`pnpm run build:batterypass-ready-context`).
+- `vocab/batterypass-ready-2.0.1.ttl`: `batteryCarbonFootprintPerFunctionalUnit` is a data element (its
+  name ends like a unit slot, and the generator had left it out); the vocabulary is built from the
+  vendored schemas.
+- Mappings to 2.0.1 completed from the crosswalk table: carbon footprint per functional unit and raw
+  material stage, C-rate of the cycle-life test, declaration of conformity, due diligence report,
+  collection and waste-prevention information, test report, separate collection symbol, supply chain
+  indices, third-party assurances, present internal resistance (core: hazard statements). The SAMM
+  mappings stay.
+- `pnpm run export:batterypass-ready` writes the 2.0.1 document of a passport; `pnpm test` checks the
+  battery item examples against their category schemas. The GEFEG data model 1.0 pipeline
+  (`export-batterypass-gefeg.ts`, live validator, reconstruction) stays for the older state;
+  `validate:batterypass-live -- --list` shows which schemas the test environment offers.
+
+### Breaking: measured and tested values on `common/assessment`
+
+Fourth wave of the assessment model. 47 flat terms are removed; their values are results of an
+assessment that name an `eubat:` performance parameter and carry a UN/CEFACT unit:
+
+- **Battery state** (Annex XIII 4): `eubat:hasBatteryState` → `eubat:BatteryStateAssessment`. State of
+  health and charge, SOCE, full cycles, remaining capacity and usable energy, capacity and power
+  fade, internal resistance and its increase, energy and capacity throughput, remaining round-trip
+  efficiency and its fade, self-discharge, time above / below the temperature boundaries (also while
+  charging), deep-discharge events, initial capacity and energy are results; the remaining power
+  capability at a state of charge is a sub-assessment with that condition
+  (`eubat:StateOfChargeLevel`); remaining cycles and lifetime are indicators.
+- **Performance test** (Annex XIII 1 (o)-(p)): `eubat:hasPerformanceTest` on the technical
+  specification → `eubat:PerformanceDurabilityTest`. The reference test is `oea:hasMethod`; depth of
+  discharge and charge / discharge C-rate are protocol settings; the capacity exhaustion and
+  resistance increase thresholds are `eubat:CapacityExhaustionThreshold` and
+  `eubat:ResistanceIncreaseThreshold`; initial cell and pack resistance, initial self-discharge,
+  initial round-trip efficiency and at 50 % cycle life, cycle life and lifetime throughputs are
+  results; the original power capability is a sub-assessment per state of charge.
+- **Carbon footprint class**: an indicator of kind `eubat:CarbonFootprintPerformanceClass`.
+
+Rated values, the expected lifetime in years, warranty, carbon footprint stages, test report links,
+negative events and SOCE measurement metadata stay properties. EPCIS events name the parameters as
+`sensorReport` types (`eubat:StateOfHealth` instead of `eubat:hasStateOfHealth`); mixed sensor
+elements are split (BMS values and ambient temperature). The EC readiness check finds a data point
+carried by a result through the parameter it observes. The BatteryPass bridge keeps the keys of these
+values under their SAMM IRI (BatteryPass-Ready v1.3 `bpr:` for four longlist-only attributes, minted
+in `vocab/batterypass-ready-1.3.ttl`); the new `batterypass-1.3` crosswalk profile converts them.
+`battery-context-to-batterypass.jsonld` no longer points three keys at SAMM attributes that do not
+exist. `scripts/migrate-assessment.ts` rewrites stored passports.
+
 ## [0.12.0] - 2026-11-10
 
 ### Fixed: example values the EU Registry crosswalk rejected

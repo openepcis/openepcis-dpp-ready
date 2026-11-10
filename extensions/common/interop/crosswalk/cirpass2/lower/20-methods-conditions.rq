@@ -16,6 +16,8 @@ WHERE {
   {
     GRAPH <urn:xw:in> { ?x txt-assessment:appliesMethod ?m }
     OPTIONAL {
+      # The group binds ?m itself: its patterns are evaluated before the join with the outer ?m.
+      GRAPH <urn:xw:in> { ?m a ?anyMethodClass }
       FILTER NOT EXISTS { GRAPH <urn:xw:bg> { ?m a ?known } }
       OPTIONAL { GRAPH <urn:xw:in> { ?m a ?tm } ?tm rdfs:subClassOf* txt-assessment:TestMethod . BIND(oea:TestMethod AS ?isTest) }
       BIND(COALESCE(?isTest, oea:AssessmentMethod) AS ?mcls)

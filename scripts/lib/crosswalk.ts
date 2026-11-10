@@ -9,7 +9,9 @@
  *   lift/*.rq        OpenEPCIS → target   (applied in file order, results unioned)
  *   lower/*.rq       target → OpenEPCIS
  *   <dir>/entail/*.ru  SPARQL updates run first, adding to the input graph what it leaves
- *                      implicit (types of EPCIS master data without "type")
+ *                      implicit (types of EPCIS master data without "type"; virtual handles)
+ *   <dir>/reshape/*.ru SPARQL updates run last, over the output in <urn:xw:out>: they turn
+ *                      virtual handles (<urn:xw:v:…>) into the target structure
  *   tests/<case>/    round-trip cases, checked by scripts/check-crosswalk.ts
  *
  * The store holds three named graphs: <urn:xw:in> (the document being converted),
@@ -28,6 +30,15 @@ export const CROSSWALK_DIR = join(ROOT, "extensions/common/interop/crosswalk");
 export const G_IN = "urn:xw:in";
 export const G_BG = "urn:xw:bg";
 export const G_MAP = "urn:xw:map";
+/** Output graph the reshape updates work on. */
+export const G_OUT = "urn:xw:out";
+/**
+ * Virtual predicates (<urn:xw:v:…>): a flat handle for a value that OpenEPCIS states as a result
+ * of an assessment. Entail updates derive them from the input so the rules can address the value
+ * like a property; reshape updates turn them back into the assessment structure. They never reach
+ * an output and never count as entailed input.
+ */
+export const VIRTUAL = "urn:xw:v:";
 
 export type Direction = "lift" | "lower";
 
@@ -46,6 +57,15 @@ export interface Profile {
   shapes: { files: string[] };
   /** Findings of the OWL structure check of the target side that a gap of the target makes unavoidable. */
   structure?: { accepted: { gap: number; match: string; reason: string }[] };
+  /** Repo-relative update files shared between profiles, run with a direction's own entail or reshape updates. */
+  updates?: Partial<Record<Direction, Partial<Record<"entail" | "reshape", string[]>>>>;
+}
+
+/** A direction's entail or reshape update files: the profile's own, then the shared ones it lists. */
+export function updateFiles(p: Profile, direction: Direction, phase: "entail" | "reshape"): string[] {
+  const dir = join(p.dir, direction, phase);
+  const own = existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith(".ru")).sort().map((f) => join(dir, f)) : [];
+  return [...own, ...(p.updates?.[direction]?.[phase] ?? []).map((f) => join(ROOT, f))];
 }
 
 /** Every OpenEPCIS module ontology (extensions/<area>/<module>/ontology/*.ttl, no access levels). */
@@ -221,7 +241,9 @@ function namedTerms(p: Profile, direction: Direction): Set<string> {
   // reads by its properties, without naming the class again.
   void direction;
   // Comments do not count: a term a comment mentions is not converted by naming it.
-  const text = [...ruleFiles(p, "lift"), ...ruleFiles(p, "lower"), join(p.dir, "mappings.ttl")]
+  // Entail and reshape updates name the terms of the structure they read or write as well.
+  const text = [...ruleFiles(p, "lift"), ...ruleFiles(p, "lower"), join(p.dir, "mappings.ttl"),
+    ...(["lift", "lower"] as Direction[]).flatMap((d) => [...updateFiles(p, d, "entail"), ...updateFiles(p, d, "reshape")])]
     .map((f) => readFileSync(f, "utf8").replace(/(^|\s)#.*$/gm, "$1")).join("\n");
   const out = new Set<string>();
   for (const m of text.matchAll(/<(https?:[^>\s]+)>/g)) out.add(m[1]);
@@ -283,21 +305,21 @@ export function convert(p: Profile, direction: Direction, input: Quad[]): Conver
   const store = buildStore(p, direction, input);
   const prefixes = prefixBlock(p);
   const entailed: Quad[] = [];
-  const entailDir = join(p.dir, direction, "entail");
-  if (existsSync(entailDir)) {
+  const entailFiles = updateFiles(p, direction, "entail");
+  if (entailFiles.length) {
     // Inside the store: blank nodes keep their identity. What was added is read back as a diff.
     const dump = () => (store.query(`CONSTRUCT { ?s ?p ?o } WHERE { GRAPH <${G_IN}> { ?s ?p ?o } }`) as ox.Quad[])
       .map((q) => q.toString() + " .");
     const before = new Set(dump());
-    for (const f of readdirSync(entailDir).filter((x) => x.endsWith(".ru")).sort()) {
+    for (const f of entailFiles) {
       try {
-        store.update(prefixes + readFileSync(join(entailDir, f), "utf8"), { use_default_graph_as_union: true });
+        store.update(prefixes + readFileSync(f, "utf8"), { use_default_graph_as_union: true });
       } catch (e) {
-        throw new Error(`${join(entailDir, f)}: ${(e as Error).message}`);
+        throw new Error(`${f}: ${(e as Error).message}`);
       }
     }
     const added = dump().filter((l) => !before.has(l)).join("\n");
-    if (added) entailed.push(...new Parser({ format: "application/n-triples", blankNodePrefix: "" }).parse(added));
+    if (added) entailed.push(...new Parser({ format: "application/n-triples", blankNodePrefix: "" }).parse(added).filter((q) => !q.predicate.value.startsWith(VIRTUAL)));
   }
   const seen = new Set<string>();
   const out: Quad[] = [];
@@ -335,6 +357,26 @@ export function convert(p: Profile, direction: Direction, input: Quad[]): Conver
     rules.push({ rule: file.slice(p.dir.length + 1), triples: added });
   }
 
+  // Reshape: SPARQL updates over the output (in <urn:xw:out>, tables and background alongside)
+  // that turn virtual handles into the target's structure.
+  let result = out;
+  const reshapeFiles = updateFiles(p, direction, "reshape");
+  if (reshapeFiles.length) {
+    store.update(`DROP SILENT GRAPH <${G_OUT}>`);
+    store.load(toNQuads(out, G_OUT), { format: "application/n-quads" });
+    for (const f of reshapeFiles) {
+      try {
+        store.update(prefixes + readFileSync(f, "utf8"));
+      } catch (e) {
+        throw new Error(`${f}: ${(e as Error).message}`);
+      }
+    }
+    const nt = (store.query(`CONSTRUCT { ?s ?p ?o } WHERE { GRAPH <${G_OUT}> { ?s ?p ?o } }`) as ox.Quad[]).map((q) => q.toString() + " .").join("\n");
+    result = nt ? new Parser({ format: "application/n-triples", blankNodePrefix: "" }).parse(nt) : [];
+    store.update(`DROP SILENT GRAPH <${G_OUT}>`);
+  }
+  result = result.filter((q) => !q.predicate.value.startsWith(VIRTUAL));
+
   const unhandled = new Map<string, number>();
   const ok = p.handles[direction];
   const named = namedTerms(p, direction);
@@ -343,7 +385,7 @@ export function convert(p: Profile, direction: Direction, input: Quad[]): Conver
     const iri = q.predicate.value === RDF_TYPE ? q.object.value : q.predicate.value;
     if (!named.has(iri) && !handled(iri, ok)) unhandled.set(key, (unhandled.get(key) ?? 0) + 1);
   }
-  return { quads: out, entailed, rules, unhandled };
+  return { quads: result, entailed, rules, unhandled };
 }
 
 const OPENEPCIS_EXT = "https://ref.openepcis.org/extensions/";

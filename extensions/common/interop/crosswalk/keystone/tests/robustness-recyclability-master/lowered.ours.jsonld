@@ -6,48 +6,94 @@
   ],
   "@graph": [
     {
-      "id": "_:a800bbd530ca1da47f0e0e87099c799b",
+      "id": "_:a16966d269385373a853cd0487b7122e",
       "type": "gs1:QuantitativeValue",
       "gs1:unitCode": "C62",
       "gs1:value": "6.5"
     },
     {
-      "id": "_:a9527ff503fda671960d880597bc3032",
-      "type": "eutex:RobustnessAssessment",
-      "oea:hasIndicator": "_:f82154b687bb43acf0a0ec8408ababa9",
-      "oea:hasMethod": "eutex:JRCRobustnessScoring"
+      "id": "_:a6f858b433f82b69b485c347b9517159",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "P1",
+      "gs1:value": "-15.2"
     },
     {
-      "id": "_:c772508f3e69b8528c03e1a598667a40",
-      "type": "eutex:RecyclabilityAssessment",
-      "oea:hasIndicator": "_:d8aabc9f87654de8c18770c11b1e482a",
-      "oea:hasMethod": "eutex:JRCRecyclabilityScoring"
+      "id": "_:aa6986ed6f13d69e3bd6f09a98249f90",
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": "eutex:BenchmarkPerformance",
+      "oea:hasIndicatorValue": "_:a6f858b433f82b69b485c347b9517159"
     },
     {
-      "id": "_:cc8ba95ac32d1242ecbb8024bc143a1d",
+      "id": "_:ae254417cf27779e3eca39b478209ca",
+      "type": "oea:Indicator",
+      "oea:hasDerivationMethod": "eutex:JRCRobustnessScoring",
+      "oea:hasIndicatorKind": "eutex:RobustnessScore",
+      "oea:hasIndicatorValue": "_:baf8b9801c23c6d26aebfb9c7ab3cb48"
+    },
+    {
+      "id": "_:baf8b9801c23c6d26aebfb9c7ab3cb48",
       "type": "gs1:QuantitativeValue",
       "gs1:unitCode": "C62",
       "gs1:value": "8"
     },
     {
-      "id": "_:d8aabc9f87654de8c18770c11b1e482a",
+      "id": "_:cd60280c3d7efaf44c4f7a9bbd70bffa",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "KGM",
+      "gs1:value": "18.5"
+    },
+    {
+      "id": "_:d0c8e113376c836722851fe9991b8b42",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "42.3"
+    },
+    {
+      "id": "_:db5a9993fdae531528ad6e2eab74a976",
       "type": "oea:Indicator",
       "oea:hasDerivationMethod": "eutex:JRCRecyclabilityScoring",
       "oea:hasIndicatorKind": "oea:RecyclabilityScore",
-      "oea:hasIndicatorValue": "_:a800bbd530ca1da47f0e0e87099c799b"
+      "oea:hasIndicatorValue": "_:a16966d269385373a853cd0487b7122e"
     },
     {
-      "id": "_:f82154b687bb43acf0a0ec8408ababa9",
+      "id": "_:e02c1f9a9a7e7c7585240de8086efbeb",
       "type": "oea:Indicator",
-      "oea:hasDerivationMethod": "eutex:JRCRobustnessScoring",
-      "oea:hasIndicatorKind": "eutex:RobustnessScore",
-      "oea:hasIndicatorValue": "_:cc8ba95ac32d1242ecbb8024bc143a1d"
+      "oea:hasIndicatorKind": "eutex:PEFSingleScore",
+      "oea:hasIndicatorValue": "_:d0c8e113376c836722851fe9991b8b42"
+    },
+    {
+      "id": "_:e18f93ce0c731609c51fe13edc41c407",
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": "eutex:ManufacturingCarbonFootprint",
+      "oea:hasIndicatorValue": "_:cd60280c3d7efaf44c4f7a9bbd70bffa"
     },
     {
       "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142",
       "type": "gs1:Product",
-      "eutex:hasRecyclabilityAssessment": "_:c772508f3e69b8528c03e1a598667a40",
-      "eutex:hasRobustnessAssessment": "_:a9527ff503fda671960d880597bc3032"
+      "eutex:hasEnvironmentalFootprint": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#EnvironmentalFootprint",
+      "eutex:hasRecyclabilityAssessment": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#RecyclabilityAssessment",
+      "eutex:hasRobustnessAssessment": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#RobustnessAssessment"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#EnvironmentalFootprint",
+      "type": "eutex:EnvironmentalFootprint",
+      "oea:hasIndicator": [
+        "_:aa6986ed6f13d69e3bd6f09a98249f90",
+        "_:e02c1f9a9a7e7c7585240de8086efbeb",
+        "_:e18f93ce0c731609c51fe13edc41c407"
+      ]
+    },
+    {
+      "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#RecyclabilityAssessment",
+      "type": "eutex:RecyclabilityAssessment",
+      "oea:hasIndicator": "_:db5a9993fdae531528ad6e2eab74a976",
+      "oea:hasMethod": "eutex:JRCRecyclabilityScoring"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#RobustnessAssessment",
+      "type": "eutex:RobustnessAssessment",
+      "oea:hasIndicator": "_:ae254417cf27779e3eca39b478209ca",
+      "oea:hasMethod": "eutex:JRCRobustnessScoring"
     }
   ]
 }

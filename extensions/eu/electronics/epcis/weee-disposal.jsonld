@@ -158,11 +158,63 @@
         },
         "euelec:hasMaterialRecoveryResults": {
           "type": "euelec:MaterialRecoveryResult",
-          "euelec:totalInputMassGrams": 185,
-          "euelec:totalRecoveredMassGrams": 170.5,
-          "euelec:recoveryRate": 0.92,
-          "euelec:recyclingRate": 0.88,
-          "euelec:energyRecoveryRate": 0.04
+          "oea:hasResult": [
+            {
+              "type": "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "euelec:TreatmentInputMass"
+              },
+              "oea:hasMeasuredValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": 185,
+                "gs1:unitCode": "GRM"
+              }
+            },
+            {
+              "type": "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "euelec:RecoveredMass"
+              },
+              "oea:hasMeasuredValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": 170.5,
+                "gs1:unitCode": "GRM"
+              }
+            },
+            {
+              "type": "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "euelec:AchievedRecoveryRate"
+              },
+              "oea:hasMeasuredValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": 0.92,
+                "gs1:unitCode": "C62"
+              }
+            },
+            {
+              "type": "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "euelec:AchievedRecyclingRate"
+              },
+              "oea:hasMeasuredValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": 0.88,
+                "gs1:unitCode": "C62"
+              }
+            },
+            {
+              "type": "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "euelec:EnergyRecoveryRate"
+              },
+              "oea:hasMeasuredValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": 0.04,
+                "gs1:unitCode": "C62"
+              }
+            }
+          ]
         },
         "euelec:hasBatteryDisposition": {
           "type": "euelec:BatteryDisposition",
@@ -184,10 +236,20 @@
         },
         "euelec:hasAvoidedEmissions": {
           "type": "euelec:AvoidedEmissionsEstimate",
-          "euelec:avoidedEmissionsKgCO2e": 48.5,
-          "euelec:calculationMethod": {
-            "@value": "Avoided primary production emissions",
-            "@language": "en"
+          "oea:hasMethod": {
+            "type": "oea:AssessmentMethod",
+            "oea:methodName": "Avoided primary production emissions"
+          },
+          "oea:hasIndicator": {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "euelec:AvoidedEmissions"
+            },
+            "oea:hasIndicatorValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 48.5,
+              "gs1:unitCode": "KGM"
+            }
           }
         }
       }

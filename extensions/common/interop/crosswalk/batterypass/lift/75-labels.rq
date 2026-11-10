@@ -1,0 +1,39 @@
+# Labels and symbols: the carbon footprint label and the separate collection symbol as resources
+# (the label's symbol URL; for the symbol also eubat:separateCollectionSymbolUrl, 60-resources), the
+# meaning of the labels as one text, the extinguishing agent (our text; 2.0.1 also asks for the
+# fire class, which OpenEPCIS does not state).
+CONSTRUCT {
+  ?r ?field ?res . ?res bprx:url ?url .
+  ?r bpr:meaningOfLabelsAndSymbols ?meaning .
+  ?r bpr:extinguishingAgent ?ea . ?ea bpr:extinguishingAgent ?agent .
+}
+WHERE {
+  GRAPH <urn:xw:roots> { ?r xw:schema ?schema }
+  {
+    {
+      SELECT ?r ?field (MIN(STR(?sym)) AS ?url) WHERE {
+        GRAPH <urn:xw:roots> { ?r xw:schema ?s1 }
+        VALUES (?subject ?field) { (eubat:CarbonFootprintLabel bpr:carbonFootprintLabel) (eubat:SeparateCollection bpr:separateCollectionSymbol) }
+        GRAPH <urn:xw:in> { ?r eubat:hasLabels ?l . ?l eubat:hasLabelSubject ?subject ; eubat:labelSymbol ?sym }
+        FILTER NOT EXISTS { FILTER(?field = bpr:separateCollectionSymbol) GRAPH <urn:xw:in> { ?r eubat:separateCollectionSymbolUrl ?any } }
+      } GROUP BY ?r ?field
+    }
+    BIND(BNODE() AS ?res)
+  } UNION {
+    {
+      SELECT ?r (GROUP_CONCAT(DISTINCT STR(?lm); separator="; ") AS ?meaning) WHERE {
+        GRAPH <urn:xw:roots> { ?r xw:schema ?s2 }
+        GRAPH <urn:xw:in> { ?r eubat:hasLabels/eubat:labelMeaning ?lm }
+        FILTER(LANG(?lm) = "" || LANGMATCHES(LANG(?lm), "en"))
+      } GROUP BY ?r
+    }
+  } UNION {
+    {
+      SELECT ?r (MIN(STR(?a)) AS ?agent) WHERE {
+        GRAPH <urn:xw:roots> { ?r xw:schema ?s3 }
+        GRAPH <urn:xw:in> { ?r eubat:hasEndOfLifeInfo/eubat:extinguishingAgent ?a }
+      } GROUP BY ?r
+    }
+    BIND(BNODE() AS ?ea)
+  }
+}
