@@ -1,5 +1,13 @@
 # GEFEG BatteryPass-Ready ↔ OpenEPCIS battery vocabulary mapping
 
+> **Data model 1.0 (longlist v1.3), the older state.** The current BatteryPass-Ready data model is
+> 2.0.1: its mapping is the crosswalk profile `batterypass`
+> ([`mappings.ttl`](../../../common/interop/crosswalk/batterypass/mappings.ttl), one row per data
+> element, round-trip tested; gaps in the
+> [crosswalk README](../../../common/interop/crosswalk/README.md#the-batterypass-ready-201-profile)),
+> and `pnpm run export:batterypass-ready` writes the 2.0.1 document. This page describes the 1.0
+> upload shape the GEFEG test environment validated, which `export-batterypass-gefeg.ts` still writes.
+
 How the OpenEPCIS battery vocabulary (`eubat:`, plus `gs1:` / `schema:` /
 `oec:`) maps onto the GEFEG BatteryPass-Ready **upload** structure that the live
 `ValidateJSON` server enforces.

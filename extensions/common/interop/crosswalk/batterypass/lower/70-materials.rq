@@ -1,0 +1,51 @@
+# Chemistry and materials: the electrochemical system by its short name (the code's first name, else
+# the additional value); each critical raw material as a material with its name, flagged critical;
+# each hazardous substance with its name, CAS or EC number, concentration, location (a component
+# location of the same label) and CLP hazard and precautionary statements. The active materials and the electrolyte are one list in 2.0.1 and
+# cannot be told apart again: not converted.
+CONSTRUCT {
+  ?r eubat:hasBatteryChemistry ?chem . ?chem a eubat:BatteryChemistry ; schema:alternateName ?short .
+  ?r eubat:hasMaterialComposition ?mat . ?mat a eubat:BatteryMaterial ; schema:name ?mname ; eubat:isCriticalRawMaterial true .
+  ?r eubat:hasHazardousSubstances ?hz . ?hz a eubat:HazardousSubstance ; schema:name ?hname ; oec:casNumber ?cas ; oec:ecNumber ?ec ;
+     eubat:concentration ?conc ; eubat:hasSubstanceLocation ?loc ; oec:hazardStatement ?hp ; oec:precautionaryStatement ?pp .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?r a bprx:BatteryPassport }
+  FILTER(isIRI(?r))
+  {
+    GRAPH <urn:xw:flat> { ?r bpr:batteryChemistry ?cn }
+    {
+      SELECT ?cn (MIN(STR(?nm)) AS ?first) WHERE {
+        GRAPH <urn:xw:in> { ?cn bprx:chemicalCodeValue ?code }
+        ?chrow xw:chemistry ?c0 ; xw:chemistryName ?nm . FILTER(STR(?c0) = STR(?code))
+      } GROUP BY ?cn
+    }
+    BIND(?first AS ?short)
+    BIND(IRI(CONCAT(STR(?r), "#chemistry")) AS ?chem)
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:batteryChemistry ?cn2 }
+    GRAPH <urn:xw:in> { ?cn2 bprx:additionallyPossibleValue ?other }
+    FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?cn2 bprx:chemicalCodeValue ?anyCode } }
+    BIND(STR(?other) AS ?short)
+    BIND(IRI(CONCAT(STR(?r), "#chemistry")) AS ?chem)
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:criticalRawMaterials ?crm }
+    BIND(STR(?crm) AS ?mname) BIND(BNODE() AS ?mat)
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:hazardousSubstancesAndTheirImpact ?h }
+    OPTIONAL { GRAPH <urn:xw:in> { ?h bpr:chemicalName ?hn } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?h bprx:identifierType ?it ; bprx:identifier ?hid } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?h bpr:concentration ?hc } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?h bpr:substanceLocation ?hl } ?loc0 a eubat:ComponentLocation ; rdfs:label ?ll . FILTER(STR(?ll) = STR(?hl)) }
+    BIND(STR(?hn) AS ?hname)
+    BIND(IF(STR(?it) = "CAS No", STR(?hid), ?n1) AS ?cas)
+    BIND(IF(STR(?it) = "EC No", STR(?hid), ?n2) AS ?ec)
+    BIND(xsd:decimal(STR(?hc)) AS ?conc)
+    BIND(?loc0 AS ?loc)
+    BIND(BNODE() AS ?hz)
+    OPTIONAL { GRAPH <urn:xw:in> { ?h bpr:hazardPhrases ?hp0 } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?h bpr:precautionaryPhrases ?pp0 } }
+    BIND(STR(?hp0) AS ?hp)
+    BIND(STR(?pp0) AS ?pp)
+  }
+}

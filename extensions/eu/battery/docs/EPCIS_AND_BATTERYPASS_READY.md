@@ -33,7 +33,12 @@ that connection precisely.
 
 The live GEFEG server is authoritative over the published static schemas; see
 [`reference/gefeg-batterypass-ready/SOURCE.md`](./reference/gefeg-batterypass-ready/SOURCE.md).
-The BatteryPass-Ready data model is **v1.0** (Attribute Longlist v1.3, SAMM 1.2.0/1.2.1).
+The GEFEG test environment's data model is **v1.0** (Attribute Longlist v1.3, SAMM 1.2.0/1.2.1); the
+fixtures and the reconstruction below target it. The current BatteryPass-Ready data model is
+**2.0.1** (`vendor/batterypass-ready/2.0.1`): an OpenEPCIS item passport, including the battery state
+and performance test values the events below feed, converts to a 2.0.1 document through the crosswalk
+profile `batterypass` (`pnpm run export:batterypass-ready`). 2.0.1 dropped the energy and capacity
+throughput and the time in extreme temperatures, which this reconstruction folds.
 
 ## What lives at which level
 

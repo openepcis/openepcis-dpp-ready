@@ -1,0 +1,60 @@
+# batterypass-stationary-in: lower then lift
+input 233 triples, lower 392, back 207
+
+## the way back compared with the input
+- missing 1  bprx:celsiusValue
+- missing 1  bprx:degreeCelsiusUnit
+- missing 2  bprx:url
+- missing 1  bpr:agentFireClass
+- missing 10  bpr:contentType
+- missing 1  bpr:informationOnAccidents
+- missing 1  bpr:informationOnSourcesOfSpareParts
+- missing 3  bpr:materialsUsedInCathodeAnodeAndElectrolyte
+- missing 1  bpr:meaningOfLabelsAndSymbols
+- missing 1  bpr:numberOfOverchargeEvents
+- missing 2  bpr:registeredTradeNameOrRegisteredTrademark
+- missing 1  bpr:temperatureInformation
+- missing 1  bpr:thirdPartyServiceProvider
+
+## not converted (no rule handles these input terms)
+  1  bpr:agentFireClass
+  1  bpr:batteryCarbonFootprint
+  1  bpr:batteryMaterialsAndComposition
+  1  bpr:circularityAndResourceEfficiency
+  1  bpr:identifiersAndProductData
+  1  bpr:informationOnAccidents
+  1  bpr:informationOnSourcesOfSpareParts
+  1  bpr:numberOfOverchargeEvents
+  1  bpr:performanceAndDurability
+  2  bpr:registeredTradeNameOrRegisteredTrademark
+  1  bpr:supplyChainDueDiligence
+  1  bpr:symbolsLabelsAndDocumentationOfConformity
+  1  bpr:temperatureInformation
+  1  bpr:thirdPartyServiceProvider
+
+## target-ontology axioms the lifted document does not satisfy (accepted gaps)
+none
+
+## target shapes and schemas: values the passport lacks
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/batteryMaterialsAndComposition required: must have required property 'materialsUsedInCathodeAnodeAndElectrolyte'
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/circularityAndResourceEfficiency required: must have required property 'informationOnSourcesOfSpareParts'
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/circularityAndResourceEfficiency/informationOnBatteryCollectionPreparationForSecondLifeAndOnTreatmentAtEndOfLife required: must have required property 'contentType'
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/circularityAndResourceEfficiency/informationOnTheRoleOfEndUsersInContributingToTheSeparateCollectionOfWasteBatteries required: must have required property 'contentType'
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/circularityAndResourceEfficiency/informationOnTheRoleOfEndUsersInContributingToWastePrevention required: must have required property 'contentType'
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/identifiersAndProductData required: must have required property 'thirdPartyServiceProvider'
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/identifiersAndProductData/economicOperatorInformation required: must have required property 'registeredTradeNameOrRegisteredTrademark'
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/identifiersAndProductData/manufacturerInformation required: must have required property 'registeredTradeNameOrRegisteredTrademark'
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/performanceAndDurability required: must have required property 'informationOnAccidents'
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/performanceAndDurability required: must have required property 'temperatureInformation'
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/supplyChainDueDiligence/informationOfDueDiligenceReport required: must have required property 'contentType'
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/symbolsLabelsAndDocumentationOfConformity required: must have required property 'meaningOfLabelsAndSymbols'
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/symbolsLabelsAndDocumentationOfConformity/carbonFootprintLabel required: must have required property 'contentType'
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/symbolsLabelsAndDocumentationOfConformity/euDeclarationOfConformity required: must have required property 'contentType'
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/symbolsLabelsAndDocumentationOfConformity/resultsOfTestReportsProvingCompliance required: must have required property 'contentType'
+  schema Stationary_Industrial_Above_2kWh_2.0.1 /batteryPassportData/symbolsLabelsAndDocumentationOfConformity/separateCollectionSymbol required: must have required property 'contentType'
+
+## target shapes and schemas: accepted defects of the target
+none
+
+## OpenEPCIS shapes the converted document does not satisfy
+none

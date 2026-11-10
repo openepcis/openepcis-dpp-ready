@@ -1,506 +1,184 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
 @prefix gs1: <https://ref.gs1.org/voc/>.
+@prefix schema: <https://schema.org/>.
+@prefix cccev: <http://data.europa.eu/m8g/>.
 @prefix oea: <https://ref.openepcis.org/extensions/common/assessment/>.
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/>.
 @prefix eubat: <https://ref.openepcis.org/extensions/eu/battery/>.
 @prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#>.
-@prefix bpsamm-perf: <urn:samm:io.BatteryPass.Performance:1.2.1#>.
-@prefix bpsamm-carbon: <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#>.
-@prefix bpr: <https://ref.openepcis.org/vocab/batterypass-ready/1.3#>.
+@prefix bpr: <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#>.
+@prefix bprx: <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1/json#>.
 
-_:a12ef1b4c11f03da23eb9a61f17893cf a gs1:QuantitativeValue;
-    gs1:unitCode "OHM";
-    gs1:value 0.015.
-_:a1695ca70f989a20b81578fdd4c8d1a3 a gs1:QuantitativeValue;
-    gs1:unitCode "P1";
-    gs1:value 3.2.
-_:a1ad53ffad4ea1870c78dccca655fa43 a gs1:ContactPoint;
-    gs1:email "info@ecocell-batteries.example.com";
-    <https://schema.org/url> <https://files.example.org/files/products/09521002005004/docs/company.pdf>.
-_:a26c9c2f0e261c5107edde6804f3d87c a gs1:ContactPoint;
-    gs1:email "service@ecocell-batteries.example.com";
-    gs1:telephone "+49-711-555-0300";
-    <https://schema.org/url> <https://files.example.org/files/products/09521002005004/docs/company.pdf>.
-_:a406ae74ba245f1db8b660790d6e1157 a gs1:QuantitativeValue;
-    gs1:unitCode "KWT";
-    gs1:value 7.5.
-_:a782b36e75cd354972cbb5b9056cc07b a gs1:QuantitativeValue;
-    gs1:unitCode "CEL";
-    gs1:value "-20"^^xsd:decimal.
-_:a8fd3f5127489239feffeed70d55187a a gs1:QuantitativeValue;
-    gs1:unitCode "KGM";
-    gs1:value 15.3.
-_:aa859d06541c4abf30ee00afc0bb331 a gs1:Country;
-    gs1:countryCode "CL".
-_:ac88b30150a3f980f962cb10fd8c8085 a gs1:QuantitativeValue;
-    gs1:unitCode "KGM";
-    gs1:value 2.8.
-_:adffb4a1b0fcef7847b3605f20877f49 a gs1:QuantitativeValue;
-    gs1:unitCode "KWH";
-    gs1:value "85800"^^xsd:decimal.
-_:ae48616d397b08e96e1c3b54cf37e9f5 a gs1:WarrantyPromise;
-    gs1:durationOfWarranty _:bdc9664f99f221adcf9feba3c26a5748;
-    gs1:warrantyScopeDescription "Full replacement warranty for manufacturing defects".
-_:af73d6aca49ae14148590587f1d110e1 a gs1:QuantitativeValue;
-    gs1:unitCode "KWT";
-    gs1:value 7.2.
-_:afbd8f5ded6f06a0e376df787f0416f6 a gs1:Country;
-    gs1:countryCode "DE".
-_:b041e5cb8e5b1dc5d7840a3c3925137a a gs1:QuantitativeValue;
-    gs1:unitCode "KGM";
-    gs1:value 45.2.
-_:b20463a64821b8644e01f4f91b4ea8ac a <http://data.europa.eu/m8g/PublicOrganisation>;
-    eubat:notifiedBodyName "TÜV SÜD";
-    eubat:notifiedBodyNumber "0123".
-_:b64a39e2a232cc3bfff9efde3fef78ae a gs1:QuantitativeValue;
-    gs1:unitCode "KWH";
-    gs1:value 14.3.
-_:babaab26973a48e4746c71e5642a0952 a gs1:Country;
-    gs1:countryCode "DE".
-_:bba9d2afa537141a9d1d2e39894e6f40 a gs1:QuantitativeValue;
-    gs1:unitCode "CEL";
-    gs1:value "0"^^xsd:decimal.
-_:bd106a3c4b793b772c7615f325b018d2 a gs1:ContactPoint;
-    gs1:email "spareparts@ecocell-batteries.example.com";
-    gs1:telephone "+49-711-555-0200";
-    <https://schema.org/url> <https://files.example.org/files/products/09521002005004/docs/company.pdf>.
-_:bdc9664f99f221adcf9feba3c26a5748 a gs1:QuantitativeValue;
-    gs1:unitCode "ANN";
-    gs1:value "8"^^xsd:decimal.
-_:bfe0c8a66e6d7d59de65987beba01601 a gs1:QuantitativeValue;
-    gs1:unitCode "KWT";
-    gs1:value 6.8.
-_:c293d9efdfdad6e886993ec4b7e58b35 a gs1:QuantitativeValue;
-    gs1:unitCode "CEL";
-    gs1:value "60"^^xsd:decimal.
-_:c49a09feeff200779bbeeba0c4684692 a gs1:QuantitativeValue;
-    gs1:unitCode "AMP";
-    gs1:value "140"^^xsd:decimal.
-_:c4a7097c057b1579357a64837c21546e a gs1:QuantitativeValue;
-    gs1:unitCode "KGM";
-    gs1:value 125.5.
-_:c6047c65219df2828711f42f6eb8d631 a gs1:QuantitativeValue;
-    gs1:unitCode "P1";
-    gs1:value 2.5.
-_:c7b52dd78a67d166b398248bdb3fa89 a gs1:QuantitativeValue;
-    gs1:unitCode "CEL";
-    gs1:value "55"^^xsd:decimal.
-_:c88ccc0d20f0f7bbcc8bb0b930fc86b8 a gs1:QuantitativeValue;
-    gs1:unitCode "VLT";
-    gs1:value "40"^^xsd:decimal.
-_:ca3f098f7a3978c291110b61240a94aa a gs1:QuantitativeValue;
-    gs1:unitCode "P1";
-    gs1:value 96.8.
-_:cab9c122925c45a72805e34e34798f81 a gs1:QuantitativeValue;
-    gs1:unitCode "KGM";
-    gs1:value 18.5.
-_:ccc1538862112d8453ef542d1159d43f a gs1:CertificationDetails;
-    gs1:certificationAgency "TÜV SÜD (Notified Body 0123)";
-    gs1:certificationStandard "EU Declaration of Conformity (Battery Regulation 2023/1542)";
-    gs1:certificationURI "https://files.example.org/files/products/09521002005004/docs/declaration-of-conformity.pdf".
-_:cebabcde4755416a110a1c7691fa752c a gs1:QuantitativeValue;
-    gs1:unitCode "CEL";
-    gs1:value "45"^^xsd:decimal.
-_:d10ae28121942a0d5f73c7b36b7fee24 a gs1:QuantitativeValue;
-    gs1:unitCode "CEL";
-    gs1:value "-30"^^xsd:decimal.
-_:d1474a1bf97f459c22ac7354e7fdf363 a gs1:QuantitativeValue;
-    gs1:unitCode "KGM";
-    gs1:value 8.6.
-_:d3fd9bcaf1b0f2de708ea933394096b3 a gs1:QuantitativeValue;
-    gs1:unitCode "AMP";
-    gs1:value "140"^^xsd:decimal.
-_:d4324f495bea29c17b77dcba147232f3 a gs1:Country;
-    gs1:countryCode "DE".
-_:d4c25292df1a80dde904a8972dea8a55 a eubat:MaterialRecoveryTarget;
-    eubat:recoveryMaterial "Copper";
-    eubat:recoveryRate "95"^^xsd:decimal.
-_:d4e1ca3fa1dd0f4a182f2bc6a71c1646 a gs1:QuantitativeValue;
-    gs1:unitCode "AMH";
-    gs1:value "280"^^xsd:decimal.
-_:d8469b8291fa8888366e35b0a69522fb a eubat:MaterialRecoveryTarget;
-    eubat:recoveryMaterial "Lithium";
-    eubat:recoveryRate "70"^^xsd:decimal.
-_:d90ebe6c586a78a020f23280dac5d511 a gs1:QuantitativeValue;
-    gs1:unitCode "VLT";
-    gs1:value 58.4.
-_:daffd505089bac6293c32961d36fb08e a eubat:MaterialRecoveryTarget;
-    eubat:recoveryMaterial "Cobalt";
-    eubat:recoveryRate "95"^^xsd:decimal.
-_:db0924819ed1a5244fb387b81f61da60 a eubat:MaterialRecoveryTarget;
-    eubat:recoveryMaterial "Nickel";
-    eubat:recoveryRate "95"^^xsd:decimal.
-_:de750628dc4c783aec3632d0e5654239 a gs1:PostalAddress;
-    gs1:addressCountry _:f1687f9a14a064ae0f8c2a32bce24338;
-    gs1:addressLocality "Stuttgart".
-_:e04886ba2a30367ebc62c91db72971ba a gs1:AdditionalProductClassificationDetails;
-    gs1:additionalProductClassificationCode "BATTERY_REGULATION_2023_1542";
-    gs1:additionalProductClassificationCodeDescription "EVBattery — EU Battery Regulation 2023/1542"@en.
-_:e3bf5bc34ec790b13509c76e078e6996 a gs1:PostalAddress;
-    gs1:addressCountry _:afbd8f5ded6f06a0e376df787f0416f6;
-    gs1:addressLocality "Stuttgart";
-    gs1:postalCode "70174";
-    gs1:streetAddress "Serviceweg 10".
-_:e44014b7b289450ff8947e5c727ac702 a gs1:QuantitativeValue;
-    gs1:unitCode "MIN";
-    gs1:value "45"^^xsd:decimal.
-_:e8f1df55e25690ea6dc5de546ebdf48 a gs1:QuantitativeValue;
-    gs1:unitCode "KGM";
-    gs1:value "132"^^xsd:decimal.
-_:ebcbb293e8fda19d10866cc78e28296f a gs1:QuantitativeValue;
-    gs1:unitCode "VLT";
-    gs1:value 51.2.
-_:ed6f27448c8f8409a14184fd194db72e a gs1:QuantitativeValue;
-    gs1:unitCode "ANN";
-    gs1:value "15"^^xsd:decimal.
-_:ede7bc777ba05159a82819c74cd307fa a gs1:QuantitativeValue;
-    gs1:unitCode "CEL";
-    gs1:value "45"^^xsd:decimal.
-_:eee60af0ec0b1c63c694bfec2e73b4b1 a gs1:QuantitativeValue;
-    gs1:unitCode "P1";
-    gs1:value "4"^^xsd:decimal.
-_:f1687f9a14a064ae0f8c2a32bce24338 a gs1:Country;
-    gs1:countryCode "DE".
-_:f1ba23f221062ef7483751b4135b893e a gs1:Country;
-    gs1:countryCode "DE".
-_:f290b1540280542e45e03b1f708c22d a gs1:QuantitativeValue;
-    gs1:unitCode "AMH";
-    gs1:value "1680000"^^xsd:decimal.
-_:f42243b33c683466568c651ca8806325 a gs1:QuantitativeValue;
-    gs1:unitCode "OHM";
-    gs1:value 2.1.
-_:f4e0fb7a0289af1ab6df5b79202ea99f a gs1:QuantitativeValue;
-    gs1:unitCode "KWT";
-    gs1:value 7.5.
-_:f6a38738463c2b0193effb5a7a99d7bc a oec:DocumentReference;
-    oec:documentUrl "https://files.example.org/files/products/09521002005004/docs/dismantling-safety.pdf"^^xsd:anyURI.
-_:f8fe8b3c49f74509d950a531f44c4f4f a <http://data.europa.eu/m8g/Evidence>;
-    eubat:declarationOfConformity "https://files.example.org/files/products/09521002005004/docs/declaration-of-conformity.pdf"^^xsd:anyURI;
-    eubat:euDeclarationOfConformityId "DoC-2024-ECOCELL-IM500";
-    eubat:hasNotifiedBody _:b20463a64821b8644e01f4f91b4ea8ac.
-_:f938dbc83fe573dd95eb99872dff81d2 a gs1:QuantitativeValue;
-    gs1:unitCode "CEL";
-    gs1:value "-20"^^xsd:decimal.
-_:fda7f663c76eac16c07cc219bec718b5 a gs1:ContactPoint;
-    gs1:email "compliance@ecocell-batteries.example.com";
-    gs1:telephone "+49-711-555-0100".
-_:fdd6701ef4b569dd6eb2f53e556d05a a gs1:PostalAddress;
-    gs1:addressCountry _:d4324f495bea29c17b77dcba147232f3;
-    gs1:addressLocality "Stuttgart";
-    gs1:postalCode "70173";
-    gs1:streetAddress "Batteriestraße 42".
-_:fed1bb05bd5bbbcce8362592911f19e a gs1:QuantitativeValue;
-    gs1:unitCode "KWT";
-    gs1:value 7.5.
-<https://files.example.org/files/products/09521002005004/docs/carbon-footprint-study.pdf> a gs1:ReferencedFileDetails;
-    gs1:fileLanguageCode "en";
-    gs1:referencedFileType gs1:ReferencedFileTypeCode-CERTIFICATION;
-    <https://schema.org/description> "Carbon Footprint Study (ISO 14067)".
-<https://files.example.org/files/products/09521002005004/docs/declaration-of-conformity.pdf> a gs1:ReferencedFileDetails;
-    gs1:fileLanguageCode "en";
-    gs1:referencedFileType gs1:ReferencedFileTypeCode-DOCUMENT;
-    <https://schema.org/description> "EU Declaration of Conformity (EU 2023/1542)".
-<https://files.example.org/files/products/09521002005004/docs/test-report.pdf> a gs1:ReferencedFileDetails;
-    gs1:fileLanguageCode "en";
-    gs1:referencedFileType gs1:ReferencedFileTypeCode-CERTIFICATION;
-    <https://schema.org/description> "EU Type Examination Test Report".
-<https://files.example.org/files/products/09521002005004/docs/user-manual.pdf> a gs1:ReferencedFileDetails;
-    gs1:fileLanguageCode "en";
-    gs1:referencedFileType gs1:ReferencedFileTypeCode-IFU.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#cfp-verification> a eubat:ThirdPartyVerification;
-    eubat:verificationBodyName "TÜV Rheinland";
-    eubat:verificationCertificateUrl "https://files.example.org/files/products/09521002005004/docs/verification-certificate.pdf"^^xsd:anyURI;
-    eubat:verificationDate "2024-02-28"^^xsd:date;
-    eubat:verificationStandard "ISO 14064-3:2019".
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#cfp> a eubat:CarbonFootprintDeclaration;
-    eubat:calculationStandard "ISO 14067:2018";
-    eubat:carbonFootprintDeclarationId "CFP-2024-ECOCELL-IM500-001";
-    eubat:carbonFootprintGeographicScope "EU production, global material sourcing";
-    eubat:carbonFootprintStudyUrl "https://files.example.org/files/products/09521002005004/docs/carbon-footprint-study.pdf"^^xsd:anyURI;
-    eubat:functionalUnit "1 kWh of total energy throughput over battery lifetime";
-    eubat:hasCarbonFootprintDistribution _:ac88b30150a3f980f962cb10fd8c8085;
-    eubat:hasCarbonFootprintProduction _:a8fd3f5127489239feffeed70d55187a;
-    eubat:hasCarbonFootprintRawMaterialExtraction _:cab9c122925c45a72805e34e34798f81;
-    eubat:hasCarbonFootprintRecycling _:d1474a1bf97f459c22ac7354e7fdf363;
-    eubat:hasCarbonFootprintTotal _:b041e5cb8e5b1dc5d7840a3c3925137a;
-    eubat:hasThirdPartyVerification <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#cfp-verification>;
-    bpsamm-carbon:carbonFootprintPerformanceClass eubat:CFClassB.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#chemistry> a eubat:BatteryChemistry;
-    eubat:anodeActiveMaterial "Graphite";
-    eubat:cathodeActiveMaterial "LiFePO4";
-    eubat:electrolyteType "Liquid organic carbonate-based"@en;
-    <https://schema.org/alternateName> "LFP";
-    <https://schema.org/name> "Lithium Iron Phosphate"@en.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#dismantle-3d> a eubat:DismantlingDocument;
-    eubat:documentUrl "https://files.example.org/files/products/09521002005004/docs/document.pdf"^^xsd:anyURI;
-    eubat:hasDocumentType eubat:Model3D;
-    eubat:languageCode "en";
-    eubat:mimeType "model/step".
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#dismantle-bom> a eubat:DismantlingDocument;
-    eubat:documentUrl "https://files.example.org/files/products/09521002005004/docs/document.pdf"^^xsd:anyURI;
-    eubat:hasDocumentType eubat:BillOfMaterial;
-    eubat:languageCode "en";
-    eubat:mimeType "application/pdf".
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#dismantle-manual> a eubat:DismantlingDocument;
-    eubat:documentUrl "https://files.example.org/files/products/09521002005004/docs/document.pdf"^^xsd:anyURI;
-    eubat:hasDocumentType eubat:DismantlingManual;
-    eubat:languageCode "en";
-    eubat:mimeType "application/pdf".
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#dismantle-sds> a eubat:DismantlingDocument;
-    eubat:documentUrl "https://files.example.org/files/products/09521002005004/docs/document.pdf"^^xsd:anyURI;
-    eubat:hasDocumentType eubat:SafetyDataSheet;
-    eubat:languageCode "de";
-    eubat:mimeType "application/pdf".
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#due-diligence> a eubat:SupplyChainDueDiligence;
-    eubat:auditBody "PwC Germany";
-    eubat:conflictMineralFree true;
-    eubat:dueDiligencePolicyUrl "https://files.example.org/files/products/09521002005004/docs/due-diligence-policy.pdf"^^xsd:anyURI;
-    eubat:dueDiligenceReportUrl "https://files.example.org/files/products/09521002005004/docs/due-diligence-report.pdf"^^xsd:anyURI;
-    eubat:hasResponsibleSourcingStandard eubat:OECDGuidelines;
-    eubat:riskAssessmentSummary "Low to medium risk profile. Key risks identified in lithium sourcing from Chile mitigated through certified suppliers."@en;
-    eubat:supplyChainIndex 78.5;
-    eubat:supplyChainMappingAvailable true;
-    eubat:thirdPartyAssurancesUrl "https://files.example.org/files/products/09521002005004/docs/third-party-assurance.pdf"^^xsd:anyURI;
-    <https://schema.org/auditDate> "2024-01-15"^^xsd:date.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#eol> a eubat:EndOfLifeInfo;
-    eubat:extinguishingAgent "Class D fire extinguisher or dry sand"@en;
-    eubat:hasDismantlingTime _:e44014b7b289450ff8947e5c727ac702;
-    eubat:hasMaterialRecoveryTargets _:d4c25292df1a80dde904a8972dea8a55, _:d8469b8291fa8888366e35b0a69522fb, _:daffd505089bac6293c32961d36fb08e, _:db0924819ed1a5244fb387b81f61da60;
-    eubat:hasSafetyMeasures _:f6a38738463c2b0193effb5a7a99d7bc;
-    eubat:informationOnCollection "https://files.example.org/files/products/09521002005004/docs/collection-information.pdf"^^xsd:anyURI;
-    eubat:recyclabilityRate "95"^^xsd:decimal;
-    eubat:renewableContent 3.2;
-    eubat:safetyInstructions "https://files.example.org/files/products/09521002005004/docs/safety-instructions.pdf"^^xsd:anyURI;
-    eubat:separateCollection "https://files.example.org/files/products/09521002005004/docs/separate-collection.pdf"^^xsd:anyURI;
-    eubat:wastePrevention "https://files.example.org/files/products/09521002005004/docs/waste-prevention.pdf"^^xsd:anyURI.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#haz-electrolyte> a eubat:HazardousSubstance;
-    oec:casNumber "21324-40-3";
-    oec:ecNumber "244-334-7";
-    eubat:concentration 12.5;
-    eubat:hasHazardClass eubat:AcuteToxicity;
-    eubat:hasSubstanceLocation eubat:Electrolyte;
-    eubat:hazardImpact "Toxic if swallowed; causes skin irritation; causes serious eye damage"@en;
-    <https://schema.org/name> "Lithium hexafluorophosphate (LiPF6)"@en.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#haz-solvent> a eubat:HazardousSubstance;
-    oec:casNumber "96-49-1";
-    oec:ecNumber "202-510-0";
-    eubat:concentration 8.2;
-    eubat:hasHazardClass eubat:EyeDamageOrIrritation;
-    eubat:hasSubstanceLocation eubat:Electrolyte;
-    eubat:hazardImpact "Causes serious eye irritation"@en;
-    <https://schema.org/name> "Ethylene carbonate"@en.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#label-cfp> a eubat:Label;
-    eubat:hasLabelSubject eubat:CarbonFootprintLabel;
-    eubat:labelMeaning "Carbon Footprint Performance Class B: 45.2 kg CO2e/kWh"@en;
-    eubat:labelSymbol "https://files.example.org/files/products/_common/symbols/battery-label.svg"^^xsd:anyURI.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#label-fire> a eubat:Label;
-    eubat:hasLabelSubject eubat:ExtinguishingAgentLabel;
-    eubat:labelMeaning "In case of fire, use Class D fire extinguisher or dry sand. Do not use water."@en;
-    eubat:labelSymbol "https://files.example.org/files/products/_common/symbols/battery-label.svg"^^xsd:anyURI.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#label-qr> a eubat:Label;
-    eubat:hasLabelSubject eubat:QRCodeLabel;
-    eubat:labelMeaning "Scan QR code to access battery passport"@en.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#label-weee> a eubat:Label;
-    eubat:hasLabelSubject eubat:SeparateCollection;
-    eubat:labelMeaning "Do not dispose of with household waste. Return to designated collection points."@en;
-    eubat:labelSymbol "https://files.example.org/files/products/_common/symbols/battery-label.svg"^^xsd:anyURI.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#mat-c> a eubat:BatteryMaterial;
-    oec:casNumber "7782-42-5";
-    oec:ecNumber "231-955-3";
-    eubat:hasComponentLocation eubat:Anode;
-    eubat:isCriticalRawMaterial true;
-    eubat:isSubstanceOfConcern false;
-    eubat:renewableContentShare "0"^^xsd:decimal;
-    <https://schema.org/category> eubat:ActiveMaterial;
-    <https://schema.org/name> "Graphite"@en;
-    <https://schema.org/weightPercentage> 18.3.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#mat-fe> a eubat:BatteryMaterial;
-    oec:casNumber "7439-89-6";
-    oec:ecNumber "231-096-4";
-    eubat:hasComponentLocation eubat:Cathode;
-    eubat:isCriticalRawMaterial false;
-    eubat:isSubstanceOfConcern false;
-    <https://schema.org/category> eubat:ActiveMaterial;
-    <https://schema.org/name> "Iron"@en;
-    <https://schema.org/weightPercentage> 21.5.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#mat-li> a eubat:BatteryMaterial;
-    oec:casNumber "7439-93-2";
-    oec:ecNumber "231-102-5";
-    oec:hasMaterialOrigin _:aa859d06541c4abf30ee00afc0bb331;
-    eubat:hasComponentLocation eubat:Cathode;
-    eubat:isCriticalRawMaterial true;
-    eubat:isSubstanceOfConcern false;
-    <https://schema.org/category> eubat:ActiveMaterial;
-    <https://schema.org/name> "Lithium"@en;
-    <https://schema.org/weightPercentage> 4.2.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#mat-p> a eubat:BatteryMaterial;
-    oec:casNumber "7723-14-0";
-    oec:ecNumber "231-768-7";
-    eubat:hasComponentLocation eubat:Cathode;
-    eubat:isCriticalRawMaterial true;
-    eubat:isSubstanceOfConcern false;
-    <https://schema.org/category> eubat:ActiveMaterial;
-    <https://schema.org/name> "Phosphorus"@en;
-    <https://schema.org/weightPercentage> 9.8.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#power-20> bpsamm-perf:atSoC "20"^^xsd:decimal;
-    bpsamm-perf:powerCapabilityAt _:bfe0c8a66e6d7d59de65987beba01601.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#power-80> bpsamm-perf:atSoC "80"^^xsd:decimal;
-    bpsamm-perf:powerCapabilityAt _:af73d6aca49ae14148590587f1d110e1.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#recycled> a eubat:RecycledContent;
-    eubat:cobaltPostConsumerShare "0"^^xsd:decimal;
-    eubat:cobaltPreConsumerShare "0"^^xsd:decimal;
-    eubat:cobaltRecycledShare "0"^^xsd:decimal;
-    eubat:leadPostConsumerShare "0"^^xsd:decimal;
-    eubat:leadPreConsumerShare "0"^^xsd:decimal;
-    eubat:leadRecycledShare "0"^^xsd:decimal;
-    eubat:lithiumPostConsumerShare "7"^^xsd:decimal;
-    eubat:lithiumPreConsumerShare "5"^^xsd:decimal;
-    eubat:lithiumRecycledShare "12"^^xsd:decimal;
-    eubat:nickelPostConsumerShare "0"^^xsd:decimal;
-    eubat:nickelPreConsumerShare "0"^^xsd:decimal;
-    eubat:nickelRecycledShare "0"^^xsd:decimal.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#reg-battery> a gs1:RegulatoryInformation;
-    gs1:regulationType gs1:RegulationTypeCode-BATTERY_DIRECTIVE;
-    gs1:regulatoryAct "EU 2023/1542";
-    oec:isRegulationCompliant true;
-    oec:regulatoryActStatus "ACTIVE";
-    oec:regulatoryPermitIdentification "EU-TEC-2024-ECOCELL-IM500".
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#reg-ce> a gs1:RegulatoryInformation;
-    gs1:regulationType gs1:RegulationTypeCode-CE;
-    gs1:regulatoryAct "CE Marking";
-    oec:isRegulationCompliant true.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#remaining-power> bpsamm-perf:atSoC "100"^^xsd:decimal;
-    bpsamm-perf:powerCapabilityAt <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#rpc-value>.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#rpc-value> a gs1:QuantitativeValue;
-    gs1:unitCode "WTT";
-    gs1:value "11500"^^xsd:decimal.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#spare-1> a gs1:Organization;
-    gs1:address _:e3bf5bc34ec790b13509c76e078e6996;
-    gs1:organizationName "EcoCell Service GmbH";
-    eubat:hasSupplierContact _:bd106a3c4b793b772c7615f325b018d2;
-    eubat:spareParts "BMS Module, Cell Connectors, Cooling System Components, Terminal Covers"@en.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#specs> a eubat:TechnicalSpecification;
-    eubat:cRate 0.5;
-    eubat:hasExpectedLifetime _:ed6f27448c8f8409a14184fd194db72e;
-    eubat:hasMaximumChargingCurrent _:c49a09feeff200779bbeeba0c4684692;
-    eubat:hasMaximumChargingPower _:f4e0fb7a0289af1ab6df5b79202ea99f;
-    eubat:hasMaximumDischargingCurrent _:d3fd9bcaf1b0f2de708ea933394096b3;
-    eubat:hasMaximumDischargingPower _:a406ae74ba245f1db8b660790d6e1157;
-    eubat:hasMaximumVoltage _:d90ebe6c586a78a020f23280dac5d511;
-    eubat:hasMinimumVoltage _:c88ccc0d20f0f7bbcc8bb0b930fc86b8;
-    eubat:hasNominalVoltage _:ebcbb293e8fda19d10866cc78e28296f;
-    eubat:hasRatedCapacity _:d4e1ca3fa1dd0f4a182f2bc6a71c1646;
-    eubat:hasRatedEnergy _:b64a39e2a232cc3bfff9efde3fef78ae;
-    eubat:hasRatedMaximumPower _:fed1bb05bd5bbbcce8362592911f19e;
-    eubat:hasTemperatureRangeCharging <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#temp-charging>;
-    eubat:hasTemperatureRangeDischarging <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#temp-discharging>;
-    eubat:hasTemperatureRangeIdleState <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#temp-idle>;
-    eubat:hasTemperatureRangeStorage <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#temp-storage>;
-    eubat:powerCapabilityRatio 0.52;
-    bpr:C-rateOfRelevantCycle-lifeTest 0.33;
-    bpr:Cycle-lifeReferenceTest "https://www.iec.ch/standards/62660-1"^^xsd:anyURI;
-    bpr:InitialSelf-dischargeRate 1.5;
-    bpsamm-perf:capacityThresholdForExhaustion "70"^^xsd:decimal;
-    bpsamm-perf:expectedNumberOfCycles "6000"^^xsd:decimal;
-    bpsamm-perf:originalPowerCapability <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#power-20>, <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#power-80>;
-    bpsamm-perf:roundtripEfficiency "96"^^xsd:decimal;
-    bpsamm-perf:roundTripEfficiencyAt50PercentCycleLife "94"^^xsd:decimal.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#temp-charging> a eubat:TemperatureRange;
-    eubat:hasMaximumTemperature _:cebabcde4755416a110a1c7691fa752c;
-    eubat:hasMinimumTemperature _:bba9d2afa537141a9d1d2e39894e6f40.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#temp-discharging> a eubat:TemperatureRange;
-    eubat:hasMaximumTemperature _:c7b52dd78a67d166b398248bdb3fa89;
-    eubat:hasMinimumTemperature _:f938dbc83fe573dd95eb99872dff81d2.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#temp-idle> a eubat:TemperatureRange;
-    eubat:hasMaximumTemperature _:c293d9efdfdad6e886993ec4b7e58b35;
-    eubat:hasMinimumTemperature _:d10ae28121942a0d5f73c7b36b7fee24.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142#temp-storage> a eubat:TemperatureRange;
-    eubat:hasMaximumTemperature _:ede7bc777ba05159a82819c74cd307fa;
-    eubat:hasMinimumTemperature _:a782b36e75cd354972cbb5b9056cc07b.
-<https://id.gs1.org/01/09521234010012/21/EV-2025-000142> a gs1:Product, eubat:Battery, eubat:EVBattery;
-    gs1:additionalProductClassification _:e04886ba2a30367ebc62c91db72971ba;
-    gs1:certification _:ccc1538862112d8453ef542d1159d43f;
-    gs1:countryOfOrigin _:f1ba23f221062ef7483751b4135b893e;
-    gs1:grossWeight _:e8f1df55e25690ea6dc5de546ebdf48;
-    gs1:gtin "09521002005004";
-    gs1:hasSerialNumber "EV-2025-000142";
-    gs1:manufacturer <https://id.gs1.org/417/9521234000006>;
-    gs1:manufacturersWarranty _:ae48616d397b08e96e1c3b54cf37e9f5;
-    gs1:netWeight _:c4a7097c057b1579357a64837c21546e;
-    gs1:productDescription "High-capacity lithium iron phosphate battery module for industrial energy storage. Designed for long cycle life and safety."@en, "Hochkapazitäts-LFP-Batteriemodul für industrielle Energiespeicherung. Entwickelt für lange Zyklenlebensdauer und Sicherheit."@de, "LFP-batterimodul med hög kapacitet för industriell energilagring. Konstruerad för lång cykellivslängd och säkerhet."@sv, "LFP-batterimodul med høj kapacitet til industriel energilagring. Designet til lang cyklus-levetid og sikkerhed."@da, "LFP-batterimodul med høy kapasitet for industriell energilagring. Designet for lang syklus-levetid og sikkerhet."@no, "Lithium-ijzerfosfaat-batterijmodule met hoge capaciteit voor industriële energieopslag. Ontworpen voor een lange cyclusduur en veiligheid."@nl, "Moduł akumulatora litowo-żelazowo-fosforanowego (LFP) o dużej pojemności do magazynowania energii w przemyśle. Zaprojektowany z myślą o długiej żywotności cyklicznej i bezpieczeństwie."@pl, "Module de batterie LFP haute capacité pour le stockage d'énergie industriel. Conçu pour une longue durée de vie cyclique et la sécurité."@fr, "Modulo batteria LFP ad alta capacità per lo stoccaggio energetico industriale. Progettato per una lunga durata ciclica e sicurezza."@it, "Módulo de batería LFP de alta capacidad para almacenamiento energético industrial. Diseñado para una larga vida útil de ciclos y seguridad."@es, "Suurkapasiteettinen LFP-akkumoduuli teolliseen energiavarastointiin. Suunniteltu pitkän käyttöiän ja turvallisuuden ehdoilla."@fi;
-    gs1:productionDate "2024-03-15"^^xsd:date;
-    gs1:productName "VoltDrive VD-75 EV Traction Battery"@en;
-    gs1:referencedFile <https://files.example.org/files/products/09521002005004/docs/carbon-footprint-study.pdf>, <https://files.example.org/files/products/09521002005004/docs/declaration-of-conformity.pdf>, <https://files.example.org/files/products/09521002005004/docs/test-report.pdf>, <https://files.example.org/files/products/09521002005004/docs/user-manual.pdf>;
-    gs1:regulatoryInformation <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#reg-battery>, <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#reg-ce>;
-    oec:granularityLevel "item";
-    oec:hasReportingGranularity oec:ItemLevel;
-    oec:lastUpdated "2024-03-20T14:30:00Z"^^xsd:dateTime;
-    oec:passportStatus "active";
-    eubat:authorizedServiceCenters "https://files.example.org/files/products/09521002005004/docs/service-centres.pdf"^^xsd:anyURI;
-    eubat:batteryModelIdentifier "ECO-IM-500";
-    eubat:cadmiumSymbolRequired false;
-    eubat:ceMarkingIndicator true;
-    eubat:criticalRawMaterialsStatement "Contains lithium (4.2%), graphite (18.3%), and phosphorus (9.8%) which are on the EU Critical Raw Materials list."@en;
-    eubat:dangerousGoodsPackingInstructions "PI966 Section II - Lithium ion batteries packed with equipment"@en;
-    eubat:dataProviderCertification "ISO 27001 certified data management";
-    eubat:dataQualityAssessment "A";
-    eubat:extendedWarrantyAvailable true;
-    eubat:hasBatteryChemistry <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#chemistry>;
-    eubat:hasCarbonFootprintDeclaration <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#cfp>;
-    eubat:hasCellType eubat:PrismaticCell;
-    eubat:hasComplianceStatus eubat:Compliant;
-    eubat:hasDismantlingAndRemovalInformation <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#dismantle-3d>, <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#dismantle-bom>, <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#dismantle-manual>, <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#dismantle-sds>;
-    eubat:hasEndOfLifeInfo <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#eol>;
-    eubat:hasEuDeclarationOfConformity _:f8fe8b3c49f74509d950a531f44c4f4f;
-    eubat:hasHazardousSubstances <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#haz-electrolyte>, <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#haz-solvent>;
-    eubat:hasLabels <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#label-cfp>, <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#label-fire>, <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#label-qr>, <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#label-weee>;
-    eubat:hasManufacturingPlace <https://id.gs1.org/414/9521234000013>;
-    eubat:hasMaterialComposition <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#mat-c>, <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#mat-fe>, <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#mat-li>, <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#mat-p>;
-    eubat:hasOperatorInformation <https://id.gs1.org/417/9521234000006#operator>;
-    eubat:hasRecycledContent <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#recycled>;
-    eubat:hasSparePartSources <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#spare-1>;
-    eubat:hasSupplyChainDueDiligence <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#due-diligence>;
-    eubat:hasTechnicalSpecifications <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#specs>;
-    eubat:leadSymbolRequired false;
-    eubat:numberOfCells 16;
-    eubat:numberOfModules 1;
-    eubat:repurposingGuidelines "https://files.example.org/files/products/09521002005004/docs/repurposing-guidelines.pdf"^^xsd:anyURI;
-    eubat:repurposingPotential "High - suitable for stationary energy storage after EV use"@en;
-    eubat:resultOfTestReport "https://files.example.org/files/products/09521002005004/docs/test-report.pdf"^^xsd:anyURI;
-    eubat:separateCollectionSymbolUrl "https://files.example.org/files/products/_common/symbols/battery-label.svg"^^xsd:anyURI;
-    eubat:shippingName "LITHIUM ION BATTERIES PACKED WITH EQUIPMENT"@en;
-    eubat:testReportNumber "TR-2024-ECOCELL-IM500-001";
-    eubat:transportationSafetyClass "UN3481";
-    eubat:warrantyConditions "https://files.example.org/files/products/09521002005004/docs/warranty-conditions.pdf"^^xsd:anyURI;
-    <https://schema.org/category> eubat:EVBattery;
-    <https://schema.org/contactPoint> _:a26c9c2f0e261c5107edde6804f3d87c;
-    <https://schema.org/model> "IM-500"@en;
-    <https://schema.org/schemaVersion> "1.3";
-    <https://schema.org/serialNumber> "EV-2025-000142";
-    <https://schema.org/status> eubat:Original;
-    bpsamm-perf:capacityFade _:a1695ca70f989a20b81578fdd4c8d1a3;
-    bpsamm-perf:internalResistanceIncrease _:eee60af0ec0b1c63c694bfec2e73b4b1;
-    bpsamm-perf:powerFade _:c6047c65219df2828711f42f6eb8d631;
-    bpsamm-perf:remainingPowerCapability <https://id.gs1.org/01/09521234010012/21/EV-2025-000142#remaining-power>;
-    bpsamm-perf:stateOfCertifiedEnergy _:ca3f098f7a3978c291110b61240a94aa.
-<https://id.gs1.org/414/9521234000013> a gs1:Place;
-    gs1:address _:de750628dc4c783aec3632d0e5654239;
-    gs1:globalLocationNumber "9521234000013".
-<https://id.gs1.org/417/9521234000006#address> a gs1:PostalAddress;
-    gs1:addressCountry _:babaab26973a48e4746c71e5642a0952;
-    gs1:addressLocality "Stuttgart";
-    gs1:postalCode "70173";
-    gs1:streetAddress "Batteriestraße 42".
-<https://id.gs1.org/417/9521234000006#operator> a oec:OperatorInformation;
-    gs1:address _:fdd6701ef4b569dd6eb2f53e556d05a;
-    gs1:contactPoint _:fda7f663c76eac16c07cc219bec718b5;
-    gs1:globalLocationNumber "9521234000006";
-    gs1:organizationName "EcoCell GmbH";
-    eubat:hasOperatorRole oec:Manufacturer.
-<https://id.gs1.org/417/9521234000006> a gs1:Organization;
-    gs1:address <https://id.gs1.org/417/9521234000006#address>;
-    gs1:contactPoint _:a1ad53ffad4ea1870c78dccca655fa43;
-    gs1:globalLocationNumber "9521234000006";
-    gs1:organizationName "EcoCell GmbH".
+_:a7a676ee879613d359e6a696a52c29ff bprx:dppGranularityValue "item".
+_:a827037c6aaf898150e04f1f6fa230e9 bprx:url "https://files.example.org/files/products/09521002005004/docs/document.pdf";
+    bpr:contentType "application/pdf".
+_:a922877314eb9ce6afcc289956270393 bpr:digitalProductPassportId "https://id.gs1.org/01/09521234010012/21/EV-2025-000142";
+    bpr:dppSchemaVersion "1.3";
+    bpr:dppStatus _:ef6ba300670333c00ce7c3cd1d0881e6;
+    bpr:economicOperatorId "https://id.gs1.org/417/9521234000006";
+    bpr:facilityId "https://id.gs1.org/414/9521234000013";
+    bpr:granularity _:a7a676ee879613d359e6a696a52c29ff;
+    bpr:lastUpdated "2024-03-20T14:30:00Z";
+    bpr:uniqueProductIdentifier "https://id.gs1.org/01/09521234010012/21/EV-2025-000142".
+_:a989ed8c55226594f2cad29404024167 bprx:percentageValue 3;
+    bprx:percentUnit "%".
+_:a9a43b7e0fdc88300c07d820ae3af0df bprx:wattUnit "W";
+    bpr:wattValueAt20PercentStateOfCharge "6800"^^xsd:double;
+    bpr:wattValueAt80PercentStateOfCharge "7200"^^xsd:double.
+_:ac04bbd30e550a1ea7542f5002a8e09 bpr:carbonFootprintLabel _:c8993c700e815c4a364a658be7a19c29;
+    bpr:euDeclarationOfConformity _:f26725ab332925aa620a4b2f9a7d18fb;
+    bpr:extinguishingAgent _:c0997f379ae0b09fd79ac41d9dc7ef83;
+    bpr:meaningOfLabelsAndSymbols "Do not dispose of with household waste. Return to designated collection points.; Scan QR code to access battery passport; In case of fire, use Class D fire extinguisher or dry sand. Do not use water.; Carbon Footprint Performance Class B: 45.2 kg CO2e/kWh";
+    bpr:resultsOfTestReportsProvingCompliance _:dd457331d34a4b99dc2d4be682327d70;
+    bpr:separateCollectionSymbol _:ec3c4f1ee73bbffee394cb58b813e044.
+_:ac29b4bc109e78ae37369b77ec9dd23b bprx:percentageValue 97;
+    bprx:percentUnit "%".
+_:add82234fb5eabd29c661c441515be17 bprx:identifier "96-49-1";
+    bprx:identifierType "CAS No";
+    bpr:chemicalName "Ethylene carbonate";
+    bpr:concentration "8.2"^^xsd:double;
+    bpr:substanceLocation "Electrolyte".
+_:b5dd533808f583504170b2e7b78617f bprx:kgCO2EquivalentPerKilowattHourUnit "kgCO2-eq/kWh";
+    bprx:kgCO2EquivalentPerKilowattHourValue "2.8"^^xsd:double.
+_:b77449f1fc15ca3ce4b93c81062d02b5 bprx:name "EcoCell GmbH";
+    bpr:eMailAddress "info@ecocell-batteries.example.com";
+    bpr:postalAddress "Batteriestraße 42, 70173 Stuttgart, DE";
+    bpr:webAddress "https://files.example.org/files/products/09521002005004/docs/company.pdf".
+_:b85cb38a5e3e24b60537800dbbc0b59c bprx:percentageValue 0;
+    bprx:percentUnit "%".
+_:baf6f12c80eecb70f2c20aad22bc2b01 bpr:batteryCarbonFootprintPerFunctionalUnit _:f38714487bfe5f9057860afbfa0c2ef6;
+    bpr:carbonFootprintPerformanceClass "B";
+    bpr:contributionOfDistributionLifecycleStage _:b5dd533808f583504170b2e7b78617f;
+    bpr:contributionOfEndOfLifeAndRecyclingLifecycleStage _:e2cd8089aef874ca977b7ced2a153025;
+    bpr:contributionOfMainProductProductionLifecycleStage _:dfca2f344b6be494c9e13f0f5cba722a;
+    bpr:contributionOfRawMaterialAcquisitionAndPreProcessingLifecycleStage _:f47daae53526fa4dfb1d435a8827a3c6;
+    bpr:webLinkToPublicCarbonFootprintStudy "https://files.example.org/files/products/09521002005004/docs/carbon-footprint-study.pdf".
+_:be4d2c5e36505eb4b1ff4f45ade4322a bprx:voltUnit "V";
+    bprx:voltValue "40"^^xsd:double.
+_:c0997f379ae0b09fd79ac41d9dc7ef83 bpr:extinguishingAgent "Class D fire extinguisher or dry sand".
+_:c1dc974f9d6d5c0e8ab74915ef6c5c50 bprx:percentageValue 0;
+    bprx:percentUnit "%".
+_:c2059b93075b5c98274d9f8789935e0d bprx:url "https://files.example.org/files/products/09521002005004/docs/due-diligence-report.pdf".
+_:c3ff04c4cb9e186c2273b6a825fda89a bprx:batteryStatusValues "original".
+_:c40fcaa83acd097141e20220c8c98e70 bprx:percentageValue 96;
+    bprx:percentUnit "%".
+_:c46e7a6e5254493692090bea435038b8 bprx:percentageValue 12;
+    bprx:percentUnit "%".
+_:c47254ae07b6d0a9db5bf70f5a821d08 bpr:cobaltRecycledContentShare _:cccb0c81f7bf42a0c722deb48436f49e;
+    bpr:dismantlingInformation _:a827037c6aaf898150e04f1f6fa230e9;
+    bpr:informationOnBatteryCollectionPreparationForSecondLifeAndOnTreatmentAtEndOfLife _:f6fcd8b777ccc2a71e178baca27fd8bc;
+    bpr:informationOnTheRoleOfEndUsersInContributingToTheSeparateCollectionOfWasteBatteries _:fca7437bf2f24ea7e2563d2153c3ac3b;
+    bpr:informationOnTheRoleOfEndUsersInContributingToWastePrevention _:d5a8e1c51902ff97c4f25b89e3355caa;
+    bpr:leadRecycledContentShare _:b85cb38a5e3e24b60537800dbbc0b59c;
+    bpr:lithiumRecycledContentShare _:c46e7a6e5254493692090bea435038b8;
+    bpr:nickelRecycledContentShare _:c1dc974f9d6d5c0e8ab74915ef6c5c50;
+    bpr:partNumbersForComponents _:c6514adbdd6801023e958341efc9247b;
+    bpr:renewableContentShare _:f246553044bb51c17d0b7f8aa734c324;
+    bpr:safetyMeasures _:f38d01008147275a12c0427f2c74997a.
+_:c6514adbdd6801023e958341efc9247b bprx:url "https://files.example.org/files/products/09521002005004/docs/document.pdf";
+    bpr:contentType "application/pdf".
+_:c8993c700e815c4a364a658be7a19c29 bprx:url "https://files.example.org/files/products/_common/symbols/battery-label.svg".
+_:c973846cf637ff752b6871fbd4afafee bpr:batteryChemistry _:f28a3650ff54395158cab2bf7c49f84f;
+    bpr:criticalRawMaterials "Graphite", "Lithium", "Phosphorus";
+    bpr:hazardousSubstancesAndTheirImpact _:add82234fb5eabd29c661c441515be17, _:ff02e2e343c94c4e28a98242b239cada;
+    bpr:materialsUsedInCathodeAnodeAndElectrolyte "Graphite", "LiFePO4", "Liquid organic carbonate-based".
+_:cc818a37226c6db39a598c007b36af3 bprx:celsiusValue -30;
+    bprx:degreeCelsiusUnit "°C".
+_:cccb0c81f7bf42a0c722deb48436f49e bprx:percentageValue 0;
+    bprx:percentUnit "%".
+_:ce1f6a0483cbf4bdb28bce2a8359a58f bpr:batteryCategory _:e4568f52188088b59de9206cfb9d7b1b;
+    bpr:batteryMass _:fe5aec533ad2cebb953c21eecf3be923;
+    bpr:batteryModelIdentifier "ECO-IM-500";
+    bpr:batterySerialNumber "EV-2025-000142";
+    bpr:batteryStatus _:c3ff04c4cb9e186c2273b6a825fda89a;
+    bpr:economicOperatorInformation _:d672d155cd7e7e0e1b7297a880661b43;
+    bpr:manufacturerInformation _:b77449f1fc15ca3ce4b93c81062d02b5;
+    bpr:manufacturingDate "2024-03-15";
+    bpr:manufacturingPlace "Stuttgart, DE";
+    bpr:uniqueManufacturerIdentifier "https://id.gs1.org/417/9521234000006";
+    bpr:warrantyPeriod "P8Y".
+_:d021ec3911789758c8593eba477920d9 bprx:percentageValue 94;
+    bprx:percentUnit "%".
+_:d5a8e1c51902ff97c4f25b89e3355caa bprx:url "https://files.example.org/files/products/09521002005004/docs/waste-prevention.pdf".
+_:d672d155cd7e7e0e1b7297a880661b43 bprx:name "EcoCell GmbH";
+    bpr:eMailAddress "compliance@ecocell-batteries.example.com";
+    bpr:postalAddress "Batteriestraße 42, 70173 Stuttgart, DE".
+_:da261cbd29ac77b98db23c073a45dfe7 bpr:batteryCarbonFootprint _:baf6f12c80eecb70f2c20aad22bc2b01;
+    bpr:batteryMaterialsAndComposition _:c973846cf637ff752b6871fbd4afafee;
+    bpr:circularityAndResourceEfficiency _:c47254ae07b6d0a9db5bf70f5a821d08;
+    bpr:identifiersAndProductData _:ce1f6a0483cbf4bdb28bce2a8359a58f;
+    bpr:performanceAndDurability _:f931629c3490bc378c558f70448ca02;
+    bpr:supplyChainDueDiligence _:eb1586568415d10934fd667e097a56d4;
+    bpr:symbolsLabelsAndDocumentationOfConformity _:ac04bbd30e550a1ea7542f5002a8e09.
+_:dd3866e2eee9f2810ad6bc50dbfbef9c bprx:celsiusValue 60;
+    bprx:degreeCelsiusUnit "°C".
+_:dd457331d34a4b99dc2d4be682327d70 bprx:url "https://files.example.org/files/products/09521002005004/docs/test-report.pdf".
+_:dfca2f344b6be494c9e13f0f5cba722a bprx:kgCO2EquivalentPerKilowattHourUnit "kgCO2-eq/kWh";
+    bprx:kgCO2EquivalentPerKilowattHourValue "15.3"^^xsd:double.
+_:e267d539f3c7bbc5d5196135cbed2c91 bprx:percentUnit "%";
+    bpr:internalResistanceIncreaseValueForBatteryPack 4.
+_:e2cd8089aef874ca977b7ced2a153025 bprx:kgCO2EquivalentPerKilowattHourUnit "kgCO2-eq/kWh";
+    bprx:kgCO2EquivalentPerKilowattHourValue "8.6"^^xsd:double.
+_:e4568f52188088b59de9206cfb9d7b1b bprx:batteryCategoryValue "electric vehicle battery".
+_:e592e89fb6de4d622fa36677ecd8e421 bprx:voltUnit "V";
+    bprx:voltValue "51.2"^^xsd:double.
+_:e5c3321dacea186145a0e86e369b0b8b bprx:amperePerAmpereHourUnit "A/Ah";
+    bprx:amperePerAmpereHourValue "0.33"^^xsd:double.
+_:e62f70a3934698f3b2ad8ff97bfade2f bprx:ampereHourMiliamperehourUnit "Ah";
+    bprx:amperehourMiliamperehourValue 280.
+_:eb1586568415d10934fd667e097a56d4 bpr:informationOfDueDiligenceReport _:c2059b93075b5c98274d9f8789935e0d;
+    bpr:supplyChainIndices "78.5";
+    bpr:thirdPartyAssurancesOfRecognisedSchemes "https://files.example.org/files/products/09521002005004/docs/third-party-assurance.pdf".
+_:ec3c4f1ee73bbffee394cb58b813e044 bprx:url "https://files.example.org/files/products/_common/symbols/battery-label.svg".
+_:eca253f2efecd559063e0ada81513b40 bprx:voltUnit "V";
+    bprx:voltValue "58.4"^^xsd:double.
+_:ef6ba300670333c00ce7c3cd1d0881e6 bprx:dppStatusValue "active".
+_:f246553044bb51c17d0b7f8aa734c324 bprx:percentageValue 3;
+    bprx:percentUnit "%".
+_:f26725ab332925aa620a4b2f9a7d18fb bprx:url "https://files.example.org/files/products/09521002005004/docs/declaration-of-conformity.pdf".
+_:f28a3650ff54395158cab2bf7c49f84f bprx:chemicalCodeValue "Li-ion LFP".
+_:f294d3daaf9d55f41a01767134f4251c bprx:ohmUnit "Ohm";
+    bpr:ohmValueForBatteryPack 2.
+_:f38714487bfe5f9057860afbfa0c2ef6 bprx:kgCO2EquivalentPerKilowattHourUnit "kgCO2-eq/kWh";
+    bprx:kgCO2EquivalentPerKilowattHourValue "45.2"^^xsd:double.
+_:f38d01008147275a12c0427f2c74997a bprx:url "https://files.example.org/files/products/09521002005004/docs/dismantling-safety.pdf".
+_:f47daae53526fa4dfb1d435a8827a3c6 bprx:kgCO2EquivalentPerKilowattHourUnit "kgCO2-eq/kWh";
+    bprx:kgCO2EquivalentPerKilowattHourValue "18.5"^^xsd:double.
+_:f6fcd8b777ccc2a71e178baca27fd8bc bprx:url "https://files.example.org/files/products/09521002005004/docs/collection-information.pdf".
+_:f931629c3490bc378c558f70448ca02 bpr:capacityFade _:fde3cbd174b121cef7c87b53e8f41f1d;
+    bpr:capacityThresholdForExhaustion _:fcb5fe0acf9e5b44dbc31da268e8635e;
+    bpr:cRateOfRelevantCycleLifeTest _:e5c3321dacea186145a0e86e369b0b8b;
+    bpr:cycleLifeReferenceTest "https://www.iec.ch/standards/62660-1";
+    bpr:expectedLifetimeInCalendarYears "15"^^xsd:double;
+    bpr:expectedLifetimeNumberOfChargeDischargeCycles 6000;
+    bpr:initialInternalResistanceOfBatteryCellAndPackModuleRecommended _:f294d3daaf9d55f41a01767134f4251c;
+    bpr:initialRoundTripEnergyEfficiency _:c40fcaa83acd097141e20220c8c98e70;
+    bpr:internalResistanceIncreaseOfPackCellAndModuleRecommended _:e267d539f3c7bbc5d5196135cbed2c91;
+    bpr:maximumVoltage _:eca253f2efecd559063e0ada81513b40;
+    bpr:minimumVoltage _:be4d2c5e36505eb4b1ff4f45ade4322a;
+    bpr:nominalVoltage _:e592e89fb6de4d622fa36677ecd8e421;
+    bpr:originalPowerCapability _:a9a43b7e0fdc88300c07d820ae3af0df;
+    bpr:powerFade _:a989ed8c55226594f2cad29404024167;
+    bpr:ratedCapacity _:e62f70a3934698f3b2ad8ff97bfade2f;
+    bpr:roundTripEnergyEfficiencyAt50PerCentOfCycleLife _:d021ec3911789758c8593eba477920d9;
+    bpr:stateOfCertifiedEnergySOCE _:ac29b4bc109e78ae37369b77ec9dd23b;
+    bpr:temperatureRangeIdleStateLowerBoundary _:cc818a37226c6db39a598c007b36af3;
+    bpr:temperatureRangeIdleStateUpperBoundary _:dd3866e2eee9f2810ad6bc50dbfbef9c.
+_:fca7437bf2f24ea7e2563d2153c3ac3b bprx:url "https://files.example.org/files/products/09521002005004/docs/separate-collection.pdf".
+_:fcb5fe0acf9e5b44dbc31da268e8635e bprx:percentageValue 70;
+    bprx:percentUnit "%".
+_:fde3cbd174b121cef7c87b53e8f41f1d bprx:percentageValue 3;
+    bprx:percentUnit "%".
+_:fe5aec533ad2cebb953c21eecf3be923 bprx:gramKilogramUnit "kg";
+    bprx:gramKilogramValue "125.5"^^xsd:double.
+_:ff02e2e343c94c4e28a98242b239cada bprx:identifier "21324-40-3";
+    bprx:identifierType "CAS No";
+    bpr:chemicalName "Lithium hexafluorophosphate (LiPF6)";
+    bpr:concentration "12.5"^^xsd:double;
+    bpr:substanceLocation "Electrolyte".
+<https://id.gs1.org/01/09521234010012/21/EV-2025-000142> a bprx:BatteryPassport;
+    bpr:batteryPassportData _:da261cbd29ac77b98db23c073a45dfe7;
+    bpr:dppHeader _:a922877314eb9ce6afcc289956270393.

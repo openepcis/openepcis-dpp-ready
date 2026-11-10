@@ -1,0 +1,45 @@
+@prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#> .
+@prefix bpsamm-perf: <urn:samm:io.BatteryPass.Performance:1.2.1#> .
+@prefix bpr: <https://ref.openepcis.org/vocab/batterypass-ready/1.3#> .
+@prefix bpsamm-carbon: <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#> .
+
+# BatteryPass (SAMM 1.2.x, read through battery-context-batterypass-bridge.jsonld) states the
+# measured and tested battery values flat, where OpenEPCIS states them as results of the battery
+# state and the performance test (common/assessment). Each row pairs a virtual flat handle of
+# shared/battery-handles.ttl with the SAMM attribute; the handle carries the value in the shape
+# BatteryPass gives it (a quantity node or a number), so a pair is a plain rename. The shared
+# entail and reshape updates build the handles from the assessments and back. Three test values and
+# the deep-discharge count have no SAMM 1.2.x attribute; they use the BatteryPass-Ready v1.3 longlist
+# names under the OpenEPCIS-hosted bpr: namespace (vocab/batterypass-ready-1.3.ttl).
+
+[] xw:ours <urn:xw:v:cRateLifeCycleTest> ; xw:theirs <https://ref.openepcis.org/vocab/batterypass-ready/1.3#C-rateOfRelevantCycle-lifeTest> .
+[] xw:ours <urn:xw:v:capacityThresholdForExhaustion> ; xw:theirs bpsamm-perf:capacityThresholdForExhaustion .
+[] xw:ours <urn:xw:v:expectedCycleLife> ; xw:theirs bpsamm-perf:expectedNumberOfCycles .
+[] xw:ours <urn:xw:v:hasCapacityFade> ; xw:theirs bpsamm-perf:capacityFade .
+[] xw:ours <urn:xw:v:hasCapacityThroughput> ; xw:theirs bpsamm-perf:capacityThroughput .
+[] xw:ours <urn:xw:v:hasCurrentSelfDischargingRate> ; xw:theirs bpsamm-perf:currentSelfDischargingRate .
+[] xw:ours <urn:xw:v:hasCycleCount> ; xw:theirs bpsamm-perf:numberOfFullCycles .
+[] xw:ours <urn:xw:v:hasEnergyThroughput> ; xw:theirs bpsamm-perf:energyThroughput .
+[] xw:ours <urn:xw:v:hasEvolutionOfSelfDischarge> ; xw:theirs bpsamm-perf:evolutionOfSelfDischarge .
+[] xw:ours <urn:xw:v:hasInternalResistanceIncrease> ; xw:theirs bpsamm-perf:internalResistanceIncrease .
+[] xw:ours <urn:xw:v:hasOriginalPowerCapability> ; xw:theirs bpsamm-perf:originalPowerCapability .
+[] xw:ours <urn:xw:v:hasPowerCapability> ; xw:theirs bpsamm-perf:powerCapabilityAt .
+[] xw:ours <urn:xw:v:hasPowerFade> ; xw:theirs bpsamm-perf:powerFade .
+[] xw:ours <urn:xw:v:hasRemainingCapacity> ; xw:theirs bpsamm-perf:remainingCapacity .
+[] xw:ours <urn:xw:v:hasRemainingPowerCapability> ; xw:theirs bpsamm-perf:remainingPowerCapability .
+[] xw:ours <urn:xw:v:hasRemainingRoundTripEfficiency> ; xw:theirs bpsamm-perf:remainingRoundTripEnergyEfficiency .
+[] xw:ours <urn:xw:v:hasRemainingUsableEnergy> ; xw:theirs bpsamm-perf:remainingEnergy .
+[] xw:ours <urn:xw:v:hasRoundTripEfficiencyFade> ; xw:theirs bpsamm-perf:roundTripEfficiencyFade .
+[] xw:ours <urn:xw:v:hasStateOfCertifiedEnergy> ; xw:theirs bpsamm-perf:stateOfCertifiedEnergy .
+[] xw:ours <urn:xw:v:hasStateOfCharge> ; xw:theirs bpsamm-perf:stateOfCharge .
+[] xw:ours <urn:xw:v:initialSelfDischarge> ; xw:theirs <https://ref.openepcis.org/vocab/batterypass-ready/1.3#InitialSelf-dischargeRate> .
+[] xw:ours <urn:xw:v:lifetimeReferenceTest> ; xw:theirs <https://ref.openepcis.org/vocab/batterypass-ready/1.3#Cycle-lifeReferenceTest> .
+[] xw:ours <urn:xw:v:roundTripEfficiency> ; xw:theirs bpsamm-perf:roundtripEfficiency .
+[] xw:ours <urn:xw:v:roundTripEfficiencyAt50PercentCycleLife> ; xw:theirs bpsamm-perf:roundTripEfficiencyAt50PercentCycleLife .
+[] xw:ours <urn:xw:v:stateOfChargeLevel> ; xw:theirs bpsamm-perf:atSoC .
+[] xw:ours <urn:xw:v:timeSpentChargingDuringExtremeTemperaturesAboveBoundary> ; xw:theirs bpsamm-perf:timeExtremeHighTempCharging .
+[] xw:ours <urn:xw:v:timeSpentChargingDuringExtremeTemperaturesBelowBoundary> ; xw:theirs bpsamm-perf:timeExtremeLowTempCharging .
+[] xw:ours <urn:xw:v:timeSpentInExtremeTemperaturesAboveBoundary> ; xw:theirs bpsamm-perf:timeExtremeHighTemp .
+[] xw:ours <urn:xw:v:timeSpentInExtremeTemperaturesBelowBoundary> ; xw:theirs bpsamm-perf:timeExtremeLowTemp .
+[] xw:ours <urn:xw:v:hasCarbonFootprintPerformanceClass> ; xw:theirs bpsamm-carbon:carbonFootprintPerformanceClass .
+[] xw:ours <urn:xw:v:numberOfDeepDischargeEvents> ; xw:theirs <https://ref.openepcis.org/vocab/batterypass-ready/1.3#NumberOfDeepDischargeEvents> .

@@ -1,0 +1,60 @@
+# The economic operator (eubat:hasOperatorInformation) and the manufacturer (gs1:manufacturer):
+# name, postal address on one line ("street, postal code locality, country code"; a one-line
+# schema:address as it is), website and e-mail. The manufacturer's identifier is its IRI, else its
+# party Digital Link. The manufacturing place is its address on one line ("locality, country
+# code"); the commercial warranty an ISO 8601 duration of years or months.
+CONSTRUCT {
+  ?r ?field ?oi . ?oi bprx:name ?name ; bpr:postalAddress ?addr ; bpr:webAddress ?web ; bpr:eMailAddress ?mail .
+  ?r bpr:uniqueManufacturerIdentifier ?mid .
+  ?r bpr:manufacturingPlace ?place .
+  ?r bpr:warrantyPeriod ?dur .
+}
+WHERE {
+  GRAPH <urn:xw:roots> { ?r xw:schema ?schema }
+  {
+    {
+      SELECT ?r ?field (SAMPLE(STR(?n)) AS ?name) (SAMPLE(COALESCE(?line, STR(?al))) AS ?addr)
+             (SAMPLE(STR(?m)) AS ?mail) (SAMPLE(STR(?w)) AS ?web)
+      WHERE {
+        GRAPH <urn:xw:roots> { ?r xw:schema ?s1 }
+        VALUES (?op ?field) { (eubat:hasOperatorInformation bpr:economicOperatorInformation) (gs1:manufacturer bpr:manufacturerInformation) }
+        GRAPH <urn:xw:in> { ?r ?op ?org }
+        OPTIONAL { GRAPH <urn:xw:in> { ?org gs1:organizationName ?n } }
+        OPTIONAL {
+          GRAPH <urn:xw:in> { ?org gs1:address ?a }
+          OPTIONAL { GRAPH <urn:xw:in> { ?a gs1:streetAddress ?st } }
+          OPTIONAL { GRAPH <urn:xw:in> { ?a gs1:postalCode ?pc } }
+          OPTIONAL { GRAPH <urn:xw:in> { ?a gs1:addressLocality ?lo } }
+          OPTIONAL { GRAPH <urn:xw:in> { ?a gs1:addressCountry/gs1:countryCode ?cc } }
+          BIND(CONCAT(COALESCE(CONCAT(STR(?st), ", "), ""), COALESCE(CONCAT(STR(?pc), " "), ""), COALESCE(STR(?lo), ""),
+                      COALESCE(CONCAT(", ", STR(?cc)), "")) AS ?line)
+        }
+        OPTIONAL { GRAPH <urn:xw:in> { ?org schema:address ?al } FILTER(isLiteral(?al)) }
+        OPTIONAL { GRAPH <urn:xw:in> { ?org gs1:contactPoint/gs1:email ?m } }
+        OPTIONAL { GRAPH <urn:xw:in> { ?org schema:url|gs1:contactPoint/schema:url ?w } }
+      } GROUP BY ?r ?field
+    }
+    BIND(BNODE() AS ?oi)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r gs1:manufacturer ?m2 }
+    OPTIONAL { GRAPH <urn:xw:in> { ?m2 gs1:globalLocationNumber ?gln } }
+    BIND(STR(COALESCE(IF(isIRI(?m2), ?m2, ?n1), IF(BOUND(?gln), CONCAT("https://id.gs1.org/417/", STR(?gln)), ?n2))) AS ?mid)
+    FILTER(BOUND(?mid))
+  } UNION {
+    {
+      SELECT ?r (SAMPLE(?pline) AS ?place) WHERE {
+        GRAPH <urn:xw:roots> { ?r xw:schema ?s2 }
+        GRAPH <urn:xw:in> { ?r eubat:hasManufacturingPlace/gs1:address ?pa }
+        OPTIONAL { GRAPH <urn:xw:in> { ?pa gs1:addressLocality ?plo } }
+        OPTIONAL { GRAPH <urn:xw:in> { ?pa gs1:addressCountry/gs1:countryCode ?pcc } }
+        BIND(CONCAT(COALESCE(STR(?plo), ""), IF(BOUND(?plo) && BOUND(?pcc), ", ", ""), COALESCE(STR(?pcc), "")) AS ?pline)
+        FILTER(?pline != "")
+      } GROUP BY ?r
+    }
+  } UNION {
+    GRAPH <urn:xw:in> { ?r gs1:manufacturersWarranty/gs1:durationOfWarranty ?q . ?q gs1:value ?wv ; gs1:unitCode ?wc }
+    VALUES (?code ?letter) { ("ANN" "Y") ("MON" "M") ("DAY" "D") }
+    FILTER(STR(?wc) = ?code)
+    BIND(CONCAT("P", STR(xsd:integer(ROUND(xsd:double(STR(?wv))))), ?letter) AS ?dur)
+  }
+}

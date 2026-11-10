@@ -12,11 +12,11 @@
  * silently stops checking the data it was written for.
  *
  * A key is resolved the way a document using it is: through the module's own standard,
- * shortcut and operational contexts plus the core and assessment ones (bridge and export
- * contexts excluded, they serve other vocabularies). The IRI it lands on must be defined by a
- * project or mirrored ontology, or by the GS1 / schema.org snapshot the vocab guard uses. A bare
- * key that no context binds passes when it is a GS1 Web Vocabulary term, which the operational
- * chain makes ambient.
+ * shortcut and operational contexts plus the core and assessment ones (bridge, export and
+ * BatteryPass-Ready contexts excluded, they serve other vocabularies). The IRI it lands on must be
+ * defined by a project or mirrored ontology, or by the GS1 / schema.org snapshot the vocab guard
+ * uses. A bare key that no context binds passes when it is a GS1 Web Vocabulary term, which the
+ * operational chain makes ambient.
  *
  * The BatteryPass-Ready longlist schema (batterypass-v1.3-schema.json) uses the longlist's own
  * attribute names on purpose and is not checked.
@@ -58,7 +58,7 @@ function collect(files: string[]) {
   return { keys, prefixes };
 }
 const contextFiles = (dir: string) =>
-  globSync(`${dir}/context/*.jsonld`).filter((f) => !/bridge|-to-|pefcr/.test(path.basename(f)));
+  globSync(`${dir}/context/*.jsonld`).filter((f) => !/bridge|-to-|pefcr|batterypass-ready/.test(path.basename(f)));
 
 const expand = (iri: string | undefined, key: string, prefixes: Map<string, string>) => {
   const v = iri ?? key;

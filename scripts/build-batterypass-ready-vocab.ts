@@ -15,7 +15,7 @@
  *      battery-context-batterypass-bridge.jsonld: four because OpenEPCIS models the concept
  *      across several terms and a partial match would drop data, four measured or tested
  *      values with no SAMM attribute that OpenEPCIS states as assessment results (converted
- *      by the batterypass crosswalk profile).
+ *      by the batterypass-1.3 crosswalk profile).
  *
  * KEEP is the explicit list below; every entry is verified at build time to exist in
  * the live-derived schemas (extensions/eu/battery/validation/gefeg-live/*.schema.json)
@@ -134,7 +134,7 @@ const KEEP: Record<string, string[]> = {
   PerformanceAndDurability: [
     "InformationOnAccidents",
     // Measured and tested values with no SAMM 1.2.x attribute that OpenEPCIS states as assessment
-    // results (common/assessment); the bridge keeps them under these IRIs, the batterypass crosswalk
+    // results (common/assessment); the bridge keeps them under these IRIs, the batterypass-1.3 crosswalk
     // profile converts them.
     "Cycle-lifeReferenceTest",
     "InitialSelf-dischargeRate",

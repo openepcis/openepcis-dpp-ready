@@ -1,32 +1,58 @@
 {
   "id": "batterypass",
-  "title": "BatteryPass (Battery Pass Consortium SAMM 1.2.x via the BatteryPass bridge context): the measured and tested battery values BatteryPass states flat. Everything else is OpenEPCIS on both sides and travels unchanged.",
+  "title": "BatteryPass-Ready data model 2.0.1 (GEFEG JSON Schemas, vendor/batterypass-ready/2.0.1), the current battery passport data model of the BatteryPass-Ready consortium: one document per battery item, a header and seven data groups, read as RDF with context/batterypass-ready-2.0.1-context.jsonld. Target side checked with the schema of the battery's category. The older SAMM 1.2.x / longlist v1.3 documents are the profile batterypass-1.3.",
   "prefixes": {
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
     "gs1": "https://ref.gs1.org/voc/",
+    "schema": "https://schema.org/",
+    "cccev": "http://data.europa.eu/m8g/",
     "oea": "https://ref.openepcis.org/extensions/common/assessment/",
     "oec": "https://ref.openepcis.org/extensions/common/core/",
     "eubat": "https://ref.openepcis.org/extensions/eu/battery/",
     "xw": "https://ref.openepcis.org/extensions/common/interop/crosswalk#",
-    "bpsamm-perf": "urn:samm:io.BatteryPass.Performance:1.2.1#",
-    "bpsamm-carbon": "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#",
-    "bpr": "https://ref.openepcis.org/vocab/batterypass-ready/1.3#"
+    "bpr": "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#",
+    "bprx": "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1/json#"
+  },
+  "json": {
+    "_comment": "How a passport travels as a BatteryPass-Ready 2.0.1 document: no context in the document, ours (context/batterypass-ready-2.0.1-context.jsonld) reads it; the root is the passport, typed only in RDF, and its IRI is the unique product identifier of the header. The schema is the one of the battery's category (all requirements; the February 2027 schemas are a subset).",
+    "context": "extensions/eu/battery/context/batterypass-ready-2.0.1-context.jsonld",
+    "typedStrings": false,
+    "schemaBy": {
+      "path": "batteryPassportData.identifiersAndProductData.batteryCategory.batteryCategoryValue",
+      "files": {
+        "electric vehicle battery": "vendor/batterypass-ready/2.0.1/JSONSchemaFiles/EV_2.0.1.json",
+        "LMT battery": "vendor/batterypass-ready/2.0.1/JSONSchemaFiles/LMT_2.0.1.json",
+        "industrial/stationary battery": "vendor/batterypass-ready/2.0.1/JSONSchemaFiles/Stationary_Industrial_Above_2kWh_2.0.1.json",
+        "industrial/non-stationary battery": "vendor/batterypass-ready/2.0.1/JSONSchemaFiles/Other_Industrial_Above_2kWh_2.0.1.json",
+        "industrial battery without BMS": "vendor/batterypass-ready/2.0.1/JSONSchemaFiles/Industrial_Without_BMS_2.0.1.json"
+      }
+    },
+    "rootType": "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1/json#BatteryPassport",
+    "rootId": "dppHeader.uniqueProductIdentifier"
   },
   "background": {
     "lift": [
       "vendor/gs1/gs1Voc.jsonld",
       "@modules",
+      "extensions/eu/battery/vocab/batterypass-ready-2.0.1.ttl",
+      "extensions/eu/battery/vocab/batterypass-ready-2.0.1-json.ttl",
+      "extensions/common/interop/crosswalk/batterypass/structure.ttl",
       "extensions/common/interop/crosswalk/shared/battery-handles.ttl"
     ],
     "lower": [
       "vendor/gs1/gs1Voc.jsonld",
       "@modules",
+      "extensions/eu/battery/vocab/batterypass-ready-2.0.1.ttl",
+      "extensions/eu/battery/vocab/batterypass-ready-2.0.1-json.ttl",
+      "extensions/common/interop/crosswalk/batterypass/structure.ttl",
       "extensions/common/interop/crosswalk/shared/battery-handles.ttl"
     ]
   },
   "updates": {
+    "_comment": "Shared with the eu-dpp and batterypass-1.3 profiles: battery values OpenEPCIS states as assessment results travel as virtual flat handles (shared/battery-handles.ttl).",
     "lift": {
       "entail": [
         "extensions/common/interop/crosswalk/shared/battery-entail.ru"
@@ -39,41 +65,19 @@
     }
   },
   "handles": {
-    "_comment": "OpenEPCIS terms travel unchanged in both directions (01-passthrough); the SAMM attributes the mapping table names are converted.",
-    "lift": [
-      "https://ref.openepcis.org/extensions/",
-      "https://ref.gs1.org/",
-      "https://schema.org/",
-      "http://purl.org/dc/terms/",
-      "http://data.europa.eu/m8g/",
-      "http://www.w3.org/"
-    ],
-    "lower": [
-      "https://ref.openepcis.org/extensions/",
-      "https://ref.gs1.org/",
-      "https://schema.org/",
-      "http://purl.org/dc/terms/",
-      "http://data.europa.eu/m8g/",
-      "http://www.w3.org/"
-    ]
+    "_comment": "Every term counts as handled only when a rule or the mapping table names it.",
+    "lift": [],
+    "lower": []
   },
   "vocabulary": {
-    "_comment": "lift: the SAMM attributes (extensions/eu/battery/vocab/batterypass-samm-terms.ttl) and BatteryPass-Ready v1.3 longlist-only attributes (extensions/eu/battery/vocab/batterypass-ready-1.3.ttl) the bridge context resolves to, checked term by term and by their axioms; OpenEPCIS terms are admitted by namespace (they travel unchanged). lower: OpenEPCIS.",
+    "_comment": "lift: the 2.0.1 data elements and the keys of its value containers. lower: the OpenEPCIS ontologies plus GS1, schema.org and CCCEV.",
     "lift": {
       "files": [
-        "extensions/eu/battery/vocab/batterypass-samm-terms.ttl",
-        "extensions/eu/battery/vocab/batterypass-ready-1.3.ttl"
+        "extensions/eu/battery/vocab/batterypass-ready-2.0.1.ttl",
+        "extensions/eu/battery/vocab/batterypass-ready-2.0.1-json.ttl"
       ],
       "namespaces": [
-        "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-        "http://www.w3.org/2000/01/rdf-schema#",
-        "https://ref.gs1.org/voc/",
-        "https://ref.gs1.org/epcis/",
-        "https://schema.org/",
-        "http://purl.org/dc/terms/",
-        "http://data.europa.eu/m8g/",
-        "http://www.w3.org/2002/07/owl#versionInfo",
-        "https://ref.openepcis.org/extensions/"
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
       ]
     },
     "lower": {
@@ -81,20 +85,14 @@
         "@modules"
       ],
       "namespaces": [
-        "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-        "http://www.w3.org/2000/01/rdf-schema#",
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "https://ref.gs1.org/voc/",
-        "https://ref.gs1.org/epcis/",
         "https://schema.org/",
-        "http://purl.org/dc/terms/",
-        "http://data.europa.eu/m8g/",
-        "https://ref.openepcis.org/vocab/batterypass-ready/1.3#",
-        "http://www.w3.org/2002/07/owl#versionInfo"
+        "http://data.europa.eu/m8g/"
       ]
     }
   },
   "shapes": {
-    "_comment": "The OpenEPCIS side is checked against every module's shapes.",
     "files": [
       "@shapes"
     ]

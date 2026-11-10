@@ -1,0 +1,40 @@
+# Related resources (documents): {url, contentType, language, resourceTitle}, one per data element.
+# xw:Document reads a document node (oec:DocumentReference, a dismantling document, a declaration of
+# conformity: URL, MIME type, language, name), of the type xw:docType names when the row names one;
+# xw:Url a bare URL (a text that is not a URL is not converted). Of several candidates the first by
+# URL. A language goes along only in the 2.0.1 form (language-REGION, "en-GB").
+CONSTRUCT {
+  ?r ?field ?res .
+  ?res bprx:url ?url ; bpr:contentType ?mime ; bpr:language ?lang ; bpr:resourceTitle ?title .
+}
+WHERE {
+  {
+    SELECT ?r ?field (MIN(?key) AS ?best) WHERE {
+      GRAPH <urn:xw:roots> { ?r xw:schema ?schema }
+      ?row xw:bprField ?field ; xw:ours ?p ; xw:form ?form .
+      FILTER(?form IN (xw:Document, xw:Url))
+      OPTIONAL { ?row xw:via ?via }
+      OPTIONAL { ?row xw:docType ?dt }
+      { GRAPH <urn:xw:in> { ?r ?p ?o } } UNION { GRAPH <urn:xw:in> { ?r ?via ?c . ?c ?p ?o } }
+      FILTER(!BOUND(?dt) || EXISTS { GRAPH <urn:xw:in> { ?o eubat:hasDocumentType ?dt } })
+      OPTIONAL { GRAPH <urn:xw:in> { ?o ?up ?u0 } FILTER(?up IN (oec:documentUrl, eubat:documentUrl, eubat:declarationOfConformity)) }
+      FILTER(BOUND(?u0) || (isLiteral(?o) && REGEX(STR(?o), "^https?://")) || (isIRI(?o) && ?form = xw:Url))
+      BIND(CONCAT(STR(COALESCE(?u0, ?o)), "|", IF(isBlank(?o), "", STR(?o))) AS ?key)
+    } GROUP BY ?r ?field
+  }
+  ?row xw:bprField ?field ; xw:ours ?p ; xw:form ?form .
+  OPTIONAL { ?row xw:via ?via2 }
+  OPTIONAL { ?row xw:docType ?dt2 }
+  { GRAPH <urn:xw:in> { ?r ?p ?o } } UNION { GRAPH <urn:xw:in> { ?r ?via2 ?c2 . ?c2 ?p ?o } }
+  FILTER(!BOUND(?dt2) || EXISTS { GRAPH <urn:xw:in> { ?o eubat:hasDocumentType ?dt2 } })
+  OPTIONAL { GRAPH <urn:xw:in> { ?o ?up ?u0 } FILTER(?up IN (oec:documentUrl, eubat:documentUrl, eubat:declarationOfConformity)) }
+  FILTER(CONCAT(STR(COALESCE(?u0, ?o)), "|", IF(isBlank(?o), "", STR(?o))) = ?best)
+  BIND(STR(COALESCE(?u0, ?o)) AS ?url)
+  OPTIONAL { GRAPH <urn:xw:in> { ?o ?mp ?m } FILTER(?mp IN (oec:mimeType, eubat:mimeType)) }
+  OPTIONAL { GRAPH <urn:xw:in> { ?o ?lp ?l } FILTER(?lp IN (oec:languageCode, eubat:languageCode) && REGEX(STR(?l), "^[a-z]{2}-[A-Z]{2}$")) }
+  OPTIONAL { GRAPH <urn:xw:in> { ?o schema:name ?t } }
+  BIND(STR(?m) AS ?mime)
+  BIND(STR(?l) AS ?lang)
+  BIND(STR(?t) AS ?title)
+  BIND(BNODE() AS ?res)
+}

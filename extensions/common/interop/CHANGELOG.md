@@ -4,9 +4,22 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
-### Added: BatteryPass crosswalk profile; virtual handles
+### Added: BatteryPass-Ready 2.0.1 crosswalk profile
 
-- New profile `batterypass`: the measured and tested battery values that BatteryPass (SAMM 1.2.x,
+- New profile `batterypass`: OpenEPCIS battery item passports convert to BatteryPass-Ready 2.0.1
+  documents (the GEFEG JSON Schemas, vendored under `vendor/batterypass-ready/2.0.1`) and back: header,
+  identifiers and product data, performance and durability, carbon footprint, materials and hazardous
+  substances, circularity, due diligence, labels and conformity. Every lift output is checked against
+  the schema of the battery's category; the document is read as RDF with the new
+  `batterypass-ready-2.0.1-context.jsonld`. Cases: the EV, LMT and industrial battery examples and a
+  stationary 2.0.1 document. What does not convert is listed in the README.
+- The target JSON layer (`scripts/lib/crosswalk-target.ts`) takes a profile's own context and one
+  schema per value of the document (`"context"`, `"schemaBy"`, `"typedStrings"`), besides the
+  Registry's content specifications; its caches are per profile.
+
+### Added: BatteryPass crosswalk profile for the older state; virtual handles
+
+- New profile `batterypass-1.3`: the measured and tested battery values that BatteryPass (SAMM 1.2.x,
   BatteryPass-Ready v1.3) states flat convert to and from the battery state and performance test of
   `common/assessment`; all other statements are OpenEPCIS on both sides and travel unchanged. Cases:
   the EV battery example, and the BatteryPass v1.3 reference passport read through the bridge.

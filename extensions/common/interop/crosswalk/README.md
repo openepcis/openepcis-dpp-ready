@@ -9,7 +9,8 @@ profile carries round-trip test cases whose results are committed and reviewed.
 |---|---|---|
 | [`cirpass2`](cirpass2/) | CIRPASS-2 EU DPP ontologies (EUDPP core 2.2.0, textile 1.1.2) | **EUDPP core:** product, DPP, identifiers (GTIN, GLN, LEI), actors and roles, facilities, addresses, materials, substances of concern, documents, declaration of conformity, regulations, quantities, recycled content, circularity, carbon footprint, EPD/LCIA, product events. **Assessments:** executions, tests, results, criteria (also a sector module's own), thresholds, indicators, units, EPCIS events (object and sensorReport form). **Textile:** durability, robustness, recyclability |
 | [`keystone`](keystone/) | DPP Keystone v3 (`dppk:`) | the JRC robustness and recyclability scores (flat on the product), the textile footprint figures and classes, the material test certificate values |
-| [`batterypass`](batterypass/) | BatteryPass (Battery Pass Consortium SAMM 1.2.x, BatteryPass-Ready v1.3 longlist), as read through `battery-context-batterypass-bridge.jsonld` | the measured and tested battery values BatteryPass states flat: state of health and charge, SOCE, cycles, capacity and power fade, resistance increase, throughput, round-trip efficiencies, self-discharge, temperature exposure, power capability, cycle life, thresholds, C-rate, reference test, carbon footprint class. Everything else is OpenEPCIS on both sides and travels unchanged |
+| [`batterypass`](batterypass/) | BatteryPass-Ready data model 2.0.1 (GEFEG JSON Schemas per battery category, `vendor/batterypass-ready/2.0.1`), read as RDF with `batterypass-ready-2.0.1-context.jsonld` | the whole item passport: header (identifiers, granularity, status, schema version, economic operator, facility), identifiers and product data, performance and durability (measured values from the battery state and the performance test), carbon footprint, materials and hazardous substances, circularity and documents, due diligence, labels and conformity. Checked with the JSON Schema of the battery's category |
+| [`batterypass-1.3`](batterypass-1.3/) | the older BatteryPass state: Battery Pass Consortium SAMM 1.2.x and the BatteryPass-Ready v1.3 longlist, as read through `battery-context-batterypass-bridge.jsonld` | the measured and tested battery values these documents state flat: state of health and charge, SOCE, cycles, capacity and power fade, resistance increase, throughput, round-trip efficiencies, self-discharge, temperature exposure, power capability, cycle life, thresholds, C-rate, reference test, carbon footprint class. Everything else is OpenEPCIS on both sides and travels unchanged |
 | [`eu-dpp`](eu-dpp/) | EU DPP Registry semantic data artifacts 1.0.0 (the Commission's passport JSON: core, batteries, EV / LMT / industrial) | **Core:** passport identifier, unique product identifier, granularity, status, last update, content specifications, for every product passport. **Batteries:** identification, manufacturer, manufacturing place and date, category, status, chemistry, hazardous substances, critical raw materials, label symbols, weight, capacities, voltages, power limit, resistances, efficiencies, C-rates, lifetimes, cycle counts, state-of-health values, temperature range, warranty, documents. Checked with the Commission's SHACL shapes and JSON Schemas, and against its 20 conformance examples |
 
 ## Running it
@@ -55,9 +56,11 @@ silently.
 
 A profile whose target ships its own JSON form, SHACL shapes and JSON Schemas (`profile.json`
 `"json"` and `"targetShapes"`; `scripts/lib/crosswalk-target.ts`) is checked against them: the
-context follows from the document's content specifications, the passport root carries the
-target's root type in RDF (its shapes target it) and the unique product identifier as IRI, and the
-JSON the target receives is rendered from the lift output.
+context follows from the document's content specifications (EU DPP Registry) or is the profile's
+own (`"context"`, BatteryPass-Ready, whose schemas publish none), the schema from the content
+specifications or from a value of the document (`"schemaBy"`: the battery category), the passport
+root carries the target's root type in RDF (its shapes target it) and the unique product identifier
+as IRI, and the JSON the target receives is rendered from the lift output.
 
 The engine (`scripts/lib/crosswalk.ts`, Oxigraph) loads the input into one named graph, the
 background ontologies and the mapping table into two others, and runs every rule. Rules anchor on
@@ -139,7 +142,7 @@ For every test case, in both directions:
    per example how many input statements come back (per term) and how many terms no rule names.
    Data an EPCIS event carries in `ilmd` or as an event extension (rather than as product master
    data) is not converted to product data.
-8. For a profile with its own JSON form (`eu-dpp`), every lift output (test case and module example)
+8. For a profile with its own JSON form (`eu-dpp`, `batterypass`), every lift output (test case and module example)
    satisfies the target's SHACL shapes and, rendered as the target's JSON, its JSON Schemas, for the
    content specifications it declares. The JSON must expand back to exactly the lifted RDF and use
    no key outside the target's context. A **missing** value (`sh:minCount`, also nested; a required
@@ -272,6 +275,55 @@ What the OpenEPCIS battery model cannot hold, found by lowering the Commission's
 | `environmentalConditionHistogramSet`, `stateOfChargeHistogram` | minutes above / below the boundary, the current state of charge |
 | `sparePartReplacementDetails` (a document) | spare-part sources as organisations |
 | energy values (kWh) | the Registry has no energy unit; kWh values are not converted |
+
+## The BatteryPass-Ready 2.0.1 profile
+
+BatteryPass-Ready (the Battery Pass Consortium's successor project, maintained by acatech, published
+by GEFEG at `git.gefeg.com/bp/BatteryPassDataModel`) states the battery passport as JSON Schema per
+battery category, with no IRIs and no context. `pnpm run sync:batterypass-ready` vendors the ten
+2.0.1 schemas (`vendor/batterypass-ready/2.0.1`, CC BY 4.0); `tools/vocab-sync/tools/build-bpr-vocab.py`
+gives the 122 data elements OpenEPCIS-hosted IRIs (`bpr:`, `vocab/batterypass-ready-2.0.1.ttl`), and
+`pnpm run build:batterypass-ready-context` the keys of the value containers (`bprx:`, unit, value, url,
+name, ...), the context that reads a 2.0.1 document as RDF key by key (nested as the JSON is) and
+`batterypass/structure.ttl`: where each element sits (header or one of the seven data groups) and
+which categories' schemas have it.
+
+A document is one battery item: `{dppHeader, batteryPassportData}`. The lift takes each item-level
+battery that states its category (EV, LMT, stationary, other industrial) as a passport; a model or
+batch passport has no 2.0.1 document. Its rules write every element flat on the root, a reshape
+update nests them into header and groups and leaves out what the category's schema does not have
+(an EV passport has no remaining round-trip efficiency). The lower flattens the groups into a graph
+of its own and reads them back. The rows of `batterypass/mappings.ttl` follow those of `eu-dpp`:
+a measured value (a quantity or a bare number in a fixed unit) becomes the 2.0.1 value container
+with its unit converted (kW to W), an integer container gets the rounded value; texts, numbers,
+codes, documents and URLs pair element by element. Values OpenEPCIS states as results of the battery
+state or the performance test travel as the shared virtual handles.
+
+The header follows EN 18223: the passport identifier defaults to the product identifier, the economic
+operator to the operator's or manufacturer's party Digital Link (`https://id.gs1.org/417/{GLN}`), the
+facility is the manufacturing place; the schema version is the battery's `schema:schemaVersion`. On the
+way down a party Digital Link gives the operator's GLN, and an economic operator that is the
+manufacturer gets the role `oec:Manufacturer`.
+
+What does not convert, and why (each listed in the cases' `roundtrip.txt`):
+
+| 2.0.1 data element | OpenEPCIS today |
+|---|---|
+| `contentType` of a resource OpenEPCIS keeps as a bare URL (waste prevention, collection, due diligence report, test report, symbols) | no media type: the value is reported missing on the way up and lost on the way back |
+| `registeredTradeNameOrRegisteredTrademark`, `thirdPartyServiceProvider` | no term |
+| `temperatureInformation`, `numberOfOverchargeEvents`, `informationOnAccidents` | no term (negative events are structured, without a resource link) |
+| `informationOnSourcesOfSpareParts` | spare-part sources as organisations, without a resource |
+| `agentFireClass` of the extinguishing agent | the agent as a text only |
+| `materialsUsedInCathodeAnodeAndElectrolyte`, `meaningOfLabelsAndSymbols` | written from the active materials and electrolyte and from the label meanings; one list or text in 2.0.1, so not split again on the way back |
+| `remainingPowerCapability`, `originalPowerCapability` | values per state of charge; only 80 % and 20 % have a place |
+| internal resistance (cell, module, pack) in whole ohms | values below 0.5 Ω are not representable and stay out (2.0.1 types them as integers) |
+| percentages | whole percent (2.0.1 types them as integers) |
+| category "industrial battery without BMS" | OpenEPCIS states no battery management system: lowers to `eubat:IndustrialBattery`, lifts back as other industrial |
+| OpenEPCIS values 2.0.1 dropped from v1.3 (energy and capacity throughput, time in extreme temperatures, state of health) | not converted; the `batterypass-1.3` profile keeps them |
+
+`pnpm run export:batterypass-ready -- <passport.jsonld>` writes the 2.0.1 document of a passport and
+lists the required values it lacks; `pnpm test` checks the exports of the battery examples against
+their category schemas.
 
 ## Adding a profile
 

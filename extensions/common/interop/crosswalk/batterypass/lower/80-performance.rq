@@ -1,0 +1,50 @@
+# Containers of several values back to our values: the power capability at 80 % and 20 % state of
+# charge as the handles' sub-assessments (original: performance test, remaining: battery state),
+# the initial internal resistance of pack and cell, the internal resistance increase of the pack
+# and the idle-state temperature range of the technical specification.
+CONSTRUCT {
+  ?holder ?h ?sub . ?sub <urn:xw:v:stateOfChargeLevel> ?soc ; <urn:xw:v:hasPowerCapability> ?pq . ?pq a gs1:QuantitativeValue ; gs1:value ?w ; gs1:unitCode "WTT" .
+  ?r eubat:hasTechnicalSpecifications ?tsUsed . ?tsUsed a eubat:TechnicalSpecification .
+  ?ts ?rh ?rq . ?rq a gs1:QuantitativeValue ; gs1:value ?ohm ; gs1:unitCode "OHM" .
+  ?r <urn:xw:v:hasInternalResistanceIncrease> ?iq . ?iq a gs1:QuantitativeValue ; gs1:value ?inc ; gs1:unitCode "P1" .
+  ?ts eubat:hasTemperatureRangeIdleState ?tr . ?tr a eubat:TemperatureRange ; ?bp ?tq . ?tq a gs1:QuantitativeValue ; gs1:value ?deg ; gs1:unitCode "CEL" .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?r a bprx:BatteryPassport }
+  FILTER(isIRI(?r))
+  {
+    VALUES (?field ?h ?scope) { (bpr:originalPowerCapability <urn:xw:v:hasOriginalPowerCapability> "test")
+                                (bpr:remainingPowerCapability <urn:xw:v:hasRemainingPowerCapability> "state") }
+    VALUES (?slot ?soc) { (bpr:wattValueAt80PercentStateOfCharge 80.0) (bpr:wattValueAt20PercentStateOfCharge 20.0) }
+    GRAPH <urn:xw:flat> { ?r ?field ?pc } GRAPH <urn:xw:in> { ?pc ?slot ?v ; bprx:wattUnit "W" }
+    BIND(IRI(CONCAT(STR(?r), "#specs")) AS ?ts)
+    BIND(IF(?scope = "test", ?ts, ?r) AS ?holder)
+    BIND(IF(?scope = "test", ?ts, ?none) AS ?tsUsed)
+    BIND(IRI(CONCAT(STR(?r), "#", IF(?scope = "test", "power-", "remaining-power-"), STR(xsd:integer(?soc)))) AS ?sub)
+    BIND(xsd:decimal(STR(?v)) AS ?w)
+    BIND(BNODE() AS ?pq)
+  } UNION {
+    VALUES (?rslot ?rh) { (bpr:ohmValueForBatteryPack <urn:xw:v:hasInitialPackInternalResistance>)
+                          (bpr:ohmValueForBatteryCell <urn:xw:v:hasInitialCellInternalResistance>) }
+    GRAPH <urn:xw:flat> { ?r bpr:initialInternalResistanceOfBatteryCellAndPackModuleRecommended ?ir }
+    GRAPH <urn:xw:in> { ?ir ?rslot ?rv ; bprx:ohmUnit "Ohm" }
+    BIND(xsd:decimal(STR(?rv)) AS ?ohm)
+    BIND(IRI(CONCAT(STR(?r), "#specs")) AS ?ts)
+    BIND(?ts AS ?tsUsed)
+    BIND(BNODE() AS ?rq)
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:internalResistanceIncreaseOfPackCellAndModuleRecommended ?ri }
+    GRAPH <urn:xw:in> { ?ri bpr:internalResistanceIncreaseValueForBatteryPack ?iv ; bprx:percentUnit "%" }
+    BIND(xsd:decimal(STR(?iv)) AS ?inc)
+    BIND(BNODE() AS ?iq)
+  } UNION {
+    VALUES (?tfield ?bp) { (bpr:temperatureRangeIdleStateLowerBoundary eubat:hasMinimumTemperature)
+                           (bpr:temperatureRangeIdleStateUpperBoundary eubat:hasMaximumTemperature) }
+    GRAPH <urn:xw:flat> { ?r ?tfield ?tc } GRAPH <urn:xw:in> { ?tc bprx:celsiusValue ?tv ; bprx:degreeCelsiusUnit "°C" }
+    BIND(IRI(CONCAT(STR(?r), "#temp-idle")) AS ?tr)
+    BIND(xsd:decimal(STR(?tv)) AS ?deg)
+    BIND(IRI(CONCAT(STR(?r), "#specs")) AS ?ts)
+    BIND(?ts AS ?tsUsed)
+    BIND(BNODE() AS ?tq)
+  }
+}

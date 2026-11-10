@@ -9,12 +9,20 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Added: BatteryPass-Ready 2.0.1
+
+The battery module follows the current BatteryPass-Ready data model 2.0.1: the GEFEG JSON Schemas are
+vendored (`pnpm run sync:batterypass-ready`), a context reads a 2.0.1 document as RDF, and the new
+crosswalk profile `batterypass` converts OpenEPCIS battery item passports to 2.0.1 documents and back,
+checked against the schema of each battery category. The profile for the older state (SAMM 1.2.x and
+longlist v1.3) is now `batterypass-1.3`.
+
 ### Breaking: battery measured and tested values on `common/assessment`
 
 Fourth wave of the assessment model: the battery state of health and use and the performance and
 durability tests are assessments with results, thresholds, protocol settings and indicators;
 47 flat battery terms are removed. EPCIS sensorReport types are the parameter IRIs. A new
-`batterypass` crosswalk profile converts the values BatteryPass states flat; the BatteryPass bridge
+`batterypass-1.3` crosswalk profile converts the values BatteryPass states flat; the BatteryPass bridge
 keeps their keys under the BatteryPass IRIs. `scripts/migrate-assessment.ts` rewrites stored
 passports.
 
