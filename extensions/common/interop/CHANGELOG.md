@@ -4,6 +4,26 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+### Added: EU DPP Registry crosswalk profile
+
+A third crosswalk profile, `eu-dpp`, converts passports to and from the Commission's DPP Registry
+semantic data artifacts 1.0.0: the core passport header for every product passport, and the battery
+data elements (identification, manufacturer, manufacturing place and date, category, status,
+chemistry, substances, critical raw materials, label symbols, weight, capacities, voltages, power,
+resistances, efficiencies, C-rates, lifetimes, cycles, state-of-health values, temperature range,
+warranty, documents). The gate checks the target side with the Commission's own SHACL shapes (SPARQL
+constraints included) and JSON Schemas, renders the JSON the Registry receives
+(`lifted.eu-dpp.json`), and runs the Commission's 20 conformance examples: our check finds no wrong
+form in them, and each passport among them goes down to OpenEPCIS and back (`conformance.txt`). Two
+defects of the release are accepted (language tags need a region; a model identifier needs a batch
+number); what the OpenEPCIS battery model cannot hold is listed in the crosswalk README. The engine
+restores derived integer datatypes Oxigraph normalises; the offline loader resolves the Registry's
+contexts from `vendor/eu-dpp` and inlines their chained `@import`, which JSON-LD 1.1 forbids.
+The rows use the battery terms of 0.11.0 (`hasExpectedLifetime`, `hasRemainingRoundTripEfficiency`,
+`hasSafetyMeasures` as a document on the end-of-life information, `hasDismantlingAndRemovalInformation`);
+the Registry's current and remaining round-trip efficiency share one term, so lowering keeps the
+remaining value (`xw:lowerUnless`).
+
 ### Added: crosswalk checks against the CIRPASS-2 ontologies and every module example
 
 The gate checks each lift output against the OWL/RDFS axioms of the CIRPASS-2 ontologies
@@ -31,7 +51,7 @@ upstream (`docs/upstream/cirpass2/2026-10-31-eudpp-core-gaps.md`).
 
 ### Added: crosswalk profiles `cirpass2` and `keystone`
 
-Rule-driven conversion to and from CIRPASS-2 (textile 1.1.2, EUDPP 2.1.0) and DPP Keystone v2, with
+Rule-driven conversion to and from CIRPASS-2 (textile 1.1.2, EUDPP 2.2.0) and DPP Keystone v3, with
 round-trip test cases, committed goldens and loss reports (`crosswalk/README.md`). The CIRPASS-2
 alignment doc points to it; a draft upstream issue lists six things CIRPASS-2 assessment data
 cannot express (`docs/upstream/cirpass2/`).

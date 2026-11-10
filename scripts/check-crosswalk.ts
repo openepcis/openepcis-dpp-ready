@@ -43,6 +43,7 @@ import {
   type Conversion, type Profile,
 } from "./lib/crosswalk.ts";
 import { indexOntology, structureFindings, type OntologyIndex } from "./lib/owl-structure.ts";
+import { hasTargetJson, jsonSchemaFindings, targetShapeFindings, theirJsonToQuads, toTheirJson, type TargetFindings } from "./lib/crosswalk-target.ts";
 import { materialiseSubProperties, parseTurtle as parseStore, stripOwlImports, stripSparqlConstraints, validate } from "./lib/shacl-run.ts";
 
 const RDF_TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
@@ -186,6 +187,48 @@ function structureCheck(p: Profile, quads: Quad[]): { failing: string[]; accepte
   return { failing, accepted: [...accepted].sort().map(([l, n]) => `  ${l}  (${n})`) };
 }
 
+/**
+ * The target side of a profile with its own JSON form, shapes and schemas: SHACL on the RDF, the
+ * JSON documents rendered from it (one per passport), which must expand back to exactly that RDF
+ * and satisfy the JSON Schemas. A wrong form fails unless the profile accepts it as a defect of the
+ * target (profile.json "structure"); a missing value is the document's content and is reported.
+ */
+async function targetCheck(p: Profile, quads: Quad[], label: string): Promise<{ docs: Record<string, unknown>[]; missing: string[]; accepted: string[] }> {
+  const shapes = await targetShapeFindings(p, quads);
+  const docs = await toTheirJson(p, quads);
+  const schema: TargetFindings = { form: [], missing: [] };
+  for (const doc of docs) {
+    const f = jsonSchemaFindings(p, doc);
+    schema.form.push(...f.form);
+    schema.missing.push(...f.missing);
+  }
+  // A key the target's context does not define compacts to an IRI (or a keyword): the target would
+  // read it as unknown.
+  const strayKeys = (node: unknown): string[] => Array.isArray(node) ? node.flatMap(strayKeys)
+    : node && typeof node === "object" ? Object.entries(node as Record<string, unknown>).flatMap(([k, v]) => [...(/[:@]/.test(k) ? [k] : []), ...strayKeys(v)])
+    : [];
+  schema.form.push(...[...new Set(docs.flatMap(strayKeys))].map((k) => `json key outside the target's context: ${k}`));
+  const roots = (await Promise.all(docs.map((d) => theirJsonToQuads(p, d)))).flat();
+  if ((await canonical(sameValueSpelling(roots))) !== (await canonical(sameValueSpelling(quads)))) {
+    hardCheck(`${label} target JSON`, ["does not expand back to the converted RDF"]);
+  }
+  const entries = p.structure?.accepted ?? [];
+  const used = acceptedUsed.get(p.id) ?? new Set<number>();
+  acceptedUsed.set(p.id, used);
+  const failing: string[] = [];
+  const accepted: string[] = [];
+  for (const f of [...shapes.form, ...schema.form]) {
+    const i = entries.findIndex((e) => new RegExp(e.match).test(f));
+    if (i < 0) failing.push(f);
+    else {
+      used.add(i);
+      accepted.push(`  gap ${entries[i].gap}  ${f}`);
+    }
+  }
+  hardCheck(`${label} violates the target's shapes or schemas`, failing);
+  return { docs, missing: [...new Set([...shapes.missing, ...schema.missing])].sort(), accepted: [...new Set(accepted)].sort() };
+}
+
 /** Violations without blank-node labels (they differ between documents), each once, sorted. */
 function unlabelled(vs: string[]): string[] {
   return [...new Set(vs.map((v) => v.replace(/(^|\s)n3-\d+(?=\s)/g, "$1_").trim()))].sort();
@@ -208,7 +251,7 @@ async function runCase(p: Profile, dir: string): Promise<void> {
   const name = dir.slice(dir.lastIndexOf("/") + 1);
   cases++;
   const ours = ["ours.jsonld", "ours.ttl"].map((f) => join(dir, f)).find(existsSync);
-  const theirs = join(dir, `${p.id}.ttl`);
+  const theirs = [`${p.id}.json`, `${p.id}.ttl`].map((f) => join(dir, f)).find(existsSync) ?? join(dir, `${p.id}.ttl`);
   let input: Quad[], first: Conversion, back: Conversion, firstDir: "lift" | "lower";
   if (ours) {
     input = await loadInput(ours);
@@ -216,12 +259,12 @@ async function runCase(p: Profile, dir: string): Promise<void> {
     back = convert(p, "lower", first.quads);
     firstDir = "lift";
   } else if (existsSync(theirs)) {
-    input = await loadInput(theirs);
+    input = theirs.endsWith(".json") ? await theirJsonToQuads(p, JSON.parse(readFileSync(theirs, "utf8"))) : await loadInput(theirs);
     first = convert(p, "lower", input);
     back = convert(p, "lift", first.quads);
     firstDir = "lower";
   } else {
-    console.log(`  FAIL ${name}: neither ours.jsonld/ours.ttl nor ${p.id}.ttl`);
+    console.log(`  FAIL ${name}: neither ours.jsonld/ours.ttl nor ${p.id}.ttl/${p.id}.json`);
     failures++;
     return;
   }
@@ -237,6 +280,9 @@ async function runCase(p: Profile, dir: string): Promise<void> {
   const structure = structureCheck(p, liftOut);
   hardCheck(`${name} lift output violates the target ontology`, structure.failing);
   if (firstDir === "lower") hardCheck(`${name} input violates the target ontology`, structureCheck(p, input).failing);
+  const target = hasTargetJson(p) ? await targetCheck(p, liftOut, `${name} lift output`) : undefined;
+  if (target && firstDir === "lower") await targetCheck(p, input, `${name} input`);
+  if (target) await golden(join(dir, `lifted.${p.id}.json`), JSON.stringify(target.docs.length === 1 ? target.docs[0] : target.docs, null, 2) + "\n", `${name} target JSON`);
   // Our document must satisfy our shapes; what its way back no longer satisfies (data the target
   // cannot hold that a shape requires) is part of the committed report.
   const wayBackFindings = firstDir === "lift" ? await newViolations(p, [...input, ...first.entailed], back.quads) : [];
@@ -265,6 +311,14 @@ async function runCase(p: Profile, dir: string): Promise<void> {
     ...(p.vocabulary.lift.files.length
       ? ["## target-ontology axioms the lifted document does not satisfy (accepted gaps)",
          ...(structure.accepted.length ? structure.accepted : ["none"]),
+         ""]
+      : []),
+    ...(target
+      ? ["## target shapes and schemas: values the passport lacks",
+         ...(target.missing.length ? target.missing.map((f) => `  ${f}`) : ["none"]),
+         "",
+         "## target shapes and schemas: accepted defects of the target",
+         ...(target.accepted.length ? target.accepted : ["none"]),
          ""]
       : []),
     ...(firstDir === "lift"
@@ -326,6 +380,7 @@ async function runExample(p: Profile, rel: string): Promise<string | undefined> 
   hardCheck(`${rel} lift output leaks`, vocabularyLeaks(p, "lift", up.quads));
   hardCheck(`${rel} lower output leaks`, vocabularyLeaks(p, "lower", back.quads));
   hardCheck(`${rel} lift output violates the target ontology`, structureCheck(p, up.quads).failing);
+  if (hasTargetJson(p)) await targetCheck(p, up.quads, `${rel} lift output`);
   if ((await canonical(sameValueSpelling(await jsonldToQuads(await toOursJsonLd(back.quads))))) !== (await canonical(sameValueSpelling(back.quads)))) {
     hardCheck(`${rel} lowered JSON-LD`, ["does not expand back to the lowered RDF"]);
   }
@@ -361,6 +416,56 @@ if (!CASES_ONLY) {
        ...(exampleShapeLines.length ? exampleShapeLines : ["none"]), ""].join("\n"),
       `${id} examples`);
     console.log(`crosswalk ${id}: ${examples.length} module example(s) ${failures === before ? (WRITE ? "written" : "convert cleanly") : "FAIL"}`);
+  }
+}
+
+/** The target's own conformance examples (profile.json json.conformance), repo-relative, sorted. */
+function conformanceDocs(p: Profile): string[] {
+  const base = (p as Profile & { json?: { conformance: string } }).json?.conformance;
+  if (!base) return [];
+  const walk = (dir: string): string[] => readdirSync(join(ROOT, dir), { withFileTypes: true }).flatMap((d) =>
+    d.isDirectory() ? walk(join(dir, d.name)) : dir.endsWith("tests/conforms") && d.name.endsWith(".json") ? [join(dir, d.name)] : []);
+  return walk(base).sort();
+}
+
+/**
+ * The target's own examples: our check of the target must agree with the target (no wrong form in
+ * them), and a passport (one with a unique product identifier; a restricted view alone is not one)
+ * goes down to OpenEPCIS and back up. What the way back does not restore is committed per profile
+ * in conformance.txt.
+ */
+if (!CASES_ONLY) {
+  for (const id of listProfiles()) {
+    const p = loadProfile(id);
+    const docs = conformanceDocs(p);
+    if (!docs.length) continue;
+    const before = failures;
+    const lines = ["# The target's own conformance examples: lower to OpenEPCIS, lift back", ""];
+    for (const rel of docs) {
+      const doc = JSON.parse(readFileSync(join(ROOT, rel), "utf8"));
+      const view = /^(pub|res\d)-/.exec(rel.replace(/.*\//, ""))?.[1];
+      const input = await theirJsonToQuads(p, doc);
+      const shapes = await targetShapeFindings(p, input, view);
+      const schema = jsonSchemaFindings(p, doc, view);
+      hardCheck(`${rel}: our check of the target finds a wrong form in the target's own example`, [...shapes.form, ...schema.form]);
+      lines.push(`## ${rel.slice(rel.indexOf("1.0.0/") + 6)}`);
+      if (typeof doc.uniqueProductIdentifier !== "string") {
+        lines.push("a view without the passport header: checked, not converted", "");
+        continue;
+      }
+      const down = convert(p, "lower", input);
+      const up = convert(p, "lift", down.quads);
+      hardCheck(`${rel} lower output leaks`, vocabularyLeaks(p, "lower", down.quads));
+      hardCheck(`${rel} lift output leaks`, vocabularyLeaks(p, "lift", up.quads));
+      await targetCheck(p, up.quads, `${rel} way back`);
+      lines.push(`in ${input.length} triples, lower ${down.quads.length}, back ${up.quads.length}`);
+      lines.push(...deltaText("the way back compared with the example", predicateDelta(input, up.quads), p).slice(1));
+      lines.push(...unhandledText(down, p).slice(1).map((l) => (l === "none" ? "every term handled" : `not converted ${l.trim()}`)));
+      const ours = unlabelled(await shaclViolations(p, down.quads));
+      lines.push(...(ours.length ? ours.map((v) => `OpenEPCIS shape ${v}`) : []), "");
+    }
+    await golden(join(p.dir, "conformance.txt"), lines.join("\n"), `${id} conformance examples`);
+    console.log(`crosswalk ${id}: ${docs.length} conformance example(s) of the target ${failures === before ? (WRITE ? "written" : "check out") : "FAIL"}`);
   }
 }
 

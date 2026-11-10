@@ -1,0 +1,28 @@
+# Measured and declared values: a {unit, value} object on the passport. xw:Quantity reads our
+# gs1:QuantitativeValue and converts its unit (a code without a Registry unit is not converted);
+# xw:Scalar reads a bare number in the row's unit. The value sits on the product or on the
+# container xw:via names. Subgroup data elements only for a passport of a subgroup, and not
+# for a subgroup that excludes them.
+CONSTRUCT { ?r ?field ?q . ?q dppcom:value ?val ; dppcom:unit ?u . }
+WHERE {
+  ?row xw:euField ?field ; xw:ours ?p ; xw:form ?form .
+  FILTER(?form IN (xw:Quantity, xw:Scalar))
+  OPTIONAL { ?row xw:via ?via }
+  OPTIONAL { ?row xw:subgroup ?sub }
+  GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
+  FILTER(!BOUND(?sub) || EXISTS { GRAPH <urn:xw:roots> { ?r xw:spec ?sg } FILTER(CONTAINS(?sg, "/subgroup/")) })
+  FILTER NOT EXISTS { ?row xw:forbiddenIn ?fs . GRAPH <urn:xw:roots> { ?r xw:spec ?rs } FILTER(STR(?rs) = STR(?fs)) }
+  { GRAPH <urn:xw:in> { ?r ?p ?o } } UNION { GRAPH <urn:xw:in> { ?r ?via ?c . ?c ?p ?o } }
+  OPTIONAL {
+    GRAPH <urn:xw:in> { ?o gs1:value ?qv ; gs1:unitCode ?code }
+    ?urow xw:unitCode ?uc ; xw:euUnit ?qu . FILTER(STR(?uc) = STR(?code))
+    OPTIONAL { ?urow xw:factor ?uf }
+  }
+  OPTIONAL { ?row xw:euUnit ?su . OPTIONAL { ?row xw:factor ?sf } }
+  BIND(IF(?form = xw:Quantity, ?qv, IF(isLiteral(?o), ?o, ?none)) AS ?v)
+  BIND(IF(?form = xw:Quantity, ?qu, ?su) AS ?u)
+  BIND(COALESCE(IF(?form = xw:Quantity, ?uf, ?sf), 1) AS ?f)
+  BIND(xsd:double(STR(?v)) * ?f AS ?val)
+  FILTER(BOUND(?val) && BOUND(?u))
+  BIND(BNODE() AS ?q)
+}

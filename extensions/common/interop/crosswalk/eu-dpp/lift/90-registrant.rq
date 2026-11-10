@@ -1,0 +1,9 @@
+# The registrant: the passport issuer by its identifier (IRI), else the economic operator.
+CONSTRUCT { ?r bat:registrantIdentity ?id . }
+WHERE {
+  GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
+  OPTIONAL { GRAPH <urn:xw:in> { ?r oec:hasPassportIssuer ?issuer } FILTER(isIRI(?issuer)) }
+  OPTIONAL { GRAPH <urn:xw:in> { ?r eubat:hasOperatorInformation ?op } FILTER(isIRI(?op)) }
+  BIND(STR(COALESCE(?issuer, ?op)) AS ?id)
+  FILTER(BOUND(?id))
+}

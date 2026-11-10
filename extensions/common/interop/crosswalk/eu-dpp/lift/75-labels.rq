@@ -1,0 +1,10 @@
+# The separate collection symbol: shown when the product has a label of subject separate collection
+# or the symbol's URL.
+CONSTRUCT { ?r bat:separateCollectionSymbol true . }
+WHERE {
+  GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
+  FILTER EXISTS {
+    { GRAPH <urn:xw:in> { ?r eubat:hasLabels/eubat:hasLabelSubject eubat:SeparateCollection } }
+    UNION { GRAPH <urn:xw:in> { ?r eubat:separateCollectionSymbolUrl ?u } }
+  }
+}

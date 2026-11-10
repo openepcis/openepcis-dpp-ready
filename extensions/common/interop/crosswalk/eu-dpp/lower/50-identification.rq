@@ -1,0 +1,11 @@
+# Battery identification: model identifier, batch, serial number; the product number as GTIN when
+# it is one (8, 12, 13 or 14 digits).
+CONSTRUCT { ?r eubat:batteryModelIdentifier ?model ; gs1:hasBatchLotNumber ?batch ; gs1:hasSerialNumber ?serial ; gs1:gtin ?gtin . }
+WHERE {
+  GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport ; bat:batteryIdentification ?id }
+  FILTER(isIRI(?r))
+  { GRAPH <urn:xw:in> { ?id bat:modelIdentifier ?model } }
+  UNION { GRAPH <urn:xw:in> { ?id bat:batchNumber ?batch } }
+  UNION { GRAPH <urn:xw:in> { ?id bat:serialNumber ?serial } }
+  UNION { GRAPH <urn:xw:in> { ?id bat:productNumber ?pn } FILTER(REGEX(STR(?pn), "^([0-9]{8}|[0-9]{12,14})$")) BIND(STR(?pn) AS ?gtin) }
+}

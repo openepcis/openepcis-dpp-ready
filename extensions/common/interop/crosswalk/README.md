@@ -7,8 +7,9 @@ profile carries round-trip test cases whose results are committed and reviewed.
 
 | Profile | Target | Covers today |
 |---|---|---|
-| [`cirpass2`](cirpass2/) | CIRPASS-2 EU DPP ontologies (EUDPP core 2.1.0, textile 1.1.2) | **EUDPP core:** product, DPP, identifiers (GTIN, GLN, LEI), actors and roles, facilities, addresses, materials, substances of concern, documents, declaration of conformity, regulations, quantities, recycled content, circularity, carbon footprint, EPD/LCIA, product events. **Assessments:** executions, tests, results, criteria (also a sector module's own), thresholds, indicators, units, EPCIS events (object and sensorReport form). **Textile:** durability, robustness, recyclability |
-| [`keystone`](keystone/) | DPP Keystone v2 (`dppk:`) | the JRC robustness and recyclability scores (flat on the product) |
+| [`cirpass2`](cirpass2/) | CIRPASS-2 EU DPP ontologies (EUDPP core 2.2.0, textile 1.1.2) | **EUDPP core:** product, DPP, identifiers (GTIN, GLN, LEI), actors and roles, facilities, addresses, materials, substances of concern, documents, declaration of conformity, regulations, quantities, recycled content, circularity, carbon footprint, EPD/LCIA, product events. **Assessments:** executions, tests, results, criteria (also a sector module's own), thresholds, indicators, units, EPCIS events (object and sensorReport form). **Textile:** durability, robustness, recyclability |
+| [`keystone`](keystone/) | DPP Keystone v3 (`dppk:`) | the JRC robustness and recyclability scores (flat on the product) |
+| [`eu-dpp`](eu-dpp/) | EU DPP Registry semantic data artifacts 1.0.0 (the Commission's passport JSON: core, batteries, EV / LMT / industrial) | **Core:** passport identifier, unique product identifier, granularity, status, last update, content specifications, for every product passport. **Batteries:** identification, manufacturer, manufacturing place and date, category, status, chemistry, hazardous substances, critical raw materials, label symbols, weight, capacities, voltages, power limit, resistances, efficiencies, C-rates, lifetimes, cycle counts, state-of-health values, temperature range, warranty, documents. Checked with the Commission's SHACL shapes and JSON Schemas, and against its 20 conformance examples |
 
 BatteryPass follows once the battery module is on the assessment model.
 
@@ -21,6 +22,7 @@ pnpm run check:crosswalk                 # the round-trip gate (part of pnpm run
 pnpm run check:crosswalk -- --report     # … and what each module example keeps
 pnpm run build:crosswalk-goldens         # regenerate the committed expectations after a rule change
 pnpm run check:shapes:itb                # lowered documents through the EC validator (needs the container)
+pnpm run crosswalk -- --profile eu-dpp --lift --in extensions/eu/battery/examples/battery-product.jsonld
 ```
 
 `--lift` goes from OpenEPCIS to the target, `--lower` from the target to OpenEPCIS. Input is JSON-LD
@@ -42,20 +44,35 @@ silently.
                  without "type": a GS1 Digital Link of a trade item is a gs1:Product, an untyped
                  node gets the rdfs:range class of its property)
   lower/*.rq     SPARQL CONSTRUCT rules target → OpenEPCIS
-  tests/<case>/  ours.jsonld | ours.ttl  or  <profile>.ttl, plus committed goldens: the converted
-                 document, roundtrip.txt, lowered.ours.jsonld (what an OpenEPCIS consumer receives)
+  tests/<case>/  ours.jsonld | ours.ttl  or  <profile>.ttl | <profile>.json, plus committed goldens:
+                 the converted document, roundtrip.txt, lowered.ours.jsonld (what an OpenEPCIS
+                 consumer receives), lifted.<profile>.json (what the target receives, for a
+                 profile with its own JSON form)
   examples-shapes.txt  what the way back of a module example no longer satisfies (committed)
+  conformance.txt  the target's own examples, lowered and lifted back (profile with "json")
 ```
+
+A profile whose target ships its own JSON form, SHACL shapes and JSON Schemas (`profile.json`
+`"json"` and `"targetShapes"`; `scripts/lib/crosswalk-target.ts`) is checked against them: the
+context follows from the document's content specifications, the passport root carries the
+target's root type in RDF (its shapes target it) and the unique product identifier as IRI, and the
+JSON the target receives is rendered from the lift output.
 
 The engine (`scripts/lib/crosswalk.ts`, Oxigraph) loads the input into one named graph, the
 background ontologies and the mapping table into two others, and runs every rule. Rules anchor on
 the input graph and read hierarchy and tables from the rest. There is no per-term code: a new term
 is a row in `mappings.ttl`, a new structure a rule.
 
-Two Oxigraph 0.5.11 behaviours rules must respect: a decimal zero multiplied or divided by a
-decimal is an evaluation error (the value silently disappears), so every unit conversion keeps zero
-explicitly; and a `NOT EXISTS` with a class path evaluated per row is slow, so such tests are
-computed once in a subquery (`190-schema`, `195-gs1-passthrough`).
+Oxigraph 0.5.11 behaviours rules must respect: a decimal zero multiplied or divided by a decimal is
+an evaluation error (the value silently disappears), so every unit conversion keeps zero explicitly
+(or converts in `xsd:double`); a `NOT EXISTS` with a class path evaluated per row is slow, so such
+tests are computed once in a subquery (`190-schema`, `195-gs1-passthrough`); an update (`entail/*.ru`)
+sees no union default graph, so it names `<urn:xw:bg>` and `<urn:xw:map>`; and a literal of a derived
+integer type (`xsd:positiveInteger`, `xsd:nonNegativeInteger`) comes back as `xsd:integer`, so the
+engine retypes it from the mapping table (`xw:theirDatatype`, `xw:ourDatatype`), as it does for
+`xsd:dateTimeStamp`. One SPARQL rule of thumb cost several bugs: a `FILTER` or `BIND` inside a `UNION`
+branch sees only that branch's variables, so a value from outside the branch is joined in, not
+referenced.
 
 Principles every profile follows:
 
@@ -113,6 +130,16 @@ For every test case, in both directions:
    per example how many input statements come back (per term) and how many terms no rule names.
    Data an EPCIS event carries in `ilmd` or as an event extension (rather than as product master
    data) is not converted to product data.
+8. For a profile with its own JSON form (`eu-dpp`), every lift output (test case and module example)
+   satisfies the target's SHACL shapes and, rendered as the target's JSON, its JSON Schemas, for the
+   content specifications it declares. The JSON must expand back to exactly the lifted RDF and use
+   no key outside the target's context. A **missing** value (`sh:minCount`, also nested; a required
+   `sh:hasValue` with no value; JSON Schema `required`) is the passport's content and is listed in
+   `roundtrip.txt`; any other finding is a **wrong form** and fails, unless `structure.accepted`
+   names it as a defect of the target release.
+9. The target's own conformance examples: our check must find no wrong form in them (so it agrees
+   with the target's validator), and each passport among them is lowered to OpenEPCIS and lifted
+   back; what the way back does not restore is committed in `conformance.txt`.
 
 The test cases are written by us from the published module definitions. CIRPASS-2 publishes no
 instance data; when it does, those documents become test cases as they are. The `core-*` cases
@@ -124,7 +151,7 @@ cases; each sector step of the crosswalk turns those lines into rules or gaps.
 
 ## Known gaps of the CIRPASS-2 profile
 
-What CIRPASS-2 (textile 1.1.2, EUDPP 2.1.0) has no place for, and how the profile carries it.
+What CIRPASS-2 (textile 1.1.2, EUDPP 2.2.0) has no place for, and how the profile carries it.
 Items 1 to 6 (assessments) are filed upstream as [CIRPASS-2/ontologies-docs#3](https://github.com/CIRPASS-2/ontologies-docs/issues/3), text in
 [`../docs/upstream/cirpass2/2026-10-31-assessment-gaps.md`](../docs/upstream/cirpass2/2026-10-31-assessment-gaps.md).
 
@@ -171,6 +198,71 @@ so the lift adds the type (and the way back drops it).
 The sensorReport form of an assessment comes back in the object form: the two are equivalent by the
 EPCIS binding of `common/assessment`, and the object form is the one with room for criteria and
 indicators.
+
+## The EU DPP Registry profile
+
+The Commission's passport is one flat JSON record per product (`eu-dpp/`): every data element hangs
+off the root, measured values are `{unit, value}` with one of the Registry's eleven units, code
+values are full IRIs of its value lists, and the passport is split into views (pub, res1 to res3)
+that the shapes and schemas name. The lift writes one record holding all views; the passport root
+is the product, its IRI the unique product identifier. The rules are table-driven
+(`eu-dpp/mappings.ttl`): a row per data element names our term, its form (quantity, bare number in a
+fixed unit, count, text, document, URL) and, where OpenEPCIS keeps the value on a container node of
+the product (technical specification, end-of-life information, performance information), the
+container. Code values pair through the `skos:exactMatch` our ontologies already carry; the
+chemistry list goes by the short name of the electrochemical system, countries from alpha-2 to
+alpha-3, the warranty from years to months, kW to W. Data elements a subgroup excludes
+(`sh:maxCount 0`: an EV passport states its state of certified energy, the others their remaining
+capacity) are written only where allowed. The rows follow the Registry adjudication of 2026-11-06
+recorded in the battery and core ontologies (`skos:exactMatch` to the Registry vocabularies).
+
+Checking the target side needed three workarounds, each confined to the checker:
+
+- **SHACL.** rdf-validate-shacl 0.6.5 evaluates `sh:and` / `sh:or` / `sh:xone` / `sh:not` of a
+  property shape against the focus node instead of each value, so every `{unit, value}` of a valid
+  Registry passport failed (pySHACL 0.40 accepts the Commission's examples). The shapes are
+  rewritten to the equivalent form the library gets right (`sh:node` around the logical constraint,
+  `sh:and` split per member). The Registry's SPARQL constraints run on Oxigraph, with the focus
+  nodes worked out from targets, `sh:property`, `sh:node` and `sh:or`.
+- **Contexts.** The subgroup contexts `@import` the battery context, which `@import`s the core
+  context; JSON-LD 1.1 forbids an imported context to import again, so a conforming processor
+  rejects every EV, LMT and industrial passport. The offline loader inlines the chain.
+- **JSON.** The contexts declare no `@set`, so compaction writes a one-element list
+  (`contentSpecificationIds`) as a scalar, which the JSON Schemas reject; list-valued keys are read
+  from the schemas. Code values are written as full IRIs, as the Commission's own examples do.
+
+With these, our check finds no wrong form in any of the Commission's 20 conformance examples, and
+the core example comes back from OpenEPCIS unchanged.
+
+Defects of release 1.0.0 the profile accepts (`structure.accepted`; also listed in
+[`vendor/eu-dpp/README.md`](../../../../vendor/eu-dpp/README.md)):
+
+| # | Defect | Effect on an OpenEPCIS passport |
+|---|---|---|
+| 1 | A language-tagged text needs a region (`en-IE`); a plain BCP 47 tag such as `en` is rejected. | Texts in `en`, `de`, … are rejected; a document language without region is left out of a resource. |
+| 2 | A model identifier is accepted only together with a batch number. | An item passport with serial number but no batch cannot name its model. |
+
+Required by the Registry, missing from the passport (listed per case, not failing): the temperature
+range each voltage was measured at (Annex XIII 1 (h) asks for it "when relevant"), the reference
+test of the not-in-use temperature range.
+
+What the OpenEPCIS battery model cannot hold, found by lowering the Commission's examples
+(`conformance.txt`); each is a candidate for the battery step:
+
+| Registry data element | OpenEPCIS today |
+|---|---|
+| `manufacturingDate` (year and month) | `gs1:productionDate` is a full date; a month is not lowered |
+| `manufacturerTradeName`, `manufacturerTrademark` | no term |
+| `complianceTestReportResults` as a document (content type, title, language) | a bare URL (`eubat:resultOfTestReport`); the Registry requires the content type |
+| `roundTripEnergyEfficiency` and `remainingRoundTripEfficiency` as two values | one term (`eubat:hasRemainingRoundTripEfficiency`, adjudication of 2026-11-06); lowering keeps the remaining value, lifting writes it to both |
+| `euDeclarationOfConformity` content type, title, language | `cccev:Evidence` with the URL only |
+| `originalPowerCapability`, `powerCapability` (one value) | values per state of charge (80 % and 20 %) |
+| `numberOfDischargingCycles` | only the full cycle count |
+| `wasteBatteryPreventionManagementInfo` (ten texts) | three URLs (`eubat:wastePrevention`, …) |
+| `detailedComposition`, `negativeEvents`, `cycleLifeReferenceTest`, `notInUseTemperatureRangeTest` (texts) | structured or URL-valued terms, or none |
+| `environmentalConditionHistogramSet`, `stateOfChargeHistogram` | minutes above / below the boundary, the current state of charge |
+| `sparePartReplacementDetails` (a document) | spare-part sources as organisations |
+| energy values (kWh) | the Registry has no energy unit; kWh values are not converted |
 
 ## Adding a profile
 

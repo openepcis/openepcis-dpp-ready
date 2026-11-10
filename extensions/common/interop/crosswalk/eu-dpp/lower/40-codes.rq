@@ -1,0 +1,10 @@
+# Battery category and status: the OpenEPCIS code whose skos:exactMatch is the Registry's value.
+CONSTRUCT { ?r ?p ?code . }
+WHERE {
+  GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport ; ?field ?eu }
+  FILTER(isIRI(?r))
+  ?field xw:codeNamespace ?ns ; xw:ourProperty ?p .
+  FILTER(STRSTARTS(STR(?eu), ?ns))
+  ?code skos:exactMatch ?eu .
+  FILTER(STRSTARTS(STR(?code), "https://ref.openepcis.org/"))
+}

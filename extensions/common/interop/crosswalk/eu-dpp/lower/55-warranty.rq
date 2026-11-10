@@ -1,0 +1,12 @@
+# Commercial warranty period (months) as the duration of the manufacturer's warranty.
+CONSTRUCT {
+  ?r gs1:manufacturersWarranty ?w . ?w a gs1:WarrantyPromise ; gs1:durationOfWarranty ?q .
+  ?q a gs1:QuantitativeValue ; gs1:value ?v ; gs1:unitCode "MON" .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport ; bat:commercialWarrantyPeriod ?m }
+  FILTER(isIRI(?r))
+  BIND(IRI(CONCAT(STR(?r), "#warranty")) AS ?w)
+  BIND(xsd:decimal(?m) AS ?v)
+  BIND(BNODE() AS ?q)
+}

@@ -1,0 +1,29 @@
+# Chemistry and substances: the electrochemical system by its short name; each hazardous substance
+# and each critical raw material as a node with its name (the raw material flagged critical); the
+# label symbols as the two flags (a symbol the passport does not list is not required).
+CONSTRUCT {
+  ?r eubat:hasBatteryChemistry ?chemNode . ?chemNode a eubat:BatteryChemistry ; schema:alternateName ?cname .
+  ?r eubat:hasHazardousSubstances ?hz . ?hz a eubat:HazardousSubstance ; schema:name ?hname .
+  ?r eubat:hasMaterialComposition ?mat . ?mat a eubat:BatteryMaterial ; schema:name ?mname ; eubat:isCriticalRawMaterial true .
+  ?r eubat:cadmiumSymbolRequired ?cd ; eubat:leadSymbolRequired ?pb .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport }
+  FILTER(isIRI(?r))
+  {
+    GRAPH <urn:xw:in> { ?r bat:batteryChemistry ?chem }
+    ?chem xw:lowerName ?cname .
+    BIND(IRI(CONCAT(STR(?r), "#chemistry")) AS ?chemNode)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r bat:hazardousSubstances ?h }
+    BIND(STR(?h) AS ?hname) BIND(BNODE() AS ?hz)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r bat:criticalRawMaterials ?crm }
+    GRAPH <urn:xw:bg> { ?crm skos:prefLabel ?l } FILTER(LANGMATCHES(LANG(?l), "en"))
+    BIND(STR(?l) AS ?mname) BIND(BNODE() AS ?mat)
+  } UNION {
+    { SELECT DISTINCT ?r WHERE { GRAPH <urn:xw:in> { ?r bat:chemicalSymbol ?any } } }
+    BIND(EXISTS { GRAPH <urn:xw:in> { ?r bat:chemicalSymbol batsym:cadmiumSymbol } } AS ?cd)
+    BIND(EXISTS { GRAPH <urn:xw:in> { ?r bat:chemicalSymbol batsym:leadSymbol } } AS ?pb)
+  }
+}

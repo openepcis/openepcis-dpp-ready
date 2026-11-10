@@ -1,0 +1,406 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix schema: <https://schema.org/> .
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix eubat: <https://ref.openepcis.org/extensions/eu/battery/> .
+@prefix dpp: <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#> .
+@prefix dppcom: <https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#> .
+@prefix bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#> .
+@prefix gran: <https://repository.product-passport.ec.europa.eu/core/vocabs/granularity-level#> .
+@prefix inst: <https://repository.product-passport.ec.europa.eu/core/vocabs/instance-status#> .
+@prefix unit: <https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#> .
+@prefix batcat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-category#> .
+@prefix batchem: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-chemistry#> .
+@prefix batsta: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status#> .
+
+# Pairing tables of the OpenEPCIS ↔ EU DPP Registry crosswalk. The rules in lift/ and lower/
+# read them; nothing here is ontology. The Registry's passport is one flat record per product:
+# every data element hangs off the passport root (the product), measured values are
+# {unit, value} objects with a unit from the Registry's eleven-unit list. OpenEPCIS keeps the same
+# values on the product or on a container node of it (technical specification, end-of-life
+# information, performance information); xw:via names that container.
+#
+# Code values (granularity, battery category and status) pair through the skos:exactMatch our
+# ontologies already carry: the rules read them from the background, not from this file.
+
+# ---------------------------------------------------------------- content specifications
+# A passport declares the core specification, the batteries specification when it describes a
+# battery, and the subgroup of its battery category.
+batcat:electricVehicleBattery        xw:subgroupSpec "product/batteries/subgroup/evb/1.0.0" .
+batcat:lightMeansOfTransportBattery  xw:subgroupSpec "product/batteries/subgroup/lmt/1.0.0" .
+batcat:industrialBattery             xw:subgroupSpec "product/batteries/subgroup/ind/1.0.0" .
+
+# The attribute-level reporting granularity of a battery passport follows the passport's.
+oec:Model xw:reportingGranularity oec:ModelLevel .
+oec:Batch xw:reportingGranularity oec:BatchLevel .
+oec:Item  xw:reportingGranularity oec:ItemLevel .
+
+# ---------------------------------------------------------------- passport status
+# EN 18223 status tokens against the Registry's valid / invalid. Lowering an invalid passport
+# yields "invalid": the Registry does not say which kind of invalid.
+[] xw:ourStatus "active"    ; xw:euStatus inst:validStatus ; xw:lowerDefault true .
+[] xw:ourStatus "invalid"   ; xw:euStatus inst:invalidStatus ; xw:lowerDefault true .
+[] xw:ourStatus "inactive"  ; xw:euStatus inst:invalidStatus .
+[] xw:ourStatus "archived"  ; xw:euStatus inst:invalidStatus .
+[] xw:ourStatus "withdrawn" ; xw:euStatus inst:invalidStatus .
+[] xw:ourStatus "suspended" ; xw:euStatus inst:invalidStatus .
+
+# ---------------------------------------------------------------- units
+# UN/CEFACT Rec 20 codes against the Registry's measurement units. xw:factor converts our value
+# into the Registry's unit (kW → W). Lowering uses the row marked xw:lowerDefault. Units the
+# Registry lacks (kWh, A, year, minute, count) have no row: such a value is not converted.
+[] xw:unitCode "KGM" ; xw:euUnit unit:kilogram ; xw:lowerDefault true .
+[] xw:unitCode "GRM" ; xw:euUnit unit:gram ; xw:lowerDefault true .
+[] xw:unitCode "AMH" ; xw:euUnit unit:ampereHour ; xw:lowerDefault true .
+[] xw:unitCode "E09" ; xw:euUnit unit:milliampereHour ; xw:lowerDefault true .
+[] xw:unitCode "P1"  ; xw:euUnit unit:percent ; xw:lowerDefault true .
+[] xw:unitCode "VLT" ; xw:euUnit unit:volt ; xw:lowerDefault true .
+[] xw:unitCode "CEL" ; xw:euUnit unit:degreeCelsius ; xw:lowerDefault true .
+[] xw:unitCode "WTT" ; xw:euUnit unit:watt ; xw:lowerDefault true .
+[] xw:unitCode "KWT" ; xw:euUnit unit:watt ; xw:factor 1000 .
+[] xw:unitCode "OHM" ; xw:euUnit unit:ohm ; xw:lowerDefault true .
+[] xw:unitCode "H10" ; xw:euUnit unit:reciprocalHour ; xw:lowerDefault true .
+[] xw:unitCode "HUR" ; xw:euUnit unit:hour ; xw:lowerDefault true .
+
+# ---------------------------------------------------------------- containers
+# Lowering puts a value back into the container its row names, as a node with the product's IRI
+# and the fragment our examples use.
+eubat:hasTechnicalSpecifications xw:fragment "specs" ; xw:containerClass eubat:TechnicalSpecification .
+eubat:hasEndOfLifeInfo           xw:fragment "eol" ; xw:containerClass eubat:EndOfLifeInfo .
+oec:hasPerformanceInfo           xw:fragment "performance" ; xw:containerClass oec:PerformanceInfo .
+
+# ---------------------------------------------------------------- code-valued data elements
+# The Registry's value list (by namespace) and the OpenEPCIS property lowering writes the code to.
+bat:batteryCategory xw:codeNamespace "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-category#" ; xw:ourProperty schema:category .
+bat:batteryStatus   xw:codeNamespace "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status#" ; xw:ourProperty schema:status .
+
+# ---------------------------------------------------------------- measured values
+# xw:Quantity: our value is a gs1:QuantitativeValue (gs1:value, gs1:unitCode).
+# xw:Scalar: our value is a bare number in a fixed unit (xw:euUnit), xw:factor scales it into the
+# Registry's unit (a 0–1 ratio into percent). xw:subgroup marks data elements only the
+# subgroup specifications (EV, LMT, industrial) define, xw:forbiddenIn the subgroups whose shapes
+# exclude one (sh:maxCount 0: an EV passport states SOCE, the others remaining capacity).
+# xw:lowerUnless: lowering takes this element only when the passport lacks the one named. The
+# Registry's current and remaining round-trip efficiency are one OpenEPCIS term (adjudication of
+# 2026-11-06); lifting writes both, lowering keeps the remaining one.
+[] xw:euField bat:batteryWeight ; xw:ours eubat:hasBatteryMass ; xw:form xw:Quantity .
+[] xw:euField bat:batteryWeight ; xw:ours gs1:netWeight ; xw:form xw:Quantity ; xw:lowerSkip true .
+[] xw:euField bat:batteryCapacity ; xw:ours eubat:hasRatedCapacity ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications .
+[] xw:euField bat:ratedCapacity ; xw:ours eubat:hasRatedCapacity ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications ; xw:subgroup true ; xw:lowerSkip true .
+[] xw:euField bat:minimalVoltage ; xw:ours eubat:hasMinimumVoltage ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications .
+[] xw:euField bat:nominalVoltage ; xw:ours eubat:hasNominalVoltage ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications .
+[] xw:euField bat:maximumVoltage ; xw:ours eubat:hasMaximumVoltage ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications .
+[] xw:euField bat:powerLimit ; xw:ours eubat:hasMaximumPermittedBatteryPower ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications .
+[] xw:euField bat:internalCellResistance ; xw:ours eubat:hasInitialCellInternalResistance ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications .
+[] xw:euField bat:internalPackResistance ; xw:ours eubat:hasInitialPackInternalResistance ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications .
+[] xw:euField bat:remainingCapacity ; xw:ours eubat:hasRemainingCapacity ; xw:form xw:Quantity ; xw:subgroup true ; xw:forbiddenIn "product/batteries/subgroup/evb/1.0.0" .
+[] xw:euField bat:capacityFade ; xw:ours eubat:hasCapacityFade ; xw:form xw:Quantity ; xw:subgroup true .
+[] xw:euField bat:powerFade ; xw:ours eubat:hasPowerFade ; xw:form xw:Quantity ; xw:subgroup true .
+[] xw:euField bat:internalResistance ; xw:ours eubat:hasInternalResistance ; xw:form xw:Quantity ; xw:subgroup true .
+[] xw:euField bat:internalResistanceIncrease ; xw:ours eubat:hasInternalResistanceIncrease ; xw:form xw:Quantity ; xw:subgroup true .
+[] xw:euField bat:remainingRoundTripEfficiency ; xw:ours eubat:hasRemainingRoundTripEfficiency ; xw:form xw:Quantity ; xw:subgroup true ; xw:forbiddenIn "product/batteries/subgroup/evb/1.0.0" .
+[] xw:euField bat:roundTripEnergyEfficiencyFade ; xw:ours eubat:hasRoundTripEfficiencyFade ; xw:form xw:Quantity .
+[] xw:euField bat:stateOfCertifiedEnergy ; xw:ours eubat:hasStateOfCertifiedEnergy ; xw:form xw:Quantity ; xw:subgroup true ; xw:forbiddenIn "product/batteries/subgroup/ind/1.0.0", "product/batteries/subgroup/lmt/1.0.0" .
+[] xw:euField bat:renewableContentShare ; xw:ours eubat:renewableContent ; xw:form xw:Scalar ; xw:euUnit unit:percent ; xw:via eubat:hasEndOfLifeInfo .
+[] xw:euField bat:capacityExhaustionThreshold ; xw:ours eubat:capacityThresholdForExhaustion ; xw:form xw:Scalar ; xw:euUnit unit:percent ; xw:via eubat:hasTechnicalSpecifications ; xw:subgroup true ; xw:forbiddenIn "product/batteries/subgroup/ind/1.0.0", "product/batteries/subgroup/lmt/1.0.0" .
+[] xw:euField bat:initialRoundTripEnergyEfficiency ; xw:ours eubat:roundTripEfficiency ; xw:form xw:Scalar ; xw:euUnit unit:percent ; xw:via eubat:hasTechnicalSpecifications ; xw:subgroup true .
+[] xw:euField bat:roundTripEfficiencyAtHalfCycleLife ; xw:ours eubat:roundTripEfficiencyAt50PercentCycleLife ; xw:form xw:Scalar ; xw:euUnit unit:percent ; xw:via eubat:hasTechnicalSpecifications ; xw:subgroup true .
+[] xw:euField bat:roundTripEnergyEfficiency ; xw:ours eubat:hasRemainingRoundTripEfficiency ; xw:form xw:Quantity ; xw:lowerUnless bat:remainingRoundTripEfficiency .
+[] xw:euField bat:cycleLifeChargeCRate ; xw:ours eubat:cRateLifeCycleTest ; xw:form xw:Scalar ; xw:euUnit unit:reciprocalHour ; xw:via eubat:hasTechnicalSpecifications ; xw:subgroup true .
+[] xw:euField bat:cycleLifeDischargeCRate ; xw:ours eubat:dischargeCRateLifeCycleTest ; xw:form xw:Scalar ; xw:euUnit unit:reciprocalHour ; xw:via eubat:hasTechnicalSpecifications .
+
+# ---------------------------------------------------------------- plain values on the root
+# Numbers and texts the Registry keeps as they are. xw:theirDatatype is the Registry's datatype,
+# xw:ourDatatype ours (lowering). A count may be a gs1:QuantitativeValue on our side: xw:ourUnit
+# is then the unit code the lowering writes.
+[] xw:euField bat:expectedLifetimeCycles ; xw:ours eubat:expectedCycleLife ; xw:form xw:Plain ; xw:theirDatatype xsd:positiveInteger ; xw:ourDatatype xsd:integer ; xw:via eubat:hasTechnicalSpecifications ; xw:subgroup true .
+[] xw:euField bat:expectedLifetimeYears ; xw:ours eubat:hasExpectedLifetime ; xw:form xw:Plain ; xw:theirDatatype xsd:positiveInteger ; xw:ourDatatype xsd:integer ; xw:ourUnit "ANN" ; xw:via eubat:hasTechnicalSpecifications ; xw:subgroup true .
+[] xw:euField bat:expectedLifetimeCyclesRest ; xw:ours eubat:expectedRemainingCycles ; xw:form xw:Plain ; xw:theirDatatype xsd:positiveInteger ; xw:ourDatatype xsd:integer ; xw:subgroup true .
+[] xw:euField bat:numberOfChargingCycles ; xw:ours eubat:hasCycleCount ; xw:form xw:Plain ; xw:theirDatatype xsd:nonNegativeInteger ; xw:ourDatatype xsd:integer ; xw:ourUnit "C62" .
+[] xw:euField bat:extinguishingAgent ; xw:ours eubat:extinguishingAgent ; xw:form xw:Text ; xw:via eubat:hasEndOfLifeInfo .
+
+# ---------------------------------------------------------------- separate collection symbol
+# The Registry asks whether the label shows the crossed-out wheeled bin (true is the only valid
+# answer). Ours: a label whose subject is separate collection, or the symbol's URL.
+[] xw:euField bat:separateCollectionSymbol ; xw:ours eubat:hasLabels, eubat:separateCollectionSymbolUrl .
+
+# ---------------------------------------------------------------- resources (documents)
+# A Registry resource is {resourceTitle, contentType, url, language}. Ours: an oec:DocumentReference
+# (or a dismantling document) with oec:documentUrl, oec:mimeType, oec:languageCode, a declaration of
+# conformity (cccev:Evidence) with eubat:declarationOfConformity, or a bare URL. Lowering writes an
+# oec:DocumentReference, for the declaration a cccev:Evidence with its URL.
+[] xw:euField bat:dismantlingInformation ; xw:ours eubat:hasDismantlingAndRemovalInformation ; xw:form xw:Document .
+[] xw:euField bat:euDeclarationOfConformity ; xw:ours eubat:hasEuDeclarationOfConformity ; xw:form xw:Document .
+[] xw:euField bat:euDeclarationOfConformity ; xw:ours oec:hasConformityDeclaration ; xw:form xw:Document ; xw:lowerSkip true .
+[] xw:euField bat:complianceTestReportResults ; xw:ours eubat:resultOfTestReport ; xw:form xw:Url .
+[] xw:euField bat:safetyMeasures ; xw:ours eubat:hasSafetyMeasures ; xw:form xw:Document ; xw:via eubat:hasEndOfLifeInfo .
+
+# ---------------------------------------------------------------- battery chemistry
+# The Registry's chemistry list against the short name OpenEPCIS gives the electrochemical system
+# (schema:alternateName of eubat:hasBatteryChemistry); lowering writes the short name.
+batchem:leadAcid           xw:chemistryName "Pb", "lead-acid" ; xw:lowerName "Pb" .
+batchem:nickelCadmium      xw:chemistryName "NiCd" ; xw:lowerName "NiCd" .
+batchem:nickelMetalHydride xw:chemistryName "NiMH" ; xw:lowerName "NiMH" .
+batchem:lithiumIonNMC      xw:chemistryName "NMC" ; xw:lowerName "NMC" .
+batchem:lithiumIonLFP      xw:chemistryName "LFP" ; xw:lowerName "LFP" .
+batchem:lithiumIonLMO      xw:chemistryName "LMO" ; xw:lowerName "LMO" .
+batchem:lithiumIonLCO      xw:chemistryName "LCO" ; xw:lowerName "LCO" .
+batchem:lithiumIonNCA      xw:chemistryName "NCA" ; xw:lowerName "NCA" .
+batchem:lithiumMetal       xw:chemistryName "Li-metal" ; xw:lowerName "Li-metal" .
+batchem:sodiumIon          xw:chemistryName "Na-ion", "SIB" ; xw:lowerName "Na-ion" .
+
+# ---------------------------------------------------------------- countries
+# The Registry writes the manufacturing country as ISO 3166-1 alpha-3, OpenEPCIS (GS1) as alpha-2.
+# All 249 officially assigned codes (ISO 3166-1, as listed in
+# github.com/lukes/ISO-3166-Countries-with-Regional-Codes, all.csv).
+[] xw:alpha2 "AF" ; xw:alpha3 "AFG" .
+[] xw:alpha2 "AX" ; xw:alpha3 "ALA" .
+[] xw:alpha2 "AL" ; xw:alpha3 "ALB" .
+[] xw:alpha2 "DZ" ; xw:alpha3 "DZA" .
+[] xw:alpha2 "AS" ; xw:alpha3 "ASM" .
+[] xw:alpha2 "AD" ; xw:alpha3 "AND" .
+[] xw:alpha2 "AO" ; xw:alpha3 "AGO" .
+[] xw:alpha2 "AI" ; xw:alpha3 "AIA" .
+[] xw:alpha2 "AQ" ; xw:alpha3 "ATA" .
+[] xw:alpha2 "AG" ; xw:alpha3 "ATG" .
+[] xw:alpha2 "AR" ; xw:alpha3 "ARG" .
+[] xw:alpha2 "AM" ; xw:alpha3 "ARM" .
+[] xw:alpha2 "AW" ; xw:alpha3 "ABW" .
+[] xw:alpha2 "AU" ; xw:alpha3 "AUS" .
+[] xw:alpha2 "AT" ; xw:alpha3 "AUT" .
+[] xw:alpha2 "AZ" ; xw:alpha3 "AZE" .
+[] xw:alpha2 "BS" ; xw:alpha3 "BHS" .
+[] xw:alpha2 "BH" ; xw:alpha3 "BHR" .
+[] xw:alpha2 "BD" ; xw:alpha3 "BGD" .
+[] xw:alpha2 "BB" ; xw:alpha3 "BRB" .
+[] xw:alpha2 "BY" ; xw:alpha3 "BLR" .
+[] xw:alpha2 "BE" ; xw:alpha3 "BEL" .
+[] xw:alpha2 "BZ" ; xw:alpha3 "BLZ" .
+[] xw:alpha2 "BJ" ; xw:alpha3 "BEN" .
+[] xw:alpha2 "BM" ; xw:alpha3 "BMU" .
+[] xw:alpha2 "BT" ; xw:alpha3 "BTN" .
+[] xw:alpha2 "BO" ; xw:alpha3 "BOL" .
+[] xw:alpha2 "BQ" ; xw:alpha3 "BES" .
+[] xw:alpha2 "BA" ; xw:alpha3 "BIH" .
+[] xw:alpha2 "BW" ; xw:alpha3 "BWA" .
+[] xw:alpha2 "BV" ; xw:alpha3 "BVT" .
+[] xw:alpha2 "BR" ; xw:alpha3 "BRA" .
+[] xw:alpha2 "IO" ; xw:alpha3 "IOT" .
+[] xw:alpha2 "BN" ; xw:alpha3 "BRN" .
+[] xw:alpha2 "BG" ; xw:alpha3 "BGR" .
+[] xw:alpha2 "BF" ; xw:alpha3 "BFA" .
+[] xw:alpha2 "BI" ; xw:alpha3 "BDI" .
+[] xw:alpha2 "CV" ; xw:alpha3 "CPV" .
+[] xw:alpha2 "KH" ; xw:alpha3 "KHM" .
+[] xw:alpha2 "CM" ; xw:alpha3 "CMR" .
+[] xw:alpha2 "CA" ; xw:alpha3 "CAN" .
+[] xw:alpha2 "KY" ; xw:alpha3 "CYM" .
+[] xw:alpha2 "CF" ; xw:alpha3 "CAF" .
+[] xw:alpha2 "TD" ; xw:alpha3 "TCD" .
+[] xw:alpha2 "CL" ; xw:alpha3 "CHL" .
+[] xw:alpha2 "CN" ; xw:alpha3 "CHN" .
+[] xw:alpha2 "CX" ; xw:alpha3 "CXR" .
+[] xw:alpha2 "CC" ; xw:alpha3 "CCK" .
+[] xw:alpha2 "CO" ; xw:alpha3 "COL" .
+[] xw:alpha2 "KM" ; xw:alpha3 "COM" .
+[] xw:alpha2 "CG" ; xw:alpha3 "COG" .
+[] xw:alpha2 "CD" ; xw:alpha3 "COD" .
+[] xw:alpha2 "CK" ; xw:alpha3 "COK" .
+[] xw:alpha2 "CR" ; xw:alpha3 "CRI" .
+[] xw:alpha2 "CI" ; xw:alpha3 "CIV" .
+[] xw:alpha2 "HR" ; xw:alpha3 "HRV" .
+[] xw:alpha2 "CU" ; xw:alpha3 "CUB" .
+[] xw:alpha2 "CW" ; xw:alpha3 "CUW" .
+[] xw:alpha2 "CY" ; xw:alpha3 "CYP" .
+[] xw:alpha2 "CZ" ; xw:alpha3 "CZE" .
+[] xw:alpha2 "DK" ; xw:alpha3 "DNK" .
+[] xw:alpha2 "DJ" ; xw:alpha3 "DJI" .
+[] xw:alpha2 "DM" ; xw:alpha3 "DMA" .
+[] xw:alpha2 "DO" ; xw:alpha3 "DOM" .
+[] xw:alpha2 "EC" ; xw:alpha3 "ECU" .
+[] xw:alpha2 "EG" ; xw:alpha3 "EGY" .
+[] xw:alpha2 "SV" ; xw:alpha3 "SLV" .
+[] xw:alpha2 "GQ" ; xw:alpha3 "GNQ" .
+[] xw:alpha2 "ER" ; xw:alpha3 "ERI" .
+[] xw:alpha2 "EE" ; xw:alpha3 "EST" .
+[] xw:alpha2 "SZ" ; xw:alpha3 "SWZ" .
+[] xw:alpha2 "ET" ; xw:alpha3 "ETH" .
+[] xw:alpha2 "FK" ; xw:alpha3 "FLK" .
+[] xw:alpha2 "FO" ; xw:alpha3 "FRO" .
+[] xw:alpha2 "FJ" ; xw:alpha3 "FJI" .
+[] xw:alpha2 "FI" ; xw:alpha3 "FIN" .
+[] xw:alpha2 "FR" ; xw:alpha3 "FRA" .
+[] xw:alpha2 "GF" ; xw:alpha3 "GUF" .
+[] xw:alpha2 "PF" ; xw:alpha3 "PYF" .
+[] xw:alpha2 "TF" ; xw:alpha3 "ATF" .
+[] xw:alpha2 "GA" ; xw:alpha3 "GAB" .
+[] xw:alpha2 "GM" ; xw:alpha3 "GMB" .
+[] xw:alpha2 "GE" ; xw:alpha3 "GEO" .
+[] xw:alpha2 "DE" ; xw:alpha3 "DEU" .
+[] xw:alpha2 "GH" ; xw:alpha3 "GHA" .
+[] xw:alpha2 "GI" ; xw:alpha3 "GIB" .
+[] xw:alpha2 "GR" ; xw:alpha3 "GRC" .
+[] xw:alpha2 "GL" ; xw:alpha3 "GRL" .
+[] xw:alpha2 "GD" ; xw:alpha3 "GRD" .
+[] xw:alpha2 "GP" ; xw:alpha3 "GLP" .
+[] xw:alpha2 "GU" ; xw:alpha3 "GUM" .
+[] xw:alpha2 "GT" ; xw:alpha3 "GTM" .
+[] xw:alpha2 "GG" ; xw:alpha3 "GGY" .
+[] xw:alpha2 "GN" ; xw:alpha3 "GIN" .
+[] xw:alpha2 "GW" ; xw:alpha3 "GNB" .
+[] xw:alpha2 "GY" ; xw:alpha3 "GUY" .
+[] xw:alpha2 "HT" ; xw:alpha3 "HTI" .
+[] xw:alpha2 "HM" ; xw:alpha3 "HMD" .
+[] xw:alpha2 "VA" ; xw:alpha3 "VAT" .
+[] xw:alpha2 "HN" ; xw:alpha3 "HND" .
+[] xw:alpha2 "HK" ; xw:alpha3 "HKG" .
+[] xw:alpha2 "HU" ; xw:alpha3 "HUN" .
+[] xw:alpha2 "IS" ; xw:alpha3 "ISL" .
+[] xw:alpha2 "IN" ; xw:alpha3 "IND" .
+[] xw:alpha2 "ID" ; xw:alpha3 "IDN" .
+[] xw:alpha2 "IR" ; xw:alpha3 "IRN" .
+[] xw:alpha2 "IQ" ; xw:alpha3 "IRQ" .
+[] xw:alpha2 "IE" ; xw:alpha3 "IRL" .
+[] xw:alpha2 "IM" ; xw:alpha3 "IMN" .
+[] xw:alpha2 "IL" ; xw:alpha3 "ISR" .
+[] xw:alpha2 "IT" ; xw:alpha3 "ITA" .
+[] xw:alpha2 "JM" ; xw:alpha3 "JAM" .
+[] xw:alpha2 "JP" ; xw:alpha3 "JPN" .
+[] xw:alpha2 "JE" ; xw:alpha3 "JEY" .
+[] xw:alpha2 "JO" ; xw:alpha3 "JOR" .
+[] xw:alpha2 "KZ" ; xw:alpha3 "KAZ" .
+[] xw:alpha2 "KE" ; xw:alpha3 "KEN" .
+[] xw:alpha2 "KI" ; xw:alpha3 "KIR" .
+[] xw:alpha2 "KP" ; xw:alpha3 "PRK" .
+[] xw:alpha2 "KR" ; xw:alpha3 "KOR" .
+[] xw:alpha2 "KW" ; xw:alpha3 "KWT" .
+[] xw:alpha2 "KG" ; xw:alpha3 "KGZ" .
+[] xw:alpha2 "LA" ; xw:alpha3 "LAO" .
+[] xw:alpha2 "LV" ; xw:alpha3 "LVA" .
+[] xw:alpha2 "LB" ; xw:alpha3 "LBN" .
+[] xw:alpha2 "LS" ; xw:alpha3 "LSO" .
+[] xw:alpha2 "LR" ; xw:alpha3 "LBR" .
+[] xw:alpha2 "LY" ; xw:alpha3 "LBY" .
+[] xw:alpha2 "LI" ; xw:alpha3 "LIE" .
+[] xw:alpha2 "LT" ; xw:alpha3 "LTU" .
+[] xw:alpha2 "LU" ; xw:alpha3 "LUX" .
+[] xw:alpha2 "MO" ; xw:alpha3 "MAC" .
+[] xw:alpha2 "MG" ; xw:alpha3 "MDG" .
+[] xw:alpha2 "MW" ; xw:alpha3 "MWI" .
+[] xw:alpha2 "MY" ; xw:alpha3 "MYS" .
+[] xw:alpha2 "MV" ; xw:alpha3 "MDV" .
+[] xw:alpha2 "ML" ; xw:alpha3 "MLI" .
+[] xw:alpha2 "MT" ; xw:alpha3 "MLT" .
+[] xw:alpha2 "MH" ; xw:alpha3 "MHL" .
+[] xw:alpha2 "MQ" ; xw:alpha3 "MTQ" .
+[] xw:alpha2 "MR" ; xw:alpha3 "MRT" .
+[] xw:alpha2 "MU" ; xw:alpha3 "MUS" .
+[] xw:alpha2 "YT" ; xw:alpha3 "MYT" .
+[] xw:alpha2 "MX" ; xw:alpha3 "MEX" .
+[] xw:alpha2 "FM" ; xw:alpha3 "FSM" .
+[] xw:alpha2 "MD" ; xw:alpha3 "MDA" .
+[] xw:alpha2 "MC" ; xw:alpha3 "MCO" .
+[] xw:alpha2 "MN" ; xw:alpha3 "MNG" .
+[] xw:alpha2 "ME" ; xw:alpha3 "MNE" .
+[] xw:alpha2 "MS" ; xw:alpha3 "MSR" .
+[] xw:alpha2 "MA" ; xw:alpha3 "MAR" .
+[] xw:alpha2 "MZ" ; xw:alpha3 "MOZ" .
+[] xw:alpha2 "MM" ; xw:alpha3 "MMR" .
+[] xw:alpha2 "NA" ; xw:alpha3 "NAM" .
+[] xw:alpha2 "NR" ; xw:alpha3 "NRU" .
+[] xw:alpha2 "NP" ; xw:alpha3 "NPL" .
+[] xw:alpha2 "NL" ; xw:alpha3 "NLD" .
+[] xw:alpha2 "NC" ; xw:alpha3 "NCL" .
+[] xw:alpha2 "NZ" ; xw:alpha3 "NZL" .
+[] xw:alpha2 "NI" ; xw:alpha3 "NIC" .
+[] xw:alpha2 "NE" ; xw:alpha3 "NER" .
+[] xw:alpha2 "NG" ; xw:alpha3 "NGA" .
+[] xw:alpha2 "NU" ; xw:alpha3 "NIU" .
+[] xw:alpha2 "NF" ; xw:alpha3 "NFK" .
+[] xw:alpha2 "MK" ; xw:alpha3 "MKD" .
+[] xw:alpha2 "MP" ; xw:alpha3 "MNP" .
+[] xw:alpha2 "NO" ; xw:alpha3 "NOR" .
+[] xw:alpha2 "OM" ; xw:alpha3 "OMN" .
+[] xw:alpha2 "PK" ; xw:alpha3 "PAK" .
+[] xw:alpha2 "PW" ; xw:alpha3 "PLW" .
+[] xw:alpha2 "PS" ; xw:alpha3 "PSE" .
+[] xw:alpha2 "PA" ; xw:alpha3 "PAN" .
+[] xw:alpha2 "PG" ; xw:alpha3 "PNG" .
+[] xw:alpha2 "PY" ; xw:alpha3 "PRY" .
+[] xw:alpha2 "PE" ; xw:alpha3 "PER" .
+[] xw:alpha2 "PH" ; xw:alpha3 "PHL" .
+[] xw:alpha2 "PN" ; xw:alpha3 "PCN" .
+[] xw:alpha2 "PL" ; xw:alpha3 "POL" .
+[] xw:alpha2 "PT" ; xw:alpha3 "PRT" .
+[] xw:alpha2 "PR" ; xw:alpha3 "PRI" .
+[] xw:alpha2 "QA" ; xw:alpha3 "QAT" .
+[] xw:alpha2 "RE" ; xw:alpha3 "REU" .
+[] xw:alpha2 "RO" ; xw:alpha3 "ROU" .
+[] xw:alpha2 "RU" ; xw:alpha3 "RUS" .
+[] xw:alpha2 "RW" ; xw:alpha3 "RWA" .
+[] xw:alpha2 "BL" ; xw:alpha3 "BLM" .
+[] xw:alpha2 "SH" ; xw:alpha3 "SHN" .
+[] xw:alpha2 "KN" ; xw:alpha3 "KNA" .
+[] xw:alpha2 "LC" ; xw:alpha3 "LCA" .
+[] xw:alpha2 "MF" ; xw:alpha3 "MAF" .
+[] xw:alpha2 "PM" ; xw:alpha3 "SPM" .
+[] xw:alpha2 "VC" ; xw:alpha3 "VCT" .
+[] xw:alpha2 "WS" ; xw:alpha3 "WSM" .
+[] xw:alpha2 "SM" ; xw:alpha3 "SMR" .
+[] xw:alpha2 "ST" ; xw:alpha3 "STP" .
+[] xw:alpha2 "SA" ; xw:alpha3 "SAU" .
+[] xw:alpha2 "SN" ; xw:alpha3 "SEN" .
+[] xw:alpha2 "RS" ; xw:alpha3 "SRB" .
+[] xw:alpha2 "SC" ; xw:alpha3 "SYC" .
+[] xw:alpha2 "SL" ; xw:alpha3 "SLE" .
+[] xw:alpha2 "SG" ; xw:alpha3 "SGP" .
+[] xw:alpha2 "SX" ; xw:alpha3 "SXM" .
+[] xw:alpha2 "SK" ; xw:alpha3 "SVK" .
+[] xw:alpha2 "SI" ; xw:alpha3 "SVN" .
+[] xw:alpha2 "SB" ; xw:alpha3 "SLB" .
+[] xw:alpha2 "SO" ; xw:alpha3 "SOM" .
+[] xw:alpha2 "ZA" ; xw:alpha3 "ZAF" .
+[] xw:alpha2 "GS" ; xw:alpha3 "SGS" .
+[] xw:alpha2 "SS" ; xw:alpha3 "SSD" .
+[] xw:alpha2 "ES" ; xw:alpha3 "ESP" .
+[] xw:alpha2 "LK" ; xw:alpha3 "LKA" .
+[] xw:alpha2 "SD" ; xw:alpha3 "SDN" .
+[] xw:alpha2 "SR" ; xw:alpha3 "SUR" .
+[] xw:alpha2 "SJ" ; xw:alpha3 "SJM" .
+[] xw:alpha2 "SE" ; xw:alpha3 "SWE" .
+[] xw:alpha2 "CH" ; xw:alpha3 "CHE" .
+[] xw:alpha2 "SY" ; xw:alpha3 "SYR" .
+[] xw:alpha2 "TW" ; xw:alpha3 "TWN" .
+[] xw:alpha2 "TJ" ; xw:alpha3 "TJK" .
+[] xw:alpha2 "TZ" ; xw:alpha3 "TZA" .
+[] xw:alpha2 "TH" ; xw:alpha3 "THA" .
+[] xw:alpha2 "TL" ; xw:alpha3 "TLS" .
+[] xw:alpha2 "TG" ; xw:alpha3 "TGO" .
+[] xw:alpha2 "TK" ; xw:alpha3 "TKL" .
+[] xw:alpha2 "TO" ; xw:alpha3 "TON" .
+[] xw:alpha2 "TT" ; xw:alpha3 "TTO" .
+[] xw:alpha2 "TN" ; xw:alpha3 "TUN" .
+[] xw:alpha2 "TR" ; xw:alpha3 "TUR" .
+[] xw:alpha2 "TM" ; xw:alpha3 "TKM" .
+[] xw:alpha2 "TC" ; xw:alpha3 "TCA" .
+[] xw:alpha2 "TV" ; xw:alpha3 "TUV" .
+[] xw:alpha2 "UG" ; xw:alpha3 "UGA" .
+[] xw:alpha2 "UA" ; xw:alpha3 "UKR" .
+[] xw:alpha2 "AE" ; xw:alpha3 "ARE" .
+[] xw:alpha2 "GB" ; xw:alpha3 "GBR" .
+[] xw:alpha2 "US" ; xw:alpha3 "USA" .
+[] xw:alpha2 "UM" ; xw:alpha3 "UMI" .
+[] xw:alpha2 "UY" ; xw:alpha3 "URY" .
+[] xw:alpha2 "UZ" ; xw:alpha3 "UZB" .
+[] xw:alpha2 "VU" ; xw:alpha3 "VUT" .
+[] xw:alpha2 "VE" ; xw:alpha3 "VEN" .
+[] xw:alpha2 "VN" ; xw:alpha3 "VNM" .
+[] xw:alpha2 "VG" ; xw:alpha3 "VGB" .
+[] xw:alpha2 "VI" ; xw:alpha3 "VIR" .
+[] xw:alpha2 "WF" ; xw:alpha3 "WLF" .
+[] xw:alpha2 "EH" ; xw:alpha3 "ESH" .
+[] xw:alpha2 "YE" ; xw:alpha3 "YEM" .
+[] xw:alpha2 "ZM" ; xw:alpha3 "ZMB" .
+[] xw:alpha2 "ZW" ; xw:alpha3 "ZWE" .

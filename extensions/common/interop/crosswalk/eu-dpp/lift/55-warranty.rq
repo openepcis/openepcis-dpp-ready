@@ -1,0 +1,10 @@
+# Commercial warranty period, in months (EC data-point guidance 3.2, #35): the duration of the
+# manufacturer's warranty, from years or months.
+CONSTRUCT { ?r bat:commercialWarrantyPeriod ?months . }
+WHERE {
+  GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
+  GRAPH <urn:xw:in> { ?r gs1:manufacturersWarranty/gs1:durationOfWarranty ?q . ?q gs1:value ?v ; gs1:unitCode ?c }
+  VALUES (?code ?f) { ("ANN" 12) ("MON" 1) }
+  FILTER(STR(?c) = ?code)
+  BIND(xsd:integer(ROUND(xsd:double(STR(?v)) * ?f)) AS ?months)
+}

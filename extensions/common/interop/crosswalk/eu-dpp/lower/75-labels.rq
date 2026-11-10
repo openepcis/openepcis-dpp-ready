@@ -1,0 +1,8 @@
+# The separate collection symbol shown: a label of subject separate collection (the symbol's image
+# is not part of the Registry's passport).
+CONSTRUCT { ?r eubat:hasLabels ?l . ?l a eubat:Label ; eubat:hasLabelSubject eubat:SeparateCollection . }
+WHERE {
+  GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport ; bat:separateCollectionSymbol true }
+  FILTER(isIRI(?r))
+  BIND(IRI(CONCAT(STR(?r), "#label-separate-collection")) AS ?l)
+}

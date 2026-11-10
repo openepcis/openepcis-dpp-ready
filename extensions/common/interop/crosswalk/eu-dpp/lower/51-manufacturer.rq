@@ -1,0 +1,24 @@
+# The manufacturer: an organisation with its name, the one-line postal address (schema:address
+# text: GS1's address is structured and the line cannot be split reliably), e-mail (without the
+# mailto scheme) and website.
+CONSTRUCT {
+  ?r gs1:manufacturer ?org . ?org a gs1:Organization ; gs1:organizationName ?name ; schema:address ?addr ; schema:url ?web .
+  ?org gs1:contactPoint ?cp . ?cp a gs1:ContactPoint ; gs1:email ?email .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport }
+  FILTER(isIRI(?r))
+  FILTER EXISTS { GRAPH <urn:xw:in> { ?r ?mp ?mv } FILTER(?mp IN (bat:manufacturerIdentification, bat:manufacturerPostalAddress, bat:manufacturerContactDetails)) }
+  BIND(IRI(CONCAT(STR(?r), "#manufacturer")) AS ?org)
+  {
+    GRAPH <urn:xw:in> { ?r bat:manufacturerIdentification/bat:manufacturerName ?n } BIND(STR(?n) AS ?name)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r bat:manufacturerPostalAddress ?a } BIND(STR(?a) AS ?addr)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r bat:manufacturerContactDetails/bat:manufacturerWebsite ?w } BIND(IRI(STR(?w)) AS ?web)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r bat:manufacturerContactDetails/bat:manufacturerEmail ?m }
+    BIND(IRI(CONCAT(STR(?r), "#manufacturer-contact")) AS ?cp)
+    BIND(REPLACE(STR(?m), "^mailto:", "") AS ?email)
+  }
+}
