@@ -85,6 +85,26 @@ schema.org / SEMICeu class used as a node type needs a curated alias in the
 module's `.shortcut-overrides.json`. `pnpm run check:operational` rejects any
 prefix left in a committed compressed artifact.
 
+### Self-contained bundles
+
+Every operational context has a twin with the same meaning and no remote
+references: `{module}-operational-bundle.jsonld` next to
+`{module}-operational-context.jsonld`, for example
+`https://ref.openepcis.org/extensions/eu/textile/textile-operational-bundle.jsonld`.
+The operational contexts are chains (textile imports the DPP base, which imports
+dpp-core, which imports assessment, plus the shortcut layers). jsonld.js and pyld
+dereference at most 10 remote context URLs per resolution: one sector fits,
+a passport with two sectors does not and fails with `context overflow`. With
+bundles, `gs1Voc.jsonld` plus any number of sectors costs one URL each.
+
+A bundle is the operational chain with each remote reference replaced, in place,
+by the `@context` it points to, which is what a JSON-LD processor does on
+dereferencing. `pnpm run build:bundles` writes them (also part of `pnpm run
+build`); `pnpm run check:bundles` fails when a bundle is stale, still references
+a remote context, defines any term differently from its operational context
+(scoped contexts included), or when gs1Voc plus two sector bundles exceed the
+jsonld.js limit. Never edit a bundle by hand.
+
 ## Reading a stored body: compact language maps
 
 The resolver Product API stores a language-tagged literal as a JSON-LD 1.1

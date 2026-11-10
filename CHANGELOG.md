@@ -9,6 +9,14 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Added: self-contained operational bundles
+
+Every operational context gets a `{module}-operational-bundle.jsonld` twin without remote
+references. A passport with two sectors needed 11 remote context loads and failed in jsonld.js
+and pyld (`context overflow`); with the bundles it needs three. The bundles are generated, proven
+term-for-term equivalent to their operational contexts and checked in CI (`pnpm run check:bundles`).
+The operational context URLs stay canonical. See `docs/EN18223_FORMATS.md`.
+
 ## [0.12.0] - 2026-11-10
 
 ### Added: crosswalk to the EU DPP Registry
