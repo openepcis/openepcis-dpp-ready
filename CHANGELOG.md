@@ -9,6 +9,8 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-10
+
 ### Added: crosswalk to the EU DPP Registry
 
 The crosswalk gains an `eu-dpp` profile: OpenEPCIS passports convert to the Commission's Registry

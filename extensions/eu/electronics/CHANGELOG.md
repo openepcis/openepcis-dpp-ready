@@ -4,6 +4,8 @@ All notable changes to the Electronics module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-10
+
 ### Breaking: repairability index and WEEE rates on `common/assessment`
 
 - `euelec:RepairabilityIndex` is an `oea:Assessment` applying `euelec:FrenchRepairabilityIndexMethod`;

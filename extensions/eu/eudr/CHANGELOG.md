@@ -4,6 +4,8 @@ All notable changes to the EUDR module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-10
+
 ### Fixed: the exemption declaration names the operator role as a role
 
 `epcis/exemption-declaration.jsonld` (and the EPCIS extension guide) gave `oec:hasOperatorRole`

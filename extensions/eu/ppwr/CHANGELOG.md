@@ -4,6 +4,8 @@ All notable changes to the PPWR module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-10
+
 ### Breaking: the recyclability grade is an indicator
 
 `euppwr:hasRecyclabilityGrade` and `euppwr:designForRecyclingMethodology` are removed. The grade is an
