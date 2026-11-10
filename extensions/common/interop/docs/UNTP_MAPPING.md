@@ -62,10 +62,6 @@ expands to
     "@value": false, "@type": "http://www.w3.org/2001/XMLSchema#boolean"
   }
 }
-
-UNTP's flat `recyclableContent`, `utilityFactor` and `materialCircularityIndicator` have no alias:
-OpenEPCIS states them as a recyclability result and as indicators (common/assessment) with a unit,
-which a context alone cannot produce.
 ```
 
 ## Ontology Alignment
