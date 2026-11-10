@@ -4,6 +4,8 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-10
+
 ### Fixed: example values the EU Registry crosswalk rejected
 
 - `examples/amperia-staxwall-item.jsonld`: the state of certified energy is a share (97.5 %, the

@@ -4,6 +4,8 @@ All notable changes to the Detergent module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-10
+
 ### Breaking: biodegradability, film and phosphorus on `common/assessment`
 
 - `eudet:SurfactantBiodegradability` (an `oec:Biodegradability`) states the test method with

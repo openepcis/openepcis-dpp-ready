@@ -4,6 +4,8 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-10
+
 ### Added: EU DPP Registry crosswalk profile
 
 A third crosswalk profile, `eu-dpp`, converts passports to and from the Commission's DPP Registry

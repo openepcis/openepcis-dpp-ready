@@ -4,6 +4,8 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-10
+
 ### Fixed: garment example
 
 `garment-product.jsonld` gave the user guide and the supply-chain transparency report the same
