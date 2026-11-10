@@ -29,6 +29,10 @@
  *                         footprint -> assessment with LCIA results and indicators; material
  *                         test certificate values -> results; WEEE treatment outcome ->
  *                         results, avoided emissions -> indicator
+ *   wave 4 (4b0d8d7b)     battery state values -> results of eubat:hasBatteryState;
+ *                         tested values, settings, thresholds, reference test ->
+ *                         eubat:hasPerformanceTest; CF class -> indicator; EPCIS
+ *                         sensorReport types -> parameter IRIs
  *
  * Works on the compacted, prefixed form the resolver stores (eutex:, oec:, gs1:);
  * keys are matched by local name, so an unprefixed key migrates as well. Every
@@ -38,7 +42,7 @@
  *
  * Usage:
  *   tsx scripts/migrate-assessment.ts <in.json> [out.json]   one document
- *   tsx scripts/migrate-assessment.ts --check                examples of d1e28a7, dcc992d, dafe0803, 9add685
+ *   tsx scripts/migrate-assessment.ts --check                examples of d1e28a7, dcc992d, dafe0803, 4b0d8d7b, 9add685
  */
 import { execFileSync } from "node:child_process";
 import { promises as fs } from "node:fs";
@@ -1059,6 +1063,12 @@ const WAVE3_EXAMPLES = [
   "eu/textile/examples/garment-product", "eu/textile/examples/hometextile-bedlinen", "eu/textile/epcis/observation-carbon-footprint",
   "eu/textile/epcis/declaration-environmental-footprint",
 ];
+const WAVE4_EXAMPLES = [
+  ...["amperia-staxwall-batch", "amperia-staxwall-item", "amperia-staxwall-model", "battery-product", "battery-product-batch",
+    "battery-product-model", "batterypass-ev-item", "batterypass-industrial-item", "batterypass-lmt-item", "portable-ebike-battery",
+  ].map((n) => `eu/battery/examples/${n}`),
+  ...["amperia-staxwall-lifecycle", "negative-event", "state-of-certified-energy"].map((n) => `eu/battery/epcis/${n}`),
+];
 const PPWR_EXAMPLES = ["beverage-bottle", "beverage-bottle-lot-01", "ecommerce-carton", "multi-layer-pouch"];
 const BATTERY_EXAMPLES = ["amperia-staxwall-item", "amperia-staxwall-model", "battery-product-model", "batterypass-lmt-item", "amperia-staxwall-item.operational", "battery-product-model.operational"];
 
@@ -1100,6 +1110,48 @@ const mrBare = (parameter: string, value: Json): Obj => ({ type: "oea:Measuremen
 
 /** Shapes the examples do not exercise: each input must migrate to exactly the expected document. */
 const SYNTHETIC: { name: string; input: Obj; expected: Obj }[] = [
+  {
+    name: "battery wave 4, operational spelling: state, performance test, power capability",
+    input: {
+      "@context": BAT_OP,
+      hasStateOfHealth: { type: "QuantitativeValue", value: 94, unitCode: "P1" },
+      expectedRemainingCycles: 2100,
+      hasTechnicalSpecifications: {
+        type: "TechnicalSpecification",
+        expectedCycleLife: 3000,
+        cRateLifeCycleTest: 0.5,
+        capacityThresholdForExhaustion: 70,
+        lifetimeReferenceTest: "https://x.example/iec-62660-1",
+        hasOriginalPowerCapability: [{ type: "PowerCapabilityAtSoC", stateOfChargeLevel: 80, hasPowerCapability: { type: "QuantitativeValue", value: 7.2, unitCode: "KWT" } }],
+      },
+    },
+    expected: {
+      "@context": BAT_OP,
+      hasTechnicalSpecifications: {
+        type: "TechnicalSpecification",
+        hasPerformanceTest: {
+          type: "eubat:PerformanceDurabilityTest",
+          hasMethod: { type: "oea:TestMethod", methodUrl: "https://x.example/iec-62660-1" },
+          hasParameterSetting: { type: "oea:ParameterSetting", hasParameter: { "@id": "eubat:ChargeCRate" }, hasParameterValue: qv(0.5, "C62") },
+          isEvaluatedAgainst: {
+            type: "eubat:CapacityExhaustionThreshold", hasThresholdParameter: { "@id": "eubat:StateOfCertifiedEnergy" },
+            hasComparisonOperator: { "@id": "oea:LessThan" }, hasThresholdValue: qv(70, "P1"),
+          },
+          hasResult: mrBare("eubat:CycleLife", qv(3000, "C62")),
+          hasSubAssessment: {
+            type: "oea:TestExecution",
+            hasCondition: { type: "oea:AssessmentCondition", hasConditionType: { "@id": "eubat:StateOfChargeLevel" }, hasConditionValue: qv(80, "P1") },
+            hasResult: mrBare("eubat:PowerCapability", { type: "QuantitativeValue", value: 7.2, unitCode: "KWT" }),
+          },
+        },
+      },
+      hasBatteryState: {
+        type: "eubat:BatteryStateAssessment",
+        hasResult: mrBare("eubat:StateOfHealth", { type: "QuantitativeValue", value: 94, unitCode: "P1" }),
+        hasIndicator: { type: "oea:Indicator", hasIndicatorKind: { "@id": "eubat:RemainingCycles" }, hasIndicatorValue: qv(2100, "C62") },
+      },
+    },
+  },
   {
     name: "ppwr grade and design-for-recycling methodology, prefixed",
     input: { "@context": "https://ref.openepcis.org/extensions/eu/ppwr/ppwr-context.jsonld", "euppwr:hasRecyclabilityGrade": { "@id": "euppwr:GradeB" }, "euppwr:designForRecyclingMethodology": "RecyClass 2.0" },
@@ -1226,6 +1278,10 @@ async function check(): Promise<number> {
     // dafe0803 is wave 3 (core life-cycle and circularity, textile footprint, steel certificate,
     // electronics treatment); the electronics commissioning event was edited by hand there
     ...WAVE3_EXAMPLES.map((name) => ({ name, file: `extensions/${name}.jsonld`, before: "dafe0803^", after: "dafe0803", ignore: (_: string) => false })),
+    // 4b0d8d7b is wave 4 (battery); events whose sensor elements were split by hand there are left
+    // out, and so are the operational goldens (the compressor drops types the master states; the
+    // bare spelling is a synthetic case)
+    ...WAVE4_EXAMPLES.map((name) => ({ name, file: `extensions/${name}.jsonld`, before: "4b0d8d7b^", after: "4b0d8d7b", ignore: (_: string) => false })),
     ...BATTERY_EXAMPLES.map((name) => ({ name, file: `extensions/eu/battery/examples/${name}.jsonld`, before: "3aa08bf", after: "9add685", ignore: (k: string) => /hasInitial(Cell|Pack)?InternalResistance$/.test(k) })),
   ];
   for (const { name, file, before, after, ignore } of cases) {
