@@ -4,6 +4,8 @@ All notable changes to the CPR module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-10
+
 ### Breaking: essential characteristics are measurement results
 
 - `eucpr:EssentialCharacteristic` is an `oea:MeasurementResult`: the characteristic is

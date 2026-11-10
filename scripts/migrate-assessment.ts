@@ -22,6 +22,8 @@
  *                         -> criterion results; score -> indicator;
  *                         isRecyclable -> oea:hasOutcome
  *   RepairabilityInfo     score and class -> indicators
+ *   PPWR packaging        A/B/C grade -> indicator of an oec:RecyclabilityAssessment;
+ *                         design-for-recycling methodology -> its oea:hasMethod (dcc992d)
  *
  * Works on the compacted, prefixed form the resolver stores (eutex:, oec:, gs1:);
  * keys are matched by local name, so an unprefixed key migrates as well. Every
@@ -31,7 +33,7 @@
  *
  * Usage:
  *   tsx scripts/migrate-assessment.ts <in.json> [out.json]   one document
- *   tsx scripts/migrate-assessment.ts --check                examples of d1e28a7
+ *   tsx scripts/migrate-assessment.ts --check                examples of d1e28a7, dcc992d, 9add685
  */
 import { execFileSync } from "node:child_process";
 import { promises as fs } from "node:fs";
@@ -242,6 +244,26 @@ function repairability(o: Obj) {
   const cls = take(o, "repairabilityClass");
   if (cls !== undefined) indicators.push({ type: "oea:Indicator", "oea:hasIndicatorKind": ref("oea:RepairabilityClass"), "oea:indicatorText": cls });
   setOrAppend(o, "oea:hasIndicator", indicators);
+}
+
+/**
+ * PPWR (wave 2): the A/B/C grade becomes an indicator of an oec:RecyclabilityAssessment on the
+ * packaging and the design-for-recycling methodology its method. Prefixed keys get prefixed
+ * successors; bare keys (operational context) get bare ones.
+ */
+function packagingRecyclability(o: Obj) {
+  const keys = Object.keys(o).filter((k) => ["hasRecyclabilityGrade", "designForRecyclingMethodology"].includes(local(k)));
+  if (!keys.length) return;
+  const bare = keys.every((k) => !k.includes(":"));
+  const n = (curie: string) => (bare ? local(curie) : curie);
+  const grade = take(o, "hasRecyclabilityGrade");
+  const methodology = take(o, "designForRecyclingMethodology");
+  const key = Object.keys(o).find((k) => local(k) === "hasRecyclabilityAssessment") ?? n("oec:hasRecyclabilityAssessment");
+  const assessment: Obj = o[key] && typeof o[key] === "object" && !Array.isArray(o[key]) ? o[key] : { type: "oec:RecyclabilityAssessment" };
+  if (methodology !== undefined) assessment[n("oea:hasMethod")] = { type: "oea:AssessmentMethod", [n("oea:methodName")]: methodology };
+  if (grade !== undefined)
+    setOrAppend(assessment, n("oea:hasIndicator"), [{ type: "oea:Indicator", [n("oea:hasIndicatorKind")]: ref("euppwr:RecyclabilityPerformanceGrade"), [n("oea:hasCategoricalValue")]: grade }]);
+  o[key] = assessment;
 }
 
 /**
@@ -491,6 +513,7 @@ export function migrate(doc: Json, at = "$", battery?: boolean): Json {
   if (!doc || typeof doc !== "object") return doc;
   for (const [k, v] of Object.entries(doc)) migrate(v, `${at}.${k}`, battery);
   for (const t of typeOf(doc)) BY_TYPE[t]?.(doc);
+  packagingRecyclability(doc);
   rename(doc, at, battery);
   if (battery && isBatteryProduct(doc)) batteryProduct(doc, at);
   return doc;
@@ -504,6 +527,9 @@ const REMOVED = new Set([
   "robustnessScore", "elastaneContentPercent", "hasSortingFactors", "hasTechnicalRecyclability", "recyclabilityScore", "isRecyclable",
   "repairabilityScore", "repairabilityClass",
 ]);
+
+/** Removed in wave 2; the names exist in no other module, so bare keys count under any context. */
+const WAVE2_REMOVED = new Set(["hasRecyclabilityGrade", "designForRecyclingMethodology"]);
 
 /** Battery terms removed as duplicates in 2026-11 whose successor needed a move or a new shape. */
 const BATTERY_REMOVED = new Set([
@@ -525,7 +551,8 @@ export function leftovers(doc: Json, at = "$", out: string[] = [], textile?: boo
       const removed = REMOVED.has(local(k)) && (/^(eutex:|oec:)/.test(k) || (textile && !k.includes(":")));
       const batteryRemoved = BATTERY_REMOVED.has(local(k)) && (k.startsWith("eubat:") || (battery && !k.includes(":") && k !== "hasDismantlingInstructions"));
       const renamed = k in RENAMED && (k.includes(":") || !bridge);
-      if (removed || batteryRemoved || renamed) out.push(`${at}.${k}`);
+      const wave2 = WAVE2_REMOVED.has(local(k)) && (k.startsWith("euppwr:") || !k.includes(":"));
+      if (removed || batteryRemoved || renamed || wave2) out.push(`${at}.${k}`);
       leftovers(v, `${at}.${k}`, out, textile, battery, bridge);
     }
   }
@@ -533,6 +560,7 @@ export function leftovers(doc: Json, at = "$", out: string[] = [], textile?: boo
 }
 
 const EXAMPLES = ["garment-product", "footwear-product", "hometextile-bedlinen", "organic-tee-product", "fjordline-aurora-model"];
+const PPWR_EXAMPLES = ["beverage-bottle", "beverage-bottle-lot-01", "ecommerce-carton", "multi-layer-pouch"];
 const BATTERY_EXAMPLES = ["amperia-staxwall-item", "amperia-staxwall-model", "battery-product-model", "batterypass-lmt-item", "amperia-staxwall-item.operational", "battery-product-model.operational"];
 
 /** Drop every key the predicate matches, at any depth. */
@@ -548,6 +576,26 @@ const BRIDGE = "https://ref.openepcis.org/extensions/eu/battery/battery-context-
 
 /** Shapes the examples do not exercise: each input must migrate to exactly the expected document. */
 const SYNTHETIC: { name: string; input: Obj; expected: Obj }[] = [
+  {
+    name: "ppwr grade and design-for-recycling methodology, prefixed",
+    input: { "@context": "https://ref.openepcis.org/extensions/eu/ppwr/ppwr-context.jsonld", "euppwr:hasRecyclabilityGrade": { "@id": "euppwr:GradeB" }, "euppwr:designForRecyclingMethodology": "RecyClass 2.0" },
+    expected: {
+      "@context": "https://ref.openepcis.org/extensions/eu/ppwr/ppwr-context.jsonld",
+      "oec:hasRecyclabilityAssessment": {
+        type: "oec:RecyclabilityAssessment",
+        "oea:hasMethod": { type: "oea:AssessmentMethod", "oea:methodName": "RecyClass 2.0" },
+        "oea:hasIndicator": { type: "oea:Indicator", "oea:hasIndicatorKind": { "@id": "euppwr:RecyclabilityPerformanceGrade" }, "oea:hasCategoricalValue": { "@id": "euppwr:GradeB" } },
+      },
+    },
+  },
+  {
+    name: "ppwr grade, bare keys",
+    input: { "@context": "https://ref.openepcis.org/extensions/eu/ppwr/ppwr-operational-context.jsonld", hasRecyclabilityGrade: { "@id": "euppwr:GradeC" } },
+    expected: {
+      "@context": "https://ref.openepcis.org/extensions/eu/ppwr/ppwr-operational-context.jsonld",
+      hasRecyclabilityAssessment: { type: "oec:RecyclabilityAssessment", hasIndicator: { type: "oea:Indicator", hasIndicatorKind: { "@id": "euppwr:RecyclabilityPerformanceGrade" }, hasCategoricalValue: { "@id": "euppwr:GradeC" } } },
+    },
+  },
   {
     name: "performance info moves up, ratio becomes a percentage",
     input: {
@@ -647,6 +695,8 @@ async function check(): Promise<number> {
     ...EXAMPLES.map((name) => ({ name, file: `extensions/eu/textile/examples/${name}.jsonld`, before: "d1e28a7^", after: "d1e28a7", ignore: (k: string) => /^(oec:)?last(DataUpdate|Updated)$/.test(k) })),
     // 9add685 carries the one CAS/EC term on top of the 2026-11 duplicate removal (45ccb2f) and the
     // PR 17 renames of 0142308
+    // dcc992d is wave 2 (detergent, cpr, electronics, ppwr)
+    ...PPWR_EXAMPLES.map((name) => ({ name, file: `extensions/eu/ppwr/examples/${name}.jsonld`, before: "dcc992d^", after: "dcc992d", ignore: (_: string) => false })),
     ...BATTERY_EXAMPLES.map((name) => ({ name, file: `extensions/eu/battery/examples/${name}.jsonld`, before: "3aa08bf", after: "9add685", ignore: (k: string) => /hasInitial(Cell|Pack)?InternalResistance$/.test(k) })),
   ];
   for (const { name, file, before, after, ignore } of cases) {

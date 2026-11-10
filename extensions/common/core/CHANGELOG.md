@@ -4,6 +4,8 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-10
+
 ### Fixed: entry properties of assessments
 
 `oec:hasRecyclabilityAssessment` and `oec:hasPerformanceInfo` are subproperties of

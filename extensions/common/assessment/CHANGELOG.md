@@ -4,6 +4,8 @@ All notable changes to the OpenEPCIS assessment and test vocabulary.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-10
+
 ### Added
 
 - `oea:PartlySatisfied`, `oea:NotApplicable`, `oea:Uncertain` complete `oea:Outcome`, so every

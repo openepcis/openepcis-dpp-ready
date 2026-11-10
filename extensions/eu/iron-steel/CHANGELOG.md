@@ -4,6 +4,8 @@ All notable changes to the DPP Iron & Steel module will be documented in this fi
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-10
+
 ### Fixed: the rolling TransformationEvent is valid EPCIS 2.0
 
 `epcis/transformation-rolling.jsonld` carried `action` (TransformationEvents have none) and listed
