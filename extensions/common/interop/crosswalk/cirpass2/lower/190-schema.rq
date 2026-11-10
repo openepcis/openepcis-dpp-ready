@@ -1,8 +1,9 @@
 # schema.org statements travel back unchanged, except those a rule converts: a row's xw:theirs
 # on a subject of the row's host class, a material's country of origin and the country's
 # identifier, an address country; statements on nodes without an OpenEPCIS counterpart (the DPP
-# node, a product's own LCA study) go to the product by their rules.
-CONSTRUCT { ?s ?p ?o . }
+# node, a product's own LCA study) go to the product by their rules. A schema:url literal (EUDPP
+# types it xsd:anyURI) is an IRI in OpenEPCIS.
+CONSTRUCT { ?s ?p ?o2 . }
 WHERE {
   GRAPH <urn:xw:in> { ?s ?p ?o }
   FILTER(STRSTARTS(STR(?p), STR(schema:)))
@@ -17,4 +18,5 @@ WHERE {
                 FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?scf a eudpp:CarbonFootprint ; eudpp:hasPerModuleValue ?s } } }
     ?lc rdfs:subClassOf* ?h .
   }
+  BIND(IF(?p = schema:url && isLiteral(?o), IRI(STR(?o)), ?o) AS ?o2)
 }

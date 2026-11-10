@@ -1,11 +1,19 @@
 # schema.org statements in the input travel unchanged (both sides use schema.org), except those a
 # rule converts: the name of a material (its eudpp:MaterialType value, 140-…), a row's xw:ours on
-# its host (substance names), the LEI (an eudpp:ActorIdentifier, 120-…).
-CONSTRUCT { ?s ?p ?o . }
+# its host (substance names), the LEI (an eudpp:ActorIdentifier, 120-…). EUDPP declares
+# schema:url a datatype property (xsd:anyURI): a URL given as an IRI becomes such a literal.
+CONSTRUCT { ?s ?p ?o2 . }
 WHERE {
   GRAPH <urn:xw:in> { ?s ?p ?o }
   FILTER(STRSTARTS(STR(?p), STR(schema:)))
   FILTER NOT EXISTS { FILTER(?p = schema:name) GRAPH <urn:xw:in> { ?s a ?mt } ?mt rdfs:subClassOf* oec:MaterialComposition }
-  FILTER NOT EXISTS { ?row xw:ours ?p ; xw:host ?h . GRAPH <urn:xw:in> { ?s a ?st } ?st rdfs:subClassOf* ?h . }
+  # Statements a row converts, computed once (a NOT EXISTS with the class path per row is slow).
+  OPTIONAL {
+    SELECT DISTINCT ?s ?p (true AS ?byRow) WHERE {
+      ?row xw:ours ?p ; xw:host ?h . GRAPH <urn:xw:in> { ?s a ?st } ?st rdfs:subClassOf* ?h .
+    }
+  }
+  FILTER(!BOUND(?byRow))
   FILTER(?p != schema:leiCode)
+  BIND(IF(?p = schema:url && isIRI(?o), STRDT(STR(?o), xsd:anyURI), ?o) AS ?o2)
 }

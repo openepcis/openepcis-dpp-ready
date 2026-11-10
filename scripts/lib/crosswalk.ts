@@ -8,6 +8,8 @@
  *   mappings.ttl     the pairing tables the rules read (codes, classes, units, preferred units)
  *   lift/*.rq        OpenEPCIS → target   (applied in file order, results unioned)
  *   lower/*.rq       target → OpenEPCIS
+ *   <dir>/entail/*.ru  SPARQL updates run first, adding to the input graph what it leaves
+ *                      implicit (types of EPCIS master data without "type")
  *   tests/<case>/    round-trip cases, checked by scripts/check-crosswalk.ts
  *
  * The store holds three named graphs: <urn:xw:in> (the document being converted),
@@ -42,6 +44,8 @@ export interface Profile {
   vocabulary: Record<Direction, { files: string[]; namespaces: string[] }>;
   /** SHACL shapes the OpenEPCIS side (input of lift, output of lower) must satisfy. */
   shapes: { files: string[] };
+  /** Findings of the OWL structure check of the target side that a gap of the target makes unavoidable. */
+  structure?: { accepted: { gap: number; match: string; reason: string }[] };
 }
 
 /** Every OpenEPCIS module ontology (extensions/<area>/<module>/ontology/*.ttl, no access levels). */
@@ -61,9 +65,16 @@ export function moduleOntologies(): string[] {
   return out;
 }
 
-/** "@modules" in a file list stands for every OpenEPCIS module ontology. */
+/** The SHACL shapes of every OpenEPCIS module (validation/<ontology name>-shapes.ttl). */
+export function moduleShapes(): string[] {
+  return moduleOntologies()
+    .map((f) => f.replace(/\/ontology\/([^/]+)\.ttl$/, "/validation/$1-shapes.ttl"))
+    .filter((f) => existsSync(join(ROOT, f)));
+}
+
+/** "@modules" in a file list stands for every OpenEPCIS module ontology, "@shapes" for their shapes. */
 function expand(files: string[]): string[] {
-  return [...new Set(files.flatMap((f) => (f === "@modules" ? moduleOntologies() : [f])))];
+  return [...new Set(files.flatMap((f) => (f === "@modules" ? moduleOntologies() : f === "@shapes" ? moduleShapes() : [f])))];
 }
 
 export function loadProfile(id: string): Profile {
@@ -71,6 +82,7 @@ export function loadProfile(id: string): Profile {
   const raw = JSON.parse(readFileSync(join(dir, "profile.json"), "utf8"));
   raw.background = { lift: expand(raw.background.lift), lower: expand(raw.background.lower) };
   for (const d of ["lift", "lower"] as const) raw.vocabulary[d].files = expand(raw.vocabulary[d].files);
+  raw.shapes.files = expand(raw.shapes.files);
   return { ...raw, dir };
 }
 
@@ -129,6 +141,8 @@ export interface RuleRun {
 
 export interface Conversion {
   quads: Quad[];
+  /** Statements the entail rules added to the input (the round trip is compared with input + these). */
+  entailed: Quad[];
   rules: RuleRun[];
   /** Input predicates (and rdf:type objects) outside the profile's handled namespaces: not converted. */
   unhandled: Map<string, number>;
@@ -156,10 +170,27 @@ export async function loadBackground(p: Profile): Promise<void> {
   }
 }
 
+/**
+ * Background and mapping graphs per profile and direction, loaded once: parsing every module
+ * ontology dominates a conversion. Only the input graph changes between conversions.
+ */
+const storeCache = new Map<string, ox.Store>();
+
 /** The store a direction's rules run against: input, background and mapping graphs. */
 export function buildStore(p: Profile, direction: Direction, input: Quad[]): ox.Store {
-  const store = new ox.Store();
+  const key = `${p.dir}:${direction}`;
+  let store = storeCache.get(key);
+  if (!store) {
+    store = loadBackgroundStore(p, direction);
+    storeCache.set(key, store);
+  }
+  store.update(`DROP SILENT GRAPH <${G_IN}>`);
   store.load(toNQuads(input, G_IN), { format: "application/n-quads" });
+  return store;
+}
+
+function loadBackgroundStore(p: Profile, direction: Direction): ox.Store {
+  const store = new ox.Store();
   for (const f of p.background[direction]) {
     if (/\.json(ld)?$/.test(f)) {
       const nt = jsonldBackground.get(f);
@@ -189,8 +220,9 @@ function namedTerms(p: Profile, direction: Direction): Set<string> {
   // Both directions: a class the rules of one direction produce is the one the other direction
   // reads by its properties, without naming the class again.
   void direction;
-  const text = [...ruleFiles(p, "lift"), ...ruleFiles(p, "lower")].map((f) => readFileSync(f, "utf8")).join("\n")
-    + readFileSync(join(p.dir, "mappings.ttl"), "utf8");
+  // Comments do not count: a term a comment mentions is not converted by naming it.
+  const text = [...ruleFiles(p, "lift"), ...ruleFiles(p, "lower"), join(p.dir, "mappings.ttl")]
+    .map((f) => readFileSync(f, "utf8").replace(/(^|\s)#.*$/gm, "$1")).join("\n");
   const out = new Set<string>();
   for (const m of text.matchAll(/<(https?:[^>\s]+)>/g)) out.add(m[1]);
   for (const m of text.matchAll(/(?<![\w:/#-])([A-Za-z][\w-]*):([A-Za-z_][\w.-]*[\w-])/g)) {
@@ -225,6 +257,23 @@ function dateTimeStampProperties(p: Profile, direction: Direction): Set<string> 
 export function convert(p: Profile, direction: Direction, input: Quad[]): Conversion {
   const store = buildStore(p, direction, input);
   const prefixes = prefixBlock(p);
+  const entailed: Quad[] = [];
+  const entailDir = join(p.dir, direction, "entail");
+  if (existsSync(entailDir)) {
+    // Inside the store: blank nodes keep their identity. What was added is read back as a diff.
+    const dump = () => (store.query(`CONSTRUCT { ?s ?p ?o } WHERE { GRAPH <${G_IN}> { ?s ?p ?o } }`) as ox.Quad[])
+      .map((q) => q.toString() + " .");
+    const before = new Set(dump());
+    for (const f of readdirSync(entailDir).filter((x) => x.endsWith(".ru")).sort()) {
+      try {
+        store.update(prefixes + readFileSync(join(entailDir, f), "utf8"), { use_default_graph_as_union: true });
+      } catch (e) {
+        throw new Error(`${join(entailDir, f)}: ${(e as Error).message}`);
+      }
+    }
+    const added = dump().filter((l) => !before.has(l)).join("\n");
+    if (added) entailed.push(...new Parser({ format: "application/n-triples", blankNodePrefix: "" }).parse(added));
+  }
   const seen = new Set<string>();
   const out: Quad[] = [];
   const rules: RuleRun[] = [];
@@ -232,8 +281,10 @@ export function convert(p: Profile, direction: Direction, input: Quad[]): Conver
   for (const file of ruleFiles(p, direction)) {
     const query = prefixes + readFileSync(file, "utf8");
     let result: ox.Quad[];
+    const started = Date.now();
     try {
       result = store.query(query, { use_default_graph_as_union: true }) as ox.Quad[];
+      if (process.env.CROSSWALK_PROFILE_RULES) console.error(`${Date.now() - started} ms ${file.slice(p.dir.length + 1)}`);
     } catch (e) {
       throw new Error(`${file}: ${(e as Error).message}`);
     }
@@ -264,7 +315,48 @@ export function convert(p: Profile, direction: Direction, input: Quad[]): Conver
     const iri = q.predicate.value === RDF_TYPE ? q.object.value : q.predicate.value;
     if (!named.has(iri) && !handled(iri, ok)) unhandled.set(key, (unhandled.get(key) ?? 0) + 1);
   }
-  return { quads: out, rules, unhandled };
+  return { quads: out, entailed, rules, unhandled };
+}
+
+const OPENEPCIS_EXT = "https://ref.openepcis.org/extensions/";
+const EPCIS_CONTEXT = "https://ref.gs1.org/standards/epcis/epcis-context.jsonld";
+
+/**
+ * The published JSON-LD contexts an OpenEPCIS document uses: the EPCIS context when it has EPCIS
+ * statements, then the context of every module whose namespace it uses (the core's first; module
+ * contexts import it). A module's context is extensions/<area>/<module>/context/<name>-context.jsonld,
+ * served at https://ref.openepcis.org/extensions/<area>/<module>/<name>-context.jsonld.
+ */
+export function contextsFor(quads: Quad[]): string[] {
+  const used = new Set<string>();
+  for (const q of quads) {
+    for (const iri of [q.predicate.value, q.predicate.value === RDF_TYPE ? q.object.value : ""]) {
+      if (iri.startsWith(OPENEPCIS_EXT)) used.add(iri.slice(OPENEPCIS_EXT.length).split("/").slice(0, 2).join("/"));
+      if (iri.startsWith("https://ref.gs1.org/epcis/")) used.add("epcis");
+    }
+  }
+  const out: string[] = used.has("epcis") ? [EPCIS_CONTEXT] : [];
+  const modules = [...used].filter((m) => m !== "epcis").sort((a, b) => (a === "common/core" ? -1 : b === "common/core" ? 1 : a.localeCompare(b)));
+  if (!modules.includes("common/core")) modules.unshift("common/core");
+  for (const m of modules) {
+    const dir = join(ROOT, "extensions", m, "context");
+    if (!existsSync(dir)) continue;
+    const file = readdirSync(dir).find((f) => /^[\w-]+-context\.jsonld$/.test(f) && !/(shortcut|operational|bridge)/.test(f));
+    if (file) out.push(`${OPENEPCIS_EXT}${m}/${file}`);
+  }
+  return out;
+}
+
+/** An OpenEPCIS-side conversion result as JSON-LD, compacted with the published contexts. */
+export async function toOursJsonLd(quads: Quad[]): Promise<Record<string, unknown>> {
+  const { offlineDocumentLoader } = await import("./jsonld-loader.ts");
+  const w = new Writer({ format: "application/n-quads" });
+  const sorted = [...quads].sort((a, b) =>
+    (a.subject.value + a.predicate.value + a.object.value).localeCompare(b.subject.value + b.predicate.value + b.object.value));
+  const expanded = await jsonld.fromRDF(sorted.map((q) => w.quadToString(q.subject, q.predicate, q.object)).join("") as never,
+    { format: "application/n-quads" });
+  return (await jsonld.compact(expanded, { "@context": contextsFor(quads) } as never,
+    { documentLoader: (await offlineDocumentLoader()) as never })) as Record<string, unknown>;
 }
 
 /** Serialise quads as Turtle with the profile's prefixes, triples sorted for stable output. */
@@ -275,6 +367,21 @@ export async function toTurtle(quads: Quad[], prefixes: Record<string, string>):
   );
   writer.addQuads(sorted);
   return new Promise((res, rej) => writer.end((e, r) => (e ? rej(e) : res(r))));
+}
+
+const NUMERIC = new Set(["double", "float", "decimal", "integer", "int", "long", "nonNegativeInteger", "positiveInteger"].map((t) => XSD + t));
+
+/**
+ * The quads with numeric literals in one spelling per value ("24000"^^xsd:double and
+ * "2.4E4"^^xsd:double are the same literal value): for comparing documents whose serialisers
+ * write numbers differently, such as a JSON-LD round trip.
+ */
+export function sameValueSpelling(quads: Quad[]): Quad[] {
+  return quads.map((q) => {
+    const o = q.object;
+    if (o.termType !== "Literal" || !NUMERIC.has(o.datatype.value) || !Number.isFinite(Number(o.value))) return q;
+    return DataFactory.quad(q.subject, q.predicate, DataFactory.literal(String(Number(o.value)), o.datatype));
+  });
 }
 
 /** RDFC-1.0 canonical N-Quads of a quad set: equal strings ⇔ isomorphic graphs. */

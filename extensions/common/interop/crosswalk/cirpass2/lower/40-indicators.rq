@@ -30,6 +30,11 @@ WHERE {
   OPTIONAL { GRAPH <urn:xw:in> { ?i txt-indicator:hasQuantitativeValue ?qv } }
   OPTIONAL { GRAPH <urn:xw:in> { ?i txt-indicator:hasCategoricalValue ?ccat } OPTIONAL { ?ocat xw:sameCode ?ccat } BIND(COALESCE(?ocat, ?ccat) AS ?cat) }
   OPTIONAL { GRAPH <urn:xw:in> { ?i txt-indicator:hasTextualValue ?text } }
-  OPTIONAL { GRAPH <urn:xw:in> { ?i txt-indicator:derivedFrom ?from } }
+  # dcterms:relation: derived from that assessment as a whole (its results are the derivedFrom).
+  OPTIONAL {
+    { GRAPH <urn:xw:in> { ?i dcterms:relation ?from } }
+    UNION
+    { GRAPH <urn:xw:in> { ?i txt-indicator:derivedFrom ?from } FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?i dcterms:relation ?anyRel } } }
+  }
   OPTIONAL { GRAPH <urn:xw:in> { ?i txt-indicator:derivedUsingMethod ?m } }
 }

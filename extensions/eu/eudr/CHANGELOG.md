@@ -4,6 +4,12 @@ All notable changes to the EUDR module will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed: the exemption declaration names the operator role as a role
+
+`epcis/exemption-declaration.jsonld` (and the EPCIS extension guide) gave `oec:hasOperatorRole`
+the string "DownstreamOperator"; with a prefixed key the context does not coerce it, so it was a
+literal. It is `{ "id": "oec:DownstreamOperator" }`.
+
 ## [0.10.0] - 2026-11-07
 
 ### Removed: `eudr:ActorRole` — the supply-chain positions live in dpp-core

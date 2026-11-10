@@ -5,6 +5,7 @@
 #    dcterms:format.
 #  - Regulatory information the product complies with is eudpp:isConformWith; one it does not
 #    (yet) comply with is only dcterms:relation.
+#  - Both for products only (not for a regulatory notification message, for instance).
 CONSTRUCT {
   ?prod ?docLink ?doc .
   ?doc a ?docClass ; dcterms:type ?docType ; eudpp:contentType ?ct ; dcterms:format ?fmt .
@@ -13,6 +14,7 @@ CONSTRUCT {
 WHERE {
   {
     GRAPH <urn:xw:in> { ?prod ?dl ?doc . ?doc a ?dt0 }
+    FILTER EXISTS { GRAPH <urn:xw:in> { ?prod a ?prodT } ?prodT rdfs:subClassOf* gs1:Product }
     VALUES ?dl { oec:hasConformityDeclaration oec:hasDocuments }
     ?dt0 rdfs:subClassOf* oec:DocumentReference .
     OPTIONAL { GRAPH <urn:xw:in> { ?doc oec:hasDocumentType ?dtype } OPTIONAL { ?dtype xw:documentClass ?dc } }
@@ -24,6 +26,7 @@ WHERE {
     BIND(IF(BOUND(?mime) && LCASE(STR(?mime)) != "application/pdf", ?mime, ?u4) AS ?fmt)
   } UNION {
     GRAPH <urn:xw:in> { ?prod gs1:regulatoryInformation ?ri }
+    FILTER EXISTS { GRAPH <urn:xw:in> { ?prod a ?prodT } ?prodT rdfs:subClassOf* gs1:Product }
     OPTIONAL { GRAPH <urn:xw:in> { ?ri oec:isRegulationCompliant ?ok } }
     BIND(IF(COALESCE(?ok, false), eudpp:isConformWith, dcterms:relation) AS ?regLink)
   }

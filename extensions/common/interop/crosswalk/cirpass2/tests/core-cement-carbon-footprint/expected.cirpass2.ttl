@@ -23,79 +23,83 @@
 @prefix schema: <https://schema.org/>.
 @prefix euelec: <https://ref.openepcis.org/extensions/eu/electronics/>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix txt-process: <https://w3id.org/eudpp/textile-process#>.
 
-_:a31888b19e1e399c1a24a9b215aee952 dcterms:isPartOf _:d290e8de96f7f74fd29f9d5f8371a310;
-    a eudpp:RecycledMaterialsUseResult;
-    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
-    eudpp:numericalValue 0.35.
-_:a72f135d111e249692410a5ed0a53d37 dcterms:conformsTo "https://www.iso.org/standard/71206.html"^^xsd:anyURI;
+_:a7e8f97bfd6f6de6a3eaf6b0d6b81 dcterms:type oec:hasCarbonFootprintProduction;
+    a eudpp:LCAModuleValue;
+    eudpp:amount "5.4"^^xsd:double;
+    eudpp:hasMeasurementUnit units:kilogram;
+    eudpp:isDeclared true.
+_:b04852d8f2bf2d54d7d6edde04a4fa5 a eudpp:CarbonFootprint;
+    eudpp:hasMeasurementUnit units:kilogram;
+    eudpp:hasPerModuleValue _:a7e8f97bfd6f6de6a3eaf6b0d6b81, _:b4507eba9a430dfd009e3a15cdaf0348, _:f3a2e37f767f3f08abf9da47bf2f2b3a;
+    eudpp:numericalValue 14.2;
+    eudpp:quantifiesIndicator eudpp:ind_GWPtotal;
+    eudpp:unitAsString "1 kg of cement".
+_:b4507eba9a430dfd009e3a15cdaf0348 dcterms:type oec:hasCarbonFootprintDistribution;
+    a eudpp:LCAModuleValue;
+    eudpp:amount "0.7"^^xsd:double;
+    eudpp:hasMeasurementUnit units:kilogram;
+    eudpp:isDeclared true.
+_:b7677cdfe64e0c8071a5dc7f1f80aeb0 a eudpp:MaterialOfComposition;
+    eudpp:hasMaterialType _:c34fb5c8f068dad37ea09259de00dce0;
+    eudpp:materialPercentage "65"^^xsd:decimal.
+_:b81176642950105e5191bfcfdb8c253c a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit <https://vocabulary.uncefact.org/UnitMeasureCode#N20>;
+    txt-connector:numericValue 52.5.
+_:ba56a1f54ac90a0933a679d9ba18f116 dcterms:type oec:RecycledContent.
+_:bd917267c84de04a6317efbc02673384 a eudpp:ProductIdentifier;
+    eudpp:hasGranularity eudpp:model;
+    eudpp:hasScheme eudpp:GTIN;
+    eudpp:identifierValue "09521234600015".
+_:c19a8871767051020a878e60c4d03dbd a eudpp:MaterialOfComposition;
+    eudpp:hasMaterialType _:c42d77b75c1bf54f02b15062105327cf;
+    eudpp:materialPercentage "5"^^xsd:decimal.
+_:c34fb5c8f068dad37ea09259de00dce0 a eudpp:MaterialType;
+    eudpp:materialTypeValue "Portland clinker".
+_:c42d77b75c1bf54f02b15062105327cf a eudpp:MaterialType;
+    eudpp:materialTypeValue "Gypsum".
+_:c9b931916d7e2091b18e39451f1a089c dcterms:conformsTo "https://www.iso.org/standard/71206.html"^^xsd:anyURI;
     dcterms:type oec:CarbonFootprintDeclaration;
     a eudpp:LCAStudy;
-    eudpp:hasLCIAResult _:edc26890a739c4f84ed3e8469f67f42f.
-_:a86249427f8b78e8b48e2e7913d670ee a eudpp:MaterialType;
-    eudpp:materialTypeValue "Portland clinker".
-_:af4626973fe6da5b6369d5a50dc53464 dcterms:isPartOf _:d290e8de96f7f74fd29f9d5f8371a310;
+    eudpp:hasLCIAResult _:b04852d8f2bf2d54d7d6edde04a4fa5.
+_:d8c36712d1feb2b6ad995423fdf161bd dcterms:isPartOf _:ba56a1f54ac90a0933a679d9ba18f116;
     dcterms:type oec:preConsumerRecycledContent;
     a eudpp:RecycledMaterialsUseResult;
     eudpp:hasMeasurementUnit eudpp:massFractionUnit;
     eudpp:numericalValue 0.35.
-_:bae33afec0b8d727925c9ebc30fe3b64 a txt-connector:QuantitativeValue;
+_:e6e1cfe36ec4e56b6968517769d45f78 dcterms:isPartOf _:ba56a1f54ac90a0933a679d9ba18f116;
+    a eudpp:RecycledMaterialsUseResult;
+    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
+    eudpp:numericalValue 0.35.
+_:e9f442cf12991cd246903796a1cf5ac1 a eudpp:MaterialType;
+    eudpp:materialTypeValue "Granulated blast-furnace slag (GBFS)".
+_:edca7c055c64b619f31595fc3590c687 a eudpp:MaterialOfComposition;
+    eudpp:hasMaterialType _:e9f442cf12991cd246903796a1cf5ac1;
+    eudpp:materialPercentage "30"^^xsd:decimal.
+_:f35cfd64e596fc1dadc3034c148f853a a txt-connector:QuantitativeValue;
     txt-connector:hasMeasurementUnit units:minute;
     txt-connector:numericValue "75"^^xsd:decimal.
-_:c98fa30509eb7b872deb131e3db05d0f a eudpp:MaterialOfComposition;
-    eudpp:hasMaterialType _:f353ac6f121347bc048fab9e33616f63;
-    eudpp:materialPercentage "30"^^xsd:decimal.
-_:ce270ba1b2ab29e820faaef629770335 a txt-connector:QuantitativeValue;
-    txt-connector:hasMeasurementUnit <https://vocabulary.uncefact.org/UnitMeasureCode#N20>;
-    txt-connector:numericValue 52.5.
-_:d290e8de96f7f74fd29f9d5f8371a310 dcterms:type oec:RecycledContent.
-_:da6dbca4ab9991c1b0bccaf3f22c56c6 a eudpp:MaterialType;
-    eudpp:materialTypeValue "Gypsum".
-_:e890ab74f13a2a498a8b18fcf85716ae a eudpp:MaterialOfComposition;
-    eudpp:hasMaterialType _:a86249427f8b78e8b48e2e7913d670ee;
-    eudpp:materialPercentage "65"^^xsd:decimal.
-_:e9e48c9e4db8d43462e2b71211353d25 a eudpp:ProductIdentifier;
-    eudpp:hasGranularity eudpp:model;
-    eudpp:hasScheme eudpp:GTIN;
-    eudpp:identifierValue "09521234600015".
-_:ead0715e84526fe666fb25c32c261e85 a eudpp:MaterialOfComposition;
-    eudpp:hasMaterialType _:da6dbca4ab9991c1b0bccaf3f22c56c6;
-    eudpp:materialPercentage "5"^^xsd:decimal.
-_:eb71e53559fa414dd8ac547c4f9901c7 dcterms:type oec:hasCarbonFootprintProduction;
+_:f3a2e37f767f3f08abf9da47bf2f2b3a dcterms:type oec:hasCarbonFootprintRawMaterial;
     a eudpp:LCAModuleValue;
+    eudpp:amount "8.1"^^xsd:double;
     eudpp:hasMeasurementUnit units:kilogram;
-    eudpp:numericalValue 5.4.
-_:edc26890a739c4f84ed3e8469f67f42f a eudpp:CarbonFootprint;
-    eudpp:hasMeasurementUnit units:kilogram;
-    eudpp:hasPerModuleValue _:eb71e53559fa414dd8ac547c4f9901c7, _:f530d0290e27ea78db88ef06a3cb53fd, _:ff9116515c654f30eec7ed9d9360002e;
-    eudpp:numericalValue 14.2;
-    eudpp:quantifiesIndicator eudpp:ind_GWPtotal;
-    eudpp:unitAsString "1 kg of cement".
-_:f353ac6f121347bc048fab9e33616f63 a eudpp:MaterialType;
-    eudpp:materialTypeValue "Granulated blast-furnace slag (GBFS)".
-_:f530d0290e27ea78db88ef06a3cb53fd dcterms:type oec:hasCarbonFootprintDistribution;
-    a eudpp:LCAModuleValue;
-    eudpp:hasMeasurementUnit units:kilogram;
-    eudpp:numericalValue 0.7.
-_:f91eae475882fd2d9631bb13b54a7e96 dcterms:identifier "EU 2024/3110";
-    dcterms:type <https://ref.openepcis.org/extensions/eu/cpr/RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION>;
-    a eudpp:UnionHarmonisationLegislation.
-_:fe074e2ef13a6f7d291daa5f3493a7dc dcterms:type <https://ref.openepcis.org/extensions/eu/cpr/ReactionToFire>;
+    eudpp:isDeclared true.
+_:f3ef1a5f8525c5927da82c86454bf471 dcterms:type <https://ref.openepcis.org/extensions/eu/cpr/ReactionToFire>;
     a txt-indicator:Indicator;
     txt-indicator:hasCategoricalValue <https://ref.openepcis.org/extensions/eu/cpr/FireClassA1>.
-_:ff9116515c654f30eec7ed9d9360002e dcterms:type oec:hasCarbonFootprintRawMaterial;
-    a eudpp:LCAModuleValue;
-    eudpp:hasMeasurementUnit units:kilogram;
-    eudpp:numericalValue 8.1.
+_:f90faff4cc01c6f922885f44c921be82 dcterms:identifier "EU 2024/3110";
+    dcterms:type <https://ref.openepcis.org/extensions/eu/cpr/RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION>;
+    a eudpp:UnionHarmonisationLegislation.
 <https://id.gs1.org/01/09521234600015> dcterms:type <https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct>;
     a eudpp:Product;
-    txt-indicator:hasIndicator _:fe074e2ef13a6f7d291daa5f3493a7dc;
-    eudpp:hasLCAStudy _:a72f135d111e249692410a5ed0a53d37;
+    txt-indicator:hasIndicator _:f3ef1a5f8525c5927da82c86454bf471;
+    eudpp:hasLCAStudy _:c9b931916d7e2091b18e39451f1a089c;
     eudpp:hasManufacturer <https://id.gs1.org/417/9521234000044>;
-    eudpp:hasMaterial _:c98fa30509eb7b872deb131e3db05d0f, _:e890ab74f13a2a498a8b18fcf85716ae, _:ead0715e84526fe666fb25c32c261e85;
-    eudpp:hasProperty _:a31888b19e1e399c1a24a9b215aee952, _:af4626973fe6da5b6369d5a50dc53464;
-    eudpp:hasUniqueProductIdentifier _:e9e48c9e4db8d43462e2b71211353d25;
-    eudpp:isConformWith _:f91eae475882fd2d9631bb13b54a7e96;
+    eudpp:hasMaterial _:b7677cdfe64e0c8071a5dc7f1f80aeb0, _:c19a8871767051020a878e60c4d03dbd, _:edca7c055c64b619f31595fc3590c687;
+    eudpp:hasProperty _:d8c36712d1feb2b6ad995423fdf161bd, _:e6e1cfe36ec4e56b6968517769d45f78;
+    eudpp:hasUniqueProductIdentifier _:bd917267c84de04a6317efbc02673384;
+    eudpp:isConformWith _:f90faff4cc01c6f922885f44c921be82;
     eudpp:productName "BetonStrong CEM I 52.5 N, 25 kg bag"@en.
 <https://id.gs1.org/417/9521234000044> a eudpp:LegalPerson;
     gs1:partyGLN "9521234000044";

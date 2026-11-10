@@ -1,10 +1,12 @@
 # Points a scoring method awards to a result or sub-assessment have no CIRPASS-2 slot; they
-# travel as an indicator derived from that node, marked dcterms:type oea:awardedScore.
+# travel as an indicator derived from that node, marked dcterms:type oea:awardedScore. Points of a
+# sub-assessment: derived from its results, dcterms:relation the sub-assessment (as in 40-…).
 CONSTRUCT {
   ?prod txt-indicator:hasIndicator _:i .
   _:i a txt-indicator:PerformanceIndicator ;
      dcterms:type oea:awardedScore ;
-     txt-indicator:derivedFrom ?n ;
+     txt-indicator:derivedFrom ?from ;
+     dcterms:relation ?fromAssessment ;
      txt-indicator:hasQuantitativeValue _:q .
   _:q a txt-connector:QuantitativeValue ; txt-connector:numericValue ?v ; txt-connector:hasMeasurementUnit units:one .
 }
@@ -17,4 +19,8 @@ WHERE {
   OPTIONAL { GRAPH <urn:xw:in> { ?x epcis:epcList ?epc } }
   BIND(COALESCE(?epc, ?x) AS ?prod)
   BIND(xsd:decimal(?score) AS ?v)
+  BIND(EXISTS { GRAPH <urn:xw:in> { ?n a ?nt } ?nt rdfs:subClassOf* oea:Assessment } AS ?nIsAssessment)
+  OPTIONAL { GRAPH <urn:xw:in> { ?n oea:hasResult ?nr } FILTER(?nIsAssessment) }
+  BIND(IF(?nIsAssessment, ?nr, ?n) AS ?from)
+  BIND(IF(?nIsAssessment, ?n, ?noAssessment) AS ?fromAssessment)
 }

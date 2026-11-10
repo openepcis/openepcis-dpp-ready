@@ -4,6 +4,10 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed: no `action` on the assembling TransformationEvent
+
+`epcis/amperia-staxwall-lifecycle.jsonld`: TransformationEvents have no `action` in EPCIS 2.0.
+
 ## [0.11.0] - 2026-11-09
 
 ### Removed: `eubat:substanceCasNumber`, `eubat:substanceEcNumber`

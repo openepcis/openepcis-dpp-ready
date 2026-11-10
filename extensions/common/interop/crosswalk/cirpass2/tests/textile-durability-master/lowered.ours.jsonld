@@ -1,0 +1,93 @@
+{
+  "@context": [
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld"
+  ],
+  "@graph": [
+    {
+      "id": "_:b2431ace0abf018f3ba03c3dd5351684",
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": "oea:ExpectedLifetime",
+      "oea:hasIndicatorValue": "_:f770acff2058476286e799a3cc300c99"
+    },
+    {
+      "id": "_:b91c30aa806acde3284e264ecbcf9d4d",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:f89f93439099a32b15265cb930a4f93e",
+      "oea:hasObservedParameter": "eutex:AbrasionResistance"
+    },
+    {
+      "id": "_:c254e4fad266b86a06ecfbbd77a33cbd",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "150"
+    },
+    {
+      "id": "_:c264020c08fa19d374a9ec6fdd1c7a02",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "NEW",
+      "gs1:value": "800"
+    },
+    {
+      "id": "_:c4a354ee32500c8cb2b6d5be589c474b",
+      "type": "oea:Indicator",
+      "oea:hasCategoricalValue": "eutex:DurabilityB",
+      "oea:hasIndicatorKind": "eutex:DurabilityRating"
+    },
+    {
+      "id": "_:de3d94f3f911a1e65518cec7a8a7899f",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:c264020c08fa19d374a9ec6fdd1c7a02",
+      "oea:hasObservedParameter": "eutex:TensileStrength"
+    },
+    {
+      "id": "_:f403ee412f56dd9915fcea96502ada22",
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": "oea:NumberOfUseCycles",
+      "oea:hasIndicatorValue": "_:c254e4fad266b86a06ecfbbd77a33cbd"
+    },
+    {
+      "id": "_:f770acff2058476286e799a3cc300c99",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "ANN",
+      "gs1:value": "8"
+    },
+    {
+      "id": "_:f89f93439099a32b15265cb930a4f93e",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "40000"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000013",
+      "type": "gs1:Product",
+      "eutex:hasDurabilityInfo": "https://id.gs1.org/01/09521234000013#durability"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000013#durability",
+      "type": "eutex:DurabilityInfo",
+      "oea:hasIndicator": [
+        "_:b2431ace0abf018f3ba03c3dd5351684",
+        "_:c4a354ee32500c8cb2b6d5be589c474b",
+        "_:f403ee412f56dd9915fcea96502ada22"
+      ],
+      "oea:hasSubAssessment": [
+        "https://id.gs1.org/01/09521234000013#durability-abrasion",
+        "https://id.gs1.org/01/09521234000013#durability-tensile"
+      ]
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000013#durability-abrasion",
+      "type": "oea:TestExecution",
+      "oea:hasMethod": "eutex:MartindaleAbrasionTest",
+      "oea:hasResult": "_:b91c30aa806acde3284e264ecbcf9d4d"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000013#durability-tensile",
+      "type": "oea:TestExecution",
+      "oea:hasMethod": "eutex:TensileStrengthTest",
+      "oea:hasResult": "_:de3d94f3f911a1e65518cec7a8a7899f"
+    }
+  ]
+}

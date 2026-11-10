@@ -9,6 +9,21 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Added: crosswalk checks against the target ontologies and every module example
+
+`pnpm run check:crosswalk` now also checks that every lift output satisfies the OWL and RDFS
+axioms of the CIRPASS-2 ontologies (domain, range, restrictions, closed world); a finding fails
+unless a documented CIRPASS-2 gap makes it unavoidable. Every module example goes through both
+profiles; the OpenEPCIS side is committed as JSON-LD with the published contexts, must expand to
+exactly the converted RDF, and `check:shapes:itb` sends it through the EC validator. The checks
+found and fixed: LCA module values without `eudpp:amount`, URLs typed as strings, actor addresses
+on `isEstablishedIn` instead of EUDPP's own `schema:address`, a missing facility name mapping,
+Digital Link identifiers without scheme, indicators derived from executions, a fabric parameter
+mapped to a structure class, untyped EPCIS master data, product rules firing on events, and
+measured zeros lost to an Oxigraph arithmetic bug. Example fixes: two TransformationEvents carried
+`action` (iron-steel, battery), a lot sat in `outputEPCList` (iron-steel), and an EUDR operator role
+was a string.
+
 ### Added: crosswalk covers EUDPP core
 
 The `cirpass2` crosswalk profile converts complete passports to and from EUDPP core 2.1.0:

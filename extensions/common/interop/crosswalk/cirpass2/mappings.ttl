@@ -11,6 +11,7 @@
 @prefix txt-indicator: <https://w3id.org/eudpp/textile-indicator#> .
 @prefix txt-recyclability: <https://w3id.org/eudpp/textile-recyclability#> .
 @prefix txt-structure: <https://w3id.org/eudpp/textile-structure#> .
+@prefix txt-process: <https://w3id.org/eudpp/textile-process#> .
 @prefix eudpp: <https://w3id.org/eudpp#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix cbv: <https://ref.gs1.org/cbv/> .
@@ -74,6 +75,9 @@ eutex:ChemicalRecyclingPA6      xw:liftType txt-recyclability:ChemicalRecyclingR
 eutex:ThermoChemicalRecycling   xw:liftType txt-recyclability:ChemicalRecyclingRoute .
 txt-recyclability:MechanicalRecyclingRoute xw:lowerTo eutex:MechanicalRecycling .
 txt-recyclability:ChemicalRecyclingRoute   xw:lowerTo eutex:ChemicalRecyclingCotton .
+# The process type a route class fixes (owl:hasValue on txt-recyclability:usesRecyclingProcessType).
+txt-recyclability:MechanicalRecyclingRoute xw:processType txt-process:MechanicalRecyclingProcess .
+txt-recyclability:ChemicalRecyclingRoute   xw:processType txt-process:ChemicalRecyclingProcess .
 
 # ---------------------------------------------------------------- reusable definitions
 oea:TestMethod                xw:liftClass txt-assessment:TestMethod .
@@ -90,13 +94,11 @@ eutex:PillingResistance       xw:liftType txt-durability:PillingResistance .
 eutex:ColourFastness          xw:liftType txt-durability:ColourFastness .
 eutex:DimensionalStability    xw:liftType txt-durability:DimensionalStability .
 eutex:TensileStrength         xw:liftType txt-durability:FabricStrength .
-eutex:FabricAppearance        xw:liftType txt-structure:FabricAppearance .
 txt-durability:AbrasionResistance   xw:lowerTo eutex:AbrasionResistance .
 txt-durability:PillingResistance    xw:lowerTo eutex:PillingResistance .
 txt-durability:ColourFastness       xw:lowerTo eutex:ColourFastness .
 txt-durability:DimensionalStability xw:lowerTo eutex:DimensionalStability .
 txt-durability:FabricStrength       xw:lowerTo eutex:TensileStrength .
-txt-structure:FabricAppearance      xw:lowerTo eutex:FabricAppearance .
 # Without a CIRPASS-2 class: typed as the generic observed performance parameter.
 oea:PerformanceParameter      xw:liftClass txt-durability:ObservedPerformanceParameter .
 txt-durability:ObservedPerformanceParameter xw:lowerTo oea:PerformanceParameter .
@@ -182,6 +184,7 @@ oec:OperatorInformation             xw:nodeClass eudpp:LegalPerson .
 oec:FacilityInformation             xw:nodeClass eudpp:Facility .
 oec:MaterialComposition             xw:nodeClass eudpp:MaterialOfComposition .
 oec:SubstanceOfConcern              xw:nodeClass eudpp:SubstanceOfConcern .
+oec:HazardousSubstance              xw:nodeClass eudpp:Substance .
 oec:EnvironmentalProductDeclaration xw:nodeClass eudpp:EPDStudy .
 oec:EmissionsPerformance            xw:nodeClass eudpp:LCAStudy .
 oec:CarbonFootprintDeclaration      xw:nodeClass eudpp:LCAStudy .
@@ -190,8 +193,9 @@ oec:LifecycleStageResult            xw:nodeClass eudpp:LCAModuleValue .
 gs1:RegulatoryInformation           xw:nodeClass eudpp:UnionHarmonisationLegislation .
 oec:DocumentReference               xw:nodeClass eudpp:DocumentFormattedProperty .
 oec:DueDiligenceReport              xw:nodeClass eudpp:DocumentFormattedProperty .
-# Addresses and contact points have no EUDPP class: schema.org, which GS1 Web Vocabulary
-# derives from. An address an actor is established at is also a dcterms:Location.
+# Addresses: EUDPP links actors and facilities to a schema:PostalAddress with schema:address.
+# Contact points: schema.org, which GS1 Web Vocabulary derives from (EUDPP has schema:email and
+# schema:telephone on the actor, but no contact point).
 gs1:PostalAddress                   xw:nodeClass schema:PostalAddress .
 gs1:ContactPoint                    xw:nodeClass schema:ContactPoint .
 # Containers without a target class keep their node, typed only by dcterms:type.
@@ -204,6 +208,7 @@ eudpp:Actor                         xw:nodeLowerTo gs1:Organization .
 eudpp:Facility                      xw:nodeLowerTo oec:FacilityInformation .
 eudpp:MaterialOfComposition         xw:nodeLowerTo oec:MaterialComposition .
 eudpp:SubstanceOfConcern            xw:nodeLowerTo oec:SubstanceOfConcern .
+eudpp:Substance                     xw:nodeLowerTo oec:HazardousSubstance .
 eudpp:EPDStudy                      xw:nodeLowerTo oec:EnvironmentalProductDeclaration .
 eudpp:LCAStudy                      xw:nodeLowerTo oec:EmissionsPerformance .
 eudpp:LCIAResult                    xw:nodeLowerTo oec:ImpactIndicatorResult .
@@ -239,9 +244,11 @@ schema:ContactPoint                 xw:nodeLowerTo gs1:ContactPoint .
 [] xw:ours oec:hasCarbonFootprintDeclaration ; xw:theirs eudpp:hasLCAStudy ; xw:host gs1:Product ; xw:objectHost oec:CarbonFootprintDeclaration .
 
 [] xw:ours gs1:organizationName      ; xw:theirs eudpp:actorName         ; xw:host gs1:Organization .
-[] xw:ours gs1:address               ; xw:theirs eudpp:isEstablishedIn   ; xw:host gs1:Organization .
+[] xw:ours gs1:address               ; xw:theirs schema:address          ; xw:host gs1:Organization .
 [] xw:ours gs1:contactPoint          ; xw:theirs schema:contactPoint     ; xw:host gs1:Organization .
 [] xw:ours gs1:address               ; xw:theirs schema:address          ; xw:host oec:FacilityInformation .
+# EUDPP ACTOR publishes the facility name outside its namespace (…/eudpp/facilityName, not …#).
+[] xw:ours schema:name               ; xw:theirs <https://w3id.org/eudpp/facilityName> ; xw:host oec:FacilityInformation .
 [] xw:ours oec:hasFacilityCertifications ; xw:theirs gs1:certification ; xw:host oec:FacilityInformation .
 [] xw:ours oec:facilityType          ; xw:theirs dcterms:type            ; xw:host oec:FacilityInformation .
 [] xw:ours gs1:streetAddress         ; xw:theirs schema:streetAddress    ; xw:host gs1:PostalAddress .
@@ -267,7 +274,7 @@ schema:ContactPoint                 xw:nodeLowerTo gs1:ContactPoint .
 [] xw:ours gs1:regulatoryAct         ; xw:theirs dcterms:identifier      ; xw:host gs1:RegulatoryInformation .
 [] xw:ours gs1:regulationType        ; xw:theirs dcterms:type            ; xw:host gs1:RegulatoryInformation .
 
-[] xw:ours oec:carbonFootprintStudyUrl ; xw:theirs schema:url            ; xw:host oec:EmissionsPerformance ; xw:toString true ; xw:ourDatatype xsd:anyURI .
+[] xw:ours oec:carbonFootprintStudyUrl ; xw:theirs schema:url            ; xw:host oec:EmissionsPerformance ; xw:theirDatatype xsd:anyURI ; xw:ourDatatype xsd:anyURI .
 [] xw:ours oec:carbonFootprintMethodology ; xw:theirs dcterms:conformsTo ; xw:host oec:CarbonFootprintDeclaration .
 [] xw:ours oec:hasOperationalScope   ; xw:theirs dcterms:coverage        ; xw:host oec:EmissionsPerformance .
 [] xw:ours oec:epdProgramOperator    ; xw:theirs dcterms:publisher       ; xw:host oec:EnvironmentalProductDeclaration .
@@ -288,7 +295,7 @@ schema:ContactPoint                 xw:nodeLowerTo gs1:ContactPoint .
 [] xw:ours oec:indicatorUnit         ; xw:theirs eudpp:unitAsString      ; xw:host oec:ImpactIndicatorResult .
 [] xw:ours oec:hasLifecycleStageResult ; xw:theirs eudpp:hasPerModuleValue ; xw:host oec:ImpactIndicatorResult .
 [] xw:ours oec:hasLifecycleStage     ; xw:theirs eudpp:forLifeCycleModule ; xw:host oec:LifecycleStageResult .
-[] xw:ours oec:stageValue            ; xw:theirs eudpp:numericalValue    ; xw:host oec:LifecycleStageResult .
+[] xw:ours oec:stageValue            ; xw:theirs eudpp:amount            ; xw:host oec:LifecycleStageResult ; xw:theirDatatype xsd:double ; xw:ourDatatype xsd:decimal .
 
 # Passport data sits on the product in OpenEPCIS and on a separate eudpp:DPP node in CIRPASS-2.
 [] xw:ours oec:dppSchemaVersion      ; xw:theirs eudpp:dppSchemaVersion  ; xw:host gs1:Product ; xw:onDPP true .

@@ -23,7 +23,13 @@ WHERE {
     FILTER NOT EXISTS { ?r1 xw:ours ?p1 } FILTER NOT EXISTS { ?p1 xw:converted true }
     FILTER NOT EXISTS { ?r2 xw:ours ?p2 } FILTER NOT EXISTS { ?p2 xw:converted true }
   }
-  FILTER(BOUND(?isRoot) || NOT EXISTS { GRAPH <urn:xw:in> { ?s a ?st } ?st rdfs:subClassOf* ?m2 . ?m2 xw:nodeClass ?any2 })
+  # Converted nodes, computed once (a NOT EXISTS with the class path per row is slow).
+  OPTIONAL {
+    SELECT DISTINCT ?s (true AS ?converted) WHERE {
+      GRAPH <urn:xw:in> { ?s a ?st } ?st rdfs:subClassOf* ?m2 . ?m2 xw:nodeClass ?any2 .
+    }
+  }
+  FILTER(BOUND(?isRoot) || !BOUND(?converted))
   GRAPH <urn:xw:in> { ?s ?p ?o }
   FILTER((STRSTARTS(STR(?p), STR(gs1:)) && BOUND(?isRoot) && NOT EXISTS { ?r xw:ours ?p } && NOT EXISTS { ?p xw:converted true })
          || (STRSTARTS(STR(?p), STR(gs1:)) && !BOUND(?isRoot))

@@ -26,7 +26,8 @@ WHERE {
   }
   BIND(IF(BOUND(?cont0), ?unbound1, ?rp) AS ?p)
   BIND(IF(BOUND(?cont0), ?unbound9, ?q) AS ?qv)
-  BIND(IF(BOUND(?cont0), ?unbound2, xsd:decimal(xsd:decimal(?v) / COALESCE(?uf, 1.0))) AS ?nv)
+  # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+  BIND(IF(BOUND(?cont0), ?unbound2, xsd:decimal(IF(xsd:decimal(?v) = 0, 0.0, xsd:decimal(?v) / COALESCE(?uf, 1.0)))) AS ?nv)
   BIND(IF(BOUND(?cont0), ?unbound3,
           COALESCE(?ucode, IF(STRSTARTS(STR(?unit), "https://vocabulary.uncefact.org/UnitMeasureCode#"), STRAFTER(STR(?unit), "#"), ?unbound4))) AS ?code)
   BIND(IF(BOUND(?cont0), ?rp, ?unbound5) AS ?cp)

@@ -1,5 +1,5 @@
 # core-cement-carbon-footprint: lift then lower
-input 70 triples, lift 81, back 58
+input 70 triples, lift 84, back 58
 
 ## the way back compared with the input
 - missing 2  a https://ref.openepcis.org/extensions/eu/cpr/EssentialCharacteristic
@@ -17,3 +17,14 @@ input 70 triples, lift 81, back 58
   2  https://ref.openepcis.org/extensions/eu/cpr/harmonisedStandard
   1  https://ref.openepcis.org/extensions/eu/cpr/hasConstructionProductType
   2  https://ref.openepcis.org/extensions/eu/cpr/hasEssentialCharacteristic
+
+## target-ontology axioms the lifted document does not satisfy (accepted gaps)
+  gap 17  cardinality eudpp:LCAModuleValue eudpp:forLifeCycleModule  (1)
+  gap 23  range eudpp:Product eudpp:productName  (1)
+  gap 24  cardinality eudpp:InventoryIndicatorResult eudpp:quantifiesIndicator  (1)
+  gap 24  cardinality eudpp:LCAResult eudpp:quantifiesIndicator  (1)
+
+## OpenEPCIS shapes the way back no longer satisfies
+  _ declarationOfPerformanceUrl eucpr:ConstructionProduct must reference a Declaration of Performance per CPR Article 12
+  _ hasConstructionProductType eucpr:ConstructionProduct must declare exactly one constructionProductType (Annex III family)
+  _ hasEssentialCharacteristic A CPR Declaration of Performance must declare at least one essential characteristic, each conforming to EssentialCharacteristicShape (CPR Article 12 / Annex III)

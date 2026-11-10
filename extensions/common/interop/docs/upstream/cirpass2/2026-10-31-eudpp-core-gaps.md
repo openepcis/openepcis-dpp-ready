@@ -18,18 +18,19 @@ declaration of conformity, quantities, carbon footprint, EPD results and product
 closely. The points below are what we had to carry in other vocabularies (schema.org, GS1 Web
 Vocabulary, Dublin Core) or could not carry at all. Most are small additions.
 
-**1. A facility has no name and no address.**
-`Facility` has an identifier and `isUsedByActor`, nothing else. A passport naming the
-manufacturing site cannot say what or where it is.
-*Proposal:* `facilityName`, and a location link like `isEstablishedIn` for facilities.
-*We carry:* `schema:name`, `schema:address`.
+**1. The facility name is outside the EUDPP namespace.**
+ACTOR declares `<https://w3id.org/eudpp/facilityName>` (a slash), where every other term is
+`https://w3id.org/eudpp#…`. Data written with `eudpp:facilityName` uses an undeclared term.
+*Proposal:* `eudpp:facilityName`, with the slash IRI as a deprecated `owl:equivalentProperty`.
+*We use:* the published IRI.
 
-**2. An actor's location has no structure; an actor has no contact point.**
-`isEstablishedIn` points to `dcterms:Location` without saying how an address is written. ESPR
-Art. 27(6) asks for a postal address and an electronic means of contact.
-*Proposal:* name the address properties (e.g. LOCN `locn:address`, or schema.org), and a contact
-point property.
-*We carry:* `schema:PostalAddress` on the location, `schema:contactPoint`.
+**2. An actor has no contact point.**
+EUDPP has `schema:email` and `schema:telephone` on the actor and `schema:address` →
+`schema:PostalAddress` on actors and facilities, which covers most of ESPR Art. 27(6). A contact
+point with its own type (customer service, product safety) and the structure of the
+`dcterms:Location` that `isEstablishedIn` points to are not defined.
+*Proposal:* allow `schema:contactPoint` → `schema:ContactPoint`; say how a location is written.
+*We carry:* `schema:contactPoint`.
 
 **3. Recycled content of the product as a whole.**
 `materialRecycledContent` and `materialRecycledContentType` are per material. Delegated acts state
@@ -85,11 +86,45 @@ report. Some may belong in sector modules; access rights belong in the core.
 `hasFacility` does not say what the facility did for the product (cut and sew, dyeing, assembly).
 Textile 1.1.2 has process executions for this; the core has no counterpart.
 
+**13. Text cannot carry its language.**
+`productName`, `description`, `actorName` and the other text properties have range `xsd:string`.
+ESPR passports are multilingual; a name given in several languages (`rdf:langString`) violates the
+range.
+*Proposal:* `rdf:langString` (or `rdfs:Literal`) as range for human-readable text.
+
+**14. `RecycledMaterialsUseResult` contradicts its superclass.**
+Its comment says that no formal `quantifiesIndicator` restriction is imposed, but it inherits
+"exactly one `EN15804InventoryIndicator`" from `InventoryIndicatorResult`. A product's share of
+recycled content (item 3) is not any EN 15804 inventory indicator (SM is a mass).
+*Proposal:* lift the restriction for this class, or move it under a non-inventory result.
+
+**15. Identifier schemes for operators.**
+`ActorIdentifier` requires a scheme (`owl:someValuesFrom`); the actor schemes are GLN and LEI. An
+EORI number or a national register number has none.
+*Proposal:* EORI and a generic "national business register" scheme with the issuing country.
+
+**16. `LCAModuleValue` requires `amount` and `isDeclared`.**
+Both have cardinality exactly 1; `numericalValue`, which every other quantitative property uses,
+does not satisfy the class. A first-time publisher is likely to write `numericalValue` (we did, in
+our own test passport, until our check caught it).
+*Proposal:* say so in the class comment, or accept `numericalValue` as `amount`.
+
 **Side notes**
 
 - `GLN` is declared an `ActorIdentifierScheme` only; there is no `FacilityIdentifierScheme`
   individual, although GLNs identify facilities as well. We use `GLN` for facilities.
 - `manufacturingDate` has no range; we use `xsd:date`.
+- EUDPP declares `schema:url` a datatype property with range `xsd:anyURI`, where schema.org allows a
+  URL as an IRI. We write the literal.
+- EUDPP restates GS1's EPCIS axioms; EPCIS JSON-LD states no type for list elements (source,
+  quantity, business transaction, sensor), so EPCIS data read as RDF violates their domains until
+  the type is added.
+
+**How we checked**
+
+Every converted document is checked against the OWL/RDFS axioms of EUDPP 2.1.0 and textile 1.1.2
+as a consumer validates data (closed world: domain, range, `allValuesFrom`, `someValuesFrom`,
+`hasValue`, cardinalities). Items 13 to 16 and 8 are the findings no mapping can avoid.
 
 **Test material**
 

@@ -26,7 +26,8 @@
     "txt-structure": "https://w3id.org/eudpp/textile-structure#",
     "schema": "https://schema.org/",
     "euelec": "https://ref.openepcis.org/extensions/eu/electronics/",
-    "owl": "http://www.w3.org/2002/07/owl#"
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "txt-process": "https://w3id.org/eudpp/textile-process#"
   },
   "background": {
     "lift": [
@@ -87,11 +88,34 @@
     }
   },
   "shapes": {
-    "_comment": "SHACL the lowered (OpenEPCIS) side must satisfy.",
+    "_comment": "SHACL the OpenEPCIS side is checked against: every module's shapes (\"@shapes\"). Our own documents must satisfy them; what the way back no longer satisfies, because the target has no place for data a shape requires, is recorded in roundtrip.txt and examples-shapes.txt.",
     "files": [
-      "extensions/common/core/validation/dpp-core-shapes.ttl",
-      "extensions/common/assessment/validation/assessment-shapes.ttl",
-      "extensions/eu/textile/validation/textile-shapes.ttl"
+      "@shapes"
+    ]
+  },
+  "structure": {
+    "_comment": "The lift side is checked against the OWL/RDFS axioms of the vocabulary.lift files (domain, range, restrictions; closed world, scripts/lib/owl-structure.ts). A finding fails the build unless an entry here accepts it: each names the gap of the target vocabulary (README, 'Known gaps') that makes it unavoidable. Accepted findings are listed per case in roundtrip.txt.",
+    "accepted": [
+      {
+        "gap": 17,
+        "match": "^cardinality eudpp:LCAModuleValue eudpp:forLifeCycleModule: 0 value",
+        "reason": "a carbon-footprint stage that is not an EN 15804 module has no module to name"
+      },
+      {
+        "gap": 23,
+        "match": "^range \\S+ \\S+: \".*\"\\^\\^rdf:langString is not a xsd:string$",
+        "reason": "EUDPP types text as xsd:string; a multilingual name or description keeps its language tags"
+      },
+      {
+        "gap": 24,
+        "match": "^cardinality eudpp:(InventoryIndicatorResult|LCAResult) eudpp:quantifiesIndicator: 0 value",
+        "reason": "recycled content as a RecycledMaterialsUseResult: no inventory indicator is a share of recycled content, and the class says none is imposed, yet inherits exactly one"
+      },
+      {
+        "gap": 25,
+        "match": "^someValuesFrom eudpp:(ActorIdentifier|FacilityIdentifier) eudpp:hasScheme: ",
+        "reason": "an operator or facility identifier that is neither GLN nor LEI (EORI, national register) has no EUDPP scheme"
+      }
     ]
   }
 }

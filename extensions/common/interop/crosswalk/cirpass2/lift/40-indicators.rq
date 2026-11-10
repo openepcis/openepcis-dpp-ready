@@ -1,14 +1,18 @@
 # Indicators hang on the product in CIRPASS-2; one stated on an assessment keeps that link as
-# dcterms:source. A kind without a CIRPASS-2 indicator class travels as dcterms:type <kind>.
+# dcterms:source, as does one held by another node of the product. A kind without a CIRPASS-2
+# indicator class travels as dcterms:type <kind>.
+# derivedFrom takes results and indicators only: an indicator derived from an assessment as a
+# whole is derived from its results, and dcterms:relation names the assessment.
 CONSTRUCT {
   ?prod txt-indicator:hasIndicator ?i .
   ?i a ?icls ;
      dcterms:type ?kindMarker ;
-     dcterms:source ?srcAssessment ;
+     dcterms:source ?src ;
      txt-indicator:hasQuantitativeValue ?qv ;
      txt-indicator:hasCategoricalValue ?cat ;
      txt-indicator:hasTextualValue ?text ;
      txt-indicator:derivedFrom ?from ;
+     dcterms:relation ?fromAssessment ;
      txt-indicator:derivedUsingMethod ?m .
 }
 WHERE {
@@ -26,10 +30,25 @@ WHERE {
       BIND(COALESCE(?epc, ?y) AS ?aprod)
     }
   }
-  BIND(COALESCE(?aprod, ?x) AS ?prod)
+  # Held by another node of the product (e.g. oec:RepairabilityInfo): on the product, the holder
+  # as dcterms:source.
+  OPTIONAL {
+    GRAPH <urn:xw:in> { ?owner ?pp ?x . ?owner a ?ot }
+    ?ot rdfs:subClassOf* gs1:Product .
+    FILTER(!BOUND(?srcAssessment))
+    FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?x a ?xt2 } ?xt2 rdfs:subClassOf* gs1:Product }
+  }
+  BIND(COALESCE(?aprod, ?owner, ?x) AS ?prod)
+  BIND(COALESCE(?srcAssessment, IF(BOUND(?owner), ?x, ?noSource)) AS ?src)
   OPTIONAL { GRAPH <urn:xw:in> { ?i oea:hasIndicatorValue ?qv } }
   OPTIONAL { GRAPH <urn:xw:in> { ?i oea:hasCategoricalValue ?ocat } OPTIONAL { ?ocat xw:sameCode ?scat } BIND(COALESCE(?scat, ?ocat) AS ?cat) }
   OPTIONAL { GRAPH <urn:xw:in> { ?i oea:indicatorText ?text } }
-  OPTIONAL { GRAPH <urn:xw:in> { ?i oea:isDerivedFrom ?from } }
+  OPTIONAL {
+    GRAPH <urn:xw:in> { ?i oea:isDerivedFrom ?f0 }
+    BIND(EXISTS { GRAPH <urn:xw:in> { ?f0 a ?f0t } ?f0t rdfs:subClassOf* oea:Assessment } AS ?f0IsAssessment)
+    OPTIONAL { GRAPH <urn:xw:in> { ?f0 oea:hasResult ?f0r } FILTER(?f0IsAssessment) }
+    BIND(IF(?f0IsAssessment, ?f0r, ?f0) AS ?from)
+    BIND(IF(?f0IsAssessment, ?f0, ?noAssessment) AS ?fromAssessment)
+  }
   OPTIONAL { GRAPH <urn:xw:in> { ?i oea:hasDerivationMethod ?m } }
 }
