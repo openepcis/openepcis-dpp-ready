@@ -224,6 +224,17 @@ Feedback still open with CIRPASS-2: the `ProductEvent` activities are
 vocabulary by their own definitions and would be more robust as a SKOS
 concept scheme that CBV values can map to (item (b) against the draft).
 
+## Converting data: the crosswalk
+
+Term pointers say which terms correspond; they do not convert a document. For that, the
+[crosswalk](../crosswalk/README.md) lifts OpenEPCIS master data and EPCIS events into the
+CIRPASS-2 textile and EUDPP terms and lowers CIRPASS-2 documents back. It is rule-driven SPARQL,
+checked on every build by round-trip cases with committed results. Assessments follow the same
+pattern on both sides (`common/assessment` is modelled on textile-assessment and
+textile-indicator), so the conversion is close to one to one. What CIRPASS-2 cannot express
+travels in W3C vocabulary, never in ours, and is listed with the gaps in the crosswalk README. The
+gaps are proposed upstream in [`upstream/cirpass2/`](upstream/cirpass2/).
+
 ## What we do not do
 
 - **Do not import CIRPASS-2 TTL into the ontology.** No `owl:imports`
@@ -243,6 +254,9 @@ concept scheme that CBV values can map to (item (b) against the draft).
 - **Do not import CIRPASS-2 classes into our class hierarchy.** No
   `owl:imports`, no `rdfs:subClassOf` against `cirpass2:`. Our
   ontology stays self-contained.
+- **Do not write our vocabulary into CIRPASS-2 output.** The crosswalk emits only CIRPASS-2, EPCIS,
+  GS1 and W3C terms; OpenEPCIS IRIs appear only as identifiers of methods, standards and
+  parameters, typed with the CIRPASS-2 class.
 - **Do not re-declare EPCIS.** ESPR activities become CBV vocabulary
   values (see above) carried on the GS1 event types; since EVENT 1.0.0
   upstream references those same IRIs.

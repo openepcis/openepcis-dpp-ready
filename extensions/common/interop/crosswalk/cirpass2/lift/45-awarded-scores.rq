@@ -1,0 +1,20 @@
+# Points a scoring method awards to a result or sub-assessment have no CIRPASS-2 slot; they
+# travel as an indicator derived from that node, marked dcterms:type oea:awardedScore.
+CONSTRUCT {
+  ?prod txt-indicator:hasIndicator _:i .
+  _:i a txt-indicator:PerformanceIndicator ;
+     dcterms:type oea:awardedScore ;
+     txt-indicator:derivedFrom ?n ;
+     txt-indicator:hasQuantitativeValue _:q .
+  _:q a txt-connector:QuantitativeValue ; txt-connector:numericValue ?v ; txt-connector:hasMeasurementUnit units:one .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?n oea:awardedScore ?score }
+  OPTIONAL { GRAPH <urn:xw:in> { ?a oea:hasResult ?n } }
+  BIND(COALESCE(?a, ?n) AS ?owner)
+  GRAPH <urn:xw:in> { ?root oea:hasSubAssessment* ?owner . ?x ?p ?root . }
+  ?p rdfs:subPropertyOf* oea:hasAssessment .
+  OPTIONAL { GRAPH <urn:xw:in> { ?x epcis:epcList ?epc } }
+  BIND(COALESCE(?epc, ?x) AS ?prod)
+  BIND(xsd:decimal(?score) AS ?v)
+}

@@ -1,0 +1,164 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix eutex: <https://ref.openepcis.org/extensions/eu/textile/> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix txt-assessment: <https://w3id.org/eudpp/textile-assessment#> .
+@prefix txt-assessment-codelists: <https://w3id.org/eudpp/textile-assessment-codelists#> .
+@prefix txt-durability: <https://w3id.org/eudpp/textile-durability#> .
+@prefix txt-indicator: <https://w3id.org/eudpp/textile-indicator#> .
+@prefix txt-recyclability: <https://w3id.org/eudpp/textile-recyclability#> .
+@prefix txt-structure: <https://w3id.org/eudpp/textile-structure#> .
+
+# Pairing tables of the OpenEPCIS ↔ CIRPASS-2 crosswalk. The rules in lift/ and lower/ read
+# them; nothing here is ontology. Principles:
+#   - Code values (outcomes, operators, criteria, labels) pair one to one (xw:sameCode).
+#   - Reusable definitions (methods, standards, performance parameters) keep their OpenEPCIS
+#     IRI in CIRPASS-2 output and are typed with the CIRPASS-2 class (xw:liftType); lowering
+#     a CIRPASS-2 node of such a class without an OpenEPCIS IRI picks the canonical partner
+#     (xw:lowerTo).
+#   - Data nodes keep their identity (IRI or blank node).
+
+# ---------------------------------------------------------------- data-node classes
+oea:Assessment                xw:liftClass txt-assessment:AssessmentExecution .
+oea:TestExecution             xw:liftClass txt-assessment:TestExecution .
+eutex:DurabilityInfo          xw:liftClass txt-assessment:DurabilityAssessment .
+eutex:RobustnessAssessment    xw:liftClass txt-assessment:DurabilityAssessment .
+oec:RecyclabilityAssessment   xw:liftClass txt-recyclability:RecyclabilityAssessment .
+oea:AssessmentResult          xw:liftClass txt-assessment:AssessmentResult .
+oea:MeasurementResult         xw:liftClass txt-assessment:MeasurementResult .
+oea:AssessmentCondition       xw:liftClass txt-assessment:AssessmentCondition .
+oea:ParameterSetting          xw:liftClass txt-assessment:MeasurementParameterSetting .
+oea:Indicator                 xw:liftClass txt-indicator:Indicator .
+
+# Lowering a CIRPASS-2 execution: the most specific match wins (xw:rank, higher first).
+txt-assessment:AssessmentExecution          xw:lowerTo oea:Assessment ; xw:rank 0 .
+txt-assessment:TestExecution                xw:lowerTo oea:TestExecution ; xw:rank 1 .
+txt-assessment:DurabilityAssessment         xw:lowerTo eutex:DurabilityInfo ; xw:rank 1 .
+txt-recyclability:RecyclabilityAssessment   xw:lowerTo oec:RecyclabilityAssessment ; xw:rank 1 .
+# An execution applying the JRC robustness scoring is a robustness assessment; one applying the
+# JRC recyclability scoring is the textile recyclability assessment. A scoring method of the
+# publisher's own does not make it one: eutex:RecyclabilityAssessment is the JRC scheme.
+eutex:JRCRobustnessScoring    xw:refinesTo eutex:RobustnessAssessment .
+eutex:JRCRecyclabilityScoring xw:refinesTo eutex:RecyclabilityAssessment .
+
+# Entry property from the product (or the EPCIS event) to an assessment of a class.
+oea:Assessment                xw:entryProperty oea:hasAssessment ; xw:rank 0 .
+oea:TestExecution             xw:entryProperty oea:hasAssessment ; xw:rank 0 .
+eutex:DurabilityInfo          xw:entryProperty eutex:hasDurabilityInfo ; xw:rank 1 .
+eutex:RobustnessAssessment    xw:entryProperty eutex:hasRobustnessAssessment ; xw:rank 2 .
+oec:RecyclabilityAssessment   xw:entryProperty oec:hasRecyclabilityAssessment ; xw:rank 1 .
+eutex:RecyclabilityAssessment xw:entryProperty eutex:hasRecyclabilityAssessment ; xw:rank 2 .
+
+# CIRPASS-2 links the product to some executions directly as well.
+txt-recyclability:RecyclabilityAssessment xw:productLink txt-recyclability:hasRecyclabilityAssessment .
+
+# A method of the publisher's own (a data node, not an OpenEPCIS individual) applied by an
+# assessment of these classes is a scoring method of the matching CIRPASS-2 class.
+eutex:RobustnessAssessment    xw:methodClass txt-assessment:RobustnessScoringMethod .
+eutex:RecyclabilityAssessment xw:methodClass txt-recyclability:RecyclabilityScoringMethod .
+
+# Recycling technologies: OpenEPCIS individual → CIRPASS-2 recycling route class (and back).
+eutex:MechanicalRecycling       xw:liftType txt-recyclability:MechanicalRecyclingRoute .
+eutex:ThermoMechanicalRecycling xw:liftType txt-recyclability:MechanicalRecyclingRoute .
+eutex:ChemicalRecyclingCotton   xw:liftType txt-recyclability:ChemicalRecyclingRoute .
+eutex:ChemicalRecyclingPA6      xw:liftType txt-recyclability:ChemicalRecyclingRoute .
+eutex:ThermoChemicalRecycling   xw:liftType txt-recyclability:ChemicalRecyclingRoute .
+txt-recyclability:MechanicalRecyclingRoute xw:lowerTo eutex:MechanicalRecycling .
+txt-recyclability:ChemicalRecyclingRoute   xw:lowerTo eutex:ChemicalRecyclingCotton .
+
+# ---------------------------------------------------------------- reusable definitions
+oea:TestMethod                xw:liftClass txt-assessment:TestMethod .
+oea:AssessmentMethod          xw:liftClass txt-assessment:AssessmentMethod .
+oea:AssessmentStandard        xw:liftClass txt-assessment:AssessmentStandard .
+oea:Criterion                 xw:liftClass txt-assessment:AssessmentDecisionCriterion .
+oea:Threshold                 xw:liftClass txt-assessment:PerformanceThreshold .
+eutex:JRCRobustnessScoring    xw:liftType txt-assessment:RobustnessScoringMethod .
+eutex:JRCRecyclabilityScoring xw:liftType txt-recyclability:RecyclabilityScoringMethod .
+
+# Performance parameters: OpenEPCIS individual → CIRPASS-2 parameter class (and back).
+eutex:AbrasionResistance      xw:liftType txt-durability:AbrasionResistance .
+eutex:PillingResistance       xw:liftType txt-durability:PillingResistance .
+eutex:ColourFastness          xw:liftType txt-durability:ColourFastness .
+eutex:DimensionalStability    xw:liftType txt-durability:DimensionalStability .
+eutex:TensileStrength         xw:liftType txt-durability:FabricStrength .
+eutex:FabricAppearance        xw:liftType txt-structure:FabricAppearance .
+txt-durability:AbrasionResistance   xw:lowerTo eutex:AbrasionResistance .
+txt-durability:PillingResistance    xw:lowerTo eutex:PillingResistance .
+txt-durability:ColourFastness       xw:lowerTo eutex:ColourFastness .
+txt-durability:DimensionalStability xw:lowerTo eutex:DimensionalStability .
+txt-durability:FabricStrength       xw:lowerTo eutex:TensileStrength .
+txt-structure:FabricAppearance      xw:lowerTo eutex:FabricAppearance .
+# Without a CIRPASS-2 class: typed as the generic observed performance parameter.
+oea:PerformanceParameter      xw:liftClass txt-durability:ObservedPerformanceParameter .
+txt-durability:ObservedPerformanceParameter xw:lowerTo oea:PerformanceParameter .
+
+oea:NumberOfCycles            xw:liftType txt-assessment:NumberOfCycles .
+txt-assessment:NumberOfCycles xw:lowerTo oea:NumberOfCycles .
+oea:MeasurementParameter      xw:liftClass txt-assessment:MeasurementParameter .
+
+# Indicator kinds ↔ CIRPASS-2 indicator classes.
+eutex:RobustnessScore         xw:liftType txt-indicator:RobustnessScore .
+oea:RecyclabilityScore        xw:liftType txt-recyclability:RecyclabilityScore .
+oea:NumberOfUseCycles         xw:liftType txt-indicator:NumberOfUseCycles .
+oea:ExpectedLifetime          xw:liftType txt-indicator:EstimatedLifetime .
+eutex:DurabilityRating        xw:liftType txt-indicator:DurabilityIndicator .
+txt-indicator:RobustnessScore           xw:lowerTo eutex:RobustnessScore .
+txt-recyclability:RecyclabilityScore    xw:lowerTo oea:RecyclabilityScore .
+txt-indicator:NumberOfUseCycles         xw:lowerTo oea:NumberOfUseCycles .
+txt-indicator:EstimatedLifetime         xw:lowerTo oea:ExpectedLifetime .
+txt-indicator:LifetimeOfProduct         xw:lowerTo oea:ExpectedLifetime .
+txt-indicator:DurabilityIndicator       xw:lowerTo eutex:DurabilityRating .
+
+# ---------------------------------------------------------------- code values (1:1)
+oea:Satisfied                 xw:sameCode txt-recyclability:criterionSatisfied .
+oea:NotSatisfied              xw:sameCode txt-recyclability:criterionNotSatisfied .
+oea:NotAssessed               xw:sameCode txt-recyclability:criterionNotAssessed .
+oea:PartlySatisfied           xw:sameCode txt-recyclability:criterionPartlySatisfied .
+oea:NotApplicable             xw:sameCode txt-recyclability:criterionNotApplicable .
+oea:Uncertain                 xw:sameCode txt-recyclability:criterionUncertain .
+oea:LessThan                  xw:sameCode txt-assessment-codelists:lessThan .
+oea:LessThanOrEqual           xw:sameCode txt-assessment-codelists:lessThanOrEqualTo .
+oea:Equal                     xw:sameCode txt-assessment-codelists:equalTo .
+oea:GreaterThanOrEqual        xw:sameCode txt-assessment-codelists:greaterThanOrEqualTo .
+oea:GreaterThan               xw:sameCode txt-assessment-codelists:greaterThan .
+eutex:SameInnerOuterComposition xw:sameCode txt-recyclability:innerOuterCompositionSimilarityCriterion .
+eutex:FreeFromPrintings       xw:sameCode txt-recyclability:printingAbsenceCriterion .
+eutex:FreeFromCoatings        xw:sameCode txt-recyclability:coatingAbsenceCriterion .
+eutex:FreeFromSequins         xw:sameCode txt-recyclability:sequinAbsenceCriterion .
+eutex:FreeFromDyes            xw:sameCode txt-recyclability:dyeAbsenceCriterion .
+eutex:MonoMaterial            xw:sameCode txt-recyclability:monoMaterialCriterion .
+
+# Thresholds that CIRPASS-2 also names as a recyclability criterion: a result judged against
+# them is additionally a RecyclabilityCriterionResult for that criterion (outcome slot).
+eutex:ElastaneContentLimit    xw:criterionConcept txt-recyclability:elastaneProportionCriterion .
+eutex:ElastaneContentLimitPA6 xw:criterionConcept txt-recyclability:elastaneProportionCriterion .
+
+# ---------------------------------------------------------------- units
+# UN/CEFACT Rec 20 code ↔ SI Digital Framework unit, value_target = value_source × factor.
+# A code without a row travels as <https://vocabulary.uncefact.org/UnitMeasureCode#CODE>.
+# Lowering units:one picks C62 unless the observed parameter prefers another code.
+[] xw:unitCode "C62" ; xw:siUnit units:one ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "P1"  ; xw:siUnit units:one ; xw:factor 0.01 ; xw:canonical false .
+[] xw:unitCode "NEW" ; xw:siUnit units:newton ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "DAY" ; xw:siUnit units:day ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "HUR" ; xw:siUnit units:hour ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "MIN" ; xw:siUnit units:minute ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "SEC" ; xw:siUnit units:second ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "CEL" ; xw:siUnit units:degreeCelsius ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "MGM" ; xw:siUnit units:milligram ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "GRM" ; xw:siUnit units:gram ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "KGM" ; xw:siUnit units:kilogram ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "WTT" ; xw:siUnit units:watt ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "MTR" ; xw:siUnit units:metre ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "LTR" ; xw:siUnit units:litre ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "PAL" ; xw:siUnit units:pascal ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "MPA" ; xw:siUnit units:megapascal ; xw:factor 1.0 ; xw:canonical true .
+
+# Parameters whose values are percentages: lowering units:one back to P1.
+eutex:Spirality               xw:preferredUnitCode "P1" .
+eutex:DimensionalStability    xw:preferredUnitCode "P1" .
+eutex:ElastaneContent         xw:preferredUnitCode "P1" .
+oea:Biodegradation            xw:preferredUnitCode "P1" .

@@ -1,0 +1,15 @@
+# Criterion results. CIRPASS-2 carries them for recyclability (RecyclabilityCriterionResult
+# with a criterion concept and an outcome concept); the points a scoring method awards have no
+# slot (gap).
+CONSTRUCT {
+  ?a txt-assessment:producesResult ?r .
+  ?r a txt-recyclability:RecyclabilityCriterionResult ;
+     txt-recyclability:evaluatesCriterion ?crit ;
+     txt-recyclability:hasCriterionOutcome ?out .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?a oea:hasResult ?r . ?r a ?rt ; oea:hasCriterion ?ocrit }
+  ?rt rdfs:subClassOf* oea:CriterionResult .
+  ?ocrit xw:sameCode ?crit .
+  OPTIONAL { GRAPH <urn:xw:in> { ?r oea:hasOutcome ?oout } ?oout xw:sameCode ?out }
+}

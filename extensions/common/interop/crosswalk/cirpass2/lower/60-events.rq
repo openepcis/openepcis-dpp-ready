@@ -1,0 +1,6 @@
+# EPCIS event records travel back verbatim (the GS1 IRIs are ours as well).
+CONSTRUCT { ?e ?ep ?eo . }
+WHERE {
+  GRAPH <urn:xw:in> { ?pe eudpp:isRepresentedByCarrier ?e . ?e ?ep ?eo . }
+  FILTER(?ep = rdf:type || STRSTARTS(STR(?ep), STR(epcis:)))
+}

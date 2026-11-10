@@ -1,0 +1,43 @@
+# Crosswalk test, inbound: a recyclability assessment as CIRPASS-2 textile-recyclability states
+# it, written from the module definitions. Criterion results with outcomes, including one
+# outcome OpenEPCIS has no counterpart for (partly satisfied), a recyclability score with a
+# label, and a scoring method of the publisher's own.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix eudpp: <https://w3id.org/eudpp#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix txt-assessment: <https://w3id.org/eudpp/textile-assessment#> .
+@prefix txt-connector: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txt-indicator: <https://w3id.org/eudpp/textile-indicator#> .
+@prefix txt-recyclability: <https://w3id.org/eudpp/textile-recyclability#> .
+@prefix ex: <https://dpp.example.org/garment/4712/> .
+
+<https://id.gs1.org/01/09521234000044> a eudpp:Product ;
+    txt-recyclability:hasRecyclabilityAssessment ex:recyclability ;
+    txt-indicator:hasIndicator ex:score .
+
+ex:recyclability a txt-recyclability:RecyclabilityAssessment ;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521234000044> ;
+    txt-assessment:appliesMethod ex:scoring ;
+    txt-assessment:producesResult ex:printing, ex:coating, ex:mono .
+
+ex:scoring a txt-recyclability:RecyclabilityScoringMethod ;
+    rdfs:label "Brand recyclability scoring v3" .
+
+ex:printing a txt-recyclability:RecyclabilityCriterionResult ;
+    txt-recyclability:evaluatesCriterion txt-recyclability:printingAbsenceCriterion ;
+    txt-recyclability:hasCriterionOutcome txt-recyclability:criterionSatisfied .
+ex:coating a txt-recyclability:RecyclabilityCriterionResult ;
+    txt-recyclability:evaluatesCriterion txt-recyclability:coatingAbsenceCriterion ;
+    txt-recyclability:hasCriterionOutcome txt-recyclability:criterionNotSatisfied .
+ex:mono a txt-recyclability:RecyclabilityCriterionResult ;
+    txt-recyclability:evaluatesCriterion txt-recyclability:monoMaterialCriterion ;
+    txt-recyclability:hasCriterionOutcome txt-recyclability:criterionPartlySatisfied .
+
+ex:score a txt-recyclability:RecyclabilityScore ;
+    txt-indicator:derivedUsingMethod ex:scoring ;
+    txt-indicator:hasQuantitativeValue ex:score-value ;
+    txt-indicator:hasCategoricalValue txt-recyclability:highRecyclabilityLabel .
+ex:score-value a txt-connector:QuantitativeValue ;
+    txt-connector:numericValue "6.5"^^xsd:decimal ;
+    txt-connector:hasMeasurementUnit units:one .

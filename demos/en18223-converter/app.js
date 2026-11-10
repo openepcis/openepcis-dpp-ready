@@ -22768,9 +22768,12 @@ var contexts_default = {
         "@id": "oea:hasOutcome",
         "@type": "@vocab",
         "@context": {
+          NotApplicable: "oea:NotApplicable",
           NotAssessed: "oea:NotAssessed",
           NotSatisfied: "oea:NotSatisfied",
-          Satisfied: "oea:Satisfied"
+          PartlySatisfied: "oea:PartlySatisfied",
+          Satisfied: "oea:Satisfied",
+          Uncertain: "oea:Uncertain"
         }
       },
       hasParameter: {

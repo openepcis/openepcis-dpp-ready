@@ -1,0 +1,43 @@
+# Methods, standards, conditions and protocol settings. A method or standard that is an
+# OpenEPCIS individual (known to the background ontologies) is referenced; a foreign one is
+# adopted as a data node with its label as name or code.
+CONSTRUCT {
+  ?x oea:hasMethod ?m .
+  ?m a ?mcls ; oea:methodName ?mlabel ; oea:isDefinedByStandard ?std .
+  ?std a oea:AssessmentStandard ; oea:standardCode ?slabel ; oea:standardUrl ?surl .
+  ?x oea:hasCondition ?c .
+  ?c a oea:AssessmentCondition ; oea:hasConditionType ?ctype ; oea:hasConditionConcept ?cconcept ;
+     oea:hasConditionValue ?cqv ; oea:conditionDescription ?cdesc .
+  ?x oea:hasParameterSetting ?ps .
+  ?ps a oea:ParameterSetting ; oea:hasParameter ?param ; oea:hasParameterValue ?pv .
+  ?param a ?ptype .
+}
+WHERE {
+  {
+    GRAPH <urn:xw:in> { ?x txt-assessment:appliesMethod ?m }
+    OPTIONAL {
+      FILTER NOT EXISTS { GRAPH <urn:xw:bg> { ?m a ?known } }
+      OPTIONAL { GRAPH <urn:xw:in> { ?m a ?tm } ?tm rdfs:subClassOf* txt-assessment:TestMethod . BIND(oea:TestMethod AS ?isTest) }
+      BIND(COALESCE(?isTest, oea:AssessmentMethod) AS ?mcls)
+      OPTIONAL { GRAPH <urn:xw:in> { ?m rdfs:label ?l } BIND(STR(?l) AS ?mlabel) }
+      OPTIONAL {
+        GRAPH <urn:xw:in> { ?m txt-assessment:isDefinedByStandard ?std }
+        FILTER NOT EXISTS { GRAPH <urn:xw:bg> { ?std a ?known2 } }
+        OPTIONAL { GRAPH <urn:xw:in> { ?std rdfs:label ?sl } BIND(STR(?sl) AS ?slabel) }
+        OPTIONAL { GRAPH <urn:xw:in> { ?std rdfs:seeAlso ?su } BIND(STRDT(STR(?su), xsd:anyURI) AS ?surl) }
+      }
+    }
+  } UNION {
+    GRAPH <urn:xw:in> { ?x txt-assessment:hasCondition ?c }
+    OPTIONAL { GRAPH <urn:xw:in> { ?c dcterms:type ?ctype } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?c rdf:value ?cv } }
+    BIND(IF(BOUND(?cv) && !EXISTS { GRAPH <urn:xw:in> { ?cv txt-connector:numericValue ?n } }, ?cv, ?nothing) AS ?cconcept)
+    BIND(IF(BOUND(?cv) && EXISTS { GRAPH <urn:xw:in> { ?cv txt-connector:numericValue ?n2 } }, ?cv, ?nothing2) AS ?cqv)
+    OPTIONAL { GRAPH <urn:xw:in> { ?c rdfs:comment ?cdesc } }
+  } UNION {
+    GRAPH <urn:xw:in> { ?x txt-assessment:hasParameterSetting ?ps . ?ps txt-assessment:settingForParameter ?pnode . OPTIONAL { ?ps txt-assessment:hasParameterValue ?pv } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?pnode a ?pc } ?pc xw:lowerTo ?mapped . FILTER NOT EXISTS { GRAPH <urn:xw:bg> { ?pnode a ?k3 } } }
+    BIND(COALESCE(?mapped, ?pnode) AS ?param)
+    BIND(IF(BOUND(?mapped) || EXISTS { GRAPH <urn:xw:bg> { ?pnode a ?k4 } }, ?none, oea:MeasurementParameter) AS ?ptype)
+  }
+}

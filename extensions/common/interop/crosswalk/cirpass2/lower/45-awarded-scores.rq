@@ -1,0 +1,6 @@
+# Awarded points travel as an indicator marked dcterms:type oea:awardedScore.
+CONSTRUCT { ?n oea:awardedScore ?score . }
+WHERE {
+  GRAPH <urn:xw:in> { ?i dcterms:type oea:awardedScore ; txt-indicator:derivedFrom ?n ; txt-indicator:hasQuantitativeValue ?q . ?q txt-connector:numericValue ?v }
+  BIND(xsd:decimal(?v) AS ?score)
+}

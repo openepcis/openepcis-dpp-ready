@@ -1,0 +1,23 @@
+# Each OpenEPCIS assessment becomes a CIRPASS-2 assessment execution of the most specific
+# mapped class, assessing the product it hangs on. An assessment reached from an EPCIS event
+# assesses the event's EPCs (or EPC classes); a sub-assessment assesses its root's product.
+CONSTRUCT {
+  ?a a ?cls ;
+     txt-assessment:assessesProduct ?prod .
+  ?prod a eudpp:Product ;
+        ?productLink ?a .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?a a ?t }
+  ?t rdfs:subClassOf* ?s .
+  ?s xw:liftClass ?cls ; rdfs:subClassOf* oea:Assessment .
+  FILTER NOT EXISTS { ?t rdfs:subClassOf* ?s2 . ?s2 xw:liftClass ?c2 ; rdfs:subClassOf+ ?s . FILTER(?s2 != ?s) }
+  OPTIONAL { ?cls xw:productLink ?productLink }
+  OPTIONAL {
+    GRAPH <urn:xw:in> { ?root oea:hasSubAssessment* ?a . ?x ?p ?root . }
+    ?p rdfs:subPropertyOf* oea:hasAssessment .
+    OPTIONAL { GRAPH <urn:xw:in> { ?x epcis:epcList ?epc } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?x epcis:quantityList ?ql . ?ql epcis:epcClass ?epcClass } }
+    BIND(COALESCE(?epc, ?epcClass, ?x) AS ?prod)
+  }
+}

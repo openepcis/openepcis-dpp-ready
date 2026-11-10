@@ -4,6 +4,12 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed: entry properties of assessments
+
+`oec:hasRecyclabilityAssessment` and `oec:hasPerformanceInfo` are subproperties of
+`oea:hasAssessment`, like the other entry properties; the crosswalk found that a recyclability
+assessment was otherwise not reachable as an assessment from its product.
+
 ### Breaking: biodegradability is a test execution
 
 `oec:Biodegradability` is an `oea:TestExecution`; `oec:BiodegradabilityTestMethod` is an

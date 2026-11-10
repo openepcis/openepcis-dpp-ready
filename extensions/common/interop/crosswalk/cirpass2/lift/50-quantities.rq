@@ -1,0 +1,18 @@
+# gs1:QuantitativeValue → txt-connector:QuantitativeValue with an SI Digital Framework unit.
+# Covers values in the document and the threshold values of criteria it references.
+CONSTRUCT {
+  ?q a txt-connector:QuantitativeValue ;
+     txt-connector:numericValue ?nv ;
+     txt-connector:hasMeasurementUnit ?unit .
+}
+WHERE {
+  {
+    GRAPH <urn:xw:in> { ?q gs1:value ?v ; gs1:unitCode ?code }
+  } UNION {
+    GRAPH <urn:xw:in> { ?r oea:isEvaluatedAgainst ?crit }
+    ?crit oea:hasThresholdValue ?q . ?q gs1:value ?v ; gs1:unitCode ?code .
+  }
+  OPTIONAL { ?row xw:unitCode ?code ; xw:siUnit ?si ; xw:factor ?f }
+  BIND(COALESCE(?si, IRI(CONCAT("https://vocabulary.uncefact.org/UnitMeasureCode#", ?code))) AS ?unit)
+  BIND(xsd:decimal(xsd:decimal(?v) * COALESCE(?f, 1.0)) AS ?nv)
+}

@@ -1,0 +1,98 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix gs1: <https://ref.gs1.org/voc/>.
+@prefix epcis: <https://ref.gs1.org/epcis/>.
+@prefix cbv: <https://ref.gs1.org/cbv/>.
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/>.
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/>.
+@prefix eutex: <https://ref.openepcis.org/extensions/eu/textile/>.
+@prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#>.
+@prefix eudpp: <https://w3id.org/eudpp#>.
+@prefix units: <https://si-digital-framework.org/SI/units/>.
+@prefix txt-assessment: <https://w3id.org/eudpp/textile-assessment#>.
+@prefix txt-assessment-codelists: <https://w3id.org/eudpp/textile-assessment-codelists#>.
+@prefix txt-connector: <https://w3id.org/eudpp/textile-connector#>.
+@prefix txt-core: <https://w3id.org/eudpp/textile-core#>.
+@prefix txt-durability: <https://w3id.org/eudpp/textile-durability#>.
+@prefix txt-indicator: <https://w3id.org/eudpp/textile-indicator#>.
+@prefix txt-recyclability: <https://w3id.org/eudpp/textile-recyclability#>.
+@prefix txt-structure: <https://w3id.org/eudpp/textile-structure#>.
+
+_:aabcb551f8fd9a40047f15796a58a0a1 dcterms:subject eutex:AbrasionResistance;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:f3be38ad03c2978874c504eba3b6a22a.
+_:b20c2f9473c54c43c557a9c661e44be4 dcterms:subject eutex:DimensionalStability;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:cffec0dbc2c67707f9f08080a3a40c01.
+_:cffec0dbc2c67707f9f08080a3a40c01 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 0.02.
+_:d8846d2dede2a4b00be4c5a658978607 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "4"^^xsd:decimal.
+_:da162e4cd5ce25a7d879f9ca01893be8 dcterms:relation <urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567006#product-event>;
+    a txt-assessment:TestExecution;
+    txt-assessment:appliesMethod eutex:DimensionalChangeTest;
+    txt-assessment:assessesPerformanceParameter eutex:DimensionalStability;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521234000013/21/WJ-2025-00301>;
+    txt-assessment:producesResult _:b20c2f9473c54c43c557a9c661e44be4.
+_:dbd08b7ff2239e4a82f7c5a44b6ff2c dcterms:subject eutex:PillingResistance;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:d8846d2dede2a4b00be4c5a658978607.
+_:f3be38ad03c2978874c504eba3b6a22a a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "40000"^^xsd:decimal.
+_:f56c0109c951a90fcf6fe0cfb398b8cb dcterms:relation <urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567006#product-event>;
+    a txt-assessment:TestExecution;
+    txt-assessment:appliesMethod eutex:PillingTest;
+    txt-assessment:assessesPerformanceParameter eutex:PillingResistance;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521234000013/21/WJ-2025-00301>;
+    txt-assessment:producesResult _:dbd08b7ff2239e4a82f7c5a44b6ff2c.
+_:fe01b87e5a4d7e4afb6f42beed1ddc09 dcterms:relation <urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567006#product-event>;
+    a txt-assessment:TestExecution;
+    txt-assessment:appliesMethod eutex:MartindaleAbrasionTest;
+    txt-assessment:assessesPerformanceParameter eutex:AbrasionResistance;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521234000013/21/WJ-2025-00301>;
+    txt-assessment:producesResult _:aabcb551f8fd9a40047f15796a58a0a1.
+<https://id.gs1.org/01/09521234000013/21/WJ-2025-00301> a eudpp:Product.
+eutex:AbrasionResistance a txt-durability:AbrasionResistance;
+    rdfs:label "Abrasion Resistance"@en.
+eutex:DimensionalChangeTest a txt-assessment:TestMethod;
+    rdfs:label "Dimensional Change Test"@en;
+    txt-assessment:isDefinedByStandard eutex:ISO3759, eutex:ISO6330.
+eutex:DimensionalStability a txt-durability:DimensionalStability;
+    rdfs:label "Dimensional Stability"@en.
+eutex:ISO12945 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 12945"@en;
+    rdfs:seeAlso <https://www.iso.org/standard/75375.html>.
+eutex:ISO12947 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 12947"@en;
+    rdfs:seeAlso <https://www.iso.org/standard/75376.html>.
+eutex:ISO3759 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 3759"@en;
+    rdfs:seeAlso <https://www.iso.org/standard/57309.html>.
+eutex:ISO6330 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 6330"@en;
+    rdfs:seeAlso <https://www.iso.org/standard/57309.html>.
+eutex:MartindaleAbrasionTest a txt-assessment:TestMethod;
+    rdfs:label "Martindale Abrasion Test"@en;
+    txt-assessment:isDefinedByStandard eutex:ISO12947.
+eutex:PillingResistance a txt-durability:PillingResistance;
+    rdfs:label "Pilling Resistance"@en.
+eutex:PillingTest a txt-assessment:TestMethod;
+    rdfs:label "Pilling Test"@en;
+    txt-assessment:isDefinedByStandard eutex:ISO12945.
+<urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567006#product-event> a eudpp:ProductEvent;
+    eudpp:concernsProduct <https://id.gs1.org/01/09521234000013/21/WJ-2025-00301>;
+    eudpp:isRepresentedByCarrier <urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567006>.
+<urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567006> a epcis:ObjectEvent;
+    epcis:action "OBSERVE";
+    epcis:bizStep cbv:BizStep-inspecting;
+    epcis:disposition cbv:Disp-active;
+    epcis:epcList <https://id.gs1.org/01/09521234000013/21/WJ-2025-00301>;
+    epcis:eventTime "2025-10-02T10:00:00Z"^^xsd:dateTime;
+    epcis:eventTimeZoneOffset "+01:00";
+    epcis:readPoint <https://id.gs1.org/414/9521234000068>.

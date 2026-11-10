@@ -1,0 +1,11 @@
+# Recycling routes: an OpenEPCIS technology individual is itself; a route of the publisher's
+# own lowers to the canonical technology of its class.
+CONSTRUCT { ?a eutex:hasApplicableRecyclingTechnology ?tech . }
+WHERE {
+  GRAPH <urn:xw:in> { ?a txt-recyclability:assessesRecyclingRoute ?route }
+  OPTIONAL {
+    FILTER NOT EXISTS { GRAPH <urn:xw:bg> { ?route a ?known } }
+    GRAPH <urn:xw:in> { ?route a ?rc } ?rc xw:lowerTo ?canon .
+  }
+  BIND(COALESCE(?canon, ?route) AS ?tech)
+}

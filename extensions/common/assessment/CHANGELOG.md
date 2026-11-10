@@ -6,6 +6,8 @@ All notable changes to the OpenEPCIS assessment and test vocabulary.
 
 ### Added
 
+- `oea:PartlySatisfied`, `oea:NotApplicable`, `oea:Uncertain` complete `oea:Outcome`, so every
+  CIRPASS-2 recyclability outcome has a counterpart.
 - `oea:Biodegradation` (performance parameter, replaces `oec:biodegradationPercentage`) and
   `oea:methodName` for methods stated inline.
 - An `oea:CriterionResult` states an outcome, points (`oea:awardedScore`) or both; points-only

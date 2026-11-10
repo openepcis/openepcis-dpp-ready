@@ -1,0 +1,52 @@
+{
+  "@context": [
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld"
+  ],
+  "_comment": "Crosswalk test: durability master data. Two laboratory tests with measured values, a supplier-declared expected lifetime in years (no SI unit: travels as a UN/CEFACT code IRI) and use cycles, and a durability class as a coded indicator.",
+  "id": "https://id.gs1.org/01/09521234000013",
+  "type": "gs1:Product",
+  "eutex:hasDurabilityInfo": {
+    "id": "https://id.gs1.org/01/09521234000013#durability",
+    "type": "eutex:DurabilityInfo",
+    "oea:hasSubAssessment": [
+      {
+        "id": "https://id.gs1.org/01/09521234000013#durability-abrasion",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": { "@id": "eutex:MartindaleAbrasionTest" },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": { "@id": "eutex:AbrasionResistance" },
+          "oea:hasMeasuredValue": { "type": "gs1:QuantitativeValue", "gs1:value": 40000, "gs1:unitCode": "C62" }
+        }
+      },
+      {
+        "id": "https://id.gs1.org/01/09521234000013#durability-tensile",
+        "type": "oea:TestExecution",
+        "oea:hasMethod": { "@id": "eutex:TensileStrengthTest" },
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": { "@id": "eutex:TensileStrength" },
+          "oea:hasMeasuredValue": { "type": "gs1:QuantitativeValue", "gs1:value": 800, "gs1:unitCode": "NEW" }
+        }
+      }
+    ],
+    "oea:hasIndicator": [
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": { "@id": "oea:NumberOfUseCycles" },
+        "oea:hasIndicatorValue": { "type": "gs1:QuantitativeValue", "gs1:value": 150, "gs1:unitCode": "C62" }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": { "@id": "oea:ExpectedLifetime" },
+        "oea:hasIndicatorValue": { "type": "gs1:QuantitativeValue", "gs1:value": 8, "gs1:unitCode": "ANN" }
+      },
+      {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": { "@id": "eutex:DurabilityRating" },
+        "oea:hasCategoricalValue": { "@id": "eutex:DurabilityB" }
+      }
+    ]
+  }
+}

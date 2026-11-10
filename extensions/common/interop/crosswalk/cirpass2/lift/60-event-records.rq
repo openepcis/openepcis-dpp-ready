@@ -1,0 +1,13 @@
+# EPCIS events that carry an assessment (object form or sensorReport form) travel with their
+# GS1 IRIs: EUDPP EVENT 1.0 reuses them. Sensor elements become test executions (70-…).
+CONSTRUCT { ?e ?ep ?eo . }
+WHERE {
+  GRAPH <urn:xw:in> { ?e a ?et ; ?ep ?eo . }
+  FILTER(STRSTARTS(STR(?et), STR(epcis:)))
+  FILTER EXISTS {
+    { GRAPH <urn:xw:in> { ?e ?p ?a } ?p rdfs:subPropertyOf* oea:hasAssessment . }
+    UNION
+    { GRAPH <urn:xw:in> { ?e epcis:sensorElementList ?se . ?se epcis:sensorReport ?r . ?r epcis:measurementType ?param } ?param a ?pt . ?pt rdfs:subClassOf* oea:PerformanceParameter . }
+  }
+  FILTER(?ep = rdf:type || (STRSTARTS(STR(?ep), STR(epcis:)) && ?ep NOT IN (epcis:sensorElementList, epcis:quantityList)))
+}

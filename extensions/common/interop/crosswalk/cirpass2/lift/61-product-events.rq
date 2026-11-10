@@ -1,0 +1,23 @@
+# One eudpp:ProductEvent per event record and product, represented by the record; every
+# assessment of the event points at it (dcterms:relation, pending a CIRPASS-2 property that
+# links an assessment execution to its product event).
+CONSTRUCT {
+  ?pe a eudpp:ProductEvent ;
+      eudpp:concernsProduct ?prod ;
+      eudpp:isRepresentedByCarrier ?e .
+  ?a dcterms:relation ?pe .
+}
+WHERE {
+  GRAPH <urn:xw:in> {
+    ?e a ?et .
+    { ?e epcis:epcList ?prod } UNION { ?e epcis:quantityList ?ql . ?ql epcis:epcClass ?prod }
+  }
+  FILTER(STRSTARTS(STR(?et), STR(epcis:)))
+  {
+    GRAPH <urn:xw:in> { ?e ?p ?a } ?p rdfs:subPropertyOf* oea:hasAssessment .
+  } UNION {
+    GRAPH <urn:xw:in> { ?e epcis:sensorElementList ?a . ?a epcis:sensorReport ?r . ?r epcis:measurementType ?param }
+    ?param a ?pt . ?pt rdfs:subClassOf* oea:PerformanceParameter .
+  }
+  BIND(IRI(CONCAT(STR(?e), "#product-event")) AS ?pe)
+}

@@ -1,0 +1,33 @@
+# Indicators hang on the product in CIRPASS-2; one stated on an assessment keeps that link as
+# dcterms:source.
+CONSTRUCT {
+  ?prod txt-indicator:hasIndicator ?i .
+  ?i a ?icls ;
+     dcterms:source ?srcAssessment ;
+     txt-indicator:hasQuantitativeValue ?qv ;
+     txt-indicator:hasCategoricalValue ?cat ;
+     txt-indicator:hasTextualValue ?text ;
+     txt-indicator:derivedFrom ?from ;
+     txt-indicator:derivedUsingMethod ?m .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?x oea:hasIndicator ?i . ?i oea:hasIndicatorKind ?k }
+  OPTIONAL { ?k xw:liftType ?ktype }
+  BIND(COALESCE(?ktype, IF(STRSTARTS(STR(?k), "https://w3id.org/eudpp/"), ?k, txt-indicator:Indicator)) AS ?icls)
+  OPTIONAL {
+    GRAPH <urn:xw:in> { ?x a ?xt } ?xt rdfs:subClassOf* oea:Assessment .
+    BIND(?x AS ?srcAssessment)
+    OPTIONAL {
+      GRAPH <urn:xw:in> { ?root oea:hasSubAssessment* ?x . ?y ?p ?root . }
+      ?p rdfs:subPropertyOf* oea:hasAssessment .
+      OPTIONAL { GRAPH <urn:xw:in> { ?y epcis:epcList ?epc } }
+      BIND(COALESCE(?epc, ?y) AS ?aprod)
+    }
+  }
+  BIND(COALESCE(?aprod, ?x) AS ?prod)
+  OPTIONAL { GRAPH <urn:xw:in> { ?i oea:hasIndicatorValue ?qv } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?i oea:hasCategoricalValue ?ocat } OPTIONAL { ?ocat xw:sameCode ?scat } BIND(COALESCE(?scat, ?ocat) AS ?cat) }
+  OPTIONAL { GRAPH <urn:xw:in> { ?i oea:indicatorText ?text } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?i oea:isDerivedFrom ?from } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?i oea:hasDerivationMethod ?m } }
+}

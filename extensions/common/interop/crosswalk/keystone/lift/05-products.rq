@@ -1,0 +1,10 @@
+# Products that carry a converted score are Keystone products.
+CONSTRUCT { ?prod a dppk:Product . }
+WHERE {
+  GRAPH <urn:xw:in> { ?a oea:hasIndicator ?i . ?i oea:hasIndicatorKind ?k }
+  ?k xw:flatProperty ?flat .
+  GRAPH <urn:xw:in> { ?root oea:hasSubAssessment* ?a . ?x ?p ?root . }
+  ?p rdfs:subPropertyOf* oea:hasAssessment .
+  OPTIONAL { GRAPH <urn:xw:in> { ?x epcis:epcList ?epc } }
+  BIND(COALESCE(?epc, ?x) AS ?prod)
+}
