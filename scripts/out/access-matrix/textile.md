@@ -2,21 +2,17 @@
 
 Regulatory frame: ESPR textile delegated act (draft) / Textile Labelling 1007/2011
 
-Coverage: 80 properties — 60 Public / 17 AuthorizedOnly / 0 Restricted / 3 inherited / 0 UNCLASSIFIED; 3 legally locked.
+Coverage: 71 properties — 54 Public / 17 AuthorizedOnly / 0 Restricted / 0 inherited / 0 UNCLASSIFIED; 3 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
 | `additionalCareInstructions` | Additional Care Instructions | **Public** |  | eli/reg/2024/1781 | Supplementary care text is consumer use information of the same nature as the printed care label. |
-| `benchmarkPerformance` | Benchmark Performance | **Public** |  | eli/reg/2024/1781 | Performance relative to the category benchmark is the comparative message the public footprint class conveys. |
 | `biodegradable` | Biodegradable | **Public** |  | eli/reg/2024/1781 | Biodegradability status is consumer end-of-life information (ESPR Annex I). |
-| `carbonFootprintClass` | Carbon Footprint Class | **Public** |  | eli/reg/2024/1781 | The carbon-footprint class is a consumer-facing band, mirroring the public carbon-footprint class of the battery DPP. |
-| `carbonFootprintManufacturing` | Carbon Footprint Manufacturing | **Public** |  | eli/reg/2024/1781 | The manufacturing-phase carbon footprint per unit is a product-level disclosure that does not reveal facility-level operational data. |
 | `chemicalPurpose` | Chemical Purpose | **AuthorizedOnly** |  | eli/reg/2024/1781 | The purpose of a production chemical is part of the confidential formulation detail, not of the public hazard disclosure. |
 | `concentrationRange` | Concentration Range | **AuthorizedOnly** |  | eli/reg/2024/1781 | Concentration ranges exist precisely because the exact value is confidential; the range stays with the professional-detail record. |
 | `containsAnimalNonTextileParts` | Contains Non-Textile Parts of Animal Origin | **Public** | 🔒 eli/reg/2011/1007 | eli/reg/2011/1007 | Non-textile parts of animal origin must be indicated on the consumer label per Regulation (EU) 1007/2011 Art. 12 (labelling per Arts. 14-16). |
 | `endOfLifeDestination` | End of Life Destination | **Public** |  | eli/reg/2024/1781 | What happens to returned items is consumer-facing take-back information that motivates participation. |
 | `endOfLifeHandling` | End of Life Handling | **Public** |  | eli/reg/2024/1781 | Special end-of-life handling instructions caused by a substance of concern are safety-relevant to consumers and waste operators (ESPR Art. 7(5)). |
-| `environmentalFootprintClass` | Environmental Footprint Class | **Public** |  | eli/reg/2024/1781 | The footprint performance class is a consumer-facing band designed for point-of-sale comparison. |
 | `euEcolabel` | EU Ecolabel | **Public** |  | eli/reg/2010/66 | The EU Ecolabel is by design a public consumer label under Regulation (EC) 66/2010. |
 | `fiberOrigin` | Fiber Origin | **Public** |  | eli/reg/2024/1781 | Fibre origin at country granularity is a consumer-facing sourcing claim that exposes no operational facility detail. |
 | `garmentType` | Garment Type | **Public** |  | eli/reg/2024/1781 | Garment type is ordinary retail product information with no confidentiality dimension. |
@@ -40,7 +36,6 @@ Coverage: 80 properties — 60 Public / 17 AuthorizedOnly / 0 Restricted / 3 inh
 | `hasFinishingFacility` | Finishing Facility | **AuthorizedOnly** |  | eli/reg/2024/1781 | Named production facilities are commercially sensitive supplier relationships, disclosed to authorities and legitimate-interest actors only. |
 | `hasIroningSymbol` | Ironing Symbol | **Public** |  | eli/reg/2024/1781 | ISO 3758 ironing symbol is printed on the consumer care label. |
 | `hasLciaCategories` | LCIA Categories | **AuthorizedOnly** |  | eli/reg/2024/1781 | Per-category LCIA results are study-level detail for reviewers and authorities; the public message is the PEF single score and class. |
-| `hasLciaCategoryCode` | LCIA Category Code | **(inherited)** |  |  |  |
 | `hasMicroplasticInfo` | Microplastic Information | **Public** |  | eli/reg/2024/1781 | Microplastic release is an ESPR Annex I product parameter disclosed to consumers. |
 | `hasRecyclabilityAssessment` | Recyclability Assessment | **Public** |  | eli/reg/2024/1781 | The recyclability assessment substantiates the public recyclability claim; kept Public consistently with the shared oec:hasRecyclabilityAssessment alias. |
 | `hasRecycledContentDeclaration` | Recycled Content Declaration | **Public** |  | eli/reg/2024/1781 | The structured recycled-content declaration substantiates the consumer-facing recycled-content claim (ESPR Annex I). |
@@ -60,15 +55,11 @@ Coverage: 80 properties — 60 Public / 17 AuthorizedOnly / 0 Restricted / 3 inh
 | `isMRSLCompliant` | Is MRSL Compliant | **Public** |  | eli/reg/2024/1781 | ZDHC MRSL compliance is a pass/fail chemical-management claim brands publish for consumers without exposing formulation detail. |
 | `isRecycledFiber` | Is Recycled Fiber | **Public** |  | eli/reg/2024/1781 | Recycled-fibre status is a consumer-facing circularity claim (ESPR Annex I circularity parameters). |
 | `isRepairable` | Is Repairable | **Public** |  | eli/reg/2024/1781 | Repairability status is ESPR Annex I consumer information supporting the right to repair. |
-| `lciaUnit` | LCIA Unit | **(inherited)** |  |  |  |
-| `lciaValue` | LCIA Value | **(inherited)** |  |  |  |
 | `maxConcentration` | Maximum Concentration | **AuthorizedOnly** |  | eli/reg/2024/1781 | Maximum substance concentration is quantitative formulation detail for recyclers and authorities, not consumer label content. |
 | `meetsTargetThreshold` | Meets Target Threshold | **Public** |  | eli/reg/2024/1781 | Whether the recycled content meets the regulatory target is a compliance claim consumers and authorities can both check. |
 | `microplasticMitigationMeasures` | Microplastic Mitigation Measures | **Public** |  | eli/reg/2024/1781 | Described mitigation measures qualify the public microplastic disclosure without revealing process secrets. |
 | `organicContentMass` | Organic Content Mass | **Public** |  | eli/reg/2018/848 | Certified organic fibre mass substantiates an organic claim regulated as consumer-facing by Regulation (EU) 2018/848. |
 | `organicContentPercentage` | Organic Content Percentage | **Public** |  | eli/reg/2018/848 | Certified organic fibre share substantiates an organic claim regulated as consumer-facing by Regulation (EU) 2018/848. |
-| `pefcrReference` | PEFCR Reference | **Public** |  | eli/reg/2024/1781 | The PEFCR version reference is methodology context required to interpret the public PEF score. |
-| `pefSingleScore` | PEF Single Score | **Public** |  | eli/reg/2024/1781 | The PEF single score is the aggregate result the public footprint class is derived from, without exposing inventory-level detail. |
 | `pfasFree` | PFAS Free | **Public** |  | eli/reg/2024/1781 | A PFAS-free claim is a consumer-facing chemical-safety claim with no confidentiality dimension. |
 | `productionWastePercentage` | Production Waste Percentage | **AuthorizedOnly** |  | eli/reg/2024/1781 | Production waste rates are operational performance data of the manufacturer, relevant to auditors and authorities. |
 | `recycledContentSource` | Recycled Content Source | **Public** |  | eli/reg/2024/1781 | The recycled-content source description (e.g. post-consumer PET) is part of the public recycled-content claim. |

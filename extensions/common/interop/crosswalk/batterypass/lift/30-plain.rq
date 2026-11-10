@@ -1,0 +1,22 @@
+# Numbers and texts 2.0.1 states without a container. xw:Plain: a number in the row's datatype
+# (from our literal or the number of a gs1:QuantitativeValue); xw:Text: the text of our literal or
+# IRI. Of several values (a text in several languages) one goes: the smallest, so the choice is
+# stable.
+CONSTRUCT { ?r ?field ?val . }
+WHERE {
+  {
+    SELECT ?r ?field (MIN(?v) AS ?val) WHERE {
+      GRAPH <urn:xw:roots> { ?r xw:schema ?schema }
+      ?row xw:bprField ?field ; xw:ours ?p ; xw:form ?form .
+      FILTER(?form IN (xw:Plain, xw:Text))
+      OPTIONAL { ?row xw:via ?via }
+      OPTIONAL { ?row xw:theirDatatype ?dt }
+      { GRAPH <urn:xw:in> { ?r ?p ?o } } UNION { GRAPH <urn:xw:in> { ?r ?via ?cn . ?cn ?p ?o } }
+      OPTIONAL { GRAPH <urn:xw:in> { ?o gs1:value ?qv } }
+      BIND(IF(isLiteral(?o), ?o, IF(?form = xw:Text && isIRI(?o), STR(?o), ?qv)) AS ?lit)
+      BIND(IF(?form = xw:Text, STR(?lit),
+              IF(?dt = xsd:integer, xsd:integer(ROUND(xsd:double(STR(?lit)))), xsd:double(STR(?lit)))) AS ?v)
+      FILTER(BOUND(?v))
+    } GROUP BY ?r ?field
+  }
+}

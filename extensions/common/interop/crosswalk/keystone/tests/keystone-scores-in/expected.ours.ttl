@@ -9,26 +9,59 @@
 @prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#>.
 @prefix dppk: <https://dpp-keystone.org/spec/v3/terms#>.
 
-_:a0441aa3a9a6cda49798aa07ea2ad709 a oea:Indicator;
+_:a2507f0c72ef276268091248d6ebdd83 a oea:Indicator;
+    oea:hasIndicatorKind eutex:CarbonFootprintClass;
+    oea:hasIndicatorValue _:c45f642e0adf481492b8825c30c96f0e.
+_:a45a7388c2af5eef3eea060bf90e1d55 a oea:Indicator;
+    oea:hasIndicatorKind eutex:EnvironmentalFootprintClass;
+    oea:hasIndicatorValue _:b5023e81d87634e5609290a1b578c21a.
+_:a9d5925b6c68964b390056962d2caabe a gs1:QuantitativeValue;
+    gs1:unitCode "KGM";
+    gs1:value 18.5.
+_:ae2a9f094ec63d846aaddebce045a82e a oea:Indicator;
     oea:hasDerivationMethod eutex:JRCRobustnessScoring;
     oea:hasIndicatorKind eutex:RobustnessScore;
-    oea:hasIndicatorValue _:bdc328387e92aa2a389dfb92af5518cb.
-_:a907accf98ef4b6e788af2c79c448532 a eutex:RobustnessAssessment;
-    oea:hasIndicator _:a0441aa3a9a6cda49798aa07ea2ad709;
-    oea:hasMethod eutex:JRCRobustnessScoring.
-_:abfedf85e89f3b4c98a2865338fff506 a gs1:QuantitativeValue;
+    oea:hasIndicatorValue _:c47702db0e2266c2b13e521e5322893c.
+_:b1b1beacb0382d02c0bcceca8437c90b a oea:Indicator;
+    oea:hasIndicatorKind eutex:ManufacturingCarbonFootprint;
+    oea:hasIndicatorValue _:a9d5925b6c68964b390056962d2caabe.
+_:b5023e81d87634e5609290a1b578c21a a gs1:QuantitativeValue;
+    gs1:unitCode "C62";
+    gs1:value "2"^^xsd:decimal.
+_:bdc443f49703c6b559083da2540658e5 a gs1:QuantitativeValue;
     gs1:unitCode "C62";
     gs1:value 6.5.
-_:bdc328387e92aa2a389dfb92af5518cb a gs1:QuantitativeValue;
+_:c45f642e0adf481492b8825c30c96f0e a gs1:QuantitativeValue;
+    gs1:unitCode "C62";
+    gs1:value "3"^^xsd:decimal.
+_:c47702db0e2266c2b13e521e5322893c a gs1:QuantitativeValue;
     gs1:unitCode "C62";
     gs1:value "8"^^xsd:decimal.
-_:cd98589e781b31f0c1c46d462e4ae91d a oea:Indicator;
+_:cc04a6a8f60f21edb36bbaae59248ac9 a oea:Indicator;
+    oea:hasIndicatorKind eutex:PEFSingleScore;
+    oea:hasIndicatorValue _:d266ce78bf14d82377c7c0e2b9f72f7d.
+_:d266ce78bf14d82377c7c0e2b9f72f7d a gs1:QuantitativeValue;
+    gs1:unitCode "C62";
+    gs1:value 42.3.
+_:e28305c1436ec9842ccb51fafaca6c0b a gs1:QuantitativeValue;
+    gs1:unitCode "P1";
+    gs1:value -15.2.
+_:e42db1e097e7d84a149ea936fdcc0b03 a oea:Indicator;
     oea:hasDerivationMethod eutex:JRCRecyclabilityScoring;
     oea:hasIndicatorKind oea:RecyclabilityScore;
-    oea:hasIndicatorValue _:abfedf85e89f3b4c98a2865338fff506.
-_:e9c3fb9f54af504f22a7dd6749d9883f a eutex:RecyclabilityAssessment;
-    oea:hasIndicator _:cd98589e781b31f0c1c46d462e4ae91d;
+    oea:hasIndicatorValue _:bdc443f49703c6b559083da2540658e5.
+_:fbc9f097e96c334e94cddce954485a98 a oea:Indicator;
+    oea:hasIndicatorKind eutex:BenchmarkPerformance;
+    oea:hasIndicatorValue _:e28305c1436ec9842ccb51fafaca6c0b.
+<https://id.gs1.org/01/09521234000051#EnvironmentalFootprint> a eutex:EnvironmentalFootprint;
+    oea:hasIndicator _:a2507f0c72ef276268091248d6ebdd83, _:a45a7388c2af5eef3eea060bf90e1d55, _:b1b1beacb0382d02c0bcceca8437c90b, _:cc04a6a8f60f21edb36bbaae59248ac9, _:fbc9f097e96c334e94cddce954485a98.
+<https://id.gs1.org/01/09521234000051#RecyclabilityAssessment> a eutex:RecyclabilityAssessment;
+    oea:hasIndicator _:e42db1e097e7d84a149ea936fdcc0b03;
     oea:hasMethod eutex:JRCRecyclabilityScoring.
+<https://id.gs1.org/01/09521234000051#RobustnessAssessment> a eutex:RobustnessAssessment;
+    oea:hasIndicator _:ae2a9f094ec63d846aaddebce045a82e;
+    oea:hasMethod eutex:JRCRobustnessScoring.
 <https://id.gs1.org/01/09521234000051> a gs1:Product;
-    eutex:hasRecyclabilityAssessment _:e9c3fb9f54af504f22a7dd6749d9883f;
-    eutex:hasRobustnessAssessment _:a907accf98ef4b6e788af2c79c448532.
+    eutex:hasEnvironmentalFootprint <https://id.gs1.org/01/09521234000051#EnvironmentalFootprint>;
+    eutex:hasRecyclabilityAssessment <https://id.gs1.org/01/09521234000051#RecyclabilityAssessment>;
+    eutex:hasRobustnessAssessment <https://id.gs1.org/01/09521234000051#RobustnessAssessment>.

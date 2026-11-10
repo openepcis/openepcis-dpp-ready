@@ -222,7 +222,7 @@ to reuse."""@en ;
     rdfs:seeAlso euelec:ComponentType ;
     rdfs:seeAlso dppk:Component ;
     skos:broadMatch schema:Product ;
-    skos:closeMatch dppk:Component .
+    skos:broadMatch dppk:Component .
 
 euelec:DisplaySpecification
     a owl:Class ;
@@ -1333,10 +1333,14 @@ Annex V recovery accounting needs and no upstream class carries."""@en ;
 
 euelec:MaterialRecoveryResult
     a owl:Class ;
+    rdfs:subClassOf oea:Assessment ;
     rdfs:label "Material Recovery Result"@en ;
     rdfs:comment """The aggregate outcome of a WEEE treatment operation on one item: total input mass,
 total recovered mass, and the recovery, recycling and energy-recovery rates that WEEE Directive
-2012/19/EU Annex V expresses as minimum targets per equipment category."""@en ;
+2012/19/EU Annex V expresses as minimum targets per equipment category. An oea:Assessment of the item,
+carried out in the treatment event: each figure is an oea:MeasurementResult observing
+euelec:TreatmentInputMass, euelec:RecoveredMass (GRM), euelec:AchievedRecoveryRate,
+euelec:AchievedRecyclingRate or euelec:EnergyRecoveryRate (C62, 0-1)."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """Required extension: oec:RecyclabilityAssessment rates a product's design potential
@@ -1377,9 +1381,12 @@ a class for them."""@en ;
 
 euelec:AvoidedEmissionsEstimate
     a owl:Class ;
+    rdfs:subClassOf oea:Assessment ;
     rdfs:label "Avoided Emissions Estimate"@en ;
     rdfs:comment """An estimate of the greenhouse-gas emissions avoided by recovering materials from a
-WEEE item instead of producing them primarily, with the calculation basis used."""@en ;
+WEEE item instead of producing them primarily, with the calculation basis used. An oea:Assessment: the
+estimate is an oea:Indicator of kind euelec:AvoidedEmissions (unitCode KGM, kg CO2e), the calculation
+basis its oea:hasMethod."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Required extension: oec:CarbonFootprintDeclaration accounts for emissions caused
@@ -1530,6 +1537,7 @@ upstream term is the role of authorised WEEE treatment operator in a specific ev
 
 euelec:hasMaterialRecoveryResults
     a owl:ObjectProperty ;
+    rdfs:subPropertyOf oea:hasAssessment ;
     rdfs:label "Material Recovery Results"@en ;
     rdfs:comment "Measured outcome of the treatment operation on this item."@en ;
     rdfs:range euelec:MaterialRecoveryResult ;
@@ -1540,77 +1548,48 @@ oec:hasRecyclabilityAssessment rates design potential; this reports achieved tre
 SEMICeu or schema.org term covers it."""@en ;
     rdfs:seeAlso oec:hasRecyclabilityAssessment .
 
-euelec:totalInputMassGrams
-    a owl:DatatypeProperty ;
-    rdfs:label "Total Input Mass (grams)"@en ;
-    rdfs:comment "Mass in grams of the item that entered the treatment operation."@en ;
-    rdfs:domain euelec:MaterialRecoveryResult ;
-    rdfs:range xsd:decimal ;
+# Treatment outcome parameters (results of euelec:MaterialRecoveryResult)
+euelec:TreatmentInputMass a oea:PerformanceParameter ;
+    rdfs:label "Treatment Input Mass"@en ;
+    rdfs:comment "Mass of the item that entered the treatment operation (unitCode GRM). Replaces euelec:totalInputMassGrams."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
-    skos:note """E-waste concept forming the denominator of the WEEE Directive 2012/19/EU Annex V
-recovery rates. gs1:netWeight is the weight of a trade item as sold, not the mass weighed in at a
-treatment facility. Value in grams."""@en ;
-    rdfs:seeAlso gs1:netWeight ;
-    skos:broadMatch schema:weight .
+    rdfs:seeAlso gs1:netWeight .
 
-euelec:totalRecoveredMassGrams
-    a owl:DatatypeProperty ;
-    rdfs:label "Total Recovered Mass (grams)"@en ;
-    rdfs:comment "Mass in grams recovered from the item across all output streams."@en ;
-    rdfs:domain euelec:MaterialRecoveryResult ;
-    rdfs:range xsd:decimal ;
+euelec:RecoveredMass a oea:PerformanceParameter ;
+    rdfs:label "Recovered Mass"@en ;
+    rdfs:comment "Mass recovered from the item across all output streams (unitCode GRM). Replaces euelec:totalRecoveredMassGrams."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
-    skos:note """E-waste concept forming the numerator of the WEEE Directive 2012/19/EU Annex V
-recovery rates. No GS1, SEMICeu or schema.org term expresses recovered output mass. Value in
-grams."""@en ;
-    rdfs:seeAlso euelec:totalInputMassGrams .
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> .
 
-euelec:recoveryRate
-    a owl:DatatypeProperty ;
-    rdfs:label "Recovery Rate"@en ;
-    rdfs:comment "Achieved recovery rate for the item: recovered mass divided by input mass (0-1 scale)."@en ;
-    rdfs:domain euelec:MaterialRecoveryResult ;
-    rdfs:range xsd:decimal ;
+euelec:AchievedRecoveryRate a oea:PerformanceParameter ;
+    rdfs:label "Achieved Recovery Rate"@en ;
+    rdfs:comment "Recovered mass divided by input mass for one treatment operation (unitCode C62, 0-1), measured against the WEEE Annex V recovery targets. The design-level figure is oea:RecoverableRate. Replaces euelec:recoveryRate."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
-    skos:note """E-waste concept per the minimum recovery targets of WEEE Directive 2012/19/EU
-Annex V. Distinct from euelec:recoverabilityRate and a recyclability rate (oea:RecyclabilityRate), which state a product's
-design potential before use; this is what one treatment operation achieved. No GS1, SEMICeu or
-schema.org term expresses it."""@en ;
-    rdfs:seeAlso euelec:recoverabilityRate ;
+    rdfs:seeAlso oea:RecoverableRate .
+
+euelec:AchievedRecyclingRate a oea:PerformanceParameter ;
+    rdfs:label "Achieved Recycling Rate"@en ;
+    rdfs:comment "Share prepared for re-use and recycled in one treatment operation, excluding energy recovery (unitCode C62, 0-1), measured against the WEEE Annex V recycling targets. The design-level figure is oea:RecyclabilityRate. Replaces euelec:recyclingRate."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     rdfs:seeAlso oea:RecyclabilityRate .
 
-euelec:recyclingRate
-    a owl:DatatypeProperty ;
-    rdfs:label "Recycling Rate"@en ;
-    rdfs:comment "Achieved rate of preparing for re-use and recycling for the item (0-1 scale), excluding energy recovery."@en ;
-    rdfs:domain euelec:MaterialRecoveryResult ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
-    skos:note """E-waste concept per the minimum "prepared for re-use and recycled" targets of WEEE
-Directive 2012/19/EU Annex V, which are set separately from the overall recovery target. Distinct
-from euelec:recyclabilityRate, which is the design-potential figure. No GS1, SEMICeu or schema.org
-term expresses it."""@en ;
-    rdfs:seeAlso euelec:recyclabilityRate ;
-    rdfs:seeAlso oea:RecyclabilityRate .
-
-euelec:energyRecoveryRate
-    a owl:DatatypeProperty ;
+euelec:EnergyRecoveryRate a oea:PerformanceParameter ;
     rdfs:label "Energy Recovery Rate"@en ;
-    rdfs:comment "Fraction of the item's mass sent to energy recovery rather than material recycling (0-1 scale)."@en ;
-    rdfs:domain euelec:MaterialRecoveryResult ;
-    rdfs:range xsd:decimal ;
+    rdfs:comment "Share of the item's mass sent to energy recovery rather than material recycling (unitCode C62, 0-1). Replaces euelec:energyRecoveryRate."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
-    skos:note """E-waste concept per WEEE Directive 2012/19/EU Annex V, where energy recovery counts
-towards the recovery target but not towards the recycling target, so the two shares have to be
-reported apart. gs1:PackagingRecyclingProcessTypeCode-ENERGY_RECOVERABLE marks packaging as suitable
-for energy recovery and carries no achieved share."""@en ;
-    rdfs:seeAlso gs1:PackagingRecyclingProcessTypeCode-ENERGY_RECOVERABLE ;
-    rdfs:seeAlso euelec:recoveryRate .
+    rdfs:seeAlso gs1:PackagingRecyclingProcessTypeCode-ENERGY_RECOVERABLE .
+
+euelec:AvoidedEmissions a oea:IndicatorKind ;
+    rdfs:label "Avoided Emissions"@en ;
+    rdfs:comment "Estimated greenhouse-gas emissions avoided by recovering materials instead of producing them primarily (unitCode KGM, kg CO2e). A counterfactual credit, not a lifecycle stage of the product. Replaces euelec:avoidedEmissionsKgCO2e."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso oec:carbonFootprintTotal ;
+    rdfs:seeAlso oec:StageC3 .
 
 euelec:hasBatteryDisposition
     a owl:ObjectProperty ;
@@ -1738,6 +1717,7 @@ or organisation certification, not a per-consignment waste treatment certificate
 
 euelec:hasAvoidedEmissions
     a owl:ObjectProperty ;
+    rdfs:subPropertyOf oea:hasAssessment ;
     rdfs:label "Avoided Emissions"@en ;
     rdfs:comment "Estimate of the greenhouse-gas emissions avoided by recovering materials from this item."@en ;
     rdfs:range euelec:AvoidedEmissionsEstimate ;
@@ -1749,36 +1729,6 @@ avoided emissions are credited to the recovery operation, so they are reported a
 or schema.org term expresses them."""@en ;
     rdfs:seeAlso oec:hasEmissionsPerformance ;
     skos:closeMatch oec:hasEmissionsPerformance .
-
-euelec:avoidedEmissionsKgCO2e
-    a owl:DatatypeProperty ;
-    rdfs:label "Avoided Emissions (kg CO2e)"@en ;
-    rdfs:comment "Estimated avoided emissions in kilograms of CO2 equivalent."@en ;
-    rdfs:domain euelec:AvoidedEmissionsEstimate ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note """Circularity-benefit figure supporting the ESPR 2024/1781 Article 7 circularity
-parameters. oec:carbonFootprintTotal is the emissions the product caused; this is the counterfactual
-credited to recovering its materials. Value in kg CO2 equivalent, following the unit-in-name
-convention of oec:carbonFootprintTotal."""@en ;
-    rdfs:seeAlso oec:carbonFootprintTotal ;
-    rdfs:seeAlso oec:StageC3 .
-
-euelec:calculationMethod
-    a owl:DatatypeProperty ;
-    rdfs:label "Calculation Method"@en ;
-    rdfs:comment "Basis on which the avoided-emissions figure was calculated."@en ;
-    rdfs:domain euelec:AvoidedEmissionsEstimate ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note """Methodology statement for the avoided-emissions estimate. oec:carbonFootprintMethodology
-is the nearest term and takes a URI of a published footprint methodology; an avoided-emissions
-calculation basis is usually stated as text and is not one of those methodologies."""@en ;
-    rdfs:seeAlso oec:carbonFootprintMethodology ;
-    skos:closeMatch oec:carbonFootprintMethodology ;
-    skos:broadMatch schema:measurementMethod .
 
 # =============================================================================
 # PART 21: PROPERTIES - REPAIR AND COMPONENT REPLACEMENT EVENTS

@@ -53,10 +53,12 @@ mismatches the bridge context cannot rescale (JSON-LD maps IRIs, not values):
 | `dppk:heatNumber` / `castNumber` / `lotNumber` / `productNumber` / `purchaserOrder` | `eusteel:` same | Mapped | |
 | `dppk:steelGradeClassification` / `steelDesignation` / `technologyRoute` / `meltAndPourCountry` / `cbamReportId` | `eusteel:` same | Mapped | `technologyRoute`: dppk free text → `eusteel:TechnologyRoute` enum (Partial on export). |
 | `dppk:MaterialTestCertificate` / `mtc` | `eusteel:MaterialTestCertificate` / `eusteel:hasMtc` | Mapped | `skos:exactMatch`. |
-| `dppk:mtcNominalSize` / `mtcWeightTolerance` / `mtcYieldStrength` / `mtcYieldStrengthRatio` / `mtcElongation` / `mtcRelativeRibArea` | `eusteel:` same | Mapped | EN 10168 mechanical. |
-| `dppk:mtcCarbonContent` / `mtcPhosphorusContent` / `mtcSulfurContent` / `mtcCopperContent` / `mtcNitrogenContent` / `mtcCarbonEquivalent` | `eusteel:` same | Mapped | EN 10168 chemical. |
-| `dppk:mtcSteelProcess` / `mtcFinishing` / `mtcRadiometricControl` | `eusteel:` same | Mapped | |
-| — | `eusteel:mtcInspectionType`, `eusteel:mtcTensileStrength` | Unmapped (theirs) | OpenEPCIS enrichments (EN 10204 doc type, Rm). |
+| `dppk:mtcNominalSize` / `mtcWeightTolerance` | `eusteel:` same | Mapped | Certificate descriptors. |
+| `dppk:mtcYieldStrength` / `mtcYieldStrengthRatio` / `mtcElongation` / `mtcRelativeRibArea` | results observing `eusteel:YieldStrength` / `YieldStrengthRatio` / `Elongation` / `RelativeRibArea` | Partial | A flat Keystone value becomes an `oea:MeasurementResult` of the certificate with its unit; the `keystone` crosswalk profile converts it, the bridge context no longer aliases it. |
+| `dppk:mtcCarbonContent` / `mtcPhosphorusContent` / `mtcSulfurContent` / `mtcCopperContent` / `mtcNitrogenContent` / `mtcCarbonEquivalent` | results observing `eusteel:CarbonContent` … `eusteel:CarbonEquivalent` (P1) | Partial | As above. |
+| `dppk:mtcSteelProcess` / `mtcFinishing` | `eusteel:` same | Mapped | |
+| `dppk:mtcRadiometricControl` | result observing `eusteel:RadiometricControl` | Partial | As above. |
+| — | `eusteel:mtcInspectionType`, results observing `eusteel:TensileStrength` | Unmapped (theirs) | OpenEPCIS enrichments (EN 10204 doc type, Rm). |
 
 ## Environmental Product Declaration (EN 15804)
 
@@ -66,8 +68,8 @@ mismatches the bridge context cannot rescale (JSON-LD maps IRIs, not values):
 | `dppk:ImpactValues` | `oec:ImpactIndicatorResult` | Mapped | `skos:closeMatch` (structural difference — see below). |
 | `dppk:epd` | `oec:hasEnvironmentalProductDeclaration` | Mapped | `skos:exactMatch`. |
 | `dppk:indicator` | `oec:hasImpactIndicator` | Mapped | |
-| `dppk:gwp` / `gwpF` / `gwpB` / `gwpLuluc` / `odp` / `ap` / `epF` / `epM` / `epT` / `pocp` / `adpe` / `adpf` / `wdp` | `oec:hasImpactIndicator` with `oec:hasIndicatorType` ∈ {`oec:GWPTotal`, `GWPFossil`, …, `WDP`} | **Structural** | DPP Keystone has one property per indicator pointing at an `ImpactValues` node; OpenEPCIS normalises to one `ImpactIndicatorResult` carrying an `oec:hasIndicatorType` selector. Each `dppk:` indicator property is anchored `rdfs:seeAlso` to its `oec:ImpactIndicatorType` value; the per-property→per-instance reshape is a transform, not a context mapping. |
-| `dppk:a1` … `dppk:c1` (lifecycle modules) | `oec:LifecycleStageResult` (`oec:hasLifecycleStage` ∈ {`oec:StageA1`…`oec:StageD`} + `oec:stageValue`) | **Structural** | Same reshape: flat `a1..d` properties → normalised stage/value pairs. `rdfs:seeAlso` anchors on each `oec:Stage*` value. |
+| `dppk:gwp` / `gwpF` / `gwpB` / `gwpLuluc` / `odp` / `ap` / `epF` / `epM` / `epT` / `pocp` / `adpe` / `adpf` / `wdp` | `oec:hasImpactIndicator` with `oea:hasObservedParameter` ∈ {`oec:GWPTotal`, `GWPFossil`, …, `WDP`} | **Structural** | DPP Keystone has one property per indicator pointing at an `ImpactValues` node; OpenEPCIS normalises to one `ImpactIndicatorResult` (an `oea:MeasurementResult`) naming its category with `oea:hasObservedParameter` and its value and unit in `oea:hasMeasuredValue`. Each `dppk:` indicator property is anchored `rdfs:seeAlso` to its `oec:ImpactIndicatorType` value; the per-property→per-instance reshape is a transform, not a context mapping. |
+| `dppk:a1` … `dppk:c1` (lifecycle modules) | `oec:LifecycleStageResult` (`oec:hasLifecycleStage` ∈ {`oec:StageA1`…`oec:StageD`} + `oea:hasMeasuredValue`) | **Structural** | Same reshape: flat `a1..d` properties → normalised stage/value pairs. `rdfs:seeAlso` anchors on each `oec:Stage*` value. |
 
 ## Construction / Declaration of Performance (`eucpr:`)
 
@@ -93,10 +95,10 @@ mismatches the bridge context cannot rescale (JSON-LD maps IRIs, not values):
 |--------------|-----------|----------|-------|
 | `dppk:TextileProduct` | `gs1:Product` (`eutex:TextileApparel` / `TextileFootwear` for subtype) | Partial | OpenEPCIS splits apparel/footwear; map to the GS1 base on ingest. |
 | `dppk:robustnessScore` / `recyclabilityScore` | indicators of kind `eutex:RobustnessScore` / `oea:RecyclabilityScore` | Partial | A flat Keystone score becomes an `oea:Indicator` object; the bridge context can no longer alias it. |
-| `dppk:carbonFootprint` | `eutex:carbonFootprintManufacturing` | Mapped | |
-| `dppk:carbonFootprintClass` / `environmentalFootprintClass` | `eutex:carbonFootprintClass` / `eutex:environmentalFootprintClass` | Mapped | Harvested. |
-| `dppk:environmentalFootprint` | `eutex:pefSingleScore` | Mapped | |
-| `dppk:carbonFootprintBenchmarkPercentage` / `environmentalFootprintBenchmarkPercentage` | `eutex:benchmarkPerformance` | Partial | Both dppk keys collapse onto one `eutex:` property (carbon vs single-score benchmark are distinguished in dppk but not in `eutex:`). |
+| `dppk:carbonFootprint` | indicator of kind `eutex:ManufacturingCarbonFootprint` (KGM) | Partial | Indicator of the `eutex:EnvironmentalFootprint` assessment; the bridge context can no longer alias it, the `keystone` crosswalk profile converts it. |
+| `dppk:carbonFootprintClass` / `environmentalFootprintClass` | indicators of kind `eutex:CarbonFootprintClass` / `eutex:EnvironmentalFootprintClass` | Partial | As above. |
+| `dppk:environmentalFootprint` | indicator of kind `eutex:PEFSingleScore` | Partial | As above. |
+| `dppk:carbonFootprintBenchmarkPercentage` / `environmentalFootprintBenchmarkPercentage` | indicator of kind `eutex:BenchmarkPerformance` (P1) | Partial | Both dppk keys lower to one kind (carbon vs single-score benchmark are distinguished in dppk but not here); lifting writes `environmentalFootprintBenchmarkPercentage`. |
 | `dppk:textileWeight` | `gs1:netWeight` | Mapped | |
 | `dppk:weightExcludingTrims` | `eutex:weightExcludingTrims` | Mapped | Harvested. |
 | `dppk:organicContentPercentage` / `organicContentMass` | `eutex:organicContentPercentage` / `eutex:organicContentMass` | Mapped | Harvested. |

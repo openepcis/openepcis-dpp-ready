@@ -1,0 +1,38 @@
+# The passport root becomes the battery (its IRI is the unique product identifier) with its
+# category, and the header becomes the passport data of the product. A value the lift derives
+# (the passport identifier equal to the product identifier, the economic operator equal to the
+# manufacturer) is not written back; the facility becomes the manufacturing place (50-parties). The
+# schema version is the battery's schema:schemaVersion (BatteryPass-Ready #1).
+CONSTRUCT {
+  ?r a ?cls ; schema:category ?cat ; oec:passportIdentifier ?pid ; oec:lastUpdated ?lu ; oec:granularityLevel ?gl ;
+     oec:hasReportingGranularity ?rg ; oec:passportStatus ?st ; schema:schemaVersion ?sv ; oec:economicOperatorId ?eo ;
+     oec:contentSpecificationId ?cs .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?r a bprx:BatteryPassport }
+  FILTER(isIRI(?r))
+  {
+    VALUES ?cls { gs1:Product eubat:Battery }
+  } UNION {
+    GRAPH <urn:xw:roots> { ?r xw:schema ?schema }
+    ?crow xw:schema ?schema ; xw:ourCategory ?cat .
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:digitalProductPassportId ?v } FILTER(STR(?v) != STR(?r))
+    BIND(STRDT(STR(?v), xsd:anyURI) AS ?pid)
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:lastUpdated ?v } BIND(STRDT(STR(?v), xsd:dateTime) AS ?lu)
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:granularity ?gn } GRAPH <urn:xw:in> { ?gn bprx:dppGranularityValue "item" }
+    BIND("item" AS ?gl) BIND(oec:ItemLevel AS ?rg)
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:dppStatus ?sn } GRAPH <urn:xw:in> { ?sn bprx:dppStatusValue ?v } BIND(STR(?v) AS ?st)
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:dppSchemaVersion ?v } BIND(STR(?v) AS ?sv)
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:economicOperatorId ?v }
+    FILTER NOT EXISTS { GRAPH <urn:xw:flat> { ?r bpr:uniqueManufacturerIdentifier ?m } FILTER(STR(?m) = STR(?v)) }
+    BIND(STR(?v) AS ?eo)
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:contentSpecificationIds ?v } BIND(STRDT(STR(?v), xsd:anyURI) AS ?cs)
+  }
+}

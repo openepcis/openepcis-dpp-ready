@@ -107,7 +107,8 @@ identifier and trade-item attributes apply unchanged."""@en ;
     skos:narrowMatch <https://w3id.org/eudpp/textile-core#TextileApparel> ;
     skos:narrowMatch <https://w3id.org/eudpp/textile-core#ElectronicTextile> ;
     skos:narrowMatch <https://w3id.org/eudpp/textile-core#SmartTextile> ;
-    skos:exactMatch <https://w3id.org/eudpp/textile-core#TextileProduct> .
+    skos:exactMatch <https://w3id.org/eudpp/textile-core#TextileProduct> ;
+    skos:exactMatch dppk:TextileProduct .
 
 eutex:CareInstruction
     a owl:Class ;
@@ -1484,28 +1485,33 @@ eutex:hasVerificationCertification
 
 eutex:EnvironmentalFootprint
     a owl:Class ;
+    rdfs:subClassOf oea:Assessment ;
     rdfs:label "Environmental Footprint"@en ;
     rdfs:comment """Environmental footprint declaration per EU Preparatory Study 3rd Milestone,
 aligned with Product Environmental Footprint Category Rules for Apparel & Footwear (PEFCR A&F).
-Includes manufacturing carbon footprint, PEF single score, and benchmark comparison."""@en ;
+An oea:Assessment: the PEFCR is its oea:hasMethod; each impact category is an eutex:LCIACategory result
+(oea:hasResult); the manufacturing carbon footprint, the PEF single score, the benchmark comparison and
+the footprint classes are indicators (oea:hasIndicator with eutex:ManufacturingCarbonFootprint,
+eutex:PEFSingleScore, eutex:BenchmarkPerformance, eutex:CarbonFootprintClass,
+eutex:EnvironmentalFootprintClass)."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso oec:EmissionsPerformance ;
     rdfs:seeAlso schema:PropertyValue ;
     skos:note """Required extension: The EU preparatory study mandates PEF-based environmental footprint
 reporting with specific metrics (single score in mPt, benchmark performance) not available
-in GS1 or core DPP vocabulary. Keeps existing eutex:hasWaterUsage and eutex:hasEnergyUsage
+in GS1 or core DPP vocabulary; their kinds are defined here, the structure is common/assessment. Keeps existing eutex:hasWaterUsage and eutex:hasEnergyUsage
 as convenience properties. See also schema:PropertyValue for generic structured values."""@en ;
     rdfs:seeAlso <https://w3id.org/eudpp#CarbonFootprint> ;
     rdfs:seeAlso <https://w3id.org/eudpp#LCIAImpactCategory> ;
     skos:narrowMatch <https://w3id.org/eudpp#CarbonFootprint> ;
-    skos:narrowMatch <https://w3id.org/eudpp#MaterialFootprint> ;
-    skos:narrowMatch <https://w3id.org/eudpp#LCIAResult> .
+    skos:closeMatch <https://w3id.org/eudpp#LCAStudy> .
 
 eutex:LCIACategory
     a owl:Class ;
+    rdfs:subClassOf oea:MeasurementResult ;
     rdfs:label "LCIA Category"@en ;
-    rdfs:comment "Individual Life Cycle Impact Assessment category result within the environmental footprint."@en ;
+    rdfs:comment "One Life Cycle Impact Assessment category result within the environmental footprint, an oea:MeasurementResult: oea:hasObservedParameter names the eutex:LCIACategoryCode, oea:hasMeasuredValue the value with the unit of the reference substance (kg CO2-eq, kg P-eq: KGM; mol H+-eq: C34; m3 world-eq: MTQ; CTUe, CTUh: C62), oec:declaredUnit the unit as stated."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso schema:PropertyValue ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
@@ -1535,8 +1541,9 @@ eutex:MixedData a eutex:FootprintDataType ; rdfs:label "Mixed Data"@en ;
 # LCIA Category Code enumeration
 eutex:LCIACategoryCode
     a owl:Class ;
+    rdfs:subClassOf oea:PerformanceParameter ;
     rdfs:label "LCIA Category Code"@en ;
-    rdfs:comment "Life Cycle Impact Assessment category codes per PEF methodology."@en ;
+    rdfs:comment "Life Cycle Impact Assessment category codes per PEF methodology; each is an oea:PerformanceParameter an eutex:LCIACategory result observes."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     owl:oneOf (
         eutex:GWP
@@ -1566,6 +1573,7 @@ eutex:HumanToxicity a eutex:LCIACategoryCode ; rdfs:label "Human Toxicity"@en ;
 # Environmental Footprint properties
 eutex:hasEnvironmentalFootprint
     a owl:ObjectProperty ;
+    rdfs:subPropertyOf oea:hasAssessment ;
     rdfs:label "Environmental Footprint"@en ;
     rdfs:comment "Environmental footprint declaration for the textile product."@en ;
     rdfs:domain gs1:Product ;
@@ -1577,45 +1585,6 @@ eutex:hasEnvironmentalFootprint
     skos:exactMatch dppk:environmentalFootprint ;
     rdfs:seeAlso dppk:carbonFootprintGeneralInfo .
 
-eutex:carbonFootprintManufacturing
-    a owl:DatatypeProperty ;
-    rdfs:label "Carbon Footprint Manufacturing"@en ;
-    rdfs:comment "Carbon footprint of manufacturing phase in kg CO2-eq per product unit."@en ;
-    rdfs:domain eutex:EnvironmentalFootprint ;
-    rdfs:range xsd:decimal ;
-    rdfs:seeAlso oec:carbonFootprintTotal ;
-    rdfs:seeAlso schema:value ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint> ;
-    skos:closeMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage> ;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint> .
-
-eutex:pefSingleScore
-    a owl:DatatypeProperty ;
-    rdfs:label "PEF Single Score"@en ;
-    rdfs:comment "Product Environmental Footprint single score in milli-points (mPt) per PEFCR A&F methodology."@en ;
-    rdfs:domain eutex:EnvironmentalFootprint ;
-    rdfs:range xsd:decimal ;
-    rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
-
-eutex:benchmarkPerformance
-    a owl:DatatypeProperty ;
-    rdfs:label "Benchmark Performance"@en ;
-    rdfs:comment "Performance relative to product category benchmark as percentage (negative = better than benchmark)."@en ;
-    rdfs:domain eutex:EnvironmentalFootprint ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso dppk:environmentalFootprintBenchmarkPercentage ;
-    rdfs:seeAlso dppk:carbonFootprintBenchmarkPercentage ;
-    skos:exactMatch dppk:environmentalFootprintBenchmarkPercentage .
-
 eutex:hasDataTypeIndicator
     a owl:ObjectProperty ;
     rdfs:label "Data Type Indicator"@en ;
@@ -1626,18 +1595,9 @@ eutex:hasDataTypeIndicator
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-eutex:pefcrReference
-    a owl:DatatypeProperty ;
-    rdfs:label "PEFCR Reference"@en ;
-    rdfs:comment "Reference to the applicable PEFCR version (e.g. 'PEFCR Apparel & Footwear v1.3')."@en ;
-    rdfs:domain eutex:EnvironmentalFootprint ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
-
 eutex:hasLciaCategories
     a owl:ObjectProperty ;
+    rdfs:subPropertyOf oea:hasResult ;
     rdfs:label "LCIA Categories"@en ;
     rdfs:comment "Individual LCIA category results within the environmental footprint."@en ;
     rdfs:domain eutex:EnvironmentalFootprint ;
@@ -1646,44 +1606,48 @@ eutex:hasLciaCategories
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
+# Footprint indicator kinds (oea:hasIndicator on the eutex:EnvironmentalFootprint)
+eutex:ManufacturingCarbonFootprint a oea:IndicatorKind ;
+    rdfs:label "Manufacturing Carbon Footprint"@en ;
+    rdfs:comment "Carbon footprint of the manufacturing phase per product unit (unitCode KGM, kg CO2-eq). Replaces eutex:carbonFootprintManufacturing."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso oec:carbonFootprintTotal ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint> ;
+    skos:closeMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint> .
+
+eutex:PEFSingleScore a oea:IndicatorKind ;
+    rdfs:label "PEF Single Score"@en ;
+    rdfs:comment "Product Environmental Footprint single score in milli-points per PEFCR A&F (unitCode C62, the value in mPt). Replaces eutex:pefSingleScore."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso schema:ratingValue .
+
+eutex:BenchmarkPerformance a oea:IndicatorKind ;
+    rdfs:label "Benchmark Performance"@en ;
+    rdfs:comment "Performance relative to the product-category benchmark (unitCode P1; negative is better than the benchmark). Replaces eutex:benchmarkPerformance."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso dppk:carbonFootprintBenchmarkPercentage ;
+    skos:closeMatch dppk:environmentalFootprintBenchmarkPercentage .
+
+eutex:CarbonFootprintClass a oea:IndicatorKind ;
+    rdfs:label "Carbon Footprint Class"@en ;
+    rdfs:comment "Discrete performance class of the manufacturing carbon footprint against the PEFCR climate-change benchmark (an A-G style band as an integer 1..n, unitCode C62). Replaces eutex:carbonFootprintClass."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:closeMatch dppk:carbonFootprintClass ;
+    skos:closeMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerformanceClass> .
+
+eutex:EnvironmentalFootprintClass a oea:IndicatorKind ;
+    rdfs:label "Environmental Footprint Class"@en ;
+    rdfs:comment "Discrete performance class of the PEF single score against the product-category benchmark (an A-G style band as an integer 1..n, unitCode C62). Replaces eutex:environmentalFootprintClass."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:closeMatch dppk:environmentalFootprintClass .
+
 # LCIA Category properties
-eutex:hasLciaCategoryCode
-    a owl:ObjectProperty ;
-    rdfs:label "LCIA Category Code"@en ;
-    rdfs:comment "The impact category code."@en ;
-    rdfs:domain eutex:LCIACategory ;
-    rdfs:range eutex:LCIACategoryCode ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso schema:hasCategoryCode .
-
-eutex:lciaValue
-    a owl:DatatypeProperty ;
-    rdfs:label "LCIA Value"@en ;
-    rdfs:comment "The impact category value in the category-specific unit."@en ;
-    rdfs:domain eutex:LCIACategory ;
-    rdfs:range xsd:decimal ;
-    rdfs:seeAlso schema:value ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso gs1:value ;
-    rdfs:seeAlso cv:value ;
-    rdfs:seeAlso cv:providesValueFor .
-
-eutex:lciaUnit
-    a owl:DatatypeProperty ;
-    rdfs:label "LCIA Unit"@en ;
-    rdfs:comment "Unit of the LCIA value (e.g. 'kg CO2-eq', 'm3 world-eq', 'mol H+-eq')."@en ;
-    rdfs:domain eutex:LCIACategory ;
-    rdfs:range xsd:string ;
-    rdfs:seeAlso schema:unitCode ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:broadMatch gs1:unitCode .
-
 # =============================================================================
 # PART 18: SUBSTANCE OF CONCERN 4-TYPE CLASSIFICATION (WP6)
 # EU Preparatory Study on Textiles - 3rd Milestone
@@ -1827,7 +1791,6 @@ eutex:maxConcentration
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceConcentration> .
 
-
 eutex:safeUseInstructions
     a owl:DatatypeProperty ;
     rdfs:label "Safe Use Instructions"@en ;
@@ -1856,7 +1819,8 @@ eutex:endOfLifeHandling
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
     skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation> ;
-    skos:broadMatch gs1:sustainabilityInfo .
+    skos:broadMatch gs1:sustainabilityInfo ;
+    skos:exactMatch <https://w3id.org/eudpp#hasEndOfLifeManagementInstruction> .
 
 eutex:hasClpHazardCategory
     a owl:ObjectProperty ;
@@ -2046,7 +2010,6 @@ eutex:ElastaneContentLimitPA6 a oea:Threshold ; rdfs:label "Elastane Content Lim
 # Cross-cutting alignment to oec: (Phase 2 lift)
 # =============================================================================
 
-
 # =============================================================================
 # PART 18: DPP Keystone ESPR harvest
 # =============================================================================
@@ -2135,31 +2098,6 @@ eutex:weightExcludingTrims
     skos:exactMatch dppk:weightExcludingTrims ;
     skos:note "Textile content-denominator weight per the ESPR textile delegated act. Anchored to the DPP Keystone peer profile dppk:weightExcludingTrims; complements gs1:netWeight."@en ;
     skos:broadMatch schema:weight .
-
-eutex:carbonFootprintClass
-    a owl:DatatypeProperty ;
-    rdfs:label "Carbon Footprint Class"@en ;
-    rdfs:comment "Discrete performance class (A–G style band, expressed as an integer 1..n) for the manufacturing carbon footprint relative to the PEFCR climate-change benchmark."@en ;
-    rdfs:domain eutex:EnvironmentalFootprint ;
-    rdfs:range xsd:integer ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:seeAlso dppk:carbonFootprintClass ;
-    skos:exactMatch dppk:carbonFootprintClass ;
-    skos:note "Discrete PEF carbon-footprint class per the ESPR textile delegated act. Complements eutex:carbonFootprintManufacturing (the value) and eutex:benchmarkPerformance (the percentage). Anchored to the DPP Keystone peer profile dppk:carbonFootprintClass."@en ;
-    skos:closeMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerformanceClass> .
-
-eutex:environmentalFootprintClass
-    a owl:DatatypeProperty ;
-    rdfs:label "Environmental Footprint Class"@en ;
-    rdfs:comment "Discrete performance class (A–G style band, expressed as an integer 1..n) for the PEF single score relative to the product-category benchmark."@en ;
-    rdfs:domain eutex:EnvironmentalFootprint ;
-    rdfs:range xsd:integer ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:seeAlso dppk:environmentalFootprintClass ;
-    skos:exactMatch dppk:environmentalFootprintClass ;
-    skos:note "Discrete PEF single-score class per the ESPR textile delegated act. Complements eutex:pefSingleScore (the value) and eutex:benchmarkPerformance (the percentage). Anchored to the DPP Keystone peer profile dppk:environmentalFootprintClass."@en .
 
 eutex:textileFibreScientificName
     a owl:DatatypeProperty ;

@@ -9,6 +9,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521234000105",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/battery/",
     "https://schema.org/"
@@ -82,17 +83,10 @@
   },
   "hasTechnicalSpecifications": {
     "type": "TechnicalSpecification",
-    "capacityThresholdForExhaustion": 70,
-    "expectedCycleLife": 8000,
     "hasExpectedLifetime": {
       "type": "QuantitativeValue",
       "unitCode": "ANN",
       "value": 15
-    },
-    "hasInitialPackInternalResistance": {
-      "type": "QuantitativeValue",
-      "unitCode": "OHM",
-      "value": "1.8"
     },
     "hasMaximumVoltage": {
       "type": "QuantitativeValue",
@@ -108,6 +102,49 @@
       "type": "QuantitativeValue",
       "unitCode": "VLT",
       "value": "51.2"
+    },
+    "hasPerformanceTest": {
+      "type": "PerformanceDurabilityTest",
+      "hasMethod": {
+        "type": "TestMethod",
+        "methodUrl": "https://www.iec.ch/standards/62660-1"
+      },
+      "hasResult": [
+        {
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "OHM",
+            "value": "1.8"
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/InitialPackInternalResistance"
+        },
+        {
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "P1",
+            "value": 95
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/InitialRoundTripEfficiency"
+        },
+        {
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "C62",
+            "value": 8000
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/CycleLife"
+        }
+      ],
+      "isEvaluatedAgainst": {
+        "type": "CapacityExhaustionThreshold",
+        "hasComparisonOperator": "LessThan",
+        "hasThresholdParameter": "https://ref.openepcis.org/extensions/eu/battery/StateOfCertifiedEnergy",
+        "hasThresholdValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "P1",
+          "value": 70
+        }
+      }
     },
     "hasRatedCapacity": {
       "type": "QuantitativeValue",
@@ -136,9 +173,7 @@
         "unitCode": "CEL",
         "value": -20
       }
-    },
-    "lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
-    "roundTripEfficiency": 95
+    }
   },
   "manufacturer": {
     "type": "Organization",

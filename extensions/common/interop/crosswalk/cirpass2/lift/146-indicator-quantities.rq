@@ -1,0 +1,19 @@
+# EUDPP core: an indicator of a kind with an EUDPP quantity class (xw:indicatorClass, the
+# circularity indicators) is that quantitative property of the product (same node), part of
+# its holder when the holder is a container; dcterms:type names the kind.
+CONSTRUCT {
+  ?prod eudpp:hasProperty ?i .
+  ?i a ?qc ; dcterms:type ?k ; eudpp:numericalValue ?nv ; eudpp:hasMeasurementUnit ?unit ; dcterms:isPartOf ?cont .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?x oea:hasIndicator ?i . ?i oea:hasIndicatorKind ?k ; oea:hasIndicatorValue ?qv . ?qv gs1:value ?v ; gs1:unitCode ?code }
+  ?k xw:indicatorClass ?qc .
+  OPTIONAL { ?k xw:containerLink ?cl . GRAPH <urn:xw:in> { ?owner ?cl ?x } }
+  BIND(COALESCE(?owner, ?x) AS ?prod)
+  FILTER EXISTS { GRAPH <urn:xw:in> { ?prod a ?prodT } ?prodT rdfs:subClassOf* gs1:Product }
+  BIND(IF(BOUND(?owner), ?x, ?noContainer) AS ?cont)
+  OPTIONAL { ?urow xw:unitCode ?code ; xw:siUnit ?si ; xw:factor ?f }
+  BIND(COALESCE(?si, IRI(CONCAT("https://vocabulary.uncefact.org/UnitMeasureCode#", ?code))) AS ?unit)
+  # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+  BIND(xsd:decimal(IF(xsd:decimal(?v) = 0, 0.0, xsd:decimal(?v) * COALESCE(?f, 1.0))) AS ?nv)
+}

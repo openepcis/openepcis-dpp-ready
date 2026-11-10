@@ -105,10 +105,14 @@ interface DocFacts {
   types: Set<string>;
   ids: string[];
   strings: string[];
+  /** IRIs a result, indicator or protocol setting names (oea:hasObservedParameter, hasIndicatorKind, hasParameter). */
+  named: string[];
 }
 
+const NAMING_KEYS = new Set(["hasObservedParameter", "hasIndicatorKind", "hasParameter"]);
+
 function collectFacts(docs: unknown[]): DocFacts {
-  const facts: DocFacts = { keys: new Set(), types: new Set(), ids: [], strings: [] };
+  const facts: DocFacts = { keys: new Set(), types: new Set(), ids: [], strings: [], named: [] };
   const walk = (node: unknown): void => {
     if (Array.isArray(node)) {
       for (const item of node) walk(item);
@@ -128,6 +132,12 @@ function collectFacts(docs: unknown[]): DocFacts {
       if ((key === "id" || key === "@id") && typeof value === "string") {
         facts.ids.push(value);
       }
+      if (NAMING_KEYS.has(key.split(":").pop() ?? key)) {
+        for (const v of Array.isArray(value) ? value : [value]) {
+          const iri = typeof v === "string" ? v : (v as Record<string, unknown> | null)?.["@id"] ?? (v as Record<string, unknown> | null)?.id;
+          if (typeof iri === "string") facts.named.push(iri);
+        }
+      }
       walk(value);
     }
   };
@@ -146,6 +156,12 @@ function termEvidence(curie: string, facts: DocFacts): string | null {
   if (isClassCurie(curie)) {
     if (facts.types.has(curie)) return curie;
     if (facts.types.has(bare)) return `${bare} (bare type)`;
+    // An individual (a performance parameter, indicator kind or protocol parameter of
+    // common/assessment) is present when a result, indicator or setting names it: as a
+    // reference, or as a plain IRI value in the operational form. A threshold that merely
+    // limits the parameter does not count.
+    const named = (v: string) => v === curie || v === bare || v.endsWith(`/${bare}`) || v.endsWith(`#${bare}`);
+    if (facts.named.some(named)) return `${curie} (named by a result, indicator or setting)`;
     return null;
   }
   if (facts.keys.has(curie)) return curie;

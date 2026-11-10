@@ -317,6 +317,7 @@ const PREFIXES: Record<string, string> = {
   "https://schema.org/": "schema:",
   "https://ref.openepcis.org/extensions/common/core/": "oec:",
   "https://ref.openepcis.org/extensions/eu/battery/": "eubat:",
+  "https://ref.openepcis.org/extensions/common/assessment/": "oea:",
 };
 const toCurie = (iri: string): string => {
   for (const [ns, prefix] of Object.entries(PREFIXES)) {
@@ -442,6 +443,49 @@ const curieToIri = (curie: string): string => {
 
 const anchorPaths = deriveAnchorPaths();
 
+// ── Assessment-model carriers ────────────────────────────────────────────────
+//
+// Measured and tested values are results of an oea: assessment that NAME the
+// performance parameter (an individual), so a data point carried by one is present
+// when a node on the assessment path names it: a result (oea:hasObservedParameter),
+// an indicator (oea:hasIndicatorKind), a protocol setting (oea:hasParameter) or a
+// threshold of the given class. The data point's lifecycle picks the assessment:
+// static values come from the performance test on the technical specification,
+// dynamic (Annex XIII 4) values from the battery state.
+const OEA = "https://ref.openepcis.org/extensions/common/assessment/";
+const RDF_TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+const roleOf = (() => {
+  const quads = new Parser().parse(readFileSync(join(MODULE, "ontology/battery.ttl"), "utf-8"));
+  const roles = new Map<string, string>();
+  for (const q of quads) {
+    if (q.predicate.value === RDF_TYPE && q.object.value.startsWith(OEA)) roles.set(toCurie(q.subject.value), q.object.value.slice(OEA.length));
+    if (q.predicate.value === `${RDFS}subClassOf` && q.object.value === `${OEA}Threshold`) roles.set(toCurie(q.subject.value), "Threshold");
+  }
+  return (curie: string) => roles.get(curie);
+})();
+const TEST = ["eubat:hasTechnicalSpecifications", "eubat:hasPerformanceTest"];
+const STATE = ["eubat:hasBatteryState"];
+/** Path prefixes (assessment nodes) and the slot that names the term, per role and lifecycle. */
+function assessmentCarriers(term: string, lifecycle: string): { paths: string[][]; slot: string } | null {
+  const role = roleOf(term);
+  const scope = lifecycle === "dynamic" ? STATE : TEST;
+  switch (role) {
+    case "PerformanceParameter":
+      return { paths: [[...scope, "oea:hasResult"], [...scope, "oea:hasSubAssessment", "oea:hasResult"]], slot: "oea:hasObservedParameter" };
+    case "MeasurementParameter":
+      return { paths: [[...TEST, "oea:hasParameterSetting"]], slot: "oea:hasParameter" };
+    case "IndicatorKind":
+      return {
+        paths: lifecycle === "dynamic" ? [[...STATE, "oea:hasIndicator"]] : [["eubat:hasCarbonFootprintDeclaration", "oea:hasIndicator"]],
+        slot: "oea:hasIndicatorKind",
+      };
+    case "Threshold":
+      return { paths: [[...TEST, "oea:isEvaluatedAgainst"]], slot: "rdf:type" };
+    default:
+      return null;
+  }
+}
+
 const SEVERITY: Record<Applicability["status"], string | null> = {
   mandatory: "sh:Violation",
   conditional: "sh:Warning",
@@ -464,7 +508,12 @@ const STATUS_HINT: Record<Applicability["status"], string> = {
  * Class-typed carriers are skipped — every data point also has a property
  * carrier, and "class used anywhere" is not expressible as a focus-node path.
  */
-function orMembers(term: string): string[] {
+function orMembers(term: string, lifecycle = "static"): string[] {
+  const carriers = assessmentCarriers(term, lifecycle);
+  if (carriers) {
+    const named = carriers.slot === "rdf:type" ? `sh:class ${term}` : `sh:property [ sh:path ${carriers.slot} ; sh:hasValue ${term} ]`;
+    return carriers.paths.map((p) => `[ sh:path ( ${p.join(" ")} ) ; sh:qualifiedValueShape [ ${named} ] ; sh:qualifiedMinCount 1 ]`);
+  }
   if (isClassTerm(term)) return [];
   const variants = anchorPaths.get(term) ?? [[]];
   return variants.map((segments) => {
@@ -485,6 +534,8 @@ shapes.push(`@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix schema: <https://schema.org/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
 @prefix eubat: <https://ref.openepcis.org/extensions/eu/battery/> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix ecbp: <${NS}> .
 
 # GENERATED FILE - do not edit. Source: vocab/ec-guidance-datapoints.json,
@@ -511,11 +562,11 @@ for (const cat of ["ev", "lmt", "industrial"] as const) {
     const severity = SEVERITY[a.status];
     if (!severity) continue;
     const nr = String(dp.nr).padStart(2, "0");
-    const members = dp.implementedBy.flatMap(orMembers);
+    const members = dp.implementedBy.flatMap((t) => orMembers(t, dp.lifecycle));
     if (dp.nr === 1 || dp.nr === 7) members.push(DL_MEMBER);
     const constraint =
       members.length === 1
-        ? `    sh:property ${members[0].replace("]", `; sh:severity ${severity} ; sh:message "${esc(
+        ? `    sh:property ${members[0].replace(/\]$/, `; sh:severity ${severity} ; sh:message "${esc(
             `EC data point ${dp.nr} (${catLabel}, ${STATUS_HINT[a.status]}${a.note ? `: ${a.note}` : ""}): ${dp.name} — expected ${dp.implementedBy.join(" / ")}`,
           )}" ]`)} ;`
         : `    sh:or ( ${members.join(" ")} ) ;\n    sh:severity ${severity} ;\n    sh:message "${esc(
@@ -577,14 +628,14 @@ ${doc.supersedes ? `## What changed in version ${doc.version}
 Against version ${doc.supersedes.version} (${doc.supersedes.issued}):
 
 - **Renumbering from #40.** The C-rate of the relevant cycle-life test (1.0 #39) is split into a
-  charge C-rate (#39, carried by \`eubat:cRateLifeCycleTest\`) and a new, optional discharge
-  C-rate (#40, \`eubat:dischargeCRateLifeCycleTest\`). 1.0 #40–45 become #41–46; 1.0 #46 (part
+  charge C-rate (#39, carried by \`eubat:ChargeCRate\`) and a new, optional discharge
+  C-rate (#40, \`eubat:DischargeCRate\`). 1.0 #40–45 become #41–46; 1.0 #46 (part
   numbers for components) and #47 (contact details of sources for replacement spares) merge into
   #47. From #48 the numbers are unchanged.
 - **Recycled content (#20–23)** is no longer mandatory as of February 2027: "to be applied as
   envisaged by Article 8".
 - **Internal resistance (#38)** names two values, cell and pack
-  (\`eubat:hasInitialCellInternalResistance\`, \`eubat:hasInitialPackInternalResistance\`).
+  (\`eubat:InitialCellInternalResistance\`, \`eubat:InitialPackInternalResistance\`).
 - **Rated capacity (#51)** reads "same as data point 11" for all three categories.
 - New columns "As defined in" and "Type of information" (\`ecbp:definedIn\`,
   \`ecbp:typeOfInformation\`); every condition is quoted from the new table.

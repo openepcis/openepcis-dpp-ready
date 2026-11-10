@@ -182,8 +182,7 @@ The `untp-bridge-context.jsonld` allows UNTP-style JSON-LD documents to be proce
     "https://ref.openepcis.org/extensions/common/interop/untp-bridge-context.jsonld"
   ],
   "carbonFootprint": 42.5,
-  "recycledContent": 45,
-  "recyclableContent": 80
+  "recycledContent": 45
 }
 ```
 

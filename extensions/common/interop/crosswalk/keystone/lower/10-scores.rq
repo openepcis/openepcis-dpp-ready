@@ -1,13 +1,18 @@
 # A Keystone flat score: an indicator of the matching kind inside an assessment of the host
 # class that applies the host method, hung on the product.
+# Indicators of the same host class share one assessment per product (<product>#<host class>).
 CONSTRUCT {
-  ?prod ?entry _:a .
-  _:a a ?host ; oea:hasMethod ?m ; oea:hasIndicator _:i .
+  ?prod ?entry ?a .
+  ?a a ?host ; oea:hasMethod ?m ; oea:hasIndicator _:i .
   _:i a oea:Indicator ; oea:hasIndicatorKind ?k ; oea:hasDerivationMethod ?m ; oea:hasIndicatorValue _:q .
-  _:q a gs1:QuantitativeValue ; gs1:value ?v ; gs1:unitCode "C62" .
+  _:q a gs1:QuantitativeValue ; gs1:value ?v ; gs1:unitCode ?unit .
 }
 WHERE {
   GRAPH <urn:xw:in> { ?prod ?flat ?d }
-  ?k xw:flatProperty ?flat ; xw:hostClass ?host ; xw:hostEntry ?entry ; xw:hostMethod ?m .
+  ?k xw:flatProperty|xw:lowerFrom ?flat ; xw:hostClass ?host ; xw:hostEntry ?entry .
+  OPTIONAL { ?k xw:hostMethod ?m }
+  OPTIONAL { ?k xw:flatUnit ?u0 }
+  BIND(COALESCE(?u0, "C62") AS ?unit)
+  BIND(IF(isIRI(?prod), IRI(CONCAT(STR(?prod), "#", REPLACE(STR(?host), "^.*[/#]", ""))), BNODE()) AS ?a)
   BIND(xsd:decimal(?d) AS ?v)
 }

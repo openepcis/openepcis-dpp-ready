@@ -411,28 +411,8 @@ eutex:EnvironmentalFootprintShape a sh:NodeShape ;
     sh:targetClass eutex:EnvironmentalFootprint ;
     rdfs:label "Environmental Footprint Shape" ;
     sh:property [
-        sh:path eutex:carbonFootprintManufacturing ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:pefSingleScore ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:benchmarkPerformance ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
         sh:path eutex:hasDataTypeIndicator ;
         sh:class eutex:FootprintDataType ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:pefcrReference ;
-        sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
@@ -441,24 +421,15 @@ eutex:EnvironmentalFootprintShape a sh:NodeShape ;
     ] .
 
 # -----------------------------------------------------------------------------
-# LCIA Category Shape
+# LCIA Category Shape (value and unit: the oea:MeasurementResult shape)
 # -----------------------------------------------------------------------------
 eutex:LCIACategoryShape a sh:NodeShape ;
     sh:targetClass eutex:LCIACategory ;
     rdfs:label "LCIA Category Shape" ;
     sh:property [
-        sh:path eutex:hasLciaCategoryCode ;
+        sh:path oea:hasObservedParameter ;
         sh:class eutex:LCIACategoryCode ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:lciaValue ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eutex:lciaUnit ;
-        sh:datatype xsd:string ;
+        sh:minCount 1 ;
         sh:maxCount 1
     ] .
 

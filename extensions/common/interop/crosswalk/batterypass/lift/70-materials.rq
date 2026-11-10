@@ -1,0 +1,51 @@
+# Chemistry and materials: the chemistry code from the short name of the electrochemical system (a
+# name without a code goes as additionallyPossibleValue); the critical raw materials by name; the
+# active materials and the electrolyte by name; the hazardous substances with their CAS (else EC)
+# number, concentration, location and CLP hazard and precautionary statements.
+CONSTRUCT {
+  ?r bpr:batteryChemistry ?cn . ?cn bprx:chemicalCodeValue ?code ; bprx:additionallyPossibleValue ?other .
+  ?r bpr:criticalRawMaterials ?crm .
+  ?r bpr:materialsUsedInCathodeAnodeAndElectrolyte ?mat .
+  ?r bpr:hazardousSubstancesAndTheirImpact ?hz .
+  ?hz bpr:chemicalName ?hname ; bprx:identifierType ?idt ; bprx:identifier ?hid ; bpr:concentration ?conc ; bpr:substanceLocation ?loc ;
+      bpr:hazardPhrases ?hp ; bpr:precautionaryPhrases ?pp .
+}
+WHERE {
+  GRAPH <urn:xw:roots> { ?r xw:schema ?schema }
+  {
+    {
+      SELECT ?r (SAMPLE(STR(?n)) AS ?short) WHERE {
+        GRAPH <urn:xw:roots> { ?r xw:schema ?s1 }
+        GRAPH <urn:xw:in> { ?r eubat:hasBatteryChemistry/schema:alternateName ?n }
+      } GROUP BY ?r
+    }
+    OPTIONAL { ?chrow xw:chemistry ?c0 ; xw:chemistryName ?cname . FILTER(LCASE(STR(?cname)) = LCASE(?short)) }
+    BIND(STR(?c0) AS ?code)
+    BIND(IF(BOUND(?c0), ?none, ?short) AS ?other)
+    BIND(BNODE() AS ?cn)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r eubat:hasMaterialComposition ?m . ?m eubat:isCriticalRawMaterial true ; schema:name ?mn }
+    BIND(STR(?mn) AS ?crm)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r eubat:hasBatteryChemistry ?ch . ?ch ?mp ?mv }
+    FILTER(?mp IN (eubat:cathodeActiveMaterial, eubat:anodeActiveMaterial, eubat:electrolyteType))
+    BIND(STR(?mv) AS ?mat)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r eubat:hasHazardousSubstances ?h }
+    OPTIONAL { GRAPH <urn:xw:in> { ?h schema:name ?hn } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?h oec:casNumber ?cas } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?h oec:ecNumber ?ec } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?h eubat:concentration ?hc } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?h eubat:hasSubstanceLocation ?hl } OPTIONAL { ?hl rdfs:label ?hll FILTER(LANG(?hll) = "en") } }
+    BIND(STR(?hn) AS ?hname)
+    BIND(IF(BOUND(?cas), "CAS No", IF(BOUND(?ec), "EC No", ?n1)) AS ?idt)
+    BIND(STR(COALESCE(?cas, ?ec)) AS ?hid)
+    BIND(xsd:double(STR(?hc)) AS ?conc)
+    BIND(STR(?hll) AS ?loc)
+    BIND(BNODE() AS ?hz)
+    OPTIONAL { GRAPH <urn:xw:in> { ?h oec:hazardStatement ?hs } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?h oec:precautionaryStatement ?ps } }
+    BIND(STR(?hs) AS ?hp)
+    BIND(STR(?ps) AS ?pp)
+  }
+}

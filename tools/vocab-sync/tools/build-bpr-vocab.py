@@ -12,22 +12,24 @@ longlist vocabulary.
 The schemas carry no descriptions. Each element gets its parent object as context, and elements
 whose name equals the notation of an EU DPP Registry battery data element take over that
 element's definition and legal source. Unit and value carriers of the schema's quantity objects
-(`kilowattHourUnit`, `celsiusValue`, ...) are serialisation slots, not data points, and are left out.
+(`kilowattHourUnit`, `celsiusValue`, ...) are serialisation slots, not data points, and are left out;
+a name that holds an object (`batteryCarbonFootprintPerFunctionalUnit`) is a data element whatever
+its ending. scripts/build-batterypass-ready-context.ts gives the slots their own namespace.
 
-Usage (from the repo root; needs rdflib):
+Reads the vendored schemas (vendor/batterypass-ready/2.0.1, written by
+`pnpm run sync:batterypass-ready`). Usage (from the repo root; needs rdflib):
   tools/vocab-sync/tools/build-bpr-vocab.py
 Writes extensions/eu/battery/vocab/batterypass-ready-2.0.1.ttl
 """
 import json
 import re
 import sys
-import urllib.request
 
 from rdflib import Graph, Literal, Namespace, URIRef
 from rdflib.namespace import DCTERMS, OWL, RDF, RDFS
 
-COMMIT = "64761a79bc287f2e0eb371837c1d02e4eacb9c37"  # GEFEG main, 2026-09-23
-RAW = f"https://git.gefeg.com/bp/BatteryPassDataModel/-/raw/{COMMIT}/JSONSchemaFiles/v2.0.1/"
+COMMIT = "64761a79bc287f2e0eb371837c1d02e4eacb9c37"  # GEFEG main, 2026-09-23 (vendor MANIFEST.json)
+SCHEMAS = "vendor/batterypass-ready/2.0.1/JSONSchemaFiles/"  # pnpm run sync:batterypass-ready
 CATEGORIES = ["EV", "LMT", "Industrial_Without_BMS", "Other_Industrial_Above_2kWh",
               "Stationary_Industrial_Above_2kWh"]
 ONT = "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1"
@@ -46,7 +48,7 @@ def label(name):
 
 
 def main():
-    elements = {}  # name -> {parents, categories}
+    elements = {}  # name -> {parents, categories, object}
 
     def walk(node, parent, category):
         if isinstance(node, list):
@@ -56,10 +58,14 @@ def main():
         if not isinstance(node, dict):
             return
         for name, sub in node.get("properties", {}).items():
-            e = elements.setdefault(name, {"parents": set(), "categories": set()})
+            e = elements.setdefault(name, {"parents": set(), "categories": set(), "object": False})
             if parent:
                 e["parents"].add(parent)
             e["categories"].add(category)
+            target = sub.get("items", sub)
+            ref = target.get("$ref", "").split("/")[-1]
+            if "properties" in target or "properties" in defs.get(ref, {}):
+                e["object"] = True
             walk(sub, name, category)
         for key in ("items", "allOf", "anyOf", "oneOf"):
             if key in node:
@@ -69,9 +75,10 @@ def main():
 
     for cat in CATEGORIES:
         for variant in ("", "_Feb27"):
-            name = f"{cat}{variant}_2.0.1.json"
-            with urllib.request.urlopen(RAW + name, timeout=60) as r:
-                walk(json.load(r), None, cat + variant)
+            with open(f"{SCHEMAS}{cat}{variant}_2.0.1.json") as f:
+                schema = json.load(f)
+            defs = schema.get("$defs", {})
+            walk(schema, None, cat + variant)
 
     eu = Graph().parse(EU_TTL)
     eu_def = {}
@@ -99,7 +106,7 @@ def main():
 
     kept = slots = with_def = 0
     for name in sorted(elements):
-        if SLOT.search(name):
+        if SLOT.search(name) and not elements[name]["object"]:
             slots += 1
             continue
         e = elements[name]

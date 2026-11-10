@@ -4,6 +4,17 @@ All notable changes to the Electronics module will be documented in this file.
 
 ## [Unreleased]
 
+### Breaking: WEEE treatment outcome and avoided emissions on `common/assessment`
+
+`euelec:MaterialRecoveryResult` and `euelec:AvoidedEmissionsEstimate` are `oea:Assessment`s.
+Input and recovered mass and the achieved recovery, recycling and energy-recovery rates are results
+observing `euelec:TreatmentInputMass`, `RecoveredMass` (GRM), `AchievedRecoveryRate`,
+`AchievedRecyclingRate`, `EnergyRecoveryRate` (C62); the avoided emissions are an indicator of kind
+`euelec:AvoidedEmissions` (KGM) with the calculation basis as `oea:hasMethod`. Removed:
+`euelec:totalInputMassGrams`, `totalRecoveredMassGrams`, `recoveryRate`, `recyclingRate`,
+`energyRecoveryRate`, `avoidedEmissionsKgCO2e`, `calculationMethod`. Two dangling references to the
+wave-2 removals `euelec:recoverabilityRate` and `euelec:recyclabilityRate` are gone with them.
+
 ## [0.12.0] - 2026-11-10
 
 ### Breaking: repairability index and WEEE rates on `common/assessment`

@@ -8,6 +8,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521234000051",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/iron-steel/"
   ],
@@ -22,23 +23,42 @@
     "epdValidUntil": "2031-04-30",
     "hasImpactIndicator": {
       "type": "ImpactIndicatorResult",
-      "hasIndicatorType": "GWPTotal",
+      "declaredUnit": "kg CO2 eq / t",
       "hasLifecycleStageResult": [
         {
           "hasLifecycleStage": "StageA1",
-          "stageValue": 180
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "KGM",
+            "value": 180
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/common/core/GWPTotal"
         },
         {
           "hasLifecycleStage": "StageA2",
-          "stageValue": 60
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "KGM",
+            "value": 60
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/common/core/GWPTotal"
         },
         {
           "hasLifecycleStage": "StageA3",
-          "stageValue": 400
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "KGM",
+            "value": 400
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/common/core/GWPTotal"
         }
       ],
-      "indicatorTotalValue": 640,
-      "indicatorUnit": "kg CO2 eq / t"
+      "hasMeasuredValue": {
+        "type": "QuantitativeValue",
+        "unitCode": "KGM",
+        "value": 640
+      },
+      "hasObservedParameter": "https://ref.openepcis.org/extensions/common/core/GWPTotal"
     }
   },
   "hasMaterialComposition": [
@@ -53,21 +73,100 @@
   ],
   "hasMtc": {
     "type": "MaterialTestCertificate",
-    "mtcCarbonContent": "0.21",
-    "mtcCarbonEquivalent": "0.41",
-    "mtcCopperContent": "0.42",
-    "mtcElongation": "14.2",
+    "hasResult": [
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "MPA",
+          "value": 547
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/iron-steel/YieldStrength"
+      },
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "MPA",
+          "value": 632
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/iron-steel/TensileStrength"
+      },
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "1.16"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/iron-steel/YieldStrengthRatio"
+      },
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "P1",
+          "value": "14.2"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/iron-steel/Elongation"
+      },
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "0.075"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/iron-steel/RelativeRibArea"
+      },
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "P1",
+          "value": "0.21"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/iron-steel/CarbonContent"
+      },
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "P1",
+          "value": "0.024"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/iron-steel/PhosphorusContent"
+      },
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "P1",
+          "value": "0.031"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/iron-steel/SulfurContent"
+      },
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "P1",
+          "value": "0.42"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/iron-steel/CopperContent"
+      },
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "P1",
+          "value": "0.011"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/iron-steel/NitrogenContent"
+      },
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "P1",
+          "value": "0.41"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/iron-steel/CarbonEquivalent"
+      }
+    ],
     "mtcFinishing": "Hot-rolled",
     "mtcInspectionType": "3.1",
-    "mtcNitrogenContent": "0.011",
     "mtcNominalSize": 16,
-    "mtcPhosphorusContent": "0.024",
-    "mtcRelativeRibArea": "0.075",
-    "mtcSteelProcess": "Electric arc furnace, continuous casting",
-    "mtcSulfurContent": "0.031",
-    "mtcTensileStrength": 632,
-    "mtcYieldStrength": 547,
-    "mtcYieldStrengthRatio": "1.16"
+    "mtcSteelProcess": "Electric arc furnace, continuous casting"
   },
   "hasRecycledContentDetails": {
     "type": "RecycledContent",

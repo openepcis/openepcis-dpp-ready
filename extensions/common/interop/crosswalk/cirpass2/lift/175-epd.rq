@@ -1,13 +1,39 @@
 # EUDPP core: EPD specifics the property pairs cannot express: the validity date (a date in
-# CIRPASS-2) and the product category rules (an eudpp:PCR node at the rules' URL). A stage value
-# is a declared module value (eudpp:isDeclared, required by LCAModuleValue).
+# CIRPASS-2) and the product category rules (an eudpp:PCR node at the rules' URL). An impact
+# indicator's (or a textile LCIA category's) measured value (a gs1:QuantitativeValue) is the result's eudpp:numericalValue and
+# unit; a module value's is its eudpp:amount and unit, declared (eudpp:isDeclared, required by
+# LCAModuleValue). Units as in the quantity rows: the SI unit of the table, else the UN/CEFACT IRI.
+# A textile footprint's PEFCR travels as dcterms:conformsTo; in an EPCIS event the footprint is
+# the LCA study of the event's EPCs.
 CONSTRUCT {
   ?epd eudpp:expiryDate ?exp .
   ?epd eudpp:followsPCR ?pcr . ?pcr a eudpp:PCR .
   ?sv eudpp:isDeclared true .
+  ?r ?vp ?nv ; eudpp:hasMeasurementUnit ?unit .
+  ?study dcterms:conformsTo ?method .
+  ?evProd a eudpp:Product ; eudpp:hasLCAStudy ?evStudy .
 }
 WHERE {
-  { GRAPH <urn:xw:in> { ?sv a oec:LifecycleStageResult ; oec:stageValue ?any } }
+  {
+    GRAPH <urn:xw:in> { ?r a ?rt ; oea:hasMeasuredValue ?qv . ?qv gs1:value ?v }
+    FILTER(?rt IN (oec:ImpactIndicatorResult, oec:LifecycleStageResult, eutex:LCIACategory))
+    OPTIONAL { GRAPH <urn:xw:in> { ?qv gs1:unitCode ?code } OPTIONAL { ?urow xw:unitCode ?code ; xw:siUnit ?si ; xw:factor ?f } }
+    BIND(COALESCE(?si, IF(BOUND(?code), IRI(CONCAT("https://vocabulary.uncefact.org/UnitMeasureCode#", ?code)), ?noUnit)) AS ?unit)
+    BIND(?rt = oec:LifecycleStageResult AS ?isStage)
+    BIND(IF(?isStage, eudpp:amount, eudpp:numericalValue) AS ?vp)
+    # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+    BIND(xsd:decimal(IF(xsd:decimal(?v) = 0, 0.0, xsd:decimal(?v) * COALESCE(?f, 1.0))) AS ?dv)
+    BIND(IF(?isStage, xsd:double(?dv), ?dv) AS ?nv)
+    BIND(IF(?isStage, ?r, ?notStage) AS ?sv)
+  }
+  UNION {
+    # A textile footprint (an LCA study): the PEFCR it applies, by name.
+    GRAPH <urn:xw:in> { ?study a eutex:EnvironmentalFootprint ; oea:hasMethod ?m . ?m oea:methodName ?method }
+  }
+  UNION {
+    # A footprint reported in an EPCIS event is the LCA study of the event's EPCs.
+    GRAPH <urn:xw:in> { ?ev eutex:hasEnvironmentalFootprint ?evStudy ; epcis:epcList ?evProd }
+  }
   UNION {
   GRAPH <urn:xw:in> { ?epd a ?t }
   ?t rdfs:subClassOf* oec:EnvironmentalProductDeclaration .

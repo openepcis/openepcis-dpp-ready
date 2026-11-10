@@ -1,5 +1,5 @@
 # robustness-recyclability-master: lift then lower
-input 552 triples, lift 3, back 23
+input 578 triples, lift 6, back 46
 
 ## the way back compared with the input
 - missing 10  a gs1:CertificationDetails
@@ -8,11 +8,12 @@ input 552 triples, lift 3, back 23
 - missing 6  a gs1:Country
 - missing 2  a gs1:Organization
 - missing 5  a gs1:PostalAddress
-- missing 23  a gs1:QuantitativeValue
+- missing 25  a gs1:QuantitativeValue
 - missing 2  a gs1:ReferencedFileDetails
 - missing 4  a gs1:TextileMaterialDetails
 - missing 1  a gs1:WarrantyPromise
 - missing 1  a oea:AssessmentCondition
+- missing 1  a oea:AssessmentMethod
 - missing 5  a oea:CriterionResult
 - missing 6  a oea:Indicator
 - missing 14  a oea:MeasurementResult
@@ -26,7 +27,6 @@ input 552 triples, lift 3, back 23
 - missing 1  a oec:RepairabilityInfo
 - missing 1  a eutex:CareInstruction
 - missing 1  a eutex:DurabilityInfo
-- missing 1  a eutex:EnvironmentalFootprint
 - missing 2  a eutex:LCIACategory
 - missing 1  a eutex:MicroplasticInfo
 - missing 2  a eutex:RecycledContentDeclaration
@@ -69,8 +69,8 @@ input 552 triples, lift 3, back 23
 - missing 4  gs1:textileMaterial
 - missing 4  gs1:textileMaterialDescription
 - missing 4  gs1:textileMaterialPercentage
-- missing 23  gs1:unitCode
-- missing 23  gs1:value
+- missing 25  gs1:unitCode
+- missing 25  gs1:value
 - missing 1  gs1:warrantyScopeDescription
 - missing 8  oea:awardedScore
 - missing 2  oea:hasCategoricalValue
@@ -81,9 +81,9 @@ input 552 triples, lift 3, back 23
 - missing 6  oea:hasIndicator
 - missing 6  oea:hasIndicatorKind
 - missing 3  oea:hasIndicatorValue
-- missing 14  oea:hasMeasuredValue
-- missing 10  oea:hasMethod
-- missing 14  oea:hasObservedParameter
+- missing 16  oea:hasMeasuredValue
+- missing 11  oea:hasMethod
+- missing 16  oea:hasObservedParameter
 - missing 7  oea:hasOutcome
 - missing 1  oea:hasParameter
 - missing 1  oea:hasParameterSetting
@@ -93,11 +93,12 @@ input 552 triples, lift 3, back 23
 - missing 1  oea:indicatorText
 - missing 3  oea:isDerivedFrom
 - missing 1  oea:isEvaluatedAgainst
+- missing 1  oea:methodName
 - missing 1  oec:carbonFootprintStudyUrl
 - missing 1  oec:carbonFootprintTotal
 - missing 1  oec:casNumber
 - missing 1  oec:dataQualityAssessment
-- missing 1  oec:declaredUnit
+- missing 3  oec:declaredUnit
 - missing 1  oec:diyRepairPossible
 - missing 2  oec:documentUrl
 - missing 2  oec:facilityType
@@ -126,9 +127,7 @@ input 552 triples, lift 3, back 23
 - missing 1  oec:recycledContent
 - missing 1  oec:substanceLocation
 - missing 1  eutex:additionalCareInstructions
-- missing 1  eutex:benchmarkPerformance
 - missing 1  eutex:biodegradable
-- missing 1  eutex:carbonFootprintManufacturing
 - missing 1  eutex:endOfLifeDestination
 - missing 1  eutex:endOfLifeHandling
 - missing 4  eutex:fiberOrigin
@@ -146,12 +145,10 @@ input 552 triples, lift 3, back 23
 - missing 1  eutex:hasDurabilityInfo
 - missing 1  eutex:hasDyeingFacility
 - missing 1  eutex:hasEnergyUsage
-- missing 1  eutex:hasEnvironmentalFootprint
 - missing 1  eutex:hasFabricType
 - missing 2  eutex:hasFiberCertification
 - missing 1  eutex:hasIroningSymbol
 - missing 2  eutex:hasLciaCategories
-- missing 2  eutex:hasLciaCategoryCode
 - missing 1  eutex:hasMicroplasticInfo
 - missing 2  eutex:hasRecycledContentDeclaration
 - missing 2  eutex:hasRecycledSourceType
@@ -165,12 +162,8 @@ input 552 triples, lift 3, back 23
 - missing 1  eutex:hasWaterUsage
 - missing 4  eutex:isRecycledFiber
 - missing 1  eutex:isRepairable
-- missing 2  eutex:lciaUnit
-- missing 2  eutex:lciaValue
 - missing 2  eutex:meetsTargetThreshold
 - missing 1  eutex:microplasticMitigationMeasures
-- missing 1  eutex:pefcrReference
-- missing 1  eutex:pefSingleScore
 - missing 1  eutex:pfasFree
 - missing 1  eutex:productionWastePercentage
 - missing 1  eutex:recycledContentSource
@@ -205,8 +198,8 @@ input 552 triples, lift 3, back 23
   4  a gs1:TextileMaterialDetails
   1  a gs1:WarrantyPromise
   1  a oea:AssessmentCondition
+  1  a oea:AssessmentMethod
   5  a oea:CriterionResult
-  14  a oea:MeasurementResult
   1  a oea:ParameterSetting
   9  a oea:TestExecution
   1  a oec:AccessRights
@@ -217,7 +210,6 @@ input 552 triples, lift 3, back 23
   1  a oec:RepairabilityInfo
   1  a eutex:CareInstruction
   1  a eutex:DurabilityInfo
-  1  a eutex:EnvironmentalFootprint
   2  a eutex:LCIACategory
   1  a eutex:MicroplasticInfo
   2  a eutex:RecycledContentDeclaration
@@ -267,21 +259,19 @@ input 552 triples, lift 3, back 23
   1  oea:hasConditionConcept
   1  oea:hasConditionType
   5  oea:hasCriterion
-  14  oea:hasMeasuredValue
-  14  oea:hasObservedParameter
   7  oea:hasOutcome
   1  oea:hasParameter
   1  oea:hasParameterSetting
   1  oea:hasParameterValue
-  19  oea:hasResult
   1  oea:indicatorText
   3  oea:isDerivedFrom
   1  oea:isEvaluatedAgainst
+  1  oea:methodName
   1  oec:carbonFootprintStudyUrl
   1  oec:carbonFootprintTotal
   1  oec:casNumber
   1  oec:dataQualityAssessment
-  1  oec:declaredUnit
+  3  oec:declaredUnit
   1  oec:diyRepairPossible
   2  oec:documentUrl
   2  oec:facilityType
@@ -310,9 +300,7 @@ input 552 triples, lift 3, back 23
   1  oec:recycledContent
   1  oec:substanceLocation
   1  eutex:additionalCareInstructions
-  1  eutex:benchmarkPerformance
   1  eutex:biodegradable
-  1  eutex:carbonFootprintManufacturing
   1  eutex:endOfLifeDestination
   1  eutex:endOfLifeHandling
   4  eutex:fiberOrigin
@@ -330,12 +318,10 @@ input 552 triples, lift 3, back 23
   1  eutex:hasDurabilityInfo
   1  eutex:hasDyeingFacility
   1  eutex:hasEnergyUsage
-  1  eutex:hasEnvironmentalFootprint
   1  eutex:hasFabricType
   2  eutex:hasFiberCertification
   1  eutex:hasIroningSymbol
   2  eutex:hasLciaCategories
-  2  eutex:hasLciaCategoryCode
   1  eutex:hasMicroplasticInfo
   2  eutex:hasRecycledContentDeclaration
   2  eutex:hasRecycledSourceType
@@ -349,12 +335,8 @@ input 552 triples, lift 3, back 23
   1  eutex:hasWaterUsage
   4  eutex:isRecycledFiber
   1  eutex:isRepairable
-  2  eutex:lciaUnit
-  2  eutex:lciaValue
   2  eutex:meetsTargetThreshold
   1  eutex:microplasticMitigationMeasures
-  1  eutex:pefcrReference
-  1  eutex:pefSingleScore
   1  eutex:pfasFree
   1  eutex:productionWastePercentage
   1  eutex:recycledContentSource

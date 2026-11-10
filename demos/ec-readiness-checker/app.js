@@ -24,9 +24,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// ../wt-cur/node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js
+// node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js
 var require_base64_js = __commonJS({
-  "../wt-cur/node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js"(exports) {
+  "node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js"(exports) {
     "use strict";
     exports.byteLength = byteLength;
     exports.toByteArray = toByteArray;
@@ -125,9 +125,9 @@ var require_base64_js = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js
+// node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js
 var require_ieee754 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js"(exports) {
+  "node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js"(exports) {
     exports.read = function(buffer, offset, isLE, mLen, nBytes) {
       var e, m;
       var eLen = nBytes * 8 - mLen - 1;
@@ -208,9 +208,9 @@ var require_ieee754 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js
+// node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js
 var require_buffer = __commonJS({
-  "../wt-cur/node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js"(exports) {
+  "node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js"(exports) {
     "use strict";
     var base64 = require_base64_js();
     var ieee754 = require_ieee754();
@@ -1800,9 +1800,9 @@ var require_buffer = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js
 var require_primordials = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js"(exports, module) {
     "use strict";
     var AggregateError = class extends Error {
       constructor(errors) {
@@ -1921,9 +1921,9 @@ var require_primordials = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js
 var require_inspect = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js"(exports, module) {
     "use strict";
     module.exports = {
       format(format, ...args) {
@@ -1972,9 +1972,9 @@ var require_inspect = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js
 var require_errors = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js"(exports, module) {
     "use strict";
     var { format, inspect } = require_inspect();
     var { AggregateError: CustomAggregateError } = require_primordials();
@@ -2290,9 +2290,9 @@ var require_errors = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js
+// node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js
 var require_browser = __commonJS({
-  "../wt-cur/node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js"(exports, module) {
+  "node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js"(exports, module) {
     "use strict";
     var { AbortController, AbortSignal } = typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : (
       /* otherwise */
@@ -2304,9 +2304,9 @@ var require_browser = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/events@3.3.0/node_modules/events/events.js
+// node_modules/.pnpm/events@3.3.0/node_modules/events/events.js
 var require_events = __commonJS({
-  "../wt-cur/node_modules/.pnpm/events@3.3.0/node_modules/events/events.js"(exports, module) {
+  "node_modules/.pnpm/events@3.3.0/node_modules/events/events.js"(exports, module) {
     "use strict";
     var R = typeof Reflect === "object" ? Reflect : null;
     var ReflectApply = R && typeof R.apply === "function" ? R.apply : function ReflectApply2(target, receiver, args) {
@@ -2673,9 +2673,9 @@ var require_events = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js
 var require_util = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js"(exports, module) {
     "use strict";
     var bufferModule = require_buffer();
     var { format, inspect } = require_inspect();
@@ -2812,9 +2812,9 @@ var require_util = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js
 var require_validators = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js"(exports, module) {
     "use strict";
     var {
       ArrayIsArray,
@@ -3076,9 +3076,9 @@ var require_validators = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js
+// node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js
 var require_browser2 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js"(exports, module) {
+  "node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js"(exports, module) {
     var process2 = module.exports = {};
     var cachedSetTimeout;
     var cachedClearTimeout;
@@ -3238,9 +3238,9 @@ var require_browser2 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js
 var require_utils = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js"(exports, module) {
     "use strict";
     var { SymbolAsyncIterator, SymbolIterator, SymbolFor } = require_primordials();
     var kIsDestroyed = SymbolFor("nodejs.stream.destroyed");
@@ -3447,9 +3447,9 @@ var require_utils = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
 var require_end_of_stream = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var { AbortError, codes } = require_errors();
@@ -3699,9 +3699,9 @@ var require_end_of_stream = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js
 var require_destroy = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var {
@@ -3964,9 +3964,9 @@ var require_destroy = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js
 var require_legacy = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js"(exports, module) {
     "use strict";
     var { ArrayIsArray, ObjectSetPrototypeOf } = require_primordials();
     var { EventEmitter: EE } = require_events();
@@ -4042,9 +4042,9 @@ var require_legacy = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js
 var require_add_abort_signal = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js"(exports, module) {
     "use strict";
     var { SymbolDispose } = require_primordials();
     var { AbortError, codes } = require_errors();
@@ -4093,9 +4093,9 @@ var require_add_abort_signal = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js
 var require_buffer_list = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module) {
     "use strict";
     var { StringPrototypeSlice, SymbolIterator, TypedArrayPrototypeSet, Uint8Array: Uint8Array2 } = require_primordials();
     var { Buffer: Buffer3 } = require_buffer();
@@ -4248,9 +4248,9 @@ var require_buffer_list = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js
 var require_state = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js"(exports, module) {
     "use strict";
     var { MathFloor, NumberIsInteger } = require_primordials();
     var { validateInteger } = require_validators();
@@ -4290,9 +4290,9 @@ var require_state = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js
+// node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js
 var require_safe_buffer = __commonJS({
-  "../wt-cur/node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js"(exports, module) {
+  "node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js"(exports, module) {
     var buffer = require_buffer();
     var Buffer3 = buffer.Buffer;
     function copyProps(src, dst) {
@@ -4348,9 +4348,9 @@ var require_safe_buffer = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js
+// node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js
 var require_string_decoder = __commonJS({
-  "../wt-cur/node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js"(exports) {
+  "node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js"(exports) {
     "use strict";
     var Buffer3 = require_safe_buffer().Buffer;
     var isEncoding = Buffer3.isEncoding || function(encoding) {
@@ -4586,9 +4586,9 @@ var require_string_decoder = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js
 var require_from = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var { PromisePrototypeThen, SymbolAsyncIterator, SymbolIterator } = require_primordials();
@@ -4681,9 +4681,9 @@ var require_from = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js
 var require_readable = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var {
@@ -5647,9 +5647,9 @@ var require_readable = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js
 var require_writable = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var {
@@ -6268,9 +6268,9 @@ var require_writable = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js
 var require_duplexify = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js"(exports, module) {
     var process2 = require_browser2();
     var bufferModule = require_buffer();
     var {
@@ -6615,9 +6615,9 @@ var require_duplexify = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js
 var require_duplex = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js"(exports, module) {
     "use strict";
     var {
       ObjectDefineProperties,
@@ -6732,9 +6732,9 @@ var require_duplex = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js
 var require_transform = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js"(exports, module) {
     "use strict";
     var { ObjectSetPrototypeOf, Symbol: Symbol2 } = require_primordials();
     module.exports = Transform;
@@ -6834,9 +6834,9 @@ var require_transform = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js
 var require_passthrough = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js"(exports, module) {
     "use strict";
     var { ObjectSetPrototypeOf } = require_primordials();
     module.exports = PassThrough;
@@ -6853,9 +6853,9 @@ var require_passthrough = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js
 var require_pipeline = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports, module) {
     var process2 = require_browser2();
     var { ArrayIsArray, Promise: Promise2, SymbolAsyncIterator, SymbolDispose } = require_primordials();
     var eos = require_end_of_stream();
@@ -7281,9 +7281,9 @@ var require_pipeline = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js
 var require_compose = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js"(exports, module) {
     "use strict";
     var { pipeline } = require_pipeline();
     var Duplex = require_duplex();
@@ -7474,9 +7474,9 @@ var require_compose = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js
 var require_operators = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js"(exports, module) {
     "use strict";
     var AbortController = globalThis.AbortController || require_browser().AbortController;
     var {
@@ -7879,9 +7879,9 @@ var require_operators = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js
 var require_promises = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js"(exports, module) {
     "use strict";
     var { ArrayPrototypePop, Promise: Promise2 } = require_primordials();
     var { isIterable, isNodeStream, isWebStream } = require_utils();
@@ -7921,9 +7921,9 @@ var require_promises = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js
 var require_stream = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js"(exports, module) {
     "use strict";
     var { Buffer: Buffer3 } = require_buffer();
     var { ObjectDefineProperty, ObjectKeys, ReflectApply } = require_primordials();
@@ -8040,9 +8040,9 @@ var require_stream = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js
 var require_browser3 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js"(exports, module) {
     "use strict";
     var CustomStream = require_stream();
     var promises = require_promises();
@@ -8076,9 +8076,9 @@ var require_browser3 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js
 var require_IdentifierIssuer = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js"(exports, module) {
     "use strict";
     module.exports = class IdentifierIssuer {
       /**
@@ -8149,9 +8149,9 @@ var require_IdentifierIssuer = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js
+// node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js
 var require_setImmediate = __commonJS({
-  "../wt-cur/node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js"(exports) {
+  "node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js"(exports) {
     (function(global2, undefined2) {
       "use strict";
       if (global2.setImmediate) {
@@ -8297,9 +8297,9 @@ var require_setImmediate = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js
 var require_platform_browser = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js"(exports) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js"(exports) {
     "use strict";
     require_setImmediate();
     exports.setImmediate = setImmediate;
@@ -8319,9 +8319,9 @@ var require_platform_browser = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js
 var require_MessageDigest_webcrypto = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js"(exports, module) {
     "use strict";
     var { bufferToHex, crypto } = require_platform_browser();
     var algorithmMap = /* @__PURE__ */ new Map([
@@ -8363,9 +8363,9 @@ var require_MessageDigest_webcrypto = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js
 var require_Permuter = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js"(exports, module) {
     "use strict";
     module.exports = class Permuter {
       /**
@@ -8428,9 +8428,9 @@ var require_Permuter = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js
 var require_NQuads = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js"(exports, module) {
     "use strict";
     var RDF2 = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     var RDF_LANGSTRING = RDF2 + "langString";
@@ -8744,9 +8744,9 @@ var require_NQuads = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js
 var require_RDFC10 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js"(exports, module) {
     "use strict";
     var IdentifierIssuer = require_IdentifierIssuer();
     var MessageDigest = require_MessageDigest_webcrypto();
@@ -9065,9 +9065,9 @@ var require_RDFC10 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js
 var require_RDFC10Sync = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js"(exports, module) {
     "use strict";
     var IdentifierIssuer = require_IdentifierIssuer();
     var MessageDigest = require_MessageDigest_webcrypto();
@@ -9374,9 +9374,9 @@ var require_RDFC10Sync = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js
 var require_lib = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js"(exports) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js"(exports) {
     "use strict";
     var RDFC10 = require_RDFC10();
     var RDFC10Sync = require_RDFC10Sync();
@@ -9447,16 +9447,16 @@ var require_lib = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js
 var require_rdf_canonize = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js"(exports, module) {
     module.exports = require_lib();
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js
 var require_types = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js"(exports, module) {
     "use strict";
     var api = {};
     module.exports = api;
@@ -9472,9 +9472,9 @@ var require_types = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js
 var require_graphTypes = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js"(exports, module) {
     "use strict";
     var types = require_types();
     var api = {};
@@ -9523,9 +9523,9 @@ var require_graphTypes = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js
 var require_JsonLdError = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js"(exports, module) {
     "use strict";
     module.exports = class JsonLdError extends Error {
       /**
@@ -9545,9 +9545,9 @@ var require_JsonLdError = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js
 var require_util2 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js"(exports, module) {
     "use strict";
     var graphTypes = require_graphTypes();
     var types = require_types();
@@ -9801,9 +9801,9 @@ var require_util2 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js
 var require_constants = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js"(exports, module) {
     "use strict";
     var RDF2 = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     var XSD2 = "http://www.w3.org/2001/XMLSchema#";
@@ -9831,9 +9831,9 @@ var require_constants = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js
 var require_RequestQueue = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js"(exports, module) {
     "use strict";
     module.exports = class RequestQueue {
       /**
@@ -9865,9 +9865,9 @@ var require_RequestQueue = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js
 var require_url = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js"(exports, module) {
     "use strict";
     var types = require_types();
     var api = {};
@@ -10068,9 +10068,9 @@ var require_url = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js
 var require_xhr = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js"(exports, module) {
     "use strict";
     var { parseLinkHeader, buildHeaders } = require_util2();
     var { LINK_HEADER_CONTEXT } = require_constants();
@@ -10166,9 +10166,9 @@ var require_xhr = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js
 var require_platform_browser2 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js"(exports, module) {
     "use strict";
     var xhrLoader = require_xhr();
     var api = {};
@@ -10192,9 +10192,9 @@ var require_platform_browser2 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js
+// node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js
 var require_iterator = __commonJS({
-  "../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js"(exports, module) {
+  "node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js"(exports, module) {
     "use strict";
     module.exports = function(Yallist) {
       Yallist.prototype[Symbol.iterator] = function* () {
@@ -10206,9 +10206,9 @@ var require_iterator = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js
+// node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js
 var require_yallist = __commonJS({
-  "../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js"(exports, module) {
+  "node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js"(exports, module) {
     "use strict";
     module.exports = Yallist;
     Yallist.Node = Node;
@@ -10575,9 +10575,9 @@ var require_yallist = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js
+// node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js
 var require_lru_cache = __commonJS({
-  "../wt-cur/node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js"(exports, module) {
+  "node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js"(exports, module) {
     "use strict";
     var Yallist = require_yallist();
     var MAX = Symbol("max");
@@ -10844,9 +10844,9 @@ var require_lru_cache = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js
 var require_ResolvedContext = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js"(exports, module) {
     "use strict";
     var LRU = require_lru_cache();
     var MAX_ACTIVE_CONTEXTS = 10;
@@ -10870,9 +10870,9 @@ var require_ResolvedContext = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js
 var require_ContextResolver = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js"(exports, module) {
     "use strict";
     var {
       isArray: _isArray,
@@ -11078,17 +11078,17 @@ var require_ContextResolver = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js
 var require_NQuads2 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js"(exports, module) {
     "use strict";
     module.exports = require_rdf_canonize().NQuads;
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js
 var require_events2 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var {
@@ -11203,9 +11203,9 @@ var require_events2 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js
 var require_context = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js"(exports, module) {
     "use strict";
     var util = require_util2();
     var JsonLdError = require_JsonLdError();
@@ -12413,9 +12413,9 @@ var require_context = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js
 var require_expand = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var {
@@ -13474,9 +13474,9 @@ var require_expand = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js
 var require_nodeMap = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js"(exports, module) {
     "use strict";
     var { isKeyword } = require_context();
     var graphTypes = require_graphTypes();
@@ -13697,9 +13697,9 @@ var require_nodeMap = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js
 var require_flatten = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js"(exports, module) {
     "use strict";
     var {
       isSubjectReference: _isSubjectReference
@@ -13724,9 +13724,9 @@ var require_flatten = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js
 var require_fromRdf = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var graphTypes = require_graphTypes();
@@ -13995,9 +13995,9 @@ var require_fromRdf = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js
+// node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js
 var require_canonicalize = __commonJS({
-  "../wt-cur/node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js"(exports, module) {
+  "node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js"(exports, module) {
     "use strict";
     module.exports = function serialize(object) {
       if (typeof object === "number" && isNaN(object)) {
@@ -14032,9 +14032,9 @@ var require_canonicalize = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js
 var require_toRdf = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js"(exports, module) {
     "use strict";
     var { createNodeMap } = require_nodeMap();
     var { isKeyword } = require_context();
@@ -14383,9 +14383,9 @@ var require_toRdf = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js
 var require_frame = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js"(exports, module) {
     "use strict";
     var { isKeyword } = require_context();
     var graphTypes = require_graphTypes();
@@ -14912,9 +14912,9 @@ var require_frame = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js
 var require_compact = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var {
@@ -15812,9 +15812,9 @@ var require_compact = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js
 var require_JsonLdProcessor = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js"(exports, module) {
     "use strict";
     module.exports = (jsonld2) => {
       class JsonLdProcessor {
@@ -15861,9 +15861,9 @@ var require_JsonLdProcessor = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js
 var require_jsonld = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js"(exports, module) {
     var canonize = require_rdf_canonize();
     var platform = require_platform_browser2();
     var util = require_util2();
@@ -16453,9 +16453,9 @@ var require_jsonld = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/ms@2.1.3/node_modules/ms/index.js
+// node_modules/.pnpm/ms@2.1.3/node_modules/ms/index.js
 var require_ms = __commonJS({
-  "../wt-cur/node_modules/.pnpm/ms@2.1.3/node_modules/ms/index.js"(exports, module) {
+  "node_modules/.pnpm/ms@2.1.3/node_modules/ms/index.js"(exports, module) {
     var s = 1e3;
     var m = s * 60;
     var h = m * 60;
@@ -16569,9 +16569,9 @@ var require_ms = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/common.js
+// node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/common.js
 var require_common = __commonJS({
-  "../wt-cur/node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/common.js"(exports, module) {
+  "node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/common.js"(exports, module) {
     function setup(env) {
       createDebug.debug = createDebug;
       createDebug.default = createDebug;
@@ -16746,9 +16746,9 @@ var require_common = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/browser.js
+// node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/browser.js
 var require_browser4 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/browser.js"(exports, module) {
+  "node_modules/.pnpm/debug@4.4.3/node_modules/debug/src/browser.js"(exports, module) {
     exports.formatArgs = formatArgs;
     exports.save = save;
     exports.load = load;
@@ -16916,9 +16916,9 @@ var require_browser4 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/BlankNode.js
+// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/BlankNode.js
 var require_BlankNode = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/BlankNode.js"(exports) {
+  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/BlankNode.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.BlankNode = void 0;
@@ -16935,9 +16935,9 @@ var require_BlankNode = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DefaultGraph.js
+// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DefaultGraph.js
 var require_DefaultGraph = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DefaultGraph.js"(exports) {
+  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DefaultGraph.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DefaultGraph = void 0;
@@ -16955,9 +16955,9 @@ var require_DefaultGraph = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/NamedNode.js
+// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/NamedNode.js
 var require_NamedNode = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/NamedNode.js"(exports) {
+  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/NamedNode.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.NamedNode = void 0;
@@ -16974,9 +16974,9 @@ var require_NamedNode = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Literal.js
+// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Literal.js
 var require_Literal = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Literal.js"(exports) {
+  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Literal.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Literal = void 0;
@@ -17016,9 +17016,9 @@ var require_Literal = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Quad.js
+// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Quad.js
 var require_Quad = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Quad.js"(exports) {
+  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Quad.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Quad = void 0;
@@ -17039,9 +17039,9 @@ var require_Quad = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Variable.js
+// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Variable.js
 var require_Variable = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Variable.js"(exports) {
+  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/Variable.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Variable = void 0;
@@ -17058,9 +17058,9 @@ var require_Variable = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DataFactory.js
+// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DataFactory.js
 var require_DataFactory = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DataFactory.js"(exports) {
+  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/lib/DataFactory.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DataFactory = void 0;
@@ -17183,9 +17183,9 @@ var require_DataFactory = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/index.js
+// node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/index.js
 var require_rdf_data_factory = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/index.js"(exports) {
+  "node_modules/.pnpm/rdf-data-factory@2.0.2/node_modules/rdf-data-factory/index.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -17214,9 +17214,9 @@ var require_rdf_data_factory = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/Translator.js
+// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/Translator.js
 var require_Translator = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/Translator.js"(exports) {
+  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/Translator.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Translator = void 0;
@@ -17279,9 +17279,9 @@ var require_Translator = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerBoolean.js
+// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerBoolean.js
 var require_TypeHandlerBoolean = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerBoolean.js"(exports) {
+  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerBoolean.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.TypeHandlerBoolean = void 0;
@@ -17312,9 +17312,9 @@ var require_TypeHandlerBoolean = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerDate.js
+// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerDate.js
 var require_TypeHandlerDate = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerDate.js"(exports) {
+  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerDate.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.TypeHandlerDate = void 0;
@@ -17387,9 +17387,9 @@ var require_TypeHandlerDate = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberDouble.js
+// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberDouble.js
 var require_TypeHandlerNumberDouble = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberDouble.js"(exports) {
+  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberDouble.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.TypeHandlerNumberDouble = void 0;
@@ -17427,9 +17427,9 @@ var require_TypeHandlerNumberDouble = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberInteger.js
+// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberInteger.js
 var require_TypeHandlerNumberInteger = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberInteger.js"(exports) {
+  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerNumberInteger.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.TypeHandlerNumberInteger = void 0;
@@ -17469,9 +17469,9 @@ var require_TypeHandlerNumberInteger = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerString.js
+// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerString.js
 var require_TypeHandlerString = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerString.js"(exports) {
+  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/TypeHandlerString.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.TypeHandlerString = void 0;
@@ -17503,9 +17503,9 @@ var require_TypeHandlerString = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/index.js
+// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/index.js
 var require_handler = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/index.js"(exports) {
+  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/handler/index.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -17532,17 +17532,17 @@ var require_handler = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/ITypeHandler.js
+// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/ITypeHandler.js
 var require_ITypeHandler = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/ITypeHandler.js"(exports) {
+  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/lib/ITypeHandler.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/index.js
+// node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/index.js
 var require_rdf_literal = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/index.js"(exports) {
+  "node_modules/.pnpm/rdf-literal@2.0.0/node_modules/rdf-literal/index.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -17609,8 +17609,9 @@ var require_rdf_literal = __commonJS({
 
 // scripts/lib/ec-readiness.ts
 var BP_APPLICATION_DATE = "2027-02-18";
+var NAMING_KEYS = /* @__PURE__ */ new Set(["hasObservedParameter", "hasIndicatorKind", "hasParameter"]);
 function collectFacts(docs) {
-  const facts = { keys: /* @__PURE__ */ new Set(), types: /* @__PURE__ */ new Set(), ids: [], strings: [] };
+  const facts = { keys: /* @__PURE__ */ new Set(), types: /* @__PURE__ */ new Set(), ids: [], strings: [], named: [] };
   const walk = (node) => {
     if (Array.isArray(node)) {
       for (const item of node) walk(item);
@@ -17630,6 +17631,12 @@ function collectFacts(docs) {
       if ((key === "id" || key === "@id") && typeof value === "string") {
         facts.ids.push(value);
       }
+      if (NAMING_KEYS.has(key.split(":").pop() ?? key)) {
+        for (const v of Array.isArray(value) ? value : [value]) {
+          const iri = typeof v === "string" ? v : v?.["@id"] ?? v?.id;
+          if (typeof iri === "string") facts.named.push(iri);
+        }
+      }
       walk(value);
     }
   };
@@ -17644,6 +17651,8 @@ function termEvidence(curie, facts) {
   if (isClassCurie(curie)) {
     if (facts.types.has(curie)) return curie;
     if (facts.types.has(bare)) return `${bare} (bare type)`;
+    const named = (v) => v === curie || v === bare || v.endsWith(`/${bare}`) || v.endsWith(`#${bare}`);
+    if (facts.named.some(named)) return `${curie} (named by a result, indicator or setting)`;
     return null;
   }
   if (facts.keys.has(curie)) return curie;
@@ -17735,10 +17744,10 @@ function evaluateReadiness(matrix2, docs, options = {}) {
   };
 }
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
 var import_buffer = __toESM(require_buffer());
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/IRIs.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/IRIs.js
 var RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 var XSD = "http://www.w3.org/2001/XMLSchema#";
 var SWAP = "http://www.w3.org/2000/10/swap/";
@@ -17770,7 +17779,7 @@ var IRIs_default = {
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
 var { xsd } = IRIs_default;
 var escapeSequence = /\\u([a-fA-F0-9]{4})|\\U([a-fA-F0-9]{8})|\\([^])/g;
 var escapeReplacements = {
@@ -18188,7 +18197,7 @@ var N3Lexer = class {
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3DataFactory.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3DataFactory.js
 var { rdf, xsd: xsd2 } = IRIs_default;
 var DEFAULTGRAPH;
 var _blankNodeCounter = 0;
@@ -18488,7 +18497,7 @@ function fromQuad(inQuad) {
   return quad(fromTerm(inQuad.subject), fromTerm(inQuad.predicate), fromTerm(inQuad.object), fromTerm(inQuad.graph));
 }
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Parser.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Parser.js
 var blankNodePrefix = 0;
 var N3Parser = class {
   constructor(options) {
@@ -19422,17 +19431,17 @@ function initDataFactory(parser, factory3) {
 }
 initDataFactory(N3Parser.prototype, N3DataFactory_default);
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Util.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Util.js
 function isDefaultGraph(term2) {
   return !!term2 && term2.termType === "DefaultGraph";
 }
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/Util.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/Util.js
 function escapeRegex(regex) {
   return regex.replace(/[\]\/\(\)\*\+\?\.\\\$]/g, "\\$&");
 }
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/BaseIRI.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/BaseIRI.js
 var BASE_UNSUPPORTED = /^:?[^:?#]*(?:[?#]|$)|^file:|^[^:]*:\/*[^?#]+?\/(?:\.\.?(?:\/|$)|\/)/i;
 var SUFFIX_SUPPORTED = /^(?:(?:[^/?#]{3,}|\.?[^/?#.]\.?)(?:\/[^/?#]{3,}|\.?[^/?#.]\.?)*\/?)?(?:[?#]|$)/;
 var CURRENT = "./";
@@ -19504,7 +19513,7 @@ var BaseIRI = class _BaseIRI {
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Writer.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Writer.js
 var DEFAULTGRAPH2 = N3DataFactory_default.defaultGraph();
 var { rdf: rdf2, xsd: xsd3 } = IRIs_default;
 var escape = /["\\\t\n\r\b\f\u0000-\u0019\ud800-\udbff]/;
@@ -19809,7 +19818,7 @@ function characterReplacer(character) {
   return result;
 }
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Store.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Store.js
 var import_readable_stream = __toESM(require_browser3());
 var ITERATOR = Symbol("iter");
 function merge(target, source, depth = 4) {
@@ -20818,31 +20827,31 @@ var DatasetCoreAndReadableStream = class _DatasetCoreAndReadableStream extends i
 // scripts/lib/shacl-run.ts
 var import_jsonld = __toESM(require_jsonld(), 1);
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/blankNode.js
+// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/blankNode.js
 function blankNode2(blankNode4) {
   return "_:" + blankNode4.value;
 }
 var blankNode_default = blankNode2;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/dataset.js
+// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/dataset.js
 function dataset(dataset2, toNT2) {
   return [...dataset2].map((quad3) => toNT2(quad3)).join("\n") + "\n";
 }
 var dataset_default = dataset;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/defaultGraph.js
+// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/defaultGraph.js
 function defaultGraph2() {
   return "";
 }
 var defaultGraph_default = defaultGraph2;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/namedNode.js
+// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/namedNode.js
 function namedNode2(namedNode5) {
   return "<" + namedNode5.value + ">";
 }
 var namedNode_default = namedNode2;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/literal.js
+// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/literal.js
 var echarRegEx = /["\\\\\n\r]/;
 var echarRegExAll = /["\\\\\n\r]/g;
 var echarReplacement = {
@@ -20872,7 +20881,7 @@ function literal2(literal4) {
 }
 var literal_default = literal2;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/quad.js
+// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/quad.js
 function quad2(quad3, toNT2) {
   const subjectString = toNT2(quad3.subject);
   const predicateString = toNT2(quad3.predicate);
@@ -20882,13 +20891,13 @@ function quad2(quad3, toNT2) {
 }
 var quad_default = quad2;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/variable.js
+// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/lib/variable.js
 function variable2(variable3) {
   return "?" + variable3.value;
 }
 var variable_default = variable2;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/index.js
+// node_modules/.pnpm/@rdfjs+to-ntriples@3.0.1/node_modules/@rdfjs/to-ntriples/index.js
 function toNT(term2) {
   if (!term2) {
     return null;
@@ -20918,7 +20927,7 @@ function toNT(term2) {
 }
 var to_ntriples_default = toNT;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+term-set@2.0.3/node_modules/@rdfjs/term-set/TermSet.js
+// node_modules/.pnpm/@rdfjs+term-set@2.0.3/node_modules/@rdfjs/term-set/TermSet.js
 function quietToNT(term2) {
   try {
     return to_ntriples_default(term2);
@@ -20978,7 +20987,7 @@ var TermSet = class {
 };
 var TermSet_default = TermSet;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+environment@1.0.0/node_modules/@rdfjs/environment/Environment.js
+// node_modules/.pnpm/@rdfjs+environment@1.0.0/node_modules/@rdfjs/environment/Environment.js
 var Environment = class _Environment {
   constructor(factories, { bind = false } = {}) {
     this._factories = factories.slice();
@@ -21007,7 +21016,7 @@ var Environment = class _Environment {
 };
 var Environment_default = Environment;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/BlankNode.js
+// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/BlankNode.js
 var BlankNode2 = class {
   constructor(id) {
     this.value = id;
@@ -21019,7 +21028,7 @@ var BlankNode2 = class {
 BlankNode2.prototype.termType = "BlankNode";
 var BlankNode_default = BlankNode2;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/DefaultGraph.js
+// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/DefaultGraph.js
 var DefaultGraph2 = class {
   equals(other) {
     return !!other && other.termType === this.termType;
@@ -21029,7 +21038,7 @@ DefaultGraph2.prototype.termType = "DefaultGraph";
 DefaultGraph2.prototype.value = "";
 var DefaultGraph_default = DefaultGraph2;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/fromTerm.js
+// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/fromTerm.js
 function fromTerm2(factory3, original) {
   if (!original) {
     return null;
@@ -21060,7 +21069,7 @@ function fromTerm2(factory3, original) {
 }
 var fromTerm_default = fromTerm2;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/Literal.js
+// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/Literal.js
 var Literal2 = class {
   constructor(value, language, datatype, direction = "") {
     this.value = value;
@@ -21075,7 +21084,7 @@ var Literal2 = class {
 Literal2.prototype.termType = "Literal";
 var Literal_default = Literal2;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/NamedNode.js
+// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/NamedNode.js
 var NamedNode2 = class {
   constructor(iri) {
     this.value = iri;
@@ -21087,7 +21096,7 @@ var NamedNode2 = class {
 NamedNode2.prototype.termType = "NamedNode";
 var NamedNode_default = NamedNode2;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/Quad.js
+// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/Quad.js
 var Quad2 = class {
   constructor(subject, predicate, object, graph) {
     this.subject = subject;
@@ -21103,7 +21112,7 @@ Quad2.prototype.termType = "Quad";
 Quad2.prototype.value = "";
 var Quad_default = Quad2;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/Variable.js
+// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/lib/Variable.js
 var Variable2 = class {
   constructor(name) {
     this.value = name;
@@ -21115,7 +21124,7 @@ var Variable2 = class {
 Variable2.prototype.termType = "Variable";
 var Variable_default = Variable2;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/Factory.js
+// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/Factory.js
 var dirLangStringDatatype = new NamedNode_default("http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString");
 var langStringDatatype = new NamedNode_default("http://www.w3.org/1999/02/22-rdf-syntax-ns#langString");
 var stringDatatype = new NamedNode_default("http://www.w3.org/2001/XMLSchema#string");
@@ -21178,7 +21187,7 @@ DataFactory2.exports = [
 ];
 var Factory_default = DataFactory2;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+dataset@2.0.3/node_modules/@rdfjs/dataset/DatasetCore.js
+// node_modules/.pnpm/@rdfjs+dataset@2.0.3/node_modules/@rdfjs/dataset/DatasetCore.js
 function isString(s) {
   return typeof s === "string" || s instanceof String;
 }
@@ -21482,7 +21491,7 @@ var DatasetCore = class {
 };
 var DatasetCore_default = DatasetCore;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+dataset@2.0.3/node_modules/@rdfjs/dataset/Factory.js
+// node_modules/.pnpm/@rdfjs+dataset@2.0.3/node_modules/@rdfjs/dataset/Factory.js
 var Factory = class {
   dataset(quads) {
     return new DatasetCore_default(quads);
@@ -21491,7 +21500,7 @@ var Factory = class {
 Factory.exports = ["dataset"];
 var Factory_default2 = Factory;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+term-map@2.0.2/node_modules/@rdfjs/term-map/TermMap.js
+// node_modules/.pnpm/@rdfjs+term-map@2.0.2/node_modules/@rdfjs/term-map/TermMap.js
 var TermMap = class {
   constructor(entries) {
     this.index = /* @__PURE__ */ new Map();
@@ -21548,7 +21557,7 @@ var TermMap = class {
 };
 var TermMap_default = TermMap;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+term-map@2.0.2/node_modules/@rdfjs/term-map/Factory.js
+// node_modules/.pnpm/@rdfjs+term-map@2.0.2/node_modules/@rdfjs/term-map/Factory.js
 var Factory2 = class {
   termMap(entries) {
     return new TermMap_default(entries);
@@ -21557,11 +21566,11 @@ var Factory2 = class {
 Factory2.exports = ["termMap"];
 var Factory_default3 = Factory2;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/index.js
+// node_modules/.pnpm/@rdfjs+data-model@2.1.2/node_modules/@rdfjs/data-model/index.js
 var factory = new Factory_default();
 var data_model_default = factory;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+namespace@2.0.1/node_modules/@rdfjs/namespace/index.js
+// node_modules/.pnpm/@rdfjs+namespace@2.0.1/node_modules/@rdfjs/namespace/index.js
 var handler = {
   apply: (target, thisArg, args) => target(args[0]),
   get: (target, property) => target(property)
@@ -21572,7 +21581,7 @@ function namespace(baseIRI, { factory: factory3 = data_model_default } = {}) {
 }
 var namespace_default = namespace;
 
-// ../wt-cur/node_modules/.pnpm/@rdfjs+namespace@2.0.1/node_modules/@rdfjs/namespace/Factory.js
+// node_modules/.pnpm/@rdfjs+namespace@2.0.1/node_modules/@rdfjs/namespace/Factory.js
 var Factory3 = class {
   namespace(baseIRI) {
     return namespace_default(baseIRI, { factory: this });
@@ -21581,7 +21590,7 @@ var Factory3 = class {
 Factory3.exports = ["namespace"];
 var Factory_default4 = Factory3;
 
-// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/namespace.js
+// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/namespace.js
 var namespace_default2 = (factory3) => {
   const xsd5 = factory3.namespace("http://www.w3.org/2001/XMLSchema#");
   const rdf3 = factory3.namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
@@ -21594,7 +21603,7 @@ var namespace_default2 = (factory3) => {
   };
 };
 
-// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/toArray.js
+// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/toArray.js
 function toArray(value, defaultValue) {
   if (typeof value === "undefined" || value === null) {
     return defaultValue;
@@ -21608,13 +21617,13 @@ function toArray(value, defaultValue) {
   return [value];
 }
 
-// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/environment.js
+// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/environment.js
 var environment_default = new Environment_default([
   Factory_default4,
   Factory_default
 ]);
 
-// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/fromPrimitive.js
+// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/fromPrimitive.js
 var { xsd: xsd4 } = namespace_default2(environment_default);
 function booleanToLiteral(value, factory3 = environment_default) {
   if (typeof value !== "boolean") {
@@ -21641,7 +21650,7 @@ function toLiteral(value, factory3 = environment_default) {
   return booleanToLiteral(value, factory3) || numberToLiteral(value, factory3) || stringToLiteral(value, factory3);
 }
 
-// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/term.js
+// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/term.js
 function blankNode3(value, factory3) {
   if (value && typeof value !== "string") {
     throw new Error("Blank node identifier must be a string");
@@ -21690,7 +21699,7 @@ function term(value, type = "Literal", languageOrDatatype, factory3) {
   throw new Error("unknown type");
 }
 
-// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/toTermArray.js
+// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/toTermArray.js
 function toTermArray(items, type, languageOrDatatype, factory3) {
   if ((typeof items === "undefined" || items === null) && !type) {
     return items;
@@ -21704,7 +21713,7 @@ function toTermArray(items, type, languageOrDatatype, factory3) {
   }, []);
 }
 
-// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/languageTag.js
+// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/languageTag.js
 var ns = namespace_default2(environment_default);
 function mapLiteralsByLanguage(map, current) {
   const notLiteral = current.termType !== "Literal";
@@ -21740,7 +21749,7 @@ function filterTaggedLiterals(terms, { language }) {
   return languages.map(getLiteralsForLanguage).find(Boolean) || [];
 }
 
-// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/Context.js
+// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/Context.js
 var Context = class _Context {
   constructor({ dataset: dataset2, graph, value, factory: factory3, namespace: namespace2 }) {
     this.dataset = dataset2;
@@ -21863,7 +21872,7 @@ var Context = class _Context {
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/Clownface.js
+// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/lib/Clownface.js
 var Clownface = class _Clownface {
   constructor({ dataset: dataset2, graph, term: term2, value, factory: factory3, _context }) {
     this.factory = factory3;
@@ -22239,12 +22248,12 @@ var Clownface = class _Clownface {
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/index.js
+// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/index.js
 function factory2({ dataset: dataset2, graph, term: term2, value, factory: factory3 = environment_default, _context }) {
   return new Clownface({ dataset: dataset2, graph, term: term2, value, factory: factory3, _context });
 }
 
-// ../wt-cur/node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/Factory.js
+// node_modules/.pnpm/clownface@2.0.3/node_modules/clownface/Factory.js
 var ClownfaceFactory = class {
   clownface({ ...args } = {}) {
     if (!args.dataset && typeof this.dataset === "function") {
@@ -22256,7 +22265,7 @@ var ClownfaceFactory = class {
 ClownfaceFactory.exports = ["clownface"];
 var Factory_default5 = ClownfaceFactory;
 
-// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/defaultEnv.js
+// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/defaultEnv.js
 var defaultEnv_default = new Environment_default([
   Factory_default,
   Factory_default2,
@@ -22265,7 +22274,7 @@ var defaultEnv_default = new Environment_default([
   Factory_default3
 ]);
 
-// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/namespaces.js
+// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/namespaces.js
 function prepareNamespaces(factory3) {
   return {
     sh: namespace_default("http://www.w3.org/ns/shacl#", { factory: factory3 }),
@@ -22277,7 +22286,7 @@ function prepareNamespaces(factory3) {
 }
 var namespaces_default = prepareNamespaces();
 
-// ../wt-cur/node_modules/.pnpm/@vocabulary+sh@1.1.6_@rdfjs+types@2.0.1/node_modules/@vocabulary/sh/index.js
+// node_modules/.pnpm/@vocabulary+sh@1.1.6_@rdfjs+types@2.0.1/node_modules/@vocabulary/sh/index.js
 var sh_default = ({ factory: factory3 }) => {
   const f = factory3;
   const ns1 = "http://www.w3.org/ns/shacl#";
@@ -23782,7 +23791,7 @@ var sh_default = ({ factory: factory3 }) => {
   ];
 };
 
-// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/node-set.js
+// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/node-set.js
 var NodeSet = class extends TermSet_default {
   addAll(nodes) {
     for (const node of nodes) {
@@ -23792,7 +23801,7 @@ var NodeSet = class extends TermSet_default {
 };
 var node_set_default = NodeSet;
 
-// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/property-path.js
+// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/property-path.js
 function extractPropertyPath(pathNode, ns2, allowNamedNodeInList) {
   if (pathNode.term.termType === "NamedNode" && !allowNamedNodeInList) {
     return pathNode.term;
@@ -23899,7 +23908,7 @@ function flatMap(arr, func) {
   return [...arr].reduce((acc, x) => acc.concat(func(x)), []);
 }
 
-// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/dataset-utils.js
+// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/dataset-utils.js
 function* extractStructure(dataset2, startNode, visited = new TermSet_default()) {
   if (startNode.termType !== "BlankNode" || visited.has(startNode)) {
     return;
@@ -23959,7 +23968,7 @@ function rdfListToArray(listNode) {
   return [...listNode.list?.() || []].map(({ term: term2 }) => term2);
 }
 
-// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/shapes-graph.js
+// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/shapes-graph.js
 var ShapesGraph = class {
   _components;
   _parametersMap;
@@ -24213,10 +24222,10 @@ var Shape = class _Shape {
 };
 var shapes_graph_default = ShapesGraph;
 
-// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validation-engine.js
+// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validation-engine.js
 var import_debug = __toESM(require_browser4(), 1);
 
-// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validation-report.js
+// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validation-report.js
 var ValidationReport = class {
   constructor(pointer, options = {}) {
     this.factory = options.factory || defaultEnv_default;
@@ -24268,7 +24277,7 @@ var ValidationResult = class _ValidationResult {
 };
 var validation_report_default = ValidationReport;
 
-// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validation-engine.js
+// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validation-engine.js
 var error = (0, import_debug.default)("validation-engine::error");
 var defaultMaxNodeChecks = 50;
 var ValidationEngine = class _ValidationEngine {
@@ -24577,340 +24586,340 @@ function copyResult(resultPointer, targetPointer, predicate) {
 }
 var validation_engine_default = ValidationEngine;
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/acl.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/acl.js
 var builder = namespace_default("http://www.w3.org/ns/auth/acl#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/as.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/as.js
 var builder2 = namespace_default("https://www.w3.org/ns/activitystreams#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/bibo.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/bibo.js
 var builder3 = namespace_default("http://purl.org/ontology/bibo/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cc.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cc.js
 var builder4 = namespace_default("http://creativecommons.org/ns#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cert.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cert.js
 var builder5 = namespace_default("http://www.w3.org/ns/auth/cert#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cnt.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cnt.js
 var builder6 = namespace_default("http://www.w3.org/2011/content#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/constant.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/constant.js
 var builder7 = namespace_default("http://qudt.org/vocab/constant/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/crm.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/crm.js
 var builder8 = namespace_default("http://www.cidoc-crm.org/cidoc-crm/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/csvw.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/csvw.js
 var builder9 = namespace_default("http://www.w3.org/ns/csvw#");
 var strict = builder9;
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ctag.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ctag.js
 var builder10 = namespace_default("http://commontag.org/ns#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cur.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/cur.js
 var builder11 = namespace_default("http://qudt.org/vocab/currency/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dash-sparql.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dash-sparql.js
 var builder12 = namespace_default("http://datashapes.org/sparql#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dash.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dash.js
 var builder13 = namespace_default("http://datashapes.org/dash#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dbo.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dbo.js
 var builder14 = namespace_default("http://dbpedia.org/ontology/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dc11.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dc11.js
 var builder15 = namespace_default("http://purl.org/dc/elements/1.1/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcam.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcam.js
 var builder16 = namespace_default("http://purl.org/dc/dcam/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcat.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcat.js
 var builder17 = namespace_default("http://www.w3.org/ns/dcat#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcmitype.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcmitype.js
 var builder18 = namespace_default("http://purl.org/dc/dcmitype/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcterms.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dcterms.js
 var builder19 = namespace_default("http://purl.org/dc/terms/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dig.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dig.js
 var builder20 = namespace_default("http://www.ics.forth.gr/isl/CRMdig/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/discipline.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/discipline.js
 var builder21 = namespace_default("http://qudt.org/vocab/discipline/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/doap.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/doap.js
 var builder22 = namespace_default("http://usefulinc.com/ns/doap#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dprod.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dprod.js
 var builder23 = namespace_default("https://ekgf.github.io/dprod/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dpv.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dpv.js
 var builder24 = namespace_default("http://www.w3.org/ns/dpv#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dqv.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dqv.js
 var builder25 = namespace_default("http://www.w3.org/ns/dqv#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dtype.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/dtype.js
 var builder26 = namespace_default("http://www.linkedmodel.org/schema/dtype#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/duv.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/duv.js
 var builder27 = namespace_default("http://www.w3.org/ns/duv#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/earl.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/earl.js
 var builder28 = namespace_default("http://www.w3.org/ns/earl#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ebucore.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ebucore.js
 var builder29 = namespace_default("http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/exif.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/exif.js
 var builder30 = namespace_default("http://www.w3.org/2003/12/exif/ns#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/foaf.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/foaf.js
 var builder31 = namespace_default("http://xmlns.com/foaf/0.1/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/frbr.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/frbr.js
 var builder32 = namespace_default("http://purl.org/vocab/frbr/core#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/geo.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/geo.js
 var builder33 = namespace_default("http://www.opengis.net/ont/geosparql#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/geof.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/geof.js
 var builder34 = namespace_default("http://www.opengis.net/def/function/geosparql/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/geor.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/geor.js
 var builder35 = namespace_default("http://www.opengis.net/def/rule/geosparql/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gml.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gml.js
 var builder36 = namespace_default("http://www.opengis.net/ont/gml#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gn.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gn.js
 var builder37 = namespace_default("http://www.geonames.org/ontology#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gr.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gr.js
 var builder38 = namespace_default("http://purl.org/goodrelations/v1#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/grddl.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/grddl.js
 var builder39 = namespace_default("http://www.w3.org/2003/g/data-view#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gs1.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gs1.js
 var builder40 = namespace_default("https://gs1.org/voc/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gtfs.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/gtfs.js
 var builder41 = namespace_default("http://vocab.gtfs.org/terms#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/http.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/http.js
 var builder42 = namespace_default("http://www.w3.org/2011/http#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/hydra.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/hydra.js
 var builder43 = namespace_default("http://www.w3.org/ns/hydra/core#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ical.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ical.js
 var builder44 = namespace_default("http://www.w3.org/2002/12/cal/icaltzd#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/la.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/la.js
 var builder45 = namespace_default("https://linked.art/ns/terms/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ldp.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ldp.js
 var builder46 = namespace_default("http://www.w3.org/ns/ldp#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/list.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/list.js
 var builder47 = namespace_default("http://www.w3.org/2000/10/swap/list#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/locn.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/locn.js
 var builder48 = namespace_default("http://www.w3.org/ns/locn#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/log.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/log.js
 var builder49 = namespace_default("http://www.w3.org/2000/10/swap/log#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/lvont.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/lvont.js
 var builder50 = namespace_default("http://lexvo.org/ontology#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/m4i.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/m4i.js
 var builder51 = namespace_default("http://w3id.org/nfdi4ing/metadata4ing#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ma.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ma.js
 var builder52 = namespace_default("http://www.w3.org/ns/ma-ont#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/mads.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/mads.js
 var builder53 = namespace_default("http://www.loc.gov/mads/rdf/v1#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/math.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/math.js
 var builder54 = namespace_default("http://www.w3.org/2000/10/swap/math#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/oa.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/oa.js
 var builder55 = namespace_default("http://www.w3.org/ns/oa#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/og.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/og.js
 var builder56 = namespace_default("http://ogp.me/ns#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/oidc.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/oidc.js
 var builder57 = namespace_default("http://www.w3.org/ns/solid/oidc#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/org.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/org.js
 var builder58 = namespace_default("http://www.w3.org/ns/org#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/owl.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/owl.js
 var builder59 = namespace_default("http://www.w3.org/2002/07/owl#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/pim.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/pim.js
 var builder60 = namespace_default("http://www.w3.org/ns/pim/space#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/prefix.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/prefix.js
 var builder61 = namespace_default("http://qudt.org/vocab/prefix/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/prov.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/prov.js
 var builder62 = namespace_default("http://www.w3.org/ns/prov#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/qb.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/qb.js
 var builder63 = namespace_default("http://purl.org/linked-data/cube#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/qkdv.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/qkdv.js
 var builder64 = namespace_default("http://qudt.org/vocab/dimensionvector/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/quantitykind.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/quantitykind.js
 var builder65 = namespace_default("http://qudt.org/vocab/quantitykind/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/qudt.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/qudt.js
 var builder66 = namespace_default("http://qudt.org/schema/qudt/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdau.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdau.js
 var builder67 = namespace_default("http://rdaregistry.info/Elements/u/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdf.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdf.js
 var builder68 = namespace_default("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 var strict2 = builder68;
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdfa.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdfa.js
 var builder69 = namespace_default("http://www.w3.org/ns/rdfa#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdfs.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rdfs.js
 var builder70 = namespace_default("http://www.w3.org/2000/01/rdf-schema#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rev.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rev.js
 var builder71 = namespace_default("http://purl.org/stuff/rev#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rico.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rico.js
 var builder72 = namespace_default("https://www.ica.org/standards/RiC/ontology#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rr.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rr.js
 var builder73 = namespace_default("http://www.w3.org/ns/r2rml#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rss.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rss.js
 var builder74 = namespace_default("http://purl.org/rss/1.0/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/schema.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/schema.js
 var builder75 = namespace_default("http://schema.org/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sd.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sd.js
 var builder76 = namespace_default("http://www.w3.org/ns/sparql-service-description#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sdmx.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sdmx.js
 var builder77 = namespace_default("http://purl.org/linked-data/sdmx#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sem.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sem.js
 var builder78 = namespace_default("http://semanticweb.cs.vu.nl/2009/11/sem/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/set.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/set.js
 var builder79 = namespace_default("http://www.w3.org/2000/10/swap/set#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sf.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sf.js
 var builder80 = namespace_default("http://www.opengis.net/ont/sf#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sh.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sh.js
 var builder81 = namespace_default("http://www.w3.org/ns/shacl#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/shex.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/shex.js
 var builder82 = namespace_default("http://www.w3.org/ns/shex#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/shsh.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/shsh.js
 var builder83 = namespace_default("http://www.w3.org/ns/shacl-shacl#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sioc.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sioc.js
 var builder84 = namespace_default("http://rdfs.org/sioc/ns#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/skos.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/skos.js
 var builder85 = namespace_default("http://www.w3.org/2004/02/skos/core#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/skosxl.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/skosxl.js
 var builder86 = namespace_default("http://www.w3.org/2008/05/skos-xl#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/solid.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/solid.js
 var builder87 = namespace_default("http://www.w3.org/ns/solid/terms#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sosa.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sosa.js
 var builder88 = namespace_default("http://www.w3.org/ns/sosa/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sou.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/sou.js
 var builder89 = namespace_default("http://qudt.org/vocab/sou/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ssn.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/ssn.js
 var builder90 = namespace_default("http://www.w3.org/ns/ssn/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/stat.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/stat.js
 var builder91 = namespace_default("http://www.w3.org/ns/posix/stat#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/string.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/string.js
 var builder92 = namespace_default("http://www.w3.org/2000/10/swap/string#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/test.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/test.js
 var builder93 = namespace_default("http://www.w3.org/2006/03/test-description#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/time.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/time.js
 var builder94 = namespace_default("http://www.w3.org/2006/time#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/unit.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/unit.js
 var builder95 = namespace_default("http://qudt.org/vocab/unit/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vaem.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vaem.js
 var builder96 = namespace_default("http://www.linkedmodel.org/schema/vaem#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vann.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vann.js
 var builder97 = namespace_default("http://purl.org/vocab/vann/");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vcard.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vcard.js
 var builder98 = namespace_default("http://www.w3.org/2006/vcard/ns#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/void.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/void.js
 var builder99 = namespace_default("http://rdfs.org/ns/void#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vs.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vs.js
 var builder100 = namespace_default("http://www.w3.org/2003/06/sw-vocab-status/ns#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vso.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/vso.js
 var builder101 = namespace_default("http://purl.org/vso/ns#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/wdrs.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/wdrs.js
 var builder102 = namespace_default("http://www.w3.org/2007/05/powder-s#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/wgs.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/wgs.js
 var builder103 = namespace_default("http://www.w3.org/2003/01/geo/wgs84_pos#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xhv.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xhv.js
 var builder104 = namespace_default("http://www.w3.org/1999/xhtml/vocab#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xkos.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xkos.js
 var builder105 = namespace_default("http://rdf-vocabulary.ddialliance.org/xkos#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xsd.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xsd.js
 var builder106 = namespace_default("http://www.w3.org/2001/XMLSchema#");
 var strict3 = builder106;
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rif.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/rif.js
 var builder107 = namespace_default("http://www.w3.org/2007/rif#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/v.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/v.js
 var builder108 = namespace_default("http://rdf.data-vocabulary.org/#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/wdr.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/wdr.js
 var builder109 = namespace_default("http://www.w3.org/2007/05/powder#");
 
-// ../wt-cur/node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xml.js
+// node_modules/.pnpm/@tpluscode+rdf-ns-builders@5.0.0/node_modules/@tpluscode/rdf-ns-builders/vocabularies/xml.js
 var builder110 = namespace_default("http://www.w3.org/XML/1998/namespace/");
 
-// ../wt-cur/node_modules/.pnpm/rdf-validate-datatype@0.2.2/node_modules/rdf-validate-datatype/src/validators.js
+// node_modules/.pnpm/rdf-validate-datatype@0.2.2/node_modules/rdf-validate-datatype/src/validators.js
 var Registry = class {
   validators;
   constructor() {
@@ -25049,7 +25058,7 @@ validators.register(strict3.NMTOKENS, () => true);
 validators.register(strict2.XMLLiteral, () => true);
 validators.register(strict2.HTML, () => true);
 
-// ../wt-cur/node_modules/.pnpm/rdf-validate-datatype@0.2.2/node_modules/rdf-validate-datatype/src/validate-term.js
+// node_modules/.pnpm/rdf-validate-datatype@0.2.2/node_modules/rdf-validate-datatype/src/validate-term.js
 function validateTerm(term2) {
   if (term2.termType !== "Literal") {
     throw new Error("Cannot validate non-literal terms");
@@ -25061,7 +25070,7 @@ function validateTerm(term2) {
   return true;
 }
 
-// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validators.js
+// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validators.js
 var import_rdf_literal = __toESM(require_rdf_literal(), 1);
 var validateAnd = {
   validate(context, focusNode, valueNode, constraint) {
@@ -25505,7 +25514,7 @@ var validators_default = {
   validateXone
 };
 
-// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validators-registry.js
+// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/src/validators-registry.js
 var validators_registry_default = [
   [namespaces_default.sh.AndConstraintComponent, validators_default.validateAnd],
   [namespaces_default.sh.ClassConstraintComponent, validators_default.validateClass],
@@ -25537,7 +25546,7 @@ var validators_registry_default = [
   [namespaces_default.sh.XoneConstraintComponent, validators_default.validateXone]
 ];
 
-// ../wt-cur/node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/index.js
+// node_modules/.pnpm/rdf-validate-shacl@0.6.5/node_modules/rdf-validate-shacl/index.js
 var SHACLValidator = class {
   importsLoaded = false;
   /**
@@ -26188,7 +26197,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasCarbonFootprintPerformanceClass"
+        "eubat:CarbonFootprintPerformanceClass"
       ]
     },
     {
@@ -26449,7 +26458,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasOriginalPowerCapability"
+        "eubat:PowerCapability"
       ]
     },
     {
@@ -26496,7 +26505,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:expectedCycleLife"
+        "eubat:CycleLife"
       ]
     },
     {
@@ -26519,7 +26528,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:lifetimeReferenceTest"
+        "eubat:hasPerformanceTest"
       ]
     },
     {
@@ -26543,7 +26552,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:capacityThresholdForExhaustion"
+        "eubat:CapacityExhaustionThreshold"
       ]
     },
     {
@@ -26614,7 +26623,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:roundTripEfficiency"
+        "eubat:InitialRoundTripEfficiency"
       ]
     },
     {
@@ -26637,7 +26646,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:roundTripEfficiencyAt50PercentCycleLife"
+        "eubat:RoundTripEfficiencyAt50PercentCycleLife"
       ]
     },
     {
@@ -26659,8 +26668,8 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasInitialCellInternalResistance",
-        "eubat:hasInitialPackInternalResistance"
+        "eubat:InitialCellInternalResistance",
+        "eubat:InitialPackInternalResistance"
       ]
     },
     {
@@ -26683,7 +26692,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:cRateLifeCycleTest"
+        "eubat:ChargeCRate"
       ]
     },
     {
@@ -26705,7 +26714,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:dischargeCRateLifeCycleTest"
+        "eubat:DischargeCRate"
       ]
     },
     {
@@ -26991,7 +27000,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasCapacityFade"
+        "eubat:CapacityFade"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27015,7 +27024,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasPowerCapability"
+        "eubat:PowerCapability"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27039,7 +27048,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasPowerFade"
+        "eubat:PowerFade"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27063,7 +27072,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasInternalResistance"
+        "eubat:InternalResistance"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27087,7 +27096,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasInternalResistanceIncrease"
+        "eubat:InternalResistanceIncrease"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27113,7 +27122,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:roundTripEfficiency"
+        "eubat:InitialRoundTripEfficiency"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27139,7 +27148,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasRoundTripEfficiencyFade"
+        "eubat:RoundTripEfficiencyFade"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27163,7 +27172,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:expectedRemainingCycles"
+        "eubat:RemainingCycles"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27188,7 +27197,7 @@ var ec_datapoint_applicability_default = {
       },
       implementedBy: [
         "eubat:hasExpectedLifetime",
-        "eubat:expectedRemainingLifetimeMonths"
+        "eubat:RemainingLifetime"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27213,7 +27222,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasStateOfCertifiedEnergy"
+        "eubat:StateOfCertifiedEnergy"
       ],
       epcisExample: "epcis/state-of-certified-energy.jsonld"
     },
@@ -27239,7 +27248,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasRemainingCapacity"
+        "eubat:RemainingCapacity"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27264,7 +27273,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasRemainingPowerCapability"
+        "eubat:PowerCapability"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27289,7 +27298,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasRemainingRoundTripEfficiency"
+        "eubat:RemainingRoundTripEfficiency"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27314,8 +27323,8 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasEvolutionOfSelfDischarge",
-        "eubat:hasCurrentSelfDischargingRate"
+        "eubat:SelfDischargeEvolution",
+        "eubat:SelfDischargeRate"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27340,7 +27349,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasInternalResistance"
+        "eubat:InternalResistance"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27390,7 +27399,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasCycleCount"
+        "eubat:FullCycleCount"
       ],
       epcisExample: "epcis/amperia-staxwall-lifecycle.jsonld"
     },
@@ -27443,8 +27452,8 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
-        "eubat:timeSpentInExtremeTemperaturesBelowBoundary"
+        "eubat:TimeAboveTemperatureBoundary",
+        "eubat:TimeBelowTemperatureBoundary"
       ],
       epcisExample: "epcis/temperature-extreme.jsonld"
     },
@@ -27470,7 +27479,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasStateOfCharge"
+        "eubat:StateOfCharge"
       ],
       epcisExample: "epcis/amperia-staxwall-lifecycle.jsonld"
     }
@@ -27487,6 +27496,8 @@ var ec_readiness_shapes_default = `@prefix owl: <http://www.w3.org/2002/07/owl#>
 @prefix schema: <https://schema.org/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
 @prefix eubat: <https://ref.openepcis.org/extensions/eu/battery/> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix ecbp: <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#> .
 
 # GENERATED FILE - do not edit. Source: vocab/ec-guidance-datapoints.json,
@@ -27637,7 +27648,7 @@ ecbp:dp-18-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration eubat:hasCarbonFootprintPerformanceClass ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:hasCarbonFootprintPerformanceClass" ] ;
+    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:CarbonFootprintPerformanceClass ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:CarbonFootprintPerformanceClass" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-18> .
 
 ecbp:dp-19-ev
@@ -27709,7 +27720,9 @@ ecbp:dp-29-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 29 (EV, mandatory): Original power capability [unit W] \u2014 expected eubat:hasOriginalPowerCapability" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 29 (EV, mandatory): Original power capability [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-29> .
 
 ecbp:dp-30-ev
@@ -27725,21 +27738,23 @@ ecbp:dp-31-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 31 (EV, mandatory): Expected battery lifetime expressed in cycles [in number] \u2014 expected eubat:expectedCycleLife" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CycleLife ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CycleLife ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 31 (EV, mandatory): Expected battery lifetime expressed in cycles [in number] \u2014 expected eubat:CycleLife" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31> .
 
 ecbp:dp-32-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:lifetimeReferenceTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 32 (EV, mandatory): Reference test used for expected battery lifetime expressed in cycles [free text] \u2014 expected eubat:lifetimeReferenceTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 32 (EV, mandatory): Reference test used for expected battery lifetime expressed in cycles [free text] \u2014 expected eubat:hasPerformanceTest" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-32> .
 
 ecbp:dp-33-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:capacityThresholdForExhaustion ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 33 (EV, mandatory): Capacity threshold for exhaustion [%] \u2014 expected eubat:capacityThresholdForExhaustion" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:isEvaluatedAgainst ) ; sh:qualifiedValueShape [ sh:class eubat:CapacityExhaustionThreshold ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 33 (EV, mandatory): Capacity threshold for exhaustion [%] \u2014 expected eubat:CapacityExhaustionThreshold" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-33> .
 
 ecbp:dp-34-ev
@@ -27762,37 +27777,41 @@ ecbp:dp-36-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 36 (EV, mandatory): Initial round trip energy efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 36 (EV, mandatory): Initial round trip energy efficiency [%] \u2014 expected eubat:InitialRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> .
 
 ecbp:dp-37-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiencyAt50PercentCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 37 (EV, mandatory): Round trip energy efficiency at 50 % of cycle-life [%] \u2014 expected eubat:roundTripEfficiencyAt50PercentCycleLife" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyAt50PercentCycleLife ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyAt50PercentCycleLife ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 37 (EV, mandatory): Round trip energy efficiency at 50 % of cycle-life [%] \u2014 expected eubat:RoundTripEfficiencyAt50PercentCycleLife" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-37> .
 
 ecbp:dp-38-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialCellInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialPackInternalResistance ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialCellInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialCellInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialPackInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialPackInternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 38 (EV, mandatory): Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9] \u2014 expected eubat:hasInitialCellInternalResistance / eubat:hasInitialPackInternalResistance" ;
+    sh:message "EC data point 38 (EV, mandatory): Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9] \u2014 expected eubat:InitialCellInternalResistance / eubat:InitialPackInternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> .
 
 ecbp:dp-39-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:cRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 39 (EV, mandatory): Charge C-rate of relevant cycle-life test [number] \u2014 expected eubat:cRateLifeCycleTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasParameterSetting ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasParameter ; sh:hasValue eubat:ChargeCRate ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 39 (EV, mandatory): Charge C-rate of relevant cycle-life test [number] \u2014 expected eubat:ChargeCRate" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39> .
 
 ecbp:dp-40-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:dischargeCRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 40 (EV, optional): Discharge C-rate of relevant cycle-life test [number] \u2014 expected eubat:dischargeCRateLifeCycleTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasParameterSetting ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasParameter ; sh:hasValue eubat:DischargeCRate ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Info ; sh:message "EC data point 40 (EV, optional): Discharge C-rate of relevant cycle-life test [number] \u2014 expected eubat:DischargeCRate" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-40> .
 
 ecbp:dp-41-ev
@@ -27892,74 +27911,88 @@ ecbp:dp-52-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCapacityFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 52 (EV, mandatory): Capacity fade [%] \u2014 expected eubat:hasCapacityFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CapacityFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CapacityFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 52 (EV, mandatory): Capacity fade [%] \u2014 expected eubat:CapacityFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-52> .
 
 ecbp:dp-53-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasRemainingPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 53 (EV, mandatory): Power [unit W] \u2014 expected eubat:hasPowerCapability" ;
+    sh:message "EC data point 53 (EV, mandatory): Power [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-53> .
 
 ecbp:dp-54-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasPowerFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 54 (EV, mandatory): Power fade [%] \u2014 expected eubat:hasPowerFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 54 (EV, mandatory): Power fade [%] \u2014 expected eubat:PowerFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-54> .
 
 ecbp:dp-55-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 55 (EV, mandatory): Internal resistance [unit \u03A9] \u2014 expected eubat:hasInternalResistance" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 55 (EV, mandatory): Internal resistance [unit \u03A9] \u2014 expected eubat:InternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-55> .
 
 ecbp:dp-56-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistanceIncrease ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 56 (EV, mandatory): Internal resistance increase [%] \u2014 expected eubat:hasInternalResistanceIncrease" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistanceIncrease ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistanceIncrease ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 56 (EV, mandatory): Internal resistance increase [%] \u2014 expected eubat:InternalResistanceIncrease" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-56> .
 
 ecbp:dp-57-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 57 (EV, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 57 (EV, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency [%] \u2014 expected eubat:InitialRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-57> .
 
 ecbp:dp-58-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRoundTripEfficiencyFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 58 (EV, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency fade [%] \u2014 expected eubat:hasRoundTripEfficiencyFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 58 (EV, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency fade [%] \u2014 expected eubat:RoundTripEfficiencyFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-58> .
 
 ecbp:dp-59-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:expectedRemainingCycles ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 59 (EV, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number] \u2014 expected eubat:expectedRemainingCycles" ] ;
+    sh:property [ sh:path ( eubat:hasBatteryState oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:RemainingCycles ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 59 (EV, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number] \u2014 expected eubat:RemainingCycles" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-59> .
 
 ecbp:dp-60-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:RemainingLifetime ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 60 (EV, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:hasExpectedLifetime / eubat:expectedRemainingLifetimeMonths" ;
+    sh:message "EC data point 60 (EV, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:hasExpectedLifetime / eubat:RemainingLifetime" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
 
 ecbp:dp-61-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasStateOfCertifiedEnergy ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 61 (EV, mandatory): Information on the state of health of the battery pursuant to Article 14: state of certified energy (SOCE) [%] \u2014 expected eubat:hasStateOfCertifiedEnergy" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCertifiedEnergy ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCertifiedEnergy ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 61 (EV, mandatory): Information on the state of health of the battery pursuant to Article 14: state of certified energy (SOCE) [%] \u2014 expected eubat:StateOfCertifiedEnergy" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-61> .
 
 ecbp:dp-67-ev
@@ -27973,7 +28006,9 @@ ecbp:dp-68-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCycleCount ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 68 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] \u2014 expected eubat:hasCycleCount" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:FullCycleCount ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:FullCycleCount ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 68 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] \u2014 expected eubat:FullCycleCount" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68> .
 
 ecbp:dp-69-ev
@@ -27987,16 +28022,18 @@ ecbp:dp-70-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:timeSpentInExtremeTemperaturesAboveBoundary ; sh:minCount 1 ] [ sh:path eubat:timeSpentInExtremeTemperaturesBelowBoundary ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeAboveTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeAboveTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeBelowTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeBelowTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 70 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units] \u2014 expected eubat:timeSpentInExtremeTemperaturesAboveBoundary / eubat:timeSpentInExtremeTemperaturesBelowBoundary" ;
+    sh:message "EC data point 70 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units] \u2014 expected eubat:TimeAboveTemperatureBoundary / eubat:TimeBelowTemperatureBoundary" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70> .
 
 ecbp:dp-71-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasStateOfCharge ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 71 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the state of charge [histogram, %] \u2014 expected eubat:hasStateOfCharge" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCharge ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCharge ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 71 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the state of charge [histogram, %] \u2014 expected eubat:StateOfCharge" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-71> .
 
 # \u2500\u2500 LMT batteries \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
@@ -28135,7 +28172,7 @@ ecbp:dp-18-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration eubat:hasCarbonFootprintPerformanceClass ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:hasCarbonFootprintPerformanceClass" ] ;
+    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:CarbonFootprintPerformanceClass ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:CarbonFootprintPerformanceClass" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-18> .
 
 ecbp:dp-19-lmt
@@ -28207,7 +28244,9 @@ ecbp:dp-29-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 29 (LMT, mandatory): Original power capability [unit W] \u2014 expected eubat:hasOriginalPowerCapability" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 29 (LMT, mandatory): Original power capability [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-29> .
 
 ecbp:dp-30-lmt
@@ -28223,14 +28262,16 @@ ecbp:dp-31-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 31 (LMT, mandatory): Expected battery lifetime expressed in cycles [in number] \u2014 expected eubat:expectedCycleLife" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CycleLife ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CycleLife ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 31 (LMT, mandatory): Expected battery lifetime expressed in cycles [in number] \u2014 expected eubat:CycleLife" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31> .
 
 ecbp:dp-32-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:lifetimeReferenceTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 32 (LMT, mandatory): Reference test used for expected battery lifetime expressed in cycles [free text] \u2014 expected eubat:lifetimeReferenceTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 32 (LMT, mandatory): Reference test used for expected battery lifetime expressed in cycles [free text] \u2014 expected eubat:hasPerformanceTest" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-32> .
 
 ecbp:dp-34-lmt
@@ -28253,37 +28294,41 @@ ecbp:dp-36-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 36 (LMT, mandatory): Initial round trip energy efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 36 (LMT, mandatory): Initial round trip energy efficiency [%] \u2014 expected eubat:InitialRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> .
 
 ecbp:dp-37-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiencyAt50PercentCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 37 (LMT, mandatory): Round trip energy efficiency at 50 % of cycle-life [%] \u2014 expected eubat:roundTripEfficiencyAt50PercentCycleLife" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyAt50PercentCycleLife ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyAt50PercentCycleLife ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 37 (LMT, mandatory): Round trip energy efficiency at 50 % of cycle-life [%] \u2014 expected eubat:RoundTripEfficiencyAt50PercentCycleLife" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-37> .
 
 ecbp:dp-38-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialCellInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialPackInternalResistance ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialCellInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialCellInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialPackInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialPackInternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 38 (LMT, mandatory): Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9] \u2014 expected eubat:hasInitialCellInternalResistance / eubat:hasInitialPackInternalResistance" ;
+    sh:message "EC data point 38 (LMT, mandatory): Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9] \u2014 expected eubat:InitialCellInternalResistance / eubat:InitialPackInternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> .
 
 ecbp:dp-39-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:cRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 39 (LMT, mandatory): Charge C-rate of relevant cycle-life test [number] \u2014 expected eubat:cRateLifeCycleTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasParameterSetting ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasParameter ; sh:hasValue eubat:ChargeCRate ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 39 (LMT, mandatory): Charge C-rate of relevant cycle-life test [number] \u2014 expected eubat:ChargeCRate" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39> .
 
 ecbp:dp-40-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:dischargeCRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 40 (LMT, optional): Discharge C-rate of relevant cycle-life test [number] \u2014 expected eubat:dischargeCRateLifeCycleTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasParameterSetting ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasParameter ; sh:hasValue eubat:DischargeCRate ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Info ; sh:message "EC data point 40 (LMT, optional): Discharge C-rate of relevant cycle-life test [number] \u2014 expected eubat:DischargeCRate" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-40> .
 
 ecbp:dp-41-lmt
@@ -28383,104 +28428,124 @@ ecbp:dp-52-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCapacityFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 52 (LMT, mandatory): Capacity fade [%] \u2014 expected eubat:hasCapacityFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CapacityFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CapacityFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 52 (LMT, mandatory): Capacity fade [%] \u2014 expected eubat:CapacityFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-52> .
 
 ecbp:dp-53-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasRemainingPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 53 (LMT, mandatory): Power [unit W] \u2014 expected eubat:hasPowerCapability" ;
+    sh:message "EC data point 53 (LMT, mandatory): Power [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-53> .
 
 ecbp:dp-54-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasPowerFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 54 (LMT, mandatory): Power fade [%] \u2014 expected eubat:hasPowerFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 54 (LMT, mandatory): Power fade [%] \u2014 expected eubat:PowerFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-54> .
 
 ecbp:dp-55-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 55 (LMT, mandatory): Internal resistance [unit \u03A9] \u2014 expected eubat:hasInternalResistance" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 55 (LMT, mandatory): Internal resistance [unit \u03A9] \u2014 expected eubat:InternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-55> .
 
 ecbp:dp-56-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistanceIncrease ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 56 (LMT, mandatory): Internal resistance increase [%] \u2014 expected eubat:hasInternalResistanceIncrease" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistanceIncrease ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistanceIncrease ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 56 (LMT, mandatory): Internal resistance increase [%] \u2014 expected eubat:InternalResistanceIncrease" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-56> .
 
 ecbp:dp-57-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 57 (LMT, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 57 (LMT, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency [%] \u2014 expected eubat:InitialRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-57> .
 
 ecbp:dp-58-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRoundTripEfficiencyFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 58 (LMT, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency fade [%] \u2014 expected eubat:hasRoundTripEfficiencyFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 58 (LMT, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency fade [%] \u2014 expected eubat:RoundTripEfficiencyFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-58> .
 
 ecbp:dp-59-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:expectedRemainingCycles ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 59 (LMT, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number] \u2014 expected eubat:expectedRemainingCycles" ] ;
+    sh:property [ sh:path ( eubat:hasBatteryState oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:RemainingCycles ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 59 (LMT, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number] \u2014 expected eubat:RemainingCycles" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-59> .
 
 ecbp:dp-60-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:RemainingLifetime ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 60 (LMT, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:hasExpectedLifetime / eubat:expectedRemainingLifetimeMonths" ;
+    sh:message "EC data point 60 (LMT, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:hasExpectedLifetime / eubat:RemainingLifetime" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
 
 ecbp:dp-62-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingCapacity ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 62 (LMT, mandatory: Mandatory battery management system): Information on the state of health of the battery pursuant to Article 14: remaining capacity [unit Ah] \u2014 expected eubat:hasRemainingCapacity" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingCapacity ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingCapacity ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 62 (LMT, mandatory: Mandatory battery management system): Information on the state of health of the battery pursuant to Article 14: remaining capacity [unit Ah] \u2014 expected eubat:RemainingCapacity" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-62> .
 
 ecbp:dp-63-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingPowerCapability ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 63 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability [unit W] \u2014 expected eubat:hasRemainingPowerCapability" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 63 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-63> .
 
 ecbp:dp-64-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingRoundTripEfficiency ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 64 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round-trip efficiency [%] \u2014 expected eubat:hasRemainingRoundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 64 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round-trip efficiency [%] \u2014 expected eubat:RemainingRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-64> .
 
 ecbp:dp-65-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasEvolutionOfSelfDischarge ; sh:minCount 1 ] [ sh:path eubat:hasCurrentSelfDischargingRate ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeEvolution ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeEvolution ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeRate ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeRate ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 65 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year] \u2014 expected eubat:hasEvolutionOfSelfDischarge / eubat:hasCurrentSelfDischargingRate" ;
+    sh:message "EC data point 65 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year] \u2014 expected eubat:SelfDischargeEvolution / eubat:SelfDischargeRate" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65> .
 
 ecbp:dp-66-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 66 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance [unit \u03A9] \u2014 expected eubat:hasInternalResistance" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 66 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance [unit \u03A9] \u2014 expected eubat:InternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-66> .
 
 ecbp:dp-67-lmt
@@ -28494,7 +28559,9 @@ ecbp:dp-68-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCycleCount ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 68 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] \u2014 expected eubat:hasCycleCount" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:FullCycleCount ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:FullCycleCount ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 68 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] \u2014 expected eubat:FullCycleCount" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68> .
 
 ecbp:dp-69-lmt
@@ -28508,16 +28575,18 @@ ecbp:dp-70-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:timeSpentInExtremeTemperaturesAboveBoundary ; sh:minCount 1 ] [ sh:path eubat:timeSpentInExtremeTemperaturesBelowBoundary ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeAboveTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeAboveTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeBelowTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeBelowTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 70 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units] \u2014 expected eubat:timeSpentInExtremeTemperaturesAboveBoundary / eubat:timeSpentInExtremeTemperaturesBelowBoundary" ;
+    sh:message "EC data point 70 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units] \u2014 expected eubat:TimeAboveTemperatureBoundary / eubat:TimeBelowTemperatureBoundary" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70> .
 
 ecbp:dp-71-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasStateOfCharge ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 71 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the state of charge [histogram, %] \u2014 expected eubat:hasStateOfCharge" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCharge ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCharge ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 71 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the state of charge [histogram, %] \u2014 expected eubat:StateOfCharge" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-71> .
 
 # \u2500\u2500 industrial batteries \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
@@ -28656,7 +28725,7 @@ ecbp:dp-18-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration eubat:hasCarbonFootprintPerformanceClass ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:hasCarbonFootprintPerformanceClass" ] ;
+    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:CarbonFootprintPerformanceClass ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:CarbonFootprintPerformanceClass" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-18> .
 
 ecbp:dp-19-industrial
@@ -28728,7 +28797,9 @@ ecbp:dp-29-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 29 (industrial, mandatory): Original power capability [unit W] \u2014 expected eubat:hasOriginalPowerCapability" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 29 (industrial, mandatory): Original power capability [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-29> .
 
 ecbp:dp-30-industrial
@@ -28744,14 +28815,16 @@ ecbp:dp-31-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 31 (industrial, provide if the condition applies: Only applicable for some industrial batteries where lifetime can be expressed in cycles): Expected battery lifetime expressed in cycles [in number] \u2014 expected eubat:expectedCycleLife" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CycleLife ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CycleLife ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 31 (industrial, provide if the condition applies: Only applicable for some industrial batteries where lifetime can be expressed in cycles): Expected battery lifetime expressed in cycles [in number] \u2014 expected eubat:CycleLife" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31> .
 
 ecbp:dp-32-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:lifetimeReferenceTest ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 32 (industrial, provide if the condition applies: Only applicable for some industrial batteries where lifetime can be expressed in cycles): Reference test used for expected battery lifetime expressed in cycles [free text] \u2014 expected eubat:lifetimeReferenceTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 32 (industrial, provide if the condition applies: Only applicable for some industrial batteries where lifetime can be expressed in cycles): Reference test used for expected battery lifetime expressed in cycles [free text] \u2014 expected eubat:hasPerformanceTest" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-32> .
 
 ecbp:dp-34-industrial
@@ -28774,37 +28847,41 @@ ecbp:dp-36-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 36 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Initial round trip energy efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 36 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Initial round trip energy efficiency [%] \u2014 expected eubat:InitialRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> .
 
 ecbp:dp-37-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiencyAt50PercentCycleLife ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 37 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Round trip energy efficiency at 50 % of cycle-life [%] \u2014 expected eubat:roundTripEfficiencyAt50PercentCycleLife" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyAt50PercentCycleLife ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyAt50PercentCycleLife ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 37 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Round trip energy efficiency at 50 % of cycle-life [%] \u2014 expected eubat:RoundTripEfficiencyAt50PercentCycleLife" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-37> .
 
 ecbp:dp-38-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialCellInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialPackInternalResistance ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialCellInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialCellInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialPackInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialPackInternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 38 (industrial, mandatory): Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9] \u2014 expected eubat:hasInitialCellInternalResistance / eubat:hasInitialPackInternalResistance" ;
+    sh:message "EC data point 38 (industrial, mandatory): Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9] \u2014 expected eubat:InitialCellInternalResistance / eubat:InitialPackInternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> .
 
 ecbp:dp-39-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:cRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 39 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Charge C-rate of relevant cycle-life test [number] \u2014 expected eubat:cRateLifeCycleTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasParameterSetting ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasParameter ; sh:hasValue eubat:ChargeCRate ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 39 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Charge C-rate of relevant cycle-life test [number] \u2014 expected eubat:ChargeCRate" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39> .
 
 ecbp:dp-40-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:dischargeCRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 40 (industrial, optional): Discharge C-rate of relevant cycle-life test [number] \u2014 expected eubat:dischargeCRateLifeCycleTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasParameterSetting ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasParameter ; sh:hasValue eubat:DischargeCRate ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Info ; sh:message "EC data point 40 (industrial, optional): Discharge C-rate of relevant cycle-life test [number] \u2014 expected eubat:DischargeCRate" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-40> .
 
 ecbp:dp-41-industrial
@@ -28904,104 +28981,124 @@ ecbp:dp-52-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCapacityFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 52 (industrial, provide if the condition applies: Only for rechargeable batteries): Capacity fade [%] \u2014 expected eubat:hasCapacityFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CapacityFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CapacityFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 52 (industrial, provide if the condition applies: Only for rechargeable batteries): Capacity fade [%] \u2014 expected eubat:CapacityFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-52> .
 
 ecbp:dp-53-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasRemainingPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 53 (industrial, provide if the condition applies: Only for rechargeable batteries): Power [unit W] \u2014 expected eubat:hasPowerCapability" ;
+    sh:message "EC data point 53 (industrial, provide if the condition applies: Only for rechargeable batteries): Power [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-53> .
 
 ecbp:dp-54-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasPowerFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 54 (industrial, provide if the condition applies: Only for rechargeable batteries): Power fade [%] \u2014 expected eubat:hasPowerFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 54 (industrial, provide if the condition applies: Only for rechargeable batteries): Power fade [%] \u2014 expected eubat:PowerFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-54> .
 
 ecbp:dp-55-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 55 (industrial, provide if the condition applies: Only for rechargeable batteries): Internal resistance [unit \u03A9] \u2014 expected eubat:hasInternalResistance" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 55 (industrial, provide if the condition applies: Only for rechargeable batteries): Internal resistance [unit \u03A9] \u2014 expected eubat:InternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-55> .
 
 ecbp:dp-56-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistanceIncrease ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 56 (industrial, provide if the condition applies: Only for rechargeable batteries): Internal resistance increase [%] \u2014 expected eubat:hasInternalResistanceIncrease" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistanceIncrease ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistanceIncrease ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 56 (industrial, provide if the condition applies: Only for rechargeable batteries): Internal resistance increase [%] \u2014 expected eubat:InternalResistanceIncrease" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-56> .
 
 ecbp:dp-57-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 57 (industrial, provide if the condition applies: Only for rechargeable batteries, if applicable): Where applicable, energy round trip efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 57 (industrial, provide if the condition applies: Only for rechargeable batteries, if applicable): Where applicable, energy round trip efficiency [%] \u2014 expected eubat:InitialRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-57> .
 
 ecbp:dp-58-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRoundTripEfficiencyFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 58 (industrial, provide if the condition applies: Only for rechargeable batteries, if applicable): Where applicable, energy round trip efficiency fade [%] \u2014 expected eubat:hasRoundTripEfficiencyFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 58 (industrial, provide if the condition applies: Only for rechargeable batteries, if applicable): Where applicable, energy round trip efficiency fade [%] \u2014 expected eubat:RoundTripEfficiencyFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-58> .
 
 ecbp:dp-59-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:expectedRemainingCycles ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 59 (industrial, provide if the condition applies: Only for rechargeable batteries and except for non-cycle applications): The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number] \u2014 expected eubat:expectedRemainingCycles" ] ;
+    sh:property [ sh:path ( eubat:hasBatteryState oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:RemainingCycles ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 59 (industrial, provide if the condition applies: Only for rechargeable batteries and except for non-cycle applications): The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number] \u2014 expected eubat:RemainingCycles" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-59> .
 
 ecbp:dp-60-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:RemainingLifetime ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 60 (industrial, provide if the condition applies: Only for rechargeable batteries): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:hasExpectedLifetime / eubat:expectedRemainingLifetimeMonths" ;
+    sh:message "EC data point 60 (industrial, provide if the condition applies: Only for rechargeable batteries): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:hasExpectedLifetime / eubat:RemainingLifetime" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
 
 ecbp:dp-62-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingCapacity ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 62 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a): Information on the state of health of the battery pursuant to Article 14: remaining capacity [unit Ah] \u2014 expected eubat:hasRemainingCapacity" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingCapacity ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingCapacity ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 62 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a): Information on the state of health of the battery pursuant to Article 14: remaining capacity [unit Ah] \u2014 expected eubat:RemainingCapacity" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-62> .
 
 ecbp:dp-63-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingPowerCapability ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 63 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability [unit W] \u2014 expected eubat:hasRemainingPowerCapability" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 63 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-63> .
 
 ecbp:dp-64-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingRoundTripEfficiency ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 64 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round-trip efficiency [%] \u2014 expected eubat:hasRemainingRoundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 64 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round-trip efficiency [%] \u2014 expected eubat:RemainingRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-64> .
 
 ecbp:dp-65-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasEvolutionOfSelfDischarge ; sh:minCount 1 ] [ sh:path eubat:hasCurrentSelfDischargingRate ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeEvolution ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeEvolution ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeRate ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeRate ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 65 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year] \u2014 expected eubat:hasEvolutionOfSelfDischarge / eubat:hasCurrentSelfDischargingRate" ;
+    sh:message "EC data point 65 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year] \u2014 expected eubat:SelfDischargeEvolution / eubat:SelfDischargeRate" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65> .
 
 ecbp:dp-66-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 66 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management): Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance [unit \u03A9] \u2014 expected eubat:hasInternalResistance" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 66 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management): Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance [unit \u03A9] \u2014 expected eubat:InternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-66> .
 
 ecbp:dp-67-industrial
@@ -29015,7 +29112,9 @@ ecbp:dp-68-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCycleCount ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 68 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] \u2014 expected eubat:hasCycleCount" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:FullCycleCount ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:FullCycleCount ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 68 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] \u2014 expected eubat:FullCycleCount" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68> .
 
 ecbp:dp-69-industrial
@@ -29029,16 +29128,18 @@ ecbp:dp-70-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:timeSpentInExtremeTemperaturesAboveBoundary ; sh:minCount 1 ] [ sh:path eubat:timeSpentInExtremeTemperaturesBelowBoundary ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeAboveTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeAboveTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeBelowTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeBelowTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 70 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units] \u2014 expected eubat:timeSpentInExtremeTemperaturesAboveBoundary / eubat:timeSpentInExtremeTemperaturesBelowBoundary" ;
+    sh:message "EC data point 70 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units] \u2014 expected eubat:TimeAboveTemperatureBoundary / eubat:TimeBelowTemperatureBoundary" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70> .
 
 ecbp:dp-71-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasStateOfCharge ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 71 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the state of charge [histogram, %] \u2014 expected eubat:hasStateOfCharge" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCharge ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCharge ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 71 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the state of charge [histogram, %] \u2014 expected eubat:StateOfCharge" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-71> .
 `;
 
@@ -29178,20 +29279,11 @@ var battery_product_model_default = {
       "gs1:value": "7.5",
       "gs1:unitCode": "KWT"
     },
-    "eubat:hasInitialPackInternalResistance": {
-      type: "gs1:QuantitativeValue",
-      "gs1:value": "2.1",
-      "gs1:unitCode": "OHM"
-    },
-    "eubat:expectedCycleLife": 6e3,
     "eubat:hasExpectedLifetime": {
       type: "gs1:QuantitativeValue",
       "gs1:value": 15,
       "gs1:unitCode": "ANN"
     },
-    "eubat:roundTripEfficiency": 96,
-    "eubat:capacityThresholdForExhaustion": 70,
-    "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
     "eubat:hasTemperatureRangeIdleState": {
       id: "https://id.gs1.org/01/09521002005004#temp-idle",
       type: "eubat:TemperatureRange",
@@ -29205,6 +29297,62 @@ var battery_product_model_default = {
         "gs1:value": 60,
         "gs1:unitCode": "CEL"
       }
+    },
+    "eubat:hasPerformanceTest": {
+      type: "eubat:PerformanceDurabilityTest",
+      "oea:hasMethod": {
+        type: "oea:TestMethod",
+        "oea:methodUrl": "https://www.iec.ch/standards/62660-1"
+      },
+      "oea:isEvaluatedAgainst": {
+        type: "eubat:CapacityExhaustionThreshold",
+        "oea:hasThresholdParameter": {
+          "@id": "eubat:StateOfCertifiedEnergy"
+        },
+        "oea:hasComparisonOperator": {
+          "@id": "oea:LessThan"
+        },
+        "oea:hasThresholdValue": {
+          type: "gs1:QuantitativeValue",
+          "gs1:value": 70,
+          "gs1:unitCode": "P1"
+        }
+      },
+      "oea:hasResult": [
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:InitialPackInternalResistance"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": "2.1",
+            "gs1:unitCode": "OHM"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:InitialRoundTripEfficiency"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 96,
+            "gs1:unitCode": "P1"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:CycleLife"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 6e3,
+            "gs1:unitCode": "C62"
+          }
+        }
+      ]
     }
   },
   "gs1:manufacturersWarranty": {
@@ -29312,11 +29460,17 @@ var battery_product_batch_default = {
       "gs1:value": "8.6",
       "gs1:unitCode": "KGM"
     },
-    "eubat:hasCarbonFootprintPerformanceClass": {
-      "@id": "eubat:CFClassB"
-    },
     "eubat:carbonFootprintStudyUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-cfp-study.pdf",
-    "eubat:carbonFootprintDeclarationId": "CFP-2024-ECOCELL-IM500-001"
+    "eubat:carbonFootprintDeclarationId": "CFP-2024-ECOCELL-IM500-001",
+    "oea:hasIndicator": {
+      type: "oea:Indicator",
+      "oea:hasIndicatorKind": {
+        "@id": "eubat:CarbonFootprintPerformanceClass"
+      },
+      "oea:hasCategoricalValue": {
+        "@id": "eubat:CFClassB"
+      }
+    }
   },
   "eubat:hasEndOfLifeInfo": {
     id: "https://id.gs1.org/01/09521002005004/10/LOT-2024-0312#eol",
@@ -29619,65 +29773,13 @@ var battery_product_default = {
       "gs1:value": 140,
       "gs1:unitCode": "AMP"
     },
-    "eubat:hasOriginalPowerCapability": [
-      {
-        id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#power-80",
-        type: "eubat:PowerCapabilityAtSoC",
-        "eubat:stateOfChargeLevel": 80,
-        "eubat:hasPowerCapability": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": "7.2",
-          "gs1:unitCode": "KWT"
-        }
-      },
-      {
-        id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#power-20",
-        type: "eubat:PowerCapabilityAtSoC",
-        "eubat:stateOfChargeLevel": 20,
-        "eubat:hasPowerCapability": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": "6.8",
-          "gs1:unitCode": "KWT"
-        }
-      }
-    ],
-    "eubat:hasInitialCellInternalResistance": {
-      type: "gs1:QuantitativeValue",
-      "gs1:value": "0.0009",
-      "gs1:unitCode": "OHM"
-    },
-    "eubat:hasInitialPackInternalResistance": {
-      type: "gs1:QuantitativeValue",
-      "gs1:value": "2.1",
-      "gs1:unitCode": "OHM"
-    },
-    "eubat:initialSelfDischarge": "1.5",
-    "eubat:expectedCycleLife": 6e3,
     "eubat:hasExpectedLifetime": {
       type: "gs1:QuantitativeValue",
       "gs1:value": 15,
       "gs1:unitCode": "ANN"
     },
-    "eubat:hasExpectedLifetimeEnergyThroughput": {
-      type: "gs1:QuantitativeValue",
-      "gs1:value": 85800,
-      "gs1:unitCode": "KWH"
-    },
-    "eubat:hasExpectedLifetimeCapacityThroughput": {
-      type: "gs1:QuantitativeValue",
-      "gs1:value": 168e4,
-      "gs1:unitCode": "AMH"
-    },
-    "eubat:depthOfDischargeInCycleLifeTest": 80,
-    "eubat:resistanceIncreaseThreshold": 50,
-    "eubat:roundTripEfficiency": 96,
-    "eubat:capacityThresholdForExhaustion": 70,
-    "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
     "eubat:powerCapabilityRatio": "0.52",
     "eubat:cRate": "0.5",
-    "eubat:cRateLifeCycleTest": "0.33",
-    "eubat:dischargeCRateLifeCycleTest": "0.5",
-    "eubat:roundTripEfficiencyAt50PercentCycleLife": 94,
     "eubat:hasTemperatureRangeStorage": {
       id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#temp-storage",
       type: "eubat:TemperatureRange",
@@ -29733,6 +29835,222 @@ var battery_product_default = {
         "gs1:value": 60,
         "gs1:unitCode": "CEL"
       }
+    },
+    "eubat:hasPerformanceTest": {
+      type: "eubat:PerformanceDurabilityTest",
+      "oea:hasMethod": {
+        type: "oea:TestMethod",
+        "oea:methodUrl": "https://www.iec.ch/standards/62660-1"
+      },
+      "oea:hasParameterSetting": [
+        {
+          type: "oea:ParameterSetting",
+          "oea:hasParameter": {
+            "@id": "eubat:DepthOfDischarge"
+          },
+          "oea:hasParameterValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 80,
+            "gs1:unitCode": "P1"
+          }
+        },
+        {
+          type: "oea:ParameterSetting",
+          "oea:hasParameter": {
+            "@id": "eubat:ChargeCRate"
+          },
+          "oea:hasParameterValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": "0.33",
+            "gs1:unitCode": "C62"
+          }
+        },
+        {
+          type: "oea:ParameterSetting",
+          "oea:hasParameter": {
+            "@id": "eubat:DischargeCRate"
+          },
+          "oea:hasParameterValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": "0.5",
+            "gs1:unitCode": "C62"
+          }
+        }
+      ],
+      "oea:isEvaluatedAgainst": [
+        {
+          type: "eubat:CapacityExhaustionThreshold",
+          "oea:hasThresholdParameter": {
+            "@id": "eubat:StateOfCertifiedEnergy"
+          },
+          "oea:hasComparisonOperator": {
+            "@id": "oea:LessThan"
+          },
+          "oea:hasThresholdValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 70,
+            "gs1:unitCode": "P1"
+          }
+        },
+        {
+          type: "eubat:ResistanceIncreaseThreshold",
+          "oea:hasThresholdParameter": {
+            "@id": "eubat:InternalResistanceIncrease"
+          },
+          "oea:hasComparisonOperator": {
+            "@id": "oea:GreaterThanOrEqual"
+          },
+          "oea:hasThresholdValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 50,
+            "gs1:unitCode": "P1"
+          }
+        }
+      ],
+      "oea:hasResult": [
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:InitialCellInternalResistance"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": "0.0009",
+            "gs1:unitCode": "OHM"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:InitialPackInternalResistance"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": "2.1",
+            "gs1:unitCode": "OHM"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:InitialSelfDischargeRate"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": "1.5",
+            "gs1:unitCode": "P1"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:InitialRoundTripEfficiency"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 96,
+            "gs1:unitCode": "P1"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:RoundTripEfficiencyAt50PercentCycleLife"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 94,
+            "gs1:unitCode": "P1"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:CycleLife"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 6e3,
+            "gs1:unitCode": "C62"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:LifetimeEnergyThroughput"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 85800,
+            "gs1:unitCode": "KWH"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:LifetimeCapacityThroughput"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 168e4,
+            "gs1:unitCode": "AMH"
+          }
+        }
+      ],
+      "oea:hasSubAssessment": [
+        {
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#power-80",
+          type: "oea:TestExecution",
+          "oea:hasCondition": {
+            type: "oea:AssessmentCondition",
+            "oea:hasConditionType": {
+              "@id": "eubat:StateOfChargeLevel"
+            },
+            "oea:hasConditionValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 80,
+              "gs1:unitCode": "P1"
+            }
+          },
+          "oea:hasResult": {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:PowerCapability"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "7.2",
+              "gs1:unitCode": "KWT"
+            }
+          }
+        },
+        {
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#power-20",
+          type: "oea:TestExecution",
+          "oea:hasCondition": {
+            type: "oea:AssessmentCondition",
+            "oea:hasConditionType": {
+              "@id": "eubat:StateOfChargeLevel"
+            },
+            "oea:hasConditionValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 20,
+              "gs1:unitCode": "P1"
+            }
+          },
+          "oea:hasResult": {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:PowerCapability"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "6.8",
+              "gs1:unitCode": "KWT"
+            }
+          }
+        }
+      ]
     }
   },
   "eubat:hasMaterialComposition": [
@@ -29906,9 +30224,6 @@ var battery_product_default = {
       "gs1:value": "8.6",
       "gs1:unitCode": "KGM"
     },
-    "eubat:hasCarbonFootprintPerformanceClass": {
-      "@id": "eubat:CFClassB"
-    },
     "eubat:carbonFootprintStudyUrl": "https://files.example.org/files/products/09521002005004/docs/carbon-footprint-study.pdf",
     "eubat:functionalUnit": "1 kWh of total energy throughput over battery lifetime",
     "eubat:calculationStandard": "ISO 14067:2018",
@@ -29921,6 +30236,15 @@ var battery_product_default = {
       "eubat:verificationDate": "2024-02-28",
       "eubat:verificationCertificateUrl": "https://files.example.org/files/products/09521002005004/docs/verification-certificate.pdf",
       "eubat:verificationStandard": "ISO 14064-3:2019"
+    },
+    "oea:hasIndicator": {
+      type: "oea:Indicator",
+      "oea:hasIndicatorKind": {
+        "@id": "eubat:CarbonFootprintPerformanceClass"
+      },
+      "oea:hasCategoricalValue": {
+        "@id": "eubat:CFClassB"
+      }
     }
   },
   "gs1:manufacturersWarranty": {
@@ -30467,7 +30791,20 @@ var portable_ebike_battery_default = {
       "gs1:value": "0.5",
       "gs1:unitCode": "KWT"
     },
-    "eubat:expectedCycleLife": 800
+    "eubat:hasPerformanceTest": {
+      type: "eubat:PerformanceDurabilityTest",
+      "oea:hasResult": {
+        type: "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "eubat:CycleLife"
+        },
+        "oea:hasMeasuredValue": {
+          type: "gs1:QuantitativeValue",
+          "gs1:value": 800,
+          "gs1:unitCode": "C62"
+        }
+      }
+    }
   },
   "eubat:hasRecycledContent": {
     type: "eubat:RecycledContent",
@@ -30509,11 +30846,17 @@ var portable_ebike_battery_default = {
       "gs1:value": 3,
       "gs1:unitCode": "KGM"
     },
-    "eubat:hasCarbonFootprintPerformanceClass": {
-      "@id": "eubat:CFClassB"
-    },
     "eubat:carbonFootprintDeclarationId": "CFP-2026-VELO-VP48-001",
-    "eubat:carbonFootprintGeographicScope": "EU production, mixed material sourcing"
+    "eubat:carbonFootprintGeographicScope": "EU production, mixed material sourcing",
+    "oea:hasIndicator": {
+      type: "oea:Indicator",
+      "oea:hasIndicatorKind": {
+        "@id": "eubat:CarbonFootprintPerformanceClass"
+      },
+      "oea:hasCategoricalValue": {
+        "@id": "eubat:CFClassB"
+      }
+    }
   },
   "eubat:hasHazardousSubstances": [
     {
@@ -30615,7 +30958,7 @@ var portable_ebike_battery_default = {
 
 // extensions/common/core/context/dpp-core-context.jsonld
 var dpp_core_context_default = {
-  _comment: "OpenEPCIS DPP Core Vocabulary v0.10.1, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
+  _comment: "OpenEPCIS DPP Core Vocabulary v0.12.0, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
   "@context": [
     "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld",
     {
@@ -30864,18 +31207,6 @@ var dpp_core_context_default = {
       "oec:hasCircularityPerformance": {
         "@id": "oec:hasCircularityPerformance",
         "@type": "@id"
-      },
-      "oec:recyclableContent": {
-        "@id": "oec:recyclableContent",
-        "@type": "xsd:decimal"
-      },
-      "oec:utilityFactor": {
-        "@id": "oec:utilityFactor",
-        "@type": "xsd:decimal"
-      },
-      "oec:materialCircularityIndicator": {
-        "@id": "oec:materialCircularityIndicator",
-        "@type": "xsd:decimal"
       },
       "oec:endOfLifeInstructions": {
         "@id": "oec:endOfLifeInstructions",
@@ -31142,30 +31473,6 @@ var dpp_core_context_default = {
         "@id": "oec:socThreshold",
         "@type": "xsd:decimal"
       },
-      "oec:waterConsumption": {
-        "@id": "oec:waterConsumption",
-        "@type": "xsd:decimal"
-      },
-      "oec:landUse": {
-        "@id": "oec:landUse",
-        "@type": "xsd:decimal"
-      },
-      "oec:materialFootprint": {
-        "@id": "oec:materialFootprint",
-        "@type": "xsd:decimal"
-      },
-      "oec:wasteGenerationAmount": {
-        "@id": "oec:wasteGenerationAmount",
-        "@type": "xsd:decimal"
-      },
-      "oec:packagingWasteAmount": {
-        "@id": "oec:packagingWasteAmount",
-        "@type": "xsd:decimal"
-      },
-      "oec:productToPackagingRatio": {
-        "@id": "oec:productToPackagingRatio",
-        "@type": "xsd:decimal"
-      },
       "oec:productCategoryRules": {
         "@id": "oec:productCategoryRules",
         "@type": "xsd:anyURI"
@@ -31180,7 +31487,7 @@ var dpp_core_context_default = {
 
 // extensions/eu/battery/context/battery-context.jsonld
 var battery_context_default = {
-  _comment: "OpenEPCIS Battery Vocabulary v0.10.1, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
+  _comment: "OpenEPCIS Battery Vocabulary v0.12.0, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
   "@context": [
     "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
     {
@@ -31189,6 +31496,7 @@ var battery_context_default = {
       type: "@type",
       eubat: "https://ref.openepcis.org/extensions/eu/battery/",
       gs1: "https://ref.gs1.org/voc/",
+      oea: "https://ref.openepcis.org/extensions/common/assessment/",
       oec: "https://ref.openepcis.org/extensions/common/core/",
       xsd: "http://www.w3.org/2001/XMLSchema#",
       schema: "https://schema.org/",
@@ -31289,54 +31597,6 @@ var battery_context_default = {
         "@id": "eubat:hasMaximumDischargingCurrent",
         "@type": "@id"
       },
-      "eubat:expectedCycleLife": {
-        "@id": "eubat:expectedCycleLife",
-        "@type": "xsd:integer"
-      },
-      "eubat:hasExpectedLifetimeEnergyThroughput": {
-        "@id": "eubat:hasExpectedLifetimeEnergyThroughput",
-        "@type": "@id"
-      },
-      "eubat:hasExpectedLifetimeCapacityThroughput": {
-        "@id": "eubat:hasExpectedLifetimeCapacityThroughput",
-        "@type": "@id"
-      },
-      "eubat:roundTripEfficiency": {
-        "@id": "eubat:roundTripEfficiency",
-        "@type": "xsd:decimal"
-      },
-      "eubat:roundTripEfficiencyAt50PercentCycleLife": {
-        "@id": "eubat:roundTripEfficiencyAt50PercentCycleLife",
-        "@type": "xsd:decimal"
-      },
-      "eubat:depthOfDischargeInCycleLifeTest": {
-        "@id": "eubat:depthOfDischargeInCycleLifeTest",
-        "@type": "xsd:decimal"
-      },
-      "eubat:resistanceIncreaseThreshold": {
-        "@id": "eubat:resistanceIncreaseThreshold",
-        "@type": "xsd:decimal"
-      },
-      "eubat:hasInitialCellInternalResistance": {
-        "@id": "eubat:hasInitialCellInternalResistance",
-        "@type": "@id"
-      },
-      "eubat:hasInitialPackInternalResistance": {
-        "@id": "eubat:hasInitialPackInternalResistance",
-        "@type": "@id"
-      },
-      "eubat:initialSelfDischarge": {
-        "@id": "eubat:initialSelfDischarge",
-        "@type": "xsd:decimal"
-      },
-      "eubat:capacityThresholdForExhaustion": {
-        "@id": "eubat:capacityThresholdForExhaustion",
-        "@type": "xsd:decimal"
-      },
-      "eubat:lifetimeReferenceTest": {
-        "@id": "eubat:lifetimeReferenceTest",
-        "@type": "xsd:anyURI"
-      },
       "eubat:powerCapabilityRatio": {
         "@id": "eubat:powerCapabilityRatio",
         "@type": "xsd:decimal"
@@ -31344,34 +31604,6 @@ var battery_context_default = {
       "eubat:cRate": {
         "@id": "eubat:cRate",
         "@type": "xsd:decimal"
-      },
-      "eubat:cRateLifeCycleTest": {
-        "@id": "eubat:cRateLifeCycleTest",
-        "@type": "xsd:decimal"
-      },
-      "eubat:dischargeCRateLifeCycleTest": {
-        "@id": "eubat:dischargeCRateLifeCycleTest",
-        "@type": "xsd:decimal"
-      },
-      "eubat:hasOriginalPowerCapability": {
-        "@id": "eubat:hasOriginalPowerCapability",
-        "@type": "@id"
-      },
-      "eubat:stateOfChargeLevel": {
-        "@id": "eubat:stateOfChargeLevel",
-        "@type": "xsd:decimal"
-      },
-      "eubat:hasPowerCapability": {
-        "@id": "eubat:hasPowerCapability",
-        "@type": "@id"
-      },
-      "eubat:hasPowerCapabilityAt80SoC": {
-        "@id": "eubat:hasPowerCapabilityAt80SoC",
-        "@type": "@id"
-      },
-      "eubat:hasPowerCapabilityAt20SoC": {
-        "@id": "eubat:hasPowerCapabilityAt20SoC",
-        "@type": "@id"
       },
       "eubat:hasTemperatureRangeStorage": {
         "@id": "eubat:hasTemperatureRangeStorage",
@@ -31689,89 +31921,13 @@ var battery_context_default = {
         "@id": "eubat:authorizedServiceCenters",
         "@type": "xsd:anyURI"
       },
-      "eubat:hasStateOfHealth": {
-        "@id": "eubat:hasStateOfHealth",
-        "@type": "@id"
-      },
-      "eubat:hasStateOfCharge": {
-        "@id": "eubat:hasStateOfCharge",
-        "@type": "@id"
-      },
-      "eubat:hasStateOfCertifiedEnergy": {
-        "@id": "eubat:hasStateOfCertifiedEnergy",
-        "@type": "@id"
-      },
-      "eubat:hasCycleCount": {
-        "@id": "eubat:hasCycleCount",
-        "@type": "@id"
-      },
-      "eubat:hasRemainingCapacity": {
-        "@id": "eubat:hasRemainingCapacity",
-        "@type": "@id"
-      },
-      "eubat:hasCapacityFade": {
-        "@id": "eubat:hasCapacityFade",
-        "@type": "@id"
-      },
-      "eubat:hasPowerFade": {
-        "@id": "eubat:hasPowerFade",
-        "@type": "@id"
-      },
-      "eubat:hasInternalResistance": {
-        "@id": "eubat:hasInternalResistance",
-        "@type": "@id"
-      },
-      "eubat:hasInternalResistanceIncrease": {
-        "@id": "eubat:hasInternalResistanceIncrease",
-        "@type": "@id"
-      },
-      "eubat:hasEnergyThroughput": {
-        "@id": "eubat:hasEnergyThroughput",
-        "@type": "@id"
-      },
-      "eubat:hasCapacityThroughput": {
-        "@id": "eubat:hasCapacityThroughput",
-        "@type": "@id"
-      },
-      "eubat:hasRemainingRoundTripEfficiency": {
-        "@id": "eubat:hasRemainingRoundTripEfficiency",
-        "@type": "@id"
-      },
-      "eubat:hasRoundTripEfficiencyFade": {
-        "@id": "eubat:hasRoundTripEfficiencyFade",
-        "@type": "@id"
-      },
-      "eubat:hasEvolutionOfSelfDischarge": {
-        "@id": "eubat:hasEvolutionOfSelfDischarge",
-        "@type": "@id"
-      },
       "eubat:exposureDurationMinutes": {
         "@id": "eubat:exposureDurationMinutes",
         "@type": "xsd:integer"
       },
-      "eubat:hasInitialCapacity": {
-        "@id": "eubat:hasInitialCapacity",
-        "@type": "@id"
-      },
-      "eubat:hasInitialEnergy": {
-        "@id": "eubat:hasInitialEnergy",
-        "@type": "@id"
-      },
       "eubat:hasCertifiedUsableEnergy": {
         "@id": "eubat:hasCertifiedUsableEnergy",
         "@type": "@id"
-      },
-      "eubat:hasRemainingUsableEnergy": {
-        "@id": "eubat:hasRemainingUsableEnergy",
-        "@type": "@id"
-      },
-      "eubat:expectedRemainingCycles": {
-        "@id": "eubat:expectedRemainingCycles",
-        "@type": "xsd:integer"
-      },
-      "eubat:expectedRemainingLifetimeMonths": {
-        "@id": "eubat:expectedRemainingLifetimeMonths",
-        "@type": "xsd:integer"
       },
       "eubat:nextScheduledMeasurement": {
         "@id": "eubat:nextScheduledMeasurement",
@@ -31809,10 +31965,6 @@ var battery_context_default = {
         "@id": "eubat:incidentReportUrl",
         "@type": "xsd:anyURI"
       },
-      "eubat:hasRemainingPowerCapability": {
-        "@id": "eubat:hasRemainingPowerCapability",
-        "@type": "@id"
-      },
       "gs1:value": {
         "@id": "gs1:value",
         "@type": "xsd:decimal"
@@ -31823,10 +31975,6 @@ var battery_context_default = {
       },
       "eubat:hasBatteryMass": {
         "@id": "eubat:hasBatteryMass",
-        "@type": "@id"
-      },
-      "eubat:hasCurrentSelfDischargingRate": {
-        "@id": "eubat:hasCurrentSelfDischargingRate",
         "@type": "@id"
       },
       "eubat:hasDismantlingAndRemovalInformation": {
@@ -31848,22 +31996,6 @@ var battery_context_default = {
       "eubat:hasNegativeEvents": {
         "@id": "eubat:hasNegativeEvents",
         "@type": "@id"
-      },
-      "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
-        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
-        "@type": "xsd:integer"
-      },
-      "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary": {
-        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
-        "@type": "xsd:integer"
-      },
-      "eubat:timeSpentInExtremeTemperaturesAboveBoundary": {
-        "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
-        "@type": "xsd:integer"
-      },
-      "eubat:timeSpentInExtremeTemperaturesBelowBoundary": {
-        "@id": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
-        "@type": "xsd:integer"
       }
     }
   ]

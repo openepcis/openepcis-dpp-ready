@@ -105,6 +105,39 @@ For which attribute belongs at which level (model / batch / item) and how the EP
 reconstructs the item passport's dynamic fields, see
 [EPCIS_AND_BATTERYPASS_READY.md](./EPCIS_AND_BATTERYPASS_READY.md).
 
+### Measured and Tested Values (common/assessment)
+
+Measured and tested values are results of an assessment (`common/assessment`, `oea:`), not flat
+properties. Each result names the `eubat:` performance parameter it observes and carries its value
+with a UN/CEFACT unit:
+
+- **Battery state** (dynamic, Annex XIII 4): `eubat:hasBatteryState` on the item, an
+  `eubat:BatteryStateAssessment` whose `oea:hasResult` observe `eubat:StateOfHealth`,
+  `eubat:StateOfCertifiedEnergy`, `eubat:FullCycleCount`, `eubat:CapacityFade`, … ; the remaining power
+  capability at a state of charge is an `oea:hasSubAssessment` with that condition; remaining cycles
+  and lifetime are `oea:hasIndicator`.
+- **Performance test** (Annex XIII 1 (o)-(p)): `eubat:hasPerformanceTest` on the technical
+  specification, an `eubat:PerformanceDurabilityTest` with the reference test as `oea:hasMethod`, depth
+  of discharge and C-rates as `oea:hasParameterSetting`, the capacity exhaustion and resistance
+  increase thresholds as `oea:isEvaluatedAgainst`, and cycle life, initial round-trip efficiency,
+  initial resistance and self-discharge as results.
+- **Carbon footprint class**: an `oea:Indicator` of kind `eubat:CarbonFootprintPerformanceClass` on
+  the carbon footprint declaration.
+
+Rated and declared values (capacity, energy, voltages, expected lifetime in years, carbon footprint
+stages) stay properties. In EPCIS events the same parameter IRIs are the `sensorReport` types.
+
+```json
+"eubat:hasBatteryState": {
+  "type": "eubat:BatteryStateAssessment",
+  "oea:hasResult": [{
+    "type": "oea:MeasurementResult",
+    "oea:hasObservedParameter": { "@id": "eubat:StateOfHealth" },
+    "oea:hasMeasuredValue": { "type": "gs1:QuantitativeValue", "gs1:value": 94.2, "gs1:unitCode": "P1" }
+  }]
+}
+```
+
 ---
 
 ## Context Selection Guide
@@ -278,7 +311,9 @@ Record accidents, damage, or temperature excursions:
 | `eubat:DismantlingDocument` | Dismantling documentation |
 | `eubat:Label` | Labels per Annex VI |
 | `eubat:SupplyChainDueDiligence` | Due diligence info (Art. 39) |
-| `eubat:PowerCapabilityAtSoC` | Power capability at specific SoC |
+| `eubat:BatteryStateAssessment` | Current state of health and use (an `oea:Assessment`) |
+| `eubat:PerformanceDurabilityTest` | Tests behind the declared performance values (an `oea:TestExecution`) |
+| `eubat:CapacityExhaustionThreshold` / `eubat:ResistanceIncreaseThreshold` | End-of-life thresholds of the cycle-life test (`oea:Threshold`) |
 | `eubat:TemperatureRange` | Temperature range specification |
 | `eubat:EndOfLifeInfo` | End-of-life handling information |
 
@@ -322,14 +357,14 @@ Record accidents, damage, or temperature excursions:
 | `eubat:StateOfHealth` | Capacity-based SoH | P1 (%) |
 | `eubat:StateOfCharge` | Current charge level | P1 (%) |
 | `eubat:StateOfCertifiedEnergy` | SOCE per regulation | P1 (%) |
-| `eubat:CycleCount` | Full cycles completed | - |
-| `eubat:RemainingCapacity` | Current max capacity | AH |
-| `eubat:RemainingEnergy` | Current max energy | KWH |
+| `eubat:FullCycleCount` | Full cycles completed | C62 |
+| `eubat:RemainingCapacity` | Current max capacity | AMH |
+| `eubat:RemainingUsableEnergy` | Current usable energy | KWH |
 | `eubat:CapacityFade` | Capacity degradation | P1 (%) |
 | `eubat:PowerFade` | Power degradation | P1 (%) |
 | `eubat:InternalResistance` | Pack/cell resistance | OHM |
 | `eubat:EnergyThroughput` | Cumulative energy | KWH |
-| `eubat:CapacityThroughput` | Cumulative capacity | AH |
+| `eubat:CapacityThroughput` | Cumulative capacity | AMH |
 | `eubat:RoundTripEfficiencyFade` | RTE degradation | P1 (%) |
 | `eubat:SelfDischargeRate` | Self-discharge rate | P1 (%/month) |
 | `eubat:NegativeEvent` | Adverse event | - |

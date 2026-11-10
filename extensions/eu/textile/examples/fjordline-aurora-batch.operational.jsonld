@@ -7,6 +7,7 @@
   "dppStatus": "active",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/textile/",
     "https://schema.org/"
@@ -64,23 +65,57 @@
   },
   "hasEnvironmentalFootprint": {
     "type": "EnvironmentalFootprint",
-    "benchmarkPerformance": "-18.4",
-    "carbonFootprintManufacturing": "14.8",
     "hasDataTypeIndicator": "MixedData",
-    "hasLciaCategories": [
+    "hasIndicator": [
       {
-        "hasLciaCategoryCode": "GWP",
-        "lciaUnit": "kg CO2-eq",
-        "lciaValue": "14.8"
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/textile/ManufacturingCarbonFootprint",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "KGM",
+          "value": "14.8"
+        }
       },
       {
-        "hasLciaCategoryCode": "WaterUse",
-        "lciaUnit": "m3 world-eq",
-        "lciaValue": "2.1"
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/textile/PEFSingleScore",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "38.1"
+        }
+      },
+      {
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/textile/BenchmarkPerformance",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "P1",
+          "value": "-18.4"
+        }
       }
     ],
-    "pefSingleScore": "38.1",
-    "pefcrReference": "PEFCR Apparel & Footwear v1.3"
+    "hasLciaCategories": [
+      {
+        "declaredUnit": "kg CO2-eq",
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "KGM",
+          "value": "14.8"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/GWP"
+      },
+      {
+        "declaredUnit": "m3 world-eq",
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "MTQ",
+          "value": "2.1"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/textile/WaterUse"
+      }
+    ],
+    "hasMethod": {
+      "type": "AssessmentMethod",
+      "methodName": "PEFCR Apparel & Footwear v1.3"
+    }
   },
   "hasRecycledContentDeclaration": {
     "type": "RecycledContentDeclaration",

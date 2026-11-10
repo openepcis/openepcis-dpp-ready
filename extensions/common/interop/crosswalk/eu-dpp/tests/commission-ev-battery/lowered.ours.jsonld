@@ -1,69 +1,64 @@
 {
   "@context": [
     "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld",
     "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld"
   ],
   "@graph": [
     {
-      "id": "_:a34126be7f2954c3bc930d5ab358004",
+      "id": "_:a22226904d528dc539eade9384b7003c",
       "type": "gs1:QuantitativeValue",
       "gs1:unitCode": "P1",
       "gs1:value": "45"
     },
     {
-      "id": "_:b007c260c79bcb6a7b6acc4a24ace636",
-      "type": "gs1:QuantitativeValue",
-      "gs1:unitCode": "OHM",
-      "gs1:value": "0.9"
+      "id": "_:a2deaab12647bc6f33cb7f53ce10646a",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:eccbe6c37bcb177be40fcbdb8e611e61",
+      "oea:hasObservedParameter": "eubat:RemainingRoundTripEfficiency"
     },
     {
-      "id": "_:b1be80310158effad84ba83b73233e4c",
-      "type": "eubat:BatteryMaterial",
-      "eubat:isCriticalRawMaterial": "true",
-      "schema:name": "Lithium"
+      "id": "_:a434ea91ad78b8b044d415f70f7998b3",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:b43b598804db875f334b922b6b2dd3d9",
+      "oea:hasObservedParameter": "eubat:InternalResistanceIncrease"
     },
     {
-      "id": "_:b2679cf6fee367d3d5b028736d42bdbd",
-      "type": "eubat:HazardousSubstance",
-      "schema:name": "Lithium"
+      "id": "_:a707b23293af5f54dbb72d18c7285ecc",
+      "type": "eubat:CapacityExhaustionThreshold",
+      "oea:hasComparisonOperator": "oea:LessThan",
+      "oea:hasThresholdParameter": "eubat:StateOfCertifiedEnergy",
+      "oea:hasThresholdValue": "_:ebde06ae575e1579d8779a477bac828f"
     },
     {
-      "id": "_:b36f7cb9f4c32adec7c37e1b0594dcf4",
-      "type": "gs1:QuantitativeValue",
-      "gs1:unitCode": "P1",
-      "gs1:value": "95"
+      "id": "_:ab058ad20d58ec2ee82e3ebe002c21cd",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:af1eed1a9abfa9461e45d8fd6492d2ca",
+      "oea:hasObservedParameter": "eubat:RoundTripEfficiencyAt50PercentCycleLife"
     },
     {
-      "id": "_:b3be993db3d5dd04cbba1a3271a7525a",
+      "id": "_:ad111a59737f6a92a51c83828374adff",
+      "type": "eubat:BatteryStateAssessment",
+      "oea:hasIndicator": "_:e8e64938cfbe05096f36a07a46f75958",
+      "oea:hasResult": [
+        "_:a2deaab12647bc6f33cb7f53ce10646a",
+        "_:a434ea91ad78b8b044d415f70f7998b3",
+        "_:b3adc846110439b998c4fe1d25e182a7",
+        "_:b7c6576cfe76580150327a6369c52093",
+        "_:bddd9c5c94feddde93e7a30399bf4372",
+        "_:e84097ca4a77f2618d904f33a2b23f68",
+        "_:eba54680b56c02cd7004cbf803139e66",
+        "_:fe82189026af50cadc324881248f8492"
+      ]
+    },
+    {
+      "id": "_:af1eed1a9abfa9461e45d8fd6492d2ca",
       "type": "gs1:QuantitativeValue",
       "gs1:unitCode": "P1",
       "gs1:value": "45"
     },
     {
-      "id": "_:b624bd3582375eb5bc153f795fcde6a0",
-      "type": "gs1:QuantitativeValue",
-      "gs1:unitCode": "C62",
-      "gs1:value": "42"
-    },
-    {
-      "id": "_:b9cb70de412bb117465326c48a09aecc",
-      "type": "gs1:QuantitativeValue",
-      "gs1:unitCode": "CEL",
-      "gs1:value": "10"
-    },
-    {
-      "id": "_:bcf2c6334aaec4cead9bf99a9570d4a5",
-      "type": "gs1:QuantitativeValue",
-      "gs1:unitCode": "ANN",
-      "gs1:value": "3"
-    },
-    {
-      "id": "_:bd1477125f047e9d774a713997f6009a",
-      "type": "cv:Evidence",
-      "eubat:declarationOfConformity": "https://example.com/docs/eu-doc-0001.pdf"
-    },
-    {
-      "id": "_:bef4f9884a43d85898bc56acd0d38882",
+      "id": "_:af1fbb7239395e915584ffc77d1df05f",
       "type": "oec:DocumentReference",
       "oec:documentUrl": "https://example.com/docs/safety-0001",
       "oec:languageCode": "en-GB",
@@ -71,49 +66,60 @@
       "schema:name": "Safety measures document"
     },
     {
-      "id": "_:bf080500a1daa4f3a9446a64bdde3594",
-      "type": "gs1:QuantitativeValue",
-      "gs1:unitCode": "VLT",
-      "gs1:value": "10"
+      "id": "_:b3adc846110439b998c4fe1d25e182a7",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:ce318c7572071a2ff9b99b45bc2cdf2f",
+      "oea:hasObservedParameter": "eubat:RoundTripEfficiencyFade"
     },
     {
-      "id": "_:c1aaeb08cd7f18d851b14023dc4d7e0e",
-      "type": "gs1:QuantitativeValue",
-      "gs1:unitCode": "WTT",
-      "gs1:value": "150"
-    },
-    {
-      "id": "_:c4774302df39650265c4d4ed816166ab",
-      "type": "gs1:QuantitativeValue",
-      "gs1:unitCode": "P1",
-      "gs1:value": "1.100000000000000128"
-    },
-    {
-      "id": "_:cd7255db18122a5ca1527a39733a5831",
+      "id": "_:b43b598804db875f334b922b6b2dd3d9",
       "type": "gs1:QuantitativeValue",
       "gs1:unitCode": "P1",
       "gs1:value": "45"
     },
     {
-      "id": "_:cf49836b41193bfb61f1de3b9babc2eb",
-      "type": "gs1:QuantitativeValue",
-      "gs1:unitCode": "P1",
-      "gs1:value": "45"
+      "id": "_:b5970023e347f380deac8d3a8abb99ad",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:d0f6a396be8577a2e094fc709974494f",
+      "oea:hasObservedParameter": "eubat:CycleLife"
     },
     {
-      "id": "_:d302b5d38b7e6e608c10179d3db69416",
-      "type": "gs1:QuantitativeValue",
-      "gs1:unitCode": "VLT",
-      "gs1:value": "10"
+      "id": "_:b7c6576cfe76580150327a6369c52093",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:a22226904d528dc539eade9384b7003c",
+      "oea:hasObservedParameter": "eubat:StateOfCertifiedEnergy"
     },
     {
-      "id": "_:d58a91e4abd35ab9bfd39b0a71d1b0b3",
-      "type": "gs1:QuantitativeValue",
-      "gs1:unitCode": "CEL",
-      "gs1:value": "10"
+      "id": "_:bdbd267b2f68816dc8b68de0f0449b72",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:efbe64f505cc2280e0470ce9d2581f6a",
+      "oea:hasObservedParameter": "eubat:InitialCellInternalResistance"
     },
     {
-      "id": "_:d67d071c1b506602642a875756d425e6",
+      "id": "_:bddd9c5c94feddde93e7a30399bf4372",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:e0869fe2c8d39a43e8f287e3a970bd71",
+      "oea:hasObservedParameter": "eubat:CapacityFade"
+    },
+    {
+      "id": "_:bf1a6de74dc015b6838b47b6ccf4a4c0",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "42"
+    },
+    {
+      "id": "_:c0c9a16c0cb303a6b48821f393c09664",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:eaa60dbb0db03c3dd976517f2e26196d",
+      "oea:hasObservedParameter": "eubat:InitialRoundTripEfficiency"
+    },
+    {
+      "id": "_:c2ae90c8e2f10e47b5b1cf19ca231f44",
+      "type": "eubat:HazardousSubstance",
+      "schema:name": "Lithium"
+    },
+    {
+      "id": "_:c33d5f7ef60ec09fa486af9c19488eda",
       "type": "oec:DocumentReference",
       "oec:documentUrl": "https://example.com/docs/dismantling-0001",
       "oec:languageCode": "en-GB",
@@ -121,40 +127,196 @@
       "schema:name": "Dismantling document"
     },
     {
-      "id": "_:db22d9b1bf9c32515fc78e585c2fd68b",
+      "id": "_:c471af9f8ae905c5b54e3e559c3410ef",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "ANN",
+      "gs1:value": "3"
+    },
+    {
+      "id": "_:cd28a274eda11bb6acc7265d25c23a5f",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "4"
+    },
+    {
+      "id": "_:cdf42a6189b50e53b7e8915583337b51",
       "type": "gs1:QuantitativeValue",
       "gs1:unitCode": "MON",
       "gs1:value": "24"
     },
     {
-      "id": "_:e26f6bf4ee4e993849f625a714d00d56",
+      "id": "_:cdf432fa81810ce06840a7895d8b062b",
       "type": "gs1:QuantitativeValue",
-      "gs1:unitCode": "OHM",
-      "gs1:value": "45"
+      "gs1:unitCode": "CEL",
+      "gs1:value": "10"
     },
     {
-      "id": "_:e5f7d1d46245226e84bdf9075d099b24",
+      "id": "_:ce318c7572071a2ff9b99b45bc2cdf2f",
       "type": "gs1:QuantitativeValue",
-      "gs1:unitCode": "OHM",
-      "gs1:value": "45"
+      "gs1:unitCode": "P1",
+      "gs1:value": "1.100000000000000128"
     },
     {
-      "id": "_:e6beca7caf57d1fea4c6a44839e1e5da",
+      "id": "_:d0f6a396be8577a2e094fc709974494f",
       "type": "gs1:QuantitativeValue",
-      "gs1:unitCode": "AMH",
-      "gs1:value": "75"
+      "gs1:unitCode": "C62",
+      "gs1:value": "3"
     },
     {
-      "id": "_:f06f25f7c90b5c166c88ca13b6c9e23",
+      "id": "_:d134a30763677fb46afb1c3e82ebe7f1",
       "type": "gs1:QuantitativeValue",
       "gs1:unitCode": "VLT",
       "gs1:value": "10"
     },
     {
-      "id": "_:fb8e2392e237a4519e21e4868316d2d8",
+      "id": "_:d1fe5e572e57fd8576084dbe72e7d7b0",
+      "type": "eubat:BatteryMaterial",
+      "eubat:isCriticalRawMaterial": "true",
+      "schema:name": "Lithium"
+    },
+    {
+      "id": "_:d2c2f7f11912982632dae41809791bd4",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "WTT",
+      "gs1:value": "150"
+    },
+    {
+      "id": "_:d4738bc1fa13f9104fdbc924499568ec",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "OHM",
+      "gs1:value": "45"
+    },
+    {
+      "id": "_:de45376b3c3c247db027e602285c22bf",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "OHM",
+      "gs1:value": "45"
+    },
+    {
+      "id": "_:e0869fe2c8d39a43e8f287e3a970bd71",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "P1",
+      "gs1:value": "45"
+    },
+    {
+      "id": "_:e84097ca4a77f2618d904f33a2b23f68",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:d4738bc1fa13f9104fdbc924499568ec",
+      "oea:hasObservedParameter": "eubat:InternalResistance"
+    },
+    {
+      "id": "_:e8e64938cfbe05096f36a07a46f75958",
+      "type": "oea:Indicator",
+      "oea:hasIndicatorKind": "eubat:RemainingCycles",
+      "oea:hasIndicatorValue": "_:cd28a274eda11bb6acc7265d25c23a5f"
+    },
+    {
+      "id": "_:ea1e88299fe9db9b3731c359d757b8ba",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "AMH",
+      "gs1:value": "75"
+    },
+    {
+      "id": "_:eaa60dbb0db03c3dd976517f2e26196d",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "P1",
+      "gs1:value": "45"
+    },
+    {
+      "id": "_:eba54680b56c02cd7004cbf803139e66",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:bf1a6de74dc015b6838b47b6ccf4a4c0",
+      "oea:hasObservedParameter": "eubat:FullCycleCount"
+    },
+    {
+      "id": "_:ebde06ae575e1579d8779a477bac828f",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "P1",
+      "gs1:value": "45"
+    },
+    {
+      "id": "_:ec1125244494ca6cd4ad0790f8c8476d",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "CEL",
+      "gs1:value": "10"
+    },
+    {
+      "id": "_:eccbe6c37bcb177be40fcbdb8e611e61",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "P1",
+      "gs1:value": "95"
+    },
+    {
+      "id": "_:edf104b664af6d2512dff7eec67809c2",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "45"
+    },
+    {
+      "id": "_:ef46aeeb7888149401f0d860f884bdf6",
       "type": "gs1:QuantitativeValue",
       "gs1:unitCode": "KGM",
       "gs1:value": "385.5"
+    },
+    {
+      "id": "_:efbe64f505cc2280e0470ce9d2581f6a",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "OHM",
+      "gs1:value": "0.9"
+    },
+    {
+      "id": "_:f0c94c0c3ae769a266b807d02446b332",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "P1",
+      "gs1:value": "45"
+    },
+    {
+      "id": "_:f72b257b9f19ffc0f814eb07bc44b645",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "VLT",
+      "gs1:value": "10"
+    },
+    {
+      "id": "_:f977b179a5913c47e71157f56e1396c7",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:de45376b3c3c247db027e602285c22bf",
+      "oea:hasObservedParameter": "eubat:InitialPackInternalResistance"
+    },
+    {
+      "id": "_:fa0c2e19665c7717a7835ddec851d8cf",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "VLT",
+      "gs1:value": "10"
+    },
+    {
+      "id": "_:fb44977341a63fd14706456d1abfef98",
+      "type": "oea:ParameterSetting",
+      "oea:hasParameter": "eubat:ChargeCRate",
+      "oea:hasParameterValue": "_:edf104b664af6d2512dff7eec67809c2"
+    },
+    {
+      "id": "_:fc1b325563831922c3bf3f6aeb95f45c",
+      "type": "cv:Evidence",
+      "eubat:declarationOfConformity": "https://example.com/docs/eu-doc-0001.pdf"
+    },
+    {
+      "id": "_:fe82189026af50cadc324881248f8492",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:f0c94c0c3ae769a266b807d02446b332",
+      "oea:hasObservedParameter": "eubat:PowerFade"
+    },
+    {
+      "id": "_:ffb2bca954fb5fc9b8cf4b738abdb34d",
+      "type": "eubat:PerformanceDurabilityTest",
+      "oea:hasParameterSetting": "_:fb44977341a63fd14706456d1abfef98",
+      "oea:hasResult": [
+        "_:ab058ad20d58ec2ee82e3ebe002c21cd",
+        "_:b5970023e347f380deac8d3a8abb99ad",
+        "_:bdbd267b2f68816dc8b68de0f0449b72",
+        "_:c0c9a16c0cb303a6b48821f393c09664",
+        "_:f977b179a5913c47e71157f56e1396c7"
+      ],
+      "oea:isEvaluatedAgainst": "_:a707b23293af5f54dbb72d18c7285ecc"
     },
     {
       "id": "https://www.example.org/1234545",
@@ -177,24 +339,18 @@
       "oec:passportStatus": "active",
       "eubat:batteryModelIdentifier": "IC-75-LFP",
       "eubat:cadmiumSymbolRequired": "true",
-      "eubat:expectedRemainingCycles": "4",
       "eubat:hasBatteryChemistry": "https://www.example.org/1234545#chemistry",
-      "eubat:hasBatteryMass": "_:fb8e2392e237a4519e21e4868316d2d8",
-      "eubat:hasCapacityFade": "_:cf49836b41193bfb61f1de3b9babc2eb",
-      "eubat:hasCycleCount": "_:b624bd3582375eb5bc153f795fcde6a0",
-      "eubat:hasDismantlingAndRemovalInformation": "_:d67d071c1b506602642a875756d425e6",
+      "eubat:hasBatteryMass": "_:ef46aeeb7888149401f0d860f884bdf6",
+      "eubat:hasBatteryState": {
+        "id": "_:ad111a59737f6a92a51c83828374adff"
+      },
+      "eubat:hasDismantlingAndRemovalInformation": "_:c33d5f7ef60ec09fa486af9c19488eda",
       "eubat:hasEndOfLifeInfo": "https://www.example.org/1234545#eol",
-      "eubat:hasEuDeclarationOfConformity": "_:bd1477125f047e9d774a713997f6009a",
-      "eubat:hasHazardousSubstances": "_:b2679cf6fee367d3d5b028736d42bdbd",
-      "eubat:hasInternalResistance": "_:e5f7d1d46245226e84bdf9075d099b24",
-      "eubat:hasInternalResistanceIncrease": "_:a34126be7f2954c3bc930d5ab358004",
+      "eubat:hasEuDeclarationOfConformity": "_:fc1b325563831922c3bf3f6aeb95f45c",
+      "eubat:hasHazardousSubstances": "_:c2ae90c8e2f10e47b5b1cf19ca231f44",
       "eubat:hasLabels": "https://www.example.org/1234545#label-separate-collection",
       "eubat:hasManufacturingPlace": "https://www.example.org/1234545#manufacturing-place",
-      "eubat:hasMaterialComposition": "_:b1be80310158effad84ba83b73233e4c",
-      "eubat:hasPowerFade": "_:cd7255db18122a5ca1527a39733a5831",
-      "eubat:hasRemainingRoundTripEfficiency": "_:b36f7cb9f4c32adec7c37e1b0594dcf4",
-      "eubat:hasRoundTripEfficiencyFade": "_:c4774302df39650265c4d4ed816166ab",
-      "eubat:hasStateOfCertifiedEnergy": "_:b3be993db3d5dd04cbba1a3271a7525a",
+      "eubat:hasMaterialComposition": "_:d1fe5e572e57fd8576084dbe72e7d7b0",
       "eubat:hasTechnicalSpecifications": "https://www.example.org/1234545#specs",
       "eubat:leadSymbolRequired": "false",
       "eubat:resultOfTestReport": "https://example.com/docs/test-report-0001",
@@ -217,7 +373,7 @@
         "@language": "en-ie",
         "@value": "Large quantities of water; dry chemical powder (Class D) for small fires"
       },
-      "eubat:hasSafetyMeasures": "_:bef4f9884a43d85898bc56acd0d38882",
+      "eubat:hasSafetyMeasures": "_:af1fbb7239395e915584ffc77d1df05f",
       "eubat:renewableContent": "12.5"
     },
     {
@@ -266,32 +422,28 @@
     {
       "id": "https://www.example.org/1234545#specs",
       "type": "eubat:TechnicalSpecification",
-      "eubat:cRateLifeCycleTest": "45",
-      "eubat:capacityThresholdForExhaustion": "45",
-      "eubat:expectedCycleLife": "3",
-      "eubat:hasExpectedLifetime": "_:bcf2c6334aaec4cead9bf99a9570d4a5",
-      "eubat:hasInitialCellInternalResistance": "_:b007c260c79bcb6a7b6acc4a24ace636",
-      "eubat:hasInitialPackInternalResistance": "_:e26f6bf4ee4e993849f625a714d00d56",
-      "eubat:hasMaximumPermittedBatteryPower": "_:c1aaeb08cd7f18d851b14023dc4d7e0e",
-      "eubat:hasMaximumVoltage": "_:bf080500a1daa4f3a9446a64bdde3594",
-      "eubat:hasMinimumVoltage": "_:d302b5d38b7e6e608c10179d3db69416",
-      "eubat:hasNominalVoltage": "_:f06f25f7c90b5c166c88ca13b6c9e23",
-      "eubat:hasRatedCapacity": "_:e6beca7caf57d1fea4c6a44839e1e5da",
-      "eubat:hasTemperatureRangeIdleState": "https://www.example.org/1234545#temp-idle",
-      "eubat:roundTripEfficiency": "45",
-      "eubat:roundTripEfficiencyAt50PercentCycleLife": "45"
+      "eubat:hasExpectedLifetime": "_:c471af9f8ae905c5b54e3e559c3410ef",
+      "eubat:hasMaximumPermittedBatteryPower": "_:d2c2f7f11912982632dae41809791bd4",
+      "eubat:hasMaximumVoltage": "_:fa0c2e19665c7717a7835ddec851d8cf",
+      "eubat:hasMinimumVoltage": "_:f72b257b9f19ffc0f814eb07bc44b645",
+      "eubat:hasNominalVoltage": "_:d134a30763677fb46afb1c3e82ebe7f1",
+      "eubat:hasPerformanceTest": {
+        "id": "_:ffb2bca954fb5fc9b8cf4b738abdb34d"
+      },
+      "eubat:hasRatedCapacity": "_:ea1e88299fe9db9b3731c359d757b8ba",
+      "eubat:hasTemperatureRangeIdleState": "https://www.example.org/1234545#temp-idle"
     },
     {
       "id": "https://www.example.org/1234545#temp-idle",
       "type": "eubat:TemperatureRange",
-      "eubat:hasMaximumTemperature": "_:d58a91e4abd35ab9bfd39b0a71d1b0b3",
-      "eubat:hasMinimumTemperature": "_:b9cb70de412bb117465326c48a09aecc"
+      "eubat:hasMaximumTemperature": "_:cdf432fa81810ce06840a7895d8b062b",
+      "eubat:hasMinimumTemperature": "_:ec1125244494ca6cd4ad0790f8c8476d"
     },
     {
       "id": "https://www.example.org/1234545#warranty",
       "type": "gs1:WarrantyPromise",
       "gs1:durationOfWarranty": {
-        "id": "_:db22d9b1bf9c32515fc78e585c2fd68b"
+        "id": "_:cdf42a6189b50e53b7e8915583337b51"
       }
     }
   ]
