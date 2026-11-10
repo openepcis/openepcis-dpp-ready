@@ -1,5 +1,11 @@
 # CIRPASS-2 + BatteryPass v1.3 — gap analysis
 
+> **Status (0.13.0):** a snapshot of the gap analysis. The flat measured and tested properties it
+> recommends (`eubat:hasCurrentSelfDischargingRate`, `eubat:atSoC`, …) have since become results of
+> `eubat:BatteryStateAssessment` and `eubat:PerformanceDurabilityTest` (common/assessment); the
+> BatteryPass v1.3 attributes map to them through the `batterypass-1.3` crosswalk profile, the
+> BatteryPass-Ready 2.0.1 data elements through the `batterypass` profile.
+
 > **Status: working draft, local only.** Coverage analysis of OpenEPCIS
 > DPP-Ready `extensions/eu/battery/` against the EU's two reference
 > initiatives for the Battery Digital Product Passport. No vocabulary

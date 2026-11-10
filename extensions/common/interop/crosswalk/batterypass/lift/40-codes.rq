@@ -1,0 +1,24 @@
+# Battery category (from the passport's schema), battery status and the carbon footprint
+# performance class (an indicator of the carbon footprint declaration): our concept's 2.0.1 value.
+CONSTRUCT {
+  ?r bpr:batteryCategory ?cn . ?cn bprx:batteryCategoryValue ?tc .
+  ?r bpr:batteryStatus ?sn . ?sn bprx:batteryStatusValues ?sl .
+  ?r bpr:carbonFootprintPerformanceClass ?cl .
+}
+WHERE {
+  GRAPH <urn:xw:roots> { ?r xw:schema ?schema }
+  {
+    ?crow xw:schema ?schema ; xw:theirCategory ?tc0 . FILTER NOT EXISTS { ?crow xw:lowerOnly true }
+    BIND(STR(?tc0) AS ?tc)
+    BIND(BNODE() AS ?cn)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r schema:status ?code }
+    ?srow xw:bprField bpr:batteryStatus ; xw:code ?code ; xw:label ?sl0 .
+    BIND(STR(?sl0) AS ?sl)
+    BIND(BNODE() AS ?sn)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r eubat:hasCarbonFootprintDeclaration ?cf . ?cf <urn:xw:v:hasCarbonFootprintPerformanceClass> ?cc }
+    ?frow xw:bprField bpr:carbonFootprintPerformanceClass ; xw:code ?cc ; xw:label ?cl0 .
+    BIND(STR(?cl0) AS ?cl)
+  }
+}

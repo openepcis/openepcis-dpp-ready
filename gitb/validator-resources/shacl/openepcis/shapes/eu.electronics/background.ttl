@@ -107,7 +107,8 @@
     rdfs:comment "An assessment result that records whether one criterion is met (oea:hasOutcome), the points a scoring method awards for it (oea:awardedScore), or both, without a measured value of its own."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Per-criterion outcome of a scoring scheme (sorting factors of a recyclability score, repair criteria of a repairability index). No GS1, SEMICeu, or schema.org equivalent."@en.
+    skos:note "Per-criterion outcome of a scoring scheme (sorting factors of a recyclability score, repair criteria of a repairability index). No GS1, SEMICeu, or schema.org equivalent."@en;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-recyclability#RecyclabilityCriterionResult>.
 <https://ref.openepcis.org/extensions/common/assessment/Criterion> a owl:Class;
     rdfs:subClassOf <http://data.europa.eu/m8g/Criterion>;
     rdfs:label "Assessment Criterion"@en;
@@ -139,7 +140,8 @@
     rdfs:comment "A product characteristic an assessment observes: abrasion resistance, dimensional stability, biodegradation, recyclability rate. Individuals, not classes; sector modules add their own."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Value space for the observed characteristic. CIRPASS-2 models each parameter as a class (textile-durability ObservedPerformanceParameter); here they are concepts, which is how a passport references them."@en.
+    skos:note "Value space for the observed characteristic. CIRPASS-2 models each parameter as a class (textile-durability ObservedPerformanceParameter); here they are concepts, which is how a passport references them."@en;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-durability#ObservedPerformanceParameter>.
 <https://ref.openepcis.org/extensions/common/assessment/MeasurementParameter> a owl:Class;
     rdfs:subClassOf skos:Concept;
     rdfs:label "Measurement Parameter"@en;
@@ -1928,7 +1930,7 @@ oec:carbonFootprintStudyUrl a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Consider also using gs1:referencedFile with gs1:ReferencedFileTypeCode-CERTIFICATION for the study document."@en;
-    skos:exactMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintStudy>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#webLinkToPublicCarbonFootprintStudy>;
+    skos:exactMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintStudy>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#webLinkToPublicCarbonFootprintStudy>, <https://dpp-keystone.org/spec/v3/terms#carbonFootprintStudy>;
     skos:broadMatch gs1:referencedFileURL;
     rdfs:range xsd:anyURI.
 oec:hasOperationalScope a owl:ObjectProperty;
@@ -3148,6 +3150,7 @@ oec:hazardStatement a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272>;
     skos:note "Substance-of-concern pattern aligned with CLP (EC) 1272/2008 and the ECHA SCIP database. Reusable across regulation modules."@en;
+    skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#hazardPhrases>;
     rdfs:range xsd:string;
     rdfs:domain oec:HazardousSubstance.
 oec:precautionaryStatement a owl:DatatypeProperty;
@@ -3172,8 +3175,7 @@ oec:RepairProvider a owl:Class;
     rdfs:comment "An authorised repair provider for a product. Supports the European online platform for repair (Article 7 of Directive 2024/1799) and manufacturer-published repair networks."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en;
-    skos:broadMatch schema:AutoRepair.
+    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en.
 oec:hasRepairProvider a owl:ObjectProperty;
     rdfs:label "Repair Provider"@en;
     rdfs:comment "Links a product to one or more authorised repair providers."@en;
@@ -3269,8 +3271,8 @@ oec:ImpactIndicatorResult a owl:Class;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "EN 15804 impact-indicator result. Anchored to DPP Keystone dppk-epd:ImpactValues (peer DPP profile)."@en;
-    skos:broadMatch <https://w3id.org/eudpp#LCIAResult>, <https://w3id.org/eudpp#LCAResult>, <https://w3id.org/eudpp/textile-assessment#MeasurementResult>;
-    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms/epd#ImpactValues>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms/epd#ImpactValues>;
+    skos:broadMatch <https://w3id.org/eudpp#LCIAResult>, <https://w3id.org/eudpp#LCAResult>, <https://w3id.org/eudpp/textile-assessment#MeasurementResult>.
 oec:LifecycleStageResult a owl:Class;
     rdfs:seeAlso <https://w3id.org/eudpp#LCAModuleValue>;
     rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/MeasurementResult>;
@@ -3579,8 +3581,7 @@ oec:hasLifecycleStage a owl:ObjectProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Required extension: the ESPR electronics delegated acts and the CIRPASS-2 electronics\npilots require the parts of a device to be addressable separately from the device itself (spare-part\navailability, replaceability, nested component passports). GS1, SEMICeu and schema.org have a single\nundifferentiated product/trade-item class, so the device/component distinction has no upstream term\nto reuse."@en;
-    skos:broadMatch gs1:Product, schema:Product;
-    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#Component>.
+    skos:broadMatch gs1:Product, schema:Product, <https://dpp-keystone.org/spec/v3/terms#Component>.
 <https://ref.openepcis.org/extensions/eu/electronics/ComponentType> a owl:Class;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#Component>;
     rdfs:label "Component Type"@en;

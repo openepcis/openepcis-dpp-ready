@@ -1,0 +1,34 @@
+# Measured and declared values into their value container: xw:Quantity reads our
+# gs1:QuantitativeValue, xw:Scalar a bare number in the row's unit (xw:ourUnit). The unit converts
+# through the unit table into one the container admits (xw:unit); a value in another unit is not
+# converted. An integer value slot (rdfs:range xsd:integer) gets the rounded value; one that rounds
+# to zero without being zero is not representable and stays out. A second OpenEPCIS term for an
+# element (xw:lowerSkip) is read only when the main one has no value.
+CONSTRUCT { ?r ?field ?c . ?c ?vs ?val ; ?us ?tu . }
+WHERE {
+  GRAPH <urn:xw:roots> { ?r xw:schema ?schema }
+  ?row xw:bprField ?field ; xw:ours ?p ; xw:form ?form ; xw:valueSlot ?vs ; xw:unitSlot ?us .
+  FILTER(?form IN (xw:Quantity, xw:Scalar))
+  OPTIONAL { ?row xw:via ?via }
+  { GRAPH <urn:xw:in> { ?r ?p ?o } } UNION { GRAPH <urn:xw:in> { ?r ?via ?cn . ?cn ?p ?o } }
+  FILTER NOT EXISTS {
+    ?row xw:lowerSkip true .
+    ?main xw:bprField ?field ; xw:ours ?mp . FILTER NOT EXISTS { ?main xw:lowerSkip true }
+    OPTIONAL { ?main xw:via ?mvia }
+    { GRAPH <urn:xw:in> { ?r ?mp ?mo } } UNION { GRAPH <urn:xw:in> { ?r ?mvia ?mc . ?mc ?mp ?mo } }
+  }
+  OPTIONAL { GRAPH <urn:xw:in> { ?o gs1:value ?qv ; gs1:unitCode ?qc } }
+  OPTIONAL { ?row xw:ourUnit ?su }
+  BIND(IF(?form = xw:Quantity, ?qv, IF(isLiteral(?o), ?o, ?none)) AS ?num)
+  BIND(STR(IF(?form = xw:Quantity, ?qc, ?su)) AS ?code)
+  ?urow xw:unitCode ?uc ; xw:theirUnit ?tu .
+  FILTER(STR(?uc) = ?code)
+  ?row xw:unit ?allowed .
+  FILTER(STR(?allowed) = STR(?tu))
+  OPTIONAL { ?urow xw:factor ?f0 }
+  BIND(xsd:double(STR(?num)) * COALESCE(?f0, 1) AS ?x)
+  ?vs xw:datatype ?dt .
+  BIND(IF(?dt = xsd:integer, xsd:integer(ROUND(?x)), xsd:double(?x)) AS ?val)
+  FILTER(BOUND(?val) && !(?dt = xsd:integer && ROUND(?x) = 0 && ?x != 0))
+  BIND(BNODE() AS ?c)
+}

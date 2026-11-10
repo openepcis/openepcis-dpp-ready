@@ -22,6 +22,10 @@
  *
  * Defaults: tag=Other_Industrial_BatteryPass version=1.0
  * Tags: EV_BatteryPass | LMT_BatteryPass | Other_Industrial_BatteryPass | Stationary_Industrial_BatteryPass
+ *
+ * Which schemas (tag, version) the server offers: --list (GET /Schemas). The data model 2.0.1
+ * (scripts/export-batterypass-ready.ts) validates offline against the vendored GEFEG schemas
+ * (pnpm test); once the server lists a 2.0.1 tag, pass that tag and version 2.0.1 here.
  */
 
 import { readFileSync } from "fs";
@@ -112,7 +116,15 @@ async function resolveToken(): Promise<string> {
   );
 }
 
+async function listSchemas(): Promise<void> {
+  const token = await resolveToken();
+  const res = await fetch(BASE.replace(/ValidateJSON$/, "Schemas"), { headers: { Authorization: `Bearer ${token}`, Accept: "application/json" } });
+  console.log(`HTTP ${res.status} ${res.statusText}`);
+  console.log((await res.text()).slice(0, 8000));
+}
+
 async function main() {
+  if (process.argv[2] === "--list") return listSchemas();
   const [file, tag = "Other_Industrial_BatteryPass", version = "1.0"] = process.argv.slice(2);
   if (!file) {
     console.error("usage: (BPASS_TOKEN=… | BPASS_USER=… BPASS_PASSWORD=…) tsx scripts/validate-batterypass-live.ts <file.json> [tag] [version]");

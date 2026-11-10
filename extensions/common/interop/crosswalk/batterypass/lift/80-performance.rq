@@ -1,0 +1,58 @@
+# Performance values in containers of several values: the original and the remaining power
+# capability at 80 % and 20 % state of charge (W), the initial internal resistance of pack and cell
+# (whole ohms: a value below 0.5 ohm is not representable and stays out), the internal resistance
+# increase of the pack (whole percent) and the idle-state temperature range (whole degrees Celsius).
+CONSTRUCT {
+  ?r ?pfield ?pc . ?pc bpr:wattValueAt80PercentStateOfCharge ?w80 ; bpr:wattValueAt20PercentStateOfCharge ?w20 ; bprx:wattUnit "W" .
+  ?r bpr:initialInternalResistanceOfBatteryCellAndPackModuleRecommended ?ir .
+  ?ir bpr:ohmValueForBatteryPack ?pack ; bpr:ohmValueForBatteryCell ?cell ; bprx:ohmUnit "Ohm" .
+  ?r bpr:internalResistanceIncreaseOfPackCellAndModuleRecommended ?ri .
+  ?ri bpr:internalResistanceIncreaseValueForBatteryPack ?inc ; bprx:percentUnit "%" .
+  ?r ?tfield ?tc . ?tc bprx:celsiusValue ?deg ; bprx:degreeCelsiusUnit "°C" .
+}
+WHERE {
+  GRAPH <urn:xw:roots> { ?r xw:schema ?schema }
+  {
+    {
+      SELECT ?r ?pfield (SAMPLE(?a80) AS ?w80) (SAMPLE(?a20) AS ?w20) WHERE {
+        GRAPH <urn:xw:roots> { ?r xw:schema ?s1 }
+        VALUES (?h ?pfield) { (<urn:xw:v:hasOriginalPowerCapability> bpr:originalPowerCapability) (<urn:xw:v:hasRemainingPowerCapability> bpr:remainingPowerCapability) }
+        { GRAPH <urn:xw:in> { ?r ?h ?sub } } UNION { GRAPH <urn:xw:in> { ?r eubat:hasTechnicalSpecifications ?ts . ?ts ?h ?sub } }
+        GRAPH <urn:xw:in> { ?sub <urn:xw:v:stateOfChargeLevel> ?soc ; <urn:xw:v:hasPowerCapability> ?q . ?q gs1:value ?v ; gs1:unitCode ?u }
+        ?urow xw:unitCode ?uc ; xw:theirUnit "W" . FILTER(STR(?uc) = STR(?u))
+        OPTIONAL { ?urow xw:factor ?f }
+        BIND(xsd:double(STR(?v)) * COALESCE(?f, 1) AS ?w)
+        BIND(IF(xsd:double(STR(?soc)) = 80, ?w, ?n1) AS ?a80)
+        BIND(IF(xsd:double(STR(?soc)) = 20, ?w, ?n2) AS ?a20)
+      } GROUP BY ?r ?pfield
+    }
+    FILTER(BOUND(?w80) || BOUND(?w20))
+    BIND(BNODE() AS ?pc)
+  } UNION {
+    {
+      SELECT ?r (SAMPLE(?pk) AS ?pack) (SAMPLE(?cl) AS ?cell) WHERE {
+        GRAPH <urn:xw:roots> { ?r xw:schema ?s2 }
+        VALUES (?h ?which) { (<urn:xw:v:hasInitialPackInternalResistance> "pack") (<urn:xw:v:hasInitialCellInternalResistance> "cell") }
+        GRAPH <urn:xw:in> { ?r eubat:hasTechnicalSpecifications ?ts . ?ts ?h ?q . ?q gs1:value ?v ; gs1:unitCode "OHM" }
+        BIND(ROUND(xsd:double(STR(?v))) AS ?x)
+        FILTER(?x != 0 || xsd:double(STR(?v)) = 0)
+        BIND(IF(?which = "pack", xsd:integer(?x), ?n1) AS ?pk)
+        BIND(IF(?which = "cell", xsd:integer(?x), ?n2) AS ?cl)
+      } GROUP BY ?r
+    }
+    FILTER(BOUND(?pack) || BOUND(?cell))
+    BIND(BNODE() AS ?ir)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r <urn:xw:v:hasInternalResistanceIncrease> ?q . ?q gs1:value ?v ; gs1:unitCode "P1" }
+    BIND(ROUND(xsd:double(STR(?v))) AS ?x)
+    FILTER(?x != 0 || xsd:double(STR(?v)) = 0)
+    BIND(xsd:integer(?x) AS ?inc)
+    BIND(BNODE() AS ?ri)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r eubat:hasTechnicalSpecifications/eubat:hasTemperatureRangeIdleState ?range }
+    VALUES (?bound ?tfield) { (eubat:hasMinimumTemperature bpr:temperatureRangeIdleStateLowerBoundary) (eubat:hasMaximumTemperature bpr:temperatureRangeIdleStateUpperBoundary) }
+    GRAPH <urn:xw:in> { ?range ?bound ?q . ?q gs1:value ?v ; gs1:unitCode "CEL" }
+    BIND(xsd:integer(ROUND(xsd:double(STR(?v)))) AS ?deg)
+    BIND(BNODE() AS ?tc)
+  }
+}

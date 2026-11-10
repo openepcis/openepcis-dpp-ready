@@ -1,6 +1,10 @@
 /**
  * The target side of a crosswalk profile that ships its own JSON form, SHACL shapes and JSON
- * Schemas (profile.json "json" and "targetShapes"; the EU DPP Registry first).
+ * Schemas (profile.json "json" and "targetShapes"). Two forms:
+ *   - the EU DPP Registry: context and schemas follow from the content specifications a passport
+ *     declares (specBase, contexts, schemas);
+ *   - BatteryPass-Ready 2.0.1: one context of our own (context) and one JSON Schema per battery
+ *     category, chosen by the value at a key path of the document (schemaBy).
  *
  *   theirJsonToQuads   a target JSON document (no @context, as the Registry receives it) → RDF:
  *                      the context follows from its content specifications, the root gets the
@@ -32,16 +36,25 @@ const RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 const XSD = "http://www.w3.org/2001/XMLSchema#";
 
 export interface TargetJson {
-  specBase: string;
+  specBase?: string;
   /** Content specification (relative to specBase) → context file (relative to the vendored tree). */
-  contexts: Record<string, string>;
+  contexts?: Record<string, string>;
   /** Content specification → JSON Schema files (relative to the vendored tree). */
-  schemas: Record<string, string[]>;
+  schemas?: Record<string, string[]>;
+  /** One context for every document (repo-relative), instead of contexts by specification. */
+  context?: string;
+  /** The JSON Schema of a document by the value at a dotted key path (schema files repo-relative). */
+  schemaBy?: { path: string; files: Record<string, string> };
+  /**
+   * Whether the context coerces texts to xsd:string (the Registry's do): fromRDF writes an
+   * xsd:string literal as a bare value, which such a term would not compact. Default true.
+   */
+  typedStrings?: boolean;
   rootType: string;
-  /** JSON key of the root whose value, when an absolute IRI, is the root's IRI. */
+  /** JSON key (or dotted key path) of the root whose value, when an absolute IRI, is the root's IRI. */
   rootId: string;
-  /** The vendored tree: specBase maps onto it. */
-  conformance: string;
+  /** The vendored tree: specBase maps onto it; its tests/conforms documents are the target's own examples. */
+  conformance?: string;
 }
 
 export interface TargetShapes {
@@ -63,9 +76,15 @@ export function hasTargetJson(p: Profile): boolean {
   return Boolean((p as Profile & { json?: TargetJson }).json);
 }
 
+/** The value at a dotted key path of a JSON document. */
+function at(doc: Record<string, unknown>, path: string): unknown {
+  return path.split(".").reduce<unknown>((o, k) => (o && typeof o === "object" ? (o as Record<string, unknown>)[k] : undefined), doc);
+}
+
 /** The content specifications (relative to specBase) a JSON document or an RDF graph declares. */
 export function specsOf(p: Profile, src: Quad[] | Record<string, unknown>): string[] {
   const { specBase } = cfg(p);
+  if (!specBase) return [];
   const ids = Array.isArray(src)
     ? src.filter((q) => q.predicate.value.endsWith("#contentSpecificationIds")).map((q) => q.object.value)
     : ((src.contentSpecificationIds as string[] | undefined) ?? []);
@@ -75,16 +94,23 @@ export function specsOf(p: Profile, src: Quad[] | Record<string, unknown>): stri
 /** The context URL for a set of specifications: the most specific one the profile knows. */
 function contextUrl(p: Profile, specs: string[]): string {
   const c = cfg(p);
-  const known = specs.filter((s) => c.contexts[s]).sort((a, b) => b.length - a.length);
+  const known = specs.filter((s) => c.contexts?.[s]).sort((a, b) => b.length - a.length);
   if (!known.length) throw new Error(`no context for content specifications ${specs.join(", ") || "(none)"}`);
-  return c.specBase + c.contexts[known[0]];
+  return c.specBase + c.contexts![known[0]];
+}
+
+/** The context of a document: the profile's own (inline), else the one its specifications name. */
+function contextOf(p: Profile, specs: string[]): unknown {
+  const c = cfg(p);
+  if (c.context) return JSON.parse(readFileSync(join(ROOT, c.context), "utf8"))["@context"];
+  return contextUrl(p, specs);
 }
 
 /** A target JSON document (no @context) as RDF. */
 export async function theirJsonToQuads(p: Profile, doc: Record<string, unknown>): Promise<Quad[]> {
   const c = cfg(p);
-  const root: Record<string, unknown> = { "@context": contextUrl(p, specsOf(p, doc)), "@type": c.rootType, ...doc };
-  const id = doc[c.rootId];
+  const root: Record<string, unknown> = { "@context": contextOf(p, specsOf(p, doc)), "@type": c.rootType, ...doc };
+  const id = at(doc, c.rootId);
   if (typeof id === "string" && /^[A-Za-z][A-Za-z0-9+.-]*:\S+$/.test(id)) root["@id"] = id;
   return jsonldToQuads(root);
 }
@@ -136,10 +162,12 @@ function typedStrings(node: unknown): unknown {
 }
 
 /** Keys the target's JSON Schemas declare as arrays (compaction writes a one-member list as its member). */
-let arrayKeySet: Set<string> | undefined;
+const arrayKeySets = new Map<string, Set<string>>();
 function arrayKeys(p: Profile): Set<string> {
+  let arrayKeySet = arrayKeySets.get(p.id);
   if (arrayKeySet) return arrayKeySet;
   arrayKeySet = new Set();
+  arrayKeySets.set(p.id, arrayKeySet);
   const visit = (s: unknown): void => {
     if (Array.isArray(s)) return s.forEach(visit);
     if (!s || typeof s !== "object") return;
@@ -153,6 +181,21 @@ function arrayKeys(p: Profile): Set<string> {
   };
   for (const f of schemaFiles(p)) visit(JSON.parse(readFileSync(f, "utf8")));
   return arrayKeySet;
+}
+
+/**
+ * Members of a list that are objects in a stable order: RDF has no order, and the blank-node labels
+ * the order would otherwise follow change from run to run.
+ */
+function stableOrder(node: unknown): unknown {
+  if (Array.isArray(node)) {
+    const members = node.map(stableOrder);
+    return members.every((m) => m && typeof m === "object")
+      ? members.map((m) => [JSON.stringify(m), m] as const).sort((a, b) => a[0].localeCompare(b[0])).map(([, m]) => m)
+      : members;
+  }
+  if (!node || typeof node !== "object") return node;
+  return Object.fromEntries(Object.entries(node as Record<string, unknown>).map(([k, v]) => [k, stableOrder(v)]));
 }
 
 function asArrays(node: unknown, keys: Set<string>, key?: string): unknown {
@@ -173,17 +216,18 @@ export async function toTheirJson(p: Profile, quads: Quad[]): Promise<Record<str
   const w = new Writer({ format: "application/n-quads" });
   const sorted = [...quads].sort((a, b) =>
     (a.subject.value + a.predicate.value + a.object.value).localeCompare(b.subject.value + b.predicate.value + b.object.value));
-  const url = contextUrl(p, specsOf(p, quads));
-  const ctxDoc = (await loader(url)).document as { "@context": unknown };
-  const expanded = typedStrings(await jsonld.fromRDF(sorted.map((q) => w.quadToString(q.subject, q.predicate, q.object)).join("") as never,
-    { format: "application/n-quads" }));
+  const ctx = contextOf(p, specsOf(p, quads));
+  const ctxDoc = (typeof ctx === "string" ? (await loader(ctx)).document : { "@context": ctx }) as { "@context": unknown };
+  const fromRdf = await jsonld.fromRDF(sorted.map((q) => w.quadToString(q.subject, q.predicate, q.object)).join("") as never,
+    { format: "application/n-quads" });
+  const expanded = c.typedStrings === false ? fromRdf : typedStrings(fromRdf);
   // Framed by the root type: a root may be a blank node (no unique product identifier IRI).
-  const framed = (await jsonld.frame(expanded, { "@context": url, "@type": c.rootType } as never,
+  const framed = (await jsonld.frame(expanded, { "@context": ctx, "@type": c.rootType } as never,
     { documentLoader: loader as never, embed: "@always", omitGraph: false } as never)) as Record<string, unknown>;
   const types = termTypes(ctxDoc["@context"]);
   return ((framed["@graph"] as Record<string, unknown>[]) ?? []).map((node) => {
     const { "@id": _i, "@type": _t, id: _i2, type: _t2, ...doc } = node;
-    return asArrays(nativeValues(doc, types), arrayKeys(p)) as Record<string, unknown>;
+    return stableOrder(asArrays(nativeValues(doc, types), arrayKeys(p))) as Record<string, unknown>;
   });
 }
 
@@ -431,27 +475,45 @@ export async function targetShapeFindings(p: Profile, quads: Quad[], view?: stri
 
 // ---------------------------------------------------------------- JSON Schema
 
-let ajv: InstanceType<typeof Ajv2020> | undefined;
+const ajvs = new Map<string, InstanceType<typeof Ajv2020>>();
 
 /** Every JSON Schema of the vendored release. */
 function schemaFiles(p: Profile): string[] {
+  const c = cfg(p);
+  if (c.schemaBy) return [...new Set(Object.values(c.schemaBy.files))].map((f) => join(ROOT, f)).sort();
   const walk = (dir: string): string[] => readdirSync(dir).flatMap((f) => {
     const full = join(dir, f);
     return statSync(full).isDirectory() ? walk(full) : f.endsWith(".schema.json") ? [full] : [];
   });
-  return walk(join(ROOT, cfg(p).conformance)).sort();
+  return walk(join(ROOT, cfg(p).conformance!)).sort();
 }
 
 function schemaValidator(p: Profile): InstanceType<typeof Ajv2020> {
+  let ajv = ajvs.get(p.id);
   if (ajv) return ajv;
-  const c = cfg(p);
   ajv = new Ajv2020({ allErrors: true, strict: false });
   addFormats(ajv);
+  ajvs.set(p.id, ajv);
+  // Schemas without $id (BatteryPass-Ready) are compiled per file when used.
   for (const f of schemaFiles(p)) {
     const schema = JSON.parse(readFileSync(f, "utf8"));
-    if (!ajv.getSchema(schema.$id)) ajv.addSchema(schema);
+    if (schema.$id && !ajv.getSchema(schema.$id)) ajv.addSchema(schema);
   }
   return ajv;
+}
+
+const compiledByFile = new Map<string, ReturnType<InstanceType<typeof Ajv2020>["compile"]>>();
+
+/** The schema files that apply to a document (repo-relative) and their display names. */
+function schemasFor(p: Profile, doc: Record<string, unknown>, view?: string): { file: string; name: string }[] {
+  const c = cfg(p);
+  if (c.schemaBy) {
+    const key = at(doc, c.schemaBy.path);
+    const file = typeof key === "string" ? c.schemaBy.files[key] : undefined;
+    return file ? [{ file, name: file.replace(/.*\//, "").replace(/\.json$/, "") }] : [];
+  }
+  return specsOf(p, doc).flatMap((spec) => (c.schemas?.[spec] ?? []).filter((f) => inView(f, view))
+    .map((f) => ({ file: join(c.conformance!, f), name: f.replace(/.*\//, "").replace(".schema.json", "") })));
 }
 
 /** The target's JSON Schema findings for a document, by the specifications it declares (and its view). */
@@ -460,16 +522,21 @@ export function jsonSchemaFindings(p: Profile, doc: Record<string, unknown>, vie
   const v = schemaValidator(p);
   const form: string[] = [];
   const missing: string[] = [];
-  for (const spec of specsOf(p, doc)) {
-    for (const file of (c.schemas[spec] ?? []).filter((f) => inView(f, view))) {
-      const schema = JSON.parse(readFileSync(join(ROOT, c.conformance, file), "utf8"));
-      const validateFn = v.getSchema(schema.$id) ?? v.compile(schema);
-      if (validateFn(doc)) continue;
-      const name = file.replace(/.*\//, "").replace(".schema.json", "");
-      for (const e of validateFn.errors ?? []) {
-        const line = `schema ${name} ${e.instancePath || "/"} ${e.keyword}: ${e.message}`;
-        (e.keyword === "required" || e.keyword === "dependentRequired" ? missing : form).push(line);
-      }
+  const chosen = schemasFor(p, doc, view);
+  if (c.schemaBy && !chosen.length) {
+    form.push(`schema: no JSON Schema for ${c.schemaBy.path} = ${JSON.stringify(at(doc, c.schemaBy.path) ?? null)}`);
+  }
+  for (const { file, name } of chosen) {
+    const schema = JSON.parse(readFileSync(join(ROOT, file), "utf8"));
+    let validateFn = schema.$id ? v.getSchema(schema.$id) : compiledByFile.get(file);
+    if (!validateFn) {
+      validateFn = v.compile(schema);
+      if (!schema.$id) compiledByFile.set(file, validateFn);
+    }
+    if (validateFn(doc)) continue;
+    for (const e of validateFn.errors ?? []) {
+      const line = `schema ${name} ${e.instancePath || "/"} ${e.keyword}: ${e.message}`;
+      (e.keyword === "required" || e.keyword === "dependentRequired" ? missing : form).push(line);
     }
   }
   return { form: [...new Set(form)].sort(), missing: [...new Set(missing)].sort() };

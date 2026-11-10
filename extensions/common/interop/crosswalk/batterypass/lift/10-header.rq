@@ -1,0 +1,67 @@
+# The header (dppHeader, after EN 18223): the product is the passport root and its IRI the unique
+# product identifier. As in the EN 18223 derivation, the passport identifier defaults to the
+# product identifier and the economic operator to the party Digital Link of the operator
+# (https://id.gs1.org/417/{GLN}), else of the manufacturer (its IRI, else from its GLN); the facility is the manufacturing place's IRI. Granularity is
+# "item" (only item passports are roots). The schema version is oec:dppSchemaVersion, for a battery
+# schema:schemaVersion (the battery shapes ask for it, BatteryPass-Ready #1).
+CONSTRUCT {
+  ?r a bprx:BatteryPassport ; bpr:uniqueProductIdentifier ?upi ; bpr:digitalProductPassportId ?pid ;
+     bpr:granularity ?gn ; bpr:lastUpdated ?lu ; bpr:dppStatus ?sn ; bpr:dppSchemaVersion ?sv ;
+     bpr:economicOperatorId ?eo ; bpr:facilityId ?fac ; bpr:contentSpecificationIds ?cs .
+  ?gn bprx:dppGranularityValue "item" .
+  ?sn bprx:dppStatusValue ?st .
+}
+WHERE {
+  GRAPH <urn:xw:roots> { ?r xw:schema ?schema }
+  BIND(STR(?r) AS ?upi)
+  {
+    {
+      SELECT ?r (SAMPLE(?p1) AS ?pid) WHERE {
+        GRAPH <urn:xw:roots> { ?r xw:schema ?s0 }
+        OPTIONAL { GRAPH <urn:xw:in> { ?r oec:passportIdentifier ?p0 } }
+        BIND(STR(COALESCE(?p0, ?r)) AS ?p1)
+      } GROUP BY ?r
+    }
+    BIND(BNODE() AS ?gn)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r oec:lastUpdated ?v } BIND(STR(?v) AS ?lu)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r oec:passportStatus ?v }
+    BIND(LCASE(STR(?v)) AS ?st)
+    FILTER(?st IN ("active", "archived", "inactive", "invalid", "marked-for-deletion"))
+    BIND(BNODE() AS ?sn)
+  } UNION {
+    {
+      SELECT ?r (SAMPLE(STR(?v)) AS ?sv) WHERE {
+        GRAPH <urn:xw:roots> { ?r xw:schema ?s3 }
+        GRAPH <urn:xw:in> { ?r ?svp ?v }
+        FILTER(?svp IN (oec:dppSchemaVersion, schema:schemaVersion))
+      } GROUP BY ?r
+    }
+  } UNION {
+    {
+      SELECT ?r (SAMPLE(?e) AS ?eo) WHERE {
+        GRAPH <urn:xw:roots> { ?r xw:schema ?s1 }
+        OPTIONAL { GRAPH <urn:xw:in> { ?r oec:economicOperatorId ?e0 } }
+        OPTIONAL { GRAPH <urn:xw:in> { ?r eubat:hasOperatorInformation/gs1:globalLocationNumber ?ogln } }
+        OPTIONAL { GRAPH <urn:xw:in> { ?r gs1:manufacturer ?m } }
+        OPTIONAL { GRAPH <urn:xw:in> { ?m gs1:globalLocationNumber ?gln } }
+        BIND(STR(COALESCE(?e0, IF(BOUND(?ogln), CONCAT("https://id.gs1.org/417/", STR(?ogln)), ?n0), IF(isIRI(?m), ?m, ?n1),
+                          IF(BOUND(?gln), CONCAT("https://id.gs1.org/417/", STR(?gln)), ?n2))) AS ?e)
+        FILTER(BOUND(?e))
+      } GROUP BY ?r
+    }
+  } UNION {
+    {
+      SELECT ?r (SAMPLE(?f1) AS ?fac) WHERE {
+        GRAPH <urn:xw:roots> { ?r xw:schema ?s2 }
+        OPTIONAL { GRAPH <urn:xw:in> { ?r oec:facilityId ?f0 } }
+        OPTIONAL { GRAPH <urn:xw:in> { ?r eubat:hasManufacturingPlace ?pl } FILTER(isIRI(?pl)) }
+        BIND(STR(COALESCE(?f0, ?pl)) AS ?f1)
+        FILTER(BOUND(?f1))
+      } GROUP BY ?r
+    }
+  } UNION {
+    GRAPH <urn:xw:in> { ?r oec:contentSpecificationId ?v } BIND(STR(?v) AS ?cs)
+  }
+}

@@ -1,5 +1,9 @@
 # GEFEG BatteryPass-Ready — published artifacts (mirror)
 
+> **Older state.** These are the data model 1.0 schemas of the GEFEG test environment. The current
+> BatteryPass-Ready data model 2.0.1 is vendored under
+> [`vendor/batterypass-ready/2.0.1`](../../../../../../vendor/batterypass-ready/README.md).
+
 These files are mirrored verbatim from the GEFEG **BatteryPass-Ready** test
 environment so the conformance harness can validate against the real published
 schemas rather than ones we generate ourselves.

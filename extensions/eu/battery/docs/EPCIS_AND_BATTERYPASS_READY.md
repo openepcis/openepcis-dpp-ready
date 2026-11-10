@@ -33,7 +33,12 @@ that connection precisely.
 
 The live GEFEG server is authoritative over the published static schemas; see
 [`reference/gefeg-batterypass-ready/SOURCE.md`](./reference/gefeg-batterypass-ready/SOURCE.md).
-The BatteryPass-Ready data model is **v1.0** (Attribute Longlist v1.3, SAMM 1.2.0/1.2.1).
+The GEFEG test environment's data model is **v1.0** (Attribute Longlist v1.3, SAMM 1.2.0/1.2.1); the
+fixtures and the reconstruction below target it. The current BatteryPass-Ready data model is
+**2.0.1** (`vendor/batterypass-ready/2.0.1`): an OpenEPCIS item passport, including the battery state
+and performance test values the events below feed, converts to a 2.0.1 document through the crosswalk
+profile `batterypass` (`pnpm run export:batterypass-ready`). 2.0.1 dropped the energy and capacity
+throughput and the time in extreme temperatures, which this reconstruction folds.
 
 ## What lives at which level
 
@@ -92,20 +97,19 @@ levels for one battery are shown by
 `09521234000013`, serial `BAT2024-001`.
 
 Each of the nine EPCIS examples in [`../epcis/`](../epcis/) is item-level (a single serialized
-battery). Their `sensorReport` types fold into the item passport fields as follows (event type casing
-is the actual lowerCamelCase `eubat:` form used in the event files, plus the bare CBV `Temperature`;
-note the prose tables in `IMPLEMENTATION_GUIDE.md` / `POSITIONING.md` write these in PascalCase):
+battery). Their `sensorReport` types are the `eubat:` performance parameters (common/assessment),
+plus the bare CBV `Temperature`, and fold into the item passport fields as follows:
 
 | Passport field | Fed by `sensorReport` type (event) | Fold |
 |---|---|---|
-| NumberOfFullChargingAndDischargingCycles | `eubat:hasCycleCount` (commissioning, state-of-health) | max |
-| CapacityFade | `eubat:hasCapacityFade` (state-of-health) | latest |
-| StateOfChargeSoC | `eubat:hasStateOfCharge` | latest |
-| RemainingCapacity | `eubat:hasRemainingCapacity` (state-of-health) | latest, rounded to integer Ah |
-| RemainingRoundTripEnergyEfficiency | `eubat:hasRemainingRoundTripEfficiency` (state-of-certified-energy) | latest |
-| StateOfCertifiedEnergySOCE | `eubat:hasStateOfCertifiedEnergy` (state-of-certified-energy) ÷ rated energy | latest ratio (EV-only field) |
-| EnergyThroughput | `eubat:hasEnergyThroughput` (state-of-health) | latest |
-| InternalResistanceIncrease… | `eubat:hasInternalResistance` (state-of-health) vs `initialInternalResistance` (model) | derived delta |
+| NumberOfFullChargingAndDischargingCycles | `eubat:FullCycleCount` (commissioning, state-of-health) | max |
+| CapacityFade | `eubat:CapacityFade` (state-of-health) | latest |
+| StateOfChargeSoC | `eubat:StateOfCharge` | latest |
+| RemainingCapacity | `eubat:RemainingCapacity` (state-of-health) | latest, rounded to integer Ah |
+| RemainingRoundTripEnergyEfficiency | `eubat:RemainingRoundTripEfficiency` (state-of-certified-energy) | latest |
+| StateOfCertifiedEnergySOCE | `eubat:StateOfCertifiedEnergy` (state-of-certified-energy) ÷ rated energy | latest ratio (EV-only field) |
+| EnergyThroughput | `eubat:EnergyThroughput` (state-of-health) | latest |
+| InternalResistanceIncrease… | `eubat:InternalResistance` (state-of-health) vs `initialInternalResistance` (model) | derived delta |
 | TimeSpentInExtremeTemperatures{Above,Below}Boundary | `Temperature` + `eubat:exposureDurationMinutes` (temperature-extreme), bucketed against TemperatureRangeIdleState bounds | sum |
 | NumberOfDeepDischargeEvents | negative-event with a deep-discharge incident type | count |
 | TemperatureInformation | latest non-excursion `Temperature` reading | latest |

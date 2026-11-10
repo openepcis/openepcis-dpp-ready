@@ -1,0 +1,73 @@
+# The economic operator and the manufacturer: an organisation with its name, the one-line postal
+# address (schema:address text: it cannot be split reliably), e-mail and website; the manufacturer
+# is the node its identifier names, the operator a node of the economic operator identifier. A party
+# Digital Link (https://id.gs1.org/417/{GLN}) gives the GLN; an economic operator that is the
+# manufacturer has the role oec:Manufacturer. The facility is the manufacturing place, whose one-line address
+# "locality, country code" becomes a postal address (another form a schema:address text). The
+# warranty period (years, months or days) becomes the duration of the manufacturer's warranty.
+CONSTRUCT {
+  ?r ?op ?org . ?org a ?ocls ; gs1:organizationName ?name ; schema:address ?addr ; schema:url ?web ; gs1:globalLocationNumber ?gln ; oec:hasOperatorRole ?role .
+  ?org gs1:contactPoint ?cp . ?cp a gs1:ContactPoint ; gs1:email ?email .
+  ?r eubat:hasManufacturingPlace ?pl . ?pl a gs1:Place ; gs1:address ?pa ; schema:address ?pline .
+  ?pa a gs1:PostalAddress ; gs1:addressLocality ?loc ; gs1:addressCountry ?pc . ?pc a gs1:Country ; gs1:countryCode ?cc .
+  ?r gs1:manufacturersWarranty ?w . ?w a gs1:WarrantyPromise ; gs1:durationOfWarranty ?q . ?q a gs1:QuantitativeValue ; gs1:value ?wv ; gs1:unitCode ?wc .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?r a bprx:BatteryPassport }
+  FILTER(isIRI(?r))
+  {
+    VALUES (?field ?op ?ocls ?frag) {
+      (bpr:economicOperatorInformation eubat:hasOperatorInformation oec:OperatorInformation "operator")
+      (bpr:manufacturerInformation gs1:manufacturer gs1:Organization "manufacturer")
+    }
+    GRAPH <urn:xw:flat> { ?r ?field ?oi }
+    OPTIONAL { FILTER(?field = bpr:manufacturerInformation) GRAPH <urn:xw:flat> { ?r bpr:uniqueManufacturerIdentifier ?mid } }
+    OPTIONAL { FILTER(?field = bpr:economicOperatorInformation) GRAPH <urn:xw:flat> { ?r bpr:economicOperatorId ?eo } }
+    OPTIONAL { FILTER(?field = bpr:economicOperatorInformation)
+               GRAPH <urn:xw:flat> { ?r bpr:economicOperatorId ?eo2 ; bpr:uniqueManufacturerIdentifier ?mid2 } FILTER(STR(?eo2) = STR(?mid2)) }
+    BIND(IF(BOUND(?mid), IRI(STR(?mid)), IRI(CONCAT(COALESCE(STR(?eo), STR(?r)), "#", ?frag))) AS ?org)
+    BIND(COALESCE(STR(?mid), STR(?eo)) AS ?party)
+    BIND(IF(REGEX(?party, "^https://id\\.gs1\\.org/417/[0-9]{13}$"), REPLACE(?party, "^.*/", ""), ?n0) AS ?gln)
+    BIND(IF(BOUND(?eo2), oec:Manufacturer, ?n00) AS ?role)
+    {
+      GRAPH <urn:xw:in> { ?oi bprx:name ?n } BIND(STR(?n) AS ?name)
+    } UNION {
+      GRAPH <urn:xw:in> { ?oi bpr:postalAddress ?a } BIND(STR(?a) AS ?addr)
+    } UNION {
+      GRAPH <urn:xw:in> { ?oi bpr:webAddress ?u } BIND(IRI(STR(?u)) AS ?web)
+    } UNION {
+      GRAPH <urn:xw:in> { ?oi bpr:eMailAddress ?m }
+      BIND(STR(?m) AS ?email)
+    }
+    BIND(IF(BOUND(?email), IRI(CONCAT(STR(?org), "-contact")), ?n01) AS ?cp)
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:uniqueManufacturerIdentifier ?mid2 }
+    FILTER NOT EXISTS { GRAPH <urn:xw:flat> { ?r bpr:manufacturerInformation ?any } }
+    BIND(IRI(STR(?mid2)) AS ?org) BIND(gs1:Organization AS ?ocls) BIND(gs1:manufacturer AS ?op)
+  } UNION {
+    {
+      SELECT ?r (SAMPLE(?f) AS ?fac) (SAMPLE(?s) AS ?place) WHERE {
+        GRAPH <urn:xw:in> { ?r a bprx:BatteryPassport }
+        OPTIONAL { GRAPH <urn:xw:flat> { ?r bpr:facilityId ?f } }
+        OPTIONAL { GRAPH <urn:xw:flat> { ?r bpr:manufacturingPlace ?s } }
+        FILTER(BOUND(?f) || BOUND(?s))
+      } GROUP BY ?r
+    }
+    BIND(IF(BOUND(?fac), IRI(STR(?fac)), IRI(CONCAT(STR(?r), "#manufacturing-place"))) AS ?pl)
+    BIND(REGEX(STR(?place), "^[^,]+, [A-Z]{2}$") AS ?simple)
+    BIND(IF(?simple, IRI(CONCAT(STR(?r), "#manufacturing-place-address")), ?n1) AS ?pa)
+    BIND(IF(?simple, IRI(CONCAT(STR(?r), "#manufacturing-place-country")), ?n2) AS ?pc)
+    BIND(IF(?simple, REPLACE(STR(?place), ", [A-Z]{2}$", ""), ?n3) AS ?loc)
+    BIND(IF(?simple, REPLACE(STR(?place), "^.*, ", ""), ?n4) AS ?cc)
+    BIND(IF(BOUND(?place) && !?simple, STR(?place), ?n5) AS ?pline)
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:warrantyPeriod ?d }
+    BIND(REPLACE(STR(?d), "^P([0-9]+)([YMD])$", "$1") AS ?num)
+    BIND(REPLACE(STR(?d), "^P([0-9]+)([YMD])$", "$2") AS ?letter)
+    FILTER(REGEX(STR(?d), "^P[0-9]+[YMD]$"))
+    VALUES (?letter ?wc) { ("Y" "ANN") ("M" "MON") ("D" "DAY") }
+    BIND(IRI(CONCAT(STR(?r), "#warranty")) AS ?w)
+    BIND(xsd:decimal(?num) AS ?wv)
+    BIND(BNODE() AS ?q)
+  }
+}

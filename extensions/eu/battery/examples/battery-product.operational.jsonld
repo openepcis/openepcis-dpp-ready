@@ -9,6 +9,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521234000006",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/battery/",
     "https://schema.org/"
@@ -90,7 +91,6 @@
       "unitCode": "KGM",
       "value": "2.8"
     },
-    "hasCarbonFootprintPerformanceClass": "CFClassB",
     "hasCarbonFootprintProduction": {
       "type": "QuantitativeValue",
       "unitCode": "KGM",
@@ -110,6 +110,11 @@
       "type": "QuantitativeValue",
       "unitCode": "KGM",
       "value": "45.2"
+    },
+    "hasIndicator": {
+      "type": "Indicator",
+      "hasCategoricalValue": "https://ref.openepcis.org/extensions/eu/battery/CFClassB",
+      "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/battery/CarbonFootprintPerformanceClass"
     },
     "hasThirdPartyVerification": {
       "type": "ThirdPartyVerification",
@@ -444,35 +449,10 @@
   "hasTechnicalSpecifications": {
     "type": "TechnicalSpecification",
     "cRate": "0.5",
-    "cRateLifeCycleTest": "0.33",
-    "capacityThresholdForExhaustion": 70,
-    "depthOfDischargeInCycleLifeTest": 80,
-    "dischargeCRateLifeCycleTest": "0.5",
-    "expectedCycleLife": 6000,
     "hasExpectedLifetime": {
       "type": "QuantitativeValue",
       "unitCode": "ANN",
       "value": 15
-    },
-    "hasExpectedLifetimeCapacityThroughput": {
-      "type": "QuantitativeValue",
-      "unitCode": "AMH",
-      "value": 1680000
-    },
-    "hasExpectedLifetimeEnergyThroughput": {
-      "type": "QuantitativeValue",
-      "unitCode": "KWH",
-      "value": 85800
-    },
-    "hasInitialCellInternalResistance": {
-      "type": "QuantitativeValue",
-      "unitCode": "OHM",
-      "value": "0.0009"
-    },
-    "hasInitialPackInternalResistance": {
-      "type": "QuantitativeValue",
-      "unitCode": "OHM",
-      "value": "2.1"
     },
     "hasMaximumChargingCurrent": {
       "type": "QuantitativeValue",
@@ -509,24 +489,167 @@
       "unitCode": "VLT",
       "value": "51.2"
     },
-    "hasOriginalPowerCapability": [
-      {
-        "hasPowerCapability": {
-          "type": "QuantitativeValue",
-          "unitCode": "KWT",
-          "value": "7.2"
-        },
-        "stateOfChargeLevel": 80
+    "hasPerformanceTest": {
+      "type": "PerformanceDurabilityTest",
+      "hasMethod": {
+        "type": "TestMethod",
+        "methodUrl": "https://www.iec.ch/standards/62660-1"
       },
-      {
-        "hasPowerCapability": {
-          "type": "QuantitativeValue",
-          "unitCode": "KWT",
-          "value": "6.8"
+      "hasParameterSetting": [
+        {
+          "hasParameter": "https://ref.openepcis.org/extensions/eu/battery/DepthOfDischarge",
+          "hasParameterValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "P1",
+            "value": 80
+          }
         },
-        "stateOfChargeLevel": 20
-      }
-    ],
+        {
+          "hasParameter": "https://ref.openepcis.org/extensions/eu/battery/ChargeCRate",
+          "hasParameterValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "C62",
+            "value": "0.33"
+          }
+        },
+        {
+          "hasParameter": "https://ref.openepcis.org/extensions/eu/battery/DischargeCRate",
+          "hasParameterValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "C62",
+            "value": "0.5"
+          }
+        }
+      ],
+      "hasResult": [
+        {
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "OHM",
+            "value": "0.0009"
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/InitialCellInternalResistance"
+        },
+        {
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "OHM",
+            "value": "2.1"
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/InitialPackInternalResistance"
+        },
+        {
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "P1",
+            "value": "1.5"
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/InitialSelfDischargeRate"
+        },
+        {
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "P1",
+            "value": 96
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/InitialRoundTripEfficiency"
+        },
+        {
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "P1",
+            "value": 94
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/RoundTripEfficiencyAt50PercentCycleLife"
+        },
+        {
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "C62",
+            "value": 6000
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/CycleLife"
+        },
+        {
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "KWH",
+            "value": 85800
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/LifetimeEnergyThroughput"
+        },
+        {
+          "hasMeasuredValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "AMH",
+            "value": 1680000
+          },
+          "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/LifetimeCapacityThroughput"
+        }
+      ],
+      "hasSubAssessment": [
+        {
+          "hasCondition": {
+            "type": "AssessmentCondition",
+            "hasConditionType": "https://ref.openepcis.org/extensions/eu/battery/StateOfChargeLevel",
+            "hasConditionValue": {
+              "type": "QuantitativeValue",
+              "unitCode": "P1",
+              "value": 80
+            }
+          },
+          "hasResult": {
+            "type": "MeasurementResult",
+            "hasMeasuredValue": {
+              "type": "QuantitativeValue",
+              "unitCode": "KWT",
+              "value": "7.2"
+            },
+            "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/PowerCapability"
+          }
+        },
+        {
+          "hasCondition": {
+            "type": "AssessmentCondition",
+            "hasConditionType": "https://ref.openepcis.org/extensions/eu/battery/StateOfChargeLevel",
+            "hasConditionValue": {
+              "type": "QuantitativeValue",
+              "unitCode": "P1",
+              "value": 20
+            }
+          },
+          "hasResult": {
+            "type": "MeasurementResult",
+            "hasMeasuredValue": {
+              "type": "QuantitativeValue",
+              "unitCode": "KWT",
+              "value": "6.8"
+            },
+            "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/PowerCapability"
+          }
+        }
+      ],
+      "isEvaluatedAgainst": [
+        {
+          "hasComparisonOperator": "LessThan",
+          "hasThresholdParameter": "https://ref.openepcis.org/extensions/eu/battery/StateOfCertifiedEnergy",
+          "hasThresholdValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "P1",
+            "value": 70
+          }
+        },
+        {
+          "hasComparisonOperator": "GreaterThanOrEqual",
+          "hasThresholdParameter": "https://ref.openepcis.org/extensions/eu/battery/InternalResistanceIncrease",
+          "hasThresholdValue": {
+            "type": "QuantitativeValue",
+            "unitCode": "P1",
+            "value": 50
+          }
+        }
+      ]
+    },
     "hasRatedCapacity": {
       "type": "QuantitativeValue",
       "unitCode": "AMH",
@@ -594,12 +717,7 @@
         "value": -20
       }
     },
-    "initialSelfDischarge": "1.5",
-    "lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
-    "powerCapabilityRatio": "0.52",
-    "resistanceIncreaseThreshold": 50,
-    "roundTripEfficiency": 96,
-    "roundTripEfficiencyAt50PercentCycleLife": 94
+    "powerCapabilityRatio": "0.52"
   },
   "leadSymbolRequired": false,
   "manufacturer": {

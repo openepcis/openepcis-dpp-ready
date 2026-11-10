@@ -1,0 +1,22 @@
+# Labels: the carbon footprint label and (unless 60-resources already wrote the symbol's URL) the
+# separate collection symbol as labels of that subject with the symbol's URL; the extinguishing
+# agent as the text of the end-of-life information. The meaning of the labels is one text in 2.0.1
+# and cannot be assigned to the labels again: not converted.
+CONSTRUCT {
+  ?r eubat:hasLabels ?l . ?l a eubat:Label ; eubat:hasLabelSubject ?subject ; eubat:labelSymbol ?sym .
+  ?r eubat:hasEndOfLifeInfo ?eol . ?eol a eubat:EndOfLifeInfo ; eubat:extinguishingAgent ?agent .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?r a bprx:BatteryPassport }
+  FILTER(isIRI(?r))
+  {
+    VALUES (?field ?subject ?frag) { (bpr:carbonFootprintLabel eubat:CarbonFootprintLabel "label-cfp") }
+    GRAPH <urn:xw:flat> { ?r ?field ?res } GRAPH <urn:xw:in> { ?res bprx:url ?u }
+    BIND(IRI(CONCAT(STR(?r), "#", ?frag)) AS ?l)
+    BIND(STRDT(STR(?u), xsd:anyURI) AS ?sym)
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:extinguishingAgent ?ea } GRAPH <urn:xw:in> { ?ea bpr:extinguishingAgent ?a }
+    BIND(IRI(CONCAT(STR(?r), "#eol")) AS ?eol)
+    BIND(STRLANG(STR(?a), "en") AS ?agent)
+  }
+}

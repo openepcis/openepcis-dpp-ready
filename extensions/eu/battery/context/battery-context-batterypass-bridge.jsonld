@@ -1,5 +1,5 @@
 {
-  "_comment": "This context interprets incoming BatteryPass documents as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). One BatteryPass data model, referenced through two renderings. (1) bpsamm-* = the Battery Pass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl — the canonical form. (2) bpr: = an OpenEPCIS-hosted reference namespace for the few GEFEG BatteryPass-Ready longlist v1.3 attributes with no SAMM equivalent (DPP-information group #1-#4) plus the flat lossless-carrier keys below; GEFEG (thebatterypass.eu) is the Consortium's publication and validation channel and publishes no RDF IRIs. No SAMM 1.3.0 / DPPInformation submodel exists. Target-selection rule: every key resolves to the highest layer that already covers the concept (gs1: > oec: > eubat:); no key mints a new IRI. Where the longlist carries one flat value that OpenEPCIS models structurally across several terms (materialsUsedInCathode -> eubat:hasBatteryChemistry + eubat:hasMaterialComposition; symbolsForCadmiumAndLead -> eubat:cadmiumSymbolRequired + eubat:leadSymbolRequired; carbonFootprintLabel -> eubat:hasLabels/eubat:labelSymbol + eubat:CarbonFootprintLabel; informationOnAccidents -> eubat:hasNegativeEvents) no 1:1 project term exists, so the key keeps its upstream bpr: IRI and the incoming value is preserved losslessly rather than forced into a partial match. Attribute [5] batteryPassportIdentifier (the DPP identifier) and [6] batteryIdentifier (the unique battery/product identifier) are DISTINCT longlist attributes and map to different IRIs — oec:passportIdentifier vs gs1:productID. The expected lifetime arrives as a bare year count and eubat:hasExpectedLifetime carries a gs1:QuantitativeValue, so both lifetime keys keep the upstream SAMM IRI bpsamm-perf:expectedLifetime (exactMatch of eubat:hasExpectedLifetime) and the value stays lossless. The single initial internal resistance of the longlist and of SAMM keeps its upstream SAMM IRI, because the EU guidance 3.2 asks for a cell and a pack value (eubat:hasInitialCellInternalResistance, eubat:hasInitialPackInternalResistance) and one undifferentiated value fills neither. Quantity carriers use the longlist's bare {value, unitCode} shape, aliased onto gs1:value/gs1:unitCode with the same xsd:decimal coercion the prefixed terms carry, so examples/batterypass-v1.3.jsonld validates against validation/batterypass-v1.3-schema.json (85/85 required attributes) while staying graph-identical.",
+  "_comment": "This context interprets incoming BatteryPass documents of the older state (Battery Pass Consortium SAMM 1.2.x, BatteryPass-Ready longlist v1.3; crosswalk profile batterypass-1.3) as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). A BatteryPass-Ready 2.0.1 document (the current data model, nested in dppHeader and batteryPassportData) reads with batterypass-ready-2.0.1-context.jsonld and converts through the crosswalk profile batterypass. One BatteryPass data model, referenced through two renderings. (1) bpsamm-* = the Battery Pass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl — the canonical form. (2) bpr: = an OpenEPCIS-hosted reference namespace for the few GEFEG BatteryPass-Ready longlist v1.3 attributes with no SAMM equivalent (DPP-information group #1-#4) plus the flat lossless-carrier keys below; GEFEG (thebatterypass.eu) is the Consortium's publication and validation channel and publishes no RDF IRIs. No SAMM 1.3.0 / DPPInformation submodel exists. Target-selection rule: every key resolves to the highest layer that already covers the concept (gs1: > oec: > eubat:); no key mints a new IRI. Where the longlist carries one flat value that OpenEPCIS models structurally across several terms (materialsUsedInCathode -> eubat:hasBatteryChemistry + eubat:hasMaterialComposition; symbolsForCadmiumAndLead -> eubat:cadmiumSymbolRequired + eubat:leadSymbolRequired; carbonFootprintLabel -> eubat:hasLabels/eubat:labelSymbol + eubat:CarbonFootprintLabel; informationOnAccidents -> eubat:hasNegativeEvents) no 1:1 project term exists, so the key keeps its upstream bpr: IRI and the incoming value is preserved losslessly rather than forced into a partial match. Attribute [5] batteryPassportIdentifier (the DPP identifier) and [6] batteryIdentifier (the unique battery/product identifier) are DISTINCT longlist attributes and map to different IRIs — oec:passportIdentifier vs gs1:productID. The expected lifetime arrives as a bare year count and eubat:hasExpectedLifetime carries a gs1:QuantitativeValue, so both lifetime keys keep the upstream SAMM IRI bpsamm-perf:expectedLifetime (exactMatch of eubat:hasExpectedLifetime) and the value stays lossless. The single initial internal resistance of the longlist and of SAMM keeps its upstream SAMM IRI, because the EU guidance 3.2 asks for a cell and a pack value (eubat:hasInitialCellInternalResistance, eubat:hasInitialPackInternalResistance) and one undifferentiated value fills neither. Quantity carriers use the longlist's bare {value, unitCode} shape, aliased onto gs1:value/gs1:unitCode with the same xsd:decimal coercion the prefixed terms carry, so examples/batterypass-v1.3.jsonld validates against validation/batterypass-v1.3-schema.json (85/85 required attributes) while staying graph-identical.",
   "@context": {
     "@version": 1.1,
     "gs1": "https://ref.gs1.org/voc/",
@@ -167,15 +167,15 @@
       "@type": "@id"
     },
     "expectedNumberOfCycles": {
-      "@id": "eubat:expectedCycleLife",
+      "@id": "bpsamm-perf:expectedNumberOfCycles",
       "@type": "xsd:integer"
     },
     "initialSelfDischarge": {
-      "@id": "eubat:initialSelfDischarge",
+      "@id": "bpr:InitialSelf-dischargeRate",
       "@type": "xsd:decimal"
     },
     "roundtripEfficiency": {
-      "@id": "eubat:roundTripEfficiency",
+      "@id": "bpsamm-perf:roundtripEfficiency",
       "@type": "xsd:decimal"
     },
     "initialInternalResistance": {
@@ -195,15 +195,15 @@
       "@type": "xsd:decimal"
     },
     "capacityThresholdForExhaustion": {
-      "@id": "eubat:capacityThresholdForExhaustion",
+      "@id": "bpsamm-perf:capacityThresholdForExhaustion",
       "@type": "xsd:decimal"
     },
     "lifetimeReferenceTest": {
-      "@id": "eubat:lifetimeReferenceTest",
+      "@id": "bpr:Cycle-lifeReferenceTest",
       "@type": "@id"
     },
     "cRateLifeCycleTest": {
-      "@id": "eubat:cRateLifeCycleTest",
+      "@id": "bpr:C-rateOfRelevantCycle-lifeTest",
       "@type": "xsd:decimal"
     },
     "temperatureRangeIdleState": {
@@ -211,71 +211,71 @@
       "@type": "@id"
     },
     "roundTripEfficiencyAt50PercentCycleLife": {
-      "@id": "eubat:roundTripEfficiencyAt50PercentCycleLife",
+      "@id": "bpsamm-perf:roundTripEfficiencyAt50PercentCycleLife",
       "@type": "xsd:decimal"
     },
     "roundTripEfficiencyFade": {
-      "@id": "eubat:hasRoundTripEfficiencyFade",
+      "@id": "bpsamm-perf:roundTripEfficiencyFade",
       "@type": "@id"
     },
     "powerFade": {
-      "@id": "eubat:hasPowerFade",
+      "@id": "bpsamm-perf:powerFade",
       "@type": "@id"
     },
     "originalPowerCapability": {
-      "@id": "eubat:hasOriginalPowerCapability",
+      "@id": "bpsamm-perf:originalPowerCapability",
       "@type": "@id"
     },
     "remainingPowerCapability": {
-      "@id": "eubat:hasRemainingPowerCapability",
+      "@id": "bpsamm-perf:remainingPowerCapability",
       "@type": "@id"
     },
     "energyThroughput": {
-      "@id": "eubat:hasEnergyThroughput",
+      "@id": "bpsamm-perf:energyThroughput",
       "@type": "@id"
     },
     "capacityThroughput": {
-      "@id": "eubat:hasCapacityThroughput",
+      "@id": "bpsamm-perf:capacityThroughput",
       "@type": "@id"
     },
     "numberOfFullCycles": {
-      "@id": "eubat:hasCycleCount",
+      "@id": "bpsamm-perf:numberOfFullCycles",
       "@type": "@id"
     },
     "stateOfCertifiedEnergy": {
-      "@id": "eubat:hasStateOfCertifiedEnergy",
+      "@id": "bpsamm-perf:stateOfCertifiedEnergy",
       "@type": "@id"
     },
     "capacityFade": {
-      "@id": "eubat:hasCapacityFade",
+      "@id": "bpsamm-perf:capacityFade",
       "@type": "@id"
     },
     "remainingEnergy": {
-      "@id": "eubat:hasRemainingUsableEnergy",
+      "@id": "bpsamm-perf:remainingEnergy",
       "@type": "@id"
     },
     "remainingCapacity": {
-      "@id": "eubat:hasRemainingCapacity",
+      "@id": "bpsamm-perf:remainingCapacity",
       "@type": "@id"
     },
     "stateOfCharge": {
-      "@id": "eubat:hasStateOfCharge",
+      "@id": "bpsamm-perf:stateOfCharge",
       "@type": "@id"
     },
     "internalResistanceIncrease": {
-      "@id": "eubat:hasInternalResistanceIncrease",
+      "@id": "bpsamm-perf:internalResistanceIncrease",
       "@type": "@id"
     },
     "evolutionOfSelfDischarge": {
-      "@id": "eubat:hasEvolutionOfSelfDischarge",
+      "@id": "bpsamm-perf:evolutionOfSelfDischarge",
       "@type": "@id"
     },
     "currentSelfDischargingRate": {
-      "@id": "eubat:hasCurrentSelfDischargingRate",
+      "@id": "bpsamm-perf:currentSelfDischargingRate",
       "@type": "@id"
     },
     "remainingRoundTripEnergyEfficiency": {
-      "@id": "eubat:hasRemainingRoundTripEfficiency",
+      "@id": "bpsamm-perf:remainingRoundTripEnergyEfficiency",
       "@type": "@id"
     },
     "lastUpdate": {
@@ -293,19 +293,19 @@
       "@id": "schema:storageRequirements"
     },
     "timeExtremeHighTemp": {
-      "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
+      "@id": "bpsamm-perf:timeExtremeHighTemp",
       "@type": "xsd:integer"
     },
     "timeExtremeLowTemp": {
-      "@id": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
+      "@id": "bpsamm-perf:timeExtremeLowTemp",
       "@type": "xsd:integer"
     },
     "timeExtremeHighTempCharging": {
-      "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
+      "@id": "bpsamm-perf:timeExtremeHighTempCharging",
       "@type": "xsd:integer"
     },
     "timeExtremeLowTempCharging": {
-      "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
+      "@id": "bpsamm-perf:timeExtremeLowTempCharging",
       "@type": "xsd:integer"
     },
     "minimum": {
@@ -317,11 +317,11 @@
       "@type": "@id"
     },
     "atSoC": {
-      "@id": "eubat:stateOfChargeLevel",
+      "@id": "bpsamm-perf:atSoC",
       "@type": "xsd:decimal"
     },
     "powerCapabilityAt": {
-      "@id": "eubat:hasPowerCapability",
+      "@id": "bpsamm-perf:powerCapabilityAt",
       "@type": "@id"
     },
     "ohmicResistance": {
@@ -357,7 +357,7 @@
       "@type": "xsd:decimal"
     },
     "carbonFootprintPerformanceClass": {
-      "@id": "eubat:hasCarbonFootprintPerformanceClass",
+      "@id": "bpsamm-carbon:carbonFootprintPerformanceClass",
       "@type": "@vocab",
       "@context": {
         "A": "eubat:CFClassA",
@@ -684,19 +684,19 @@
       "@type": "@id"
     },
     "initialRoundTripEnergyEfficiency": {
-      "@id": "eubat:roundTripEfficiency",
+      "@id": "bpsamm-perf:roundtripEfficiency",
       "@type": "xsd:decimal"
     },
     "roundTripEnergyEfficiencyAt50PercentOfCycleLife": {
-      "@id": "eubat:roundTripEfficiencyAt50PercentCycleLife",
+      "@id": "bpsamm-perf:roundTripEfficiencyAt50PercentCycleLife",
       "@type": "xsd:decimal"
     },
     "energyRoundTripEfficiencyFade": {
-      "@id": "eubat:hasRoundTripEfficiencyFade",
+      "@id": "bpsamm-perf:roundTripEfficiencyFade",
       "@type": "xsd:decimal"
     },
     "evolutionOfSelfDischargeRates": {
-      "@id": "eubat:hasEvolutionOfSelfDischarge",
+      "@id": "bpsamm-perf:evolutionOfSelfDischarge",
       "@type": "@id"
     },
     "initialInternalResistanceOfBatteryCellAndPack": {
@@ -704,7 +704,7 @@
       "@type": "@id"
     },
     "internalResistanceIncreaseOfPack": {
-      "@id": "eubat:hasInternalResistanceIncrease",
+      "@id": "bpsamm-perf:internalResistanceIncrease",
       "@type": "@id"
     },
     "expectedLifetimeInCalendarYears": {
@@ -712,15 +712,15 @@
       "@type": "@id"
     },
     "expectedLifetimeNumberOfChargeDischargeCycles": {
-      "@id": "eubat:expectedCycleLife",
+      "@id": "bpsamm-perf:expectedNumberOfCycles",
       "@type": "@id"
     },
     "numberOfFullChargingAndDischargingCycles": {
-      "@id": "eubat:hasCycleCount",
+      "@id": "bpsamm-perf:numberOfFullCycles",
       "@type": "@id"
     },
-    "cycleLifeReferenceTest": "eubat:lifetimeReferenceTest",
-    "cRateOfRelevantCycleLifeTest": "eubat:cRateLifeCycleTest",
+    "cycleLifeReferenceTest": "bpr:Cycle-lifeReferenceTest",
+    "cRateOfRelevantCycleLifeTest": "bpr:C-rateOfRelevantCycle-lifeTest",
     "temperatureRangeIdleStateLowerBoundary": {
       "@id": "eubat:hasMinimumTemperature",
       "@type": "@id"
@@ -730,23 +730,19 @@
       "@type": "@id"
     },
     "timeSpentInExtremeTemperaturesAboveBoundary": {
-      "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
+      "@id": "bpsamm-perf:timeExtremeHighTemp",
       "@type": "xsd:integer"
     },
     "timeSpentInExtremeTemperaturesBelowBoundary": {
-      "@id": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
+      "@id": "bpsamm-perf:timeExtremeLowTemp",
       "@type": "xsd:integer"
     },
     "timeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
-      "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
+      "@id": "bpsamm-perf:timeExtremeHighTempCharging",
       "@type": "xsd:integer"
     },
     "timeSpentChargingDuringExtremeTemperaturesBelowBoundary": {
-      "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
-      "@type": "xsd:integer"
-    },
-    "numberOfDeepDischargeEvents": {
-      "@id": "eubat:numberOfDeepDischargeEvents",
+      "@id": "bpsamm-perf:timeExtremeLowTempCharging",
       "@type": "xsd:integer"
     },
     "informationOnAccidents": "bpr:InformationOnAccidents",
@@ -758,6 +754,10 @@
       "@id": "gs1:value",
       "@type": "xsd:decimal"
     },
-    "unitCode": "gs1:unitCode"
+    "unitCode": "gs1:unitCode",
+    "numberOfDeepDischargeEvents": {
+      "@id": "bpr:NumberOfDeepDischargeEvents",
+      "@type": "xsd:integer"
+    }
   }
 }

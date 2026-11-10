@@ -1,0 +1,62 @@
+# Virtual flat handles for battery values that OpenEPCIS states as results of an assessment
+# (common/assessment, wave 4). Shared by the crosswalk profiles whose targets keep these values
+# flat (eu-dpp, batterypass): entail/*.ru derives <urn:xw:v:NAME> from the assessment structure,
+# reshape/*.ru builds the structure back. NAME is the flat property OpenEPCIS had before 0.13.0,
+# so a handle carries a value of the same shape: a gs1:QuantitativeValue node, or (xw:literal) the
+# bare number. Holders: xw:BatteryState values sit on the product (eubat:hasBatteryState),
+# xw:PerformanceTest values on the technical specification (eubat:hasPerformanceTest).
+@prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
+@prefix eubat: <https://ref.openepcis.org/extensions/eu/battery/> .
+
+# ---------------------------------------------------------------- results
+<urn:xw:v:hasStateOfHealth> xw:parameter eubat:StateOfHealth ; xw:in xw:BatteryState ; xw:unit "P1" .
+<urn:xw:v:hasStateOfCharge> xw:parameter eubat:StateOfCharge ; xw:in xw:BatteryState ; xw:unit "P1" .
+<urn:xw:v:hasStateOfCertifiedEnergy> xw:parameter eubat:StateOfCertifiedEnergy ; xw:in xw:BatteryState ; xw:unit "P1" .
+<urn:xw:v:hasCycleCount> xw:parameter eubat:FullCycleCount ; xw:in xw:BatteryState ; xw:unit "C62" .
+<urn:xw:v:hasRemainingCapacity> xw:parameter eubat:RemainingCapacity ; xw:in xw:BatteryState ; xw:unit "AMH" .
+<urn:xw:v:hasCapacityFade> xw:parameter eubat:CapacityFade ; xw:in xw:BatteryState ; xw:unit "P1" .
+<urn:xw:v:hasPowerFade> xw:parameter eubat:PowerFade ; xw:in xw:BatteryState ; xw:unit "P1" .
+<urn:xw:v:hasInternalResistance> xw:parameter eubat:InternalResistance ; xw:in xw:BatteryState ; xw:unit "OHM" .
+<urn:xw:v:hasInternalResistanceIncrease> xw:parameter eubat:InternalResistanceIncrease ; xw:in xw:BatteryState ; xw:unit "P1" .
+<urn:xw:v:hasEnergyThroughput> xw:parameter eubat:EnergyThroughput ; xw:in xw:BatteryState ; xw:unit "KWH" .
+<urn:xw:v:hasCapacityThroughput> xw:parameter eubat:CapacityThroughput ; xw:in xw:BatteryState ; xw:unit "AMH" .
+<urn:xw:v:hasRemainingRoundTripEfficiency> xw:parameter eubat:RemainingRoundTripEfficiency ; xw:in xw:BatteryState ; xw:unit "P1" .
+<urn:xw:v:hasRoundTripEfficiencyFade> xw:parameter eubat:RoundTripEfficiencyFade ; xw:in xw:BatteryState ; xw:unit "P1" .
+<urn:xw:v:hasEvolutionOfSelfDischarge> xw:parameter eubat:SelfDischargeEvolution ; xw:in xw:BatteryState ; xw:unit "P1" .
+<urn:xw:v:hasCurrentSelfDischargingRate> xw:parameter eubat:SelfDischargeRate ; xw:in xw:BatteryState ; xw:unit "P1" .
+<urn:xw:v:timeSpentInExtremeTemperaturesAboveBoundary> xw:parameter eubat:TimeAboveTemperatureBoundary ; xw:in xw:BatteryState ; xw:unit "MIN" ; xw:literal true .
+<urn:xw:v:timeSpentInExtremeTemperaturesBelowBoundary> xw:parameter eubat:TimeBelowTemperatureBoundary ; xw:in xw:BatteryState ; xw:unit "MIN" ; xw:literal true .
+<urn:xw:v:timeSpentChargingDuringExtremeTemperaturesAboveBoundary> xw:parameter eubat:ChargingTimeAboveTemperatureBoundary ; xw:in xw:BatteryState ; xw:unit "MIN" ; xw:literal true .
+<urn:xw:v:timeSpentChargingDuringExtremeTemperaturesBelowBoundary> xw:parameter eubat:ChargingTimeBelowTemperatureBoundary ; xw:in xw:BatteryState ; xw:unit "MIN" ; xw:literal true .
+<urn:xw:v:numberOfDeepDischargeEvents> xw:parameter eubat:DeepDischargeEvents ; xw:in xw:BatteryState ; xw:unit "C62" ; xw:literal true .
+<urn:xw:v:hasRemainingUsableEnergy> xw:parameter eubat:RemainingUsableEnergy ; xw:in xw:BatteryState ; xw:unit "KWH" .
+<urn:xw:v:hasInitialCapacity> xw:parameter eubat:InitialCapacity ; xw:in xw:BatteryState ; xw:unit "AMH" .
+<urn:xw:v:hasInitialEnergy> xw:parameter eubat:InitialEnergy ; xw:in xw:BatteryState ; xw:unit "KWH" .
+<urn:xw:v:hasInitialCellInternalResistance> xw:parameter eubat:InitialCellInternalResistance ; xw:in xw:PerformanceTest ; xw:unit "OHM" .
+<urn:xw:v:hasInitialPackInternalResistance> xw:parameter eubat:InitialPackInternalResistance ; xw:in xw:PerformanceTest ; xw:unit "OHM" .
+<urn:xw:v:initialSelfDischarge> xw:parameter eubat:InitialSelfDischargeRate ; xw:in xw:PerformanceTest ; xw:unit "P1" ; xw:literal true .
+<urn:xw:v:roundTripEfficiency> xw:parameter eubat:InitialRoundTripEfficiency ; xw:in xw:PerformanceTest ; xw:unit "P1" ; xw:literal true .
+<urn:xw:v:roundTripEfficiencyAt50PercentCycleLife> xw:parameter eubat:RoundTripEfficiencyAt50PercentCycleLife ; xw:in xw:PerformanceTest ; xw:unit "P1" ; xw:literal true .
+<urn:xw:v:expectedCycleLife> xw:parameter eubat:CycleLife ; xw:in xw:PerformanceTest ; xw:unit "C62" ; xw:literal true .
+<urn:xw:v:hasExpectedLifetimeEnergyThroughput> xw:parameter eubat:LifetimeEnergyThroughput ; xw:in xw:PerformanceTest ; xw:unit "KWH" .
+<urn:xw:v:hasExpectedLifetimeCapacityThroughput> xw:parameter eubat:LifetimeCapacityThroughput ; xw:in xw:PerformanceTest ; xw:unit "AMH" .
+
+# ---------------------------------------------------------------- protocol settings and thresholds of the performance test
+<urn:xw:v:depthOfDischargeInCycleLifeTest> xw:setting eubat:DepthOfDischarge ; xw:in xw:PerformanceTest ; xw:unit "P1" ; xw:literal true .
+<urn:xw:v:cRateLifeCycleTest> xw:setting eubat:ChargeCRate ; xw:in xw:PerformanceTest ; xw:unit "C62" ; xw:literal true .
+<urn:xw:v:dischargeCRateLifeCycleTest> xw:setting eubat:DischargeCRate ; xw:in xw:PerformanceTest ; xw:unit "C62" ; xw:literal true .
+<urn:xw:v:capacityThresholdForExhaustion> xw:threshold eubat:CapacityExhaustionThreshold ; xw:thresholdParameter eubat:StateOfCertifiedEnergy ; xw:operator oea:LessThan ; xw:in xw:PerformanceTest ; xw:unit "P1" ; xw:literal true .
+<urn:xw:v:resistanceIncreaseThreshold> xw:threshold eubat:ResistanceIncreaseThreshold ; xw:thresholdParameter eubat:InternalResistanceIncrease ; xw:operator oea:GreaterThanOrEqual ; xw:in xw:PerformanceTest ; xw:unit "P1" ; xw:literal true .
+<urn:xw:v:lifetimeReferenceTest> xw:methodUrl true ; xw:in xw:PerformanceTest .
+
+# ---------------------------------------------------------------- indicators
+<urn:xw:v:expectedRemainingCycles> xw:indicatorKind eubat:RemainingCycles ; xw:in xw:BatteryState ; xw:unit "C62" ; xw:literal true .
+<urn:xw:v:expectedRemainingLifetimeMonths> xw:indicatorKind eubat:RemainingLifetime ; xw:in xw:BatteryState ; xw:unit "MON" ; xw:literal true .
+<urn:xw:v:hasCarbonFootprintPerformanceClass> xw:indicatorKind eubat:CarbonFootprintPerformanceClass ; xw:in xw:CarbonFootprint ; xw:categorical true .
+
+# ---------------------------------------------------------------- power capability at a state of charge
+# The handle's value is a node with <urn:xw:v:stateOfChargeLevel> (bare number) and
+# <urn:xw:v:hasPowerCapability> (gs1:QuantitativeValue): the sub-assessment with that condition.
+<urn:xw:v:hasOriginalPowerCapability> xw:powerCapability true ; xw:in xw:PerformanceTest .
+<urn:xw:v:hasRemainingPowerCapability> xw:powerCapability true ; xw:in xw:BatteryState .
