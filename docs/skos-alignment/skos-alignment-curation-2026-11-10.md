@@ -52,4 +52,16 @@ written as closeMatch for that reason).
 | `euelec:componentPartNumber` | exactMatch CIRPASS-2 battery `partNumber` | a battery-module term for a cross-sector electronics component |
 | `oea:Threshold` | broadMatch `cccev:Criterion` | already a subclass of `oea:Criterion` ⊑ `cccev:Criterion` |
 
-The remaining findings below the 0.8 floor stay open (`OPEN_DECISIONS.md`).
+## Reverse runs
+
+| Upstream | Terms | covered / proposed / code list / uncovered | Applied |
+|---|---|---|---|
+| EUDPP core | 536 | 154 / 38 / 152 / 192 | none above the floor |
+| CIRPASS-2 textile | 421 | see report | `oea:NumberOfCycles` exactMatch `txt-assessment:NumberOfCycles` (the panel proposed `oea:MeasurementParameter` narrowMatch; the parameter is a concept of that scheme, mapped concept to class as the other parameters) |
+| CIRPASS-2 battery | | see report | none (its one proposal is `euelec:componentPartNumber`, held above) |
+| EU DPP Registry | | see report | none above the floor |
+| BatteryPass SAMM | | see report | none above the floor |
+| BatteryPass-Ready 2.0.1 | 139 | 77 / 18 / 5 / 39 | `oec:lastUpdated` exactMatch `bpr:lastUpdated` (header of the 2.0.1 document; the crosswalk pairs them) |
+
+Findings below the 0.8 floor and the ADOPT / MAP advice of the reverse runs are curator work: the
+reports list them with the panel's reasons.
