@@ -11,9 +11,11 @@
  *
  *   1. The DPP-information attributes (group IdentifiersAndProductData) that have no
  *      SAMM equivalent: DPP schema version, DPP status, DPP granularity, last update.
- *   2. Four flat longlist keys kept as deliberate lossless carriers in
- *      battery-context-batterypass-bridge.jsonld because OpenEPCIS models the concept
- *      across several terms and a partial match would drop data.
+ *   2. Flat longlist keys kept as deliberate lossless carriers in
+ *      battery-context-batterypass-bridge.jsonld: four because OpenEPCIS models the concept
+ *      across several terms and a partial match would drop data, four measured or tested
+ *      values with no SAMM attribute that OpenEPCIS states as assessment results (converted
+ *      by the batterypass crosswalk profile).
  *
  * KEEP is the explicit list below; every entry is verified at build time to exist in
  * the live-derived schemas (extensions/eu/battery/validation/gefeg-live/*.schema.json)
@@ -129,7 +131,16 @@ const KEEP: Record<string, string[]> = {
     "DPPGranularity",
     "Date-timeOfLatestUpdateOfDPP",
   ],
-  PerformanceAndDurability: ["InformationOnAccidents"],
+  PerformanceAndDurability: [
+    "InformationOnAccidents",
+    // Measured and tested values with no SAMM 1.2.x attribute that OpenEPCIS states as assessment
+    // results (common/assessment); the bridge keeps them under these IRIs, the batterypass crosswalk
+    // profile converts them.
+    "Cycle-lifeReferenceTest",
+    "InitialSelf-dischargeRate",
+    "C-rateOfRelevantCycle-lifeTest",
+    "NumberOfDeepDischargeEvents",
+  ],
   BatteryMaterialsAndComposition: ["MaterialsUsedInCathodeAnodeAndElectrolyte"],
   SymbolsLabelsAndDocumentationOfConformity: ["SymbolsForCadmiumAndLead", "CarbonFootprintLabel"],
 };

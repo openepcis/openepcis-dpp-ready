@@ -82,7 +82,8 @@ and the equivalent `sensorElementList` form.
 electronics and PPWR. The third wave adds the life-cycle and circularity figures of `common/core`
 (EPD impact indicators, ESPR Annex I resource indicators, material circularity), the textile
 environmental footprint, the iron-steel material test certificate and the electronics WEEE treatment
-outcome. Battery performance and durability values follow. Declared values stay flat on purpose:
+outcome; and the battery state of health and use and the performance and durability tests (battery).
+Declared values stay flat on purpose:
 rated capacities and voltages, EU energy-label data (EPREL), composition declarations.
 
 ## Alignment

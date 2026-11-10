@@ -8,10 +8,9 @@ profile carries round-trip test cases whose results are committed and reviewed.
 | Profile | Target | Covers today |
 |---|---|---|
 | [`cirpass2`](cirpass2/) | CIRPASS-2 EU DPP ontologies (EUDPP core 2.2.0, textile 1.1.2) | **EUDPP core:** product, DPP, identifiers (GTIN, GLN, LEI), actors and roles, facilities, addresses, materials, substances of concern, documents, declaration of conformity, regulations, quantities, recycled content, circularity, carbon footprint, EPD/LCIA, product events. **Assessments:** executions, tests, results, criteria (also a sector module's own), thresholds, indicators, units, EPCIS events (object and sensorReport form). **Textile:** durability, robustness, recyclability |
-| [`keystone`](keystone/) | DPP Keystone v3 (`dppk:`) | the JRC robustness and recyclability scores (flat on the product) |
+| [`keystone`](keystone/) | DPP Keystone v3 (`dppk:`) | the JRC robustness and recyclability scores (flat on the product), the textile footprint figures and classes, the material test certificate values |
+| [`batterypass`](batterypass/) | BatteryPass (Battery Pass Consortium SAMM 1.2.x, BatteryPass-Ready v1.3 longlist), as read through `battery-context-batterypass-bridge.jsonld` | the measured and tested battery values BatteryPass states flat: state of health and charge, SOCE, cycles, capacity and power fade, resistance increase, throughput, round-trip efficiencies, self-discharge, temperature exposure, power capability, cycle life, thresholds, C-rate, reference test, carbon footprint class. Everything else is OpenEPCIS on both sides and travels unchanged |
 | [`eu-dpp`](eu-dpp/) | EU DPP Registry semantic data artifacts 1.0.0 (the Commission's passport JSON: core, batteries, EV / LMT / industrial) | **Core:** passport identifier, unique product identifier, granularity, status, last update, content specifications, for every product passport. **Batteries:** identification, manufacturer, manufacturing place and date, category, status, chemistry, hazardous substances, critical raw materials, label symbols, weight, capacities, voltages, power limit, resistances, efficiencies, C-rates, lifetimes, cycle counts, state-of-health values, temperature range, warranty, documents. Checked with the Commission's SHACL shapes and JSON Schemas, and against its 20 conformance examples |
-
-BatteryPass follows once the battery module is on the assessment model.
 
 ## Running it
 
@@ -44,6 +43,8 @@ silently.
                  without "type": a GS1 Digital Link of a trade item is a gs1:Product, an untyped
                  node gets the rdfs:range class of its property)
   lower/*.rq     SPARQL CONSTRUCT rules target → OpenEPCIS
+  lower/reshape/*.ru  SPARQL updates run last over the output (<urn:xw:out>): turn virtual handles
+                 into the OpenEPCIS structure (see below)
   tests/<case>/  ours.jsonld | ours.ttl  or  <profile>.ttl | <profile>.json, plus committed goldens:
                  the converted document, roundtrip.txt, lowered.ours.jsonld (what an OpenEPCIS
                  consumer receives), lifted.<profile>.json (what the target receives, for a
@@ -73,6 +74,14 @@ engine retypes it from the mapping table (`xw:theirDatatype`, `xw:ourDatatype`),
 `xsd:dateTimeStamp`. One SPARQL rule of thumb cost several bugs: a `FILTER` or `BIND` inside a `UNION`
 branch sees only that branch's variables, so a value from outside the branch is joined in, not
 referenced.
+
+**Virtual handles.** A target that states a value flat (the Registry, BatteryPass: "state of health:
+94 %") while OpenEPCIS states it as a result of an assessment (`eubat:hasBatteryState` →
+`oea:hasResult` → observed parameter and measured value) meets it through a virtual flat handle
+`<urn:xw:v:NAME>` ([`shared/battery-handles.ttl`](shared/battery-handles.ttl)). An entail update of the
+lift derives the handle from the assessment, the rules address it like a property, and a reshape
+update of the lower builds the assessment back from it. Handles never reach an output and do not count
+as input. Profiles share these updates through `profile.json` `"updates"`.
 
 Principles every profile follows:
 
@@ -254,7 +263,7 @@ What the OpenEPCIS battery model cannot hold, found by lowering the Commission's
 | `manufacturingDate` (year and month) | `gs1:productionDate` is a full date; a month is not lowered |
 | `manufacturerTradeName`, `manufacturerTrademark` | no term |
 | `complianceTestReportResults` as a document (content type, title, language) | a bare URL (`eubat:resultOfTestReport`); the Registry requires the content type |
-| `roundTripEnergyEfficiency` and `remainingRoundTripEfficiency` as two values | one term (`eubat:hasRemainingRoundTripEfficiency`, adjudication of 2026-11-06); lowering keeps the remaining value, lifting writes it to both |
+| `roundTripEnergyEfficiency` and `remainingRoundTripEfficiency` as two values | one parameter (`eubat:RemainingRoundTripEfficiency`, adjudication of 2026-11-06); lowering keeps the remaining value, lifting writes it to both |
 | `euDeclarationOfConformity` content type, title, language | `cccev:Evidence` with the URL only |
 | `originalPowerCapability`, `powerCapability` (one value) | values per state of charge (80 % and 20 %) |
 | `numberOfDischargingCycles` | only the full cycle count |

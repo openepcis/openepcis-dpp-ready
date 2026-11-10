@@ -1,0 +1,11 @@
+# OpenEPCIS statements travel unchanged; a SAMM or BatteryPass-Ready attribute the mapping table
+# names is converted (20-flat, then the shared reshape). Other attributes the bridge context keeps
+# under their BatteryPass IRI (no OpenEPCIS term carries them one to one, e.g. a single initial
+# internal resistance where OpenEPCIS states cell and pack) are not converted.
+CONSTRUCT { ?s ?p ?o }
+WHERE {
+  GRAPH <urn:xw:in> { ?s ?p ?o }
+  FILTER NOT EXISTS { ?row xw:theirs ?p }
+  FILTER(!STRSTARTS(STR(?p), "urn:samm:") && !STRSTARTS(STR(?p), "https://ref.openepcis.org/vocab/batterypass-ready/"))
+  FILTER(?p != rdf:type || (!STRSTARTS(STR(?o), "urn:samm:") && !STRSTARTS(STR(?o), "https://ref.openepcis.org/vocab/batterypass-ready/")))
+}

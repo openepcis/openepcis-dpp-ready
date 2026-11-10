@@ -18,6 +18,10 @@
         "batteryStatus": {
           "$ref": "#/$defs/BatteryStatus"
         },
+        "hasBatteryState": {
+          "type": "object",
+          "description": "eubat:BatteryStateAssessment (an oea:Assessment): state of health and charge, SOCE, cycles, fade, resistance, throughput, temperature exposure as oea:hasResult; remaining power capability per state of charge as oea:hasSubAssessment; remaining cycles and lifetime as oea:hasIndicator."
+        },
         "batteryModelIdentifier": {
           "type": "string",
           "description": "Manufacturer-assigned model identifier. Mandatory per BatteryPass-Ready v1.3 #7."
@@ -246,17 +250,13 @@
         "hasMaximumVoltage": {
           "$ref": "#/$defs/QuantitativeValue"
         },
-        "expectedCycleLife": {
-          "type": "integer",
-          "description": "Expected number of full charge-discharge cycles."
-        },
         "hasExpectedLifetime": {
           "$ref": "#/$defs/QuantitativeValue",
           "description": "Expected lifetime in calendar years (unitCode ANN)."
         },
-        "roundTripEfficiency": {
-          "type": "number",
-          "description": "Energy efficiency as percentage."
+        "hasPerformanceTest": {
+          "type": "object",
+          "description": "eubat:PerformanceDurabilityTest (an oea:TestExecution): reference test as oea:hasMethod, depth of discharge and C-rates as oea:hasParameterSetting, exhaustion and resistance-increase thresholds as oea:isEvaluatedAgainst, cycle life, round-trip efficiency, initial resistance and self-discharge as oea:hasResult, original power capability per state of charge as oea:hasSubAssessment."
         }
       }
     },

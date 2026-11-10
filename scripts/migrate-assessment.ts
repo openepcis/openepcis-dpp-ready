@@ -728,6 +728,216 @@ function batteryProduct(o: Obj, at: string) {
   }
 }
 
+/** Wave 4, battery: dynamic values on the product -> results of eubat:BatteryStateAssessment. */
+const BATTERY_STATE: [string, string, string][] = [
+  ["hasStateOfHealth", "eubat:StateOfHealth", "P1"],
+  ["hasStateOfCharge", "eubat:StateOfCharge", "P1"],
+  ["hasStateOfCertifiedEnergy", "eubat:StateOfCertifiedEnergy", "P1"],
+  ["hasCycleCount", "eubat:FullCycleCount", "C62"],
+  ["hasRemainingCapacity", "eubat:RemainingCapacity", "AMH"],
+  ["hasCapacityFade", "eubat:CapacityFade", "P1"],
+  ["hasPowerFade", "eubat:PowerFade", "P1"],
+  ["hasInternalResistance", "eubat:InternalResistance", "OHM"],
+  ["hasInternalResistanceIncrease", "eubat:InternalResistanceIncrease", "P1"],
+  ["hasEnergyThroughput", "eubat:EnergyThroughput", "KWH"],
+  ["hasCapacityThroughput", "eubat:CapacityThroughput", "AMH"],
+  ["hasRemainingRoundTripEfficiency", "eubat:RemainingRoundTripEfficiency", "P1"],
+  ["hasRoundTripEfficiencyFade", "eubat:RoundTripEfficiencyFade", "P1"],
+  ["hasEvolutionOfSelfDischarge", "eubat:SelfDischargeEvolution", "P1"],
+  ["hasCurrentSelfDischargingRate", "eubat:SelfDischargeRate", "P1"],
+  ["timeSpentInExtremeTemperaturesAboveBoundary", "eubat:TimeAboveTemperatureBoundary", "MIN"],
+  ["timeSpentInExtremeTemperaturesBelowBoundary", "eubat:TimeBelowTemperatureBoundary", "MIN"],
+  ["timeSpentChargingDuringExtremeTemperaturesAboveBoundary", "eubat:ChargingTimeAboveTemperatureBoundary", "MIN"],
+  ["timeSpentChargingDuringExtremeTemperaturesBelowBoundary", "eubat:ChargingTimeBelowTemperatureBoundary", "MIN"],
+  ["numberOfDeepDischargeEvents", "eubat:DeepDischargeEvents", "C62"],
+  ["hasRemainingUsableEnergy", "eubat:RemainingUsableEnergy", "KWH"],
+  ["hasInitialCapacity", "eubat:InitialCapacity", "AMH"],
+  ["hasInitialEnergy", "eubat:InitialEnergy", "KWH"],
+];
+const BATTERY_STATE_INDICATORS: [string, string, string][] = [
+  ["expectedRemainingCycles", "eubat:RemainingCycles", "C62"],
+  ["expectedRemainingLifetimeMonths", "eubat:RemainingLifetime", "MON"],
+];
+/** Wave 4, battery: tested values on the technical specification -> results of eubat:PerformanceDurabilityTest. */
+const BATTERY_TEST: [string, string, string][] = [
+  ["hasInitialCellInternalResistance", "eubat:InitialCellInternalResistance", "OHM"],
+  ["hasInitialPackInternalResistance", "eubat:InitialPackInternalResistance", "OHM"],
+  ["initialSelfDischarge", "eubat:InitialSelfDischargeRate", "P1"],
+  ["roundTripEfficiency", "eubat:InitialRoundTripEfficiency", "P1"],
+  ["roundTripEfficiencyAt50PercentCycleLife", "eubat:RoundTripEfficiencyAt50PercentCycleLife", "P1"],
+  ["expectedCycleLife", "eubat:CycleLife", "C62"],
+  ["hasExpectedLifetimeEnergyThroughput", "eubat:LifetimeEnergyThroughput", "KWH"],
+  ["hasExpectedLifetimeCapacityThroughput", "eubat:LifetimeCapacityThroughput", "AMH"],
+];
+const BATTERY_TEST_SETTINGS: [string, string, string][] = [
+  ["depthOfDischargeInCycleLifeTest", "eubat:DepthOfDischarge", "P1"],
+  ["cRateLifeCycleTest", "eubat:ChargeCRate", "C62"],
+  ["dischargeCRateLifeCycleTest", "eubat:DischargeCRate", "C62"],
+];
+const BATTERY_TEST_THRESHOLDS: [string, string, string, string][] = [
+  ["capacityThresholdForExhaustion", "eubat:CapacityExhaustionThreshold", "eubat:StateOfCertifiedEnergy", "oea:LessThan"],
+  ["resistanceIncreaseThreshold", "eubat:ResistanceIncreaseThreshold", "eubat:InternalResistanceIncrease", "oea:GreaterThanOrEqual"],
+];
+
+/** The key of `o` whose local name is `name`, if it is a battery key (eubat: or bare). */
+const batteryKey = (o: Obj, name: string) => Object.keys(o).find((k) => local(k) === name && (k.startsWith("eubat:") || !k.includes(":")));
+
+/** A power capability at a state of charge: a sub-assessment with the SoC as its condition. */
+function powerCapabilityAt(n: (c: string) => string, soc: Json, value: Json, id?: string): Obj {
+  const t: Obj = {};
+  if (id) t.id = id;
+  t.type = "oea:TestExecution";
+  t[n("oea:hasCondition")] = { type: "oea:AssessmentCondition", [n("oea:hasConditionType")]: ref("eubat:StateOfChargeLevel"), [n("oea:hasConditionValue")]: measured(soc, "P1") };
+  t[n("oea:hasResult")] = { type: "oea:MeasurementResult", [n("oea:hasObservedParameter")]: ref("eubat:PowerCapability"), [n("oea:hasMeasuredValue")]: measured(value, "KWT") };
+  return t;
+}
+
+/** eubat:PowerCapabilityAtSoC objects (one or a list) -> sub-assessments. */
+function powerCapabilities(n: (c: string) => string, v: Json): Obj[] {
+  return [v].flat().filter((x) => x && typeof x === "object").map((pc: Obj) => {
+    const soc = pc[Object.keys(pc).find((k) => local(k) === "stateOfChargeLevel") ?? ""];
+    const val = pc[Object.keys(pc).find((k) => local(k) === "hasPowerCapability") ?? ""];
+    return powerCapabilityAt(n, soc, val, pc.id ?? pc["@id"]);
+  });
+}
+
+/** Get or create the assessment under `key` on `o` (a single object). */
+function assessmentUnder(o: Obj, entry: string, type: string): Obj {
+  const k = Object.keys(o).find((x) => local(x) === local(entry));
+  if (k && o[k] && typeof o[k] === "object" && !Array.isArray(o[k])) return o[k];
+  const a: Obj = { type };
+  o[entry] = a;
+  return a;
+}
+
+/** Wave 4, battery product: the dynamic values move into eubat:hasBatteryState. */
+function batteryState(o: Obj) {
+  const results: Obj[] = [];
+  const subs: Obj[] = [];
+  const indicators: Obj[] = [];
+  let bare: boolean | undefined;
+  const nOf = () => spelling(!!bare);
+  for (const [name, parameter, unit] of BATTERY_STATE) {
+    const k = batteryKey(o, name);
+    if (!k) continue;
+    bare ??= !k.includes(":");
+    results.push({ type: "oea:MeasurementResult", [nOf()("oea:hasObservedParameter")]: ref(parameter), [nOf()("oea:hasMeasuredValue")]: measured(take(o, name), unit) });
+  }
+  for (const [name, kind, unit] of BATTERY_STATE_INDICATORS) {
+    const k = batteryKey(o, name);
+    if (!k) continue;
+    bare ??= !k.includes(":");
+    indicators.push(indicator(nOf(), kind, take(o, name), unit));
+  }
+  const rpc = batteryKey(o, "hasRemainingPowerCapability");
+  if (rpc) {
+    bare ??= !rpc.includes(":");
+    subs.push(...powerCapabilities(nOf(), take(o, "hasRemainingPowerCapability")));
+  }
+  for (const [name, soc] of [["hasPowerCapabilityAt80SoC", 80], ["hasPowerCapabilityAt20SoC", 20]] as const) {
+    const k = batteryKey(o, name);
+    if (!k) continue;
+    bare ??= !k.includes(":");
+    subs.push(powerCapabilityAt(nOf(), soc, take(o, name)));
+  }
+  if (bare === undefined) return;
+  const n = nOf();
+  const a = assessmentUnder(o, n("eubat:hasBatteryState"), "eubat:BatteryStateAssessment");
+  setOrAppend(a, Object.keys(a).find((k) => local(k) === "hasResult") ?? n("oea:hasResult"), results);
+  setOrAppend(a, Object.keys(a).find((k) => local(k) === "hasSubAssessment") ?? n("oea:hasSubAssessment"), subs);
+  setOrAppend(a, Object.keys(a).find((k) => local(k) === "hasIndicator") ?? n("oea:hasIndicator"), indicators);
+}
+
+/** Wave 4, battery technical specification: the tested values move into eubat:hasPerformanceTest. */
+function batteryPerformanceTest(ts: Obj) {
+  const results: Obj[] = [];
+  const settings: Obj[] = [];
+  const thresholds: Obj[] = [];
+  const subs: Obj[] = [];
+  let method: Obj | undefined;
+  let bare: boolean | undefined;
+  const nOf = () => spelling(!!bare);
+  for (const [name, parameter, unit] of BATTERY_TEST) {
+    const k = batteryKey(ts, name);
+    if (!k) continue;
+    bare ??= !k.includes(":");
+    results.push({ type: "oea:MeasurementResult", [nOf()("oea:hasObservedParameter")]: ref(parameter), [nOf()("oea:hasMeasuredValue")]: measured(take(ts, name), unit) });
+  }
+  for (const [name, parameter, unit] of BATTERY_TEST_SETTINGS) {
+    const k = batteryKey(ts, name);
+    if (!k) continue;
+    bare ??= !k.includes(":");
+    settings.push({ type: "oea:ParameterSetting", [nOf()("oea:hasParameter")]: ref(parameter), [nOf()("oea:hasParameterValue")]: measured(take(ts, name), unit) });
+  }
+  for (const [name, cls, parameter, operator] of BATTERY_TEST_THRESHOLDS) {
+    const k = batteryKey(ts, name);
+    if (!k) continue;
+    bare ??= !k.includes(":");
+    thresholds.push({ type: cls, [nOf()("oea:hasThresholdParameter")]: ref(parameter), [nOf()("oea:hasComparisonOperator")]: ref(operator), [nOf()("oea:hasThresholdValue")]: measured(take(ts, name), "P1") });
+  }
+  const opc = batteryKey(ts, "hasOriginalPowerCapability");
+  if (opc) {
+    bare ??= !opc.includes(":");
+    subs.push(...powerCapabilities(nOf(), take(ts, "hasOriginalPowerCapability")));
+  }
+  const lrt = batteryKey(ts, "lifetimeReferenceTest");
+  if (lrt) {
+    bare ??= !lrt.includes(":");
+    const v = take(ts, "lifetimeReferenceTest");
+    const url = v && typeof v === "object" ? v["@value"] ?? v["@id"] ?? v.id : v;
+    method = { type: "oea:TestMethod", [nOf()(/^https?:\/\//.test(String(url)) ? "oea:methodUrl" : "oea:methodName")]: url };
+  }
+  if (bare === undefined) return;
+  const n = nOf();
+  const t = assessmentUnder(ts, n("eubat:hasPerformanceTest"), "eubat:PerformanceDurabilityTest");
+  if (method) t[n("oea:hasMethod")] = method;
+  setOrAppend(t, Object.keys(t).find((k) => local(k) === "hasParameterSetting") ?? n("oea:hasParameterSetting"), settings);
+  setOrAppend(t, Object.keys(t).find((k) => local(k) === "isEvaluatedAgainst") ?? n("oea:isEvaluatedAgainst"), thresholds);
+  setOrAppend(t, Object.keys(t).find((k) => local(k) === "hasResult") ?? n("oea:hasResult"), results);
+  setOrAppend(t, Object.keys(t).find((k) => local(k) === "hasSubAssessment") ?? n("oea:hasSubAssessment"), subs);
+}
+
+/** Wave 4, battery carbon footprint: the performance class is an indicator. */
+function carbonFootprintClass(o: Obj) {
+  const k = batteryKey(o, "hasCarbonFootprintPerformanceClass");
+  if (!k) return;
+  const n = spelling(!k.includes(":"));
+  const v = take(o, "hasCarbonFootprintPerformanceClass");
+  setOrAppend(o, Object.keys(o).find((x) => local(x) === "hasIndicator") ?? n("oea:hasIndicator"), [
+    { type: "oea:Indicator", [n("oea:hasIndicatorKind")]: ref("eubat:CarbonFootprintPerformanceClass"), [n("oea:hasCategoricalValue")]: v },
+  ]);
+}
+
+/** Wave 4, EPCIS: a sensorReport whose type is a removed battery property names the parameter instead. */
+const SENSOR_TYPES: Record<string, string> = Object.fromEntries(
+  BATTERY_STATE.map(([name, parameter]) => [`eubat:${name}`, parameter]),
+);
+function sensorReportType(o: Obj) {
+  for (const k of ["type", "@type"]) {
+    const t = o[k];
+    if (typeof t === "string" && t in SENSOR_TYPES && Object.keys(o).some((x) => /^(value|stringValue|booleanValue|uom|time)$/.test(x))) o[k] = SENSOR_TYPES[t];
+  }
+}
+
+/** Apply `f` to every object of `doc`, children first. */
+function walkObjects(doc: Json, f: (o: Obj) => void) {
+  if (Array.isArray(doc)) doc.forEach((v) => walkObjects(v, f));
+  else if (doc && typeof doc === "object") {
+    for (const v of Object.values(doc)) walkObjects(v, f);
+    f(doc);
+  }
+}
+
+/** Wave 4 on a battery node: state on the product, tests on its technical specifications, CF class. */
+function batteryWave4(o: Obj) {
+  sensorReportType(o);
+  carbonFootprintClass(o);
+  for (const k of Object.keys(o).filter((x) => local(x) === "hasTechnicalSpecifications" && (!x.includes(":") || x.startsWith("eubat:")))) {
+    for (const ts of [o[k]].flat()) if (ts && typeof ts === "object") batteryPerformanceTest(ts);
+  }
+  batteryState(o);
+}
+
 const isBatteryProduct = (o: Obj) =>
   Object.keys(o).some((k) => ["hasTechnicalSpecifications", "hasEndOfLifeInfo", "hasPerformanceInfo", "hasDismantlingDocuments", "safetyMeasures"].includes(local(k)) && (!k.includes(":") || /^(eubat|oec):/.test(k)));
 
@@ -763,6 +973,8 @@ export function migrate(doc: Json, at = "$", battery?: boolean): Json {
   circularity(doc);
   rename(doc, at, battery);
   if (battery && isBatteryProduct(doc)) batteryProduct(doc, at);
+  // Wave 4 runs once the earlier battery moves are done everywhere (they pull values up to the product).
+  if (battery && at === "$") walkObjects(doc, batteryWave4);
   return doc;
 }
 
@@ -803,6 +1015,14 @@ const BATTERY_REMOVED = new Set([
   "safetyMeasures", "safetyInstructionsForDismantling",
 ]);
 
+/** Battery terms removed in wave 4 (measured and tested values on common/assessment). */
+const WAVE4_BATTERY_REMOVED = new Set([
+  ...[...BATTERY_STATE, ...BATTERY_STATE_INDICATORS, ...BATTERY_TEST, ...BATTERY_TEST_SETTINGS].map(([name]) => name),
+  ...BATTERY_TEST_THRESHOLDS.map(([name]) => name),
+  "hasRemainingPowerCapability", "hasOriginalPowerCapability", "hasPowerCapabilityAt80SoC", "hasPowerCapabilityAt20SoC",
+  "hasPowerCapability", "stateOfChargeLevel", "lifetimeReferenceTest", "hasCarbonFootprintPerformanceClass",
+]);
+
 export function leftovers(doc: Json, at = "$", out: string[] = [], textile?: boolean, battery?: boolean, bridge?: boolean): string[] {
   // A bare key is one of the textile terms only under a textile context, and one of the battery
   // terms only under the battery operational context; bare hasDismantlingInstructions is the
@@ -823,7 +1043,8 @@ export function leftovers(doc: Json, at = "$", out: string[] = [], textile?: boo
         (WAVE3_TEXTILE_REMOVED.has(local(k)) && (k.startsWith("eutex:") || (textile && !k.includes(":")))) ||
         (WAVE3_STEEL_REMOVED.has(local(k)) && (k.startsWith("eusteel:") || !k.includes(":"))) ||
         (WAVE3_ELEC_REMOVED.has(local(k)) && k.startsWith("euelec:"));
-      if (removed || batteryRemoved || renamed || wave2 || wave3) out.push(`${at}.${k}`);
+      const wave4 = WAVE4_BATTERY_REMOVED.has(local(k)) && (k.startsWith("eubat:") || (battery && !k.includes(":")));
+      if (removed || batteryRemoved || renamed || wave2 || wave3 || wave4) out.push(`${at}.${k}`);
       leftovers(v, `${at}.${k}`, out, textile, battery, bridge);
     }
   }
@@ -848,9 +1069,34 @@ function without(doc: Json, drop: (key: string) => boolean): Json {
   return Object.fromEntries(Object.entries(doc).filter(([k]) => !drop(k)).map(([k, v]) => [k, without(v, drop)]));
 }
 
+/** Drop every result observing one of `params` (and a result list it leaves empty), at any depth. */
+function withoutResults(doc: Json, params: string[]): Json {
+  const observes = (v: Json) => {
+    if (!v || typeof v !== "object" || Array.isArray(v)) return false;
+    const k = Object.keys(v).find((x) => local(x) === "hasObservedParameter");
+    const p = k && v[k];
+    const iri = typeof p === "string" ? p : p?.["@id"] ?? p?.id;
+    return !!iri && params.some((q) => local(iri) === local(q));
+  };
+  if (Array.isArray(doc)) return doc.filter((v) => !observes(v)).map((v) => withoutResults(v, params));
+  if (!doc || typeof doc !== "object") return doc;
+  const out: Obj = {};
+  for (const [k, v] of Object.entries(doc)) {
+    if (observes(v)) continue;
+    const w = withoutResults(v, params);
+    if (Array.isArray(w) && !w.length) continue;
+    out[k] = Array.isArray(w) && w.length === 1 && local(k) === "hasResult" ? w[0] : w;
+  }
+  return out;
+}
+
 const BAT = "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld";
 const BAT_OP = "https://ref.openepcis.org/extensions/eu/battery/battery-operational-context.jsonld";
 const BRIDGE = "https://ref.openepcis.org/extensions/eu/battery/battery-context-batterypass-bridge.jsonld";
+
+/** A measurement result, as the migration writes it (prefixed / bare keys). */
+const mr = (parameter: string, value: Json): Obj => ({ type: "oea:MeasurementResult", "oea:hasObservedParameter": ref(parameter), "oea:hasMeasuredValue": value });
+const mrBare = (parameter: string, value: Json): Obj => ({ type: "oea:MeasurementResult", hasObservedParameter: ref(parameter), hasMeasuredValue: value });
 
 /** Shapes the examples do not exercise: each input must migrate to exactly the expected document. */
 const SYNTHETIC: { name: string; input: Obj; expected: Obj }[] = [
@@ -883,8 +1129,10 @@ const SYNTHETIC: { name: string; input: Obj; expected: Obj }[] = [
     },
     expected: {
       "@context": BAT, type: "eubat:Battery",
-      "eubat:hasCurrentSelfDischargingRate": qv(3, "P1"),
-      "eubat:hasRemainingRoundTripEfficiency": qv(92.5, "P1"),
+      "eubat:hasBatteryState": {
+        type: "eubat:BatteryStateAssessment",
+        "oea:hasResult": [mr("eubat:RemainingRoundTripEfficiency", qv(92.5, "P1")), mr("eubat:SelfDischargeRate", qv(3, "P1"))],
+      },
     },
   },
   {
@@ -893,8 +1141,8 @@ const SYNTHETIC: { name: string; input: Obj; expected: Obj }[] = [
     expected: {
       "@context": BAT,
       "oec:hasPerformanceInfo": { "eubat:hasNegativeEvents": [] },
-      "eubat:hasRemainingRoundTripEfficiency": qv("90", "P1"),
       "eubat:hasEndOfLifeInfo": { type: "eubat:EndOfLifeInfo", "eubat:hasSafetyMeasures": { type: "oec:DocumentReference", "oec:documentUrl": "https://x.example/safety.pdf" } },
+      "eubat:hasBatteryState": { type: "eubat:BatteryStateAssessment", "oea:hasResult": mr("eubat:RemainingRoundTripEfficiency", qv("90", "P1")) },
     },
   },
   {
@@ -909,12 +1157,12 @@ const SYNTHETIC: { name: string; input: Obj; expected: Obj }[] = [
     expected: {
       "@context": BAT_OP,
       hasTechnicalSpecifications: { type: "TechnicalSpecification", "eubat:hasExpectedLifetime": qv(12, "ANN") },
-      hasRemainingUsableEnergy: { type: "QuantitativeValue", value: 9, unitCode: "KWH" },
       hasEndOfLifeInfo: { type: "EndOfLifeInfo", "eubat:hasSafetyMeasures": { type: "oec:DocumentReference", "oec:documentUrl": "https://x.example/ds.pdf" } },
       hasMaterialComposition: [{ casNumber: "7439-93-2", ecNumber: "231-102-5" }],
       "eubat:hasDismantlingAndRemovalInformation": [
         { type: "eubat:DismantlingDocument", "eubat:hasDocumentType": { "@id": "eubat:DismantlingManual" }, "eubat:documentUrl": "https://x.example/manual.pdf" },
       ],
+      hasBatteryState: { type: "eubat:BatteryStateAssessment", hasResult: mrBare("eubat:RemainingUsableEnergy", { type: "QuantitativeValue", value: 9, unitCode: "KWH" }) },
     },
   },
   {
@@ -984,9 +1232,12 @@ async function check(): Promise<number> {
     const show = (rev: string) => JSON.parse(execFileSync("git", ["show", `${rev}:${file}`], { cwd: ROOT, encoding: "utf8" }));
     // Both revisions go through the migration: later waves rewrite terms the reference revision
     // still carried, and a document stored at either revision must end in the same current shape.
-    const migrated = without(migrate(show(before)), ignore);
+    // The initial internal resistance was split into cell and pack values without a one-to-one
+    // successor (REPORT_ONLY); since wave 4 those are results, so they are left out by parameter too.
+    const strip = (d: Json) => withoutResults(without(d, ignore), ["InitialCellInternalResistance", "InitialPackInternalResistance"]);
+    const migrated = strip(migrate(show(before)));
     notes.length = 0;
-    const expected = without(migrate(show(after)), ignore);
+    const expected = strip(migrate(show(after)));
     migrated["@context"] = expected["@context"];
     const [a, b] = [await nquads(migrated), await nquads(expected)];
     const left = leftovers(migrated);

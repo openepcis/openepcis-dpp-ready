@@ -1,0 +1,21 @@
+# OpenEPCIS statements travel unchanged, except the battery assessments whose values BatteryPass
+# states flat (20-flat): the battery state and the performance test with everything below them,
+# and the carbon footprint class indicator. A quantity a flat value keeps travels with it.
+CONSTRUCT { ?s ?p ?o }
+WHERE {
+  GRAPH <urn:xw:in> { ?s ?p ?o }
+  FILTER(!STRSTARTS(STR(?p), "urn:xw:v:"))
+  FILTER(?p NOT IN (eubat:hasBatteryState, eubat:hasPerformanceTest))
+  # A node inside such an assessment travels only as the value of a flat attribute (a quantity, a
+  # power capability at a state of charge), and then without its assessment statements.
+  FILTER NOT EXISTS {
+    VALUES ?entry { eubat:hasBatteryState eubat:hasPerformanceTest }
+    GRAPH <urn:xw:in> { ?h ?entry ?a . ?a (oea:hasResult|oea:hasSubAssessment|oea:hasParameterSetting|oea:isEvaluatedAgainst|oea:hasMethod|oea:hasIndicator|oea:hasCondition|oea:hasMeasuredValue|oea:hasParameterValue|oea:hasThresholdValue|oea:hasConditionValue|oea:hasIndicatorValue)* ?s }
+    FILTER(STRSTARTS(STR(?p), STR(oea:)) || (?p = rdf:type && STRSTARTS(STR(?o), STR(oea:)))
+           || NOT EXISTS { GRAPH <urn:xw:in> { ?any ?vp ?s } FILTER(STRSTARTS(STR(?vp), "urn:xw:v:")) })
+  }
+  FILTER NOT EXISTS {
+    GRAPH <urn:xw:in> { ?cf oea:hasIndicator ?i . ?i oea:hasIndicatorKind eubat:CarbonFootprintPerformanceClass }
+    FILTER(?s = ?i || (?s = ?cf && ?p = oea:hasIndicator && ?o = ?i))
+  }
+}

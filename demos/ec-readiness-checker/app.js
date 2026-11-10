@@ -17609,8 +17609,9 @@ var require_rdf_literal = __commonJS({
 
 // scripts/lib/ec-readiness.ts
 var BP_APPLICATION_DATE = "2027-02-18";
+var NAMING_KEYS = /* @__PURE__ */ new Set(["hasObservedParameter", "hasIndicatorKind", "hasParameter"]);
 function collectFacts(docs) {
-  const facts = { keys: /* @__PURE__ */ new Set(), types: /* @__PURE__ */ new Set(), ids: [], strings: [] };
+  const facts = { keys: /* @__PURE__ */ new Set(), types: /* @__PURE__ */ new Set(), ids: [], strings: [], named: [] };
   const walk = (node) => {
     if (Array.isArray(node)) {
       for (const item of node) walk(item);
@@ -17630,6 +17631,12 @@ function collectFacts(docs) {
       if ((key === "id" || key === "@id") && typeof value === "string") {
         facts.ids.push(value);
       }
+      if (NAMING_KEYS.has(key.split(":").pop() ?? key)) {
+        for (const v of Array.isArray(value) ? value : [value]) {
+          const iri = typeof v === "string" ? v : v?.["@id"] ?? v?.id;
+          if (typeof iri === "string") facts.named.push(iri);
+        }
+      }
       walk(value);
     }
   };
@@ -17644,6 +17651,8 @@ function termEvidence(curie, facts) {
   if (isClassCurie(curie)) {
     if (facts.types.has(curie)) return curie;
     if (facts.types.has(bare)) return `${bare} (bare type)`;
+    const named = (v) => v === curie || v === bare || v.endsWith(`/${bare}`) || v.endsWith(`#${bare}`);
+    if (facts.named.some(named)) return `${curie} (named by a result, indicator or setting)`;
     return null;
   }
   if (facts.keys.has(curie)) return curie;
@@ -26188,7 +26197,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasCarbonFootprintPerformanceClass"
+        "eubat:CarbonFootprintPerformanceClass"
       ]
     },
     {
@@ -26449,7 +26458,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasOriginalPowerCapability"
+        "eubat:PowerCapability"
       ]
     },
     {
@@ -26496,7 +26505,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:expectedCycleLife"
+        "eubat:CycleLife"
       ]
     },
     {
@@ -26519,7 +26528,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:lifetimeReferenceTest"
+        "eubat:hasPerformanceTest"
       ]
     },
     {
@@ -26543,7 +26552,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:capacityThresholdForExhaustion"
+        "eubat:CapacityExhaustionThreshold"
       ]
     },
     {
@@ -26614,7 +26623,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:roundTripEfficiency"
+        "eubat:InitialRoundTripEfficiency"
       ]
     },
     {
@@ -26637,7 +26646,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:roundTripEfficiencyAt50PercentCycleLife"
+        "eubat:RoundTripEfficiencyAt50PercentCycleLife"
       ]
     },
     {
@@ -26659,8 +26668,8 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasInitialCellInternalResistance",
-        "eubat:hasInitialPackInternalResistance"
+        "eubat:InitialCellInternalResistance",
+        "eubat:InitialPackInternalResistance"
       ]
     },
     {
@@ -26683,7 +26692,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:cRateLifeCycleTest"
+        "eubat:ChargeCRate"
       ]
     },
     {
@@ -26705,7 +26714,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:dischargeCRateLifeCycleTest"
+        "eubat:DischargeCRate"
       ]
     },
     {
@@ -26991,7 +27000,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasCapacityFade"
+        "eubat:CapacityFade"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27015,7 +27024,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasPowerCapability"
+        "eubat:PowerCapability"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27039,7 +27048,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasPowerFade"
+        "eubat:PowerFade"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27063,7 +27072,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasInternalResistance"
+        "eubat:InternalResistance"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27087,7 +27096,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasInternalResistanceIncrease"
+        "eubat:InternalResistanceIncrease"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27113,7 +27122,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:roundTripEfficiency"
+        "eubat:InitialRoundTripEfficiency"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27139,7 +27148,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasRoundTripEfficiencyFade"
+        "eubat:RoundTripEfficiencyFade"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27163,7 +27172,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:expectedRemainingCycles"
+        "eubat:RemainingCycles"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27188,7 +27197,7 @@ var ec_datapoint_applicability_default = {
       },
       implementedBy: [
         "eubat:hasExpectedLifetime",
-        "eubat:expectedRemainingLifetimeMonths"
+        "eubat:RemainingLifetime"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27213,7 +27222,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasStateOfCertifiedEnergy"
+        "eubat:StateOfCertifiedEnergy"
       ],
       epcisExample: "epcis/state-of-certified-energy.jsonld"
     },
@@ -27239,7 +27248,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasRemainingCapacity"
+        "eubat:RemainingCapacity"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27264,7 +27273,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasRemainingPowerCapability"
+        "eubat:PowerCapability"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27289,7 +27298,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasRemainingRoundTripEfficiency"
+        "eubat:RemainingRoundTripEfficiency"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27314,8 +27323,8 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasEvolutionOfSelfDischarge",
-        "eubat:hasCurrentSelfDischargingRate"
+        "eubat:SelfDischargeEvolution",
+        "eubat:SelfDischargeRate"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27340,7 +27349,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasInternalResistance"
+        "eubat:InternalResistance"
       ],
       epcisExample: "epcis/state-of-health.jsonld"
     },
@@ -27390,7 +27399,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasCycleCount"
+        "eubat:FullCycleCount"
       ],
       epcisExample: "epcis/amperia-staxwall-lifecycle.jsonld"
     },
@@ -27443,8 +27452,8 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
-        "eubat:timeSpentInExtremeTemperaturesBelowBoundary"
+        "eubat:TimeAboveTemperatureBoundary",
+        "eubat:TimeBelowTemperatureBoundary"
       ],
       epcisExample: "epcis/temperature-extreme.jsonld"
     },
@@ -27470,7 +27479,7 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:hasStateOfCharge"
+        "eubat:StateOfCharge"
       ],
       epcisExample: "epcis/amperia-staxwall-lifecycle.jsonld"
     }
@@ -27487,6 +27496,8 @@ var ec_readiness_shapes_default = `@prefix owl: <http://www.w3.org/2002/07/owl#>
 @prefix schema: <https://schema.org/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
 @prefix eubat: <https://ref.openepcis.org/extensions/eu/battery/> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix ecbp: <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#> .
 
 # GENERATED FILE - do not edit. Source: vocab/ec-guidance-datapoints.json,
@@ -27637,7 +27648,7 @@ ecbp:dp-18-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration eubat:hasCarbonFootprintPerformanceClass ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:hasCarbonFootprintPerformanceClass" ] ;
+    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:CarbonFootprintPerformanceClass ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (EV, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:CarbonFootprintPerformanceClass" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-18> .
 
 ecbp:dp-19-ev
@@ -27709,7 +27720,9 @@ ecbp:dp-29-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 29 (EV, mandatory): Original power capability [unit W] \u2014 expected eubat:hasOriginalPowerCapability" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 29 (EV, mandatory): Original power capability [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-29> .
 
 ecbp:dp-30-ev
@@ -27725,21 +27738,23 @@ ecbp:dp-31-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 31 (EV, mandatory): Expected battery lifetime expressed in cycles [in number] \u2014 expected eubat:expectedCycleLife" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CycleLife ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CycleLife ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 31 (EV, mandatory): Expected battery lifetime expressed in cycles [in number] \u2014 expected eubat:CycleLife" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31> .
 
 ecbp:dp-32-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:lifetimeReferenceTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 32 (EV, mandatory): Reference test used for expected battery lifetime expressed in cycles [free text] \u2014 expected eubat:lifetimeReferenceTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 32 (EV, mandatory): Reference test used for expected battery lifetime expressed in cycles [free text] \u2014 expected eubat:hasPerformanceTest" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-32> .
 
 ecbp:dp-33-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:capacityThresholdForExhaustion ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 33 (EV, mandatory): Capacity threshold for exhaustion [%] \u2014 expected eubat:capacityThresholdForExhaustion" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:isEvaluatedAgainst ) ; sh:qualifiedValueShape [ sh:class eubat:CapacityExhaustionThreshold ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 33 (EV, mandatory): Capacity threshold for exhaustion [%] \u2014 expected eubat:CapacityExhaustionThreshold" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-33> .
 
 ecbp:dp-34-ev
@@ -27762,37 +27777,41 @@ ecbp:dp-36-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 36 (EV, mandatory): Initial round trip energy efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 36 (EV, mandatory): Initial round trip energy efficiency [%] \u2014 expected eubat:InitialRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> .
 
 ecbp:dp-37-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiencyAt50PercentCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 37 (EV, mandatory): Round trip energy efficiency at 50 % of cycle-life [%] \u2014 expected eubat:roundTripEfficiencyAt50PercentCycleLife" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyAt50PercentCycleLife ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyAt50PercentCycleLife ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 37 (EV, mandatory): Round trip energy efficiency at 50 % of cycle-life [%] \u2014 expected eubat:RoundTripEfficiencyAt50PercentCycleLife" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-37> .
 
 ecbp:dp-38-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialCellInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialPackInternalResistance ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialCellInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialCellInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialPackInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialPackInternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 38 (EV, mandatory): Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9] \u2014 expected eubat:hasInitialCellInternalResistance / eubat:hasInitialPackInternalResistance" ;
+    sh:message "EC data point 38 (EV, mandatory): Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9] \u2014 expected eubat:InitialCellInternalResistance / eubat:InitialPackInternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> .
 
 ecbp:dp-39-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:cRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 39 (EV, mandatory): Charge C-rate of relevant cycle-life test [number] \u2014 expected eubat:cRateLifeCycleTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasParameterSetting ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasParameter ; sh:hasValue eubat:ChargeCRate ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 39 (EV, mandatory): Charge C-rate of relevant cycle-life test [number] \u2014 expected eubat:ChargeCRate" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39> .
 
 ecbp:dp-40-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:dischargeCRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 40 (EV, optional): Discharge C-rate of relevant cycle-life test [number] \u2014 expected eubat:dischargeCRateLifeCycleTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasParameterSetting ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasParameter ; sh:hasValue eubat:DischargeCRate ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Info ; sh:message "EC data point 40 (EV, optional): Discharge C-rate of relevant cycle-life test [number] \u2014 expected eubat:DischargeCRate" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-40> .
 
 ecbp:dp-41-ev
@@ -27892,74 +27911,88 @@ ecbp:dp-52-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCapacityFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 52 (EV, mandatory): Capacity fade [%] \u2014 expected eubat:hasCapacityFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CapacityFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CapacityFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 52 (EV, mandatory): Capacity fade [%] \u2014 expected eubat:CapacityFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-52> .
 
 ecbp:dp-53-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasRemainingPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 53 (EV, mandatory): Power [unit W] \u2014 expected eubat:hasPowerCapability" ;
+    sh:message "EC data point 53 (EV, mandatory): Power [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-53> .
 
 ecbp:dp-54-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasPowerFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 54 (EV, mandatory): Power fade [%] \u2014 expected eubat:hasPowerFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 54 (EV, mandatory): Power fade [%] \u2014 expected eubat:PowerFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-54> .
 
 ecbp:dp-55-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 55 (EV, mandatory): Internal resistance [unit \u03A9] \u2014 expected eubat:hasInternalResistance" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 55 (EV, mandatory): Internal resistance [unit \u03A9] \u2014 expected eubat:InternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-55> .
 
 ecbp:dp-56-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistanceIncrease ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 56 (EV, mandatory): Internal resistance increase [%] \u2014 expected eubat:hasInternalResistanceIncrease" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistanceIncrease ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistanceIncrease ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 56 (EV, mandatory): Internal resistance increase [%] \u2014 expected eubat:InternalResistanceIncrease" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-56> .
 
 ecbp:dp-57-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 57 (EV, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 57 (EV, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency [%] \u2014 expected eubat:InitialRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-57> .
 
 ecbp:dp-58-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRoundTripEfficiencyFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 58 (EV, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency fade [%] \u2014 expected eubat:hasRoundTripEfficiencyFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 58 (EV, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency fade [%] \u2014 expected eubat:RoundTripEfficiencyFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-58> .
 
 ecbp:dp-59-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:expectedRemainingCycles ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 59 (EV, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number] \u2014 expected eubat:expectedRemainingCycles" ] ;
+    sh:property [ sh:path ( eubat:hasBatteryState oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:RemainingCycles ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 59 (EV, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number] \u2014 expected eubat:RemainingCycles" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-59> .
 
 ecbp:dp-60-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:RemainingLifetime ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 60 (EV, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:hasExpectedLifetime / eubat:expectedRemainingLifetimeMonths" ;
+    sh:message "EC data point 60 (EV, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:hasExpectedLifetime / eubat:RemainingLifetime" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
 
 ecbp:dp-61-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasStateOfCertifiedEnergy ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 61 (EV, mandatory): Information on the state of health of the battery pursuant to Article 14: state of certified energy (SOCE) [%] \u2014 expected eubat:hasStateOfCertifiedEnergy" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCertifiedEnergy ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCertifiedEnergy ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 61 (EV, mandatory): Information on the state of health of the battery pursuant to Article 14: state of certified energy (SOCE) [%] \u2014 expected eubat:StateOfCertifiedEnergy" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-61> .
 
 ecbp:dp-67-ev
@@ -27973,7 +28006,9 @@ ecbp:dp-68-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCycleCount ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 68 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] \u2014 expected eubat:hasCycleCount" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:FullCycleCount ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:FullCycleCount ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 68 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] \u2014 expected eubat:FullCycleCount" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68> .
 
 ecbp:dp-69-ev
@@ -27987,16 +28022,18 @@ ecbp:dp-70-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:timeSpentInExtremeTemperaturesAboveBoundary ; sh:minCount 1 ] [ sh:path eubat:timeSpentInExtremeTemperaturesBelowBoundary ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeAboveTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeAboveTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeBelowTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeBelowTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 70 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units] \u2014 expected eubat:timeSpentInExtremeTemperaturesAboveBoundary / eubat:timeSpentInExtremeTemperaturesBelowBoundary" ;
+    sh:message "EC data point 70 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units] \u2014 expected eubat:TimeAboveTemperatureBoundary / eubat:TimeBelowTemperatureBoundary" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70> .
 
 ecbp:dp-71-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasStateOfCharge ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 71 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the state of charge [histogram, %] \u2014 expected eubat:hasStateOfCharge" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCharge ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCharge ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 71 (EV, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the state of charge [histogram, %] \u2014 expected eubat:StateOfCharge" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-71> .
 
 # \u2500\u2500 LMT batteries \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
@@ -28135,7 +28172,7 @@ ecbp:dp-18-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration eubat:hasCarbonFootprintPerformanceClass ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:hasCarbonFootprintPerformanceClass" ] ;
+    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:CarbonFootprintPerformanceClass ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (LMT, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:CarbonFootprintPerformanceClass" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-18> .
 
 ecbp:dp-19-lmt
@@ -28207,7 +28244,9 @@ ecbp:dp-29-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 29 (LMT, mandatory): Original power capability [unit W] \u2014 expected eubat:hasOriginalPowerCapability" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 29 (LMT, mandatory): Original power capability [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-29> .
 
 ecbp:dp-30-lmt
@@ -28223,14 +28262,16 @@ ecbp:dp-31-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 31 (LMT, mandatory): Expected battery lifetime expressed in cycles [in number] \u2014 expected eubat:expectedCycleLife" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CycleLife ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CycleLife ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 31 (LMT, mandatory): Expected battery lifetime expressed in cycles [in number] \u2014 expected eubat:CycleLife" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31> .
 
 ecbp:dp-32-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:lifetimeReferenceTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 32 (LMT, mandatory): Reference test used for expected battery lifetime expressed in cycles [free text] \u2014 expected eubat:lifetimeReferenceTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 32 (LMT, mandatory): Reference test used for expected battery lifetime expressed in cycles [free text] \u2014 expected eubat:hasPerformanceTest" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-32> .
 
 ecbp:dp-34-lmt
@@ -28253,37 +28294,41 @@ ecbp:dp-36-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 36 (LMT, mandatory): Initial round trip energy efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 36 (LMT, mandatory): Initial round trip energy efficiency [%] \u2014 expected eubat:InitialRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> .
 
 ecbp:dp-37-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiencyAt50PercentCycleLife ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 37 (LMT, mandatory): Round trip energy efficiency at 50 % of cycle-life [%] \u2014 expected eubat:roundTripEfficiencyAt50PercentCycleLife" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyAt50PercentCycleLife ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyAt50PercentCycleLife ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 37 (LMT, mandatory): Round trip energy efficiency at 50 % of cycle-life [%] \u2014 expected eubat:RoundTripEfficiencyAt50PercentCycleLife" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-37> .
 
 ecbp:dp-38-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialCellInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialPackInternalResistance ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialCellInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialCellInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialPackInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialPackInternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 38 (LMT, mandatory): Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9] \u2014 expected eubat:hasInitialCellInternalResistance / eubat:hasInitialPackInternalResistance" ;
+    sh:message "EC data point 38 (LMT, mandatory): Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9] \u2014 expected eubat:InitialCellInternalResistance / eubat:InitialPackInternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> .
 
 ecbp:dp-39-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:cRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 39 (LMT, mandatory): Charge C-rate of relevant cycle-life test [number] \u2014 expected eubat:cRateLifeCycleTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasParameterSetting ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasParameter ; sh:hasValue eubat:ChargeCRate ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 39 (LMT, mandatory): Charge C-rate of relevant cycle-life test [number] \u2014 expected eubat:ChargeCRate" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39> .
 
 ecbp:dp-40-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:dischargeCRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 40 (LMT, optional): Discharge C-rate of relevant cycle-life test [number] \u2014 expected eubat:dischargeCRateLifeCycleTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasParameterSetting ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasParameter ; sh:hasValue eubat:DischargeCRate ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Info ; sh:message "EC data point 40 (LMT, optional): Discharge C-rate of relevant cycle-life test [number] \u2014 expected eubat:DischargeCRate" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-40> .
 
 ecbp:dp-41-lmt
@@ -28383,104 +28428,124 @@ ecbp:dp-52-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCapacityFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 52 (LMT, mandatory): Capacity fade [%] \u2014 expected eubat:hasCapacityFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CapacityFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CapacityFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 52 (LMT, mandatory): Capacity fade [%] \u2014 expected eubat:CapacityFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-52> .
 
 ecbp:dp-53-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasRemainingPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 53 (LMT, mandatory): Power [unit W] \u2014 expected eubat:hasPowerCapability" ;
+    sh:message "EC data point 53 (LMT, mandatory): Power [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-53> .
 
 ecbp:dp-54-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasPowerFade ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 54 (LMT, mandatory): Power fade [%] \u2014 expected eubat:hasPowerFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 54 (LMT, mandatory): Power fade [%] \u2014 expected eubat:PowerFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-54> .
 
 ecbp:dp-55-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 55 (LMT, mandatory): Internal resistance [unit \u03A9] \u2014 expected eubat:hasInternalResistance" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 55 (LMT, mandatory): Internal resistance [unit \u03A9] \u2014 expected eubat:InternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-55> .
 
 ecbp:dp-56-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistanceIncrease ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 56 (LMT, mandatory): Internal resistance increase [%] \u2014 expected eubat:hasInternalResistanceIncrease" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistanceIncrease ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistanceIncrease ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 56 (LMT, mandatory): Internal resistance increase [%] \u2014 expected eubat:InternalResistanceIncrease" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-56> .
 
 ecbp:dp-57-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 57 (LMT, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 57 (LMT, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency [%] \u2014 expected eubat:InitialRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-57> .
 
 ecbp:dp-58-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRoundTripEfficiencyFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 58 (LMT, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency fade [%] \u2014 expected eubat:hasRoundTripEfficiencyFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 58 (LMT, provide if the condition applies: If applicable): Where applicable, energy round trip efficiency fade [%] \u2014 expected eubat:RoundTripEfficiencyFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-58> .
 
 ecbp:dp-59-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:expectedRemainingCycles ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 59 (LMT, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number] \u2014 expected eubat:expectedRemainingCycles" ] ;
+    sh:property [ sh:path ( eubat:hasBatteryState oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:RemainingCycles ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 59 (LMT, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number] \u2014 expected eubat:RemainingCycles" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-59> .
 
 ecbp:dp-60-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:RemainingLifetime ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 60 (LMT, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:hasExpectedLifetime / eubat:expectedRemainingLifetimeMonths" ;
+    sh:message "EC data point 60 (LMT, mandatory): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:hasExpectedLifetime / eubat:RemainingLifetime" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
 
 ecbp:dp-62-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingCapacity ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 62 (LMT, mandatory: Mandatory battery management system): Information on the state of health of the battery pursuant to Article 14: remaining capacity [unit Ah] \u2014 expected eubat:hasRemainingCapacity" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingCapacity ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingCapacity ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 62 (LMT, mandatory: Mandatory battery management system): Information on the state of health of the battery pursuant to Article 14: remaining capacity [unit Ah] \u2014 expected eubat:RemainingCapacity" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-62> .
 
 ecbp:dp-63-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingPowerCapability ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 63 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability [unit W] \u2014 expected eubat:hasRemainingPowerCapability" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 63 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-63> .
 
 ecbp:dp-64-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingRoundTripEfficiency ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 64 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round-trip efficiency [%] \u2014 expected eubat:hasRemainingRoundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 64 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round-trip efficiency [%] \u2014 expected eubat:RemainingRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-64> .
 
 ecbp:dp-65-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasEvolutionOfSelfDischarge ; sh:minCount 1 ] [ sh:path eubat:hasCurrentSelfDischargingRate ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeEvolution ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeEvolution ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeRate ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeRate ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 65 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year] \u2014 expected eubat:hasEvolutionOfSelfDischarge / eubat:hasCurrentSelfDischargingRate" ;
+    sh:message "EC data point 65 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year] \u2014 expected eubat:SelfDischargeEvolution / eubat:SelfDischargeRate" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65> .
 
 ecbp:dp-66-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 66 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance [unit \u03A9] \u2014 expected eubat:hasInternalResistance" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 66 (LMT, mandatory): Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance [unit \u03A9] \u2014 expected eubat:InternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-66> .
 
 ecbp:dp-67-lmt
@@ -28494,7 +28559,9 @@ ecbp:dp-68-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCycleCount ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 68 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] \u2014 expected eubat:hasCycleCount" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:FullCycleCount ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:FullCycleCount ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 68 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] \u2014 expected eubat:FullCycleCount" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68> .
 
 ecbp:dp-69-lmt
@@ -28508,16 +28575,18 @@ ecbp:dp-70-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:timeSpentInExtremeTemperaturesAboveBoundary ; sh:minCount 1 ] [ sh:path eubat:timeSpentInExtremeTemperaturesBelowBoundary ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeAboveTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeAboveTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeBelowTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeBelowTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 70 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units] \u2014 expected eubat:timeSpentInExtremeTemperaturesAboveBoundary / eubat:timeSpentInExtremeTemperaturesBelowBoundary" ;
+    sh:message "EC data point 70 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units] \u2014 expected eubat:TimeAboveTemperatureBoundary / eubat:TimeBelowTemperatureBoundary" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70> .
 
 ecbp:dp-71-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasStateOfCharge ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 71 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the state of charge [histogram, %] \u2014 expected eubat:hasStateOfCharge" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCharge ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCharge ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 71 (LMT, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the state of charge [histogram, %] \u2014 expected eubat:StateOfCharge" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-71> .
 
 # \u2500\u2500 industrial batteries \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
@@ -28656,7 +28725,7 @@ ecbp:dp-18-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration eubat:hasCarbonFootprintPerformanceClass ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:hasCarbonFootprintPerformanceClass" ] ;
+    sh:property [ sh:path ( eubat:hasCarbonFootprintDeclaration oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:CarbonFootprintPerformanceClass ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Info ; sh:message "EC data point 18 (industrial, not yet required as of Feb 2027 (act outstanding): Not to be filled/displayed as of February 2027- format still to be specified in the upcoming implementing act): The carbon footprint label \u2014 expected eubat:CarbonFootprintPerformanceClass" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-18> .
 
 ecbp:dp-19-industrial
@@ -28728,7 +28797,9 @@ ecbp:dp-29-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 29 (industrial, mandatory): Original power capability [unit W] \u2014 expected eubat:hasOriginalPowerCapability" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 29 (industrial, mandatory): Original power capability [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-29> .
 
 ecbp:dp-30-industrial
@@ -28744,14 +28815,16 @@ ecbp:dp-31-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:expectedCycleLife ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 31 (industrial, provide if the condition applies: Only applicable for some industrial batteries where lifetime can be expressed in cycles): Expected battery lifetime expressed in cycles [in number] \u2014 expected eubat:expectedCycleLife" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CycleLife ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CycleLife ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 31 (industrial, provide if the condition applies: Only applicable for some industrial batteries where lifetime can be expressed in cycles): Expected battery lifetime expressed in cycles [in number] \u2014 expected eubat:CycleLife" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31> .
 
 ecbp:dp-32-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:lifetimeReferenceTest ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 32 (industrial, provide if the condition applies: Only applicable for some industrial batteries where lifetime can be expressed in cycles): Reference test used for expected battery lifetime expressed in cycles [free text] \u2014 expected eubat:lifetimeReferenceTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 32 (industrial, provide if the condition applies: Only applicable for some industrial batteries where lifetime can be expressed in cycles): Reference test used for expected battery lifetime expressed in cycles [free text] \u2014 expected eubat:hasPerformanceTest" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-32> .
 
 ecbp:dp-34-industrial
@@ -28774,37 +28847,41 @@ ecbp:dp-36-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 36 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Initial round trip energy efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 36 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Initial round trip energy efficiency [%] \u2014 expected eubat:InitialRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> .
 
 ecbp:dp-37-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiencyAt50PercentCycleLife ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 37 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Round trip energy efficiency at 50 % of cycle-life [%] \u2014 expected eubat:roundTripEfficiencyAt50PercentCycleLife" ] ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyAt50PercentCycleLife ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyAt50PercentCycleLife ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 37 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Round trip energy efficiency at 50 % of cycle-life [%] \u2014 expected eubat:RoundTripEfficiencyAt50PercentCycleLife" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-37> .
 
 ecbp:dp-38-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialCellInternalResistance ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasInitialPackInternalResistance ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialCellInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialCellInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialPackInternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialPackInternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Violation ;
-    sh:message "EC data point 38 (industrial, mandatory): Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9] \u2014 expected eubat:hasInitialCellInternalResistance / eubat:hasInitialPackInternalResistance" ;
+    sh:message "EC data point 38 (industrial, mandatory): Internal battery cell resistance [unit \u03A9] and internal battery pack resistance [unit \u03A9] \u2014 expected eubat:InitialCellInternalResistance / eubat:InitialPackInternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> .
 
 ecbp:dp-39-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:cRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 39 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Charge C-rate of relevant cycle-life test [number] \u2014 expected eubat:cRateLifeCycleTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasParameterSetting ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasParameter ; sh:hasValue eubat:ChargeCRate ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 39 (industrial, provide if the condition applies: Only applicable for some industrial batteries): Charge C-rate of relevant cycle-life test [number] \u2014 expected eubat:ChargeCRate" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39> .
 
 ecbp:dp-40-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:dischargeCRateLifeCycleTest ) ; sh:minCount 1 ; sh:severity sh:Info ; sh:message "EC data point 40 (industrial, optional): Discharge C-rate of relevant cycle-life test [number] \u2014 expected eubat:dischargeCRateLifeCycleTest" ] ;
+    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasPerformanceTest oea:hasParameterSetting ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasParameter ; sh:hasValue eubat:DischargeCRate ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Info ; sh:message "EC data point 40 (industrial, optional): Discharge C-rate of relevant cycle-life test [number] \u2014 expected eubat:DischargeCRate" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-40> .
 
 ecbp:dp-41-industrial
@@ -28904,104 +28981,124 @@ ecbp:dp-52-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCapacityFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 52 (industrial, provide if the condition applies: Only for rechargeable batteries): Capacity fade [%] \u2014 expected eubat:hasCapacityFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CapacityFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:CapacityFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 52 (industrial, provide if the condition applies: Only for rechargeable batteries): Capacity fade [%] \u2014 expected eubat:CapacityFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-52> .
 
 ecbp:dp-53-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasRemainingPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 53 (industrial, provide if the condition applies: Only for rechargeable batteries): Power [unit W] \u2014 expected eubat:hasPowerCapability" ;
+    sh:message "EC data point 53 (industrial, provide if the condition applies: Only for rechargeable batteries): Power [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-53> .
 
 ecbp:dp-54-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasPowerFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 54 (industrial, provide if the condition applies: Only for rechargeable batteries): Power fade [%] \u2014 expected eubat:hasPowerFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 54 (industrial, provide if the condition applies: Only for rechargeable batteries): Power fade [%] \u2014 expected eubat:PowerFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-54> .
 
 ecbp:dp-55-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 55 (industrial, provide if the condition applies: Only for rechargeable batteries): Internal resistance [unit \u03A9] \u2014 expected eubat:hasInternalResistance" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 55 (industrial, provide if the condition applies: Only for rechargeable batteries): Internal resistance [unit \u03A9] \u2014 expected eubat:InternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-55> .
 
 ecbp:dp-56-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistanceIncrease ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 56 (industrial, provide if the condition applies: Only for rechargeable batteries): Internal resistance increase [%] \u2014 expected eubat:hasInternalResistanceIncrease" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistanceIncrease ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistanceIncrease ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 56 (industrial, provide if the condition applies: Only for rechargeable batteries): Internal resistance increase [%] \u2014 expected eubat:InternalResistanceIncrease" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-56> .
 
 ecbp:dp-57-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasTechnicalSpecifications eubat:roundTripEfficiency ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 57 (industrial, provide if the condition applies: Only for rechargeable batteries, if applicable): Where applicable, energy round trip efficiency [%] \u2014 expected eubat:roundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InitialRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 57 (industrial, provide if the condition applies: Only for rechargeable batteries, if applicable): Where applicable, energy round trip efficiency [%] \u2014 expected eubat:InitialRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-57> .
 
 ecbp:dp-58-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRoundTripEfficiencyFade ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 58 (industrial, provide if the condition applies: Only for rechargeable batteries, if applicable): Where applicable, energy round trip efficiency fade [%] \u2014 expected eubat:hasRoundTripEfficiencyFade" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyFade ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RoundTripEfficiencyFade ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 58 (industrial, provide if the condition applies: Only for rechargeable batteries, if applicable): Where applicable, energy round trip efficiency fade [%] \u2014 expected eubat:RoundTripEfficiencyFade" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-58> .
 
 ecbp:dp-59-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:expectedRemainingCycles ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 59 (industrial, provide if the condition applies: Only for rechargeable batteries and except for non-cycle applications): The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number] \u2014 expected eubat:expectedRemainingCycles" ] ;
+    sh:property [ sh:path ( eubat:hasBatteryState oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:RemainingCycles ] ] ; sh:qualifiedMinCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 59 (industrial, provide if the condition applies: Only for rechargeable batteries and except for non-cycle applications): The expected lifetime of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications [number] \u2014 expected eubat:RemainingCycles" ] ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-59> .
 
 ecbp:dp-60-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path eubat:expectedRemainingLifetimeMonths ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasExpectedLifetime ) ; sh:minCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasIndicator ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasIndicatorKind ; sh:hasValue eubat:RemainingLifetime ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 60 (industrial, provide if the condition applies: Only for rechargeable batteries): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:hasExpectedLifetime / eubat:expectedRemainingLifetimeMonths" ;
+    sh:message "EC data point 60 (industrial, provide if the condition applies: Only for rechargeable batteries): The expected lifetime of the battery under the reference conditions for which it has been designed [years] \u2014 expected eubat:hasExpectedLifetime / eubat:RemainingLifetime" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
 
 ecbp:dp-62-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingCapacity ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 62 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a): Information on the state of health of the battery pursuant to Article 14: remaining capacity [unit Ah] \u2014 expected eubat:hasRemainingCapacity" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingCapacity ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingCapacity ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 62 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a): Information on the state of health of the battery pursuant to Article 14: remaining capacity [unit Ah] \u2014 expected eubat:RemainingCapacity" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-62> .
 
 ecbp:dp-63-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingPowerCapability ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 63 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability [unit W] \u2014 expected eubat:hasRemainingPowerCapability" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:PowerCapability ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 63 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability [unit W] \u2014 expected eubat:PowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-63> .
 
 ecbp:dp-64-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasRemainingRoundTripEfficiency ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 64 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round-trip efficiency [%] \u2014 expected eubat:hasRemainingRoundTripEfficiency" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:RemainingRoundTripEfficiency ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 64 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round-trip efficiency [%] \u2014 expected eubat:RemainingRoundTripEfficiency" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-64> .
 
 ecbp:dp-65-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:hasEvolutionOfSelfDischarge ; sh:minCount 1 ] [ sh:path eubat:hasCurrentSelfDischargingRate ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeEvolution ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeEvolution ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeRate ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:SelfDischargeRate ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 65 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year] \u2014 expected eubat:hasEvolutionOfSelfDischarge / eubat:hasCurrentSelfDischargingRate" ;
+    sh:message "EC data point 65 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management system): Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates [timestamp, decrease % per year] \u2014 expected eubat:SelfDischargeEvolution / eubat:SelfDischargeRate" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65> .
 
 ecbp:dp-66-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasInternalResistance ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 66 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management): Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance [unit \u03A9] \u2014 expected eubat:hasInternalResistance" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:InternalResistance ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 66 (industrial, provide if the condition applies: Only for stationary battery energy storage systems and if they have a battery management): Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance [unit \u03A9] \u2014 expected eubat:InternalResistance" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-66> .
 
 ecbp:dp-67-industrial
@@ -29015,7 +29112,9 @@ ecbp:dp-68-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasCycleCount ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 68 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] \u2014 expected eubat:hasCycleCount" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:FullCycleCount ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:FullCycleCount ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 68 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): The number of charging and discharging cycles [number] \u2014 expected eubat:FullCycleCount" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68> .
 
 ecbp:dp-69-industrial
@@ -29029,16 +29128,18 @@ ecbp:dp-70-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:or ( [ sh:path eubat:timeSpentInExtremeTemperaturesAboveBoundary ; sh:minCount 1 ] [ sh:path eubat:timeSpentInExtremeTemperaturesBelowBoundary ; sh:minCount 1 ] ) ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeAboveTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeAboveTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeBelowTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:TimeBelowTemperatureBoundary ] ] ; sh:qualifiedMinCount 1 ] ) ;
     sh:severity sh:Warning ;
-    sh:message "EC data point 70 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units] \u2014 expected eubat:timeSpentInExtremeTemperaturesAboveBoundary / eubat:timeSpentInExtremeTemperaturesBelowBoundary" ;
+    sh:message "EC data point 70 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the operating environmental conditions, including temperature [code list, histogram, related units] \u2014 expected eubat:TimeAboveTemperatureBoundary / eubat:TimeBelowTemperatureBoundary" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70> .
 
 ecbp:dp-71-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path eubat:hasStateOfCharge ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 71 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the state of charge [histogram, %] \u2014 expected eubat:hasStateOfCharge" ] ;
+    sh:or ( [ sh:path ( eubat:hasBatteryState oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCharge ] ] ; sh:qualifiedMinCount 1 ] [ sh:path ( eubat:hasBatteryState oea:hasSubAssessment oea:hasResult ) ; sh:qualifiedValueShape [ sh:property [ sh:path oea:hasObservedParameter ; sh:hasValue eubat:StateOfCharge ] ] ; sh:qualifiedMinCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 71 (industrial, provide if the condition applies: Applicable as soon as the battery starts to be used): Periodically recorded information on the state of charge [histogram, %] \u2014 expected eubat:StateOfCharge" ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-71> .
 `;
 
@@ -29178,20 +29279,11 @@ var battery_product_model_default = {
       "gs1:value": "7.5",
       "gs1:unitCode": "KWT"
     },
-    "eubat:hasInitialPackInternalResistance": {
-      type: "gs1:QuantitativeValue",
-      "gs1:value": "2.1",
-      "gs1:unitCode": "OHM"
-    },
-    "eubat:expectedCycleLife": 6e3,
     "eubat:hasExpectedLifetime": {
       type: "gs1:QuantitativeValue",
       "gs1:value": 15,
       "gs1:unitCode": "ANN"
     },
-    "eubat:roundTripEfficiency": 96,
-    "eubat:capacityThresholdForExhaustion": 70,
-    "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
     "eubat:hasTemperatureRangeIdleState": {
       id: "https://id.gs1.org/01/09521002005004#temp-idle",
       type: "eubat:TemperatureRange",
@@ -29205,6 +29297,62 @@ var battery_product_model_default = {
         "gs1:value": 60,
         "gs1:unitCode": "CEL"
       }
+    },
+    "eubat:hasPerformanceTest": {
+      type: "eubat:PerformanceDurabilityTest",
+      "oea:hasMethod": {
+        type: "oea:TestMethod",
+        "oea:methodUrl": "https://www.iec.ch/standards/62660-1"
+      },
+      "oea:isEvaluatedAgainst": {
+        type: "eubat:CapacityExhaustionThreshold",
+        "oea:hasThresholdParameter": {
+          "@id": "eubat:StateOfCertifiedEnergy"
+        },
+        "oea:hasComparisonOperator": {
+          "@id": "oea:LessThan"
+        },
+        "oea:hasThresholdValue": {
+          type: "gs1:QuantitativeValue",
+          "gs1:value": 70,
+          "gs1:unitCode": "P1"
+        }
+      },
+      "oea:hasResult": [
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:InitialPackInternalResistance"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": "2.1",
+            "gs1:unitCode": "OHM"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:InitialRoundTripEfficiency"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 96,
+            "gs1:unitCode": "P1"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:CycleLife"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 6e3,
+            "gs1:unitCode": "C62"
+          }
+        }
+      ]
     }
   },
   "gs1:manufacturersWarranty": {
@@ -29312,11 +29460,17 @@ var battery_product_batch_default = {
       "gs1:value": "8.6",
       "gs1:unitCode": "KGM"
     },
-    "eubat:hasCarbonFootprintPerformanceClass": {
-      "@id": "eubat:CFClassB"
-    },
     "eubat:carbonFootprintStudyUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-cfp-study.pdf",
-    "eubat:carbonFootprintDeclarationId": "CFP-2024-ECOCELL-IM500-001"
+    "eubat:carbonFootprintDeclarationId": "CFP-2024-ECOCELL-IM500-001",
+    "oea:hasIndicator": {
+      type: "oea:Indicator",
+      "oea:hasIndicatorKind": {
+        "@id": "eubat:CarbonFootprintPerformanceClass"
+      },
+      "oea:hasCategoricalValue": {
+        "@id": "eubat:CFClassB"
+      }
+    }
   },
   "eubat:hasEndOfLifeInfo": {
     id: "https://id.gs1.org/01/09521002005004/10/LOT-2024-0312#eol",
@@ -29619,65 +29773,13 @@ var battery_product_default = {
       "gs1:value": 140,
       "gs1:unitCode": "AMP"
     },
-    "eubat:hasOriginalPowerCapability": [
-      {
-        id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#power-80",
-        type: "eubat:PowerCapabilityAtSoC",
-        "eubat:stateOfChargeLevel": 80,
-        "eubat:hasPowerCapability": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": "7.2",
-          "gs1:unitCode": "KWT"
-        }
-      },
-      {
-        id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#power-20",
-        type: "eubat:PowerCapabilityAtSoC",
-        "eubat:stateOfChargeLevel": 20,
-        "eubat:hasPowerCapability": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": "6.8",
-          "gs1:unitCode": "KWT"
-        }
-      }
-    ],
-    "eubat:hasInitialCellInternalResistance": {
-      type: "gs1:QuantitativeValue",
-      "gs1:value": "0.0009",
-      "gs1:unitCode": "OHM"
-    },
-    "eubat:hasInitialPackInternalResistance": {
-      type: "gs1:QuantitativeValue",
-      "gs1:value": "2.1",
-      "gs1:unitCode": "OHM"
-    },
-    "eubat:initialSelfDischarge": "1.5",
-    "eubat:expectedCycleLife": 6e3,
     "eubat:hasExpectedLifetime": {
       type: "gs1:QuantitativeValue",
       "gs1:value": 15,
       "gs1:unitCode": "ANN"
     },
-    "eubat:hasExpectedLifetimeEnergyThroughput": {
-      type: "gs1:QuantitativeValue",
-      "gs1:value": 85800,
-      "gs1:unitCode": "KWH"
-    },
-    "eubat:hasExpectedLifetimeCapacityThroughput": {
-      type: "gs1:QuantitativeValue",
-      "gs1:value": 168e4,
-      "gs1:unitCode": "AMH"
-    },
-    "eubat:depthOfDischargeInCycleLifeTest": 80,
-    "eubat:resistanceIncreaseThreshold": 50,
-    "eubat:roundTripEfficiency": 96,
-    "eubat:capacityThresholdForExhaustion": 70,
-    "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
     "eubat:powerCapabilityRatio": "0.52",
     "eubat:cRate": "0.5",
-    "eubat:cRateLifeCycleTest": "0.33",
-    "eubat:dischargeCRateLifeCycleTest": "0.5",
-    "eubat:roundTripEfficiencyAt50PercentCycleLife": 94,
     "eubat:hasTemperatureRangeStorage": {
       id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#temp-storage",
       type: "eubat:TemperatureRange",
@@ -29733,6 +29835,222 @@ var battery_product_default = {
         "gs1:value": 60,
         "gs1:unitCode": "CEL"
       }
+    },
+    "eubat:hasPerformanceTest": {
+      type: "eubat:PerformanceDurabilityTest",
+      "oea:hasMethod": {
+        type: "oea:TestMethod",
+        "oea:methodUrl": "https://www.iec.ch/standards/62660-1"
+      },
+      "oea:hasParameterSetting": [
+        {
+          type: "oea:ParameterSetting",
+          "oea:hasParameter": {
+            "@id": "eubat:DepthOfDischarge"
+          },
+          "oea:hasParameterValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 80,
+            "gs1:unitCode": "P1"
+          }
+        },
+        {
+          type: "oea:ParameterSetting",
+          "oea:hasParameter": {
+            "@id": "eubat:ChargeCRate"
+          },
+          "oea:hasParameterValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": "0.33",
+            "gs1:unitCode": "C62"
+          }
+        },
+        {
+          type: "oea:ParameterSetting",
+          "oea:hasParameter": {
+            "@id": "eubat:DischargeCRate"
+          },
+          "oea:hasParameterValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": "0.5",
+            "gs1:unitCode": "C62"
+          }
+        }
+      ],
+      "oea:isEvaluatedAgainst": [
+        {
+          type: "eubat:CapacityExhaustionThreshold",
+          "oea:hasThresholdParameter": {
+            "@id": "eubat:StateOfCertifiedEnergy"
+          },
+          "oea:hasComparisonOperator": {
+            "@id": "oea:LessThan"
+          },
+          "oea:hasThresholdValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 70,
+            "gs1:unitCode": "P1"
+          }
+        },
+        {
+          type: "eubat:ResistanceIncreaseThreshold",
+          "oea:hasThresholdParameter": {
+            "@id": "eubat:InternalResistanceIncrease"
+          },
+          "oea:hasComparisonOperator": {
+            "@id": "oea:GreaterThanOrEqual"
+          },
+          "oea:hasThresholdValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 50,
+            "gs1:unitCode": "P1"
+          }
+        }
+      ],
+      "oea:hasResult": [
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:InitialCellInternalResistance"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": "0.0009",
+            "gs1:unitCode": "OHM"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:InitialPackInternalResistance"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": "2.1",
+            "gs1:unitCode": "OHM"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:InitialSelfDischargeRate"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": "1.5",
+            "gs1:unitCode": "P1"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:InitialRoundTripEfficiency"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 96,
+            "gs1:unitCode": "P1"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:RoundTripEfficiencyAt50PercentCycleLife"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 94,
+            "gs1:unitCode": "P1"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:CycleLife"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 6e3,
+            "gs1:unitCode": "C62"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:LifetimeEnergyThroughput"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 85800,
+            "gs1:unitCode": "KWH"
+          }
+        },
+        {
+          type: "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:LifetimeCapacityThroughput"
+          },
+          "oea:hasMeasuredValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 168e4,
+            "gs1:unitCode": "AMH"
+          }
+        }
+      ],
+      "oea:hasSubAssessment": [
+        {
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#power-80",
+          type: "oea:TestExecution",
+          "oea:hasCondition": {
+            type: "oea:AssessmentCondition",
+            "oea:hasConditionType": {
+              "@id": "eubat:StateOfChargeLevel"
+            },
+            "oea:hasConditionValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 80,
+              "gs1:unitCode": "P1"
+            }
+          },
+          "oea:hasResult": {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:PowerCapability"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "7.2",
+              "gs1:unitCode": "KWT"
+            }
+          }
+        },
+        {
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#power-20",
+          type: "oea:TestExecution",
+          "oea:hasCondition": {
+            type: "oea:AssessmentCondition",
+            "oea:hasConditionType": {
+              "@id": "eubat:StateOfChargeLevel"
+            },
+            "oea:hasConditionValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 20,
+              "gs1:unitCode": "P1"
+            }
+          },
+          "oea:hasResult": {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:PowerCapability"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "6.8",
+              "gs1:unitCode": "KWT"
+            }
+          }
+        }
+      ]
     }
   },
   "eubat:hasMaterialComposition": [
@@ -29906,9 +30224,6 @@ var battery_product_default = {
       "gs1:value": "8.6",
       "gs1:unitCode": "KGM"
     },
-    "eubat:hasCarbonFootprintPerformanceClass": {
-      "@id": "eubat:CFClassB"
-    },
     "eubat:carbonFootprintStudyUrl": "https://files.example.org/files/products/09521002005004/docs/carbon-footprint-study.pdf",
     "eubat:functionalUnit": "1 kWh of total energy throughput over battery lifetime",
     "eubat:calculationStandard": "ISO 14067:2018",
@@ -29921,6 +30236,15 @@ var battery_product_default = {
       "eubat:verificationDate": "2024-02-28",
       "eubat:verificationCertificateUrl": "https://files.example.org/files/products/09521002005004/docs/verification-certificate.pdf",
       "eubat:verificationStandard": "ISO 14064-3:2019"
+    },
+    "oea:hasIndicator": {
+      type: "oea:Indicator",
+      "oea:hasIndicatorKind": {
+        "@id": "eubat:CarbonFootprintPerformanceClass"
+      },
+      "oea:hasCategoricalValue": {
+        "@id": "eubat:CFClassB"
+      }
     }
   },
   "gs1:manufacturersWarranty": {
@@ -30467,7 +30791,20 @@ var portable_ebike_battery_default = {
       "gs1:value": "0.5",
       "gs1:unitCode": "KWT"
     },
-    "eubat:expectedCycleLife": 800
+    "eubat:hasPerformanceTest": {
+      type: "eubat:PerformanceDurabilityTest",
+      "oea:hasResult": {
+        type: "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "eubat:CycleLife"
+        },
+        "oea:hasMeasuredValue": {
+          type: "gs1:QuantitativeValue",
+          "gs1:value": 800,
+          "gs1:unitCode": "C62"
+        }
+      }
+    }
   },
   "eubat:hasRecycledContent": {
     type: "eubat:RecycledContent",
@@ -30509,11 +30846,17 @@ var portable_ebike_battery_default = {
       "gs1:value": 3,
       "gs1:unitCode": "KGM"
     },
-    "eubat:hasCarbonFootprintPerformanceClass": {
-      "@id": "eubat:CFClassB"
-    },
     "eubat:carbonFootprintDeclarationId": "CFP-2026-VELO-VP48-001",
-    "eubat:carbonFootprintGeographicScope": "EU production, mixed material sourcing"
+    "eubat:carbonFootprintGeographicScope": "EU production, mixed material sourcing",
+    "oea:hasIndicator": {
+      type: "oea:Indicator",
+      "oea:hasIndicatorKind": {
+        "@id": "eubat:CarbonFootprintPerformanceClass"
+      },
+      "oea:hasCategoricalValue": {
+        "@id": "eubat:CFClassB"
+      }
+    }
   },
   "eubat:hasHazardousSubstances": [
     {
@@ -31153,6 +31496,7 @@ var battery_context_default = {
       type: "@type",
       eubat: "https://ref.openepcis.org/extensions/eu/battery/",
       gs1: "https://ref.gs1.org/voc/",
+      oea: "https://ref.openepcis.org/extensions/common/assessment/",
       oec: "https://ref.openepcis.org/extensions/common/core/",
       xsd: "http://www.w3.org/2001/XMLSchema#",
       schema: "https://schema.org/",
@@ -31253,54 +31597,6 @@ var battery_context_default = {
         "@id": "eubat:hasMaximumDischargingCurrent",
         "@type": "@id"
       },
-      "eubat:expectedCycleLife": {
-        "@id": "eubat:expectedCycleLife",
-        "@type": "xsd:integer"
-      },
-      "eubat:hasExpectedLifetimeEnergyThroughput": {
-        "@id": "eubat:hasExpectedLifetimeEnergyThroughput",
-        "@type": "@id"
-      },
-      "eubat:hasExpectedLifetimeCapacityThroughput": {
-        "@id": "eubat:hasExpectedLifetimeCapacityThroughput",
-        "@type": "@id"
-      },
-      "eubat:roundTripEfficiency": {
-        "@id": "eubat:roundTripEfficiency",
-        "@type": "xsd:decimal"
-      },
-      "eubat:roundTripEfficiencyAt50PercentCycleLife": {
-        "@id": "eubat:roundTripEfficiencyAt50PercentCycleLife",
-        "@type": "xsd:decimal"
-      },
-      "eubat:depthOfDischargeInCycleLifeTest": {
-        "@id": "eubat:depthOfDischargeInCycleLifeTest",
-        "@type": "xsd:decimal"
-      },
-      "eubat:resistanceIncreaseThreshold": {
-        "@id": "eubat:resistanceIncreaseThreshold",
-        "@type": "xsd:decimal"
-      },
-      "eubat:hasInitialCellInternalResistance": {
-        "@id": "eubat:hasInitialCellInternalResistance",
-        "@type": "@id"
-      },
-      "eubat:hasInitialPackInternalResistance": {
-        "@id": "eubat:hasInitialPackInternalResistance",
-        "@type": "@id"
-      },
-      "eubat:initialSelfDischarge": {
-        "@id": "eubat:initialSelfDischarge",
-        "@type": "xsd:decimal"
-      },
-      "eubat:capacityThresholdForExhaustion": {
-        "@id": "eubat:capacityThresholdForExhaustion",
-        "@type": "xsd:decimal"
-      },
-      "eubat:lifetimeReferenceTest": {
-        "@id": "eubat:lifetimeReferenceTest",
-        "@type": "xsd:anyURI"
-      },
       "eubat:powerCapabilityRatio": {
         "@id": "eubat:powerCapabilityRatio",
         "@type": "xsd:decimal"
@@ -31308,34 +31604,6 @@ var battery_context_default = {
       "eubat:cRate": {
         "@id": "eubat:cRate",
         "@type": "xsd:decimal"
-      },
-      "eubat:cRateLifeCycleTest": {
-        "@id": "eubat:cRateLifeCycleTest",
-        "@type": "xsd:decimal"
-      },
-      "eubat:dischargeCRateLifeCycleTest": {
-        "@id": "eubat:dischargeCRateLifeCycleTest",
-        "@type": "xsd:decimal"
-      },
-      "eubat:hasOriginalPowerCapability": {
-        "@id": "eubat:hasOriginalPowerCapability",
-        "@type": "@id"
-      },
-      "eubat:stateOfChargeLevel": {
-        "@id": "eubat:stateOfChargeLevel",
-        "@type": "xsd:decimal"
-      },
-      "eubat:hasPowerCapability": {
-        "@id": "eubat:hasPowerCapability",
-        "@type": "@id"
-      },
-      "eubat:hasPowerCapabilityAt80SoC": {
-        "@id": "eubat:hasPowerCapabilityAt80SoC",
-        "@type": "@id"
-      },
-      "eubat:hasPowerCapabilityAt20SoC": {
-        "@id": "eubat:hasPowerCapabilityAt20SoC",
-        "@type": "@id"
       },
       "eubat:hasTemperatureRangeStorage": {
         "@id": "eubat:hasTemperatureRangeStorage",
@@ -31653,89 +31921,13 @@ var battery_context_default = {
         "@id": "eubat:authorizedServiceCenters",
         "@type": "xsd:anyURI"
       },
-      "eubat:hasStateOfHealth": {
-        "@id": "eubat:hasStateOfHealth",
-        "@type": "@id"
-      },
-      "eubat:hasStateOfCharge": {
-        "@id": "eubat:hasStateOfCharge",
-        "@type": "@id"
-      },
-      "eubat:hasStateOfCertifiedEnergy": {
-        "@id": "eubat:hasStateOfCertifiedEnergy",
-        "@type": "@id"
-      },
-      "eubat:hasCycleCount": {
-        "@id": "eubat:hasCycleCount",
-        "@type": "@id"
-      },
-      "eubat:hasRemainingCapacity": {
-        "@id": "eubat:hasRemainingCapacity",
-        "@type": "@id"
-      },
-      "eubat:hasCapacityFade": {
-        "@id": "eubat:hasCapacityFade",
-        "@type": "@id"
-      },
-      "eubat:hasPowerFade": {
-        "@id": "eubat:hasPowerFade",
-        "@type": "@id"
-      },
-      "eubat:hasInternalResistance": {
-        "@id": "eubat:hasInternalResistance",
-        "@type": "@id"
-      },
-      "eubat:hasInternalResistanceIncrease": {
-        "@id": "eubat:hasInternalResistanceIncrease",
-        "@type": "@id"
-      },
-      "eubat:hasEnergyThroughput": {
-        "@id": "eubat:hasEnergyThroughput",
-        "@type": "@id"
-      },
-      "eubat:hasCapacityThroughput": {
-        "@id": "eubat:hasCapacityThroughput",
-        "@type": "@id"
-      },
-      "eubat:hasRemainingRoundTripEfficiency": {
-        "@id": "eubat:hasRemainingRoundTripEfficiency",
-        "@type": "@id"
-      },
-      "eubat:hasRoundTripEfficiencyFade": {
-        "@id": "eubat:hasRoundTripEfficiencyFade",
-        "@type": "@id"
-      },
-      "eubat:hasEvolutionOfSelfDischarge": {
-        "@id": "eubat:hasEvolutionOfSelfDischarge",
-        "@type": "@id"
-      },
       "eubat:exposureDurationMinutes": {
         "@id": "eubat:exposureDurationMinutes",
         "@type": "xsd:integer"
       },
-      "eubat:hasInitialCapacity": {
-        "@id": "eubat:hasInitialCapacity",
-        "@type": "@id"
-      },
-      "eubat:hasInitialEnergy": {
-        "@id": "eubat:hasInitialEnergy",
-        "@type": "@id"
-      },
       "eubat:hasCertifiedUsableEnergy": {
         "@id": "eubat:hasCertifiedUsableEnergy",
         "@type": "@id"
-      },
-      "eubat:hasRemainingUsableEnergy": {
-        "@id": "eubat:hasRemainingUsableEnergy",
-        "@type": "@id"
-      },
-      "eubat:expectedRemainingCycles": {
-        "@id": "eubat:expectedRemainingCycles",
-        "@type": "xsd:integer"
-      },
-      "eubat:expectedRemainingLifetimeMonths": {
-        "@id": "eubat:expectedRemainingLifetimeMonths",
-        "@type": "xsd:integer"
       },
       "eubat:nextScheduledMeasurement": {
         "@id": "eubat:nextScheduledMeasurement",
@@ -31773,10 +31965,6 @@ var battery_context_default = {
         "@id": "eubat:incidentReportUrl",
         "@type": "xsd:anyURI"
       },
-      "eubat:hasRemainingPowerCapability": {
-        "@id": "eubat:hasRemainingPowerCapability",
-        "@type": "@id"
-      },
       "gs1:value": {
         "@id": "gs1:value",
         "@type": "xsd:decimal"
@@ -31787,10 +31975,6 @@ var battery_context_default = {
       },
       "eubat:hasBatteryMass": {
         "@id": "eubat:hasBatteryMass",
-        "@type": "@id"
-      },
-      "eubat:hasCurrentSelfDischargingRate": {
-        "@id": "eubat:hasCurrentSelfDischargingRate",
         "@type": "@id"
       },
       "eubat:hasDismantlingAndRemovalInformation": {
@@ -31812,22 +31996,6 @@ var battery_context_default = {
       "eubat:hasNegativeEvents": {
         "@id": "eubat:hasNegativeEvents",
         "@type": "@id"
-      },
-      "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
-        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
-        "@type": "xsd:integer"
-      },
-      "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary": {
-        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
-        "@type": "xsd:integer"
-      },
-      "eubat:timeSpentInExtremeTemperaturesAboveBoundary": {
-        "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
-        "@type": "xsd:integer"
-      },
-      "eubat:timeSpentInExtremeTemperaturesBelowBoundary": {
-        "@id": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
-        "@type": "xsd:integer"
       }
     }
   ]

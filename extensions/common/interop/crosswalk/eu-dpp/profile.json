@@ -24,7 +24,8 @@
     "batcat": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-category#",
     "batchem": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-chemistry#",
     "batsym": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-chemical-symbol#",
-    "batsta": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status#"
+    "batsta": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status#",
+    "oea": "https://ref.openepcis.org/extensions/common/assessment/"
   },
   "json": {
     "_comment": "How a passport travels as the Registry's JSON. The context follows from contentSpecificationIds (the most specific one); the root is the passport, typed and identified only in RDF: its type makes the Commission's shapes apply (sh:targetClass), its IRI is the unique product identifier.",
@@ -73,12 +74,14 @@
     "lift": [
       "vendor/gs1/gs1Voc.jsonld",
       "@modules",
-      "extensions/upstream/eu-dpp/ontology/eu-dpp.ttl"
+      "extensions/upstream/eu-dpp/ontology/eu-dpp.ttl",
+      "extensions/common/interop/crosswalk/shared/battery-handles.ttl"
     ],
     "lower": [
       "vendor/gs1/gs1Voc.jsonld",
       "@modules",
-      "extensions/upstream/eu-dpp/ontology/eu-dpp.ttl"
+      "extensions/upstream/eu-dpp/ontology/eu-dpp.ttl",
+      "extensions/common/interop/crosswalk/shared/battery-handles.ttl"
     ]
   },
   "handles": {
@@ -160,5 +163,18 @@
         "reason": "A model identifier is accepted only together with a batch number, so an item passport with a serial number but no batch cannot name its model."
       }
     ]
+  },
+  "updates": {
+    "_comment": "Shared with the batterypass profile: battery values OpenEPCIS states as assessment results travel as virtual flat handles (shared/battery-handles.ttl).",
+    "lift": {
+      "entail": [
+        "extensions/common/interop/crosswalk/shared/battery-entail.ru"
+      ]
+    },
+    "lower": {
+      "reshape": [
+        "extensions/common/interop/crosswalk/shared/battery-reshape.ru"
+      ]
+    }
   }
 }

@@ -25,6 +25,13 @@ WHERE {
     GRAPH <urn:xw:in> { ?se epcis:sensorReport ?s . ?s epcis:measurementType ?param2 }
     ?param2 a ?pt2 . ?pt2 rdfs:subClassOf* oea:PerformanceParameter .
   }
+  # A report of another type in a sensor element that became a test execution has no place there
+  # (CIRPASS-2 executions carry results only): it is not converted. Publish such readings in a
+  # sensor element of their own.
+  FILTER NOT EXISTS {
+    GRAPH <urn:xw:in> { ?se5 epcis:sensorReport ?s , ?r5 . ?r5 epcis:measurementType ?param5 }
+    ?param5 a ?pt5 . ?pt5 rdfs:subClassOf* oea:PerformanceParameter .
+  }
   FILTER NOT EXISTS {
     GRAPH <urn:xw:in> { ?se3 epcis:sensorMetadata ?s ; epcis:sensorReport ?r3 . ?r3 epcis:measurementType ?param3 }
     ?param3 a ?pt3 . ?pt3 rdfs:subClassOf* oea:PerformanceParameter .

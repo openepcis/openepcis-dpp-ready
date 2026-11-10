@@ -1,0 +1,102 @@
+{
+  "id": "batterypass",
+  "title": "BatteryPass (Battery Pass Consortium SAMM 1.2.x via the BatteryPass bridge context): the measured and tested battery values BatteryPass states flat. Everything else is OpenEPCIS on both sides and travels unchanged.",
+  "prefixes": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gs1": "https://ref.gs1.org/voc/",
+    "oea": "https://ref.openepcis.org/extensions/common/assessment/",
+    "oec": "https://ref.openepcis.org/extensions/common/core/",
+    "eubat": "https://ref.openepcis.org/extensions/eu/battery/",
+    "xw": "https://ref.openepcis.org/extensions/common/interop/crosswalk#",
+    "bpsamm-perf": "urn:samm:io.BatteryPass.Performance:1.2.1#",
+    "bpsamm-carbon": "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#",
+    "bpr": "https://ref.openepcis.org/vocab/batterypass-ready/1.3#"
+  },
+  "background": {
+    "lift": [
+      "vendor/gs1/gs1Voc.jsonld",
+      "@modules",
+      "extensions/common/interop/crosswalk/shared/battery-handles.ttl"
+    ],
+    "lower": [
+      "vendor/gs1/gs1Voc.jsonld",
+      "@modules",
+      "extensions/common/interop/crosswalk/shared/battery-handles.ttl"
+    ]
+  },
+  "updates": {
+    "lift": {
+      "entail": [
+        "extensions/common/interop/crosswalk/shared/battery-entail.ru"
+      ]
+    },
+    "lower": {
+      "reshape": [
+        "extensions/common/interop/crosswalk/shared/battery-reshape.ru"
+      ]
+    }
+  },
+  "handles": {
+    "_comment": "OpenEPCIS terms travel unchanged in both directions (01-passthrough); the SAMM attributes the mapping table names are converted.",
+    "lift": [
+      "https://ref.openepcis.org/extensions/",
+      "https://ref.gs1.org/",
+      "https://schema.org/",
+      "http://purl.org/dc/terms/",
+      "http://data.europa.eu/m8g/",
+      "http://www.w3.org/"
+    ],
+    "lower": [
+      "https://ref.openepcis.org/extensions/",
+      "https://ref.gs1.org/",
+      "https://schema.org/",
+      "http://purl.org/dc/terms/",
+      "http://data.europa.eu/m8g/",
+      "http://www.w3.org/"
+    ]
+  },
+  "vocabulary": {
+    "_comment": "lift: the SAMM attributes (extensions/eu/battery/vocab/batterypass-samm-terms.ttl) and BatteryPass-Ready v1.3 longlist-only attributes (extensions/eu/battery/vocab/batterypass-ready-1.3.ttl) the bridge context resolves to, checked term by term and by their axioms; OpenEPCIS terms are admitted by namespace (they travel unchanged). lower: OpenEPCIS.",
+    "lift": {
+      "files": [
+        "extensions/eu/battery/vocab/batterypass-samm-terms.ttl",
+        "extensions/eu/battery/vocab/batterypass-ready-1.3.ttl"
+      ],
+      "namespaces": [
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "http://www.w3.org/2000/01/rdf-schema#",
+        "https://ref.gs1.org/voc/",
+        "https://ref.gs1.org/epcis/",
+        "https://schema.org/",
+        "http://purl.org/dc/terms/",
+        "http://data.europa.eu/m8g/",
+        "http://www.w3.org/2002/07/owl#versionInfo",
+        "https://ref.openepcis.org/extensions/"
+      ]
+    },
+    "lower": {
+      "files": [
+        "@modules"
+      ],
+      "namespaces": [
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "http://www.w3.org/2000/01/rdf-schema#",
+        "https://ref.gs1.org/voc/",
+        "https://ref.gs1.org/epcis/",
+        "https://schema.org/",
+        "http://purl.org/dc/terms/",
+        "http://data.europa.eu/m8g/",
+        "https://ref.openepcis.org/vocab/batterypass-ready/1.3#",
+        "http://www.w3.org/2002/07/owl#versionInfo"
+      ]
+    }
+  },
+  "shapes": {
+    "_comment": "The OpenEPCIS side is checked against every module's shapes.",
+    "files": [
+      "@shapes"
+    ]
+  }
+}

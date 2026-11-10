@@ -133,20 +133,11 @@
       "gs1:value": "7.5",
       "gs1:unitCode": "KWT"
     },
-    "eubat:hasInitialPackInternalResistance": {
-      "type": "gs1:QuantitativeValue",
-      "gs1:value": "2.1",
-      "gs1:unitCode": "OHM"
-    },
-    "eubat:expectedCycleLife": 6000,
     "eubat:hasExpectedLifetime": {
       "type": "gs1:QuantitativeValue",
       "gs1:value": 15,
       "gs1:unitCode": "ANN"
     },
-    "eubat:roundTripEfficiency": 96,
-    "eubat:capacityThresholdForExhaustion": 70,
-    "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
     "eubat:hasTemperatureRangeIdleState": {
       "id": "https://id.gs1.org/01/09521002005004#temp-idle",
       "type": "eubat:TemperatureRange",
@@ -160,6 +151,62 @@
         "gs1:value": 60,
         "gs1:unitCode": "CEL"
       }
+    },
+    "eubat:hasPerformanceTest": {
+      "type": "eubat:PerformanceDurabilityTest",
+      "oea:hasMethod": {
+        "type": "oea:TestMethod",
+        "oea:methodUrl": "https://www.iec.ch/standards/62660-1"
+      },
+      "oea:isEvaluatedAgainst": {
+        "type": "eubat:CapacityExhaustionThreshold",
+        "oea:hasThresholdParameter": {
+          "@id": "eubat:StateOfCertifiedEnergy"
+        },
+        "oea:hasComparisonOperator": {
+          "@id": "oea:LessThan"
+        },
+        "oea:hasThresholdValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 70,
+          "gs1:unitCode": "P1"
+        }
+      },
+      "oea:hasResult": [
+        {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:InitialPackInternalResistance"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": "2.1",
+            "gs1:unitCode": "OHM"
+          }
+        },
+        {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:InitialRoundTripEfficiency"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 96,
+            "gs1:unitCode": "P1"
+          }
+        },
+        {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:CycleLife"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 6000,
+            "gs1:unitCode": "C62"
+          }
+        }
+      ]
     }
   },
   "gs1:manufacturersWarranty": {

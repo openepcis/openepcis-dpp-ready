@@ -4,6 +4,18 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+### Added: BatteryPass crosswalk profile; virtual handles
+
+- New profile `batterypass`: the measured and tested battery values that BatteryPass (SAMM 1.2.x,
+  BatteryPass-Ready v1.3) states flat convert to and from the battery state and performance test of
+  `common/assessment`; all other statements are OpenEPCIS on both sides and travel unchanged. Cases:
+  the EV battery example, and the BatteryPass v1.3 reference passport read through the bridge.
+- Engine: virtual flat handles (`<urn:xw:v:…>`) and a reshape phase (`lower/reshape/*.ru` over the
+  output). Shared entail and reshape updates (`shared/battery-*.ru`, `profile.json` `"updates"`) let
+  the `eu-dpp` profile keep its battery rows unchanged; its lift output is identical to before.
+- `cirpass2`: a report of another type in a sensor element that became a test execution is no longer
+  left untyped in the output (it is not converted).
+
 ### Changed: crosswalk follows the third assessment wave
 
 - `cirpass2`: EPD impact indicators and module values carry their measured value with an SI unit

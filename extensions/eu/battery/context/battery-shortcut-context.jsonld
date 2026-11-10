@@ -17,7 +17,9 @@
     "BatteryCategory": "eubat:BatteryCategory",
     "BatteryChemistry": "eubat:BatteryChemistry",
     "BatteryMaterial": "eubat:BatteryMaterial",
+    "BatteryStateAssessment": "eubat:BatteryStateAssessment",
     "BatteryStatus": "eubat:BatteryStatus",
+    "CapacityExhaustionThreshold": "eubat:CapacityExhaustionThreshold",
     "CarbonFootprintClass": "eubat:CarbonFootprintClass",
     "CarbonFootprintDeclaration": "eubat:CarbonFootprintDeclaration",
     "CellType": "eubat:CellType",
@@ -35,7 +37,7 @@
     "MaterialRecoveryTarget": "eubat:MaterialRecoveryTarget",
     "NegativeEvent": "eubat:NegativeEvent",
     "NegativeEventType": "eubat:NegativeEventType",
-    "PowerCapabilityAtSoC": "eubat:PowerCapabilityAtSoC",
+    "PerformanceDurabilityTest": "eubat:PerformanceDurabilityTest",
     "PublicAccess": "eubat:PublicAccess",
     "PublicOrganisation": {
       "@id": "cv:PublicOrganisation"
@@ -43,6 +45,7 @@
     "RecycledContent": "eubat:RecycledContent",
     "RegulationTypeCode-BATTERY_DIRECTIVE": "gs1:RegulationTypeCode-BATTERY_DIRECTIVE",
     "RegulationTypeCode-CE": "gs1:RegulationTypeCode-CE",
+    "ResistanceIncreaseThreshold": "eubat:ResistanceIncreaseThreshold",
     "ResponsibleSourcingStandard": "eubat:ResponsibleSourcingStandard",
     "SupplyChainDueDiligence": "eubat:SupplyChainDueDiligence",
     "TechnicalSpecification": "eubat:TechnicalSpecification",
@@ -101,10 +104,6 @@
       "@id": "eubat:cRate",
       "@type": "xsd:decimal"
     },
-    "cRateLifeCycleTest": {
-      "@id": "eubat:cRateLifeCycleTest",
-      "@type": "xsd:decimal"
-    },
     "cadmiumSymbolRequired": {
       "@id": "eubat:cadmiumSymbolRequired",
       "@type": "xsd:boolean"
@@ -112,10 +111,6 @@
     "calculationStandard": {
       "@id": "eubat:calculationStandard",
       "@type": "xsd:string"
-    },
-    "capacityThresholdForExhaustion": {
-      "@id": "eubat:capacityThresholdForExhaustion",
-      "@type": "xsd:decimal"
     },
     "carbonFootprintDeclarationId": {
       "@id": "eubat:carbonFootprintDeclarationId",
@@ -171,14 +166,6 @@
       "@id": "eubat:declarationOfConformity",
       "@type": "@id"
     },
-    "depthOfDischargeInCycleLifeTest": {
-      "@id": "eubat:depthOfDischargeInCycleLifeTest",
-      "@type": "xsd:decimal"
-    },
-    "dischargeCRateLifeCycleTest": {
-      "@id": "eubat:dischargeCRateLifeCycleTest",
-      "@type": "xsd:decimal"
-    },
     "documentUrl": {
       "@id": "eubat:documentUrl",
       "@type": "@id"
@@ -209,18 +196,6 @@
     "exceedanceThreshold": {
       "@id": "eubat:exceedanceThreshold",
       "@type": "xsd:decimal"
-    },
-    "expectedCycleLife": {
-      "@id": "eubat:expectedCycleLife",
-      "@type": "xsd:integer"
-    },
-    "expectedRemainingCycles": {
-      "@id": "eubat:expectedRemainingCycles",
-      "@type": "xsd:integer"
-    },
-    "expectedRemainingLifetimeMonths": {
-      "@id": "eubat:expectedRemainingLifetimeMonths",
-      "@type": "xsd:integer"
     },
     "exposureDurationMinutes": {
       "@id": "eubat:exposureDurationMinutes",
@@ -264,12 +239,8 @@
       "@id": "eubat:hasBatteryMass",
       "@type": "@id"
     },
-    "hasCapacityFade": {
-      "@id": "eubat:hasCapacityFade",
-      "@type": "@id"
-    },
-    "hasCapacityThroughput": {
-      "@id": "eubat:hasCapacityThroughput",
+    "hasBatteryState": {
+      "@id": "eubat:hasBatteryState",
       "@type": "@id"
     },
     "hasCarbonFootprintDeclaration": {
@@ -279,17 +250,6 @@
     "hasCarbonFootprintDistribution": {
       "@id": "eubat:hasCarbonFootprintDistribution",
       "@type": "@id"
-    },
-    "hasCarbonFootprintPerformanceClass": {
-      "@id": "eubat:hasCarbonFootprintPerformanceClass",
-      "@type": "@vocab",
-      "@context": {
-        "CFClassA": "eubat:CFClassA",
-        "CFClassB": "eubat:CFClassB",
-        "CFClassC": "eubat:CFClassC",
-        "CFClassD": "eubat:CFClassD",
-        "CFClassE": "eubat:CFClassE"
-      }
     },
     "hasCarbonFootprintProduction": {
       "@id": "eubat:hasCarbonFootprintProduction",
@@ -345,14 +305,6 @@
         "Separator": "eubat:Separator"
       }
     },
-    "hasCurrentSelfDischargingRate": {
-      "@id": "eubat:hasCurrentSelfDischargingRate",
-      "@type": "@id"
-    },
-    "hasCycleCount": {
-      "@id": "eubat:hasCycleCount",
-      "@type": "@id"
-    },
     "hasDismantlingAndRemovalInformation": {
       "@id": "eubat:hasDismantlingAndRemovalInformation",
       "@type": "@id"
@@ -378,10 +330,6 @@
       "@id": "eubat:hasEndOfLifeInfo",
       "@type": "@id"
     },
-    "hasEnergyThroughput": {
-      "@id": "eubat:hasEnergyThroughput",
-      "@type": "@id"
-    },
     "hasEuDeclarationOfConformity": {
       "@id": "eubat:hasEuDeclarationOfConformity",
       "@type": "@id"
@@ -404,20 +352,8 @@
         "WaterIngress": "eubat:WaterIngress"
       }
     },
-    "hasEvolutionOfSelfDischarge": {
-      "@id": "eubat:hasEvolutionOfSelfDischarge",
-      "@type": "@id"
-    },
     "hasExpectedLifetime": {
       "@id": "eubat:hasExpectedLifetime",
-      "@type": "@id"
-    },
-    "hasExpectedLifetimeCapacityThroughput": {
-      "@id": "eubat:hasExpectedLifetimeCapacityThroughput",
-      "@type": "@id"
-    },
-    "hasExpectedLifetimeEnergyThroughput": {
-      "@id": "eubat:hasExpectedLifetimeEnergyThroughput",
       "@type": "@id"
     },
     "hasHazardClass": {
@@ -449,30 +385,6 @@
         "Minor": "eubat:Minor",
         "Moderate": "eubat:Moderate"
       }
-    },
-    "hasInitialCapacity": {
-      "@id": "eubat:hasInitialCapacity",
-      "@type": "@id"
-    },
-    "hasInitialCellInternalResistance": {
-      "@id": "eubat:hasInitialCellInternalResistance",
-      "@type": "@id"
-    },
-    "hasInitialEnergy": {
-      "@id": "eubat:hasInitialEnergy",
-      "@type": "@id"
-    },
-    "hasInitialPackInternalResistance": {
-      "@id": "eubat:hasInitialPackInternalResistance",
-      "@type": "@id"
-    },
-    "hasInternalResistance": {
-      "@id": "eubat:hasInternalResistance",
-      "@type": "@id"
-    },
-    "hasInternalResistanceIncrease": {
-      "@id": "eubat:hasInternalResistanceIncrease",
-      "@type": "@id"
     },
     "hasLabelSubject": {
       "@id": "eubat:hasLabelSubject",
@@ -579,24 +491,8 @@
         "AuthorisedRepresentative": "oec:AuthorisedRepresentative"
       }
     },
-    "hasOriginalPowerCapability": {
-      "@id": "eubat:hasOriginalPowerCapability",
-      "@type": "@id"
-    },
-    "hasPowerCapability": {
-      "@id": "eubat:hasPowerCapability",
-      "@type": "@id"
-    },
-    "hasPowerCapabilityAt20SoC": {
-      "@id": "eubat:hasPowerCapabilityAt20SoC",
-      "@type": "@id"
-    },
-    "hasPowerCapabilityAt80SoC": {
-      "@id": "eubat:hasPowerCapabilityAt80SoC",
-      "@type": "@id"
-    },
-    "hasPowerFade": {
-      "@id": "eubat:hasPowerFade",
+    "hasPerformanceTest": {
+      "@id": "eubat:hasPerformanceTest",
       "@type": "@id"
     },
     "hasRatedCapacity": {
@@ -615,22 +511,6 @@
       "@id": "eubat:hasRecycledContent",
       "@type": "@id"
     },
-    "hasRemainingCapacity": {
-      "@id": "eubat:hasRemainingCapacity",
-      "@type": "@id"
-    },
-    "hasRemainingPowerCapability": {
-      "@id": "eubat:hasRemainingPowerCapability",
-      "@type": "@id"
-    },
-    "hasRemainingRoundTripEfficiency": {
-      "@id": "eubat:hasRemainingRoundTripEfficiency",
-      "@type": "@id"
-    },
-    "hasRemainingUsableEnergy": {
-      "@id": "eubat:hasRemainingUsableEnergy",
-      "@type": "@id"
-    },
     "hasRepurposingEntity": {
       "@id": "eubat:hasRepurposingEntity",
       "@type": "@id"
@@ -647,28 +527,12 @@
         "RMI": "eubat:RMI"
       }
     },
-    "hasRoundTripEfficiencyFade": {
-      "@id": "eubat:hasRoundTripEfficiencyFade",
-      "@type": "@id"
-    },
     "hasSafetyMeasures": {
       "@id": "eubat:hasSafetyMeasures",
       "@type": "@id"
     },
     "hasSparePartSources": {
       "@id": "eubat:hasSparePartSources",
-      "@type": "@id"
-    },
-    "hasStateOfCertifiedEnergy": {
-      "@id": "eubat:hasStateOfCertifiedEnergy",
-      "@type": "@id"
-    },
-    "hasStateOfCharge": {
-      "@id": "eubat:hasStateOfCharge",
-      "@type": "@id"
-    },
-    "hasStateOfHealth": {
-      "@id": "eubat:hasStateOfHealth",
       "@type": "@id"
     },
     "hasSubstanceLocation": {
@@ -733,10 +597,6 @@
       "@id": "eubat:informationOnCollection",
       "@type": "@id"
     },
-    "initialSelfDischarge": {
-      "@id": "eubat:initialSelfDischarge",
-      "@type": "xsd:decimal"
-    },
     "inspectorId": {
       "@id": "eubat:inspectorId",
       "@type": "xsd:string"
@@ -777,10 +637,6 @@
     "lifecycleStage": {
       "@id": "eubat:lifecycleStage",
       "@type": "xsd:string"
-    },
-    "lifetimeReferenceTest": {
-      "@id": "eubat:lifetimeReferenceTest",
-      "@type": "@id"
     },
     "lithiumPostConsumerShare": {
       "@id": "eubat:lithiumPostConsumerShare",
@@ -849,10 +705,6 @@
       "@id": "eubat:numberOfCells",
       "@type": "xsd:integer"
     },
-    "numberOfDeepDischargeEvents": {
-      "@id": "eubat:numberOfDeepDischargeEvents",
-      "@type": "xsd:integer"
-    },
     "numberOfModules": {
       "@id": "eubat:numberOfModules",
       "@type": "xsd:integer"
@@ -915,23 +767,11 @@
       "@type": "@id"
     },
     "repurposingPotential": "eubat:repurposingPotential",
-    "resistanceIncreaseThreshold": {
-      "@id": "eubat:resistanceIncreaseThreshold",
-      "@type": "xsd:decimal"
-    },
     "resultOfTestReport": {
       "@id": "eubat:resultOfTestReport",
       "@type": "@id"
     },
     "riskAssessmentSummary": "eubat:riskAssessmentSummary",
-    "roundTripEfficiency": {
-      "@id": "eubat:roundTripEfficiency",
-      "@type": "xsd:decimal"
-    },
-    "roundTripEfficiencyAt50PercentCycleLife": {
-      "@id": "eubat:roundTripEfficiencyAt50PercentCycleLife",
-      "@type": "xsd:decimal"
-    },
     "safetyInstructions": {
       "@id": "eubat:safetyInstructions",
       "@type": "@id"
@@ -955,10 +795,6 @@
       "@type": "xsd:string"
     },
     "spareParts": "eubat:spareParts",
-    "stateOfChargeLevel": {
-      "@id": "eubat:stateOfChargeLevel",
-      "@type": "xsd:decimal"
-    },
     "supplyChainIndex": {
       "@id": "eubat:supplyChainIndex",
       "@type": "xsd:decimal"
@@ -982,22 +818,6 @@
     "thirdPartyAssurancesUrl": {
       "@id": "eubat:thirdPartyAssurancesUrl",
       "@type": "@id"
-    },
-    "timeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
-      "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
-      "@type": "xsd:integer"
-    },
-    "timeSpentChargingDuringExtremeTemperaturesBelowBoundary": {
-      "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
-      "@type": "xsd:integer"
-    },
-    "timeSpentInExtremeTemperaturesAboveBoundary": {
-      "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
-      "@type": "xsd:integer"
-    },
-    "timeSpentInExtremeTemperaturesBelowBoundary": {
-      "@id": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
-      "@type": "xsd:integer"
     },
     "transportConditions": "eubat:transportConditions",
     "transportationSafetyClass": {

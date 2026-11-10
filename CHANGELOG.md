@@ -9,6 +9,15 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Breaking: battery measured and tested values on `common/assessment`
+
+Fourth wave of the assessment model: the battery state of health and use and the performance and
+durability tests are assessments with results, thresholds, protocol settings and indicators;
+47 flat battery terms are removed. EPCIS sensorReport types are the parameter IRIs. A new
+`batterypass` crosswalk profile converts the values BatteryPass states flat; the BatteryPass bridge
+keeps their keys under the BatteryPass IRIs. `scripts/migrate-assessment.ts` rewrites stored
+passports.
+
 ### Breaking: life-cycle, footprint, test certificate and treatment values on `common/assessment`
 
 Third wave of the assessment model: EPD impact indicators, ESPR Annex I resource indicators and

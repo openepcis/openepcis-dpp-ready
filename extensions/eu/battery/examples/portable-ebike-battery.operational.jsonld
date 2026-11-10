@@ -9,6 +9,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521987000063",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/battery/",
     "https://schema.org/"
@@ -45,7 +46,6 @@
       "unitCode": "KGM",
       "value": "2.6"
     },
-    "hasCarbonFootprintPerformanceClass": "CFClassB",
     "hasCarbonFootprintProduction": {
       "type": "QuantitativeValue",
       "unitCode": "KGM",
@@ -65,6 +65,11 @@
       "type": "QuantitativeValue",
       "unitCode": "KGM",
       "value": "38.4"
+    },
+    "hasIndicator": {
+      "type": "Indicator",
+      "hasCategoricalValue": "https://ref.openepcis.org/extensions/eu/battery/CFClassB",
+      "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/battery/CarbonFootprintPerformanceClass"
     }
   },
   "hasCellType": "CylindricalCell",
@@ -159,7 +164,6 @@
   "hasSerialNumber": "EB2026-00821",
   "hasTechnicalSpecifications": {
     "type": "TechnicalSpecification",
-    "expectedCycleLife": 800,
     "hasMaximumVoltage": {
       "type": "QuantitativeValue",
       "unitCode": "VLT",
@@ -174,6 +178,18 @@
       "type": "QuantitativeValue",
       "unitCode": "VLT",
       "value": 48
+    },
+    "hasPerformanceTest": {
+      "type": "PerformanceDurabilityTest",
+      "hasResult": {
+        "type": "MeasurementResult",
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": 800
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/CycleLife"
+      }
     },
     "hasRatedCapacity": {
       "type": "QuantitativeValue",
