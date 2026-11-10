@@ -4,6 +4,13 @@ All notable changes to the Electronics module will be documented in this file.
 
 ## [Unreleased]
 
+### Removed: UNTP v0.6 terms from `electronics-untp-bridge.jsonld`
+
+Same clean-up as the interop UNTP bridge: the v0.6 scorecard terms are gone, `materialProvenance`
+(UNTP v0.7.0) replaces `materialsProvenance`. The electronics-specific names (`linkedProduct`,
+`softwareSupportPeriod`, `securityUpdateEndDate`, `softwareUpdateEvent`) stay.
+
+
 ## [0.12.0] - 2026-11-10
 
 ### Breaking: repairability index and WEEE rates on `common/assessment`
