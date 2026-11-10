@@ -171,7 +171,7 @@ Novel patterns (software lifecycle) are designed as potential UNTP v1.0+ contrib
 | Standard | Purpose | Alignment |
 |----------|---------|-----------|
 | **GS1 Web Vocabulary** | Native foundation | Extends gs1:Product |
-| **UNTP v0.6/1.0** | Interoperability | owl:equivalentProperty |
+| **UNTP v0.7.0** | Interoperability | bridge context `electronics-untp-bridge.jsonld` |
 | **IEC 62474** | Material declarations | Reference DSL identifiers |
 | **ISO/IEC 12207** | Software lifecycle | SoftwareSupport patterns |
 | **ISO/IEC 14764** | Software maintenance | Update tracking |
