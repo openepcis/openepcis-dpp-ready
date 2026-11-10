@@ -107,7 +107,8 @@
     rdfs:comment "An assessment result that records whether one criterion is met (oea:hasOutcome), the points a scoring method awards for it (oea:awardedScore), or both, without a measured value of its own."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Per-criterion outcome of a scoring scheme (sorting factors of a recyclability score, repair criteria of a repairability index). No GS1, SEMICeu, or schema.org equivalent."@en.
+    skos:note "Per-criterion outcome of a scoring scheme (sorting factors of a recyclability score, repair criteria of a repairability index). No GS1, SEMICeu, or schema.org equivalent."@en;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-recyclability#RecyclabilityCriterionResult>.
 <https://ref.openepcis.org/extensions/common/assessment/Criterion> a owl:Class;
     rdfs:subClassOf <http://data.europa.eu/m8g/Criterion>;
     rdfs:label "Assessment Criterion"@en;
@@ -139,7 +140,8 @@
     rdfs:comment "A product characteristic an assessment observes: abrasion resistance, dimensional stability, biodegradation, recyclability rate. Individuals, not classes; sector modules add their own."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Value space for the observed characteristic. CIRPASS-2 models each parameter as a class (textile-durability ObservedPerformanceParameter); here they are concepts, which is how a passport references them."@en.
+    skos:note "Value space for the observed characteristic. CIRPASS-2 models each parameter as a class (textile-durability ObservedPerformanceParameter); here they are concepts, which is how a passport references them."@en;
+    skos:narrowMatch <https://w3id.org/eudpp/textile-durability#ObservedPerformanceParameter>.
 <https://ref.openepcis.org/extensions/common/assessment/MeasurementParameter> a owl:Class;
     rdfs:subClassOf skos:Concept;
     rdfs:label "Measurement Parameter"@en;
@@ -1928,7 +1930,7 @@ oec:carbonFootprintStudyUrl a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Consider also using gs1:referencedFile with gs1:ReferencedFileTypeCode-CERTIFICATION for the study document."@en;
-    skos:exactMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintStudy>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#webLinkToPublicCarbonFootprintStudy>;
+    skos:exactMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintStudy>, <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#webLinkToPublicCarbonFootprintStudy>, <https://dpp-keystone.org/spec/v3/terms#carbonFootprintStudy>;
     skos:broadMatch gs1:referencedFileURL;
     rdfs:range xsd:anyURI.
 oec:hasOperationalScope a owl:ObjectProperty;
@@ -3173,8 +3175,7 @@ oec:RepairProvider a owl:Class;
     rdfs:comment "An authorised repair provider for a product. Supports the European online platform for repair (Article 7 of Directive 2024/1799) and manufacturer-published repair networks."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en;
-    skos:broadMatch schema:AutoRepair.
+    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en.
 oec:hasRepairProvider a owl:ObjectProperty;
     rdfs:label "Repair Provider"@en;
     rdfs:comment "Links a product to one or more authorised repair providers."@en;
@@ -3270,8 +3271,8 @@ oec:ImpactIndicatorResult a owl:Class;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "EN 15804 impact-indicator result. Anchored to DPP Keystone dppk-epd:ImpactValues (peer DPP profile)."@en;
-    skos:broadMatch <https://w3id.org/eudpp#LCIAResult>, <https://w3id.org/eudpp#LCAResult>, <https://w3id.org/eudpp/textile-assessment#MeasurementResult>;
-    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms/epd#ImpactValues>.
+    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms/epd#ImpactValues>;
+    skos:broadMatch <https://w3id.org/eudpp#LCIAResult>, <https://w3id.org/eudpp#LCAResult>, <https://w3id.org/eudpp/textile-assessment#MeasurementResult>.
 oec:LifecycleStageResult a owl:Class;
     rdfs:seeAlso <https://w3id.org/eudpp#LCAModuleValue>;
     rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/MeasurementResult>;
@@ -3523,7 +3524,7 @@ oec:hasLifecycleStage a owl:ObjectProperty;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007>;
     skos:note "No upstream class covers the textile scope: gs1:WearableProduct (with\ngs1:Clothing / gs1:Footwear) stops at wearables, SEMICeu has no product taxonomy, and\nschema:Product is the universal root. Kept as a direct gs1:Product subclass so the GS1\nidentifier and trade-item attributes apply unchanged."@en;
-    skos:exactMatch <https://w3id.org/eudpp/textile-core#TextileProduct>;
+    skos:exactMatch <https://w3id.org/eudpp/textile-core#TextileProduct>, <https://dpp-keystone.org/spec/v3/terms#TextileProduct>;
     skos:narrowMatch gs1:WearableProduct, <https://w3id.org/eudpp/textile-core#TextileApparel>, <https://w3id.org/eudpp/textile-core#ElectronicTextile>, <https://w3id.org/eudpp/textile-core#SmartTextile>;
     skos:broadMatch gs1:Product, schema:Product, <https://dpp-keystone.org/spec/v3/terms#Product>, <https://w3id.org/eudpp#Product>.
 <https://ref.openepcis.org/extensions/eu/textile/CareInstruction> a owl:Class;
@@ -3605,7 +3606,7 @@ _:b115 rdf:first <https://ref.openepcis.org/extensions/eu/textile/Accessories>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007>;
     skos:note "Created to align with gs1:Clothing (subClassOf gs1:WearableProduct subClassOf\ngs1:Product) per GS1 First governance. TextileProduct itself cannot subclass WearableProduct\nbecause it also covers non-wearable categories (HomeTextiles, TechnicalTextiles)."@en;
     skos:narrowMatch <https://dpp-keystone.org/spec/v3/terms#PefcrShirtsAndBlouses>, <https://w3id.org/eudpp/textile-core#PPETextileApparel>, <https://w3id.org/eudpp/textile-core#ToyTextileApparel>, <https://w3id.org/eudpp/textile-core#MedicalDeviceTextileApparel>;
-    skos:broadMatch gs1:WearableProduct, <https://w3id.org/eudpp/textile-core#TextileProduct>, gs1:Clothing, <https://dpp-keystone.org/spec/v3/terms#TextileProduct>.
+    skos:broadMatch gs1:WearableProduct, <https://w3id.org/eudpp/textile-core#TextileProduct>, <https://dpp-keystone.org/spec/v3/terms#TextileProduct>, gs1:Clothing.
 <https://ref.openepcis.org/extensions/eu/textile/TextileFootwear> a owl:Class;
     rdfs:seeAlso gs1:WearableProduct, gs1:Footwear;
     rdfs:subClassOf gs1:Product, <https://ref.openepcis.org/extensions/eu/textile/TextileProduct>, gs1:Footwear;
@@ -4620,7 +4621,8 @@ _:b169 rdf:first <https://ref.openepcis.org/extensions/eu/textile/Certified>;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Required extension: The EU preparatory study mandates PEF-based environmental footprint\nreporting with specific metrics (single score in mPt, benchmark performance) not available\nin GS1 or core DPP vocabulary; their kinds are defined here, the structure is common/assessment. Keeps existing eutex:hasWaterUsage and eutex:hasEnergyUsage\nas convenience properties. See also schema:PropertyValue for generic structured values."@en;
-    skos:narrowMatch <https://w3id.org/eudpp#CarbonFootprint>, <https://w3id.org/eudpp#LCIAResult>, <https://w3id.org/eudpp#MaterialFootprint>.
+    skos:narrowMatch <https://w3id.org/eudpp#CarbonFootprint>;
+    skos:closeMatch <https://w3id.org/eudpp#LCAStudy>.
 <https://ref.openepcis.org/extensions/eu/textile/LCIACategory> a owl:Class;
     rdfs:seeAlso schema:PropertyValue;
     rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/MeasurementResult>;
@@ -4887,6 +4889,7 @@ _:b187 rdf:first <https://ref.openepcis.org/extensions/eu/textile/AquaticToxicit
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141>;
     skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en;
+    skos:exactMatch <https://w3id.org/eudpp#hasEndOfLifeManagementInstruction>;
     skos:broadMatch gs1:sustainabilityInfo;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern>.

@@ -966,7 +966,8 @@ eubat:electrolyteType
     skos:broadMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryChemistry> ;
     skos:broadMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials> ;
     skos:broadMatch <https://ref.openepcis.org/vocab/batterypass-ready/1.3#MaterialsUsedInCathodeAnodeAndElectrolyte> ;
-    skos:broadMatch eudppbat:detailedComposition .
+    skos:broadMatch eudppbat:detailedComposition ;
+    skos:broadMatch dppk:batteryChemistry .
 
 eubat:electrolyteComposition
     a owl:DatatypeProperty ;
@@ -1115,7 +1116,8 @@ eubat:hasMaximumChargingPower
     rdfs:seeAlso dppk:powerMaximumPermitted ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#ratedMaximumPower> ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-30> ;
-    skos:broadMatch eudppbat:powerLimit .
+    skos:broadMatch eudppbat:powerLimit ;
+    skos:broadMatch <https://w3id.org/eudpp/battery-performance#maximumPermittedBatteryPower> .
 
 eubat:hasMaximumDischargingPower
     a owl:ObjectProperty ;
@@ -1444,7 +1446,8 @@ eubat:lithiumPreConsumerShare
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent> ;
     skos:broadMatch dppk:recycledContentPercentage ;
-    skos:broadMatch dppk:preConsumerRecycledMaterialComposition .
+    skos:broadMatch dppk:preConsumerRecycledMaterialComposition ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare> .
 
 eubat:lithiumPostConsumerShare
     a owl:DatatypeProperty ;
@@ -1481,7 +1484,6 @@ eubat:cobaltRecycledShare
     rdfs:seeAlso dppk:postConsumerRecycledContentPercentage ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-20> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare> ;
-    skos:broadMatch dppk:postConsumerRecycledContent ;
     skos:broadMatch <https://w3id.org/eudpp#materialRecycledContent> ;
     skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#cobaltRecycledContentShare> .
 
@@ -2612,7 +2614,7 @@ eubat:hasSupplyChainDueDiligence
 eubat:dueDiligenceReportUrl
     a owl:DatatypeProperty ;
     rdfs:seeAlso dppk:dueDiligenceReport ;
-    skos:closeMatch dppk:dueDiligenceReport ;
+    skos:exactMatch dppk:dueDiligenceReport ;
     rdfs:label "Due Diligence Report URL"@en ;
     rdfs:comment "URL to the supply chain due diligence report (MANDATORY)."@en ;
     rdfs:domain eubat:SupplyChainDueDiligence ;
