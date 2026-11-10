@@ -67,6 +67,8 @@ results, criteria and indicators instead of flat properties. The hand-written do
 follow, including the textile and core schemas missed in the first wave. EU energy-label values
 (`oec:EnergyEfficiency`, `euelec:EnergyEfficiency`) stay flat on purpose: they are declared EPREL
 label data, not reported test results. Battery and iron-steel follow.
+`scripts/migrate-assessment.ts` rewrites stored PPWR passports (grade and design-for-recycling
+methodology) into the new shape.
 
 ## [0.11.0] - 2026-11-09
 
