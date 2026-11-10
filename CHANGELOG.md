@@ -9,6 +9,12 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Removed: UNTP v0.6 terms
+
+The UNTP bridges (interop and electronics) and the UNTP docs now follow UNTP v0.7.0 only, the
+current release; the v0.6 scorecard terms are removed. See `extensions/common/interop/CHANGELOG.md`.
+
+
 ## [0.12.0] - 2026-11-10
 
 ### Added: crosswalk to the EU DPP Registry

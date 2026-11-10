@@ -4,6 +4,22 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+### Removed: UNTP v0.6 terms from the UNTP bridge
+
+`untp-bridge-context.jsonld` carried the scorecard model of the UNTP v0.6 drafts next to the v0.7.0
+terms. UNTP v0.7.0 (2026-04-02) is the current release and no longer has these terms, so the bridge
+drops them: `CircularityPerformance`, `EmissionsPerformance`, `TraceabilityPerformance`,
+`FacilityRecord`, `CradleToGate`, `CradleToGrave`, `ProductClass`, `Batch`, `Item`,
+`carbonFootprint`, `recycledContent`, `recyclableContent`, `declaredUnit`, `utilityFactor`,
+`materialCircularityIndicator`, `verifiedRatio`, `primarySourcedRatio`, `operationalScope`,
+`granularityLevel`, `circularityPerformance`, `emissionsPerformance`, `traceabilityPerformance`,
+`circularityScorecard`, `emissionsScorecard`, `conformityClaim`, `dueDiligenceDeclaration`,
+`materialsProvenance`, `materialName`, `isCriticalRawMaterial`. The v0.7.0 name
+`materialProvenance` takes over from `materialsProvenance` (still `oec:hasMaterialComposition`).
+No term changed its meaning; `check:context-compat` reports removals only.
+`UNTP_MAPPING.md` and the UNTP section of `STANDARDS_ALIGNMENT.md` now describe v0.7.0 only.
+
+
 ## [0.12.0] - 2026-11-10
 
 ### Added: EU DPP Registry crosswalk profile
