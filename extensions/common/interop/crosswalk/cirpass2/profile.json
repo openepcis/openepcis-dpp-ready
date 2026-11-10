@@ -1,0 +1,121 @@
+{
+  "id": "cirpass2",
+  "title": "CIRPASS-2 EU DPP ontologies (EUDPP core 2.2.0, textile 1.1.2)",
+  "prefixes": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "gs1": "https://ref.gs1.org/voc/",
+    "epcis": "https://ref.gs1.org/epcis/",
+    "cbv": "https://ref.gs1.org/cbv/",
+    "oea": "https://ref.openepcis.org/extensions/common/assessment/",
+    "oec": "https://ref.openepcis.org/extensions/common/core/",
+    "eutex": "https://ref.openepcis.org/extensions/eu/textile/",
+    "xw": "https://ref.openepcis.org/extensions/common/interop/crosswalk#",
+    "eudpp": "https://w3id.org/eudpp#",
+    "units": "https://si-digital-framework.org/SI/units/",
+    "txt-assessment": "https://w3id.org/eudpp/textile-assessment#",
+    "txt-assessment-codelists": "https://w3id.org/eudpp/textile-assessment-codelists#",
+    "txt-connector": "https://w3id.org/eudpp/textile-connector#",
+    "txt-core": "https://w3id.org/eudpp/textile-core#",
+    "txt-durability": "https://w3id.org/eudpp/textile-durability#",
+    "txt-indicator": "https://w3id.org/eudpp/textile-indicator#",
+    "txt-recyclability": "https://w3id.org/eudpp/textile-recyclability#",
+    "txt-structure": "https://w3id.org/eudpp/textile-structure#",
+    "schema": "https://schema.org/",
+    "euelec": "https://ref.openepcis.org/extensions/eu/electronics/",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "txt-process": "https://w3id.org/eudpp/textile-process#"
+  },
+  "background": {
+    "lift": [
+      "vendor/gs1/gs1Voc.jsonld",
+      "@modules"
+    ],
+    "lower": [
+      "vendor/gs1/gs1Voc.jsonld",
+      "@modules",
+      "extensions/upstream/cirpass2-textile/ontology/textile.ttl",
+      "extensions/upstream/cirpass2-eudpp/ontology/eudpp.ttl"
+    ]
+  },
+  "handles": {
+    "_comment": "Namespaces whose terms travel as they are: EPCIS, schema.org and the GS1 Web Vocabulary (pass-through). Every other term counts as handled only when a rule or the mapping table names it; what a pass-through does not reach shows in the round-trip delta.",
+    "lift": [
+      "https://ref.gs1.org/epcis/",
+      "https://schema.org/",
+      "https://ref.gs1.org/voc/"
+    ],
+    "lower": [
+      "https://ref.gs1.org/epcis/",
+      "https://schema.org/",
+      "https://ref.gs1.org/voc/"
+    ]
+  },
+  "vocabulary": {
+    "_comment": "Terms an output may use as predicate or class. lift: the CIRPASS-2 mirrors plus the vocabularies they build on or that carry what CIRPASS-2 has no term for (EPCIS/CBV and GS1 Web Vocabulary IRIs, schema.org, W3C). lower: the OpenEPCIS ontologies plus GS1, schema.org and EPCIS. Anything else in an output is a leak.",
+    "lift": {
+      "files": [
+        "extensions/upstream/cirpass2-eudpp/ontology/eudpp.ttl",
+        "extensions/upstream/cirpass2-textile/ontology/textile.ttl"
+      ],
+      "namespaces": [
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "http://www.w3.org/2000/01/rdf-schema#",
+        "http://purl.org/dc/terms/",
+        "http://www.w3.org/2004/02/skos/core#",
+        "https://ref.gs1.org/epcis/",
+        "https://schema.org/",
+        "https://ref.gs1.org/voc/",
+        "http://www.w3.org/2002/07/owl#versionInfo"
+      ]
+    },
+    "lower": {
+      "files": [
+        "@modules"
+      ],
+      "namespaces": [
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "http://www.w3.org/2000/01/rdf-schema#",
+        "https://ref.gs1.org/voc/",
+        "https://ref.gs1.org/epcis/",
+        "https://schema.org/",
+        "http://purl.org/dc/terms/created",
+        "http://www.w3.org/2002/07/owl#versionInfo"
+      ]
+    }
+  },
+  "shapes": {
+    "_comment": "SHACL the OpenEPCIS side is checked against: every module's shapes (\"@shapes\"). Our own documents must satisfy them; what the way back no longer satisfies, because the target has no place for data a shape requires, is recorded in roundtrip.txt and examples-shapes.txt.",
+    "files": [
+      "@shapes"
+    ]
+  },
+  "structure": {
+    "_comment": "The lift side is checked against the OWL/RDFS axioms of the vocabulary.lift files (domain, range, restrictions; closed world, scripts/lib/owl-structure.ts). A finding fails the build unless an entry here accepts it: each names the gap of the target vocabulary (README, 'Known gaps') that makes it unavoidable. Accepted findings are listed per case in roundtrip.txt.",
+    "accepted": [
+      {
+        "gap": 17,
+        "match": "^cardinality eudpp:LCAModuleValue eudpp:forLifeCycleModule: 0 value",
+        "reason": "a carbon-footprint stage that is not an EN 15804 module has no module to name"
+      },
+      {
+        "gap": 23,
+        "match": "^range \\S+ \\S+: \".*\"\\^\\^rdf:langString is not a xsd:string$",
+        "reason": "EUDPP types text as xsd:string; a multilingual name or description keeps its language tags"
+      },
+      {
+        "gap": 24,
+        "match": "^cardinality eudpp:(InventoryIndicatorResult|LCAResult) eudpp:quantifiesIndicator: 0 value",
+        "reason": "recycled content as a RecycledMaterialsUseResult: no inventory indicator is a share of recycled content, and the class says none is imposed, yet inherits exactly one"
+      },
+      {
+        "gap": 25,
+        "match": "^someValuesFrom eudpp:(ActorIdentifier|FacilityIdentifier) eudpp:hasScheme: ",
+        "reason": "an operator or facility identifier that is neither GLN nor LEI (EORI, national register) has no EUDPP scheme"
+      }
+    ]
+  }
+}

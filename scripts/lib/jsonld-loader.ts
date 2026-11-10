@@ -39,6 +39,34 @@ const SPECIAL_HOST_MAP: Record<string, string> = {
   "https://ref.gs1.org/voc/": "vendor/gs1/gs1Voc.jsonld",
 };
 
+/**
+ * Hosts whose documents are vendored as a directory tree: a URL under the prefix resolves to the
+ * same relative path under the directory. The EU DPP Registry release names its contexts under a
+ * host with no DNS record (see vendor/eu-dpp/README.md), and its contexts @import each other by
+ * relative URL, so the whole tree must resolve.
+ */
+const VENDORED_PREFIXES: [string, string][] = [
+  ["https://repository.product-passport.ec.europa.eu/", "vendor/eu-dpp/1.0.0/"],
+];
+
+/**
+ * Replace a vendored context's @import by the imported definitions, the local ones taking
+ * precedence (the meaning of @import). The EU subgroup contexts import the battery context, which
+ * imports the core context: JSON-LD 1.1 forbids an imported context to contain @import, so a
+ * conforming processor rejects the chain, and jsonld.js would also resolve the relative import
+ * against the document instead of the context. Both are resolved here, recursively.
+ */
+async function inlineImports(document: unknown, url: string, file: string): Promise<void> {
+  const ctx = (document as { "@context"?: Record<string, unknown> })["@context"];
+  if (!ctx || typeof ctx["@import"] !== "string") return;
+  const importUrl = new URL(ctx["@import"], url).href;
+  const importFile = path.posix.join(path.posix.dirname(file), ctx["@import"]);
+  const imported = JSON.parse(await fs.readFile(path.join(ROOT, importFile), "utf8"));
+  await inlineImports(imported, importUrl, importFile);
+  const { "@import": _, ...own } = ctx;
+  (document as { "@context": Record<string, unknown> })["@context"] = { ...imported["@context"], ...own };
+}
+
 export interface LoadedDocument {
   contextUrl?: string;
   documentUrl: string;
@@ -78,10 +106,12 @@ async function loadRemote(url: string): Promise<unknown> {
  */
 export function makeDocumentLoader(urlToFile: Record<string, string>): JsonLdDocumentLoader {
   return async (url: string) => {
-    const local = urlToFile[url];
+    const prefixed = VENDORED_PREFIXES.find(([p]) => url.startsWith(p));
+    const local = urlToFile[url] ?? (prefixed ? prefixed[1] + url.slice(prefixed[0].length) : undefined);
     if (local) {
-      const text = await fs.readFile(path.join(ROOT, local), "utf8");
-      return { contextUrl: undefined, documentUrl: url, document: JSON.parse(text) };
+      const document = JSON.parse(await fs.readFile(path.join(ROOT, local), "utf8"));
+      if (prefixed) await inlineImports(document, url, local);
+      return { contextUrl: undefined, documentUrl: url, document };
     }
     return { contextUrl: undefined, documentUrl: url, document: await loadRemote(url) };
   };

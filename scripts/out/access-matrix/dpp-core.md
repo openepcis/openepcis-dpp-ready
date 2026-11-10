@@ -2,14 +2,13 @@
 
 Regulatory frame: ESPR 2024/1781 Art. 7–9, Annex III
 
-Coverage: 187 properties — 123 Public / 34 AuthorizedOnly / 6 Restricted / 24 inherited / 0 UNCLASSIFIED; 10 legally locked.
+Coverage: 185 properties — 121 Public / 34 AuthorizedOnly / 6 Restricted / 24 inherited / 0 UNCLASSIFIED; 10 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
 | `activityClassification` | Activity Classification | **AuthorizedOnly** |  | eli/reg/2024/1781 | ISIC/NACE/NAICS activity codes are operator-registry data for authority cross-checks, not product information for consumers. |
 | `assignedELI` | Assigned ELI | **Public** |  | eli/reg/2024/1781 | ELI identifiers name published EU legislation; the legal basis of a conformity claim is inherently public. |
 | `bioBasedFraction` | Bio-based Fraction | **Public** |  | eli/reg/2024/1781 | The bio-based share is a consumer-facing environmental claim of the same kind as recycled content (ESPR Annex I; SUP marking precedent). |
-| `biodegradationPercentage` | Biodegradation Percentage | **Public** |  | eli/reg/2024/1781 | Biodegradability results substantiate consumer-facing end-of-life claims (ESPR Annex I(m)); detergent module serves related data Public. |
 | `carbonFootprintMethodology` | Carbon Footprint Methodology | **Public** |  | eli/reg/2024/1781 | A public CF number is only meaningful and checkable with its methodology reference (ISO 14067/PEF citation). |
 | `carbonFootprintStudyUrl` | Carbon Footprint Study URL | **Public** |  | eli/reg/2023/1542 | The Battery Regulation requires a public web link to the underlying CF study (Reg. 2023/1542 Annex XIII(1)); battery module serves the same name Public. |
 | `carbonFootprintTotal` | Carbon Footprint Total | **Public** |  | eli/reg/2024/1781 | The total lifecycle CF figure is the headline public value of the CF declaration (Battery Reg. Annex XIII(1) precedent; UNTP alignment). |
@@ -58,8 +57,7 @@ Coverage: 187 properties — 123 Public / 34 AuthorizedOnly / 6 Restricted / 24 
 | `hasAnnualEnergyConsumption` | Annual Energy Consumption | **Public** | 🔒 eli/reg/2017/1369 | eli/reg/2017/1369 | Annual energy consumption appears on the mandatory energy label and in EPREL's public part (Regulation (EU) 2017/1369). |
 | `hasAuthorizedParties` | Authorized Parties | **Restricted** |  | eli/reg/2024/1781 | The access-control list itself reveals business relationships and is only actionable by the passport owner and authorities (ESPR Art. 9). |
 | `hasBackupCopyHost` | Backup Copy Host | **Public** |  | eli/reg/2024/1781 | The backup host exists so the passport stays reachable when the primary fails; a fallback address only works if its identity is public (Art. 10(4)). |
-| `hasBiodegradability` | Biodegradability | **Public** |  | eli/reg/2024/1781 | Entry property for a biodegradability observation whose members (biodegradationPercentage, biodegradabilityTestMethod) are individually Public. |
-| `hasBiodegradabilityTestMethod` | Biodegradability Test Method | **Public** |  | eli/reg/2024/1781 | The test method makes the public biodegradation percentage checkable; a claim without its method is unverifiable. |
+| `hasBiodegradability` | Biodegradability | **Public** |  | eli/reg/2024/1781 | Entry property for a biodegradability observation whose method and results (common/assessment) are Public. |
 | `hasCarbonFootprint` | Carbon Footprint | **Public** |  | eli/reg/2024/1781 | The product carbon footprint is a consumer-comparable parameter (ESPR Annex I(l)); the Battery Regulation Annex XIII(1) makes it public, and battery module serves the shared names Public. |
 | `hasCarbonFootprintDeclaration` | Carbon Footprint Declaration | **Public** |  | eli/reg/2023/1542 | The CF declaration is the published container of figures that are individually public under the battery precedent. |
 | `hasCarbonFootprintDistribution` | Carbon Footprint: Distribution | **Public** |  | eli/reg/2023/1542 | Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)). |

@@ -1,0 +1,21 @@
+# The temperature range of the battery not in use (idle state): a value range of the observed
+# characteristic temperature in degrees Celsius.
+CONSTRUCT {
+  ?r bat:notInUseTemperatureRange ?tr .
+  ?tr dppcom:valueRange ?vr .
+  ?vr dppcom:observedCharacteristic obs:temperature ; dppcom:unit unit:degreeCelsius ; dppcom:lowerBound ?lo ; dppcom:upperBound ?hi .
+}
+WHERE {
+  {
+    SELECT ?r (SAMPLE(?l) AS ?lo) (SAMPLE(?h) AS ?hi)
+    WHERE {
+      GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
+      GRAPH <urn:xw:in> { ?r eubat:hasTechnicalSpecifications/eubat:hasTemperatureRangeIdleState ?range }
+      OPTIONAL { GRAPH <urn:xw:in> { ?range eubat:hasMinimumTemperature ?q1 . ?q1 gs1:value ?v1 ; gs1:unitCode "CEL" } BIND(xsd:double(STR(?v1)) AS ?l) }
+      OPTIONAL { GRAPH <urn:xw:in> { ?range eubat:hasMaximumTemperature ?q2 . ?q2 gs1:value ?v2 ; gs1:unitCode "CEL" } BIND(xsd:double(STR(?v2)) AS ?h) }
+    } GROUP BY ?r
+  }
+  FILTER(BOUND(?lo) || BOUND(?hi))
+  BIND(BNODE() AS ?tr)
+  BIND(BNODE() AS ?vr)
+}

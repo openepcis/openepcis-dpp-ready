@@ -4,6 +4,12 @@ All notable changes to the DPP Iron & Steel module will be documented in this fi
 
 ## [Unreleased]
 
+### Fixed: the rolling TransformationEvent is valid EPCIS 2.0
+
+`epcis/transformation-rolling.jsonld` carried `action` (TransformationEvents have none) and listed
+the output lot in `outputEPCList` (instances only); the lot is now an `outputQuantityList` entry
+(12.3 t).
+
 ## [0.10.0] - 2026-11-07
 
 ### Breaking: namespace moves to `ref.openepcis.org`

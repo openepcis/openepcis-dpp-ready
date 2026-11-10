@@ -185,12 +185,37 @@
       "eudet:hasSurfactantType": {
         "@id": "eudet:Anionic"
       },
-      "eudet:biodegradationPercentage": "82.5",
-      "eudet:hasTestMethod": {
-        "@id": "eudet:OECD301B"
+      "oea:hasMethod": {
+        "@id": "oec:OECD301B"
       },
-      "eudet:testDurationDays": 28,
-      "eudet:passesUltimateBiodegradability": true
+      "oea:hasParameterSetting": {
+        "type": "oea:ParameterSetting",
+        "oea:hasParameter": {
+          "@id": "oea:Duration"
+        },
+        "oea:hasParameterValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 28,
+          "gs1:unitCode": "DAY"
+        }
+      },
+      "oea:hasResult": {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "oea:Biodegradation"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "82.5",
+          "gs1:unitCode": "P1"
+        },
+        "oea:isEvaluatedAgainst": {
+          "@id": "eudet:UltimateBiodegradabilityThreshold"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:Satisfied"
+        }
+      }
     },
     {
       "id": "https://id.gs1.org/01/09521234200017#biodeg-nonionic",
@@ -198,12 +223,37 @@
       "eudet:hasSurfactantType": {
         "@id": "eudet:NonIonic"
       },
-      "eudet:biodegradationPercentage": "76.3",
-      "eudet:hasTestMethod": {
-        "@id": "eudet:OECD301B"
+      "oea:hasMethod": {
+        "@id": "oec:OECD301B"
       },
-      "eudet:testDurationDays": 28,
-      "eudet:passesUltimateBiodegradability": true
+      "oea:hasParameterSetting": {
+        "type": "oea:ParameterSetting",
+        "oea:hasParameter": {
+          "@id": "oea:Duration"
+        },
+        "oea:hasParameterValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 28,
+          "gs1:unitCode": "DAY"
+        }
+      },
+      "oea:hasResult": {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "oea:Biodegradation"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "76.3",
+          "gs1:unitCode": "P1"
+        },
+        "oea:isEvaluatedAgainst": {
+          "@id": "eudet:UltimateBiodegradabilityThreshold"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:Satisfied"
+        }
+      }
     }
   ],
   "eudet:hasFragranceAllergens": [
@@ -240,7 +290,15 @@
     "P305+P351+P338"
   ],
   "eudet:phosphorusContentPercent": 0,
-  "eudet:phosphateCompliant": true,
+  "oea:hasAssessment": {
+    "type": "oea:Assessment",
+    "oea:isEvaluatedAgainst": {
+      "@id": "eudet:PhosphorusLimit"
+    },
+    "oea:hasOutcome": {
+      "@id": "oea:Satisfied"
+    }
+  },
   "eudet:hasRecommendedDosage": {
     "id": "https://id.gs1.org/01/09521234200017#dosage",
     "type": "gs1:QuantitativeValue",

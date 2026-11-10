@@ -1,0 +1,18 @@
+# Counts and texts the Registry keeps as they are: a count retyped to the Registry's datatype (also
+# from a gs1:QuantitativeValue), a language-tagged text unchanged.
+CONSTRUCT { ?r ?field ?val . }
+WHERE {
+  ?row xw:euField ?field ; xw:ours ?p ; xw:form ?form .
+  FILTER(?form IN (xw:Plain, xw:Text))
+  OPTIONAL { ?row xw:via ?via }
+  OPTIONAL { ?row xw:subgroup ?sub }
+  OPTIONAL { ?row xw:theirDatatype ?dt }
+  GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
+  FILTER(!BOUND(?sub) || EXISTS { GRAPH <urn:xw:roots> { ?r xw:spec ?sg } FILTER(CONTAINS(?sg, "/subgroup/")) })
+  FILTER NOT EXISTS { ?row xw:forbiddenIn ?fs . GRAPH <urn:xw:roots> { ?r xw:spec ?rs } FILTER(STR(?rs) = STR(?fs)) }
+  { GRAPH <urn:xw:in> { ?r ?p ?o } } UNION { GRAPH <urn:xw:in> { ?r ?via ?c . ?c ?p ?o } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?o gs1:value ?qv } }
+  BIND(IF(isLiteral(?o), ?o, ?qv) AS ?lit)
+  BIND(IF(?form = xw:Text, IF(LANG(?lit) != "", ?lit, ?none), STRDT(STR(xsd:integer(STR(?lit))), ?dt)) AS ?val)
+  FILTER(BOUND(?val))
+}

@@ -110,7 +110,7 @@
       "id": "https://ref.openepcis.org/extensions/common/assessment/CriterionResult",
       "localName": "CriterionResult",
       "label": "Criterion Result",
-      "comment": "An assessment result that records whether one criterion is met, and the points a scoring method awards for it, without a measured value of its own.",
+      "comment": "An assessment result that records whether one criterion is met (oea:hasOutcome), the points a scoring method awards for it (oea:awardedScore), or both, without a measured value of its own.",
       "subClassOf": [
         "https://ref.openepcis.org/extensions/common/assessment/AssessmentResult"
       ],
@@ -801,6 +801,22 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/methodName",
+      "localName": "methodName",
+      "label": "Method Name",
+      "comment": "Name and version of the method, for a method stated inline rather than as a named individual (\"RecyClass v2.6\").",
+      "domain": [
+        "https://ref.openepcis.org/extensions/common/assessment/AssessmentMethod"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://www.iso.org/standard/66912.html",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Name of a public method.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
       "id": "https://ref.openepcis.org/extensions/common/assessment/methodUrl",
       "localName": "methodUrl",
       "label": "Method URL",
@@ -1018,10 +1034,16 @@
       "comment": "Whether a result or an assessment meets the criterion it is judged against.",
       "values": [
         {
+          "id": "https://ref.openepcis.org/extensions/common/assessment/NotApplicable",
+          "localName": "NotApplicable",
+          "label": "Not Applicable",
+          "comment": "The criterion does not apply to the product."
+        },
+        {
           "id": "https://ref.openepcis.org/extensions/common/assessment/NotAssessed",
           "localName": "NotAssessed",
           "label": "Not Assessed",
-          "comment": "The criterion was not evaluated, for example because it does not apply to the product."
+          "comment": "The criterion was not evaluated."
         },
         {
           "id": "https://ref.openepcis.org/extensions/common/assessment/NotSatisfied",
@@ -1030,10 +1052,22 @@
           "comment": "The result or assessment does not meet the criterion."
         },
         {
+          "id": "https://ref.openepcis.org/extensions/common/assessment/PartlySatisfied",
+          "localName": "PartlySatisfied",
+          "label": "Partly Satisfied",
+          "comment": "The result or assessment meets the criterion only in part."
+        },
+        {
           "id": "https://ref.openepcis.org/extensions/common/assessment/Satisfied",
           "localName": "Satisfied",
           "label": "Satisfied",
           "comment": "The result or assessment meets the criterion."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/assessment/Uncertain",
+          "localName": "Uncertain",
+          "label": "Uncertain",
+          "comment": "The evidence does not allow a verdict on the criterion."
         }
       ]
     },
@@ -1043,6 +1077,12 @@
       "label": "Performance Parameter",
       "comment": "A product characteristic an assessment observes: abrasion resistance, dimensional stability, biodegradation, recyclability rate. Individuals, not classes; sector modules add their own.",
       "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/common/assessment/Biodegradation",
+          "localName": "Biodegradation",
+          "label": "Biodegradation",
+          "comment": "Share of a substance or material biodegraded under the test method's conditions (ultimate aerobic biodegradation, unitCode P1). Replaces oec:biodegradationPercentage."
+        },
         {
           "id": "https://ref.openepcis.org/extensions/common/assessment/RecoverableRate",
           "localName": "RecoverableRate",

@@ -1,0 +1,22 @@
+# gs1:QuantitativeValue → txt-connector:QuantitativeValue with an SI Digital Framework unit.
+# Covers the values of assessment terms (oea:) in the document and the threshold values of
+# criteria it references. Other quantities (net weight, carbon footprint, …) are EUDPP
+# quantitative properties (1xx rules).
+CONSTRUCT {
+  ?q a txt-connector:QuantitativeValue ;
+     txt-connector:numericValue ?nv ;
+     txt-connector:hasMeasurementUnit ?unit .
+}
+WHERE {
+  {
+    GRAPH <urn:xw:in> { ?q gs1:value ?v ; gs1:unitCode ?code . ?holder ?hp ?q }
+    FILTER(STRSTARTS(STR(?hp), STR(oea:)))
+  } UNION {
+    GRAPH <urn:xw:in> { ?r oea:isEvaluatedAgainst ?crit }
+    ?crit oea:hasThresholdValue ?q . ?q gs1:value ?v ; gs1:unitCode ?code .
+  }
+  OPTIONAL { ?row xw:unitCode ?code ; xw:siUnit ?si ; xw:factor ?f }
+  BIND(COALESCE(?si, IRI(CONCAT("https://vocabulary.uncefact.org/UnitMeasureCode#", ?code))) AS ?unit)
+  # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+  BIND(xsd:decimal(IF(xsd:decimal(?v) = 0, 0.0, xsd:decimal(?v) * COALESCE(?f, 1.0))) AS ?nv)
+}

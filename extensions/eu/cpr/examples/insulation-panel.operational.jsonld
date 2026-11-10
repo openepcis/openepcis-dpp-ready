@@ -8,6 +8,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521234000051",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/cpr/",
     "https://schema.org/"
@@ -15,22 +16,22 @@
   "declarationOfPerformanceUrl": "https://manufacturer.example/dop/ThermoWool-Plus-100-2026-001.pdf",
   "essentialCharacteristic": [
     {
-      "characteristicName": "Thermal Conductivity λD",
       "harmonisedStandard": "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30562,5839",
-      "hasCharacteristicValue": {
+      "hasMeasuredValue": {
         "type": "QuantitativeValue",
         "unitCode": "F94",
         "value": "0.034"
-      }
+      },
+      "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/cpr/ThermalConductivity"
     },
     {
-      "characteristicName": "Density",
       "harmonisedStandard": "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30562,5839",
-      "hasCharacteristicValue": {
+      "hasMeasuredValue": {
         "type": "QuantitativeValue",
         "unitCode": "KMQ",
         "value": 60
-      }
+      },
+      "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/cpr/Density"
     }
   ],
   "gtin": "09521234600022",
@@ -42,6 +43,11 @@
     "takeBackIncentive": "Free pick-up for site quantities >500 kg",
     "takeBackUrl": "https://isoliertech.example/take-back"
   },
+  "hasIndicator": {
+    "type": "Indicator",
+    "hasCategoricalValue": "https://ref.openepcis.org/extensions/eu/cpr/FireClassA1",
+    "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/cpr/ReactionToFire"
+  },
   "hasMaterialComposition": [
     {
       "documentTitle": "Mineral wool (rock + recycled glass cullet)",
@@ -52,7 +58,6 @@
       "massFraction": "0.03"
     }
   ],
-  "hasReactionToFireClass": "FireClassA1",
   "hasRecycledContentDetails": {
     "type": "RecycledContent",
     "postConsumerRecycledContent": "0.3",

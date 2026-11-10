@@ -1,0 +1,45 @@
+# Results. The observed parameter comes from dcterms:subject on the result, or else from the
+# execution when it assesses exactly one parameter. A CIRPASS-2 parameter node that is not an
+# OpenEPCIS individual lowers to the canonical partner of its class, or else is adopted by IRI.
+CONSTRUCT {
+  ?x oea:hasResult ?r .
+  ?r a ?rcls ;
+     oea:hasObservedParameter ?param ;
+     oea:hasMeasuredValue ?qv ;
+     oea:resultText ?text ;
+     ?critP ?crit ;
+     oea:hasOutcome ?out .
+  ?param a ?ptype .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?x txt-assessment:producesResult ?r . ?r a ?rt }
+  FILTER(?rt IN (txt-assessment:MeasurementResult, txt-assessment:AssessmentResult, txt-recyclability:RecyclabilityCriterionResult))
+  FILTER (?rt != txt-recyclability:RecyclabilityCriterionResult || EXISTS { GRAPH <urn:xw:in> { ?r txt-assessment:hasMeasuredValue ?anyv } })
+  BIND(EXISTS { GRAPH <urn:xw:in> { ?r dcterms:type oea:CriterionResult } } AS ?isCritResult)
+  BIND(IF(?isCritResult, oea:CriterionResult,
+          IF(EXISTS { GRAPH <urn:xw:in> { ?r txt-assessment:hasMeasuredValue ?mv } }, oea:MeasurementResult, oea:AssessmentResult)) AS ?rcls)
+  BIND(IF(?isCritResult, oea:hasCriterion, oea:isEvaluatedAgainst) AS ?critP)
+  OPTIONAL {
+    { GRAPH <urn:xw:in> { ?r dcterms:subject ?pnode } }
+    UNION
+    { GRAPH <urn:xw:in> { ?x txt-assessment:assessesPerformanceParameter ?pnode }
+      FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?r dcterms:subject ?any } }
+      FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?x txt-assessment:assessesPerformanceParameter ?other . FILTER(?other != ?pnode) } } }
+    OPTIONAL {
+      FILTER NOT EXISTS { GRAPH <urn:xw:bg> { ?pnode a ?known } }
+      GRAPH <urn:xw:in> { ?pnode a ?pc } ?pc xw:lowerTo ?mapped .
+    }
+    OPTIONAL {
+      FILTER NOT EXISTS { GRAPH <urn:xw:bg> { ?pnode a ?known2 } }
+      FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?pnode a ?pc2 } ?pc2 xw:lowerTo ?m2 . }
+      GRAPH <urn:xw:in> { ?pnode a ?foreignClass }
+      BIND(oea:PerformanceParameter AS ?adopt)
+    }
+    BIND(COALESCE(?mapped, IF(BOUND(?foreignClass), ?foreignClass, ?pnode)) AS ?param)
+    BIND(?adopt AS ?ptype)
+  }
+  OPTIONAL { GRAPH <urn:xw:in> { ?r txt-assessment:hasMeasuredValue ?qv } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?r txt-assessment:hasTextualValue ?text } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?r txt-assessment:isEvaluatedAgainst ?crit } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?r txt-recyclability:hasCriterionOutcome ?cout } ?out xw:sameCode ?cout }
+}

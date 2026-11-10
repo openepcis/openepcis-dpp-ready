@@ -90,6 +90,7 @@ All ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%)."""@en ;
 
 euelec:RepairabilityIndex
     a owl:Class ;
+    rdfs:subClassOf oea:Assessment ;
     rdfs:label "Repairability Index"@en ;
     rdfs:comment """French Repairability Index (Indice de Réparabilité) assessment using the official
 5-criteria, 100-point scoring methodology. The score is displayed to consumers as 0-10 scale ;
@@ -109,20 +110,6 @@ Total score (0-100) is converted to display score (0-10) for consumer labeling."
     rdfs:seeAlso oec:RepairabilityInfo ;
     skos:note """Required extension: The French Repairability Index uses a specific 5-criteria methodology
 that is not available in GS1 Web Vocabulary. Links to oec:RepairabilityInfo for base patterns."""@en .
-
-euelec:RepairCriterion
-    a owl:Class ;
-    rdfs:label "Repair Criterion"@en ;
-    rdfs:comment "An individual criterion score within the French Repairability Index."@en ;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
-    rdfs:subClassOf cccev:Criterion ;
-    rdfs:seeAlso cccev:Criterion ;
-    rdfs:seeAlso cccev:Constraint ;
-    skos:note "A RepairCriterion is a specific kind of cccev:Criterion (EU SEMICeu CCCEV): the five Repairability-Index criteria (Documentation, Disassembly, SparePartsAvailability, SparePartsPricing, ProductSpecific) each scored against an InformationConcept within the broader Repairability Requirement. Modelled as rdfs:subClassOf rather than owl:equivalentClass because cccev:Criterion is broader and covers any conformity-evaluation criterion. CCCEV is the EU foundation that JTC 24 / CIRPASS-2 lean on for conformity / scoring."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    skos:broadMatch cv:Criterion ;
-    rdfs:seeAlso untp:Criterion ;
-    rdfs:seeAlso schema:Rating .
 
 euelec:SoftwareSupport
     a owl:Class ;
@@ -355,51 +342,38 @@ euelec:Wearable a euelec:DeviceCategory ;
     rdfs:comment "Wearable electronic device including smartwatches and fitness trackers."@en .
 
 # =============================================================================
-# PART 3: REPAIR CRITERION TYPE ENUMERATION (French Index)
+# PART 3: REPAIR CRITERIA (French Index, oea:Criterion individuals, 20 points each)
 # =============================================================================
 
-euelec:RepairCriterionType
-    a owl:Class ;
-    rdfs:label "Repair Criterion Type"@en ;
-    rdfs:comment "Types of criteria in the French Repairability Index (5 criteria, 20 points each)."@en ;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
-    owl:oneOf (
-        euelec:Documentation
-        euelec:Disassembly
-        euelec:SparePartsAvailability
-        euelec:SparePartsPricing
-        euelec:ProductSpecific
-    ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso cv:Criterion ;
-    rdfs:seeAlso oec:RepairabilityInfo ;
-    rdfs:seeAlso untp:Criterion .
-
-euelec:Documentation a euelec:RepairCriterionType ;
+euelec:Documentation a oea:Criterion ;
     rdfs:label "Documentation"@en ;
-    rdfs:comment "Availability and quality of repair documentation (20 points max)."@en ;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> .
+    oea:criterionDescription "Availability and quality of repair documentation." ;
+    oea:maxScore "20"^^xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> .
 
-euelec:Disassembly a euelec:RepairCriterionType ;
+euelec:Disassembly a oea:Criterion ;
     rdfs:label "Disassembly"@en ;
-    rdfs:comment "Ease of disassembly, reassembly, and tools required (20 points max)."@en ;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> .
+    oea:criterionDescription "Ease of disassembly, reassembly and tools required." ;
+    oea:maxScore "20"^^xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> .
 
-euelec:SparePartsAvailability a euelec:RepairCriterionType ;
-    rdfs:label "Spare Parts Availability"@en ;
-    rdfs:comment "Duration of spare parts availability and access channels (20 points max)."@en ;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> .
+euelec:SparePartsAvailability a oea:Criterion ;
+    rdfs:label "SparePartsAvailability"@en ;
+    oea:criterionDescription "Duration of spare parts availability and access channels." ;
+    oea:maxScore "20"^^xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> .
 
-euelec:SparePartsPricing a euelec:RepairCriterionType ;
-    rdfs:label "Spare Parts Pricing"@en ;
-    rdfs:comment "Ratio of spare part prices to product price (20 points max)."@en ;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> .
+euelec:SparePartsPricing a oea:Criterion ;
+    rdfs:label "SparePartsPricing"@en ;
+    oea:criterionDescription "Ratio of spare part prices to the product price." ;
+    oea:maxScore "20"^^xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> .
 
-euelec:ProductSpecific a euelec:RepairCriterionType ;
+euelec:ProductSpecific a oea:Criterion ;
     rdfs:label "Product Specific Criteria"@en ;
-    rdfs:comment "Category-specific criteria such as software support duration (20 points max)."@en ;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> .
+    oea:criterionDescription "Category-specific criteria such as software support duration." ;
+    oea:maxScore "20"^^xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> .
 
 # =============================================================================
 # PART 4: EU REPAIRABILITY CLASS ENUMERATION (Right to Repair)
@@ -696,8 +670,20 @@ euelec:modelIdentifier
 # PART 10: PROPERTIES - FRENCH REPAIRABILITY INDEX
 # =============================================================================
 
+euelec:FrenchRepairabilityIndexMethod a oea:AssessmentMethod ;
+    rdfs:label "French Repairability Index (Indice de Réparabilité)"@en ;
+    rdfs:comment "Five criteria of 20 points each (documentation, disassembly, spare parts availability, spare parts pricing, product-specific); the 0-100 total divided by 10 is the consumer display score."@en ;
+    oea:methodUrl "https://www.ecologie.gouv.fr/indice-reparabilite"^^xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> .
+
+euelec:RepairabilityTotalScore a oea:IndicatorKind ;
+    rdfs:label "Repairability Total Score"@en ;
+    rdfs:comment "Sum of the five criterion scores of euelec:FrenchRepairabilityIndexMethod (0-100, unitCode C62)."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> .
+
 euelec:hasRepairabilityIndex
     a owl:ObjectProperty ;
+    rdfs:subPropertyOf oea:hasAssessment ;
     rdfs:label "Repairability Index"@en ;
     rdfs:comment "French Repairability Index (Indice de Réparabilité) assessment."@en ;
     rdfs:domain gs1:Product ;
@@ -705,112 +691,6 @@ euelec:hasRepairabilityIndex
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-euelec:totalScore
-    a owl:DatatypeProperty ;
-    rdfs:label "Total Score"@en ;
-    rdfs:comment "Total repairability score (0-100 scale, sum of 5 criteria)."@en ;
-    rdfs:domain euelec:RepairabilityIndex ;
-    rdfs:range xsd:decimal ;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-euelec:displayScore
-    a owl:DatatypeProperty ;
-    rdfs:label "Display Score"@en ;
-    rdfs:comment "Consumer-facing repairability score (0-10 scale, totalScore/10)."@en ;
-    rdfs:domain euelec:RepairabilityIndex ;
-    rdfs:range xsd:decimal ;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No exact GS1 or SEMICeu equivalent; loosely related to the generic schema:ratingValue."@en ;
-    skos:closeMatch schema:ratingValue .
-
-euelec:hasRepairabilityClass
-    a owl:ObjectProperty ;
-    rdfs:label "Repairability Class"@en ;
-    rdfs:comment "EU Right to Repair classification (A-E grade)."@en ;
-    rdfs:domain euelec:RepairabilityIndex ;
-    rdfs:range euelec:EURepairabilityClass ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oea:RepairabilityClass .
-
-euelec:hasRepairCriteria
-    a owl:ObjectProperty ;
-    rdfs:label "Repair Criteria"@en ;
-    rdfs:comment "List of individual criterion scores."@en ;
-    rdfs:domain euelec:RepairabilityIndex ;
-    rdfs:range euelec:RepairCriterion ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-euelec:hasCriterionType
-    a owl:ObjectProperty ;
-    rdfs:label "Criterion Type"@en ;
-    rdfs:comment "Type of repair criterion being scored."@en ;
-    rdfs:domain euelec:RepairCriterion ;
-    rdfs:range euelec:RepairCriterionType ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-euelec:criterionScore
-    a owl:DatatypeProperty ;
-    rdfs:label "Criterion Score"@en ;
-    rdfs:comment "Score for this criterion (0-20 scale)."@en ;
-    rdfs:domain euelec:RepairCriterion ;
-    rdfs:range xsd:decimal ;
-    rdfs:seeAlso cccev:SupportedValue ;
-    skos:note "The score is the cccev:SupportedValue (EU SEMICeu CCCEV) for the InformationConcept that this criterion measures."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> .
-
-euelec:criterionMaxScore
-    a owl:DatatypeProperty ;
-    rdfs:label "Criterion Max Score"@en ;
-    rdfs:comment "Maximum possible score for this criterion (typically 20)."@en ;
-    rdfs:domain euelec:RepairCriterion ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso schema:maxValue ;
-    skos:closeMatch schema:bestRating .
-
-euelec:criterionDetails
-    a owl:DatatypeProperty ;
-    rdfs:label "Criterion Details"@en ;
-    rdfs:comment "Detailed explanation of the criterion score."@en ;
-    rdfs:domain euelec:RepairCriterion ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso schema:ratingExplanation .
-
-euelec:assessmentDate
-    a owl:DatatypeProperty ;
-    rdfs:label "Assessment Date"@en ;
-    rdfs:comment "Date when the repairability assessment was performed."@en ;
-    rdfs:domain euelec:RepairabilityIndex ;
-    rdfs:range xsd:date ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-euelec:hasAssessmentBody
-    a owl:ObjectProperty ;
-    rdfs:label "Assessment Body"@en ;
-    rdfs:comment "Organization that performed the repairability assessment."@en ;
-    rdfs:domain euelec:RepairabilityIndex ;
-    rdfs:range gs1:Organization ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 euelec:repairabilityLabelUrl
     a owl:DatatypeProperty ;
@@ -1190,28 +1070,6 @@ euelec:collectionSchemeUrl
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note "E-waste / separate-collection concept per the WEEE Directive 2012/19/EU. No GS1, SEMICeu, or schema.org equivalent."@en .
-
-euelec:recyclabilityRate
-    a owl:DatatypeProperty ;
-    rdfs:label "Recyclability Rate"@en ;
-    rdfs:comment "Fraction of device that can be recycled (0-1 scale)."@en ;
-    rdfs:domain euelec:WEEECompliance ;
-    rdfs:range xsd:decimal ;
-    rdfs:seeAlso oec:recyclableContent ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oea:RecyclabilityRate .
-
-euelec:recoverabilityRate
-    a owl:DatatypeProperty ;
-    rdfs:label "Recoverability Rate"@en ;
-    rdfs:comment "Fraction of device that can be recovered (recycling + energy recovery, 0-1 scale)."@en ;
-    rdfs:domain euelec:WEEECompliance ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
 # PART 15: PROPERTIES - ROHS COMPLIANCE

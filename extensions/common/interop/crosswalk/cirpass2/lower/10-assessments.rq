@@ -1,0 +1,40 @@
+# Each CIRPASS-2 assessment execution becomes an OpenEPCIS assessment of the best-ranked
+# mapped class, refined when it applies one of the JRC scoring methods. It hangs on the EPCIS event its product event is represented by, or else on the
+# product, through the entry property of its class; a part of another execution (dcterms:hasPart)
+# becomes a sub-assessment instead. A class marker (dcterms:type) names the sector class; its
+# entry property is the one the ontology declares for it (a subproperty of oea:hasAssessment).
+CONSTRUCT {
+  ?x a ?our .
+  ?host ?entry ?x .
+  ?x oea:assessmentDate ?date .
+  ?x oea:hasSubAssessment ?part .
+}
+WHERE {
+  {
+    SELECT ?x (MAX(?r) AS ?best) WHERE {
+      GRAPH <urn:xw:in> { ?x a ?c }
+      ?c rdfs:subClassOf* ?s . ?s xw:lowerTo ?o ; xw:rank ?r .
+      ?s rdfs:subClassOf* txt-assessment:AssessmentExecution .
+    } GROUP BY ?x
+  }
+  GRAPH <urn:xw:in> { ?x a ?c2 }
+  ?c2 rdfs:subClassOf* ?s2 . ?s2 xw:lowerTo ?o2 ; xw:rank ?best ; rdfs:subClassOf* txt-assessment:AssessmentExecution .
+  OPTIONAL { GRAPH <urn:xw:in> { ?x txt-assessment:appliesMethod ?m } ?m xw:refinesTo ?ref }
+  OPTIONAL { GRAPH <urn:xw:in> { ?x dcterms:type ?marker } GRAPH <urn:xw:bg> { ?marker a owl:Class } ?marker rdfs:subClassOf+ oea:Assessment . }
+  BIND(COALESCE(?marker, ?ref, ?o2) AS ?our)
+  OPTIONAL { GRAPH <urn:xw:in> { ?x dcterms:date ?date } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?x dcterms:hasPart ?part } }
+  OPTIONAL {
+    FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?whole dcterms:hasPart ?x } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?x dcterms:relation ?pe . ?pe eudpp:isRepresentedByCarrier ?e } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?x txt-assessment:assessesProduct ?prod } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?prod txt-recyclability:hasRecyclabilityAssessment ?x } }
+    BIND(COALESCE(?e, ?prod) AS ?host)
+    OPTIONAL {
+      SELECT ?our (MAX(?er) AS ?ebest) WHERE { ?our xw:entryProperty ?ep0 ; xw:rank ?er } GROUP BY ?our
+    }
+    OPTIONAL { ?our xw:entryProperty ?tableEntry ; xw:rank ?ebest . }
+    OPTIONAL { GRAPH <urn:xw:bg> { ?ontEntry rdfs:range ?our } ?ontEntry rdfs:subPropertyOf+ oea:hasAssessment . }
+    BIND(COALESCE(?tableEntry, ?ontEntry, oea:hasAssessment) AS ?entry)
+  }
+}

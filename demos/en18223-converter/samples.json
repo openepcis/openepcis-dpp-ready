@@ -150,8 +150,8 @@
       },
       "eubat:hasStateOfCertifiedEnergy": {
         "type": "gs1:QuantitativeValue",
-        "gs1:value": "9.98",
-        "gs1:unitCode": "KWH"
+        "gs1:value": "97.5",
+        "gs1:unitCode": "P1"
       },
       "eubat:hasCapacityFade": {
         "type": "gs1:QuantitativeValue",
@@ -168,7 +168,11 @@
         "gs1:value": "1.9",
         "gs1:unitCode": "OHM"
       },
-      "eubat:hasCycleCount": 640,
+      "eubat:hasCycleCount": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": 640,
+        "gs1:unitCode": "C62"
+      },
       "eubat:hasEnergyThroughput": {
         "type": "gs1:QuantitativeValue",
         "gs1:value": 6550,
@@ -4290,8 +4294,8 @@
       "eubat:expectedRemainingCycles": 2800,
       "eubat:hasRemainingCapacity": {
         "type": "gs1:QuantitativeValue",
-        "gs1:value": "96.5",
-        "gs1:unitCode": "P1"
+        "gs1:value": "271.04",
+        "gs1:unitCode": "AMH"
       },
       "eubat:hasRemainingRoundTripEfficiency": {
         "type": "gs1:QuantitativeValue",
@@ -4777,57 +4781,89 @@
       },
       "euelec:hasRepairabilityIndex": {
         "type": "euelec:RepairabilityIndex",
-        "euelec:totalScore": 68,
-        "euelec:displayScore": "6.8",
-        "euelec:hasRepairabilityClass": {
-          "@id": "euelec:RepairClassB"
+        "oea:hasMethod": {
+          "@id": "euelec:FrenchRepairabilityIndexMethod"
         },
-        "euelec:assessmentDate": "2025-01-12",
-        "euelec:hasRepairCriteria": [
+        "oea:assessmentDate": "2025-01-12",
+        "oea:hasResult": [
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:Documentation"
             },
-            "euelec:criterionScore": 15,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "Service manual available, basic troubleshooting guide"
+            "oea:awardedScore": 15,
+            "oea:resultText": "Service manual available, basic troubleshooting guide"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:Disassembly"
             },
-            "euelec:criterionScore": 14,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "Standard screws, modular stand, 12 steps to access power board"
+            "oea:awardedScore": 14,
+            "oea:resultText": "Standard screws, modular stand, 12 steps to access power board"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:SparePartsAvailability"
             },
-            "euelec:criterionScore": 15,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "Power board, control board available for 7 years"
+            "oea:awardedScore": 15,
+            "oea:resultText": "Power board, control board available for 7 years"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:SparePartsPricing"
             },
-            "euelec:criterionScore": 12,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "Power board: 18% of device price, Panel: not available separately"
+            "oea:awardedScore": 12,
+            "oea:resultText": "Power board: 18% of device price, Panel: not available separately"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:ProductSpecific"
             },
-            "euelec:criterionScore": 12,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "Firmware updates via USB, factory reset capability"
+            "oea:awardedScore": 12,
+            "oea:resultText": "Firmware updates via USB, factory reset capability"
+          }
+        ],
+        "oea:hasIndicator": [
+          {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "euelec:RepairabilityTotalScore"
+            },
+            "oea:hasIndicatorValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 68,
+              "gs1:unitCode": "C62"
+            },
+            "oea:hasDerivationMethod": {
+              "@id": "euelec:FrenchRepairabilityIndexMethod"
+            }
+          },
+          {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oea:RepairabilityScore"
+            },
+            "oea:hasIndicatorValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "6.8",
+              "gs1:unitCode": "C62"
+            },
+            "oea:hasDerivationMethod": {
+              "@id": "euelec:FrenchRepairabilityIndexMethod"
+            }
+          },
+          {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oea:RepairabilityClass"
+            },
+            "oea:hasCategoricalValue": {
+              "@id": "euelec:RepairClassB"
+            }
           }
         ]
       },
@@ -4933,9 +4969,7 @@
           "type": "gs1:Country",
           "gs1:countryCode": "SE"
         },
-        "euelec:collectionSchemeUrl": "https://www.nordic-displays.example.com/sustainability/recycling",
-        "euelec:recyclabilityRate": "0.88",
-        "euelec:recoverabilityRate": "0.93"
+        "euelec:collectionSchemeUrl": "https://www.nordic-displays.example.com/sustainability/recycling"
       },
       "euelec:hasRohsCompliance": {
         "type": "euelec:RoHSCompliance",
@@ -4972,6 +5006,33 @@
         "gs1:globalLocationNumber": "9521234000006",
         "oec:economicOperatorId": "EU-EOID-SE-2024-345678",
         "schema:vatID": "SE123456789001"
+      },
+      "oec:hasRecyclabilityAssessment": {
+        "type": "oec:RecyclabilityAssessment",
+        "oea:hasResult": [
+          {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "oea:RecyclabilityRate"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "0.88",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "oea:RecoverableRate"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "0.93",
+              "gs1:unitCode": "C62"
+            }
+          }
+        ]
       }
     }
   },
@@ -5061,60 +5122,92 @@
       },
       "euelec:hasRepairabilityIndex": {
         "type": "euelec:RepairabilityIndex",
-        "euelec:totalScore": "76.5",
-        "euelec:displayScore": "7.7",
-        "euelec:hasRepairabilityClass": {
-          "@id": "euelec:RepairClassB"
+        "oea:hasMethod": {
+          "@id": "euelec:FrenchRepairabilityIndexMethod"
         },
-        "euelec:assessmentDate": "2025-01-18",
-        "euelec:repairabilityLabelUrl": "https://www.greentech-computers.example.com/products/greenbook-pro-15/repairability-label.png",
-        "euelec:hasRepairCriteria": [
+        "oea:assessmentDate": "2025-01-18",
+        "oea:hasResult": [
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:Documentation"
             },
-            "euelec:criterionScore": "17.5",
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "Complete service manual with teardown videos in 12 languages"
+            "oea:awardedScore": "17.5",
+            "oea:resultText": "Complete service manual with teardown videos in 12 languages"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:Disassembly"
             },
-            "euelec:criterionScore": 16,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "Single screw type, modular internals, battery accessible in 3 steps"
+            "oea:awardedScore": 16,
+            "oea:resultText": "Single screw type, modular internals, battery accessible in 3 steps"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:SparePartsAvailability"
             },
-            "euelec:criterionScore": 15,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "Major components available for 7 years through authorized partners"
+            "oea:awardedScore": 15,
+            "oea:resultText": "Major components available for 7 years through authorized partners"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:SparePartsPricing"
             },
-            "euelec:criterionScore": 13,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "Battery: 12%, SSD: 8%, RAM: 5%, Display: 28% of device price"
+            "oea:awardedScore": 13,
+            "oea:resultText": "Battery: 12%, SSD: 8%, RAM: 5%, Display: 28% of device price"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:ProductSpecific"
             },
-            "euelec:criterionScore": 15,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "6 years OS updates, user-upgradeable RAM and SSD, data recovery mode"
+            "oea:awardedScore": 15,
+            "oea:resultText": "6 years OS updates, user-upgradeable RAM and SSD, data recovery mode"
           }
-        ]
+        ],
+        "oea:hasIndicator": [
+          {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "euelec:RepairabilityTotalScore"
+            },
+            "oea:hasIndicatorValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "76.5",
+              "gs1:unitCode": "C62"
+            },
+            "oea:hasDerivationMethod": {
+              "@id": "euelec:FrenchRepairabilityIndexMethod"
+            }
+          },
+          {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oea:RepairabilityScore"
+            },
+            "oea:hasIndicatorValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "7.7",
+              "gs1:unitCode": "C62"
+            },
+            "oea:hasDerivationMethod": {
+              "@id": "euelec:FrenchRepairabilityIndexMethod"
+            }
+          },
+          {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oea:RepairabilityClass"
+            },
+            "oea:hasCategoricalValue": {
+              "@id": "euelec:RepairClassB"
+            }
+          }
+        ],
+        "euelec:repairabilityLabelUrl": "https://www.greentech-computers.example.com/products/greenbook-pro-15/repairability-label.png"
       },
       "euelec:hasSoftwareSupport": {
         "type": "euelec:SoftwareSupport",
@@ -5307,9 +5400,7 @@
           "type": "gs1:Country",
           "gs1:countryCode": "FR"
         },
-        "euelec:collectionSchemeUrl": "https://www.greentech-computers.example.com/sustainability/recycling",
-        "euelec:recyclabilityRate": "0.86",
-        "euelec:recoverabilityRate": "0.91"
+        "euelec:collectionSchemeUrl": "https://www.greentech-computers.example.com/sustainability/recycling"
       },
       "euelec:hasRohsCompliance": {
         "type": "euelec:RoHSCompliance",
@@ -5411,6 +5502,33 @@
         "oec:reportUrl": "https://www.greentech-computers.example.com/sustainability/due-diligence/2024-report.pdf",
         "oec:reportDate": "2024-12-15",
         "oec:thirdPartyAssurancesUrl": "https://www.greentech-computers.example.com/sustainability/due-diligence/third-party-audit.pdf"
+      },
+      "oec:hasRecyclabilityAssessment": {
+        "type": "oec:RecyclabilityAssessment",
+        "oea:hasResult": [
+          {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "oea:RecyclabilityRate"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "0.86",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "oea:RecoverableRate"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "0.91",
+              "gs1:unitCode": "C62"
+            }
+          }
+        ]
       }
     }
   },
@@ -5454,57 +5572,89 @@
       },
       "euelec:hasRepairabilityIndex": {
         "type": "euelec:RepairabilityIndex",
-        "euelec:totalScore": 85,
-        "euelec:displayScore": "8.5",
-        "euelec:hasRepairabilityClass": {
-          "@id": "euelec:RepairClassA"
+        "oea:hasMethod": {
+          "@id": "euelec:FrenchRepairabilityIndexMethod"
         },
-        "euelec:assessmentDate": "2025-01-15",
-        "euelec:hasRepairCriteria": [
+        "oea:assessmentDate": "2025-01-15",
+        "oea:hasResult": [
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:Documentation"
             },
-            "euelec:criterionScore": 18,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "Comprehensive service manuals, maintenance guides, and API documentation"
+            "oea:awardedScore": 18,
+            "oea:resultText": "Comprehensive service manuals, maintenance guides, and API documentation"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:Disassembly"
             },
-            "euelec:criterionScore": 19,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "Tool-less hot-swap design for all major components"
+            "oea:awardedScore": 19,
+            "oea:resultText": "Tool-less hot-swap design for all major components"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:SparePartsAvailability"
             },
-            "euelec:criterionScore": 17,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "All spare parts available for 10 years, 24-hour delivery SLA"
+            "oea:awardedScore": 17,
+            "oea:resultText": "All spare parts available for 10 years, 24-hour delivery SLA"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:SparePartsPricing"
             },
-            "euelec:criterionScore": 15,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "Component pricing published, volume discounts available"
+            "oea:awardedScore": 15,
+            "oea:resultText": "Component pricing published, volume discounts available"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:ProductSpecific"
             },
-            "euelec:criterionScore": 16,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "10 years firmware support, remote diagnostics, modular expansion"
+            "oea:awardedScore": 16,
+            "oea:resultText": "10 years firmware support, remote diagnostics, modular expansion"
+          }
+        ],
+        "oea:hasIndicator": [
+          {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "euelec:RepairabilityTotalScore"
+            },
+            "oea:hasIndicatorValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 85,
+              "gs1:unitCode": "C62"
+            },
+            "oea:hasDerivationMethod": {
+              "@id": "euelec:FrenchRepairabilityIndexMethod"
+            }
+          },
+          {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oea:RepairabilityScore"
+            },
+            "oea:hasIndicatorValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "8.5",
+              "gs1:unitCode": "C62"
+            },
+            "oea:hasDerivationMethod": {
+              "@id": "euelec:FrenchRepairabilityIndexMethod"
+            }
+          },
+          {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oea:RepairabilityClass"
+            },
+            "oea:hasCategoricalValue": {
+              "@id": "euelec:RepairClassA"
+            }
           }
         ]
       },
@@ -5666,9 +5816,7 @@
           "type": "gs1:Country",
           "gs1:countryCode": "NL"
         },
-        "euelec:collectionSchemeUrl": "https://www.euroserver.example.com/sustainability/recycling",
-        "euelec:recyclabilityRate": "0.92",
-        "euelec:recoverabilityRate": "0.96"
+        "euelec:collectionSchemeUrl": "https://www.euroserver.example.com/sustainability/recycling"
       },
       "euelec:hasRohsCompliance": {
         "type": "euelec:RoHSCompliance",
@@ -5765,6 +5913,33 @@
             "gs1:countryCode": "NL"
           }
         }
+      },
+      "oec:hasRecyclabilityAssessment": {
+        "type": "oec:RecyclabilityAssessment",
+        "oea:hasResult": [
+          {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "oea:RecyclabilityRate"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "0.92",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "oea:RecoverableRate"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "0.96",
+              "gs1:unitCode": "C62"
+            }
+          }
+        ]
       }
     }
   },
@@ -5803,60 +5978,92 @@
       },
       "euelec:hasRepairabilityIndex": {
         "type": "euelec:RepairabilityIndex",
-        "euelec:totalScore": "72.5",
-        "euelec:displayScore": "7.3",
-        "euelec:hasRepairabilityClass": {
-          "@id": "euelec:RepairClassB"
+        "oea:hasMethod": {
+          "@id": "euelec:FrenchRepairabilityIndexMethod"
         },
-        "euelec:assessmentDate": "2025-01-10",
-        "euelec:repairabilityLabelUrl": "https://example.com/labels/ecophone-pro-2025-repairability.png",
-        "euelec:hasRepairCriteria": [
+        "oea:assessmentDate": "2025-01-10",
+        "oea:hasResult": [
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:Documentation"
             },
-            "euelec:criterionScore": "16.5",
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "Complete repair manuals available in 8 languages, including video tutorials"
+            "oea:awardedScore": "16.5",
+            "oea:resultText": "Complete repair manuals available in 8 languages, including video tutorials"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:Disassembly"
             },
-            "euelec:criterionScore": 14,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "Uses standard screws, modular design, 8 steps to replace display"
+            "oea:awardedScore": 14,
+            "oea:resultText": "Uses standard screws, modular design, 8 steps to replace display"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:SparePartsAvailability"
             },
-            "euelec:criterionScore": 15,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "All spare parts available for 7 years, delivery within 5 business days"
+            "oea:awardedScore": 15,
+            "oea:resultText": "All spare parts available for 7 years, delivery within 5 business days"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:SparePartsPricing"
             },
-            "euelec:criterionScore": 12,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "Battery: 15% of device price, Display: 25%, Logic board: 40%"
+            "oea:awardedScore": 12,
+            "oea:resultText": "Battery: 15% of device price, Display: 25%, Logic board: 40%"
           },
           {
-            "type": "euelec:RepairCriterion",
-            "euelec:hasCriterionType": {
+            "type": "oea:CriterionResult",
+            "oea:hasCriterion": {
               "@id": "euelec:ProductSpecific"
             },
-            "euelec:criterionScore": 15,
-            "euelec:criterionMaxScore": 20,
-            "euelec:criterionDetails": "5 years OS updates, 7 years security updates, software reset capability"
+            "oea:awardedScore": 15,
+            "oea:resultText": "5 years OS updates, 7 years security updates, software reset capability"
           }
-        ]
+        ],
+        "oea:hasIndicator": [
+          {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "euelec:RepairabilityTotalScore"
+            },
+            "oea:hasIndicatorValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "72.5",
+              "gs1:unitCode": "C62"
+            },
+            "oea:hasDerivationMethod": {
+              "@id": "euelec:FrenchRepairabilityIndexMethod"
+            }
+          },
+          {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oea:RepairabilityScore"
+            },
+            "oea:hasIndicatorValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "7.3",
+              "gs1:unitCode": "C62"
+            },
+            "oea:hasDerivationMethod": {
+              "@id": "euelec:FrenchRepairabilityIndexMethod"
+            }
+          },
+          {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oea:RepairabilityClass"
+            },
+            "oea:hasCategoricalValue": {
+              "@id": "euelec:RepairClassB"
+            }
+          }
+        ],
+        "euelec:repairabilityLabelUrl": "https://example.com/labels/ecophone-pro-2025-repairability.png"
       },
       "euelec:hasSoftwareSupport": {
         "type": "euelec:SoftwareSupport",
@@ -5999,9 +6206,7 @@
           "type": "gs1:Country",
           "gs1:countryCode": "DE"
         },
-        "euelec:collectionSchemeUrl": "https://www.ecotech-electronics.example.com/recycling",
-        "euelec:recyclabilityRate": "0.85",
-        "euelec:recoverabilityRate": "0.92"
+        "euelec:collectionSchemeUrl": "https://www.ecotech-electronics.example.com/recycling"
       },
       "euelec:hasRohsCompliance": {
         "type": "euelec:RoHSCompliance",
@@ -6045,6 +6250,33 @@
         "gs1:globalLocationNumber": "9521234000006",
         "oec:economicOperatorId": "EU-EOID-DE-2024-123456",
         "schema:vatID": "DE123456789"
+      },
+      "oec:hasRecyclabilityAssessment": {
+        "type": "oec:RecyclabilityAssessment",
+        "oea:hasResult": [
+          {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "oea:RecyclabilityRate"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "0.85",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "oea:RecoverableRate"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "0.92",
+              "gs1:unitCode": "C62"
+            }
+          }
+        ]
       }
     }
   },
@@ -8626,12 +8858,12 @@
           "oec:languageCode": "en"
         },
         {
-          "id": "https://files.example.org/files/products/09521000001428/docs/document.pdf",
+          "id": "https://files.example.org/files/products/09521000001428/docs/supply-chain-transparency-2024.pdf",
           "type": "oec:DocumentReference",
           "oec:hasDocumentType": {
             "id": "oec:DueDiligenceDocument"
           },
-          "oec:documentUrl": "https://files.example.org/files/products/09521000001428/docs/document.pdf",
+          "oec:documentUrl": "https://files.example.org/files/products/09521000001428/docs/supply-chain-transparency-2024.pdf",
           "schema:name": "Supply Chain Transparency Report 2024",
           "oec:mimeType": "application/pdf",
           "oec:languageCode": "en",
@@ -9893,8 +10125,17 @@
         "euppwr:hasPackagingTier": {
           "@id": "euppwr:Sales"
         },
-        "euppwr:hasRecyclabilityGrade": {
-          "@id": "euppwr:GradeA"
+        "oec:hasRecyclabilityAssessment": {
+          "type": "oec:RecyclabilityAssessment",
+          "oea:hasIndicator": {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "euppwr:RecyclabilityPerformanceGrade"
+            },
+            "oea:hasCategoricalValue": {
+              "@id": "euppwr:GradeA"
+            }
+          }
         },
         "euppwr:harmonisedSymbol": "https://harmonised-labels.example.com/ppwr/separate-collection-pet",
         "gs1:packagingFeature": "gs1:PackagingFeatureCode-CAP",
@@ -10102,8 +10343,17 @@
         "euppwr:hasPackagingTier": {
           "@id": "euppwr:Sales"
         },
-        "euppwr:hasRecyclabilityGrade": {
-          "@id": "euppwr:GradeA"
+        "oec:hasRecyclabilityAssessment": {
+          "type": "oec:RecyclabilityAssessment",
+          "oea:hasIndicator": {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "euppwr:RecyclabilityPerformanceGrade"
+            },
+            "oea:hasCategoricalValue": {
+              "@id": "euppwr:GradeA"
+            }
+          }
         },
         "euppwr:harmonisedSymbol": "https://harmonised-labels.example.com/ppwr/separate-collection-pet",
         "gs1:packagingFeature": "gs1:PackagingFeatureCode-CAP",
@@ -10316,8 +10566,17 @@
       "euppwr:hasPackagingTier": {
         "@id": "euppwr:Grouped"
       },
-      "euppwr:hasRecyclabilityGrade": {
-        "@id": "euppwr:GradeA"
+      "oec:hasRecyclabilityAssessment": {
+        "type": "oec:RecyclabilityAssessment",
+        "oea:hasIndicator": {
+          "type": "oea:Indicator",
+          "oea:hasIndicatorKind": {
+            "@id": "euppwr:RecyclabilityPerformanceGrade"
+          },
+          "oea:hasCategoricalValue": {
+            "@id": "euppwr:GradeA"
+          }
+        }
       },
       "euppwr:harmonisedSymbol": "https://harmonised-labels.example.com/ppwr/separate-collection-paper",
       "euppwr:hasReuseInformation": {
@@ -10554,8 +10813,17 @@
         "euppwr:hasPackagingTier": {
           "@id": "euppwr:Sales"
         },
-        "euppwr:hasRecyclabilityGrade": {
-          "@id": "euppwr:GradeC"
+        "oec:hasRecyclabilityAssessment": {
+          "type": "oec:RecyclabilityAssessment",
+          "oea:hasIndicator": {
+            "type": "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "euppwr:RecyclabilityPerformanceGrade"
+            },
+            "oea:hasCategoricalValue": {
+              "@id": "euppwr:GradeC"
+            }
+          }
         },
         "euppwr:harmonisedSymbol": "https://harmonised-labels.example.com/ppwr/mixed-materials-household-waste",
         "gs1:packagingMaterial": [
@@ -10705,8 +10973,14 @@
       "eucpr:hasConstructionProductType": {
         "@id": "eucpr:Cement"
       },
-      "eucpr:hasReactionToFireClass": {
-        "@id": "eucpr:FireClassA1"
+      "oea:hasIndicator": {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "eucpr:ReactionToFire"
+        },
+        "oea:hasCategoricalValue": {
+          "@id": "eucpr:FireClassA1"
+        }
       },
       "eucpr:declarationOfPerformanceUrl": "https://manufacturer.example/dop/CEM-I-52-5-N-2026-001.pdf",
       "gs1:manufacturer": {
@@ -10718,8 +10992,10 @@
       "eucpr:hasEssentialCharacteristic": [
         {
           "type": "eucpr:EssentialCharacteristic",
-          "eucpr:characteristicName": "Compressive Strength (28 days)",
-          "eucpr:hasCharacteristicValue": {
+          "oea:hasObservedParameter": {
+            "@id": "eucpr:CompressiveStrength"
+          },
+          "oea:hasMeasuredValue": {
             "type": "gs1:QuantitativeValue",
             "gs1:value": "52.5",
             "gs1:unitCode": "N20"
@@ -10728,8 +11004,10 @@
         },
         {
           "type": "eucpr:EssentialCharacteristic",
-          "eucpr:characteristicName": "Initial Setting Time",
-          "eucpr:hasCharacteristicValue": {
+          "oea:hasObservedParameter": {
+            "@id": "eucpr:InitialSettingTime"
+          },
+          "oea:hasMeasuredValue": {
             "type": "gs1:QuantitativeValue",
             "gs1:value": 75,
             "gs1:unitCode": "MIN"
@@ -10822,8 +11100,14 @@
       "eucpr:hasConstructionProductType": {
         "@id": "eucpr:Insulation"
       },
-      "eucpr:hasReactionToFireClass": {
-        "@id": "eucpr:FireClassA1"
+      "oea:hasIndicator": {
+        "type": "oea:Indicator",
+        "oea:hasIndicatorKind": {
+          "@id": "eucpr:ReactionToFire"
+        },
+        "oea:hasCategoricalValue": {
+          "@id": "eucpr:FireClassA1"
+        }
       },
       "eucpr:declarationOfPerformanceUrl": "https://manufacturer.example/dop/ThermoWool-Plus-100-2026-001.pdf",
       "gs1:manufacturer": {
@@ -10835,8 +11119,10 @@
       "eucpr:hasEssentialCharacteristic": [
         {
           "type": "eucpr:EssentialCharacteristic",
-          "eucpr:characteristicName": "Thermal Conductivity λD",
-          "eucpr:hasCharacteristicValue": {
+          "oea:hasObservedParameter": {
+            "@id": "eucpr:ThermalConductivity"
+          },
+          "oea:hasMeasuredValue": {
             "type": "gs1:QuantitativeValue",
             "gs1:value": "0.034",
             "gs1:unitCode": "F94"
@@ -10845,8 +11131,10 @@
         },
         {
           "type": "eucpr:EssentialCharacteristic",
-          "eucpr:characteristicName": "Density",
-          "eucpr:hasCharacteristicValue": {
+          "oea:hasObservedParameter": {
+            "@id": "eucpr:Density"
+          },
+          "oea:hasMeasuredValue": {
             "type": "gs1:QuantitativeValue",
             "gs1:value": 60,
             "gs1:unitCode": "KMQ"
@@ -11048,16 +11336,56 @@
           "eudet:hasSurfactantType": {
             "@id": "eudet:NonIonic"
           },
-          "eudet:biodegradationPercentage": "89.1",
-          "eudet:hasTestMethod": {
-            "@id": "eudet:OECD301F"
+          "oea:hasMethod": {
+            "@id": "oec:OECD301F"
           },
-          "eudet:testDurationDays": 28,
-          "eudet:passesUltimateBiodegradability": true
+          "oea:hasParameterSetting": {
+            "type": "oea:ParameterSetting",
+            "oea:hasParameter": {
+              "@id": "oea:Duration"
+            },
+            "oea:hasParameterValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 28,
+              "gs1:unitCode": "DAY"
+            }
+          },
+          "oea:hasResult": {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "oea:Biodegradation"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "89.1",
+              "gs1:unitCode": "P1"
+            },
+            "oea:isEvaluatedAgainst": {
+              "@id": "eudet:UltimateBiodegradabilityThreshold"
+            },
+            "oea:hasOutcome": {
+              "@id": "oea:Satisfied"
+            }
+          }
         }
       ],
-      "eudet:filmBiodegradable": true,
-      "eudet:filmBiodegradabilityPercentage": "94.7",
+      "eudet:hasFilmBiodegradability": {
+        "type": "oec:Biodegradability",
+        "oea:hasResult": {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "oea:Biodegradation"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": "94.7",
+            "gs1:unitCode": "P1"
+          },
+          "oea:hasOutcome": {
+            "@id": "oea:Satisfied"
+          }
+        }
+      },
       "eudet:hasSignalWord": {
         "@id": "eudet:Danger"
       },
@@ -11079,7 +11407,15 @@
         "P102"
       ],
       "eudet:phosphorusContentPercent": "0.3",
-      "eudet:phosphateCompliant": true,
+      "oea:hasAssessment": {
+        "type": "oea:Assessment",
+        "oea:isEvaluatedAgainst": {
+          "@id": "eudet:PhosphorusLimit"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:Satisfied"
+        }
+      },
       "eudet:dosageInstructions": {
         "@value": "Place 1 capsule in the main dispenser compartment. Do not unwrap. Do not handle with wet hands. Suitable for all dishwasher types.",
         "@language": "en"
@@ -11295,12 +11631,37 @@
           "eudet:hasSurfactantType": {
             "@id": "eudet:Anionic"
           },
-          "eudet:biodegradationPercentage": "82.5",
-          "eudet:hasTestMethod": {
-            "@id": "eudet:OECD301B"
+          "oea:hasMethod": {
+            "@id": "oec:OECD301B"
           },
-          "eudet:testDurationDays": 28,
-          "eudet:passesUltimateBiodegradability": true
+          "oea:hasParameterSetting": {
+            "type": "oea:ParameterSetting",
+            "oea:hasParameter": {
+              "@id": "oea:Duration"
+            },
+            "oea:hasParameterValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 28,
+              "gs1:unitCode": "DAY"
+            }
+          },
+          "oea:hasResult": {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "oea:Biodegradation"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "82.5",
+              "gs1:unitCode": "P1"
+            },
+            "oea:isEvaluatedAgainst": {
+              "@id": "eudet:UltimateBiodegradabilityThreshold"
+            },
+            "oea:hasOutcome": {
+              "@id": "oea:Satisfied"
+            }
+          }
         },
         {
           "id": "https://id.gs1.org/01/09521234200017#biodeg-nonionic",
@@ -11308,12 +11669,37 @@
           "eudet:hasSurfactantType": {
             "@id": "eudet:NonIonic"
           },
-          "eudet:biodegradationPercentage": "76.3",
-          "eudet:hasTestMethod": {
-            "@id": "eudet:OECD301B"
+          "oea:hasMethod": {
+            "@id": "oec:OECD301B"
           },
-          "eudet:testDurationDays": 28,
-          "eudet:passesUltimateBiodegradability": true
+          "oea:hasParameterSetting": {
+            "type": "oea:ParameterSetting",
+            "oea:hasParameter": {
+              "@id": "oea:Duration"
+            },
+            "oea:hasParameterValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 28,
+              "gs1:unitCode": "DAY"
+            }
+          },
+          "oea:hasResult": {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "oea:Biodegradation"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "76.3",
+              "gs1:unitCode": "P1"
+            },
+            "oea:isEvaluatedAgainst": {
+              "@id": "eudet:UltimateBiodegradabilityThreshold"
+            },
+            "oea:hasOutcome": {
+              "@id": "oea:Satisfied"
+            }
+          }
         }
       ],
       "eudet:hasFragranceAllergens": [
@@ -11350,7 +11736,15 @@
         "P305+P351+P338"
       ],
       "eudet:phosphorusContentPercent": 0,
-      "eudet:phosphateCompliant": true,
+      "oea:hasAssessment": {
+        "type": "oea:Assessment",
+        "oea:isEvaluatedAgainst": {
+          "@id": "eudet:PhosphorusLimit"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:Satisfied"
+        }
+      },
       "eudet:hasRecommendedDosage": {
         "id": "https://id.gs1.org/01/09521234200017#dosage",
         "type": "gs1:QuantitativeValue",

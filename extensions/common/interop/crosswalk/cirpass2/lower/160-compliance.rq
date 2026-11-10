@@ -1,0 +1,40 @@
+# EUDPP core: documents and regulatory information back to OpenEPCIS.
+#  - eudpp:hasEUDeclarationOfConformity → oec:hasConformityDeclaration (document type
+#    DeclarationOfConformity); a document under eudpp:hasProperty → oec:hasDocuments, its type
+#    from dcterms:type, or Manual for a digital instruction. Without dcterms:format, the content
+#    type "pdf" is application/pdf.
+#  - eudpp:isConformWith → gs1:regulatoryInformation, compliant; dcterms:relation to a Union
+#    harmonisation legislation → gs1:regulatoryInformation.
+CONSTRUCT {
+  ?prod ?docLink ?doc .
+  ?doc oec:hasDocumentType ?dtype ; oec:mimeType ?mime ; oec:mimeType ?fmt .
+  ?anyDoc oec:mimeType ?anyFmt .
+  ?prod gs1:regulatoryInformation ?ri .
+  ?ri oec:isRegulationCompliant ?ok .
+}
+WHERE {
+  {
+    GRAPH <urn:xw:in> { ?prod eudpp:hasEUDeclarationOfConformity ?doc }
+    BIND(oec:hasConformityDeclaration AS ?docLink)
+    BIND(oec:DeclarationOfConformity AS ?dtype)
+    OPTIONAL { GRAPH <urn:xw:in> { ?doc eudpp:contentType "pdf" } FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?doc dcterms:format ?f } } BIND("application/pdf" AS ?mime) }
+  } UNION {
+    GRAPH <urn:xw:in> { ?prod eudpp:hasProperty ?doc . ?doc a ?dc }
+    VALUES ?dc { eudpp:DocumentFormattedProperty eudpp:DigitalInstruction }
+    FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?doc a eudpp:EUDeclarationOfConformity } }
+    FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?doc dcterms:isPartOf ?container } }
+    FILTER(NOT EXISTS { GRAPH <urn:xw:in> { ?doc dcterms:type ?otherClass } GRAPH <urn:xw:bg> { ?otherClass a ?ock } FILTER(?ock IN (owl:Class, rdfs:Class)) }
+           || EXISTS { GRAPH <urn:xw:in> { ?doc dcterms:type ?docClassMarker } ?docClassMarker rdfs:subClassOf* oec:DocumentReference })
+    BIND(oec:hasDocuments AS ?docLink)
+    OPTIONAL { GRAPH <urn:xw:in> { ?doc dcterms:type ?dt0 } FILTER NOT EXISTS { GRAPH <urn:xw:bg> { ?dt0 a owl:Class } } }
+    BIND(COALESCE(?dt0, IF(?dc = eudpp:DigitalInstruction, oec:Manual, ?unbound0)) AS ?dtype)
+    OPTIONAL { GRAPH <urn:xw:in> { ?doc eudpp:contentType "pdf" } FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?doc dcterms:format ?f } } BIND("application/pdf" AS ?mime) }
+  } UNION {
+    GRAPH <urn:xw:in> { ?anyDoc dcterms:format ?anyFmt }
+  } UNION {
+    GRAPH <urn:xw:in> { ?prod eudpp:isConformWith ?ri }
+    BIND(true AS ?ok)
+  } UNION {
+    GRAPH <urn:xw:in> { ?prod dcterms:relation ?ri . ?ri a eudpp:UnionHarmonisationLegislation }
+  }
+}

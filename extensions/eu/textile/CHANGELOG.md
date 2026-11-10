@@ -4,6 +4,12 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed: garment example
+
+`garment-product.jsonld` gave the user guide and the supply-chain transparency report the same
+IRI, so both merged into one document node with two titles and two document types. The report
+has its own URL now. Found by the crosswalk round trip.
+
 ## [0.10.1] - 2026-11-08
 
 ### Fixed: `textile-schema.json` follows the assessment move

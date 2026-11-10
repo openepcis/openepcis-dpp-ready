@@ -11,6 +11,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521234000006",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/electronics/",
     "https://schema.org/"
@@ -277,6 +278,27 @@
     "hasOperatorRole": "Manufacturer",
     "vatIdentificationNumber": "FR12345678901"
   },
+  "hasRecyclabilityAssessment": {
+    "type": "RecyclabilityAssessment",
+    "hasResult": [
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "0.86"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate"
+      },
+      {
+        "hasMeasuredValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "0.91"
+        },
+        "hasObservedParameter": "https://ref.openepcis.org/extensions/common/assessment/RecoverableRate"
+      }
+    ]
+  },
   "hasRecycledContentDetails": {
     "type": "RecycledContent",
     "postConsumerRecycledContent": "0.23",
@@ -286,42 +308,59 @@
   "hasRepairabilityIndex": {
     "type": "RepairabilityIndex",
     "assessmentDate": "2025-01-18",
-    "displayScore": "7.7",
-    "hasRepairCriteria": [
+    "hasIndicator": [
       {
-        "criterionDetails": "Complete service manual with teardown videos in 12 languages",
-        "criterionMaxScore": 20,
-        "criterionScore": "17.5",
-        "hasCriterionType": "Documentation"
+        "hasDerivationMethod": "https://ref.openepcis.org/extensions/eu/electronics/FrenchRepairabilityIndexMethod",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/electronics/RepairabilityTotalScore",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "76.5"
+        }
       },
       {
-        "criterionDetails": "Single screw type, modular internals, battery accessible in 3 steps",
-        "criterionMaxScore": 20,
-        "criterionScore": 16,
-        "hasCriterionType": "Disassembly"
+        "hasDerivationMethod": "https://ref.openepcis.org/extensions/eu/electronics/FrenchRepairabilityIndexMethod",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/RepairabilityScore",
+        "hasIndicatorValue": {
+          "type": "QuantitativeValue",
+          "unitCode": "C62",
+          "value": "7.7"
+        }
       },
       {
-        "criterionDetails": "Major components available for 7 years through authorized partners",
-        "criterionMaxScore": 20,
-        "criterionScore": 15,
-        "hasCriterionType": "SparePartsAvailability"
-      },
-      {
-        "criterionDetails": "Battery: 12%, SSD: 8%, RAM: 5%, Display: 28% of device price",
-        "criterionMaxScore": 20,
-        "criterionScore": 13,
-        "hasCriterionType": "SparePartsPricing"
-      },
-      {
-        "criterionDetails": "6 years OS updates, user-upgradeable RAM and SSD, data recovery mode",
-        "criterionMaxScore": 20,
-        "criterionScore": 15,
-        "hasCriterionType": "ProductSpecific"
+        "hasCategoricalValue": "https://ref.openepcis.org/extensions/eu/electronics/RepairClassB",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/common/assessment/RepairabilityClass"
       }
     ],
-    "hasRepairabilityClass": "RepairClassB",
-    "repairabilityLabelUrl": "https://www.greentech-computers.example.com/products/greenbook-pro-15/repairability-label.png",
-    "totalScore": "76.5"
+    "hasMethod": "https://ref.openepcis.org/extensions/eu/electronics/FrenchRepairabilityIndexMethod",
+    "hasResult": [
+      {
+        "awardedScore": "17.5",
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/Documentation",
+        "resultText": "Complete service manual with teardown videos in 12 languages"
+      },
+      {
+        "awardedScore": 16,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/Disassembly",
+        "resultText": "Single screw type, modular internals, battery accessible in 3 steps"
+      },
+      {
+        "awardedScore": 15,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/SparePartsAvailability",
+        "resultText": "Major components available for 7 years through authorized partners"
+      },
+      {
+        "awardedScore": 13,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/SparePartsPricing",
+        "resultText": "Battery: 12%, SSD: 8%, RAM: 5%, Display: 28% of device price"
+      },
+      {
+        "awardedScore": 15,
+        "hasCriterion": "https://ref.openepcis.org/extensions/eu/electronics/ProductSpecific",
+        "resultText": "6 years OS updates, user-upgradeable RAM and SSD, data recovery mode"
+      }
+    ],
+    "repairabilityLabelUrl": "https://www.greentech-computers.example.com/products/greenbook-pro-15/repairability-label.png"
   },
   "hasRohsCompliance": {
     "type": "RoHSCompliance",
@@ -355,8 +394,6 @@
       "type": "Country",
       "countryCode": "FR"
     },
-    "recoverabilityRate": "0.91",
-    "recyclabilityRate": "0.86",
     "weeeCategory": "WEEE2_ScreensMonitors",
     "weeeRegistrationCountry": "FR",
     "weeeRegistrationNumber": "FR-2024-EE-45678"

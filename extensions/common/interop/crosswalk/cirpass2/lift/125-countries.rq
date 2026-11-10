@@ -1,0 +1,18 @@
+# EUDPP core: a gs1:Country node carries an ISO 3166-1 code. The product's country of origin is
+# the eudpp:countryOfOrigin code, an address country the schema:addressCountry code, the origin
+# of a material a schema:Country node with the code as schema:identifier.
+CONSTRUCT {
+  ?s eudpp:countryOfOrigin ?prodCode .
+  ?s schema:addressCountry ?addrCode .
+  ?s schema:countryOfOrigin ?matCountry .
+  ?matCountry a schema:Country ; schema:identifier ?matCode .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?s ?p ?c . ?c gs1:countryCode ?code . ?s a ?t }
+  VALUES (?p ?host) { (gs1:countryOfOrigin gs1:Product) (gs1:addressCountry gs1:PostalAddress) (oec:hasMaterialOrigin oec:MaterialComposition) }
+  ?t rdfs:subClassOf* ?host .
+  BIND(IF(?p = gs1:countryOfOrigin, STR(?code), ?u1) AS ?prodCode)
+  BIND(IF(?p = gs1:addressCountry, STR(?code), ?u2) AS ?addrCode)
+  BIND(IF(?p = oec:hasMaterialOrigin, ?c, ?u3) AS ?matCountry)
+  BIND(IF(?p = oec:hasMaterialOrigin, STR(?code), ?u4) AS ?matCode)
+}

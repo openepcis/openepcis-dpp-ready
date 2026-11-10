@@ -182,7 +182,7 @@ oea:CriterionResult
     a owl:Class ;
     rdfs:subClassOf oea:AssessmentResult ;
     rdfs:label "Criterion Result"@en ;
-    rdfs:comment "An assessment result that records whether one criterion is met, and the points a scoring method awards for it, without a measured value of its own."@en ;
+    rdfs:comment "An assessment result that records whether one criterion is met (oea:hasOutcome), the points a scoring method awards for it (oea:awardedScore), or both, without a measured value of its own."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Per-criterion outcome of a scoring scheme (sorting factors of a recyclability score, repair criteria of a repairability index). No GS1, SEMICeu, or schema.org equivalent."@en .
@@ -265,7 +265,7 @@ oea:Outcome
     rdfs:subClassOf skos:Concept ;
     rdfs:label "Outcome"@en ;
     rdfs:comment "Whether a result or an assessment meets the criterion it is judged against."@en ;
-    owl:oneOf ( oea:Satisfied oea:NotSatisfied oea:NotAssessed ) ;
+    owl:oneOf ( oea:Satisfied oea:PartlySatisfied oea:NotSatisfied oea:NotApplicable oea:NotAssessed oea:Uncertain ) ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
     dcterms:source <https://semiceu.github.io/CCCEV/releases/2.1.0/> ;
     skos:note "Closed outcome list. CBV dispositions conformant/non_conformant state the same for an item in an event, not for a criterion."@en .
@@ -274,8 +274,14 @@ oea:Satisfied a oea:Outcome ; rdfs:label "Satisfied"@en ; skos:notation "satisfi
     rdfs:comment "The result or assessment meets the criterion."@en .
 oea:NotSatisfied a oea:Outcome ; rdfs:label "Not Satisfied"@en ; skos:notation "not_satisfied" ;
     rdfs:comment "The result or assessment does not meet the criterion."@en .
+oea:PartlySatisfied a oea:Outcome ; rdfs:label "Partly Satisfied"@en ; skos:notation "partly_satisfied" ;
+    rdfs:comment "The result or assessment meets the criterion only in part."@en .
+oea:NotApplicable a oea:Outcome ; rdfs:label "Not Applicable"@en ; skos:notation "not_applicable" ;
+    rdfs:comment "The criterion does not apply to the product."@en .
+oea:Uncertain a oea:Outcome ; rdfs:label "Uncertain"@en ; skos:notation "uncertain" ;
+    rdfs:comment "The evidence does not allow a verdict on the criterion."@en .
 oea:NotAssessed a oea:Outcome ; rdfs:label "Not Assessed"@en ; skos:notation "not_assessed" ;
-    rdfs:comment "The criterion was not evaluated, for example because it does not apply to the product."@en .
+    rdfs:comment "The criterion was not evaluated."@en .
 
 oea:ComparisonOperator
     a owl:Class ;
@@ -321,6 +327,9 @@ oea:RecoverableRate a oea:PerformanceParameter ; rdfs:label "Recoverable Rate"@e
 oea:RecyclingCollectionRate a oea:PerformanceParameter ; rdfs:label "Recycling Collection Rate"@en ;
     rdfs:comment "Fraction of products of this type actually collected for recycling under the applicable collection scheme. Replaces oec:recyclingCollectionRate."@en ;
     rdfs:seeAlso cirpass2:RecyclingCollectionRate .
+
+oea:Biodegradation a oea:PerformanceParameter ; rdfs:label "Biodegradation"@en ;
+    rdfs:comment "Share of a substance or material biodegraded under the test method's conditions (ultimate aerobic biodegradation, unitCode P1). Replaces oec:biodegradationPercentage."@en .
 
 oea:RecyclabilityScore a oea:IndicatorKind ; rdfs:label "Recyclability Score"@en ;
     rdfs:comment "Method-specific recyclability score (a JRC textile 0-10 score, a PPWR percentage). A score does not by itself prove that the product will be collected or recycled. Replaces oec:recyclabilityScore."@en ;
@@ -486,6 +495,16 @@ oea:isDefinedByStandard
     dcterms:source <https://www.iso.org/standard/66912.html> ;
     skos:note "Method-to-standard link. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:exactMatch <https://w3id.org/eudpp/textile-assessment#isDefinedByStandard> .
+
+oea:methodName
+    a owl:DatatypeProperty ;
+    rdfs:label "Method Name"@en ;
+    rdfs:comment "Name and version of the method, for a method stated inline rather than as a named individual (\"RecyClass v2.6\")."@en ;
+    rdfs:domain oea:AssessmentMethod ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/assessment/> ;
+    dcterms:source <https://www.iso.org/standard/66912.html> ;
+    skos:note "Method name. schema:measurementMethod accepts free text in the same role."@en .
 
 oea:methodUrl
     a owl:DatatypeProperty ;

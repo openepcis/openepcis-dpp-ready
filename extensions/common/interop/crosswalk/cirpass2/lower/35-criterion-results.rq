@@ -1,0 +1,15 @@
+# Recyclability criterion results without a measured value: OpenEPCIS criterion results.
+CONSTRUCT {
+  ?x oea:hasResult ?r .
+  ?r a oea:CriterionResult ; oea:hasCriterion ?crit ; oea:hasOutcome ?out .
+}
+WHERE {
+  GRAPH <urn:xw:in> {
+    ?x txt-assessment:producesResult ?r .
+    ?r a txt-recyclability:RecyclabilityCriterionResult ; txt-recyclability:evaluatesCriterion ?ccode .
+    FILTER NOT EXISTS { ?r txt-assessment:hasMeasuredValue ?v }
+  }
+  OPTIONAL { ?ocrit xw:sameCode ?ccode }
+  BIND(COALESCE(?ocrit, ?ccode) AS ?crit)
+  OPTIONAL { GRAPH <urn:xw:in> { ?r txt-recyclability:hasCriterionOutcome ?cout } ?out xw:sameCode ?cout }
+}

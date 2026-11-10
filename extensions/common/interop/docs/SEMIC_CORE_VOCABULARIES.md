@@ -47,7 +47,7 @@ CCCEV separates **what is required** (`cccev:Requirement`, `cccev:RequirementGro
 | `untp:Standard` / `untp:Regulation` | `cccev:Requirement` (with `dcterms:source`) | the regulatory or normative requirement being referenced |
 | `untp:ConformityAttestation` | `cccev:Evidence` (typed) | evidence that one or more requirements are satisfied |
 | `eubat:declarationOfConformity` | `cccev:Evidence` | the textbook EU CCCEV use case |
-| `euelec:RepairCriterion` | `cccev:Criterion` (alias for `cccev:Constraint`) | a scoring criterion is a constraint on a repair-related requirement |
+| `oea:Criterion` (e.g. the `euelec:` repair criteria) | `cccev:Criterion` (alias for `cccev:Constraint`) | a scoring criterion is a constraint on a requirement; `oea:Criterion` is `rdfs:subClassOf cccev:Criterion` |
 
 **Worked example** — an ESPR conformity declaration:
 

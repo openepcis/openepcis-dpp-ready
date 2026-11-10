@@ -1,0 +1,22 @@
+# EUDPP core: property pairs (mappings.ttl, xw:ours/xw:theirs/xw:host). The subject keeps its
+# identity, or is the product's DPP node for passport data (xw:onDPP). The object is kept, or
+# replaced by its code partner (xw:sameCode, literal xw:codeFor rows); a literal code without a
+# partner is not converted. xw:theirDatatype retypes a literal to the target property's range.
+CONSTRUCT { ?subj ?q ?o2 . ?o2 a ?codeClass . }
+WHERE {
+  ?row xw:ours ?p ; xw:theirs ?q ; xw:host ?h .
+  GRAPH <urn:xw:in> { ?s ?p ?o . ?s a ?t }
+  ?t rdfs:subClassOf* ?h .
+  OPTIONAL { ?row xw:onDPP ?onDpp }
+  OPTIONAL { ?row xw:toString ?toStr }
+  OPTIONAL { ?row xw:asIRI ?asIri }
+  OPTIONAL { ?row xw:theirDatatype ?theirDt }
+  BIND(IF(BOUND(?onDpp), IRI(CONCAT(STR(?s), IF(CONTAINS(STR(?s), "#"), "-dpp", "#dpp"))), ?s) AS ?subj)
+  FILTER(!BOUND(?onDpp) || isIRI(?s))
+  OPTIONAL { ?o xw:sameCode ?oc }
+  OPTIONAL { ?crow xw:codeFor ?p ; xw:ourCode ?lit ; xw:theirCode ?tc . FILTER(STR(?lit) = STR(?o)) }
+  FILTER(BOUND(?tc) || NOT EXISTS { ?anyRow xw:codeFor ?p })
+  OPTIONAL { ?o a ?oclass . ?oclass xw:codeClass ?cc . FILTER NOT EXISTS { ?o xw:sameCode ?anyCode } }
+  BIND(IF(BOUND(?cc), ?cc, ?unbound) AS ?codeClass)
+  BIND(COALESCE(?oc, ?tc, IF(BOUND(?asIri), IRI(STR(?o)), IF(BOUND(?toStr), STR(?o), IF(BOUND(?theirDt), STRDT(STR(?o), ?theirDt), ?o)))) AS ?o2)
+}

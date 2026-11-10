@@ -4,6 +4,15 @@ All notable changes to the PPWR module will be documented in this file.
 
 ## [Unreleased]
 
+### Breaking: the recyclability grade is an indicator
+
+`euppwr:hasRecyclabilityGrade` and `euppwr:designForRecyclingMethodology` are removed. The grade is an
+`oea:Indicator` of kind `euppwr:RecyclabilityPerformanceGrade` (value `euppwr:GradeA/B/C`) in an
+`oec:RecyclabilityAssessment` on the packaging; the design-for-recycling methodology is its
+`oea:hasMethod`. The observation event reports grade and score as sensorReports, with the
+methodology in `sensorMetadata.dataProcessingMethod` and PPWR Annex II in `bizRules` (the score is now
+numeric, which the GS1 schema requires).
+
 ## [0.10.0] - 2026-11-07
 
 ### Changed: the recyclability score is `oea:RecyclabilityScore`

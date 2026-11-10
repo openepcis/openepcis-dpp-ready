@@ -2063,6 +2063,7 @@ oec:safeDisassemblyInstructions
 
 oec:hasPerformanceInfo
     a owl:ObjectProperty ;
+    rdfs:subPropertyOf oea:hasAssessment ;
     rdfs:label "Performance Information"@en ;
     rdfs:comment "Product performance and durability information."@en ;
     rdfs:range oec:PerformanceInfo ;
@@ -2932,22 +2933,23 @@ oec:bioBasedFraction
 
 oec:Biodegradability
     a owl:Class ;
-    rdfs:subClassOf schema:Observation ;
+    rdfs:subClassOf oea:TestExecution ;
     rdfs:label "Biodegradability"@en ;
-    rdfs:comment "An observed biodegradability result for a substance or material, typically per ISO 14593 / OECD 301B/D/F / OECD 310 test methods. Represents a measurement, not a regulatory category."@en ;
+    rdfs:comment "A biodegradability test of a substance or material, an oea:TestExecution: oea:hasMethod names the oec:BiodegradabilityTestMethod (ISO 14593, OECD 301B/D/F, OECD 310), the test duration is an oea:hasParameterSetting (oea:Duration), the result an oea:MeasurementResult observing oea:Biodegradation (unitCode P1), and a pass threshold is oea:isEvaluatedAgainst with oea:hasOutcome. A measurement, not a regulatory category."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
 
 oec:hasBiodegradability
     a owl:ObjectProperty ;
+    rdfs:subPropertyOf oea:hasAssessment ;
     rdfs:label "Biodegradability"@en ;
     rdfs:comment "Links a product, material, or substance to its observed biodegradability result."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range oec:Biodegradability ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Entry property for the oec:Biodegradability observation: without it the class and its oec:biodegradationPercentage / oec:hasBiodegradabilityTestMethod members are unreachable from the product. GS1 has no biodegradability property (gs1:consumerRecyclingInstructions is free text about recycling), SEMICeu has none, and schema.org offers only the generic schema:hasMeasurement."@en ;
+    skos:note "Entry property for the oec:Biodegradability observation: without it the test and its oea: results are unreachable from the product. GS1 has no biodegradability property (gs1:consumerRecyclingInstructions is free text about recycling), SEMICeu has none, and schema.org offers only the generic schema:hasMeasurement."@en ;
     rdfs:seeAlso gs1:consumerRecyclingInstructions ;
     rdfs:seeAlso schema:hasMeasurement ;
     skos:broadMatch schema:hasMeasurement .
@@ -2965,18 +2967,9 @@ oec:hasCompostability
     rdfs:seeAlso schema:hasCertification ;
     skos:broadMatch schema:hasCertification .
 
-oec:biodegradationPercentage
-    a owl:DatatypeProperty ;
-    rdfs:label "Biodegradation Percentage"@en ;
-    rdfs:comment "Percentage of substance biodegraded under the test method conditions. Use unitCode 'P1' (UN/CEFACT Rec 20) when expressed via gs1:QuantitativeValue."@en ;
-    rdfs:domain oec:Biodegradability ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
-
 oec:BiodegradabilityTestMethod
     a owl:Class ;
+    rdfs:subClassOf oea:TestMethod ;
     rdfs:label "Biodegradability Test Method"@en ;
     rdfs:comment "The standardised laboratory method used to assess biodegradability."@en ;
     owl:oneOf (
@@ -2996,17 +2989,6 @@ oec:OECD301B  a oec:BiodegradabilityTestMethod ; rdfs:label "OECD 301B (CO2 evol
 oec:OECD301D  a oec:BiodegradabilityTestMethod ; rdfs:label "OECD 301D (closed bottle test)"@en .
 oec:OECD301F  a oec:BiodegradabilityTestMethod ; rdfs:label "OECD 301F (manometric respirometry)"@en .
 oec:OECD310   a oec:BiodegradabilityTestMethod ; rdfs:label "OECD 310 (sealed vessel CO2 evolution)"@en .
-
-oec:hasBiodegradabilityTestMethod
-    a owl:ObjectProperty ;
-    rdfs:label "Biodegradability Test Method"@en ;
-    rdfs:comment "The test method used to determine the biodegradability percentage."@en ;
-    rdfs:domain oec:Biodegradability ;
-    rdfs:range oec:BiodegradabilityTestMethod ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:broadMatch schema:measurementMethod .
 
 oec:Compostability
     a owl:Class ;
@@ -3361,6 +3343,7 @@ oec:materialFootprint
 
 oec:hasRecyclabilityAssessment
     a owl:ObjectProperty ;
+    rdfs:subPropertyOf oea:hasAssessment ;
     rdfs:label "Recyclability Assessment"@en ;
     rdfs:comment "Links a product to its recyclability assessment."@en ;
     rdfs:range oec:RecyclabilityAssessment ;

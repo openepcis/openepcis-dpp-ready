@@ -4,6 +4,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
 @prefix eucpr: <https://ref.openepcis.org/extensions/eu/cpr/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
@@ -48,8 +49,9 @@ eucpr:ConstructionProduct
     rdfs:label "Construction Product"@en ;
     rdfs:comment """A construction product subject to EU Regulation 2024/3110 (revised
 CPR). Carrier for the regulation's DPP and Declaration-of-Performance data.
-Use eucpr:declarationOfPerformanceUrl, eucpr:hasEssentialCharacteristic, and
-eucpr:hasReactionToFireClass for the substantive declarations; reuse oec: terms
+Use eucpr:declarationOfPerformanceUrl and eucpr:hasEssentialCharacteristic for the
+substantive declarations (the reaction-to-fire class is an oea:Indicator of kind
+eucpr:ReactionToFire); reuse oec: terms
 for recycled content, carbon footprint, hazardous substances, etc."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
@@ -101,18 +103,6 @@ eucpr:FireClassE  a eucpr:ReactionToFireClass ; rdfs:label "Class E"@en ;
     rdfs:comment "Acceptable reaction to fire."@en ; skos:notation "E" .
 eucpr:FireClassF  a eucpr:ReactionToFireClass ; rdfs:label "Class F"@en ;
     rdfs:comment "No performance determined."@en ; skos:notation "F" .
-
-eucpr:hasReactionToFireClass
-    a owl:ObjectProperty ;
-    rdfs:label "Reaction-to-fire Class"@en ;
-    rdfs:comment "EN 13501-1 reaction-to-fire classification of the construction product."@en ;
-    rdfs:domain eucpr:ConstructionProduct ;
-    rdfs:range eucpr:ReactionToFireClass ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-13501-1.aspx> ;
-    skos:note "Reaction-to-fire classification per EN 13501-1, as required by the EU Construction Products Regulation (EU) 2024/3110."@en ;
-    rdfs:seeAlso dppk-dopc:reactionToFire ;
-    skos:closeMatch dppk-dopc:reactionToFire .
 
 # =============================================================================
 # Construction Product Type (CPR Annex III families)
@@ -189,38 +179,13 @@ reference, intended use, essential characteristics, and AVCP system."""@en ;
 
 eucpr:EssentialCharacteristic
     a owl:Class ;
+    rdfs:subClassOf oea:MeasurementResult ;
     rdfs:label "Essential Characteristic"@en ;
-    rdfs:comment "A single declared essential characteristic (e.g. compressive strength, thermal conductivity, water vapour permeability) per CPR Annex III. Pair name + value + unit + harmonised standard reference."@en ;
+    rdfs:comment "A declared essential characteristic per CPR Annex III, an oea:MeasurementResult: oea:hasObservedParameter names the characteristic (an eucpr: performance parameter such as eucpr:ThermalConductivity), oea:hasMeasuredValue carries the declared performance as gs1:QuantitativeValue, eucpr:harmonisedStandard the hEN it is declared under."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     skos:note "Declaration of Performance / essential-characteristics concept per the EU Construction Products Regulation (EU) 2024/3110. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso dppk:ProductCharacteristic .
-
-eucpr:characteristicName
-    a owl:DatatypeProperty ;
-    rdfs:label "Characteristic Name"@en ;
-    rdfs:domain eucpr:EssentialCharacteristic ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
-    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:exactMatch dppk:characteristicName .
-
-eucpr:hasCharacteristicValue
-    a owl:ObjectProperty ;
-    rdfs:label "Characteristic Value"@en ;
-    rdfs:comment "Quantitative value of the essential characteristic. gs1:QuantitativeValue with the unitCode appropriate for the characteristic (e.g. 'N31' for MPa, 'F94' for W/(m·K))."@en ;
-    rdfs:domain eucpr:EssentialCharacteristic ;
-    rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
-    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso gs1:value ;
-    rdfs:seeAlso schema:value ;
-    rdfs:seeAlso schema:maxValue ;
-    rdfs:seeAlso schema:minValue ;
-    rdfs:seeAlso <http://data.europa.eu/m8g/providesValueFor> ;
-    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncreaseValue> .
 
 eucpr:harmonisedStandard
     a owl:DatatypeProperty ;
@@ -244,34 +209,29 @@ eucpr:hasEssentialCharacteristic
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     skos:note "Declaration of Performance / essential-characteristics concept per the EU Construction Products Regulation (EU) 2024/3110. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-# Convenience named essential characteristics. Either declare these directly on
-# the product, or use the generic eucpr:hasEssentialCharacteristic pattern above;
-# both carry a gs1:QuantitativeValue. Harvested from the DPP Keystone peer
-# profile (dppk:thermalConductivity / dppk:compressiveStrength).
+# =============================================================================
+# Essential-characteristic catalogue (oea:PerformanceParameter) and fire class
+# =============================================================================
+# A declared characteristic names its parameter from this list; add to it as hENs
+# need. The reaction-to-fire class is an indicator (oea:hasIndicator) of kind
+# eucpr:ReactionToFire with an eucpr:ReactionToFireClass value.
 
-eucpr:hasThermalConductivity
-    a owl:ObjectProperty ;
-    rdfs:label "Thermal Conductivity"@en ;
-    rdfs:comment "Declared thermal conductivity λ of the product. gs1:QuantitativeValue with unitCode 'F94' (W/(m·K))."@en ;
-    rdfs:domain eucpr:ConstructionProduct ;
-    rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
-    rdfs:seeAlso dppk:thermalConductivity ;
-    skos:exactMatch dppk:thermalConductivity ;
-    skos:note "Named essential characteristic per CPR Annex III. Anchored to the DPP Keystone peer profile dppk:thermalConductivity."@en .
+eucpr:CompressiveStrength a oea:PerformanceParameter ; rdfs:label "Compressive Strength"@en ;
+    rdfs:comment "Declared compressive strength (unitCode N20 MPa for cement classes, N31 for N/mm²)."@en ;
+    skos:closeMatch dppk:compressiveStrength .
+eucpr:InitialSettingTime a oea:PerformanceParameter ; rdfs:label "Initial Setting Time"@en ;
+    rdfs:comment "Initial setting time of a cement (unitCode MIN)."@en .
+eucpr:ThermalConductivity a oea:PerformanceParameter ; rdfs:label "Thermal Conductivity"@en ;
+    rdfs:comment "Declared thermal conductivity λD (unitCode F94, W/(m·K))."@en ;
+    skos:closeMatch dppk:thermalConductivity .
+eucpr:Density a oea:PerformanceParameter ; rdfs:label "Density"@en ;
+    rdfs:comment "Declared bulk density (unitCode KMQ, kg/m³)."@en .
+eucpr:WaterVapourDiffusionResistance a oea:PerformanceParameter ; rdfs:label "Water Vapour Diffusion Resistance"@en ;
+    rdfs:comment "Water vapour diffusion resistance factor μ (unitCode C62)."@en .
+eucpr:ReactionToFire a oea:IndicatorKind ; rdfs:label "Reaction to Fire"@en ;
+    rdfs:comment "EN 13501-1 reaction-to-fire classification; the coded value is an eucpr:ReactionToFireClass individual."@en ;
+    skos:closeMatch dppk-dopc:reactionToFire .
 
-eucpr:hasCompressiveStrength
-    a owl:ObjectProperty ;
-    rdfs:label "Compressive Strength"@en ;
-    rdfs:comment "Declared compressive strength of the product. gs1:QuantitativeValue with unitCode 'N31' (MPa)."@en ;
-    rdfs:domain eucpr:ConstructionProduct ;
-    rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
-    rdfs:seeAlso dppk:compressiveStrength ;
-    skos:exactMatch dppk:compressiveStrength ;
-    skos:note "Named essential characteristic per CPR Annex III. Anchored to the DPP Keystone peer profile dppk:compressiveStrength."@en .
 
 # =============================================================================
 # Structured Declaration of Performance (DoP), AVCP system, assessment bodies

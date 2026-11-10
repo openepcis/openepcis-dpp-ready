@@ -9,6 +9,65 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Added: crosswalk to the EU DPP Registry
+
+The crosswalk gains an `eu-dpp` profile: OpenEPCIS passports convert to the Commission's Registry
+JSON and back, checked with the Commission's SHACL shapes and JSON Schemas and against its 20
+conformance examples, the first test data in the repository not written by us. The checks found
+defects in the Registry release (chained `@import`, no `@set`, region-only language tags), a bug in
+rdf-validate-shacl (logical constraints of property shapes), and two errors in our battery examples.
+See `extensions/common/interop/CHANGELOG.md` and `extensions/eu/battery/CHANGELOG.md`.
+
+### Added: crosswalk checks against the target ontologies and every module example
+
+`pnpm run check:crosswalk` now also checks that every lift output satisfies the OWL and RDFS
+axioms of the CIRPASS-2 ontologies (domain, range, restrictions, closed world); a finding fails
+unless a documented CIRPASS-2 gap makes it unavoidable. Every module example goes through both
+profiles; the OpenEPCIS side is committed as JSON-LD with the published contexts, must expand to
+exactly the converted RDF, and `check:shapes:itb` sends it through the EC validator. The checks
+found and fixed: LCA module values without `eudpp:amount`, URLs typed as strings, actor addresses
+on `isEstablishedIn` instead of EUDPP's own `schema:address`, a missing facility name mapping,
+Digital Link identifiers without scheme, indicators derived from executions, a fabric parameter
+mapped to a structure class, untyped EPCIS master data, product rules firing on events, and
+measured zeros lost to an Oxigraph arithmetic bug. Example fixes: two TransformationEvents carried
+`action` (iron-steel, battery), a lot sat in `outputEPCList` (iron-steel), and an EUDR operator role
+was a string.
+
+### Added: crosswalk covers EUDPP core
+
+The `cirpass2` crosswalk profile converts complete passports to and from EUDPP core 2.2.0:
+product, DPP node, identifiers (GTIN, GLN, LEI), actors and their roles, facilities, addresses,
+materials, substances of concern with their presence and ESPR criteria, documents and the
+declaration of conformity, regulations, product quantities, recycled content, circularity,
+carbon footprint, EPD results and product events of every EPCIS event. Sector assessments keep
+their class through the round trip. What EUDPP has no term for travels in schema.org, GS1 Web
+Vocabulary or Dublin Core, or is listed as not converted; the gaps are drafted for upstream. New
+round-trip cases from the textile, electronics, construction, steel and carrier examples and a
+passport written in EUDPP terms only.
+
+### Added: crosswalk to CIRPASS-2 and DPP Keystone, checked by round trips
+
+`extensions/common/interop/crosswalk/` converts OpenEPCIS data, both master data and EPCIS events
+with their extensions, into other DPP vocabularies and back, with declarative SPARQL rules per
+profile (engine: `scripts/lib/crosswalk.ts` on Oxigraph; CLI `pnpm run crosswalk`). Profiles:
+`cirpass2`, covering assessments, results, criteria, indicators, units and events of the textile
+and EUDPP ontologies; and `keystone`, covering the JRC scores. `pnpm run check:crosswalk` is part of
+the build. For every self-written test case it compares both directions with committed goldens,
+fails on any output term outside the target vocabulary, and validates the OpenEPCIS side with SHACL.
+CIRPASS-2 → OpenEPCIS → CIRPASS-2 is exact for the recyclability case and differs only by a pairing
+triple for the abrasion case; the remaining gaps of CIRPASS-2 are documented and drafted as an
+upstream issue.
+
+### Breaking: detergent, CPR, electronics and PPWR on `common/assessment`
+
+Second wave of the assessment model. Biodegradability tests (core and detergent), CPR essential
+characteristics and the reaction-to-fire class, the French repairability index and the WEEE
+recyclability rates (electronics) and the PPWR recyclability grade now use `oea:` assessments,
+results, criteria and indicators instead of flat properties. The hand-written document schemas
+follow, including the textile and core schemas missed in the first wave. EU energy-label values
+(`oec:EnergyEfficiency`, `euelec:EnergyEfficiency`) stay flat on purpose: they are declared EPREL
+label data, not reported test results. Battery and iron-steel follow.
+
 ## [0.11.0] - 2026-11-09
 
 ### One CAS and one EC number term; the tier follows the carrying node

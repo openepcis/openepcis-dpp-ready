@@ -1,0 +1,37 @@
+# EPCIS statements travel with their GS1 IRIs (EUDPP EVENT 1.0 reuses them): events, the
+# document envelope, quantity and source elements. Sensor elements that carry an assessment
+# become test executions (70-…) and do not travel as sensor data. EPCIS JSON-LD states no type
+# for the elements of an event's lists; each gets the class its properties have as domain
+# (source/destination, business transaction, quantity element, sensor element and report).
+CONSTRUCT { ?s ?p ?o . ?o a ?elementType . }
+WHERE {
+  GRAPH <urn:xw:in> { ?s ?p ?o }
+  OPTIONAL {
+    VALUES (?p ?elementType) {
+      (epcis:sourceList epcis:SourceOrDestination) (epcis:destinationList epcis:SourceOrDestination)
+      (epcis:bizTransactionList epcis:BizTransaction)
+      (epcis:quantityList epcis:QuantityElement) (epcis:childQuantityList epcis:QuantityElement)
+      (epcis:inputQuantityList epcis:QuantityElement) (epcis:outputQuantityList epcis:QuantityElement)
+      (epcis:sensorElementList epcis:SensorElement) (epcis:sensorReport epcis:SensorReport)
+    }
+    FILTER(!isLiteral(?o))
+  }
+  FILTER(STRSTARTS(STR(?p), STR(epcis:)) || (?p = rdf:type && STRSTARTS(STR(?o), STR(epcis:))))
+  FILTER NOT EXISTS {
+    GRAPH <urn:xw:in> { ?s epcis:sensorReport ?r0 . ?r0 epcis:measurementType ?param }
+    ?param a ?pt . ?pt rdfs:subClassOf* oea:PerformanceParameter .
+  }
+  FILTER NOT EXISTS {
+    GRAPH <urn:xw:in> { ?se epcis:sensorReport ?s . ?s epcis:measurementType ?param2 }
+    ?param2 a ?pt2 . ?pt2 rdfs:subClassOf* oea:PerformanceParameter .
+  }
+  FILTER NOT EXISTS {
+    GRAPH <urn:xw:in> { ?se3 epcis:sensorMetadata ?s ; epcis:sensorReport ?r3 . ?r3 epcis:measurementType ?param3 }
+    ?param3 a ?pt3 . ?pt3 rdfs:subClassOf* oea:PerformanceParameter .
+  }
+  FILTER NOT EXISTS {
+    FILTER(?p = epcis:sensorElementList)
+    GRAPH <urn:xw:in> { ?o epcis:sensorReport ?r4 . ?r4 epcis:measurementType ?param4 }
+    ?param4 a ?pt4 . ?pt4 rdfs:subClassOf* oea:PerformanceParameter .
+  }
+}

@@ -4,6 +4,63 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+### Added: EU DPP Registry crosswalk profile
+
+A third crosswalk profile, `eu-dpp`, converts passports to and from the Commission's DPP Registry
+semantic data artifacts 1.0.0: the core passport header for every product passport, and the battery
+data elements (identification, manufacturer, manufacturing place and date, category, status,
+chemistry, substances, critical raw materials, label symbols, weight, capacities, voltages, power,
+resistances, efficiencies, C-rates, lifetimes, cycles, state-of-health values, temperature range,
+warranty, documents). The gate checks the target side with the Commission's own SHACL shapes (SPARQL
+constraints included) and JSON Schemas, renders the JSON the Registry receives
+(`lifted.eu-dpp.json`), and runs the Commission's 20 conformance examples: our check finds no wrong
+form in them, and each passport among them goes down to OpenEPCIS and back (`conformance.txt`). Two
+defects of the release are accepted (language tags need a region; a model identifier needs a batch
+number); what the OpenEPCIS battery model cannot hold is listed in the crosswalk README. The engine
+restores derived integer datatypes Oxigraph normalises; the offline loader resolves the Registry's
+contexts from `vendor/eu-dpp` and inlines their chained `@import`, which JSON-LD 1.1 forbids.
+The rows use the battery terms of 0.11.0 (`hasExpectedLifetime`, `hasRemainingRoundTripEfficiency`,
+`hasSafetyMeasures` as a document on the end-of-life information, `hasDismantlingAndRemovalInformation`);
+the Registry's current and remaining round-trip efficiency share one term, so lowering keeps the
+remaining value (`xw:lowerUnless`).
+
+### Added: crosswalk checks against the CIRPASS-2 ontologies and every module example
+
+The gate checks each lift output against the OWL/RDFS axioms of the CIRPASS-2 ontologies
+(`scripts/lib/owl-structure.ts`); unavoidable findings are accepted per profile with their gap
+number (`profile.json` `structure.accepted`), listed in `roundtrip.txt`, and fail once no longer
+needed. It runs every module example through both profiles, commits the lowered document as JSON-LD
+(`lowered.ours.jsonld`) and checks it expands losslessly; `check:shapes:itb` validates it with the
+full shapes. SHACL applies per module as in the EC validator; what the way back no longer satisfies
+is recorded (`roundtrip.txt`, `examples-shapes.txt`). An entailment step types EPCIS master data
+without `type`. Rule fixes: `eudpp:amount`/`isDeclared` on module values, `xsd:anyURI` URLs,
+`schema:address` for actors, the facility name, GLN scheme for Digital Link identifiers, process
+types of recycling routes, indicator provenance via results, product-only rules, generic hazardous
+substances as `eudpp:Substance`, zero values. Gap docs corrected: EUDPP has facility addresses,
+coordinates and a (mis-namespaced) facility name; four new gaps (23–26). Gate time 30 s → 12 s for
+the cases.
+
+### Added: EUDPP core in the `cirpass2` crosswalk
+
+Product, DPP, identifiers, actors and roles, facilities, materials, substances of concern,
+documents, regulations, quantities, circularity, carbon footprint, EPD and product events convert
+both ways; GS1 Web Vocabulary and schema.org statements without an EUDPP term travel unchanged;
+classes the target lacks travel as `dcterms:type`. Ten round-trip cases more, and the gate records
+the OpenEPCIS shapes an inbound document does not satisfy. Thirteen EUDPP core gaps are drafted for
+upstream (`docs/upstream/cirpass2/2026-10-31-eudpp-core-gaps.md`).
+
+### Added: crosswalk profiles `cirpass2` and `keystone`
+
+Rule-driven conversion to and from CIRPASS-2 (textile 1.1.2, EUDPP 2.2.0) and DPP Keystone v3, with
+round-trip test cases, committed goldens and loss reports (`crosswalk/README.md`). The CIRPASS-2
+alignment doc points to it; a draft upstream issue lists six things CIRPASS-2 assessment data
+cannot express (`docs/upstream/cirpass2/`).
+
+### Removed: Keystone aliases for CPR shortcuts
+
+The DPP Keystone bridge no longer aliases `thermalConductivity` and `compressiveStrength`: CPR states
+them as essential-characteristic results.
+
 ### Changed: DPP Keystone bridge on spec v3
 
 `dpp-keystone-bridge-context.jsonld` binds `dppk:` to `https://dpp-keystone.org/spec/v3/terms#`;

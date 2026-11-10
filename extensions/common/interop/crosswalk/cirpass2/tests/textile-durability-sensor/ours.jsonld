@@ -1,0 +1,82 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-10-02T10:00:00.000Z",
+  "_comment_architecture": [
+    "Durability tests in the compact sensorReport form of the common/assessment EPCIS binding. Same information as an oea:TestExecution with an oea:MeasurementResult at event level: the event is the execution (eventTime, readPoint say when and where); each sensorElement is one test.",
+    "sensorMetadata.dataProcessingMethod names the oea:TestMethod individual, sensorMetadata.bizRules the standard's catalogue page; each sensorReport carries one result: type is the oea:PerformanceParameter IRI, value and uom the measured quantity (UN/CEFACT Rec 20; C62 for a grade or a cycle count).",
+    "Use this form when a test rig or LIMS reports raw results; use the object form (observation-durability.jsonld) when conditions, settings, criteria or derived indicators belong to the record.",
+    "",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,oea=https://ref.openepcis.org/extensions/common/assessment/,eutex=https://ref.openepcis.org/extensions/eu/textile/",
+    "See: extensions/common/assessment/docs/EPCIS_BINDING.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567006",
+        "eventTime": "2025-10-02T10:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "OBSERVE",
+        "bizStep": "inspecting",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000013/21/WJ-2025-00301"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000068"
+        },
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "time": "2025-10-02T09:12:00.000Z",
+              "dataProcessingMethod": "https://ref.openepcis.org/extensions/eu/textile/MartindaleAbrasionTest",
+              "bizRules": "https://www.iso.org/standard/75376.html"
+            },
+            "sensorReport": [
+              {
+                "type": "eutex:AbrasionResistance",
+                "value": 40000,
+                "uom": "C62"
+              }
+            ]
+          },
+          {
+            "sensorMetadata": {
+              "time": "2025-10-02T09:40:00.000Z",
+              "dataProcessingMethod": "https://ref.openepcis.org/extensions/eu/textile/PillingTest",
+              "bizRules": "https://www.iso.org/standard/75375.html"
+            },
+            "sensorReport": [
+              {
+                "type": "eutex:PillingResistance",
+                "value": 4,
+                "uom": "C62"
+              }
+            ]
+          },
+          {
+            "sensorMetadata": {
+              "time": "2025-10-02T09:55:00.000Z",
+              "dataProcessingMethod": "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTest",
+              "bizRules": "https://www.iso.org/standard/57309.html"
+            },
+            "sensorReport": [
+              {
+                "type": "eutex:DimensionalStability",
+                "value": 2.0,
+                "uom": "P1"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

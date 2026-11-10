@@ -1,0 +1,37 @@
+# What CIRPASS-2 has no term for but the GS1 Web Vocabulary does (certifications, warranties,
+# prices, packaging, …) travels as GS1 Web Vocabulary, unchanged: statements with a GS1
+# predicate on a converted node, and on the nodes reached from it by such statements (two
+# levels) that are not converted nodes themselves, or reached by an OpenEPCIS property a row
+# maps to a GS1 one. On a converted node, GS1 predicates a rule converts (xw:ours,
+# xw:converted) do not travel; a reached node travels whole.
+CONSTRUCT { ?s ?p ?o . }
+WHERE {
+  {
+    GRAPH <urn:xw:in> { ?s a ?rt }
+    ?rt rdfs:subClassOf* ?mapped . ?mapped xw:nodeClass ?any .
+    BIND(true AS ?isRoot)
+  } UNION {
+    GRAPH <urn:xw:in> { ?root a ?rt ; ?p1 ?s }
+    ?rt rdfs:subClassOf* ?mapped . ?mapped xw:nodeClass ?any .
+    FILTER(!isLiteral(?s))
+    FILTER((STRSTARTS(STR(?p1), STR(gs1:)) && NOT EXISTS { ?r1 xw:ours ?p1 } && NOT EXISTS { ?p1 xw:converted true })
+           || EXISTS { ?r1b xw:ours ?p1 ; xw:theirs ?t1 . FILTER(STRSTARTS(STR(?t1), STR(gs1:))) })
+  } UNION {
+    GRAPH <urn:xw:in> { ?root a ?rt ; ?p1 ?n1 . ?n1 ?p2 ?s }
+    ?rt rdfs:subClassOf* ?mapped . ?mapped xw:nodeClass ?any .
+    FILTER(STRSTARTS(STR(?p1), STR(gs1:)) && STRSTARTS(STR(?p2), STR(gs1:)) && !isLiteral(?s))
+    FILTER NOT EXISTS { ?r1 xw:ours ?p1 } FILTER NOT EXISTS { ?p1 xw:converted true }
+    FILTER NOT EXISTS { ?r2 xw:ours ?p2 } FILTER NOT EXISTS { ?p2 xw:converted true }
+  }
+  # Converted nodes, computed once (a NOT EXISTS with the class path per row is slow).
+  OPTIONAL {
+    SELECT DISTINCT ?s (true AS ?converted) WHERE {
+      GRAPH <urn:xw:in> { ?s a ?st } ?st rdfs:subClassOf* ?m2 . ?m2 xw:nodeClass ?any2 .
+    }
+  }
+  FILTER(BOUND(?isRoot) || !BOUND(?converted))
+  GRAPH <urn:xw:in> { ?s ?p ?o }
+  FILTER((STRSTARTS(STR(?p), STR(gs1:)) && BOUND(?isRoot) && NOT EXISTS { ?r xw:ours ?p } && NOT EXISTS { ?p xw:converted true })
+         || (STRSTARTS(STR(?p), STR(gs1:)) && !BOUND(?isRoot))
+         || (?p = rdf:type && STRSTARTS(STR(?o), STR(gs1:)) && !BOUND(?isRoot)))
+}

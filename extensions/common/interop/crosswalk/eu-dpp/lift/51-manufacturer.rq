@@ -1,0 +1,32 @@
+# The manufacturer (gs1:manufacturer): its name, its postal address written on one line
+# ("street, postal code locality, country code"; a one-line schema:address as it is), and its
+# contact details (e-mail as a mailto URI, website).
+CONSTRUCT {
+  ?r bat:manufacturerIdentification ?mi . ?mi bat:manufacturerName ?name .
+  ?r bat:manufacturerPostalAddress ?addr .
+  ?r bat:manufacturerContactDetails ?cd . ?cd bat:manufacturerEmail ?mail ; bat:manufacturerWebsite ?web .
+}
+WHERE {
+  {
+    SELECT ?r (SAMPLE(STR(?n)) AS ?name) (SAMPLE(COALESCE(?line, STR(?al))) AS ?addr) (SAMPLE(?m) AS ?mail) (SAMPLE(?w) AS ?web)
+    WHERE {
+      GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
+      GRAPH <urn:xw:in> { ?r gs1:manufacturer ?org }
+      OPTIONAL { GRAPH <urn:xw:in> { ?org gs1:organizationName ?n } }
+      OPTIONAL {
+        GRAPH <urn:xw:in> { ?org gs1:address ?a }
+        OPTIONAL { GRAPH <urn:xw:in> { ?a gs1:streetAddress ?st } }
+        OPTIONAL { GRAPH <urn:xw:in> { ?a gs1:postalCode ?pc } }
+        OPTIONAL { GRAPH <urn:xw:in> { ?a gs1:addressLocality ?lo } }
+        OPTIONAL { GRAPH <urn:xw:in> { ?a gs1:addressCountry/gs1:countryCode ?cc } }
+        BIND(CONCAT(COALESCE(CONCAT(STR(?st), ", "), ""), COALESCE(CONCAT(STR(?pc), " "), ""), COALESCE(STR(?lo), ""),
+                    COALESCE(CONCAT(", ", STR(?cc)), "")) AS ?line)
+      }
+      OPTIONAL { GRAPH <urn:xw:in> { ?org gs1:contactPoint/gs1:email ?e } BIND(STRDT(CONCAT("mailto:", STR(?e)), xsd:anyURI) AS ?m) }
+      OPTIONAL { GRAPH <urn:xw:in> { ?org schema:address ?al } FILTER(isLiteral(?al)) }
+      OPTIONAL { GRAPH <urn:xw:in> { ?org schema:url|gs1:contactPoint/schema:url ?u } BIND(STRDT(STR(?u), xsd:anyURI) AS ?w) }
+    } GROUP BY ?r
+  }
+  BIND(IF(BOUND(?name), BNODE(), ?none1) AS ?mi)
+  BIND(IF(BOUND(?mail) || BOUND(?web), BNODE(), ?none2) AS ?cd)
+}

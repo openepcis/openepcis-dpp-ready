@@ -1,0 +1,9 @@
+# EPCIS statements travel back verbatim (the GS1 IRIs are ours as well), except the types of list
+# elements, which EPCIS JSON-LD does not state (60-… of the lift adds them).
+CONSTRUCT { ?s ?p ?o . }
+WHERE {
+  GRAPH <urn:xw:in> { ?s ?p ?o }
+  FILTER(STRSTARTS(STR(?p), STR(epcis:)) || (?p = rdf:type && STRSTARTS(STR(?o), STR(epcis:))))
+  FILTER(?p != rdf:type || ?o NOT IN (epcis:SourceOrDestination, epcis:BizTransaction, epcis:QuantityElement,
+                                       epcis:SensorElement, epcis:SensorReport))
+}

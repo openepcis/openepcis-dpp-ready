@@ -1,0 +1,65 @@
+# EUDPP core: property pairs, target → OpenEPCIS. Among the rows of a target property, the one
+# whose host the subject's OpenEPCIS class falls under, with the highest xw:rank, and whose
+# xw:objectHost (if any) the object's class falls under. Passport data on the eudpp:DPP node goes
+# to its product. Codes go back to their OpenEPCIS partner; a literal code without one is not
+# converted. Class IRIs never travel through a pair (they are dcterms:type class markers).
+CONSTRUCT { ?subj ?p ?o2 . }
+WHERE {
+  {
+    SELECT ?s ?q ?o (MAX(?rk) AS ?best) WHERE {
+      ?row xw:theirs ?q ; xw:host ?h .
+      OPTIONAL { ?row xw:rank ?r0 }
+      BIND(COALESCE(?r0, 0) AS ?rk)
+      GRAPH <urn:xw:in> { ?s ?q ?o }
+      OPTIONAL { ?row xw:onDPP ?onDpp }
+      OPTIONAL { GRAPH <urn:xw:in> { ?s eudpp:appliesToProduct ?pa } }
+      OPTIONAL { GRAPH <urn:xw:in> { ?pb eudpp:hasDPP ?s } }
+      BIND(IF(BOUND(?onDpp), COALESCE(?pa, ?pb), ?s) AS ?subj)
+      FILTER(BOUND(?subj))
+      FILTER EXISTS {
+        { GRAPH <urn:xw:in> { ?subj dcterms:type ?lc } GRAPH <urn:xw:bg> { ?lc a ?k9 } FILTER(?k9 IN (owl:Class, rdfs:Class)) }
+        UNION { GRAPH <urn:xw:in> { ?subj a ?ec } ?ec xw:nodeLowerTo ?lc . FILTER(!isIRI(?subj) || !STRENDS(STR(?subj), "#lca-study"))
+                FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?subj dcterms:type ?lcx } GRAPH <urn:xw:bg> { ?lcx a ?k9x } FILTER(?k9x IN (owl:Class, rdfs:Class)) }
+                FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?subjcf a eudpp:CarbonFootprint ; eudpp:hasPerModuleValue ?subj } } }
+        ?lc rdfs:subClassOf* ?h .
+      }
+      OPTIONAL { ?row xw:objectHost ?oh }
+      FILTER(!BOUND(?oh) || EXISTS {
+        { GRAPH <urn:xw:in> { ?o dcterms:type ?olc } GRAPH <urn:xw:bg> { ?olc a ?ok9 } FILTER(?ok9 IN (owl:Class, rdfs:Class)) }
+        UNION { GRAPH <urn:xw:in> { ?o a ?oec } ?oec xw:nodeLowerTo ?olc . FILTER(!isIRI(?o) || !STRENDS(STR(?o), "#lca-study"))
+                FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?o dcterms:type ?olcx } GRAPH <urn:xw:bg> { ?olcx a ?ok9x } FILTER(?ok9x IN (owl:Class, rdfs:Class)) }
+                FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?ocf a eudpp:CarbonFootprint ; eudpp:hasPerModuleValue ?o } } }
+        ?olc rdfs:subClassOf* ?oh .
+      })
+      FILTER NOT EXISTS { GRAPH <urn:xw:bg> { ?o a ?k } FILTER(?k IN (owl:Class, rdfs:Class)) }
+    } GROUP BY ?s ?q ?o
+  }
+  ?row xw:theirs ?q ; xw:host ?h ; xw:ours ?p .
+  OPTIONAL { ?row xw:rank ?r1 }
+  FILTER(COALESCE(?r1, 0) = ?best)
+  OPTIONAL { ?row xw:onDPP ?onDpp }
+  OPTIONAL { GRAPH <urn:xw:in> { ?s eudpp:appliesToProduct ?pa } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?pb eudpp:hasDPP ?s } }
+  BIND(IF(BOUND(?onDpp), COALESCE(?pa, ?pb), ?s) AS ?subj)
+  FILTER EXISTS {
+    { GRAPH <urn:xw:in> { ?subj dcterms:type ?lc } GRAPH <urn:xw:bg> { ?lc a ?k9 } FILTER(?k9 IN (owl:Class, rdfs:Class)) }
+        UNION { GRAPH <urn:xw:in> { ?subj a ?ec } ?ec xw:nodeLowerTo ?lc . FILTER(!isIRI(?subj) || !STRENDS(STR(?subj), "#lca-study"))
+                FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?subj dcterms:type ?lcx } GRAPH <urn:xw:bg> { ?lcx a ?k9x } FILTER(?k9x IN (owl:Class, rdfs:Class)) }
+                FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?subjcf a eudpp:CarbonFootprint ; eudpp:hasPerModuleValue ?subj } } }
+    ?lc rdfs:subClassOf* ?h .
+  }
+  OPTIONAL { ?row xw:objectHost ?oh }
+  FILTER(!BOUND(?oh) || EXISTS {
+    { GRAPH <urn:xw:in> { ?o dcterms:type ?olc } GRAPH <urn:xw:bg> { ?olc a ?ok9 } FILTER(?ok9 IN (owl:Class, rdfs:Class)) }
+        UNION { GRAPH <urn:xw:in> { ?o a ?oec } ?oec xw:nodeLowerTo ?olc . FILTER(!isIRI(?o) || !STRENDS(STR(?o), "#lca-study"))
+                FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?o dcterms:type ?olcx } GRAPH <urn:xw:bg> { ?olcx a ?ok9x } FILTER(?ok9x IN (owl:Class, rdfs:Class)) }
+                FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?ocf a eudpp:CarbonFootprint ; eudpp:hasPerModuleValue ?o } } }
+    ?olc rdfs:subClassOf* ?oh .
+  })
+  OPTIONAL { ?ours xw:sameCode ?o }
+  OPTIONAL { ?crow xw:codeFor ?p ; xw:ourCode ?oc ; xw:theirCode ?tc . FILTER(STR(?tc) = STR(?o)) }
+  FILTER(BOUND(?oc) || NOT EXISTS { ?anyRow xw:codeFor ?p })
+  OPTIONAL { ?row xw:ourDatatype ?dt }
+  # A decimal is cast (the target may write 9.1E0); other datatypes are relabelled.
+  BIND(COALESCE(?ours, ?oc, IF(BOUND(?dt), IF(?dt = xsd:decimal, xsd:decimal(?o), STRDT(STR(?o), ?dt)), ?o)) AS ?o2)
+}

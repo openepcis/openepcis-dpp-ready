@@ -1,0 +1,34 @@
+# txt-connector:QuantitativeValue → gs1:QuantitativeValue. units:one lowers to P1 (×100) when
+# the observed or limited parameter prefers it, else to C62; other SI units to their canonical
+# code; a UN/CEFACT code IRI back to its code. Awarded points are lowered in 45-…, threshold
+# values of OpenEPCIS criteria stay with their definition.
+CONSTRUCT {
+  ?q a gs1:QuantitativeValue ; gs1:value ?v ; gs1:unitCode ?code .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?q txt-connector:numericValue ?nv ; txt-connector:hasMeasurementUnit ?unit }
+  FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?i dcterms:type oea:awardedScore ; txt-indicator:hasQuantitativeValue ?q } }
+  FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?thk txt-assessment:hasThresholdValue ?q } GRAPH <urn:xw:bg> { ?thk a ?knownCriterion } }
+  OPTIONAL {
+    SELECT ?q (SAMPLE(?pc) AS ?prefCode) WHERE {
+      { GRAPH <urn:xw:in> { ?r txt-assessment:hasMeasuredValue ?q ; dcterms:subject ?pp } }
+      UNION
+      { GRAPH <urn:xw:in> { ?x txt-assessment:producesResult ?r . ?r txt-assessment:hasMeasuredValue ?q . ?x txt-assessment:assessesPerformanceParameter ?pp }
+        FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?r dcterms:subject ?any } } }
+      UNION
+      { GRAPH <urn:xw:in> { ?th txt-assessment:hasThresholdValue ?q ; txt-assessment:criterionForPerformanceParameter ?pp } }
+      OPTIONAL { GRAPH <urn:xw:in> { ?pp a ?ppc } ?ppc xw:lowerTo ?ppo }
+      ?pref xw:preferredUnitCode ?pc .
+      FILTER(?pref = ?pp || (BOUND(?ppo) && ?pref = ?ppo))
+    } GROUP BY ?q
+  }
+  BIND(COALESCE(?prefCode, "") AS ?pc2)
+  OPTIONAL { ?prow xw:unitCode ?pc2 ; xw:siUnit ?unit ; xw:factor ?pf }
+  OPTIONAL { ?crow xw:unitCode ?ccode ; xw:siUnit ?unit ; xw:factor ?cf ; xw:canonical true }
+  BIND(IF(STRSTARTS(STR(?unit), "https://vocabulary.uncefact.org/UnitMeasureCode#"), STRAFTER(STR(?unit), "#"), ?none) AS ?uncefact)
+  BIND(COALESCE(IF(BOUND(?pf), ?pc2, ?none2), ?ccode, ?uncefact) AS ?code)
+  BIND(IF(BOUND(?pf), ?pf, COALESCE(?cf, 1.0)) AS ?factor)
+  # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+  BIND(xsd:decimal(IF(xsd:decimal(?nv) = 0, 0.0, xsd:decimal(?nv) / ?factor)) AS ?v)
+  FILTER(BOUND(?code))
+}

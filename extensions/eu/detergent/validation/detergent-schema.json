@@ -87,17 +87,6 @@
           "type": "number",
           "minimum": 0
         },
-        "phosphateCompliant": {
-          "type": "boolean"
-        },
-        "filmBiodegradable": {
-          "type": "boolean"
-        },
-        "filmBiodegradabilityPercentage": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 100
-        },
         "hasRecommendedDosage": {
           "$ref": "#/$defs/QuantitativeValue"
         },
@@ -112,6 +101,17 @@
         "hasBiodegradabilityTestReport": {
           "type": "object",
           "description": "Reference to biodegradability test report using oec:DocumentReference pattern."
+        },
+        "hasFilmBiodegradability": {
+          "type": "object",
+          "description": "oec:Biodegradability test of the water-soluble film (common/assessment structure)."
+        },
+        "hasAssessment": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasAssessment: e.g. the phosphorus-limit verdict (isEvaluatedAgainst eudet:PhosphorusLimit, hasOutcome)."
         }
       }
     },
@@ -208,7 +208,7 @@
     "SurfactantBiodegradability": {
       "type": "object",
       "title": "Surfactant Biodegradability",
-      "description": "Biodegradability test result per Annex III.",
+      "description": "Surfactant biodegradability test per EU 2026/405 Annex III: hasMethod an oec:BiodegradabilityTestMethod (ISO14593, OECD301B/D/F, OECD310), test duration as parameter setting, the result observing oea:Biodegradation evaluated against eudet:UltimateBiodegradabilityThreshold. See common/assessment (oea:).",
       "properties": {
         "@type": {
           "const": "SurfactantBiodegradability"
@@ -216,26 +216,76 @@
         "hasSurfactantType": {
           "$ref": "#/$defs/SurfactantType"
         },
-        "biodegradationPercentage": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 100
+        "hasMethod": {
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "oea:hasMethod: the assessment method, the IRI of a published oea:AssessmentMethod individual or an inline method."
         },
-        "hasTestMethod": {
-          "$ref": "#/$defs/BiodegradabilityTestMethod"
+        "hasCondition": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasCondition: oea:AssessmentCondition object(s)."
         },
-        "testDurationDays": {
-          "type": "integer",
-          "minimum": 1
+        "hasParameterSetting": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasParameterSetting: oea:ParameterSetting object(s) (protocol parameter + gs1:QuantitativeValue)."
         },
-        "passesUltimateBiodegradability": {
-          "type": "boolean"
+        "hasSubAssessment": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasSubAssessment: the tests of a composite assessment (oea:TestExecution objects)."
+        },
+        "hasResult": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasResult: oea:MeasurementResult / oea:CriterionResult object(s)."
+        },
+        "hasIndicator": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasIndicator: oea:Indicator object(s) for scores, classes and expected lifetimes."
+        },
+        "hasOutcome": {
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "oea:hasOutcome: Satisfied, NotSatisfied or NotAssessed."
+        },
+        "assessmentDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "hasAssessmentBody": {
+          "type": [
+            "string",
+            "object"
+          ]
+        },
+        "hasEvidence": {
+          "type": [
+            "object",
+            "array"
+          ]
         }
       },
       "required": [
         "hasSurfactantType",
-        "biodegradationPercentage",
-        "hasTestMethod"
+        "hasMethod",
+        "hasResult"
       ]
     },
     "SurfactantType": {
@@ -247,18 +297,6 @@
         "NonIonic",
         "Cationic",
         "Amphoteric"
-      ]
-    },
-    "BiodegradabilityTestMethod": {
-      "type": "string",
-      "title": "Biodegradability Test Method",
-      "description": "Standard test methods for biodegradability per Annex III.",
-      "enum": [
-        "ISO14593",
-        "OECD301B",
-        "OECD301D",
-        "OECD301F",
-        "OECD310"
       ]
     },
     "FragranceAllergen": {

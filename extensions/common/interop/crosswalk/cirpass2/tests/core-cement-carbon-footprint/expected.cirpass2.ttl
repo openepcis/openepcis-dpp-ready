@@ -1,0 +1,106 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix gs1: <https://ref.gs1.org/voc/>.
+@prefix epcis: <https://ref.gs1.org/epcis/>.
+@prefix cbv: <https://ref.gs1.org/cbv/>.
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/>.
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/>.
+@prefix eutex: <https://ref.openepcis.org/extensions/eu/textile/>.
+@prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#>.
+@prefix eudpp: <https://w3id.org/eudpp#>.
+@prefix units: <https://si-digital-framework.org/SI/units/>.
+@prefix txt-assessment: <https://w3id.org/eudpp/textile-assessment#>.
+@prefix txt-assessment-codelists: <https://w3id.org/eudpp/textile-assessment-codelists#>.
+@prefix txt-connector: <https://w3id.org/eudpp/textile-connector#>.
+@prefix txt-core: <https://w3id.org/eudpp/textile-core#>.
+@prefix txt-durability: <https://w3id.org/eudpp/textile-durability#>.
+@prefix txt-indicator: <https://w3id.org/eudpp/textile-indicator#>.
+@prefix txt-recyclability: <https://w3id.org/eudpp/textile-recyclability#>.
+@prefix txt-structure: <https://w3id.org/eudpp/textile-structure#>.
+@prefix schema: <https://schema.org/>.
+@prefix euelec: <https://ref.openepcis.org/extensions/eu/electronics/>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix txt-process: <https://w3id.org/eudpp/textile-process#>.
+
+_:a7e8f97bfd6f6de6a3eaf6b0d6b81 dcterms:type oec:hasCarbonFootprintProduction;
+    a eudpp:LCAModuleValue;
+    eudpp:amount "5.4"^^xsd:double;
+    eudpp:hasMeasurementUnit units:kilogram;
+    eudpp:isDeclared true.
+_:b04852d8f2bf2d54d7d6edde04a4fa5 a eudpp:CarbonFootprint;
+    eudpp:hasMeasurementUnit units:kilogram;
+    eudpp:hasPerModuleValue _:a7e8f97bfd6f6de6a3eaf6b0d6b81, _:b4507eba9a430dfd009e3a15cdaf0348, _:f3a2e37f767f3f08abf9da47bf2f2b3a;
+    eudpp:numericalValue 14.2;
+    eudpp:quantifiesIndicator eudpp:ind_GWPtotal;
+    eudpp:unitAsString "1 kg of cement".
+_:b4507eba9a430dfd009e3a15cdaf0348 dcterms:type oec:hasCarbonFootprintDistribution;
+    a eudpp:LCAModuleValue;
+    eudpp:amount "0.7"^^xsd:double;
+    eudpp:hasMeasurementUnit units:kilogram;
+    eudpp:isDeclared true.
+_:b7677cdfe64e0c8071a5dc7f1f80aeb0 a eudpp:MaterialOfComposition;
+    eudpp:hasMaterialType _:c34fb5c8f068dad37ea09259de00dce0;
+    eudpp:materialPercentage "65"^^xsd:decimal.
+_:b81176642950105e5191bfcfdb8c253c a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit <https://vocabulary.uncefact.org/UnitMeasureCode#N20>;
+    txt-connector:numericValue 52.5.
+_:ba56a1f54ac90a0933a679d9ba18f116 dcterms:type oec:RecycledContent.
+_:bd917267c84de04a6317efbc02673384 a eudpp:ProductIdentifier;
+    eudpp:hasGranularity eudpp:model;
+    eudpp:hasScheme eudpp:GTIN;
+    eudpp:identifierValue "09521234600015".
+_:c19a8871767051020a878e60c4d03dbd a eudpp:MaterialOfComposition;
+    eudpp:hasMaterialType _:c42d77b75c1bf54f02b15062105327cf;
+    eudpp:materialPercentage "5"^^xsd:decimal.
+_:c34fb5c8f068dad37ea09259de00dce0 a eudpp:MaterialType;
+    eudpp:materialTypeValue "Portland clinker".
+_:c42d77b75c1bf54f02b15062105327cf a eudpp:MaterialType;
+    eudpp:materialTypeValue "Gypsum".
+_:c9b931916d7e2091b18e39451f1a089c dcterms:conformsTo "https://www.iso.org/standard/71206.html"^^xsd:anyURI;
+    dcterms:type oec:CarbonFootprintDeclaration;
+    a eudpp:LCAStudy;
+    eudpp:hasLCIAResult _:b04852d8f2bf2d54d7d6edde04a4fa5.
+_:d8c36712d1feb2b6ad995423fdf161bd dcterms:isPartOf _:ba56a1f54ac90a0933a679d9ba18f116;
+    dcterms:type oec:preConsumerRecycledContent;
+    a eudpp:RecycledMaterialsUseResult;
+    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
+    eudpp:numericalValue 0.35.
+_:e6e1cfe36ec4e56b6968517769d45f78 dcterms:isPartOf _:ba56a1f54ac90a0933a679d9ba18f116;
+    a eudpp:RecycledMaterialsUseResult;
+    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
+    eudpp:numericalValue 0.35.
+_:e9f442cf12991cd246903796a1cf5ac1 a eudpp:MaterialType;
+    eudpp:materialTypeValue "Granulated blast-furnace slag (GBFS)".
+_:edca7c055c64b619f31595fc3590c687 a eudpp:MaterialOfComposition;
+    eudpp:hasMaterialType _:e9f442cf12991cd246903796a1cf5ac1;
+    eudpp:materialPercentage "30"^^xsd:decimal.
+_:f35cfd64e596fc1dadc3034c148f853a a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:minute;
+    txt-connector:numericValue "75"^^xsd:decimal.
+_:f3a2e37f767f3f08abf9da47bf2f2b3a dcterms:type oec:hasCarbonFootprintRawMaterial;
+    a eudpp:LCAModuleValue;
+    eudpp:amount "8.1"^^xsd:double;
+    eudpp:hasMeasurementUnit units:kilogram;
+    eudpp:isDeclared true.
+_:f3ef1a5f8525c5927da82c86454bf471 dcterms:type <https://ref.openepcis.org/extensions/eu/cpr/ReactionToFire>;
+    a txt-indicator:Indicator;
+    txt-indicator:hasCategoricalValue <https://ref.openepcis.org/extensions/eu/cpr/FireClassA1>.
+_:f90faff4cc01c6f922885f44c921be82 dcterms:identifier "EU 2024/3110";
+    dcterms:type <https://ref.openepcis.org/extensions/eu/cpr/RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION>;
+    a eudpp:UnionHarmonisationLegislation.
+<https://id.gs1.org/01/09521234600015> dcterms:type <https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct>;
+    a eudpp:Product;
+    txt-indicator:hasIndicator _:f3ef1a5f8525c5927da82c86454bf471;
+    eudpp:hasLCAStudy _:c9b931916d7e2091b18e39451f1a089c;
+    eudpp:hasManufacturer <https://id.gs1.org/417/9521234000044>;
+    eudpp:hasMaterial _:b7677cdfe64e0c8071a5dc7f1f80aeb0, _:c19a8871767051020a878e60c4d03dbd, _:edca7c055c64b619f31595fc3590c687;
+    eudpp:hasProperty _:d8c36712d1feb2b6ad995423fdf161bd, _:e6e1cfe36ec4e56b6968517769d45f78;
+    eudpp:hasUniqueProductIdentifier _:bd917267c84de04a6317efbc02673384;
+    eudpp:isConformWith _:f90faff4cc01c6f922885f44c921be82;
+    eudpp:productName "BetonStrong CEM I 52.5 N, 25 kg bag"@en.
+<https://id.gs1.org/417/9521234000044> a eudpp:LegalPerson;
+    gs1:partyGLN "9521234000044";
+    eudpp:actorName "Bauwerk Cement GmbH".

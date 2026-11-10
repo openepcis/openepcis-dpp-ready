@@ -27,9 +27,9 @@ cross-cutting vocabulary plus `untp:` and `gs1:`.
 |---|---|
 | Construction Product class | `eucpr:ConstructionProduct` (this module) |
 | Construction product family (Annex III) | `eucpr:hasConstructionProductType` enum (this module) |
-| Reaction-to-fire (EN 13501-1) | `eucpr:hasReactionToFireClass` enum A1..F (this module) |
+| Reaction-to-fire (EN 13501-1) | `oea:Indicator` of kind `eucpr:ReactionToFire`, value an `eucpr:ReactionToFireClass` A1..F (this module) |
 | Declaration of Performance URL (Article 12) | `eucpr:declarationOfPerformanceUrl` (this module) |
-| Essential characteristics (Annex III) | `eucpr:EssentialCharacteristic` + `eucpr:characteristicName` + `eucpr:hasCharacteristicValue` + `eucpr:harmonisedStandard` (this module) |
+| Essential characteristics (Annex III) | `eucpr:EssentialCharacteristic` (an `oea:MeasurementResult`): `oea:hasObservedParameter` from the eucpr: catalogue (`eucpr:ThermalConductivity`, `eucpr:CompressiveStrength`, …) + `oea:hasMeasuredValue` + `eucpr:harmonisedStandard` (this module) |
 | Recycled content | `oec:RecycledContent`, `oec:recycledContent`, `oec:postConsumerRecycledContent` |
 | Carbon footprint with lifecycle stages | `oec:CarbonFootprintDeclaration` + per-stage properties |
 | Recyclability | `oec:RecyclabilityAssessment` |
@@ -78,11 +78,11 @@ cpr/
 | Property | Range | Description |
 |----------|-------|-------------|
 | `eucpr:hasConstructionProductType` | `eucpr:ConstructionProductType` | Top-level family per Annex III. |
-| `eucpr:hasReactionToFireClass` | `eucpr:ReactionToFireClass` | A1..F per EN 13501-1. |
+| `eucpr:ReactionToFire` | `oea:IndicatorKind` | Reaction-to-fire classification; indicator value A1..F per EN 13501-1. |
 | `eucpr:declarationOfPerformanceUrl` | `xsd:anyURI` | DoP / DoC document reference per Article 12. |
 | `eucpr:hasEssentialCharacteristic` | `eucpr:EssentialCharacteristic` | Set-valued — most products declare multiple. |
-| `eucpr:characteristicName` | `xsd:string` | Name of the essential characteristic. |
-| `eucpr:hasCharacteristicValue` | `gs1:QuantitativeValue` | Value with unitCode appropriate for the characteristic. |
+| `oea:hasObservedParameter` | `oea:PerformanceParameter` | The characteristic, from the eucpr: catalogue (CompressiveStrength, InitialSettingTime, ThermalConductivity, Density, WaterVapourDiffusionResistance). |
+| `oea:hasMeasuredValue` | `gs1:QuantitativeValue` | Declared performance with the unitCode for the characteristic. |
 | `eucpr:harmonisedStandard` | `xsd:anyURI` | URI of the harmonised technical specification (hEN). |
 
 ## EPCIS 2.0 extension declaration

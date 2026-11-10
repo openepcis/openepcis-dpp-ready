@@ -1,0 +1,18 @@
+# EUDPP core: material composition. The mass fraction (0–1) is a percentage in CIRPASS-2
+# (eudpp:materialPercentage, ×100); the material's name is its eudpp:MaterialType value.
+CONSTRUCT {
+  ?m eudpp:materialPercentage ?pct .
+  ?m eudpp:hasMaterialType ?mt .
+  ?mt a eudpp:MaterialType ; eudpp:materialTypeValue ?name .
+}
+WHERE {
+  {
+    GRAPH <urn:xw:in> { ?m oec:massFraction ?f }
+    # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+    BIND(xsd:decimal(IF(xsd:decimal(?f) = 0, 0.0, xsd:decimal(?f) * 100)) AS ?pct)
+  } UNION {
+    GRAPH <urn:xw:in> { ?m schema:name ?name }
+    BIND(BNODE() AS ?mt)
+  }
+  FILTER EXISTS { GRAPH <urn:xw:in> { ?m a ?t } ?t rdfs:subClassOf* oec:MaterialComposition }
+}

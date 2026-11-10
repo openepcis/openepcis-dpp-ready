@@ -1,0 +1,24 @@
+# EUDPP core: a node of a mapped CIRPASS-2 class gets its OpenEPCIS class back. Classes that
+# travelled as dcterms:type are restored as they are; otherwise the target class's default
+# (xw:nodeLowerTo). A study for a carbon footprint stated on the product itself (<product>#lca-study)
+# has no OpenEPCIS node. Products that are only the EPCs of a carried EPCIS event stay untyped, as in
+# an OpenEPCIS event; a carbon footprint result and its module values belong to the study's
+# carbon footprint properties (170-…).
+CONSTRUCT { ?n a ?c . }
+WHERE {
+  {
+    GRAPH <urn:xw:in> { ?n dcterms:type ?c }
+    GRAPH <urn:xw:bg> { ?c a ?k } FILTER(?k IN (owl:Class, rdfs:Class))
+  } UNION {
+    GRAPH <urn:xw:in> { ?n a ?ec } ?ec xw:nodeLowerTo ?c .
+    FILTER NOT EXISTS {
+      GRAPH <urn:xw:in> { ?n dcterms:type ?c2 } GRAPH <urn:xw:bg> { ?c2 a ?k2 } FILTER(?k2 IN (owl:Class, rdfs:Class))
+    }
+    FILTER(!isIRI(?n) || !STRENDS(STR(?n), "#lca-study"))
+    FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?n a eudpp:CarbonFootprint } }
+    FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?n dcterms:isPartOf ?container } }
+    FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?cf a eudpp:CarbonFootprint ; eudpp:hasPerModuleValue ?n } }
+  }
+  FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?pe eudpp:isRepresentedByCarrier ?e . ?e epcis:epcList ?n } }
+  FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?pe2 eudpp:isRepresentedByCarrier ?e2 . ?e2 epcis:quantityList ?ql . ?ql epcis:epcClass ?n } }
+}

@@ -4,6 +4,21 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed: entry properties of assessments
+
+`oec:hasRecyclabilityAssessment` and `oec:hasPerformanceInfo` are subproperties of
+`oea:hasAssessment`, like the other entry properties; the crosswalk found that a recyclability
+assessment was otherwise not reachable as an assessment from its product.
+
+### Breaking: biodegradability is a test execution
+
+`oec:Biodegradability` is an `oea:TestExecution`; `oec:BiodegradabilityTestMethod` is an
+`oea:TestMethod` and its individuals are named with `oea:hasMethod`. Removed:
+`oec:biodegradationPercentage` (an `oea:MeasurementResult` observing `oea:Biodegradation`, P1) and
+`oec:hasBiodegradabilityTestMethod` (`oea:hasMethod`). `oec:hasBiodegradability` is a subproperty of
+`oea:hasAssessment`. The document schemas describe `RepairabilityInfo` and `PerformanceInfo` with
+their indicators.
+
 ## [0.11.0] - 2026-11-09
 
 ### Changed: `oec:casNumber` and `oec:ecNumber` inherit the tier of their node

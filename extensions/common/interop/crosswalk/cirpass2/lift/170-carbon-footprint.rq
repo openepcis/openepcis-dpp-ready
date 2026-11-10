@@ -1,0 +1,29 @@
+# EUDPP core: a carbon footprint total is an eudpp:CarbonFootprint result of a study
+# (quantifying the GWP-total indicator). The study is the emissions container or declaration;
+# for a total stated on the product itself, a study node of its own, <product>#lca-study,
+# carrying the study URL (schema:url). Given as a gs1:QuantitativeValue, that node is the
+# result; given as a plain decimal (kg CO2e by definition), a new result node in kilograms. The declared (functional) unit travels as
+# eudpp:unitAsString. Stage values: 171-….
+CONSTRUCT {
+  ?prod eudpp:hasLCAStudy ?flatStudy .
+  ?flatStudy a eudpp:LCAStudy ; schema:url ?url .
+  ?study eudpp:hasLCIAResult ?cf .
+  ?cf a eudpp:CarbonFootprint ; eudpp:quantifiesIndicator eudpp:ind_GWPtotal ;
+      eudpp:numericalValue ?nv ; eudpp:hasMeasurementUnit ?unit ; eudpp:unitAsString ?du .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?st oec:carbonFootprintTotal ?tot }
+  BIND(EXISTS { GRAPH <urn:xw:in> { ?st a ?pt } ?pt rdfs:subClassOf* gs1:Product } AS ?onProduct)
+  FILTER(!?onProduct || isIRI(?st))
+  BIND(IF(?onProduct, IRI(CONCAT(STR(?st), "#lca-study")), ?st) AS ?study)
+  BIND(IF(?onProduct, ?st, ?noProd) AS ?prod)
+  BIND(IF(?onProduct, ?study, ?noFlat) AS ?flatStudy)
+  OPTIONAL { GRAPH <urn:xw:in> { ?st oec:carbonFootprintStudyUrl ?url0 } FILTER(?onProduct) BIND(STRDT(STR(?url0), xsd:anyURI) AS ?url) }
+  OPTIONAL { GRAPH <urn:xw:in> { ?st oec:declaredUnit ?du } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?tot gs1:value ?qv ; gs1:unitCode ?code }
+             OPTIONAL { ?urow xw:unitCode ?code ; xw:siUnit ?si ; xw:factor ?f } }
+  BIND(IF(isLiteral(?tot), BNODE(), ?tot) AS ?cf)
+  # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+  BIND(xsd:decimal(IF(xsd:decimal(IF(isLiteral(?tot), ?tot, ?qv)) = 0, 0.0, xsd:decimal(IF(isLiteral(?tot), ?tot, ?qv)) * COALESCE(?f, 1.0))) AS ?nv)
+  BIND(IF(BOUND(?code), COALESCE(?si, IRI(CONCAT("https://vocabulary.uncefact.org/UnitMeasureCode#", ?code))), units:kilogram) AS ?unit)
+}

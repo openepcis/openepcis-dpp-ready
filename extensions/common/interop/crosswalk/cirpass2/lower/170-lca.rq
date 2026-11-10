@@ -1,0 +1,43 @@
+# EUDPP core: a carbon footprint result of a study goes back to the study's carbon footprint
+# total (to the product's, with the study URL, for a <product>#lca-study): a gs1:QuantitativeValue
+# (same node) for a carbon footprint declaration, else a decimal in kg CO2e; its
+# eudpp:unitAsString is the declared unit, its marked module values the stage values. EPD:
+# expiry date and product category rules.
+CONSTRUCT {
+  ?target oec:carbonFootprintTotal ?tot ; oec:declaredUnit ?du ; oec:carbonFootprintStudyUrl ?url .
+  ?cfq a gs1:QuantitativeValue ; gs1:value ?nv ; gs1:unitCode ?code .
+  ?st ?sp ?sv .
+  ?sv a gs1:QuantitativeValue ; gs1:value ?snv ; gs1:unitCode ?scode .
+  ?epd oec:epdValidUntil ?exp ; oec:productCategoryRules ?pcrUrl .
+}
+WHERE {
+  {
+    GRAPH <urn:xw:in> { ?st eudpp:hasLCIAResult ?cf . ?cf a eudpp:CarbonFootprint ; eudpp:numericalValue ?v }
+    OPTIONAL { GRAPH <urn:xw:in> { ?cf eudpp:unitAsString ?du } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?flatProd eudpp:hasLCAStudy ?st } FILTER(STRENDS(STR(?st), "#lca-study")) }
+    BIND(COALESCE(?flatProd, ?st) AS ?target)
+    OPTIONAL { GRAPH <urn:xw:in> { ?st schema:url ?u0 } FILTER(BOUND(?flatProd)) BIND(STRDT(STR(?u0), xsd:anyURI) AS ?url) }
+    OPTIONAL {
+      GRAPH <urn:xw:in> { ?cf eudpp:hasMeasurementUnit ?unit }
+      OPTIONAL { ?urow xw:unitCode ?ucode ; xw:siUnit ?unit ; xw:factor ?uf ; xw:canonical true }
+    }
+    BIND(EXISTS { GRAPH <urn:xw:in> { ?st dcterms:type oec:CarbonFootprintDeclaration } } AS ?asQv)
+    BIND(IF(?asQv, ?cf, ?unbound0) AS ?cfq)
+    # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+    BIND(xsd:decimal(IF(xsd:decimal(?v) = 0, 0.0, xsd:decimal(?v) / COALESCE(?uf, 1.0))) AS ?nv)
+    BIND(IF(?asQv, ?cf, ?nv) AS ?tot)
+    BIND(IF(?asQv, COALESCE(?ucode, IF(STRSTARTS(STR(?unit), "https://vocabulary.uncefact.org/UnitMeasureCode#"), STRAFTER(STR(?unit), "#"), ?unbound1)), ?unbound2) AS ?code)
+  } UNION {
+    GRAPH <urn:xw:in> { ?st eudpp:hasLCIAResult ?cf2 . ?cf2 a eudpp:CarbonFootprint ; eudpp:hasPerModuleValue ?sv .
+                        ?sv dcterms:type ?sp ; eudpp:amount ?sv0 ; eudpp:hasMeasurementUnit ?sunit }
+    OPTIONAL { ?srow xw:unitCode ?sc0 ; xw:siUnit ?sunit ; xw:factor ?sf ; xw:canonical true }
+    # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+    BIND(xsd:decimal(IF(xsd:decimal(?sv0) = 0, 0.0, xsd:decimal(?sv0) / COALESCE(?sf, 1.0))) AS ?snv)
+    BIND(COALESCE(?sc0, IF(STRSTARTS(STR(?sunit), "https://vocabulary.uncefact.org/UnitMeasureCode#"), STRAFTER(STR(?sunit), "#"), ?unbound3)) AS ?scode)
+  } UNION {
+    GRAPH <urn:xw:in> { ?epd a eudpp:EPDStudy }
+    { GRAPH <urn:xw:in> { ?epd eudpp:expiryDate ?e0 } BIND(STRDT(STR(?e0), xsd:date) AS ?exp) }
+    UNION
+    { GRAPH <urn:xw:in> { ?epd eudpp:followsPCR ?pcr } BIND(STRDT(STR(?pcr), xsd:anyURI) AS ?pcrUrl) }
+  }
+}

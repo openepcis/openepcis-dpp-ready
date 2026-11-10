@@ -1,0 +1,437 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix eutex: <https://ref.openepcis.org/extensions/eu/textile/> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix txt-assessment: <https://w3id.org/eudpp/textile-assessment#> .
+@prefix txt-assessment-codelists: <https://w3id.org/eudpp/textile-assessment-codelists#> .
+@prefix txt-durability: <https://w3id.org/eudpp/textile-durability#> .
+@prefix txt-indicator: <https://w3id.org/eudpp/textile-indicator#> .
+@prefix txt-recyclability: <https://w3id.org/eudpp/textile-recyclability#> .
+@prefix txt-structure: <https://w3id.org/eudpp/textile-structure#> .
+@prefix txt-process: <https://w3id.org/eudpp/textile-process#> .
+@prefix eudpp: <https://w3id.org/eudpp#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix cbv: <https://ref.gs1.org/cbv/> .
+@prefix schema: <https://schema.org/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix euelec: <https://ref.openepcis.org/extensions/eu/electronics/> .
+
+# Pairing tables of the OpenEPCIS ↔ CIRPASS-2 crosswalk. The rules in lift/ and lower/ read
+# them; nothing here is ontology. Principles:
+#   - Code values (outcomes, operators, criteria, labels) pair one to one (xw:sameCode).
+#   - Reusable definitions (methods, standards, performance parameters) keep their OpenEPCIS
+#     IRI in CIRPASS-2 output and are typed with the CIRPASS-2 class (xw:liftType); lowering
+#     a CIRPASS-2 node of such a class without an OpenEPCIS IRI picks the canonical partner
+#     (xw:lowerTo).
+#   - Data nodes keep their identity (IRI or blank node).
+
+# ---------------------------------------------------------------- data-node classes
+oea:Assessment                xw:liftClass txt-assessment:AssessmentExecution .
+oea:TestExecution             xw:liftClass txt-assessment:TestExecution .
+eutex:DurabilityInfo          xw:liftClass txt-assessment:DurabilityAssessment .
+eutex:RobustnessAssessment    xw:liftClass txt-assessment:DurabilityAssessment .
+oec:RecyclabilityAssessment   xw:liftClass txt-recyclability:RecyclabilityAssessment .
+oea:AssessmentResult          xw:liftClass txt-assessment:AssessmentResult .
+oea:MeasurementResult         xw:liftClass txt-assessment:MeasurementResult .
+oea:AssessmentCondition       xw:liftClass txt-assessment:AssessmentCondition .
+oea:ParameterSetting          xw:liftClass txt-assessment:MeasurementParameterSetting .
+oea:Indicator                 xw:liftClass txt-indicator:Indicator .
+
+# Lowering a CIRPASS-2 execution: the most specific match wins (xw:rank, higher first).
+txt-assessment:AssessmentExecution          xw:lowerTo oea:Assessment ; xw:rank 0 .
+txt-assessment:TestExecution                xw:lowerTo oea:TestExecution ; xw:rank 1 .
+txt-assessment:DurabilityAssessment         xw:lowerTo eutex:DurabilityInfo ; xw:rank 1 .
+txt-recyclability:RecyclabilityAssessment   xw:lowerTo oec:RecyclabilityAssessment ; xw:rank 1 .
+# An execution applying the JRC robustness scoring is a robustness assessment; one applying the
+# JRC recyclability scoring is the textile recyclability assessment. A scoring method of the
+# publisher's own does not make it one: eutex:RecyclabilityAssessment is the JRC scheme.
+eutex:JRCRobustnessScoring    xw:refinesTo eutex:RobustnessAssessment .
+eutex:JRCRecyclabilityScoring xw:refinesTo eutex:RecyclabilityAssessment .
+
+# Entry property from the product (or the EPCIS event) to an assessment of a class.
+oea:Assessment                xw:entryProperty oea:hasAssessment ; xw:rank 0 .
+oea:TestExecution             xw:entryProperty oea:hasAssessment ; xw:rank 0 .
+eutex:DurabilityInfo          xw:entryProperty eutex:hasDurabilityInfo ; xw:rank 1 .
+eutex:RobustnessAssessment    xw:entryProperty eutex:hasRobustnessAssessment ; xw:rank 2 .
+oec:RecyclabilityAssessment   xw:entryProperty oec:hasRecyclabilityAssessment ; xw:rank 1 .
+eutex:RecyclabilityAssessment xw:entryProperty eutex:hasRecyclabilityAssessment ; xw:rank 2 .
+
+# CIRPASS-2 links the product to some executions directly as well.
+txt-recyclability:RecyclabilityAssessment xw:productLink txt-recyclability:hasRecyclabilityAssessment .
+
+# A method of the publisher's own (a data node, not an OpenEPCIS individual) applied by an
+# assessment of these classes is a scoring method of the matching CIRPASS-2 class.
+eutex:RobustnessAssessment    xw:methodClass txt-assessment:RobustnessScoringMethod .
+eutex:RecyclabilityAssessment xw:methodClass txt-recyclability:RecyclabilityScoringMethod .
+
+# Recycling technologies: OpenEPCIS individual → CIRPASS-2 recycling route class (and back).
+eutex:MechanicalRecycling       xw:liftType txt-recyclability:MechanicalRecyclingRoute .
+eutex:ThermoMechanicalRecycling xw:liftType txt-recyclability:MechanicalRecyclingRoute .
+eutex:ChemicalRecyclingCotton   xw:liftType txt-recyclability:ChemicalRecyclingRoute .
+eutex:ChemicalRecyclingPA6      xw:liftType txt-recyclability:ChemicalRecyclingRoute .
+eutex:ThermoChemicalRecycling   xw:liftType txt-recyclability:ChemicalRecyclingRoute .
+txt-recyclability:MechanicalRecyclingRoute xw:lowerTo eutex:MechanicalRecycling .
+txt-recyclability:ChemicalRecyclingRoute   xw:lowerTo eutex:ChemicalRecyclingCotton .
+# The process type a route class fixes (owl:hasValue on txt-recyclability:usesRecyclingProcessType).
+txt-recyclability:MechanicalRecyclingRoute xw:processType txt-process:MechanicalRecyclingProcess .
+txt-recyclability:ChemicalRecyclingRoute   xw:processType txt-process:ChemicalRecyclingProcess .
+
+# ---------------------------------------------------------------- reusable definitions
+oea:TestMethod                xw:liftClass txt-assessment:TestMethod .
+oea:AssessmentMethod          xw:liftClass txt-assessment:AssessmentMethod .
+oea:AssessmentStandard        xw:liftClass txt-assessment:AssessmentStandard .
+oea:Criterion                 xw:liftClass txt-assessment:AssessmentDecisionCriterion .
+oea:Threshold                 xw:liftClass txt-assessment:PerformanceThreshold .
+eutex:JRCRobustnessScoring    xw:liftType txt-assessment:RobustnessScoringMethod .
+eutex:JRCRecyclabilityScoring xw:liftType txt-recyclability:RecyclabilityScoringMethod .
+
+# Performance parameters: OpenEPCIS individual → CIRPASS-2 parameter class (and back).
+eutex:AbrasionResistance      xw:liftType txt-durability:AbrasionResistance .
+eutex:PillingResistance       xw:liftType txt-durability:PillingResistance .
+eutex:ColourFastness          xw:liftType txt-durability:ColourFastness .
+eutex:DimensionalStability    xw:liftType txt-durability:DimensionalStability .
+eutex:TensileStrength         xw:liftType txt-durability:FabricStrength .
+txt-durability:AbrasionResistance   xw:lowerTo eutex:AbrasionResistance .
+txt-durability:PillingResistance    xw:lowerTo eutex:PillingResistance .
+txt-durability:ColourFastness       xw:lowerTo eutex:ColourFastness .
+txt-durability:DimensionalStability xw:lowerTo eutex:DimensionalStability .
+txt-durability:FabricStrength       xw:lowerTo eutex:TensileStrength .
+# Without a CIRPASS-2 class: typed as the generic observed performance parameter.
+oea:PerformanceParameter      xw:liftClass txt-durability:ObservedPerformanceParameter .
+txt-durability:ObservedPerformanceParameter xw:lowerTo oea:PerformanceParameter .
+
+oea:NumberOfCycles            xw:liftType txt-assessment:NumberOfCycles .
+txt-assessment:NumberOfCycles xw:lowerTo oea:NumberOfCycles .
+oea:MeasurementParameter      xw:liftClass txt-assessment:MeasurementParameter .
+
+# Indicator kinds ↔ CIRPASS-2 indicator classes.
+eutex:RobustnessScore         xw:liftType txt-indicator:RobustnessScore .
+oea:RecyclabilityScore        xw:liftType txt-recyclability:RecyclabilityScore .
+oea:NumberOfUseCycles         xw:liftType txt-indicator:NumberOfUseCycles .
+oea:ExpectedLifetime          xw:liftType txt-indicator:EstimatedLifetime .
+eutex:DurabilityRating        xw:liftType txt-indicator:DurabilityIndicator .
+txt-indicator:RobustnessScore           xw:lowerTo eutex:RobustnessScore .
+txt-recyclability:RecyclabilityScore    xw:lowerTo oea:RecyclabilityScore .
+txt-indicator:NumberOfUseCycles         xw:lowerTo oea:NumberOfUseCycles .
+txt-indicator:EstimatedLifetime         xw:lowerTo oea:ExpectedLifetime .
+txt-indicator:LifetimeOfProduct         xw:lowerTo oea:ExpectedLifetime .
+txt-indicator:DurabilityIndicator       xw:lowerTo eutex:DurabilityRating .
+
+# ---------------------------------------------------------------- code values (1:1)
+oea:Satisfied                 xw:sameCode txt-recyclability:criterionSatisfied .
+oea:NotSatisfied              xw:sameCode txt-recyclability:criterionNotSatisfied .
+oea:NotAssessed               xw:sameCode txt-recyclability:criterionNotAssessed .
+oea:PartlySatisfied           xw:sameCode txt-recyclability:criterionPartlySatisfied .
+oea:NotApplicable             xw:sameCode txt-recyclability:criterionNotApplicable .
+oea:Uncertain                 xw:sameCode txt-recyclability:criterionUncertain .
+oea:LessThan                  xw:sameCode txt-assessment-codelists:lessThan .
+oea:LessThanOrEqual           xw:sameCode txt-assessment-codelists:lessThanOrEqualTo .
+oea:Equal                     xw:sameCode txt-assessment-codelists:equalTo .
+oea:GreaterThanOrEqual        xw:sameCode txt-assessment-codelists:greaterThanOrEqualTo .
+oea:GreaterThan               xw:sameCode txt-assessment-codelists:greaterThan .
+eutex:SameInnerOuterComposition xw:sameCode txt-recyclability:innerOuterCompositionSimilarityCriterion .
+eutex:FreeFromPrintings       xw:sameCode txt-recyclability:printingAbsenceCriterion .
+eutex:FreeFromCoatings        xw:sameCode txt-recyclability:coatingAbsenceCriterion .
+eutex:FreeFromSequins         xw:sameCode txt-recyclability:sequinAbsenceCriterion .
+eutex:FreeFromDyes            xw:sameCode txt-recyclability:dyeAbsenceCriterion .
+eutex:MonoMaterial            xw:sameCode txt-recyclability:monoMaterialCriterion .
+
+# Thresholds that CIRPASS-2 also names as a recyclability criterion: a result judged against
+# them is additionally a RecyclabilityCriterionResult for that criterion (outcome slot).
+eutex:ElastaneContentLimit    xw:criterionConcept txt-recyclability:elastaneProportionCriterion .
+eutex:ElastaneContentLimitPA6 xw:criterionConcept txt-recyclability:elastaneProportionCriterion .
+
+# ---------------------------------------------------------------- units
+# UN/CEFACT Rec 20 code ↔ SI Digital Framework unit, value_target = value_source × factor.
+# A code without a row travels as <https://vocabulary.uncefact.org/UnitMeasureCode#CODE>.
+# Lowering units:one picks C62 unless the observed parameter prefers another code.
+[] xw:unitCode "C62" ; xw:siUnit units:one ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "P1"  ; xw:siUnit units:one ; xw:factor 0.01 ; xw:canonical false .
+[] xw:unitCode "NEW" ; xw:siUnit units:newton ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "DAY" ; xw:siUnit units:day ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "HUR" ; xw:siUnit units:hour ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "MIN" ; xw:siUnit units:minute ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "SEC" ; xw:siUnit units:second ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "CEL" ; xw:siUnit units:degreeCelsius ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "MGM" ; xw:siUnit units:milligram ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "GRM" ; xw:siUnit units:gram ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "KGM" ; xw:siUnit units:kilogram ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "WTT" ; xw:siUnit units:watt ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "MTR" ; xw:siUnit units:metre ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "LTR" ; xw:siUnit units:litre ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "PAL" ; xw:siUnit units:pascal ; xw:factor 1.0 ; xw:canonical true .
+[] xw:unitCode "MPA" ; xw:siUnit units:megapascal ; xw:factor 1.0 ; xw:canonical true .
+
+# Parameters whose values are percentages: lowering units:one back to P1.
+eutex:Spirality               xw:preferredUnitCode "P1" .
+eutex:DimensionalStability    xw:preferredUnitCode "P1" .
+eutex:ElastaneContent         xw:preferredUnitCode "P1" .
+oea:Biodegradation            xw:preferredUnitCode "P1" .
+
+# ================================================================ EUDPP core (eudpp:)
+# Data nodes keep their identity. A class of ours that the target has no class for travels as
+# dcterms:type on the node (a class IRI); lowering restores it. Code values pair one to one.
+
+# ---------------------------------------------------------------- node classes
+# xw:nodeClass: an input node of the class (or a subclass) is typed with the target class; the
+# most specific mapped class wins. Lowering: xw:nodeLowerTo, xw:rank picks among several.
+gs1:Product                         xw:nodeClass eudpp:Product .
+gs1:Organization                    xw:nodeClass eudpp:LegalPerson .
+oec:OperatorInformation             xw:nodeClass eudpp:LegalPerson .
+oec:FacilityInformation             xw:nodeClass eudpp:Facility .
+oec:MaterialComposition             xw:nodeClass eudpp:MaterialOfComposition .
+oec:SubstanceOfConcern              xw:nodeClass eudpp:SubstanceOfConcern .
+oec:HazardousSubstance              xw:nodeClass eudpp:Substance .
+oec:EnvironmentalProductDeclaration xw:nodeClass eudpp:EPDStudy .
+oec:EmissionsPerformance            xw:nodeClass eudpp:LCAStudy .
+oec:CarbonFootprintDeclaration      xw:nodeClass eudpp:LCAStudy .
+oec:ImpactIndicatorResult           xw:nodeClass eudpp:LCIAResult .
+oec:LifecycleStageResult            xw:nodeClass eudpp:LCAModuleValue .
+gs1:RegulatoryInformation           xw:nodeClass eudpp:UnionHarmonisationLegislation .
+oec:DocumentReference               xw:nodeClass eudpp:DocumentFormattedProperty .
+oec:DueDiligenceReport              xw:nodeClass eudpp:DocumentFormattedProperty .
+# Addresses: EUDPP links actors and facilities to a schema:PostalAddress with schema:address.
+# Contact points: schema.org, which GS1 Web Vocabulary derives from (EUDPP has schema:email and
+# schema:telephone on the actor, but no contact point).
+gs1:PostalAddress                   xw:nodeClass schema:PostalAddress .
+gs1:ContactPoint                    xw:nodeClass schema:ContactPoint .
+# Containers without a target class keep their node, typed only by dcterms:type.
+oec:CircularityPerformance          xw:nodeClass xw:none .
+oec:RecycledContent                 xw:nodeClass xw:none .
+
+eudpp:Product                       xw:nodeLowerTo gs1:Product .
+eudpp:LegalPerson                   xw:nodeLowerTo gs1:Organization .
+eudpp:Actor                         xw:nodeLowerTo gs1:Organization .
+eudpp:Facility                      xw:nodeLowerTo oec:FacilityInformation .
+eudpp:MaterialOfComposition         xw:nodeLowerTo oec:MaterialComposition .
+eudpp:SubstanceOfConcern            xw:nodeLowerTo oec:SubstanceOfConcern .
+eudpp:Substance                     xw:nodeLowerTo oec:HazardousSubstance .
+eudpp:EPDStudy                      xw:nodeLowerTo oec:EnvironmentalProductDeclaration .
+eudpp:LCAStudy                      xw:nodeLowerTo oec:EmissionsPerformance .
+eudpp:LCIAResult                    xw:nodeLowerTo oec:ImpactIndicatorResult .
+eudpp:LCAModuleValue                xw:nodeLowerTo oec:LifecycleStageResult .
+eudpp:UnionHarmonisationLegislation xw:nodeLowerTo gs1:RegulatoryInformation .
+eudpp:DocumentFormattedProperty     xw:nodeLowerTo oec:DocumentReference .
+eudpp:EUDeclarationOfConformity     xw:nodeLowerTo oec:DocumentReference .
+eudpp:DigitalInstruction            xw:nodeLowerTo oec:DocumentReference .
+schema:PostalAddress                xw:nodeLowerTo gs1:PostalAddress .
+schema:ContactPoint                 xw:nodeLowerTo gs1:ContactPoint .
+
+# ---------------------------------------------------------------- property pairs
+# A triple of xw:ours on a node of xw:host becomes a triple of xw:theirs on the same node (on
+# the product's DPP node for xw:onDPP); the object is kept, or replaced by its code partner.
+# Lowering picks, among the rows of a target property, the one with the most specific host the
+# subject has (xw:rank breaks ties, higher first).
+[] xw:ours gs1:productName           ; xw:theirs eudpp:productName       ; xw:host gs1:Product .
+[] xw:ours gs1:productDescription    ; xw:theirs eudpp:description       ; xw:host gs1:Product .
+[] xw:ours gs1:productionDate        ; xw:theirs eudpp:manufacturingDate ; xw:host gs1:Product .
+[] xw:ours oec:customsCommodityCode  ; xw:theirs eudpp:commodityCode     ; xw:host gs1:Product .
+[] xw:ours oec:lastUpdated           ; xw:theirs dcterms:modified        ; xw:host gs1:Product .
+[] xw:ours oec:hasDueDiligenceReport ; xw:theirs eudpp:hasProperty       ; xw:host gs1:Product ; xw:objectHost oec:DueDiligenceReport .
+[] xw:ours oec:hasProductCategory    ; xw:theirs eudpp:hasProductGroup   ; xw:host gs1:Product .
+[] xw:ours oec:isEnergyRelated       ; xw:theirs eudpp:isEnergyRelated   ; xw:host gs1:Product .
+[] xw:ours gs1:manufacturer          ; xw:theirs eudpp:hasManufacturer   ; xw:host gs1:Product .
+[] xw:ours oec:hasOperatorInformation ; xw:theirs eudpp:hasEconomicOperator ; xw:host gs1:Product .
+[] xw:ours oec:hasFacilityInformation ; xw:theirs eudpp:hasFacility      ; xw:host gs1:Product .
+[] xw:ours oec:hasMaterialComposition ; xw:theirs eudpp:hasMaterial      ; xw:host gs1:Product .
+[] xw:ours oec:hasSubstancesOfConcern ; xw:theirs eudpp:containsSubstanceOfConcern ; xw:host gs1:Product ; xw:rank 0 .
+[] xw:ours eutex:hasSubstancesOfConcern ; xw:theirs eudpp:containsSubstanceOfConcern ; xw:host eutex:TextileApparel ; xw:rank 1 .
+[] xw:ours oec:hasEnvironmentalProductDeclaration ; xw:theirs eudpp:hasLCAStudy ; xw:host gs1:Product ; xw:objectHost oec:EnvironmentalProductDeclaration .
+[] xw:ours oec:hasEmissionsPerformance ; xw:theirs eudpp:hasLCAStudy     ; xw:host gs1:Product ; xw:objectHost oec:EmissionsPerformance .
+[] xw:ours oec:hasCarbonFootprintDeclaration ; xw:theirs eudpp:hasLCAStudy ; xw:host gs1:Product ; xw:objectHost oec:CarbonFootprintDeclaration .
+
+[] xw:ours gs1:organizationName      ; xw:theirs eudpp:actorName         ; xw:host gs1:Organization .
+[] xw:ours gs1:address               ; xw:theirs schema:address          ; xw:host gs1:Organization .
+[] xw:ours gs1:contactPoint          ; xw:theirs schema:contactPoint     ; xw:host gs1:Organization .
+[] xw:ours gs1:address               ; xw:theirs schema:address          ; xw:host oec:FacilityInformation .
+# EUDPP ACTOR publishes the facility name outside its namespace (…/eudpp/facilityName, not …#).
+[] xw:ours schema:name               ; xw:theirs <https://w3id.org/eudpp/facilityName> ; xw:host oec:FacilityInformation .
+[] xw:ours oec:hasFacilityCertifications ; xw:theirs gs1:certification ; xw:host oec:FacilityInformation .
+[] xw:ours oec:facilityType          ; xw:theirs dcterms:type            ; xw:host oec:FacilityInformation .
+[] xw:ours gs1:streetAddress         ; xw:theirs schema:streetAddress    ; xw:host gs1:PostalAddress .
+[] xw:ours gs1:postalCode            ; xw:theirs schema:postalCode       ; xw:host gs1:PostalAddress .
+[] xw:ours gs1:addressLocality       ; xw:theirs schema:addressLocality  ; xw:host gs1:PostalAddress .
+[] xw:ours gs1:addressRegion         ; xw:theirs schema:addressRegion    ; xw:host gs1:PostalAddress .
+[] xw:ours gs1:postOfficeBoxNumber   ; xw:theirs schema:postOfficeBoxNumber ; xw:host gs1:PostalAddress .
+[] xw:ours gs1:email                 ; xw:theirs schema:email            ; xw:host gs1:ContactPoint .
+[] xw:ours gs1:telephone             ; xw:theirs schema:telephone        ; xw:host gs1:ContactPoint .
+[] xw:ours gs1:faxNumber             ; xw:theirs schema:faxNumber        ; xw:host gs1:ContactPoint .
+[] xw:ours gs1:contactType           ; xw:theirs schema:contactType      ; xw:host gs1:ContactPoint .
+
+[] xw:ours oec:isCriticalRawMaterial ; xw:theirs eudpp:isCriticalRawMaterial ; xw:host oec:MaterialComposition .
+[] xw:ours oec:componentName         ; xw:theirs eudpp:materialComponent ; xw:host oec:MaterialComposition .
+
+[] xw:ours oec:casNumber             ; xw:theirs eudpp:casNumber         ; xw:host oec:HazardousSubstance .
+[] xw:ours oec:ecNumber              ; xw:theirs eudpp:ecNumber          ; xw:host oec:HazardousSubstance .
+[] xw:ours oec:iupacName             ; xw:theirs eudpp:iupacName         ; xw:host oec:HazardousSubstance ; xw:rank 1 .
+[] xw:ours schema:iupacName          ; xw:theirs eudpp:iupacName         ; xw:host eutex:SubstanceOfConcern ; xw:rank 2 .
+[] xw:ours schema:name               ; xw:theirs eudpp:usualName         ; xw:host oec:HazardousSubstance .
+[] xw:ours oec:substanceTradeName    ; xw:theirs eudpp:tradeName         ; xw:host oec:HazardousSubstance .
+
+[] xw:ours gs1:regulatoryAct         ; xw:theirs dcterms:identifier      ; xw:host gs1:RegulatoryInformation .
+[] xw:ours gs1:regulationType        ; xw:theirs dcterms:type            ; xw:host gs1:RegulatoryInformation .
+
+[] xw:ours oec:carbonFootprintStudyUrl ; xw:theirs schema:url            ; xw:host oec:EmissionsPerformance ; xw:theirDatatype xsd:anyURI ; xw:ourDatatype xsd:anyURI .
+[] xw:ours oec:carbonFootprintMethodology ; xw:theirs dcterms:conformsTo ; xw:host oec:CarbonFootprintDeclaration .
+[] xw:ours oec:hasOperationalScope   ; xw:theirs dcterms:coverage        ; xw:host oec:EmissionsPerformance .
+[] xw:ours oec:epdProgramOperator    ; xw:theirs dcterms:publisher       ; xw:host oec:EnvironmentalProductDeclaration .
+[] xw:ours oec:epdStandard           ; xw:theirs dcterms:conformsTo      ; xw:host oec:EnvironmentalProductDeclaration .
+
+[] xw:ours oec:documentUrl           ; xw:theirs eudpp:value             ; xw:host oec:DocumentReference ; xw:toString true ; xw:ourDatatype xsd:anyURI .
+[] xw:ours oec:issueDate             ; xw:theirs dcterms:issued          ; xw:host oec:DocumentReference .
+[] xw:ours oec:languageCode          ; xw:theirs dcterms:language        ; xw:host oec:DocumentReference .
+
+[] xw:ours oec:reportUrl             ; xw:theirs eudpp:value             ; xw:host oec:DueDiligenceReport ; xw:toString true ; xw:ourDatatype xsd:anyURI .
+[] xw:ours oec:reportDate            ; xw:theirs dcterms:issued          ; xw:host oec:DueDiligenceReport .
+[] xw:ours oec:thirdPartyAssurancesUrl ; xw:theirs rdfs:seeAlso          ; xw:host oec:DueDiligenceReport ; xw:asIRI true ; xw:ourDatatype xsd:anyURI .
+
+[] xw:ours oec:epdRegistrationNumber ; xw:theirs eudpp:registrationNumber ; xw:host oec:EnvironmentalProductDeclaration .
+[] xw:ours oec:hasImpactIndicator    ; xw:theirs eudpp:hasLCIAResult     ; xw:host oec:EnvironmentalProductDeclaration .
+[] xw:ours oec:hasIndicatorType      ; xw:theirs eudpp:quantifiesIndicator ; xw:host oec:ImpactIndicatorResult .
+[] xw:ours oec:indicatorTotalValue   ; xw:theirs eudpp:numericalValue    ; xw:host oec:ImpactIndicatorResult .
+[] xw:ours oec:indicatorUnit         ; xw:theirs eudpp:unitAsString      ; xw:host oec:ImpactIndicatorResult .
+[] xw:ours oec:hasLifecycleStageResult ; xw:theirs eudpp:hasPerModuleValue ; xw:host oec:ImpactIndicatorResult .
+[] xw:ours oec:hasLifecycleStage     ; xw:theirs eudpp:forLifeCycleModule ; xw:host oec:LifecycleStageResult .
+[] xw:ours oec:stageValue            ; xw:theirs eudpp:amount            ; xw:host oec:LifecycleStageResult ; xw:theirDatatype xsd:double ; xw:ourDatatype xsd:decimal .
+
+# Passport data sits on the product in OpenEPCIS and on a separate eudpp:DPP node in CIRPASS-2.
+[] xw:ours oec:dppSchemaVersion      ; xw:theirs eudpp:dppSchemaVersion  ; xw:host gs1:Product ; xw:onDPP true .
+[] xw:ours oec:granularityLevel      ; xw:theirs eudpp:granularity       ; xw:host gs1:Product ; xw:onDPP true .
+[] xw:ours oec:passportStatus        ; xw:theirs eudpp:dppStatus         ; xw:host gs1:Product ; xw:onDPP true .
+[] xw:ours oec:previousPassportVersion ; xw:theirs eudpp:linkToPreviousDPP ; xw:host gs1:Product ; xw:onDPP true .
+[] xw:ours oec:hasBackupCopyHost     ; xw:theirs eudpp:hasBackUpCopyHost ; xw:host gs1:Product ; xw:onDPP true .
+[] xw:ours oec:hasPassportIssuer     ; xw:theirs eudpp:hasIssuer         ; xw:host gs1:Product ; xw:onDPP true .
+[] xw:ours oec:passportVersion       ; xw:theirs schema:version          ; xw:host gs1:Product ; xw:onDPP true .
+[] xw:ours oec:contentSpecificationId ; xw:theirs dcterms:conformsTo     ; xw:host gs1:Product ; xw:onDPP true .
+
+# ---------------------------------------------------------------- code values
+# Literal codes per property (xw:codeFor): OpenEPCIS token ↔ CIRPASS-2 token.
+[] xw:codeFor oec:passportStatus ; xw:ourCode "active"   ; xw:theirCode "Active" .
+[] xw:codeFor oec:passportStatus ; xw:ourCode "inactive" ; xw:theirCode "Inactive" .
+[] xw:codeFor oec:passportStatus ; xw:ourCode "archived" ; xw:theirCode "Archived" .
+[] xw:codeFor oec:passportStatus ; xw:ourCode "invalid"  ; xw:theirCode "Invalid" .
+
+oec:Manufacturer              xw:sameCode eudpp:manufacturer .
+oec:Importer                  xw:sameCode eudpp:importer .
+oec:Distributor               xw:sameCode eudpp:distributor .
+oec:AuthorisedRepresentative  xw:sameCode eudpp:authorisedRepresentative .
+oec:FulfilmentServiceProvider xw:sameCode eudpp:fulfilmentServiceProvider .
+oec:Dealer                    xw:sameCode eudpp:dealer .
+oec:Consumer                  xw:sameCode eudpp:consumer .
+oec:ProfessionalRepairer      xw:sameCode eudpp:professionalRepairer .
+oec:IndependentOperator       xw:sameCode eudpp:independentOperator .
+oec:Recycler                  xw:sameCode eudpp:recycler .
+oec:MarketSurveillanceAuthority xw:sameCode eudpp:marketSurveillanceAuthority .
+oec:CustomsAuthority          xw:sameCode eudpp:customsAuthority .
+oec:DppServiceProvider        xw:sameCode eudpp:dppServiceProvider .
+# Roles CIRPASS-2 does not name keep their IRI, typed with the target role class.
+oec:OperatorRole              xw:codeClass eudpp:EconomicOperatorRole .
+oec:ActorRole                 xw:codeClass eudpp:Role .
+# ESPR product categories keep their IRI, typed as a CIRPASS-2 classification code.
+oec:ProductCategory           xw:codeClass eudpp:ClassificationCode .
+
+oec:GWPTotal      xw:sameCode eudpp:ind_GWPtotal .
+oec:GWPFossil     xw:sameCode eudpp:ind_GWPfossil .
+oec:GWPBiogenic   xw:sameCode eudpp:ind_GWPbiogenic .
+oec:GWPLuluc      xw:sameCode eudpp:ind_GWPluluc .
+oec:ODP           xw:sameCode eudpp:ind_ODP .
+oec:AP            xw:sameCode eudpp:ind_AP .
+oec:EPFreshwater  xw:sameCode eudpp:ind_EPfreshwater .
+oec:EPMarine      xw:sameCode eudpp:ind_EPmarine .
+oec:EPTerrestrial xw:sameCode eudpp:ind_EPterrestrial .
+oec:POCP          xw:sameCode eudpp:ind_POCP .
+oec:ADPElements   xw:sameCode eudpp:ind_ADPE .
+oec:ADPFossil     xw:sameCode eudpp:ind_ADPF .
+oec:WDP           xw:sameCode eudpp:ind_WDP .
+
+oec:StageA1 xw:sameCode eudpp:en15804moduleA1 .
+oec:StageA2 xw:sameCode eudpp:en15804moduleA2 .
+oec:StageA3 xw:sameCode eudpp:en15804moduleA3 .
+oec:StageA4 xw:sameCode eudpp:en15804moduleA4 .
+oec:StageA5 xw:sameCode eudpp:en15804moduleA5 .
+oec:StageB1 xw:sameCode eudpp:en15804moduleB1 .
+oec:StageB2 xw:sameCode eudpp:en15804moduleB2 .
+oec:StageB3 xw:sameCode eudpp:en15804moduleB3 .
+oec:StageB4 xw:sameCode eudpp:en15804moduleB4 .
+oec:StageB5 xw:sameCode eudpp:en15804moduleB5 .
+oec:StageB6 xw:sameCode eudpp:en15804moduleB6 .
+oec:StageB7 xw:sameCode eudpp:en15804moduleB7 .
+oec:StageC1 xw:sameCode eudpp:en15804moduleC1 .
+oec:StageC2 xw:sameCode eudpp:en15804moduleC2 .
+oec:StageC3 xw:sameCode eudpp:en15804moduleC3 .
+oec:StageC4 xw:sameCode eudpp:en15804moduleC4 .
+oec:StageD  xw:sameCode eudpp:moduleD .
+
+# ---------------------------------------------------------------- quantities
+# A gs1:QuantitativeValue under xw:ours becomes an eudpp quantitative property of xw:quantityClass
+# (same node), linked from the product with eudpp:hasProperty. Several rows share a class: the
+# canonical one lowers without a marker, the others carry dcterms:type <xw:ours>.
+[] xw:ours gs1:netWeight   ; xw:quantityClass eudpp:Weight ; xw:canonical true .
+[] xw:ours gs1:grossWeight ; xw:quantityClass eudpp:Weight ; xw:canonical false .
+[] xw:ours gs1:outOfPackageHeight ; xw:quantityClass eudpp:Height ; xw:canonical true .
+[] xw:ours gs1:outOfPackageWidth  ; xw:quantityClass eudpp:Width  ; xw:canonical true .
+[] xw:ours gs1:outOfPackageDepth  ; xw:quantityClass eudpp:Length ; xw:canonical true .
+[] xw:ours gs1:inPackageHeight    ; xw:quantityClass eudpp:Height ; xw:canonical false .
+[] xw:ours gs1:inPackageWidth     ; xw:quantityClass eudpp:Width  ; xw:canonical false .
+[] xw:ours gs1:inPackageDepth     ; xw:quantityClass eudpp:Length ; xw:canonical false .
+[] xw:ours gs1:netContent  ; xw:quantityClass eudpp:QuantitativeProperty ; xw:canonical false .
+
+# A decimal under xw:ours on a container (xw:container, reached from the product by
+# xw:containerLink) becomes an eudpp quantitative property node that is dcterms:isPartOf the
+# container. Fractions travel as eudpp:massFractionUnit or units:one, unchanged. A row with
+# xw:valueProperty carries its value there instead of eudpp:numericalValue (a URL, unchanged).
+[] xw:ours oec:recycledContent             ; xw:quantityClass eudpp:RecycledMaterialsUseResult ; xw:canonical true ;
+   xw:container oec:RecycledContent ; xw:containerLink oec:hasRecycledContentDetails ; xw:unit eudpp:massFractionUnit .
+[] xw:ours oec:preConsumerRecycledContent  ; xw:quantityClass eudpp:RecycledMaterialsUseResult ; xw:canonical false ;
+   xw:container oec:RecycledContent ; xw:containerLink oec:hasRecycledContentDetails ; xw:unit eudpp:massFractionUnit .
+[] xw:ours oec:postConsumerRecycledContent ; xw:quantityClass eudpp:RecycledMaterialsUseResult ; xw:canonical false ;
+   xw:container oec:RecycledContent ; xw:containerLink oec:hasRecycledContentDetails ; xw:unit eudpp:massFractionUnit .
+[] xw:ours oec:recyclableContent           ; xw:quantityClass eudpp:CircularEconomyIndicator ; xw:canonical false ;
+   xw:container oec:CircularityPerformance ; xw:containerLink oec:hasCircularityPerformance ; xw:unit eudpp:massFractionUnit .
+[] xw:ours oec:materialCircularityIndicator ; xw:quantityClass eudpp:CircularEconomyIndicator ; xw:canonical false ;
+   xw:container oec:CircularityPerformance ; xw:containerLink oec:hasCircularityPerformance ; xw:unit units:one .
+[] xw:ours oec:utilityFactor               ; xw:quantityClass eudpp:CircularEconomyIndicator ; xw:canonical false ;
+   xw:container oec:CircularityPerformance ; xw:containerLink oec:hasCircularityPerformance ; xw:unit units:one .
+[] xw:ours oec:endOfLifeInstructions       ; xw:quantityClass eudpp:DigitalInstruction ; xw:canonical false ; xw:valueProperty eudpp:webLink ;
+   xw:container oec:CircularityPerformance ; xw:containerLink oec:hasCircularityPerformance .
+[] xw:ours oec:primarySourcedRatio         ; xw:quantityClass eudpp:QuantitativeProperty ; xw:canonical false ;
+   xw:container oec:EmissionsPerformance ; xw:containerLink oec:hasEmissionsPerformance ; xw:unit eudpp:massFractionUnit .
+
+# ---------------------------------------------------------------- documents
+oec:DeclarationOfConformity   xw:documentClass eudpp:EUDeclarationOfConformity .
+oec:Manual                    xw:documentClass eudpp:DigitalInstruction .
+# Other document types: eudpp:DocumentFormattedProperty with dcterms:type <the type>.
+
+# ---------------------------------------------------------------- product events
+# EPCIS business step (or persistent disposition) → ESPR product event class (EUDPP EVENT 1.0).
+cbv:BizStep-repairing         xw:productEvent eudpp:RepairEvent .
+cbv:BizStep-destroying        xw:productEvent eudpp:DestructionEvent .
+cbv:BizStep-installing        xw:productEvent eudpp:PuttingIntoServiceEvent .
+oec:BizStep-maintaining       xw:productEvent eudpp:MaintenanceEvent .
+oec:BizStep-refurbishing      xw:productEvent eudpp:RefurbishmentEvent .
+oec:BizStep-remanufacturing   xw:productEvent eudpp:RemanufacturingEvent .
+oec:BizStep-upgrading         xw:productEvent eudpp:UpgradingEvent .
+oec:Disp-available_on_market  xw:productEvent eudpp:MakingAvailableOnMarketEvent .
+
+# ---------------------------------------------------------------- GS1 pass-through
+# GS1 Web Vocabulary statements without an EUDPP term travel unchanged (195-…), except these,
+# which a rule converts (in addition to every xw:ours of a row above).
+gs1:gtin                 xw:converted true .
+gs1:globalLocationNumber xw:converted true .
+gs1:countryOfOrigin      xw:converted true .
+gs1:addressCountry       xw:converted true .
+gs1:countryCode          xw:converted true .
+gs1:brand                xw:converted true .
+gs1:brandName            xw:converted true .
+gs1:regulatoryInformation xw:converted true .
+gs1:value                xw:converted true .
+gs1:unitCode             xw:converted true .
+
+# Substance-of-concern types (ESPR Art. 2(27) criteria (a)–(d)).
+eutex:SoCTypeA xw:sameCode eudpp:CriterionA .
+eutex:SoCTypeB xw:sameCode eudpp:CriterionB .
+eutex:SoCTypeC xw:sameCode eudpp:CriterionC .
+eutex:SoCTypeD xw:sameCode eudpp:CriterionD .

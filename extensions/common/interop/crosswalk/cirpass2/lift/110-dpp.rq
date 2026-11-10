@@ -1,0 +1,14 @@
+# EUDPP core: passport data sits on the product in OpenEPCIS. CIRPASS-2 has a DPP node of its
+# own: <product>#dpp, linked both ways. Its identifier, validity and last update come from the
+# product's passport properties; dates become UTC timestamps (xsd:dateTimeStamp).
+CONSTRUCT {
+  ?dpp a eudpp:DPP ; eudpp:appliesToProduct ?s .
+  ?s eudpp:hasDPP ?dpp .
+}
+WHERE {
+  { ?row xw:onDPP true ; xw:ours ?p } UNION { VALUES ?p { oec:passportIdentifier oec:passportIssueDate oec:passportExpiryDate oec:lastUpdated } }
+  GRAPH <urn:xw:in> { ?s ?p ?o . ?s a ?t }
+  ?t rdfs:subClassOf* gs1:Product .
+  FILTER(isIRI(?s))
+  BIND(IRI(CONCAT(STR(?s), IF(CONTAINS(STR(?s), "#"), "-dpp", "#dpp"))) AS ?dpp)
+}

@@ -1,0 +1,80 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix gs1: <https://ref.gs1.org/voc/>.
+@prefix epcis: <https://ref.gs1.org/epcis/>.
+@prefix cbv: <https://ref.gs1.org/cbv/>.
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/>.
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/>.
+@prefix eutex: <https://ref.openepcis.org/extensions/eu/textile/>.
+@prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#>.
+@prefix eudpp: <https://w3id.org/eudpp#>.
+@prefix units: <https://si-digital-framework.org/SI/units/>.
+@prefix txt-assessment: <https://w3id.org/eudpp/textile-assessment#>.
+@prefix txt-assessment-codelists: <https://w3id.org/eudpp/textile-assessment-codelists#>.
+@prefix txt-connector: <https://w3id.org/eudpp/textile-connector#>.
+@prefix txt-core: <https://w3id.org/eudpp/textile-core#>.
+@prefix txt-durability: <https://w3id.org/eudpp/textile-durability#>.
+@prefix txt-indicator: <https://w3id.org/eudpp/textile-indicator#>.
+@prefix txt-recyclability: <https://w3id.org/eudpp/textile-recyclability#>.
+@prefix txt-structure: <https://w3id.org/eudpp/textile-structure#>.
+
+_:a3659b948eb4e67cd1659b0aa81f3ef7 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "40000"^^xsd:decimal.
+_:af21fcdff6e036403a68fa5942f4f9eb dcterms:source <https://id.gs1.org/01/09521234000013#durability>;
+    a txt-indicator:DurabilityIndicator;
+    txt-indicator:hasCategoricalValue eutex:DurabilityB.
+_:b813ce34c6746b320acf797a7050fd7e dcterms:source <https://id.gs1.org/01/09521234000013#durability>;
+    a txt-indicator:NumberOfUseCycles;
+    txt-indicator:hasQuantitativeValue _:fe5502b746b3f02148a778f9b9ce770b.
+_:bead2a60ceceaf25787edfb88d9ba74c dcterms:source <https://id.gs1.org/01/09521234000013#durability>;
+    a txt-indicator:EstimatedLifetime;
+    txt-indicator:hasQuantitativeValue _:db4904e649637b7716825436fcd0bc7f.
+_:c6faeb27b1a940162f33c2741ffa87b3 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:newton;
+    txt-connector:numericValue "800"^^xsd:decimal.
+_:cae149cf8c97837641ea96e86fbd2403 dcterms:subject eutex:TensileStrength;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:c6faeb27b1a940162f33c2741ffa87b3.
+_:d7cf55f44b14fcde5b85a05fb970518a dcterms:subject eutex:AbrasionResistance;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:a3659b948eb4e67cd1659b0aa81f3ef7.
+_:db4904e649637b7716825436fcd0bc7f a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit <https://vocabulary.uncefact.org/UnitMeasureCode#ANN>;
+    txt-connector:numericValue "8"^^xsd:decimal.
+_:fe5502b746b3f02148a778f9b9ce770b a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "150"^^xsd:decimal.
+<https://id.gs1.org/01/09521234000013#durability-abrasion> a txt-assessment:TestExecution;
+    txt-assessment:appliesMethod eutex:MartindaleAbrasionTest;
+    txt-assessment:assessesPerformanceParameter eutex:AbrasionResistance;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521234000013>;
+    txt-assessment:producesResult _:d7cf55f44b14fcde5b85a05fb970518a.
+<https://id.gs1.org/01/09521234000013#durability-tensile> a txt-assessment:TestExecution;
+    txt-assessment:appliesMethod eutex:TensileStrengthTest;
+    txt-assessment:assessesPerformanceParameter eutex:TensileStrength;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521234000013>;
+    txt-assessment:producesResult _:cae149cf8c97837641ea96e86fbd2403.
+<https://id.gs1.org/01/09521234000013#durability> dcterms:hasPart <https://id.gs1.org/01/09521234000013#durability-abrasion>, <https://id.gs1.org/01/09521234000013#durability-tensile>;
+    a txt-assessment:DurabilityAssessment;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09521234000013>.
+<https://id.gs1.org/01/09521234000013> a eudpp:Product;
+    txt-indicator:hasIndicator _:af21fcdff6e036403a68fa5942f4f9eb, _:b813ce34c6746b320acf797a7050fd7e, _:bead2a60ceceaf25787edfb88d9ba74c.
+eutex:AbrasionResistance a txt-durability:AbrasionResistance;
+    rdfs:label "Abrasion Resistance"@en.
+eutex:ISO12947 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 12947"@en;
+    rdfs:seeAlso <https://www.iso.org/standard/75376.html>.
+eutex:ISO13934_1 a txt-assessment:AssessmentStandard;
+    rdfs:label "ISO 13934-1"@en.
+eutex:MartindaleAbrasionTest a txt-assessment:TestMethod;
+    rdfs:label "Martindale Abrasion Test"@en;
+    txt-assessment:isDefinedByStandard eutex:ISO12947.
+eutex:TensileStrength a txt-durability:FabricStrength;
+    rdfs:label "Tensile Strength"@en.
+eutex:TensileStrengthTest a txt-assessment:TestMethod;
+    rdfs:label "Tensile Strength Test"@en;
+    txt-assessment:isDefinedByStandard eutex:ISO13934_1.

@@ -1,0 +1,49 @@
+# Results. CIRPASS-2 names the observed parameter on the execution, not on the result, so an
+# execution with several results states several parameters without saying which result is
+# which (a gap reported upstream); dcterms:subject on the result keeps the pairing. Parameters
+# keep their OpenEPCIS IRI, typed with the CIRPASS-2 class.
+CONSTRUCT {
+  ?a txt-assessment:producesResult ?r .
+  ?r a ?rcls .
+  ?a txt-assessment:assessesPerformanceParameter ?param .
+  ?r dcterms:subject ?param .
+  ?param a ?pcls ; rdfs:label ?plabel .
+  ?r txt-assessment:hasMeasuredValue ?qv .
+  ?r txt-assessment:hasTextualValue ?text .
+  ?r txt-assessment:isEvaluatedAgainst ?crit .
+  ?r a ?critResult ; txt-recyclability:evaluatesCriterion ?critConcept ; txt-recyclability:hasCriterionOutcome ?out .
+  ?crit a ?ccls ; rdfs:label ?clabel ;
+        txt-assessment:criterionForPerformanceParameter ?tparam ;
+        txt-assessment:hasComparisonOperator ?op ;
+        txt-assessment:hasThresholdValue ?tqv .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?a oea:hasResult ?r . ?r a ?rt }
+  {
+    ?rt rdfs:subClassOf* ?s . ?s xw:liftClass ?rcls ; rdfs:subClassOf* oea:AssessmentResult .
+    FILTER NOT EXISTS { ?rt rdfs:subClassOf* ?s2 . ?s2 xw:liftClass ?c2 ; rdfs:subClassOf+ ?s . FILTER(?s2 != ?s) }
+    FILTER NOT EXISTS { ?rt rdfs:subClassOf* oea:CriterionResult }
+  } UNION {
+    GRAPH <urn:xw:in> { ?r oea:hasObservedParameter ?param }
+    OPTIONAL { ?param xw:liftType ?ptype }
+    BIND(COALESCE(?ptype, txt-durability:ObservedPerformanceParameter) AS ?pcls)
+    OPTIONAL { ?param rdfs:label ?plabel }
+  } UNION {
+    GRAPH <urn:xw:in> { ?r oea:hasMeasuredValue ?qv }
+  } UNION {
+    GRAPH <urn:xw:in> { ?r oea:resultText ?text }
+  } UNION {
+    GRAPH <urn:xw:in> { ?r oea:isEvaluatedAgainst ?crit }
+    OPTIONAL { ?crit a oea:Threshold . BIND(txt-assessment:PerformanceThreshold AS ?thr) }
+    BIND(COALESCE(?thr, txt-assessment:AssessmentDecisionCriterion) AS ?ccls)
+    OPTIONAL { ?crit rdfs:label ?clabel }
+    OPTIONAL { ?crit oea:hasThresholdParameter ?tparam }
+    OPTIONAL { ?crit oea:hasComparisonOperator ?oop . ?oop xw:sameCode ?op }
+    OPTIONAL { ?crit oea:hasThresholdValue ?tqv }
+    OPTIONAL {
+      ?crit xw:criterionConcept ?critConcept .
+      BIND(txt-recyclability:RecyclabilityCriterionResult AS ?critResult)
+      OPTIONAL { GRAPH <urn:xw:in> { ?r oea:hasOutcome ?oout } ?oout xw:sameCode ?out }
+    }
+  }
+}

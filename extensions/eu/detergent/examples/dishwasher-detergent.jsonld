@@ -153,16 +153,56 @@
       "eudet:hasSurfactantType": {
         "@id": "eudet:NonIonic"
       },
-      "eudet:biodegradationPercentage": "89.1",
-      "eudet:hasTestMethod": {
-        "@id": "eudet:OECD301F"
+      "oea:hasMethod": {
+        "@id": "oec:OECD301F"
       },
-      "eudet:testDurationDays": 28,
-      "eudet:passesUltimateBiodegradability": true
+      "oea:hasParameterSetting": {
+        "type": "oea:ParameterSetting",
+        "oea:hasParameter": {
+          "@id": "oea:Duration"
+        },
+        "oea:hasParameterValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 28,
+          "gs1:unitCode": "DAY"
+        }
+      },
+      "oea:hasResult": {
+        "type": "oea:MeasurementResult",
+        "oea:hasObservedParameter": {
+          "@id": "oea:Biodegradation"
+        },
+        "oea:hasMeasuredValue": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": "89.1",
+          "gs1:unitCode": "P1"
+        },
+        "oea:isEvaluatedAgainst": {
+          "@id": "eudet:UltimateBiodegradabilityThreshold"
+        },
+        "oea:hasOutcome": {
+          "@id": "oea:Satisfied"
+        }
+      }
     }
   ],
-  "eudet:filmBiodegradable": true,
-  "eudet:filmBiodegradabilityPercentage": "94.7",
+  "eudet:hasFilmBiodegradability": {
+    "type": "oec:Biodegradability",
+    "oea:hasResult": {
+      "type": "oea:MeasurementResult",
+      "oea:hasObservedParameter": {
+        "@id": "oea:Biodegradation"
+      },
+      "oea:hasMeasuredValue": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": "94.7",
+        "gs1:unitCode": "P1"
+      },
+      "oea:hasOutcome": {
+        "@id": "oea:Satisfied"
+      }
+    }
+  },
   "eudet:hasSignalWord": {
     "@id": "eudet:Danger"
   },
@@ -184,7 +224,15 @@
     "P102"
   ],
   "eudet:phosphorusContentPercent": "0.3",
-  "eudet:phosphateCompliant": true,
+  "oea:hasAssessment": {
+    "type": "oea:Assessment",
+    "oea:isEvaluatedAgainst": {
+      "@id": "eudet:PhosphorusLimit"
+    },
+    "oea:hasOutcome": {
+      "@id": "oea:Satisfied"
+    }
+  },
   "eudet:dosageInstructions": {
     "@value": "Place 1 capsule in the main dispenser compartment. Do not unwrap. Do not handle with wet hands. Suitable for all dishwasher types.",
     "@language": "en"

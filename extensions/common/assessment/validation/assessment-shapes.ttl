@@ -75,7 +75,7 @@ oea-sh:AssessmentShape
     sh:property [
         sh:path oea:hasOutcome ;
         sh:name "hasOutcome"@en ;
-        sh:in ( oea:Satisfied oea:NotSatisfied oea:NotAssessed ) ;
+        sh:in ( oea:Satisfied oea:PartlySatisfied oea:NotSatisfied oea:NotApplicable oea:NotAssessed oea:Uncertain ) ;
         sh:maxCount 1
     ] ;
     sh:property [
@@ -106,6 +106,12 @@ oea-sh:AssessmentMethodShape
         sh:path oea:isDefinedByStandard ;
         sh:name "isDefinedByStandard"@en ;
         sh:class oea:AssessmentStandard
+    ] ;
+    sh:property [
+        sh:path oea:methodName ;
+        sh:name "methodName"@en ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
     ] ;
     sh:property [
         sh:path oea:methodUrl ;
@@ -204,7 +210,7 @@ oea-sh:AssessmentResultShape
     sh:property [
         sh:path oea:hasOutcome ;
         sh:name "hasOutcome"@en ;
-        sh:in ( oea:Satisfied oea:NotSatisfied oea:NotAssessed ) ;
+        sh:in ( oea:Satisfied oea:PartlySatisfied oea:NotSatisfied oea:NotApplicable oea:NotAssessed oea:Uncertain ) ;
         sh:maxCount 1
     ] ;
     sh:property [
@@ -257,12 +263,11 @@ oea-sh:CriterionResultShape
         sh:minCount 1 ;
         sh:maxCount 1
     ] ;
-    sh:property [
-        sh:path oea:hasOutcome ;
-        sh:name "hasOutcome"@en ;
-        sh:minCount 1 ;
-        sh:message "A criterion result states whether its criterion is met."@en
-    ] .
+    sh:or (
+        [ sh:path oea:hasOutcome ; sh:minCount 1 ]
+        [ sh:path oea:awardedScore ; sh:minCount 1 ]
+    ) ;
+    sh:message "A criterion result states whether its criterion is met (oea:hasOutcome) or the points it earns (oea:awardedScore)."@en .
 
 # =============================================================================
 # Criterion and threshold

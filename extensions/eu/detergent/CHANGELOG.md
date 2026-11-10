@@ -4,6 +4,19 @@ All notable changes to the Detergent module will be documented in this file.
 
 ## [Unreleased]
 
+### Breaking: biodegradability, film and phosphorus on `common/assessment`
+
+- `eudet:SurfactantBiodegradability` (an `oec:Biodegradability`) states the test method with
+  `oea:hasMethod` (`oec:ISO14593`, `oec:OECD301B` …), the 28 days as an `oea:Duration` parameter
+  setting, and the result observing `oea:Biodegradation`, evaluated against the new
+  `eudet:UltimateBiodegradabilityThreshold` (>= 60 %) with `oea:hasOutcome`.
+- Removed: `eudet:BiodegradabilityTestMethod` and its five individuals (the `oec:` list is the one
+  list), `eudet:biodegradationPercentage`, `eudet:hasTestMethod`, `eudet:testDurationDays`,
+  `eudet:passesUltimateBiodegradability`.
+- `eudet:filmBiodegradable` / `eudet:filmBiodegradabilityPercentage` → `eudet:hasFilmBiodegradability`
+  (an `oec:Biodegradability`); `eudet:phosphateCompliant` → an `oea:Assessment` evaluated against
+  `eudet:PhosphorusLimit`. `eudet:phosphorusContentPercent` stays (formulation content).
+
 ## [0.11.0] - 2026-11-09
 
 ### Removed: `eudet:allergenCasNumber`

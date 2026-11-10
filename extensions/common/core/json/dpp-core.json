@@ -15,9 +15,9 @@
       "id": "https://ref.openepcis.org/extensions/common/core/Biodegradability",
       "localName": "Biodegradability",
       "label": "Biodegradability",
-      "comment": "An observed biodegradability result for a substance or material, typically per ISO 14593 / OECD 301B/D/F / OECD 310 test methods. Represents a measurement, not a regulatory category.",
+      "comment": "A biodegradability test of a substance or material, an oea:TestExecution: oea:hasMethod names the oec:BiodegradabilityTestMethod (ISO 14593, OECD 301B/D/F, OECD 310), the test duration is an oea:hasParameterSetting (oea:Duration), the result an oea:MeasurementResult observing oea:Biodegradation (unitCode P1), and a pass threshold is oea:isEvaluatedAgainst with oea:hasOutcome. A measurement, not a regulatory category.",
       "subClassOf": [
-        "https://schema.org/Observation"
+        "https://ref.openepcis.org/extensions/common/assessment/TestExecution"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -628,22 +628,6 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "The bio-based share is a consumer-facing environmental claim of the same kind as recycled content (ESPR Annex I; SUP marking precedent).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/biodegradationPercentage",
-      "localName": "biodegradationPercentage",
-      "label": "Biodegradation Percentage",
-      "comment": "Percentage of substance biodegraded under the test method conditions. Use unitCode 'P1' (UN/CEFACT Rec 20) when expressed via gs1:QuantitativeValue.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/Biodegradability"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Biodegradability results substantiate consumer-facing end-of-life claims (ESPR Annex I(m)); detergent module serves related data Public.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1651,26 +1635,7 @@
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
-      "accessLevelRationale": "Entry property for a biodegradability observation whose members (biodegradationPercentage, biodegradabilityTestMethod) are individually Public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/hasBiodegradabilityTestMethod",
-      "localName": "hasBiodegradabilityTestMethod",
-      "label": "Biodegradability Test Method",
-      "comment": "The test method used to determine the biodegradability percentage.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/Biodegradability"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/common/core/BiodegradabilityTestMethod"
-      ],
-      "broadMatch": [
-        "https://schema.org/measurementMethod"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The test method makes the public biodegradation percentage checkable; a claim without its method is unverifiable.",
+      "accessLevelRationale": "Entry property for a biodegradability observation whose method and results (common/assessment) are Public.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {

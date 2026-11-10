@@ -1,0 +1,35 @@
+# EUDPP core: quantities of the product.
+#  - a gs1:QuantitativeValue under a mapped property (net weight, height, …) is the eudpp
+#    quantitative property itself (same node), linked with eudpp:hasProperty;
+#  - a decimal on a container (circularity, recycled content, emissions) becomes a quantitative
+#    property node that is dcterms:isPartOf the container.
+# Rows that share a class with a canonical row carry dcterms:type <the OpenEPCIS property>.
+# Only a product's own quantities and containers: those in an event's ilmd, or on an untyped
+# document root, are not converted.
+CONSTRUCT {
+  ?prod eudpp:hasProperty ?qn .
+  ?qn a ?qc ; eudpp:numericalValue ?nv ; ?vp ?rawValue ; eudpp:hasMeasurementUnit ?unit ; dcterms:type ?marker ; dcterms:isPartOf ?cont .
+}
+WHERE {
+  {
+    ?row xw:ours ?p ; xw:quantityClass ?qc ; xw:canonical ?can .
+    FILTER NOT EXISTS { ?row xw:containerLink ?anyLink }
+    GRAPH <urn:xw:in> { ?prod ?p ?qn . ?qn gs1:value ?v ; gs1:unitCode ?code }
+    FILTER EXISTS { GRAPH <urn:xw:in> { ?prod a ?prodT } ?prodT rdfs:subClassOf* gs1:Product }
+    OPTIONAL { ?urow xw:unitCode ?code ; xw:siUnit ?si ; xw:factor ?f }
+    BIND(COALESCE(?si, IRI(CONCAT("https://vocabulary.uncefact.org/UnitMeasureCode#", ?code))) AS ?unit)
+    # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+    BIND(xsd:decimal(IF(xsd:decimal(?v) = 0, 0.0, xsd:decimal(?v) * COALESCE(?f, 1.0))) AS ?nv)
+  } UNION {
+    ?row xw:ours ?p ; xw:quantityClass ?qc ; xw:canonical ?can ; xw:containerLink ?cl .
+    OPTIONAL { ?row xw:unit ?unit }
+    OPTIONAL { ?row xw:valueProperty ?vp }
+    GRAPH <urn:xw:in> { ?prod ?cl ?cont . ?cont ?p ?v }
+    FILTER EXISTS { GRAPH <urn:xw:in> { ?prod a ?prodT } ?prodT rdfs:subClassOf* gs1:Product }
+    FILTER(isLiteral(?v))
+    BIND(IF(BOUND(?vp), ?noNumber, xsd:decimal(?v)) AS ?nv)
+    BIND(IF(BOUND(?vp), ?v, ?noRaw) AS ?rawValue)
+    BIND(BNODE() AS ?qn)
+  }
+  BIND(IF(?can, ?unbound, ?p) AS ?marker)
+}

@@ -82,8 +82,8 @@ mismatches the bridge context cannot rescale (JSON-LD maps IRIs, not values):
 | `dppk:avsSystem` | `eucpr:hasAvcpSystem` | Mapped | dppk free string → `eucpr:AVCPSystem` enum (Partial on export). |
 | `dppk:notifiedBody` / `technicalAssessmentBody` | `eucpr:hasNotifiedBody` / `eucpr:hasTechnicalAssessmentBody` (→ `oec:OperatorInformation`) | Mapped | |
 | `dppk:validationReports` / `europeanAssessmentDocument` | `eucpr:hasValidationReports` / `eucpr:hasEuropeanAssessmentDocument` (→ `oec:DocumentReference`) | Mapped | |
-| `dppk:thermalConductivity` / `compressiveStrength` | `eucpr:hasThermalConductivity` / `eucpr:hasCompressiveStrength` | Mapped | |
-| `dppk:reactionToFire` (string) | `eucpr:hasReactionToFireClass` (EN 13501-1 enum) | Partial | String → enum. Not auto-mapped in the context. |
+| `dppk:thermalConductivity` / `compressiveStrength` | essential characteristic observing `eucpr:ThermalConductivity` / `eucpr:CompressiveStrength` | Partial | The flat Keystone value becomes an `oea:MeasurementResult`; the bridge context no longer aliases it. |
+| `dppk:reactionToFire` (string) | indicator of kind `eucpr:ReactionToFire` (EN 13501-1 enum value) | Partial | String → enum. Not auto-mapped in the context. |
 | `dppk:DoPC` per-test groups (`chlorideContent`, `bondStrength`, `thermalCompatibility`, …) | `eucpr:hasEssentialCharacteristic` instances | Structural | Each test group → one `EssentialCharacteristic` (name + `gs1:QuantitativeValue` + `harmonisedStandard`). |
 | `dppk:steelGrade` / `railProfile` (construction) | `eusteel:steelDesignation` / `rail:` | Partial / Unmapped | Construction-rail crossovers. |
 

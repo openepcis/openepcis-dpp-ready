@@ -1,0 +1,164 @@
+{
+  "id": "eu-dpp",
+  "title": "EU DPP Registry semantic data artifacts 1.0.0 (core, batteries, subgroups EV / LMT / industrial), as the Commission's JSON-LD contexts expand a passport. Target side checked with the Commission's SHACL shapes and JSON Schemas (vendor/eu-dpp/1.0.0).",
+  "prefixes": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "gs1": "https://ref.gs1.org/voc/",
+    "schema": "https://schema.org/",
+    "cccev": "http://data.europa.eu/m8g/",
+    "oec": "https://ref.openepcis.org/extensions/common/core/",
+    "eubat": "https://ref.openepcis.org/extensions/eu/battery/",
+    "xw": "https://ref.openepcis.org/extensions/common/interop/crosswalk#",
+    "dpp": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#",
+    "dppcom": "https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#",
+    "bat": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#",
+    "gran": "https://repository.product-passport.ec.europa.eu/core/vocabs/granularity-level#",
+    "inst": "https://repository.product-passport.ec.europa.eu/core/vocabs/instance-status#",
+    "unit": "https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#",
+    "crm": "https://repository.product-passport.ec.europa.eu/core/vocabs/critical-raw-material#",
+    "obs": "https://repository.product-passport.ec.europa.eu/core/vocabs/observed-characteristic#",
+    "batcat": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-category#",
+    "batchem": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-chemistry#",
+    "batsym": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-chemical-symbol#",
+    "batsta": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status#"
+  },
+  "json": {
+    "_comment": "How a passport travels as the Registry's JSON. The context follows from contentSpecificationIds (the most specific one); the root is the passport, typed and identified only in RDF: its type makes the Commission's shapes apply (sh:targetClass), its IRI is the unique product identifier.",
+    "specBase": "https://repository.product-passport.ec.europa.eu/",
+    "contexts": {
+      "core/1.0.0": "core/1.0.0/contexts/core-context.jsonld",
+      "product/batteries/1.0.0": "product/batteries/1.0.0/contexts/batteries-context.jsonld",
+      "product/batteries/subgroup/evb/1.0.0": "product/batteries/subgroup/evb/1.0.0/contexts/evb-context.jsonld",
+      "product/batteries/subgroup/ind/1.0.0": "product/batteries/subgroup/ind/1.0.0/contexts/ind-context.jsonld",
+      "product/batteries/subgroup/lmt/1.0.0": "product/batteries/subgroup/lmt/1.0.0/contexts/lmt-context.jsonld"
+    },
+    "schemas": {
+      "core/1.0.0": [
+        "core/1.0.0/schemas/core.schema.json"
+      ],
+      "product/batteries/1.0.0": [
+        "product/batteries/1.0.0/schemas/pub-batteries.schema.json",
+        "product/batteries/1.0.0/schemas/res1-batteries.schema.json",
+        "product/batteries/1.0.0/schemas/res2-batteries.schema.json",
+        "product/batteries/1.0.0/schemas/res3-batteries.schema.json"
+      ],
+      "product/batteries/subgroup/evb/1.0.0": [
+        "product/batteries/subgroup/evb/1.0.0/schemas/pub-evb.schema.json",
+        "product/batteries/subgroup/evb/1.0.0/schemas/res1-evb.schema.json",
+        "product/batteries/subgroup/evb/1.0.0/schemas/res2-evb.schema.json",
+        "product/batteries/subgroup/evb/1.0.0/schemas/res3-evb.schema.json"
+      ],
+      "product/batteries/subgroup/ind/1.0.0": [
+        "product/batteries/subgroup/ind/1.0.0/schemas/pub-ind.schema.json",
+        "product/batteries/subgroup/ind/1.0.0/schemas/res1-ind.schema.json",
+        "product/batteries/subgroup/ind/1.0.0/schemas/res2-ind.schema.json",
+        "product/batteries/subgroup/ind/1.0.0/schemas/res3-ind.schema.json"
+      ],
+      "product/batteries/subgroup/lmt/1.0.0": [
+        "product/batteries/subgroup/lmt/1.0.0/schemas/pub-lmt.schema.json",
+        "product/batteries/subgroup/lmt/1.0.0/schemas/res1-lmt.schema.json",
+        "product/batteries/subgroup/lmt/1.0.0/schemas/res2-lmt.schema.json",
+        "product/batteries/subgroup/lmt/1.0.0/schemas/res3-lmt.schema.json"
+      ]
+    },
+    "rootType": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#DigitalProductPassport",
+    "rootId": "uniqueProductIdentifier",
+    "conformance": "vendor/eu-dpp/1.0.0"
+  },
+  "background": {
+    "lift": [
+      "vendor/gs1/gs1Voc.jsonld",
+      "@modules",
+      "extensions/upstream/eu-dpp/ontology/eu-dpp.ttl"
+    ],
+    "lower": [
+      "vendor/gs1/gs1Voc.jsonld",
+      "@modules",
+      "extensions/upstream/eu-dpp/ontology/eu-dpp.ttl"
+    ]
+  },
+  "handles": {
+    "_comment": "Every term counts as handled only when a rule or the mapping table names it.",
+    "lift": [],
+    "lower": []
+  },
+  "vocabulary": {
+    "_comment": "lift: the Registry's data elements and value lists. lower: the OpenEPCIS ontologies plus GS1 and schema.org.",
+    "lift": {
+      "files": [
+        "extensions/upstream/eu-dpp/ontology/eu-dpp.ttl"
+      ],
+      "namespaces": [
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+      ]
+    },
+    "lower": {
+      "files": [
+        "@modules"
+      ],
+      "namespaces": [
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "https://ref.gs1.org/voc/",
+        "https://schema.org/",
+        "http://data.europa.eu/m8g/"
+      ]
+    }
+  },
+  "shapes": {
+    "files": [
+      "@shapes"
+    ]
+  },
+  "targetShapes": {
+    "_comment": "The Commission's SHACL shapes per content specification the passport declares (contentSpecificationIds), every view (pub, res1 to res3) at once: the root carries all views. A missing value (sh:minCount) is data the document lacks and is reported; any other violation is a wrong form and fails, unless accepted under structure as a defect of release 1.0.0.",
+    "bySpec": {
+      "core/1.0.0": [
+        "vendor/eu-dpp/1.0.0/core/1.0.0/shapes/core-shapes.ttl",
+        "vendor/eu-dpp/1.0.0/core/1.0.0/shapes/common-shapes.ttl"
+      ],
+      "product/batteries/1.0.0": [
+        "vendor/eu-dpp/1.0.0/product/batteries/1.0.0/shapes/pub-batteries-shapes.ttl",
+        "vendor/eu-dpp/1.0.0/product/batteries/1.0.0/shapes/res1-batteries-shapes.ttl",
+        "vendor/eu-dpp/1.0.0/product/batteries/1.0.0/shapes/res2-batteries-shapes.ttl",
+        "vendor/eu-dpp/1.0.0/product/batteries/1.0.0/shapes/res3-batteries-shapes.ttl"
+      ],
+      "product/batteries/subgroup/evb/1.0.0": [
+        "vendor/eu-dpp/1.0.0/product/batteries/subgroup/evb/1.0.0/shapes/pub-evb-shapes.ttl",
+        "vendor/eu-dpp/1.0.0/product/batteries/subgroup/evb/1.0.0/shapes/res1-evb-shapes.ttl",
+        "vendor/eu-dpp/1.0.0/product/batteries/subgroup/evb/1.0.0/shapes/res2-evb-shapes.ttl",
+        "vendor/eu-dpp/1.0.0/product/batteries/subgroup/evb/1.0.0/shapes/res3-evb-shapes.ttl"
+      ],
+      "product/batteries/subgroup/ind/1.0.0": [
+        "vendor/eu-dpp/1.0.0/product/batteries/subgroup/ind/1.0.0/shapes/pub-ind-shapes.ttl",
+        "vendor/eu-dpp/1.0.0/product/batteries/subgroup/ind/1.0.0/shapes/res1-ind-shapes.ttl",
+        "vendor/eu-dpp/1.0.0/product/batteries/subgroup/ind/1.0.0/shapes/res2-ind-shapes.ttl",
+        "vendor/eu-dpp/1.0.0/product/batteries/subgroup/ind/1.0.0/shapes/res3-ind-shapes.ttl"
+      ],
+      "product/batteries/subgroup/lmt/1.0.0": [
+        "vendor/eu-dpp/1.0.0/product/batteries/subgroup/lmt/1.0.0/shapes/pub-lmt-shapes.ttl",
+        "vendor/eu-dpp/1.0.0/product/batteries/subgroup/lmt/1.0.0/shapes/res1-lmt-shapes.ttl",
+        "vendor/eu-dpp/1.0.0/product/batteries/subgroup/lmt/1.0.0/shapes/res2-lmt-shapes.ttl",
+        "vendor/eu-dpp/1.0.0/product/batteries/subgroup/lmt/1.0.0/shapes/res3-lmt-shapes.ttl"
+      ]
+    }
+  },
+  "structure": {
+    "_comment": "Wrong forms of the target side that a defect of the Registry release makes unavoidable; gap numbers refer to the eu-dpp section of the crosswalk README. An entry no document needs any more fails the gate.",
+    "accepted": [
+      {
+        "gap": 1,
+        "match": "(SEM-COM-MSG-012|/(extinguishingAgent|detailedComposition|negativeEvents|cycleLifeReferenceTest|notInUseTemperatureRangeTest)[^ ]* (pattern|propertyNames))",
+        "reason": "A language-tagged text must carry a region (en-IE): plain BCP 47 tags such as en are rejected, and OpenEPCIS data has no region to add."
+      },
+      {
+        "gap": 2,
+        "match": "batteryIdentification NodeConstraintComponent: SEM-BAT-MSG-010",
+        "reason": "A model identifier is accepted only together with a batch number, so an item passport with a serial number but no batch cannot name its model."
+      }
+    ]
+  }
+}

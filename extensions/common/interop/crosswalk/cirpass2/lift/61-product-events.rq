@@ -1,0 +1,39 @@
+# One eudpp:ProductEvent per EPCIS event and product (EPC or EPC class), represented by the
+# event: <event>#product-event, or, for an event without an IRI, a urn:sha1 of its type, time,
+# business step and product. Its class follows the business step or the persistent
+# disposition (xw:productEvent; an ESPR activity CBV lacks is an oec: value); the business
+# location is where it was performed. Every assessment of the event points at it
+# (dcterms:relation, pending a CIRPASS-2 property that links an assessment execution to its
+# product event).
+CONSTRUCT {
+  ?pe a ?peClass ;
+      eudpp:concernsProduct ?prod ;
+      eudpp:isRepresentedByCarrier ?e ;
+      eudpp:performedAt ?loc .
+  ?a dcterms:relation ?pe .
+}
+WHERE {
+  GRAPH <urn:xw:in> {
+    ?e a ?et .
+    { ?e epcis:epcList ?prod } UNION { ?e epcis:quantityList ?ql . ?ql epcis:epcClass ?prod }
+  }
+  FILTER(STRSTARTS(STR(?et), STR(epcis:)))
+  OPTIONAL { GRAPH <urn:xw:in> { ?e epcis:eventTime ?time } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?e epcis:bizStep ?bs0 } }
+  BIND(IF(isIRI(?e), IRI(CONCAT(STR(?e), "#product-event")),
+          IRI(CONCAT("urn:sha1:", SHA1(CONCAT(STR(?et), "|", COALESCE(STR(?time), ""), "|", COALESCE(STR(?bs0), ""), "|", STR(?prod))))))
+       AS ?pe)
+  OPTIONAL {
+    { GRAPH <urn:xw:in> { ?e epcis:bizStep ?bs } ?bs xw:productEvent ?c1 }
+    UNION
+    { GRAPH <urn:xw:in> { ?e epcis:persistentDisposition ?pd . ?pd epcis:set ?disp } ?disp xw:productEvent ?c1 }
+  }
+  BIND(COALESCE(?c1, eudpp:ProductEvent) AS ?peClass)
+  OPTIONAL { GRAPH <urn:xw:in> { ?e epcis:bizLocation ?loc } FILTER(isIRI(?loc)) }
+  OPTIONAL {
+    { GRAPH <urn:xw:in> { ?e ?p ?a } ?p rdfs:subPropertyOf* oea:hasAssessment . }
+    UNION
+    { GRAPH <urn:xw:in> { ?e epcis:sensorElementList ?a . ?a epcis:sensorReport ?r . ?r epcis:measurementType ?param }
+      ?param a ?pt . ?pt rdfs:subClassOf* oea:PerformanceParameter . }
+  }
+}

@@ -1,0 +1,50 @@
+# Method, standard, composite structure, conditions and protocol settings. CIRPASS-2 has no
+# slot for a condition's kind and value; they travel as dcterms:type and rdf:value.
+CONSTRUCT {
+  ?a dcterms:hasPart ?sub .
+  ?a txt-assessment:appliesMethod ?m .
+  ?m a ?mcls ; rdfs:label ?mlabel ; txt-assessment:isDefinedByStandard ?std .
+  ?std a txt-assessment:AssessmentStandard ; rdfs:label ?slabel ; rdfs:seeAlso ?surl .
+  ?a txt-assessment:hasCondition ?c .
+  ?c a txt-assessment:AssessmentCondition ;
+     dcterms:type ?ctype ; rdf:value ?cval ; rdfs:comment ?cdesc .
+  ?a txt-assessment:hasParameterSetting ?ps .
+  ?ps a txt-assessment:MeasurementParameterSetting ;
+      txt-assessment:settingForParameter ?param ;
+      txt-assessment:hasParameterValue ?pv .
+  ?param a ?pcls .
+}
+WHERE {
+  {
+    GRAPH <urn:xw:in> { ?a oea:hasSubAssessment ?sub }
+  } UNION {
+    GRAPH <urn:xw:in> { ?a oea:hasMethod ?m }
+    OPTIONAL { ?m xw:liftType ?mtype }
+    OPTIONAL {
+      FILTER NOT EXISTS { GRAPH <urn:xw:bg> { ?m a ?known } }
+      GRAPH <urn:xw:in> { ?a a ?at } ?at xw:methodClass ?amc .
+    }
+    OPTIONAL { ?m a ?mt . ?mt xw:liftClass ?mclass . FILTER(?mt IN (oea:TestMethod, oea:AssessmentMethod)) }
+    BIND(COALESCE(?mtype, ?amc, ?mclass, txt-assessment:AssessmentMethod) AS ?mcls)
+    OPTIONAL { ?m rdfs:label ?bgLabel }
+    OPTIONAL { GRAPH <urn:xw:in> { ?m oea:methodName ?mname } }
+    BIND(COALESCE(?bgLabel, ?mname) AS ?mlabel)
+    OPTIONAL {
+      ?m oea:isDefinedByStandard ?std .
+      OPTIONAL { ?std rdfs:label ?bgSLabel }
+      OPTIONAL { GRAPH <urn:xw:in> { ?std oea:standardCode ?scode } }
+      BIND(COALESCE(?bgSLabel, ?scode) AS ?slabel)
+      OPTIONAL { ?std oea:standardUrl ?su . BIND(IRI(STR(?su)) AS ?surl) }
+    }
+  } UNION {
+    GRAPH <urn:xw:in> { ?a oea:hasCondition ?c }
+    OPTIONAL { GRAPH <urn:xw:in> { ?c oea:hasConditionType ?ctype } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?c oea:hasConditionConcept ?cval } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?c oea:hasConditionValue ?cval } }
+    OPTIONAL { GRAPH <urn:xw:in> { ?c oea:conditionDescription ?cdesc } }
+  } UNION {
+    GRAPH <urn:xw:in> { ?a oea:hasParameterSetting ?ps . ?ps oea:hasParameter ?param . OPTIONAL { ?ps oea:hasParameterValue ?pv } }
+    OPTIONAL { ?param xw:liftType ?ptype }
+    BIND(COALESCE(?ptype, txt-assessment:MeasurementParameter) AS ?pcls)
+  }
+}

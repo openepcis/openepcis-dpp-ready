@@ -8,6 +8,7 @@
   "economicOperatorId": "https://id.gs1.org/417/9521234000020",
   "contentSpecificationIds": [
     "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.org/extensions/common/assessment/",
     "https://ref.openepcis.org/extensions/common/core/",
     "https://ref.openepcis.org/extensions/eu/ppwr/",
     "https://schema.org/"
@@ -38,7 +39,14 @@
     },
     "harmonisedSymbol": "https://harmonised-labels.example.com/ppwr/separate-collection-pet",
     "hasPackagingTier": "Sales",
-    "hasRecyclabilityGrade": "GradeA",
+    "hasRecyclabilityAssessment": {
+      "type": "RecyclabilityAssessment",
+      "hasIndicator": {
+        "type": "Indicator",
+        "hasCategoricalValue": "https://ref.openepcis.org/extensions/eu/ppwr/GradeA",
+        "hasIndicatorKind": "https://ref.openepcis.org/extensions/eu/ppwr/RecyclabilityPerformanceGrade"
+      }
+    },
     "hasRecycledContentDetails": {
       "type": "RecycledContent",
       "postConsumerRecycledContent": "0.5",

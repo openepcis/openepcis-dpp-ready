@@ -1,0 +1,7 @@
+# The EPCIS document envelope's creation date and schema version (EPCIS context: dcterms:created,
+# owl:versionInfo) travel with it.
+CONSTRUCT { ?d ?p ?o . }
+WHERE {
+  GRAPH <urn:xw:in> { ?d a epcis:EPCISDocument ; ?p ?o }
+  VALUES ?p { dcterms:created owl:versionInfo }
+}

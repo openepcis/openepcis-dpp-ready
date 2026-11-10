@@ -256,72 +256,225 @@
     "DurabilityInfo": {
       "type": "object",
       "title": "Durability Information",
-      "description": "Product durability metrics per ESPR requirements. Modelled as an oea:Assessment since 0.10.0: tests, scores and classes are sub-assessments, results and indicators.",
+      "description": "Durability assessment: each test an oea:TestExecution under hasSubAssessment (eutex:MartindaleAbrasionTest, PillingTest, ColourFastnessTest, DimensionalChangeTest, TensileStrengthTest, TearStrengthTest); wash cycles, lifetime and durability class are indicators. See common/assessment (oea:).",
       "properties": {
         "@type": {
           "const": "DurabilityInfo"
         },
         "hasMethod": {
-          "description": "Method the assessment applied (oea:hasMethod): an individual naming the test or calculation method and its standard."
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "oea:hasMethod: the assessment method, the IRI of a published oea:AssessmentMethod individual or an inline method."
         },
         "hasCondition": {
-          "description": "Conditions the assessment ran under (oea:hasCondition)."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasCondition: oea:AssessmentCondition object(s)."
         },
         "hasParameterSetting": {
-          "description": "Protocol settings of the method (oea:hasParameterSetting)."
-        },
-        "hasResult": {
-          "description": "Results the assessment produced (oea:hasResult): measurement, criterion or categorical results."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasParameterSetting: oea:ParameterSetting object(s) (protocol parameter + gs1:QuantitativeValue)."
         },
         "hasSubAssessment": {
-          "description": "Component assessments (oea:hasSubAssessment), e.g. the individual tests of a composite score."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasSubAssessment: the tests of a composite assessment (oea:TestExecution objects)."
+        },
+        "hasResult": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasResult: oea:MeasurementResult / oea:CriterionResult object(s)."
         },
         "hasIndicator": {
-          "description": "Indicators derived from the results (oea:hasIndicator): scores, classes, expected lifetimes."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasIndicator: oea:Indicator object(s) for scores, classes and expected lifetimes."
         },
         "hasOutcome": {
-          "description": "Overall outcome against the applicable criteria (oea:hasOutcome)."
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "oea:hasOutcome: Satisfied, NotSatisfied or NotAssessed."
+        },
+        "assessmentDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "hasAssessmentBody": {
+          "type": [
+            "string",
+            "object"
+          ]
+        },
+        "hasEvidence": {
+          "type": [
+            "object",
+            "array"
+          ]
         }
       }
     },
     "RobustnessAssessment": {
       "type": "object",
       "title": "Robustness Assessment",
-      "description": "Composite robustness assessment (0-10) per EU Preparatory Study 3rd Milestone. Modelled as an oea:Assessment since 0.10.0: tests, scores and classes are sub-assessments, results and indicators.",
+      "description": "JRC robustness assessment (hasMethod eutex:JRCRobustnessScoring): 5 cleaning cycles as parameter setting, fabric type as condition, three sub-assessments with awarded points, the 0-10 score as an eutex:RobustnessScore indicator. See common/assessment (oea:).",
       "properties": {
         "@type": {
           "const": "RobustnessAssessment"
         },
         "hasMethod": {
-          "description": "Method the assessment applied (oea:hasMethod): an individual naming the test or calculation method and its standard."
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "oea:hasMethod: the assessment method, the IRI of a published oea:AssessmentMethod individual or an inline method."
         },
         "hasCondition": {
-          "description": "Conditions the assessment ran under (oea:hasCondition)."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasCondition: oea:AssessmentCondition object(s)."
         },
         "hasParameterSetting": {
-          "description": "Protocol settings of the method (oea:hasParameterSetting)."
-        },
-        "hasResult": {
-          "description": "Results the assessment produced (oea:hasResult): measurement, criterion or categorical results."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasParameterSetting: oea:ParameterSetting object(s) (protocol parameter + gs1:QuantitativeValue)."
         },
         "hasSubAssessment": {
-          "description": "Component assessments (oea:hasSubAssessment), e.g. the individual tests of a composite score."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasSubAssessment: the tests of a composite assessment (oea:TestExecution objects)."
+        },
+        "hasResult": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasResult: oea:MeasurementResult / oea:CriterionResult object(s)."
         },
         "hasIndicator": {
-          "description": "Indicators derived from the results (oea:hasIndicator): scores, classes, expected lifetimes."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasIndicator: oea:Indicator object(s) for scores, classes and expected lifetimes."
         },
         "hasOutcome": {
-          "description": "Overall outcome against the applicable criteria (oea:hasOutcome)."
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "oea:hasOutcome: Satisfied, NotSatisfied or NotAssessed."
+        },
+        "assessmentDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "hasAssessmentBody": {
+          "type": [
+            "string",
+            "object"
+          ]
+        },
+        "hasEvidence": {
+          "type": [
+            "object",
+            "array"
+          ]
         }
       }
     },
     "RecyclabilityAssessment": {
       "type": "object",
       "title": "Recyclability Assessment",
-      "description": "Recyclability assessment (0-10) per EU Preparatory Study 3rd Milestone. Modelled as an oea:Assessment since 0.10.0: tests, scores and classes are sub-assessments, results and indicators.",
+      "description": "JRC recyclability assessment (hasMethod eutex:JRCRecyclabilityScoring): elastane content result against eutex:ElastaneContentLimit, one criterion result per sorting criterion and for technical recyclability, the 0-10 score as an oea:RecyclabilityScore indicator, hasOutcome for recyclable. See common/assessment (oea:).",
       "properties": {
         "@type": {
           "const": "RecyclabilityAssessment"
+        },
+        "hasMethod": {
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "oea:hasMethod: the assessment method, the IRI of a published oea:AssessmentMethod individual or an inline method."
+        },
+        "hasCondition": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasCondition: oea:AssessmentCondition object(s)."
+        },
+        "hasParameterSetting": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasParameterSetting: oea:ParameterSetting object(s) (protocol parameter + gs1:QuantitativeValue)."
+        },
+        "hasSubAssessment": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasSubAssessment: the tests of a composite assessment (oea:TestExecution objects)."
+        },
+        "hasResult": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasResult: oea:MeasurementResult / oea:CriterionResult object(s)."
+        },
+        "hasIndicator": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasIndicator: oea:Indicator object(s) for scores, classes and expected lifetimes."
+        },
+        "hasOutcome": {
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "oea:hasOutcome: Satisfied, NotSatisfied or NotAssessed."
+        },
+        "assessmentDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "hasAssessmentBody": {
+          "type": [
+            "string",
+            "object"
+          ]
+        },
+        "hasEvidence": {
+          "type": [
+            "object",
+            "array"
+          ]
         },
         "hasApplicableRecyclingTechnology": {
           "$ref": "#/$defs/RecyclingTechnology",
@@ -570,7 +723,7 @@
     "MicroplasticInfo": {
       "type": "object",
       "title": "Microplastic Information",
-      "description": "Information about microfiber shedding from synthetic textiles. Modelled as an oea:Assessment since 0.10.0: tests, scores and classes are sub-assessments, results and indicators.",
+      "description": "Microfibre release assessment (hasMethod eutex:MicrofibreReleaseTest): the release as a result observing eutex:MicrofibreRelease, the risk band as an eutex:SheddingRiskLevel indicator. See common/assessment (oea:).",
       "properties": {
         "@type": {
           "const": "MicroplasticInfo"
@@ -584,25 +737,69 @@
           "type": "string"
         },
         "hasMethod": {
-          "description": "Method the assessment applied (oea:hasMethod): an individual naming the test or calculation method and its standard."
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "oea:hasMethod: the assessment method, the IRI of a published oea:AssessmentMethod individual or an inline method."
         },
         "hasCondition": {
-          "description": "Conditions the assessment ran under (oea:hasCondition)."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasCondition: oea:AssessmentCondition object(s)."
         },
         "hasParameterSetting": {
-          "description": "Protocol settings of the method (oea:hasParameterSetting)."
-        },
-        "hasResult": {
-          "description": "Results the assessment produced (oea:hasResult): measurement, criterion or categorical results."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasParameterSetting: oea:ParameterSetting object(s) (protocol parameter + gs1:QuantitativeValue)."
         },
         "hasSubAssessment": {
-          "description": "Component assessments (oea:hasSubAssessment), e.g. the individual tests of a composite score."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasSubAssessment: the tests of a composite assessment (oea:TestExecution objects)."
+        },
+        "hasResult": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasResult: oea:MeasurementResult / oea:CriterionResult object(s)."
         },
         "hasIndicator": {
-          "description": "Indicators derived from the results (oea:hasIndicator): scores, classes, expected lifetimes."
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasIndicator: oea:Indicator object(s) for scores, classes and expected lifetimes."
         },
         "hasOutcome": {
-          "description": "Overall outcome against the applicable criteria (oea:hasOutcome)."
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "oea:hasOutcome: Satisfied, NotSatisfied or NotAssessed."
+        },
+        "assessmentDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "hasAssessmentBody": {
+          "type": [
+            "string",
+            "object"
+          ]
+        },
+        "hasEvidence": {
+          "type": [
+            "object",
+            "array"
+          ]
         }
       }
     },

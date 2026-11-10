@@ -4,6 +4,19 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed: example values the EU Registry crosswalk rejected
+
+- `examples/amperia-staxwall-item.jsonld`: the state of certified energy is a share (97.5 %, the
+  remaining 9.98 kWh of the certified 10.24 kWh), not an energy; the cycle count is a
+  `gs1:QuantitativeValue` (unit `C62`), as `eubat:hasCycleCount` defines it.
+- `examples/batterypass-lmt-item.jsonld`: the remaining capacity is 271.04 Ah (rated 280 Ah, 3.2 %
+  capacity fade), not a percentage.
+- `eubat:hasRemainingCapacity`, `eubat:hasCapacityThroughput`: the unit code in the comment is `AMH`.
+
+### Fixed: no `action` on the assembling TransformationEvent
+
+`epcis/amperia-staxwall-lifecycle.jsonld`: TransformationEvents have no `action` in EPCIS 2.0.
+
 ## [0.11.0] - 2026-11-09
 
 ### Removed: `eubat:substanceCasNumber`, `eubat:substanceEcNumber`

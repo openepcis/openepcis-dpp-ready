@@ -1,0 +1,40 @@
+# Indicators: the kind named by dcterms:type, else from the indicator class (canonical partner,
+# or the CIRPASS-2 class itself, adopted as an indicator kind); held by the assessment named in dcterms:source, or
+# else by the product. Awarded points (dcterms:type oea:awardedScore) are lowered in 45-….
+CONSTRUCT {
+  ?holder oea:hasIndicator ?i .
+  ?i a oea:Indicator ;
+     oea:hasIndicatorKind ?kind ;
+     oea:hasIndicatorValue ?qv ;
+     oea:hasCategoricalValue ?cat ;
+     oea:indicatorText ?text ;
+     oea:isDerivedFrom ?from ;
+     oea:hasDerivationMethod ?m .
+  ?kind a ?kindType .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?prod txt-indicator:hasIndicator ?i }
+  FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?i dcterms:type oea:awardedScore } }
+  OPTIONAL {
+    SELECT ?i (SAMPLE(?k) AS ?mappedKind) WHERE {
+      GRAPH <urn:xw:in> { ?i a ?c } ?c xw:lowerTo ?k .
+      FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?i a ?c3 } ?c3 xw:lowerTo ?k3 ; rdfs:subClassOf+ ?c . FILTER(?c3 != ?c) }
+    } GROUP BY ?i
+  }
+  OPTIONAL { GRAPH <urn:xw:in> { ?i a ?ic } FILTER(?ic != txt-indicator:Indicator) FILTER NOT EXISTS { ?ic xw:lowerTo ?any } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?i dcterms:type ?marked } GRAPH <urn:xw:bg> { ?marked a ?mk } ?mk rdfs:subClassOf* oea:IndicatorKind . }
+  BIND(COALESCE(?marked, ?mappedKind, ?ic) AS ?kind)
+  BIND(IF(BOUND(?mappedKind) || BOUND(?marked), ?nothing, oea:IndicatorKind) AS ?kindType)
+  OPTIONAL { GRAPH <urn:xw:in> { ?i dcterms:source ?src } }
+  BIND(COALESCE(?src, ?prod) AS ?holder)
+  OPTIONAL { GRAPH <urn:xw:in> { ?i txt-indicator:hasQuantitativeValue ?qv } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?i txt-indicator:hasCategoricalValue ?ccat } OPTIONAL { ?ocat xw:sameCode ?ccat } BIND(COALESCE(?ocat, ?ccat) AS ?cat) }
+  OPTIONAL { GRAPH <urn:xw:in> { ?i txt-indicator:hasTextualValue ?text } }
+  # dcterms:relation: derived from that assessment as a whole (its results are the derivedFrom).
+  OPTIONAL {
+    { GRAPH <urn:xw:in> { ?i dcterms:relation ?from } }
+    UNION
+    { GRAPH <urn:xw:in> { ?i txt-indicator:derivedFrom ?from } FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?i dcterms:relation ?anyRel } } }
+  }
+  OPTIONAL { GRAPH <urn:xw:in> { ?i txt-indicator:derivedUsingMethod ?m } }
+}

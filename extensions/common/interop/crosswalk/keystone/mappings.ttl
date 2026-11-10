@@ -1,0 +1,15 @@
+@prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix eutex: <https://ref.openepcis.org/extensions/eu/textile/> .
+@prefix dppk: <https://dpp-keystone.org/spec/v3/terms#> .
+
+# DPP Keystone states a score as a flat xsd:double on the product. A score of an indicator
+# kind listed here maps to that property; lowering it recreates the indicator inside an
+# assessment of the given class, applying the given method.
+eutex:RobustnessScore  xw:flatProperty dppk:robustnessScore ;
+    xw:hostClass eutex:RobustnessAssessment ; xw:hostEntry eutex:hasRobustnessAssessment ;
+    xw:hostMethod eutex:JRCRobustnessScoring .
+oea:RecyclabilityScore xw:flatProperty dppk:recyclabilityScore ;
+    xw:hostClass eutex:RecyclabilityAssessment ; xw:hostEntry eutex:hasRecyclabilityAssessment ;
+    xw:hostMethod eutex:JRCRecyclabilityScoring .

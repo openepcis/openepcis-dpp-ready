@@ -1,0 +1,33 @@
+# EUDPP core: documents and regulatory information.
+#  - A declaration of conformity is an eudpp:EUDeclarationOfConformity, a manual a
+#    eudpp:DigitalInstruction, any other document an eudpp:DocumentFormattedProperty with its
+#    document type as dcterms:type. eudpp:contentType knows only "pdf" and "application"; any other media type also travels as
+#    dcterms:format.
+#  - Regulatory information the product complies with is eudpp:isConformWith; one it does not
+#    (yet) comply with is only dcterms:relation.
+#  - Both for products only (not for a regulatory notification message, for instance).
+CONSTRUCT {
+  ?prod ?docLink ?doc .
+  ?doc a ?docClass ; dcterms:type ?docType ; eudpp:contentType ?ct ; dcterms:format ?fmt .
+  ?prod ?regLink ?ri .
+}
+WHERE {
+  {
+    GRAPH <urn:xw:in> { ?prod ?dl ?doc . ?doc a ?dt0 }
+    FILTER EXISTS { GRAPH <urn:xw:in> { ?prod a ?prodT } ?prodT rdfs:subClassOf* gs1:Product }
+    VALUES ?dl { oec:hasConformityDeclaration oec:hasDocuments }
+    ?dt0 rdfs:subClassOf* oec:DocumentReference .
+    OPTIONAL { GRAPH <urn:xw:in> { ?doc oec:hasDocumentType ?dtype } OPTIONAL { ?dtype xw:documentClass ?dc } }
+    BIND(COALESCE(?dc, eudpp:DocumentFormattedProperty) AS ?docClass)
+    BIND(IF(BOUND(?dc), ?u1, ?dtype) AS ?docType)
+    BIND(IF(?dl = oec:hasConformityDeclaration || ?docClass = eudpp:EUDeclarationOfConformity, eudpp:hasEUDeclarationOfConformity, eudpp:hasProperty) AS ?docLink)
+    OPTIONAL { GRAPH <urn:xw:in> { ?doc oec:mimeType ?mime } }
+    BIND(IF(BOUND(?mime), IF(LCASE(STR(?mime)) = "application/pdf", "pdf", IF(STRSTARTS(LCASE(STR(?mime)), "application/"), "application", ?u2)), ?u3) AS ?ct)
+    BIND(IF(BOUND(?mime) && LCASE(STR(?mime)) != "application/pdf", ?mime, ?u4) AS ?fmt)
+  } UNION {
+    GRAPH <urn:xw:in> { ?prod gs1:regulatoryInformation ?ri }
+    FILTER EXISTS { GRAPH <urn:xw:in> { ?prod a ?prodT } ?prodT rdfs:subClassOf* gs1:Product }
+    OPTIONAL { GRAPH <urn:xw:in> { ?ri oec:isRegulationCompliant ?ok } }
+    BIND(IF(COALESCE(?ok, false), eudpp:isConformWith, dcterms:relation) AS ?regLink)
+  }
+}

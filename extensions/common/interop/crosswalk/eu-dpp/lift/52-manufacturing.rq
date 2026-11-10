@@ -1,0 +1,25 @@
+# Manufacturing place (city, region, ISO 3166-1 alpha-3 country) and manufacturing date (year and
+# month of gs1:productionDate).
+CONSTRUCT {
+  ?r bat:manufacturingPlace ?pl . ?pl bat:manufacturingCity ?city ; bat:manufacturingRegion ?region ; bat:manufacturingCountry ?a3 .
+  ?r bat:manufacturingDate ?ym .
+}
+WHERE {
+  GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
+  {
+    {
+      SELECT ?r (SAMPLE(STR(?c)) AS ?city) (SAMPLE(STR(?rg)) AS ?region) (SAMPLE(?cc) AS ?a2)
+      WHERE {
+        GRAPH <urn:xw:in> { ?r eubat:hasManufacturingPlace ?place . ?place gs1:address ?a }
+        OPTIONAL { GRAPH <urn:xw:in> { ?a gs1:addressLocality ?c } }
+        OPTIONAL { GRAPH <urn:xw:in> { ?a gs1:addressRegion ?rg } }
+        OPTIONAL { GRAPH <urn:xw:in> { ?a gs1:addressCountry/gs1:countryCode ?cc } }
+      } GROUP BY ?r
+    }
+    OPTIONAL { ?crow xw:alpha2 ?k ; xw:alpha3 ?a3 . FILTER(STR(?k) = STR(?a2)) }
+    BIND(BNODE() AS ?pl)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r gs1:productionDate ?d }
+    BIND(STRDT(SUBSTR(STR(?d), 1, 7), xsd:gYearMonth) AS ?ym)
+  }
+}

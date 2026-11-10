@@ -1,0 +1,124 @@
+{
+  "_comment": [
+    "CPR DPP example: a 25 kg bag of CEM I 52.5 N portland cement.",
+    "Demonstrates the standard CPR data set: declarationOfPerformanceUrl,",
+    "essentialCharacteristic for compressive strength (per EN 197-1),",
+    "reactionToFireClass A1 (cement is non-combustible), 35% recycled",
+    "content via oec:RecycledContent (BFS / blast-furnace slag), and",
+    "carbon footprint via oec:CarbonFootprintDeclaration with lifecycle",
+    "stages. GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "@context": [
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/cpr/cpr-context.jsonld"
+  ],
+  "id": "https://id.gs1.org/01/09521234600015",
+  "type": "eucpr:ConstructionProduct",
+  "gs1:gtin": "09521234600015",
+  "gs1:productName": {
+    "@value": "BetonStrong CEM I 52.5 N, 25 kg bag",
+    "@language": "en"
+  },
+  "eucpr:hasConstructionProductType": {
+    "@id": "eucpr:Cement"
+  },
+  "oea:hasIndicator": {
+    "type": "oea:Indicator",
+    "oea:hasIndicatorKind": {
+      "@id": "eucpr:ReactionToFire"
+    },
+    "oea:hasCategoricalValue": {
+      "@id": "eucpr:FireClassA1"
+    }
+  },
+  "eucpr:declarationOfPerformanceUrl": "https://manufacturer.example/dop/CEM-I-52-5-N-2026-001.pdf",
+  "gs1:manufacturer": {
+    "id": "https://id.gs1.org/417/9521234000044",
+    "type": "gs1:Organization",
+    "gs1:organizationName": "Bauwerk Cement GmbH",
+    "gs1:partyGLN": "9521234000044"
+  },
+  "eucpr:hasEssentialCharacteristic": [
+    {
+      "type": "eucpr:EssentialCharacteristic",
+      "oea:hasObservedParameter": {
+        "@id": "eucpr:CompressiveStrength"
+      },
+      "oea:hasMeasuredValue": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": "52.5",
+        "gs1:unitCode": "N20"
+      },
+      "eucpr:harmonisedStandard": "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30253,5839"
+    },
+    {
+      "type": "eucpr:EssentialCharacteristic",
+      "oea:hasObservedParameter": {
+        "@id": "eucpr:InitialSettingTime"
+      },
+      "oea:hasMeasuredValue": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": 75,
+        "gs1:unitCode": "MIN"
+      },
+      "eucpr:harmonisedStandard": "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30253,5839"
+    }
+  ],
+  "oec:hasRecycledContentDetails": {
+    "type": "oec:RecycledContent",
+    "oec:recycledContent": "0.35",
+    "oec:preConsumerRecycledContent": "0.35"
+  },
+  "oec:hasMaterialComposition": [
+    {
+      "type": "oec:MaterialComposition",
+      "schema:name": "Portland clinker",
+      "oec:massFraction": "0.65"
+    },
+    {
+      "type": "oec:MaterialComposition",
+      "schema:name": "Granulated blast-furnace slag (GBFS)",
+      "oec:massFraction": "0.3"
+    },
+    {
+      "type": "oec:MaterialComposition",
+      "schema:name": "Gypsum",
+      "oec:massFraction": "0.05"
+    }
+  ],
+  "oec:hasCarbonFootprintDeclaration": {
+    "type": "oec:CarbonFootprintDeclaration",
+    "oec:carbonFootprintTotal": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": "14.2",
+      "gs1:unitCode": "KGM"
+    },
+    "oec:hasCarbonFootprintRawMaterial": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": "8.1",
+      "gs1:unitCode": "KGM"
+    },
+    "oec:hasCarbonFootprintProduction": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": "5.4",
+      "gs1:unitCode": "KGM"
+    },
+    "oec:hasCarbonFootprintDistribution": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": "0.7",
+      "gs1:unitCode": "KGM"
+    },
+    "oec:carbonFootprintMethodology": "https://www.iso.org/standard/71206.html",
+    "oec:declaredUnit": "1 kg of cement"
+  },
+  "gs1:regulatoryInformation": [
+    {
+      "type": "gs1:RegulatoryInformation",
+      "gs1:regulationType": {
+        "id": "eucpr:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION"
+      },
+      "gs1:regulatoryAct": "EU 2024/3110",
+      "oec:isRegulationCompliant": true
+    }
+  ]
+}

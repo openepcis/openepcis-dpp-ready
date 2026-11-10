@@ -1,0 +1,77 @@
+{
+  "@context": [
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld"
+  ],
+  "@graph": [
+    {
+      "id": "_:a29f8325ead16b44d7dcdac0cfb227cc",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "P1",
+      "gs1:value": "5"
+    },
+    {
+      "id": "_:a868d1b896a43c43ffa49ae2ff7cf0ab",
+      "type": "oea:CriterionResult",
+      "oea:awardedScore": "1",
+      "oea:hasCriterion": "eutex:MonoMaterial",
+      "oea:hasOutcome": "oea:Satisfied"
+    },
+    {
+      "id": "_:c35a6f3b7ae70274590b5e8fdc35e0ec",
+      "type": "gs1:QuantitativeValue",
+      "gs1:unitCode": "C62",
+      "gs1:value": "6.5"
+    },
+    {
+      "id": "_:d5ba924af040265706bfb7e015c1f5fd",
+      "type": "oea:CriterionResult",
+      "oea:awardedScore": "1",
+      "oea:hasCriterion": "eutex:FreeFromPrintings",
+      "oea:hasOutcome": "oea:Satisfied"
+    },
+    {
+      "id": "_:f27ecb114347fa26c5cc81a38659da00",
+      "type": "oea:CriterionResult",
+      "oea:awardedScore": "0",
+      "oea:hasCriterion": "eutex:FreeFromCoatings",
+      "oea:hasOutcome": "oea:NotSatisfied"
+    },
+    {
+      "id": "_:f3148134528022c976c8f62616f9b42a",
+      "type": "oea:MeasurementResult",
+      "oea:hasMeasuredValue": "_:a29f8325ead16b44d7dcdac0cfb227cc",
+      "oea:hasObservedParameter": "eutex:ElastaneContent",
+      "oea:hasOutcome": "oea:Satisfied",
+      "oea:isEvaluatedAgainst": "eutex:ElastaneContentLimit"
+    },
+    {
+      "id": "_:f5073b6bb786ffaffea7c881c42c15e5",
+      "type": "oea:Indicator",
+      "oea:hasDerivationMethod": "eutex:JRCRecyclabilityScoring",
+      "oea:hasIndicatorKind": "oea:RecyclabilityScore",
+      "oea:hasIndicatorValue": "_:c35a6f3b7ae70274590b5e8fdc35e0ec"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000020",
+      "type": "gs1:Product",
+      "eutex:hasRecyclabilityAssessment": "https://id.gs1.org/01/09521234000020#recyclability"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000020#recyclability",
+      "type": "eutex:RecyclabilityAssessment",
+      "oea:hasIndicator": "_:f5073b6bb786ffaffea7c881c42c15e5",
+      "oea:hasMethod": "eutex:JRCRecyclabilityScoring",
+      "oea:hasResult": [
+        "_:a868d1b896a43c43ffa49ae2ff7cf0ab",
+        "_:d5ba924af040265706bfb7e015c1f5fd",
+        "_:f27ecb114347fa26c5cc81a38659da00",
+        "_:f3148134528022c976c8f62616f9b42a"
+      ],
+      "eutex:hasApplicableRecyclingTechnology": {
+        "id": "eutex:MechanicalRecycling"
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+# The registrant identity, when it is an IRI, as the passport issuer.
+CONSTRUCT { ?r oec:hasPassportIssuer ?issuer . }
+WHERE {
+  GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport ; bat:registrantIdentity ?id }
+  FILTER(isIRI(?r) && REGEX(STR(?id), "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"))
+  BIND(IRI(STR(?id)) AS ?issuer)
+}

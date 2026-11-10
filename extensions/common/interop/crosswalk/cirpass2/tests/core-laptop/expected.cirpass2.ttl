@@ -1,0 +1,300 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix gs1: <https://ref.gs1.org/voc/>.
+@prefix epcis: <https://ref.gs1.org/epcis/>.
+@prefix cbv: <https://ref.gs1.org/cbv/>.
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/>.
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/>.
+@prefix eutex: <https://ref.openepcis.org/extensions/eu/textile/>.
+@prefix xw: <https://ref.openepcis.org/extensions/common/interop/crosswalk#>.
+@prefix eudpp: <https://w3id.org/eudpp#>.
+@prefix units: <https://si-digital-framework.org/SI/units/>.
+@prefix txt-assessment: <https://w3id.org/eudpp/textile-assessment#>.
+@prefix txt-assessment-codelists: <https://w3id.org/eudpp/textile-assessment-codelists#>.
+@prefix txt-connector: <https://w3id.org/eudpp/textile-connector#>.
+@prefix txt-core: <https://w3id.org/eudpp/textile-core#>.
+@prefix txt-durability: <https://w3id.org/eudpp/textile-durability#>.
+@prefix txt-indicator: <https://w3id.org/eudpp/textile-indicator#>.
+@prefix txt-recyclability: <https://w3id.org/eudpp/textile-recyclability#>.
+@prefix txt-structure: <https://w3id.org/eudpp/textile-structure#>.
+@prefix schema: <https://schema.org/>.
+@prefix euelec: <https://ref.openepcis.org/extensions/eu/electronics/>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix txt-process: <https://w3id.org/eudpp/textile-process#>.
+
+_:a09f360702fafa6b8e34a831c6fd29e2 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 76.5.
+_:a14f8b050e7454ecdca26e5343cfcbc5 dcterms:isPartOf _:f46fdb106c6ea71e71dd848c3c40b19b;
+    dcterms:type oec:preConsumerRecycledContent;
+    a eudpp:RecycledMaterialsUseResult;
+    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
+    eudpp:numericalValue 0.15.
+_:a3c2b59f65797e010db4bc7b38617d57 dcterms:source _:df9658bed81a13ba3698d1eddec5992;
+    dcterms:type oea:RepairabilityScore;
+    a txt-indicator:Indicator;
+    txt-indicator:derivedUsingMethod euelec:FrenchRepairabilityIndexMethod;
+    txt-indicator:hasQuantitativeValue _:f0813d6e3cc415c3a8c0a6af17057669.
+_:a4445913c3afb0268e542103a9bf419a a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 17.5.
+_:a46a032b8509535802a031def046a804 dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:b260f7c7a1b1f825a4fcd45283a49b85;
+    txt-indicator:hasQuantitativeValue _:ca76f2b94051bbf15783489832b6a760.
+_:a52cf392852370ae7fcb073f3fc30b13 dcterms:isPartOf _:c0e28684e98e9eec1b62219db69b23f2;
+    dcterms:type oec:primarySourcedRatio;
+    a eudpp:QuantitativeProperty;
+    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
+    eudpp:numericalValue 0.82.
+_:a5c88ea9799e23cad1a98418b9fb49ec dcterms:issued "2024-12-15"^^xsd:date;
+    dcterms:type oec:DueDiligenceReport;
+    a eudpp:DocumentFormattedProperty;
+    rdfs:seeAlso <https://www.greentech-computers.example.com/sustainability/due-diligence/third-party-audit.pdf>;
+    eudpp:value "https://www.greentech-computers.example.com/sustainability/due-diligence/2024-report.pdf".
+_:a6c48087325ad3fabdbbff18af689461 dcterms:isPartOf _:cee8233912f1585b2a7a02634b59d8e7;
+    dcterms:type oec:recyclableContent;
+    a eudpp:CircularEconomyIndicator;
+    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
+    eudpp:numericalValue 0.86.
+_:a985c7994d4bbb6ae03e56cd2c605312 a eudpp:CarbonFootprint;
+    eudpp:hasMeasurementUnit units:kilogram;
+    eudpp:numericalValue "320"^^xsd:decimal;
+    eudpp:quantifiesIndicator eudpp:ind_GWPtotal;
+    eudpp:unitAsString "kg CO2e/unit".
+_:a99ef5913fdb65de94db6a36b721aec1 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "15"^^xsd:decimal.
+_:ab508436ac2715ccbd9c7185e3454bb6 a eudpp:Weight;
+    eudpp:hasMeasurementUnit units:kilogram;
+    eudpp:numericalValue 1.85.
+_:ab5893fdda1a8bce1ea118a620390950 a eudpp:Product;
+    schema:name "Glass Trackpad with Haptic Feedback".
+_:ac3e0a92051c605b74515c1cc3fc4bc7 dcterms:type oea:CriterionResult;
+    a txt-assessment:AssessmentResult;
+    txt-assessment:hasTextualValue "Battery: 12%, SSD: 8%, RAM: 5%, Display: 28% of device price";
+    txt-assessment:isEvaluatedAgainst euelec:SparePartsPricing.
+_:b260f7c7a1b1f825a4fcd45283a49b85 dcterms:type oea:CriterionResult;
+    a txt-assessment:AssessmentResult;
+    txt-assessment:hasTextualValue "Single screw type, modular internals, battery accessible in 3 steps";
+    txt-assessment:isEvaluatedAgainst euelec:Disassembly.
+_:b5bd683e890b9fdb80badcdaefee4002 dcterms:isPartOf _:f46fdb106c6ea71e71dd848c3c40b19b;
+    dcterms:type oec:postConsumerRecycledContent;
+    a eudpp:RecycledMaterialsUseResult;
+    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
+    eudpp:numericalValue 0.23.
+_:b5dffeb4d7c5802aa16c627659e2087b dcterms:type oea:CriterionResult;
+    a txt-assessment:AssessmentResult;
+    txt-assessment:hasTextualValue "6 years OS updates, user-upgradeable RAM and SSD, data recovery mode";
+    txt-assessment:isEvaluatedAgainst euelec:ProductSpecific.
+_:b5e0783f648121f911cd0b055c57bf90 dcterms:isPartOf _:f46fdb106c6ea71e71dd848c3c40b19b;
+    a eudpp:RecycledMaterialsUseResult;
+    eudpp:hasMeasurementUnit eudpp:massFractionUnit;
+    eudpp:numericalValue 0.38.
+_:b738241566ce44e9adbd54333546d8a4 a eudpp:MaterialType;
+    eudpp:materialTypeValue "Recycled Aluminum (chassis)".
+_:b780de29de24c9d2d4a848f067ddefb7 a eudpp:Product;
+    schema:name "Lithium-Polymer Battery 72Wh".
+_:b7abd0d8138820a6e28106119d100041 a schema:Country;
+    schema:identifier "CD".
+_:b7f8125fd9ecc2177ccfcf8f1d28f010 a eudpp:Product;
+    schema:name "Backlit Keyboard FR Layout".
+_:b86ba0c9069421f07de987b1880a5c91 dcterms:source _:df9658bed81a13ba3698d1eddec5992;
+    dcterms:type oea:RepairabilityClass;
+    a txt-indicator:Indicator;
+    txt-indicator:hasCategoricalValue euelec:RepairClassB.
+_:b8f439c326a3cdc24ebf2230798ed3dc a schema:Country;
+    schema:identifier "DE".
+_:b8f7a9bb12fd65968e8b742ab86a2370 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 0.91.
+_:be2d7071db625a416fee7e6b765e4426 a schema:PostalAddress;
+    schema:addressCountry "FR";
+    schema:addressLocality "Lyon";
+    schema:postalCode "69009";
+    schema:streetAddress "Zone Industrielle de Vaise, Rue du Progrès 45".
+_:c0e28684e98e9eec1b62219db69b23f2 dcterms:coverage oec:CradleToGate;
+    a eudpp:LCAStudy;
+    schema:url "https://www.greentech-computers.example.com/sustainability/carbon-footprint/greenbook-pro-15-lca.pdf"^^xsd:anyURI;
+    eudpp:hasLCIAResult _:a985c7994d4bbb6ae03e56cd2c605312.
+_:c23cc354eb44e71f344b701d8444fce0 dcterms:type oec:OperatorInformation;
+    a eudpp:LegalPerson;
+    schema:vatID "FR12345678901";
+    eudpp:hasUniqueOperatorIdentifier _:f41769fe23366806265f315cd540b0ba, _:fabd5b05bb5a2071d521a7feaf8c2217.
+_:c2f445b5b2a9e6ea06aa5331a9b0115 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "15"^^xsd:decimal.
+_:c425d985f8a9d99376b29d55c09ee34 a schema:Country;
+    schema:identifier "NO".
+_:c48f82a8cbe1ae71e44a766eb4ab2d63 a eudpp:MaterialType;
+    eudpp:materialTypeValue "Recycled Plastics (keyboard surround)".
+_:ca76f2b94051bbf15783489832b6a760 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "16"^^xsd:decimal.
+_:ca94afcfb545c293670009fb660fc0d3 dcterms:subject oea:RecoverableRate;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:b8f7a9bb12fd65968e8b742ab86a2370.
+_:ccfbc4cf910d59df6c23708f34cd33ab a eudpp:MaterialOfComposition;
+    schema:countryOfOrigin _:b7abd0d8138820a6e28106119d100041;
+    eudpp:hasMaterialType _:dc99e45ed657c7eacb23afd52052ec72;
+    eudpp:isCriticalRawMaterial true;
+    eudpp:materialPercentage 0.8.
+_:cee8233912f1585b2a7a02634b59d8e7 dcterms:type oec:CircularityPerformance.
+_:d066a4a7755f35c03588403266b5bc19 a txt-recyclability:RecyclabilityAssessment;
+    txt-assessment:assessesPerformanceParameter oea:RecoverableRate, oea:RecyclabilityRate;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09506000467894/21/LPT-2025-001>;
+    txt-assessment:producesResult _:ca94afcfb545c293670009fb660fc0d3, _:f82dd4f7ebe7dfc022e5db0d83efecb2.
+_:d0e7d15d8f111257359512768903d1aa a eudpp:Product;
+    schema:name "DDR5 SO-DIMM 16GB (upgradeable)".
+_:d14433796204c223f247f46c50bf9607 a eudpp:Product;
+    schema:name "15.6-inch OLED Display Assembly".
+_:d3bfe29cd11e30684c7fd9fd9e928a6c dcterms:type oea:CriterionResult;
+    a txt-assessment:AssessmentResult;
+    txt-assessment:hasTextualValue "Complete service manual with teardown videos in 12 languages";
+    txt-assessment:isEvaluatedAgainst euelec:Documentation.
+_:d3c4d90d9afb28be79361327d260d9ff dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:b5dffeb4d7c5802aa16c627659e2087b;
+    txt-indicator:hasQuantitativeValue _:a99ef5913fdb65de94db6a36b721aec1.
+_:d5911b23880f814340d50a914a49fbe0 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue "13"^^xsd:decimal.
+_:d5c0b110be8bc9f60cc52ae2c1a2d011 schema:category euelec:WEEE2_ScreensMonitors.
+_:db07582b62f17f6e6dff1a177b9a32d schema:operatingSystem "Windows 11 Pro".
+_:db9b24bf5b50f273e7d8eada138f1b4c a eudpp:MaterialOfComposition;
+    schema:countryOfOrigin _:b8f439c326a3cdc24ebf2230798ed3dc;
+    eudpp:hasMaterialType _:c48f82a8cbe1ae71e44a766eb4ab2d63;
+    eudpp:isCriticalRawMaterial false;
+    eudpp:materialPercentage "8"^^xsd:decimal.
+_:dc99e45ed657c7eacb23afd52052ec72 a eudpp:MaterialType;
+    eudpp:materialTypeValue "Cobalt (battery)".
+_:de3f93cf978e250255234175a3906156 dcterms:type oea:CriterionResult;
+    a txt-assessment:AssessmentResult;
+    txt-assessment:hasTextualValue "Major components available for 7 years through authorized partners";
+    txt-assessment:isEvaluatedAgainst euelec:SparePartsAvailability.
+_:df9658bed81a13ba3698d1eddec5992 dcterms:date "2025-01-18"^^xsd:date;
+    dcterms:type euelec:RepairabilityIndex;
+    a txt-assessment:AssessmentExecution;
+    txt-assessment:appliesMethod euelec:FrenchRepairabilityIndexMethod;
+    txt-assessment:assessesProduct <https://id.gs1.org/01/09506000467894/21/LPT-2025-001>;
+    txt-assessment:producesResult _:ac3e0a92051c605b74515c1cc3fc4bc7, _:b260f7c7a1b1f825a4fcd45283a49b85, _:b5dffeb4d7c5802aa16c627659e2087b, _:d3bfe29cd11e30684c7fd9fd9e928a6c, _:de3f93cf978e250255234175a3906156.
+_:dfaa9756e8231a61fcdd4050101c6707 dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:d3bfe29cd11e30684c7fd9fd9e928a6c;
+    txt-indicator:hasQuantitativeValue _:a4445913c3afb0268e542103a9bf419a.
+_:e11b2a95256bb0598cf9095e180a0aa3 dcterms:isPartOf _:cee8233912f1585b2a7a02634b59d8e7;
+    dcterms:type oec:utilityFactor;
+    a eudpp:CircularEconomyIndicator;
+    eudpp:hasMeasurementUnit units:one;
+    eudpp:numericalValue 1.25.
+_:e174a32ff7a3c51eddd43ceed7c54d7a a eudpp:Product;
+    schema:name "NVMe SSD 512GB (upgradeable)".
+_:e289116255e85c9311f553462ad7037f a eudpp:MaterialType;
+    eudpp:materialTypeValue "Lithium (battery)".
+_:e309e714f50cc1dff72a95a36468d5e1 dcterms:source _:df9658bed81a13ba3698d1eddec5992;
+    dcterms:type euelec:RepairabilityTotalScore;
+    a txt-indicator:Indicator;
+    txt-indicator:derivedUsingMethod euelec:FrenchRepairabilityIndexMethod;
+    txt-indicator:hasQuantitativeValue _:a09f360702fafa6b8e34a831c6fd29e2.
+_:e84946ddd43da7c53b945a9c819e5809 a eudpp:MaterialOfComposition;
+    schema:countryOfOrigin _:c425d985f8a9d99376b29d55c09ee34;
+    eudpp:hasMaterialType _:b738241566ce44e9adbd54333546d8a4;
+    eudpp:isCriticalRawMaterial false;
+    eudpp:materialPercentage "42"^^xsd:decimal.
+_:e946e8e3c9c0d0d997c8559607bb81c4 a eudpp:MaterialOfComposition;
+    schema:countryOfOrigin _:ee61ebf16600e10c5f3b5e0e167a1eef;
+    eudpp:hasMaterialType _:e289116255e85c9311f553462ad7037f;
+    eudpp:isCriticalRawMaterial true;
+    eudpp:materialPercentage 1.5.
+_:eb86d2572192a5152dba3b77e85823af dcterms:type "Assembly";
+    a eudpp:Facility;
+    schema:address _:be2d7071db625a416fee7e6b765e4426;
+    <https://w3id.org/eudpp/facilityName> "GreenTech Manufacturing Facility Lyon";
+    eudpp:hasUniqueFacilityIdentifier _:f9983c5a5b68ffb5388441fcf64a8ae1.
+_:ebba0a9be10a58913dfa144d0065e7ef a eudpp:ActorIdentifier;
+    eudpp:hasScheme eudpp:GLN;
+    eudpp:identifierValue "9521234000006".
+_:ed2755aa292fa9cf753ec1f1aededb6 a eudpp:Product;
+    schema:name "100W USB-C Power Adapter".
+_:ee61ebf16600e10c5f3b5e0e167a1eef a schema:Country;
+    schema:identifier "CL".
+_:f0813d6e3cc415c3a8c0a6af17057669 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 7.7.
+_:f3d06be429dbc69190ea155f439f6699 dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:ac3e0a92051c605b74515c1cc3fc4bc7;
+    txt-indicator:hasQuantitativeValue _:d5911b23880f814340d50a914a49fbe0.
+_:f41769fe23366806265f315cd540b0ba a eudpp:ActorIdentifier;
+    eudpp:identifierValue "EU-EOID-FR-2024-567890".
+_:f46fdb106c6ea71e71dd848c3c40b19b dcterms:type oec:RecycledContent.
+_:f5d68c446a80c2d9f7cb8822a35f83d1 a txt-connector:QuantitativeValue;
+    txt-connector:hasMeasurementUnit units:one;
+    txt-connector:numericValue 0.86.
+_:f6168283da60cee3bea3e148e6c4ad4d a eudpp:ActorRoleAssignment;
+    eudpp:hasActor _:c23cc354eb44e71f344b701d8444fce0;
+    eudpp:hasRole eudpp:manufacturer;
+    eudpp:inContextOfProduct <https://id.gs1.org/01/09506000467894/21/LPT-2025-001>.
+_:f82dd4f7ebe7dfc022e5db0d83efecb2 dcterms:subject oea:RecyclabilityRate;
+    a txt-assessment:MeasurementResult;
+    txt-assessment:hasMeasuredValue _:f5d68c446a80c2d9f7cb8822a35f83d1.
+_:f8e4aec2fe4dc217a6d5bb3c24f14e47 dcterms:isPartOf _:cee8233912f1585b2a7a02634b59d8e7;
+    dcterms:type oec:endOfLifeInstructions;
+    a eudpp:DigitalInstruction;
+    eudpp:webLink "https://www.greentech-computers.example.com/sustainability/end-of-life/greenbook-pro-15"^^xsd:anyURI.
+_:f9983c5a5b68ffb5388441fcf64a8ae1 a eudpp:FacilityIdentifier;
+    eudpp:hasScheme eudpp:GLN;
+    eudpp:identifierValue "3012345000017".
+_:fa219bda324fe15350df9dda915a54b3 a eudpp:ProductIdentifier;
+    eudpp:hasGranularity eudpp:model;
+    eudpp:hasScheme eudpp:GTIN;
+    eudpp:identifierValue "09506000467894".
+_:fabd5b05bb5a2071d521a7feaf8c2217 a eudpp:ActorIdentifier;
+    eudpp:hasScheme eudpp:GLN;
+    eudpp:identifierValue "9521234000006".
+_:fc2b339d97d7e3b57218a31ddcca327f dcterms:type oea:awardedScore;
+    a txt-indicator:PerformanceIndicator;
+    txt-indicator:derivedFrom _:de3f93cf978e250255234175a3906156;
+    txt-indicator:hasQuantitativeValue _:c2f445b5b2a9e6ea06aa5331a9b0115.
+_:ff47e00fc770c7984726cde22b517a7c dcterms:isPartOf _:cee8233912f1585b2a7a02634b59d8e7;
+    dcterms:type oec:materialCircularityIndicator;
+    a eudpp:CircularEconomyIndicator;
+    eudpp:hasMeasurementUnit units:one;
+    eudpp:numericalValue 0.68.
+<https://id.gs1.org/01/09506000467894/21/LPT-2025-001> a eudpp:Product;
+    schema:category euelec:Laptop;
+    schema:name "GreenBook Pro 15";
+    txt-indicator:hasIndicator _:a3c2b59f65797e010db4bc7b38617d57, _:a46a032b8509535802a031def046a804, _:b86ba0c9069421f07de987b1880a5c91, _:d3c4d90d9afb28be79361327d260d9ff, _:dfaa9756e8231a61fcdd4050101c6707, _:e309e714f50cc1dff72a95a36468d5e1, _:f3d06be429dbc69190ea155f439f6699, _:fc2b339d97d7e3b57218a31ddcca327f;
+    txt-recyclability:hasRecyclabilityAssessment _:d066a4a7755f35c03588403266b5bc19;
+    eudpp:countryOfOrigin "FR";
+    eudpp:hasEconomicOperator _:c23cc354eb44e71f344b701d8444fce0;
+    eudpp:hasFacility _:eb86d2572192a5152dba3b77e85823af;
+    eudpp:hasLCAStudy _:c0e28684e98e9eec1b62219db69b23f2;
+    eudpp:hasManufacturer <https://id.gs1.org/417/9521234000006>;
+    eudpp:hasMaterial _:ccfbc4cf910d59df6c23708f34cd33ab, _:db9b24bf5b50f273e7d8eada138f1b4c, _:e84946ddd43da7c53b945a9c819e5809, _:e946e8e3c9c0d0d997c8559607bb81c4;
+    eudpp:hasProperty _:a14f8b050e7454ecdca26e5343cfcbc5, _:a52cf392852370ae7fcb073f3fc30b13, _:a5c88ea9799e23cad1a98418b9fb49ec, _:a6c48087325ad3fabdbbff18af689461, _:ab508436ac2715ccbd9c7185e3454bb6, _:b5bd683e890b9fdb80badcdaefee4002, _:b5e0783f648121f911cd0b055c57bf90, _:e11b2a95256bb0598cf9095e180a0aa3, _:f8e4aec2fe4dc217a6d5bb3c24f14e47, _:ff47e00fc770c7984726cde22b517a7c;
+    eudpp:hasUniqueProductIdentifier _:fa219bda324fe15350df9dda915a54b3;
+    eudpp:manufacturingDate "2025-01-22"^^xsd:date;
+    eudpp:productName "GreenBook Pro 15 2025".
+<https://id.gs1.org/417/9521234000006> a eudpp:LegalPerson;
+    eudpp:actorName "GreenTech Computers SAS";
+    eudpp:hasUniqueOperatorIdentifier _:ebba0a9be10a58913dfa144d0065e7ef.
+oea:RecoverableRate a txt-durability:ObservedPerformanceParameter;
+    rdfs:label "Recoverable Rate"@en.
+oea:RecyclabilityRate a txt-durability:ObservedPerformanceParameter;
+    rdfs:label "Recyclability Rate"@en.
+euelec:Disassembly a txt-assessment:AssessmentDecisionCriterion;
+    rdfs:label "Disassembly"@en.
+euelec:Documentation a txt-assessment:AssessmentDecisionCriterion;
+    rdfs:label "Documentation"@en.
+euelec:FrenchRepairabilityIndexMethod a txt-assessment:AssessmentMethod;
+    rdfs:label "French Repairability Index (Indice de Réparabilité)"@en.
+euelec:ProductSpecific a txt-assessment:AssessmentDecisionCriterion;
+    rdfs:label "Product Specific Criteria"@en.
+euelec:SparePartsAvailability a txt-assessment:AssessmentDecisionCriterion;
+    rdfs:label "SparePartsAvailability"@en.
+euelec:SparePartsPricing a txt-assessment:AssessmentDecisionCriterion;
+    rdfs:label "SparePartsPricing"@en.
