@@ -24,6 +24,11 @@
  *   RepairabilityInfo     score and class -> indicators
  *   PPWR packaging        A/B/C grade -> indicator of an oec:RecyclabilityAssessment;
  *                         design-for-recycling methodology -> its oea:hasMethod (dcc992d)
+ *   wave 3 (dafe0803)     EPD impact indicators and module values -> results with units;
+ *                         circularity and ESPR Annex I figures -> indicators; textile
+ *                         footprint -> assessment with LCIA results and indicators; material
+ *                         test certificate values -> results; WEEE treatment outcome ->
+ *                         results, avoided emissions -> indicator
  *
  * Works on the compacted, prefixed form the resolver stores (eutex:, oec:, gs1:);
  * keys are matched by local name, so an unprefixed key migrates as well. Every
@@ -33,7 +38,7 @@
  *
  * Usage:
  *   tsx scripts/migrate-assessment.ts <in.json> [out.json]   one document
- *   tsx scripts/migrate-assessment.ts --check                examples of d1e28a7, dcc992d, 9add685
+ *   tsx scripts/migrate-assessment.ts --check                examples of d1e28a7, dcc992d, dafe0803, 9add685
  */
 import { execFileSync } from "node:child_process";
 import { promises as fs } from "node:fs";
@@ -826,6 +831,13 @@ export function leftovers(doc: Json, at = "$", out: string[] = [], textile?: boo
 }
 
 const EXAMPLES = ["garment-product", "footwear-product", "hometextile-bedlinen", "organic-tee-product", "fjordline-aurora-model"];
+const WAVE3_EXAMPLES = [
+  "eu/electronics/examples/display-product", "eu/electronics/examples/laptop-product", "eu/electronics/examples/server-product",
+  "eu/electronics/examples/smartphone-product", "eu/electronics/epcis/commissioning", "eu/electronics/epcis/weee-disposal",
+  "eu/iron-steel/examples/rebar-product", "eu/textile/examples/fjordline-aurora-batch", "eu/textile/examples/footwear-product",
+  "eu/textile/examples/garment-product", "eu/textile/examples/hometextile-bedlinen", "eu/textile/epcis/observation-carbon-footprint",
+  "eu/textile/epcis/declaration-environmental-footprint",
+];
 const PPWR_EXAMPLES = ["beverage-bottle", "beverage-bottle-lot-01", "ecommerce-carton", "multi-layer-pouch"];
 const BATTERY_EXAMPLES = ["amperia-staxwall-item", "amperia-staxwall-model", "battery-product-model", "batterypass-lmt-item", "amperia-staxwall-item.operational", "battery-product-model.operational"];
 
@@ -963,6 +975,9 @@ async function check(): Promise<number> {
     // PR 17 renames of 0142308
     // dcc992d is wave 2 (detergent, cpr, electronics, ppwr)
     ...PPWR_EXAMPLES.map((name) => ({ name, file: `extensions/eu/ppwr/examples/${name}.jsonld`, before: "dcc992d^", after: "dcc992d", ignore: (_: string) => false })),
+    // dafe0803 is wave 3 (core life-cycle and circularity, textile footprint, steel certificate,
+    // electronics treatment); the electronics commissioning event was edited by hand there
+    ...WAVE3_EXAMPLES.map((name) => ({ name, file: `extensions/${name}.jsonld`, before: "dafe0803^", after: "dafe0803", ignore: (_: string) => false })),
     ...BATTERY_EXAMPLES.map((name) => ({ name, file: `extensions/eu/battery/examples/${name}.jsonld`, before: "3aa08bf", after: "9add685", ignore: (k: string) => /hasInitial(Cell|Pack)?InternalResistance$/.test(k) })),
   ];
   for (const { name, file, before, after, ignore } of cases) {
