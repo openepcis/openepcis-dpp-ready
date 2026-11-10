@@ -190,6 +190,8 @@ oec:EmissionsPerformance            xw:nodeClass eudpp:LCAStudy .
 oec:CarbonFootprintDeclaration      xw:nodeClass eudpp:LCAStudy .
 oec:ImpactIndicatorResult           xw:nodeClass eudpp:LCIAResult .
 oec:LifecycleStageResult            xw:nodeClass eudpp:LCAModuleValue .
+eutex:EnvironmentalFootprint        xw:nodeClass eudpp:LCAStudy .
+eutex:LCIACategory                  xw:nodeClass eudpp:LCIAResult .
 gs1:RegulatoryInformation           xw:nodeClass eudpp:UnionHarmonisationLegislation .
 oec:DocumentReference               xw:nodeClass eudpp:DocumentFormattedProperty .
 oec:DueDiligenceReport              xw:nodeClass eudpp:DocumentFormattedProperty .
@@ -242,6 +244,7 @@ schema:ContactPoint                 xw:nodeLowerTo gs1:ContactPoint .
 [] xw:ours oec:hasEnvironmentalProductDeclaration ; xw:theirs eudpp:hasLCAStudy ; xw:host gs1:Product ; xw:objectHost oec:EnvironmentalProductDeclaration .
 [] xw:ours oec:hasEmissionsPerformance ; xw:theirs eudpp:hasLCAStudy     ; xw:host gs1:Product ; xw:objectHost oec:EmissionsPerformance .
 [] xw:ours oec:hasCarbonFootprintDeclaration ; xw:theirs eudpp:hasLCAStudy ; xw:host gs1:Product ; xw:objectHost oec:CarbonFootprintDeclaration .
+[] xw:ours eutex:hasEnvironmentalFootprint ; xw:theirs eudpp:hasLCAStudy ; xw:host gs1:Product ; xw:objectHost eutex:EnvironmentalFootprint .
 
 [] xw:ours gs1:organizationName      ; xw:theirs eudpp:actorName         ; xw:host gs1:Organization .
 [] xw:ours gs1:address               ; xw:theirs schema:address          ; xw:host gs1:Organization .
@@ -290,12 +293,21 @@ schema:ContactPoint                 xw:nodeLowerTo gs1:ContactPoint .
 
 [] xw:ours oec:epdRegistrationNumber ; xw:theirs eudpp:registrationNumber ; xw:host oec:EnvironmentalProductDeclaration .
 [] xw:ours oec:hasImpactIndicator    ; xw:theirs eudpp:hasLCIAResult     ; xw:host oec:EnvironmentalProductDeclaration .
-[] xw:ours oec:hasIndicatorType      ; xw:theirs eudpp:quantifiesIndicator ; xw:host oec:ImpactIndicatorResult .
-[] xw:ours oec:indicatorTotalValue   ; xw:theirs eudpp:numericalValue    ; xw:host oec:ImpactIndicatorResult .
-[] xw:ours oec:indicatorUnit         ; xw:theirs eudpp:unitAsString      ; xw:host oec:ImpactIndicatorResult .
+[] xw:ours oea:hasObservedParameter ; xw:theirs eudpp:quantifiesIndicator ; xw:host oec:ImpactIndicatorResult .
+[] xw:ours oec:declaredUnit          ; xw:theirs eudpp:unitAsString      ; xw:host oec:ImpactIndicatorResult .
 [] xw:ours oec:hasLifecycleStageResult ; xw:theirs eudpp:hasPerModuleValue ; xw:host oec:ImpactIndicatorResult .
 [] xw:ours oec:hasLifecycleStage     ; xw:theirs eudpp:forLifeCycleModule ; xw:host oec:LifecycleStageResult .
-[] xw:ours oec:stageValue            ; xw:theirs eudpp:amount            ; xw:host oec:LifecycleStageResult ; xw:theirDatatype xsd:double ; xw:ourDatatype xsd:decimal .
+# Textile environmental footprint (PEF): an LCA study whose LCIA category results quantify the
+# EF 3.1 indicators. Human toxicity has no single EF partner (cancer and non-cancer are separate).
+[] xw:ours eutex:hasLciaCategories     ; xw:theirs eudpp:hasLCIAResult     ; xw:host eutex:EnvironmentalFootprint .
+[] xw:ours oea:hasObservedParameter   ; xw:theirs eudpp:quantifiesIndicator ; xw:host eutex:LCIACategory .
+[] xw:ours oec:declaredUnit          ; xw:theirs eudpp:unitAsString      ; xw:host eutex:LCIACategory .
+eutex:GWP            xw:sameCode eudpp:ind_EF_climateChange .
+eutex:WaterUse       xw:sameCode eudpp:ind_EF_waterUse .
+eutex:Eutrophication xw:sameCode eudpp:ind_EF_eutrophicationFreshwater .
+eutex:Acidification  xw:sameCode eudpp:ind_EF_acidification .
+eutex:Ecotoxicity    xw:sameCode eudpp:ind_EF_ecotoxicityFreshwater .
+# The measured values of an impact indicator and its module values: lift/175-epd.rq, lower/170-lca.rq.
 
 # Passport data sits on the product in OpenEPCIS and on a separate eudpp:DPP node in CIRPASS-2.
 [] xw:ours oec:dppSchemaVersion      ; xw:theirs eudpp:dppSchemaVersion  ; xw:host gs1:Product ; xw:onDPP true .
@@ -389,12 +401,10 @@ oec:StageD  xw:sameCode eudpp:moduleD .
    xw:container oec:RecycledContent ; xw:containerLink oec:hasRecycledContentDetails ; xw:unit eudpp:massFractionUnit .
 [] xw:ours oec:postConsumerRecycledContent ; xw:quantityClass eudpp:RecycledMaterialsUseResult ; xw:canonical false ;
    xw:container oec:RecycledContent ; xw:containerLink oec:hasRecycledContentDetails ; xw:unit eudpp:massFractionUnit .
-[] xw:ours oec:recyclableContent           ; xw:quantityClass eudpp:CircularEconomyIndicator ; xw:canonical false ;
-   xw:container oec:CircularityPerformance ; xw:containerLink oec:hasCircularityPerformance ; xw:unit eudpp:massFractionUnit .
-[] xw:ours oec:materialCircularityIndicator ; xw:quantityClass eudpp:CircularEconomyIndicator ; xw:canonical false ;
-   xw:container oec:CircularityPerformance ; xw:containerLink oec:hasCircularityPerformance ; xw:unit units:one .
-[] xw:ours oec:utilityFactor               ; xw:quantityClass eudpp:CircularEconomyIndicator ; xw:canonical false ;
-   xw:container oec:CircularityPerformance ; xw:containerLink oec:hasCircularityPerformance ; xw:unit units:one .
+# Indicators of these kinds are EUDPP quantitative properties of the class named, part of the
+# holder (the circularity container) when it is not the product; dcterms:type keeps the kind.
+oec:MaterialCircularityIndicator xw:indicatorClass eudpp:CircularEconomyIndicator ; xw:containerLink oec:hasCircularityPerformance .
+oec:UtilityFactor                xw:indicatorClass eudpp:CircularEconomyIndicator ; xw:containerLink oec:hasCircularityPerformance .
 [] xw:ours oec:endOfLifeInstructions       ; xw:quantityClass eudpp:DigitalInstruction ; xw:canonical false ; xw:valueProperty eudpp:webLink ;
    xw:container oec:CircularityPerformance ; xw:containerLink oec:hasCircularityPerformance .
 [] xw:ours oec:primarySourcedRatio         ; xw:quantityClass eudpp:QuantitativeProperty ; xw:canonical false ;

@@ -4,6 +4,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
 @prefix eusteel: <https://ref.openepcis.org/extensions/eu/iron-steel/> .
 @prefix steel-sh: <https://ref.openepcis.org/extensions/eu/iron-steel/shapes/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -58,17 +59,7 @@ steel-sh:MaterialTestCertificateShape
         sh:message "eusteel:mtcInspectionType must be an EN 10204 document type (2.1, 2.2, 3.1, 3.2)"@en
     ] ;
     sh:property [
-        sh:path eusteel:mtcYieldStrength ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eusteel:mtcTensileStrength ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path eusteel:mtcCarbonEquivalent ;
-        sh:datatype xsd:decimal ;
-        sh:maxCount 1
+        sh:path oea:hasResult ;
+        sh:class oea:MeasurementResult ;
+        sh:message "A certificate value is an oea:MeasurementResult (value and unit in oea:hasMeasuredValue)"@en
     ] .

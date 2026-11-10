@@ -7,7 +7,7 @@ against, and the indicators (scores, classes, expected lifetimes) derived from t
 
 - **Namespace:** `https://ref.openepcis.org/extensions/common/assessment/`
 - **Prefix:** `oea:`
-- **Version:** 0.10.0 (Preview)
+- **Version:** see [`VERSION`](VERSION) (Preview)
 - **Position:** below the DPP core. It imports only the GS1 Web Vocabulary, schema.org and
   CCCEV; `dpp-core` imports it, and its shapes travel with the core shapes in every GITB
   validation type. It is not a validation type of its own.
@@ -77,10 +77,13 @@ and the equivalent `sensorElementList` form.
 
 ## Status of the migration
 
-0.10.0 moves `common/core` (performance, repairability and recyclability values) and `eu/textile`
-(durability, robustness, recyclability, microfibre release) onto this model. Detergent, CPR,
-electronics and PPWR follow; battery (performance and durability test values) and iron-steel
-(material test certificates) after them. Until then those modules still carry flat test values.
+0.10.0 moved `common/core` (performance, repairability and recyclability values) and `eu/textile`
+(durability, robustness, recyclability, microfibre release) onto this model; 0.12.0 detergent, CPR,
+electronics and PPWR. The third wave adds the life-cycle and circularity figures of `common/core`
+(EPD impact indicators, ESPR Annex I resource indicators, material circularity), the textile
+environmental footprint, the iron-steel material test certificate and the electronics WEEE treatment
+outcome. Battery performance and durability values follow. Declared values stay flat on purpose:
+rated capacities and voltages, EU energy-label data (EPREL), composition declarations.
 
 ## Alignment
 

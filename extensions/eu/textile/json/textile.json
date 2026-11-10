@@ -39,12 +39,15 @@
       "id": "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint",
       "localName": "EnvironmentalFootprint",
       "label": "Environmental Footprint",
-      "comment": "Environmental footprint declaration per EU Preparatory Study 3rd Milestone,\naligned with Product Environmental Footprint Category Rules for Apparel & Footwear (PEFCR A&F).\nIncludes manufacturing carbon footprint, PEF single score, and benchmark comparison.",
+      "comment": "Environmental footprint declaration per EU Preparatory Study 3rd Milestone,\naligned with Product Environmental Footprint Category Rules for Apparel & Footwear (PEFCR A&F).\nAn oea:Assessment: the PEFCR is its oea:hasMethod; each impact category is an eutex:LCIACategory result\n(oea:hasResult); the manufacturing carbon footprint, the PEF single score, the benchmark comparison and\nthe footprint classes are indicators (oea:hasIndicator with eutex:ManufacturingCarbonFootprint,\neutex:PEFSingleScore, eutex:BenchmarkPerformance, eutex:CarbonFootprintClass,\neutex:EnvironmentalFootprintClass).",
       "seeAlso": [
         "https://ref.openepcis.org/extensions/common/core/EmissionsPerformance",
         "https://schema.org/PropertyValue",
         "https://w3id.org/eudpp#CarbonFootprint",
         "https://w3id.org/eudpp#LCIAImpactCategory"
+      ],
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/Assessment"
       ],
       "narrowMatch": [
         "https://w3id.org/eudpp#CarbonFootprint",
@@ -57,9 +60,12 @@
       "id": "https://ref.openepcis.org/extensions/eu/textile/LCIACategory",
       "localName": "LCIACategory",
       "label": "LCIA Category",
-      "comment": "Individual Life Cycle Impact Assessment category result within the environmental footprint.",
+      "comment": "One Life Cycle Impact Assessment category result within the environmental footprint, an oea:MeasurementResult: oea:hasObservedParameter names the eutex:LCIACategoryCode, oea:hasMeasuredValue the value with the unit of the reference substance (kg CO2-eq, kg P-eq: KGM; mol H+-eq: C34; m3 world-eq: MTQ; CTUe, CTUh: C62), oec:declaredUnit the unit as stated.",
       "seeAlso": [
         "https://schema.org/PropertyValue"
+      ],
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/MeasurementResult"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -274,29 +280,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/benchmarkPerformance",
-      "localName": "benchmarkPerformance",
-      "label": "Benchmark Performance",
-      "comment": "Performance relative to product category benchmark as percentage (negative = better than benchmark).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#environmentalFootprintBenchmarkPercentage",
-        "https://dpp-keystone.org/spec/v3/terms#carbonFootprintBenchmarkPercentage"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#environmentalFootprintBenchmarkPercentage"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Performance relative to the category benchmark is the comparative message the public footprint class conveys.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/biodegradable",
       "localName": "biodegradable",
       "label": "Biodegradable",
@@ -313,56 +296,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
       "accessLevel": "Public",
       "accessLevelRationale": "Biodegradability status is consumer end-of-life information (ESPR Annex I).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/carbonFootprintClass",
-      "localName": "carbonFootprintClass",
-      "label": "Carbon Footprint Class",
-      "comment": "Discrete performance class (A–G style band, expressed as an integer 1..n) for the manufacturing carbon footprint relative to the PEFCR climate-change benchmark.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#carbonFootprintClass"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#carbonFootprintClass"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerformanceClass"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The carbon-footprint class is a consumer-facing band, mirroring the public carbon-footprint class of the battery DPP.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/carbonFootprintManufacturing",
-      "localName": "carbonFootprintManufacturing",
-      "label": "Carbon Footprint Manufacturing",
-      "comment": "Carbon footprint of manufacturing phase in kg CO2-eq per product unit.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/carbonFootprintTotal",
-        "https://schema.org/value",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The manufacturing-phase carbon footprint per unit is a product-level disclosure that does not reveal facility-level operational data.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -467,28 +400,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
       "accessLevel": "Public",
       "accessLevelRationale": "Special end-of-life handling instructions caused by a substance of concern are safety-relevant to consumers and waste operators (ESPR Art. 7(5)).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/environmentalFootprintClass",
-      "localName": "environmentalFootprintClass",
-      "label": "Environmental Footprint Class",
-      "comment": "Discrete performance class (A–G style band, expressed as an integer 1..n) for the PEF single score relative to the product-category benchmark.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint"
-      ],
-      "range": [
-        "xsd:integer"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#environmentalFootprintClass"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#environmentalFootprintClass"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The footprint performance class is a consumer-facing band designed for point-of-sale comparison.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -981,23 +892,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasLciaCategoryCode",
-      "localName": "hasLciaCategoryCode",
-      "label": "LCIA Category Code",
-      "comment": "The impact category code.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/LCIACategory"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/LCIACategoryCode"
-      ],
-      "seeAlso": [
-        "https://schema.org/hasCategoryCode"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/hasMicroplasticInfo",
       "localName": "hasMicroplasticInfo",
       "label": "Microplastic Information",
@@ -1391,46 +1285,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/lciaUnit",
-      "localName": "lciaUnit",
-      "label": "LCIA Unit",
-      "comment": "Unit of the LCIA value (e.g. 'kg CO2-eq', 'm3 world-eq', 'mol H+-eq').",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/LCIACategory"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "seeAlso": [
-        "https://schema.org/unitCode"
-      ],
-      "broadMatch": [
-        "https://ref.gs1.org/voc/unitCode"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/lciaValue",
-      "localName": "lciaValue",
-      "label": "LCIA Value",
-      "comment": "The impact category value in the category-specific unit.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/LCIACategory"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://schema.org/value",
-        "https://ref.gs1.org/voc/value",
-        "http://data.europa.eu/m8g/value",
-        "http://data.europa.eu/m8g/providesValueFor"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/textile/maxConcentration",
       "localName": "maxConcentration",
       "label": "Maximum Concentration",
@@ -1529,41 +1383,6 @@
       "accessLevel": "Public",
       "accessLevelRationale": "Certified organic fibre share substantiates an organic claim regulated as consumer-facing by Regulation (EU) 2018/848.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2018/848"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/pefcrReference",
-      "localName": "pefcrReference",
-      "label": "PEFCR Reference",
-      "comment": "Reference to the applicable PEFCR version (e.g. 'PEFCR Apparel & Footwear v1.3').",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The PEFCR version reference is methodology context required to interpret the public PEF score.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/pefSingleScore",
-      "localName": "pefSingleScore",
-      "label": "PEF Single Score",
-      "comment": "Product Environmental Footprint single score in milli-points (mPt) per PEFCR A&F methodology.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://schema.org/ratingValue"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The PEF single score is the aggregate result the public footprint class is derived from, without exposing inventory-level detail.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.org/extensions/eu/textile/pfasFree",
@@ -2645,10 +2464,64 @@
       "comment": "",
       "values": [
         {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/BenchmarkPerformance",
+          "localName": "BenchmarkPerformance",
+          "label": "Benchmark Performance",
+          "comment": "Performance relative to the product-category benchmark (unitCode P1; negative is better than the benchmark). Replaces eutex:benchmarkPerformance.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#environmentalFootprintBenchmarkPercentage"
+          ],
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#carbonFootprintBenchmarkPercentage"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/CarbonFootprintClass",
+          "localName": "CarbonFootprintClass",
+          "label": "Carbon Footprint Class",
+          "comment": "Discrete performance class of the manufacturing carbon footprint against the PEFCR climate-change benchmark (an A-G style band as an integer 1..n, unitCode C62). Replaces eutex:carbonFootprintClass.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#carbonFootprintClass",
+            "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerformanceClass"
+          ]
+        },
+        {
           "id": "https://ref.openepcis.org/extensions/eu/textile/DurabilityRating",
           "localName": "DurabilityRating",
           "label": "Durability Rating",
           "comment": "Durability class A-E; the coded value is an eutex:DurabilityClass individual."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprintClass",
+          "localName": "EnvironmentalFootprintClass",
+          "label": "Environmental Footprint Class",
+          "comment": "Discrete performance class of the PEF single score against the product-category benchmark (an A-G style band as an integer 1..n, unitCode C62). Replaces eutex:environmentalFootprintClass.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#environmentalFootprintClass"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/ManufacturingCarbonFootprint",
+          "localName": "ManufacturingCarbonFootprint",
+          "label": "Manufacturing Carbon Footprint",
+          "comment": "Carbon footprint of the manufacturing phase per product unit (unitCode KGM, kg CO2-eq). Replaces eutex:carbonFootprintManufacturing.",
+          "closeMatch": [
+            "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
+          ],
+          "seeAlso": [
+            "https://ref.openepcis.org/extensions/common/core/carbonFootprintTotal",
+            "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
+            "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/textile/PEFSingleScore",
+          "localName": "PEFSingleScore",
+          "label": "PEF Single Score",
+          "comment": "Product Environmental Footprint single score in milli-points per PEFCR A&F (unitCode C62, the value in mPt). Replaces eutex:pefSingleScore.",
+          "seeAlso": [
+            "https://schema.org/ratingValue"
+          ]
         },
         {
           "id": "https://ref.openepcis.org/extensions/eu/textile/RobustnessScore",
@@ -2671,7 +2544,7 @@
       "id": "https://ref.openepcis.org/extensions/eu/textile/LCIACategoryCode",
       "localName": "LCIACategoryCode",
       "label": "LCIA Category Code",
-      "comment": "Life Cycle Impact Assessment category codes per PEF methodology.",
+      "comment": "Life Cycle Impact Assessment category codes per PEF methodology; each is an oea:PerformanceParameter an eutex:LCIACategory result observes.",
       "values": [
         {
           "id": "https://ref.openepcis.org/extensions/eu/textile/Acidification",

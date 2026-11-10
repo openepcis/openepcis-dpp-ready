@@ -105,7 +105,7 @@ JTC 24 is developing **8 individual standards** under M/604. All eight were publ
 | **EN 45552** | General method for durability assessment | `oec:PerformanceInfo`, `oea:ExpectedLifetime` indicator |
 | **EN 45553** | General method for remanufacturability assessment | `oec:CircularityPerformance` |
 | **EN 45554** | General method for repair, reuse, upgrade assessment | `oec:RepairabilityInfo` |
-| **EN 45555** | General method for recyclability/recoverability assessment | `oec:recyclableContent`, `oec:CircularityPerformance` |
+| **EN 45555** | General method for recyclability/recoverability assessment | `oec:RecyclabilityAssessment` (`oea:RecyclabilityRate`, `oea:RecoverableRate` results) |
 
 ### Key Developments
 
@@ -245,10 +245,10 @@ OpenEPCIS is built natively on GS1 Web Vocabulary patterns:
 | `oec:carbonFootprintTotal` | `untp:carbonFootprint` | Total lifecycle CO2e |
 | `oec:declaredUnit` | `untp:declaredUnit` | Functional unit |
 | `oec:recycledContent` | `untp:recycledContent` | Total recycled percentage |
-| `oec:recyclableContent` | `untp:recyclableContent` | Recyclability percentage |
+| result observing `oea:RecyclabilityRate` | `untp:recyclableContent` | Recyclability share (structural) |
 | `oec:massFraction` | `untp:massFraction` | Material mass fraction |
-| `oec:utilityFactor` | `untp:utilityFactor` | Durability multiplier |
-| `oec:materialCircularityIndicator` | `untp:materialCircularityIndicator` | MCI score |
+| indicator of kind `oec:UtilityFactor` | `untp:utilityFactor` | Durability multiplier (structural) |
+| indicator of kind `oec:MaterialCircularityIndicator` | `untp:materialCircularityIndicator` | MCI score (structural) |
 | `oec:primarySourcedRatio` | `untp:primarySourcedRatio` | Direct measurement ratio |
 | `oec:hasOperationalScope` | `untp:operationalScope` | Lifecycle boundary |
 | `oec:verifiedRatio` | `untp:verifiedRatio` | Traceability verification |
@@ -335,8 +335,8 @@ The EN 45552-45555 series defines *how* to assess product characteristics. OpenE
 
 | Assessment Output | OpenEPCIS Property |
 |-------------------|-------------------|
-| Recyclability rate | `oec:recyclableContent` |
-| Recovery rate | `oec:CircularityPerformance` |
+| Recyclability rate | `oec:RecyclabilityAssessment` result observing `oea:RecyclabilityRate` |
+| Recovery rate | `oec:RecyclabilityAssessment` result observing `oea:RecoverableRate` |
 | Material composition | `oec:MaterialComposition` |
 | Disassembly info | `oec:hasDismantlingInstructions` |
 
@@ -346,7 +346,7 @@ The EN 45552-45555 series defines *how* to assess product characteristics. OpenE
 |-------------------|-------------------|
 | Remanufacturing potential | `oec:CircularityPerformance` |
 | Component accessibility | `oec:hasDismantlingInstructions` |
-| Material circularity | `oec:materialCircularityIndicator` |
+| Material circularity | `oec:MaterialCircularityIndicator` indicator |
 
 ## Superior OpenEPCIS Patterns
 

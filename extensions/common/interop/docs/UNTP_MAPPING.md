@@ -20,12 +20,12 @@ This ensures **native interoperability** - no value conversion is needed when ex
 
 | OpenEPCIS Property | UNTP Equivalent | Domain | Type | Notes |
 |-------------------|-----------------|--------|------|-------|
-| `oec:recyclableContent` | `untp:recyclableContent` | CircularityPerformance | decimal | Recyclability percentage |
+| result observing `oea:RecyclabilityRate` | `untp:recyclableContent` | RecyclabilityAssessment | QuantitativeValue | Recyclability share; structural, not aliased by the bridge |
 | `oec:recycledContent` | `untp:recycledContent` | RecycledContent | decimal | Total recycled content |
 | `oec:preConsumerRecycledContent` | - | RecycledContent | decimal | Pre-consumer breakdown |
 | `oec:postConsumerRecycledContent` | - | RecycledContent | decimal | Post-consumer breakdown |
-| `oec:utilityFactor` | `untp:utilityFactor` | CircularityPerformance | decimal | Durability multiplier (1.0 = average) |
-| `oec:materialCircularityIndicator` | `untp:materialCircularityIndicator` | CircularityPerformance | decimal | Overall MCI score |
+| indicator of kind `oec:UtilityFactor` | `untp:utilityFactor` | CircularityPerformance | QuantitativeValue | Durability multiplier (1.0 = average); structural, not aliased |
+| indicator of kind `oec:MaterialCircularityIndicator` | `untp:materialCircularityIndicator` | CircularityPerformance | QuantitativeValue | Overall MCI score; structural, not aliased |
 
 ### Material Properties
 
@@ -115,7 +115,6 @@ For backwards compatibility, these deprecated property names map to current term
 
 | Deprecated Name | Current Name |
 |----------------|--------------|
-| `recyclabilityRate` | `recyclableContent` |
 | `totalRecycledShare` | `recycledContent` |
 | `preConsumerShare` | `preConsumerRecycledContent` |
 | `postConsumerShare` | `postConsumerRecycledContent` |
@@ -134,11 +133,8 @@ To process UNTP-style data with OpenEPCIS:
     "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
     "https://ref.openepcis.org/extensions/common/interop/untp-bridge-context.jsonld"
   ],
-  "type": "CircularityPerformance",
-  "recyclableContent": 80,
-  "recycledContent": 45,
-  "utilityFactor": 1.2,
-  "materialCircularityIndicator": 65
+  "type": "RecycledContent",
+  "recycledContent": 45
 }
 ```
 
@@ -146,10 +142,11 @@ This expands to OpenEPCIS URIs:
 
 ```json
 {
-  "@type": "https://ref.openepcis.org/extensions/common/core/CircularityPerformance",
-  "https://ref.openepcis.org/extensions/common/core/recyclableContent": 80,
-  "https://ref.openepcis.org/extensions/common/core/recycledContent": 45,
-  "https://ref.openepcis.org/extensions/common/core/utilityFactor": 1.2,
-  "https://ref.openepcis.org/extensions/common/core/materialCircularityIndicator": 65
+  "@type": "https://ref.openepcis.org/extensions/common/core/RecycledContent",
+  "https://ref.openepcis.org/extensions/common/core/recycledContent": 45
 }
+
+UNTP's flat `recyclableContent`, `utilityFactor` and `materialCircularityIndicator` have no alias:
+OpenEPCIS states them as a recyclability result and as indicators (common/assessment) with a unit,
+which a context alone cannot produce.
 ```

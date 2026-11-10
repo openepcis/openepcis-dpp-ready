@@ -4,6 +4,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix oea: <https://ref.openepcis.org/extensions/common/assessment/> .
 @prefix eusteel: <https://ref.openepcis.org/extensions/eu/iron-steel/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
@@ -255,10 +256,14 @@ eusteel:hasTechnologyRoute
 
 eusteel:MaterialTestCertificate
     a owl:Class ;
+    rdfs:subClassOf oea:Assessment ;
     rdfs:label "Material Test Certificate"@en ;
     rdfs:comment """An inspection document for metallic products per EN 10204 (type 2.1, 2.2,
 3.1, or 3.2), carrying the EN 10168 mechanical and chemical test parameters that
-substantiate the declared grade."""@en ;
+substantiate the declared grade. An oea:Assessment: each mechanical, chemical or radiometric value is an
+oea:MeasurementResult (oea:hasResult) observing one of the eusteel: performance parameters below,
+with its UN/CEFACT unit (MPA, P1, C62); document type, process, finishing, nominal size and weight
+tolerance describe the certificate and stay as its own properties."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
     dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
     rdfs:seeAlso schema:Certification ;
@@ -272,6 +277,7 @@ Anchored to the DPP Keystone peer profile dppk:MaterialTestCertificate."""@en ;
 
 eusteel:hasMtc
     a owl:ObjectProperty ;
+    rdfs:subPropertyOf oea:hasAssessment ;
     rdfs:label "Material Test Certificate"@en ;
     rdfs:comment "Links a steel product to its Material Test Certificate (EN 10204)."@en ;
     rdfs:domain eusteel:IronSteelProduct ;
@@ -283,6 +289,90 @@ eusteel:hasMtc
     skos:note "Mill test certificate link per EN 10204. Anchored to the DPP Keystone peer profile dppk:mtc."@en ;
     skos:broadMatch gs1:certification ;
     skos:broadMatch schema:hasCertification .
+
+# Performance parameters of the certificate (oea:hasObservedParameter of its results)
+eusteel:YieldStrength a oea:PerformanceParameter ;
+    rdfs:label "Yield Strength"@en ;
+    rdfs:comment "Yield strength Re from the tensile test; unitCode MPA. Replaces eusteel:mtcYieldStrength."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
+    skos:closeMatch dppk:mtcYieldStrength .
+
+eusteel:TensileStrength a oea:PerformanceParameter ;
+    rdfs:label "Tensile Strength"@en ;
+    rdfs:comment "Ultimate tensile strength Rm from the tensile test; unitCode MPA. Replaces eusteel:mtcTensileStrength."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> .
+
+eusteel:YieldStrengthRatio a oea:PerformanceParameter ;
+    rdfs:label "Yield Strength Ratio"@en ;
+    rdfs:comment "Ratio of tensile strength to yield strength Rm/Re, the k value of reinforcing steel (EN 10080; the replaced eusteel:mtcYieldStrengthRatio said Re/Rm, while the examples carried Rm/Re); unitCode C62. Replaces eusteel:mtcYieldStrengthRatio."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
+    skos:closeMatch dppk:mtcYieldStrengthRatio .
+
+eusteel:Elongation a oea:PerformanceParameter ;
+    rdfs:label "Elongation"@en ;
+    rdfs:comment "Percentage elongation after fracture (A, or Agt for reinforcing steel); unitCode P1. Replaces eusteel:mtcElongation."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
+    skos:closeMatch dppk:mtcElongation .
+
+eusteel:RelativeRibArea a oea:PerformanceParameter ;
+    rdfs:label "Relative Rib Area"@en ;
+    rdfs:comment "Relative rib area fR of ribbed reinforcing steel (bond performance); unitCode C62. Replaces eusteel:mtcRelativeRibArea."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
+    skos:closeMatch dppk:mtcRelativeRibArea .
+
+eusteel:CarbonContent a oea:PerformanceParameter ;
+    rdfs:label "Carbon Content"@en ;
+    rdfs:comment "Carbon content from the cast/ladle analysis (mass %); unitCode P1. Replaces eusteel:mtcCarbonContent."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
+    skos:closeMatch dppk:mtcCarbonContent .
+
+eusteel:PhosphorusContent a oea:PerformanceParameter ;
+    rdfs:label "Phosphorus Content"@en ;
+    rdfs:comment "Phosphorus content from the cast analysis (mass %); unitCode P1. Replaces eusteel:mtcPhosphorusContent."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
+    skos:closeMatch dppk:mtcPhosphorusContent .
+
+eusteel:SulfurContent a oea:PerformanceParameter ;
+    rdfs:label "Sulfur Content"@en ;
+    rdfs:comment "Sulfur content from the cast analysis (mass %); unitCode P1. Replaces eusteel:mtcSulfurContent."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
+    skos:closeMatch dppk:mtcSulfurContent .
+
+eusteel:CopperContent a oea:PerformanceParameter ;
+    rdfs:label "Copper Content"@en ;
+    rdfs:comment "Copper content from the cast analysis (mass %); unitCode P1. Replaces eusteel:mtcCopperContent."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
+    skos:closeMatch dppk:mtcCopperContent .
+
+eusteel:NitrogenContent a oea:PerformanceParameter ;
+    rdfs:label "Nitrogen Content"@en ;
+    rdfs:comment "Nitrogen content from the cast analysis (mass %); unitCode P1. Replaces eusteel:mtcNitrogenContent."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
+    skos:closeMatch dppk:mtcNitrogenContent .
+
+eusteel:CarbonEquivalent a oea:PerformanceParameter ;
+    rdfs:label "Carbon Equivalent"@en ;
+    rdfs:comment "Carbon equivalent value (CEV or CET), the weldability figure derived from the cast analysis (mass %); unitCode P1. Replaces eusteel:mtcCarbonEquivalent."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
+    skos:closeMatch dppk:mtcCarbonEquivalent .
+
+eusteel:RadiometricControl a oea:PerformanceParameter ;
+    rdfs:label "Radiometric Control"@en ;
+    rdfs:comment "Radiometric (radioactivity) control result for the steel, in the unit the certificate states; unitCode C62. Replaces eusteel:mtcRadiometricControl."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
+    skos:closeMatch dppk:mtcRadiometricControl .
 
 eusteel:mtcInspectionType
     a owl:DatatypeProperty ;
@@ -321,136 +411,6 @@ eusteel:mtcWeightTolerance
     skos:exactMatch dppk:mtcWeightTolerance ;
     skos:note "EN 10168 dimensional parameter."@en .
 
-eusteel:mtcYieldStrength
-    a owl:DatatypeProperty ;
-    rdfs:label "MTC Yield Strength"@en ;
-    rdfs:comment "Measured yield strength Re (MPa)."@en ;
-    rdfs:domain eusteel:MaterialTestCertificate ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
-    rdfs:seeAlso dppk:mtcYieldStrength ;
-    skos:exactMatch dppk:mtcYieldStrength ;
-    skos:note "EN 10168 mechanical parameter."@en .
-
-eusteel:mtcTensileStrength
-    a owl:DatatypeProperty ;
-    rdfs:label "MTC Tensile Strength"@en ;
-    rdfs:comment "Measured ultimate tensile strength Rm (MPa)."@en ;
-    rdfs:domain eusteel:MaterialTestCertificate ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
-    skos:note "EN 10168 mechanical parameter (Rm)."@en .
-
-eusteel:mtcYieldStrengthRatio
-    a owl:DatatypeProperty ;
-    rdfs:label "MTC Yield Strength Ratio"@en ;
-    rdfs:comment "Ratio of yield strength to tensile strength (Re/Rm)."@en ;
-    rdfs:domain eusteel:MaterialTestCertificate ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
-    rdfs:seeAlso dppk:mtcYieldStrengthRatio ;
-    skos:exactMatch dppk:mtcYieldStrengthRatio ;
-    skos:note "EN 10168 mechanical parameter."@en .
-
-eusteel:mtcElongation
-    a owl:DatatypeProperty ;
-    rdfs:label "MTC Elongation"@en ;
-    rdfs:comment "Percentage elongation after fracture (A%)."@en ;
-    rdfs:domain eusteel:MaterialTestCertificate ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
-    rdfs:seeAlso dppk:mtcElongation ;
-    skos:exactMatch dppk:mtcElongation ;
-    skos:note "EN 10168 mechanical parameter."@en .
-
-eusteel:mtcRelativeRibArea
-    a owl:DatatypeProperty ;
-    rdfs:label "MTC Relative Rib Area"@en ;
-    rdfs:comment "Relative rib area fR for ribbed reinforcing steel (bond performance)."@en ;
-    rdfs:domain eusteel:MaterialTestCertificate ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
-    rdfs:seeAlso dppk:mtcRelativeRibArea ;
-    skos:exactMatch dppk:mtcRelativeRibArea ;
-    skos:note "EN 10168 mechanical parameter for reinforcing steel."@en .
-
-eusteel:mtcCarbonContent
-    a owl:DatatypeProperty ;
-    rdfs:label "MTC Carbon Content"@en ;
-    rdfs:comment "Carbon content from the cast/ladle analysis (mass %)."@en ;
-    rdfs:domain eusteel:MaterialTestCertificate ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
-    rdfs:seeAlso dppk:mtcCarbonContent ;
-    skos:exactMatch dppk:mtcCarbonContent ;
-    skos:note "EN 10168 chemical parameter."@en .
-
-eusteel:mtcPhosphorusContent
-    a owl:DatatypeProperty ;
-    rdfs:label "MTC Phosphorus Content"@en ;
-    rdfs:comment "Phosphorus content from the cast analysis (mass %)."@en ;
-    rdfs:domain eusteel:MaterialTestCertificate ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
-    rdfs:seeAlso dppk:mtcPhosphorusContent ;
-    skos:exactMatch dppk:mtcPhosphorusContent ;
-    skos:note "EN 10168 chemical parameter."@en .
-
-eusteel:mtcSulfurContent
-    a owl:DatatypeProperty ;
-    rdfs:label "MTC Sulfur Content"@en ;
-    rdfs:comment "Sulfur content from the cast analysis (mass %)."@en ;
-    rdfs:domain eusteel:MaterialTestCertificate ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
-    rdfs:seeAlso dppk:mtcSulfurContent ;
-    skos:exactMatch dppk:mtcSulfurContent ;
-    skos:note "EN 10168 chemical parameter."@en .
-
-eusteel:mtcCopperContent
-    a owl:DatatypeProperty ;
-    rdfs:label "MTC Copper Content"@en ;
-    rdfs:comment "Copper content from the cast analysis (mass %)."@en ;
-    rdfs:domain eusteel:MaterialTestCertificate ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
-    rdfs:seeAlso dppk:mtcCopperContent ;
-    skos:exactMatch dppk:mtcCopperContent ;
-    skos:note "EN 10168 chemical parameter."@en .
-
-eusteel:mtcNitrogenContent
-    a owl:DatatypeProperty ;
-    rdfs:label "MTC Nitrogen Content"@en ;
-    rdfs:comment "Nitrogen content from the cast analysis (mass %)."@en ;
-    rdfs:domain eusteel:MaterialTestCertificate ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
-    rdfs:seeAlso dppk:mtcNitrogenContent ;
-    skos:exactMatch dppk:mtcNitrogenContent ;
-    skos:note "EN 10168 chemical parameter."@en .
-
-eusteel:mtcCarbonEquivalent
-    a owl:DatatypeProperty ;
-    rdfs:label "MTC Carbon Equivalent"@en ;
-    rdfs:comment "Carbon equivalent value (CEV / CET), a weldability indicator derived from the cast analysis."@en ;
-    rdfs:domain eusteel:MaterialTestCertificate ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
-    rdfs:seeAlso dppk:mtcCarbonEquivalent ;
-    skos:exactMatch dppk:mtcCarbonEquivalent ;
-    skos:note "EN 10168 derived chemical parameter (weldability)."@en .
-
 eusteel:mtcSteelProcess
     a owl:DatatypeProperty ;
     rdfs:label "MTC Steel Process"@en ;
@@ -477,14 +437,3 @@ eusteel:mtcFinishing
     skos:exactMatch dppk:mtcFinishing ;
     skos:note "EN 10168 delivery-condition descriptor."@en .
 
-eusteel:mtcRadiometricControl
-    a owl:DatatypeProperty ;
-    rdfs:label "MTC Radiometric Control"@en ;
-    rdfs:comment "Radiometric (radioactivity) control result for the steel, where declared."@en ;
-    rdfs:domain eusteel:MaterialTestCertificate ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/> ;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
-    rdfs:seeAlso dppk:mtcRadiometricControl ;
-    skos:exactMatch dppk:mtcRadiometricControl ;
-    skos:note "EN 10168 radiometric control parameter."@en .

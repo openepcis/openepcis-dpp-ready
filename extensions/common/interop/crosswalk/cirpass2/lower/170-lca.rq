@@ -2,13 +2,16 @@
 # total (to the product's, with the study URL, for a <product>#lca-study): a gs1:QuantitativeValue
 # (same node) for a carbon footprint declaration, else a decimal in kg CO2e; its
 # eudpp:unitAsString is the declared unit, its marked module values the stage values. EPD:
-# expiry date and product category rules.
+# expiry date and product category rules; impact indicator and module values.
 CONSTRUCT {
   ?target oec:carbonFootprintTotal ?tot ; oec:declaredUnit ?du ; oec:carbonFootprintStudyUrl ?url .
   ?cfq a gs1:QuantitativeValue ; gs1:value ?nv ; gs1:unitCode ?code .
   ?st ?sp ?sv .
   ?sv a gs1:QuantitativeValue ; gs1:value ?snv ; gs1:unitCode ?scode .
   ?epd oec:epdValidUntil ?exp ; oec:productCategoryRules ?pcrUrl .
+  ?r oea:hasMeasuredValue ?mq . ?mq a gs1:QuantitativeValue ; gs1:value ?mv ; gs1:unitCode ?mcode .
+  ?r oea:hasObservedParameter ?stageCat .
+  ?fp oea:hasMethod ?fpm . ?fpm a oea:AssessmentMethod ; oea:methodName ?fpName .
 }
 WHERE {
   {
@@ -39,5 +42,34 @@ WHERE {
     { GRAPH <urn:xw:in> { ?epd eudpp:expiryDate ?e0 } BIND(STRDT(STR(?e0), xsd:date) AS ?exp) }
     UNION
     { GRAPH <urn:xw:in> { ?epd eudpp:followsPCR ?pcr } BIND(STRDT(STR(?pcr), xsd:anyURI) AS ?pcrUrl) }
+  } UNION {
+    # A textile footprint study: dcterms:conformsTo names its PEFCR.
+    GRAPH <urn:xw:in> { ?fp dcterms:type eutex:EnvironmentalFootprint ; dcterms:conformsTo ?fpc }
+    BIND(STR(?fpc) AS ?fpName)
+    BIND(BNODE() AS ?fpm)
+  } UNION {
+    # Any other LCIA result (an EPD impact indicator) and its module values: the value and unit
+    # become an oea:hasMeasuredValue, a module value also observes its indicator's category. Without a unit IRI the declared unit text names it (kg …: KGM,
+    # mol …: C34, MJ: 3B, m3 …: MTQ).
+    {
+      GRAPH <urn:xw:in> { ?r a eudpp:LCIAResult ; eudpp:numericalValue ?raw }
+      BIND(?r AS ?ind)
+    } UNION {
+      GRAPH <urn:xw:in> { ?ind a eudpp:LCIAResult ; eudpp:hasPerModuleValue ?r . ?r eudpp:amount ?raw }
+      # A module value observes the impact category of its indicator.
+      OPTIONAL { GRAPH <urn:xw:in> { ?ind eudpp:quantifiesIndicator ?qi } OPTIONAL { ?ourCat xw:sameCode ?qi } BIND(COALESCE(?ourCat, ?qi) AS ?stageCat) }
+    }
+    FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?ind a eudpp:CarbonFootprint } }
+    OPTIONAL {
+      GRAPH <urn:xw:in> { ?r eudpp:hasMeasurementUnit ?munit }
+      OPTIONAL { ?mrow xw:unitCode ?mc0 ; xw:siUnit ?munit ; xw:factor ?mf ; xw:canonical true }
+    }
+    OPTIONAL { GRAPH <urn:xw:in> { ?ind eudpp:unitAsString ?ustr } }
+    BIND(LCASE(STR(?ustr)) AS ?u)
+    BIND(IF(STRSTARTS(?u, "kg"), "KGM", IF(STRSTARTS(?u, "mol"), "C34", IF(STRSTARTS(?u, "mj"), "3B", IF(STRSTARTS(?u, "m3") || STRSTARTS(?u, "m³"), "MTQ", ?noCode)))) AS ?fromText)
+    BIND(COALESCE(?mc0, IF(BOUND(?munit) && STRSTARTS(STR(?munit), "https://vocabulary.uncefact.org/UnitMeasureCode#"), STRAFTER(STR(?munit), "#"), ?fromText)) AS ?mcode)
+    # Oxigraph 0.5.11 errs on a decimal zero times or divided by a decimal: zero is kept explicitly.
+    BIND(xsd:decimal(IF(xsd:decimal(?raw) = 0, 0.0, xsd:decimal(?raw) / COALESCE(?mf, 1.0))) AS ?mv)
+    BIND(BNODE() AS ?mq)
   }
 }

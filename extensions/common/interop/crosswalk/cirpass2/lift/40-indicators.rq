@@ -17,6 +17,8 @@ CONSTRUCT {
 }
 WHERE {
   GRAPH <urn:xw:in> { ?x oea:hasIndicator ?i . ?i oea:hasIndicatorKind ?k }
+  # Kinds with an EUDPP quantity class: 146-indicator-quantities.rq.
+  FILTER NOT EXISTS { ?k xw:indicatorClass ?anyClass }
   OPTIONAL { ?k xw:liftType ?ktype }
   BIND(COALESCE(?ktype, IF(STRSTARTS(STR(?k), "https://w3id.org/eudpp/"), ?k, txt-indicator:Indicator)) AS ?icls)
   BIND(IF(!BOUND(?ktype) && !STRSTARTS(STR(?k), "https://w3id.org/eudpp/"), ?k, ?noMarker) AS ?kindMarker)

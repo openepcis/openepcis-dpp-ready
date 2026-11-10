@@ -28,9 +28,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js
 var require_IdentifierIssuer = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/IdentifierIssuer.js"(exports, module) {
     "use strict";
     module.exports = class IdentifierIssuer {
       /**
@@ -101,9 +101,9 @@ var require_IdentifierIssuer = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js
+// node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js
 var require_setImmediate = __commonJS({
-  "../wt-cur/node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js"(exports) {
+  "node_modules/.pnpm/setimmediate@1.0.5/node_modules/setimmediate/setImmediate.js"(exports) {
     (function(global2, undefined2) {
       "use strict";
       if (global2.setImmediate) {
@@ -249,9 +249,9 @@ var require_setImmediate = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js
 var require_platform_browser = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js"(exports) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/platform-browser.js"(exports) {
     "use strict";
     require_setImmediate();
     exports.setImmediate = setImmediate;
@@ -271,9 +271,9 @@ var require_platform_browser = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js
 var require_MessageDigest_webcrypto = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/MessageDigest-webcrypto.js"(exports, module) {
     "use strict";
     var { bufferToHex, crypto } = require_platform_browser();
     var algorithmMap = /* @__PURE__ */ new Map([
@@ -315,9 +315,9 @@ var require_MessageDigest_webcrypto = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js
 var require_Permuter = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/Permuter.js"(exports, module) {
     "use strict";
     module.exports = class Permuter {
       /**
@@ -380,9 +380,9 @@ var require_Permuter = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js
 var require_NQuads = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/NQuads.js"(exports, module) {
     "use strict";
     var RDF2 = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     var RDF_LANGSTRING = RDF2 + "langString";
@@ -696,9 +696,9 @@ var require_NQuads = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js
 var require_RDFC10 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10.js"(exports, module) {
     "use strict";
     var IdentifierIssuer = require_IdentifierIssuer();
     var MessageDigest = require_MessageDigest_webcrypto();
@@ -1017,9 +1017,9 @@ var require_RDFC10 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js
 var require_RDFC10Sync = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/RDFC10Sync.js"(exports, module) {
     "use strict";
     var IdentifierIssuer = require_IdentifierIssuer();
     var MessageDigest = require_MessageDigest_webcrypto();
@@ -1326,9 +1326,9 @@ var require_RDFC10Sync = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js
 var require_lib = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js"(exports) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/lib/index.js"(exports) {
     "use strict";
     var RDFC10 = require_RDFC10();
     var RDFC10Sync = require_RDFC10Sync();
@@ -1399,16 +1399,16 @@ var require_lib = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js
+// node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js
 var require_rdf_canonize = __commonJS({
-  "../wt-cur/node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js"(exports, module) {
+  "node_modules/.pnpm/rdf-canonize@5.0.0/node_modules/rdf-canonize/index.js"(exports, module) {
     module.exports = require_lib();
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js
 var require_types = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/types.js"(exports, module) {
     "use strict";
     var api = {};
     module.exports = api;
@@ -1424,9 +1424,9 @@ var require_types = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js
 var require_graphTypes = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/graphTypes.js"(exports, module) {
     "use strict";
     var types = require_types();
     var api = {};
@@ -1475,9 +1475,9 @@ var require_graphTypes = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js
 var require_JsonLdError = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdError.js"(exports, module) {
     "use strict";
     module.exports = class JsonLdError extends Error {
       /**
@@ -1497,9 +1497,9 @@ var require_JsonLdError = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js
 var require_util = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/util.js"(exports, module) {
     "use strict";
     var graphTypes = require_graphTypes();
     var types = require_types();
@@ -1753,9 +1753,9 @@ var require_util = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js
 var require_constants = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/constants.js"(exports, module) {
     "use strict";
     var RDF2 = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     var XSD3 = "http://www.w3.org/2001/XMLSchema#";
@@ -1783,9 +1783,9 @@ var require_constants = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js
 var require_RequestQueue = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/RequestQueue.js"(exports, module) {
     "use strict";
     module.exports = class RequestQueue {
       /**
@@ -1817,9 +1817,9 @@ var require_RequestQueue = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js
 var require_url = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/url.js"(exports, module) {
     "use strict";
     var types = require_types();
     var api = {};
@@ -2020,9 +2020,9 @@ var require_url = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js
 var require_xhr = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/documentLoaders/xhr.js"(exports, module) {
     "use strict";
     var { parseLinkHeader, buildHeaders } = require_util();
     var { LINK_HEADER_CONTEXT } = require_constants();
@@ -2118,9 +2118,9 @@ var require_xhr = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js
 var require_platform_browser2 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/platform-browser.js"(exports, module) {
     "use strict";
     var xhrLoader = require_xhr();
     var api = {};
@@ -2144,9 +2144,9 @@ var require_platform_browser2 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js
+// node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js
 var require_iterator = __commonJS({
-  "../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js"(exports, module) {
+  "node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/iterator.js"(exports, module) {
     "use strict";
     module.exports = function(Yallist) {
       Yallist.prototype[Symbol.iterator] = function* () {
@@ -2158,9 +2158,9 @@ var require_iterator = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js
+// node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js
 var require_yallist = __commonJS({
-  "../wt-cur/node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js"(exports, module) {
+  "node_modules/.pnpm/yallist@4.0.0/node_modules/yallist/yallist.js"(exports, module) {
     "use strict";
     module.exports = Yallist;
     Yallist.Node = Node;
@@ -2527,9 +2527,9 @@ var require_yallist = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js
+// node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js
 var require_lru_cache = __commonJS({
-  "../wt-cur/node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js"(exports, module) {
+  "node_modules/.pnpm/lru-cache@6.0.0/node_modules/lru-cache/index.js"(exports, module) {
     "use strict";
     var Yallist = require_yallist();
     var MAX = Symbol("max");
@@ -2796,9 +2796,9 @@ var require_lru_cache = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js
 var require_ResolvedContext = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ResolvedContext.js"(exports, module) {
     "use strict";
     var LRU = require_lru_cache();
     var MAX_ACTIVE_CONTEXTS = 10;
@@ -2822,9 +2822,9 @@ var require_ResolvedContext = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js
 var require_ContextResolver = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/ContextResolver.js"(exports, module) {
     "use strict";
     var {
       isArray: _isArray,
@@ -3030,17 +3030,17 @@ var require_ContextResolver = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js
 var require_NQuads2 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/NQuads.js"(exports, module) {
     "use strict";
     module.exports = require_rdf_canonize().NQuads;
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js
 var require_events = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/events.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var {
@@ -3155,9 +3155,9 @@ var require_events = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js
 var require_context = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/context.js"(exports, module) {
     "use strict";
     var util = require_util();
     var JsonLdError = require_JsonLdError();
@@ -4365,9 +4365,9 @@ var require_context = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js
 var require_expand = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/expand.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var {
@@ -5426,9 +5426,9 @@ var require_expand = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js
 var require_nodeMap = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/nodeMap.js"(exports, module) {
     "use strict";
     var { isKeyword } = require_context();
     var graphTypes = require_graphTypes();
@@ -5649,9 +5649,9 @@ var require_nodeMap = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js
 var require_flatten = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/flatten.js"(exports, module) {
     "use strict";
     var {
       isSubjectReference: _isSubjectReference
@@ -5676,9 +5676,9 @@ var require_flatten = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js
 var require_fromRdf = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/fromRdf.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var graphTypes = require_graphTypes();
@@ -5947,9 +5947,9 @@ var require_fromRdf = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js
+// node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js
 var require_canonicalize = __commonJS({
-  "../wt-cur/node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js"(exports, module) {
+  "node_modules/.pnpm/canonicalize@2.1.0/node_modules/canonicalize/lib/canonicalize.js"(exports, module) {
     "use strict";
     module.exports = function serialize(object) {
       if (typeof object === "number" && isNaN(object)) {
@@ -5984,9 +5984,9 @@ var require_canonicalize = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js
 var require_toRdf = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/toRdf.js"(exports, module) {
     "use strict";
     var { createNodeMap } = require_nodeMap();
     var { isKeyword } = require_context();
@@ -6335,9 +6335,9 @@ var require_toRdf = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js
 var require_frame = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/frame.js"(exports, module) {
     "use strict";
     var { isKeyword } = require_context();
     var graphTypes = require_graphTypes();
@@ -6864,9 +6864,9 @@ var require_frame = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js
 var require_compact = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/compact.js"(exports, module) {
     "use strict";
     var JsonLdError = require_JsonLdError();
     var {
@@ -7764,9 +7764,9 @@ var require_compact = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js
 var require_JsonLdProcessor = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/JsonLdProcessor.js"(exports, module) {
     "use strict";
     module.exports = (jsonld3) => {
       class JsonLdProcessor {
@@ -7813,9 +7813,9 @@ var require_JsonLdProcessor = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js
+// node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js
 var require_jsonld = __commonJS({
-  "../wt-cur/node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js"(exports, module) {
+  "node_modules/.pnpm/jsonld@9.0.0/node_modules/jsonld/lib/jsonld.js"(exports, module) {
     var canonize = require_rdf_canonize();
     var platform = require_platform_browser2();
     var util = require_util();
@@ -8405,9 +8405,9 @@ var require_jsonld = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js
+// node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js
 var require_base64_js = __commonJS({
-  "../wt-cur/node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js"(exports) {
+  "node_modules/.pnpm/base64-js@1.5.1/node_modules/base64-js/index.js"(exports) {
     "use strict";
     exports.byteLength = byteLength;
     exports.toByteArray = toByteArray;
@@ -8506,9 +8506,9 @@ var require_base64_js = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js
+// node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js
 var require_ieee754 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js"(exports) {
+  "node_modules/.pnpm/ieee754@1.2.1/node_modules/ieee754/index.js"(exports) {
     exports.read = function(buffer, offset, isLE, mLen, nBytes) {
       var e, m;
       var eLen = nBytes * 8 - mLen - 1;
@@ -8589,9 +8589,9 @@ var require_ieee754 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js
+// node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js
 var require_buffer = __commonJS({
-  "../wt-cur/node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js"(exports) {
+  "node_modules/.pnpm/buffer@6.0.3/node_modules/buffer/index.js"(exports) {
     "use strict";
     var base64 = require_base64_js();
     var ieee754 = require_ieee754();
@@ -10181,9 +10181,9 @@ var require_buffer = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js
 var require_primordials = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/primordials.js"(exports, module) {
     "use strict";
     var AggregateError = class extends Error {
       constructor(errors) {
@@ -10302,9 +10302,9 @@ var require_primordials = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js
 var require_inspect = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js"(exports, module) {
     "use strict";
     module.exports = {
       format(format, ...args) {
@@ -10353,9 +10353,9 @@ var require_inspect = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js
 var require_errors = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js"(exports, module) {
     "use strict";
     var { format, inspect } = require_inspect();
     var { AggregateError: CustomAggregateError } = require_primordials();
@@ -10671,9 +10671,9 @@ var require_errors = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js
+// node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js
 var require_browser = __commonJS({
-  "../wt-cur/node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js"(exports, module) {
+  "node_modules/.pnpm/abort-controller@3.0.0/node_modules/abort-controller/browser.js"(exports, module) {
     "use strict";
     var { AbortController, AbortSignal } = typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : (
       /* otherwise */
@@ -10685,9 +10685,9 @@ var require_browser = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/events@3.3.0/node_modules/events/events.js
+// node_modules/.pnpm/events@3.3.0/node_modules/events/events.js
 var require_events2 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/events@3.3.0/node_modules/events/events.js"(exports, module) {
+  "node_modules/.pnpm/events@3.3.0/node_modules/events/events.js"(exports, module) {
     "use strict";
     var R = typeof Reflect === "object" ? Reflect : null;
     var ReflectApply = R && typeof R.apply === "function" ? R.apply : function ReflectApply2(target, receiver, args) {
@@ -11054,9 +11054,9 @@ var require_events2 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js
 var require_util2 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js"(exports, module) {
     "use strict";
     var bufferModule = require_buffer();
     var { format, inspect } = require_inspect();
@@ -11193,9 +11193,9 @@ var require_util2 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js
 var require_validators = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/validators.js"(exports, module) {
     "use strict";
     var {
       ArrayIsArray,
@@ -11457,9 +11457,9 @@ var require_validators = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js
+// node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js
 var require_browser2 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js"(exports, module) {
+  "node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js"(exports, module) {
     var process2 = module.exports = {};
     var cachedSetTimeout;
     var cachedClearTimeout;
@@ -11619,9 +11619,9 @@ var require_browser2 = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js
 var require_utils = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/utils.js"(exports, module) {
     "use strict";
     var { SymbolAsyncIterator, SymbolIterator, SymbolFor } = require_primordials();
     var kIsDestroyed = SymbolFor("nodejs.stream.destroyed");
@@ -11828,9 +11828,9 @@ var require_utils = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
 var require_end_of_stream = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var { AbortError, codes } = require_errors();
@@ -12080,9 +12080,9 @@ var require_end_of_stream = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js
 var require_destroy = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var {
@@ -12345,9 +12345,9 @@ var require_destroy = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js
 var require_legacy = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/legacy.js"(exports, module) {
     "use strict";
     var { ArrayIsArray, ObjectSetPrototypeOf } = require_primordials();
     var { EventEmitter: EE } = require_events2();
@@ -12423,9 +12423,9 @@ var require_legacy = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js
 var require_add_abort_signal = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/add-abort-signal.js"(exports, module) {
     "use strict";
     var { SymbolDispose } = require_primordials();
     var { AbortError, codes } = require_errors();
@@ -12474,9 +12474,9 @@ var require_add_abort_signal = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js
 var require_buffer_list = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module) {
     "use strict";
     var { StringPrototypeSlice, SymbolIterator, TypedArrayPrototypeSet, Uint8Array: Uint8Array2 } = require_primordials();
     var { Buffer: Buffer3 } = require_buffer();
@@ -12629,9 +12629,9 @@ var require_buffer_list = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js
 var require_state = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/state.js"(exports, module) {
     "use strict";
     var { MathFloor, NumberIsInteger } = require_primordials();
     var { validateInteger } = require_validators();
@@ -12671,9 +12671,9 @@ var require_state = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js
+// node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js
 var require_safe_buffer = __commonJS({
-  "../wt-cur/node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js"(exports, module) {
+  "node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js"(exports, module) {
     var buffer = require_buffer();
     var Buffer3 = buffer.Buffer;
     function copyProps(src, dst) {
@@ -12729,9 +12729,9 @@ var require_safe_buffer = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js
+// node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js
 var require_string_decoder = __commonJS({
-  "../wt-cur/node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js"(exports) {
+  "node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js"(exports) {
     "use strict";
     var Buffer3 = require_safe_buffer().Buffer;
     var isEncoding = Buffer3.isEncoding || function(encoding) {
@@ -12967,9 +12967,9 @@ var require_string_decoder = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js
 var require_from = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/from.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var { PromisePrototypeThen, SymbolAsyncIterator, SymbolIterator } = require_primordials();
@@ -13062,9 +13062,9 @@ var require_from = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js
 var require_readable = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/readable.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var {
@@ -14028,9 +14028,9 @@ var require_readable = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js
 var require_writable = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/writable.js"(exports, module) {
     "use strict";
     var process2 = require_browser2();
     var {
@@ -14649,9 +14649,9 @@ var require_writable = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js
 var require_duplexify = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplexify.js"(exports, module) {
     var process2 = require_browser2();
     var bufferModule = require_buffer();
     var {
@@ -14996,9 +14996,9 @@ var require_duplexify = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js
 var require_duplex = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/duplex.js"(exports, module) {
     "use strict";
     var {
       ObjectDefineProperties,
@@ -15113,9 +15113,9 @@ var require_duplex = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js
 var require_transform = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/transform.js"(exports, module) {
     "use strict";
     var { ObjectSetPrototypeOf, Symbol: Symbol2 } = require_primordials();
     module.exports = Transform3;
@@ -15215,9 +15215,9 @@ var require_transform = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js
 var require_passthrough = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/passthrough.js"(exports, module) {
     "use strict";
     var { ObjectSetPrototypeOf } = require_primordials();
     module.exports = PassThrough;
@@ -15234,9 +15234,9 @@ var require_passthrough = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js
 var require_pipeline = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports, module) {
     var process2 = require_browser2();
     var { ArrayIsArray, Promise: Promise2, SymbolAsyncIterator, SymbolDispose } = require_primordials();
     var eos = require_end_of_stream();
@@ -15662,9 +15662,9 @@ var require_pipeline = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js
 var require_compose = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/compose.js"(exports, module) {
     "use strict";
     var { pipeline } = require_pipeline();
     var Duplex = require_duplex();
@@ -15855,9 +15855,9 @@ var require_compose = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js
 var require_operators = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/operators.js"(exports, module) {
     "use strict";
     var AbortController = globalThis.AbortController || require_browser().AbortController;
     var {
@@ -16260,9 +16260,9 @@ var require_operators = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js
 var require_promises = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream/promises.js"(exports, module) {
     "use strict";
     var { ArrayPrototypePop, Promise: Promise2 } = require_primordials();
     var { isIterable, isNodeStream, isWebStream } = require_utils();
@@ -16302,9 +16302,9 @@ var require_promises = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js
 var require_stream = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js"(exports, module) {
     "use strict";
     var { Buffer: Buffer3 } = require_buffer();
     var { ObjectDefineProperty, ObjectKeys, ReflectApply } = require_primordials();
@@ -16421,9 +16421,9 @@ var require_stream = __commonJS({
   }
 });
 
-// ../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js
+// node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js
 var require_browser3 = __commonJS({
-  "../wt-cur/node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js"(exports, module) {
+  "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/browser.js"(exports, module) {
     "use strict";
     var CustomStream = require_stream();
     var promises = require_promises();
@@ -16756,10 +16756,10 @@ function compressEN18223(passport, opts = defaultOptions) {
 // scripts/en18223/serialize.ts
 var import_jsonld2 = __toESM(require_jsonld(), 1);
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
 var import_buffer = __toESM(require_buffer());
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/IRIs.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/IRIs.js
 var RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 var XSD2 = "http://www.w3.org/2001/XMLSchema#";
 var SWAP = "http://www.w3.org/2000/10/swap/";
@@ -16791,7 +16791,7 @@ var IRIs_default = {
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Lexer.js
 var { xsd } = IRIs_default;
 var escapeSequence = /\\u([a-fA-F0-9]{4})|\\U([a-fA-F0-9]{8})|\\([^])/g;
 var escapeReplacements = {
@@ -17209,7 +17209,7 @@ var N3Lexer = class {
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3DataFactory.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3DataFactory.js
 var { rdf, xsd: xsd2 } = IRIs_default;
 var DEFAULTGRAPH;
 var _blankNodeCounter = 0;
@@ -17509,7 +17509,7 @@ function fromQuad(inQuad) {
   return quad(fromTerm(inQuad.subject), fromTerm(inQuad.predicate), fromTerm(inQuad.object), fromTerm(inQuad.graph));
 }
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Parser.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Parser.js
 var blankNodePrefix = 0;
 var N3Parser = class {
   constructor(options) {
@@ -18443,7 +18443,7 @@ function initDataFactory(parser, factory) {
 }
 initDataFactory(N3Parser.prototype, N3DataFactory_default);
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Util.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Util.js
 var N3Util_exports = {};
 __export(N3Util_exports, {
   inDefaultGraph: () => inDefaultGraph,
@@ -18499,12 +18499,12 @@ function prefixes(defaultPrefixes, factory) {
   return processPrefix;
 }
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/Util.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/Util.js
 function escapeRegex(regex) {
   return regex.replace(/[\]\/\(\)\*\+\?\.\\\$]/g, "\\$&");
 }
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/BaseIRI.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/BaseIRI.js
 var BASE_UNSUPPORTED = /^:?[^:?#]*(?:[?#]|$)|^file:|^[^:]*:\/*[^?#]+?\/(?:\.\.?(?:\/|$)|\/)/i;
 var SUFFIX_SUPPORTED = /^(?:(?:[^/?#]{3,}|\.?[^/?#.]\.?)(?:\/[^/?#]{3,}|\.?[^/?#.]\.?)*\/?)?(?:[?#]|$)/;
 var CURRENT = "./";
@@ -18576,7 +18576,7 @@ var BaseIRI = class _BaseIRI {
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Writer.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Writer.js
 var DEFAULTGRAPH2 = N3DataFactory_default.defaultGraph();
 var { rdf: rdf2, xsd: xsd3 } = IRIs_default;
 var escape = /["\\\t\n\r\b\f\u0000-\u0019\ud800-\udbff]/;
@@ -18881,7 +18881,7 @@ function characterReplacer(character) {
   return result;
 }
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Store.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Store.js
 var import_readable_stream = __toESM(require_browser3());
 var ITERATOR = Symbol("iter");
 function merge(target, source, depth = 4) {
@@ -19887,14 +19887,14 @@ var DatasetCoreAndReadableStream = class _DatasetCoreAndReadableStream extends i
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StoreFactory.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StoreFactory.js
 var N3DatasetCoreFactory = class {
   dataset(quads) {
     return new N3Store(quads);
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Reasoner.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3Reasoner.js
 function getRulesFromDataset(dataset) {
   const rules = [];
   for (const { subject, object } of dataset.match(null, N3DataFactory_default.namedNode("http://www.w3.org/2000/10/swap/log#implies"), null, N3DataFactory_default.defaultGraph())) {
@@ -20064,7 +20064,7 @@ function termEq(t1, t2) {
   return t1.value === t2.value;
 }
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StreamParser.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StreamParser.js
 var import_readable_stream2 = __toESM(require_browser3());
 var N3StreamParser = class extends import_readable_stream2.Transform {
   constructor(options) {
@@ -20122,7 +20122,7 @@ var N3StreamParser = class extends import_readable_stream2.Transform {
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StreamWriter.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/N3StreamWriter.js
 var import_readable_stream3 = __toESM(require_browser3());
 var N3StreamWriter = class extends import_readable_stream3.Transform {
   constructor(options) {
@@ -20162,7 +20162,7 @@ var N3StreamWriter = class extends import_readable_stream3.Transform {
   }
 };
 
-// ../wt-cur/node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/index.js
+// node_modules/.pnpm/n3@1.26.0/node_modules/n3/src/index.js
 var src_default = {
   Lexer: N3Lexer,
   Parser: N3Parser,
@@ -20699,7 +20699,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/common/core/hasHazardousSubstances": "https://ref.openepcis.org/extensions/common/core/HazardousSubstance",
   "https://ref.openepcis.org/extensions/common/core/hasHazardSignalWord": "https://ref.openepcis.org/extensions/common/core/HazardSignalWord",
   "https://ref.openepcis.org/extensions/common/core/hasImpactIndicator": "https://ref.openepcis.org/extensions/common/core/ImpactIndicatorResult",
-  "https://ref.openepcis.org/extensions/common/core/hasIndicatorType": "https://ref.openepcis.org/extensions/common/core/ImpactIndicatorType",
   "https://ref.openepcis.org/extensions/common/core/hasLifecycleStage": "https://ref.openepcis.org/extensions/common/core/LifecycleStage",
   "https://ref.openepcis.org/extensions/common/core/hasLifecycleStageResult": "https://ref.openepcis.org/extensions/common/core/LifecycleStageResult",
   "https://ref.openepcis.org/extensions/common/core/hasMaterialComposition": "https://ref.openepcis.org/extensions/common/core/MaterialComposition",
@@ -20731,23 +20730,17 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/common/core/hazardPictogramCode": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/hazardStatement": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/identityCredentialUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/common/core/indicatorTotalValue": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/common/core/indicatorUnit": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/isCriticalRawMaterial": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/common/core/isEnergyRelated": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/common/core/isRegulationCompliant": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/common/core/isStrategicRawMaterial": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/common/core/issueDate": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.org/extensions/common/core/iupacName": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/common/core/landUse": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/language": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/languageCode": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/lastUpdated": "http://www.w3.org/2001/XMLSchema#dateTime",
   "https://ref.openepcis.org/extensions/common/core/massFraction": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/common/core/materialCircularityIndicator": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/common/core/materialFootprint": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/mimeType": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/common/core/packagingWasteAmount": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/passportExpiryDate": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.org/extensions/common/core/passportIdentifier": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/common/core/passportIssueDate": "http://www.w3.org/2001/XMLSchema#date",
@@ -20759,9 +20752,7 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/common/core/previousPassportVersion": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/common/core/primarySourcedRatio": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/productCategoryRules": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/common/core/productToPackagingRatio": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/professionalRepairNetwork": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/common/core/recyclableContent": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/recycledContent": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/registrationNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/regulatoryActStatus": "http://www.w3.org/2001/XMLSchema#string",
@@ -20778,7 +20769,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/common/core/scipId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/separateCollectionInfo": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/common/core/socThreshold": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/common/core/stageValue": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/substanceLocation": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/substanceTradeName": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/supplyChainTransparencyUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
@@ -20789,12 +20779,9 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/common/core/tradeItemPieceDescription": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/tradeItemPieceNumber": "http://www.w3.org/2001/XMLSchema#positiveInteger",
   "https://ref.openepcis.org/extensions/common/core/tradeItemPieceOf": "https://ref.gs1.org/voc/Product",
-  "https://ref.openepcis.org/extensions/common/core/utilityFactor": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/valueDataType": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/common/core/verifiedRatio": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/common/core/wasteGenerationAmount": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/common/core/wastePreventionInfo": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/common/core/waterConsumption": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/anodeActiveMaterial": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/atSoC": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/auditBody": "http://www.w3.org/2001/XMLSchema#string",
@@ -21043,9 +21030,7 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/detergent/pStatements": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/detergent/strainDesignation": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/detergent/weightPercentRange": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/electronics/avoidedEmissionsKgCO2e": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/electronics/batteryMassGrams": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/eu/electronics/calculationMethod": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/collectionMethod": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/collectionSchemeUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/electronics/componentPartNumber": "http://www.w3.org/2001/XMLSchema#string",
@@ -21053,7 +21038,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/electronics/deviceCondition": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/displayTechnology": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/energyLabelUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.org/extensions/eu/electronics/energyRecoveryRate": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/electronics/eprelProductUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/electronics/eprelRegistrationNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/featureUpdateEndDate": "http://www.w3.org/2001/XMLSchema#date",
@@ -21105,9 +21089,7 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/electronics/nextDisposition": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/osVersion": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/previousVersion": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/electronics/recoveryRate": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/electronics/recyclingProcess": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/electronics/recyclingRate": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/electronics/removalReason": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/repairabilityLabelUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/electronics/repairDescription": "http://www.w3.org/2001/XMLSchema#string",
@@ -21121,8 +21103,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/electronics/securityUpdateEndDate": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.org/extensions/eu/electronics/separatelyTreated": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/electronics/sortingDecision": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/electronics/totalInputMassGrams": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/eu/electronics/totalRecoveredMassGrams": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/electronics/treatmentCertificate": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/treatmentMethod": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/electronics/updateChannel": "http://www.w3.org/2001/XMLSchema#anyURI",
@@ -21179,16 +21159,12 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/ppwr/reuseSystemName": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/ppwr/rotationCount": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/textile/additionalCareInstructions": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-  "https://ref.openepcis.org/extensions/eu/textile/benchmarkPerformance": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/textile/biodegradable": "http://www.w3.org/2001/XMLSchema#boolean",
-  "https://ref.openepcis.org/extensions/eu/textile/carbonFootprintClass": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.org/extensions/eu/textile/carbonFootprintManufacturing": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/textile/chemicalPurpose": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/textile/concentrationRange": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/textile/containsAnimalNonTextileParts": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/textile/endOfLifeDestination": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/textile/endOfLifeHandling": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/textile/environmentalFootprintClass": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/textile/euEcolabel": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/textile/fiberOrigin": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/textile/garmentType": "http://www.w3.org/2001/XMLSchema#string",
@@ -21212,7 +21188,6 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/textile/hasFinishingFacility": "https://ref.openepcis.org/extensions/common/core/FacilityInformation",
   "https://ref.openepcis.org/extensions/eu/textile/hasIroningSymbol": "https://ref.openepcis.org/extensions/eu/textile/CareSymbolCode",
   "https://ref.openepcis.org/extensions/eu/textile/hasLciaCategories": "https://ref.openepcis.org/extensions/eu/textile/LCIACategory",
-  "https://ref.openepcis.org/extensions/eu/textile/hasLciaCategoryCode": "https://ref.openepcis.org/extensions/eu/textile/LCIACategoryCode",
   "https://ref.openepcis.org/extensions/eu/textile/hasMicroplasticInfo": "https://ref.openepcis.org/extensions/eu/textile/MicroplasticInfo",
   "https://ref.openepcis.org/extensions/eu/textile/hasRecyclabilityAssessment": "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment",
   "https://ref.openepcis.org/extensions/eu/textile/hasRecycledContentDeclaration": "https://ref.openepcis.org/extensions/eu/textile/RecycledContentDeclaration",
@@ -21232,15 +21207,11 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/textile/isMRSLCompliant": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/textile/isRecycledFiber": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/textile/isRepairable": "http://www.w3.org/2001/XMLSchema#boolean",
-  "https://ref.openepcis.org/extensions/eu/textile/lciaUnit": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/textile/lciaValue": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/textile/maxConcentration": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/textile/meetsTargetThreshold": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/textile/microplasticMitigationMeasures": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/textile/organicContentMass": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/textile/organicContentPercentage": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.org/extensions/eu/textile/pefcrReference": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.org/extensions/eu/textile/pefSingleScore": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/textile/pfasFree": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/textile/productionWastePercentage": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/textile/recycledContentSource": "http://www.w3.org/2001/XMLSchema#string",
@@ -21283,7 +21254,7 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld": {
-    _comment: "OpenEPCIS DPP Core Vocabulary v0.10.1, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS DPP Core Vocabulary v0.12.0, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld",
       {
@@ -21532,18 +21503,6 @@ var contexts_default = {
         "oec:hasCircularityPerformance": {
           "@id": "oec:hasCircularityPerformance",
           "@type": "@id"
-        },
-        "oec:recyclableContent": {
-          "@id": "oec:recyclableContent",
-          "@type": "xsd:decimal"
-        },
-        "oec:utilityFactor": {
-          "@id": "oec:utilityFactor",
-          "@type": "xsd:decimal"
-        },
-        "oec:materialCircularityIndicator": {
-          "@id": "oec:materialCircularityIndicator",
-          "@type": "xsd:decimal"
         },
         "oec:endOfLifeInstructions": {
           "@id": "oec:endOfLifeInstructions",
@@ -21808,30 +21767,6 @@ var contexts_default = {
         },
         "oec:socThreshold": {
           "@id": "oec:socThreshold",
-          "@type": "xsd:decimal"
-        },
-        "oec:waterConsumption": {
-          "@id": "oec:waterConsumption",
-          "@type": "xsd:decimal"
-        },
-        "oec:landUse": {
-          "@id": "oec:landUse",
-          "@type": "xsd:decimal"
-        },
-        "oec:materialFootprint": {
-          "@id": "oec:materialFootprint",
-          "@type": "xsd:decimal"
-        },
-        "oec:wasteGenerationAmount": {
-          "@id": "oec:wasteGenerationAmount",
-          "@type": "xsd:decimal"
-        },
-        "oec:packagingWasteAmount": {
-          "@id": "oec:packagingWasteAmount",
-          "@type": "xsd:decimal"
-        },
-        "oec:productToPackagingRatio": {
-          "@id": "oec:productToPackagingRatio",
           "@type": "xsd:decimal"
         },
         "oec:productCategoryRules": {
@@ -22661,25 +22596,6 @@ var contexts_default = {
         "@id": "oea:hasIndicatorKind",
         "@type": "@id"
       },
-      hasIndicatorType: {
-        "@id": "oec:hasIndicatorType",
-        "@type": "@vocab",
-        "@context": {
-          ADPElements: "oec:ADPElements",
-          ADPFossil: "oec:ADPFossil",
-          AP: "oec:AP",
-          EPFreshwater: "oec:EPFreshwater",
-          EPMarine: "oec:EPMarine",
-          EPTerrestrial: "oec:EPTerrestrial",
-          GWPBiogenic: "oec:GWPBiogenic",
-          GWPFossil: "oec:GWPFossil",
-          GWPLuluc: "oec:GWPLuluc",
-          GWPTotal: "oec:GWPTotal",
-          ODP: "oec:ODP",
-          POCP: "oec:POCP",
-          WDP: "oec:WDP"
-        }
-      },
       hasIndicatorValue: {
         "@id": "oea:hasIndicatorValue",
         "@type": "@id"
@@ -22938,14 +22854,6 @@ var contexts_default = {
         "@id": "oea:indicatorText",
         "@type": "xsd:string"
       },
-      indicatorTotalValue: {
-        "@id": "oec:indicatorTotalValue",
-        "@type": "xsd:decimal"
-      },
-      indicatorUnit: {
-        "@id": "oec:indicatorUnit",
-        "@type": "xsd:string"
-      },
       isCriticalRawMaterial: {
         "@id": "oec:isCriticalRawMaterial",
         "@type": "xsd:boolean"
@@ -22978,10 +22886,6 @@ var contexts_default = {
         "@id": "oec:iupacName",
         "@type": "xsd:string"
       },
-      landUse: {
-        "@id": "oec:landUse",
-        "@type": "xsd:decimal"
-      },
       language: {
         "@id": "oec:language",
         "@type": "xsd:string"
@@ -23002,18 +22906,10 @@ var contexts_default = {
         "@id": "oec:massFraction",
         "@type": "xsd:decimal"
       },
-      materialCircularityIndicator: {
-        "@id": "oec:materialCircularityIndicator",
-        "@type": "xsd:decimal"
-      },
       materialComposition: {
         "@id": "oec:hasMaterialComposition",
         "@type": "@id",
         "@container": "@set"
-      },
-      materialFootprint: {
-        "@id": "oec:materialFootprint",
-        "@type": "xsd:decimal"
       },
       materialName: "schema:name",
       maxScore: {
@@ -23038,10 +22934,6 @@ var contexts_default = {
         "@container": "@set"
       },
       name: "schema:name",
-      packagingWasteAmount: {
-        "@id": "oec:packagingWasteAmount",
-        "@type": "xsd:decimal"
-      },
       passportExpiryDate: {
         "@id": "oec:passportExpiryDate",
         "@type": "xsd:date"
@@ -23087,17 +22979,9 @@ var contexts_default = {
         "@type": "xsd:anyURI"
       },
       productModel: "schema:ProductModel",
-      productToPackagingRatio: {
-        "@id": "oec:productToPackagingRatio",
-        "@type": "xsd:decimal"
-      },
       professionalRepairNetwork: {
         "@id": "oec:professionalRepairNetwork",
         "@type": "@id"
-      },
-      recyclableContent: {
-        "@id": "oec:recyclableContent",
-        "@type": "xsd:decimal"
       },
       recycledContent: {
         "@id": "oec:recycledContent",
@@ -23183,10 +23067,6 @@ var contexts_default = {
         "@id": "schema:deliveryTime",
         "@type": "@id"
       },
-      stageValue: {
-        "@id": "oec:stageValue",
-        "@type": "xsd:decimal"
-      },
       standardCode: {
         "@id": "oea:standardCode",
         "@type": "xsd:string"
@@ -23265,10 +23145,6 @@ var contexts_default = {
         "@id": "schema:url",
         "@type": "@id"
       },
-      utilityFactor: {
-        "@id": "oec:utilityFactor",
-        "@type": "xsd:decimal"
-      },
       validUntil: {
         "@id": "schema:validUntil",
         "@type": "xsd:date"
@@ -23287,17 +23163,9 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       warrantyScope: "gs1:warrantyScopeDescription",
-      wasteGenerationAmount: {
-        "@id": "oec:wasteGenerationAmount",
-        "@type": "xsd:decimal"
-      },
       wastePreventionInfo: {
         "@id": "oec:wastePreventionInfo",
         "@type": "@id"
-      },
-      waterConsumption: {
-        "@id": "oec:waterConsumption",
-        "@type": "xsd:decimal"
       }
     }
   },
@@ -24378,21 +24246,9 @@ var contexts_default = {
       TextileProduct: "eutex:TextileProduct",
       WasteOriginType: "eutex:WasteOriginType",
       additionalCareInstructions: "eutex:additionalCareInstructions",
-      benchmarkPerformance: {
-        "@id": "eutex:benchmarkPerformance",
-        "@type": "xsd:decimal"
-      },
       biodegradable: {
         "@id": "eutex:biodegradable",
         "@type": "xsd:boolean"
-      },
-      carbonFootprintClass: {
-        "@id": "eutex:carbonFootprintClass",
-        "@type": "xsd:integer"
-      },
-      carbonFootprintManufacturing: {
-        "@id": "eutex:carbonFootprintManufacturing",
-        "@type": "xsd:decimal"
       },
       chemicalName: "schema:name",
       chemicalPurpose: {
@@ -24411,10 +24267,6 @@ var contexts_default = {
       endOfLifeHandling: {
         "@id": "eutex:endOfLifeHandling",
         "@type": "xsd:string"
-      },
-      environmentalFootprintClass: {
-        "@id": "eutex:environmentalFootprintClass",
-        "@type": "xsd:integer"
       },
       euEcolabel: {
         "@id": "eutex:euEcolabel",
@@ -24662,18 +24514,6 @@ var contexts_default = {
         "@id": "eutex:hasLciaCategories",
         "@type": "@id"
       },
-      hasLciaCategoryCode: {
-        "@id": "eutex:hasLciaCategoryCode",
-        "@type": "@vocab",
-        "@context": {
-          Acidification: "eutex:Acidification",
-          Ecotoxicity: "eutex:Ecotoxicity",
-          Eutrophication: "eutex:Eutrophication",
-          GWP: "eutex:GWP",
-          HumanToxicity: "eutex:HumanToxicity",
-          WaterUse: "eutex:WaterUse"
-        }
-      },
       hasMicroplasticInfo: {
         "@id": "eutex:hasMicroplasticInfo",
         "@type": "@id"
@@ -24798,14 +24638,6 @@ var contexts_default = {
         "@type": "@id",
         "@container": "@set"
       },
-      lciaUnit: {
-        "@id": "eutex:lciaUnit",
-        "@type": "xsd:string"
-      },
-      lciaValue: {
-        "@id": "eutex:lciaValue",
-        "@type": "xsd:decimal"
-      },
       maxConcentration: {
         "@id": "eutex:maxConcentration",
         "@type": "xsd:decimal"
@@ -24822,14 +24654,6 @@ var contexts_default = {
       organicContentPercentage: {
         "@id": "eutex:organicContentPercentage",
         "@type": "xsd:decimal"
-      },
-      pefSingleScore: {
-        "@id": "eutex:pefSingleScore",
-        "@type": "xsd:decimal"
-      },
-      pefcrReference: {
-        "@id": "eutex:pefcrReference",
-        "@type": "xsd:string"
       },
       pfasFree: {
         "@id": "eutex:pfasFree",
@@ -24995,17 +24819,9 @@ var contexts_default = {
           }
         }
       },
-      avoidedEmissionsKgCO2e: {
-        "@id": "euelec:avoidedEmissionsKgCO2e",
-        "@type": "xsd:decimal"
-      },
       batteryMassGrams: {
         "@id": "euelec:batteryMassGrams",
         "@type": "xsd:decimal"
-      },
-      calculationMethod: {
-        "@id": "euelec:calculationMethod",
-        "@type": "xsd:string"
       },
       collectionMethod: {
         "@id": "euelec:collectionMethod",
@@ -25067,10 +24883,6 @@ var contexts_default = {
       energyLabelUrl: {
         "@id": "euelec:energyLabelUrl",
         "@type": "@id"
-      },
-      energyRecoveryRate: {
-        "@id": "euelec:energyRecoveryRate",
-        "@type": "xsd:decimal"
       },
       eprelProductUrl: {
         "@id": "euelec:eprelProductUrl",
@@ -25321,17 +25133,9 @@ var contexts_default = {
         "@id": "gs1:productionDate",
         "@type": "xsd:date"
       },
-      recoveryRate: {
-        "@id": "euelec:recoveryRate",
-        "@type": "xsd:decimal"
-      },
       recyclingProcess: {
         "@id": "euelec:recyclingProcess",
         "@type": "xsd:string"
-      },
-      recyclingRate: {
-        "@id": "euelec:recyclingRate",
-        "@type": "xsd:decimal"
       },
       removalReason: {
         "@id": "euelec:removalReason",
@@ -25384,14 +25188,6 @@ var contexts_default = {
       sortingDecision: {
         "@id": "euelec:sortingDecision",
         "@type": "xsd:string"
-      },
-      totalInputMassGrams: {
-        "@id": "euelec:totalInputMassGrams",
-        "@type": "xsd:decimal"
-      },
-      totalRecoveredMassGrams: {
-        "@id": "euelec:totalRecoveredMassGrams",
-        "@type": "xsd:decimal"
       },
       treatmentCertificate: {
         "@id": "euelec:treatmentCertificate",
@@ -28007,7 +27803,7 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld": {
-    _comment: "OpenEPCIS Battery Vocabulary v0.10.1, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Battery Vocabulary v0.12.0, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29459,7 +29255,7 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld": {
-    _comment: "OpenEPCIS Assessment and Test Vocabulary v0.10.1, generated from extensions/common/assessment/ontology/assessment.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/assessment/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Assessment and Test Vocabulary v0.12.0, generated from extensions/common/assessment/ontology/assessment.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/assessment/context/.context-overrides.json for non-derivable hints.",
     "@context": {
       "@version": 1.1,
       id: "@id",
@@ -29635,7 +29431,7 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.org/extensions/common/carrier/carrier-context.jsonld": {
-    _comment: "OpenEPCIS Data Carrier Authentication Vocabulary v0.10.1, generated from extensions/common/carrier/ontology/carrier.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/carrier/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Data Carrier Authentication Vocabulary v0.12.0, generated from extensions/common/carrier/ontology/carrier.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/carrier/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29656,7 +29452,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld": {
-    _comment: "OpenEPCIS Textile DPP Vocabulary v0.10.1, generated from extensions/eu/textile/ontology/textile.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/textile/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Textile DPP Vocabulary v0.12.0, generated from extensions/eu/textile/ontology/textile.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/textile/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29816,26 +29612,10 @@ var contexts_default = {
           "@id": "eutex:hasEnvironmentalFootprint",
           "@type": "@id"
         },
-        "eutex:carbonFootprintManufacturing": {
-          "@id": "eutex:carbonFootprintManufacturing",
-          "@type": "xsd:decimal"
-        },
-        "eutex:pefSingleScore": {
-          "@id": "eutex:pefSingleScore",
-          "@type": "xsd:decimal"
-        },
-        "eutex:benchmarkPerformance": {
-          "@id": "eutex:benchmarkPerformance",
-          "@type": "xsd:decimal"
-        },
         "eutex:hasLciaCategories": {
           "@id": "eutex:hasLciaCategories",
           "@type": "@id",
           "@container": "@set"
-        },
-        "eutex:lciaValue": {
-          "@id": "eutex:lciaValue",
-          "@type": "xsd:decimal"
         },
         "eutex:hasSubstancesOfConcern": {
           "@id": "eutex:hasSubstancesOfConcern",
@@ -29854,7 +29634,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld": {
-    _comment: "OpenEPCIS Electronics Vocabulary v0.10.1, generated from extensions/eu/electronics/ontology/electronics.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/electronics/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Electronics Vocabulary v0.12.0, generated from extensions/eu/electronics/ontology/electronics.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/electronics/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30044,7 +29824,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld": {
-    _comment: "OpenEPCIS EUDR Vocabulary v0.10.1, generated from extensions/eu/eudr/ontology/eudr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/eudr/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS EUDR Vocabulary v0.12.0, generated from extensions/eu/eudr/ontology/eudr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/eudr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30242,7 +30022,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/ppwr/ppwr-context.jsonld": {
-    _comment: "OpenEPCIS PPWR Vocabulary v0.10.1, generated from extensions/eu/ppwr/ontology/ppwr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/ppwr/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS PPWR Vocabulary v0.12.0, generated from extensions/eu/ppwr/ontology/ppwr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/ppwr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30451,7 +30231,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/cpr/cpr-context.jsonld": {
-    _comment: "OpenEPCIS CPR Vocabulary v0.10.1, generated from extensions/eu/cpr/ontology/cpr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/cpr/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS CPR Vocabulary v0.12.0, generated from extensions/eu/cpr/ontology/cpr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/cpr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30498,7 +30278,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/detergent/detergent-context.jsonld": {
-    _comment: "OpenEPCIS Detergent Vocabulary v0.10.1, generated from extensions/eu/detergent/ontology/detergent.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/detergent/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Detergent Vocabulary v0.12.0, generated from extensions/eu/detergent/ontology/detergent.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/detergent/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30598,7 +30378,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/us/fsma204/fsma204-context.jsonld": {
-    _comment: "OpenEPCIS FSMA 204 Vocabulary v0.10.1, generated from extensions/us/fsma204/ontology/fsma204.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/us/fsma204/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS FSMA 204 Vocabulary v0.12.0, generated from extensions/us/fsma204/ontology/fsma204.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/us/fsma204/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30624,7 +30404,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/iron-steel/iron-steel-context.jsonld": {
-    _comment: "OpenEPCIS Iron & Steel Vocabulary v0.10.1, generated from extensions/eu/iron-steel/ontology/iron-steel.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/iron-steel/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Iron & Steel Vocabulary v0.12.0, generated from extensions/eu/iron-steel/ontology/iron-steel.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/iron-steel/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30633,6 +30413,7 @@ var contexts_default = {
         type: "@type",
         eusteel: "https://ref.openepcis.org/extensions/eu/iron-steel/",
         gs1: "https://ref.gs1.org/voc/",
+        oea: "https://ref.openepcis.org/extensions/common/assessment/",
         xsd: "http://www.w3.org/2001/XMLSchema#",
         oec: "https://ref.openepcis.org/extensions/common/core/",
         schema: "https://schema.org/",
@@ -30664,22 +30445,6 @@ var contexts_default = {
           "@id": "eusteel:meltAndPourCountry",
           "@type": "xsd:string"
         },
-        "eusteel:mtcCarbonContent": {
-          "@id": "eusteel:mtcCarbonContent",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcCarbonEquivalent": {
-          "@id": "eusteel:mtcCarbonEquivalent",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcCopperContent": {
-          "@id": "eusteel:mtcCopperContent",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcElongation": {
-          "@id": "eusteel:mtcElongation",
-          "@type": "xsd:decimal"
-        },
         "eusteel:mtcFinishing": {
           "@id": "eusteel:mtcFinishing",
           "@type": "xsd:string"
@@ -30688,48 +30453,16 @@ var contexts_default = {
           "@id": "eusteel:mtcInspectionType",
           "@type": "xsd:string"
         },
-        "eusteel:mtcNitrogenContent": {
-          "@id": "eusteel:mtcNitrogenContent",
-          "@type": "xsd:decimal"
-        },
         "eusteel:mtcNominalSize": {
           "@id": "eusteel:mtcNominalSize",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcPhosphorusContent": {
-          "@id": "eusteel:mtcPhosphorusContent",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcRadiometricControl": {
-          "@id": "eusteel:mtcRadiometricControl",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcRelativeRibArea": {
-          "@id": "eusteel:mtcRelativeRibArea",
           "@type": "xsd:decimal"
         },
         "eusteel:mtcSteelProcess": {
           "@id": "eusteel:mtcSteelProcess",
           "@type": "xsd:string"
         },
-        "eusteel:mtcSulfurContent": {
-          "@id": "eusteel:mtcSulfurContent",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcTensileStrength": {
-          "@id": "eusteel:mtcTensileStrength",
-          "@type": "xsd:decimal"
-        },
         "eusteel:mtcWeightTolerance": {
           "@id": "eusteel:mtcWeightTolerance",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcYieldStrength": {
-          "@id": "eusteel:mtcYieldStrength",
-          "@type": "xsd:decimal"
-        },
-        "eusteel:mtcYieldStrengthRatio": {
-          "@id": "eusteel:mtcYieldStrengthRatio",
           "@type": "xsd:decimal"
         },
         "eusteel:productNumber": {
@@ -30800,22 +30533,6 @@ var contexts_default = {
         "@id": "eusteel:meltAndPourCountry",
         "@type": "xsd:string"
       },
-      mtcCarbonContent: {
-        "@id": "eusteel:mtcCarbonContent",
-        "@type": "xsd:decimal"
-      },
-      mtcCarbonEquivalent: {
-        "@id": "eusteel:mtcCarbonEquivalent",
-        "@type": "xsd:decimal"
-      },
-      mtcCopperContent: {
-        "@id": "eusteel:mtcCopperContent",
-        "@type": "xsd:decimal"
-      },
-      mtcElongation: {
-        "@id": "eusteel:mtcElongation",
-        "@type": "xsd:decimal"
-      },
       mtcFinishing: {
         "@id": "eusteel:mtcFinishing",
         "@type": "xsd:string"
@@ -30824,48 +30541,16 @@ var contexts_default = {
         "@id": "eusteel:mtcInspectionType",
         "@type": "xsd:string"
       },
-      mtcNitrogenContent: {
-        "@id": "eusteel:mtcNitrogenContent",
-        "@type": "xsd:decimal"
-      },
       mtcNominalSize: {
         "@id": "eusteel:mtcNominalSize",
-        "@type": "xsd:decimal"
-      },
-      mtcPhosphorusContent: {
-        "@id": "eusteel:mtcPhosphorusContent",
-        "@type": "xsd:decimal"
-      },
-      mtcRadiometricControl: {
-        "@id": "eusteel:mtcRadiometricControl",
-        "@type": "xsd:decimal"
-      },
-      mtcRelativeRibArea: {
-        "@id": "eusteel:mtcRelativeRibArea",
         "@type": "xsd:decimal"
       },
       mtcSteelProcess: {
         "@id": "eusteel:mtcSteelProcess",
         "@type": "xsd:string"
       },
-      mtcSulfurContent: {
-        "@id": "eusteel:mtcSulfurContent",
-        "@type": "xsd:decimal"
-      },
-      mtcTensileStrength: {
-        "@id": "eusteel:mtcTensileStrength",
-        "@type": "xsd:decimal"
-      },
       mtcWeightTolerance: {
         "@id": "eusteel:mtcWeightTolerance",
-        "@type": "xsd:decimal"
-      },
-      mtcYieldStrength: {
-        "@id": "eusteel:mtcYieldStrength",
-        "@type": "xsd:decimal"
-      },
-      mtcYieldStrengthRatio: {
-        "@id": "eusteel:mtcYieldStrengthRatio",
         "@type": "xsd:decimal"
       },
       productNumber: {
@@ -35890,10 +35575,31 @@ var samples_default = [
       },
       "oec:hasCircularityPerformance": {
         type: "oec:CircularityPerformance",
-        "oec:recyclableContent": "0.88",
-        "oec:materialCircularityIndicator": "0.55",
-        "oec:utilityFactor": "1.2",
-        "oec:endOfLifeInstructions": "https://www.nordic-displays.example.com/sustainability/end-of-life"
+        "oec:endOfLifeInstructions": "https://www.nordic-displays.example.com/sustainability/end-of-life",
+        "oea:hasIndicator": [
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:MaterialCircularityIndicator"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "0.55",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:UtilityFactor"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "1.2",
+              "gs1:unitCode": "C62"
+            }
+          }
+        ]
       },
       "oec:hasRecycledContentDetails": {
         type: "oec:RecycledContent",
@@ -36321,10 +36027,31 @@ var samples_default = [
       },
       "oec:hasCircularityPerformance": {
         type: "oec:CircularityPerformance",
-        "oec:recyclableContent": "0.86",
-        "oec:materialCircularityIndicator": "0.68",
-        "oec:utilityFactor": "1.25",
-        "oec:endOfLifeInstructions": "https://www.greentech-computers.example.com/sustainability/end-of-life/greenbook-pro-15"
+        "oec:endOfLifeInstructions": "https://www.greentech-computers.example.com/sustainability/end-of-life/greenbook-pro-15",
+        "oea:hasIndicator": [
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:MaterialCircularityIndicator"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "0.68",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:UtilityFactor"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "1.25",
+              "gs1:unitCode": "C62"
+            }
+          }
+        ]
       },
       "oec:hasRecycledContentDetails": {
         type: "oec:RecycledContent",
@@ -36738,10 +36465,31 @@ var samples_default = [
       },
       "oec:hasCircularityPerformance": {
         type: "oec:CircularityPerformance",
-        "oec:recyclableContent": "0.92",
-        "oec:materialCircularityIndicator": "0.78",
-        "oec:utilityFactor": "1.4",
-        "oec:endOfLifeInstructions": "https://www.euroserver.example.com/sustainability/end-of-life/dcpx5"
+        "oec:endOfLifeInstructions": "https://www.euroserver.example.com/sustainability/end-of-life/dcpx5",
+        "oea:hasIndicator": [
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:MaterialCircularityIndicator"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "0.78",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:UtilityFactor"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "1.4",
+              "gs1:unitCode": "C62"
+            }
+          }
+        ]
       },
       "oec:hasRecycledContentDetails": {
         type: "oec:RecycledContent",
@@ -37135,9 +36883,30 @@ var samples_default = [
       },
       "oec:hasCircularityPerformance": {
         type: "oec:CircularityPerformance",
-        "oec:recyclableContent": "0.85",
-        "oec:materialCircularityIndicator": "0.62",
-        "oec:utilityFactor": "1.15"
+        "oea:hasIndicator": [
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:MaterialCircularityIndicator"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "0.62",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "oec:UtilityFactor"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "1.15",
+              "gs1:unitCode": "C62"
+            }
+          }
+        ]
       },
       "oec:hasRecycledContentDetails": {
         type: "oec:RecycledContent",
@@ -37409,29 +37178,72 @@ var samples_default = [
       "eutex:hasEnvironmentalFootprint": {
         id: "https://id.gs1.org/01/09521234003007/10/LOT-2026-FJ03#footprint",
         type: "eutex:EnvironmentalFootprint",
-        "eutex:carbonFootprintManufacturing": "14.8",
-        "eutex:pefSingleScore": "38.1",
-        "eutex:benchmarkPerformance": "-18.4",
         "eutex:hasDataTypeIndicator": {
           "@id": "eutex:MixedData"
         },
-        "eutex:pefcrReference": "PEFCR Apparel & Footwear v1.3",
         "eutex:hasLciaCategories": [
           {
             type: "eutex:LCIACategory",
-            "eutex:hasLciaCategoryCode": {
+            "oea:hasObservedParameter": {
               "@id": "eutex:GWP"
             },
-            "eutex:lciaValue": "14.8",
-            "eutex:lciaUnit": "kg CO2-eq"
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "14.8",
+              "gs1:unitCode": "KGM"
+            },
+            "oec:declaredUnit": "kg CO2-eq"
           },
           {
             type: "eutex:LCIACategory",
-            "eutex:hasLciaCategoryCode": {
+            "oea:hasObservedParameter": {
               "@id": "eutex:WaterUse"
             },
-            "eutex:lciaValue": "2.1",
-            "eutex:lciaUnit": "m3 world-eq"
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "2.1",
+              "gs1:unitCode": "MTQ"
+            },
+            "oec:declaredUnit": "m3 world-eq"
+          }
+        ],
+        "oea:hasMethod": {
+          type: "oea:AssessmentMethod",
+          "oea:methodName": "PEFCR Apparel & Footwear v1.3"
+        },
+        "oea:hasIndicator": [
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:ManufacturingCarbonFootprint"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "14.8",
+              "gs1:unitCode": "KGM"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:PEFSingleScore"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "38.1",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:BenchmarkPerformance"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "-18.4",
+              "gs1:unitCode": "P1"
+            }
           }
         ]
       },
@@ -38518,29 +38330,72 @@ var samples_default = [
       "eutex:hasEnvironmentalFootprint": {
         id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#footprint",
         type: "eutex:EnvironmentalFootprint",
-        "eutex:carbonFootprintManufacturing": "8.2",
-        "eutex:pefSingleScore": "28.7",
-        "eutex:benchmarkPerformance": -22,
         "eutex:hasDataTypeIndicator": {
           "@id": "eutex:MixedData"
         },
-        "eutex:pefcrReference": "PEFCR Apparel & Footwear v1.3",
         "eutex:hasLciaCategories": [
           {
             type: "eutex:LCIACategory",
-            "eutex:hasLciaCategoryCode": {
+            "oea:hasObservedParameter": {
               "@id": "eutex:GWP"
             },
-            "eutex:lciaValue": "8.2",
-            "eutex:lciaUnit": "kg CO2-eq"
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "8.2",
+              "gs1:unitCode": "KGM"
+            },
+            "oec:declaredUnit": "kg CO2-eq"
           },
           {
             type: "eutex:LCIACategory",
-            "eutex:hasLciaCategoryCode": {
+            "oea:hasObservedParameter": {
               "@id": "eutex:WaterUse"
             },
-            "eutex:lciaValue": "0.5",
-            "eutex:lciaUnit": "m3 world-eq"
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "0.5",
+              "gs1:unitCode": "MTQ"
+            },
+            "oec:declaredUnit": "m3 world-eq"
+          }
+        ],
+        "oea:hasMethod": {
+          type: "oea:AssessmentMethod",
+          "oea:methodName": "PEFCR Apparel & Footwear v1.3"
+        },
+        "oea:hasIndicator": [
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:ManufacturingCarbonFootprint"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "8.2",
+              "gs1:unitCode": "KGM"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:PEFSingleScore"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "28.7",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:BenchmarkPerformance"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": -22,
+              "gs1:unitCode": "P1"
+            }
           }
         ]
       },
@@ -39512,29 +39367,72 @@ var samples_default = [
       "eutex:hasEnvironmentalFootprint": {
         id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#footprint",
         type: "eutex:EnvironmentalFootprint",
-        "eutex:carbonFootprintManufacturing": "18.5",
-        "eutex:pefSingleScore": "42.3",
-        "eutex:benchmarkPerformance": "-15.2",
         "eutex:hasDataTypeIndicator": {
           "@id": "eutex:MixedData"
         },
-        "eutex:pefcrReference": "PEFCR Apparel & Footwear v1.3",
         "eutex:hasLciaCategories": [
           {
             type: "eutex:LCIACategory",
-            "eutex:hasLciaCategoryCode": {
+            "oea:hasObservedParameter": {
               "@id": "eutex:GWP"
             },
-            "eutex:lciaValue": "18.5",
-            "eutex:lciaUnit": "kg CO2-eq"
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "18.5",
+              "gs1:unitCode": "KGM"
+            },
+            "oec:declaredUnit": "kg CO2-eq"
           },
           {
             type: "eutex:LCIACategory",
-            "eutex:hasLciaCategoryCode": {
+            "oea:hasObservedParameter": {
               "@id": "eutex:WaterUse"
             },
-            "eutex:lciaValue": "2.8",
-            "eutex:lciaUnit": "m3 world-eq"
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "2.8",
+              "gs1:unitCode": "MTQ"
+            },
+            "oec:declaredUnit": "m3 world-eq"
+          }
+        ],
+        "oea:hasMethod": {
+          type: "oea:AssessmentMethod",
+          "oea:methodName": "PEFCR Apparel & Footwear v1.3"
+        },
+        "oea:hasIndicator": [
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:ManufacturingCarbonFootprint"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "18.5",
+              "gs1:unitCode": "KGM"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:PEFSingleScore"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "42.3",
+              "gs1:unitCode": "C62"
+            }
+          },
+          {
+            type: "oea:Indicator",
+            "oea:hasIndicatorKind": {
+              "@id": "eutex:BenchmarkPerformance"
+            },
+            "oea:hasIndicatorValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "-15.2",
+              "gs1:unitCode": "P1"
+            }
           }
         ]
       },
@@ -40331,8 +40229,21 @@ var samples_default = [
       ],
       "eutex:hasEnvironmentalFootprint": {
         type: "eutex:EnvironmentalFootprint",
-        "eutex:carbonFootprintManufacturing": "6.4",
-        "eutex:pefcrReference": "PEFCR Apparel & Footwear v2.0 (2023)"
+        "oea:hasMethod": {
+          type: "oea:AssessmentMethod",
+          "oea:methodName": "PEFCR Apparel & Footwear v2.0 (2023)"
+        },
+        "oea:hasIndicator": {
+          type: "oea:Indicator",
+          "oea:hasIndicatorKind": {
+            "@id": "eutex:ManufacturingCarbonFootprint"
+          },
+          "oea:hasIndicatorValue": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": "6.4",
+            "gs1:unitCode": "KGM"
+          }
+        }
       },
       "gs1:regulatoryInformation": [
         {

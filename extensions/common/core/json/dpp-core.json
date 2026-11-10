@@ -45,7 +45,7 @@
       "id": "https://ref.openepcis.org/extensions/common/core/CircularityPerformance",
       "localName": "CircularityPerformance",
       "label": "Circularity Performance",
-      "comment": "Information supporting circular economy requirements including\nend-of-life handling, recycling, waste prevention, and circularity metrics.\nAligned with UNTP CircularityPerformance pattern.",
+      "comment": "Information supporting circular economy requirements including\nend-of-life handling, recycling, waste prevention, and circularity metrics.\nAligned with UNTP CircularityPerformance pattern. Circularity figures are oea:Indicator values\n(oea:hasIndicator with oec:MaterialCircularityIndicator, oec:UtilityFactor); the recyclable share is a\nresult of an oec:RecyclabilityAssessment.",
       "seeAlso": [
         "https://ref.gs1.org/voc/consumerRecyclingInstructions",
         "https://w3id.org/eudpp#CircularEconomyIndicator"
@@ -208,7 +208,7 @@
       "id": "https://ref.openepcis.org/extensions/common/core/EnvironmentalProductDeclaration",
       "localName": "EnvironmentalProductDeclaration",
       "label": "Environmental Product Declaration",
-      "comment": "A type III environmental declaration per EN 15804:2012+A2:2019 / ISO 14025,\nreporting life-cycle environmental impact indicators broken down by lifecycle module.",
+      "comment": "A type III environmental declaration per EN 15804:2012+A2:2019 / ISO 14025,\nreporting life-cycle environmental impact indicators broken down by lifecycle module. An oea:Assessment:\neach impact category is an oec:ImpactIndicatorResult (oea:hasResult), the product category rules are\noec:productCategoryRules.",
       "seeAlso": [
         "https://ref.openepcis.org/extensions/common/core/EmissionsPerformance",
         "https://ref.openepcis.org/extensions/common/core/CarbonFootprintDeclaration",
@@ -217,6 +217,7 @@
         "https://w3id.org/eudpp#EPDDocument"
       ],
       "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/Assessment",
         "https://schema.org/Certification"
       ],
       "exactMatch": [
@@ -294,10 +295,13 @@
       "id": "https://ref.openepcis.org/extensions/common/core/ImpactIndicatorResult",
       "localName": "ImpactIndicatorResult",
       "label": "Impact Indicator Result",
-      "comment": "One environmental impact indicator (e.g. Global Warming Potential) reported within\nan EPD: its indicator type, declared unit, aggregate value, and optional per-lifecycle-module values.",
+      "comment": "One environmental impact category reported within an EPD, an oea:MeasurementResult:\noea:hasObservedParameter names the category (an oec:ImpactIndicatorType such as oec:GWPTotal),\noea:hasMeasuredValue the aggregate value over the declared modules as a gs1:QuantitativeValue, and\noec:hasLifecycleStageResult the per-module values. The unitCode is the mass, amount, energy or volume\nunit of the category's reference substance (kg CO2 eq: KGM, mol H+ eq: C34, MJ: 3B, m3 world eq: MTQ);\nthe reference substance itself follows from the category.",
       "seeAlso": [
         "https://dpp-keystone.org/spec/v3/terms/epd#ImpactValues",
         "https://w3id.org/eudpp#LCAResult"
+      ],
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/MeasurementResult"
       ],
       "closeMatch": [
         "https://dpp-keystone.org/spec/v3/terms/epd#ImpactValues"
@@ -326,9 +330,12 @@
       "id": "https://ref.openepcis.org/extensions/common/core/LifecycleStageResult",
       "localName": "LifecycleStageResult",
       "label": "Lifecycle Stage Result",
-      "comment": "The value of an impact indicator for a single EN 15804 lifecycle module (e.g. A1, B6, C3, D).",
+      "comment": "The value of an impact indicator for a single EN 15804 lifecycle module (e.g. A1, B6, C3, D), an oea:MeasurementResult: oec:hasLifecycleStage names the module, oea:hasObservedParameter the impact category of its oec:ImpactIndicatorResult, oea:hasMeasuredValue the value in that result's unit.",
       "seeAlso": [
         "https://w3id.org/eudpp#LCAModuleValue"
+      ],
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/MeasurementResult"
       ],
       "broadMatch": [
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity",
@@ -2413,20 +2420,6 @@
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.org/extensions/common/core/hasIndicatorType",
-      "localName": "hasIndicatorType",
-      "label": "Indicator Type",
-      "comment": "The EN 15804 impact category this result reports (e.g. oec:GWPTotal).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/ImpactIndicatorResult"
-      ],
-      "range": [
-        "https://ref.openepcis.org/extensions/common/core/ImpactIndicatorType"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/common/core/hasLifecycleStage",
       "localName": "hasLifecycleStage",
       "label": "Lifecycle Stage",
@@ -2738,9 +2731,9 @@
         "https://ref.openepcis.org/extensions/common/core/RecycledContent"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/recyclableContent",
         "https://dpp-keystone.org/spec/v3/terms#recycledContentPercentage",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
+        "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate",
         "https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContent",
         "https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContentPercentage",
         "https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledMaterialComposition",
@@ -3058,41 +3051,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/common/core/indicatorTotalValue",
-      "localName": "indicatorTotalValue",
-      "label": "Indicator Total Value",
-      "comment": "Aggregate value of the indicator across the declared lifecycle modules, in the declared unit.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/ImpactIndicatorResult"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://schema.org/value",
-        "https://ref.gs1.org/voc/value"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/indicatorUnit",
-      "localName": "indicatorUnit",
-      "label": "Indicator Unit",
-      "comment": "Declared unit for this indicator (e.g. kg CO2 eq, kg CFC11 eq, mol H+ eq, m3 world eq deprived).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/ImpactIndicatorResult"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "closeMatch": [
-        "https://ref.gs1.org/voc/unitCode"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/common/core/isCriticalRawMaterial",
       "localName": "isCriticalRawMaterial",
       "label": "Is Critical Raw Material",
@@ -3221,25 +3179,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/common/core/landUse",
-      "localName": "landUse",
-      "label": "Land Use",
-      "comment": "Land area occupied or transformed over the product life cycle per declared unit, expressed in square metres.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://w3id.org/eudpp#LandUseResult"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/common/core/language",
       "localName": "language",
       "label": "Language",
@@ -3335,47 +3274,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/common/core/materialCircularityIndicator",
-      "localName": "materialCircularityIndicator",
-      "label": "Material Circularity Indicator",
-      "comment": "Overall circularity score combining recycled input, recyclability, and utility (0-1 scale).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#recyclabilityScore",
-        "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityScore",
-        "https://ref.openepcis.org/extensions/common/core/hasRecyclabilityAssessment"
-      ],
-      "source": "https://ellenmacarthurfoundation.org/material-circularity-indicator",
-      "accessLevel": "Public",
-      "accessLevelRationale": "An aggregate circularity score is a consumer comparison metric composed of inputs (recycled content, recyclability, utility) that are themselves Public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/materialFootprint",
-      "localName": "materialFootprint",
-      "label": "Material Footprint",
-      "comment": "Total raw material input mobilised over the product life cycle per declared unit, expressed in kilograms.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://w3id.org/eudpp#MaterialFootprint",
-        "https://w3id.org/eudpp#InventoryIndicatorResult"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/common/core/mimeType",
       "localName": "mimeType",
       "label": "MIME Type",
@@ -3393,26 +3291,6 @@
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/packagingWasteAmount",
-      "localName": "packagingWasteAmount",
-      "label": "Packaging Waste Amount",
-      "comment": "Quantity of packaging waste generated per declared unit, expressed in kilograms.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/productToPackagingRatio",
-        "https://w3id.org/eudpp#PackagingWasteAmount"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Annex I ecodesign parameter; PPWR reporting publishes the same per-unit packaging figures.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.org/extensions/common/core/passportExpiryDate",
@@ -3586,9 +3464,9 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/recyclableContent",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
         "https://vocabulary.uncefact.org/untp/recycledMassFraction",
+        "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate",
         "https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContent",
         "https://ref.gs1.org/voc/textileMaterialContent"
       ],
@@ -3672,26 +3550,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/common/core/productToPackagingRatio",
-      "localName": "productToPackagingRatio",
-      "label": "Product-to-Packaging Ratio",
-      "comment": "Ratio of product weight to total packaging weight, indicating packaging efficiency.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://ref.gs1.org/voc/netWeight",
-        "https://w3id.org/eudpp#ProductToPackagingRatio"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Annex I ecodesign parameter; derived from weights GS1 already publishes per trade item.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/common/core/professionalRepairNetwork",
       "localName": "professionalRepairNetwork",
       "label": "Professional Repair Network",
@@ -3710,22 +3568,6 @@
       "accessLevel": "Public",
       "accessLevelRationale": "Consumers must be able to find authorised repairers; the Right-to-Repair Directive builds on public repairer discovery (Dir. 2024/1799).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2024/1799"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/recyclableContent",
-      "localName": "recyclableContent",
-      "label": "Recyclable Content",
-      "comment": "Fraction of product that can be recycled (0-1 scale where 0.45 = 45%).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The recyclable fraction is a consumer comparison parameter under ESPR Annex I(i).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.org/extensions/common/core/recycledContent",
@@ -4054,32 +3896,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/common/core/stageValue",
-      "localName": "stageValue",
-      "label": "Stage Value",
-      "comment": "Indicator value for this lifecycle module, in the indicator's declared unit.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/LifecycleStageResult"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://schema.org/value",
-        "https://ref.gs1.org/voc/value",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapabilityValue",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCyclesValue",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingCapacityValue",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#capacityThroughputValue",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncreaseValue"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/common/core/substanceLocation",
       "localName": "substanceLocation",
       "label": "Substance Location",
@@ -4286,22 +4102,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/common/core/utilityFactor",
-      "localName": "utilityFactor",
-      "label": "Utility Factor",
-      "comment": "Durability of the product relative to industry average (1.0 = average). A value >1 indicates above-average durability.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "source": "https://untp.unece.org/docs/specification/",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Durability relative to the industry average is a consumer comparison metric of the same kind as expected lifespan (ESPR Annex I(a)).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/common/core/value",
       "localName": "value",
       "label": "Value",
@@ -4348,26 +4148,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/common/core/wasteGenerationAmount",
-      "localName": "wasteGenerationAmount",
-      "label": "Waste Generation Amount",
-      "comment": "Quantity of waste generated over the product life cycle per declared unit, expressed in kilograms.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://w3id.org/eudpp#WasteGenerationAmount",
-        "https://w3id.org/eudpp#HazardousWasteAmount"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/common/core/wastePreventionInfo",
       "localName": "wastePreventionInfo",
       "label": "Waste Prevention Info",
@@ -4391,29 +4171,6 @@
       "accessLevel": "Public",
       "accessLevelRationale": "Waste-prevention information is consumer-directed by definition (Dir. 2008/98/EC Art. 9).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/common/core/waterConsumption",
-      "localName": "waterConsumption",
-      "label": "Water Consumption",
-      "comment": "Net fresh water consumed over the product life cycle per declared unit, expressed in cubic metres.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/WDP",
-        "https://w3id.org/eudpp#WaterConsumptionResult"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms/epd#fw"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     }
   ],
   "enumerations": [
@@ -5144,7 +4901,7 @@
       "id": "https://ref.openepcis.org/extensions/common/core/ImpactIndicatorType",
       "localName": "ImpactIndicatorType",
       "label": "Impact Indicator Type",
-      "comment": "Controlled list of EN 15804:2012+A2:2019 environmental impact indicators.",
+      "comment": "Controlled list of EN 15804:2012+A2:2019 environmental impact indicators. Each is an oea:PerformanceParameter that an oec:ImpactIndicatorResult observes.",
       "values": [
         {
           "id": "https://ref.openepcis.org/extensions/common/core/ADPElements",
@@ -5273,6 +5030,92 @@
           "comment": "",
           "seeAlso": [
             "https://dpp-keystone.org/spec/v3/terms/epd#wdp"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/IndicatorKind",
+      "localName": "IndicatorKind",
+      "label": "IndicatorKind",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/common/core/LandUse",
+          "localName": "LandUse",
+          "label": "Land Use",
+          "comment": "Land area occupied or transformed over the product life cycle per declared unit (unitCode MTK). Replaces oec:landUse.",
+          "seeAlso": [
+            "https://w3id.org/eudpp#LandUseResult"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/core/MaterialCircularityIndicator",
+          "localName": "MaterialCircularityIndicator",
+          "label": "Material Circularity Indicator",
+          "comment": "Ellen MacArthur Foundation circularity score combining recycled input, recyclability and utility (0-1, unitCode C62). Replaces oec:materialCircularityIndicator.",
+          "seeAlso": [
+            "https://dpp-keystone.org/spec/v3/terms#recyclabilityScore",
+            "https://ref.openepcis.org/extensions/common/assessment/RecyclabilityScore"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/core/MaterialFootprint",
+          "localName": "MaterialFootprint",
+          "label": "Material Footprint",
+          "comment": "Total raw material input mobilised over the product life cycle per declared unit (unitCode KGM). Replaces oec:materialFootprint.",
+          "seeAlso": [
+            "https://w3id.org/eudpp#MaterialFootprint",
+            "https://w3id.org/eudpp#InventoryIndicatorResult"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/core/PackagingWaste",
+          "localName": "PackagingWaste",
+          "label": "Packaging Waste",
+          "comment": "Quantity of packaging waste generated per declared unit (unitCode KGM). Replaces oec:packagingWasteAmount.",
+          "seeAlso": [
+            "https://ref.openepcis.org/extensions/common/core/ProductToPackagingRatio",
+            "https://w3id.org/eudpp#PackagingWasteAmount"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/core/ProductToPackagingRatio",
+          "localName": "ProductToPackagingRatio",
+          "label": "Product-to-Packaging Ratio",
+          "comment": "Ratio of product weight to total packaging weight, indicating packaging efficiency (unitCode C62). Replaces oec:productToPackagingRatio.",
+          "seeAlso": [
+            "https://ref.gs1.org/voc/netWeight",
+            "https://w3id.org/eudpp#ProductToPackagingRatio"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/core/UtilityFactor",
+          "localName": "UtilityFactor",
+          "label": "Utility Factor",
+          "comment": "Lifetime and intensity of use of the product relative to the industry average (1.0 = average, above 1 = more durable; unitCode C62). Replaces oec:utilityFactor."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/core/WasteGeneration",
+          "localName": "WasteGeneration",
+          "label": "Waste Generation",
+          "comment": "Quantity of waste generated over the product life cycle per declared unit, including hazardous fractions (unitCode KGM). Replaces oec:wasteGenerationAmount.",
+          "seeAlso": [
+            "https://w3id.org/eudpp#WasteGenerationAmount",
+            "https://w3id.org/eudpp#HazardousWasteAmount"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/core/WaterConsumption",
+          "localName": "WaterConsumption",
+          "label": "Water Consumption",
+          "comment": "Net fresh water consumed over the product life cycle per declared unit (unitCode MTQ). Replaces oec:waterConsumption.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms/epd#fw"
+          ],
+          "seeAlso": [
+            "https://ref.openepcis.org/extensions/common/core/WDP",
+            "https://w3id.org/eudpp#WaterConsumptionResult"
           ]
         }
       ]

@@ -4,6 +4,18 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [Unreleased]
 
+### Breaking: the environmental footprint is an assessment
+
+`eutex:EnvironmentalFootprint` is an `oea:Assessment` and `eutex:LCIACategory` an
+`oea:MeasurementResult` naming its `eutex:LCIACategoryCode` with `oea:hasObservedParameter`, value
+and UN/CEFACT unit in `oea:hasMeasuredValue`, the stated unit in `oec:declaredUnit`. The
+manufacturing carbon footprint, the PEF single score, the benchmark performance and the two
+footprint classes are indicators (`eutex:ManufacturingCarbonFootprint`, `eutex:PEFSingleScore`,
+`eutex:BenchmarkPerformance`, `eutex:CarbonFootprintClass`, `eutex:EnvironmentalFootprintClass`);
+the PEFCR is the assessment's `oea:hasMethod`. Removed: `eutex:carbonFootprintManufacturing`,
+`pefSingleScore`, `benchmarkPerformance`, `carbonFootprintClass`, `environmentalFootprintClass`,
+`pefcrReference`, `hasLciaCategoryCode`, `lciaValue`, `lciaUnit`. The PEFCR bridge context follows.
+
 ## [0.12.0] - 2026-11-10
 
 ### Fixed: garment example

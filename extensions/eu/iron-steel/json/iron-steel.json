@@ -34,10 +34,13 @@
       "id": "https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate",
       "localName": "MaterialTestCertificate",
       "label": "Material Test Certificate",
-      "comment": "An inspection document for metallic products per EN 10204 (type 2.1, 2.2,\n3.1, or 3.2), carrying the EN 10168 mechanical and chemical test parameters that\nsubstantiate the declared grade.",
+      "comment": "An inspection document for metallic products per EN 10204 (type 2.1, 2.2,\n3.1, or 3.2), carrying the EN 10168 mechanical and chemical test parameters that\nsubstantiate the declared grade. An oea:Assessment: each mechanical, chemical or radiometric value is an\noea:MeasurementResult (oea:hasResult) observing one of the eusteel: performance parameters below,\nwith its UN/CEFACT unit (MPA, P1, C62); document type, process, finishing, nominal size and weight\ntolerance describe the certificate and stay as its own properties.",
       "seeAlso": [
         "https://schema.org/Certification",
         "https://dpp-keystone.org/spec/v3/terms#MaterialTestCertificate"
+      ],
+      "subClassOf": [
+        "https://ref.openepcis.org/extensions/common/assessment/Assessment"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v3/terms#MaterialTestCertificate"
@@ -245,94 +248,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcCarbonContent",
-      "localName": "mtcCarbonContent",
-      "label": "MTC Carbon Content",
-      "comment": "Carbon content from the cast/ladle analysis (mass %).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcCarbonContent"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcCarbonContent"
-      ],
-      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Cast/ladle chemistry is professional certificate data used by fabricators and inspectors, not consumer information.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcCarbonEquivalent",
-      "localName": "mtcCarbonEquivalent",
-      "label": "MTC Carbon Equivalent",
-      "comment": "Carbon equivalent value (CEV / CET), a weldability indicator derived from the cast analysis.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcCarbonEquivalent"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcCarbonEquivalent"
-      ],
-      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The weldability indicator (CEV/CET) is professional certificate data derived from the cast analysis.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcCopperContent",
-      "localName": "mtcCopperContent",
-      "label": "MTC Copper Content",
-      "comment": "Copper content from the cast analysis (mass %).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcCopperContent"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcCopperContent"
-      ],
-      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Cast/ladle chemistry is professional certificate data used by fabricators and inspectors, not consumer information.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcElongation",
-      "localName": "mtcElongation",
-      "label": "MTC Elongation",
-      "comment": "Percentage elongation after fracture (A%).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcElongation"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcElongation"
-      ],
-      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Measured elongation is mechanical certificate data of the professional MTC record.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcFinishing",
       "localName": "mtcFinishing",
       "label": "MTC Finishing",
@@ -374,28 +289,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcNitrogenContent",
-      "localName": "mtcNitrogenContent",
-      "label": "MTC Nitrogen Content",
-      "comment": "Nitrogen content from the cast analysis (mass %).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcNitrogenContent"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcNitrogenContent"
-      ],
-      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Cast/ladle chemistry is professional certificate data used by fabricators and inspectors, not consumer information.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcNominalSize",
       "localName": "mtcNominalSize",
       "label": "MTC Nominal Size",
@@ -421,72 +314,6 @@
       "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx",
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "The tested nominal dimension is certificate content of the B2B inspection document.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcPhosphorusContent",
-      "localName": "mtcPhosphorusContent",
-      "label": "MTC Phosphorus Content",
-      "comment": "Phosphorus content from the cast analysis (mass %).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcPhosphorusContent"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcPhosphorusContent"
-      ],
-      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Cast/ladle chemistry is professional certificate data used by fabricators and inspectors, not consumer information.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcRadiometricControl",
-      "localName": "mtcRadiometricControl",
-      "label": "MTC Radiometric Control",
-      "comment": "Radiometric (radioactivity) control result for the steel, where declared.",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcRadiometricControl"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcRadiometricControl"
-      ],
-      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The radiometric control result is inspection evidence of the professional MTC record.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcRelativeRibArea",
-      "localName": "mtcRelativeRibArea",
-      "label": "MTC Relative Rib Area",
-      "comment": "Relative rib area fR for ribbed reinforcing steel (bond performance).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcRelativeRibArea"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcRelativeRibArea"
-      ],
-      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The rib-area bond parameter for reinforcing steel is certificate data for structural professionals.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -516,44 +343,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcSulfurContent",
-      "localName": "mtcSulfurContent",
-      "label": "MTC Sulfur Content",
-      "comment": "Sulfur content from the cast analysis (mass %).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcSulfurContent"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcSulfurContent"
-      ],
-      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Cast/ladle chemistry is professional certificate data used by fabricators and inspectors, not consumer information.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcTensileStrength",
-      "localName": "mtcTensileStrength",
-      "label": "MTC Tensile Strength",
-      "comment": "Measured ultimate tensile strength Rm (MPa).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Measured mechanical test values are certificate data for the purchaser and inspectors; declared performance for construction use surfaces publicly via the CPR DoP instead.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcWeightTolerance",
       "localName": "mtcWeightTolerance",
       "label": "MTC Weight Tolerance",
@@ -573,50 +362,6 @@
       "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx",
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "The permitted weight tolerance is contractual certificate content between producer and purchaser.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcYieldStrength",
-      "localName": "mtcYieldStrength",
-      "label": "MTC Yield Strength",
-      "comment": "Measured yield strength Re (MPa).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcYieldStrength"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcYieldStrength"
-      ],
-      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Measured mechanical test values are certificate data for the purchaser and inspectors; declared performance for construction use surfaces publicly via the CPR DoP instead.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcYieldStrengthRatio",
-      "localName": "mtcYieldStrengthRatio",
-      "label": "MTC Yield Strength Ratio",
-      "comment": "Ratio of yield strength to tensile strength (Re/Rm).",
-      "domain": [
-        "https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate"
-      ],
-      "range": [
-        "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcYieldStrengthRatio"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v3/terms#mtcYieldStrengthRatio"
-      ],
-      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The Re/Rm ratio is derived mechanical certificate data of the professional MTC record.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -722,6 +467,119 @@
     }
   ],
   "enumerations": [
+    {
+      "id": "https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter",
+      "localName": "PerformanceParameter",
+      "label": "PerformanceParameter",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/iron-steel/CarbonContent",
+          "localName": "CarbonContent",
+          "label": "Carbon Content",
+          "comment": "Carbon content from the cast/ladle analysis (mass %); unitCode P1. Replaces eusteel:mtcCarbonContent.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#mtcCarbonContent"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/iron-steel/CarbonEquivalent",
+          "localName": "CarbonEquivalent",
+          "label": "Carbon Equivalent",
+          "comment": "Carbon equivalent value (CEV or CET), the weldability figure derived from the cast analysis (mass %); unitCode P1. Replaces eusteel:mtcCarbonEquivalent.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#mtcCarbonEquivalent"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/iron-steel/CopperContent",
+          "localName": "CopperContent",
+          "label": "Copper Content",
+          "comment": "Copper content from the cast analysis (mass %); unitCode P1. Replaces eusteel:mtcCopperContent.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#mtcCopperContent"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/iron-steel/Elongation",
+          "localName": "Elongation",
+          "label": "Elongation",
+          "comment": "Percentage elongation after fracture (A, or Agt for reinforcing steel); unitCode P1. Replaces eusteel:mtcElongation.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#mtcElongation"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/iron-steel/NitrogenContent",
+          "localName": "NitrogenContent",
+          "label": "Nitrogen Content",
+          "comment": "Nitrogen content from the cast analysis (mass %); unitCode P1. Replaces eusteel:mtcNitrogenContent.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#mtcNitrogenContent"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/iron-steel/PhosphorusContent",
+          "localName": "PhosphorusContent",
+          "label": "Phosphorus Content",
+          "comment": "Phosphorus content from the cast analysis (mass %); unitCode P1. Replaces eusteel:mtcPhosphorusContent.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#mtcPhosphorusContent"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/iron-steel/RadiometricControl",
+          "localName": "RadiometricControl",
+          "label": "Radiometric Control",
+          "comment": "Radiometric (radioactivity) control result for the steel, in the unit the certificate states; unitCode C62. Replaces eusteel:mtcRadiometricControl.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#mtcRadiometricControl"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/iron-steel/RelativeRibArea",
+          "localName": "RelativeRibArea",
+          "label": "Relative Rib Area",
+          "comment": "Relative rib area fR of ribbed reinforcing steel (bond performance); unitCode C62. Replaces eusteel:mtcRelativeRibArea.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#mtcRelativeRibArea"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/iron-steel/SulfurContent",
+          "localName": "SulfurContent",
+          "label": "Sulfur Content",
+          "comment": "Sulfur content from the cast analysis (mass %); unitCode P1. Replaces eusteel:mtcSulfurContent.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#mtcSulfurContent"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/iron-steel/TensileStrength",
+          "localName": "TensileStrength",
+          "label": "Tensile Strength",
+          "comment": "Ultimate tensile strength Rm from the tensile test; unitCode MPA. Replaces eusteel:mtcTensileStrength."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/iron-steel/YieldStrength",
+          "localName": "YieldStrength",
+          "label": "Yield Strength",
+          "comment": "Yield strength Re from the tensile test; unitCode MPA. Replaces eusteel:mtcYieldStrength.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#mtcYieldStrength"
+          ]
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/eu/iron-steel/YieldStrengthRatio",
+          "localName": "YieldStrengthRatio",
+          "label": "Yield Strength Ratio",
+          "comment": "Ratio of tensile strength to yield strength Rm/Re, the k value of reinforcing steel (EN 10080; the replaced eusteel:mtcYieldStrengthRatio said Re/Rm, while the examples carried Rm/Re); unitCode C62. Replaces eusteel:mtcYieldStrengthRatio.",
+          "closeMatch": [
+            "https://dpp-keystone.org/spec/v3/terms#mtcYieldStrengthRatio"
+          ]
+        }
+      ]
+    },
     {
       "id": "https://ref.openepcis.org/extensions/eu/iron-steel/TechnologyRoute",
       "localName": "TechnologyRoute",

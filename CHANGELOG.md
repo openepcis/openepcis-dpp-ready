@@ -9,6 +9,18 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Breaking: life-cycle, footprint, test certificate and treatment values on `common/assessment`
+
+Third wave of the assessment model: EPD impact indicators, ESPR Annex I resource indicators and
+material circularity (core), the environmental footprint (textile), the material test certificate
+(iron-steel) and the WEEE treatment outcome (electronics) are assessments, results and indicators
+with UN/CEFACT units instead of bare decimals. The crosswalk follows and now converts the textile
+footprint to EUDPP. `scripts/migrate-assessment.ts` rewrites stored passports; its replay check
+migrates both revisions, so a passport stored at any release ends in the current shape. The GITB
+negative test for out-of-range fractions had matched the old `ref.openepcis.io` namespace since
+the namespace move and never fired; it produces five negative fixtures again.
+See the module changelogs.
+
 ## [0.12.0] - 2026-11-10
 
 ### Added: crosswalk to the EU DPP Registry

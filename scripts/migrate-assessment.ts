@@ -266,6 +266,241 @@ function packagingRecyclability(o: Obj) {
   o[key] = assessment;
 }
 
+/** Prefixed successor keys for a prefixed source key, bare ones for a bare key. */
+const spelling = (bare: boolean) => (curie: string) => (bare ? local(curie) : curie);
+
+function indicator(n: (c: string) => string, kind: string, value: Json, unitCode: string): Obj {
+  return { type: "oea:Indicator", [n("oea:hasIndicatorKind")]: ref(kind), [n("oea:hasIndicatorValue")]: measured(value, unitCode) };
+}
+
+/** Wave 3, core: ESPR Annex I life-cycle figures on the product become indicators. */
+const PRODUCT_INDICATORS: [string, string, string][] = [
+  ["productToPackagingRatio", "oec:ProductToPackagingRatio", "C62"],
+  ["wasteGenerationAmount", "oec:WasteGeneration", "KGM"],
+  ["packagingWasteAmount", "oec:PackagingWaste", "KGM"],
+  ["waterConsumption", "oec:WaterConsumption", "MTQ"],
+  ["landUse", "oec:LandUse", "MTK"],
+  ["materialFootprint", "oec:MaterialFootprint", "KGM"],
+];
+const CIRCULARITY_INDICATORS: [string, string][] = [
+  ["materialCircularityIndicator", "oec:MaterialCircularityIndicator"],
+  ["utilityFactor", "oec:UtilityFactor"],
+];
+
+function productIndicators(o: Obj) {
+  for (const [name, kind, unit] of PRODUCT_INDICATORS) {
+    const key = Object.keys(o).find((k) => local(k) === name && (k.startsWith("oec:") || !k.includes(":")));
+    if (!key) continue;
+    const n = spelling(!key.includes(":"));
+    const v = take(o, name);
+    setOrAppend(o, Object.keys(o).find((k) => local(k) === "hasIndicator") ?? n("oea:hasIndicator"), [indicator(n, kind, v, unit)]);
+  }
+}
+
+/**
+ * Wave 3, core: the circularity container keeps MCI and utility factor as indicators; the
+ * recyclable share moves to a RecyclabilityRate result of the product's recyclability
+ * assessment (dropped when that assessment already states the same value).
+ */
+function circularity(o: Obj) {
+  const cKey = Object.keys(o).find((k) => local(k) === "hasCircularityPerformance");
+  const c = cKey && o[cKey];
+  if (!c || typeof c !== "object" || Array.isArray(c)) return;
+  for (const [name, kind] of CIRCULARITY_INDICATORS) {
+    const key = Object.keys(c).find((k) => local(k) === name);
+    if (!key) continue;
+    const n = spelling(!key.includes(":"));
+    const v = take(c, name);
+    setOrAppend(c, Object.keys(c).find((k) => local(k) === "hasIndicator") ?? n("oea:hasIndicator"), [indicator(n, kind, v, "C62")]);
+  }
+  const rKey = Object.keys(c).find((k) => local(k) === "recyclableContent");
+  if (!rKey) return;
+  const n = spelling(!rKey.includes(":"));
+  const v = take(c, "recyclableContent");
+  const aKey = Object.keys(o).find((k) => local(k) === "hasRecyclabilityAssessment") ?? n("oec:hasRecyclabilityAssessment");
+  const a: Obj = o[aKey] && typeof o[aKey] === "object" && !Array.isArray(o[aKey]) ? o[aKey] : { type: "oec:RecyclabilityAssessment" };
+  const resKey = Object.keys(a).find((k) => local(k) === "hasResult") ?? n("oea:hasResult");
+  const same = [a[resKey] ?? []].flat().some((r: Obj) => {
+    const param = r?.[Object.keys(r).find((k) => local(k) === "hasObservedParameter") ?? ""];
+    const val = r?.[Object.keys(r).find((k) => local(k) === "hasMeasuredValue") ?? ""];
+    const iri = typeof param === "string" ? param : param?.["@id"] ?? param?.id;
+    const num = val && typeof val === "object" ? val[Object.keys(val).find((k) => local(k) === "value") ?? ""] : val;
+    return iri && /RecyclabilityRate$/.test(iri) && Number(num) === Number(v && typeof v === "object" ? v["gs1:value"] ?? v.value : v);
+  });
+  if (!same) setOrAppend(a, resKey, [{ type: "oea:MeasurementResult", [n("oea:hasObservedParameter")]: ref("oea:RecyclabilityRate"), [n("oea:hasMeasuredValue")]: measured(v, "C62") }]);
+  o[aKey] = a;
+}
+
+/** EN 15804 declared units of the impact categories: the unit of the reference substance. */
+function impactUnitCode(unit: string): string | undefined {
+  const u = unit.replace(/\s*\/.*$/, "").trim().toLowerCase();
+  if (/^mol\b/.test(u)) return "C34";
+  if (/^mj\b/.test(u)) return "3B";
+  if (/^m3\b|^m³/.test(u)) return "MTQ";
+  if (/^kg\b/.test(u)) return "KGM";
+  return undefined;
+}
+
+/**
+ * Wave 3, core: an EPD impact indicator is an oea:MeasurementResult. The category moves to
+ * oea:hasObservedParameter, total and unit to oea:hasMeasuredValue; the stated unit text (with
+ * its declared unit, "kg CO2 eq / t") stays as oec:declaredUnit. Stage values become measured
+ * values in the same unit, observing the same category.
+ */
+function impactIndicator(o: Obj) {
+  const typeKey = Object.keys(o).find((k) => local(k) === "hasIndicatorType");
+  const totalKey = Object.keys(o).find((k) => local(k) === "indicatorTotalValue");
+  const unitKey = Object.keys(o).find((k) => local(k) === "indicatorUnit");
+  const any = typeKey ?? totalKey ?? unitKey;
+  const n = spelling(!!any && !any.includes(":"));
+  const unitText = take(o, "indicatorUnit");
+  const code = typeof unitText === "string" ? impactUnitCode(unitText) : undefined;
+  if (unitText !== undefined && !code) notes.push(`impact indicator unit "${unitText}" has no UN/CEFACT code; value kept without unitCode`);
+  const q = (v: Json) => (v && typeof v === "object" ? v : code ? qv(v, code) : { type: "gs1:QuantitativeValue", "gs1:value": v });
+  const entries: [string, Json][] = [];
+  for (const [k, v] of Object.entries(o)) {
+    if (local(k) === "hasIndicatorType") entries.push([n("oea:hasObservedParameter"), v]);
+    else if (local(k) === "indicatorTotalValue") entries.push([n("oea:hasMeasuredValue"), q(v)]);
+    else entries.push([k, v]);
+  }
+  for (const k of Object.keys(o)) delete o[k];
+  for (const [k, v] of entries) o[k] = v;
+  if (unitText !== undefined) o[n("oec:declaredUnit")] = unitText;
+  const stagesKey = Object.keys(o).find((k) => local(k) === "hasLifecycleStageResult");
+  for (const st of stagesKey ? [o[stagesKey]].flat() : []) {
+    if (!st || typeof st !== "object") continue;
+    const sk = Object.keys(st).find((k) => local(k) === "stageValue");
+    if (!sk) continue;
+    const sn = spelling(!sk.includes(":"));
+    const v = st[sk];
+    replaceKey(st, sk, sn("oea:hasMeasuredValue"), q(v));
+    const category = o[n("oea:hasObservedParameter")];
+    if (category !== undefined) {
+      const entries = Object.entries(st);
+      const at = entries.findIndex(([k]) => local(k) === "hasMeasuredValue");
+      entries.splice(at, 0, [sn("oea:hasObservedParameter"), structuredClone(category)]);
+      for (const k of Object.keys(st)) delete st[k];
+      for (const [k, val] of entries) st[k] = val;
+    }
+  }
+}
+
+/** EN 15804 / PEF reference-substance units; CTUe and CTUh are comparative toxic units (C62). */
+function lciaUnitCode(unit: string): string | undefined {
+  return /^ctu/i.test(unit.trim()) ? "C62" : impactUnitCode(unit.replace(/-eq\b/i, " eq"));
+}
+
+/**
+ * Wave 3, textile: the environmental footprint is an oea:Assessment. Manufacturing carbon
+ * footprint, PEF single score, benchmark and the two classes become indicators, the PEFCR its
+ * method; an LCIA category is a result observing its category code, with value and unit as a
+ * quantity and the stated unit kept as oec:declaredUnit.
+ */
+function environmentalFootprint(o: Obj) {
+  const anyKey = Object.keys(o).find((k) => /^(carbonFootprintManufacturing|pefSingleScore|benchmarkPerformance|carbonFootprintClass|environmentalFootprintClass|pefcrReference|hasLciaCategories)$/.test(local(k)));
+  const n = spelling(!!anyKey && !anyKey.includes(":"));
+  const indicators: Obj[] = [];
+  for (const [name, kind, unit] of [
+    ["carbonFootprintManufacturing", "eutex:ManufacturingCarbonFootprint", "KGM"],
+    ["pefSingleScore", "eutex:PEFSingleScore", "C62"],
+    ["benchmarkPerformance", "eutex:BenchmarkPerformance", "P1"],
+    ["carbonFootprintClass", "eutex:CarbonFootprintClass", "C62"],
+    ["environmentalFootprintClass", "eutex:EnvironmentalFootprintClass", "C62"],
+  ] as const) {
+    const v = take(o, name);
+    if (v !== undefined) indicators.push(indicator(n, kind, v, unit));
+  }
+  const pefcr = take(o, "pefcrReference");
+  if (pefcr !== undefined) o[n("oea:hasMethod")] = { type: "oea:AssessmentMethod", [n("oea:methodName")]: pefcr };
+  const catKey = Object.keys(o).find((k) => local(k) === "hasLciaCategories");
+  for (const c of catKey ? [o[catKey]].flat() : []) {
+    if (!c || typeof c !== "object") continue;
+    const codeKey = Object.keys(c).find((k) => local(k) === "hasLciaCategoryCode");
+    if (!codeKey && !Object.keys(c).some((k) => /^lcia(Value|Unit)$/.test(local(k)))) continue;
+    const cn = spelling(!!codeKey && !codeKey.includes(":"));
+    const unit = take(c, "lciaUnit");
+    const code = typeof unit === "string" ? lciaUnitCode(unit) : undefined;
+    if (unit !== undefined && !code) notes.push(`LCIA unit "${unit}" has no UN/CEFACT code; value kept without unitCode`);
+    const entries: [string, Json][] = [];
+    for (const [k, v] of Object.entries(c)) {
+      if (local(k) === "hasLciaCategoryCode") entries.push([cn("oea:hasObservedParameter"), v]);
+      else if (local(k) === "lciaValue") entries.push([cn("oea:hasMeasuredValue"), v && typeof v === "object" ? v : code ? qv(v, code) : { type: "gs1:QuantitativeValue", "gs1:value": v }]);
+      else entries.push([k, v]);
+    }
+    for (const k of Object.keys(c)) delete c[k];
+    for (const [k, v] of entries) c[k] = v;
+    if (unit !== undefined) c[cn("oec:declaredUnit")] = unit;
+  }
+  setOrAppend(o, Object.keys(o).find((k) => local(k) === "hasIndicator") ?? n("oea:hasIndicator"), indicators);
+}
+
+/** Wave 3, iron-steel: EN 10168 values of a material test certificate, parameter and unit. */
+const MTC_RESULTS: [string, string, string][] = [
+  ["mtcYieldStrength", "eusteel:YieldStrength", "MPA"],
+  ["mtcTensileStrength", "eusteel:TensileStrength", "MPA"],
+  ["mtcYieldStrengthRatio", "eusteel:YieldStrengthRatio", "C62"],
+  ["mtcElongation", "eusteel:Elongation", "P1"],
+  ["mtcRelativeRibArea", "eusteel:RelativeRibArea", "C62"],
+  ["mtcCarbonContent", "eusteel:CarbonContent", "P1"],
+  ["mtcPhosphorusContent", "eusteel:PhosphorusContent", "P1"],
+  ["mtcSulfurContent", "eusteel:SulfurContent", "P1"],
+  ["mtcCopperContent", "eusteel:CopperContent", "P1"],
+  ["mtcNitrogenContent", "eusteel:NitrogenContent", "P1"],
+  ["mtcCarbonEquivalent", "eusteel:CarbonEquivalent", "P1"],
+  ["mtcRadiometricControl", "eusteel:RadiometricControl", "C62"],
+];
+
+/** Wave 3, iron-steel: the certificate is an oea:Assessment, each test value a result of it. */
+function materialTestCertificate(o: Obj) {
+  const results: Obj[] = [];
+  let bare = false;
+  for (const [name, parameter, unit] of MTC_RESULTS) {
+    const key = Object.keys(o).find((k) => local(k) === name);
+    if (!key) continue;
+    bare = !key.includes(":");
+    const n = spelling(bare);
+    results.push({ type: "oea:MeasurementResult", [n("oea:hasObservedParameter")]: ref(parameter), [n("oea:hasMeasuredValue")]: measured(take(o, name), unit) });
+  }
+  setOrAppend(o, Object.keys(o).find((k) => local(k) === "hasResult") ?? spelling(bare)("oea:hasResult"), results);
+}
+
+/** Wave 3, electronics: the WEEE treatment outcome of one item, parameter and unit. */
+const TREATMENT_RESULTS: [string, string, string][] = [
+  ["totalInputMassGrams", "euelec:TreatmentInputMass", "GRM"],
+  ["totalRecoveredMassGrams", "euelec:RecoveredMass", "GRM"],
+  ["recoveryRate", "euelec:AchievedRecoveryRate", "C62"],
+  ["recyclingRate", "euelec:AchievedRecyclingRate", "C62"],
+  ["energyRecoveryRate", "euelec:EnergyRecoveryRate", "C62"],
+];
+
+/** Wave 3, electronics: material recovery figures become results of the treatment assessment. */
+function materialRecovery(o: Obj) {
+  const results: Obj[] = [];
+  let bare = false;
+  for (const [name, parameter, unit] of TREATMENT_RESULTS) {
+    const key = Object.keys(o).find((k) => local(k) === name);
+    if (!key) continue;
+    bare = !key.includes(":");
+    const n = spelling(bare);
+    results.push({ type: "oea:MeasurementResult", [n("oea:hasObservedParameter")]: ref(parameter), [n("oea:hasMeasuredValue")]: measured(take(o, name), unit) });
+  }
+  setOrAppend(o, Object.keys(o).find((k) => local(k) === "hasResult") ?? spelling(bare)("oea:hasResult"), results);
+}
+
+/** Wave 3, electronics: the avoided-emissions figure is an indicator, the calculation basis the method. */
+function avoidedEmissions(o: Obj) {
+  const key = Object.keys(o).find((k) => /^(avoidedEmissionsKgCO2e|calculationMethod)$/.test(local(k)));
+  if (!key) return;
+  const n = spelling(!key.includes(":"));
+  const v = take(o, "avoidedEmissionsKgCO2e");
+  const basis = take(o, "calculationMethod");
+  if (basis !== undefined) {
+    const name = basis && typeof basis === "object" && "@value" in basis ? basis["@value"] : basis;
+    o[n("oea:hasMethod")] = { type: "oea:AssessmentMethod", [n("oea:methodName")]: name };
+  }
+  if (v !== undefined) setOrAppend(o, Object.keys(o).find((k) => local(k) === "hasIndicator") ?? n("oea:hasIndicator"), [indicator(n, "euelec:AvoidedEmissions", v, "KGM")]);
+}
+
 /**
  * Terms PR 17 removed as duplicates, keyed by the stored spelling (prefixed under the
  * core and module contexts, bare under the operational contexts). The target may already
@@ -497,6 +732,11 @@ const BY_TYPE: Record<string, (o: Obj) => void> = {
   RobustnessAssessment: robustness,
   RecyclabilityAssessment: recyclability,
   RepairabilityInfo: repairability,
+  ImpactIndicatorResult: impactIndicator,
+  EnvironmentalFootprint: environmentalFootprint,
+  MaterialTestCertificate: materialTestCertificate,
+  MaterialRecoveryResult: materialRecovery,
+  AvoidedEmissionsEstimate: avoidedEmissions,
 };
 
 /**
@@ -514,6 +754,8 @@ export function migrate(doc: Json, at = "$", battery?: boolean): Json {
   for (const [k, v] of Object.entries(doc)) migrate(v, `${at}.${k}`, battery);
   for (const t of typeOf(doc)) BY_TYPE[t]?.(doc);
   packagingRecyclability(doc);
+  productIndicators(doc);
+  circularity(doc);
   rename(doc, at, battery);
   if (battery && isBatteryProduct(doc)) batteryProduct(doc, at);
   return doc;
@@ -530,6 +772,25 @@ const REMOVED = new Set([
 
 /** Removed in wave 2; the names exist in no other module, so bare keys count under any context. */
 const WAVE2_REMOVED = new Set(["hasRecyclabilityGrade", "designForRecyclingMethodology"]);
+
+/** Removed from dpp-core in wave 3; bare spellings are core keys under every context. */
+const WAVE3_CORE_REMOVED = new Set([
+  "recyclableContent", "utilityFactor", "materialCircularityIndicator", "productToPackagingRatio", "wasteGenerationAmount",
+  "packagingWasteAmount", "waterConsumption", "landUse", "materialFootprint", "hasIndicatorType", "indicatorUnit",
+  "indicatorTotalValue", "stageValue",
+]);
+
+/** Removed from eu/iron-steel in wave 3 (material test certificate values); names are unique. */
+const WAVE3_STEEL_REMOVED = new Set(MTC_RESULTS.map(([name]) => name));
+
+/** Removed from eu/electronics in wave 3 (WEEE treatment outcome, avoided emissions); prefixed only. */
+const WAVE3_ELEC_REMOVED = new Set([...TREATMENT_RESULTS.map(([name]) => name), "avoidedEmissionsKgCO2e", "calculationMethod"]);
+
+/** Removed from eu/textile in wave 3 (environmental footprint). */
+const WAVE3_TEXTILE_REMOVED = new Set([
+  "carbonFootprintManufacturing", "pefSingleScore", "benchmarkPerformance", "carbonFootprintClass", "environmentalFootprintClass",
+  "pefcrReference", "hasLciaCategoryCode", "lciaValue", "lciaUnit",
+]);
 
 /** Battery terms removed as duplicates in 2026-11 whose successor needed a move or a new shape. */
 const BATTERY_REMOVED = new Set([
@@ -552,7 +813,12 @@ export function leftovers(doc: Json, at = "$", out: string[] = [], textile?: boo
       const batteryRemoved = BATTERY_REMOVED.has(local(k)) && (k.startsWith("eubat:") || (battery && !k.includes(":") && k !== "hasDismantlingInstructions"));
       const renamed = k in RENAMED && (k.includes(":") || !bridge);
       const wave2 = WAVE2_REMOVED.has(local(k)) && (k.startsWith("euppwr:") || !k.includes(":"));
-      if (removed || batteryRemoved || renamed || wave2) out.push(`${at}.${k}`);
+      const wave3 =
+        (WAVE3_CORE_REMOVED.has(local(k)) && (k.startsWith("oec:") || !k.includes(":"))) ||
+        (WAVE3_TEXTILE_REMOVED.has(local(k)) && (k.startsWith("eutex:") || (textile && !k.includes(":")))) ||
+        (WAVE3_STEEL_REMOVED.has(local(k)) && (k.startsWith("eusteel:") || !k.includes(":"))) ||
+        (WAVE3_ELEC_REMOVED.has(local(k)) && k.startsWith("euelec:"));
+      if (removed || batteryRemoved || renamed || wave2 || wave3) out.push(`${at}.${k}`);
       leftovers(v, `${at}.${k}`, out, textile, battery, bridge);
     }
   }
@@ -701,8 +967,11 @@ async function check(): Promise<number> {
   ];
   for (const { name, file, before, after, ignore } of cases) {
     const show = (rev: string) => JSON.parse(execFileSync("git", ["show", `${rev}:${file}`], { cwd: ROOT, encoding: "utf8" }));
+    // Both revisions go through the migration: later waves rewrite terms the reference revision
+    // still carried, and a document stored at either revision must end in the same current shape.
     const migrated = without(migrate(show(before)), ignore);
-    const expected = without(show(after), ignore);
+    notes.length = 0;
+    const expected = without(migrate(show(after)), ignore);
     migrated["@context"] = expected["@context"];
     const [a, b] = [await nquads(migrated), await nquads(expected)];
     const left = leftovers(migrated);

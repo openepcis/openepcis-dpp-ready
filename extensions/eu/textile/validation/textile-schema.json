@@ -575,34 +575,33 @@
     "EnvironmentalFootprint": {
       "type": "object",
       "title": "Environmental Footprint",
-      "description": "Environmental footprint per PEFCR Apparel & Footwear.",
+      "description": "Environmental footprint per PEFCR Apparel & Footwear, an oea:Assessment.",
       "properties": {
         "@type": {
           "const": "EnvironmentalFootprint"
         },
-        "carbonFootprintManufacturing": {
-          "type": "number",
-          "description": "Carbon footprint in kg CO2-eq per product unit."
-        },
-        "pefSingleScore": {
-          "type": "number",
-          "description": "PEF single score in milli-points (mPt)."
-        },
-        "benchmarkPerformance": {
-          "type": "number",
-          "description": "Performance vs benchmark as percentage (negative = better)."
-        },
         "hasDataTypeIndicator": {
           "$ref": "#/$defs/FootprintDataType"
         },
-        "pefcrReference": {
-          "type": "string"
+        "hasMethod": {
+          "type": [
+            "string",
+            "object"
+          ],
+          "description": "oea:hasMethod: the PEFCR applied, an oea:AssessmentMethod (inline with oea:methodName, e.g. 'PEFCR Apparel & Footwear v1.3')."
         },
         "hasLciaCategories": {
           "type": "array",
           "items": {
             "$ref": "#/$defs/LCIACategory"
           }
+        },
+        "hasIndicator": {
+          "type": [
+            "object",
+            "array"
+          ],
+          "description": "oea:hasIndicator: oea:Indicator object(s) of kind eutex:ManufacturingCarbonFootprint (KGM), eutex:PEFSingleScore (mPt, C62), eutex:BenchmarkPerformance (P1), eutex:CarbonFootprintClass or eutex:EnvironmentalFootprintClass (C62)."
         }
       }
     },
@@ -618,19 +617,21 @@
     "LCIACategory": {
       "type": "object",
       "title": "LCIA Category",
-      "description": "Individual Life Cycle Impact Assessment category result.",
+      "description": "Individual Life Cycle Impact Assessment category result, an oea:MeasurementResult.",
       "properties": {
         "@type": {
           "const": "LCIACategory"
         },
-        "hasLciaCategoryCode": {
+        "hasObservedParameter": {
           "$ref": "#/$defs/LCIACategoryCode"
         },
-        "lciaValue": {
-          "type": "number"
+        "hasMeasuredValue": {
+          "type": "object",
+          "description": "oea:hasMeasuredValue: gs1:QuantitativeValue with the UN/CEFACT unitCode of the reference substance (KGM, C34, MTQ; C62 for CTUe/CTUh)."
         },
-        "lciaUnit": {
-          "type": "string"
+        "declaredUnit": {
+          "type": "string",
+          "description": "oec:declaredUnit: the unit as stated, e.g. 'kg CO2-eq'."
         }
       }
     },

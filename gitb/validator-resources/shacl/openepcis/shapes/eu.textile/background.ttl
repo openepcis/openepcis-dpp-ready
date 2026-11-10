@@ -671,7 +671,7 @@ oec:DueDiligenceReport a rdfs:Class;
 oec:CircularityPerformance a rdfs:Class;
     rdfs:seeAlso gs1:consumerRecyclingInstructions, <https://w3id.org/eudpp#CircularEconomyIndicator>;
     rdfs:label "Circularity Performance"@en;
-    rdfs:comment "Information supporting circular economy requirements including\nend-of-life handling, recycling, waste prevention, and circularity metrics.\nAligned with UNTP CircularityPerformance pattern."@en;
+    rdfs:comment "Information supporting circular economy requirements including\nend-of-life handling, recycling, waste prevention, and circularity metrics.\nAligned with UNTP CircularityPerformance pattern. Circularity figures are oea:Indicator values\n(oea:hasIndicator with oec:MaterialCircularityIndicator, oec:UtilityFactor); the recyclable share is a\nresult of an oec:RecyclabilityAssessment."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Required extension: GS1 provides gs1:consumerRecyclingInstructions for text-based\nrecycling guidance but lacks structured circularity data (recyclability rates, end-of-life URLs,\nwaste prevention info) required by ESPR. Use gs1:consumerRecyclingInstructions for simple text.\nAligned with UNTP CircularityPerformance for interoperability."@en.
@@ -1711,6 +1711,19 @@ oec:combinedNomenclatureCode a owl:DatatypeProperty;
     rdfs:range xsd:string;
     rdfs:domain gs1:Product;
     skos:relatedMatch gs1:gpcCategoryCode.
+oec:MaterialCircularityIndicator a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
+    rdfs:seeAlso <https://ref.openepcis.org/extensions/common/assessment/RecyclabilityScore>, <https://dpp-keystone.org/spec/v3/terms#recyclabilityScore>;
+    rdfs:label "Material Circularity Indicator"@en;
+    rdfs:comment "Ellen MacArthur Foundation circularity score combining recycled input, recyclability and utility (0-1, unitCode C62). Replaces oec:materialCircularityIndicator."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
+    dcterms:source <https://ellenmacarthurfoundation.org/material-circularity-indicator>;
+    skos:note "Aligned with UNTP. Not a recyclability score: it also weighs recycled input and utility."@en.
+oec:UtilityFactor a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
+    rdfs:label "Utility Factor"@en;
+    rdfs:comment "Lifetime and intensity of use of the product relative to the industry average (1.0 = average, above 1 = more durable; unitCode C62). Replaces oec:utilityFactor."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
+    dcterms:source <https://untp.unece.org/docs/specification/>;
+    skos:note "Input to the Material Circularity Indicator; aligned with UNTP."@en.
 oec:hasCircularityPerformance a owl:ObjectProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#performance>;
     rdfs:label "Circularity Performance"@en;
@@ -1719,14 +1732,6 @@ oec:hasCircularityPerformance a owl:ObjectProperty;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en;
     rdfs:range oec:CircularityPerformance.
-oec:recyclableContent a owl:DatatypeProperty;
-    rdfs:label "Recyclable Content"@en;
-    rdfs:comment "Fraction of product that can be recycled (0-1 scale where 0.45 = 45%)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Value is a decimal fraction 0-1. Aligned with UNTP recyclableContent."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain oec:CircularityPerformance.
 oec:endOfLifeInstructions a owl:DatatypeProperty;
     rdfs:seeAlso gs1:consumerRecyclingInstructions, <https://dpp-keystone.org/spec/v3/terms#endOfLifeInstructions>, gs1:sustainabilityInfo, <https://w3id.org/eudpp#hasEndOfLifeManagementInstruction>;
     rdfs:label "End of Life Instructions"@en;
@@ -1771,34 +1776,8 @@ oec:hasDismantlingInstructions a owl:ObjectProperty;
     skos:broadMatch gs1:instructions, <urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation>;
     rdfs:range oec:DocumentReference;
     rdfs:domain oec:CircularityPerformance.
-oec:utilityFactor a owl:DatatypeProperty;
-    rdfs:label "Utility Factor"@en;
-    rdfs:comment "Durability of the product relative to industry average (1.0 = average). A value >1 indicates above-average durability."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://untp.unece.org/docs/specification/>;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain oec:CircularityPerformance.
-oec:materialCircularityIndicator a owl:DatatypeProperty;
-    rdfs:seeAlso <https://ref.openepcis.org/extensions/common/assessment/RecyclabilityScore>, <https://dpp-keystone.org/spec/v3/terms#recyclabilityScore>, oec:hasRecyclabilityAssessment;
-    rdfs:label "Material Circularity Indicator"@en;
-    rdfs:comment "Overall circularity score combining recycled input, recyclability, and utility (0-1 scale)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://ellenmacarthurfoundation.org/material-circularity-indicator>;
-    skos:note "Value is a decimal fraction 0-1. Based on Ellen MacArthur Foundation MCI methodology. Aligned with UNTP."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain oec:CircularityPerformance.
-oec:hasRecyclabilityAssessment a owl:ObjectProperty;
-    rdfs:label "Recyclability Assessment"@en;
-    rdfs:comment "Links a product to its recyclability assessment."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en;
-    skos:exactMatch <https://w3id.org/eudpp/textile-recyclability#hasRecyclabilityAssessment>;
-    rdfs:range oec:RecyclabilityAssessment;
-    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasAssessment>.
 oec:hasRecycledContentDetails a owl:ObjectProperty;
-    rdfs:seeAlso oec:recyclableContent, <https://dpp-keystone.org/spec/v3/terms#recycledContentPercentage>, <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContent>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledMaterialComposition>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContent>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContentMass>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledMaterialComposition>, <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContentPercentage>;
+    rdfs:seeAlso <https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate>, <https://dpp-keystone.org/spec/v3/terms#recycledContentPercentage>, <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContent>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledMaterialComposition>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContent>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContentMass>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledMaterialComposition>, <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContentPercentage>;
     rdfs:label "Recycled Content Details"@en;
     rdfs:comment "Detailed recycled content breakdown with pre/post-consumer splits."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -1821,7 +1800,7 @@ oec:recycledContent a owl:DatatypeProperty;
     rdfs:range xsd:decimal;
     rdfs:domain oec:RecycledContent.
 oec:preConsumerRecycledContent a owl:DatatypeProperty;
-    rdfs:seeAlso oec:recyclableContent, <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://vocabulary.uncefact.org/untp/recycledMassFraction>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContent>, gs1:textileMaterialContent;
+    rdfs:seeAlso <https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate>, <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://vocabulary.uncefact.org/untp/recycledMassFraction>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContent>, gs1:textileMaterialContent;
     rdfs:label "Pre-Consumer Recycled Content"@en;
     rdfs:comment "Fraction of pre-consumer (post-industrial) recycled content (0-1 scale)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -2907,65 +2886,62 @@ oec:RecyclabilityAssessment a owl:Class;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en;
     skos:broadMatch <https://vocabulary.uncefact.org/untp/ConformityAssessment>.
-oec:productToPackagingRatio a owl:DatatypeProperty;
+oec:hasRecyclabilityAssessment a owl:ObjectProperty;
+    rdfs:label "Recyclability Assessment"@en;
+    rdfs:comment "Links a product to its recyclability assessment."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
+    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en;
+    skos:exactMatch <https://w3id.org/eudpp/textile-recyclability#hasRecyclabilityAssessment>;
+    rdfs:range oec:RecyclabilityAssessment;
+    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasAssessment>.
+oec:ProductToPackagingRatio a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:seeAlso gs1:netWeight, <https://w3id.org/eudpp#ProductToPackagingRatio>;
     rdfs:label "Product-to-Packaging Ratio"@en;
-    rdfs:comment "Ratio of product weight to total packaging weight, indicating packaging efficiency."@en;
+    rdfs:comment "Ratio of product weight to total packaging weight, indicating packaging efficiency (unitCode C62). Replaces oec:productToPackagingRatio."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "ESPR Annex I ecodesign parameter; PPWR Annex IV minimisation assessments need the same figure. GS1 carries product and packaging weights separately (gs1:netWeight, gs1:packaging) but publishes no ratio term."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain gs1:Product.
-oec:wasteGenerationAmount a owl:DatatypeProperty;
+    skos:note "ESPR Annex I ecodesign parameter; PPWR Annex IV minimisation assessments need the same figure. GS1 carries product and packaging weights separately (gs1:netWeight, gs1:packaging) but publishes no ratio."@en.
+oec:WasteGeneration a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:seeAlso <https://w3id.org/eudpp#WasteGenerationAmount>, <https://w3id.org/eudpp#HazardousWasteAmount>;
-    rdfs:label "Waste Generation Amount"@en;
-    rdfs:comment "Quantity of waste generated over the product life cycle per declared unit, expressed in kilograms."@en;
+    rdfs:label "Waste Generation"@en;
+    rdfs:comment "Quantity of waste generated over the product life cycle per declared unit, including hazardous fractions (unitCode KGM). Replaces oec:wasteGenerationAmount."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "ESPR Annex I ecodesign parameter (waste generation, including hazardous fractions). Life-cycle scoped like oec:carbonFootprintTotal, not an EN 15804 coded indicator, so carried as its own property rather than an oec:ImpactIndicatorType entry."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain gs1:Product.
-oec:packagingWasteAmount a owl:DatatypeProperty;
-    rdfs:seeAlso oec:productToPackagingRatio, <https://w3id.org/eudpp#PackagingWasteAmount>;
-    rdfs:label "Packaging Waste Amount"@en;
-    rdfs:comment "Quantity of packaging waste generated per declared unit, expressed in kilograms."@en;
+    skos:note "ESPR Annex I ecodesign parameter. Life-cycle scoped like oec:carbonFootprintTotal, not an EN 15804 impact category."@en.
+oec:PackagingWaste a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
+    rdfs:seeAlso oec:ProductToPackagingRatio, <https://w3id.org/eudpp#PackagingWasteAmount>;
+    rdfs:label "Packaging Waste"@en;
+    rdfs:comment "Quantity of packaging waste generated per declared unit (unitCode KGM). Replaces oec:packagingWasteAmount."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "ESPR Annex I ecodesign parameter; PPWR reporting needs the same figure per packaging unit. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain gs1:Product.
-oec:waterConsumption a owl:DatatypeProperty;
+    skos:note "ESPR Annex I ecodesign parameter; PPWR reporting needs the same figure per packaging unit."@en.
+oec:WaterConsumption a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:seeAlso oec:WDP, <https://w3id.org/eudpp#WaterConsumptionResult>;
     rdfs:label "Water Consumption"@en;
-    rdfs:comment "Net fresh water consumed over the product life cycle per declared unit, expressed in cubic metres."@en;
+    rdfs:comment "Net fresh water consumed over the product life cycle per declared unit (unitCode MTQ). Replaces oec:waterConsumption."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "ESPR Annex I ecodesign parameter (water use). The EN 15804 indicator oec:WDP covers water-deprivation-weighted impact; this property carries the plain consumed volume the passport declares. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms/epd#fw>;
-    rdfs:range xsd:decimal;
-    rdfs:domain gs1:Product.
+    skos:note "ESPR Annex I ecodesign parameter (water use). The EN 15804 category oec:WDP is the deprivation-weighted impact; this is the plain consumed volume."@en;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms/epd#fw>.
 oec:WDP a oec:ImpactIndicatorType;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#wdp>;
     rdfs:label "Water (user) deprivation potential"@en;
     skos:notation "WDP".
-oec:landUse a owl:DatatypeProperty;
+oec:LandUse a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:seeAlso <https://w3id.org/eudpp#LandUseResult>;
     rdfs:label "Land Use"@en;
-    rdfs:comment "Land area occupied or transformed over the product life cycle per declared unit, expressed in square metres."@en;
+    rdfs:comment "Land area occupied or transformed over the product life cycle per declared unit (unitCode MTK). Replaces oec:landUse."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "ESPR Annex I ecodesign parameter; EUDR geolocation (eudr:) covers plot provenance while this carries the quantitative footprint. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain gs1:Product.
-oec:materialFootprint a owl:DatatypeProperty;
+    skos:note "ESPR Annex I ecodesign parameter; EUDR geolocation (eudr:) covers plot provenance, this the quantitative footprint."@en.
+oec:MaterialFootprint a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:seeAlso <https://w3id.org/eudpp#MaterialFootprint>, <https://w3id.org/eudpp#InventoryIndicatorResult>;
     rdfs:label "Material Footprint"@en;
-    rdfs:comment "Total raw material input mobilised over the product life cycle per declared unit, expressed in kilograms."@en;
+    rdfs:comment "Total raw material input mobilised over the product life cycle per declared unit (unitCode KGM). Replaces oec:materialFootprint."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "ESPR Annex I ecodesign parameter (resource use). Distinct from oec:hasMaterialComposition, which lists what is IN the product; the footprint counts what was consumed to make it. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain gs1:Product.
+    skos:note "ESPR Annex I ecodesign parameter (resource use). Distinct from oec:hasMaterialComposition, which lists what is in the product; the footprint counts what was consumed to make it."@en.
 oec:EnergyEfficiency a owl:Class;
     rdfs:seeAlso schema:EUEnergyEfficiencyEnumeration;
     rdfs:label "Energy Efficiency"@en;
@@ -3278,17 +3254,18 @@ oec:remanufacturingDate a owl:DatatypeProperty;
     rdfs:domain schema:Product.
 oec:EnvironmentalProductDeclaration a owl:Class;
     rdfs:seeAlso oec:EmissionsPerformance, oec:CarbonFootprintDeclaration, <https://dpp-keystone.org/spec/v3/terms#EPDBlock>, <https://w3id.org/eudpp#EPDStudy>, <https://w3id.org/eudpp#EPDDocument>;
-    rdfs:subClassOf schema:Certification;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/Assessment>, schema:Certification;
     rdfs:label "Environmental Product Declaration"@en;
-    rdfs:comment "A type III environmental declaration per EN 15804:2012+A2:2019 / ISO 14025,\nreporting life-cycle environmental impact indicators broken down by lifecycle module."@en;
+    rdfs:comment "A type III environmental declaration per EN 15804:2012+A2:2019 / ISO 14025,\nreporting life-cycle environmental impact indicators broken down by lifecycle module. An oea:Assessment:\neach impact category is an oec:ImpactIndicatorResult (oea:hasResult), the product category rules are\noec:productCategoryRules."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Required extension: EN 15804 EPDs carry a full impact-indicator set with modular\nlifecycle breakdown not covered by GS1 Web Vocabulary, schema.org, or SEMICeu. Aligned with\nDPP Keystone dppk:EPDBlock (peer DPP profile). For a single aggregate carbon figure use\noec:carbonFootprintTotal; for a 5-stage carbon breakdown use oec:CarbonFootprintDeclaration."@en;
     skos:exactMatch <https://w3id.org/eudpp#EPDDocument>.
 oec:ImpactIndicatorResult a owl:Class;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#ImpactValues>, <https://w3id.org/eudpp#LCAResult>;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/MeasurementResult>;
     rdfs:label "Impact Indicator Result"@en;
-    rdfs:comment "One environmental impact indicator (e.g. Global Warming Potential) reported within\nan EPD: its indicator type, declared unit, aggregate value, and optional per-lifecycle-module values."@en;
+    rdfs:comment "One environmental impact category reported within an EPD, an oea:MeasurementResult:\noea:hasObservedParameter names the category (an oec:ImpactIndicatorType such as oec:GWPTotal),\noea:hasMeasuredValue the aggregate value over the declared modules as a gs1:QuantitativeValue, and\noec:hasLifecycleStageResult the per-module values. The unitCode is the mass, amount, energy or volume\nunit of the category's reference substance (kg CO2 eq: KGM, mol H+ eq: C34, MJ: 3B, m3 world eq: MTQ);\nthe reference substance itself follows from the category."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "EN 15804 impact-indicator result. Anchored to DPP Keystone dppk-epd:ImpactValues (peer DPP profile)."@en;
@@ -3296,16 +3273,18 @@ oec:ImpactIndicatorResult a owl:Class;
     skos:closeMatch <https://dpp-keystone.org/spec/v3/terms/epd#ImpactValues>.
 oec:LifecycleStageResult a owl:Class;
     rdfs:seeAlso <https://w3id.org/eudpp#LCAModuleValue>;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/MeasurementResult>;
     rdfs:label "Lifecycle Stage Result"@en;
-    rdfs:comment "The value of an impact indicator for a single EN 15804 lifecycle module (e.g. A1, B6, C3, D)."@en;
+    rdfs:comment "The value of an impact indicator for a single EN 15804 lifecycle module (e.g. A1, B6, C3, D), an oea:MeasurementResult: oec:hasLifecycleStage names the module, oea:hasObservedParameter the impact category of its oec:ImpactIndicatorResult, oea:hasMeasuredValue the value in that result's unit."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "EN 15804 modular lifecycle value. Pairs an oec:LifecycleStage code with a decimal value in the indicator's declared unit."@en;
+    skos:note "EN 15804 modular lifecycle value. DPP Keystone expresses these as flat dppk-epd:a1..dppk-epd:d properties; here one result per module."@en;
     skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity>, <https://w3id.org/eudpp#LCAResult>.
 oec:ImpactIndicatorType a rdfs:Class;
     rdfs:seeAlso <https://w3id.org/eudpp#EN15804ImpactIndicator>, <https://w3id.org/eudpp#LCIAImpactIndicator>, <https://w3id.org/eudpp#AreaOfProtection>;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
     rdfs:label "Impact Indicator Type"@en;
-    rdfs:comment "Controlled list of EN 15804:2012+A2:2019 environmental impact indicators."@en;
+    rdfs:comment "Controlled list of EN 15804:2012+A2:2019 environmental impact indicators. Each is an oea:PerformanceParameter that an oec:ImpactIndicatorResult observes."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "EN 15804+A2 core impact category set."@en;
@@ -3442,7 +3421,8 @@ oec:hasEnvironmentalProductDeclaration a owl:ObjectProperty;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "EN 15804 EPD link. Anchored to DPP Keystone dppk:epd (peer DPP profile)."@en;
     skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#epd>;
-    rdfs:range oec:EnvironmentalProductDeclaration.
+    rdfs:range oec:EnvironmentalProductDeclaration;
+    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasAssessment>.
 oec:epdRegistrationNumber a owl:DatatypeProperty;
     rdfs:seeAlso <https://w3id.org/eudpp#registrationNumber>;
     rdfs:label "EPD Registration Number"@en;
@@ -3500,33 +3480,8 @@ oec:hasImpactIndicator a owl:ObjectProperty;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "EN 15804 impact indicator. Anchored to DPP Keystone dppk-epd:indicator (peer DPP profile)."@en;
     rdfs:range oec:ImpactIndicatorResult;
-    rdfs:domain oec:EnvironmentalProductDeclaration.
-oec:hasIndicatorType a owl:ObjectProperty;
-    rdfs:label "Indicator Type"@en;
-    rdfs:comment "The EN 15804 impact category this result reports (e.g. oec:GWPTotal)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "EN 15804+A2 impact category selector."@en;
-    rdfs:range oec:ImpactIndicatorType;
-    rdfs:domain oec:ImpactIndicatorResult.
-oec:indicatorUnit a owl:DatatypeProperty;
-    rdfs:label "Indicator Unit"@en;
-    rdfs:comment "Declared unit for this indicator (e.g. kg CO2 eq, kg CFC11 eq, mol H+ eq, m3 world eq deprived)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "EN 15804 declared characterisation unit for the indicator."@en;
-    skos:closeMatch gs1:unitCode;
-    rdfs:range xsd:string;
-    rdfs:domain oec:ImpactIndicatorResult.
-oec:indicatorTotalValue a owl:DatatypeProperty;
-    rdfs:seeAlso schema:value, gs1:value;
-    rdfs:label "Indicator Total Value"@en;
-    rdfs:comment "Aggregate value of the indicator across the declared lifecycle modules, in the declared unit."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "EN 15804 aggregate indicator value. Use oec:hasLifecycleStageResult for the modular breakdown."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain oec:ImpactIndicatorResult.
+    rdfs:domain oec:EnvironmentalProductDeclaration;
+    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasResult>.
 oec:hasLifecycleStageResult a owl:ObjectProperty;
     rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage>;
     rdfs:label "Lifecycle Stage Result"@en;
@@ -3546,16 +3501,6 @@ oec:hasLifecycleStage a owl:ObjectProperty;
     skos:exactMatch <https://w3id.org/eudpp#forLifeCycleModule>;
     skos:closeMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#lifecycleStage>;
     rdfs:range oec:LifecycleStage;
-    rdfs:domain oec:LifecycleStageResult.
-oec:stageValue a owl:DatatypeProperty;
-    rdfs:seeAlso schema:value, gs1:value, <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapabilityValue>, <urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCyclesValue>, <urn:samm:io.BatteryPass.Performance:1.2.1#remainingCapacityValue>, <urn:samm:io.BatteryPass.Performance:1.2.1#capacityThroughputValue>, <urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncreaseValue>;
-    rdfs:label "Stage Value"@en;
-    rdfs:comment "Indicator value for this lifecycle module, in the indicator's declared unit."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "EN 15804 modular value. DPP Keystone expresses these as flat dppk-epd:a1..dppk-epd:d properties; here normalised as oec:LifecycleStage + oec:stageValue pairs."@en;
-    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage>;
-    rdfs:range xsd:decimal;
     rdfs:domain oec:LifecycleStageResult.
 <https://ref.openepcis.org/extensions/eu/textile/> a owl:Ontology;
     dcterms:title "OpenEPCIS Textile DPP Vocabulary"@en;
@@ -4668,16 +4613,18 @@ _:b169 rdf:first <https://ref.openepcis.org/extensions/eu/textile/Certified>;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/RecycledContentDeclaration>.
 <https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint> a owl:Class;
     rdfs:seeAlso oec:EmissionsPerformance, <https://w3id.org/eudpp#CarbonFootprint>, <https://w3id.org/eudpp#LCIAImpactCategory>, schema:PropertyValue;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/Assessment>;
     rdfs:label "Environmental Footprint"@en;
-    rdfs:comment "Environmental footprint declaration per EU Preparatory Study 3rd Milestone,\naligned with Product Environmental Footprint Category Rules for Apparel & Footwear (PEFCR A&F).\nIncludes manufacturing carbon footprint, PEF single score, and benchmark comparison."@en;
+    rdfs:comment "Environmental footprint declaration per EU Preparatory Study 3rd Milestone,\naligned with Product Environmental Footprint Category Rules for Apparel & Footwear (PEFCR A&F).\nAn oea:Assessment: the PEFCR is its oea:hasMethod; each impact category is an eutex:LCIACategory result\n(oea:hasResult); the manufacturing carbon footprint, the PEF single score, the benchmark comparison and\nthe footprint classes are indicators (oea:hasIndicator with eutex:ManufacturingCarbonFootprint,\neutex:PEFSingleScore, eutex:BenchmarkPerformance, eutex:CarbonFootprintClass,\neutex:EnvironmentalFootprintClass)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Required extension: The EU preparatory study mandates PEF-based environmental footprint\nreporting with specific metrics (single score in mPt, benchmark performance) not available\nin GS1 or core DPP vocabulary. Keeps existing eutex:hasWaterUsage and eutex:hasEnergyUsage\nas convenience properties. See also schema:PropertyValue for generic structured values."@en;
+    skos:note "Required extension: The EU preparatory study mandates PEF-based environmental footprint\nreporting with specific metrics (single score in mPt, benchmark performance) not available\nin GS1 or core DPP vocabulary; their kinds are defined here, the structure is common/assessment. Keeps existing eutex:hasWaterUsage and eutex:hasEnergyUsage\nas convenience properties. See also schema:PropertyValue for generic structured values."@en;
     skos:narrowMatch <https://w3id.org/eudpp#CarbonFootprint>, <https://w3id.org/eudpp#LCIAResult>, <https://w3id.org/eudpp#MaterialFootprint>.
 <https://ref.openepcis.org/extensions/eu/textile/LCIACategory> a owl:Class;
     rdfs:seeAlso schema:PropertyValue;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/MeasurementResult>;
     rdfs:label "LCIA Category"@en;
-    rdfs:comment "Individual Life Cycle Impact Assessment category result within the environmental footprint."@en;
+    rdfs:comment "One Life Cycle Impact Assessment category result within the environmental footprint, an oea:MeasurementResult: oea:hasObservedParameter names the eutex:LCIACategoryCode, oea:hasMeasuredValue the value with the unit of the reference substance (kg CO2-eq, kg P-eq: KGM; mol H+-eq: C34; m3 world-eq: MTQ; CTUe, CTUh: C62), oec:declaredUnit the unit as stated."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en.
@@ -4704,8 +4651,9 @@ _:b172 rdf:first <https://ref.openepcis.org/extensions/eu/textile/MixedData>;
     rdfs:label "Mixed Data"@en;
     rdfs:comment "Footprint based on a combination of primary and secondary data sources."@en.
 <https://ref.openepcis.org/extensions/eu/textile/LCIACategoryCode> a owl:Class;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
     rdfs:label "LCIA Category Code"@en;
-    rdfs:comment "Life Cycle Impact Assessment category codes per PEF methodology."@en;
+    rdfs:comment "Life Cycle Impact Assessment category codes per PEF methodology; each is an oea:PerformanceParameter an eutex:LCIACategory result observes."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
@@ -4750,36 +4698,8 @@ _:b178 rdf:first <https://ref.openepcis.org/extensions/eu/textile/HumanToxicity>
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
     skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#environmentalFootprint>;
     rdfs:range <https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint>;
-    rdfs:domain gs1:Product.
-<https://ref.openepcis.org/extensions/eu/textile/carbonFootprintManufacturing> a owl:DatatypeProperty;
-    rdfs:seeAlso schema:value, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint>, oec:carbonFootprintTotal;
-    rdfs:label "Carbon Footprint Manufacturing"@en;
-    rdfs:comment "Carbon footprint of manufacturing phase in kg CO2-eq per product unit."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:closeMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage>;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint>.
-<https://ref.openepcis.org/extensions/eu/textile/pefSingleScore> a owl:DatatypeProperty;
-    rdfs:seeAlso schema:ratingValue;
-    rdfs:label "PEF Single Score"@en;
-    rdfs:comment "Product Environmental Footprint single score in milli-points (mPt) per PEFCR A&F methodology."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint>.
-<https://ref.openepcis.org/extensions/eu/textile/benchmarkPerformance> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#environmentalFootprintBenchmarkPercentage>, <https://dpp-keystone.org/spec/v3/terms#carbonFootprintBenchmarkPercentage>;
-    rdfs:label "Benchmark Performance"@en;
-    rdfs:comment "Performance relative to product category benchmark as percentage (negative = better than benchmark)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#environmentalFootprintBenchmarkPercentage>;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint>.
+    rdfs:domain gs1:Product;
+    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasAssessment>.
 <https://ref.openepcis.org/extensions/eu/textile/hasDataTypeIndicator> a owl:ObjectProperty;
     rdfs:label "Data Type Indicator"@en;
     rdfs:comment "Type of data used in the footprint calculation (primary, secondary, or mixed)."@en;
@@ -4788,14 +4708,6 @@ _:b178 rdf:first <https://ref.openepcis.org/extensions/eu/textile/HumanToxicity>
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
     rdfs:range <https://ref.openepcis.org/extensions/eu/textile/FootprintDataType>;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint>.
-<https://ref.openepcis.org/extensions/eu/textile/pefcrReference> a owl:DatatypeProperty;
-    rdfs:label "PEFCR Reference"@en;
-    rdfs:comment "Reference to the applicable PEFCR version (e.g. 'PEFCR Apparel & Footwear v1.3')."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:string;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint>.
 <https://ref.openepcis.org/extensions/eu/textile/hasLciaCategories> a owl:ObjectProperty;
     rdfs:label "LCIA Categories"@en;
     rdfs:comment "Individual LCIA category results within the environmental footprint."@en;
@@ -4803,35 +4715,40 @@ _:b178 rdf:first <https://ref.openepcis.org/extensions/eu/textile/HumanToxicity>
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
     rdfs:range <https://ref.openepcis.org/extensions/eu/textile/LCIACategory>;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint>.
-<https://ref.openepcis.org/extensions/eu/textile/hasLciaCategoryCode> a owl:ObjectProperty;
-    rdfs:seeAlso schema:hasCategoryCode;
-    rdfs:label "LCIA Category Code"@en;
-    rdfs:comment "The impact category code."@en;
+    rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint>;
+    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasResult>.
+<https://ref.openepcis.org/extensions/eu/textile/ManufacturingCarbonFootprint> a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint>, oec:carbonFootprintTotal;
+    rdfs:label "Manufacturing Carbon Footprint"@en;
+    rdfs:comment "Carbon footprint of the manufacturing phase per product unit (unitCode KGM, kg CO2-eq). Replaces eutex:carbonFootprintManufacturing."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range <https://ref.openepcis.org/extensions/eu/textile/LCIACategoryCode>;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/LCIACategory>.
-<https://ref.openepcis.org/extensions/eu/textile/lciaValue> a owl:DatatypeProperty;
-    rdfs:seeAlso schema:value, <http://data.europa.eu/m8g/value>, gs1:value, <http://data.europa.eu/m8g/providesValueFor>;
-    rdfs:label "LCIA Value"@en;
-    rdfs:comment "The impact category value in the category-specific unit."@en;
+    skos:closeMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage>.
+<https://ref.openepcis.org/extensions/eu/textile/PEFSingleScore> a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
+    rdfs:seeAlso schema:ratingValue;
+    rdfs:label "PEF Single Score"@en;
+    rdfs:comment "Product Environmental Footprint single score in milli-points per PEFCR A&F (unitCode C62, the value in mPt). Replaces eutex:pefSingleScore."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>.
+<https://ref.openepcis.org/extensions/eu/textile/BenchmarkPerformance> a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#carbonFootprintBenchmarkPercentage>;
+    rdfs:label "Benchmark Performance"@en;
+    rdfs:comment "Performance relative to the product-category benchmark (unitCode P1; negative is better than the benchmark). Replaces eutex:benchmarkPerformance."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/LCIACategory>.
-<https://ref.openepcis.org/extensions/eu/textile/lciaUnit> a owl:DatatypeProperty;
-    rdfs:seeAlso schema:unitCode;
-    rdfs:label "LCIA Unit"@en;
-    rdfs:comment "Unit of the LCIA value (e.g. 'kg CO2-eq', 'm3 world-eq', 'mol H+-eq')."@en;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#environmentalFootprintBenchmarkPercentage>.
+<https://ref.openepcis.org/extensions/eu/textile/CarbonFootprintClass> a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
+    rdfs:label "Carbon Footprint Class"@en;
+    rdfs:comment "Discrete performance class of the manufacturing carbon footprint against the PEFCR climate-change benchmark (an A-G style band as an integer 1..n, unitCode C62). Replaces eutex:carbonFootprintClass."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:broadMatch gs1:unitCode;
-    rdfs:range xsd:string;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/LCIACategory>.
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#carbonFootprintClass>, <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerformanceClass>.
+<https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprintClass> a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
+    rdfs:label "Environmental Footprint Class"@en;
+    rdfs:comment "Discrete performance class of the PEF single score against the product-category benchmark (an A-G style band as an integer 1..n, unitCode C62). Replaces eutex:environmentalFootprintClass."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#environmentalFootprintClass>.
 <https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern> a owl:Class;
     rdfs:seeAlso gs1:hasAllergen, schema:Substance;
     rdfs:subClassOf oec:HazardousSubstance, oec:SubstanceOfConcern;
@@ -5238,27 +5155,6 @@ _:b189 a gs1:QuantitativeValue;
     skos:broadMatch schema:weight;
     rdfs:range xsd:decimal;
     rdfs:domain gs1:Product.
-<https://ref.openepcis.org/extensions/eu/textile/carbonFootprintClass> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#carbonFootprintClass>;
-    rdfs:label "Carbon Footprint Class"@en;
-    rdfs:comment "Discrete performance class (A–G style band, expressed as an integer 1..n) for the manufacturing carbon footprint relative to the PEFCR climate-change benchmark."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Discrete PEF carbon-footprint class per the ESPR textile delegated act. Complements eutex:carbonFootprintManufacturing (the value) and eutex:benchmarkPerformance (the percentage). Anchored to the DPP Keystone peer profile dppk:carbonFootprintClass."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#carbonFootprintClass>;
-    skos:closeMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerformanceClass>;
-    rdfs:range xsd:integer;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint>.
-<https://ref.openepcis.org/extensions/eu/textile/environmentalFootprintClass> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#environmentalFootprintClass>;
-    rdfs:label "Environmental Footprint Class"@en;
-    rdfs:comment "Discrete performance class (A–G style band, expressed as an integer 1..n) for the PEF single score relative to the product-category benchmark."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/textile/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Discrete PEF single-score class per the ESPR textile delegated act. Complements eutex:pefSingleScore (the value) and eutex:benchmarkPerformance (the percentage). Anchored to the DPP Keystone peer profile dppk:environmentalFootprintClass."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#environmentalFootprintClass>;
-    rdfs:range xsd:integer;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint>.
 <https://ref.openepcis.org/extensions/eu/textile/textileFibreScientificName> a owl:DatatypeProperty;
     rdfs:seeAlso gs1:textileMaterialDescription;
     rdfs:label "Textile Fibre Scientific Name"@en;

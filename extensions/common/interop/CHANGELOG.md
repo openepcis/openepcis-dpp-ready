@@ -4,6 +4,20 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+### Changed: crosswalk follows the third assessment wave
+
+- `cirpass2`: EPD impact indicators and module values carry their measured value with an SI unit
+  (`eudpp:hasMeasurementUnit`); the material circularity indicator and utility factor stay
+  `eudpp:CircularEconomyIndicator`s. The textile environmental footprint is converted for the first
+  time: an `eudpp:LCAStudy` whose LCIA category results quantify the EF 3.1 indicators
+  (`eudpp:ind_EF_climateChange`, `ind_EF_waterUse`, …), its PEFCR as `dcterms:conformsTo`.
+  A method of the publisher's own now comes back on the way back (the lowering rule never bound it).
+- `keystone`: the footprint figures (`dppk:carbonFootprint`, `environmentalFootprint`, the classes,
+  the benchmark percentages) and the material test certificate values (`dppk:mtcYieldStrength` …)
+  convert to and from indicators and results; new round-trip case `keystone-mtc-in`. The DPP
+  Keystone bridge context no longer aliases them.
+- The UNTP, JTC 24 and CIRPASS-2 bridge contexts drop the aliases of the removed core terms.
+
 ## [0.12.0] - 2026-11-10
 
 ### Added: EU DPP Registry crosswalk profile

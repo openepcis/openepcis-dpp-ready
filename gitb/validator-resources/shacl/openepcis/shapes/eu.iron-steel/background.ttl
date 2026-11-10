@@ -671,7 +671,7 @@ oec:DueDiligenceReport a rdfs:Class;
 oec:CircularityPerformance a rdfs:Class;
     rdfs:seeAlso gs1:consumerRecyclingInstructions, <https://w3id.org/eudpp#CircularEconomyIndicator>;
     rdfs:label "Circularity Performance"@en;
-    rdfs:comment "Information supporting circular economy requirements including\nend-of-life handling, recycling, waste prevention, and circularity metrics.\nAligned with UNTP CircularityPerformance pattern."@en;
+    rdfs:comment "Information supporting circular economy requirements including\nend-of-life handling, recycling, waste prevention, and circularity metrics.\nAligned with UNTP CircularityPerformance pattern. Circularity figures are oea:Indicator values\n(oea:hasIndicator with oec:MaterialCircularityIndicator, oec:UtilityFactor); the recyclable share is a\nresult of an oec:RecyclabilityAssessment."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Required extension: GS1 provides gs1:consumerRecyclingInstructions for text-based\nrecycling guidance but lacks structured circularity data (recyclability rates, end-of-life URLs,\nwaste prevention info) required by ESPR. Use gs1:consumerRecyclingInstructions for simple text.\nAligned with UNTP CircularityPerformance for interoperability."@en.
@@ -1711,6 +1711,19 @@ oec:combinedNomenclatureCode a owl:DatatypeProperty;
     rdfs:range xsd:string;
     rdfs:domain gs1:Product;
     skos:relatedMatch gs1:gpcCategoryCode.
+oec:MaterialCircularityIndicator a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
+    rdfs:seeAlso <https://ref.openepcis.org/extensions/common/assessment/RecyclabilityScore>, <https://dpp-keystone.org/spec/v3/terms#recyclabilityScore>;
+    rdfs:label "Material Circularity Indicator"@en;
+    rdfs:comment "Ellen MacArthur Foundation circularity score combining recycled input, recyclability and utility (0-1, unitCode C62). Replaces oec:materialCircularityIndicator."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
+    dcterms:source <https://ellenmacarthurfoundation.org/material-circularity-indicator>;
+    skos:note "Aligned with UNTP. Not a recyclability score: it also weighs recycled input and utility."@en.
+oec:UtilityFactor a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
+    rdfs:label "Utility Factor"@en;
+    rdfs:comment "Lifetime and intensity of use of the product relative to the industry average (1.0 = average, above 1 = more durable; unitCode C62). Replaces oec:utilityFactor."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
+    dcterms:source <https://untp.unece.org/docs/specification/>;
+    skos:note "Input to the Material Circularity Indicator; aligned with UNTP."@en.
 oec:hasCircularityPerformance a owl:ObjectProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#performance>;
     rdfs:label "Circularity Performance"@en;
@@ -1719,14 +1732,6 @@ oec:hasCircularityPerformance a owl:ObjectProperty;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en;
     rdfs:range oec:CircularityPerformance.
-oec:recyclableContent a owl:DatatypeProperty;
-    rdfs:label "Recyclable Content"@en;
-    rdfs:comment "Fraction of product that can be recycled (0-1 scale where 0.45 = 45%)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Value is a decimal fraction 0-1. Aligned with UNTP recyclableContent."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain oec:CircularityPerformance.
 oec:endOfLifeInstructions a owl:DatatypeProperty;
     rdfs:seeAlso gs1:consumerRecyclingInstructions, <https://dpp-keystone.org/spec/v3/terms#endOfLifeInstructions>, gs1:sustainabilityInfo, <https://w3id.org/eudpp#hasEndOfLifeManagementInstruction>;
     rdfs:label "End of Life Instructions"@en;
@@ -1771,34 +1776,8 @@ oec:hasDismantlingInstructions a owl:ObjectProperty;
     skos:broadMatch gs1:instructions, <urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation>;
     rdfs:range oec:DocumentReference;
     rdfs:domain oec:CircularityPerformance.
-oec:utilityFactor a owl:DatatypeProperty;
-    rdfs:label "Utility Factor"@en;
-    rdfs:comment "Durability of the product relative to industry average (1.0 = average). A value >1 indicates above-average durability."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://untp.unece.org/docs/specification/>;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain oec:CircularityPerformance.
-oec:materialCircularityIndicator a owl:DatatypeProperty;
-    rdfs:seeAlso <https://ref.openepcis.org/extensions/common/assessment/RecyclabilityScore>, <https://dpp-keystone.org/spec/v3/terms#recyclabilityScore>, oec:hasRecyclabilityAssessment;
-    rdfs:label "Material Circularity Indicator"@en;
-    rdfs:comment "Overall circularity score combining recycled input, recyclability, and utility (0-1 scale)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://ellenmacarthurfoundation.org/material-circularity-indicator>;
-    skos:note "Value is a decimal fraction 0-1. Based on Ellen MacArthur Foundation MCI methodology. Aligned with UNTP."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain oec:CircularityPerformance.
-oec:hasRecyclabilityAssessment a owl:ObjectProperty;
-    rdfs:label "Recyclability Assessment"@en;
-    rdfs:comment "Links a product to its recyclability assessment."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en;
-    skos:exactMatch <https://w3id.org/eudpp/textile-recyclability#hasRecyclabilityAssessment>;
-    rdfs:range oec:RecyclabilityAssessment;
-    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasAssessment>.
 oec:hasRecycledContentDetails a owl:ObjectProperty;
-    rdfs:seeAlso oec:recyclableContent, <https://dpp-keystone.org/spec/v3/terms#recycledContentPercentage>, <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContent>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledMaterialComposition>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContent>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContentMass>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledMaterialComposition>, <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContentPercentage>;
+    rdfs:seeAlso <https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate>, <https://dpp-keystone.org/spec/v3/terms#recycledContentPercentage>, <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContent>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContentPercentage>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledMaterialComposition>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContent>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContentMass>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledMaterialComposition>, <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare>, <https://dpp-keystone.org/spec/v3/terms#postConsumerRecycledContentPercentage>;
     rdfs:label "Recycled Content Details"@en;
     rdfs:comment "Detailed recycled content breakdown with pre/post-consumer splits."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -1821,7 +1800,7 @@ oec:recycledContent a owl:DatatypeProperty;
     rdfs:range xsd:decimal;
     rdfs:domain oec:RecycledContent.
 oec:preConsumerRecycledContent a owl:DatatypeProperty;
-    rdfs:seeAlso oec:recyclableContent, <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://vocabulary.uncefact.org/untp/recycledMassFraction>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContent>, gs1:textileMaterialContent;
+    rdfs:seeAlso <https://ref.openepcis.org/extensions/common/assessment/RecyclabilityRate>, <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent>, <https://vocabulary.uncefact.org/untp/recycledMassFraction>, <https://dpp-keystone.org/spec/v3/terms#preConsumerRecycledContent>, gs1:textileMaterialContent;
     rdfs:label "Pre-Consumer Recycled Content"@en;
     rdfs:comment "Fraction of pre-consumer (post-industrial) recycled content (0-1 scale)."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
@@ -2907,65 +2886,62 @@ oec:RecyclabilityAssessment a owl:Class;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en;
     skos:broadMatch <https://vocabulary.uncefact.org/untp/ConformityAssessment>.
-oec:productToPackagingRatio a owl:DatatypeProperty;
+oec:hasRecyclabilityAssessment a owl:ObjectProperty;
+    rdfs:label "Recyclability Assessment"@en;
+    rdfs:comment "Links a product to its recyclability assessment."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
+    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en;
+    skos:exactMatch <https://w3id.org/eudpp/textile-recyclability#hasRecyclabilityAssessment>;
+    rdfs:range oec:RecyclabilityAssessment;
+    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasAssessment>.
+oec:ProductToPackagingRatio a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:seeAlso gs1:netWeight, <https://w3id.org/eudpp#ProductToPackagingRatio>;
     rdfs:label "Product-to-Packaging Ratio"@en;
-    rdfs:comment "Ratio of product weight to total packaging weight, indicating packaging efficiency."@en;
+    rdfs:comment "Ratio of product weight to total packaging weight, indicating packaging efficiency (unitCode C62). Replaces oec:productToPackagingRatio."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "ESPR Annex I ecodesign parameter; PPWR Annex IV minimisation assessments need the same figure. GS1 carries product and packaging weights separately (gs1:netWeight, gs1:packaging) but publishes no ratio term."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain gs1:Product.
-oec:wasteGenerationAmount a owl:DatatypeProperty;
+    skos:note "ESPR Annex I ecodesign parameter; PPWR Annex IV minimisation assessments need the same figure. GS1 carries product and packaging weights separately (gs1:netWeight, gs1:packaging) but publishes no ratio."@en.
+oec:WasteGeneration a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:seeAlso <https://w3id.org/eudpp#WasteGenerationAmount>, <https://w3id.org/eudpp#HazardousWasteAmount>;
-    rdfs:label "Waste Generation Amount"@en;
-    rdfs:comment "Quantity of waste generated over the product life cycle per declared unit, expressed in kilograms."@en;
+    rdfs:label "Waste Generation"@en;
+    rdfs:comment "Quantity of waste generated over the product life cycle per declared unit, including hazardous fractions (unitCode KGM). Replaces oec:wasteGenerationAmount."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "ESPR Annex I ecodesign parameter (waste generation, including hazardous fractions). Life-cycle scoped like oec:carbonFootprintTotal, not an EN 15804 coded indicator, so carried as its own property rather than an oec:ImpactIndicatorType entry."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain gs1:Product.
-oec:packagingWasteAmount a owl:DatatypeProperty;
-    rdfs:seeAlso oec:productToPackagingRatio, <https://w3id.org/eudpp#PackagingWasteAmount>;
-    rdfs:label "Packaging Waste Amount"@en;
-    rdfs:comment "Quantity of packaging waste generated per declared unit, expressed in kilograms."@en;
+    skos:note "ESPR Annex I ecodesign parameter. Life-cycle scoped like oec:carbonFootprintTotal, not an EN 15804 impact category."@en.
+oec:PackagingWaste a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
+    rdfs:seeAlso oec:ProductToPackagingRatio, <https://w3id.org/eudpp#PackagingWasteAmount>;
+    rdfs:label "Packaging Waste"@en;
+    rdfs:comment "Quantity of packaging waste generated per declared unit (unitCode KGM). Replaces oec:packagingWasteAmount."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "ESPR Annex I ecodesign parameter; PPWR reporting needs the same figure per packaging unit. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain gs1:Product.
-oec:waterConsumption a owl:DatatypeProperty;
+    skos:note "ESPR Annex I ecodesign parameter; PPWR reporting needs the same figure per packaging unit."@en.
+oec:WaterConsumption a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:seeAlso oec:WDP, <https://w3id.org/eudpp#WaterConsumptionResult>;
     rdfs:label "Water Consumption"@en;
-    rdfs:comment "Net fresh water consumed over the product life cycle per declared unit, expressed in cubic metres."@en;
+    rdfs:comment "Net fresh water consumed over the product life cycle per declared unit (unitCode MTQ). Replaces oec:waterConsumption."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "ESPR Annex I ecodesign parameter (water use). The EN 15804 indicator oec:WDP covers water-deprivation-weighted impact; this property carries the plain consumed volume the passport declares. No GS1, SEMICeu, or schema.org equivalent."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms/epd#fw>;
-    rdfs:range xsd:decimal;
-    rdfs:domain gs1:Product.
+    skos:note "ESPR Annex I ecodesign parameter (water use). The EN 15804 category oec:WDP is the deprivation-weighted impact; this is the plain consumed volume."@en;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms/epd#fw>.
 oec:WDP a oec:ImpactIndicatorType;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#wdp>;
     rdfs:label "Water (user) deprivation potential"@en;
     skos:notation "WDP".
-oec:landUse a owl:DatatypeProperty;
+oec:LandUse a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:seeAlso <https://w3id.org/eudpp#LandUseResult>;
     rdfs:label "Land Use"@en;
-    rdfs:comment "Land area occupied or transformed over the product life cycle per declared unit, expressed in square metres."@en;
+    rdfs:comment "Land area occupied or transformed over the product life cycle per declared unit (unitCode MTK). Replaces oec:landUse."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "ESPR Annex I ecodesign parameter; EUDR geolocation (eudr:) covers plot provenance while this carries the quantitative footprint. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain gs1:Product.
-oec:materialFootprint a owl:DatatypeProperty;
+    skos:note "ESPR Annex I ecodesign parameter; EUDR geolocation (eudr:) covers plot provenance, this the quantitative footprint."@en.
+oec:MaterialFootprint a <https://ref.openepcis.org/extensions/common/assessment/IndicatorKind>;
     rdfs:seeAlso <https://w3id.org/eudpp#MaterialFootprint>, <https://w3id.org/eudpp#InventoryIndicatorResult>;
     rdfs:label "Material Footprint"@en;
-    rdfs:comment "Total raw material input mobilised over the product life cycle per declared unit, expressed in kilograms."@en;
+    rdfs:comment "Total raw material input mobilised over the product life cycle per declared unit (unitCode KGM). Replaces oec:materialFootprint."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "ESPR Annex I ecodesign parameter (resource use). Distinct from oec:hasMaterialComposition, which lists what is IN the product; the footprint counts what was consumed to make it. No GS1, SEMICeu, or schema.org equivalent."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain gs1:Product.
+    skos:note "ESPR Annex I ecodesign parameter (resource use). Distinct from oec:hasMaterialComposition, which lists what is in the product; the footprint counts what was consumed to make it."@en.
 oec:EnergyEfficiency a owl:Class;
     rdfs:seeAlso schema:EUEnergyEfficiencyEnumeration;
     rdfs:label "Energy Efficiency"@en;
@@ -3278,17 +3254,18 @@ oec:remanufacturingDate a owl:DatatypeProperty;
     rdfs:domain schema:Product.
 oec:EnvironmentalProductDeclaration a owl:Class;
     rdfs:seeAlso oec:EmissionsPerformance, oec:CarbonFootprintDeclaration, <https://dpp-keystone.org/spec/v3/terms#EPDBlock>, <https://w3id.org/eudpp#EPDStudy>, <https://w3id.org/eudpp#EPDDocument>;
-    rdfs:subClassOf schema:Certification;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/Assessment>, schema:Certification;
     rdfs:label "Environmental Product Declaration"@en;
-    rdfs:comment "A type III environmental declaration per EN 15804:2012+A2:2019 / ISO 14025,\nreporting life-cycle environmental impact indicators broken down by lifecycle module."@en;
+    rdfs:comment "A type III environmental declaration per EN 15804:2012+A2:2019 / ISO 14025,\nreporting life-cycle environmental impact indicators broken down by lifecycle module. An oea:Assessment:\neach impact category is an oec:ImpactIndicatorResult (oea:hasResult), the product category rules are\noec:productCategoryRules."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "Required extension: EN 15804 EPDs carry a full impact-indicator set with modular\nlifecycle breakdown not covered by GS1 Web Vocabulary, schema.org, or SEMICeu. Aligned with\nDPP Keystone dppk:EPDBlock (peer DPP profile). For a single aggregate carbon figure use\noec:carbonFootprintTotal; for a 5-stage carbon breakdown use oec:CarbonFootprintDeclaration."@en;
     skos:exactMatch <https://w3id.org/eudpp#EPDDocument>.
 oec:ImpactIndicatorResult a owl:Class;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms/epd#ImpactValues>, <https://w3id.org/eudpp#LCAResult>;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/MeasurementResult>;
     rdfs:label "Impact Indicator Result"@en;
-    rdfs:comment "One environmental impact indicator (e.g. Global Warming Potential) reported within\nan EPD: its indicator type, declared unit, aggregate value, and optional per-lifecycle-module values."@en;
+    rdfs:comment "One environmental impact category reported within an EPD, an oea:MeasurementResult:\noea:hasObservedParameter names the category (an oec:ImpactIndicatorType such as oec:GWPTotal),\noea:hasMeasuredValue the aggregate value over the declared modules as a gs1:QuantitativeValue, and\noec:hasLifecycleStageResult the per-module values. The unitCode is the mass, amount, energy or volume\nunit of the category's reference substance (kg CO2 eq: KGM, mol H+ eq: C34, MJ: 3B, m3 world eq: MTQ);\nthe reference substance itself follows from the category."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "EN 15804 impact-indicator result. Anchored to DPP Keystone dppk-epd:ImpactValues (peer DPP profile)."@en;
@@ -3296,16 +3273,18 @@ oec:ImpactIndicatorResult a owl:Class;
     skos:closeMatch <https://dpp-keystone.org/spec/v3/terms/epd#ImpactValues>.
 oec:LifecycleStageResult a owl:Class;
     rdfs:seeAlso <https://w3id.org/eudpp#LCAModuleValue>;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/MeasurementResult>;
     rdfs:label "Lifecycle Stage Result"@en;
-    rdfs:comment "The value of an impact indicator for a single EN 15804 lifecycle module (e.g. A1, B6, C3, D)."@en;
+    rdfs:comment "The value of an impact indicator for a single EN 15804 lifecycle module (e.g. A1, B6, C3, D), an oea:MeasurementResult: oec:hasLifecycleStage names the module, oea:hasObservedParameter the impact category of its oec:ImpactIndicatorResult, oea:hasMeasuredValue the value in that result's unit."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "EN 15804 modular lifecycle value. Pairs an oec:LifecycleStage code with a decimal value in the indicator's declared unit."@en;
+    skos:note "EN 15804 modular lifecycle value. DPP Keystone expresses these as flat dppk-epd:a1..dppk-epd:d properties; here one result per module."@en;
     skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity>, <https://w3id.org/eudpp#LCAResult>.
 oec:ImpactIndicatorType a rdfs:Class;
     rdfs:seeAlso <https://w3id.org/eudpp#EN15804ImpactIndicator>, <https://w3id.org/eudpp#LCIAImpactIndicator>, <https://w3id.org/eudpp#AreaOfProtection>;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
     rdfs:label "Impact Indicator Type"@en;
-    rdfs:comment "Controlled list of EN 15804:2012+A2:2019 environmental impact indicators."@en;
+    rdfs:comment "Controlled list of EN 15804:2012+A2:2019 environmental impact indicators. Each is an oea:PerformanceParameter that an oec:ImpactIndicatorResult observes."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "EN 15804+A2 core impact category set."@en;
@@ -3442,7 +3421,8 @@ oec:hasEnvironmentalProductDeclaration a owl:ObjectProperty;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "EN 15804 EPD link. Anchored to DPP Keystone dppk:epd (peer DPP profile)."@en;
     skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#epd>;
-    rdfs:range oec:EnvironmentalProductDeclaration.
+    rdfs:range oec:EnvironmentalProductDeclaration;
+    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasAssessment>.
 oec:epdRegistrationNumber a owl:DatatypeProperty;
     rdfs:seeAlso <https://w3id.org/eudpp#registrationNumber>;
     rdfs:label "EPD Registration Number"@en;
@@ -3500,33 +3480,8 @@ oec:hasImpactIndicator a owl:ObjectProperty;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     skos:note "EN 15804 impact indicator. Anchored to DPP Keystone dppk-epd:indicator (peer DPP profile)."@en;
     rdfs:range oec:ImpactIndicatorResult;
-    rdfs:domain oec:EnvironmentalProductDeclaration.
-oec:hasIndicatorType a owl:ObjectProperty;
-    rdfs:label "Indicator Type"@en;
-    rdfs:comment "The EN 15804 impact category this result reports (e.g. oec:GWPTotal)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "EN 15804+A2 impact category selector."@en;
-    rdfs:range oec:ImpactIndicatorType;
-    rdfs:domain oec:ImpactIndicatorResult.
-oec:indicatorUnit a owl:DatatypeProperty;
-    rdfs:label "Indicator Unit"@en;
-    rdfs:comment "Declared unit for this indicator (e.g. kg CO2 eq, kg CFC11 eq, mol H+ eq, m3 world eq deprived)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "EN 15804 declared characterisation unit for the indicator."@en;
-    skos:closeMatch gs1:unitCode;
-    rdfs:range xsd:string;
-    rdfs:domain oec:ImpactIndicatorResult.
-oec:indicatorTotalValue a owl:DatatypeProperty;
-    rdfs:seeAlso schema:value, gs1:value;
-    rdfs:label "Indicator Total Value"@en;
-    rdfs:comment "Aggregate value of the indicator across the declared lifecycle modules, in the declared unit."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "EN 15804 aggregate indicator value. Use oec:hasLifecycleStageResult for the modular breakdown."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain oec:ImpactIndicatorResult.
+    rdfs:domain oec:EnvironmentalProductDeclaration;
+    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasResult>.
 oec:hasLifecycleStageResult a owl:ObjectProperty;
     rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage>;
     rdfs:label "Lifecycle Stage Result"@en;
@@ -3546,16 +3501,6 @@ oec:hasLifecycleStage a owl:ObjectProperty;
     skos:exactMatch <https://w3id.org/eudpp#forLifeCycleModule>;
     skos:closeMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#lifecycleStage>;
     rdfs:range oec:LifecycleStage;
-    rdfs:domain oec:LifecycleStageResult.
-oec:stageValue a owl:DatatypeProperty;
-    rdfs:seeAlso schema:value, gs1:value, <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapabilityValue>, <urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCyclesValue>, <urn:samm:io.BatteryPass.Performance:1.2.1#remainingCapacityValue>, <urn:samm:io.BatteryPass.Performance:1.2.1#capacityThroughputValue>, <urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncreaseValue>;
-    rdfs:label "Stage Value"@en;
-    rdfs:comment "Indicator value for this lifecycle module, in the indicator's declared unit."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/>;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
-    skos:note "EN 15804 modular value. DPP Keystone expresses these as flat dppk-epd:a1..dppk-epd:d properties; here normalised as oec:LifecycleStage + oec:stageValue pairs."@en;
-    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage>;
-    rdfs:range xsd:decimal;
     rdfs:domain oec:LifecycleStageResult.
 <https://ref.openepcis.org/extensions/eu/iron-steel/> a owl:Ontology;
     dcterms:title "OpenEPCIS Iron & Steel Vocabulary"@en;
@@ -3717,8 +3662,9 @@ _:b114 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate> a owl:Class;
     rdfs:seeAlso schema:Certification, <https://dpp-keystone.org/spec/v3/terms#MaterialTestCertificate>;
+    rdfs:subClassOf <https://ref.openepcis.org/extensions/common/assessment/Assessment>;
     rdfs:label "Material Test Certificate"@en;
-    rdfs:comment "An inspection document for metallic products per EN 10204 (type 2.1, 2.2,\n3.1, or 3.2), carrying the EN 10168 mechanical and chemical test parameters that\nsubstantiate the declared grade."@en;
+    rdfs:comment "An inspection document for metallic products per EN 10204 (type 2.1, 2.2,\n3.1, or 3.2), carrying the EN 10168 mechanical and chemical test parameters that\nsubstantiate the declared grade. An oea:Assessment: each mechanical, chemical or radiometric value is an\noea:MeasurementResult (oea:hasResult) observing one of the eusteel: performance parameters below,\nwith its UN/CEFACT unit (MPA, P1, C62); document type, process, finishing, nominal size and weight\ntolerance describe the certificate and stay as its own properties."@en;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
     dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx>;
     skos:note "Mill test certificate (EN 10204 / EN 10168). schema:Certification is the generic\nupstream; this class names the steel inspection document and its EN 10168 parameter set.\nAnchored to the DPP Keystone peer profile dppk:MaterialTestCertificate."@en;
@@ -3734,7 +3680,79 @@ _:b114 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtc>;
     skos:broadMatch gs1:certification, schema:hasCertification;
     rdfs:range <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct>.
+    rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/IronSteelProduct>;
+    rdfs:subPropertyOf <https://ref.openepcis.org/extensions/common/assessment/hasAssessment>.
+<https://ref.openepcis.org/extensions/eu/iron-steel/YieldStrength> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Yield Strength"@en;
+    rdfs:comment "Yield strength Re from the tensile test; unitCode MPA. Replaces eusteel:mtcYieldStrength."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#mtcYieldStrength>.
+<https://ref.openepcis.org/extensions/eu/iron-steel/TensileStrength> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Tensile Strength"@en;
+    rdfs:comment "Ultimate tensile strength Rm from the tensile test; unitCode MPA. Replaces eusteel:mtcTensileStrength."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx>.
+<https://ref.openepcis.org/extensions/eu/iron-steel/YieldStrengthRatio> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Yield Strength Ratio"@en;
+    rdfs:comment "Ratio of tensile strength to yield strength Rm/Re, the k value of reinforcing steel (EN 10080; the replaced eusteel:mtcYieldStrengthRatio said Re/Rm, while the examples carried Rm/Re); unitCode C62. Replaces eusteel:mtcYieldStrengthRatio."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#mtcYieldStrengthRatio>.
+<https://ref.openepcis.org/extensions/eu/iron-steel/Elongation> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Elongation"@en;
+    rdfs:comment "Percentage elongation after fracture (A, or Agt for reinforcing steel); unitCode P1. Replaces eusteel:mtcElongation."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#mtcElongation>.
+<https://ref.openepcis.org/extensions/eu/iron-steel/RelativeRibArea> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Relative Rib Area"@en;
+    rdfs:comment "Relative rib area fR of ribbed reinforcing steel (bond performance); unitCode C62. Replaces eusteel:mtcRelativeRibArea."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#mtcRelativeRibArea>.
+<https://ref.openepcis.org/extensions/eu/iron-steel/CarbonContent> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Carbon Content"@en;
+    rdfs:comment "Carbon content from the cast/ladle analysis (mass %); unitCode P1. Replaces eusteel:mtcCarbonContent."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#mtcCarbonContent>.
+<https://ref.openepcis.org/extensions/eu/iron-steel/PhosphorusContent> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Phosphorus Content"@en;
+    rdfs:comment "Phosphorus content from the cast analysis (mass %); unitCode P1. Replaces eusteel:mtcPhosphorusContent."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#mtcPhosphorusContent>.
+<https://ref.openepcis.org/extensions/eu/iron-steel/SulfurContent> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Sulfur Content"@en;
+    rdfs:comment "Sulfur content from the cast analysis (mass %); unitCode P1. Replaces eusteel:mtcSulfurContent."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#mtcSulfurContent>.
+<https://ref.openepcis.org/extensions/eu/iron-steel/CopperContent> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Copper Content"@en;
+    rdfs:comment "Copper content from the cast analysis (mass %); unitCode P1. Replaces eusteel:mtcCopperContent."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#mtcCopperContent>.
+<https://ref.openepcis.org/extensions/eu/iron-steel/NitrogenContent> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Nitrogen Content"@en;
+    rdfs:comment "Nitrogen content from the cast analysis (mass %); unitCode P1. Replaces eusteel:mtcNitrogenContent."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#mtcNitrogenContent>.
+<https://ref.openepcis.org/extensions/eu/iron-steel/CarbonEquivalent> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Carbon Equivalent"@en;
+    rdfs:comment "Carbon equivalent value (CEV or CET), the weldability figure derived from the cast analysis (mass %); unitCode P1. Replaces eusteel:mtcCarbonEquivalent."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#mtcCarbonEquivalent>.
+<https://ref.openepcis.org/extensions/eu/iron-steel/RadiometricControl> a <https://ref.openepcis.org/extensions/common/assessment/PerformanceParameter>;
+    rdfs:label "Radiometric Control"@en;
+    rdfs:comment "Radiometric (radioactivity) control result for the steel, in the unit the certificate states; unitCode C62. Replaces eusteel:mtcRadiometricControl."@en;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx>;
+    skos:closeMatch <https://dpp-keystone.org/spec/v3/terms#mtcRadiometricControl>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcInspectionType> a owl:DatatypeProperty;
     rdfs:label "MTC Inspection Document Type"@en;
     rdfs:comment "EN 10204 inspection document type: 2.1, 2.2, 3.1, or 3.2."@en;
@@ -3766,114 +3784,6 @@ _:b114 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcWeightTolerance>;
     rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.
-<https://ref.openepcis.org/extensions/eu/iron-steel/mtcYieldStrength> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcYieldStrength>;
-    rdfs:label "MTC Yield Strength"@en;
-    rdfs:comment "Measured yield strength Re (MPa)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx>;
-    skos:note "EN 10168 mechanical parameter."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcYieldStrength>;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.
-<https://ref.openepcis.org/extensions/eu/iron-steel/mtcTensileStrength> a owl:DatatypeProperty;
-    rdfs:label "MTC Tensile Strength"@en;
-    rdfs:comment "Measured ultimate tensile strength Rm (MPa)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx>;
-    skos:note "EN 10168 mechanical parameter (Rm)."@en;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.
-<https://ref.openepcis.org/extensions/eu/iron-steel/mtcYieldStrengthRatio> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcYieldStrengthRatio>;
-    rdfs:label "MTC Yield Strength Ratio"@en;
-    rdfs:comment "Ratio of yield strength to tensile strength (Re/Rm)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx>;
-    skos:note "EN 10168 mechanical parameter."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcYieldStrengthRatio>;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.
-<https://ref.openepcis.org/extensions/eu/iron-steel/mtcElongation> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcElongation>;
-    rdfs:label "MTC Elongation"@en;
-    rdfs:comment "Percentage elongation after fracture (A%)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx>;
-    skos:note "EN 10168 mechanical parameter."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcElongation>;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.
-<https://ref.openepcis.org/extensions/eu/iron-steel/mtcRelativeRibArea> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcRelativeRibArea>;
-    rdfs:label "MTC Relative Rib Area"@en;
-    rdfs:comment "Relative rib area fR for ribbed reinforcing steel (bond performance)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx>;
-    skos:note "EN 10168 mechanical parameter for reinforcing steel."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcRelativeRibArea>;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.
-<https://ref.openepcis.org/extensions/eu/iron-steel/mtcCarbonContent> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcCarbonContent>;
-    rdfs:label "MTC Carbon Content"@en;
-    rdfs:comment "Carbon content from the cast/ladle analysis (mass %)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx>;
-    skos:note "EN 10168 chemical parameter."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcCarbonContent>;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.
-<https://ref.openepcis.org/extensions/eu/iron-steel/mtcPhosphorusContent> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcPhosphorusContent>;
-    rdfs:label "MTC Phosphorus Content"@en;
-    rdfs:comment "Phosphorus content from the cast analysis (mass %)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx>;
-    skos:note "EN 10168 chemical parameter."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcPhosphorusContent>;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.
-<https://ref.openepcis.org/extensions/eu/iron-steel/mtcSulfurContent> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcSulfurContent>;
-    rdfs:label "MTC Sulfur Content"@en;
-    rdfs:comment "Sulfur content from the cast analysis (mass %)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx>;
-    skos:note "EN 10168 chemical parameter."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcSulfurContent>;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.
-<https://ref.openepcis.org/extensions/eu/iron-steel/mtcCopperContent> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcCopperContent>;
-    rdfs:label "MTC Copper Content"@en;
-    rdfs:comment "Copper content from the cast analysis (mass %)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx>;
-    skos:note "EN 10168 chemical parameter."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcCopperContent>;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.
-<https://ref.openepcis.org/extensions/eu/iron-steel/mtcNitrogenContent> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcNitrogenContent>;
-    rdfs:label "MTC Nitrogen Content"@en;
-    rdfs:comment "Nitrogen content from the cast analysis (mass %)."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx>;
-    skos:note "EN 10168 chemical parameter."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcNitrogenContent>;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.
-<https://ref.openepcis.org/extensions/eu/iron-steel/mtcCarbonEquivalent> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcCarbonEquivalent>;
-    rdfs:label "MTC Carbon Equivalent"@en;
-    rdfs:comment "Carbon equivalent value (CEV / CET), a weldability indicator derived from the cast analysis."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx>;
-    skos:note "EN 10168 derived chemical parameter (weldability)."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcCarbonEquivalent>;
-    rdfs:range xsd:decimal;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.
 <https://ref.openepcis.org/extensions/eu/iron-steel/mtcSteelProcess> a owl:DatatypeProperty;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcSteelProcess>, <https://vocabulary.uncefact.org/untp/processCategory>;
     rdfs:label "MTC Steel Process"@en;
@@ -3894,14 +3804,4 @@ _:b114 rdf:first <https://ref.openepcis.org/extensions/eu/iron-steel/OtherRoute>
     skos:note "EN 10168 delivery-condition descriptor."@en;
     skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcFinishing>;
     rdfs:range xsd:string;
-    rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.
-<https://ref.openepcis.org/extensions/eu/iron-steel/mtcRadiometricControl> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v3/terms#mtcRadiometricControl>;
-    rdfs:label "MTC Radiometric Control"@en;
-    rdfs:comment "Radiometric (radioactivity) control result for the steel, where declared."@en;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/iron-steel/>;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx>;
-    skos:note "EN 10168 radiometric control parameter."@en;
-    skos:exactMatch <https://dpp-keystone.org/spec/v3/terms#mtcRadiometricControl>;
-    rdfs:range xsd:decimal;
     rdfs:domain <https://ref.openepcis.org/extensions/eu/iron-steel/MaterialTestCertificate>.

@@ -2,7 +2,7 @@
 
 Regulatory frame: ESPR 2024/1781 Art. 7–9, Annex III
 
-Coverage: 185 properties — 121 Public / 34 AuthorizedOnly / 6 Restricted / 24 inherited / 0 UNCLASSIFIED; 10 legally locked.
+Coverage: 172 properties — 112 Public / 34 AuthorizedOnly / 6 Restricted / 20 inherited / 0 UNCLASSIFIED; 10 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
@@ -95,7 +95,6 @@ Coverage: 185 properties — 121 Public / 34 AuthorizedOnly / 6 Restricted / 24 
 | `hasHazardousSubstances` | Hazardous Substances | **Public** |  | eli/reg/2008/1272 | The presence and identity of hazardous substances is disclosed on the CLP label (Reg. (EC) 1272/2008 Art. 18); battery and detergent modules serve the same name Public — exact concentrations stay tiered separately. |
 | `hasHazardSignalWord` | Hazard Signal Word | **Public** | 🔒 eli/reg/2008/1272 | eli/reg/2008/1272 | The signal word (Danger/Warning) is a mandatory element of the public CLP label (Reg. (EC) 1272/2008 Art. 17). |
 | `hasImpactIndicator` | Impact Indicator | **(inherited)** |  |  |  |
-| `hasIndicatorType` | Indicator Type | **(inherited)** |  |  |  |
 | `hasLifecycleStage` | Lifecycle Stage | **(inherited)** |  |  |  |
 | `hasLifecycleStageResult` | Lifecycle Stage Result | **(inherited)** |  |  |  |
 | `hasMaterialComposition` | Material Composition | **AuthorizedOnly** |  | eli/reg/2023/1542 | Detailed composition beyond CLP label disclosure is commercially sensitive; the battery precedent serves it to legitimate-interest parties (Annex XIII(2)). |
@@ -127,23 +126,17 @@ Coverage: 185 properties — 121 Public / 34 AuthorizedOnly / 6 Restricted / 24 
 | `hazardPictogramCode` | Hazard Pictogram Code | **Public** | 🔒 eli/reg/2008/1272 | eli/reg/2008/1272 | GHS pictograms are mandatory elements of the public CLP label (Reg. (EC) 1272/2008 Art. 17). |
 | `hazardStatement` | Hazard Statement (H-statement) | **Public** | 🔒 eli/reg/2008/1272 | eli/reg/2008/1272 | H-statements are mandatory elements of the public CLP label (Reg. (EC) 1272/2008 Art. 17). |
 | `identityCredentialUrl` | Identity Credential URL | **AuthorizedOnly** |  | eli/reg/2024/1781 | Identity-credential endpoints serve verifier workflows and share the operator-identity tier (ESPR Art. 9(2)). |
-| `indicatorTotalValue` | Indicator Total Value | **(inherited)** |  |  |  |
-| `indicatorUnit` | Indicator Unit | **(inherited)** |  |  |  |
 | `isCriticalRawMaterial` | Is Critical Raw Material | **AuthorizedOnly** |  | eli/reg/2024/1252 | CRM flags support recovery obligations of recyclers and authorities under the CRMA (Reg. 2024/1252), not consumer information. |
 | `isEnergyRelated` | Is Energy-Related Product | **Public** |  | eli/reg/2024/1781 | Regulatory scope classification; whether a product is energy-related decides which public ecodesign requirements apply. |
 | `isRegulationCompliant` | Is Regulation Compliant | **Public** |  | eli/reg/2024/1781 | A per-act compliance flag is a public conformity claim of the declaration-of-conformity kind (ESPR Art. 44). |
 | `isStrategicRawMaterial` | Is Strategic Raw Material | **AuthorizedOnly** |  | eli/reg/2024/1252 | Strategic-raw-material flags are supply-security-sensitive and serve authorities and recyclers under the CRMA (Reg. 2024/1252 Annex I). |
 | `issueDate` | Issue Date | **Public** |  | eli/reg/2024/1781 | A generic issue date is neutral document metadata needed to judge currency, on par with passportIssueDate. |
 | `iupacName` | IUPAC Name | **AuthorizedOnly** |  | eli/reg/2023/1542 | Systematic substance names combined with fractions enable formulation reconstruction, same trade-secret exposure as oec:casNumber (battery Annex XIII(2) precedent). |
-| `landUse` | Land Use | **Public** |  | eli/reg/2024/1781 | Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal. |
 | `language` | Language | **Public** |  | eli/reg/2024/1781 | Language tags are rendering metadata with no confidentiality content. |
 | `languageCode` | Language Code | **Public** |  | eli/reg/2024/1781 | Language codes are rendering metadata with no confidentiality content. |
 | `lastUpdated` | Last Updated | **Public** |  | eli/reg/2024/1781 | Update timestamps let all audiences judge data currency (EN 18223 lastUpdated). |
 | `massFraction` | Mass Fraction | **AuthorizedOnly** |  | eli/reg/2023/1542 | Exact mass fractions enable formulation reconstruction; recyclers and authorities need them, consumers do not (battery Annex XIII(2) precedent). |
-| `materialCircularityIndicator` | Material Circularity Indicator | **Public** |  | eli/reg/2024/1781 | An aggregate circularity score is a consumer comparison metric composed of inputs (recycled content, recyclability, utility) that are themselves Public. |
-| `materialFootprint` | Material Footprint | **Public** |  | eli/reg/2024/1781 | Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal. |
 | `mimeType` | MIME Type | **(inherited)** |  |  |  |
-| `packagingWasteAmount` | Packaging Waste Amount | **Public** |  | eli/reg/2024/1781 | Annex I ecodesign parameter; PPWR reporting publishes the same per-unit packaging figures. |
 | `passportExpiryDate` | Passport Expiry Date | **Public** |  | eli/reg/2024/1781 | Readers must know when a passport ceases to be valid; expiry is interpretation metadata like the issue date. |
 | `passportIdentifier` | Passport Identifier | **Public** |  | eli/reg/2024/1781 | The passport identifier is the public entry point resolved from the ESPR Art. 9 data carrier and cannot itself be gated. |
 | `passportIssueDate` | Passport Issue Date | **Public** |  | eli/reg/2024/1781 | The issue date is neutral passport metadata every audience needs to judge the currency of the information. |
@@ -155,9 +148,7 @@ Coverage: 185 properties — 121 Public / 34 AuthorizedOnly / 6 Restricted / 24 
 | `previousPassportVersion` | Previous Passport Version | **Public** |  | eli/reg/2024/1781 | The version-history link (EN 18221) keeps the public record auditable without exposing any additional substantive data. |
 | `primarySourcedRatio` | Primary Sourced Ratio | **Public** |  | eli/reg/2024/1781 | The measured-vs-estimated data share qualifies the public traceability and footprint claims it accompanies, like its sibling verifiedRatio. |
 | `productCategoryRules` | Product Category Rules | **Public** |  | eli/reg/2024/1781 | The PCR/PEFCR reference is EPD metadata without which the declared results are not comparable; ISO 14025 declarations are public documents. |
-| `productToPackagingRatio` | Product-to-Packaging Ratio | **Public** |  | eli/reg/2024/1781 | Annex I ecodesign parameter; derived from weights GS1 already publishes per trade item. |
 | `professionalRepairNetwork` | Professional Repair Network | **Public** |  | eli/dir/2024/1799 | Consumers must be able to find authorised repairers; the Right-to-Repair Directive builds on public repairer discovery (Dir. 2024/1799). |
-| `recyclableContent` | Recyclable Content | **Public** |  | eli/reg/2024/1781 | The recyclable fraction is a consumer comparison parameter under ESPR Annex I(i). |
 | `recycledContent` | Recycled Content | **Public** |  | eli/reg/2024/1781 | Recycled-content share is a consumer-facing sustainability parameter (ESPR Annex I(h)); the Battery Regulation makes it public on-pack/passport. |
 | `registrationNumber` | Registration Number | **AuthorizedOnly** |  | eli/reg/2024/1781 | Official registration/licence numbers support authority verification; broadcasting them invites impersonation without serving consumers. |
 | `regulatoryActStatus` | Regulatory Act Status | **Public** |  | eli/reg/2024/1781 | The product's status under a named regulatory act (ACTIVE/EXEMPT/PENDING) is public market-access information. |
@@ -173,7 +164,6 @@ Coverage: 185 properties — 121 Public / 34 AuthorizedOnly / 6 Restricted / 24 
 | `scipId` | SCIP ID | **Public** | 🔒 eli/dir/2008/98 | eli/dir/2008/98 | SCIP notifications are made publicly available by ECHA under WFD Art. 9(2), so the SCIP identifier points into a public database by design. |
 | `separateCollectionInfo` | Separate Collection Info | **Public** |  | eli/dir/2008/98 | Separate-collection requirements must reach end users under the WFD/WEEE consumer-information duties (Dir. 2008/98/EC Art. 8a(2)). |
 | `socThreshold` | Substance of Concern Threshold | **Public** |  | eli/reg/2024/1781 | Declaration thresholds come from the delegated act, not from the manufacturer; publishing the threshold discloses regulation text, not formulation. |
-| `stageValue` | Stage Value | **(inherited)** |  |  |  |
 | `substanceLocation` | Substance Location | **AuthorizedOnly** |  | eli/reg/2023/1542 | Where a substance sits in the product is dismantling/processing detail for waste operators (battery Annex XIII(2); SCIP notification detail). |
 | `substanceTradeName` | Substance Trade Name | **AuthorizedOnly** |  | eli/reg/2023/1542 | Trade names reveal supplier relationships on top of substance identity; same professional/authority audience as oec:casNumber. |
 | `supplyChainTransparencyUrl` | Supply-Chain Transparency URL | **Public** |  | eli/dir/2024/1760 | CSDDD Art. 16 requires companies to publicly communicate on due diligence; a transparency endpoint is public by function. |
@@ -184,10 +174,7 @@ Coverage: 185 properties — 121 Public / 34 AuthorizedOnly / 6 Restricted / 24 
 | `tradeItemPieceDescription` | Trade Item Piece Description | **Public** |  | eli/reg/2024/1781 | The human-readable description of each piece (jacket, trousers, booklet) is consumer product identification per ESPR Annex III. |
 | `tradeItemPieceNumber` | Trade Item Piece Number | **Public** |  | eli/reg/2024/1781 | The sequential piece number carries no commercial content and is needed to identify which piece of the item one holds. |
 | `tradeItemPieceOf` | Trade Item Piece Of | **Public** |  | eli/reg/2024/1781 | Linking a piece to its parent GTIN is product identification equivalent to the public product identifier itself. |
-| `utilityFactor` | Utility Factor | **Public** |  | eli/reg/2024/1781 | Durability relative to the industry average is a consumer comparison metric of the same kind as expected lifespan (ESPR Annex I(a)). |
 | `value` | Value | **(inherited)** |  |  |  |
 | `valueDataType` | Value Data Type | **(inherited)** |  |  |  |
 | `verifiedRatio` | Verified Ratio | **Public** |  | eli/reg/2024/1781 | The verifiably-traced share is an aggregate metric that qualifies the public traceability claim without naming suppliers. |
-| `wasteGenerationAmount` | Waste Generation Amount | **Public** |  | eli/reg/2024/1781 | Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal. |
 | `wastePreventionInfo` | Waste Prevention Info | **Public** |  | eli/dir/2008/98 | Waste-prevention information is consumer-directed by definition (Dir. 2008/98/EC Art. 9). |
-| `waterConsumption` | Water Consumption | **Public** |  | eli/reg/2024/1781 | Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal. |

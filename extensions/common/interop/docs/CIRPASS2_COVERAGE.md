@@ -93,11 +93,11 @@ CIRPASS2 (Circular Economy Product Passport Readiness) is an EU project defining
 
 | CIRPASS2 Requirement | OpenEPCIS Implementation |
 |---------------------|-------------------------|
-| Recyclability rate | `oec:recyclableContent` |
+| Recyclability rate | result observing `oea:RecyclabilityRate` in an `oec:RecyclabilityAssessment` |
 | Recycled content | `oec:recycledContent` |
 | Pre-consumer recycled | `oec:preConsumerRecycledContent` |
 | Post-consumer recycled | `oec:postConsumerRecycledContent` |
-| Circularity indicator | `oec:materialCircularityIndicator` |
+| Circularity indicator | `oec:MaterialCircularityIndicator` indicator |
 | End-of-life instructions | `oec:endOfLifeInstructions` |
 | Waste prevention | `oec:wastePreventionInfo` |
 | Separate collection | `oec:separateCollectionInfo` |
@@ -126,7 +126,7 @@ CIRPASS2 (Circular Economy Product Passport Readiness) is an EU project defining
 | Technical lifetime | `oea:TechnicalLifetime` indicator |
 | Performance class | `oea:PerformanceClass` indicator |
 | Tested conditions | `oea:hasCondition` |
-| Utility factor | `oec:utilityFactor` |
+| Utility factor | `oec:UtilityFactor` indicator |
 
 ### Access Control
 
