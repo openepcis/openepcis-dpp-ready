@@ -204,7 +204,7 @@ The [BatteryPass Data Model](https://github.com/battery-pass/BatteryPassDataMode
 |----------|-------------------|-----------------|-------|
 | **GS1 Web Vocabulary** | Foundation | Foundation | Native integration via `owl:imports` |
 | **CEN/CENELEC JTC 24** | Strong (8/8 standards) | Strong | EN 18216-18223, 18239, 18246 (all published 2026); see detailed alignment above |
-| **UNTP** | 22 | 9 | SKOS mapping (`skos:exactMatch` / `skos:closeMatch`), aligned with v0.6.1 (GitLab) |
+| **UNTP** | 11 | 4 | SKOS mapping and bridge context, aligned with v0.7.0 |
 | **CIRPASS2** | Requirements coverage | Bridge context | `cirpass2-bridge-context.jsonld` + `CIRPASS2_COVERAGE.md` |
 | **ESPR 2024/1781** | Full | Full | Core module covers all Article 7/9 requirements |
 | **EN 45552-45555** | Methodology support | N/A | Properties to store assessment results |
@@ -234,37 +234,24 @@ OpenEPCIS is built natively on GS1 Web Vocabulary patterns:
 
 ## UN Transparency Protocol (UNTP)
 
-**Source**: https://opensource.unicc.org/un/unece/uncefact/spec-untp (moved from GitHub Nov 2025)
-**Version aligned**: v0.6.1 (heading to v1.0, expected Jun 2026)
-**Integration Method**: graded SKOS mapping (`skos:exactMatch` / `skos:closeMatch`), `rdfs:seeAlso`, bridge context
+**Source**: <https://vocabulary.uncefact.org/untp/> (canonical vocabulary and context)
+**Version aligned**: v0.7.0 (released 2026-04-02, the current version)
+**Integration Method**: graded SKOS mapping (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`), `rdfs:seeAlso`, bridge context
 
-### Property Alignment
+UNTP 0.7.0 dropped the scorecard model of the v0.6 drafts (`CircularityPerformance`,
+`carbonFootprint`, `operationalScope` and the like) in favour of generic `Performance`,
+`PerformanceMetric` and `Claim`. Only 0.7.0 terms are aligned; the full table is in
+[`UNTP_MAPPING.md`](./UNTP_MAPPING.md).
 
-| OpenEPCIS Property | UNTP Equivalent | Notes |
-|-------------------|-----------------|-------|
-| `oec:carbonFootprintTotal` | `untp:carbonFootprint` | Total lifecycle CO2e |
-| `oec:declaredUnit` | `untp:declaredUnit` | Functional unit |
-| `oec:recycledContent` | `untp:recycledContent` | Total recycled percentage |
-| result observing `oea:RecyclabilityRate` | `untp:recyclableContent` | Recyclability share (structural) |
-| `oec:massFraction` | `untp:massFraction` | Material mass fraction |
-| indicator of kind `oec:UtilityFactor` | `untp:utilityFactor` | Durability multiplier (structural) |
-| indicator of kind `oec:MaterialCircularityIndicator` | `untp:materialCircularityIndicator` | MCI score (structural) |
-| `oec:primarySourcedRatio` | `untp:primarySourcedRatio` | Direct measurement ratio |
-| `oec:hasOperationalScope` | `untp:operationalScope` | Lifecycle boundary |
-| `oec:verifiedRatio` | `untp:verifiedRatio` | Traceability verification |
-| `oec:granularityLevel` | `untp:granularityLevel` | Product/Batch/Item |
-
-### Class Alignment
-
-| OpenEPCIS Class | UNTP Equivalent | Notes |
-|-----------------|-----------------|-------|
-| `oec:CircularityPerformance` | `untp:CircularityPerformance` | Circularity metrics container |
-| `oec:EmissionsPerformance` | `untp:EmissionsPerformance` | Emissions data container |
-| `oec:TraceabilityPerformance` | `untp:TraceabilityPerformance` | Traceability metrics |
-| `oec:MaterialComposition` | `untp:Material` | Material composition |
-| `oec:DigitalProductPassport` | `untp:ProductPassport` | New in v0.6.x |
-| `oec:FacilityInformation` | `untp:FacilityRecord` | New in v0.6.x |
-| `oec:ConformityDeclaration` | `untp:ConformityAttestation` | New in v0.6.x |
+| OpenEPCIS term | Relation | UNTP 0.7.0 term |
+|---|---|---|
+| `oec:massFraction` | `skos:exactMatch` | `untp:massFraction` |
+| `oec:issueDate` | `skos:exactMatch` | `untp:issueDate` |
+| `oec:postConsumerRecycledContent` | `skos:closeMatch` | `untp:recycledMassFraction` |
+| `oec:OperatorInformation` | `skos:broadMatch` | `untp:Party` |
+| `oec:MaterialComposition` | bridge | `untp:Material` |
+| `oec:FacilityInformation` | bridge | `untp:Facility` |
+| `oec:hasConformityDeclaration` | `rdfs:seeAlso` | `untp:ConformityAttestation` |
 
 ### Value Convention
 

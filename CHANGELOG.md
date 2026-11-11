@@ -38,6 +38,11 @@ negative test for out-of-range fractions had matched the old `ref.openepcis.io` 
 the namespace move and never fired; it produces five negative fixtures again.
 See the module changelogs.
 
+### Removed: UNTP v0.6 terms
+
+The UNTP bridges (interop and electronics) and the UNTP docs now follow UNTP v0.7.0 only, the
+current release; the v0.6 scorecard terms are removed. See `extensions/common/interop/CHANGELOG.md`.
+
 ### Added: self-contained operational bundles
 
 Every operational context gets a `{module}-operational-bundle.jsonld` twin without remote

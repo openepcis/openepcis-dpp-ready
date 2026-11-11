@@ -15,6 +15,13 @@ observing `euelec:TreatmentInputMass`, `RecoveredMass` (GRM), `AchievedRecoveryR
 `energyRecoveryRate`, `avoidedEmissionsKgCO2e`, `calculationMethod`. Two dangling references to the
 wave-2 removals `euelec:recoverabilityRate` and `euelec:recyclabilityRate` are gone with them.
 
+### Removed: UNTP v0.6 terms from `electronics-untp-bridge.jsonld`
+
+Same clean-up as the interop UNTP bridge: the v0.6 scorecard terms are gone, `materialProvenance`
+(UNTP v0.7.0) replaces `materialsProvenance`. The electronics-specific names (`linkedProduct`,
+`softwareSupportPeriod`, `securityUpdateEndDate`, `softwareUpdateEvent`) stay.
+
+
 ## [0.12.0] - 2026-11-10
 
 ### Breaking: repairability index and WEEE rates on `common/assessment`
