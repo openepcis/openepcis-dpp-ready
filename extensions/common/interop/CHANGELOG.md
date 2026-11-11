@@ -4,6 +4,8 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+## [0.13.1] - 2026-11-11
+
 ### Changed
 
 - `batterypass` (2.0.1): `dppSchemaVersion` is "2.0.1". New: `registeredTradeNameOrRegisteredTrademark`

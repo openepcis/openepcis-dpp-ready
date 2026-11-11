@@ -4,6 +4,8 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.13.1] - 2026-11-11
+
 ### Added
 
 - `scripts/reconstruct-batterypass-ready.ts` (`pnpm run reconstruct:batterypass-ready`): model, batch

@@ -9,6 +9,8 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.13.1] - 2026-11-11
+
 ### Added: BatteryPass-Ready 2.0.1 from EPCIS events
 
 `pnpm run reconstruct:batterypass-ready` assembles one battery's model, batch and item passports,
