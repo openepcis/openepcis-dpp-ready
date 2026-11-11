@@ -9,6 +9,13 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Added: BatteryPass-Ready 2.0.1 from EPCIS events
+
+`pnpm run reconstruct:batterypass-ready` assembles one battery's model, batch and item passports,
+folds its EPCIS events into the battery state and exports the result as a BatteryPass-Ready 2.0.1
+document through the crosswalk. The v1.0 reconstruction stays. See
+`extensions/eu/battery/docs/EPCIS_AND_BATTERYPASS_READY.md`.
+
 ## [0.13.0] - 2026-11-11
 
 ### Added: BatteryPass-Ready 2.0.1

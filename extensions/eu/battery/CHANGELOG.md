@@ -4,6 +4,13 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- `scripts/reconstruct-batterypass-ready.ts` (`pnpm run reconstruct:batterypass-ready`): model, batch
+  and item passport plus the item's EPCIS events → one OpenEPCIS item passport with the folded
+  battery state results → BatteryPass-Ready 2.0.1 via the crosswalk. Checked in `pnpm test`
+  (Amperia StaxWall 10). The fold is shared with the v1.0 reconstruction.
+
 ## [0.13.0] - 2026-11-11
 
 ### Added: BatteryPass-Ready 2.0.1

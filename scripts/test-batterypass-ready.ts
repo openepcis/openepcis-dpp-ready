@@ -10,6 +10,9 @@
  *                    percent ranges, UTC update time, positive carbon footprint.
  *   3. INBOUND       a 2.0.1 document (the crosswalk test case batterypass-stationary-in) is valid
  *                    against its schema and lowers to OpenEPCIS.
+ *   4. RECONSTRUCT   the Amperia StaxWall model, batch and item layers plus the item's EPCIS
+ *                    lifecycle stream (scripts/reconstruct-batterypass-ready.ts) give one 2.0.1
+ *                    document; with the item's state values removed, the events alone feed them.
  *
  * Values a passport does not state are not failures here: the crosswalk goldens list them
  * (extensions/common/interop/crosswalk/batterypass/tests/*\/roundtrip.txt).
@@ -19,6 +22,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { exportBatteryPassReady } from "./export-batterypass-ready.ts";
+import { reconstructReady } from "./reconstruct-batterypass-ready.ts";
 import { convert, loadBackground, loadProfile, ROOT } from "./lib/crosswalk.ts";
 import { jsonSchemaFindings, theirJsonToQuads } from "./lib/crosswalk-target.ts";
 
@@ -65,6 +69,34 @@ const lowered = convert(p, "lower", await theirJsonToQuads(p, inbound));
 record("INBOUND: batterypass-stationary-in lowers to an OpenEPCIS battery", lowered.quads.some((q) =>
   q.predicate.value.endsWith("#type") && q.object.value === "https://ref.openepcis.org/extensions/eu/battery/Battery"),
   `${lowered.quads.length} triples`);
+
+const AMP = (l: string) => join(ROOT, "extensions/eu/battery/examples", `amperia-staxwall-${l}.jsonld`);
+const item = JSON.parse(readFileSync(AMP("item"), "utf8"));
+delete item["eubat:hasBatteryState"];
+const rec = await reconstructReady({
+  layers: [AMP("model"), AMP("batch"), item],
+  events: join(ROOT, "extensions/eu/battery/epcis/amperia-staxwall-lifecycle.jsonld"),
+});
+const [rdoc] = rec.export.docs as Doc[];
+record("RECONSTRUCT: amperia-staxwall layers + events give one 2.0.1 document", rec.export.docs.length === 1,
+  `${rec.summary.eventCount} event(s), ${Object.keys(rec.summary.folded).length} value(s) folded`);
+if (rdoc) {
+  const rperf = rdoc.batteryPassportData?.performanceAndDurability ?? {};
+  record("RECONSTRUCT: amperia-staxwall has no wrong form", rec.export.findings[0].form.length === 0, rec.export.findings[0].form.slice(0, 3).join("; "));
+  record("RECONSTRUCT: amperia-staxwall is the item, at item granularity",
+    rdoc.dppHeader?.uniqueProductIdentifier === "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001" &&
+      rdoc.dppHeader?.granularity?.dppGranularityValue === "item", rdoc.dppHeader?.uniqueProductIdentifier);
+  record("RECONSTRUCT: amperia-staxwall cycles are the maximum reading",
+    rperf.numberOfFullChargingAndDischargingCycles === 640, String(rperf.numberOfFullChargingAndDischargingCycles));
+  record("RECONSTRUCT: amperia-staxwall state of charge and remaining capacity come from the events",
+    rperf.stateOfChargeSoC?.percentageValue === 62 && rperf.remainingCapacity?.amperehourMiliamperehourValue === 195,
+    `SoC=${rperf.stateOfChargeSoC?.percentageValue} capacity=${rperf.remainingCapacity?.amperehourMiliamperehourValue}`);
+  record("RECONSTRUCT: amperia-staxwall resistance increase is against the initial pack resistance",
+    rperf.internalResistanceIncreaseOfPackCellAndModuleRecommended?.internalResistanceIncreaseValueForBatteryPack === 6,
+    JSON.stringify(rperf.internalResistanceIncreaseOfPackCellAndModuleRecommended));
+  record("RECONSTRUCT: amperia-staxwall lastUpdated is the latest event", rdoc.dppHeader?.lastUpdated === "2026-05-31T09:45:00Z",
+    rdoc.dppHeader?.lastUpdated);
+}
 
 const passed = results.filter((r) => r.passed).length;
 console.log("\nBatteryPass-Ready 2.0.1 conformance run (offline, vendored GEFEG schemas)\n" + "=".repeat(60));
