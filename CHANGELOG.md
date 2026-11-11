@@ -43,6 +43,13 @@ See the module changelogs.
 The UNTP bridges (interop and electronics) and the UNTP docs now follow UNTP v0.7.0 only, the
 current release; the v0.6 scorecard terms are removed. See `extensions/common/interop/CHANGELOG.md`.
 
+### Added: self-contained operational bundles
+
+Every operational context gets a `{module}-operational-bundle.jsonld` twin without remote
+references. A passport with two sectors needed 11 remote context loads and failed in jsonld.js
+and pyld (`context overflow`); with the bundles it needs three. The bundles are generated, proven
+term-for-term equivalent to their operational contexts and checked in CI (`pnpm run check:bundles`).
+The operational context URLs stay canonical. See `docs/EN18223_FORMATS.md`.
 
 ## [0.12.0] - 2026-11-10
 

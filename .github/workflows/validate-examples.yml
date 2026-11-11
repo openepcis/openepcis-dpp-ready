@@ -61,6 +61,8 @@ jobs:
         run: pnpm run validate:examples
       - name: Standard-vs-operational context contract (bare terms only via operational; seeds prefixed; RDF round-trip)
         run: pnpm run check:operational
+      - name: Self-contained operational bundles are current and mean the same as their contexts (two sectors fit the jsonld.js limit)
+        run: pnpm run check:bundles
       - name: Operational serialization idempotence (GET -> PUT -> GET byte-stable)
         run: pnpm run check:idempotence
       # Base is what was published before this change: the PR target, or main
