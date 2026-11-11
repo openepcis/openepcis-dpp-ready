@@ -4,6 +4,8 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-11-11
+
 ### Added: BatteryPass-Ready 2.0.1
 
 - `context/batterypass-ready-2.0.1-context.jsonld` reads a BatteryPass-Ready 2.0.1 document (the current

@@ -4,6 +4,8 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-11-11
+
 ### Breaking: the environmental footprint is an assessment
 
 `eutex:EnvironmentalFootprint` is an `oea:Assessment` and `eutex:LCIACategory` an

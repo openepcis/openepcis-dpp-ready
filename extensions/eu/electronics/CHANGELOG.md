@@ -4,6 +4,8 @@ All notable changes to the Electronics module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-11-11
+
 ### Breaking: WEEE treatment outcome and avoided emissions on `common/assessment`
 
 `euelec:MaterialRecoveryResult` and `euelec:AvoidedEmissionsEstimate` are `oea:Assessment`s.
