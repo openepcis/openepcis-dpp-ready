@@ -4,6 +4,8 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-11-11
+
 ### Added: BatteryPass-Ready 2.0.1 crosswalk profile
 
 - New profile `batterypass`: OpenEPCIS battery item passports convert to BatteryPass-Ready 2.0.1

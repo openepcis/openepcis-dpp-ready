@@ -4,6 +4,8 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-11-11
+
 ### Breaking: life-cycle and circularity figures on `common/assessment`
 
 Third wave of the assessment model.

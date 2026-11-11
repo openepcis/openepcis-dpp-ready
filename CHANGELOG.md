@@ -9,6 +9,8 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-11-11
+
 ### Added: BatteryPass-Ready 2.0.1
 
 The battery module follows the current BatteryPass-Ready data model 2.0.1: the GEFEG JSON Schemas are

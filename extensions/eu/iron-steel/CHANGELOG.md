@@ -4,6 +4,8 @@ All notable changes to the DPP Iron & Steel module will be documented in this fi
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-11-11
+
 ### Breaking: material test certificate values are results
 
 `eusteel:MaterialTestCertificate` is an `oea:Assessment`. The twelve EN 10168 test values
