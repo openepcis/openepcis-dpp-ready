@@ -12,7 +12,7 @@
  *                    against its schema and lowers to OpenEPCIS.
  *   4. RECONSTRUCT   the Amperia StaxWall model, batch and item layers plus the item's EPCIS
  *                    lifecycle stream (scripts/reconstruct-batterypass-ready.ts) give one 2.0.1
- *                    document; with the item's state values removed, the events alone feed them.
+ *                    document; with the item's state results removed, the events alone feed them.
  *
  * Values a passport does not state are not failures here: the crosswalk goldens list them
  * (extensions/common/interop/crosswalk/batterypass/tests/*\/roundtrip.txt).
@@ -72,7 +72,7 @@ record("INBOUND: batterypass-stationary-in lowers to an OpenEPCIS battery", lowe
 
 const AMP = (l: string) => join(ROOT, "extensions/eu/battery/examples", `amperia-staxwall-${l}.jsonld`);
 const item = JSON.parse(readFileSync(AMP("item"), "utf8"));
-delete item["eubat:hasBatteryState"];
+delete item["eubat:hasBatteryState"]["oea:hasResult"];
 const rec = await reconstructReady({
   layers: [AMP("model"), AMP("batch"), item],
   events: join(ROOT, "extensions/eu/battery/epcis/amperia-staxwall-lifecycle.jsonld"),
@@ -94,6 +94,17 @@ if (rdoc) {
   record("RECONSTRUCT: amperia-staxwall resistance increase is against the initial pack resistance",
     rperf.internalResistanceIncreaseOfPackCellAndModuleRecommended?.internalResistanceIncreaseValueForBatteryPack === 6,
     JSON.stringify(rperf.internalResistanceIncreaseOfPackCellAndModuleRecommended));
+  record("RECONSTRUCT: amperia-staxwall temperature is the latest reading outside the excursion",
+    rperf.temperatureInformation?.celsiusValue === 25, JSON.stringify(rperf.temperatureInformation));
+  record("RECONSTRUCT: amperia-staxwall power and round-trip efficiency fade come from the events",
+    rperf.powerFade?.percentageValue === 3 && rperf.energyRoundTripEfficiencyFade?.percentageValue === 2,
+    `power=${rperf.powerFade?.percentageValue} rte=${rperf.energyRoundTripEfficiencyFade?.percentageValue}`);
+  const tempAlarm = rec.passport["eubat:hasBatteryState"]?.["oea:hasResult"]?.find((x: Doc) =>
+    x["oea:hasObservedParameter"]?.["@id"] === "eubat:TimeAboveTemperatureBoundary")?.["oea:hasMeasuredValue"]?.["gs1:value"];
+  record("RECONSTRUCT: amperia-staxwall temperature alarm counts as 72 min above the boundary", tempAlarm === 72, String(tempAlarm));
+  const missing = rec.export.findings[0].missing;
+  record("RECONSTRUCT: amperia-staxwall lacks only accident information and the cell resistance (sub-ohm)",
+    missing.length === 2 && missing.every((m) => /informationOnAccidents|ohmValueForBatteryCell/.test(m)), missing.join("; "));
   record("RECONSTRUCT: amperia-staxwall lastUpdated is the latest event", rdoc.dppHeader?.lastUpdated === "2026-05-31T09:45:00Z",
     rdoc.dppHeader?.lastUpdated);
 }

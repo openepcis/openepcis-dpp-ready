@@ -115,6 +115,16 @@
     "gs1:organizationName": "Amperia Energy Systems AB",
     "eubat:hasOperatorRole": {
       "@id": "oec:Manufacturer"
+    },
+    "gs1:address": {
+      "type": "gs1:PostalAddress",
+      "gs1:streetAddress": "Batterivägen 10",
+      "gs1:addressLocality": "Göteborg",
+      "gs1:postalCode": "417 56",
+      "gs1:addressCountry": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "SE"
+      }
     }
   },
   "gs1:countryOfOrigin": {
@@ -134,8 +144,160 @@
     "eubat:electrolyteType": {
       "@value": "Liquid organic carbonate-based with LiPF6 salt",
       "@language": "en"
-    }
+    },
+    "schema:name": {
+      "@value": "Lithium Iron Phosphate",
+      "@language": "en"
+    },
+    "schema:alternateName": "LFP"
   },
+  "eubat:hasMaterialComposition": [
+    {
+      "id": "https://id.gs1.org/01/09521234002000#mat-lithium",
+      "type": "eubat:BatteryMaterial",
+      "schema:name": {
+        "@value": "Lithium",
+        "@language": "en"
+      },
+      "oec:casNumber": "7439-93-2",
+      "oec:ecNumber": "231-102-5",
+      "eubat:hasComponentLocation": {
+        "@id": "eubat:Cathode"
+      },
+      "schema:category": {
+        "@id": "eubat:ActiveMaterial"
+      },
+      "schema:weightPercentage": "1.6",
+      "eubat:isCriticalRawMaterial": true,
+      "eubat:isSubstanceOfConcern": false
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234002000#mat-graphite",
+      "type": "eubat:BatteryMaterial",
+      "schema:name": {
+        "@value": "Graphite",
+        "@language": "en"
+      },
+      "oec:casNumber": "7782-42-5",
+      "oec:ecNumber": "231-955-3",
+      "eubat:hasComponentLocation": {
+        "@id": "eubat:Anode"
+      },
+      "schema:category": {
+        "@id": "eubat:ActiveMaterial"
+      },
+      "schema:weightPercentage": "15.8",
+      "eubat:isCriticalRawMaterial": true,
+      "eubat:isSubstanceOfConcern": false
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234002000#mat-phosphorus",
+      "type": "eubat:BatteryMaterial",
+      "schema:name": {
+        "@value": "Phosphorus",
+        "@language": "en"
+      },
+      "oec:casNumber": "7723-14-0",
+      "oec:ecNumber": "231-768-7",
+      "eubat:hasComponentLocation": {
+        "@id": "eubat:Cathode"
+      },
+      "schema:category": {
+        "@id": "eubat:ActiveMaterial"
+      },
+      "schema:weightPercentage": "8.9",
+      "eubat:isCriticalRawMaterial": true,
+      "eubat:isSubstanceOfConcern": false
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234002000#mat-iron",
+      "type": "eubat:BatteryMaterial",
+      "schema:name": {
+        "@value": "Iron",
+        "@language": "en"
+      },
+      "oec:casNumber": "7439-89-6",
+      "oec:ecNumber": "231-096-4",
+      "eubat:hasComponentLocation": {
+        "@id": "eubat:Cathode"
+      },
+      "schema:category": {
+        "@id": "eubat:ActiveMaterial"
+      },
+      "schema:weightPercentage": "17.6",
+      "eubat:isCriticalRawMaterial": false,
+      "eubat:isSubstanceOfConcern": false
+    }
+  ],
+  "eubat:criticalRawMaterialsStatement": {
+    "@value": "Contains lithium (1.6 %), natural graphite (15.8 %) and phosphorus (8.9 %), which are on the EU list of critical raw materials (Regulation (EU) 2024/1252).",
+    "@language": "en"
+  },
+  "eubat:hasHazardousSubstances": [
+    {
+      "id": "https://id.gs1.org/01/09521234002000#haz-lipf6",
+      "type": "eubat:HazardousSubstance",
+      "schema:name": {
+        "@value": "Lithium hexafluorophosphate (LiPF6)",
+        "@language": "en"
+      },
+      "oec:casNumber": "21324-40-3",
+      "oec:ecNumber": "244-334-7",
+      "eubat:hasHazardClass": {
+        "@id": "eubat:AcuteToxicity"
+      },
+      "eubat:concentration": "1.4",
+      "eubat:hazardImpact": {
+        "@value": "Toxic if swallowed; causes severe skin burns and eye damage; releases hydrogen fluoride on contact with water",
+        "@language": "en"
+      },
+      "eubat:hasSubstanceLocation": {
+        "@id": "eubat:Electrolyte"
+      },
+      "oec:hazardStatement": [
+        "H301",
+        "H314",
+        "H372"
+      ],
+      "oec:precautionaryStatement": [
+        "P260",
+        "P280",
+        "P301+P310",
+        "P305+P351+P338"
+      ]
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234002000#haz-ec",
+      "type": "eubat:HazardousSubstance",
+      "schema:name": {
+        "@value": "Ethylene carbonate",
+        "@language": "en"
+      },
+      "oec:casNumber": "96-49-1",
+      "oec:ecNumber": "202-510-0",
+      "eubat:hasHazardClass": {
+        "@id": "eubat:EyeDamageOrIrritation"
+      },
+      "eubat:concentration": "5.1",
+      "eubat:hazardImpact": {
+        "@value": "Causes serious eye irritation",
+        "@language": "en"
+      },
+      "eubat:hasSubstanceLocation": {
+        "@id": "eubat:Electrolyte"
+      },
+      "oec:hazardStatement": [
+        "H302",
+        "H319",
+        "H373"
+      ],
+      "oec:precautionaryStatement": [
+        "P260",
+        "P280",
+        "P305+P351+P338"
+      ]
+    }
+  ],
   "eubat:hasTechnicalSpecifications": {
     "id": "https://id.gs1.org/01/09521234002000#specs",
     "type": "eubat:TechnicalSpecification",
@@ -212,6 +374,17 @@
         {
           "type": "oea:MeasurementResult",
           "oea:hasObservedParameter": {
+            "@id": "eubat:InitialCellInternalResistance"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": "0.00025",
+            "gs1:unitCode": "OHM"
+          }
+        },
+        {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
             "@id": "eubat:InitialPackInternalResistance"
           },
           "oea:hasMeasuredValue": {
@@ -241,8 +414,91 @@
             "gs1:value": 8000,
             "gs1:unitCode": "C62"
           }
+        },
+        {
+          "type": "oea:MeasurementResult",
+          "oea:hasObservedParameter": {
+            "@id": "eubat:RoundTripEfficiencyAt50PercentCycleLife"
+          },
+          "oea:hasMeasuredValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": 93,
+            "gs1:unitCode": "P1"
+          }
+        }
+      ],
+      "oea:hasParameterSetting": [
+        {
+          "type": "oea:ParameterSetting",
+          "oea:hasParameter": {
+            "@id": "eubat:ChargeCRate"
+          },
+          "oea:hasParameterValue": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:value": "0.5",
+            "gs1:unitCode": "C62"
+          }
+        }
+      ],
+      "oea:hasSubAssessment": [
+        {
+          "id": "https://id.gs1.org/01/09521234002000#power-80",
+          "type": "oea:TestExecution",
+          "oea:hasCondition": {
+            "type": "oea:AssessmentCondition",
+            "oea:hasConditionType": {
+              "@id": "eubat:StateOfChargeLevel"
+            },
+            "oea:hasConditionValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 80,
+              "gs1:unitCode": "P1"
+            }
+          },
+          "oea:hasResult": {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:PowerCapability"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "5.6",
+              "gs1:unitCode": "KWT"
+            }
+          }
+        },
+        {
+          "id": "https://id.gs1.org/01/09521234002000#power-20",
+          "type": "oea:TestExecution",
+          "oea:hasCondition": {
+            "type": "oea:AssessmentCondition",
+            "oea:hasConditionType": {
+              "@id": "eubat:StateOfChargeLevel"
+            },
+            "oea:hasConditionValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 20,
+              "gs1:unitCode": "P1"
+            }
+          },
+          "oea:hasResult": {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:PowerCapability"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "5.1",
+              "gs1:unitCode": "KWT"
+            }
+          }
         }
       ]
+    },
+    "eubat:hasMaximumPermittedBatteryPower": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": "6.0",
+      "gs1:unitCode": "KWT"
     }
   },
   "gs1:manufacturersWarranty": {
@@ -275,5 +531,93 @@
   },
   "eubat:resultOfTestReport": "https://files.example.org/files/products/09521234002000/docs/test-report.pdf",
   "eubat:separateCollectionSymbolUrl": "https://files.example.org/files/products/_common/symbols/separate-collection.svg",
+  "eubat:hasLabels": [
+    {
+      "id": "https://id.gs1.org/01/09521234002000#label-cfp",
+      "type": "eubat:Label",
+      "eubat:hasLabelSubject": {
+        "@id": "eubat:CarbonFootprintLabel"
+      },
+      "eubat:labelSymbol": "https://www.amperia.example/staxwall-10/docs/carbon-footprint-label.svg",
+      "eubat:labelMeaning": {
+        "@value": "Carbon footprint performance class B",
+        "@language": "en"
+      }
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234002000#label-fire",
+      "type": "eubat:Label",
+      "eubat:hasLabelSubject": {
+        "@id": "eubat:ExtinguishingAgentLabel"
+      },
+      "eubat:labelSymbol": "https://www.amperia.example/staxwall-10/docs/extinguishing-agent-label.svg",
+      "eubat:labelMeaning": {
+        "@value": "In case of fire, cool with large amounts of water from a safe distance; Class D powder for exposed cells",
+        "@language": "en"
+      }
+    }
+  ],
+  "eubat:hasDismantlingAndRemovalInformation": [
+    {
+      "id": "https://id.gs1.org/01/09521234002000#dismantle-bom",
+      "type": "eubat:DismantlingDocument",
+      "eubat:hasDocumentType": {
+        "@id": "eubat:BillOfMaterial"
+      },
+      "eubat:documentUrl": "https://www.amperia.example/staxwall-10/docs/bill-of-materials.pdf",
+      "eubat:mimeType": "application/pdf",
+      "eubat:languageCode": "en"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234002000#dismantle-manual",
+      "type": "eubat:DismantlingDocument",
+      "eubat:hasDocumentType": {
+        "@id": "eubat:DismantlingManual"
+      },
+      "eubat:documentUrl": "https://www.amperia.example/staxwall-10/docs/dismantling-manual.pdf",
+      "eubat:mimeType": "application/pdf",
+      "eubat:languageCode": "en"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234002000#dismantle-sds",
+      "type": "eubat:DismantlingDocument",
+      "eubat:hasDocumentType": {
+        "@id": "eubat:SafetyDataSheet"
+      },
+      "eubat:documentUrl": "https://www.amperia.example/staxwall-10/docs/safety-data-sheet.pdf",
+      "eubat:mimeType": "application/pdf",
+      "eubat:languageCode": "en"
+    }
+  ],
+  "eubat:hasSparePartSources": [
+    {
+      "id": "https://id.gs1.org/01/09521234002000#spare-1",
+      "type": "gs1:Organization",
+      "gs1:organizationName": "Amperia Service Nordic AB",
+      "schema:url": {
+        "id": "https://www.amperia.example/service/spare-parts"
+      },
+      "eubat:spareParts": {
+        "@value": "BMS board, module connectors, inverter interface cable, enclosure fasteners",
+        "@language": "en"
+      },
+      "gs1:address": {
+        "type": "gs1:PostalAddress",
+        "gs1:streetAddress": "Servicegatan 4",
+        "gs1:addressLocality": "Göteborg",
+        "gs1:postalCode": "417 60",
+        "gs1:addressCountry": {
+          "type": "gs1:Country",
+          "gs1:countryCode": "SE"
+        }
+      }
+    }
+  ],
+  "oec:hasBackupCopyHost": {
+    "id": "https://id.gs1.org/417/9521234000334",
+    "type": "oec:OperatorInformation",
+    "gs1:globalLocationNumber": "9521234000334",
+    "gs1:organizationName": "EPCIS Cloud DPP Services"
+  },
   "oec:passportStatus": "active"
 }

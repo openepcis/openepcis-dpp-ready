@@ -301,18 +301,27 @@ state or the performance test travel as the shared virtual handles.
 
 The header follows EN 18223: the passport identifier defaults to the product identifier, the economic
 operator to the operator's or manufacturer's party Digital Link (`https://id.gs1.org/417/{GLN}`), the
-facility is the manufacturing place; the schema version is the battery's `schema:schemaVersion`. On the
-way down a party Digital Link gives the operator's GLN, and an economic operator that is the
-manufacturer gets the role `oec:Manufacturer`.
+facility is the manufacturing place; the schema version is "2.0.1", the version the document is
+written in (a battery's `schema:schemaVersion` names the data model of its OpenEPCIS source and does
+not travel). A party's registered trade name is its `schema:legalName`, else its name; the third-party
+service provider is the DPP service provider holding the backup copy (`oec:hasBackupCopyHost`) as its
+party Digital Link, else its name. On the way down a party Digital Link gives the operator's GLN, and
+an economic operator that is the manufacturer gets the role `oec:Manufacturer`.
+
+A resource without a stated MIME type (OpenEPCIS keeps many as bare URLs) gets its `contentType` from
+the URL: the file extension (pdf, html, json, jsonld, xml, svg, png, jpg), and a URL without one is a
+web page (`text/html`). The sources of spare parts are the website of a spare-part source (or of its
+supplier contact); the information on accidents is the incident report of the latest accident among
+the negative events; the temperature information is the battery state result
+`eubat:BatteryTemperature`.
 
 What does not convert, and why (each listed in the cases' `roundtrip.txt`):
 
 | 2.0.1 data element | OpenEPCIS today |
 |---|---|
-| `contentType` of a resource OpenEPCIS keeps as a bare URL (waste prevention, collection, due diligence report, test report, symbols) | no media type: the value is reported missing on the way up and lost on the way back |
-| `registeredTradeNameOrRegisteredTrademark`, `thirdPartyServiceProvider` | no term |
-| `temperatureInformation`, `numberOfOverchargeEvents`, `informationOnAccidents` | no term (negative events are structured, without a resource link) |
-| `informationOnSourcesOfSpareParts` | spare-part sources as organisations, without a resource |
+| `contentType` of a bare URL with an extension outside the list above | left out (reported missing); on the way back a bare URL keeps no media type |
+| `numberOfOverchargeEvents` | no term (negative events are structured; overcharge is one of their types, not a counter) |
+| `informationOnAccidents` for a battery without an accident | nothing to link: OpenEPCIS states accidents as negative events with an incident report |
 | `agentFireClass` of the extinguishing agent | the agent as a text only |
 | `materialsUsedInCathodeAnodeAndElectrolyte`, `meaningOfLabelsAndSymbols` | written from the active materials and electrolyte and from the label meanings; one list or text in 2.0.1, so not split again on the way back |
 | `remainingPowerCapability`, `originalPowerCapability` | values per state of charge; only 80 % and 20 % have a place |

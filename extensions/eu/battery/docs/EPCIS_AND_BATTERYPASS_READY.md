@@ -159,13 +159,15 @@ pnpm run reconstruct:batterypass-ready -- \
   --passport merged.jsonld --out passport.bpr.json
 ```
 
-For the Amperia StaxWall 10 (stationary) the six item events give state of charge 62 %, 640 full
-cycles, 195 Ah remaining capacity, 2.5 % capacity fade, 94 % remaining round-trip efficiency and a
-5.6 % pack resistance increase, without wrong forms. The script lists the required 2.0.1 values the
-merged passport does not state; for this example they are data the example does not carry (spare
-part sources, safety measures, power capability and fade, document content types and others), not
-values the fold could supply. `pnpm test` checks the reconstruction with the item's state values
-removed, so the events alone feed them.
+For the Amperia StaxWall 10 (stationary) the item events give state of charge 62 %, 640 full
+cycles, 195 Ah remaining capacity, 2.5 % capacity fade, 3.1 % power fade, 94 % remaining and 1.9 %
+faded round-trip efficiency, a 5.6 % pack resistance increase, 24.5 °C operating temperature and
+72 min above the temperature boundary (a temperature alarm: `exception` ALARM_CONDITION over the
+sensor element's window counts as an excursion, as an `eubat:exposureDurationMinutes` report does).
+The document has no wrong form and lacks two required values, both for a reason: information on
+accidents (the battery had none, so there is no incident report to link) and the cell's internal
+resistance (0.25 mΩ; 2.0.1 types ohms as integers). The script lists such values. `pnpm test` checks
+the reconstruction with the item's state results removed, so the events alone feed them.
 
 ## Why the split
 

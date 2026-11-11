@@ -2,7 +2,10 @@
 # xw:Document reads a document node (oec:DocumentReference, a dismantling document, a declaration of
 # conformity: URL, MIME type, language, name), of the type xw:docType names when the row names one;
 # xw:Url a bare URL (a text that is not a URL is not converted). Of several candidates the first by
-# URL. A language goes along only in the 2.0.1 form (language-REGION, "en-GB").
+# URL. A language goes along only in the 2.0.1 form (language-REGION, "en-GB"). Without a stated
+# MIME type (a bare URL, a document without one) the media type follows from the URL: the file
+# extension (pdf, html, json, jsonld, xml, svg, png, jpg), and a URL without one is a web page
+# (text/html); another extension leaves it out.
 CONSTRUCT {
   ?r ?field ?res .
   ?res bprx:url ?url ; bpr:contentType ?mime ; bpr:language ?lang ; bpr:resourceTitle ?title .
@@ -33,7 +36,13 @@ WHERE {
   OPTIONAL { GRAPH <urn:xw:in> { ?o ?mp ?m } FILTER(?mp IN (oec:mimeType, eubat:mimeType)) }
   OPTIONAL { GRAPH <urn:xw:in> { ?o ?lp ?l } FILTER(?lp IN (oec:languageCode, eubat:languageCode) && REGEX(STR(?l), "^[a-z]{2}-[A-Z]{2}$")) }
   OPTIONAL { GRAPH <urn:xw:in> { ?o schema:name ?t } }
-  BIND(STR(?m) AS ?mime)
+  BIND(LCASE(REPLACE(?url, "^[^?#]*?(\\.([A-Za-z0-9]+))?([?#].*)?$", "$2")) AS ?ext)
+  BIND(COALESCE(STR(?m),
+    IF(?ext = "pdf", "application/pdf", ?x1), IF(?ext IN ("htm", "html"), "text/html", ?x2),
+    IF(?ext = "json", "application/json", ?x3), IF(?ext = "jsonld", "application/ld+json", ?x4),
+    IF(?ext = "xml", "application/xml", ?x5), IF(?ext = "svg", "image/svg+xml", ?x6), IF(?ext = "png", "image/png", ?x7),
+    IF(?ext IN ("jpg", "jpeg"), "image/jpeg", ?x8),
+    IF(!REGEX(?url, "^https?://[^/]+/[^?#]*\\.[A-Za-z0-9]+([?#].*)?$"), "text/html", ?x9)) AS ?mime)
   BIND(STR(?l) AS ?lang)
   BIND(STR(?t) AS ?title)
   BIND(BNODE() AS ?res)

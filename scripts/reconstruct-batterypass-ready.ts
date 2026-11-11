@@ -16,7 +16,8 @@
  *   the maximum reading; SOCE given in kWh becomes a share of the rated energy; the internal
  *   resistance increase is against the initial pack resistance of the performance test; the time
  *   above / below the temperature boundaries (also while charging) and the deep-discharge events
- *   are summed over the stream; oec:lastUpdated is the time of the latest event.
+ *   are summed over the stream; the battery temperature is the latest reading outside an excursion;
+ *   oec:lastUpdated is the time of the latest event.
  *
  * The older GEFEG upload shape (data model 1.0, longlist v1.3) is reconstruct-passport-from-epcis.ts.
  *
@@ -165,6 +166,7 @@ export async function reconstructReady(opts: { layers: (string | Obj)[]; events:
     put("eubat:ChargingTimeBelowTemperatureBoundary", chargingBelow, "MIN");
   }
   if (fold.deepDischarge > 0) put("eubat:DeepDischargeEvents", fold.deepDischarge, "C62");
+  put("eubat:BatteryTemperature", fold.opTemp, "CEL");
   if (fold.lastTimeIso) passport["oec:lastUpdated"] = fold.lastTimeIso;
 
   return {

@@ -2,8 +2,9 @@
 # product identifier. As in the EN 18223 derivation, the passport identifier defaults to the
 # product identifier and the economic operator to the party Digital Link of the operator
 # (https://id.gs1.org/417/{GLN}), else of the manufacturer (its IRI, else from its GLN); the facility is the manufacturing place's IRI. Granularity is
-# "item" (only item passports are roots). The schema version is oec:dppSchemaVersion, for a battery
-# schema:schemaVersion (the battery shapes ask for it, BatteryPass-Ready #1).
+# "item" (only item passports are roots). The schema version is the one the document is written in,
+# "2.0.1": the battery's schema:schemaVersion names the data model its OpenEPCIS source followed
+# (the examples say "1.3", the attribute longlist) and is not carried over.
 CONSTRUCT {
   ?r a bprx:BatteryPassport ; bpr:uniqueProductIdentifier ?upi ; bpr:digitalProductPassportId ?pid ;
      bpr:granularity ?gn ; bpr:lastUpdated ?lu ; bpr:dppStatus ?sn ; bpr:dppSchemaVersion ?sv ;
@@ -31,13 +32,7 @@ WHERE {
     FILTER(?st IN ("active", "archived", "inactive", "invalid", "marked-for-deletion"))
     BIND(BNODE() AS ?sn)
   } UNION {
-    {
-      SELECT ?r (SAMPLE(STR(?v)) AS ?sv) WHERE {
-        GRAPH <urn:xw:roots> { ?r xw:schema ?s3 }
-        GRAPH <urn:xw:in> { ?r ?svp ?v }
-        FILTER(?svp IN (oec:dppSchemaVersion, schema:schemaVersion))
-      } GROUP BY ?r
-    }
+    BIND("2.0.1" AS ?sv)
   } UNION {
     {
       SELECT ?r (SAMPLE(?e) AS ?eo) WHERE {
