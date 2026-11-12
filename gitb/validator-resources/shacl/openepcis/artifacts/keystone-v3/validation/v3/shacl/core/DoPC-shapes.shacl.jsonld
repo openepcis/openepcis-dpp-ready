@@ -1,0 +1,105 @@
+{
+  "@context": {
+    "sh": "http://www.w3.org/ns/shacl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dppk": "https://dpp-keystone.org/spec/v3/terms#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "@vocab": "http://www.w3.org/ns/shacl#",
+    "node": {
+      "@type": "@id"
+    },
+    "path": {
+      "@type": "@id"
+    },
+    "targetClass": {
+      "@type": "@id"
+    },
+    "class": {
+      "@type": "@id"
+    },
+    "datatype": {
+      "@type": "@id"
+    }
+  },
+  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/core/DoPC",
+  "@type": "ShapesGraph",
+  "@graph": [
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_DoPCBlockShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#DoPCBlock",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms/dopc#declarationCode",
+          "message": "Auto-generated rule for dppk-dopc:declarationCode",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms/dopc#dateOfIssue",
+          "message": "Auto-generated rule for dppk-dopc:dateOfIssue",
+          "datatype": "xsd:date"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms/dopc#modulusOfElasticityInCompression",
+          "message": "Auto-generated rule for dppk-dopc:modulusOfElasticityInCompression",
+          "or": {
+            "@list": [
+              {
+                "datatype": "xsd:double"
+              },
+              {
+                "nodeKind": {
+                  "@id": "sh:IRI"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms/dopc#thermalExpansion",
+          "message": "Auto-generated rule for dppk-dopc:thermalExpansion",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms/dopc#declaredUnit",
+          "message": "Auto-generated rule for dppk-dopc:declaredUnit",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms/dopc#functionalUnit",
+          "message": "Auto-generated rule for dppk-dopc:functionalUnit",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms/dopc#tensileStrengthAdhesion",
+          "message": "Auto-generated rule for dppk-dopc:tensileStrengthAdhesion",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms/dopc#capillaryAbsorption",
+          "message": "Auto-generated rule for dppk-dopc:capillaryAbsorption",
+          "datatype": "xsd:double"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms/dopc#dangerousSubstance",
+          "message": "Auto-generated rule for dppk-dopc:dangerousSubstance",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk-dopc_DangerousSubstanceComponentShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk-dopc:DangerousSubstanceComponent"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

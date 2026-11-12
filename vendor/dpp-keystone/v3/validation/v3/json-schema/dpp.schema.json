@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Digital Product Passport",
+  "description": "Schema for the DPP that validates core headers.",
+  "type": "object",
+  "properties": {
+    "digitalProductPassportId": {
+      "type": "string",
+      "format": "uri",
+      "default": "https://dpp.example.com/dpp/77b583e8-8575-4862-986c-4863a2995f68"
+    },
+    "uniqueProductIdentifier": {
+      "type": "string",
+      "format": "uri",
+      "default": "https://pid.example.com/gtin/01234567890123"
+    },
+    "granularity": {
+      "enum": [
+        "Model",
+        "Batch",
+        "Item"
+      ]
+    },
+    "dppSchemaVersion": {
+      "type": "string",
+      "default": "0.1"
+    },
+    "dppStatus": {
+      "type": "string",
+      "default": "Active"
+    },
+    "lastUpdate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "economicOperatorId": {
+      "type": "string",
+      "format": "uri-reference"
+    },
+    "facilityId": {
+      "type": "string",
+      "format": "uri-reference"
+    },
+    "hsCode": {
+      "type": "string"
+    },
+    "contentSpecificationIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "digitalProductPassportId",
+    "uniqueProductIdentifier",
+    "granularity",
+    "dppSchemaVersion",
+    "dppStatus",
+    "lastUpdate",
+    "economicOperatorId",
+    "contentSpecificationIds"
+  ],
+  "patternProperties": {
+    "^.+": {
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "object",
+        "array"
+      ]
+    }
+  }
+}

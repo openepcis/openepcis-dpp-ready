@@ -31,7 +31,7 @@ import path from "node:path";
 import { Writer } from "n3";
 import { VALIDATOR_DOMAIN } from "./lib/gitb.ts";
 import { ROOT } from "./lib/modules.ts";
-import { GARBAGE, documentQuads, fixturesOf, loadTargets, provenance, verdict, type Target, type TargetType } from "./lib/targets.ts";
+import { GARBAGE, documentQuads, fixturesOf, livenessMutation, loadTargets, provenance, verdict, type Target, type TargetType } from "./lib/targets.ts";
 
 const WRITE = process.argv.includes("--write");
 const SUITES = path.join(ROOT, "gitb/test-suites");
@@ -136,7 +136,7 @@ async function suiteFiles(t: Target, version: string): Promise<{ files: Map<stri
     const bridge: Step[] = [];
     for (const f of fixtures.filter((x) => x.types.includes(type.id))) {
       const doc = JSON.parse(await fs.readFile(path.join(ROOT, f.file), "utf8"));
-      if (f.role !== "publisher" && !(await verdict(t, type, doc)).valid) continue;
+      if (f.role !== "publisher" && !(await verdict(t, type, doc, { noShacl: !!f.noShacl })).valid) continue;
       const into = f.role === "publisher" ? self : bridge;
       const who = f.role === "publisher" ? `${t.publisher} example` : "OpenEPCIS DPP-Ready crosswalk output";
       if (type.schemas.length) {
@@ -144,7 +144,7 @@ async function suiteFiles(t: Target, version: string): Promise<{ files: Map<stri
         files.set(res, await fs.readFile(path.join(ROOT, f.file), "utf8"));
         into.push({ name: `j${into.length}`, resource: res, kind: "json", label: `${who} must conform (JSON Schema): ${f.file}` });
       }
-      if (type.shapes.length) {
+      if (type.shapes.length && !f.noShacl) {
         const res = `resources/rdf/${slug(f.file)}.nq`;
         files.set(res, nq(await documentQuads(t, doc)));
         into.push({ name: `r${into.length}`, resource: res, kind: "rdf", label: `${who} must conform (SHACL): ${f.file}` });
@@ -152,6 +152,15 @@ async function suiteFiles(t: Target, version: string): Promise<{ files: Map<stri
     }
     if (type.schemas.length) self.push({ name: `gj`, resource: "resources/json/not-a-passport.json", kind: "json", invert: true, label: "A document that is not one must be REJECTED (JSON Schema)" });
     if (type.shapes.length) self.push({ name: `gr`, resource: "resources/rdf/not-a-passport.nq", kind: "rdf", invert: true, label: "A graph without the root class must be REJECTED (SHACL)" });
+    const first = fixtures.find((x) => x.role === "publisher" && !x.noShacl && x.types.includes(type.id));
+    if (type.shapes.length && first) {
+      const m = await livenessMutation(t, type, await documentQuads(t, JSON.parse(await fs.readFile(path.join(ROOT, first.file), "utf8"))));
+      if (m) {
+        const res = `resources/rdf/${type.id}.liveness.nq`;
+        files.set(res, nq(m.quads));
+        self.push({ name: `lr`, resource: res, kind: "rdf", invert: true, label: `The publisher's example with ${m.path.replace(/.*[#/]/, "")} retyped or dropped must be REJECTED (the publisher's shapes are live)` });
+      }
+    }
 
     for (const kind of ["json", "rdf"] as const) {
       if (kind === "json" ? !type.schemas.length : !type.shapes.length) continue;
@@ -186,7 +195,7 @@ async function suiteFiles(t: Target, version: string): Promise<{ files: Map<stri
       );
       cases.push(`tc-bridge-${type.id}`);
     }
-    counts.push(`  ${type.id.padEnd(46)} ${self.length - (type.schemas.length ? 1 : 0) - (type.shapes.length ? 1 : 0)} publisher step(s), ${bridge.length} bridge step(s)`);
+    counts.push(`  ${type.id.padEnd(46)} ${self.filter((x) => !x.invert).length} publisher step(s), ${self.filter((x) => x.invert).length} negative, ${bridge.length} bridge step(s)`);
   }
 
   files.set(

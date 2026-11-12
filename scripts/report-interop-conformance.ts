@@ -93,7 +93,7 @@ async function main() {
       if (!f.types.length) problems.push(`${t.id} ${t.version}: fixture ${f.file} belongs to no type`);
       const doc = JSON.parse(readFileSync(join(ROOT, f.file), "utf8"));
       for (const id of f.types) {
-        const v = await verdict(t, t.types.find((x) => x.id === id)!, doc);
+        const v = await verdict(t, t.types.find((x) => x.id === id)!, doc, { noShacl: !!f.noShacl });
         for (const a of v.accepted) {
           const reason = t.accepted.find((x) => x.reason === a.reason)!.match;
           if (!used.has(reason)) used.set(reason, new Set());
@@ -144,6 +144,11 @@ async function main() {
       ...rows.map((r) => `| \`${r.file.replace(/^(vendor|extensions\/common\/interop\/crosswalk|extensions\/eu\/battery\/examples)\//, "")}\` | ${r.role} | \`${r.type.replace(`x.${t.id}-${t.version}.`, "")}\` | ${r.verdict} | ${r.missing.length || ""} | ${r.accepted.length || ""} |`),
       ``,
     ];
+    if (t.exclude?.length) {
+      sec.push(`### Publisher examples left out`, ``);
+      for (const x of t.exclude) sec.push(`- \`${x.file.replace(/.*\//, "")}\`${x.only ? ` (from the ${x.only.toUpperCase()} check only)` : ""}: ${x.reason}`);
+      sec.push(``);
+    }
     if (t.accepted.length) {
       sec.push(`### Accepted deviations`, ``);
       for (const a of t.accepted) sec.push(`- \`/${a.match}/\`: ${a.reason} (${used.get(a.match)?.size ?? 0} finding(s))`);

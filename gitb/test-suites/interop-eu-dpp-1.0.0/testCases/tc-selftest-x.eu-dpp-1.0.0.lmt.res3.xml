@@ -16,6 +16,7 @@
     <artifact type="binary" encoding="UTF-8" name="r3">resources/rdf/eu-dpp_1.0.0_product_batteries_subgroup_lmt_1.0.0_tests_conforms_res3-batteries-lmt.nq</artifact>
     <artifact type="binary" encoding="UTF-8" name="gj">resources/json/not-a-passport.json</artifact>
     <artifact type="binary" encoding="UTF-8" name="gr">resources/rdf/not-a-passport.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="lr">resources/rdf/x.eu-dpp-1.0.0.lmt.res3.liveness.nq</artifact>
   </imports>
   <steps>
     <verify id="v0" handler="http://json-validator:8080/json/soap/openepcis/validation?wsdl"
@@ -53,6 +54,13 @@
     <verify id="v5" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl" invert="true"
             desc="A graph without the root class must be REJECTED (SHACL)">
       <input name="contentToValidate">$gr</input>
+      <input name="validationType">"x.eu-dpp-1.0.0.lmt.res3"</input>
+      <input name="embeddingMethod">"BASE64"</input>
+      <input name="contentSyntax">"application/n-quads"</input>
+    </verify>
+    <verify id="v6" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl" invert="true"
+            desc="The publisher's example with expectedLifetimeCyclesRest retyped or dropped must be REJECTED (the publisher's shapes are live)">
+      <input name="contentToValidate">$lr</input>
       <input name="validationType">"x.eu-dpp-1.0.0.lmt.res3"</input>
       <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>

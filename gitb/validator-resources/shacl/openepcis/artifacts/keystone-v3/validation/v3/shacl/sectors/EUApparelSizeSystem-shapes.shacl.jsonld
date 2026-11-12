@@ -1,0 +1,133 @@
+{
+  "@context": {
+    "sh": "http://www.w3.org/ns/shacl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dppk": "https://dpp-keystone.org/spec/ontology/v3/core#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "@vocab": "http://www.w3.org/ns/shacl#",
+    "node": {
+      "@type": "@id"
+    },
+    "path": {
+      "@type": "@id"
+    },
+    "targetClass": {
+      "@type": "@id"
+    },
+    "class": {
+      "@type": "@id"
+    },
+    "datatype": {
+      "@type": "@id"
+    }
+  },
+  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/sectors/EUApparelSizeSystem",
+  "@type": "ShapesGraph",
+  "@graph": [
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_EuApparelSizeObjectShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/ontology/v3/core#EuApparelSizeObject",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/ontology/v3/core#sizeDesignation",
+          "message": "Auto-generated rule for dppk:sizeDesignation",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/ontology/v3/core#cupSize",
+          "message": "Auto-generated rule for dppk:cupSize",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/ontology/v3/core#primaryDimension",
+          "message": "Auto-generated rule for dppk:primaryDimension",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_BodyDimensionValueShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:BodyDimensionValue"
+              }
+            ]
+          },
+          "in": {
+            "@list": [
+              {
+                "@id": "https://dpp-keystone.org/spec/ontology/v3/core#BodyDimChestGirth"
+              },
+              {
+                "@id": "https://dpp-keystone.org/spec/ontology/v3/core#BodyDimNeckGirth"
+              },
+              {
+                "@id": "https://dpp-keystone.org/spec/ontology/v3/core#BodyDimWaistGirth"
+              },
+              {
+                "@id": "https://dpp-keystone.org/spec/ontology/v3/core#BodyDimHipGirth"
+              },
+              {
+                "@id": "https://dpp-keystone.org/spec/ontology/v3/core#BodyDimHeight"
+              },
+              {
+                "@id": "https://dpp-keystone.org/spec/ontology/v3/core#BodyDimBustGirth"
+              },
+              {
+                "@id": "https://dpp-keystone.org/spec/ontology/v3/core#BodyDimUnderbustGirth"
+              },
+              {
+                "@id": "https://dpp-keystone.org/spec/ontology/v3/core#BodyDimFootLength"
+              },
+              {
+                "@id": "https://dpp-keystone.org/spec/ontology/v3/core#BodyDimArmLength"
+              },
+              {
+                "@id": "https://dpp-keystone.org/spec/ontology/v3/core#BodyDimInsideLegLength"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/ontology/v3/core#primaryDimensionValue",
+          "message": "Auto-generated rule for dppk:primaryDimensionValue",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/ontology/v3/core#secondaryDimensions",
+          "message": "Auto-generated rule for dppk:secondaryDimensions"
+        }
+      ]
+    },
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_ProductShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/ontology/v3/core#Product",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/ontology/v3/core#euApparelSize",
+          "message": "Auto-generated rule for dppk:euApparelSize",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_EuApparelSizeObjectShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:EuApparelSizeObject"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

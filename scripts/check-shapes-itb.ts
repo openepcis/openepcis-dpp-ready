@@ -59,7 +59,7 @@ import {
   type ValidatableModule,
 } from "./lib/modules.ts";
 import { VALIDATOR_DOMAIN } from "./lib/gitb.ts";
-import { documentQuads, fixturesOf, loadTargets, rootType, shapeFindings } from "./lib/targets.ts";
+import { documentQuads, fixturesOf, livenessMutation, loadTargets, rootType, shapeFindings } from "./lib/targets.ts";
 import { Writer } from "n3";
 
 const args = process.argv.slice(2);
@@ -334,7 +334,25 @@ async function main() {
         console.log(`   FAIL   ${type.id}: accepts a graph with no ${rootType(target)?.replace(/.*[#/]/, "")}`);
       }
     }
+    // The publisher's shapes must be live in the validator, not only the presence shape: a valid
+    // publisher example with one root property retyped must be rejected by both engines.
+    for (const type of types) {
+      const f = fixturesOf(target).find((x) => x.role === "publisher" && !x.noShacl && x.types.includes(type.id));
+      if (!f) continue;
+      const m = await livenessMutation(target, type, await documentQuads(target, JSON.parse(await fs.readFile(path.join(ROOT, f.file), "utf8"))));
+      if (!m) {
+        console.log(`   NOTE   ${type.id}: no datatype or required property on the root class to prove the shapes live`);
+        continue;
+      }
+      checked++;
+      const local = await shapeFindings(target, type, m.quads);
+      const hosted = await validate(nq(m.quads), type.id);
+      if (!hosted.conforms && (local.form.length || local.missing.length)) continue;
+      failed++;
+      console.log(`   FAIL   ${type.id}: ${m.path.replace(/.*[#/]/, "")} retyped or dropped: hosted ${hosted.conforms ? "accepts" : "rejects"}, local engines ${local.form.length ? "reject" : "accept"} (shapes not live?)`);
+    }
     for (const f of fixturesOf(target)) {
+      if (f.noShacl) continue;
       const doc = JSON.parse(await fs.readFile(path.join(ROOT, f.file), "utf8"));
       const quads = await documentQuads(target, doc);
       for (const id of f.types) {

@@ -22,7 +22,10 @@ import addFormats from "ajv-formats";
 import type { Quad } from "n3";
 import * as ox from "oxigraph";
 import { ROOT, loadProfile, type Profile } from "./crosswalk.ts";
-import { shaclFindings, specsOf, theirJsonToQuads, type TargetFindings } from "./crosswalk-target.ts";
+import jsonld from "jsonld";
+import { DataFactory, Parser, Writer } from "n3";
+import { registerShapeText, shaclFindings, specsOf, theirJsonToQuads, type TargetFindings } from "./crosswalk-target.ts";
+import { offlineDocumentLoader } from "./jsonld-loader.ts";
 
 export const TARGETS_DIR = "extensions/common/interop/targets";
 
@@ -42,6 +45,14 @@ export interface TargetSpec {
   shacl?: { background?: string[] };
   json?: { referencedSchemas?: string };
   chains?: Record<string, Chain>;
+  /** Types stated outright: scope, label, shapes and schemas (repo-relative), all applying. */
+  types?: { scope: string; label: string; shapes?: string[]; schemas?: string[] }[];
+  /** JSON-LD documents of the model: context URL prefixes served from vendored directories. */
+  jsonld?: { contexts: Record<string, string> };
+  /** The class every document is an instance of, when the crosswalk profile does not say. */
+  rootType?: string;
+  /** Publisher examples that are not documents of any type here (another model's form), with why. */
+  exclude?: { file: string; reason: string; only?: "shacl" }[];
   /** File names that apply to the public view only (the passport header). */
   publicOnly?: { files: string[] };
   categories?: Record<string, string>;
@@ -90,6 +101,8 @@ export interface Fixture {
   role: "publisher" | "openepcis" | "roundtrip";
   /** The types the fixture is a document of. */
   types: string[];
+  /** Why the SHACL side does not apply to this document (it is checked by JSON Schema only). */
+  noShacl?: string;
 }
 
 const typeId = (t: TargetSpec, ...parts: string[]) => ["x", `${t.id}-${t.version}`, ...parts].join(".");
@@ -100,7 +113,12 @@ export function viewOfName(file: string): string | undefined {
 }
 
 function typesOf(t: TargetSpec, profile: Profile): TargetType[] {
-  const types: TargetType[] = [];
+  const types: TargetType[] = (t.types ?? []).map((ty) => ({
+    id: typeId(t, ty.scope),
+    label: `${t.title} ${t.version}, ${ty.label}`,
+    shapes: ty.shapes ?? [],
+    schemas: ty.schemas ?? [],
+  }));
   const p = profile as Profile & {
     targetShapes?: { bySpec: Record<string, string[]> };
     json?: { schemas?: Record<string, string[]>; schemaBy?: { files: Record<string, string> }; conformance?: string };
@@ -171,6 +189,8 @@ export function verifyArtifacts(t: Target): string[] {
   const sums = new Map(t.manifestData.files.map((f) => [join(vendorDir, f.path), f.sha256]));
   const used = new Set(t.types.flatMap((ty) => [...ty.shapes, ...ty.schemas]).filter((f) => f.startsWith(vendorDir)));
   for (const f of referencedSchemaFiles(t)) used.add(f);
+  for (const f of t.shacl?.background ?? []) if (f.startsWith(vendorDir)) used.add(f);
+  for (const fx of t.fixtures) for (const f of globSync(fx.glob, { cwd: ROOT })) if (f.startsWith(vendorDir)) used.add(f);
   const bad: string[] = [];
   for (const f of [...used].sort()) {
     const want = sums.get(f);
@@ -203,11 +223,18 @@ export function fixturesOf(t: Target): Fixture[] {
   const out: Fixture[] = [];
   for (const f of t.fixtures) {
     for (const file of globSync(f.glob, { cwd: ROOT }).sort()) {
+      const ex = t.exclude?.find((x) => x.file === file);
+      if (ex && !ex.only) continue;
       const doc = JSON.parse(readFileSync(join(ROOT, file), "utf8"));
       // A crosswalk case that starts from the target's document holds it next to the lifted one.
       const roundtrip = f.role === "openepcis" && /\/lifted\.[^/]+\.json$/.test(file) &&
         existsSync(join(ROOT, file.replace(/lifted\.([^/]+)\.json$/, "$1.json")));
-      out.push({ file, role: roundtrip ? "roundtrip" : f.role, types: typesForDocument(t, doc, file).map((ty) => ty.id) });
+      out.push({
+        file,
+        role: roundtrip ? "roundtrip" : f.role,
+        types: typesForDocument(t, doc, file).map((ty) => ty.id),
+        ...(ex?.only === "shacl" ? { noShacl: ex.reason } : {}),
+      });
     }
   }
   return out;
@@ -215,6 +242,7 @@ export function fixturesOf(t: Target): Fixture[] {
 
 /** The types a document belongs to: its content specifications and view, or its category. */
 export function typesForDocument(t: Target, doc: Record<string, unknown>, file = ""): TargetType[] {
+  if (t.types.length && !t.chains && !t.categories) return t.types;
   const cats = t.types.filter((ty) => ty.category);
   if (cats.length) {
     const p = t.profileData as Profile & { json?: { schemaBy?: { path: string } } };
@@ -277,17 +305,58 @@ export async function shapeFindings(t: Target, type: TargetType, quads: Quad[]):
   if (!type.shapes.length) return { form: [], missing: [] };
   let nt = backgroundCache.get(t.dir);
   if (nt === undefined) {
-    const store = new ox.Store();
-    for (const f of t.shacl?.background ?? []) store.load(readFileSync(join(ROOT, f), "utf8"), { format: "text/turtle" });
-    nt = (store.query("CONSTRUCT { ?s ?p ?o } WHERE { ?s ?p ?o }") as ox.Quad[]).map((q) => q.toString() + " .").join("\n");
+    const parts: string[] = [];
+    for (const f of t.shacl?.background ?? []) {
+      if (f.endsWith(".jsonld")) {
+        parts.push(await jsonldFileToNTriples(t, f));
+        continue;
+      }
+      const store = new ox.Store();
+      store.load(readFileSync(join(ROOT, f), "utf8"), { format: "text/turtle" });
+      parts.push((store.query("CONSTRUCT { ?s ?p ?o } WHERE { ?s ?p ?o }") as ox.Quad[]).map((q) => q.toString() + " .").join("\n"));
+    }
+    nt = parts.join("\n");
     backgroundCache.set(t.dir, nt);
+  }
+  for (const f of type.shapes) if (f.endsWith(".jsonld") && !converted.has(f)) {
+    registerShapeText(f, await jsonldFileToNTriples(t, f));
+    converted.add(f);
   }
   return shaclFindings(type.shapes, quads, nt);
 }
 
+const converted = new Set<string>();
+
+/** A JSON-LD file (shapes, an ontology) as N-Triples, every named graph merged into one. */
+export async function jsonldFileToNTriples(t: Target, file: string): Promise<string> {
+  const nq = (await jsonld.toRDF(JSON.parse(readFileSync(join(ROOT, file), "utf8")), {
+    format: "application/n-quads",
+    documentLoader: (await loaderFor(t)) as never,
+  })) as unknown as string;
+  const quads = new Parser({ format: "application/n-quads" }).parse(nq);
+  return new Writer({ format: "application/n-triples" }).quadsToString(
+    quads.map((q) => DataFactory.quad(q.subject, q.predicate, q.object)),
+  );
+}
+
+/** The document loader for a target: its vendored contexts, else the repository's offline loader. */
+async function loaderFor(t: Target) {
+  const fallback = await offlineDocumentLoader();
+  const prefixes = Object.entries(t.jsonld?.contexts ?? {});
+  return async (url: string) => {
+    const hit = prefixes.find(([p]) => url.startsWith(p));
+    if (!hit) return fallback(url);
+    const file = join(ROOT, hit[1], url.slice(hit[0].length));
+    return { contextUrl: undefined, documentUrl: url, document: JSON.parse(readFileSync(file, "utf8")) };
+  };
+}
+
 /** A target document (the model's own JSON, no @context) as RDF, the way the crosswalk reads it. */
-export function documentQuads(t: Target, doc: Record<string, unknown>): Promise<Quad[]> {
-  return theirJsonToQuads(t.profileData, doc);
+export async function documentQuads(t: Target, doc: Record<string, unknown>): Promise<Quad[]> {
+  if (!t.jsonld) return theirJsonToQuads(t.profileData, doc);
+  if (!doc["@context"]) throw new Error("no @context");
+  const nq = (await jsonld.toRDF(doc as never, { format: "application/n-quads", documentLoader: (await loaderFor(t)) as never })) as unknown as string;
+  return new Parser({ format: "application/n-quads" }).parse(nq);
 }
 
 export interface Verdict {
@@ -303,10 +372,10 @@ export interface Verdict {
 }
 
 /** Validate one document against one type: JSON Schema and SHACL, as the hosted types would. */
-export async function verdict(t: Target, type: TargetType, doc: Record<string, unknown>): Promise<Verdict> {
+export async function verdict(t: Target, type: TargetType, doc: Record<string, unknown>, opts: { noShacl?: boolean } = {}): Promise<Verdict> {
   const j = jsonFindings(t, type, doc);
   let s: TargetFindings = { form: [], missing: [] };
-  if (type.shapes.length) {
+  if (type.shapes.length && !opts.noShacl) {
     let quads: Quad[] | undefined;
     try {
       quads = await documentQuads(t, doc);
@@ -337,7 +406,7 @@ const RDF_TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
 
 /** The class every document of the target is an instance of (the profile's JSON root type). */
 export function rootType(t: Target): string | undefined {
-  return (t.profileData as Profile & { json?: { rootType?: string } }).json?.rootType;
+  return t.rootType ?? (t.profileData as Profile & { json?: { rootType?: string } }).json?.rootType;
 }
 
 /**
@@ -364,6 +433,55 @@ export function presenceShape(t: Target): string | undefined {
     `  ] .`,
     ``,
   ].join("\n");
+}
+
+const SHN = "http://www.w3.org/ns/shacl#";
+const XSD_INTEGER = "http://www.w3.org/2001/XMLSchema#integer";
+
+/**
+ * A document the type's own shapes must reject, derived from a valid one: a property the
+ * publisher's shapes type with sh:datatype on the root class gets an xsd:integer value instead, or,
+ * without one, a property they require on the root class is dropped.
+ * It proves the publisher's shapes are live in a validator, not only the presence shape: a
+ * validator that silently drops a shapes file (a JSON-LD @graph read into one model) passes it.
+ * Undefined when no such property shape exists.
+ */
+export async function livenessMutation(t: Target, type: TargetType, quads: Quad[]): Promise<{ quads: Quad[]; path: string } | undefined> {
+  const root = rootType(t);
+  if (!root || !type.shapes.length) return undefined;
+  const store = new ox.Store();
+  for (const f of type.shapes) {
+    const text = f.endsWith(".jsonld") ? await jsonldFileToNTriples(t, f) : readFileSync(join(ROOT, f), "utf8");
+    store.load(text, { format: "text/turtle" });
+  }
+  const rows = store.query(`SELECT ?p ?d WHERE {
+    ?s <${SHN}targetClass> <${root}> ; <${SHN}property> ?ps . ?ps <${SHN}path> ?p ; <${SHN}datatype> ?d .
+    FILTER(isIRI(?p) && ?d != <${XSD_INTEGER}>)
+  } ORDER BY STR(?p)`) as Map<string, ox.Term>[];
+  const roots = new Set(quads.filter((q) => q.predicate.value === RDF_TYPE && q.object.value === root).map((q) => q.subject.value));
+  for (const r of rows) {
+    const path = r.get("p")!.value;
+    const subject = quads.find((q) => roots.has(q.subject.value) && q.predicate.value === RDF_TYPE)?.subject;
+    if (!subject) return undefined;
+    return {
+      path,
+      quads: [
+        ...quads.filter((q) => !(q.subject.equals(subject) && q.predicate.value === path)),
+        DataFactory.quad(subject, DataFactory.namedNode(path), DataFactory.literal("7", DataFactory.namedNode(XSD_INTEGER))),
+      ],
+    };
+  }
+  // No typed property on the root: drop a required one the document states instead.
+  const required = store.query(`SELECT DISTINCT ?p WHERE {
+    ?s <${SHN}targetClass> <${root}> ; <${SHN}property> ?ps . ?ps <${SHN}path> ?p ; <${SHN}minCount> ?n .
+    FILTER(isIRI(?p) && ?n >= 1)
+  } ORDER BY STR(?p)`) as Map<string, ox.Term>[];
+  for (const r of required) {
+    const path = r.get("p")!.value;
+    if (!quads.some((q) => roots.has(q.subject.value) && q.predicate.value === path)) continue;
+    return { path, quads: quads.filter((q) => !(roots.has(q.subject.value) && q.predicate.value === path)) };
+  }
+  return undefined;
 }
 
 /** The `{"this": "is not a passport"}` probe every type must reject. */

@@ -6,7 +6,7 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ### Added
 
-- Validation targets: `targets/eu-dpp/1.0.0/target.json` and `targets/batterypass-ready/2.0.1/target.json`
+- Validation targets: `targets/eu-dpp/1.0.0`, `targets/batterypass-ready/2.0.1` and `targets/keystone/v3`
   describe an external model release as GITB validation types (vendored artifacts with their
   manifest, crosswalk profile, fixtures, accepted deviations with reasons). Read by
   `scripts/lib/targets.ts`; see `docs/GITB_CONFORMANCE.md`, "External models".

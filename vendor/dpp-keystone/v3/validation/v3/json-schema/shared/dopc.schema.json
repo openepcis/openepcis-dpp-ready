@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dpp-keystone.org/spec/validation/v3/json-schema/shared/dopc.schema.json",
+  "title": "DPP DoPC (Declaration of Performance) Data Block",
+  "description": "A dense, nested schema for Construction DoPC characteristics.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "declarationCode": {
+      "type": "string"
+    },
+    "dateOfIssue": {
+      "type": "string",
+      "format": "date"
+    },
+    "elasticRecovery": {
+      "$ref": "#/$defs/elasticRecoveryGroup"
+    },
+    "resistanceToFlow": {
+      "$ref": "#/$defs/resistanceToFlowGroup"
+    },
+    "reactionToFire": {
+      "$ref": "#/$defs/reactionToFireGroup"
+    },
+    "tensileStrengthAdhesion": {
+      "type": "string"
+    },
+    "chlorideContent": {
+      "$ref": "#/$defs/chlorideContentGroup"
+    },
+    "bondStrength": {
+      "$ref": "#/$defs/bondStrengthGroup"
+    },
+    "thermalCompatibility": {
+      "$ref": "#/$defs/thermalCompatibilityGroup"
+    },
+    "shrinkageAndExpansion": {
+      "type": "string"
+    },
+    "capillaryAbsorption": {
+      "type": "number"
+    },
+    "declaredUnit": {
+      "type": "string"
+    },
+    "functionalUnit": {
+      "type": "string"
+    },
+    "referenceServiceLife": {
+      "type": "integer"
+    },
+    "dangerousSubstances": {
+      "type": "string"
+    },
+    "thermalExpansion": {
+      "type": "string"
+    },
+    "resistanceToCarbonation": {
+      "$ref": "#/$defs/resistanceToCarbonationGroup"
+    },
+    "slipSkidResistance": {
+      "$ref": "#/$defs/slipSkidResistanceGroup"
+    },
+    "modulusOfElasticityInCompression": {
+      "$ref": "#/$defs/modulusGroup"
+    }
+  },
+  "$defs": {
+    "elasticRecoveryGroup": {
+      "type": "object",
+      "properties": {
+        "methodA": {
+          "$ref": "#/$defs/elongationValues"
+        },
+        "methodB": {
+          "$ref": "#/$defs/elongationValues"
+        }
+      },
+      "additionalProperties": false
+    },
+    "elongationValues": {
+      "type": "object",
+      "properties": {
+        "25Percent": {
+          "type": "number"
+        },
+        "60Percent": {
+          "type": "number"
+        },
+        "100Percent": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "resistanceToFlowGroup": {
+      "type": "object",
+      "properties": {
+        "procedureA": {
+          "$ref": "#/$defs/flowTempValues"
+        },
+        "procedureB": {
+          "$ref": "#/$defs/flowTempValues"
+        }
+      },
+      "additionalProperties": false
+    },
+    "flowTempValues": {
+      "type": "object",
+      "properties": {
+        "5DegC": {
+          "type": "number"
+        },
+        "50DegC": {
+          "type": "number"
+        },
+        "70DegC": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "reactionToFireGroup": {
+      "type": "object",
+      "properties": {
+        "avcpSystem1": {
+          "type": "string"
+        },
+        "avcpSystem2": {
+          "type": "string"
+        },
+        "avcpSystem3": {
+          "type": "string"
+        },
+        "avcpSystem4": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "chlorideContentGroup": {
+      "type": "object",
+      "properties": {
+        "21DegC": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "resistanceToCarbonationGroup": {
+      "type": "object",
+      "properties": {
+        "21DegC": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "bondStrengthGroup": {
+      "type": "object",
+      "properties": {
+        "28Days": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "thermalCompatibilityGroup": {
+      "type": "object",
+      "properties": {
+        "wetSurface": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "slipSkidResistanceGroup": {
+      "type": "object",
+      "properties": {
+        "laboratory": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "modulusGroup": {
+      "type": "object",
+      "properties": {
+        "method1": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -24,6 +24,7 @@ the publisher.
 |---|---|---|---|---|---|---|---|
 | BatteryPass-Ready data model | 2.0.1 | `64761a79bc287f2e0eb` | 10 | 2/2 | 10/10 | 2/8 | 0/2 |
 | EU DPP Registry semantic data artifacts | 1.0.0 | `sha256:46b753cdcdf1` | 17 | 29/29 | 17/17 | 5/13 | 1/4 |
+| DPP Keystone | v3 | `4d9bd0c9b784b366a67` | 1 | 9/9 | 0/0 | 0/0 | 0/0 |
 
 ## BatteryPass-Ready data model 2.0.1
 
@@ -165,3 +166,42 @@ the publisher.
 
 - `/(SEM-COM-MSG-012|/(extinguishingAgent|detailedComposition|negativeEvents|cycleLifeReferenceTest|notInUseTemperatureRangeTest)[^ ]* (pattern|propertyNames))/`: Release 1.0.0 accepts a language-tagged text only with a region subtag (en-IE); plain BCP 47 tags such as en are rejected, and OpenEPCIS data has no region to add (crosswalk README, eu-dpp gap 1). (6 finding(s))
 - `/batteryIdentification (NodeConstraintComponent: SEM-BAT-MSG-010|dependentRequired: must have property batchNumber)/`: Release 1.0.0 accepts a model identifier only together with a batch number, so an item passport with a serial number but no batch cannot name its model (crosswalk README, eu-dpp gap 2). (3 finding(s))
+
+## DPP Keystone v3
+
+| | |
+|---|---|
+| Publisher | DPP Keystone (dpp-keystone.org) |
+| Release | v3 |
+| Pin | `4d9bd0c9b784b366a67d391a359f5ab29d8840e5` |
+| Source | https://github.com/dpp-keystone-org/DPPKeystoneOrg |
+| Licence | https://creativecommons.org/publicdomain/zero/1.0/ |
+| Artifacts | vendor/dpp-keystone/v3/MANIFEST.json (63 files, SHA-256 verified) |
+| Registry | extensions/common/interop/targets/keystone/v3/target.json |
+| Crosswalk profile | extensions/common/interop/crosswalk/keystone |
+
+### Validation types
+
+| Type | Checks | Artifacts |
+|---|---|---|
+| `x.keystone-v3.dpp` | SHACL + JSON Schema | `Compliance-shapes.shacl.jsonld`, `DoPC-shapes.shacl.jsonld`, `EPD-shapes.shacl.jsonld`, `EPDIndicators-shapes.shacl.jsonld`, `EPDLifecycle-shapes.shacl.jsonld`, `EPDMetadata-shapes.shacl.jsonld`, `Header-shapes.shacl.jsonld`, `MTC-shapes.shacl.jsonld`, `Organization-shapes.shacl.jsonld`, `Product-shapes.shacl.jsonld`, `RelatedResource-shapes.shacl.jsonld`, `Signature-shapes.shacl.jsonld`, `Unit-shapes.shacl.jsonld`, `Battery-shapes.shacl.jsonld`, `Construction-shapes.shacl.jsonld`, `Electronics-shapes.shacl.jsonld`, `EUApparelSizeSystem-shapes.shacl.jsonld`, `IronSteel-shapes.shacl.jsonld`, `Textile-shapes.shacl.jsonld`, `dpp.schema.json`, `battery.schema.json`, `battery-ev.schema.json`, `battery-industrial.schema.json`, `battery-lmv.schema.json`, `construction.schema.json`, `electronics.schema.json`, `iron-steel.schema.json`, `textile.schema.json` |
+
+### Documents
+
+| Document | From | Type | Verdict | Missing | Accepted |
+|---|---|---|---|---|---|
+| `dpp-keystone/v3/examples/battery-dpp-v1.json` | publisher | `dpp` | valid |  |  |
+| `dpp-keystone/v3/examples/battery-industrial-dpp-v1.json` | publisher | `dpp` | valid |  |  |
+| `dpp-keystone/v3/examples/battery-lmv-dpp-v1.json` | publisher | `dpp` | valid |  |  |
+| `dpp-keystone/v3/examples/construction-product-dpp-v1.json` | publisher | `dpp` | valid |  |  |
+| `dpp-keystone/v3/examples/drill-dpp-v1-private.json` | publisher | `dpp` | valid |  |  |
+| `dpp-keystone/v3/examples/drill-dpp-v1.json` | publisher | `dpp` | valid |  |  |
+| `dpp-keystone/v3/examples/iron-steel-dpp-v1.json` | publisher | `dpp` | valid |  |  |
+| `dpp-keystone/v3/examples/rail-dpp-v1.json` | publisher | `dpp` | valid |  |  |
+| `dpp-keystone/v3/examples/sock-dpp-v2.json` | publisher | `dpp` | valid |  |  |
+
+### Publisher examples left out
+
+- `battery-dpp-ec-aligned-v1.json`: An EU DPP Registry-form passport (Keystone's EC-aligned example), validated by Keystone through its keystone-to-ec context, not by the v3 schemas.
+- `construction-product-dpp-v1.json` (from the SHACL check only): The example states no @type, so its root is no dppk:DigitalProductPassport in RDF and Keystone's SHACL shapes (all sh:targetClass) cannot apply; its JSON Schemas check it.
+- `iron-steel-dpp-v1.json` (from the SHACL check only): The example states no @type, so its root is no dppk:DigitalProductPassport in RDF and Keystone's SHACL shapes (all sh:targetClass) cannot apply; its JSON Schemas check it.

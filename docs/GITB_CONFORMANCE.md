@@ -310,6 +310,7 @@ publisher-run service, and so that our own conformance to them is on record.
 |---|---|---|---|
 | EU DPP Registry semantic data artifacts | 1.0.0 (European Commission, archive SHA-256 pinned) | SHACL shapes and JSON Schemas per view (pub, res1 to res3), core, batteries, subgroups EV / industrial / LMT | `x.eu-dpp-1.0.0.<core\|batteries\|evb\|ind\|lmt>[.<view>]`, SHACL + JSON |
 | BatteryPass-Ready data model | 2.0.1 (GEFEG repository, commit pinned) | JSON Schema per battery category, full and February 2027 requirements | `x.bpr-2.0.1.<category>[.feb27]`, JSON |
+| DPP Keystone | v3 (dpp-keystone.org, repository commit and file SHA-256 pinned) | core and conditional sector JSON Schemas; SHACL generated from the ontology | `x.keystone-v3.dpp`, SHACL + JSON |
 
 - **A target is one file**, `extensions/common/interop/targets/<model>/<version>/target.json`: the
   vendored artifacts (`vendor/…/MANIFEST.json`, written by the model's sync script with the SHA-256
@@ -331,6 +332,14 @@ publisher-run service, and so that our own conformance to them is on record.
 - **The Registry's restricted views (res1 to res3) carry no header**: the Commission's examples for
   them hold the restricted fields alone, so the header shapes and schema (`core-shapes.ttl`,
   `core.schema.json`) belong to the public view only (`publicOnly` in the target).
+- **Shapes in JSON-LD are loaded as Turtle.** Keystone publishes its shapes as JSON-LD whose
+  `@graph` carries an `@id`, a named graph. The validator reads a shapes file into one graph and
+  drops it: measured, the type then passed a document with a retyped property. The bundle keeps the
+  original and loads the same triples as Turtle beside it.
+- **The publisher's shapes are proven live**, not only the presence shape: per SHACL type a valid
+  publisher example with one root property retyped (or a required one dropped) must be rejected by
+  the hosted validator and the local engines alike (`check:shapes:itb`, and a negative step in the
+  self-test).
 - **Two engines, one verdict, again**: `pnpm run check:shapes:itb` sends every fixture of a SHACL
   type through `isaitb/shacl-validator` and compares with the local engines (rdf-validate-shacl,
   `sh:sparql` on oxigraph); `pnpm run check:json-itb` does the same for the JSON types against
@@ -354,9 +363,13 @@ from the document (BatteryPass-Ready: its battery category; Registry: its conten
 and, from the file name, its view) and lists missing values, wrong forms and accepted deviations;
 `--list` shows every type.
 
-Not hosted, for want of machine-readable artifacts or because a release is pending: CIRPASS-2
-CORE (OWL only), DPP Keystone, CIRPASS-2 textile and battery shapes, GS1 EPCIS, SEMIC, UNTP,
-BatteryPass 1.3 / SAMM; they follow as targets of their own. CEN/CENELEC JTC 24 publishes no free
+Not hosted yet: GS1 EPCIS 2.0.1 (JSON Schema and SHACL, but published under the GS1 IP policy
+rather than a licence that clearly allows redistribution; the validator could load them from
+ref.gs1.org instead), GS1 Rail 2.6 (shapes, but no published examples to hold a type to), CIRPASS-2
+(CORE ships OWL only; textile 2.0.0 and battery shapes follow with the mirror update), SEMIC, UNTP,
+BatteryPass 1.3 / SAMM. DPP Keystone documents are hosted, but our `keystone` crosswalk carries
+Keystone terms on an OpenEPCIS passport rather than a Keystone document, so there is no bridge
+output to hold to the Keystone types yet. CEN/CENELEC JTC 24 publishes no free
 artifacts; `extensions/common/interop/docs/CEN_JTC24_CONFORMANCE.md` stays the hand-made mapping.
 
 ## The JSON domain

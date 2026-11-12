@@ -1,0 +1,182 @@
+{
+  "@context": {
+    "sh": "http://www.w3.org/ns/shacl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dppk": "https://dpp-keystone.org/spec/v3/terms#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "@vocab": "http://www.w3.org/ns/shacl#",
+    "node": {
+      "@type": "@id"
+    },
+    "path": {
+      "@type": "@id"
+    },
+    "targetClass": {
+      "@type": "@id"
+    },
+    "class": {
+      "@type": "@id"
+    },
+    "datatype": {
+      "@type": "@id"
+    }
+  },
+  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/sectors/Construction",
+  "@type": "ShapesGraph",
+  "@graph": [
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_ConstructionProductShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#ConstructionProduct",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#harmonisedStandardReference",
+          "message": "Auto-generated rule for dppk:harmonisedStandardReference",
+          "or": {
+            "@list": [
+              {
+                "datatype": "xsd:anyURI"
+              },
+              {
+                "nodeKind": {
+                  "@id": "sh:IRI"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#notifiedBody",
+          "message": "Auto-generated rule for dppk:notifiedBody",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_OrganizationShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:Organization"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#technicalAssessmentBody",
+          "message": "Auto-generated rule for dppk:technicalAssessmentBody",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_OrganizationShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:Organization"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#validationReports",
+          "message": "Auto-generated rule for dppk:validationReports",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_RelatedResourceShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:RelatedResource"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#europeanAssessmentDocument",
+          "message": "Auto-generated rule for dppk:europeanAssessmentDocument",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_RelatedResourceShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:RelatedResource"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#thermalConductivity",
+          "message": "Auto-generated rule for dppk:thermalConductivity",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_QuantitativeValueShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:QuantitativeValue"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#compressiveStrength",
+          "message": "Auto-generated rule for dppk:compressiveStrength",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_QuantitativeValueShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:QuantitativeValue"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_ProductShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#Product",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#steelGrade",
+          "message": "Auto-generated rule for dppk:steelGrade",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#railProfile",
+          "message": "Auto-generated rule for dppk:railProfile",
+          "datatype": "xsd:string"
+        }
+      ]
+    }
+  ]
+}

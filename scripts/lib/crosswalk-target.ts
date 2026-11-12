@@ -298,11 +298,17 @@ function focusPattern(shapes: ox.Store, shape: ox.Term, depth = 0): string[] {
   return out;
 }
 
+/** Shape files in another syntax, registered as N-Triples (scripts/lib/targets.ts converts JSON-LD). */
+const shapeTexts = new Map<string, string>();
+export function registerShapeText(file: string, ntriples: string): void {
+  shapeTexts.set(file, ntriples);
+}
+
 function loadShapes(files: string[]): { shapes: Store; sparql: SparqlConstraint[] } {
   const key = files.join("|");
   let entry = shapeCache.get(key);
   if (entry) return entry;
-  const texts = files.map((f) => readFileSync(join(ROOT, f), "utf8"));
+  const texts = files.map((f) => shapeTexts.get(f) ?? readFileSync(join(ROOT, f), "utf8"));
   const raw = new ox.Store();
   for (const t of texts) raw.load(t, { format: "text/turtle" });
   const sparql: SparqlConstraint[] = [];

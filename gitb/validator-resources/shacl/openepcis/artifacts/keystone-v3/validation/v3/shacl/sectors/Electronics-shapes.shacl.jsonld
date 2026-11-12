@@ -1,0 +1,153 @@
+{
+  "@context": {
+    "sh": "http://www.w3.org/ns/shacl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dppk": "https://dpp-keystone.org/spec/v3/terms#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "@vocab": "http://www.w3.org/ns/shacl#",
+    "node": {
+      "@type": "@id"
+    },
+    "path": {
+      "@type": "@id"
+    },
+    "targetClass": {
+      "@type": "@id"
+    },
+    "class": {
+      "@type": "@id"
+    },
+    "datatype": {
+      "@type": "@id"
+    }
+  },
+  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/sectors/Electronics",
+  "@type": "ShapesGraph",
+  "@graph": [
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_ElectronicDeviceShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#ElectronicDevice",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#voltage",
+          "message": "Auto-generated rule for dppk:voltage",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_QuantitativeValueShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:QuantitativeValue"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#ratedPower",
+          "message": "Auto-generated rule for dppk:ratedPower",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_QuantitativeValueShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:QuantitativeValue"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#energyEfficiencyClass",
+          "message": "Auto-generated rule for dppk:energyEfficiencyClass",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#ipRating",
+          "message": "Auto-generated rule for dppk:ipRating",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#sparePartsAvailable",
+          "message": "Auto-generated rule for dppk:sparePartsAvailable",
+          "datatype": "xsd:boolean"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#serviceManualAvailable",
+          "message": "Auto-generated rule for dppk:serviceManualAvailable",
+          "datatype": "xsd:boolean"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#softwareUpdatePolicy",
+          "message": "Auto-generated rule for dppk:softwareUpdatePolicy",
+          "datatype": "rdf:langString"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#weeeCategory",
+          "message": "Auto-generated rule for dppk:weeeCategory",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#disassemblyInstructions",
+          "message": "Auto-generated rule for dppk:disassemblyInstructions",
+          "datatype": "rdf:langString"
+        }
+      ]
+    },
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_PowerToolShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#PowerTool",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#torque",
+          "message": "Auto-generated rule for dppk:torque",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_QuantitativeValueShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:QuantitativeValue"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#maximumRatedSpeed",
+          "message": "Auto-generated rule for dppk:maximumRatedSpeed",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_QuantitativeValueShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:QuantitativeValue"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

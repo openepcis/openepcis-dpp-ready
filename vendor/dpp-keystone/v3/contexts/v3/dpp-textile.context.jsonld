@@ -1,0 +1,311 @@
+{
+  "@context": [
+    "https://dpp-keystone.org/spec/contexts/v3/dpp-core.context.jsonld",
+    {
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "pefcrCategory": {
+        "@id": "dppk:pefcrCategory",
+        "@type": "@vocab"
+      },
+      "T-shirts": "dppk:PefcrTShirts",
+      "Shirts and blouses": "dppk:PefcrShirtsAndBlouses",
+      "Sweaters and midlayers": "dppk:PefcrSweatersAndMidlayers",
+      "Jackets and coats": "dppk:PefcrJacketsAndCoats",
+      "Pants and shorts": "dppk:PefcrPantsAndShorts",
+      "Dresses, skirts and jumpsuits": "dppk:PefcrDressesSkirtsAndJumpsuits",
+      "Leggings, stockings, tights and socks": "dppk:PefcrLeggingsStockingsTightsAndSocks",
+      "Underwear": "dppk:PefcrUnderwear",
+      "Swimwear": "dppk:PefcrSwimwear",
+      "Apparel Accessories": "dppk:PefcrApparelAccessories",
+      "Open-toed shoes": "dppk:PefcrOpenToedShoes",
+      "Closed-toed shoes": "dppk:PefcrClosedToedShoes",
+      "Boots": "dppk:PefcrBoots",
+      "manufacturer": {
+        "@id": "dppk:manufacturer",
+        "@context": {
+          "email": "dppk:operatorEmail",
+          "telephone": "dppk:operatorTelephone"
+        }
+      },
+      "importer": {
+        "@id": "dppk:importer",
+        "@context": {
+          "email": "dppk:operatorEmail",
+          "telephone": "dppk:operatorTelephone"
+        }
+      },
+      "economicOperator": {
+        "@id": "dppk:economicOperator",
+        "@context": {
+          "email": "dppk:operatorEmail",
+          "telephone": "dppk:operatorTelephone"
+        }
+      },
+      "substancesOfConcern": {
+        "@id": "dppk:textileSubstancesOfConcern",
+        "@container": "@set",
+        "@context": {
+          "name": "dppk:componentName",
+          "percentage": {
+            "@id": "dppk:componentPercentage",
+            "@type": "xsd:double"
+          },
+          "uniqueProductIdentifier": "dppk:componentIdentifier",
+          "casNumber": "dppk:componentCasNumber",
+          "ecNumber": "dppk:componentEcNumber",
+          "iupacName": "dppk:componentIupacName",
+          "locationInProduct": "dppk:componentLocationInProduct"
+        }
+      },
+      "fibreComposition": {
+        "@id": "dppk:fibreComposition",
+        "@container": "@set",
+        "@context": {
+          "name": "dppk:componentName",
+          "percentage": {
+            "@id": "dppk:componentPercentage",
+            "@type": "xsd:double"
+          },
+          "uniqueProductIdentifier": "dppk:componentIdentifier",
+          "casNumber": "dppk:componentCasNumber",
+          "ecNumber": "dppk:componentEcNumber",
+          "iupacName": "dppk:componentIupacName",
+          "locationInProduct": "dppk:componentLocationInProduct"
+        }
+      },
+      "weightExcludingTrims": {
+        "@id": "dppk:weightExcludingTrims",
+        "@type": "xsd:double"
+      },
+      "organicContentPercentage": {
+        "@id": "dppk:organicContentPercentage",
+        "@type": "xsd:double"
+      },
+      "organicContentMass": {
+        "@id": "dppk:organicContentMass",
+        "@type": "xsd:double"
+      },
+      "preConsumerRecycledContentPercentage": {
+        "@id": "dppk:preConsumerRecycledContentPercentage",
+        "@type": "xsd:double"
+      },
+      "preConsumerRecycledContentMass": {
+        "@id": "dppk:preConsumerRecycledContentMass",
+        "@type": "xsd:double"
+      },
+      "preConsumerTypeOfWaste": {
+        "@id": "dppk:preConsumerTypeOfWaste",
+        "@type": "xsd:string"
+      },
+      "postConsumerRecycledContentPercentage": {
+        "@id": "dppk:postConsumerRecycledContentPercentage",
+        "@type": "xsd:double"
+      },
+      "postConsumerRecycledContentMass": {
+        "@id": "dppk:postConsumerRecycledContentMass",
+        "@type": "xsd:double"
+      },
+      "postConsumerTypeOfWaste": {
+        "@id": "dppk:postConsumerTypeOfWaste",
+        "@type": "xsd:string"
+      },
+      "euDeclarationOfConformity": {
+        "@id": "dppk:euDeclarationOfConformity"
+      },
+      "textileCertifications": {
+        "@id": "dppk:textileCertifications",
+        "@container": "@set",
+        "@context": {
+          "name": "dppk:certificationName",
+          "identifier": "dppk:certificationId",
+          "url": {
+            "@id": "dppk:certificationUrl",
+            "@type": "xsd:anyURI"
+          },
+          "certificationBodyName": "dppk:certificationBodyName",
+          "certificationBodyId": "dppk:certificationBodyId",
+          "certificationStartDate": {
+            "@id": "dppk:certificationStartDate",
+            "@type": "xsd:date"
+          },
+          "certificationEndDate": {
+            "@id": "dppk:certificationEndDate",
+            "@type": "xsd:date"
+          },
+          "certificationBodyRole": "dppk:certificationBodyRole",
+          "document": "dppk:documents"
+        }
+      },
+      "euEcolabel": {
+        "@id": "dppk:euEcolabel",
+        "@type": "xsd:boolean"
+      },
+      "careInstructions": {
+        "@id": "dppk:textileCareInstructions",
+        "@context": {
+          "resourceTitle": "dppk:resourceTitle",
+          "contentType": "dppk:contentType",
+          "language": "dppk:language",
+          "url": {
+            "@id": "dppk:url",
+            "@type": "xsd:anyURI"
+          }
+        }
+      },
+      "safeUseInstructions": {
+        "@id": "dppk:textileSafeUseInstructions",
+        "@context": {
+          "resourceTitle": "dppk:resourceTitle",
+          "contentType": "dppk:contentType",
+          "language": "dppk:language",
+          "url": {
+            "@id": "dppk:url",
+            "@type": "xsd:anyURI"
+          }
+        }
+      },
+      "endOfLifeInstructions": {
+        "@id": "dppk:textileEndOfLifeInstructions",
+        "@context": {
+          "resourceTitle": "dppk:resourceTitle",
+          "contentType": "dppk:contentType",
+          "language": "dppk:language",
+          "url": {
+            "@id": "dppk:url",
+            "@type": "xsd:anyURI"
+          }
+        }
+      },
+      "repairInstructions": {
+        "@id": "dppk:textileRepairInstructions",
+        "@context": {
+          "resourceTitle": "dppk:resourceTitle",
+          "contentType": "dppk:contentType",
+          "language": "dppk:language",
+          "url": {
+            "@id": "dppk:url",
+            "@type": "xsd:anyURI"
+          }
+        }
+      },
+      "warrantyDuration": {
+        "@id": "dppk:warrantyDuration",
+        "@type": "xsd:string"
+      },
+      "repairServices": {
+        "@id": "dppk:repairService",
+        "@container": "@set"
+      },
+      "carbonFootprint": {
+        "@id": "dppk:carbonFootprint",
+        "@type": "xsd:double"
+      },
+      "carbonFootprintBenchmarkPercentage": {
+        "@id": "dppk:carbonFootprintBenchmarkPercentage",
+        "@type": "xsd:double"
+      },
+      "textileCarbonFootprintClass": {
+        "@id": "dppk:textileCarbonFootprintClass",
+        "@type": "xsd:integer"
+      },
+      "environmentalFootprint": {
+        "@id": "dppk:environmentalFootprint",
+        "@type": "xsd:double"
+      },
+      "environmentalFootprintBenchmarkPercentage": {
+        "@id": "dppk:environmentalFootprintBenchmarkPercentage",
+        "@type": "xsd:double"
+      },
+      "environmentalFootprintClass": {
+        "@id": "dppk:environmentalFootprintClass",
+        "@type": "xsd:integer"
+      },
+      "carbonFootprintCalculationParameters": {
+        "@id": "dppk:carbonFootprintCalculationParameters",
+        "@context": {
+          "resourceTitle": "dppk:resourceTitle",
+          "contentType": "dppk:contentType",
+          "language": "dppk:language",
+          "url": {
+            "@id": "dppk:url",
+            "@type": "xsd:anyURI"
+          }
+        }
+      },
+      "robustnessScore": {
+        "@id": "dppk:robustnessScore",
+        "@type": "xsd:double"
+      },
+      "recyclabilityScore": {
+        "@id": "dppk:recyclabilityScore",
+        "@type": "xsd:double"
+      },
+      "spirality": {
+        "@id": "dppk:spirality",
+        "@type": "xsd:double"
+      },
+      "dimensionalChange": {
+        "@id": "dppk:dimensionalChange",
+        "@type": "xsd:double"
+      },
+      "visualInspection": {
+        "@id": "dppk:visualInspection",
+        "@type": "xsd:string"
+      },
+      "euApparelSize": {
+        "@id": "dppk:euApparelSize",
+        "@type": "@id",
+        "@context": {
+          "sizeDesignation": "dppk:sizeDesignation",
+          "primaryDimension": {
+            "@id": "dppk:primaryDimension",
+            "@type": "@vocab"
+          },
+          "primaryDimensionValue": "dppk:primaryDimensionValue",
+          "cupSize": "dppk:cupSize",
+          "secondaryDimensions": {
+            "@id": "dppk:secondaryDimensions",
+            "@container": "@set",
+            "@context": {
+              "dimension": {
+                "@id": "dppk:dimensionName",
+                "@type": "@vocab"
+              },
+              "value": "dppk:dimensionValue"
+            }
+          },
+          "Chest girth": "dppk:BodyDimChestGirth",
+          "Neck girth": "dppk:BodyDimNeckGirth",
+          "Waist girth": "dppk:BodyDimWaistGirth",
+          "Hip girth": "dppk:BodyDimHipGirth",
+          "Height": "dppk:BodyDimHeight",
+          "Bust girth": "dppk:BodyDimBustGirth",
+          "Underbust girth": "dppk:BodyDimUnderbustGirth",
+          "Foot length": "dppk:BodyDimFootLength",
+          "Arm length": "dppk:BodyDimArmLength",
+          "Inside leg length": "dppk:BodyDimInsideLegLength"
+        }
+      },
+      "productionSteps": {
+        "@id": "dppk:productionSteps",
+        "@container": "@set",
+        "@context": {
+          "step": "dppk:productionStepType",
+          "countryCode": "dppk:productionLocationCountry"
+        }
+      },
+      "animalOriginNonTextile": {
+        "@id": "dppk:animalOriginNonTextile",
+        "@type": "xsd:boolean"
+      },
+      "brand": {
+        "@id": "dppk:brand",
+        "@type": "xsd:string"
+      },
+      "color": {
+        "@id": "dppk:color",
+        "@type": "xsd:string"
+      }
+    }
+  ]
+}

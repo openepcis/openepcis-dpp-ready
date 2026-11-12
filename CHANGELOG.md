@@ -13,12 +13,14 @@ check:release` verifies that every place recording a version agrees.
 
 The GITB validator now hosts the external models this project bridges, each at a pinned release:
 the EU DPP Registry semantic data artifacts 1.0.0 (17 types, SHACL and JSON Schema, every view and
-subgroup) and BatteryPass-Ready 2.0.1 (10 types, JSON Schema per battery category, full and
-February 2027). Type ids carry the release (`x.<model>-<version>.<scope>`), the publisher's
+subgroup), BatteryPass-Ready 2.0.1 (10 types, JSON Schema per battery category, full and
+February 2027) and DPP Keystone v3 (SHACL and JSON Schema, `pnpm run sync:keystone`,
+`vendor/dpp-keystone`). Type ids carry the release (`x.<model>-<version>.<scope>`), the publisher's
 artifacts are bundled byte for byte after a SHA-256 check, and every report names model, release,
 pin and our version. A type is declared only when it accepts every example the publisher ships and
-rejects a non-document; `check:shapes:itb` and the new `check:json-itb` hold the EC validator images
-to the local engines.
+rejects a non-document, and every SHACL type is proven live (a retyped or dropped root property of a
+publisher example is rejected); `check:shapes:itb` and the new `check:json-itb` hold the EC validator
+images to the local engines.
 
 - Registry: `extensions/common/interop/targets/<model>/<version>/target.json`
   (`scripts/lib/targets.ts`).

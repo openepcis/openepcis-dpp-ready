@@ -1,0 +1,314 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dpp-keystone.org/spec/validation/v3/json-schema/sector/textile.schema.json",
+  "title": "DPP for Textiles (ESPR Update Draft)",
+  "description": "A conditional schema that applies if the DPP is for the textile sector following the new ESPR specification.",
+  "$defs": {
+    "EuApparelSize": {
+      "type": "object",
+      "properties": {
+        "sizeDesignation": {
+          "type": "string"
+        },
+        "primaryDimension": {
+          "type": "string",
+          "enum": [
+            "Chest girth",
+            "Neck girth",
+            "Waist girth",
+            "Hip girth",
+            "Height",
+            "Bust girth",
+            "Underbust girth",
+            "Foot length"
+          ]
+        },
+        "primaryDimensionValue": {
+          "type": "string"
+        },
+        "secondaryDimensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dimension": {
+                "type": "string",
+                "enum": [
+                  "Waist girth",
+                  "Chest girth",
+                  "Hip girth",
+                  "Arm length",
+                  "Neck girth",
+                  "Inside leg length",
+                  "Bust girth",
+                  "Underbust girth",
+                  "Height"
+                ]
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dimension",
+              "value"
+            ]
+          }
+        },
+        "cupSize": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "primaryDimension",
+        "primaryDimensionValue"
+      ]
+    }
+  },
+  "if": {
+    "type": "object",
+    "properties": {
+      "contentSpecificationIds": {
+        "type": "array",
+        "contains": {
+          "const": "draft_textile_espr_specification_id"
+        }
+      }
+    },
+    "required": [
+      "contentSpecificationIds"
+    ]
+  },
+  "then": {
+    "type": "object",
+    "properties": {
+      "pefcrCategory": {
+        "enum": [
+          "T-shirts",
+          "Shirts and blouses",
+          "Sweaters and midlayers",
+          "Jackets and coats",
+          "Pants and shorts",
+          "Dresses, skirts and jumpsuits",
+          "Leggings, stockings, tights and socks",
+          "Underwear",
+          "Swimwear",
+          "Apparel Accessories",
+          "Open-toed shoes",
+          "Closed-toed shoes",
+          "Boots"
+        ]
+      },
+      "manufacturer": {
+        "$ref": "../shared/organization.schema.json"
+      },
+      "importer": {
+        "$ref": "../shared/organization.schema.json"
+      },
+      "economicOperator": {
+        "$ref": "../shared/organization.schema.json"
+      },
+      "components": {
+        "type": "array",
+        "items": {
+          "$ref": "../shared/component.schema.json"
+        }
+      },
+      "substancesOfConcern": {
+        "type": "array",
+        "items": {
+          "$ref": "../shared/component.schema.json"
+        }
+      },
+      "fibreComposition": {
+        "type": "array",
+        "items": {
+          "$ref": "../shared/component.schema.json"
+        }
+      },
+      "weightExcludingTrims": {
+        "type": "number",
+        "minimum": 0
+      },
+      "organicContentPercentage": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100
+      },
+      "organicContentMass": {
+        "type": "number",
+        "minimum": 0
+      },
+      "preConsumerRecycledContentPercentage": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100
+      },
+      "preConsumerRecycledContentMass": {
+        "type": "number",
+        "minimum": 0
+      },
+      "preConsumerTypeOfWaste": {
+        "type": "string"
+      },
+      "postConsumerRecycledContentPercentage": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100
+      },
+      "postConsumerRecycledContentMass": {
+        "type": "number",
+        "minimum": 0
+      },
+      "postConsumerTypeOfWaste": {
+        "type": "string"
+      },
+      "textileCertifications": {
+        "type": "array",
+        "items": {
+          "$ref": "../shared/certification.schema.json"
+        }
+      },
+      "euEcolabel": {
+        "type": "boolean"
+      },
+      "euDeclarationOfConformity": {
+        "$ref": "../shared/related-resource.schema.json"
+      },
+      "careInstructions": {
+        "oneOf": [
+          {
+            "$ref": "../shared/related-resource.schema.json"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "safeUseInstructions": {
+        "oneOf": [
+          {
+            "$ref": "../shared/related-resource.schema.json"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "endOfLifeInstructions": {
+        "oneOf": [
+          {
+            "$ref": "../shared/related-resource.schema.json"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "repairInstructions": {
+        "oneOf": [
+          {
+            "$ref": "../shared/related-resource.schema.json"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "warrantyDuration": {
+        "type": "string"
+      },
+      "repairServices": {
+        "type": "array",
+        "items": {
+          "$ref": "../shared/organization.schema.json"
+        }
+      },
+      "carbonFootprint": {
+        "type": "number"
+      },
+      "carbonFootprintBenchmarkPercentage": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100
+      },
+      "textileCarbonFootprintClass": {
+        "type": "integer"
+      },
+      "environmentalFootprint": {
+        "type": "number"
+      },
+      "environmentalFootprintBenchmarkPercentage": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100
+      },
+      "environmentalFootprintClass": {
+        "type": "integer"
+      },
+      "carbonFootprintCalculationParameters": {
+        "$ref": "../shared/related-resource.schema.json"
+      },
+      "robustnessScore": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 10
+      },
+      "recyclabilityScore": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 10
+      },
+      "spirality": {
+        "type": "number"
+      },
+      "dimensionalChange": {
+        "type": "number"
+      },
+      "visualInspection": {
+        "type": "string"
+      },
+      "euApparelSize": {
+        "$ref": "#/$defs/EuApparelSize"
+      },
+      "animalOriginNonTextile": {
+        "type": "boolean"
+      },
+      "brand": {
+        "type": "string"
+      },
+      "color": {
+        "type": "string"
+      },
+      "productionSteps": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "properties": {
+            "step": {
+              "type": "string",
+              "enum": [
+                "Spinning",
+                "Weaving",
+                "Knitting",
+                "Finishing",
+                "Dyeing",
+                "Assembly"
+              ]
+            },
+            "countryCode": {
+              "type": "string",
+              "pattern": "^[A-Z]{3}$"
+            }
+          },
+          "required": [
+            "step",
+            "countryCode"
+          ]
+        }
+      }
+    },
+    "required": []
+  }
+}

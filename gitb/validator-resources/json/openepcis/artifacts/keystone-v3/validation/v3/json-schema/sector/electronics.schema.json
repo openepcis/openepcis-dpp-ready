@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dpp-keystone.org/spec/validation/v3/json-schema/sector/electronics.schema.json",
+  "title": "DPP for Electronics (Draft)",
+  "description": "A conditional schema that applies if the DPP is for the electronics sector.",
+  "if": {
+    "type": "object",
+    "properties": {
+      "contentSpecificationIds": {
+        "type": "array",
+        "contains": {
+          "const": "draft_electronics_specification_id"
+        }
+      }
+    },
+    "required": [
+      "contentSpecificationIds"
+    ]
+  },
+  "then": {
+    "type": "object",
+    "properties": {
+      "torque": {
+        "type": "number"
+      },
+      "maximumRatedSpeed": {
+        "type": "number"
+      },
+      "ratedPower": {
+        "type": "number"
+      },
+      "voltage": {
+        "type": "number"
+      },
+      "sparePartsAvailable": {
+        "type": "boolean"
+      },
+      "serviceManualAvailable": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "torque",
+      "maximumRatedSpeed",
+      "ratedPower",
+      "voltage",
+      "sparePartsAvailable",
+      "serviceManualAvailable"
+    ]
+  }
+}

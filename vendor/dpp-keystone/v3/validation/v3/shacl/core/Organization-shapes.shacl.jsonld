@@ -1,0 +1,255 @@
+{
+  "@context": {
+    "sh": "http://www.w3.org/ns/shacl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dppk": "https://dpp-keystone.org/spec/v3/terms#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "@vocab": "http://www.w3.org/ns/shacl#",
+    "node": {
+      "@type": "@id"
+    },
+    "path": {
+      "@type": "@id"
+    },
+    "targetClass": {
+      "@type": "@id"
+    },
+    "class": {
+      "@type": "@id"
+    },
+    "datatype": {
+      "@type": "@id"
+    }
+  },
+  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/core/Organization",
+  "@type": "ShapesGraph",
+  "@graph": [
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_OrganizationShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#Organization",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#organizationName",
+          "message": "Auto-generated rule for dppk:organizationName",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#tradingName",
+          "message": "Auto-generated rule for dppk:tradingName",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#gln",
+          "message": "Auto-generated rule for dppk:gln",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#leiCode",
+          "message": "Auto-generated rule for dppk:leiCode",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#eori",
+          "message": "Auto-generated rule for dppk:eori",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#additionalOrganizationId",
+          "message": "Auto-generated rule for dppk:additionalOrganizationId",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#additionalOrganizationIdType",
+          "message": "Auto-generated rule for dppk:additionalOrganizationIdType",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#address",
+          "message": "Auto-generated rule for dppk:address",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_PostalAddressShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:PostalAddress"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#email",
+          "message": "Auto-generated rule for dppk:email"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#telephone",
+          "message": "Auto-generated rule for dppk:telephone"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#website",
+          "message": "Auto-generated rule for dppk:website",
+          "or": {
+            "@list": [
+              {
+                "datatype": "xsd:anyURI"
+              },
+              {
+                "nodeKind": {
+                  "@id": "sh:IRI"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_PostalAddressShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#PostalAddress",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#streetAddress",
+          "message": "Auto-generated rule for dppk:streetAddress"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#postalCode",
+          "message": "Auto-generated rule for dppk:postalCode"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#addressLocality",
+          "message": "Auto-generated rule for dppk:addressLocality"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#addressCountry",
+          "message": "Auto-generated rule for dppk:addressCountry"
+        }
+      ]
+    },
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_DigitalProductPassportShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#DigitalProductPassport",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#economicOperator",
+          "message": "Auto-generated rule for dppk:economicOperator",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_OrganizationShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:Organization"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#manufacturer",
+          "message": "Auto-generated rule for dppk:manufacturer",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_OrganizationShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:Organization"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#importer",
+          "message": "Auto-generated rule for dppk:importer",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_OrganizationShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:Organization"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#manufacturingFacility",
+          "message": "Auto-generated rule for dppk:manufacturingFacility",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_OrganizationShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:Organization"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#repairService",
+          "message": "Auto-generated rule for dppk:repairService",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_OrganizationShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:Organization"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_EconomicOperatorRoleShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#EconomicOperatorRole",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#operatorEmail",
+          "message": "Auto-generated rule for dppk:operatorEmail",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#operatorTelephone",
+          "message": "Auto-generated rule for dppk:operatorTelephone",
+          "datatype": "xsd:string"
+        }
+      ]
+    }
+  ]
+}

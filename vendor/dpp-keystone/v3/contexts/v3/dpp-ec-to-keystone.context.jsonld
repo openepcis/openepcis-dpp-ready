@@ -1,0 +1,436 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "dppk": "https://dpp-keystone.org/spec/v3/terms#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "id": "@id",
+    "type": "@type",
+    "DigitalProductPassport": "dppk:DigitalProductPassport",
+    "BatteryProduct": "dppk:BatteryProduct",
+    "digitalProductPassportId": {
+      "@id": "dppk:digitalProductPassportId",
+      "@type": "@id"
+    },
+    "uniqueProductIdentifier": {
+      "@id": "dppk:uniqueProductIdentifier",
+      "@type": "@id"
+    },
+    "additionalProductIdentifiers": {
+      "@id": "dppk:identifier",
+      "@container": "@set"
+    },
+    "granularity": {
+      "@id": "dppk:granularity",
+      "@type": "@vocab",
+      "@context": {
+        "model": "dppk:Model",
+        "batch": "dppk:Batch",
+        "item": "dppk:Item"
+      }
+    },
+    "dppStatus": "dppk:dppStatus",
+    "lastUpdate": {
+      "@id": "dppk:lastUpdate",
+      "@type": "xsd:dateTime"
+    },
+    "contentSpecificationIds": {
+      "@id": "dppk:contentSpecificationIds",
+      "@container": "@set"
+    },
+    "dppSchemaVersion": "dppk:dppSchemaVersion",
+    "economicOperatorId": {
+      "@id": "dppk:economicOperatorId",
+      "@type": "@id"
+    },
+    "facilityId": {
+      "@id": "dppk:facilityId",
+      "@type": "@id"
+    },
+    "productName": {
+      "@id": "dppk:productName",
+      "@container": "@language"
+    },
+    "productLabel": {
+      "@id": "dppk:documents",
+      "@container": "@set"
+    },
+    "resourceTitle": "dppk:resourceTitle",
+    "contentType": "dppk:contentType",
+    "url": {
+      "@id": "dppk:url",
+      "@type": "xsd:anyURI"
+    },
+    "language": "dppk:language",
+    "registrantIdentity": {
+      "@id": "dppk:economicOperatorId",
+      "@type": "@id"
+    },
+    "manufacturerIdentification": {
+      "@id": "dppk:manufacturer",
+      "@context": {
+        "manufacturerName": "dppk:organizationName",
+        "manufacturerTradeName": "dppk:tradingName",
+        "manufacturerTrademark": "dppk:brand"
+      }
+    },
+    "manufacturerPostalAddress": "dppk:streetAddress",
+    "manufacturerContactDetails": {
+      "@id": "dppk:manufacturer",
+      "@context": {
+        "manufacturerWebsite": {
+          "@id": "dppk:website",
+          "@type": "@id"
+        },
+        "manufacturerEmail": "dppk:email"
+      }
+    },
+    "batteryIdentification": "@nest",
+    "modelIdentifier": "dppk:model",
+    "batchNumber": "dppk:identifier",
+    "serialNumber": "dppk:identifier",
+    "productNumber": "dppk:gtin",
+    "otherIdentificationElement": "dppk:identifier",
+    "manufacturingPlace": {
+      "@id": "dppk:manufacturingPlace",
+      "@context": {
+        "manufacturingCity": "dppk:addressLocality",
+        "manufacturingRegion": "dppk:streetAddress",
+        "manufacturingCountry": "dppk:addressCountry"
+      }
+    },
+    "manufacturingDate": {
+      "@id": "dppk:manufacturingDate",
+      "@type": "xsd:gYearMonth"
+    },
+    "batteryCategory": "dppk:batteryCategory",
+    "batteryWeight": {
+      "@id": "dppk:batteryMass",
+      "@type": "xsd:double"
+    },
+    "batteryCapacity": {
+      "@id": "dppk:ratedCapacity",
+      "@type": "xsd:double"
+    },
+    "batteryChemistry": {
+      "@id": "dppk:batteryChemistry",
+      "@container": "@set"
+    },
+    "hazardousSubstances": {
+      "@id": "dppk:hazardousSubstances",
+      "@container": "@set"
+    },
+    "extinguishingAgent": {
+      "@id": "dppk:extinguishingAgent",
+      "@container": "@language"
+    },
+    "criticalRawMaterials": {
+      "@id": "dppk:criticalRawMaterials",
+      "@container": "@set"
+    },
+    "renewableContentShare": {
+      "@id": "dppk:renewableContent",
+      "@type": "xsd:double"
+    },
+    "commercialWarrantyPeriod": "dppk:warrantyPeriod",
+    "separateCollectionSymbol": "dppk:separateCollectionSymbol",
+    "chemicalSymbol": {
+      "@id": "dppk:heavyMetalSymbols",
+      "@container": "@set"
+    },
+    "euDeclarationOfConformity": {
+      "@id": "dppk:dopc",
+      "@container": "@set"
+    },
+    "detailedComposition": {
+      "@id": "dppk:materialComposition",
+      "@container": "@language"
+    },
+    "sparePartReplacementDetails": {
+      "@id": "dppk:sparePartsSources",
+      "@container": "@set"
+    },
+    "dismantlingInformation": {
+      "@id": "dppk:dismantlingInformation",
+      "@container": "@set"
+    },
+    "safetyMeasures": {
+      "@id": "dppk:safetyMeasures",
+      "@container": "@set"
+    },
+    "complianceTestReportResults": {
+      "@id": "dppk:testReports",
+      "@container": "@set"
+    },
+    "wasteBatteryPreventionManagementInfo": "@nest",
+    "batteryLabelSymbolMeaning": {
+      "@id": "dppk:labelMeaning",
+      "@container": "@language"
+    },
+    "batterySubstancesImpact": {
+      "@id": "dppk:hazardousSubstancesImpact",
+      "@container": "@language"
+    },
+    "wasteBatterySafetyInstructions": {
+      "@id": "dppk:safetyMeasures",
+      "@container": "@language"
+    },
+    "endUserRoleInWastePrevention": {
+      "@id": "dppk:wastePreventionInfo",
+      "@container": "@language"
+    },
+    "endUserRoleInSeparateCollection": {
+      "@id": "dppk:wastePreventionInfo",
+      "@container": "@language"
+    },
+    "separateCollectionPoints": {
+      "@id": "dppk:wastePreventionInfo",
+      "@container": "@language"
+    },
+    "takeBackCollectionPoints": {
+      "@id": "dppk:wastePreventionInfo",
+      "@container": "@language"
+    },
+    "preparationForReuseFacilities": {
+      "@id": "dppk:wastePreventionInfo",
+      "@container": "@language"
+    },
+    "preparationForRepurposingFacilities": {
+      "@id": "dppk:wastePreventionInfo",
+      "@container": "@language"
+    },
+    "wasteBatteryTreatmentFacilities": {
+      "@id": "dppk:wastePreventionInfo",
+      "@container": "@language"
+    },
+    "minimalVoltage": {
+      "@id": "dppk:voltageMinimum",
+      "@type": "xsd:double"
+    },
+    "minimalVoltageMinTemp": {
+      "@id": "dppk:temperatureIdleLower",
+      "@type": "xsd:double"
+    },
+    "minimalVoltageMaxTemp": {
+      "@id": "dppk:temperatureIdleUpper",
+      "@type": "xsd:double"
+    },
+    "nominalVoltage": {
+      "@id": "dppk:voltageNominal",
+      "@type": "xsd:double"
+    },
+    "nominalVoltageMinTemp": {
+      "@id": "dppk:temperatureIdleLower",
+      "@type": "xsd:double"
+    },
+    "nominalVoltageMaxTemp": {
+      "@id": "dppk:temperatureIdleUpper",
+      "@type": "xsd:double"
+    },
+    "maximumVoltage": {
+      "@id": "dppk:voltageMaximum",
+      "@type": "xsd:double"
+    },
+    "maximumVoltageMinTemp": {
+      "@id": "dppk:temperatureIdleLower",
+      "@type": "xsd:double"
+    },
+    "maximumVoltageMaxTemp": {
+      "@id": "dppk:temperatureIdleUpper",
+      "@type": "xsd:double"
+    },
+    "originalPowerCapability": {
+      "@id": "dppk:powerOriginal",
+      "@type": "xsd:double"
+    },
+    "powerLimit": {
+      "@id": "dppk:powerMaximumPermitted",
+      "@type": "xsd:double"
+    },
+    "powerLimitMinTemp": {
+      "@id": "dppk:temperatureIdleLower",
+      "@type": "xsd:double"
+    },
+    "powerLimitMaxTemp": {
+      "@id": "dppk:temperatureIdleUpper",
+      "@type": "xsd:double"
+    },
+    "notInUseTemperatureRange": {
+      "@id": "dppk:temperature",
+      "@context": {
+        "lowerBound": {
+          "@id": "dppk:temperatureIdleLower",
+          "@type": "xsd:double"
+        },
+        "upperBound": {
+          "@id": "dppk:temperatureIdleUpper",
+          "@type": "xsd:double"
+        },
+        "notInUseTemperatureRangeTest": {
+          "@id": "dppk:testMethod",
+          "@container": "@language"
+        }
+      }
+    },
+    "internalCellResistance": {
+      "@id": "dppk:internalResistanceInitial",
+      "@type": "xsd:double"
+    },
+    "internalPackResistance": {
+      "@id": "dppk:internalResistanceInitial",
+      "@type": "xsd:double"
+    },
+    "expectedLifetimeCycles": {
+      "@id": "dppk:expectedLifetimeCycles",
+      "@type": "xsd:integer"
+    },
+    "cycleLifeReferenceTest": {
+      "@id": "dppk:referenceTestCycleLife",
+      "@container": "@language"
+    },
+    "capacityExhaustionThreshold": {
+      "@id": "dppk:exhaustionCapacityThreshold",
+      "@type": "xsd:double"
+    },
+    "initialRoundTripEnergyEfficiency": {
+      "@id": "dppk:roundTripEfficiencyInitial",
+      "@type": "xsd:double"
+    },
+    "roundTripEfficiencyAtHalfCycleLife": {
+      "@id": "dppk:roundTripEfficiencyAt50Cycles",
+      "@type": "xsd:double"
+    },
+    "cycleLifeChargeCRate": {
+      "@id": "dppk:cRateCycleTest",
+      "@type": "xsd:double"
+    },
+    "cycleLifeDischargeCRate": {
+      "@id": "dppk:cRateCycleTest",
+      "@type": "xsd:double"
+    },
+    "ratedCapacity": {
+      "@id": "dppk:ratedCapacity",
+      "@type": "xsd:double"
+    },
+    "capacityFade": {
+      "@id": "dppk:capacityFade",
+      "@type": "xsd:double"
+    },
+    "powerCapability": {
+      "@id": "dppk:powerRemaining",
+      "@type": "xsd:double"
+    },
+    "powerFade": {
+      "@id": "dppk:powerFade",
+      "@type": "xsd:double"
+    },
+    "internalResistance": {
+      "@id": "dppk:internalResistanceDynamic",
+      "@type": "xsd:double"
+    },
+    "internalResistanceIncrease": {
+      "@id": "dppk:internalResistanceIncrease",
+      "@type": "xsd:double"
+    },
+    "roundTripEnergyEfficiency": {
+      "@id": "dppk:roundTripEfficiencyRemaining",
+      "@type": "xsd:double"
+    },
+    "roundTripEnergyEfficiencyFade": {
+      "@id": "dppk:roundTripEfficiencyFade",
+      "@type": "xsd:double"
+    },
+    "expectedLifetimeCyclesRest": {
+      "@id": "dppk:expectedLifetimeCycles",
+      "@type": "xsd:integer"
+    },
+    "expectedLifetimeYears": {
+      "@id": "dppk:expectedLifetimeYears",
+      "@type": "xsd:double"
+    },
+    "stateOfCertifiedEnergy": {
+      "@id": "dppk:soce",
+      "@type": "xsd:double"
+    },
+    "remainingCapacity": {
+      "@id": "dppk:remainingCapacity",
+      "@type": "xsd:double"
+    },
+    "remainingPowerCapability": {
+      "@id": "dppk:powerRemaining",
+      "@type": "xsd:double"
+    },
+    "remainingRoundTripEfficiency": {
+      "@id": "dppk:roundTripEfficiencyRemaining",
+      "@type": "xsd:double"
+    },
+    "selfDischargingRateSet": {
+      "@id": "dppk:selfDischargeEvolution",
+      "@container": "@set",
+      "@context": {
+        "selfDischargingRate": {
+          "@id": "dppk:selfDischargeCurrent",
+          "@type": "xsd:double"
+        },
+        "recordedTime": {
+          "@id": "dppk:lastUpdate",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+    "ohmicResistance": {
+      "@id": "dppk:internalResistanceOhmic",
+      "@type": "xsd:double"
+    },
+    "batteryStatus": "dppk:batteryStatus",
+    "numberOfChargingCycles": {
+      "@id": "dppk:cycleCountFull",
+      "@type": "xsd:integer"
+    },
+    "numberOfDischargingCycles": {
+      "@id": "dppk:cycleCountFull",
+      "@type": "xsd:integer"
+    },
+    "negativeEvents": {
+      "@id": "dppk:eventsAccidents",
+      "@container": "@language"
+    },
+    "environmentalConditionHistogramSet": "@nest",
+    "environmentalConditionHistogram": {
+      "@id": "dppk:productCharacteristics",
+      "@container": "@set",
+      "@context": {
+        "observedCharacteristic": "dppk:characteristicName",
+        "binRangeUnit": "dppk:unitCode",
+        "binValueUnit": "dppk:unitText",
+        "bin": {
+          "@id": "dppk:characteristicValue",
+          "@container": "@set",
+          "@context": {
+            "lowerBound": "dppk:temperatureIdleLower",
+            "upperBound": "dppk:temperatureIdleUpper",
+            "binValue": "dppk:value"
+          }
+        }
+      }
+    },
+    "stateOfChargeHistogram": {
+      "@id": "dppk:productCharacteristics",
+      "@container": "@set",
+      "@context": {
+        "observedCharacteristic": "dppk:characteristicName",
+        "binRangeUnit": "dppk:unitCode",
+        "binValueUnit": "dppk:unitText",
+        "bin": {
+          "@id": "dppk:characteristicValue",
+          "@container": "@set",
+          "@context": {
+            "lowerBound": "dppk:temperatureIdleLower",
+            "upperBound": "dppk:temperatureIdleUpper",
+            "binValue": "dppk:value"
+          }
+        }
+      }
+    }
+  },
+  "@id": "https://dpp-keystone.org/spec/contexts/v3/dpp-ec-to-keystone"
+}
