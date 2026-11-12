@@ -9,6 +9,16 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Fixed: `certificationStatus` codes resolve to GS1 IRIs
+
+`certificationStatus` in `common/core/gs1-shortcuts-context.jsonld` was typed `@id`, so the bare GS1
+code a passport API stores (`ACTIVE`, `INACTIVE`) became a relative IRI against the document URL:
+jsonld.js in safe mode rejected the passport, lenient processors produced a meaningless IRI. The
+term is now `@vocab` with a scoped context mapping both codes to `gs1:CertificationStatus-ACTIVE`
+and `-INACTIVE`, the pattern `referencedFileType` already uses. Absolute and compact IRIs expand as
+before, so no valid stored value changes meaning; the redefinition is recorded in
+`scripts/context-compat-allowlist.json`. Operational bundles regenerated.
+
 ## [0.14.0] - 2026-11-12
 
 ### Added: eight more external model releases on the validator

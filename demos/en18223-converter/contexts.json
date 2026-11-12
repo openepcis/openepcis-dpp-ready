@@ -19,7 +19,7 @@
     }
   },
   "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld": {
-    "_comment": "OpenEPCIS DPP Core Vocabulary v0.12.0, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
+    "_comment": "OpenEPCIS DPP Core Vocabulary v0.14.0, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld",
       {
@@ -5102,7 +5102,11 @@
       "certificationStatement": "gs1:certificationStatement",
       "certificationStatus": {
         "@id": "gs1:certificationStatus",
-        "@type": "@id"
+        "@type": "@vocab",
+        "@context": {
+          "ACTIVE": "gs1:CertificationStatus-ACTIVE",
+          "INACTIVE": "gs1:CertificationStatus-INACTIVE"
+        }
       },
       "certificationSubject": {
         "@id": "gs1:certificationSubject",
@@ -6388,7 +6392,7 @@
     }
   },
   "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld": {
-    "_comment": "OpenEPCIS Battery Vocabulary v0.12.0, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
+    "_comment": "OpenEPCIS Battery Vocabulary v0.14.0, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -6902,7 +6906,7 @@
     ]
   },
   "https://ref.openepcis.org/extensions/eu/battery/battery-context-batterypass-bridge.jsonld": {
-    "_comment": "This context interprets incoming BatteryPass documents as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). One BatteryPass data model, referenced through two renderings. (1) bpsamm-* = the Battery Pass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl — the canonical form. (2) bpr: = an OpenEPCIS-hosted reference namespace for the few GEFEG BatteryPass-Ready longlist v1.3 attributes with no SAMM equivalent (DPP-information group #1-#4) plus the flat lossless-carrier keys below; GEFEG (thebatterypass.eu) is the Consortium's publication and validation channel and publishes no RDF IRIs. No SAMM 1.3.0 / DPPInformation submodel exists. Target-selection rule: every key resolves to the highest layer that already covers the concept (gs1: > oec: > eubat:); no key mints a new IRI. Where the longlist carries one flat value that OpenEPCIS models structurally across several terms (materialsUsedInCathode -> eubat:hasBatteryChemistry + eubat:hasMaterialComposition; symbolsForCadmiumAndLead -> eubat:cadmiumSymbolRequired + eubat:leadSymbolRequired; carbonFootprintLabel -> eubat:hasLabels/eubat:labelSymbol + eubat:CarbonFootprintLabel; informationOnAccidents -> eubat:hasNegativeEvents) no 1:1 project term exists, so the key keeps its upstream bpr: IRI and the incoming value is preserved losslessly rather than forced into a partial match. Attribute [5] batteryPassportIdentifier (the DPP identifier) and [6] batteryIdentifier (the unique battery/product identifier) are DISTINCT longlist attributes and map to different IRIs — oec:passportIdentifier vs gs1:productID. The expected lifetime arrives as a bare year count and eubat:hasExpectedLifetime carries a gs1:QuantitativeValue, so both lifetime keys keep the upstream SAMM IRI bpsamm-perf:expectedLifetime (exactMatch of eubat:hasExpectedLifetime) and the value stays lossless. The single initial internal resistance of the longlist and of SAMM keeps its upstream SAMM IRI, because the EU guidance 3.2 asks for a cell and a pack value (eubat:hasInitialCellInternalResistance, eubat:hasInitialPackInternalResistance) and one undifferentiated value fills neither. Quantity carriers use the longlist's bare {value, unitCode} shape, aliased onto gs1:value/gs1:unitCode with the same xsd:decimal coercion the prefixed terms carry, so examples/batterypass-v1.3.jsonld validates against validation/batterypass-v1.3-schema.json (85/85 required attributes) while staying graph-identical.",
+    "_comment": "This context interprets incoming BatteryPass documents of the older state (Battery Pass Consortium SAMM 1.2.x, BatteryPass-Ready longlist v1.3; crosswalk profile batterypass-1.3) as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). A BatteryPass-Ready 2.0.1 document (the current data model, nested in dppHeader and batteryPassportData) reads with batterypass-ready-2.0.1-context.jsonld and converts through the crosswalk profile batterypass. One BatteryPass data model, referenced through two renderings. (1) bpsamm-* = the Battery Pass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl — the canonical form. (2) bpr: = an OpenEPCIS-hosted reference namespace for the few GEFEG BatteryPass-Ready longlist v1.3 attributes with no SAMM equivalent (DPP-information group #1-#4) plus the flat lossless-carrier keys below; GEFEG (thebatterypass.eu) is the Consortium's publication and validation channel and publishes no RDF IRIs. No SAMM 1.3.0 / DPPInformation submodel exists. Target-selection rule: every key resolves to the highest layer that already covers the concept (gs1: > oec: > eubat:); no key mints a new IRI. Where the longlist carries one flat value that OpenEPCIS models structurally across several terms (materialsUsedInCathode -> eubat:hasBatteryChemistry + eubat:hasMaterialComposition; symbolsForCadmiumAndLead -> eubat:cadmiumSymbolRequired + eubat:leadSymbolRequired; carbonFootprintLabel -> eubat:hasLabels/eubat:labelSymbol + eubat:CarbonFootprintLabel; informationOnAccidents -> eubat:hasNegativeEvents) no 1:1 project term exists, so the key keeps its upstream bpr: IRI and the incoming value is preserved losslessly rather than forced into a partial match. Attribute [5] batteryPassportIdentifier (the DPP identifier) and [6] batteryIdentifier (the unique battery/product identifier) are DISTINCT longlist attributes and map to different IRIs — oec:passportIdentifier vs gs1:productID. The expected lifetime arrives as a bare year count and eubat:hasExpectedLifetime carries a gs1:QuantitativeValue, so both lifetime keys keep the upstream SAMM IRI bpsamm-perf:expectedLifetime (exactMatch of eubat:hasExpectedLifetime) and the value stays lossless. The single initial internal resistance of the longlist and of SAMM keeps its upstream SAMM IRI, because the EU guidance 3.2 asks for a cell and a pack value (eubat:hasInitialCellInternalResistance, eubat:hasInitialPackInternalResistance) and one undifferentiated value fills neither. Quantity carriers use the longlist's bare {value, unitCode} shape, aliased onto gs1:value/gs1:unitCode with the same xsd:decimal coercion the prefixed terms carry, so examples/batterypass-v1.3.jsonld validates against validation/batterypass-v1.3-schema.json (85/85 required attributes) while staying graph-identical.",
     "@context": {
       "@version": 1.1,
       "gs1": "https://ref.gs1.org/voc/",
@@ -7665,7 +7669,7 @@
     }
   },
   "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld": {
-    "_comment": "OpenEPCIS Assessment and Test Vocabulary v0.12.0, generated from extensions/common/assessment/ontology/assessment.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/assessment/context/.context-overrides.json for non-derivable hints.",
+    "_comment": "OpenEPCIS Assessment and Test Vocabulary v0.14.0, generated from extensions/common/assessment/ontology/assessment.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/assessment/context/.context-overrides.json for non-derivable hints.",
     "@context": {
       "@version": 1.1,
       "id": "@id",
@@ -7841,7 +7845,7 @@
     }
   },
   "https://ref.openepcis.org/extensions/common/carrier/carrier-context.jsonld": {
-    "_comment": "OpenEPCIS Data Carrier Authentication Vocabulary v0.12.0, generated from extensions/common/carrier/ontology/carrier.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/carrier/context/.context-overrides.json for non-derivable hints.",
+    "_comment": "OpenEPCIS Data Carrier Authentication Vocabulary v0.14.0, generated from extensions/common/carrier/ontology/carrier.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/carrier/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -7862,7 +7866,7 @@
     ]
   },
   "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld": {
-    "_comment": "OpenEPCIS Textile DPP Vocabulary v0.12.0, generated from extensions/eu/textile/ontology/textile.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/textile/context/.context-overrides.json for non-derivable hints.",
+    "_comment": "OpenEPCIS Textile DPP Vocabulary v0.14.0, generated from extensions/eu/textile/ontology/textile.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/textile/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -8044,7 +8048,7 @@
     ]
   },
   "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld": {
-    "_comment": "OpenEPCIS Electronics Vocabulary v0.12.0, generated from extensions/eu/electronics/ontology/electronics.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/electronics/context/.context-overrides.json for non-derivable hints.",
+    "_comment": "OpenEPCIS Electronics Vocabulary v0.14.0, generated from extensions/eu/electronics/ontology/electronics.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/electronics/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -8234,7 +8238,7 @@
     ]
   },
   "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld": {
-    "_comment": "OpenEPCIS EUDR Vocabulary v0.12.0, generated from extensions/eu/eudr/ontology/eudr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/eudr/context/.context-overrides.json for non-derivable hints.",
+    "_comment": "OpenEPCIS EUDR Vocabulary v0.14.0, generated from extensions/eu/eudr/ontology/eudr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/eudr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -8432,7 +8436,7 @@
     ]
   },
   "https://ref.openepcis.org/extensions/eu/ppwr/ppwr-context.jsonld": {
-    "_comment": "OpenEPCIS PPWR Vocabulary v0.12.0, generated from extensions/eu/ppwr/ontology/ppwr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/ppwr/context/.context-overrides.json for non-derivable hints.",
+    "_comment": "OpenEPCIS PPWR Vocabulary v0.14.0, generated from extensions/eu/ppwr/ontology/ppwr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/ppwr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -8641,7 +8645,7 @@
     ]
   },
   "https://ref.openepcis.org/extensions/eu/cpr/cpr-context.jsonld": {
-    "_comment": "OpenEPCIS CPR Vocabulary v0.12.0, generated from extensions/eu/cpr/ontology/cpr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/cpr/context/.context-overrides.json for non-derivable hints.",
+    "_comment": "OpenEPCIS CPR Vocabulary v0.14.0, generated from extensions/eu/cpr/ontology/cpr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/cpr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -8688,7 +8692,7 @@
     ]
   },
   "https://ref.openepcis.org/extensions/eu/detergent/detergent-context.jsonld": {
-    "_comment": "OpenEPCIS Detergent Vocabulary v0.12.0, generated from extensions/eu/detergent/ontology/detergent.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/detergent/context/.context-overrides.json for non-derivable hints.",
+    "_comment": "OpenEPCIS Detergent Vocabulary v0.14.0, generated from extensions/eu/detergent/ontology/detergent.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/detergent/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -8788,7 +8792,7 @@
     ]
   },
   "https://ref.openepcis.org/extensions/us/fsma204/fsma204-context.jsonld": {
-    "_comment": "OpenEPCIS FSMA 204 Vocabulary v0.12.0, generated from extensions/us/fsma204/ontology/fsma204.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/us/fsma204/context/.context-overrides.json for non-derivable hints.",
+    "_comment": "OpenEPCIS FSMA 204 Vocabulary v0.14.0, generated from extensions/us/fsma204/ontology/fsma204.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/us/fsma204/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -8814,7 +8818,7 @@
     ]
   },
   "https://ref.openepcis.org/extensions/eu/iron-steel/iron-steel-context.jsonld": {
-    "_comment": "OpenEPCIS Iron & Steel Vocabulary v0.12.0, generated from extensions/eu/iron-steel/ontology/iron-steel.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/iron-steel/context/.context-overrides.json for non-derivable hints.",
+    "_comment": "OpenEPCIS Iron & Steel Vocabulary v0.14.0, generated from extensions/eu/iron-steel/ontology/iron-steel.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/iron-steel/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
