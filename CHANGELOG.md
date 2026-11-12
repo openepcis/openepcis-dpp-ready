@@ -21,6 +21,12 @@ the shortcuts won inside scoped contexts. Absolute and compact IRIs expand as be
 valid value changes meaning; `scripts/context-compat-allowlist.json` records the redefinition for
 every context and bundle that imports the shortcuts.
 
+The three code-list definitions (`certificationStatus`, `colourCodeList`, `packagingMaterialType`)
+now live in `common/core/context/.gs1-shortcuts-overrides.json`, so `pnpm run build:context`
+reproduces them instead of reverting them to `@id`. `ppwr-shortcut-context.jsonld` no longer repeats
+`packagingMaterialType`: the generator drops a definition an earlier layer of the operational chain
+already provides identically, so the PPWR operational context and its bundle mean exactly the same.
+
 ## [0.14.1] - 2026-11-12
 
 ### Fixed: `certificationStatus` codes resolve to GS1 IRIs
