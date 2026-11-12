@@ -4,6 +4,14 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+### Changed
+
+- `eu-dpp`: voltages with a temperature range (new handles in `shared/battery-handles.ttl`, entail and
+  reshape), `wasteBatteryPreventionManagementInfo` texts (`67-end-of-life-texts.rq`), `detailedComposition`,
+  `notInUseTemperatureRangeTest`, `sparePartReplacementDetails` (documents by `xw:docType`, as in
+  `batterypass`), `manufacturerTrademark` (`gs1:brand`), `originalPowerCapability` / `powerCapability`
+  without a state of charge, both ways.
+
 ## [0.14.0] - 2026-11-12
 
 ### Added

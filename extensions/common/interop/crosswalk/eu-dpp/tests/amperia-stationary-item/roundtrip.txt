@@ -1,18 +1,17 @@
 # amperia-stationary-item: lift then lower
-input 568 triples, lift 122, back 212
+input 656 triples, lift 156, back 309
 
 ## the way back compared with the input
 - missing 1  a gs1:AdditionalProductClassificationDetails
-- missing 1  a gs1:Brand
 - missing 1  a gs1:CertificationDetails
 - missing 4  a gs1:Country
 - missing 1  a gs1:Organization
 - missing 3  a gs1:PostalAddress
-- missing 26  a gs1:QuantitativeValue
+- missing 27  a gs1:QuantitativeValue
 - missing 4  a oea:AssessmentCondition
 - missing 1  a oea:Indicator
-- missing 14  a oea:MeasurementResult
-- missing 4  a oea:TestExecution
+- missing 12  a oea:MeasurementResult
+- missing 2  a oea:TestExecution
 - missing 1  a oea:TestMethod
 - missing 2  a oec:OperatorInformation
 - missing 1  a eubat:BatteryMaterial
@@ -29,8 +28,6 @@ input 568 triples, lift 122, back 212
 - missing 3  gs1:address
 - missing 3  gs1:addressCountry
 - missing 3  gs1:addressLocality
-- missing 1  gs1:brand
-- missing 1  gs1:brandName
 - missing 1  gs1:certification
 - missing 1  gs1:certificationStandard
 - missing 1  gs1:certificationURI
@@ -44,8 +41,8 @@ input 568 triples, lift 122, back 212
 - missing 1  gs1:productionDate
 - missing 3  gs1:productName
 - missing 4  gs1:streetAddress
-- missing 26  gs1:unitCode
-- missing 26  gs1:value
+- missing 27  gs1:unitCode
+- missing 27  gs1:value
 - missing 1  gs1:warrantyScopeDescription
 - missing 1  oea:hasCategoricalValue
 - missing 1  oea:hasComparisonOperator
@@ -54,11 +51,11 @@ input 568 triples, lift 122, back 212
 - missing 4  oea:hasConditionValue
 - missing 1  oea:hasIndicator
 - missing 1  oea:hasIndicatorKind
-- missing 14  oea:hasMeasuredValue
+- missing 12  oea:hasMeasuredValue
 - missing 1  oea:hasMethod
-- missing 14  oea:hasObservedParameter
-- missing 14  oea:hasResult
-- missing 4  oea:hasSubAssessment
+- missing 12  oea:hasObservedParameter
+- missing 12  oea:hasResult
+- missing 2  oea:hasSubAssessment
 - missing 1  oea:hasThresholdParameter
 - missing 1  oea:hasThresholdValue
 - missing 1  oea:isEvaluatedAgainst
@@ -97,6 +94,9 @@ input 568 triples, lift 122, back 212
 - missing 1  eubat:hasLabels
 - missing 1  eubat:hasLabelSubject
 - missing 1  eubat:hasMaterialComposition
+- missing 1  eubat:hasMaximumVoltage
+- missing 1  eubat:hasMinimumVoltage
+- missing 1  eubat:hasNominalVoltage
 - missing 1  eubat:hasOperatorInformation
 - missing 1  eubat:hasOperatorRole
 - missing 1  eubat:hasRatedEnergy
@@ -145,7 +145,6 @@ input 568 triples, lift 122, back 212
 
 ## not converted (no rule handles these input terms)
   1  a gs1:AdditionalProductClassificationDetails
-  1  a gs1:Brand
   1  a gs1:CertificationDetails
   2  a oec:OperatorInformation
   1  a eubat:CapacityExhaustionThreshold
@@ -157,8 +156,6 @@ input 568 triples, lift 122, back 212
   1  gs1:additionalProductClassificationCode
   3  gs1:additionalProductClassificationCodeDescription
   1  gs1:additionalProductClassificationValue
-  1  gs1:brand
-  1  gs1:brandName
   1  gs1:certification
   1  gs1:certificationStandard
   1  gs1:certificationURI
@@ -230,32 +227,8 @@ input 568 triples, lift 122, back 212
 none
 
 ## target shapes and schemas: values the passport lacks
-  schema pub-batteries / required: must have required property 'wasteBatteryPreventionManagementInfo'
   schema pub-batteries /batteryIdentification dependentRequired: must have property batchNumber when property modelIdentifier is present
-  schema pub-batteries /maximumVoltage required: must have required property 'valueRange'
-  schema pub-batteries /minimalVoltage required: must have required property 'valueRange'
-  schema pub-batteries /nominalVoltage required: must have required property 'valueRange'
-  schema pub-batteries /notInUseTemperatureRange required: must have required property 'notInUseTemperatureRangeTest'
-  schema pub-ind / required: must have required property 'wasteBatteryPreventionManagementInfo'
   schema pub-ind /batteryIdentification dependentRequired: must have property batchNumber when property modelIdentifier is present
-  schema pub-ind /maximumVoltage required: must have required property 'valueRange'
-  schema pub-ind /minimalVoltage required: must have required property 'valueRange'
-  schema pub-ind /nominalVoltage required: must have required property 'valueRange'
-  schema pub-ind /notInUseTemperatureRange required: must have required property 'notInUseTemperatureRangeTest'
-  schema res1-batteries / required: must have required property 'detailedComposition'
-  schema res1-batteries / required: must have required property 'sparePartReplacementDetails'
-  schema res1-ind / required: must have required property 'detailedComposition'
-  schema res1-ind / required: must have required property 'sparePartReplacementDetails'
-  shacl detailedComposition MinCountConstraintComponent: SEM-BAT-MSG-059
-  shacl maximumVoltage NodeConstraintComponent: SEM-BAT-MSG-028 [_ HasValueConstraintComponent]
-  shacl maximumVoltage NodeConstraintComponent: SEM-BAT-MSG-028 [valueRange MinCountConstraintComponent]
-  shacl minimalVoltage NodeConstraintComponent: SEM-BAT-MSG-091 [_ HasValueConstraintComponent]
-  shacl minimalVoltage NodeConstraintComponent: SEM-BAT-MSG-091 [valueRange MinCountConstraintComponent]
-  shacl nominalVoltage NodeConstraintComponent: SEM-BAT-MSG-027 [_ HasValueConstraintComponent]
-  shacl nominalVoltage NodeConstraintComponent: SEM-BAT-MSG-027 [valueRange MinCountConstraintComponent]
-  shacl notInUseTemperatureRange NodeConstraintComponent: SEM-BAT-MSG-034 [notInUseTemperatureRangeTest MinCountConstraintComponent]
-  shacl sparePartReplacementDetails MinCountConstraintComponent: SEM-BAT-MSG-060
-  shacl wasteBatteryPreventionManagementInfo MinCountConstraintComponent: SEM-BAT-MSG-046
 
 ## target shapes and schemas: accepted defects of the target
   gap 1  schema pub-batteries /extinguishingAgent pattern: must match pattern "^[A-Za-z]{2}-[A-Za-z]{2}$"

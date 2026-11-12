@@ -1,0 +1,18 @@
+# The original and the remaining power capability (W) back as the power capability without a state
+# of charge (the Registry states none): the handle carries the quantity, and shared/battery-reshape.ru
+# makes it a sub-assessment with the result only, of the performance test (original) or the battery
+# state (remaining).
+CONSTRUCT {
+  ?holder ?h ?q . ?q a gs1:QuantitativeValue ; gs1:value ?dv ; gs1:unitCode "WTT" .
+  ?r eubat:hasTechnicalSpecifications ?ts . ?ts a eubat:TechnicalSpecification .
+}
+WHERE {
+  VALUES (?field ?h ?onSpecs) { (bat:originalPowerCapability <urn:xw:v:hasOriginalPowerCapability> true) (bat:powerCapability <urn:xw:v:hasRemainingPowerCapability> false) }
+  GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport ; ?field ?pc . ?pc dppcom:value ?v ; dppcom:unit unit:watt }
+  FILTER(isIRI(?r))
+  BIND(IRI(CONCAT(STR(?r), "#specs")) AS ?specs)
+  BIND(IF(?onSpecs, ?specs, ?r) AS ?holder)
+  BIND(IF(?onSpecs, ?specs, ?none) AS ?ts)
+  BIND(BNODE() AS ?q)
+  BIND(xsd:decimal(?v) AS ?dv)
+}

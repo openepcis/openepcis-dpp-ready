@@ -1,0 +1,17 @@
+# The end-of-life information as text: one wasteBatteryPreventionManagementInfo object of the
+# Registry's language-tagged texts, from the language-tagged texts of our end-of-life information.
+# A text without a language does not go over (the Registry keys every text by its language).
+CONSTRUCT { ?r bat:wasteBatteryPreventionManagementInfo ?w . ?w ?f ?t . }
+WHERE {
+  {
+    SELECT ?r (SAMPLE(BNODE()) AS ?w) WHERE {
+      GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
+      GRAPH <urn:xw:in> { ?r eubat:hasEndOfLifeInfo ?eol0 . ?eol0 ?p0 ?t0 }
+      VALUES ?p0 { eubat:endUserRoleInWastePrevention eubat:endUserRoleInSeparateCollection eubat:separateCollectionPoints eubat:takeBackCollectionPoints eubat:preparationForReuseFacilities eubat:preparationForRepurposingFacilities eubat:wasteBatteryTreatmentFacilities eubat:wasteBatterySafetyInstructions eubat:labelSymbolMeaning eubat:substancesImpact }
+      FILTER(LANG(?t0) != "")
+    } GROUP BY ?r
+  }
+  GRAPH <urn:xw:in> { ?r eubat:hasEndOfLifeInfo ?eol . ?eol ?p ?t }
+  VALUES (?p ?f) { (eubat:endUserRoleInWastePrevention bat:endUserRoleInWastePrevention) (eubat:endUserRoleInSeparateCollection bat:endUserRoleInSeparateCollection) (eubat:separateCollectionPoints bat:separateCollectionPoints) (eubat:takeBackCollectionPoints bat:takeBackCollectionPoints) (eubat:preparationForReuseFacilities bat:preparationForReuseFacilities) (eubat:preparationForRepurposingFacilities bat:preparationForRepurposingFacilities) (eubat:wasteBatteryTreatmentFacilities bat:wasteBatteryTreatmentFacilities) (eubat:wasteBatterySafetyInstructions bat:wasteBatterySafetyInstructions) (eubat:labelSymbolMeaning bat:batteryLabelSymbolMeaning) (eubat:substancesImpact bat:batterySubstancesImpact) }
+  FILTER(LANG(?t) != "")
+}

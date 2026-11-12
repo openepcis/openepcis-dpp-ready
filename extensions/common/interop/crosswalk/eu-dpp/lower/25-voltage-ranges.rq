@@ -1,0 +1,26 @@
+# A voltage the Registry states with a temperature range: the handle of the row's xw:measured on the
+# technical specification, which shared/battery-reshape.ru turns into the performance test's
+# sub-assessment with the bounds as conditions. The range must be of temperature in degrees Celsius.
+CONSTRUCT {
+  ?r eubat:hasTechnicalSpecifications ?ts . ?ts a eubat:TechnicalSpecification ; ?mh ?sub .
+  ?sub <urn:xw:v:hasVoltage> ?vq ; <urn:xw:v:lowerTemperature> ?lo ; <urn:xw:v:upperTemperature> ?hi .
+  ?vq a gs1:QuantitativeValue ; gs1:value ?dv ; gs1:unitCode ?code .
+}
+WHERE {
+  ?row xw:euField ?field ; xw:measured ?mh ; xw:via ?via . ?via xw:fragment ?frag .
+  GRAPH <urn:xw:in> {
+    ?r a dpp:DigitalProductPassport ; ?field ?q . ?q dppcom:value ?v ; dppcom:unit ?u ; dppcom:valueRange ?vr .
+    ?vr dppcom:observedCharacteristic obs:temperature ; dppcom:unit unit:degreeCelsius .
+  }
+  FILTER(isIRI(?r))
+  OPTIONAL { GRAPH <urn:xw:in> { ?vr dppcom:lowerBound ?l } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?vr dppcom:upperBound ?h } }
+  ?urow xw:euUnit ?u ; xw:unitCode ?c ; xw:lowerDefault true .
+  BIND(IRI(CONCAT(STR(?r), "#", ?frag)) AS ?ts)
+  BIND(IRI(CONCAT(STR(?r), "#", ?frag, "-", REPLACE(STR(?field), "^.*#", ""))) AS ?sub)
+  BIND(BNODE() AS ?vq)
+  BIND(xsd:decimal(?v) AS ?dv)
+  BIND(STR(?c) AS ?code)
+  BIND(xsd:decimal(?l) AS ?lo)
+  BIND(xsd:decimal(?h) AS ?hi)
+}

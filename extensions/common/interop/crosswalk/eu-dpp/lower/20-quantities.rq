@@ -14,6 +14,8 @@ WHERE {
   GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport ; ?field ?q . ?q dppcom:value ?v ; dppcom:unit ?u }
   FILTER(isIRI(?r))
   FILTER NOT EXISTS { ?row xw:lowerUnless ?other . GRAPH <urn:xw:in> { ?r ?other ?oq } }
+  # A value with a temperature range is a measured voltage (25-voltage-ranges.rq).
+  FILTER NOT EXISTS { ?row xw:measured ?mh . GRAPH <urn:xw:in> { ?q dppcom:valueRange ?anyRange } }
   BIND(IF(BOUND(?via), IRI(CONCAT(STR(?r), "#", ?frag)), ?r) AS ?n)
   OPTIONAL { ?urow xw:euUnit ?u ; xw:unitCode ?c ; xw:lowerDefault true }
   OPTIONAL { ?row xw:euUnit ?ru . OPTIONAL { ?row xw:factor ?rf } }

@@ -13,6 +13,8 @@ WHERE {
   FILTER(!BOUND(?sub) || EXISTS { GRAPH <urn:xw:roots> { ?r xw:spec ?sg } FILTER(CONTAINS(?sg, "/subgroup/")) })
   FILTER NOT EXISTS { ?row xw:forbiddenIn ?fs . GRAPH <urn:xw:roots> { ?r xw:spec ?rs } FILTER(STR(?rs) = STR(?fs)) }
   { GRAPH <urn:xw:in> { ?r ?p ?o } } UNION { GRAPH <urn:xw:in> { ?r ?via ?c . ?c ?p ?o } }
+  # A voltage measured within a temperature range goes over instead (25-voltage-ranges.rq).
+  FILTER NOT EXISTS { ?row xw:measured ?mh . GRAPH <urn:xw:in> { ?r ?mvia ?mc . ?mc ?mh ?msub } }
   OPTIONAL {
     GRAPH <urn:xw:in> { ?o gs1:value ?qv ; gs1:unitCode ?code }
     ?urow xw:unitCode ?uc ; xw:euUnit ?qu . FILTER(STR(?uc) = STR(?code))

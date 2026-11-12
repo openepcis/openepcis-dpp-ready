@@ -254,26 +254,33 @@ Defects of release 1.0.0 the profile accepts (`structure.accepted`; also listed 
 | 1 | A language-tagged text needs a region (`en-IE`); a plain BCP 47 tag such as `en` is rejected. | Texts in `en`, `de`, … are rejected; a document language without region is left out of a resource. |
 | 2 | A model identifier is accepted only together with a batch number. | An item passport with serial number but no batch cannot name its model. |
 
-Required by the Registry, missing from the passport (listed per case, not failing): the temperature
-range each voltage was measured at (Annex XIII 1 (h) asks for it "when relevant"), the reference
-test of the not-in-use temperature range.
+Voltages measured within a temperature range (the Registry's `valueRange`; Annex XIII 1 (h) asks
+for it "when relevant") are the performance test's sub-assessments with the conditions
+`eubat:LowerTemperatureBound` / `eubat:UpperTemperatureBound`, the result observing
+`eubat:NominalVoltage` / `MinimumVoltage` / `MaximumVoltage` (handles in
+`shared/battery-handles.ttl`); a voltage rating without conditions stays on the technical
+specification and goes over without a range. The end-of-life information as text
+(`wasteBatteryPreventionManagementInfo`, ten texts), the detailed composition
+(`eubat:compositionDescription`), how the not-in-use temperature range was determined
+(`eubat:temperatureRangeTestDescription`), the spare part replacement details (a document of type
+`eubat:SparePartReplacementDocument` among `oec:hasDocuments`), the trademark (the product's
+`gs1:brand`) and the power capabilities without a state of charge go both ways. The Amperia StaxWall
+10 passport (`tests/amperia-stationary-item`) is complete in every view; its texts carry a region
+(`en-GB`), which defect 1 otherwise demands.
 
 What the OpenEPCIS battery model cannot hold, found by lowering the Commission's examples
-(`conformance.txt`); each is a candidate for the battery step:
+(`conformance.txt`):
 
 | Registry data element | OpenEPCIS today |
 |---|---|
 | `manufacturingDate` (year and month) | `gs1:productionDate` is a full date; a month is not lowered |
-| `manufacturerTradeName`, `manufacturerTrademark` | no term |
+| `manufacturerTradeName` | no term (the trademark is the product's `gs1:brand`) |
 | `complianceTestReportResults` as a document (content type, title, language) | a bare URL (`eubat:resultOfTestReport`); the Registry requires the content type |
 | `roundTripEnergyEfficiency` and `remainingRoundTripEfficiency` as two values | one parameter (`eubat:RemainingRoundTripEfficiency`, adjudication of 2026-11-06); lowering keeps the remaining value, lifting writes it to both |
 | `euDeclarationOfConformity` content type, title, language | `cccev:Evidence` with the URL only |
-| `originalPowerCapability`, `powerCapability` (one value) | values per state of charge (80 % and 20 %) |
 | `numberOfDischargingCycles` | only the full cycle count |
-| `wasteBatteryPreventionManagementInfo` (ten texts) | three URLs (`eubat:wastePrevention`, …) |
-| `detailedComposition`, `negativeEvents`, `cycleLifeReferenceTest`, `notInUseTemperatureRangeTest` (texts) | structured or URL-valued terms, or none |
+| `negativeEvents`, `cycleLifeReferenceTest` (texts) | negative events as structured events; the reference test's method name is a plain string |
 | `environmentalConditionHistogramSet`, `stateOfChargeHistogram` | minutes above / below the boundary, the current state of charge |
-| `sparePartReplacementDetails` (a document) | spare-part sources as organisations |
 | energy values (kWh) | the Registry has no energy unit; kWh values are not converted |
 
 ## The BatteryPass-Ready 2.0.1 profile

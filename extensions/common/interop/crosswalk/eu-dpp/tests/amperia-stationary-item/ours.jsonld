@@ -341,6 +341,10 @@
         "type": "gs1:QuantitativeValue",
         "gs1:value": 55,
         "gs1:unitCode": "CEL"
+      },
+      "eubat:temperatureRangeTestDescription": {
+        "@value": "Storage at the range bounds for 30 days, then capacity check (IEC 62619, clause 7.2).",
+        "@language": "en-GB"
       }
     },
     "eubat:hasPerformanceTest": {
@@ -485,6 +489,123 @@
               "gs1:unitCode": "KWT"
             }
           }
+        },
+        {
+          "id": "https://id.gs1.org/01/09521234002000#voltage-nominal",
+          "type": "oea:TestExecution",
+          "oea:hasCondition": [
+            {
+              "type": "oea:AssessmentCondition",
+              "oea:hasConditionType": {
+                "@id": "eubat:LowerTemperatureBound"
+              },
+              "oea:hasConditionValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": 20,
+                "gs1:unitCode": "CEL"
+              }
+            },
+            {
+              "type": "oea:AssessmentCondition",
+              "oea:hasConditionType": {
+                "@id": "eubat:UpperTemperatureBound"
+              },
+              "oea:hasConditionValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": 30,
+                "gs1:unitCode": "CEL"
+              }
+            }
+          ],
+          "oea:hasResult": {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:NominalVoltage"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "51.2",
+              "gs1:unitCode": "VLT"
+            }
+          }
+        },
+        {
+          "id": "https://id.gs1.org/01/09521234002000#voltage-minimum",
+          "type": "oea:TestExecution",
+          "oea:hasCondition": [
+            {
+              "type": "oea:AssessmentCondition",
+              "oea:hasConditionType": {
+                "@id": "eubat:LowerTemperatureBound"
+              },
+              "oea:hasConditionValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": -10,
+                "gs1:unitCode": "CEL"
+              }
+            },
+            {
+              "type": "oea:AssessmentCondition",
+              "oea:hasConditionType": {
+                "@id": "eubat:UpperTemperatureBound"
+              },
+              "oea:hasConditionValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": 50,
+                "gs1:unitCode": "CEL"
+              }
+            }
+          ],
+          "oea:hasResult": {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:MinimumVoltage"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "44.8",
+              "gs1:unitCode": "VLT"
+            }
+          }
+        },
+        {
+          "id": "https://id.gs1.org/01/09521234002000#voltage-maximum",
+          "type": "oea:TestExecution",
+          "oea:hasCondition": [
+            {
+              "type": "oea:AssessmentCondition",
+              "oea:hasConditionType": {
+                "@id": "eubat:LowerTemperatureBound"
+              },
+              "oea:hasConditionValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": -10,
+                "gs1:unitCode": "CEL"
+              }
+            },
+            {
+              "type": "oea:AssessmentCondition",
+              "oea:hasConditionType": {
+                "@id": "eubat:UpperTemperatureBound"
+              },
+              "oea:hasConditionValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": 50,
+                "gs1:unitCode": "CEL"
+              }
+            }
+          ],
+          "oea:hasResult": {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:MaximumVoltage"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "58.4",
+              "gs1:unitCode": "VLT"
+            }
+          }
         }
       ]
     },
@@ -613,6 +734,22 @@
     "gs1:organizationName": "EPCIS Cloud DPP Services"
   },
   "oec:passportStatus": "active",
+  "eubat:compositionDescription": {
+    "@value": "Cathode: lithium iron phosphate (LFP); anode: graphite; electrolyte: LiPF6 in organic carbonates; casing: aluminium.",
+    "@language": "en-GB"
+  },
+  "oec:hasDocuments": [
+    {
+      "type": "oec:DocumentReference",
+      "oec:hasDocumentType": {
+        "@id": "eubat:SparePartReplacementDocument"
+      },
+      "oec:documentUrl": "https://www.amperia.example/staxwall-10/docs/spare-part-replacement.pdf",
+      "oec:mimeType": "application/pdf",
+      "oec:languageCode": "en-GB",
+      "schema:name": "StaxWall 10 spare part replacement"
+    }
+  ],
   "gs1:productionDate": "2026-01-22",
   "eubat:hasManufacturingPlace": {
     "id": "https://id.gs1.org/414/9521234000112",
@@ -696,7 +833,47 @@
     },
     "eubat:wastePrevention": "https://www.amperia.example/staxwall-10/docs/waste-prevention.pdf",
     "eubat:separateCollection": "https://www.amperia.example/staxwall-10/docs/separate-collection.pdf",
-    "eubat:informationOnCollection": "https://www.amperia.example/staxwall-10/docs/collection-and-second-life.pdf"
+    "eubat:informationOnCollection": "https://www.amperia.example/staxwall-10/docs/collection-and-second-life.pdf",
+    "eubat:endUserRoleInWastePrevention": {
+      "@value": "Use the battery within its rated limits and have faults repaired by an authorised installer to extend its life.",
+      "@language": "en-GB"
+    },
+    "eubat:endUserRoleInSeparateCollection": {
+      "@value": "Do not dispose of the battery with household waste; hand it to the installer or a registered collection point.",
+      "@language": "en-GB"
+    },
+    "eubat:separateCollectionPoints": {
+      "@value": "Registered collection points: https://www.amperia.example/staxwall-10/collection-points",
+      "@language": "en-GB"
+    },
+    "eubat:takeBackCollectionPoints": {
+      "@value": "Amperia takes the battery back free of charge through its installer network.",
+      "@language": "en-GB"
+    },
+    "eubat:preparationForReuseFacilities": {
+      "@value": "Authorised re-use partner: Amperia Service Centre, Kassel.",
+      "@language": "en-GB"
+    },
+    "eubat:preparationForRepurposingFacilities": {
+      "@value": "Authorised repurposing partner for second-life storage: Amperia Second Life, Kassel.",
+      "@language": "en-GB"
+    },
+    "eubat:wasteBatteryTreatmentFacilities": {
+      "@value": "Authorised recycler for lithium iron phosphate batteries: see https://www.amperia.example/staxwall-10/recycling",
+      "@language": "en-GB"
+    },
+    "eubat:wasteBatterySafetyInstructions": {
+      "@value": "Disconnect, keep the terminals covered, store dry and away from heat; a damaged battery goes in a non-flammable container.",
+      "@language": "en-GB"
+    },
+    "eubat:labelSymbolMeaning": {
+      "@value": "The crossed-out wheeled bin means the battery must be collected separately from household waste.",
+      "@language": "en-GB"
+    },
+    "eubat:substancesImpact": {
+      "@value": "Electrolyte and electrode materials can harm soil, water and health if the battery is disposed of improperly or damaged.",
+      "@language": "en-GB"
+    }
   },
   "gs1:hasSerialNumber": "STAX10-2026-000001",
   "schema:serialNumber": "STAX10-2026-000001",

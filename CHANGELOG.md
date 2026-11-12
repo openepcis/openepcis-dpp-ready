@@ -9,6 +9,15 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Changed: EU DPP Registry output complete for a full passport
+
+The eu-dpp crosswalk now carries voltages measured within a temperature range, the end-of-life
+information as text, the detailed composition, the not-in-use temperature test, the spare part
+replacement details, the trademark and power capabilities without a state of charge, both ways.
+The Amperia StaxWall 10 passport is complete in every Registry view; round trips of the
+Commission's documents are complete in 3 of 4 cases (was 1). New battery terms, see
+`extensions/eu/battery/CHANGELOG.md`.
+
 ### Fixed: `colourCodeList` and `packagingMaterialType` codes resolve to GS1 IRIs
 
 Both terms in `common/core/gs1-shortcuts-context.jsonld` were typed `@id`, so the bare GS1 code a

@@ -4,7 +4,7 @@
 # several candidates the one of the element's main row wins (the row lowering writes back), then a
 # dismantling manual, then the first by URL. A language goes along only in the Registry's form
 # (language-REGION, "en-GB"); a plain "en" would be rejected. The document sits on the product or on
-# the container xw:via names. Without a stated MIME type (a bare URL, a document without one) the
+# the container xw:via names. A row with xw:docType takes only documents of that type. Without a stated MIME type (a bare URL, a document without one) the
 # media type, which the Registry requires, follows from the URL as in the batterypass profile: the
 # file extension (pdf, html, json, jsonld, xml, svg, png, jpg), and a URL without one is a web page
 # (text/html); another extension leaves it out.
@@ -21,6 +21,8 @@ WHERE {
       GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
       { GRAPH <urn:xw:in> { ?r ?p ?o } } UNION { GRAPH <urn:xw:in> { ?r ?via ?c . ?c ?p ?o } }
       OPTIONAL { GRAPH <urn:xw:in> { ?o ?up ?u0 } FILTER(?up IN (oec:documentUrl, eubat:documentUrl, eubat:declarationOfConformity)) }
+      OPTIONAL { ?row xw:docType ?dt }
+      FILTER(!BOUND(?dt) || EXISTS { GRAPH <urn:xw:in> { ?o oec:hasDocumentType|eubat:hasDocumentType ?dt } })
       FILTER(BOUND(?u0) || (isLiteral(?o) && REGEX(STR(?o), "^https?://")))
       BIND(IF(EXISTS { ?row xw:lowerSkip true }, "1", "0") AS ?rank1)
       BIND(IF(EXISTS { GRAPH <urn:xw:in> { ?o eubat:hasDocumentType eubat:DismantlingManual } }, "0", "1") AS ?rank2)
@@ -31,6 +33,8 @@ WHERE {
   OPTIONAL { ?row xw:via ?via2 }
   { GRAPH <urn:xw:in> { ?r ?p ?o } } UNION { GRAPH <urn:xw:in> { ?r ?via2 ?c2 . ?c2 ?p ?o } }
   OPTIONAL { GRAPH <urn:xw:in> { ?o ?up ?u0 } FILTER(?up IN (oec:documentUrl, eubat:documentUrl, eubat:declarationOfConformity)) }
+  OPTIONAL { ?row xw:docType ?dt2 }
+  FILTER(!BOUND(?dt2) || EXISTS { GRAPH <urn:xw:in> { ?o oec:hasDocumentType|eubat:hasDocumentType ?dt2 } })
   FILTER(BOUND(?u0) || (isLiteral(?o) && REGEX(STR(?o), "^https?://")))
   BIND(IF(EXISTS { ?row xw:lowerSkip true }, "1", "0") AS ?rank1)
   BIND(IF(EXISTS { GRAPH <urn:xw:in> { ?o eubat:hasDocumentType eubat:DismantlingManual } }, "0", "1") AS ?rank2)

@@ -70,4 +70,16 @@ WHERE {
     ?sub oea:hasResult ?r . ?r oea:hasObservedParameter eubat:PowerCapability ; oea:hasMeasuredValue ?pq
   }
   FILTER NOT EXISTS { GRAPH <urn:xw:in> { ?sub oea:hasCondition ?c } }
+} ;
+
+# A voltage within a temperature range: the sub-assessment is the handle's node.
+INSERT { GRAPH <urn:xw:in> { ?ts ?v ?sub . ?sub <urn:xw:v:hasVoltage> ?vq ; <urn:xw:v:lowerTemperature> ?lo ; <urn:xw:v:upperTemperature> ?hi } }
+WHERE {
+  GRAPH <urn:xw:bg> { ?v xw:voltageParameter ?param }
+  GRAPH <urn:xw:in> {
+    ?ts eubat:hasPerformanceTest ?a . ?a oea:hasSubAssessment ?sub .
+    ?sub oea:hasResult ?r . ?r oea:hasObservedParameter ?param ; oea:hasMeasuredValue ?vq .
+  }
+  OPTIONAL { GRAPH <urn:xw:in> { ?sub oea:hasCondition ?c1 . ?c1 oea:hasConditionType eubat:LowerTemperatureBound ; oea:hasConditionValue/gs1:value ?lo } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?sub oea:hasCondition ?c2 . ?c2 oea:hasConditionType eubat:UpperTemperatureBound ; oea:hasConditionValue/gs1:value ?hi } }
 }

@@ -107,4 +107,24 @@ WHERE {
   GRAPH <urn:xw:out> { ?h ?v ?pq . ?h ?entry ?a . ?pq gs1:value ?any }
   FILTER NOT EXISTS { GRAPH <urn:xw:out> { ?pq <urn:xw:v:hasPowerCapability> ?x } }
   BIND(BNODE() AS ?sub) BIND(BNODE() AS ?r)
+} ;
+
+# A voltage within a temperature range: the handle's node becomes the sub-assessment, with the
+# bounds as conditions in degrees Celsius.
+INSERT { GRAPH <urn:xw:out> {
+  ?a oea:hasSubAssessment ?sub . ?sub a oea:TestExecution ; oea:hasResult ?r .
+  ?r a oea:MeasurementResult ; oea:hasObservedParameter ?param ; oea:hasMeasuredValue ?vq .
+  ?sub oea:hasCondition ?c1 . ?c1 a oea:AssessmentCondition ; oea:hasConditionType eubat:LowerTemperatureBound ; oea:hasConditionValue ?q1 .
+  ?q1 a gs1:QuantitativeValue ; gs1:value ?lo ; gs1:unitCode "CEL" .
+  ?sub oea:hasCondition ?c2 . ?c2 a oea:AssessmentCondition ; oea:hasConditionType eubat:UpperTemperatureBound ; oea:hasConditionValue ?q2 .
+  ?q2 a gs1:QuantitativeValue ; gs1:value ?hi ; gs1:unitCode "CEL" } }
+WHERE {
+  GRAPH <urn:xw:bg> { ?v xw:voltageParameter ?param }
+  GRAPH <urn:xw:out> { ?h ?v ?sub . ?h eubat:hasPerformanceTest ?a . ?sub <urn:xw:v:hasVoltage> ?vq }
+  OPTIONAL { GRAPH <urn:xw:out> { ?sub <urn:xw:v:lowerTemperature> ?lo0 } }
+  OPTIONAL { GRAPH <urn:xw:out> { ?sub <urn:xw:v:upperTemperature> ?hi0 } }
+  BIND(xsd:decimal(STR(?lo0)) AS ?lo) BIND(xsd:decimal(STR(?hi0)) AS ?hi)
+  BIND(BNODE() AS ?r)
+  BIND(IF(BOUND(?lo), BNODE(), ?n1) AS ?c1) BIND(IF(BOUND(?lo), BNODE(), ?n2) AS ?q1)
+  BIND(IF(BOUND(?hi), BNODE(), ?n3) AS ?c2) BIND(IF(BOUND(?hi), BNODE(), ?n4) AS ?q2)
 }

@@ -1,0 +1,9 @@
+# The Registry's wasteBatteryPreventionManagementInfo texts back to our end-of-life information,
+# language-tagged texts unchanged.
+CONSTRUCT { ?r eubat:hasEndOfLifeInfo ?eol . ?eol a eubat:EndOfLifeInfo ; ?p ?t . }
+WHERE {
+  GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport ; bat:wasteBatteryPreventionManagementInfo ?w . ?w ?f ?t }
+  FILTER(isIRI(?r) && LANG(?t) != "")
+  VALUES (?p ?f) { (eubat:endUserRoleInWastePrevention bat:endUserRoleInWastePrevention) (eubat:endUserRoleInSeparateCollection bat:endUserRoleInSeparateCollection) (eubat:separateCollectionPoints bat:separateCollectionPoints) (eubat:takeBackCollectionPoints bat:takeBackCollectionPoints) (eubat:preparationForReuseFacilities bat:preparationForReuseFacilities) (eubat:preparationForRepurposingFacilities bat:preparationForRepurposingFacilities) (eubat:wasteBatteryTreatmentFacilities bat:wasteBatteryTreatmentFacilities) (eubat:wasteBatterySafetyInstructions bat:wasteBatterySafetyInstructions) (eubat:labelSymbolMeaning bat:batteryLabelSymbolMeaning) (eubat:substancesImpact bat:batterySubstancesImpact) }
+  BIND(IRI(CONCAT(STR(?r), "#eol")) AS ?eol)
+}

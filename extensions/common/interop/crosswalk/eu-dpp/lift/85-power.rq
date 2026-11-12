@@ -2,10 +2,11 @@
 # Regulation (Annex IV, part B) and OpenEPCIS state it per state of charge (sub-assessments of the
 # performance test and of the battery state, shared/battery-handles.ttl). The value at the highest
 # state of charge stated goes over (80 % in the EU test method). The way back cannot restore the
-# state of charge and leaves the field to roundtrip.txt. The remaining power capability is a data
+# state of charge; a capability stated without one (the handle carries the quantity) goes over as it is. The remaining power capability is a data
 # element of the subgroups (EV, LMT, industrial) only.
 CONSTRUCT { ?r ?field ?q . ?q dppcom:value ?val ; dppcom:unit unit:watt . }
 WHERE {
+ {
   {
     SELECT ?r ?field (MAX(?soc) AS ?top) WHERE {
       GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
@@ -24,4 +25,16 @@ WHERE {
   FILTER(?field != bat:powerCapability || EXISTS { GRAPH <urn:xw:roots> { ?r xw:spec ?sg } FILTER(CONTAINS(?sg, "/subgroup/")) })
   BIND(xsd:double(STR(?v)) * COALESCE(?f, 1) AS ?val)
   BIND(BNODE() AS ?q)
+  } UNION {
+  GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
+  VALUES (?h3 ?field) { (<urn:xw:v:hasOriginalPowerCapability> bat:originalPowerCapability) (<urn:xw:v:hasRemainingPowerCapability> bat:powerCapability) }
+  { GRAPH <urn:xw:in> { ?r ?h3 ?pq3 } } UNION { GRAPH <urn:xw:in> { ?r eubat:hasTechnicalSpecifications ?ts3 . ?ts3 ?h3 ?pq3 } }
+  GRAPH <urn:xw:in> { ?pq3 gs1:value ?v3 ; gs1:unitCode ?u3 }
+  FILTER NOT EXISTS { { GRAPH <urn:xw:in> { ?r ?h3 ?s4 . ?s4 <urn:xw:v:hasPowerCapability> ?x4 } } UNION { GRAPH <urn:xw:in> { ?r eubat:hasTechnicalSpecifications ?ts4 . ?ts4 ?h3 ?s5 . ?s5 <urn:xw:v:hasPowerCapability> ?x5 } } }
+  FILTER(?field != bat:powerCapability || EXISTS { GRAPH <urn:xw:roots> { ?r xw:spec ?sg3 } FILTER(CONTAINS(?sg3, "/subgroup/")) })
+  ?urow3 xw:unitCode ?uc3 ; xw:euUnit unit:watt . FILTER(STR(?uc3) = STR(?u3))
+  OPTIONAL { ?urow3 xw:factor ?f3 }
+  BIND(xsd:double(STR(?v3)) * COALESCE(?f3, 1) AS ?val)
+  BIND(BNODE() AS ?q)
+ }
 }

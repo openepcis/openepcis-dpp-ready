@@ -61,3 +61,13 @@
 # <urn:xw:v:hasPowerCapability> (gs1:QuantitativeValue): the sub-assessment with that condition.
 <urn:xw:v:hasOriginalPowerCapability> xw:powerCapability true ; xw:in xw:PerformanceTest .
 <urn:xw:v:hasRemainingPowerCapability> xw:powerCapability true ; xw:in xw:BatteryState .
+
+# ---------------------------------------------------------------- voltages within a temperature range
+# The handle's value is a node with <urn:xw:v:hasVoltage> (gs1:QuantitativeValue) and, when stated,
+# <urn:xw:v:lowerTemperature> / <urn:xw:v:upperTemperature> (bare numbers, degrees Celsius): the
+# performance test's sub-assessment whose result observes the parameter, with the conditions
+# eubat:LowerTemperatureBound / eubat:UpperTemperatureBound. A rating without conditions stays
+# eubat:hasNominalVoltage / hasMinimumVoltage / hasMaximumVoltage on the technical specification.
+<urn:xw:v:hasMeasuredNominalVoltage> xw:voltageParameter eubat:NominalVoltage ; xw:in xw:PerformanceTest .
+<urn:xw:v:hasMeasuredMinimumVoltage> xw:voltageParameter eubat:MinimumVoltage ; xw:in xw:PerformanceTest .
+<urn:xw:v:hasMeasuredMaximumVoltage> xw:voltageParameter eubat:MaximumVoltage ; xw:in xw:PerformanceTest .

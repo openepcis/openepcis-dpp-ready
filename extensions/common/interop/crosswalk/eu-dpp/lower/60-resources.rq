@@ -1,9 +1,9 @@
 # Resources back to documents: an oec:DocumentReference (URL, MIME type, language, title as
 # schema:name); the declaration of conformity a cccev:Evidence with its URL; a bare-URL row its URL
-# in our datatype. A row with xw:via puts it in that container.
+# in our datatype. A row with xw:via puts it in that container, one with xw:docType states the type.
 CONSTRUCT {
   ?r ?via ?n . ?n a ?ccls .
-  ?n ?p ?doc . ?doc a ?dcls ; ?urlp ?u ; oec:mimeType ?mime ; oec:languageCode ?lang ; schema:name ?title .
+  ?n ?p ?doc . ?doc a ?dcls ; ?urlp ?u ; oec:mimeType ?mime ; oec:languageCode ?lang ; schema:name ?title ; oec:hasDocumentType ?dt .
   ?n ?p ?bare .
 }
 WHERE {
@@ -13,6 +13,7 @@ WHERE {
   GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport ; ?field ?res . ?res dpp:url ?url }
   FILTER(isIRI(?r))
   OPTIONAL { ?row xw:via ?via . ?via xw:fragment ?frag ; xw:containerClass ?ccls }
+  OPTIONAL { ?row xw:docType ?dt }
   BIND(IF(BOUND(?via), IRI(CONCAT(STR(?r), "#", ?frag)), ?r) AS ?n)
   OPTIONAL { GRAPH <urn:xw:in> { ?res dpp:contentType ?m } }
   OPTIONAL { GRAPH <urn:xw:in> { ?res dpp:language ?l } }

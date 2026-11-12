@@ -4,6 +4,19 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- End-of-life information as language-tagged text, beside the URLs: `eubat:endUserRoleInWastePrevention`,
+  `endUserRoleInSeparateCollection`, `separateCollectionPoints`, `takeBackCollectionPoints`,
+  `preparationForReuseFacilities`, `preparationForRepurposingFacilities`, `wasteBatteryTreatmentFacilities`,
+  `wasteBatterySafetyInstructions`, `labelSymbolMeaning`, `substancesImpact` (Public).
+- `eubat:compositionDescription` (the detailed composition as text, AuthorizedOnly) and
+  `eubat:temperatureRangeTestDescription` (how the idle-state range was determined, Public).
+- Voltages measured within a temperature range: parameters `eubat:NominalVoltage`, `MinimumVoltage`,
+  `MaximumVoltage`, condition types `eubat:LowerTemperatureBound`, `UpperTemperatureBound`.
+- Document type `eubat:SparePartReplacementDocument` (an `oec:DocumentType`).
+- The Amperia StaxWall 10 example states all of them (texts in `en-GB`).
+
 ## [0.14.0] - 2026-11-12
 
 ### Changed
