@@ -438,15 +438,12 @@ eubat:RatedMaximumPowerShape a sh:NodeShape ;
 #     non-conformant by construction.
 #   * A batch or item passport does NOT restate the model- and party-level
 #     identifiers. Per the granularity model a finer passport RESOLVES that data
-#     up the Digital Link hierarchy — the same principle
-#     scripts/lib/ec-readiness-shacl-core.ts implements by folding the three
-#     levels onto one focus node before validating. Requiring them at item level
+#     up the Digital Link hierarchy. Requiring them at item level
 #     would demand duplication the architecture explicitly rejects.
 #
 # Mechanism: every shape below ships `sh:deactivated true` and the runner
-# activates exactly ONE level by its IRI suffix (-model / -batch / -item), the
-# same activateBySuffix() contract the generated EC readiness category shapes
-# use. scripts/check-shapes.ts and scripts/build-gitb-resources.ts share it, so
+# activates exactly ONE level by its IRI suffix (-model / -batch / -item) via
+# activateBySuffix(). scripts/check-shapes.ts and scripts/build-gitb-resources.ts share it, so
 # each level also becomes its own GITB validation type.
 #
 # Do NOT drop the sh:deactivated triples here: with all three active at once a

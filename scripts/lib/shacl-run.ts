@@ -4,9 +4,7 @@
  * Everything the project's SHACL gates share: parse a shapes graph, expand
  * JSON-LD documents to RDF, run rdf-validate-shacl, and map the
  * sh:ValidationReport onto a flat finding list. Callers add their own specifics
- * (scripts/lib/ec-readiness-shacl-core.ts folds the Digital Link hierarchy and
- * maps findings back to EC data points; scripts/check-shapes.ts loads the module
- * ontologies as background knowledge).
+ * (scripts/check-shapes.ts loads the module ontologies as background knowledge).
  *
  * IO lives with the caller so this stays usable from the esbuild browser
  * bundles, which have no filesystem.
@@ -94,12 +92,11 @@ export function stripOwlImports(store: Store): number {
  * Drop the `sh:deactivated true` triples of the shapes whose IRI ends in the
  * given suffix, activating exactly that subset.
  *
- * The generated EC readiness shapes ship every shape deactivated because the 71
- * guidance data points carry a different obligation per battery category; the
- * runner activates one category. The same mechanism serves
- * scripts/build-gitb-resources.ts, which cannot flip anything at runtime and so
- * emits one pre-activated shapes file per category — hence this lives here
- * rather than in either caller.
+ * The battery granularity shapes ship deactivated because each EN 18223 level
+ * carries different obligations; the runner activates one level. The same
+ * mechanism serves scripts/build-gitb-resources.ts, which cannot flip anything
+ * at runtime and so emits one pre-activated shapes file per level — hence this
+ * lives here rather than in either caller.
  *
  * Returns the number of shapes activated.
  */
@@ -221,8 +218,8 @@ export async function toDataGraph(
  *
  * `conforms` here is NOT sh:ValidationReport/sh:conforms, which is false as soon
  * as any result exists. It means "no sh:Violation": Warning and Info are graded
- * advice the generated EC readiness shapes rely on (conditional and optional
- * data points), and a gate that failed on them could never go green.
+ * advice (recommended and conditional data), and a gate that failed on them
+ * would turn advice into obligations.
  */
 export async function validate(shapes: Store, data: Store): Promise<Report> {
   const report = await new SHACLValidator(shapes).validate(data);

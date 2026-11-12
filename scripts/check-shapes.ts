@@ -4,7 +4,7 @@
  * and the project's own example passports must satisfy it.
  *
  * Until this gate existed, 10 of the 11 *-shapes.ttl files were never executed
- * by anything — only the generated battery ec-readiness-shapes.ttl had a runner.
+ * by anything.
  * Shapes that nothing executes are prose: they can reference undefined terms,
  * target classes that never appear, or contradict the examples shipped beside
  * them, and nothing notices. That is tolerable while the shapes are only
@@ -32,8 +32,7 @@
  * the shapes model into the input model before validating.
  *
  * Every sh:Violation fails the build. sh:Warning and sh:Info are reported and
- * tolerated: the generated EC readiness shapes use them for conditional and
- * optional data points by design.
+ * tolerated: they grade advice, not obligations.
  *
  * ENGINE CAVEAT: this gate runs rdf-validate-shacl, which has no SHACL-SPARQL
  * implementation and THROWS as soon as a sh:sparql shape reaches a matching node.

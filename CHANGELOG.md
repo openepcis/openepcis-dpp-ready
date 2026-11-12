@@ -9,6 +9,8 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.14.2] - 2026-11-12
+
 ### Changed: EU DPP Registry output complete for a full passport
 
 The eu-dpp crosswalk now carries voltages measured within a temperature range, the end-of-life
@@ -35,6 +37,20 @@ now live in `common/core/context/.gs1-shortcuts-overrides.json`, so `pnpm run bu
 reproduces them instead of reverting them to `@id`. `ppwr-shortcut-context.jsonld` no longer repeats
 `packagingMaterialType`: the generator drops a definition an earlier layer of the operational chain
 already provides identically, so the PPWR operational context and its bundle mean exactly the same.
+
+### Removed: the EC Battery Passport data-point guidance and its category validation types
+
+The EU DPP Registry semantic data artifacts (validated as external model types since 0.14.0) are the
+EU reference for battery passport data now, so the mirror of the Commission's guidance "Digital
+Batteries Passport - data points by category" goes. Removed: the OpenEPCIS-hosted vocabularies
+`ec-battery-passport-guidance` 1.0 and 3.2 with their generator `build:ec-guidance-vocab`, the 91
+`rdfs:seeAlso`/`skos:closeMatch` links from the battery ontology to its data points, the generated
+`ec-readiness-shapes.ttl` and `ec-datapoint-applicability.json`, `check:ec-readiness`, the
+`ec-readiness-checker` demo, `docs/EC_GUIDANCE_DATAPOINTS.md`, and the ITB validation types
+`eu.battery.ev`, `eu.battery.lmt` and `eu.battery.industrial` with their test cases. Battery passports
+validate against `eu.battery` and the EN 18223 granularity types `eu.battery.model`, `.batch` and
+`.item` as before; the EV, LMT and industrial example passports now route by granularity. No
+context term changes.
 
 ## [0.14.1] - 2026-11-12
 

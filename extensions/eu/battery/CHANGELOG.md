@@ -4,6 +4,8 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.14.2] - 2026-11-12
+
 ### Added
 
 - End-of-life information as language-tagged text, beside the URLs: `eubat:endUserRoleInWastePrevention`,
