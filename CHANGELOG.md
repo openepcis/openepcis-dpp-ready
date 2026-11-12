@@ -18,6 +18,26 @@ The Amperia StaxWall 10 passport is complete in every Registry view; round trips
 Commission's documents are complete in 3 of 4 cases (was 1). New battery terms, see
 `extensions/eu/battery/CHANGELOG.md`.
 
+### Fixed: `colourCodeList` and `packagingMaterialType` codes resolve to GS1 IRIs
+
+Both terms in `common/core/gs1-shortcuts-context.jsonld` were typed `@id`, so the bare GS1 code a
+passport API stores (`PANTONE_PROCESS_COLOUR`, `PLASTIC_OTHER`) became a relative IRI against the
+document URL and jsonld.js in safe mode rejected the passport. `colourCodeList` is now `@vocab` with
+a scoped context mapping the eleven codes of `gs1:ColourCodeList` to `gs1:ColourCodeList-<CODE>`.
+`packagingMaterialType` now carries the definition `eu/ppwr/ppwr-shortcut-context.jsonld` already
+had, mapping the codes to `gs1:PackagingMaterialTypeCode-<CODE>`; before, the `@id` definition from
+the shortcuts won inside scoped contexts. Absolute and compact IRIs expand as before, so no stored
+valid value changes meaning; `scripts/context-compat-allowlist.json` records the redefinition for
+every context and bundle that imports the shortcuts.
+
+The three code-list definitions (`certificationStatus`, `colourCodeList`, `packagingMaterialType`)
+now live in `common/core/context/.gs1-shortcuts-overrides.json`, so `pnpm run build:context`
+reproduces them instead of reverting them to `@id`. `ppwr-shortcut-context.jsonld` no longer repeats
+`packagingMaterialType`: the generator drops a definition an earlier layer of the operational chain
+already provides identically, so the PPWR operational context and its bundle mean exactly the same.
+
+## [0.14.1] - 2026-11-12
+
 ### Fixed: `certificationStatus` codes resolve to GS1 IRIs
 
 `certificationStatus` in `common/core/gs1-shortcuts-context.jsonld` was typed `@id`, so the bare GS1
