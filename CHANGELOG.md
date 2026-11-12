@@ -9,6 +9,24 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.13.1] - 2026-11-11
+
+### Added: BatteryPass-Ready 2.0.1 from EPCIS events
+
+`pnpm run reconstruct:batterypass-ready` assembles one battery's model, batch and item passports,
+folds its EPCIS events into the battery state and exports the result as a BatteryPass-Ready 2.0.1
+document through the crosswalk. The v1.0 reconstruction stays. See
+`extensions/eu/battery/docs/EPCIS_AND_BATTERYPASS_READY.md`.
+
+### Changed: BatteryPass-Ready 2.0.1 export
+
+The export states `dppSchemaVersion` "2.0.1" (it carried the source's "1.3") and now also writes the
+registered trade name, the third-party service provider (backup copy host), the sources of spare
+parts, the information on accidents, the temperature information and the content type of resources
+OpenEPCIS keeps as bare URLs. The Amperia StaxWall 10 example is complete against the stationary
+schema except two values it cannot have. See `extensions/common/interop/CHANGELOG.md` and
+`extensions/eu/battery/CHANGELOG.md`.
+
 ## [0.13.0] - 2026-11-11
 
 ### Added: BatteryPass-Ready 2.0.1

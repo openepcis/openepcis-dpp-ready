@@ -34,11 +34,13 @@ that connection precisely.
 The live GEFEG server is authoritative over the published static schemas; see
 [`reference/gefeg-batterypass-ready/SOURCE.md`](./reference/gefeg-batterypass-ready/SOURCE.md).
 The GEFEG test environment's data model is **v1.0** (Attribute Longlist v1.3, SAMM 1.2.0/1.2.1); the
-fixtures and the reconstruction below target it. The current BatteryPass-Ready data model is
+fixtures and the v1.0 reconstruction below target it. The current BatteryPass-Ready data model is
 **2.0.1** (`vendor/batterypass-ready/2.0.1`): an OpenEPCIS item passport, including the battery state
 and performance test values the events below feed, converts to a 2.0.1 document through the crosswalk
-profile `batterypass` (`pnpm run export:batterypass-ready`). 2.0.1 dropped the energy and capacity
-throughput and the time in extreme temperatures, which this reconstruction folds.
+profile `batterypass` (`pnpm run export:batterypass-ready`), and the
+[2.0.1 reconstruction](#reconstruction-to-batterypass-ready-201) folds the events into that passport
+first. 2.0.1 dropped the energy and capacity throughput and the time in extreme temperatures; the
+fold still records them in the OpenEPCIS passport.
 
 ## What lives at which level
 
@@ -136,6 +138,36 @@ coverage is never silently capped (for this battery: RemainingPowerCapability, P
 EnergyRoundTripEfficiencyFade, EvolutionOfSelf-dischargeRates, CapacityThroughput,
 InformationOnAccidents). Without this fold, a model-level passport emits those item fields as
 beginning-of-life values (the exporter says as much in its `PerformanceAndDurability` comment).
+
+### Reconstruction to BatteryPass-Ready 2.0.1
+
+[`scripts/reconstruct-batterypass-ready.ts`](../../../../scripts/reconstruct-batterypass-ready.ts)
+stays in the OpenEPCIS model until the last step. It merges the model, batch and item passports of
+one battery (JSON-LD, coarsest first, the finer layer winning per key), folds the item's events with
+the same fold as above, and writes each reading as the result observing its parameter under
+`eubat:hasBatteryState`: a sensor report's `type` is already the `eubat:` performance parameter
+(`eubat:StateOfCharge`, `eubat:FullCycleCount`, ...). Derived values follow the table above (cycles
+as the maximum reading, SOCE in kWh as a share of the rated energy, the resistance increase against
+the performance test's initial pack resistance, temperature time and deep-discharge events summed);
+`oec:lastUpdated` becomes the latest event. The merged passport then goes through the crosswalk
+export, so the 2.0.1 document is checked against its category schema like any other export.
+
+```
+pnpm run reconstruct:batterypass-ready -- \
+  --layers extensions/eu/battery/examples/amperia-staxwall-model.jsonld,extensions/eu/battery/examples/amperia-staxwall-batch.jsonld,extensions/eu/battery/examples/amperia-staxwall-item.jsonld \
+  --events extensions/eu/battery/epcis/amperia-staxwall-lifecycle.jsonld \
+  --passport merged.jsonld --out passport.bpr.json
+```
+
+For the Amperia StaxWall 10 (stationary) the item events give state of charge 62 %, 640 full
+cycles, 195 Ah remaining capacity, 2.5 % capacity fade, 3.1 % power fade, 94 % remaining and 1.9 %
+faded round-trip efficiency, a 5.6 % pack resistance increase, 24.5 °C operating temperature and
+72 min above the temperature boundary (a temperature alarm: `exception` ALARM_CONDITION over the
+sensor element's window counts as an excursion, as an `eubat:exposureDurationMinutes` report does).
+The document has no wrong form and lacks two required values, both for a reason: information on
+accidents (the battery had none, so there is no incident report to link) and the cell's internal
+resistance (0.25 mΩ; 2.0.1 types ohms as integers). The script lists such values. `pnpm test` checks
+the reconstruction with the item's state results removed, so the events alone feed them.
 
 ## Why the split
 

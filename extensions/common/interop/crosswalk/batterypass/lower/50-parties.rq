@@ -4,12 +4,17 @@
 # Digital Link (https://id.gs1.org/417/{GLN}) gives the GLN; an economic operator that is the
 # manufacturer has the role oec:Manufacturer. The facility is the manufacturing place, whose one-line address
 # "locality, country code" becomes a postal address (another form a schema:address text). The
-# warranty period (years, months or days) becomes the duration of the manufacturer's warranty.
+# warranty period (years, months or days) becomes the duration of the manufacturer's warranty. A
+# registered trade name other than the name is the party's schema:legalName; the third-party service
+# provider the backup copy host: a party Digital Link an operator with that GLN, another URL an
+# organisation of that IRI, a text the name of an organisation.
 CONSTRUCT {
   ?r ?op ?org . ?org a ?ocls ; gs1:organizationName ?name ; schema:address ?addr ; schema:url ?web ; gs1:globalLocationNumber ?gln ; oec:hasOperatorRole ?role .
   ?org gs1:contactPoint ?cp . ?cp a gs1:ContactPoint ; gs1:email ?email .
   ?r eubat:hasManufacturingPlace ?pl . ?pl a gs1:Place ; gs1:address ?pa ; schema:address ?pline .
   ?pa a gs1:PostalAddress ; gs1:addressLocality ?loc ; gs1:addressCountry ?pc . ?pc a gs1:Country ; gs1:countryCode ?cc .
+  ?org schema:legalName ?legal .
+  ?r oec:hasBackupCopyHost ?bh . ?bh a ?bhc ; gs1:organizationName ?bhn ; gs1:globalLocationNumber ?bhg .
   ?r gs1:manufacturersWarranty ?w . ?w a gs1:WarrantyPromise ; gs1:durationOfWarranty ?q . ?q a gs1:QuantitativeValue ; gs1:value ?wv ; gs1:unitCode ?wc .
 }
 WHERE {
@@ -31,6 +36,11 @@ WHERE {
     BIND(IF(BOUND(?eo2), oec:Manufacturer, ?n00) AS ?role)
     {
       GRAPH <urn:xw:in> { ?oi bprx:name ?n } BIND(STR(?n) AS ?name)
+    } UNION {
+      GRAPH <urn:xw:in> { ?oi bpr:registeredTradeNameOrRegisteredTrademark ?tn }
+      OPTIONAL { GRAPH <urn:xw:in> { ?oi bprx:name ?n9 } }
+      FILTER(!BOUND(?n9) || STR(?n9) != STR(?tn))
+      BIND(STR(?tn) AS ?legal)
     } UNION {
       GRAPH <urn:xw:in> { ?oi bpr:postalAddress ?a } BIND(STR(?a) AS ?addr)
     } UNION {
@@ -69,5 +79,12 @@ WHERE {
     BIND(IRI(CONCAT(STR(?r), "#warranty")) AS ?w)
     BIND(xsd:decimal(?num) AS ?wv)
     BIND(BNODE() AS ?q)
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:thirdPartyServiceProvider ?t }
+    BIND(REGEX(STR(?t), "^https?://") AS ?isUrl)
+    BIND(IF(?isUrl, IRI(STR(?t)), IRI(CONCAT(STR(?r), "#backup-copy-host"))) AS ?bh)
+    BIND(IF(?isUrl, ?n6, STR(?t)) AS ?bhn)
+    BIND(IF(REGEX(STR(?t), "^https://id\\.gs1\\.org/417/[0-9]{13}$"), REPLACE(STR(?t), "^.*/", ""), ?n7) AS ?bhg)
+    BIND(IF(BOUND(?bhg), oec:OperatorInformation, gs1:Organization) AS ?bhc)
   }
 }

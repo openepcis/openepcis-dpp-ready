@@ -71,8 +71,8 @@ Battery categories can also be expressed via gs1:additionalProductClassification
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
     dcterms:created "2024-01-15"^^xsd:date ;
     dcterms:modified "2026-06-19"^^xsd:date ;
-    owl:versionInfo "0.13.0" ;
-    owl:versionIRI <https://ref.openepcis.org/extensions/eu/battery/0.13.0> ;
+    owl:versionInfo "0.13.1" ;
+    owl:versionIRI <https://ref.openepcis.org/extensions/eu/battery/0.13.1> ;
     vann:preferredNamespacePrefix "eubat" ;
     vann:preferredNamespaceUri "https://ref.openepcis.org/extensions/eu/battery/" ;
     rdfs:seeAlso <https://ref.gs1.org/voc/RegulationTypeCode-BATTERY_DIRECTIVE> ;
@@ -3241,6 +3241,15 @@ eubat:DeepDischargeEvents a oea:PerformanceParameter ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#numberOfDeepDischargeEvents> ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#numberOfDeepDischargeEvents> ;
     skos:closeMatch dppk:eventsDeepDischarge .
+
+eubat:BatteryTemperature a oea:PerformanceParameter ;
+    rdfs:label "Battery Temperature"@en ;
+    rdfs:comment "Temperature of the battery under its operating environmental conditions, the latest reading outside an extreme-temperature excursion (unitCode CEL). Excursions are counted by eubat:TimeAboveTemperatureBoundary and its siblings."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#temperatureInformation> ;
+    skos:exactMatch <https://w3id.org/eudpp/battery-performance#temperatureInformation> ;
+    skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#temperatureInformation> .
 
 eubat:RemainingUsableEnergy a oea:PerformanceParameter ;
     rdfs:label "Remaining Usable Energy"@en ;

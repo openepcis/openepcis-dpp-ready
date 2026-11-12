@@ -15,7 +15,15 @@
 
 export type Obj = Record<string, any>;
 
-export interface SensorReport { type: string; value: number; uom?: string }
+export interface SensorReport {
+  type: string;
+  value: number;
+  uom?: string;
+  /** EPCIS sensorReport.exception, e.g. ALARM_CONDITION. */
+  exception?: string;
+  /** Length of the sensor element's startTime..endTime window, in minutes. */
+  windowMinutes?: number;
+}
 
 /** One EPCIS event flattened to (epc, time, bizStep, disposition, reports). */
 export interface FoldEvent {
@@ -74,9 +82,14 @@ export function parseEpcisEvents(docs: Obj[]): FoldEvent[] {
       const epcs: string[] = Array.isArray(e.epcList) ? e.epcList : [];
       const reports: SensorReport[] = [];
       for (const se of e.sensorElementList ?? []) {
+        const start = Date.parse(se.sensorMetadata?.startTime);
+        const end = Date.parse(se.sensorMetadata?.endTime);
+        const windowMinutes = Number.isFinite(start) && Number.isFinite(end) && end > start ? (end - start) / 60000 : undefined;
         for (const r of se.sensorReport ?? []) {
           const value = sensorValue(r.value);
-          if (value !== undefined && typeof r.type === "string") reports.push({ type: r.type, value, uom: r.uom });
+          if (value !== undefined && typeof r.type === "string") {
+            reports.push({ type: r.type, value, uom: r.uom, exception: r.exception, windowMinutes });
+          }
         }
       }
       for (const epc of epcs) {
@@ -154,8 +167,12 @@ export function foldItemEvents(
   let deepDischarge = 0;
   const excursionEventTimes = new Set<number>();
   for (const e of evs) {
-    const temp = e.reports.find((r) => r.type === "Temperature")?.value;
-    const dur = e.reports.find((r) => r.type === "eubat:exposureDurationMinutes")?.value;
+    // An excursion states its exposure (eubat:exposureDurationMinutes), or is a temperature alarm
+    // (exception ALARM_CONDITION) lasting the sensor element's window.
+    const tempReport = e.reports.find((r) => r.type === "Temperature");
+    const temp = tempReport?.value;
+    const dur = e.reports.find((r) => r.type === "eubat:exposureDurationMinutes")?.value ??
+      (tempReport?.exception === "ALARM_CONDITION" ? tempReport.windowMinutes : undefined);
     if (temp !== undefined && dur !== undefined) {
       excursionEventTimes.add(e.time);
       const above = idleMax !== undefined && temp > idleMax ? true : idleMin !== undefined && temp < idleMin ? false : temp >= idleMid;

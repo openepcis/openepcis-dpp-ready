@@ -4,6 +4,18 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+## [0.13.1] - 2026-11-11
+
+### Changed
+
+- `batterypass` (2.0.1): `dppSchemaVersion` is "2.0.1". New: `registeredTradeNameOrRegisteredTrademark`
+  (`schema:legalName`, else the name), `thirdPartyServiceProvider` (`oec:hasBackupCopyHost`: party
+  Digital Link, else name), `informationOnSourcesOfSpareParts` (website of a spare-part source or its
+  contact), `informationOnAccidents` (incident report of the latest accident), `temperatureInformation`
+  (`eubat:BatteryTemperature`), both ways (`lift/65-related.rq`, `lower/65-related.rq`). A resource
+  without a MIME type gets its content type from the URL. The stationary inbound case now round-trips
+  without OpenEPCIS shape violations.
+
 ## [0.13.0] - 2026-11-11
 
 ### Added: BatteryPass-Ready 2.0.1 crosswalk profile

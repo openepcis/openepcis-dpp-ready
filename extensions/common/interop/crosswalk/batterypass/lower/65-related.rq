@@ -1,0 +1,29 @@
+# Related resources back to the nodes OpenEPCIS keeps them on (see lift/65-related.rq): the sources
+# of spare parts a spare-part source with that website and the title as its name; the information on
+# accidents an accident among the negative events with that incident report and the title as its
+# incident id. The media type has no place on either.
+CONSTRUCT {
+  ?r eubat:hasSparePartSources ?o . ?o a gs1:Organization ; schema:url ?web ; gs1:organizationName ?name .
+  ?r oec:hasPerformanceInfo ?pi . ?pi a oec:PerformanceInfo ; eubat:hasNegativeEvents ?e .
+  ?e a eubat:NegativeEvent ; eubat:hasEventType eubat:Accident ; eubat:incidentReportUrl ?report ; eubat:incidentId ?iid .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?r a bprx:BatteryPassport }
+  FILTER(isIRI(?r))
+  {
+    GRAPH <urn:xw:flat> { ?r bpr:informationOnSourcesOfSpareParts ?res }
+    GRAPH <urn:xw:in> { ?res bprx:url ?u }
+    OPTIONAL { GRAPH <urn:xw:in> { ?res bpr:resourceTitle ?t } }
+    BIND(IRI(CONCAT(STR(?r), "#spare-part-source")) AS ?o)
+    BIND(IRI(STR(?u)) AS ?web)
+    BIND(STR(?t) AS ?name)
+  } UNION {
+    GRAPH <urn:xw:flat> { ?r bpr:informationOnAccidents ?res }
+    GRAPH <urn:xw:in> { ?res bprx:url ?u }
+    OPTIONAL { GRAPH <urn:xw:in> { ?res bpr:resourceTitle ?t } }
+    BIND(IRI(CONCAT(STR(?r), "#performance")) AS ?pi)
+    BIND(IRI(CONCAT(STR(?r), "#accident")) AS ?e)
+    BIND(STRDT(STR(?u), xsd:anyURI) AS ?report)
+    BIND(STR(?t) AS ?iid)
+  }
+}

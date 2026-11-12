@@ -15,7 +15,7 @@
  * scripts/export-batterypass-gefeg.ts.
  */
 import { writeFileSync } from "node:fs";
-import { convert, loadBackground, loadInput, loadProfile } from "./lib/crosswalk.ts";
+import { convert, jsonldToQuads, loadBackground, loadInput, loadProfile } from "./lib/crosswalk.ts";
 import { jsonSchemaFindings, toTheirJson } from "./lib/crosswalk-target.ts";
 
 export interface ReadyExport {
@@ -26,9 +26,18 @@ export interface ReadyExport {
 
 /** The BatteryPass-Ready 2.0.1 documents of an OpenEPCIS JSON-LD file (one per item passport). */
 export async function exportBatteryPassReady(file: string): Promise<ReadyExport> {
+  return exportQuads(await loadInput(file));
+}
+
+/** The same for a passport held in memory (a JSON-LD document, e.g. one assembled from layers and events). */
+export async function exportBatteryPassReadyDoc(doc: unknown): Promise<ReadyExport> {
+  return exportQuads(await jsonldToQuads(doc));
+}
+
+async function exportQuads(quads: Awaited<ReturnType<typeof loadInput>>): Promise<ReadyExport> {
   const p = loadProfile("batterypass");
   await loadBackground(p);
-  const lifted = convert(p, "lift", await loadInput(file));
+  const lifted = convert(p, "lift", quads);
   const docs = await toTheirJson(p, lifted.quads);
   return { docs, findings: docs.map((d) => jsonSchemaFindings(p, d)) };
 }

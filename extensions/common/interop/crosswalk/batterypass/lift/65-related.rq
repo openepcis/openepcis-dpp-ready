@@ -1,0 +1,43 @@
+# Related resources OpenEPCIS keeps on other nodes. Sources of spare parts: the website (schema:url,
+# else that of its supplier contact) of a spare-part source (eubat:hasSparePartSources), its name as the title, the first by URL.
+# Information on accidents: the incident report (eubat:incidentReportUrl) of the latest accident
+# among the negative events (oec:hasPerformanceInfo/eubat:hasNegativeEvents, type eubat:Accident),
+# its incident id as the title. The media type follows from the URL as in 60-resources.rq.
+CONSTRUCT {
+  ?r ?field ?res .
+  ?res bprx:url ?url ; bpr:contentType ?mime ; bpr:resourceTitle ?title .
+}
+WHERE {
+  GRAPH <urn:xw:roots> { ?r xw:schema ?schema }
+  {
+    {
+      SELECT ?r (MIN(STR(?u)) AS ?url) WHERE {
+        GRAPH <urn:xw:roots> { ?r xw:schema ?s1 }
+        GRAPH <urn:xw:in> { ?r eubat:hasSparePartSources ?o . ?o schema:url|eubat:hasSupplierContact/schema:url ?u }
+      } GROUP BY ?r
+    }
+    OPTIONAL { GRAPH <urn:xw:in> { ?r eubat:hasSparePartSources ?o2 . ?o2 schema:url|eubat:hasSupplierContact/schema:url ?u2 . ?o2 gs1:organizationName ?n } FILTER(STR(?u2) = ?url) }
+    BIND(bpr:informationOnSourcesOfSpareParts AS ?field)
+    BIND(STR(?n) AS ?title)
+  } UNION {
+    {
+      SELECT ?r (MAX(CONCAT(COALESCE(STR(?d), ""), "|", STR(?u))) AS ?key) WHERE {
+        GRAPH <urn:xw:roots> { ?r xw:schema ?s2 }
+        GRAPH <urn:xw:in> { ?r oec:hasPerformanceInfo/eubat:hasNegativeEvents ?e . ?e eubat:hasEventType eubat:Accident ; eubat:incidentReportUrl ?u }
+        OPTIONAL { GRAPH <urn:xw:in> { ?e eubat:eventDate ?d } }
+      } GROUP BY ?r
+    }
+    BIND(REPLACE(?key, "^[^|]*\\|", "") AS ?url)
+    OPTIONAL { GRAPH <urn:xw:in> { ?r oec:hasPerformanceInfo/eubat:hasNegativeEvents ?e2 . ?e2 eubat:incidentReportUrl ?u3 ; eubat:incidentId ?iid } FILTER(STR(?u3) = ?url) }
+    BIND(bpr:informationOnAccidents AS ?field)
+    BIND(STR(?iid) AS ?title)
+  }
+  BIND(LCASE(REPLACE(?url, "^[^?#]*?(\\.([A-Za-z0-9]+))?([?#].*)?$", "$2")) AS ?ext)
+  BIND(COALESCE(
+    IF(?ext = "pdf", "application/pdf", ?x1), IF(?ext IN ("htm", "html"), "text/html", ?x2),
+    IF(?ext = "json", "application/json", ?x3), IF(?ext = "jsonld", "application/ld+json", ?x4),
+    IF(?ext = "xml", "application/xml", ?x5), IF(?ext = "svg", "image/svg+xml", ?x6), IF(?ext = "png", "image/png", ?x7),
+    IF(?ext IN ("jpg", "jpeg"), "image/jpeg", ?x8),
+    IF(!REGEX(?url, "^https?://[^/]+/[^?#]*\\.[A-Za-z0-9]+([?#].*)?$"), "text/html", ?x9)) AS ?mime)
+  BIND(BNODE() AS ?res)
+}

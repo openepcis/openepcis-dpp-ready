@@ -4,6 +4,29 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.13.1] - 2026-11-11
+
+### Added
+
+- `scripts/reconstruct-batterypass-ready.ts` (`pnpm run reconstruct:batterypass-ready`): model, batch
+  and item passport plus the item's EPCIS events → one OpenEPCIS item passport with the folded
+  battery state results → BatteryPass-Ready 2.0.1 via the crosswalk. Checked in `pnpm test`
+  (Amperia StaxWall 10). The fold is shared with the v1.0 reconstruction.
+- `eubat:BatteryTemperature` (performance parameter, CEL): the battery's temperature under operating
+  conditions, a result of `eubat:hasBatteryState`; exactMatch SAMM and EUDPP `temperatureInformation`
+  and BatteryPass-Ready 2.0.1 `temperatureInformation`.
+- The EPCIS fold (`scripts/passport/assemble-core.ts`) counts a temperature alarm (`exception`
+  ALARM_CONDITION) as an excursion lasting its sensor element's window.
+
+### Changed
+
+- Amperia StaxWall 10 examples: chemistry name, critical raw materials, hazardous substances with H and
+  P statements, dismantling documents, labels, spare-part source, backup copy host, operator address,
+  maximum permitted power, C-rate and power capability of the cycle-life test, round-trip efficiency
+  at 50 % cycle life, cell resistance; end-of-life documents on the batch; power and round-trip
+  efficiency fade, temperature and remaining power capability on the item; the lifecycle events carry
+  the matching readings.
+
 ## [0.13.0] - 2026-11-11
 
 ### Added: BatteryPass-Ready 2.0.1
