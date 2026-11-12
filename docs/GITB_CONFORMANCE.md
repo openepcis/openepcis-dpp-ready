@@ -49,12 +49,11 @@ against it.
 | `dpp.core` | the cross-cutting ESPR core (`oec:`) |
 | `eu.battery`, `eu.textile`, `eu.electronics`, `eu.detergent`, `eu.eudr`, `eu.ppwr`, `eu.cpr`, `eu.iron-steel`, `us.fsma204` | one regulation module each, core included |
 | `eu.battery.model`, `.batch`, `.item` | EN 18223 granularity, where obligations differ by level |
-| `eu.battery.ev`, `.lmt`, `.industrial` | EC battery-passport guidance coverage per category |
 
 Every regulation type bundles `dpp-core-shapes.ttl` as well, because `oec:` is
 cross-cutting: a battery passport must satisfy the core constraints too.
 
-Granularity and category variants exist only where the shapes genuinely differ.
+Granularity variants exist only where the shapes genuinely differ.
 Declaring three levels for every module would triple the type count while
 validating exactly the same thing, and `config.properties` would stop meaning
 anything. Battery is currently the only module whose obligations vary by level —
@@ -65,8 +64,8 @@ restating them.
 ### Severity policy
 
 `sh:Violation` fails a test. `sh:Warning` and `sh:Info` are reported and tolerated:
-the generated EC readiness shapes use them deliberately for conditional and
-optional data points, so a gate that failed on them could never go green.
+they grade advice (recommended and conditional data), so a gate that failed
+on them would turn advice into obligations.
 
 This is why the report's `conforms` is not
 `sh:ValidationReport/sh:conforms` — that is false as soon as any result exists.

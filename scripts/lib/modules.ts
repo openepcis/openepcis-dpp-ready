@@ -110,22 +110,19 @@ const CURATED: Record<string, CuratedModule> = {
 };
 
 /**
- * A generated shapes graph that covers one applicability category of a module,
- * carved out of a single multi-category source file.
- *
- * The EC Battery Passport guidance assigns each of its 71 data points a
- * different obligation per battery category, so the generated
- * ec-readiness-shapes.ttl ships all 198 shapes `sh:deactivated true` and the
- * runner activates one category's suffix. The ITB validators cannot flip
- * anything at request time, so each category also becomes its own validation
- * type backed by a pre-activated copy.
+ * A generated shapes graph that covers one variant of a module (an EN 18223
+ * granularity level), carved out of a single multi-variant source file. The
+ * source ships the variant shapes `sh:deactivated true` and the runner
+ * activates one variant's IRI suffix. The ITB validators cannot flip anything
+ * at request time, so each variant also becomes its own validation type backed
+ * by a pre-activated copy.
  */
 export interface ModuleCategory {
   type: string;
   label: string;
-  /** Shape-IRI suffix that selects this category (see activateBySuffix). */
+  /** Shape-IRI suffix that selects this variant (see activateBySuffix). */
   suffix: string;
-  /** Multi-category source shapes file, relative to the repo root. */
+  /** Multi-variant source shapes file, relative to the repo root. */
   sourceShapes: string;
 }
 
@@ -140,7 +137,7 @@ export interface ModuleCategory {
  * number; a batch or item passport resolves the model- and party-level
  * identifiers up the Digital Link hierarchy instead of restating them).
  *
- * Same activation contract as the categories above: the per-level shapes ship
+ * Activation contract: the per-level shapes ship
  * `sh:deactivated true` with an IRI suffix, and exactly one level is activated.
  */
 const GRANULARITIES: Record<string, ModuleCategory[]> = {
@@ -166,29 +163,6 @@ const GRANULARITIES: Record<string, ModuleCategory[]> = {
   ],
 };
 
-const CATEGORIES: Record<string, ModuleCategory[]> = {
-  "extensions/eu/battery": [
-    {
-      type: "eu.battery.ev",
-      label: "EU Battery — electric vehicle (EC guidance coverage)",
-      suffix: "-ev",
-      sourceShapes: "extensions/eu/battery/validation/ec-readiness-shapes.ttl",
-    },
-    {
-      type: "eu.battery.lmt",
-      label: "EU Battery — light means of transport (EC guidance coverage)",
-      suffix: "-lmt",
-      sourceShapes: "extensions/eu/battery/validation/ec-readiness-shapes.ttl",
-    },
-    {
-      type: "eu.battery.industrial",
-      label: "EU Battery — industrial (EC guidance coverage)",
-      suffix: "-industrial",
-      sourceShapes: "extensions/eu/battery/validation/ec-readiness-shapes.ttl",
-    },
-  ],
-};
-
 export interface ValidatableModule extends CuratedModule {
   /** Module directory relative to the repo root, e.g. "extensions/eu/battery". */
   dir: string;
@@ -204,8 +178,6 @@ export interface ValidatableModule extends CuratedModule {
   schema?: string;
   /** Directory holding the module's example passports, when present. */
   examplesDir?: string;
-  /** Pre-activated category variants derived from a multi-category shapes file. */
-  categories: ModuleCategory[];
   /** Pre-activated EN 18223 granularity variants, where obligations differ by level. */
   granularities: ModuleCategory[];
 }
@@ -260,7 +232,6 @@ export async function discoverModules(): Promise<ValidatableModule[]> {
       shapes,
       ...((await exists(schema)) ? { schema } : {}),
       ...((await exists(examplesDir)) ? { examplesDir } : {}),
-      categories: CATEGORIES[dir] ?? [],
       granularities: GRANULARITIES[dir] ?? [],
     });
   }
@@ -286,12 +257,11 @@ export function coreOf(modules: ValidatableModule[]): ValidatableModule {
   return core;
 }
 
-/** Every validation type id: each module, then its granularity and category variants. */
+/** Every validation type id: each module, then its granularity variants. */
 export function allTypeIds(modules: ValidatableModule[]): string[] {
   return modules.flatMap((m) => [
     m.type,
     ...m.granularities.map((g) => g.type),
-    ...m.categories.map((c) => c.type),
   ]);
 }
 

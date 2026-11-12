@@ -28,7 +28,7 @@
  *    them across.
  *
  * 3. NO REASONER IS ASSUMED. Obligations stated on a superproperty are rewritten
- *    to plain SHACL Core alternation, and per-level/per-category shapes are
+ *    to plain SHACL Core alternation, and per-level shapes are
  *    shipped pre-activated, because a hosted validator cannot flip
  *    sh:deactivated or run inference at request time. See
  *    scripts/lib/subproperty-expansion.ts for the measurement behind that.
@@ -88,7 +88,7 @@ interface ValidationType {
   shapeFiles: string[];
   /** Ontologies to bundle as background knowledge. */
   ontologyFiles: string[];
-  /** Suffix of the per-level/per-category shapes to pre-activate, if any. */
+  /** Suffix of the per-level shapes to pre-activate, if any. */
   activate?: string;
   /** Document JSON Schema for the JSON validator domain, if the module ships one. */
   schema?: string;
@@ -121,16 +121,13 @@ function typesOf(modules: ValidatableModule[], core: ValidatableModule): Validat
       ...(m.schema ? { schema: m.schema } : {}),
     });
 
-    const variants: ModuleCategory[] = [...m.granularities, ...m.categories];
+    const variants: ModuleCategory[] = m.granularities;
     for (const v of variants) {
       types.push({
         id: v.type,
         label: v.label,
-        // A granularity variant's source (battery-shapes.ttl) is already m.shapes,
-        // but a category variant's source (ec-readiness-shapes.ttl) is a separate
-        // file that is NOT among the module shapes — it must be added, or the
-        // pre-activated bundle would carry no category shapes and enforce nothing
-        // beyond the base module. Dedupe so granularities stay unchanged.
+        // A granularity variant's source (battery-shapes.ttl) is already among
+        // the module shapes; the set keeps it from being bundled twice.
         shapeFiles: [...new Set([...shapesFor(m), v.sourceShapes])],
         ontologyFiles: ontologiesFor(m),
         activate: v.suffix,
@@ -431,7 +428,7 @@ async function buildJsonBundle(
     `#`,
     `# Document-level JSON Schema, the companion to the SHACL domain: the schema`,
     `# checks the JSON shape a passport must have, the shapes check what the RDF`,
-    `# means. Granularity and category variants are absent here — they differ only`,
+    `# means. Granularity variants are absent here — they differ only`,
     `# in RDF obligations, not in JSON structure.`,
     ``,
     `validator.type = ${withSchema.map((t) => t.id).join(", ")}`,

@@ -81,13 +81,6 @@ Battery categories can also be expressed via gs1:additionalProductClassification
     rdfs:seeAlso <https://ref.gs1.org/standards/> ;
     rdfs:seeAlso <https://github.com/batterypass/BatteryPassDataModel> ;
     rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2024/10/Identification-and-labelling-of-industrial-and-electrical-vehicle-batteries-1.pdf> ;
-    # European Commission "Guidance Document: Digital Batteries Passport - data points by
-    # category" (version 3.2, 19 October 2026; version 1.0 of 28 July 2026 was
-    # Ares(2026)7579758): the official EU enumeration of the
-    # 71 Battery Passport data points with per-category applicability as of February 2027.
-    # Mirrored as an OpenEPCIS-hosted registry; see vocab/ec-battery-passport-guidance-3.2.ttl
-    # and docs/EC_GUIDANCE_DATAPOINTS.md for the full coverage mapping.
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2> ;
     owl:imports <https://ref.gs1.org/voc/> ;
     owl:imports <https://ref.openepcis.org/extensions/common/core/> ;
     owl:imports <http://data.europa.eu/m8g/> ;
@@ -179,7 +172,6 @@ eubat:HazardousSubstance
     skos:broadMatch schema:ChemicalSubstance ;
     rdfs:seeAlso schema:Substance ;
     skos:broadMatch schema:Substance ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-13> ;
     skos:broadMatch <https://w3id.org/eudpp#SubstanceOfConcern> ;
     skos:broadMatch <https://w3id.org/eudpp#Substance> .
 
@@ -232,7 +224,6 @@ eubat:NegativeEvent
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#NegativeEventEntity> ;
     rdfs:seeAlso cv:Event ;
     skos:broadMatch schema:Event ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-69> ;
     skos:broadMatch <https://w3id.org/eudpp#ProductEvent> ;
     skos:narrowMatch <https://w3id.org/eudpp/battery-performance#AccidentEvent> .
 
@@ -251,7 +242,6 @@ Aligned with oec:EmissionsPerformance for core carbon footprint properties."""@e
     rdfs:seeAlso oec:CarbonFootprintDeclaration ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity> ;
     rdfs:seeAlso <https://w3id.org/eudpp#LCIAResult> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-17> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity> ;
     skos:broadMatch <https://w3id.org/eudpp#LCIAResult> ;
     skos:narrowMatch <https://w3id.org/eudpp#CarbonFootprint> .
@@ -299,8 +289,7 @@ set to 'BATTERY_REGULATION_2023_1542' and gs1:additionalProductClassificationCod
 the category code (lmt, ev, industrial, stationary, portable, sli)."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     owl:oneOf (eubat:LMTBattery eubat:EVBattery eubat:IndustrialBattery eubat:StationaryBattery eubat:PortableBattery eubat:SLIBattery);
-    skos:broadMatch schema:CategoryCodeSet ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-06> .
+    skos:broadMatch schema:CategoryCodeSet .
 
 eubat:LMTBattery
     a eubat:BatteryCategory ;
@@ -355,8 +344,7 @@ eubat:BatteryStatus
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso schema:StatusEnumeration ;
-    skos:broadMatch schema:StatusEnumeration ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-67> .
+    skos:broadMatch schema:StatusEnumeration .
 
 eubat:Original
     a eubat:BatteryStatus ;
@@ -799,7 +787,6 @@ eubat:hasManufacturingPlace
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:exactMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace> ;
     skos:broadMatch gs1:manufacturingPlant ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-08> ;
     skos:exactMatch eudppbat:manufacturingPlace ;
     skos:narrowMatch eudppbat:manufacturingCountry ;
     skos:narrowMatch eudppbat:manufacturingRegion ;
@@ -865,7 +852,6 @@ eubat:batteryModelIdentifier
     skos:broadMatch dppk:identifier ;
     skos:broadMatch adms:identifier ;
     skos:broadMatch dppk:model ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-07> ;
     skos:exactMatch eudppbat:modelIdentifier ;
     skos:broadMatch eudppbat:batteryIdentification ;
     skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#batteryModelIdentifier> .
@@ -887,7 +873,6 @@ eubat:facilityIdentifier
     skos:exactMatch dppk:facilityId ;
     skos:closeMatch gs1:globalLocationNumber ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-08> ;
     skos:broadMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace> .
 
 # =============================================================================
@@ -908,7 +893,6 @@ eubat:hasBatteryChemistry
     skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryChemistry> ;
     skos:broadMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials> ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/batterypass-ready/1.3#MaterialsUsedInCathodeAnodeAndElectrolyte> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-12> ;
     skos:exactMatch eudppbat:batteryChemistry ;
     skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#batteryChemistry> ;
     skos:exactMatch <https://w3id.org/eudpp/battery-materials#hasBatteryChemistry> .
@@ -928,7 +912,6 @@ eubat:cathodeActiveMaterial
     skos:broadMatch schema:material ;
     skos:broadMatch <https://ref.openepcis.org/vocab/batterypass-ready/1.3#MaterialsUsedInCathodeAnodeAndElectrolyte> ;
     skos:broadMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialName> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-46> ;
     skos:broadMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryChemistry> ;
     skos:broadMatch dppk:materialComposition ;
     skos:broadMatch eudppbat:detailedComposition ;
@@ -949,7 +932,6 @@ eubat:anodeActiveMaterial
     rdfs:seeAlso schema:material ;
     skos:broadMatch dppk:materialComposition ;
     skos:broadMatch <https://ref.openepcis.org/vocab/batterypass-ready/1.3#MaterialsUsedInCathodeAnodeAndElectrolyte> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-46> ;
     skos:broadMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryChemistry> ;
     skos:broadMatch eudppbat:detailedComposition ;
     skos:broadMatch eudppbat:batteryChemistry ;
@@ -984,7 +966,6 @@ eubat:electrolyteComposition
     rdfs:seeAlso dppk:batteryChemistry ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials> ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/batterypass-ready/1.3#MaterialsUsedInCathodeAnodeAndElectrolyte> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-46> ;
     skos:broadMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryChemistry> ;
     skos:broadMatch dppk:batteryChemistry ;
     skos:broadMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials> ;
@@ -1020,9 +1001,6 @@ eubat:hasRatedCapacity
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#ratedCapacity> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-11> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-25> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-51> ;
     skos:exactMatch eudppbat:batteryCapacity ;
     skos:exactMatch eudppbat:ratedCapacity ;
     skos:exactMatch <https://w3id.org/eudpp/battery-performance#ratedCapacity> ;
@@ -1052,7 +1030,6 @@ eubat:hasNominalVoltage
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#nominalVoltage> ;
     skos:broadMatch dppk:voltage ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-27> ;
     skos:exactMatch eudppbat:nominalVoltage ;
     skos:exactMatch <https://w3id.org/eudpp/battery-performance#nominalVoltage> ;
     skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#nominalVoltage> .
@@ -1068,7 +1045,6 @@ eubat:hasMinimumVoltage
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-26> ;
     skos:broadMatch dppk:voltage ;
     skos:exactMatch eudppbat:minimalVoltage ;
     skos:exactMatch <https://w3id.org/eudpp/battery-performance#minimumVoltage> ;
@@ -1087,7 +1063,6 @@ eubat:hasMaximumVoltage
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#maximumVoltage> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-28> ;
     skos:exactMatch eudppbat:maximumVoltage ;
     skos:exactMatch <https://w3id.org/eudpp/battery-performance#maximumVoltage> ;
     skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#maximumVoltage> .
@@ -1116,7 +1091,6 @@ eubat:hasMaximumChargingPower
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso dppk:powerMaximumPermitted ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#ratedMaximumPower> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-30> ;
     skos:broadMatch eudppbat:powerLimit ;
     skos:broadMatch <https://w3id.org/eudpp/battery-performance#maximumPermittedBatteryPower> .
 
@@ -1133,7 +1107,6 @@ eubat:hasMaximumDischargingPower
     rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability> ;
     skos:broadMatch dppk:powerMaximumPermitted ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-30> ;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability> ;
     skos:broadMatch eudppbat:powerLimit .
 
@@ -1151,7 +1124,6 @@ eubat:hasMaximumPermittedBatteryPower
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#ratedMaximumPower> ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-30> ;
     rdfs:seeAlso <https://w3id.org/eudpp/battery-performance#maximumPermittedBatteryPower> ;
     skos:exactMatch eudppbat:powerLimit ;
     skos:exactMatch <https://w3id.org/eudpp/battery-performance#maximumPermittedBatteryPower> ;
@@ -1257,7 +1229,6 @@ eubat:hasTemperatureRangeIdleState
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#temperatureRangeIdleState> ;
     skos:narrowMatch dppk:temperatureIdleLower ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-34> ;
     skos:exactMatch eudppbat:notInUseTemperatureRange .
 
 eubat:hasMinimumTemperature
@@ -1306,7 +1277,6 @@ eubat:hasMaterialComposition
     rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialMass> ;
     rdfs:seeAlso untp:materialUsed ;
     skos:narrowMatch schema:material ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-16> ;
     skos:exactMatch eudppbat:detailedComposition .
 
 eubat:hasComponentLocation
@@ -1334,7 +1304,6 @@ eubat:isCriticalRawMaterial
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:isCriticalRawMaterial ;
     skos:exactMatch oec:isCriticalRawMaterial ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-15> ;
     skos:exactMatch <https://w3id.org/eudpp#isCriticalRawMaterial> ;
     skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#isCriticalRawMaterial> .
 
@@ -1370,7 +1339,6 @@ eubat:renewableContentShare
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso dppk:renewableContent ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-24> ;
     skos:broadMatch eudppbat:renewableContentShare ;
     skos:broadMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent> .
 
@@ -1384,7 +1352,6 @@ eubat:criticalRawMaterialsStatement
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso eubat:isCriticalRawMaterial ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-15> ;
     skos:closeMatch eudppbat:criticalRawMaterials .
 
 # =============================================================================
@@ -1432,7 +1399,6 @@ eubat:lithiumRecycledShare
     skos:broadMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent> ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare> ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-21> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare> ;
     skos:broadMatch <https://w3id.org/eudpp#materialRecycledContent> ;
     skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#lithiumRecycledContentShare> .
@@ -1483,7 +1449,6 @@ eubat:cobaltRecycledShare
     rdfs:seeAlso dppk:preConsumerRecycledContent ;
     skos:broadMatch untp:recycledMassFraction ;
     rdfs:seeAlso dppk:postConsumerRecycledContentPercentage ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-20> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare> ;
     skos:broadMatch <https://w3id.org/eudpp#materialRecycledContent> ;
     skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#cobaltRecycledContentShare> .
@@ -1542,7 +1507,6 @@ eubat:nickelRecycledShare
     skos:broadMatch untp:recycledMassFraction ;
     rdfs:seeAlso dppk:postConsumerRecycledContent ;
     rdfs:seeAlso dppk:preConsumerRecycledContent ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-22> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare> ;
     skos:broadMatch dppk:postConsumerRecycledMaterialComposition ;
     skos:broadMatch dppk:preConsumerRecycledMaterialComposition ;
@@ -1598,7 +1562,6 @@ eubat:leadRecycledShare
     rdfs:seeAlso dppk:postConsumerRecycledContent ;
     rdfs:seeAlso dppk:preConsumerRecycledContentPercentage ;
     rdfs:seeAlso dppk:preConsumerRecycledContent ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-23> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare> ;
     skos:narrowMatch dppk:postConsumerRecycledContentPercentage ;
@@ -1730,7 +1693,6 @@ eubat:extinguishingAgent
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:exactMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#extinguishingAgents> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-14> ;
     skos:exactMatch eudppbat:extinguishingAgent ;
     skos:exactMatch <https://w3id.org/eudpp/battery-labeling#extinguishingAgent> ;
     skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#extinguishingAgent> .
@@ -1749,7 +1711,6 @@ eubat:wastePrevention
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch gs1:sustainabilityInfo ;
     skos:exactMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#wastePrevention> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-44> ;
     skos:broadMatch eudppbat:wasteBatteryPreventionManagementInfo ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#informationOnTheRoleOfEndUsersInContributingToWastePrevention> .
 
@@ -1766,7 +1727,6 @@ eubat:separateCollection
     skos:exactMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#separateCollection> ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#informationOnCollection> ;
     skos:broadMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#informationOnCollection> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-44> ;
     skos:broadMatch eudppbat:wasteBatteryPreventionManagementInfo ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#informationOnTheRoleOfEndUsersInContributingToTheSeparateCollectionOfWasteBatteries> .
 
@@ -1780,7 +1740,6 @@ eubat:informationOnCollection
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:exactMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#informationOnCollection> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-44> ;
     skos:broadMatch eudppbat:wasteBatteryPreventionManagementInfo ;
     skos:narrowMatch eudppbat:separateCollectionPoints ;
     skos:narrowMatch eudppbat:takeBackCollectionPoints ;
@@ -1813,7 +1772,6 @@ eubat:safetyInstructions
     rdfs:seeAlso gs1:consumerSafetyInformation ;
     skos:closeMatch gs1:safetyInfo ;
     skos:broadMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49> ;
     skos:exactMatch eudppbat:safetyMeasures .
 
 # -----------------------------------------------------------------------------
@@ -1893,7 +1851,6 @@ eubat:hasHazardousSubstances
     skos:broadMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstances> ;
     skos:broadMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceIdentifier> ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-13> ;
     skos:narrowMatch eudppbat:hazardousSubstances .
 
 eubat:hasHazardClass
@@ -1973,7 +1930,6 @@ eubat:hasOperatorInformation
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     rdfs:seeAlso oec:hasOperatorInformation ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-02> ;
     skos:closeMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#operatorInformation> ;
     skos:broadMatch <https://w3id.org/eudpp#hasEconomicOperator> ;
     skos:narrowMatch eudppbat:registrantIdentity .
@@ -1995,7 +1951,6 @@ eubat:operatorIdentifier
     rdfs:seeAlso <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturerInformation> ;
     skos:broadMatch schema:identifier ;
     skos:exactMatch dppk:economicOperatorId ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-02> ;
     skos:broadMatch adms:identifier ;
     skos:narrowMatch gs1:globalLocationNumber ;
     skos:broadMatch <https://w3id.org/eudpp#identifierValue> ;
@@ -2039,8 +1994,7 @@ eubat:hasOperatorRole
     skos:broadMatch gs1:organizationRole ;
     skos:exactMatch oec:hasOperatorRole ;
     rdfs:seeAlso cv:role ;
-    skos:closeMatch cv:role ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-02> .
+    skos:closeMatch cv:role .
 
 # =============================================================================
 # PART 11: PROPERTIES - SPARE PARTS
@@ -2056,7 +2010,6 @@ eubat:hasSparePartSources
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:exactMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#sparePartSources> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-47> ;
     skos:broadMatch eudppbat:sparePartReplacementDetails ;
     skos:exactMatch dppk:sparePartsSources ;
     skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#informationOnSourcesOfSpareParts> .
@@ -2071,7 +2024,6 @@ eubat:spareParts
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute: the part numbers for components reserved for persons with a legitimate interest. No GS1 or schema.org equivalent (schema:mpn / schema:sku identify the product itself, not its components)."@en ;
     rdfs:seeAlso schema:mpn ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-47> ;
     skos:broadMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#sparePartSources> ;
     skos:broadMatch eudppbat:sparePartReplacementDetails .
 
@@ -2089,8 +2041,7 @@ eubat:hasSupplierContact
     skos:broadMatch cv:contactPoint ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#emailAddressOfSupplier> ;
     skos:narrowMatch gs1:afterHoursContact ;
-    skos:broadMatch gs1:contactPoint  ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-47> .
+    skos:broadMatch gs1:contactPoint .
 
 # =============================================================================
 # PART 12: PROPERTIES - LABELS & CERTIFICATION
@@ -2106,7 +2057,6 @@ eubat:hasLabels
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:closeMatch <urn:samm:io.BatteryPass.Labels:1.2.0#labels> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-41> ;
     skos:exactMatch <https://w3id.org/eudpp/battery-labeling#hasBatteryLabel> .
 
 eubat:labelSymbol
@@ -2157,7 +2107,6 @@ eubat:separateCollectionSymbolUrl
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-41> ;
     skos:exactMatch <https://w3id.org/eudpp/battery-labeling#separateCollectionSymbol> ;
     skos:exactMatch dppk:separateCollectionSymbol ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#separateCollectionSymbol> .
@@ -2171,8 +2120,7 @@ eubat:cadmiumSymbolRequired
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:broadMatch <https://ref.openepcis.org/vocab/batterypass-ready/1.3#SymbolsForCadmiumAndLead> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-42> .
+    skos:broadMatch <https://ref.openepcis.org/vocab/batterypass-ready/1.3#SymbolsForCadmiumAndLead> .
 
 eubat:leadSymbolRequired
     a owl:DatatypeProperty ;
@@ -2182,8 +2130,7 @@ eubat:leadSymbolRequired
     rdfs:range xsd:boolean ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-42> .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eubat:ceMarkingIndicator
     a owl:DatatypeProperty ;
@@ -2208,7 +2155,6 @@ eubat:hasEuDeclarationOfConformity
     skos:exactMatch <urn:samm:io.BatteryPass.Labels:1.2.0#declarationOfConformity> ;
     skos:exactMatch dppk:euDeclarationOfConformity ;
     skos:closeMatch untp:conformityCertificate ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-43> ;
     skos:exactMatch eudppbat:euDeclarationOfConformity ;
     skos:exactMatch <https://w3id.org/eudpp#hasEUDeclarationOfConformity> ;
     skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#euDeclarationOfConformity> .
@@ -2286,7 +2232,6 @@ eubat:resultOfTestReport
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:exactMatch <urn:samm:io.BatteryPass.Labels:1.2.0#resultOfTestReport> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-50> ;
     skos:exactMatch <https://w3id.org/eudpp/battery#testReportResults> ;
     skos:exactMatch eudppbat:complianceTestReportResults ;
     skos:exactMatch dppk:testReports ;
@@ -2301,8 +2246,7 @@ eubat:testReportNumber
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:broadMatch schema:reportNumber ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-50> .
+    skos:broadMatch schema:reportNumber .
 
 eubat:hasComplianceStatus
     a owl:ObjectProperty ;
@@ -2335,7 +2279,6 @@ eubat:hasCarbonFootprintDeclaration
     rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint> ;
     skos:exactMatch oec:hasCarbonFootprintDeclaration ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-17> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint> ;
@@ -2609,8 +2552,7 @@ eubat:hasSupplyChainDueDiligence
     rdfs:range eubat:SupplyChainDueDiligence ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-19> .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eubat:dueDiligenceReportUrl
     a owl:DatatypeProperty ;
@@ -2625,7 +2567,6 @@ eubat:dueDiligenceReportUrl
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso gs1:referencedFileURL ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Labels:1.2.0#resultOfTestReport> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-19> ;
     skos:exactMatch <https://w3id.org/eudpp/battery#dueDiligenceReport> ;
     skos:exactMatch <urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#supplyChainDueDiligenceReport> ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#informationOfDueDiligenceReport> .
@@ -2829,8 +2770,7 @@ eubat:warrantyConditions
     rdfs:seeAlso gs1:warranty ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-35> .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eubat:extendedWarrantyAvailable
     a owl:DatatypeProperty ;
@@ -2932,7 +2872,6 @@ eubat:CapacityExhaustionThreshold
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     rdfs:seeAlso dppk:exhaustionCapacityThreshold ;
     skos:closeMatch dppk:exhaustionCapacityThreshold ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-33> ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#capacityThresholdForExhaustion> ;
     skos:closeMatch eudppbat:capacityExhaustionThreshold ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#capacityThresholdForExhaustion> ;
@@ -2968,7 +2907,6 @@ eubat:hasPerformanceTest
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "Entry to the tested Annex XIII 1 (o)-(p) values. The reference test is the assessment's oea:hasMethod (oea:methodUrl); the pointers below are those of the replaced eubat:lifetimeReferenceTest, demoted to rdfs:seeAlso because they name the reference-test field, not this link."@en ;
     rdfs:seeAlso dppk:referenceTestCycleLife ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-32> ;
     rdfs:seeAlso eudppbat:cycleLifeReferenceTest ;
     rdfs:seeAlso <https://ref.openepcis.org/vocab/batterypass-ready/1.3#Cycle-lifeReferenceTest> .
 
@@ -2989,7 +2927,6 @@ eubat:StateOfCharge a oea:PerformanceParameter ;
     skos:closeMatch dppk:stateOfCharge ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCharge> ;
     rdfs:seeAlso battinfo:StateOfCharge ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-71> ;
     skos:closeMatch eudppbat:stateOfChargeHistogram ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#stateOfCharge> ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#stateOfChargeSoC> .
@@ -3003,7 +2940,6 @@ eubat:StateOfCertifiedEnergy a oea:PerformanceParameter ;
     skos:closeMatch dppk:soce ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCertifiedEnergyValue> ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCertifiedEnergy> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-61> ;
     skos:closeMatch eudppbat:stateOfCertifiedEnergy ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#stateOfCertifiedEnergy> ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#stateOfCertifiedEnergySOCE> .
@@ -3017,7 +2953,6 @@ eubat:FullCycleCount a oea:PerformanceParameter ;
     skos:closeMatch dppk:cycleCountFull ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCycles> ;
     rdfs:seeAlso battinfo:CycleNumber ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-68> ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#numberOfFullCycles> ;
     skos:closeMatch eudppbat:numberOfChargingCycles ;
     skos:closeMatch eudppbat:numberOfDischargingCycles ;
@@ -3033,7 +2968,6 @@ eubat:RemainingCapacity a oea:PerformanceParameter ;
     skos:closeMatch dppk:remainingCapacity ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingCapacity> ;
     rdfs:seeAlso battinfo:Capacity ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-62> ;
     skos:closeMatch eudppbat:remainingCapacity ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#remainingCapacity> ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#remainingCapacity> ;
@@ -3047,7 +2981,6 @@ eubat:CapacityFade a oea:PerformanceParameter ;
     rdfs:seeAlso dppk:capacityFade ;
     skos:closeMatch dppk:capacityFade ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#capacityFade> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-52> ;
     skos:closeMatch eudppbat:capacityFade ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#capacityFade> ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#capacityFade> .
@@ -3060,7 +2993,6 @@ eubat:PowerFade a oea:PerformanceParameter ;
     rdfs:seeAlso dppk:powerFade ;
     skos:closeMatch dppk:powerFade ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#powerFade> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-54> ;
     skos:closeMatch eudppbat:powerFade ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#powerFade> ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#powerFade> .
@@ -3074,8 +3006,6 @@ eubat:InternalResistance a oea:PerformanceParameter ;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#ohmicResistance> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance> ;
     rdfs:seeAlso battinfo:InternalResistance ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-55> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-66> ;
     skos:narrowMatch <https://w3id.org/eudpp/battery-performance#initialInternalResistance> ;
     skos:closeMatch eudppbat:internalResistance ;
     skos:closeMatch eudppbat:ohmicResistance ;
@@ -3091,7 +3021,6 @@ eubat:InternalResistanceIncrease a oea:PerformanceParameter ;
     rdfs:seeAlso dppk:internalResistanceIncrease ;
     skos:closeMatch dppk:internalResistanceIncrease ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncrease> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-56> ;
     skos:closeMatch eudppbat:internalResistanceIncrease ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#internalResistanceIncrease> ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncreaseValue> .
@@ -3130,7 +3059,6 @@ eubat:RemainingRoundTripEfficiency a oea:PerformanceParameter ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency> ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiency> ;
     rdfs:seeAlso dppk:roundTripEfficiencyAt50Cycles ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-64> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife> ;
     skos:narrowMatch dppk:roundTripEfficiencyAt50Cycles ;
     skos:closeMatch eudppbat:remainingRoundTripEfficiency ;
@@ -3149,7 +3077,6 @@ eubat:RoundTripEfficiencyFade a oea:PerformanceParameter ;
     skos:closeMatch dppk:roundTripEfficiencyFade ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyFade> ;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-58> ;
     skos:closeMatch eudppbat:roundTripEnergyEfficiencyFade ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyFade> ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#energyRoundTripEfficiencyFade> .
@@ -3162,7 +3089,6 @@ eubat:SelfDischargeEvolution a oea:PerformanceParameter ;
     rdfs:seeAlso dppk:selfDischargeEvolution ;
     skos:closeMatch dppk:selfDischargeEvolution ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#evolutionOfSelfDischarge> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65> ;
     skos:closeMatch eudppbat:selfDischargingRateSet ;
     skos:narrowMatch eudppbat:selfDischargingRate ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#evolutionOfSelfDischargeRates> ;
@@ -3174,7 +3100,6 @@ eubat:SelfDischargeRate a oea:PerformanceParameter ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     rdfs:seeAlso dppk:selfDischargeCurrent ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-65> ;
     skos:broadMatch eudppbat:selfDischargingRate ;
     skos:broadMatch eudppbat:selfDischargingRateSet ;
     skos:closeMatch dppk:selfDischargeCurrent ;
@@ -3192,7 +3117,6 @@ eubat:TimeAboveTemperatureBoundary a oea:PerformanceParameter ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTempCharging> ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTemp> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTempCharging> ;
     skos:narrowMatch <https://w3id.org/eudpp/battery-performance#timeSpentChargingInExtremeTemperaturesAboveBoundary> ;
     skos:broadMatch eudppbat:environmentalConditionHistogramSet ;
@@ -3206,7 +3130,6 @@ eubat:TimeBelowTemperatureBoundary a oea:PerformanceParameter ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTemp> ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTempCharging> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-70> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTempCharging> ;
     skos:broadMatch eudppbat:environmentalConditionHistogramSet ;
     skos:broadMatch eudppbat:environmentalConditionHistogram ;
@@ -3287,19 +3210,16 @@ eubat:PowerCapability a oea:PerformanceParameter ;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability> ;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability> ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#ratedMaximumPower> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-53> ;
     skos:broadMatch eudppbat:powerCapability ;
     skos:broadMatch eudppbat:originalPowerCapability ;
     rdfs:seeAlso dppk:powerRemaining ;
     skos:closeMatch dppk:powerRemaining ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability> ;
     rdfs:seeAlso dppk:ratedPower ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-63> ;
     skos:closeMatch eudppbat:remainingPowerCapability ;
     skos:closeMatch eudppbat:powerCapability ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#remainingPowerCapability> ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-29> ;
     skos:closeMatch eudppbat:originalPowerCapability ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#originalPowerCapability> ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#originalPowerCapability> ;
@@ -3317,7 +3237,6 @@ eubat:InitialCellInternalResistance a oea:PerformanceParameter ;
     rdfs:comment "Internal resistance of the battery cell at the beginning of life (Annex XIII 1 (o)) (unitCode OHM). Replaces eubat:hasInitialCellInternalResistance."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> ;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance> ;
     skos:broadMatch dppk:internalResistanceInitial ;
     skos:closeMatch eudppbat:internalCellResistance ;
@@ -3330,7 +3249,6 @@ eubat:InitialPackInternalResistance a oea:PerformanceParameter ;
     rdfs:comment "Internal resistance of the battery pack at the beginning of life (Annex XIII 1 (o)) (unitCode OHM). Replaces eubat:hasInitialPackInternalResistance."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-38> ;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance> ;
     skos:broadMatch dppk:internalResistanceInitial ;
     skos:closeMatch eudppbat:internalPackResistance ;
@@ -3359,8 +3277,6 @@ eubat:InitialRoundTripEfficiency a oea:PerformanceParameter ;
     skos:closeMatch dppk:roundTripEfficiencyInitial ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency> ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-57> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-36> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife> ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#initialRoundTripEnergyEfficiency> ;
     skos:narrowMatch <https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife> ;
@@ -3378,7 +3294,6 @@ eubat:RoundTripEfficiencyAt50PercentCycleLife a oea:PerformanceParameter ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife> ;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency> ;
     skos:broadMatch dppk:efficiency ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-37> ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#roundTripEnergyEfficiencyAt50PercentCycleLife> ;
     skos:closeMatch eudppbat:roundTripEfficiencyAtHalfCycleLife ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#roundTripEnergyEfficiencyAt50PerCentOfCycleLife> .
@@ -3392,7 +3307,6 @@ eubat:CycleLife a oea:PerformanceParameter ;
     skos:closeMatch dppk:expectedLifetimeCycles ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles> ;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#batteryCondition> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-31> ;
     skos:closeMatch eudppbat:expectedLifetimeCycles ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#expectedLifetimeCycles> ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#expectedLifetimeNumberOfChargeDischargeCycles> .
@@ -3424,10 +3338,8 @@ eubat:ChargeCRate a oea:MeasurementParameter ;
     rdfs:seeAlso dppk:cRateCycleTest ;
     skos:broadMatch dppk:cRateCycleTest ;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#cRate> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39> ;
     skos:broadMatch <https://w3id.org/eudpp/battery-performance#cRateOfCycleLifeTest> ;
     skos:closeMatch eudppbat:cycleLifeChargeCRate ;
-    skos:closeMatch <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-39> ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#chargeCRateOfCycleLifeTest> ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#cRateOfRelevantCycleLifeTest> .
 
@@ -3436,7 +3348,6 @@ eubat:DischargeCRate a oea:MeasurementParameter ;
     rdfs:comment "Discharge C-rate of the cycle-life test, in 1/h (Annex XIII 1 (p), EC data point 40) (unitCode C62). Replaces eubat:dischargeCRateLifeCycleTest."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-40> ;
     skos:closeMatch eudppbat:cycleLifeDischargeCRate ;
     skos:broadMatch dppk:cRateCycleTest ;
     skos:closeMatch <https://w3id.org/eudpp/battery-performance#dischargeCRateOfCycleLifeTest> ;
@@ -3456,15 +3367,13 @@ eubat:RemainingCycles a oea:IndicatorKind ;
     rdfs:comment "Estimated remaining full charge-discharge cycles (unitCode C62). Replaces eubat:expectedRemainingCycles."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-59> ;
     skos:closeMatch eudppbat:expectedLifetimeCyclesRest .
 
 eubat:RemainingLifetime a oea:IndicatorKind ;
     rdfs:label "Remaining Lifetime"@en ;
     rdfs:comment "Estimated remaining useful lifetime (unitCode MON). Replaces eubat:expectedRemainingLifetimeMonths."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> .
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> .
 
 eubat:CarbonFootprintPerformanceClass a oea:IndicatorKind ;
     rdfs:label "Carbon Footprint Performance Class"@en ;
@@ -3475,7 +3384,6 @@ eubat:CarbonFootprintPerformanceClass a oea:IndicatorKind ;
     skos:closeMatch dppk:carbonFootprintClass ;
     skos:closeMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerformanceClass> ;
     rdfs:seeAlso dppk:performance ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-18> ;
     skos:closeMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#carbonFootprintPerformanceClass> .
 
 # =============================================================================
@@ -3741,7 +3649,6 @@ eubat:hasExpectedLifetime
     skos:exactMatch eudppbat:expectedLifetimeYears ;
     skos:exactMatch dppk:expectedLifetimeYears ;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-60> ;
     skos:exactMatch <https://w3id.org/eudpp/battery-performance#expectedLifetimeCalendarYears> ;
     skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#expectedLifetimeInCalendarYears> .
 
@@ -3760,7 +3667,6 @@ eubat:hasBatteryMass
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:broadMatch gs1:netWeight ;
     skos:exactMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryMass> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-10> ;
     skos:exactMatch eudppbat:batteryWeight ;
     skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#batteryMass> .
 
@@ -3780,7 +3686,6 @@ eubat:hasDismantlingAndRemovalInformation
     skos:exactMatch eudppbat:dismantlingInformation ;
     rdfs:seeAlso gs1:ReferencedFileDetails ;
     skos:broadMatch dppk:documents ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-48> ;
     skos:broadMatch gs1:instructions ;
     skos:exactMatch <https://w3id.org/eudpp/battery#dismantlingInformation> ;
     skos:exactMatch <https://ref.openepcis.org/vocab/batterypass-ready/2.0.1#dismantlingInformation> .
@@ -3800,7 +3705,6 @@ eubat:hasSafetyMeasures
     skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions> ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation> ;
     skos:broadMatch gs1:consumerSafetyInformation ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-49> ;
     skos:exactMatch eudppbat:safetyMeasures ;
     skos:exactMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#safetyMeasures> ;
     rdfs:seeAlso dppk:safetyDataSheet ;
@@ -3824,7 +3728,6 @@ eubat:hasNegativeEvents
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#negativeEvent> ;
     skos:narrowMatch dppk:eventsOvercharge ;
     skos:narrowMatch dppk:eventsDeepDischarge ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/3.2#dp-69> ;
     skos:exactMatch eudppbat:negativeEvents .
 
 # =============================================================================

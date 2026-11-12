@@ -13,7 +13,10 @@
   <imports>
     <artifact type="binary" encoding="UTF-8" name="pos0_amperia_staxwall_item">resources/fixtures/eu.battery.item/amperia-staxwall-item.nq</artifact>
     <artifact type="binary" encoding="UTF-8" name="pos1_battery_product">resources/fixtures/eu.battery.item/battery-product.nq</artifact>
-    <artifact type="binary" encoding="UTF-8" name="pos2_portable_ebike_battery">resources/fixtures/eu.battery.item/portable-ebike-battery.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="pos2_batterypass_ev_item">resources/fixtures/eu.battery.item/batterypass-ev-item.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="pos3_batterypass_industrial_item">resources/fixtures/eu.battery.item/batterypass-industrial-item.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="pos4_batterypass_lmt_item">resources/fixtures/eu.battery.item/batterypass-lmt-item.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="pos5_portable_ebike_battery">resources/fixtures/eu.battery.item/portable-ebike-battery.nq</artifact>
     <artifact type="binary" encoding="UTF-8" name="neg_granularity_mismatch">resources/negative/eu.battery.item/amperia-staxwall-item.granularity-mismatch.nq</artifact>
     <artifact type="binary" encoding="UTF-8" name="neg_missing_required_property">resources/negative/eu.battery.item/amperia-staxwall-item.missing-required-property.nq</artifact>
   </imports>
@@ -33,8 +36,29 @@
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <verify id="pos2" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl"
+            desc="Reference passport must conform: batterypass-ev-item.jsonld">
+      <input name="contentToValidate">$pos2_batterypass_ev_item</input>
+      <input name="validationType">"eu.battery.item"</input>
+      <input name="embeddingMethod">"BASE64"</input>
+      <input name="contentSyntax">"application/n-quads"</input>
+    </verify>
+    <verify id="pos3" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl"
+            desc="Reference passport must conform: batterypass-industrial-item.jsonld">
+      <input name="contentToValidate">$pos3_batterypass_industrial_item</input>
+      <input name="validationType">"eu.battery.item"</input>
+      <input name="embeddingMethod">"BASE64"</input>
+      <input name="contentSyntax">"application/n-quads"</input>
+    </verify>
+    <verify id="pos4" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl"
+            desc="Reference passport must conform: batterypass-lmt-item.jsonld">
+      <input name="contentToValidate">$pos4_batterypass_lmt_item</input>
+      <input name="validationType">"eu.battery.item"</input>
+      <input name="embeddingMethod">"BASE64"</input>
+      <input name="contentSyntax">"application/n-quads"</input>
+    </verify>
+    <verify id="pos5" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl"
             desc="Reference passport must conform: portable-ebike-battery.jsonld">
-      <input name="contentToValidate">$pos2_portable_ebike_battery</input>
+      <input name="contentToValidate">$pos5_portable_ebike_battery</input>
       <input name="validationType">"eu.battery.item"</input>
       <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>

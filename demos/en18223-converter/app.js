@@ -33184,7 +33184,7 @@ var samples_default = [
         }
       ],
       _comment_ec_review: [
-        "SKELETON eu.battery.ev \u2014 abgeleitet von battery-product.jsonld, EC-konform (check:ec-readiness --category ev --shacl).",
+        "SKELETON ev \u2014 abgeleitet von battery-product.jsonld.",
         "REVIEW: Modell-/Performance-Werte (Voltages, Chemistry, Mass, Recycled-Content, Specs) aus Vorlage, je Kategorie/Produkt fachlich zu pruefen.",
         "SOH-Werte (CapacityFade/RemainingPowerCapability/RemainingCapacity/SOCE \u2026) sind repraesentative Platzhalter."
       ],
@@ -34308,7 +34308,7 @@ var samples_default = [
         }
       ],
       _comment_ec_review: [
-        "SKELETON eu.battery.industrial \u2014 abgeleitet von battery-product.jsonld, EC-konform (check:ec-readiness --category industrial --shacl).",
+        "SKELETON industrial \u2014 abgeleitet von battery-product.jsonld.",
         "REVIEW: Modell-/Performance-Werte (Voltages, Chemistry, Mass, Recycled-Content, Specs) aus Vorlage, je Kategorie/Produkt fachlich zu pruefen.",
         "Keine dynamischen SOH-Pflichtfelder."
       ]
@@ -35334,7 +35334,7 @@ var samples_default = [
         }
       ],
       _comment_ec_review: [
-        "SKELETON eu.battery.lmt \u2014 abgeleitet von battery-product.jsonld, EC-konform (check:ec-readiness --category lmt --shacl).",
+        "SKELETON lmt \u2014 abgeleitet von battery-product.jsonld.",
         "REVIEW: Modell-/Performance-Werte (Voltages, Chemistry, Mass, Recycled-Content, Specs) aus Vorlage, je Kategorie/Produkt fachlich zu pruefen.",
         "SOH-Werte (CapacityFade/RemainingPowerCapability/RemainingCapacity/SOCE \u2026) sind repraesentative Platzhalter."
       ],

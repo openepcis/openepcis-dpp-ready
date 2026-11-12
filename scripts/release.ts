@@ -11,7 +11,7 @@
  *   package.json                        "version"
  *   extensions/{region}/{slug}/VERSION  the module version
  *   .../ontology/*.ttl                  owl:versionInfo + owl:versionIRI
- *   .../validation/*.ttl                owl:versionInfo of the sh:ShapesGraph (not ec-readiness)
+ *   .../validation/*.ttl                owl:versionInfo of the sh:ShapesGraph
  *   .../CHANGELOG.md                    the `## [Unreleased]` heading becomes `## [x.y.z] - DATE`
  *   README.md                           status badge, the TL;DR sentence, both module tables
  *   CLAUDE.md                           the module table
@@ -134,12 +134,11 @@ for (const m of OWNED) {
         ));
   }
 
-  // Shapes graphs carry the module version on their sh:ShapesGraph node. ec-readiness-shapes.ttl
-  // is versioned by the EC guidance it implements (3.2), not by this repository, and is skipped.
+  // Shapes graphs carry the module version on their sh:ShapesGraph node.
   const valDir = join(m.dir, "validation");
   if (!existsSync(valDir)) continue;
   for (const f of readdirSync(valDir)) {
-    if (!f.endsWith(".ttl") || f.startsWith("ec-readiness")) continue;
+    if (!f.endsWith(".ttl")) continue;
     stamp(`extensions/${m.path}/validation/${f}`, `${m.path}/validation/${f} → ${version}`, (s) =>
       s.replace(/(a sh:ShapesGraph(?:(?!\s\.\n)[\s\S])*?owl:versionInfo\s+")[^"]+(")/g, `$1${version}$2`));
   }
