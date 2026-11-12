@@ -9,6 +9,8 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.14.1] - 2026-11-12
+
 ### Fixed: `certificationStatus` codes resolve to GS1 IRIs
 
 `certificationStatus` in `common/core/gs1-shortcuts-context.jsonld` was typed `@id`, so the bare GS1
