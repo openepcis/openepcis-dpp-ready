@@ -4,6 +4,8 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-11-12
+
 ### Added
 
 - Validation targets `epcis/2.0.1`, `cirpass2-textile/2.0.0`, `cirpass2-battery/0.3.0` (draft),

@@ -9,6 +9,8 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-11-12
+
 ### Added: eight more external model releases on the validator
 
 GS1 EPCIS / CBV 2.0.1, CIRPASS-2 Textile 2.0.0 and Battery 0.3.0 (draft), the BatteryPass-Ready 1.3
