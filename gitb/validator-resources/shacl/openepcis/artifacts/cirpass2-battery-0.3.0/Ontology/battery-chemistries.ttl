@@ -1,0 +1,203 @@
+@prefix batchem: <https://w3id.org/eudpp/battery-chemistries#> .
+@prefix batmat: <https://w3id.org/eudpp/battery-materials#> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+#################################################
+# Ontology
+#################################################
+# The ten battery chemistry terms of the draft labelling Implementing
+# Act, as listed in BatteryPass-Ready Data Attribute Long List v1.3,
+# attribute 39. skos:notation carries the term to be printed on the
+# label; skos:prefLabel the full name.
+#
+# No term is declared in the battery namespace: the chemistries are
+# individuals of dpp:MaterialType (MAT), the placeholder class the CORE
+# leaves empty for sectors to fill. batmat:BatteryChemistry is a
+# subclass of dpp:MaterialOfComposition, so it already inherits
+# dpp:hasMaterialType.
+#
+# The Implementing Act is still a draft: the list is to be re-checked
+# against the adopted text.
+
+<https://w3id.org/eudpp/battery-chemistries>
+    a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/eudpp/battery-chemistries/0.1.1> ;
+    rdfs:seeAlso <https://w3id.org/eudpp/battery-materials> ;
+    rdfs:label "EU DPP Battery Chemistries Vocabulary"@en ;
+    dcterms:title "EU DPP Battery Chemistries Vocabulary"@en ;
+    dcterms:description "The ten battery chemistry terms prescribed by the draft labelling Implementing Act under Regulation (EU) 2023/1542, as listed in BatteryPass-Ready Data Attribute Long List v1.3, attribute 39. Declared as individuals of the cross-sectoral class dpp:MaterialType of the CORE MAT module and reached through the inherited dpp:hasMaterialType. Replaces the free-text chemistry names of the battery-materials module."@en ;
+    rdfs:comment "Developed against the CIRPASS-2 CORE ontology of October 2026 (P_DPP v2.1.0, MAT v1.1.0). To be revisited when the labelling Implementing Act is adopted."@en ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:license "This ontology is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0). In case of dispute over CC BY 4.0 applicability, or in case considering the ontology as a software or part of it, this ontology is to be considered licensed under the Apache License, Version 2.0."@en ;
+    dcterms:bibliographicCitation "EU DPP Battery Chemistries Vocabulary. Draft version 0.1.1."@en ;
+    dcterms:creator "Nader Jelassi"@en , "Marc-Andree Wolf"@en ;
+    dcterms:contributor "Arnab Sinha"@en ;
+    dcterms:created "2026-08-18"^^xsd:date ;
+    dcterms:issued "2026-08-18"^^xsd:date ;
+    dcterms:modified "2026-11-03"^^xsd:date ;
+    dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39; draft labelling Implementing Act under Regulation (EU) 2023/1542"@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2023/1542/oj> ;
+    owl:versionInfo "Version 0.1.1 DRAFT"@en ;
+    vann:preferredNamespaceUri "https://w3id.org/eudpp/battery-chemistries#" ;
+    vann:preferredNamespacePrefix "batchem" .
+
+#################################################
+# Concept Scheme
+#################################################
+
+batchem:BatteryChemistryScheme
+    a skos:ConceptScheme ;
+    rdfs:label "Battery chemistries per the draft labelling Implementing Act"@en ;
+    skos:prefLabel "Battery chemistries per the draft labelling Implementing Act"@en ;
+    skos:scopeNote "Closed list of ten terms. For secondary (rechargeable) batteries whose electrochemical composition does not correspond to any of these, the composition shall be indicated based on the molecular formula of the cathode and/or anode — that fallback is not a concept of this scheme and is to be handled by the SHACL shapes."@en ;
+    skos:hasTopConcept batchem:Pb ,
+                       batchem:NiCd ,
+                       batchem:NiMH ,
+                       batchem:LiIonNMC ,
+                       batchem:LiIonLFP ,
+                       batchem:LiIonLMO ,
+                       batchem:LiIonLCO ,
+                       batchem:LiIonNCA ,
+                       batchem:LiMetal ,
+                       batchem:NaIon ;
+    skos:editorialNote "Re-check flag. The Implementing Act is still a draft: the ten terms and their notations are to be re-checked on adoption. The ten individuals carry eudpp:materialTypeScheme (MAT v1.1.0, CIRPASS-2/ontologies-core#25), pointing at batchem:BatteryChemistryScheme, so that the CORE mechanism and SKOS both carry the scheme."@en ;
+    dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en ;
+    dcterms:source "Draft Implementing Act on the harmonised format and technical specifications for the labelling of batteries, under Regulation (EU) 2023/1542, Annex VI Part A (7). Not yet adopted; the ten terms of this scheme are the draft ones."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries> .
+
+#################################################
+# Chemistries — individuals of dpp:MaterialType
+#################################################
+# skos:notation is the term to be used on the battery label.
+
+batchem:Pb
+    a dpp:MaterialType , skos:Concept ;
+    skos:inScheme batchem:BatteryChemistryScheme ;
+    skos:topConceptOf batchem:BatteryChemistryScheme ;
+    skos:notation "Pb" ;
+    dpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI ;
+    rdfs:label "Lead acid"@en ;
+    skos:prefLabel "Lead acid"@en ;
+    skos:altLabel "Pb"@en ;
+    dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries> .
+
+batchem:NiCd
+    a dpp:MaterialType , skos:Concept ;
+    skos:inScheme batchem:BatteryChemistryScheme ;
+    skos:topConceptOf batchem:BatteryChemistryScheme ;
+    skos:notation "Ni-Cd" ;
+    dpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI ;
+    rdfs:label "Nickel cadmium"@en ;
+    skos:prefLabel "Nickel cadmium"@en ;
+    skos:altLabel "Ni-Cd"@en ;
+    dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries> .
+
+batchem:NiMH
+    a dpp:MaterialType , skos:Concept ;
+    skos:inScheme batchem:BatteryChemistryScheme ;
+    skos:topConceptOf batchem:BatteryChemistryScheme ;
+    skos:notation "Ni-MH" ;
+    dpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI ;
+    rdfs:label "Nickel metal hydride"@en ;
+    skos:prefLabel "Nickel metal hydride"@en ;
+    skos:altLabel "Ni-MH"@en ;
+    dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries> .
+
+batchem:LiIonNMC
+    a dpp:MaterialType , skos:Concept ;
+    skos:inScheme batchem:BatteryChemistryScheme ;
+    skos:topConceptOf batchem:BatteryChemistryScheme ;
+    skos:notation "Li-ion NMC" ;
+    dpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI ;
+    rdfs:label "Lithium ion NMC"@en ;
+    skos:prefLabel "Lithium ion NMC"@en ;
+    skos:altLabel "Li-ion NMC"@en ;
+    skos:altLabel "Lithium nickel manganese cobalt oxide"@en ;
+    dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries> .
+
+batchem:LiIonLFP
+    a dpp:MaterialType , skos:Concept ;
+    skos:inScheme batchem:BatteryChemistryScheme ;
+    skos:topConceptOf batchem:BatteryChemistryScheme ;
+    skos:notation "Li-ion LFP" ;
+    dpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI ;
+    rdfs:label "Lithium ion LFP"@en ;
+    skos:prefLabel "Lithium ion LFP"@en ;
+    skos:altLabel "Li-ion LFP"@en ;
+    skos:altLabel "Lithium iron phosphate"@en ;
+    dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries> .
+
+batchem:LiIonLMO
+    a dpp:MaterialType , skos:Concept ;
+    skos:inScheme batchem:BatteryChemistryScheme ;
+    skos:topConceptOf batchem:BatteryChemistryScheme ;
+    skos:notation "Li-ion LMO" ;
+    dpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI ;
+    rdfs:label "Lithium ion LMO"@en ;
+    skos:prefLabel "Lithium ion LMO"@en ;
+    skos:altLabel "Li-ion LMO"@en ;
+    skos:altLabel "Lithium manganese oxide"@en ;
+    dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries> .
+
+batchem:LiIonLCO
+    a dpp:MaterialType , skos:Concept ;
+    skos:inScheme batchem:BatteryChemistryScheme ;
+    skos:topConceptOf batchem:BatteryChemistryScheme ;
+    skos:notation "Li-ion LCO" ;
+    dpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI ;
+    rdfs:label "Lithium ion LCO"@en ;
+    skos:prefLabel "Lithium ion LCO"@en ;
+    skos:altLabel "Li-ion LCO"@en ;
+    skos:altLabel "Lithium cobalt oxide"@en ;
+    dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries> .
+
+batchem:LiIonNCA
+    a dpp:MaterialType , skos:Concept ;
+    skos:inScheme batchem:BatteryChemistryScheme ;
+    skos:topConceptOf batchem:BatteryChemistryScheme ;
+    skos:notation "Li-ion NCA" ;
+    dpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI ;
+    rdfs:label "Lithium ion NCA"@en ;
+    skos:prefLabel "Lithium ion NCA"@en ;
+    skos:altLabel "Li-ion NCA"@en ;
+    skos:altLabel "Lithium nickel cobalt aluminium oxide"@en ;
+    dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries> .
+
+batchem:LiMetal
+    a dpp:MaterialType , skos:Concept ;
+    skos:inScheme batchem:BatteryChemistryScheme ;
+    skos:topConceptOf batchem:BatteryChemistryScheme ;
+    skos:notation "Li-metal" ;
+    dpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI ;
+    rdfs:label "Lithium metal"@en ;
+    skos:prefLabel "Lithium metal"@en ;
+    skos:altLabel "Li-metal"@en ;
+    dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries> .
+
+batchem:NaIon
+    a dpp:MaterialType , skos:Concept ;
+    skos:inScheme batchem:BatteryChemistryScheme ;
+    skos:topConceptOf batchem:BatteryChemistryScheme ;
+    skos:notation "Na-ion" ;
+    dpp:materialTypeScheme "https://w3id.org/eudpp/battery-chemistries#BatteryChemistryScheme"^^xsd:anyURI ;
+    rdfs:label "Sodium-ion"@en ;
+    skos:prefLabel "Sodium-ion"@en ;
+    skos:altLabel "Na-ion"@en ;
+    dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-chemistries> .

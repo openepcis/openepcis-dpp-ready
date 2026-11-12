@@ -1,0 +1,39 @@
+@prefix ex: <https://example.org/textile/> .
+@prefix txt: <https://w3id.org/eudpp/textile-core#> .
+@prefix txtctx: <https://w3id.org/eudpp/textile-context#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtprc: <https://w3id.org/eudpp/textile-process#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:shirt a txt:TextileApparel .
+
+ex:year2025
+    a txtcon:ReferencePeriod ;
+    txtcon:periodStart "2025-01-01T00:00:00Z"^^xsd:dateTime ;
+    txtcon:periodEnd "2025-12-31T23:59:59Z"^^xsd:dateTime .
+
+ex:washCountValue
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "24"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .
+
+ex:washingFrequencyObservation
+    a txtctx:TextileContextObservation ;
+    txtctx:observationOf ex:shirt ;
+    txtctx:hasContextFactorType txtctx:washingFrequency ;
+    txtctx:hasQuantitativeValue ex:washCountValue ;
+    txtctx:hasReferencePeriod ex:year2025 ;
+    txtctx:hasTextualValue "Twenty-four wash operations recorded during the reference year." .
+
+ex:airDrying a skos:Concept ;
+    skos:prefLabel "air drying"@en .
+
+ex:dryingRun2025-04-11 a txtprc:TextileProcessExecution .
+
+ex:dryingPracticeObservation
+    a txtctx:TextileContextObservation ;
+    txtctx:observationOf ex:dryingRun2025-04-11 ;
+    txtctx:hasContextFactorType txtctx:dryingPractice ;
+    txtctx:hasCategoricalValue ex:airDrying .

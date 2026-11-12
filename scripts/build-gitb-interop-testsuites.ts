@@ -31,7 +31,7 @@ import path from "node:path";
 import { Writer } from "n3";
 import { VALIDATOR_DOMAIN } from "./lib/gitb.ts";
 import { ROOT } from "./lib/modules.ts";
-import { GARBAGE, documentQuads, fixturesOf, livenessMutation, loadTargets, provenance, verdict, type Target, type TargetType } from "./lib/targets.ts";
+import { GARBAGE, documentQuads, fixturesOf, livenessMutation, loadTargets, provenance, readDocument, rootType, verdict, TURTLE, type Target, type TargetType } from "./lib/targets.ts";
 
 const WRITE = process.argv.includes("--write");
 const SUITES = path.join(ROOT, "gitb/test-suites");
@@ -135,26 +135,28 @@ async function suiteFiles(t: Target, version: string): Promise<{ files: Map<stri
     const self: Step[] = [];
     const bridge: Step[] = [];
     for (const f of fixtures.filter((x) => x.types.includes(type.id))) {
-      const doc = JSON.parse(await fs.readFile(path.join(ROOT, f.file), "utf8"));
+      const doc = readDocument(f.file);
       if (f.role !== "publisher" && !(await verdict(t, type, doc, { noShacl: !!f.noShacl })).valid) continue;
+      const bad = f.expect === "invalid";
       const into = f.role === "publisher" ? self : bridge;
-      const who = f.role === "publisher" ? `${t.publisher} example` : "OpenEPCIS DPP-Ready crosswalk output";
-      if (type.schemas.length) {
+      const who = f.role === "publisher" ? `${t.publisher} ${bad ? "test case" : "example"}` : "OpenEPCIS DPP-Ready crosswalk output";
+      const must = bad ? "must be REJECTED, as the publisher's corpus expects" : "must conform";
+      if (type.schemas.length && !(TURTLE in doc)) {
         const res = `resources/json/${slug(f.file)}.json`;
         files.set(res, await fs.readFile(path.join(ROOT, f.file), "utf8"));
-        into.push({ name: `j${into.length}`, resource: res, kind: "json", label: `${who} must conform (JSON Schema): ${f.file}` });
+        into.push({ name: `j${into.length}`, resource: res, kind: "json", invert: bad, label: `${who} ${must} (JSON Schema): ${f.file}` });
       }
       if (type.shapes.length && !f.noShacl) {
         const res = `resources/rdf/${slug(f.file)}.nq`;
         files.set(res, nq(await documentQuads(t, doc)));
-        into.push({ name: `r${into.length}`, resource: res, kind: "rdf", label: `${who} must conform (SHACL): ${f.file}` });
+        into.push({ name: `r${into.length}`, resource: res, kind: "rdf", invert: bad, label: `${who} ${must} (SHACL): ${f.file}` });
       }
     }
     if (type.schemas.length) self.push({ name: `gj`, resource: "resources/json/not-a-passport.json", kind: "json", invert: true, label: "A document that is not one must be REJECTED (JSON Schema)" });
-    if (type.shapes.length) self.push({ name: `gr`, resource: "resources/rdf/not-a-passport.nq", kind: "rdf", invert: true, label: "A graph without the root class must be REJECTED (SHACL)" });
-    const first = fixtures.find((x) => x.role === "publisher" && !x.noShacl && x.types.includes(type.id));
+    if (type.shapes.length && rootType(t)) self.push({ name: `gr`, resource: "resources/rdf/not-a-passport.nq", kind: "rdf", invert: true, label: "A graph without the root class must be REJECTED (SHACL)" });
+    const first = fixtures.find((x) => x.role === "publisher" && x.expect === "valid" && !x.noShacl && x.types.includes(type.id));
     if (type.shapes.length && first) {
-      const m = await livenessMutation(t, type, await documentQuads(t, JSON.parse(await fs.readFile(path.join(ROOT, first.file), "utf8"))));
+      const m = await livenessMutation(t, type, await documentQuads(t, readDocument(first.file)));
       if (m) {
         const res = `resources/rdf/${type.id}.liveness.nq`;
         files.set(res, nq(m.quads));
@@ -186,7 +188,7 @@ async function suiteFiles(t: Target, version: string): Promise<{ files: Map<stri
         automaticCase(
           `tc-bridge-${type.id}`,
           `[${type.id}] Bridge: OpenEPCIS DPP-Ready output conforms`,
-          `Runs without interaction. Documents the OpenEPCIS DPP-Ready crosswalk (profile ${t.profile}) produces for ${type.label}, validated by the hosted type. The full statement, incomplete documents and accepted deviations included, is docs/conformance/INTEROP_CONFORMANCE.md of the same release.`,
+          `Runs without interaction. Documents the OpenEPCIS DPP-Ready crosswalk (profile ${t.profile ?? "none"}) produces for ${type.label}, validated by the hosted type. The full statement, incomplete documents and accepted deviations included, is docs/conformance/INTEROP_CONFORMANCE.md of the same release.`,
           bridge,
           `OpenEPCIS DPP-Ready output conforms to ${type.id}.`,
           `OpenEPCIS DPP-Ready output does not conform to ${type.id}.`,

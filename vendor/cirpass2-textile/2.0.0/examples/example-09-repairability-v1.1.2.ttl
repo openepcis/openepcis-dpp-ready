@@ -1,0 +1,120 @@
+@prefix ex: <https://example.org/textile-repair/> .
+@prefix txt: <https://w3id.org/eudpp/textile-core#> .
+@prefix txtam: <https://w3id.org/eudpp/textile-associated-materials#> .
+@prefix txtamcs: <https://w3id.org/eudpp/textile-associated-materials-codelists#> .
+@prefix txtdur: <https://w3id.org/eudpp/textile-durability#> .
+@prefix txtprc: <https://w3id.org/eudpp/textile-process#> .
+@prefix txtass: <https://w3id.org/eudpp/textile-assessment#> .
+@prefix txtctx: <https://w3id.org/eudpp/textile-context#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtrep: <https://w3id.org/eudpp/textile-repairability#> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Illustrative data only. The numeric values are not extracted from the JRC.
+
+ex:jacket123
+    a txt:TextileApparel ;
+    txtrep:hasLifeExtensionInterventionAspect ex:jacketRepairability ;
+    txtrep:hasRepairService ex:brandRepairService ;
+    txtrep:hasRepairGuidance ex:zipperGuidance ;
+    txtrep:hasRepairabilityAssessment ex:jacketRepairabilityAssessment .
+
+ex:jacketRepairability
+    a txtrep:Repairability .
+
+ex:brandRepairActor
+    a dpp:Actor ;
+    txtrep:hasRepairActorType txtrep:companyRepairActor .
+
+ex:repairProcessType
+    a txtprc:RepairProcess .
+
+ex:zipperFailureMode
+    a txtdur:ZipperFailure .
+
+ex:brandRepairService
+    a txtrep:RepairService ;
+    txtrep:providedBy ex:brandRepairActor ;
+    txtrep:providesGuidance ex:zipperGuidance ;
+    txtrep:supportsProcessType ex:repairProcessType ;
+    txtrep:hasRepairPriceTransparency true ;
+    txtrep:isAvailableInWholeSalesRegion true ;
+    txtrep:hasRepairResponseTimeValue ex:sevenDayResponse .
+
+ex:sevenDayResponse
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "7"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:day .
+
+ex:zipperGuidance
+    a txtrep:DigitalRepairGuidance ;
+    dpp:webLink "https://example.org/guidance/zipper"^^xsd:anyURI ;
+    txtrep:coversPriorityElementType txtrep:zipperRepairElement ;
+    txtrep:supportsProcessType ex:repairProcessType .
+
+ex:zipperComponent
+    a txtam:NonTextileComponent ;
+    txtam:hasNonTextileComponentType txtamcs:zipper .
+
+ex:zipperPriorityElement
+    a txtrep:PriorityRepairElement ;
+    txtrep:hasElementType txtrep:zipperRepairElement ;
+    txtrep:refersToComponent ex:zipperComponent ;
+    txtrep:addressesFailureMode ex:zipperFailureMode .
+
+ex:easeOfDisassemblyFeature
+    a txtrep:EaseOfDisassembly .
+
+ex:repairCostCondition
+    a txtrep:RepairCostCondition ;
+    txtrep:hasRepairCostToNewProductPriceRatio ex:repairCostRatio .
+
+ex:repairCostRatio
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "0.22"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .
+
+ex:spareZipperAvailable
+    a txtrep:SparePartAvailabilityCondition .
+
+ex:userAcceptanceCondition
+    a txtrep:UserAcceptanceCondition ;
+    txtrep:hasUserAcceptanceStatus txtrep:userAcceptanceAccepted .
+
+ex:repairBehaviourObservation
+    a txtctx:TextileContextObservation ;
+    txtctx:observationOf ex:jacket123 ;
+    txtctx:hasContextFactorType txtctx:repairBehaviour ;
+    txtctx:hasTextualValue "The user is willing to use a professional repair service." .
+
+ex:jacketRepairabilityAssessment
+    a txtrep:RepairabilityAssessment ;
+    txtrep:assessesRepairabilityOf ex:jacket123 ;
+    txtrep:considersProcessType ex:repairProcessType ;
+    txtrep:considersRepairService ex:brandRepairService ;
+    txtrep:hasDesignFeature ex:easeOfDisassemblyFeature ;
+    txtrep:hasPriorityRepairElement ex:zipperPriorityElement ;
+    txtrep:hasRepairCostCondition ex:repairCostCondition ;
+    txtrep:hasSparePartAvailabilityCondition ex:spareZipperAvailable ;
+    txtrep:hasUserAcceptanceCondition ex:userAcceptanceCondition ;
+    txtrep:usesRepairBehaviourObservation ex:repairBehaviourObservation ;
+    txtass:producesResult ex:jacketRepairabilityResult .
+
+ex:jacketRepairabilityResult
+    a txtrep:RepairabilityAssessmentResult ;
+    txtrep:hasRepairServiceConfiguration txtrep:repairServiceBAT ;
+    txtrep:canBeDisassembledWithoutDamage true .
+
+ex:zipperRepairExecution
+    a txtrep:TextileRepairEvent ;
+    txtprc:executesProcessType ex:repairProcessType ;
+    txtprc:concernsProduct ex:jacket123 ;
+    txtrep:hasRepairActionType txtrep:zipperReplacementAction ;
+    txtrep:addressesFailureMode ex:zipperFailureMode ;
+    txtrep:usesSpareComponent ex:replacementZipper .
+
+ex:replacementZipper
+    a txtam:NonTextileComponent ;
+    txtam:hasNonTextileComponentType txtamcs:zipper .

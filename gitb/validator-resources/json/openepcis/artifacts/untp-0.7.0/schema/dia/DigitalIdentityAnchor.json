@@ -1,0 +1,517 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "type": {
+      "type": "array",
+      "readOnly": true,
+      "default": [
+        "DigitalIdentityAnchor",
+        "VerifiableCredential"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "const": "DigitalIdentityAnchor",
+            "minContains": 1
+          }
+        },
+        {
+          "contains": {
+            "const": "VerifiableCredential",
+            "minContains": 1
+          }
+        }
+      ]
+    },
+    "@context": {
+      "example": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://vocabulary.uncefact.org/untp/0.7.0/context/"
+      ],
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "A list of JSON-LD context URIs that define the semantic meaning of properties within the credential. ",
+      "readOnly": true,
+      "prefixItems": [
+        {
+          "const": "https://www.w3.org/ns/credentials/v2",
+          "type": "string"
+        },
+        {
+          "const": "https://vocabulary.uncefact.org/untp/0.7.0/context/",
+          "type": "string"
+        }
+      ],
+      "default": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://vocabulary.uncefact.org/untp/0.7.0/context/"
+      ],
+      "minItems": 2,
+      "uniqueItems": true
+    },
+    "id": {
+      "example": "https://example-company.com/credentials/2a423366-a0d6-4855-ba65-2e0c926d09b0",
+      "type": "string",
+      "format": "uri",
+      "description": "A unique identifier (URI) assigned to this verifiable credential."
+    },
+    "issuer": {
+      "$ref": "#/$defs/CredentialIssuer",
+      "description": "The organisation that is the issuer of this VC. Note that the \"id\" property MUST be a W3C DID.  Other identifiers such as tax registration numbers can be listed in the \"otherIdentifiers\" property."
+    },
+    "validFrom": {
+      "example": "2024-03-15T12:00:00Z",
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time from which the credential is valid."
+    },
+    "validUntil": {
+      "example": "2034-03-15T12:00:00Z",
+      "type": "string",
+      "format": "date-time",
+      "description": "The expiry date (if applicable) of this verifiable credential."
+    },
+    "name": {
+      "example": "Some name",
+      "type": "string",
+      "description": "Name of this verifiable credential instance (eg the title of a digital product passport, facility record, lifecycle event, or conformity credential)"
+    },
+    "credentialStatus": {
+      "$ref": "#/$defs/BitstringStatusListEntry",
+      "description": "A W3C VCDM2.0 compliant object containing credential status information."
+    },
+    "renderMethod": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RenderTemplate2024"
+      },
+      "description": "Human rendering information for this credential. An array of render methods (eg RenderTemplate2024) that may be used to display the credential."
+    },
+    "credentialSubject": {
+      "$ref": "#/$defs/RegisteredIdentity",
+      "description": "The registered identity from the authoritative register that is the subject of this credential"
+    },
+    "issuingSoftware": {
+      "$ref": "#/$defs/IssuingSoftware",
+      "description": "Optional metadata identifying the software product (and its vendor) that issued this credential. Useful for vendor traceability and conformity testing. Issuers MAY omit this property."
+    }
+  },
+  "description": "The Digital Identity Anchor (DIA) is a very simple credential that is issued by a trusted authority and asserts an equivalence between a member identity as known to the authority (eg a VAT number) and one or more decentralised identifiers (DIDs) held by the member.  ",
+  "required": [
+    "@context",
+    "id",
+    "issuer",
+    "validFrom",
+    "name",
+    "credentialSubject"
+  ],
+  "$defs": {
+    "CredentialIssuer": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "CredentialIssuer"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "CredentialIssuer",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "id": {
+          "example": "did:web:identifiers.example-company.com:12345",
+          "type": "string",
+          "format": "uri",
+          "description": "The W3C DID of the issuer - should be a did:web or did:webvh"
+        },
+        "name": {
+          "example": "Example Company Pty Ltd",
+          "type": "string",
+          "description": "The name of the issuer person or organisation"
+        },
+        "issuerAlsoKnownAs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "array",
+                "readOnly": true,
+                "default": [
+                  "Party"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "const": "Party",
+                      "minContains": 1
+                    }
+                  }
+                ]
+              },
+              "id": {
+                "example": "https://sample-business-register.gov/123456789",
+                "type": "string",
+                "format": "uri",
+                "description": "Globally unique identifier of this party. Typically represented as a URI identifierScheme/Identifier URI"
+              },
+              "name": {
+                "example": "Sample Company Ltd",
+                "type": "string",
+                "description": "Legal registered name of this party."
+              },
+              "registeredId": {
+                "example": 90664869327,
+                "type": "string",
+                "description": "The registration number (alphanumeric) of the Party within the register. Unique within the register."
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "description": "An optional list of other registered identifiers for this credential issuer "
+        }
+      },
+      "description": "The issuer party (person or organisation) of a verifiable credential.",
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "BitstringStatusListEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "BitstringStatusListEntry"
+          ],
+          "example": "BitstringStatusListEntry",
+          "description": "The type of status list - must be set to \"The type property MUST be BitstringStatusListEntry.\""
+        },
+        "id": {
+          "example": "https://example-cab.com/credentials/status/3#94567\"",
+          "type": "string",
+          "format": "uri",
+          "description": "optional identifier of this status list entry."
+        },
+        "statusPurpose": {
+          "type": "string",
+          "enum": [
+            "refresh",
+            "revocation",
+            "suspension",
+            "message"
+          ],
+          "example": "refresh",
+          "description": "Status purpose drawn from a standard list but extensible as per w3c bitstring status list specification."
+        },
+        "statusListIndex": {
+          "minimum": 0,
+          "example": 94567,
+          "type": "integer",
+          "description": "\tThe statusListIndex property MUST be an arbitrary size integer greater than or equal to 0, expressed as a string in base 10. The value identifies the position of the status of the verifiable credential."
+        },
+        "statusListCredential": {
+          "example": "https://example-cab.com/credentials/status/4",
+          "type": "string",
+          "format": "uri",
+          "description": "The statusListCredential property MUST be a URL to a verifiable credential. When the URL is dereferenced, the resulting verifiable credential MUST have type property that includes the BitstringStatusListCredential value."
+        }
+      },
+      "description": "A privacy-preserving, space-efficient, and high-performance mechanism for publishing status information such as suspension or revocation of Verifiable Credentials through use of bitstrings.  See https://www.w3.org/TR/vc-bitstring-status-list/ for full details.",
+      "required": [
+        "type",
+        "statusPurpose",
+        "statusListIndex",
+        "statusListCredential"
+      ]
+    },
+    "RenderTemplate2024": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "RenderTemplate2024"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "RenderTemplate2024",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "name": {
+          "type": "string",
+          "description": "Human facing display name for selection"
+        },
+        "mediaQuery": {
+          "type": "string",
+          "description": "Media query as defined in https://www.w3.org/TR/mediaqueries-4/"
+        },
+        "template": {
+          "type": "string",
+          "description": "An inline template field for use cases where remote retrieval of a render method is suboptimal"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL for remotely hosted template"
+        },
+        "mediaType": {
+          "type": "string",
+          "description": "media type of the rendered output (eg text/html)"
+        },
+        "digestMultibase": {
+          "type": "string",
+          "description": "Used for resource integrity and/or validation of the inline `template`"
+        }
+      },
+      "description": "A single template format focused render method where the content/media type decision becomes secondary (and is expressed separately).See https://github.com/w3c-ccg/vc-render-method/issues/9"
+    },
+    "IssuingSoftware": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "example": "https://example.com/.well-known/untp/software/yourproduct/2026.04.1",
+          "type": "string",
+          "format": "uri",
+          "description": "A resolvable identifier for the specific version of the software product that issued this credential."
+        },
+        "name": {
+          "example": "Your Product Name",
+          "type": "string",
+          "description": "The name of the software product that issued this credential."
+        },
+        "version": {
+          "example": "2026.04.1",
+          "type": "string",
+          "description": "The version of the software product that issued this credential."
+        },
+        "vendor": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "example": "did:web:example.com",
+              "type": "string",
+              "format": "uri",
+              "description": "The decentralised identifier (DID) or other resolvable identifier of the software vendor."
+            },
+            "name": {
+              "example": "Your Vendor Name",
+              "type": "string",
+              "description": "The name of the software vendor."
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ],
+          "description": "The vendor of the software product that issued this credential."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "version",
+        "vendor"
+      ],
+      "description": "Optional metadata identifying the software product (and its vendor) that issued the parent credential. When present, all listed sub-properties MUST be populated; when absent, the credential is still valid (verifiers MUST treat the property as optional)."
+    },
+    "RegisteredIdentity": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "RegisteredIdentity"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "RegisteredIdentity",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "id": {
+          "example": "did:web:samplecompany.com/123456789",
+          "type": "string",
+          "format": "uri",
+          "description": "The DID that is controlled by the registered member and is linked to the registeredID through this Identity Anchor credential"
+        },
+        "registeredName": {
+          "example": "Sample business Ltd",
+          "type": "string",
+          "description": "The registered name of the entity within the identifier scheme.  Examples: product - EV battery 300Ah, Party - Sample Company Pty Ltd,  Facility - Green Acres battery factory "
+        },
+        "registeredId": {
+          "example": 123456789,
+          "type": "string",
+          "description": "The registration number (alphanumeric) of the entity within the register. Unique within the register."
+        },
+        "registeredDate": {
+          "type": "string",
+          "format": "date",
+          "description": "The date on which this identity was first registered with the registrar."
+        },
+        "publicInformation": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to further information about the registered entity on the authoritative registrar site."
+        },
+        "idScheme": {
+          "$ref": "#/$defs/IdentifierScheme",
+          "description": "The identifier scheme operated by the registrar"
+        },
+        "registrar": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "array",
+              "readOnly": true,
+              "default": [
+                "Party"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "allOf": [
+                {
+                  "contains": {
+                    "const": "Party",
+                    "minContains": 1
+                  }
+                }
+              ]
+            },
+            "id": {
+              "example": "https://sample-business-register.gov/123456789",
+              "type": "string",
+              "format": "uri",
+              "description": "Globally unique identifier of this party. Typically represented as a URI identifierScheme/Identifier URI"
+            },
+            "name": {
+              "example": "Sample Company Ltd",
+              "type": "string",
+              "description": "Legal registered name of this party."
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ],
+          "description": "The registrar party that operates the register."
+        },
+        "registerType": {
+          "type": "string",
+          "enum": [
+            "product",
+            "facility",
+            "business",
+            "trademark",
+            "land",
+            "accreditation"
+          ],
+          "example": "product",
+          "description": "The thematic purpose of the register - organisations, facilities, products, trademarks, etc"
+        },
+        "registrationScope": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          },
+          "description": "List of URIs that represent the roles or scopes of membership. For example [\"https://abr.business.gov.au/Help/EntityTypeDescription?Id=19\"]"
+        }
+      },
+      "description": "The identity anchor is a mapping between a registry member identity and one or more decentralised identifiers owned by the member. It may also list a set of membership scopes.",
+      "required": [
+        "id",
+        "registeredName",
+        "registeredId",
+        "registeredDate",
+        "idScheme",
+        "registerType"
+      ]
+    },
+    "IdentifierScheme": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "IdentifierScheme"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "IdentifierScheme",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "id": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URI of this identifier scheme"
+        },
+        "name": {
+          "example": "Global Identifier Scheme Name",
+          "type": "string",
+          "description": "The name of the identifier scheme. "
+        }
+      },
+      "description": "An identifier registration scheme for products, facilities, or organisations. Typically operated by a state, national or global authority.",
+      "required": [
+        "id",
+        "name"
+      ]
+    }
+  }
+}

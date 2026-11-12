@@ -1,0 +1,78 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/ppwr/ppwr-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "rdfs:comment": [
+    "Recyclability-grade declaration observation in the sensorReport form of the common/assessment EPCIS binding: sensorMetadata.dataProcessingMethod names the design-for-recycling methodology (RecyClass), bizRules the PPWR Annex II basis; the reports carry the grade (indicator kind euppwr:RecyclabilityPerformanceGrade, coded value as stringValue) and the score (oea:RecyclabilityScore). The lot is class-level (AI 01 + AI 10), so it travels in quantityList, not epcList.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "gs1:masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
+    "",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/, oea=https://ref.openepcis.org/extensions/common/assessment/, euppwr=https://ref.openepcis.org/extensions/eu/ppwr/",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "schemaVersion": "2.0",
+  "creationDate": "2026-05-04T10:00:00.000Z",
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:5c2b4e90-1234-4abc-9876-1f2c3d4e5f64",
+        "eventTime": "2026-05-04T09:30:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "OBSERVE",
+        "bizStep": "inspecting",
+        "disposition": "active",
+        "quantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/09521004005019/10/LOT-01",
+            "quantity": 24000,
+            "uom": "H87"
+          }
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000082"
+        },
+        "gs1:masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521004005019/10/LOT-01",
+            "type": "Product",
+            "regulatoryInformation": [
+              {
+                "type": "RegulatoryInformation",
+                "regulationType": {
+                  "id": "euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION"
+                },
+                "regulatoryAct": "EU 2025/40 Annex II",
+                "isRegulationCompliant": true
+              }
+            ]
+          }
+        ],
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "time": "2026-05-04T09:30:00.000Z",
+              "deviceMetadata": "https://www.cen.eu/work/areas/packaging/Pages/EN-13430.aspx",
+              "dataProcessingMethod": "https://recyclass.eu/recyclability/",
+              "bizRules": "https://eur-lex.europa.eu/eli/reg/2025/40/annex/II"
+            },
+            "sensorReport": [
+              {
+                "type": "euppwr:RecyclabilityPerformanceGrade",
+                "stringValue": "https://ref.openepcis.org/extensions/eu/ppwr/GradeA"
+              },
+              {
+                "type": "oea:RecyclabilityScore",
+                "value": 92.5,
+                "uom": "P1"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

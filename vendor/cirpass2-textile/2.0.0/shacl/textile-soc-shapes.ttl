@@ -1,0 +1,682 @@
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix txtam: <https://w3id.org/eudpp/textile-associated-materials#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtsoc: <https://w3id.org/eudpp/textile-soc#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/eudpp/textile-shacl#ConcentrationRangeShape> a sh:NodeShape ;
+    sh:property <https://w3id.org/eudpp/textile-shacl#ConcentrationMaximum>,
+        <https://w3id.org/eudpp/textile-shacl#ConcentrationMinimum>,
+        <https://w3id.org/eudpp/textile-shacl#RangeNoScalar> ;
+    sh:sparql <https://w3id.org/eudpp/textile-shacl#ConcentrationRangeOrder> ;
+    sh:targetClass dpp:ConcentrationRange .
+
+<https://w3id.org/eudpp/textile-shacl#ExactConcentrationShape> a sh:NodeShape ;
+    sh:property <https://w3id.org/eudpp/textile-shacl#ExactConcentrationScalar>,
+        <https://w3id.org/eudpp/textile-shacl#ExactNoMaximum>,
+        <https://w3id.org/eudpp/textile-shacl#ExactNoMinimum> ;
+    sh:target [ a sh:SPARQLTarget ;
+            sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?this WHERE { ?this a e:ConcentrationOfSubstanceOfConcern.
+ FILTER NOT EXISTS { ?this a e:MaximumConcentration } FILTER NOT EXISTS { ?this a e:ConcentrationRange } }""" ] .
+
+<https://w3id.org/eudpp/textile-shacl#ExactThresholdValueShape> a sh:NodeShape ;
+    sh:property <https://w3id.org/eudpp/textile-shacl#ExactThresholdScalar>,
+        <https://w3id.org/eudpp/textile-shacl#ExactThresholdValueShapeExcluded0>,
+        <https://w3id.org/eudpp/textile-shacl#ExactThresholdValueShapeExcluded1>,
+        <https://w3id.org/eudpp/textile-shacl#ExactThresholdValueShapeExcluded2>,
+        <https://w3id.org/eudpp/textile-shacl#ExactThresholdValueShapeUnit> ;
+    sh:sparql <https://w3id.org/eudpp/textile-shacl#ExactThresholdValueShapeNotConcentration> ;
+    sh:targetClass txtsoc:ExactThresholdValue .
+
+<https://w3id.org/eudpp/textile-shacl#MaximumConcentrationShape> a sh:NodeShape ;
+    sh:property <https://w3id.org/eudpp/textile-shacl#MaximumConcentrationScalar>,
+        <https://w3id.org/eudpp/textile-shacl#MaximumNoMaximum>,
+        <https://w3id.org/eudpp/textile-shacl#MaximumNoMinimum> ;
+    sh:sparql <https://w3id.org/eudpp/textile-shacl#MaximumRangeDisjoint> ;
+    sh:targetClass dpp:MaximumConcentration .
+
+<https://w3id.org/eudpp/textile-shacl#MaximumThresholdValueShape> a sh:NodeShape ;
+    sh:property <https://w3id.org/eudpp/textile-shacl#MaximumThresholdScalar>,
+        <https://w3id.org/eudpp/textile-shacl#MaximumThresholdValueShapeExcluded0>,
+        <https://w3id.org/eudpp/textile-shacl#MaximumThresholdValueShapeExcluded1>,
+        <https://w3id.org/eudpp/textile-shacl#MaximumThresholdValueShapeExcluded2>,
+        <https://w3id.org/eudpp/textile-shacl#MaximumThresholdValueShapeUnit> ;
+    sh:sparql <https://w3id.org/eudpp/textile-shacl#MaximumThresholdValueShapeNotConcentration> ;
+    sh:targetClass txtsoc:MaximumThresholdValue .
+
+<https://w3id.org/eudpp/textile-shacl#RangeThresholdValueShape> a sh:NodeShape ;
+    sh:property <https://w3id.org/eudpp/textile-shacl#RangeThresholdValueShapeExcluded0>,
+        <https://w3id.org/eudpp/textile-shacl#RangeThresholdValueShapeExcluded1>,
+        <https://w3id.org/eudpp/textile-shacl#RangeThresholdValueShapeUnit>,
+        <https://w3id.org/eudpp/textile-shacl#ThresholdMaximum>,
+        <https://w3id.org/eudpp/textile-shacl#ThresholdMinimum> ;
+    sh:sparql <https://w3id.org/eudpp/textile-shacl#RangeThresholdValueShapeNotConcentration>,
+        <https://w3id.org/eudpp/textile-shacl#ThresholdRangeOrder> ;
+    sh:targetClass txtsoc:RangeThresholdValue .
+
+<https://w3id.org/eudpp/textile-shacl#TextileConcentrationShape> a sh:NodeShape ;
+    sh:property <https://w3id.org/eudpp/textile-shacl#ConcentrationBasis>,
+        <https://w3id.org/eudpp/textile-shacl#ConcentrationLevel>,
+        <https://w3id.org/eudpp/textile-shacl#ConcentrationMethod>,
+        <https://w3id.org/eudpp/textile-shacl#ConcentrationPart>,
+        <https://w3id.org/eudpp/textile-shacl#ConcentrationUnit> ;
+    sh:sparql <https://w3id.org/eudpp/textile-shacl#ConcentrationMaterialScope> ;
+    sh:targetClass dpp:ConcentrationOfSubstanceOfConcern ;
+    sh:targetObjectsOf dpp:hasConcentration .
+
+<https://w3id.org/eudpp/textile-shacl#TextileHandlingInformationShape> a sh:NodeShape ;
+    sh:property <https://w3id.org/eudpp/textile-shacl#InstructionText> ;
+    sh:targetClass txtsoc:TextileSoCHandlingInformation ;
+    sh:targetObjectsOf txtsoc:hasTextileHandlingInformation .
+
+<https://w3id.org/eudpp/textile-shacl#TextileLocationShape> a sh:NodeShape ;
+    sh:property <https://w3id.org/eudpp/textile-shacl#LocationDescriptor>,
+        <https://w3id.org/eudpp/textile-shacl#LocationPart>,
+        <https://w3id.org/eudpp/textile-shacl#LocationType> ;
+    sh:targetObjectsOf txtsoc:hasLocationInformation .
+
+<https://w3id.org/eudpp/textile-shacl#TextilePresenceShape> a sh:NodeShape ;
+    sh:property <https://w3id.org/eudpp/textile-shacl#PresenceProduct>,
+        <https://w3id.org/eudpp/textile-shacl#PresenceQualification>,
+        <https://w3id.org/eudpp/textile-shacl#PresenceSubstance> ;
+    sh:sparql <https://w3id.org/eudpp/textile-shacl#CriterionDContext>,
+        <https://w3id.org/eudpp/textile-shacl#PresenceProductNotPart>,
+        <https://w3id.org/eudpp/textile-shacl#PresenceQualificationIdentity> ;
+    sh:targetClass txtsoc:TextileSubstanceOfConcernPresenceContext .
+
+<https://w3id.org/eudpp/textile-shacl#TextileQualificationShape> a sh:NodeShape ;
+    sh:property <https://w3id.org/eudpp/textile-shacl#QualificationBasis>,
+        <https://w3id.org/eudpp/textile-shacl#QualificationCriteria>,
+        <https://w3id.org/eudpp/textile-shacl#QualificationSourceText>,
+        <https://w3id.org/eudpp/textile-shacl#QualificationSubstance> ;
+    sh:sparql <https://w3id.org/eudpp/textile-shacl#QualificationSourceRequired>,
+        <https://w3id.org/eudpp/textile-shacl#isQualifiedByProductGroupListCriterion>,
+        <https://w3id.org/eudpp/textile-shacl#isQualifiedBySVHCListCriterion> ;
+    sh:targetObjectsOf dpp:hasApplicableQualification .
+
+<https://w3id.org/eudpp/textile-shacl#TextileRegulatoryReferenceShape> a sh:NodeShape ;
+    sh:property <https://w3id.org/eudpp/textile-shacl#ReferenceApplicability>,
+        <https://w3id.org/eudpp/textile-shacl#ReferenceDate>,
+        <https://w3id.org/eudpp/textile-shacl#ReferenceIdentifier>,
+        <https://w3id.org/eudpp/textile-shacl#ReferenceVersion> ;
+    sh:sparql <https://w3id.org/eudpp/textile-shacl#ReferenceIdentityRequired> ;
+    sh:targetObjectsOf txtsoc:hasRegulatoryBasis .
+
+<https://w3id.org/eudpp/textile-shacl#TextileRegulatoryThresholdShape> a sh:NodeShape ;
+    sh:property <https://w3id.org/eudpp/textile-shacl#ThresholdExpression> ;
+    sh:sparql <https://w3id.org/eudpp/textile-shacl#ThresholdNotConcentration> ;
+    sh:targetClass dpp:ThresholdOfSubstanceOfConcern ;
+    sh:targetObjectsOf txtsoc:evaluatesAgainstThreshold .
+
+<https://w3id.org/eudpp/textile-shacl#TextileScopeShape> a sh:NodeShape ;
+    sh:sparql <https://w3id.org/eudpp/textile-shacl#DenominatorPartMembership>,
+        <https://w3id.org/eudpp/textile-shacl#LocationPartMembership>,
+        <https://w3id.org/eudpp/textile-shacl#ProductLocationNotGroup> ;
+    sh:targetClass txtsoc:TextileSubstanceOfConcernPresenceContext .
+
+<https://w3id.org/eudpp/textile-shacl#TextileThresholdEvaluationShape> a sh:NodeShape ;
+    sh:property <https://w3id.org/eudpp/textile-shacl#EvaluationConcentration>,
+        <https://w3id.org/eudpp/textile-shacl#EvaluationResult>,
+        <https://w3id.org/eudpp/textile-shacl#EvaluationThreshold> ;
+    sh:sparql <https://w3id.org/eudpp/textile-shacl#EvaluationApplicability>,
+        <https://w3id.org/eudpp/textile-shacl#EvaluationBasisCompatibility>,
+        <https://w3id.org/eudpp/textile-shacl#EvaluationIntervalOutcome>,
+        <https://w3id.org/eudpp/textile-shacl#EvaluationLevelCompatibility>,
+        <https://w3id.org/eudpp/textile-shacl#EvaluationOwnership>,
+        <https://w3id.org/eudpp/textile-shacl#EvaluationPartCompatibility>,
+        <https://w3id.org/eudpp/textile-shacl#EvaluationScopeRequired>,
+        <https://w3id.org/eudpp/textile-shacl#EvaluationUnitCompatibility> ;
+    sh:targetClass txtsoc:ThresholdEvaluation .
+
+<https://w3id.org/eudpp/textile-shacl/soc> a owl:Ontology ;
+    rdfs:comment "Structural partial-report profile. Concentration is required only by the separately selected complete-report profile."@en ;
+    owl:versionIRI <https://w3id.org/eudpp/textile-shacl/soc/2.0.0> ;
+    owl:versionInfo "Version 2.0.0 candidate" .
+
+<https://w3id.org/eudpp/textile-shacl#ConcentrationBasis> a sh:PropertyShape ;
+    sh:class txtsoc:ConcentrationReferenceBasis ;
+    sh:maxCount 1 ;
+    sh:path txtsoc:hasConcentrationReferenceBasis .
+
+<https://w3id.org/eudpp/textile-shacl#ConcentrationLevel> a sh:PropertyShape ;
+    sh:class txtsoc:ReportingLevel ;
+    sh:maxCount 1 ;
+    sh:path txtsoc:hasConcentrationReportingLevel .
+
+<https://w3id.org/eudpp/textile-shacl#ConcentrationMaterialScope> a sh:SPARQLConstraint ;
+    sh:message "Material reporting requires a material-group denominator and reference basis."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this t:hasConcentrationReportingLevel t:MaterialLevel. FILTER NOT EXISTS { $this t:hasConcentrationReferenceBasis t:MaterialGroupMassBasis; t:refersToProductPartForConcentration ?part. ?part a t:MaterialGroup } }""" .
+
+<https://w3id.org/eudpp/textile-shacl#ConcentrationMaximum> a sh:PropertyShape ;
+    sh:datatype xsd:decimal ;
+    sh:maxCount 1 ;
+    sh:maxInclusive 1.0 ;
+    sh:minCount 1 ;
+    sh:minInclusive 0.0 ;
+    sh:path dpp:maximumNumericalValue .
+
+<https://w3id.org/eudpp/textile-shacl#ConcentrationMethod> a sh:PropertyShape ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    sh:path txtsoc:analyticalMethod .
+
+<https://w3id.org/eudpp/textile-shacl#ConcentrationMinimum> a sh:PropertyShape ;
+    sh:datatype xsd:decimal ;
+    sh:maxCount 1 ;
+    sh:maxInclusive 1.0 ;
+    sh:minCount 1 ;
+    sh:minInclusive 0.0 ;
+    sh:path dpp:minimumNumericalValue .
+
+<https://w3id.org/eudpp/textile-shacl#ConcentrationPart> a sh:PropertyShape ;
+    sh:class txtam:TextileProductPart ;
+    sh:maxCount 1 ;
+    sh:path txtsoc:refersToProductPartForConcentration .
+
+<https://w3id.org/eudpp/textile-shacl#ConcentrationRangeOrder> a sh:SPARQLConstraint ;
+    sh:message "The lower concentration bound must not exceed the upper bound."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this e:minimumNumericalValue ?lower; e:maximumNumericalValue ?upper. FILTER (?lower > ?upper) }""" .
+
+<https://w3id.org/eudpp/textile-shacl#ConcentrationUnit> a sh:PropertyShape ;
+    sh:in ( dpp:massFractionUnit units:one ) ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:path dpp:hasMeasurementUnit .
+
+<https://w3id.org/eudpp/textile-shacl#CriterionDContext> a sh:SPARQLConstraint ;
+    sh:message "Criterion D requires an explicit qualification scope matching the owning product."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this e:isSubstancePresenceOf ?product; e:hasApplicableQualification ?q. ?q e:hasSoCCriterion e:CriterionD. FILTER NOT EXISTS { ?q t:appliesToProduct ?product } }""" .
+
+<https://w3id.org/eudpp/textile-shacl#DenominatorPartMembership> a sh:SPARQLConstraint ;
+    sh:message "A concentration denominator part must belong to the owning product structure."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this e:isSubstancePresenceOf ?product; e:hasConcentration ?conc. ?conc t:refersToProductPartForConcentration ?part. FILTER NOT EXISTS { ?product (t:hasPart|^t:isPartOfProduct|a:hasNonTextileComponent)+ ?part } }""" .
+
+<https://w3id.org/eudpp/textile-shacl#EvaluationApplicability> a sh:SPARQLConstraint ;
+    sh:message "The evaluated threshold must be applicable to the concentration."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this t:evaluatesConcentrationInformation ?c; t:evaluatesAgainstThreshold ?threshold. FILTER NOT EXISTS { ?c t:hasApplicableRegulatoryThreshold ?threshold } }""" .
+
+<https://w3id.org/eudpp/textile-shacl#EvaluationBasisCompatibility> a sh:SPARQLConstraint ;
+    sh:message "Comparison scope must match the concentration scope."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this t:evaluatesConcentrationInformation ?c; t:evaluatesAgainstThreshold ?threshold. ?threshold <https://w3id.org/eudpp/textile-soc#hasThresholdReferenceBasis> ?scope. FILTER NOT EXISTS { ?c <https://w3id.org/eudpp/textile-soc#hasConcentrationReferenceBasis> ?scope } }""" .
+
+<https://w3id.org/eudpp/textile-shacl#EvaluationConcentration> a sh:PropertyShape ;
+    sh:class dpp:ConcentrationOfSubstanceOfConcern ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:path txtsoc:evaluatesConcentrationInformation .
+
+<https://w3id.org/eudpp/textile-shacl#EvaluationIntervalOutcome> a sh:SPARQLConstraint ;
+    sh:message "A threshold result must follow conservative interval comparison; overlap is indeterminate."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this t:evaluatesConcentrationInformation ?c; t:evaluatesAgainstThreshold/t:hasThresholdQuantitativeValue ?v; t:hasThresholdEvaluationResult ?result.
+ {
+ { ?c e:numericalValue ?cs. FILTER NOT EXISTS { ?c a e:MaximumConcentration } BIND(?cs AS ?cl) BIND(?cs AS ?cu) }
+ UNION { ?c a e:MaximumConcentration; e:numericalValue ?cm. BIND(0 AS ?cl) BIND(?cm AS ?cu) }
+ UNION { ?c e:minimumNumericalValue ?cl; e:maximumNumericalValue ?cu. }
+ }
+ {
+ { ?v a t:ExactThresholdValue; c:numericValue ?ts. BIND(?ts AS ?tl) BIND(?ts AS ?tu) }
+ UNION { ?v a t:MaximumThresholdValue; t:maximumValue ?tm. BIND(0 AS ?tl) BIND(?tm AS ?tu) }
+ UNION { ?v a t:RangeThresholdValue; t:lowerBound ?tl; t:upperBound ?tu. }
+ }
+ FILTER ((?result=t:BelowThreshold && !(?cu < ?tl)) ||
+         (?result=t:AboveThreshold && !(?cl > ?tu)) ||
+         (?result=t:AtThreshold && !(?cl=?cu && ?tl=?tu && ?cl=?tl)) ||
+         (?result=t:IndeterminateThresholdResult && (?cu < ?tl || ?cl > ?tu || (?cl=?cu && ?tl=?tu && ?cl=?tl)))) }""" .
+
+<https://w3id.org/eudpp/textile-shacl#EvaluationLevelCompatibility> a sh:SPARQLConstraint ;
+    sh:message "Comparison scope must match the concentration scope."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this t:evaluatesConcentrationInformation ?c; t:evaluatesAgainstThreshold ?threshold. ?threshold <https://w3id.org/eudpp/textile-soc#hasThresholdReportingLevel> ?scope. FILTER NOT EXISTS { ?c <https://w3id.org/eudpp/textile-soc#hasConcentrationReportingLevel> ?scope } }""" .
+
+<https://w3id.org/eudpp/textile-shacl#EvaluationOwnership> a sh:SPARQLConstraint ;
+    sh:message "An evaluation attached to a presence must evaluate a concentration of that presence."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { ?presence t:hasThresholdEvaluation $this. $this t:evaluatesConcentrationInformation ?c. FILTER NOT EXISTS { ?presence e:hasConcentration ?c } }""" .
+
+<https://w3id.org/eudpp/textile-shacl#EvaluationPartCompatibility> a sh:SPARQLConstraint ;
+    sh:message "Comparison scope must match the concentration scope."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this t:evaluatesConcentrationInformation ?c; t:evaluatesAgainstThreshold ?threshold. ?threshold <https://w3id.org/eudpp/textile-soc#refersToProductPartForThreshold> ?scope. FILTER NOT EXISTS { ?c <https://w3id.org/eudpp/textile-soc#refersToProductPartForConcentration> ?scope } }""" .
+
+<https://w3id.org/eudpp/textile-shacl#EvaluationResult> a sh:PropertyShape ;
+    sh:in ( txtsoc:BelowThreshold txtsoc:AtThreshold txtsoc:AboveThreshold txtsoc:IndeterminateThresholdResult ) ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:path txtsoc:hasThresholdEvaluationResult .
+
+<https://w3id.org/eudpp/textile-shacl#EvaluationScopeRequired> a sh:SPARQLConstraint ;
+    sh:message "Numerical evaluation requires a declared concentration reference basis and reporting level."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this t:evaluatesConcentrationInformation ?c. FILTER NOT EXISTS { ?c t:hasConcentrationReferenceBasis ?basis; t:hasConcentrationReportingLevel ?level } }""" .
+
+<https://w3id.org/eudpp/textile-shacl#EvaluationThreshold> a sh:PropertyShape ;
+    sh:class dpp:ThresholdOfSubstanceOfConcern ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:path txtsoc:evaluatesAgainstThreshold .
+
+<https://w3id.org/eudpp/textile-shacl#EvaluationUnitCompatibility> a sh:SPARQLConstraint ;
+    sh:message "Threshold comparison requires the same approved decimal mass-ratio unit."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this t:evaluatesConcentrationInformation ?c; t:evaluatesAgainstThreshold/t:hasThresholdQuantitativeValue ?v. ?c e:hasMeasurementUnit ?cu. ?v c:hasMeasurementUnit ?tu. FILTER (?cu != ?tu && !(?cu IN (e:massFractionUnit,<https://si-digital-framework.org/SI/units/one>) && ?tu IN (e:massFractionUnit,<https://si-digital-framework.org/SI/units/one>))) }""" .
+
+<https://w3id.org/eudpp/textile-shacl#ExactConcentrationScalar> a sh:PropertyShape ;
+    sh:datatype xsd:decimal ;
+    sh:maxCount 1 ;
+    sh:maxInclusive 1.0 ;
+    sh:minCount 1 ;
+    sh:minInclusive 0.0 ;
+    sh:path dpp:numericalValue .
+
+<https://w3id.org/eudpp/textile-shacl#ExactNoMaximum> a sh:PropertyShape ;
+    sh:maxCount 0 ;
+    sh:path dpp:maximumNumericalValue .
+
+<https://w3id.org/eudpp/textile-shacl#ExactNoMinimum> a sh:PropertyShape ;
+    sh:maxCount 0 ;
+    sh:path dpp:minimumNumericalValue .
+
+<https://w3id.org/eudpp/textile-shacl#ExactThresholdScalar> a sh:PropertyShape ;
+    sh:datatype xsd:decimal ;
+    sh:maxCount 1 ;
+    sh:maxInclusive 1.0 ;
+    sh:minCount 1 ;
+    sh:minInclusive 0.0 ;
+    sh:path txtcon:numericValue .
+
+<https://w3id.org/eudpp/textile-shacl#ExactThresholdValueShapeExcluded0> a sh:PropertyShape ;
+    sh:maxCount 0 ;
+    sh:path txtsoc:maximumValue .
+
+<https://w3id.org/eudpp/textile-shacl#ExactThresholdValueShapeExcluded1> a sh:PropertyShape ;
+    sh:maxCount 0 ;
+    sh:path txtsoc:lowerBound .
+
+<https://w3id.org/eudpp/textile-shacl#ExactThresholdValueShapeExcluded2> a sh:PropertyShape ;
+    sh:maxCount 0 ;
+    sh:path txtsoc:upperBound .
+
+<https://w3id.org/eudpp/textile-shacl#ExactThresholdValueShapeNotConcentration> a sh:SPARQLConstraint ;
+    sh:message "A threshold expression must not be typed as a concentration."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this a e:ConcentrationOfSubstanceOfConcern. }""" .
+
+<https://w3id.org/eudpp/textile-shacl#ExactThresholdValueShapeUnit> a sh:PropertyShape ;
+    sh:in ( dpp:massFractionUnit units:one ) ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:path txtcon:hasMeasurementUnit .
+
+<https://w3id.org/eudpp/textile-shacl#InstructionText> a sh:PropertyShape ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:path txtsoc:instructionContent .
+
+<https://w3id.org/eudpp/textile-shacl#LocationDescriptor> a sh:PropertyShape ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    sh:path txtsoc:locationDescriptor .
+
+<https://w3id.org/eudpp/textile-shacl#LocationPart> a sh:PropertyShape ;
+    sh:class txtam:TextileProductPart ;
+    sh:maxCount 1 ;
+    sh:path txtsoc:refersToProductPartForLocation .
+
+<https://w3id.org/eudpp/textile-shacl#LocationPartMembership> a sh:SPARQLConstraint ;
+    sh:message "A location part must belong to the owning product structure."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this e:isSubstancePresenceOf ?product; t:hasLocationInformation ?loc. ?loc t:refersToProductPartForLocation ?part. FILTER NOT EXISTS { ?product (t:hasPart|^t:isPartOfProduct|a:hasNonTextileComponent)+ ?part } }""" .
+
+<https://w3id.org/eudpp/textile-shacl#LocationType> a sh:PropertyShape ;
+    sh:class txtsoc:TextileSoCLocationTypeConcept ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:path txtsoc:hasTextileLocationType .
+
+<https://w3id.org/eudpp/textile-shacl#MaximumConcentrationScalar> a sh:PropertyShape ;
+    sh:datatype xsd:decimal ;
+    sh:maxCount 1 ;
+    sh:maxInclusive 1.0 ;
+    sh:minCount 1 ;
+    sh:minInclusive 0.0 ;
+    sh:path dpp:numericalValue .
+
+<https://w3id.org/eudpp/textile-shacl#MaximumNoMaximum> a sh:PropertyShape ;
+    sh:maxCount 0 ;
+    sh:path dpp:maximumNumericalValue .
+
+<https://w3id.org/eudpp/textile-shacl#MaximumNoMinimum> a sh:PropertyShape ;
+    sh:maxCount 0 ;
+    sh:path dpp:minimumNumericalValue .
+
+<https://w3id.org/eudpp/textile-shacl#MaximumRangeDisjoint> a sh:SPARQLConstraint ;
+    sh:message "Maximum concentration must not also be a concentration range."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this a e:ConcentrationRange. }""" .
+
+<https://w3id.org/eudpp/textile-shacl#MaximumThresholdScalar> a sh:PropertyShape ;
+    sh:datatype xsd:decimal ;
+    sh:maxCount 1 ;
+    sh:maxInclusive 1.0 ;
+    sh:minCount 1 ;
+    sh:minInclusive 0.0 ;
+    sh:path txtsoc:maximumValue .
+
+<https://w3id.org/eudpp/textile-shacl#MaximumThresholdValueShapeExcluded0> a sh:PropertyShape ;
+    sh:maxCount 0 ;
+    sh:path txtcon:numericValue .
+
+<https://w3id.org/eudpp/textile-shacl#MaximumThresholdValueShapeExcluded1> a sh:PropertyShape ;
+    sh:maxCount 0 ;
+    sh:path txtsoc:lowerBound .
+
+<https://w3id.org/eudpp/textile-shacl#MaximumThresholdValueShapeExcluded2> a sh:PropertyShape ;
+    sh:maxCount 0 ;
+    sh:path txtsoc:upperBound .
+
+<https://w3id.org/eudpp/textile-shacl#MaximumThresholdValueShapeNotConcentration> a sh:SPARQLConstraint ;
+    sh:message "A threshold expression must not be typed as a concentration."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this a e:ConcentrationOfSubstanceOfConcern. }""" .
+
+<https://w3id.org/eudpp/textile-shacl#MaximumThresholdValueShapeUnit> a sh:PropertyShape ;
+    sh:in ( dpp:massFractionUnit units:one ) ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:path txtcon:hasMeasurementUnit .
+
+<https://w3id.org/eudpp/textile-shacl#PresenceProduct> a sh:PropertyShape ;
+    sh:class dpp:Product ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:path dpp:isSubstancePresenceOf .
+
+<https://w3id.org/eudpp/textile-shacl#PresenceProductNotPart> a sh:SPARQLConstraint ;
+    sh:message "A material group or structural part must not be used as the owning product."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this e:isSubstancePresenceOf ?product. ?product a a:TextileProductPart. }""" .
+
+<https://w3id.org/eudpp/textile-shacl#PresenceQualification> a sh:PropertyShape ;
+    sh:class dpp:SoCQualificationAssertion ;
+    sh:minCount 1 ;
+    sh:path dpp:hasApplicableQualification .
+
+<https://w3id.org/eudpp/textile-shacl#PresenceQualificationIdentity> a sh:SPARQLConstraint ;
+    sh:message "The applicable qualification must qualify the same substance."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this e:concernsSubstance ?s; e:hasApplicableQualification ?q. ?q e:qualifiesSubstance ?other. FILTER (?s != ?other) }""" .
+
+<https://w3id.org/eudpp/textile-shacl#PresenceSubstance> a sh:PropertyShape ;
+    sh:class dpp:Substance ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:path dpp:concernsSubstance .
+
+<https://w3id.org/eudpp/textile-shacl#ProductLocationNotGroup> a sh:SPARQLConstraint ;
+    sh:message "CORE product-location objects must be products, not structural material groups."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this e:isLocatedInProduct ?part. ?part a a:TextileProductPart. }""" .
+
+<https://w3id.org/eudpp/textile-shacl#QualificationBasis> a sh:PropertyShape ;
+    sh:class txtsoc:ExternalRegulatoryReference ;
+    sh:path txtsoc:hasRegulatoryBasis .
+
+<https://w3id.org/eudpp/textile-shacl#QualificationCriteria> a sh:PropertyShape ;
+    sh:in ( dpp:CriterionA dpp:CriterionB dpp:CriterionC dpp:CriterionD ) ;
+    sh:minCount 1 ;
+    sh:path dpp:hasSoCCriterion .
+
+<https://w3id.org/eudpp/textile-shacl#QualificationSourceRequired> a sh:SPARQLConstraint ;
+    sh:message "A qualification needs preserved source text or a structured regulatory basis."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { FILTER NOT EXISTS { $this t:qualificationSource ?text. FILTER(STRLEN(STR(?text)) > 0) } FILTER NOT EXISTS { $this t:hasRegulatoryBasis ?reference } }""" .
+
+<https://w3id.org/eudpp/textile-shacl#QualificationSourceText> a sh:PropertyShape ;
+    sh:datatype xsd:string ;
+    sh:path txtsoc:qualificationSource .
+
+<https://w3id.org/eudpp/textile-shacl#QualificationSubstance> a sh:PropertyShape ;
+    sh:class dpp:Substance ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:path dpp:qualifiesSubstance .
+
+<https://w3id.org/eudpp/textile-shacl#RangeNoScalar> a sh:PropertyShape ;
+    sh:maxCount 0 ;
+    sh:path dpp:numericalValue .
+
+<https://w3id.org/eudpp/textile-shacl#RangeThresholdValueShapeExcluded0> a sh:PropertyShape ;
+    sh:maxCount 0 ;
+    sh:path txtcon:numericValue .
+
+<https://w3id.org/eudpp/textile-shacl#RangeThresholdValueShapeExcluded1> a sh:PropertyShape ;
+    sh:maxCount 0 ;
+    sh:path txtsoc:maximumValue .
+
+<https://w3id.org/eudpp/textile-shacl#RangeThresholdValueShapeNotConcentration> a sh:SPARQLConstraint ;
+    sh:message "A threshold expression must not be typed as a concentration."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this a e:ConcentrationOfSubstanceOfConcern. }""" .
+
+<https://w3id.org/eudpp/textile-shacl#RangeThresholdValueShapeUnit> a sh:PropertyShape ;
+    sh:in ( dpp:massFractionUnit units:one ) ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:path txtcon:hasMeasurementUnit .
+
+<https://w3id.org/eudpp/textile-shacl#ReferenceApplicability> a sh:PropertyShape ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    sh:path txtsoc:productGroupApplicability .
+
+<https://w3id.org/eudpp/textile-shacl#ReferenceDate> a sh:PropertyShape ;
+    sh:datatype xsd:date ;
+    sh:maxCount 1 ;
+    sh:path txtsoc:referenceDate .
+
+<https://w3id.org/eudpp/textile-shacl#ReferenceIdentifier> a sh:PropertyShape ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    sh:path txtsoc:referenceIdentifier .
+
+<https://w3id.org/eudpp/textile-shacl#ReferenceIdentityRequired> a sh:SPARQLConstraint ;
+    sh:message "A structured regulatory reference needs its original identifier or source text."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { FILTER NOT EXISTS { $this t:referenceIdentifier ?id } FILTER NOT EXISTS { $this <http://purl.org/dc/terms/source> ?source } }""" .
+
+<https://w3id.org/eudpp/textile-shacl#ReferenceVersion> a sh:PropertyShape ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    sh:path txtsoc:referenceVersion .
+
+<https://w3id.org/eudpp/textile-shacl#ThresholdExpression> a sh:PropertyShape ;
+    sh:class txtcon:QuantitativeValue ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:path txtsoc:hasThresholdQuantitativeValue ;
+    sh:xone ( [ sh:class txtsoc:ExactThresholdValue ] [ sh:class txtsoc:MaximumThresholdValue ] [ sh:class txtsoc:RangeThresholdValue ] ) .
+
+<https://w3id.org/eudpp/textile-shacl#ThresholdMaximum> a sh:PropertyShape ;
+    sh:datatype xsd:decimal ;
+    sh:maxCount 1 ;
+    sh:maxInclusive 1.0 ;
+    sh:minCount 1 ;
+    sh:minInclusive 0.0 ;
+    sh:path txtsoc:upperBound .
+
+<https://w3id.org/eudpp/textile-shacl#ThresholdMinimum> a sh:PropertyShape ;
+    sh:datatype xsd:decimal ;
+    sh:maxCount 1 ;
+    sh:maxInclusive 1.0 ;
+    sh:minCount 1 ;
+    sh:minInclusive 0.0 ;
+    sh:path txtsoc:lowerBound .
+
+<https://w3id.org/eudpp/textile-shacl#ThresholdNotConcentration> a sh:SPARQLConstraint ;
+    sh:message "A regulatory threshold must not be typed as a concentration."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this a e:ConcentrationOfSubstanceOfConcern. }""" .
+
+<https://w3id.org/eudpp/textile-shacl#ThresholdRangeOrder> a sh:SPARQLConstraint ;
+    sh:message "The lower threshold bound must not exceed the upper bound."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this t:lowerBound ?lower; t:upperBound ?upper. FILTER (?lower > ?upper) }""" .
+
+<https://w3id.org/eudpp/textile-shacl#isQualifiedByProductGroupListCriterion> a sh:SPARQLConstraint ;
+    sh:message "A criterion-specific regulatory basis requires its matching criterion."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this t:isQualifiedByProductGroupList ?basis. FILTER NOT EXISTS { $this e:hasSoCCriterion e:CriterionD } }""" .
+
+<https://w3id.org/eudpp/textile-shacl#isQualifiedBySVHCListCriterion> a sh:SPARQLConstraint ;
+    sh:message "A criterion-specific regulatory basis requires its matching criterion."@en ;
+    sh:select """PREFIX e: <https://w3id.org/eudpp#>
+PREFIX t: <https://w3id.org/eudpp/textile-soc#>
+PREFIX a: <https://w3id.org/eudpp/textile-associated-materials#>
+PREFIX c: <https://w3id.org/eudpp/textile-connector#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT $this WHERE { $this t:isQualifiedBySVHCList ?basis. FILTER NOT EXISTS { $this e:hasSoCCriterion e:CriterionA } }""" .

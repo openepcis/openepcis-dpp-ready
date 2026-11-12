@@ -1,0 +1,23 @@
+@prefix ex: <https://example.org/textile/> .
+@prefix txt: <https://w3id.org/eudpp/textile-core#> .
+@prefix txtdur: <https://w3id.org/eudpp/textile-durability#> .
+
+ex:shirt-001
+    a txt:TextileApparel ;
+    txtdur:hasDurabilityAspect ex:shirt-intrinsic-durability ;
+    txtdur:hasObservedPerformanceParameter ex:shirt-pilling-resistance ;
+    txtdur:hasObservedDegradationPhenomenon ex:shirt-pilling-observation ;
+    txtdur:hasFailureMode ex:shirt-colour-fading .
+
+ex:shirt-intrinsic-durability
+    a txtdur:IntrinsicDurability .
+
+ex:shirt-pilling-resistance
+    a txtdur:PillingResistance .
+
+ex:shirt-pilling-observation
+    a txtdur:Pilling .
+
+ex:shirt-colour-fading
+    a txtdur:ColourFading ;
+    txtdur:negativelyAffects ex:shirt-intrinsic-durability .

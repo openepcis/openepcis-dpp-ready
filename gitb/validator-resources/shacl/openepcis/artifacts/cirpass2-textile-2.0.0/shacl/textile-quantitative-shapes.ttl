@@ -1,0 +1,227 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix tsh: <https://w3id.org/eudpp/textile-shacl#> .
+@prefix txt: <https://w3id.org/eudpp/textile-core#> .
+@prefix txtass: <https://w3id.org/eudpp/textile-assessment#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtrec: <https://w3id.org/eudpp/textile-recyclability#> .
+@prefix txtrep: <https://w3id.org/eudpp/textile-repairability#> .
+@prefix txtsoc: <https://w3id.org/eudpp/textile-soc#> .
+@prefix txtstr: <https://w3id.org/eudpp/textile-structure#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+tsh:MassFractionValueShape a sh:NodeShape ;
+    sh:class txtcon:QuantitativeValue ;
+    sh:property [ sh:maxInclusive 1 ;
+            sh:message "A mass fraction or yield must be between 0 and 1 inclusive."@en ;
+            sh:minInclusive 0 ;
+            sh:path txtcon:numericValue ],
+        [ sh:hasValue units:one ;
+            sh:maxCount 1 ;
+            sh:message "A dimensionless fraction must use units:one."@en ;
+            sh:path txtcon:hasMeasurementUnit ] ;
+    sh:targetObjectsOf txt:hasFibreMassFraction,
+        txt:hasNonTextileMaterialMassFraction,
+        txt:hasTextileFibreMassFraction,
+        txtrec:hasRecyclableMassFractionValue,
+        txtrec:hasRecycledContentMassFractionValue,
+        txtrec:hasRecyclingYieldValue .
+
+tsh:MeasurementParameterSettingShape a sh:NodeShape ;
+    sh:property [ sh:class txtcon:QuantitativeValue ;
+            sh:maxCount 1 ;
+            sh:message "A quantitative measurement-parameter setting must have exactly one quantitative value."@en ;
+            sh:minCount 1 ;
+            sh:path txtass:hasParameterValue ] ;
+    sh:targetClass txtass:MeasurementParameterSetting .
+
+tsh:NoQuantitativeValueSubclassShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "Only the three approved Textile threshold roles may specialise QuantitativeValue."@en ;
+            sh:prefixes <https://w3id.org/eudpp/textile-shacl/quantitative> ;
+            sh:select """
+            SELECT $this ?subclass WHERE {
+              ?subclass rdfs:subClassOf+ $this .
+              FILTER (?subclass != $this && ?subclass NOT IN (<https://w3id.org/eudpp/textile-soc#ExactThresholdValue>, <https://w3id.org/eudpp/textile-soc#MaximumThresholdValue>, <https://w3id.org/eudpp/textile-soc#RangeThresholdValue>))
+            }
+        """ ] ;
+    sh:targetNode txtcon:QuantitativeValue .
+
+tsh:NonNegativeValueShape a sh:NodeShape ;
+    sh:class txtcon:QuantitativeValue ;
+    sh:property [ sh:message "This quantitative role must not have a negative value."@en ;
+            sh:minInclusive 0 ;
+            sh:path txtcon:numericValue ] ;
+    sh:targetObjectsOf txtrec:awardsScoreValue,
+        txtrec:hasRecycledMaterialMassValue,
+        txtrep:hasRepairCostToNewProductPriceRatio .
+
+tsh:PerformanceThresholdShape a sh:NodeShape ;
+    sh:property [ sh:class txtcon:QuantitativeValue ;
+            sh:maxCount 1 ;
+            sh:message "A performance threshold must have exactly one quantitative threshold value."@en ;
+            sh:minCount 1 ;
+            sh:path txtass:hasThresholdValue ],
+        [ sh:maxCount 1 ;
+            sh:message "A performance threshold must have exactly one comparison operator."@en ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path txtass:hasComparisonOperator ] ;
+    sh:targetClass txtass:PerformanceThreshold ;
+    sh:targetSubjectsOf txtass:hasThresholdValue .
+
+tsh:PositiveValueShape a sh:NodeShape ;
+    sh:class txtcon:QuantitativeValue ;
+    sh:property [ sh:message "This quantitative role must have a value greater than zero."@en ;
+            sh:minExclusive 0 ;
+            sh:path txtcon:numericValue ] ;
+    sh:targetObjectsOf txtcon:hasReferenceDuration,
+        txtrec:hasReferenceProductMassValue,
+        txtrep:hasRepairResponseTimeValue .
+
+tsh:QuantifiedStructureCharacteristicShape a sh:NodeShape ;
+    sh:property [ sh:class txtcon:QuantitativeValue ;
+            sh:maxCount 1 ;
+            sh:message "A quantified structural characteristic must have exactly one characteristic value."@en ;
+            sh:minCount 1 ;
+            sh:path txtstr:hasCharacteristicValue ] ;
+    sh:targetSubjectsOf txtstr:hasCharacteristicValue .
+
+tsh:QuantitativeMeasurementResultShape a sh:NodeShape ;
+    sh:property [ sh:class txtcon:QuantitativeValue ;
+            sh:maxCount 1 ;
+            sh:message "A quantitative measurement result must have exactly one measured value."@en ;
+            sh:minCount 1 ;
+            sh:path txtass:hasMeasuredValue ] ;
+    sh:targetSubjectsOf txtass:hasMeasuredValue .
+
+tsh:QuantitativeValueShape a sh:NodeShape ;
+    sh:or ( [ sh:class txtsoc:MaximumThresholdValue ] [ sh:class txtsoc:RangeThresholdValue ] [ sh:property [ sh:minCount 1 ;
+                        sh:path txtcon:numericValue ] ] ) ;
+    sh:property [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:message "A scalar quantitative value must have at most one decimal numeric value."@en ;
+            sh:path txtcon:numericValue ],
+        [ sh:maxCount 1 ;
+            sh:message "A quantitative value must carry exactly one measurement unit, represented by an IRI or a structured blank node."@en ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path txtcon:hasMeasurementUnit ],
+        [ sh:maxCount 1 ;
+            sh:message "A quantitative value may carry at most one quantity-kind IRI."@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path txtcon:hasQuantityKind ] ;
+    sh:targetClass txtcon:QuantitativeValue .
+
+tsh:ReferencePeriodShape a sh:NodeShape ;
+    sh:or ( [ sh:property [ sh:maxCount 1 ;
+                        sh:minCount 1 ;
+                        sh:path txtcon:hasReferenceDuration ] ] [ sh:property [ sh:maxCount 1 ;
+                        sh:minCount 1 ;
+                        sh:path txtcon:periodStart ],
+                    [ sh:maxCount 1 ;
+                        sh:minCount 1 ;
+                        sh:path txtcon:periodEnd ] ] ) ;
+    sh:property [ sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path txtcon:periodStart ],
+        [ sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path txtcon:periodEnd ],
+        [ sh:class txtcon:QuantitativeValue ;
+            sh:maxCount 1 ;
+            sh:path txtcon:hasReferenceDuration ] ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "When a reference period has start and end datetimes, start must precede end."@en ;
+            sh:prefixes <https://w3id.org/eudpp/textile-shacl/quantitative> ;
+            sh:select """
+            SELECT $this WHERE {
+              $this txtcon:periodStart ?start ; txtcon:periodEnd ?end .
+              FILTER (?start >= ?end)
+            }
+        """ ] ;
+    sh:targetClass txtcon:ReferencePeriod .
+
+<https://w3id.org/eudpp/textile-shacl/quantitative> a owl:Ontology ;
+    rdfs:label "Textile quantitative SHACL profile"@en ;
+    rdfs:comment "Validation constraints for the shared quantitative-value pattern and common quantitative roles."@en ;
+    owl:versionIRI <https://w3id.org/eudpp/textile-shacl/quantitative/2.0.0> ;
+    sh:declare [ sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ;
+            sh:prefix "rdf" ],
+        [ sh:namespace "http://www.w3.org/ns/org#"^^xsd:anyURI ;
+            sh:prefix "org" ],
+        [ sh:namespace "https://w3id.org/eudpp/textile-core#"^^xsd:anyURI ;
+            sh:prefix "txt" ],
+        [ sh:namespace "http://purl.org/vocab/vann/"^^xsd:anyURI ;
+            sh:prefix "vann" ],
+        [ sh:namespace "http://www.w3.org/ns/odrl/2/"^^xsd:anyURI ;
+            sh:prefix "odrl" ],
+        [ sh:namespace "https://w3id.org/eudpp/textile-recyclability#"^^xsd:anyURI ;
+            sh:prefix "txtrec" ],
+        [ sh:namespace "https://www.w3.org/2003/01/geo/wgs84_pos#"^^xsd:anyURI ;
+            sh:prefix "wgs" ],
+        [ sh:namespace "http://purl.org/dc/elements/1.1/"^^xsd:anyURI ;
+            sh:prefix "dc" ],
+        [ sh:namespace "https://w3id.org/eudpp/textile-shacl#"^^xsd:anyURI ;
+            sh:prefix "tsh" ],
+        [ sh:namespace "https://schema.org/"^^xsd:anyURI ;
+            sh:prefix "schema" ],
+        [ sh:namespace "https://brickschema.org/schema/Brick#"^^xsd:anyURI ;
+            sh:prefix "brick" ],
+        [ sh:namespace "https://w3id.org/eudpp/textile-assessment#"^^xsd:anyURI ;
+            sh:prefix "txtass" ],
+        [ sh:namespace "http://www.w3.org/2006/time#"^^xsd:anyURI ;
+            sh:prefix "time" ],
+        [ sh:namespace "https://w3id.org/eudpp/textile-repairability#"^^xsd:anyURI ;
+            sh:prefix "txtrep" ],
+        [ sh:namespace "http://usefulinc.com/ns/doap#"^^xsd:anyURI ;
+            sh:prefix "doap" ],
+        [ sh:namespace "http://www.w3.org/XML/1998/namespace"^^xsd:anyURI ;
+            sh:prefix "xml" ],
+        [ sh:namespace "http://www.w3.org/ns/dx/prof/"^^xsd:anyURI ;
+            sh:prefix "prof" ],
+        [ sh:namespace "http://xmlns.com/foaf/0.1/"^^xsd:anyURI ;
+            sh:prefix "foaf" ],
+        [ sh:namespace "http://www.w3.org/2002/07/owl#"^^xsd:anyURI ;
+            sh:prefix "owl" ],
+        [ sh:namespace "https://si-digital-framework.org/SI/units/"^^xsd:anyURI ;
+            sh:prefix "units" ],
+        [ sh:namespace "http://purl.org/dc/terms/"^^xsd:anyURI ;
+            sh:prefix "dcterms" ],
+        [ sh:namespace "http://www.w3.org/ns/ssn/"^^xsd:anyURI ;
+            sh:prefix "ssn" ],
+        [ sh:namespace "http://www.w3.org/ns/sosa/"^^xsd:anyURI ;
+            sh:prefix "sosa" ],
+        [ sh:namespace "http://www.w3.org/2001/XMLSchema#"^^xsd:anyURI ;
+            sh:prefix "xsd" ],
+        [ sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ;
+            sh:prefix "rdfs" ],
+        [ sh:namespace "https://w3id.org/eudpp#"^^xsd:anyURI ;
+            sh:prefix "dpp" ],
+        [ sh:namespace "http://www.w3.org/ns/prov#"^^xsd:anyURI ;
+            sh:prefix "prov" ],
+        [ sh:namespace "http://purl.org/dc/dcam/"^^xsd:anyURI ;
+            sh:prefix "dcam" ],
+        [ sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ;
+            sh:prefix "skos" ],
+        [ sh:namespace "http://www.w3.org/ns/shacl#"^^xsd:anyURI ;
+            sh:prefix "sh" ],
+        [ sh:namespace "http://www.w3.org/ns/csvw#"^^xsd:anyURI ;
+            sh:prefix "csvw" ],
+        [ sh:namespace "http://purl.org/dc/dcmitype/"^^xsd:anyURI ;
+            sh:prefix "dcmitype" ],
+        [ sh:namespace "https://w3id.org/eudpp/textile-structure#"^^xsd:anyURI ;
+            sh:prefix "txtstr" ],
+        [ sh:namespace "http://rdfs.org/ns/void#"^^xsd:anyURI ;
+            sh:prefix "void" ],
+        [ sh:namespace "https://w3id.org/eudpp/textile-connector#"^^xsd:anyURI ;
+            sh:prefix "txtcon" ],
+        [ sh:namespace "http://www.w3.org/ns/dcat#"^^xsd:anyURI ;
+            sh:prefix "dcat" ],
+        [ sh:namespace "http://purl.org/linked-data/cube#"^^xsd:anyURI ;
+            sh:prefix "qb" ],
+        [ sh:namespace "http://www.opengis.net/ont/geosparql#"^^xsd:anyURI ;
+            sh:prefix "geo" ] .

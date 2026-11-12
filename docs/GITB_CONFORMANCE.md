@@ -310,7 +310,14 @@ publisher-run service, and so that our own conformance to them is on record.
 |---|---|---|---|
 | EU DPP Registry semantic data artifacts | 1.0.0 (European Commission, archive SHA-256 pinned) | SHACL shapes and JSON Schemas per view (pub, res1 to res3), core, batteries, subgroups EV / industrial / LMT | `x.eu-dpp-1.0.0.<core\|batteries\|evb\|ind\|lmt>[.<view>]`, SHACL + JSON |
 | BatteryPass-Ready data model | 2.0.1 (GEFEG repository, commit pinned) | JSON Schema per battery category, full and February 2027 requirements | `x.bpr-2.0.1.<category>[.feb27]`, JSON |
+| BatteryPass-Ready upload format | 1.3, **derived** by OpenEPCIS from the live GEFEG validator (2026-06-17); GEFEG's published static files require nothing | JSON Schema per category (`extensions/eu/battery/validation/gefeg-live`) | `x.bpr-1.3.<category>`, JSON |
 | DPP Keystone | v3 (dpp-keystone.org, repository commit and file SHA-256 pinned) | core and conditional sector JSON Schemas; SHACL generated from the ontology | `x.keystone-v3.dpp`, SHACL + JSON |
+| GS1 EPCIS / CBV | 2.0.1 (ref.gs1.org; examples from gs1/EPCIS, commit pinned) | JSON Schema, SHACL, EPCIS and CBV ontologies | `x.epcis-2.0.1.document`, SHACL + JSON |
+| CIRPASS-2 Textile | 2.0.0 (ontologies-docs publication package, commit pinned) | three shapes graphs over the ontology modules and MIREOT extracts; the package's SHACL test corpus | `x.cirpass2-textile-2.0.0.product`, SHACL |
+| CIRPASS-2 Battery | shapes 0.3.0 / ontology 0.4.0, **draft** (ontologies-battery, commit pinned) | profile and three access views, over the ontology modules and CIRPASS-2 CORE 2.2.0 | `x.cirpass2-battery-0.3.0.<profile\|view-*>`, SHACL |
+| Battery Pass Consortium data model (SAMM) | 1.2 (Performance 1.2.1; commit pinned) | generated JSON Schema (draft-04) per aspect | `x.batterypass-samm-1.2.<aspect>`, JSON |
+| Catena-X battery pass (SAMM) | 6.1.0 (sldt-semantic-models, commit pinned) | generated JSON Schema (draft-04) | `x.catenax-battery-pass-6.1.0.battery-pass`, JSON |
+| UN Transparency Protocol | 0.8.0 (newest published artefacts) and 0.7.0 (last reviewed release), side by side | JSON Schema per credential (DPP, DCC, DFR, DIA, DTE) | `x.untp-<version>.<credential>`, JSON |
 
 - **A target is one file**, `extensions/common/interop/targets/<model>/<version>/target.json`: the
   vendored artifacts (`vendor/…/MANIFEST.json`, written by the model's sync script with the SHA-256
@@ -336,6 +343,21 @@ publisher-run service, and so that our own conformance to them is on record.
   `@graph` carries an `@id`, a named graph. The validator reads a shapes file into one graph and
   drops it: measured, the type then passed a document with a retyped property. The bundle keeps the
   original and loads the same triples as Turtle beside it.
+- **What the publishers ship is held to what they say.** A test corpus with expected failures
+  (CIRPASS-2 textile, the battery views) is replayed as such: a case the publisher expects to fail
+  must fail. A publisher example that breaks its own schema is left out with the reason (the Battery
+  Pass Consortium's material composition payload: a CAS number with a trailing space); one whose
+  RDF a JSON-LD 1.1 processor rejects is checked by JSON Schema only (three GS1 EPCIS examples
+  redefine protected context terms; two untyped Keystone examples).
+- **Declared entailment is applied.** Shapes that state `sh:entailment` RDFS (CIRPASS-2 textile
+  recyclability) are evaluated over the RDFS closure, as the Test Bed's Jena does; the local check
+  reproduces it. `owl:imports` in a publisher's shapes are skipped (`validator.owlImportSkippedUris`):
+  the type bundles what they name. SAMM tooling writes some files in UTF-16; they are bundled as UTF-8,
+  the same characters, and their draft-04 schemas are checked with ajv's draft-04 dialect.
+- **Our EPCIS examples conform to GS1 EPCIS 2.0.1** since this target: editorial notes are
+  `rdfs:comment` (the EPCIS context defines the prefix; an unprefixed key is not an allowed extension),
+  CBV values are the bare 2.0 JSON form (`owning_party`, not `urn:epcglobal:cbv:sdt:owning_party`),
+  sensor values are numbers.
 - **The publisher's shapes are proven live**, not only the presence shape: per SHACL type a valid
   publisher example with one root property retyped (or a required one dropped) must be rejected by
   the hosted validator and the local engines alike (`check:shapes:itb`, and a negative step in the
@@ -363,14 +385,12 @@ from the document (BatteryPass-Ready: its battery category; Registry: its conten
 and, from the file name, its view) and lists missing values, wrong forms and accepted deviations;
 `--list` shows every type.
 
-Not hosted yet: GS1 EPCIS 2.0.1 (JSON Schema and SHACL, but published under the GS1 IP policy
-rather than a licence that clearly allows redistribution; the validator could load them from
-ref.gs1.org instead), GS1 Rail 2.6 (shapes, but no published examples to hold a type to), CIRPASS-2
-(CORE ships OWL only; textile 2.0.0 and battery shapes follow with the mirror update), SEMIC, UNTP,
-BatteryPass 1.3 / SAMM. DPP Keystone documents are hosted, but our `keystone` crosswalk carries
-Keystone terms on an OpenEPCIS passport rather than a Keystone document, so there is no bridge
-output to hold to the Keystone types yet. CEN/CENELEC JTC 24 publishes no free
-artifacts; `extensions/common/interop/docs/CEN_JTC24_CONFORMANCE.md` stays the hand-made mapping.
+Not hosted yet: GS1 Rail 2.6 (shapes, but the published examples are empty, so a type could not be
+held to them), SEMIC, CIRPASS-2 CORE (OWL only; no shapes to host). Bridge output exists for EU DPP
+Registry, BatteryPass-Ready (2.0.1 and 1.3) and GS1 EPCIS; for CIRPASS-2 textile 2.0.0 it needs the
+mirror update from 1.1.2, for UNTP a crosswalk profile, and our `keystone` crosswalk carries Keystone
+terms on an OpenEPCIS passport rather than a Keystone document. New UNTP versions:
+`pnpm run sync:untp -- --latest` adds the newest published one as a target of its own.
 
 ## The JSON domain
 

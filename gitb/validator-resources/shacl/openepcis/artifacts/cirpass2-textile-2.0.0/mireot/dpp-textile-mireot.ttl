@@ -1,0 +1,140 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix si: <https://si-digital-framework.org/SI#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dpp:ConcentrationOfSubstanceOfConcern a owl:Class ;
+    rdfs:label "Concentration of the substance of concern"@en ;
+    dcterms:references "ESPR Art 7(5)"@en ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2024/1781/oj" ;
+    rdfs:comment "The concentration of the substances of concern, at the level of the product, its relevant components, or spare parts ESPR Art 7(5)"@en ;
+    rdfs:subClassOf dpp:QuantitativeProperty .
+
+dpp:Durability a owl:Class ;
+    rdfs:label "Durability"@en ;
+    dcterms:references "ESPR Art 2 (22)"@en ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2024/1781/oj" ;
+    rdfs:comment """Durability
+means the ability of a product to maintain over time its function and performance under specified conditions of use, maintenance and repair. (ESPR Art 2 (22))
+
+This class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards."""@en ;
+    rdfs:subClassOf dpp:QualityIndicator .
+
+dpp:RecoverableRate a owl:Class ;
+    rdfs:label "Recoverable rate"@en ;
+    rdfs:comment "This class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards."@en ;
+    rdfs:subClassOf dpp:CircularEconomyIndicator .
+
+dpp:RecyclingRate a owl:Class ;
+    rdfs:label "Recycling rate"@en ;
+    rdfs:comment "This class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards."@en ;
+    rdfs:subClassOf dpp:CircularEconomyIndicator .
+
+dpp:ThresholdOfSubstanceOfConcern a owl:Class ;
+    rdfs:label "Threshold of substance of concern"@en ;
+    dcterms:references "ESPR FAQ 10.115, p59"@en ;
+    dcterms:source "https://circabc.europa.eu/ui/group/418195ae-4919-45fa-a959-3b695c9aab28/library/25c48e7c-9ce3-41cb-96ac-d2942a8a29d6/details" ;
+    rdfs:comment """Relevant threshold of Substance of Concern.
+
+By default, information on all substances of concern present in a product, above the  relevant thresholds, should be included in the DPP [ESPR FAQ 10.115, p59]"""@en ;
+    rdfs:subClassOf dpp:QuantitativeProperty .
+
+dpp:hasMeasurementUnit a owl:ObjectProperty ;
+    rdfs:label "has measurement unit"@en ;
+    rdfs:comment "Linking quantitative property to the unit of measurement."@en ;
+    rdfs:domain dpp:QuantitativeProperty ;
+    rdfs:range si:MeasurementUnit .
+
+dpp:hasProperty a owl:ObjectProperty ;
+    rdfs:label "has property"@en ;
+    rdfs:comment """Product has a property that could be a document or some measurable properties (measurands).
+
+Linking the product to the property."""@en ;
+    rdfs:domain dpp:Product ;
+    rdfs:range dpp:Property .
+
+dpp:isComponentOf a owl:ObjectProperty,
+        owl:TransitiveProperty ;
+    rdfs:label "is component of"@en ;
+    dcterms:references "ESPR Art 2(2)"@en ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2024/1781/oj" ;
+    rdfs:comment """A product is a component of another product.
+
+‘component’ means a product intended to be incorporated into another product; [ESPR Art 2(2)]"""@en ;
+    rdfs:domain dpp:Product ;
+    rdfs:range dpp:Product .
+
+dpp:numericalValue a owl:DatatypeProperty ;
+    rdfs:label "numerical value"@en ;
+    rdfs:comment "The numerical value of the quantity, i.e., quantitative property of the product."@en ;
+    rdfs:domain dpp:QuantitativeProperty ;
+    rdfs:range xsd:decimal .
+
+dpp:webLink a owl:DatatypeProperty ;
+    rdfs:label "weblink"@en ;
+    rdfs:comment "Web link to an instruction document or video etc."@en ;
+    rdfs:domain dpp:DigitalInstruction ;
+    rdfs:range xsd:anyURI .
+
+<https://w3id.org/eudpp/textile-dpp-mireot> a owl:Ontology ;
+    rdfs:label "Textile DPP bounded MIREOT"@en ;
+    dcterms:modified "2026-10-27"^^xsd:date ;
+    dcterms:references "Owner-designated CORE 2.2.0; unchanged source in dependencies/current-core/p_dpp.owl."@en ;
+    dcterms:source <https://w3id.org/eudpp/P_DPP> ;
+    owl:versionIRI <https://w3id.org/eudpp/textile-dpp-mireot/2.0.0> ;
+    owl:versionInfo "Version 2.0.0 candidate" .
+
+si:MeasurementUnit a owl:Class ;
+    rdfs:label "Unit of measurement"@en ;
+    rdfs:comment """Measurement unit defining the magnitude of the quantity in respect to the value.
+si:MeasurementUnit class is reused"""@en .
+
+dpp:DigitalInstruction a owl:Class ;
+    rdfs:label "DigitalInstruction"@en ;
+    dcterms:references "ESPR Art 27(7)"@en ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2024/1781/oj" ;
+    rdfs:comment """Digital instructions
+mean instructions in digital format concerning the product (‘digital instructions’) in a language that can be easily understood. ESPR Art 27(7)
+Digital instructions are ensured by manufacturers. These should also ensured by importers. (ESPR Art 29(4))
+
+This class can be extended/specialised according to delegated acts or industry standards."""@en ;
+    rdfs:subClassOf dpp:DocumentFormattedProperty .
+
+dpp:DocumentFormattedProperty a owl:Class ;
+    rdfs:label "Document"@en ;
+    rdfs:comment "The document class describes the semantic representation of any instance of a document that might be required to be included into a digital product passport instance."@en ;
+    rdfs:subClassOf dpp:Property .
+
+dpp:QualityIndicator a owl:Class ;
+    rdfs:label "Quality indicator"@en ;
+    rdfs:comment """Product characteristics like durability and reliability.
+
+This class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards."""@en ;
+    rdfs:subClassOf dpp:QuantitativeProperty .
+
+dpp:CircularEconomyIndicator a owl:Class ;
+    rdfs:label "Circular Economy Indicator"@en ;
+    rdfs:comment """Circular Economy indicators are measures for relevant monitoring the transition to a circular economy and to measure the effects of new policy and trends.
+
+This class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards."""@en ;
+    rdfs:seeAlso <https://environment.ec.europa.eu/strategy/circular-economy-action-plan_en> ;
+    rdfs:subClassOf dpp:QuantitativeProperty .
+
+dpp:Product a owl:Class ;
+    rdfs:label "Product"@en ;
+    dcterms:references "ESPR Art 2 (1)"@en ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2024/1781/oj" ;
+    rdfs:comment "Product means any physical goods that are placed on the market or put into service. ESPR Art 2 (1))"@en ;
+    skos:closeMatch "schema:Product" .
+
+dpp:Property a owl:Class ;
+    rdfs:label "Property"@en ;
+    rdfs:comment "A property of the product."@en .
+
+dpp:QuantitativeProperty a owl:Class ;
+    rdfs:label "Quantitative Property"@en ;
+    rdfs:comment "A property (respectively measurand of a property) of the product (model) that is expressed by a quantity value. A specific quantity."@en ;
+    rdfs:subClassOf dpp:Property .

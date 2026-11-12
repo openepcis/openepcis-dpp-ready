@@ -1,0 +1,320 @@
+@prefix batcf: <https://w3id.org/eudpp/battery-cf-shapes#> .
+@prefix bat: <https://w3id.org/eudpp/battery#> .
+@prefix batcat: <https://w3id.org/eudpp/battery-categories#> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+#################################################
+# Ontology
+#################################################
+# SHACL profile binding the battery carbon footprint to the CORE.
+# No carbon-footprint term is declared in the battery namespace: this
+# file constrains how bat:Battery uses CORE terms, nothing more
+# (issue ontologies-battery#1).
+#
+# The carbon footprint is a dpp:CarbonFootprint, an LCIA result of the
+# LCA module (v3.1), which core.owl 2.1.0 imports. A battery reaches it
+# through its LCA study:
+#   bat:Battery --dpp:hasLCAStudy--> dpp:LCAStudy
+#               --dpp:hasLCIAResult--> dpp:CarbonFootprint
+#
+# The file has two layers.
+#
+# ACTIVE shapes constrain what the CORE provides, verified in the module
+# files of the CORE of 21 October 2026 (core.owl 2.1.0, LCA 3.1).
+#
+# DEACTIVATED shapes carry sh:deactivated true. They express the rest
+# of the binding requested in #1 and are PENDING: each names the CORE
+# issue that is to create the term it needs. They parse, they validate
+# nothing, and each becomes active by removing one boolean.
+
+<https://w3id.org/eudpp/battery-cf-shapes>
+    a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/eudpp/battery-cf-shapes/0.2.0> ;
+    rdfs:seeAlso <https://w3id.org/eudpp/battery> ,
+                 <https://github.com/CIRPASS-2/ontologies-battery/issues/1> ;
+    rdfs:label "EU DPP Battery Carbon Footprint Shapes"@en ;
+    dcterms:title "EU DPP Battery Carbon Footprint Shapes"@en ;
+    dcterms:description "SHACL profile binding the carbon footprint of a battery to the CIRPASS-2 CORE ontology, under Regulation (EU) 2023/1542 Art. 7. Declares no battery-local carbon-footprint term: it constrains the use of the cross-sectoral dpp:CarbonFootprint of the LCA module and of the LCA study it belongs to. Shapes whose CORE terms are still pending carry sh:deactivated true and name the CORE issue they wait on."@en ;
+    rdfs:comment "Binding targets re-checked on 26 October 2026 against the CORE modules of 21 October 2026 (core.owl v2.1.0, importing ACTOR, COMP, CON, EVENT, IDENT, LCA, MAT, P_DPP and SOC; LCA v3.1). Validated with the battery modules loaded alongside the CORE modules."@en ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:license "This ontology is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0). In case of dispute over CC BY 4.0 applicability, or in case considering the ontology as a software or part of it, this ontology is to be considered licensed under the Apache License, Version 2.0."@en ;
+    dcterms:bibliographicCitation "EU DPP Battery Carbon Footprint Shapes. Draft version 0.2.0."@en ;
+    dcterms:creator "Nader Jelassi"@en , "Marc-Andree Wolf"@en ;
+    dcterms:contributor "Arnab Sinha"@en ;
+    dcterms:created "2026-08-19"^^xsd:date ;
+    dcterms:issued "2026-08-19"^^xsd:date ;
+    dcterms:modified "2026-11-03"^^xsd:date ;
+    dcterms:references "Regulation (EU) 2023/1542, Art. 7 and Annex XIII; BatteryPass-Ready Data Attribute Long List v1.3"@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2023/1542/oj> ;
+    owl:versionInfo "Version 0.2.0 DRAFT"@en ;
+    vann:preferredNamespaceUri "https://w3id.org/eudpp/battery-cf-shapes#" ;
+    vann:preferredNamespacePrefix "batcf" .
+
+#################################################
+# ACTIVE — a carbon footprint is required, per category
+#################################################
+# Implication idiom: either the battery is not in a category in scope,
+# or one of its LCA studies carries a dpp:CarbonFootprint. Batteries
+# outside the three categories (portable, SLI) are unconstrained and pass.
+#
+# The dates below are those stated in issue #1 and have NOT been
+# verified against the consolidated regulation. They are recorded in
+# the message rather than enforced: whether a rule is in force on a
+# given day is a deployment decision, not a shape.
+
+batcf:CarbonFootprintRequiredShape
+    a sh:NodeShape ;
+    rdfs:label "A battery in scope of Art. 7 carries a carbon footprint from an LCA study"@en ;
+    rdfs:comment "Rewritten on 26 October 2026 against LCA 3.1. Replaces the interim form, which required a dpp:CarbonFootprint through dpp:hasProperty (ontologies-core#47), and the former CarbonFootprintLCAStudyShape, which required an LCA study without restricting it to the categories in scope."@en ;
+    sh:targetClass bat:Battery ;
+    sh:or (
+        [
+            sh:not [
+                a sh:NodeShape ;
+                sh:property [
+                    sh:path dpp:hasProductGroup ;
+                    sh:in ( batcat:ElectricVehicleBattery
+                            batcat:IndustrialBattery
+                            batcat:LMTBattery ) ;
+                    sh:minCount 1 ;
+                ] ;
+            ] ;
+        ]
+        [
+            a sh:NodeShape ;
+            sh:property [
+                sh:path ( dpp:hasLCAStudy dpp:hasLCIAResult ) ;
+                sh:qualifiedValueShape [ sh:class dpp:CarbonFootprint ] ;
+                sh:qualifiedMinCount 1 ;
+            ] ;
+        ]
+    ) ;
+    sh:severity sh:Violation ;
+    sh:message "A battery in a category in scope of the carbon footprint declaration must carry at least one dpp:CarbonFootprint, as an LCIA result (dpp:hasLCIAResult) of an LCA study linked through dpp:hasLCAStudy. Declaration deadlines per issue #1, to be confirmed: electric vehicle batteries 18 Feb 2025, industrial batteries above 2 kWh 18 Feb 2026, light means of transport batteries 18 Aug 2028. Portable and SLI batteries are out of scope."@en .
+
+#################################################
+# ACTIVE — the carbon footprint value
+#################################################
+# dpp:CarbonFootprint is a subclass of dpp:LCIAResult, dpp:LCAResult and
+# dpp:QuantitativeProperty, so dpp:numericalValue and
+# dpp:hasMeasurementUnit apply to it. The regulation asks for kg CO2e
+# per kWh of total energy over the service life; that composite unit
+# cannot be checked yet — see the deactivated functional-unit shape below.
+
+batcf:CarbonFootprintValueShape
+    a sh:NodeShape ;
+    rdfs:label "A carbon footprint carries one value and one unit"@en ;
+    rdfs:comment "No longer interim (26 October 2026): dpp:CarbonFootprint moved from P_DPP to the LCA module with the same IRI, as a subclass of dpp:LCIAResult (ontologies-core#41, #47)."@en ;
+    sh:targetClass dpp:CarbonFootprint ;
+    sh:property [
+        sh:path dpp:numericalValue ;
+        sh:datatype xsd:decimal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minInclusive 0 ;
+        sh:message "A carbon footprint must carry exactly one non-negative decimal value."@en ;
+    ] ;
+    sh:property [
+        sh:path dpp:hasMeasurementUnit ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A carbon footprint must carry exactly one measurement unit. P_DPP anchors units on the SI Digital Framework."@en ;
+    ] ;
+    sh:severity sh:Violation .
+
+#################################################
+# ACTIVE — the LCA study behind the carbon footprint
+#################################################
+# These shapes target the LCA studies linked from a product
+# (sh:targetObjectsOf dpp:hasLCAStudy), with the terms of LCA 3.1.
+# Art. 7 requires the declaration per battery model per manufacturing
+# plant, verified by a notified body (Module D1), with the background
+# datasets used and a link to the public version of the study.
+
+batcf:CarbonFootprintVerificationShape
+    a sh:NodeShape ;
+    rdfs:label "The LCA study of the carbon footprint is verified"@en ;
+    rdfs:comment "ACTIVATED on 26 October 2026: dpp:hasReview (LCAStudy → Review) is in LCA 3.1. The verifier identity asked by ontologies-core#52 is dpp:hasLCAVerifier (CONNECTOR, Review → Actor), and ACTOR provides the role dpp:lcaVerifier. The review itself is constrained by batcf:CarbonFootprintReviewShape."@en ;
+    sh:targetObjectsOf dpp:hasLCAStudy ;
+    sh:property [
+        sh:path dpp:hasReview ;
+        sh:class dpp:Review ;
+        sh:minCount 1 ;
+        sh:message "The LCA study behind the carbon footprint must carry its verification (dpp:hasReview)."@en ;
+    ] ;
+    sh:severity sh:Violation .
+
+batcf:CarbonFootprintReviewShape
+    a sh:NodeShape ;
+    rdfs:label "A verification states its type, date, report and verifier"@en ;
+    rdfs:comment "ACTIVATED on 26 October 2026, with the verification shape above: the four properties asked in #1 (type, date, report, verifier identity) are in the CORE."@en ;
+    sh:targetClass dpp:Review ;
+    sh:property [
+        sh:path dpp:hasTypeOfReview ;
+        sh:class dpp:TypeOfReview ;
+        sh:minCount 1 ;
+        sh:message "A verification must state its type of review."@en ;
+    ] ;
+    sh:property [
+        sh:path dpp:reviewDate ;
+        sh:datatype xsd:date ;
+        sh:minCount 1 ;
+        sh:message "A verification must state its review date."@en ;
+    ] ;
+    sh:property [
+        sh:path dpp:referenceToCompleteReviewReport ;
+        sh:class dpp:ReviewReport ;
+        sh:minCount 1 ;
+        sh:message "A verification must reference its complete review report."@en ;
+    ] ;
+    sh:property [
+        sh:path dpp:hasLCAVerifier ;
+        sh:class dpp:Actor ;
+        sh:minCount 1 ;
+        sh:message "A verification must identify its verifier."@en ;
+    ] ;
+    sh:severity sh:Violation .
+
+batcf:CarbonFootprintBackgroundDataShape
+    a sh:NodeShape ;
+    rdfs:label "Background datasets are declared"@en ;
+    rdfs:comment "ACTIVATED on 26 October 2026. #1 names the property referenceToBackgroundDatabase; LCA 3.1 declares it as dpp:hasReferenceToBackgroundDatabase (LCAStudy → BackgroundDatabase)."@en ;
+    sh:targetObjectsOf dpp:hasLCAStudy ;
+    sh:property [
+        sh:path dpp:hasReferenceToBackgroundDatabase ;
+        sh:class dpp:BackgroundDatabase ;
+        sh:minCount 1 ;
+        sh:message "The LCA study behind the carbon footprint must reference the EF-compliant background datasets used."@en ;
+    ] ;
+    sh:severity sh:Violation .
+
+batcf:CarbonFootprintPlantShape
+    a sh:NodeShape ;
+    rdfs:label "The carbon footprint is stated per manufacturing plant"@en ;
+    rdfs:comment "ACTIVATED on 26 October 2026: the chain asked by ontologies-core#54 is in LCA 3.1 — dpp:declaresManufacturerRecord (LCAStudy → ManufacturerRecord), then dpp:identifiesManufacturer (→ Actor) and dpp:hasManufacturingSite (→ Facility), constrained by batcf:CarbonFootprintManufacturerRecordShape. Art. 7 requires the declaration per battery model per manufacturing plant."@en ;
+    sh:targetObjectsOf dpp:hasLCAStudy ;
+    sh:property [
+        sh:path dpp:declaresManufacturerRecord ;
+        sh:class dpp:ManufacturerRecord ;
+        sh:minCount 1 ;
+        sh:message "The LCA study behind the carbon footprint must declare the manufacturer record of the plant it applies to."@en ;
+    ] ;
+    sh:severity sh:Violation .
+
+batcf:CarbonFootprintManufacturerRecordShape
+    a sh:NodeShape ;
+    rdfs:label "A manufacturer record names the manufacturer and the plant"@en ;
+    rdfs:comment "ACTIVATED on 26 October 2026, with the plant shape above."@en ;
+    sh:targetClass dpp:ManufacturerRecord ;
+    sh:property [
+        sh:path dpp:identifiesManufacturer ;
+        sh:class dpp:Actor ;
+        sh:minCount 1 ;
+        sh:message "A manufacturer record must identify the manufacturer."@en ;
+    ] ;
+    sh:property [
+        sh:path dpp:hasManufacturingSite ;
+        sh:class dpp:Facility ;
+        sh:minCount 1 ;
+        sh:message "A manufacturer record must identify the manufacturing plant."@en ;
+    ] ;
+    sh:severity sh:Violation .
+
+batcf:CarbonFootprintPublicLinkShape
+    a sh:NodeShape ;
+    rdfs:label "The public carbon footprint study is linked"@en ;
+    rdfs:comment "ACTIVATED on 26 October 2026. #1 names dpp:hasExternalDocumentation; LCA 3.1 declares the link as dpp:hasExternalSource (LCAStudy → Source). ontologies-core#36 closed with no dpp:carbonFootprintLabel: the public details and the label URL go through the same link to a dpp:Source."@en ;
+    sh:targetObjectsOf dpp:hasLCAStudy ;
+    sh:property [
+        sh:path dpp:hasExternalSource ;
+        sh:class dpp:Source ;
+        sh:minCount 1 ;
+        sh:message "The LCA study behind the carbon footprint must link to the publicly available version of the study."@en ;
+    ] ;
+    sh:severity sh:Violation .
+
+#################################################
+# ACTIVE — declaration of conformity
+#################################################
+
+batcf:CarbonFootprintDeclarationOfConformityShape
+    a sh:NodeShape ;
+    rdfs:label "The declaration of conformity is bound"@en ;
+    rdfs:comment "ACTIVATED on 26 August 2026. Both targets resolve on the refreshed modules: dpp:hasEUDeclarationOfConformity is declared in CONNECTOR with domain Product and range EUDeclarationOfConformity, and the class itself is in COMP, which core.owl imports."@en ;
+    sh:targetClass bat:Battery ;
+    sh:property [
+        sh:path dpp:hasEUDeclarationOfConformity ;
+        sh:class dpp:EUDeclarationOfConformity ;
+        sh:minCount 1 ;
+        sh:message "A battery in scope must reference its EU declaration of conformity, its notified body, and Module D1 as the assessment module."@en ;
+    ] ;
+    sh:severity sh:Violation .
+
+#################################################
+# DEACTIVATED — awaiting CORE terms
+#################################################
+# Each shape names the term it needs and the CORE issue that is to
+# create it. Remove sh:deactivated to activate. Checked against LCA 3.1
+# on 26 October 2026.
+
+batcf:CarbonFootprintPerStageShape
+    a sh:NodeShape ;
+    sh:deactivated true ;
+    rdfs:label "The carbon footprint is broken down by life-cycle stage"@en ;
+    rdfs:comment "PENDING ontologies-core#53, scoped by #47, both cited in #1. Art. 7 requires the declaration broken down by life-cycle stage; #1 states four battery stages. LCA 3.1 provides the structure — dpp:hasPerModuleValue (LCAResult → LCAModuleValue) and dpp:forLifeCycleModule (→ LifeCycleModule) — but its LifeCycleModule individuals are the EN 15804 modules A1 to D, not the battery stages. To activate once core#53 adds them."@en ;
+    sh:targetClass dpp:CarbonFootprint ;
+    sh:property [
+        sh:path dpp:hasPerModuleValue ;
+        sh:minCount 4 ;
+        sh:message "The carbon footprint must be broken down by life-cycle stage."@en ;
+    ] ;
+    sh:severity sh:Violation .
+
+batcf:CarbonFootprintFunctionalUnitShape
+    a sh:NodeShape ;
+    sh:deactivated true ;
+    rdfs:label "The functional unit is kWh of total energy over the service life"@en ;
+    rdfs:comment "PENDING ontologies-core#53, cited in #1. LCA 3.1 has no functional-unit term: until core#53 lands, the composite unit required by Art. 7 — kg CO2e per kWh of total energy over the service life — cannot be validated by the active value shape above. The path below records the requirement of #1, not the expected term."@en ;
+    sh:targetClass dpp:CarbonFootprint ;
+    sh:property [
+        sh:path dpp:hasFunctionalUnit ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "The carbon footprint must state its functional unit: kWh of total energy provided over the service life."@en ;
+    ] ;
+    sh:severity sh:Violation .
+
+batcf:CarbonFootprintComplianceShape
+    a sh:NodeShape ;
+    sh:deactivated true ;
+    rdfs:label "The LCA study declares compliance with the carbon footprint rules"@en ;
+    rdfs:comment "PENDING ontologies-core#53, cited in #1. LCA 3.1 provides dpp:hasComplianceDeclaration (LCAStudy → ComplianceDeclaration) and dpp:referenceToComplianceSystem (→ ComplianceSystem), but no ComplianceSystem individual for the battery carbon footprint delegated act. Added on 26 October 2026: #1 asks for this binding, which the profile did not list yet."@en ;
+    sh:targetObjectsOf dpp:hasLCAStudy ;
+    sh:property [
+        sh:path dpp:hasComplianceDeclaration ;
+        sh:minCount 1 ;
+        sh:message "The LCA study behind the carbon footprint must declare its compliance with the carbon footprint delegated act."@en ;
+    ] ;
+    sh:severity sh:Violation .
+
+batcf:CarbonFootprintPerformanceClassShape
+    a sh:NodeShape ;
+    sh:deactivated true ;
+    rdfs:label "The carbon footprint performance class is declared"@en ;
+    rdfs:comment "PENDING ontologies-core#41, cited in #1; LCA 3.1 has no performance-class term yet (checked 26 October 2026). Since re-scoped by its author: the performance class becomes a common-reuse concept of the LCA module that classifies an eudpp:LCIAResult, applies to the carbon footprint or to the full environmental footprint, and comes in three cardinality patterns (A-C, A-E, A-G). It is to be implemented later. Neither dpp:hasPerformanceClass, the path named in #1 and used below, nor eudpp:carbonFootprintPerformanceClass will therefore exist: on delivery this shape is to be rewritten against the LCA representation, not merely activated. The path below records the requirement of #1, not the expected term."@en ;
+    sh:targetClass dpp:CarbonFootprint ;
+    sh:property [
+        sh:path dpp:hasPerformanceClass ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "The carbon footprint must state its performance class."@en ;
+    ] ;
+    sh:severity sh:Violation .

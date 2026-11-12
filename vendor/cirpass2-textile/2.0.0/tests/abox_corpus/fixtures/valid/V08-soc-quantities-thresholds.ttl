@@ -1,0 +1,22 @@
+@prefix si: <https://si-digital-framework.org/SI#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtsoc: <https://w3id.org/eudpp/textile-soc#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/textile-abox/valid/recyclingAlertThreshold> a txtsoc:TextileRecyclingAlertThreshold ;
+    txtsoc:hasThresholdQuantitativeValue <https://example.org/textile-abox/valid/maximumAllowed> .
+
+<https://example.org/textile-abox/valid/trackingThreshold> a txtsoc:TextileTrackingThreshold ;
+    txtsoc:hasThresholdQuantitativeValue <https://example.org/textile-abox/valid/reportedRange> .
+
+<https://example.org/textile-abox/valid/maximumAllowed> a txtsoc:MaximumThresholdValue ;
+    txtcon:hasMeasurementUnit units:one ;
+    txtsoc:maximumValue 0.5 .
+
+<https://example.org/textile-abox/valid/reportedRange> a txtsoc:RangeThresholdValue ;
+    txtcon:hasMeasurementUnit units:one ;
+    txtsoc:lowerBound 0.1 ;
+    txtsoc:upperBound 0.9 .
+
+units:one a si:MeasurementUnit .

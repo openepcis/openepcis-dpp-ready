@@ -1,0 +1,12 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# Added by OpenEPCIS DPP-Ready, not part of the GS1 EPCIS / CBV 2.0.1 release.
+<https://ref.openepcis.org/extensions/common/interop/targets/epcis/2.0.1/shapes#Presence>
+  a sh:NodeShape ;
+  sh:targetNode <https://ref.gs1.org/epcis/EPCISDocument> ;
+  sh:property [
+    sh:path [ sh:inversePath rdf:type ] ;
+    sh:minCount 1 ;
+    sh:message "The document contains no EPCISDocument: it is not a GS1 EPCIS / CBV 2.0.1 document." ;
+  ] .

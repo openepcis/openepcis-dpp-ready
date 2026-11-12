@@ -1,0 +1,12 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# Added by OpenEPCIS DPP-Ready, not part of the CIRPASS-2 Battery 0.3.0 release.
+<https://ref.openepcis.org/extensions/common/interop/targets/cirpass2-battery/0.3.0/shapes#Presence>
+  a sh:NodeShape ;
+  sh:targetNode <https://w3id.org/eudpp/battery#Battery> ;
+  sh:property [
+    sh:path [ sh:inversePath rdf:type ] ;
+    sh:minCount 1 ;
+    sh:message "The document contains no Battery: it is not a CIRPASS-2 Battery 0.3.0 document." ;
+  ] .

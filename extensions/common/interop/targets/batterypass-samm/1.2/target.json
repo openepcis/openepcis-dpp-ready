@@ -1,0 +1,117 @@
+{
+  "$comment": "A validation target: an external model at one version, hosted as GITB validation types by OpenEPCIS DPP-Ready. JSON Schemas and example payloads generated from the publisher's SAMM aspect models (JSON Schema draft-04). Artifacts are checked against the vendor MANIFEST.json on every build.",
+  "id": "batterypass-samm",
+  "version": "1.2",
+  "title": "Battery Pass Consortium data model (SAMM)",
+  "publisher": "Battery Pass Consortium",
+  "manifest": "vendor/batterypass-samm/1.2/MANIFEST.json",
+  "types": [
+    {
+      "scope": "carbon-footprint",
+      "label": "carbon footprint aspect 1.2.0",
+      "schemas": [
+        "vendor/batterypass-samm/1.2/carbon-footprint/schema.json"
+      ]
+    },
+    {
+      "scope": "circularity",
+      "label": "circularity aspect 1.2.0",
+      "schemas": [
+        "vendor/batterypass-samm/1.2/circularity/schema.json"
+      ]
+    },
+    {
+      "scope": "general-product-information",
+      "label": "general product information aspect 1.2.0",
+      "schemas": [
+        "vendor/batterypass-samm/1.2/general-product-information/schema.json"
+      ]
+    },
+    {
+      "scope": "labels",
+      "label": "labels aspect 1.2.0",
+      "schemas": [
+        "vendor/batterypass-samm/1.2/labels/schema.json"
+      ]
+    },
+    {
+      "scope": "material-composition",
+      "label": "material composition aspect 1.2.0",
+      "schemas": [
+        "vendor/batterypass-samm/1.2/material-composition/schema.json"
+      ]
+    },
+    {
+      "scope": "performance",
+      "label": "performance and durability aspect 1.2.1",
+      "schemas": [
+        "vendor/batterypass-samm/1.2/performance/schema.json"
+      ]
+    },
+    {
+      "scope": "supply-chain-due-diligence",
+      "label": "supply chain due diligence aspect 1.2.0",
+      "schemas": [
+        "vendor/batterypass-samm/1.2/supply-chain-due-diligence/schema.json"
+      ]
+    }
+  ],
+  "fixtures": [
+    {
+      "role": "publisher",
+      "glob": "vendor/batterypass-samm/1.2/carbon-footprint/payload.json",
+      "scopes": [
+        "carbon-footprint"
+      ]
+    },
+    {
+      "role": "publisher",
+      "glob": "vendor/batterypass-samm/1.2/circularity/payload.json",
+      "scopes": [
+        "circularity"
+      ]
+    },
+    {
+      "role": "publisher",
+      "glob": "vendor/batterypass-samm/1.2/general-product-information/payload.json",
+      "scopes": [
+        "general-product-information"
+      ]
+    },
+    {
+      "role": "publisher",
+      "glob": "vendor/batterypass-samm/1.2/labels/payload.json",
+      "scopes": [
+        "labels"
+      ]
+    },
+    {
+      "role": "publisher",
+      "glob": "vendor/batterypass-samm/1.2/material-composition/payload.json",
+      "scopes": [
+        "material-composition"
+      ]
+    },
+    {
+      "role": "publisher",
+      "glob": "vendor/batterypass-samm/1.2/performance/payload.json",
+      "scopes": [
+        "performance"
+      ]
+    },
+    {
+      "role": "publisher",
+      "glob": "vendor/batterypass-samm/1.2/supply-chain-due-diligence/payload.json",
+      "scopes": [
+        "supply-chain-due-diligence"
+      ]
+    }
+  ],
+  "accepted": [],
+  "exclude": [
+    {
+      "file": "vendor/batterypass-samm/1.2/material-composition/payload.json",
+      "reason": "The consortium's generated payload fails its own schema: the CAS number \"7439-93-2 \" carries a trailing space, which the batteryMaterialIdentifier pattern ^\\d{2,7}-\\d{2}-\\d{1}$ rejects."
+    }
+  ]
+}

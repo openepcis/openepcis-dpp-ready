@@ -1,0 +1,73 @@
+@prefix ex: <https://example.org/eu-dpp-textile/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix txt: <https://w3id.org/eudpp/textile-core#> .
+@prefix txtass: <https://w3id.org/eudpp/textile-assessment#> .
+@prefix txtasscs: <https://w3id.org/eudpp/textile-assessment-codelists#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtdur: <https://w3id.org/eudpp/textile-durability#> .
+@prefix si: <https://si-digital-framework.org/SI#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:tshirt-001 a txt:TextileApparel .
+
+ex:abrasion-resistance-characteristic
+    a txtdur:AbrasionResistance .
+
+ex:iso-12947-2
+    a txtass:TestingStandard ;
+    dcterms:identifier "ISO 12947-2:2016" .
+
+ex:martindale-specimen-breakdown-method
+    a txtass:TestMethod ;
+    txtass:isDefinedByStandard ex:iso-12947-2 ;
+    txtass:measuresPerformanceParameter ex:abrasion-resistance-characteristic ;
+    txtass:definesEndpoint ex:specimen-breakdown-endpoint .
+
+ex:specimen-breakdown-endpoint
+    a txtass:TestEndpoint .
+
+ex:number-of-cycles-parameter
+    a txtass:NumberOfCycles .
+
+ex:cycle-setting-20000
+    a txtass:MeasurementParameterSetting ;
+    txtass:settingForParameter ex:number-of-cycles-parameter ;
+    txtass:hasParameterValue ex:cycle-value-20000 .
+
+ex:cycle-value-20000
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "20000"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .
+
+ex:abrasion-test-2026-001
+    a txtass:TestExecution ;
+    txtass:assessesProduct ex:tshirt-001 ;
+    txtass:appliesMethod ex:martindale-specimen-breakdown-method ;
+    txtass:assessesPerformanceParameter ex:abrasion-resistance-characteristic ;
+    txtass:hasParameterSetting ex:cycle-setting-20000 ;
+    txtass:producesResult ex:abrasion-result-001 .
+
+ex:abrasion-result-001
+    a txtass:MeasurementResult ;
+    txtass:resultOfAssessment ex:abrasion-test-2026-001 ;
+    txtass:hasMeasuredValue ex:observed-cycle-value ;
+    txtass:isEvaluatedAgainst ex:minimum-12000-cycles .
+
+ex:observed-cycle-value
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "20000"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .
+
+ex:minimum-12000-cycles
+    a txtass:PerformanceThreshold ;
+    txtass:criterionForPerformanceParameter ex:abrasion-resistance-characteristic ;
+    txtass:hasComparisonOperator txtasscs:greaterThanOrEqualTo ;
+    txtass:hasThresholdValue ex:threshold-cycle-value ;
+    txtass:appliesToEndpoint ex:specimen-breakdown-endpoint .
+
+ex:threshold-cycle-value
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "12000"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .

@@ -1,0 +1,65 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/ppwr/ppwr-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "rdfs:comment": [
+    "Material recovery event at an EPR-registered recycler. The TransformationEvent consumes returned PET bottles (class-level GTIN in inputQuantityList — mixed lots, so no AI 10) and produces food-grade rPET flake as a new class-level output; the ilmd declares the output's 100% post-consumer recycled content.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
+    "",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/, euppwr=https://ref.openepcis.org/extensions/eu/ppwr/",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "schemaVersion": "2.0",
+  "creationDate": "2026-06-25T11:00:00.000Z",
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "TransformationEvent",
+        "eventID": "urn:uuid:5c2b4e90-1234-4abc-9876-1f2c3d4e5f63",
+        "eventTime": "2026-06-25T10:30:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "bizStep": "oec:BizStep-recovery",
+        "disposition": "active",
+        "transformationID": "urn:uuid:5c2b4e90-1234-4abc-9876-1f2c3d4e5f63#xfm",
+        "inputQuantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/09521004005019",
+            "quantity": 24500,
+            "uom": "H87"
+          }
+        ],
+        "outputQuantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/09521004005026",
+            "quantity": 312.4,
+            "uom": "KGM"
+          }
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000068"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000068"
+        },
+        "sourceList": [
+          {
+            "type": "owning_party",
+            "source": "https://id.gs1.org/417/9521234000075"
+          }
+        ],
+        "ilmd": {
+          "oec:hasRecycledContentDetails": {
+            "type": "oec:RecycledContent",
+            "oec:recycledContent": 1,
+            "oec:postConsumerRecycledContent": 1,
+            "oec:preConsumerRecycledContent": 0
+          }
+        }
+      }
+    ]
+  }
+}

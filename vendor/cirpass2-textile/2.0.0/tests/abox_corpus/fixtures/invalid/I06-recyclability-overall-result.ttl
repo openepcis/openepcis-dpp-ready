@@ -1,0 +1,12 @@
+@prefix ex: <https://example.org/textile-recyclability/> .
+@prefix txtass: <https://w3id.org/eudpp/textile-assessment#> .
+@prefix txtrec: <https://w3id.org/eudpp/textile-recyclability#> .
+
+ex:mechanicalRouteAssessment a txtrec:RecyclabilityAssessment ; txtass:assessesProduct ex:product ; txtass:appliesMethod ex:method ; txtrec:assessesRecyclingRoute ex:route ; txtass:producesResult ex:mechanicalRouteResult .
+ex:mechanicalRouteResult txtass:resultOfAssessment ex:mechanicalRouteAssessment ; txtrec:resultForRecyclingRoute ex:route ; txtrec:hasCriterionResult ex:collectionCriterionResult, ex:sortabilityCriterionResult, ex:preparationCriterionResult, ex:feedstockCriterionResult, ex:monoMaterialCriterionResult, ex:componentCriterionResult .
+ex:collectionCriterionResult txtrec:evaluatesCriterion txtrec:effectiveCollectionCriterion ; txtrec:hasCriterionOutcome txtrec:criterionSatisfied ; txtrec:resultForRecyclingRoute ex:route .
+ex:sortabilityCriterionResult txtrec:evaluatesCriterion txtrec:sortabilityCriterion ; txtrec:hasCriterionOutcome txtrec:criterionSatisfied ; txtrec:resultForRecyclingRoute ex:route .
+ex:preparationCriterionResult txtrec:evaluatesCriterion txtrec:preparationForRecyclingCriterion ; txtrec:hasCriterionOutcome txtrec:criterionSatisfied ; txtrec:resultForRecyclingRoute ex:route .
+ex:feedstockCriterionResult txtrec:evaluatesCriterion txtrec:fibreFeedstockUseCriterion ; txtrec:hasCriterionOutcome txtrec:criterionPartlySatisfied ; txtrec:resultForRecyclingRoute ex:route .
+ex:monoMaterialCriterionResult txtrec:evaluatesCriterion txtrec:monoMaterialCriterion ; txtrec:hasCriterionOutcome txtrec:criterionNotSatisfied ; txtrec:resultForRecyclingRoute ex:route .
+ex:componentCriterionResult txtrec:evaluatesCriterion txtrec:materialSeparabilityCriterion ; txtrec:hasCriterionOutcome txtrec:criterionPartlySatisfied ; txtrec:resultForRecyclingRoute ex:route .

@@ -61,7 +61,10 @@ import {
   loadTargets,
   presenceShape,
   provenance,
+  readDocument,
+  readText,
   referencedSchemaFiles,
+  rootType,
   verdict,
   verifyArtifacts,
   type Target,
@@ -472,6 +475,8 @@ interface TargetBundle {
   types: ValidationType[];
   files: Map<string, string>;
   referenced: string[];
+  /** owl:imports the publisher's shape files declare, bundled locally instead (SHACL domain). */
+  skipImports: Set<string>;
 }
 
 /**
@@ -484,8 +489,8 @@ interface TargetBundle {
  * wrong, or that anything goes.
  */
 async function buildTargetBundles(): Promise<{ shacl: TargetBundle; json: TargetBundle; problems: string[] }> {
-  const shacl: TargetBundle = { types: [], files: new Map(), referenced: [] };
-  const json: TargetBundle = { types: [], files: new Map(), referenced: [] };
+  const shacl: TargetBundle = { types: [], files: new Map(), referenced: [], skipImports: new Set() };
+  const json: TargetBundle = { types: [], files: new Map(), referenced: [], skipImports: new Set() };
   const problems: string[] = [];
   for (const target of loadTargets()) {
     const bad = verifyArtifacts(target);
@@ -496,8 +501,10 @@ async function buildTargetBundles(): Promise<{ shacl: TargetBundle; json: Target
     const base = `artifacts/${target.id}-${target.version}`;
     const vendorDir = target.manifest.replace(/\/MANIFEST\.json$/, "");
     const bundled = (f: string) => (f.startsWith(vendorDir) ? `${base}${f.slice(vendorDir.length)}` : `${base}/background/${path.basename(f)}`);
+    // Byte for byte, except that a UTF-16 file (SAMM tooling writes some) is bundled as UTF-8:
+    // the validators read UTF-8; the characters are the same.
     const copy = async (into: Map<string, string>, f: string) => {
-      if (!into.has(bundled(f))) into.set(bundled(f), await fs.readFile(path.join(ROOT, f), "utf8"));
+      if (!into.has(bundled(f))) into.set(bundled(f), readText(f));
       return bundled(f);
     };
     const fixtures = fixturesOf(target).filter((f) => f.role === "publisher");
@@ -505,10 +512,18 @@ async function buildTargetBundles(): Promise<{ shacl: TargetBundle; json: Target
     for (const type of target.types) {
       const label = `${type.label} (${target.publisher}; hosted by OpenEPCIS, not endorsed by the publisher)`;
       const reasons: string[] = [];
-      if ((await verdict(target, type, GARBAGE)).valid) reasons.push("accepts a document that is not one");
+      // A non-document must be rejected: by the JSON Schema, or by the presence shape of the root
+      // class. A model whose shapes name no root (a test corpus of fragments) proves instead that
+      // its shapes discriminate with the publisher's own failing cases.
+      if (type.schemas.length || rootType(target)) {
+        if ((await verdict(target, type, GARBAGE)).valid) reasons.push("accepts a document that is not one");
+      } else if (!fixtures.some((f) => f.expect === "invalid" && f.types.includes(type.id))) {
+        reasons.push("names no root class and has no failing publisher case to prove it discriminates");
+      }
       for (const f of fixtures.filter((x) => x.types.includes(type.id))) {
-        const v = await verdict(target, type, JSON.parse(await fs.readFile(path.join(ROOT, f.file), "utf8")), { noShacl: !!f.noShacl });
-        if (!v.valid) reasons.push(`rejects the publisher's own example ${f.file}: ${[...v.missing, ...v.form][0]}`);
+        const v = await verdict(target, type, readDocument(f.file), { noShacl: !!f.noShacl });
+        if (f.expect === "valid" && !v.valid) reasons.push(`rejects the publisher's own example ${f.file}: ${[...v.missing, ...v.form][0]}`);
+        if (f.expect === "invalid" && v.valid) reasons.push(`accepts ${f.file}, which the publisher's test corpus expects to fail`);
       }
       if (reasons.length) {
         problems.push(`${type.id}: not declared, ${reasons.join("; ")}`);
@@ -520,6 +535,7 @@ async function buildTargetBundles(): Promise<{ shacl: TargetBundle; json: Target
         for (const f of [...type.shapes, ...(target.shacl?.background ?? [])]) {
           const p = await copy(shacl.files, f);
           if (!f.endsWith(".jsonld")) {
+            for (const m of shacl.files.get(p)!.matchAll(/owl:imports\s+<([^>]+)>/g)) shacl.skipImports.add(m[1]);
             paths.push(p);
             continue;
           }
@@ -611,6 +627,16 @@ async function main() {
   const targets = await buildTargetBundles();
   const shacl = await buildShaclBundle([...types, ...targets.shacl.types], version);
   for (const [k, v] of targets.shacl.files) shacl.set(k, v);
+  if (targets.shacl.skipImports.size) {
+    // The validator follows owl:imports of a shapes file over the network; every import a
+    // publisher's shapes declare is a file the type already bundles.
+    shacl.set(
+      "config.properties",
+      shacl.get("config.properties")! +
+        `# owl:imports of the external models' shape files, bundled with their types instead.\n` +
+        `validator.owlImportSkippedUris = ${[...targets.shacl.skipImports].sort().join(", ")}\n`,
+    );
+  }
   const json = await buildJsonBundle(types, version, moduleByType, targets.json);
 
   const changed = [

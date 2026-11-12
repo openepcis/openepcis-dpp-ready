@@ -59,7 +59,7 @@ import {
   type ValidatableModule,
 } from "./lib/modules.ts";
 import { VALIDATOR_DOMAIN } from "./lib/gitb.ts";
-import { documentQuads, fixturesOf, livenessMutation, loadTargets, rootType, shapeFindings } from "./lib/targets.ts";
+import { documentQuads, fixturesOf, livenessMutation, loadTargets, readDocument, rootType, shapeFindings } from "./lib/targets.ts";
 import { Writer } from "n3";
 
 const args = process.argv.slice(2);
@@ -326,7 +326,7 @@ async function main() {
     if (!types.length) continue;
     console.log(`\n── external: ${target.title} ${target.version}`);
     const nq = (quads: Awaited<ReturnType<typeof documentQuads>>) => new Writer({ format: "application/n-quads" }).quadsToString(quads);
-    for (const type of types) {
+    for (const type of types.filter(() => rootType(target))) {
       checked++;
       const probe = await validate(`<urn:openepcis:probe> <urn:openepcis:says> "not a passport" .\n`, type.id);
       if (probe.conforms) {
@@ -337,9 +337,9 @@ async function main() {
     // The publisher's shapes must be live in the validator, not only the presence shape: a valid
     // publisher example with one root property retyped must be rejected by both engines.
     for (const type of types) {
-      const f = fixturesOf(target).find((x) => x.role === "publisher" && !x.noShacl && x.types.includes(type.id));
+      const f = fixturesOf(target).find((x) => x.role === "publisher" && x.expect === "valid" && !x.noShacl && x.types.includes(type.id));
       if (!f) continue;
-      const m = await livenessMutation(target, type, await documentQuads(target, JSON.parse(await fs.readFile(path.join(ROOT, f.file), "utf8"))));
+      const m = await livenessMutation(target, type, await documentQuads(target, readDocument(f.file)));
       if (!m) {
         console.log(`   NOTE   ${type.id}: no datatype or required property on the root class to prove the shapes live`);
         continue;
@@ -353,8 +353,7 @@ async function main() {
     }
     for (const f of fixturesOf(target)) {
       if (f.noShacl) continue;
-      const doc = JSON.parse(await fs.readFile(path.join(ROOT, f.file), "utf8"));
-      const quads = await documentQuads(target, doc);
+      const quads = await documentQuads(target, readDocument(f.file));
       for (const id of f.types) {
         const type = types.find((t) => t.id === id);
         if (!type) continue;

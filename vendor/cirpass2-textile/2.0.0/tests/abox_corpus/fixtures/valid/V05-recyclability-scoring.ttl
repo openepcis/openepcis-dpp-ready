@@ -1,0 +1,17 @@
+@prefix ex: <https://example.org/textile-recyclability/> .
+@prefix txtass: <https://w3id.org/eudpp/textile-assessment#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtind: <https://w3id.org/eudpp/textile-indicator#> .
+@prefix txtrec: <https://w3id.org/eudpp/textile-recyclability#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:assessmentMethod a txtrec:RecyclabilityScoringMethod ; txtrec:hasScoringRule ex:pointRule ; txtrec:hasMinimumScoreValue ex:zeroScore ; txtrec:hasMaximumScoreValue ex:tenScore .
+ex:pointRule a txtrec:RecyclabilityScoringRule ; txtrec:ruleEvaluatesCriterion txtrec:monoMaterialCriterion ; txtrec:awardsScoreValue ex:onePoint .
+ex:zeroScore a txtcon:QuantitativeValue ; txtcon:numericValue '0'^^xsd:decimal ; txtcon:hasMeasurementUnit units:one .
+ex:tenScore a txtcon:QuantitativeValue ; txtcon:numericValue '10'^^xsd:decimal ; txtcon:hasMeasurementUnit units:one .
+ex:onePoint a txtcon:QuantitativeValue ; txtcon:numericValue '1'^^xsd:decimal ; txtcon:hasMeasurementUnit units:one .
+ex:routeScore a txtrec:RecyclabilityScore ; txtind:hasQuantitativeValue ex:scoreValue .
+ex:scoreValue a txtcon:QuantitativeValue ; txtcon:numericValue '7'^^xsd:decimal ; txtcon:hasMeasurementUnit units:one .
+ex:result txtrec:hasRecyclabilityScore ex:routeScore ; txtass:resultOfAssessment ex:assessment .
+ex:assessment txtass:appliesMethod ex:assessmentMethod .

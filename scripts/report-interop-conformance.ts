@@ -28,7 +28,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { ROOT } from "./lib/modules.ts";
-import { fixturesOf, loadTargets, provenance, verdict, verifyArtifacts, type Verdict } from "./lib/targets.ts";
+import { fixturesOf, loadTargets, provenance, readDocument, verdict, verifyArtifacts, type Verdict } from "./lib/targets.ts";
 
 const WRITE = process.argv.includes("--write");
 const OUT_DIR = "docs/conformance";
@@ -39,7 +39,7 @@ interface Row {
   file: string;
   role: "publisher" | "openepcis" | "roundtrip";
   type: string;
-  verdict: "valid" | "conforms" | "incomplete" | "wrong form";
+  verdict: "valid" | "conforms" | "incomplete" | "wrong form" | "rejected, as expected";
   missing: string[];
   form: string[];
   accepted: string[];
@@ -91,7 +91,7 @@ async function main() {
     const used = new Map<string, Set<string>>();
     for (const f of fixturesOf(t)) {
       if (!f.types.length) problems.push(`${t.id} ${t.version}: fixture ${f.file} belongs to no type`);
-      const doc = JSON.parse(readFileSync(join(ROOT, f.file), "utf8"));
+      const doc = readDocument(f.file);
       for (const id of f.types) {
         const v = await verdict(t, t.types.find((x) => x.id === id)!, doc, { noShacl: !!f.noShacl });
         for (const a of v.accepted) {
@@ -99,8 +99,10 @@ async function main() {
           if (!used.has(reason)) used.set(reason, new Set());
           used.get(reason)!.add(a.finding);
         }
-        rows.push({ file: f.file, role: f.role, type: id, verdict: label(v), missing: v.missing, form: v.form, accepted: v.accepted.map((a) => a.finding) });
-        if (f.role === "publisher" && !v.valid) problems.push(`${id}: the publisher's example ${f.file} is not valid`);
+        const rejectedAsExpected = f.expect === "invalid" && !v.valid;
+        rows.push({ file: f.file, role: f.role, type: id, verdict: rejectedAsExpected ? "rejected, as expected" : label(v), missing: v.missing, form: v.form, accepted: v.accepted.map((a) => a.finding) });
+        if (f.role === "publisher" && f.expect === "valid" && !v.valid) problems.push(`${id}: the publisher's example ${f.file} is not valid`);
+        if (f.role === "publisher" && f.expect === "invalid" && v.valid) problems.push(`${id}: ${f.file} passes, but the publisher's test corpus expects it to fail`);
         if (f.role !== "publisher" && v.form.length) problems.push(`${id}: our ${f.file} has the wrong form: ${v.form[0]}`);
       }
     }
@@ -109,9 +111,9 @@ async function main() {
     const pub = rows.filter((r) => r.role === "publisher");
     const ours = rows.filter((r) => r.role === "openepcis");
     const trips = rows.filter((r) => r.role === "roundtrip");
-    const pin = m.commit ?? (m.archiveSha256 ? `sha256:${m.archiveSha256}` : "");
+    const pin = m.commit ?? (m.archiveSha256 ? `sha256:${m.archiveSha256}` : m.retrieved ? `retrieved ${m.retrieved}` : "");
     summary.push(
-      `| ${t.title} | ${t.version} | \`${pin.slice(0, 19)}\` | ${t.types.length} | ${pub.filter((r) => r.verdict === "valid").length}/${pub.length} | ` +
+      `| ${t.title} | ${t.version} | \`${pin.startsWith("retrieved") ? pin : pin.slice(0, 19)}\` | ${t.types.length} | ${pub.filter((r) => r.verdict === "valid" || r.verdict === "rejected, as expected").length}/${pub.length} | ` +
         `${[...ours, ...trips].filter((r) => r.verdict !== "wrong form").length}/${ours.length + trips.length} | ` +
         `${ours.filter((r) => r.verdict === "valid" || r.verdict === "conforms").length}/${ours.length} | ` +
         `${trips.filter((r) => r.verdict === "valid" || r.verdict === "conforms").length}/${trips.length} |`,
@@ -129,7 +131,7 @@ async function main() {
       `| Licence | ${m.license} |`,
       `| Artifacts | ${t.manifest} (${m.files.length} files, SHA-256 ${bad.length ? `**${bad.length} mismatch(es)**` : "verified"}) |`,
       `| Registry | ${t.dir}/target.json |`,
-      `| Crosswalk profile | extensions/common/interop/crosswalk/${t.profile} |`,
+      `| Crosswalk profile | ${t.profile ? `extensions/common/interop/crosswalk/${t.profile}` : "none (hosted only; no conversion to or from this model yet)"} |`,
       ``,
       `### Validation types`,
       ``,

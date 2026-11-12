@@ -1,0 +1,71 @@
+@prefix batacc: <https://w3id.org/eudpp/battery-access-tiers#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+#################################################
+# Ontology
+#################################################
+# The three audiences of a battery passport, as Regulation (EU) 2023/1542
+# Art. 77 distinguishes them. Used only by the view shape files: the
+# battery ontology itself stays tier-free (issue ontologies-battery#5).
+
+<https://w3id.org/eudpp/battery-access-tiers>
+    a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/eudpp/battery-access-tiers/0.1.0> ;
+    rdfs:seeAlso <https://w3id.org/eudpp/battery> ,
+                 <https://github.com/CIRPASS-2/ontologies-battery/issues/5> ;
+    rdfs:label "EU DPP Battery Access Tiers"@en ;
+    dcterms:title "EU DPP Battery Access Tiers"@en ;
+    dcterms:description "Controlled vocabulary of the three audiences of a battery Digital Product Passport: the general public, persons with a legitimate interest, and notified bodies together with market surveillance authorities and the Commission. Declared in its own module so that the battery ontology carries no access-tier term, and consumed only by the battery view shape files."@en ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:license "This ontology is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0). In case of dispute over CC BY 4.0 applicability, or in case considering the ontology as a software or part of it, this ontology is to be considered licensed under the Apache License, Version 2.0."@en ;
+    dcterms:bibliographicCitation "EU DPP Battery Access Tiers. Draft version 0.1.0."@en ;
+    dcterms:creator "Nader Jelassi"@en , "Marc-Andree Wolf"@en ;
+    dcterms:contributor "Arnab Sinha"@en ;
+    dcterms:created "2026-08-28"^^xsd:date ;
+    dcterms:issued "2026-08-28"^^xsd:date ;
+    dcterms:modified "2026-11-03"^^xsd:date ;
+    dcterms:references "Regulation (EU) 2023/1542, Art. 77; BatteryPass-Ready Data Attribute Long List v1.3, column 'Access rights according to Battery Regulation'"@en ;
+    owl:versionInfo "Version 0.1.0 DRAFT"@en ;
+    vann:preferredNamespaceUri "https://w3id.org/eudpp/battery-access-tiers#" ;
+    vann:preferredNamespacePrefix "batacc" .
+
+#################################################
+# Concept scheme
+#################################################
+
+batacc:BatteryAccessTierScheme
+    a skos:ConceptScheme ;
+    skos:prefLabel "Battery passport access tiers"@en ;
+    skos:definition "The audiences to which a given battery passport data point is disclosed."@en ;
+    dcterms:source "Regulation (EU) 2023/1542, Art. 77"@en .
+
+#################################################
+# Concepts
+#################################################
+
+batacc:Public
+    a skos:Concept ;
+    skos:inScheme batacc:BatteryAccessTierScheme ;
+    skos:prefLabel "Public"@en ;
+    skos:notation "public" ;
+    skos:definition "Accessible to anyone, without authentication."@en .
+
+batacc:LegitimateInterest
+    a skos:Concept ;
+    skos:inScheme batacc:BatteryAccessTierScheme ;
+    skos:prefLabel "Persons with a legitimate interest"@en ;
+    skos:notation "legitimate-interest" ;
+    skos:definition "Accessible to the purchaser of the battery and to repair, repurposing, remanufacturing and recycling operators."@en ;
+    skos:scopeNote "The long list names different sub-audiences depending on the data point; they are not distinguished here."@en .
+
+batacc:Authorities
+    a skos:Concept ;
+    skos:inScheme batacc:BatteryAccessTierScheme ;
+    skos:prefLabel "Notified bodies, market surveillance authorities and the Commission"@en ;
+    skos:notation "authorities" ;
+    skos:definition "Accessible only to notified bodies, market surveillance authorities and the Commission."@en .

@@ -1,0 +1,658 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtdur: <https://w3id.org/eudpp/textile-durability#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/eudpp/textile-associated-materials-codelists#uvAbsorberOrStabiliser> txtcon:typicallyReducesLikelihoodOf txtdur:RadiationInducedDegradation .
+
+txtdur:AbrasionResistance a owl:Class ;
+    rdfs:label "Abrasion resistance"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Observed performance parameter describing the resistance of a textile material or product to wear caused by rubbing or abrasion."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:MechanicalPerformanceParameter ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Observed abrasion resistance contributes to the interpretation of intrinsic durability but is not equivalent to intrinsic durability."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.1, printed page 468, lines 11065-11071; Annex 13.4, Table 124, printed pages 362-367 where applicable."@en ;
+    txtcon:sourceType txtcon:directExtraction .
+
+txtdur:AccidentalDamage a owl:Class ;
+    rdfs:label "Accidental damage"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "External damage occurring during use, such as accidental tearing, ripping or staining, which may lead to product rejection or disposal."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:ExternalDamage ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Accidental damage may result in tear or rip, but this is not a necessary relation in every case."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 6.4.1, printed page 87, lines 2277-2279; JRC Preparatory Study, Section 13.10.1.1, printed page 469, lines 11090-11091."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtdur:typicalProgressionTo txtdur:TearOrRip .
+
+txtdur:ColourDepthEvenness a owl:Class ;
+    rdfs:label "Colour depth and evenness"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Observed visual performance parameter describing the depth and evenness of colour in a textile product or fabric, especially in relation to dyeing and finishing quality."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:VisualPerformanceParameter ;
+    skos:altLabel "Colour depth"@en,
+        "Colour evenness"@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Colour depth and evenness is distinct from colour fastness. Colour fastness concerns resistance to fading, running or alteration, whereas colour depth/evenness concerns the achieved visual colour quality."@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction ;
+    txtdur:typicalFailureExpression txtdur:Discolouration .
+
+txtdur:ColourFastness a owl:Class ;
+    rdfs:label "Colour fastness"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Observed performance parameter describing the resistance of a textile colour to fading, running or alteration under conditions such as washing, rubbing, perspiration or light exposure."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:VisualPerformanceParameter ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Colour fastness is the resistance parameter; colour fading is a typical visual failure expression of its degradation."@en,
+        "Observed colour fastness contributes to the interpretation of intrinsic durability, while colour fading is a failure expression."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.1, printed page 468, lines 11065-11071; Annex 13.4, Table 124, printed pages 362-367 where applicable."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtdur:typicalFailureExpression txtdur:ColourFading .
+
+txtdur:DimensionalStability a owl:Class ;
+    rdfs:label "Dimensional stability"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Observed performance parameter describing the ability of a textile product or fabric to retain its dimensions after use, laundering or other treatment cycles."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:DeformationPerformanceParameter ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Dimensional stability contributes to the interpretation of intrinsic durability; loss of dimensional stability is the corresponding failure expression."@en,
+        "Dimensional stability is the performance parameter; loss of dimensional stability is the corresponding failure expression."@en ;
+    txtcon:sourceLocator "JRC Section 11.1.1.1, printed page 186, lines 5267-5273; Annex 13.10.1, printed page 469, lines 11089-11094."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtdur:typicalFailureExpression txtdur:LossOfDimensionalStability .
+
+txtdur:ElasticityLoss a owl:Class ;
+    rdfs:label "Elasticity loss"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Structural failure mode corresponding to loss of elasticity, elastic recovery or stretch-related functionality of a textile product or fabric."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:StructuralFailureMode ;
+    skos:altLabel "Loss of elasticity"@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence,
+        txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "Elasticity loss is kept distinct from loss of dimensional stability. A product may lose elastic recovery without necessarily being described primarily as dimensionally unstable."@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction ;
+    txtcon:typicallyIncreasesLikelihoodOf txtdur:LossOfComfort .
+
+txtdur:FabricSmoothness a owl:Class ;
+    rdfs:label "Fabric smoothness"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Observed performance parameter describing the visible or tactile smoothness of a fabric surface, commonly considered during visual inspection after washing, drying or other durability-related stress."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:SurfacePerformanceParameter,
+        txtdur:VisualPerformanceParameter ;
+    skos:altLabel "Surface smoothness"@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Fabric smoothness is represented as an observed performance parameter. A measured value or inspection grade should be represented in the assessment module, while rough or stiff fabric is modelled as a failure expression."@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction ;
+    txtdur:typicalFailureExpression txtdur:RoughOrStiffFabric .
+
+txtdur:FabricStrength a owl:Class ;
+    rdfs:label "Fabric strength"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Aggregated observed mechanical performance parameter describing the strength of a fabric, potentially covering tensile strength, tear strength or bursting strength depending on the test context."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:MechanicalPerformanceParameter ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Fabric strength contributes to the interpretation of intrinsic durability as an aggregated mechanical performance parameter."@en,
+        "Fabric strength is modelled as reducing the likelihood of tear or rip under comparable conditions, rather than as negatively affecting tear or rip."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.1, printed page 468, lines 11065-11071; Annex 13.4, Table 124, printed pages 362-367 where applicable."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicallyReducesLikelihoodOf txtdur:TearOrRip .
+
+txtdur:FuzzingOrMatting a owl:Class ;
+    rdfs:label "Fuzzing or matting"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Observed surface degradation phenomenon involving fuzzing or matting of the fabric surface. The term follows the JRC and ISO wording 'fuzzing or matting', not 'melting'."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:SurfaceDegradationPhenomenon ;
+    skos:altLabel "Fabric fuzzing"@en,
+        "Fabric matting"@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "FuzzingOrMatting is not made a subclass of FailureMode because it is modelled following the existing pilling pattern as an observed degradation phenomenon used in performance inspection."@en,
+        "The research gap used the wording 'fuzzing/melting', but the JRC and referenced ISO standards use fuzzing/matting. This ontology therefore introduces FuzzingOrMatting and avoids the unsupported term melting."@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction ;
+    txtdur:typicalProgressionTo txtdur:FabricBreakdown .
+
+txtdur:HoleInSeam a owl:Class ;
+    rdfs:label "Hole in seam"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Specific seam failure involving a hole or localised opening at or around a seam."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:SeamFailure ;
+    skos:altLabel "Holes in seams"@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence,
+        txtcon:reconstructedEvidence ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 6.4.1, printed page 87, lines 2277-2279; JRC Preparatory Study, Section 13.10.1.1, printed page 469, lines 11092-11093."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtdur:IntrinsicDurability a owl:Class ;
+    rdfs:label "Intrinsic durability"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Durability construct based on the physical and measurable ability of a textile product to maintain relevant performance characteristics over time under specified use, maintenance or test conditions."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:Durability ;
+    skos:altLabel "Physical durability"@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:sourceLocator "JRC Annex 13.10.1, printed page 468, lines 11065-11071; Annex 13.4, Table 124, printed pages 362-367 where applicable."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtdur:LogoFailure a owl:Class ;
+    rdfs:label "Logo failure"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Logo failure may also be interpreted as a component-related failure depending on whether the logo is printed, embroidered or applied as a separate component. It is kept under visual failure mode in this module."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:VisualFailureMode ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 6.4.1, printed page 87, lines 2277-2279; JRC Preparatory Study, Section 13.10.1.1, printed page 469, lines 11091-11092."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtdur:PillingResistance a owl:Class ;
+    rdfs:label "Pilling resistance"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Durability-related performance characteristic describing the ability of a textile material, fabric or product to resist the formation of pills under friction, wear or use conditions."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:SurfacePerformanceParameter ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Pilling resistance is separated from Pilling."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.1, printed page 468, lines 11065-11071; Annex 13.4, Table 124, printed pages 362-367 where applicable."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtdur:typicalDegradationExpression txtdur:Pilling .
+
+txtdur:SeamSlippage a owl:Class ;
+    rdfs:label "Seam slippage"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Durability-related assembly performance characteristic describing displacement of yarns at or near a seam under mechanical stress, which may lead to deformation or opening."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:AssemblyPerformanceParameter ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Seam slippage negatively affects the interpretation of intrinsic durability as a loss of assembly performance."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.1, printed page 468, lines 11065-11071; Annex 13.4, Table 124, printed pages 362-367 where applicable."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtdur:SurfaceFailureMode a owl:Class ;
+    rdfs:label "Surface failure mode"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Category of failure modes primarily affecting the textile surface. Borderline surface phenomena that are also assessed as performance parameters should remain under ObservedDegradationPhenomenon to preserve the module disjointness pattern."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:FailureMode ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "This class is available for strict failure modes. Pilling and fuzzing/matting are intentionally kept as observed degradation phenomena when they are used as inspection parameters."@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:Wrinkling a owl:Class ;
+    rdfs:label "Wrinkling"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Durability-related deformation behaviour describing the tendency of a textile material or product to form creases under use or after deformation and recovery cycles."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:DeformationPerformanceParameter ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Wrinkling affects the interpretation of intrinsic durability depending on product type, use context and acceptable thresholds."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.1, printed page 468, lines 11065-11071; Annex 13.4, Table 124, printed pages 362-367 where applicable."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtdur:ZipperFailure a owl:Class ;
+    rdfs:label "Zipper failure"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Specific trim failure involving failure of a zipper or zip fastener."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:TrimFailure ;
+    txtcon:evidenceStatus txtcon:implicitEvidence,
+        txtcon:reconstructedEvidence ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 6.4.1, printed page 87, lines 2273-2274."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtdur:hasDegradationExpression a owl:ObjectProperty ;
+    rdfs:label "has degradation expression"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a durability-related performance characteristic to a degradation phenomenon that expresses deterioration of that characteristic. This is an instance-level relation and is not a deterministic causal axiom."@en ;
+    rdfs:domain txtdur:ObservedPerformanceParameter ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:range txtdur:ObservedDegradationPhenomenon ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:hasDurabilityAspect a owl:ObjectProperty ;
+    rdfs:label "has durability aspect"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a textile product to a durability aspect relevant to its assessment or declaration."@en ;
+    rdfs:domain dpp:Product ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:range txtdur:Durability ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:hasExternalDamage a owl:ObjectProperty ;
+    rdfs:label "has external damage"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a textile product or product observation to external damage occurring during use."@en ;
+    rdfs:domain dpp:Product ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:range txtdur:ExternalDamage ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:hasFailureExpression a owl:ObjectProperty ;
+    rdfs:label "has failure expression"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an observed performance parameter to a failure mode that expresses degradation or loss of that parameter."@en ;
+    rdfs:domain txtdur:ObservedPerformanceParameter ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:range txtdur:FailureMode ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:hasFailureMode a owl:ObjectProperty ;
+    rdfs:label "has failure mode"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a textile product to a failure mode observed, expected or considered relevant for that product."@en ;
+    rdfs:domain dpp:Product ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:range txtdur:FailureMode ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:hasObservedDegradationPhenomenon a owl:ObjectProperty ;
+    rdfs:label "has observed degradation phenomenon"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a product to a degradation phenomenon observed or considered relevant for that product. A concrete observation, test and result should be represented in the textile assessment module."@en ;
+    rdfs:domain dpp:Product ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:range txtdur:ObservedDegradationPhenomenon ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:hasObservedPerformanceParameter a owl:ObjectProperty ;
+    rdfs:label "has observed performance parameter"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a textile product to an observed performance parameter relevant to its durability assessment."@en ;
+    rdfs:domain dpp:Product ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:range txtdur:ObservedPerformanceParameter ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:mayResultIn a owl:ObjectProperty ;
+    rdfs:label "may result in"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Indicates that external damage may result in a failure mode."@en ;
+    rdfs:domain txtdur:ExternalDamage ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:range txtdur:FailureMode ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:negativelyAffects a owl:ObjectProperty ;
+    rdfs:label "negatively affects"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Indicates that a failure mode, degradation phenomenon or damage negatively affects a durability-related aspect."@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( txtdur:FailureMode txtdur:ObservedDegradationPhenomenon txtdur:ExternalDamage ) ] ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:range txtdur:Durability ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:typicalDegradationExpression a owl:AnnotationProperty ;
+    rdfs:label "typical degradation expression"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Annotation used at class level to document a usual degradation expression of a durability-related performance characteristic without imposing a necessary OWL restriction."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:typicalFailureExpression a owl:AnnotationProperty ;
+    rdfs:label "typical failure expression"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Annotation used at class level to document the usual failure expression of an observed performance parameter without imposing an OWL existential restriction."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:typicalProgressionTo a owl:AnnotationProperty ;
+    rdfs:label "typical progression to"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Annotation used at class level to document a typical degradation progression without asserting a necessary causal relation."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:AssemblyPerformanceParameter a owl:Class ;
+    rdfs:label "Assembly performance parameter"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Category of observed performance parameters related to seams, assembly or garment construction."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:ObservedPerformanceParameter ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:ColourFading a owl:Class ;
+    rdfs:label "Colour fading"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Visual failure mode corresponding to progressive loss of colour intensity during use, washing, ageing or exposure."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:VisualFailureMode ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.1, printed page 469, lines 11089-11093; JRC Preparatory Study, Section 6.4.1, printed page 87, lines 2276-2279."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtdur:ComponentFailureMode a owl:Class ;
+    rdfs:label "Component failure mode"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Category of failure modes affecting components or trims."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:FailureMode ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:Discolouration a owl:Class ;
+    rdfs:label "Discolouration"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Kept distinct from colour fading because discolouration may be localised, irregular or caused by specific use or exposure conditions."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:VisualFailureMode ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 6.4.1, printed page 87, lines 2277-2279; JRC Preparatory Study, Section 13.10.1.1, printed page 469, lines 11092-11093."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtdur:FunctionalFailureMode a owl:Class ;
+    rdfs:label "Functional failure mode"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Category of failure modes primarily involving loss of intended use, comfort or functional suitability of a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:FailureMode ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "Introduced to represent failure modes that are not adequately captured by visual, structural, mechanical or component failure categories alone."@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:LossOfDimensionalStability a owl:Class ;
+    rdfs:label "Loss of dimensional stability"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Failure expression corresponding to loss of the ability of a textile product or fabric to retain its dimensions after use, laundering or treatment cycles."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:StructuralFailureMode ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 6.4.1, printed page 87, lines 2277-2279; JRC Preparatory Study, Section 13.10.1.1, printed page 469, lines 11091-11092."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtdur:MechanicalFailureMode a owl:Class ;
+    rdfs:label "Mechanical failure mode"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Category of failure modes primarily involving rupture, tearing or mechanical damage."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:FailureMode ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:Pilling a owl:Class ;
+    rdfs:label "Pilling"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Observed surface degradation phenomenon involving the formation of small balls or pills of entangled fibres on a textile surface during wear, friction, use or testing."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:ObservedDegradationPhenomenon,
+        txtdur:SurfaceDegradationPhenomenon ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Observed pilling may contribute to fabric breakdown as part of a progressive surface degradation process, but it should not be treated as the sole necessary cause of fabric breakdown."@en,
+        "Observed pilling negatively affects the interpretation of intrinsic durability; pilling resistance, if modelled separately, should be represented as a protective characteristic."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.1, printed page 468, lines 11065-11071; Annex 13.4, Table 124, printed pages 362-367 where applicable."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtdur:typicalProgressionTo txtdur:FabricBreakdown .
+
+txtdur:ProductAgeing a owl:Class ;
+    rdfs:label "Product ageing"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Progressive change or degradation of textile product performance over time under repeated use, care, environmental exposure or stress."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:ObservedDegradationPhenomenon ;
+    txtcon:sourceLocator "JRC Section 9.2.1.3, printed pages 112-113, lines 2968-3010."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:RadiationInducedDegradation a owl:Class ;
+    rdfs:label "Radiation-induced degradation"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Degradation of textile material or product properties associated with ultraviolet or other relevant radiation exposure."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:ProductAgeing ;
+    txtcon:sourceLocator "JRC Section 12.3.16, printed page 254, lines 7150-7157."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtdur:RoughOrStiffFabric a owl:Class ;
+    rdfs:label "Rough or stiff fabric"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Failure mode in which a fabric becomes or is perceived as rough, stiff or unpleasant to touch, affecting user acceptance and comfort-related use."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:TactileFailureMode ;
+    skos:altLabel "Fabric roughness"@en,
+        "Fabric stiffness"@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence,
+        txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "The concept is modelled as a tactile failure mode rather than as a structural characteristic. The corresponding structural or tactile fabric property remains outside this module."@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction ;
+    txtcon:typicallyIncreasesLikelihoodOf txtdur:LossOfComfort .
+
+txtdur:SeamFailure a owl:Class ;
+    rdfs:label "Seam failure"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Structural or assembly-related failure mode involving loss of seam integrity or seam functionality."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:StructuralFailureMode ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:sourceLocator "JRC Annex 13.10.1, printed page 469, lines 11089-11094."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtdur:TactileFailureMode a owl:Class ;
+    rdfs:label "Tactile failure mode"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Category of failure modes primarily affecting tactile perception, hand feel or comfort-related touch properties of a textile product or fabric."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:FailureMode ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "Introduced to avoid forcing tactile failures such as rough or stiff fabric into purely visual or purely structural categories."@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:TrimFailure a owl:Class ;
+    rdfs:label "Trim failure"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Component failure mode involving failure of trims or auxiliary components associated with a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:ComponentFailureMode ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 6.4.1, printed page 87, lines 2277-2279; JRC Preparatory Study, Section 13.10.1.1, printed page 469, lines 11092-11094."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtdur:DeformationPerformanceParameter a owl:Class ;
+    rdfs:label "Deformation performance parameter"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Category of observed performance parameters related to deformation, shape retention or dimensional behaviour."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:ObservedPerformanceParameter ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:FabricBreakdown a owl:Class ;
+    rdfs:label "Fabric breakdown"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Aggregated failure mode. It may be decomposed later into more specific phenomena such as fraying, thinning, localised wear or hole formation."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:StructuralFailureMode ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.1, printed page 469, lines 11089-11093; JRC Preparatory Study, Section 6.4.1, printed page 87, lines 2277-2279."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtdur:LossOfComfort a owl:Class ;
+    rdfs:label "Loss of comfort"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Functional failure mode corresponding to loss of comfort or comfort-related suitability during use, maintenance or ageing."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:FunctionalFailureMode ;
+    txtcon:evidenceStatus txtcon:explicitEvidence,
+        txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "Loss of comfort is kept as a functional failure mode. Specific causes may include roughness, stiffness, loss of elasticity, poor breathability, poor insulation or other context-dependent phenomena."@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:MechanicalPerformanceParameter a owl:Class ;
+    rdfs:label "Mechanical performance parameter"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Category of observed performance parameters related to mechanical resistance or strength."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:ObservedPerformanceParameter ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:SurfaceDegradationPhenomenon a owl:Class ;
+    rdfs:label "Surface degradation phenomenon"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Observed degradation phenomenon affecting the surface condition of a textile material or product, such as pilling, fuzzing or matting."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:ObservedDegradationPhenomenon ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "Introduced to keep surface degradation phenomena separate from strict FailureMode, because the ontology declares FailureMode and ObservedPerformanceParameter disjoint at high level."@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:SurfacePerformanceParameter a owl:Class ;
+    rdfs:label "Surface performance parameter"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Category of observed performance parameters related to surface behaviour or surface degradation."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:ObservedPerformanceParameter ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:TearOrRip a owl:Class ;
+    rdfs:label "Tear or rip"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Mechanical failure mode involving rupture, tearing or ripping of textile material under stress, snagging or damage."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:MechanicalFailureMode ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:sourceLocator "JRC Preparatory Study, Annex 13.10.1.1, printed page 469, lines 11090-11091."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtdur:VisualFailureMode a owl:Class ;
+    rdfs:label "Visual failure mode"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Category of failure modes primarily affecting visible appearance."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:FailureMode ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:VisualPerformanceParameter a owl:Class ;
+    rdfs:label "Visual performance parameter"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Category of observed performance parameters related to visual appearance or colour behaviour."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:ObservedPerformanceParameter ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:Durability a owl:Class ;
+    rdfs:label "Durability"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Ability of a product to maintain over time its function and performance under specified conditions of use, maintenance and repair."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf dpp:Durability ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Through the alignment txtdur:Durability rdfs:subClassOf dpp:Durability, this class inherits dpp:QualityIndicator and dpp:QuantitativeProperty. This is an inherited EU DPP Core commitment: it does not make a durability instance a numeric value. Numerical observations and results remain represented through Textile Assessment and txtcon:QuantitativeValue."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.1, printed page 468, lines 11065-11067."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtdur:ExternalDamage a owl:Class ;
+    rdfs:label "External damage"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Damage caused by external or accidental events during product use, not necessarily resulting from intrinsic lack of durability."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:StructuralFailureMode a owl:Class ;
+    rdfs:label "Structural failure mode"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Category of failure modes primarily affecting structure, integrity or dimensional behaviour."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf txtdur:FailureMode ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:ObservedDegradationPhenomenon a owl:Class ;
+    rdfs:label "Observed degradation phenomenon"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Observable phenomenon indicating physical deterioration of a textile material or product. It is distinct from the performance characteristic used to assess resistance to that deterioration."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:ObservedPerformanceParameter a owl:Class ;
+    rdfs:label "Observed performance parameter"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Durability-related product characteristic that can be observed, assessed or measured to evaluate physical durability. It denotes the characteristic type, not a test, observation, result or quantitative value."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    rdfs:subClassOf dpp:Property ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtdur:FailureMode a owl:Class ;
+    rdfs:label "Failure mode"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Failure modes are kept separate from observed performance parameters. For example, colour fastness is a parameter, while colour fading is a failure mode."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-durability> ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+<https://w3id.org/eudpp/textile-durability> a owl:Ontology ;
+    rdfs:label "EU DPP Textile Durability Ontology"@en ;
+    dcterms:bibliographicCitation "EU DPP Textile Durability Ontology. Version 2.0.0 candidate."@en ;
+    dcterms:created "2026-03-06"^^xsd:date ;
+    dcterms:creator "Elio Hbeich"@en,
+        "BOUGACHA Racem"@en,
+        "Ivo Ladenius"@en,
+        "Andreas Schneider"@en,
+        "Jan Merckx"@en,
+        "Piero de Sabbata"@en ;
+    dcterms:description "Ontology module for textile durability constructs, durability-related performance characteristics, degradation phenomena, external damage and failure modes. Test methods, observations, measurement results, thresholds and values remain in the textile assessment module."@en ;
+    dcterms:issued "2026-03-06"^^xsd:date ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:modified "2026-10-27"^^xsd:date ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    dcterms:title "EU DPP Textile Durability Ontology"@en ;
+    vann:preferredNamespacePrefix "txtdur" ;
+    vann:preferredNamespaceUri "https://w3id.org/eudpp/textile-durability#" ;
+    rdfs:comment "Assessment methods, measurement results, thresholds and quantitative values are intentionally outside this module and should be represented in the textile assessment module."@en,
+        "If durability parameter names or failure-mode names are needed as controlled data values in application profiles, a separate SKOS codelist can be derived from this OWL hierarchy without replacing the OWL classes."@en,
+        "ObservedDegradationPhenomenon is not declared disjoint with ObservedPerformanceParameter, because degradation phenomena such as pilling can also be handled as observed performance parameters in inspection contexts."@en,
+        "The alignment to dpp:Durability entails that textile durability is also a dpp:QualityIndicator and dpp:QuantitativeProperty. This inherited classification denotes a measurable quality characteristic and remains distinct from txtcon:QuantitativeValue."@en,
+        "The module covers tactile, functional, structural, visual and surface degradation concepts such as RoughOrStiffFabric, LossOfComfort, ElasticityLoss, FuzzingOrMatting, ColourDepthEvenness and FabricSmoothness."@en,
+        "The module keeps Durability and IntrinsicDurability as explicit OWL classes and represents observed performance parameters and failure modes as OWL classes rather than SKOS concepts."@en,
+        "This module represents durability constructs, observed performance parameter types and failure mode types as OWL classes. It intentionally does not introduce SKOS codelists for these concepts in the core ontology."@en ;
+    owl:imports <https://w3id.org/eudpp/textile-connector>,
+        <https://w3id.org/eudpp/textile-dpp-mireot> ;
+    owl:priorVersion <https://w3id.org/eudpp/textile-durability/1.1.2> ;
+    owl:versionIRI <https://w3id.org/eudpp/textile-durability/2.0.0> ;
+    owl:versionInfo "Version 2.0.0 candidate" ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( txtdur:Durability txtdur:ObservedPerformanceParameter txtdur:FailureMode ) .

@@ -1,0 +1,29 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dpp:hasMaterialType a owl:ObjectProperty ;
+    rdfs:label "has material type"@en ;
+    rdfs:comment "Links material to its type in some classification system used by the sector."@en ;
+    rdfs:domain dpp:MaterialOfComposition ;
+    rdfs:range dpp:MaterialType .
+
+<https://w3id.org/eudpp/textile-mat-mireot> a owl:Ontology ;
+    rdfs:label "Textile MAT bounded MIREOT"@en ;
+    dcterms:modified "2026-10-27"^^xsd:date ;
+    dcterms:references "Owner-designated CORE 1.1.0; unchanged source in dependencies/current-core/mat.owl."@en ;
+    dcterms:source <https://w3id.org/eudpp/MAT> ;
+    owl:versionIRI <https://w3id.org/eudpp/textile-mat-mireot/2.0.0> ;
+    owl:versionInfo "Version 2.0.0 candidate" .
+
+dpp:MaterialOfComposition a owl:Class ;
+    rdfs:label "Material of composition"@en ;
+    rdfs:comment "Material the product (or component) is made of [ESPR Annex I]. Material as an element of composition."@en .
+
+dpp:MaterialType a owl:Class ;
+    rdfs:label "Material type"@en ;
+    rdfs:comment """Placeholder class for material type classification applicable in a sector or mandated by a delegated act (DA).
+
+Potential types could be, on the example of textile sector: cotton, nylon, ..."""@en .

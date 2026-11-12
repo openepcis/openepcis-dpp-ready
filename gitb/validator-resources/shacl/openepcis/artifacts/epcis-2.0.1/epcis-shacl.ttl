@@ -1,0 +1,1137 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix epcis: <https://ref.gs1.org/epcis/> .
+
+
+epcis:EPCISDocumentShape
+    a sh:NodeShape;
+    sh:targetClass epcis:EPCISDocument;
+    sh:property epcis:SchemaVersionShape;
+    sh:property epcis:CreationDateShape;
+    sh:property epcis:InstanceIdentifierShape;
+    sh:property epcis:SenderShape;
+    sh:property epcis:ReceiverShape;
+    sh:node epcis:EpcisHeaderShape;
+    sh:node epcis:EpcisBodyShape;
+.
+    
+epcis:SchemaVersionShape
+    a sh:PropertyShape ;
+    sh:path owl:versionInfo ;
+    sh:name "schemaVersion" ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "In every EPCISDocument, schemaVersion (owl:versionInfo) is mandatory, single valued and an xsd:string" ;
+.
+
+epcis:CreationDateShape
+    a sh:PropertyShape ;
+    sh:path dcterms:created ;
+    sh:name "creationDate" ;
+    sh:datatype xsd:dateTime ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "In every EPCISDocument, creationDate (dcterms:created) is mandatory, single valued and an xsd:dateTime" ;
+.
+
+epcis:InstanceIdentifierShape
+    a sh:PropertyShape ;
+    sh:path epcis:instanceIdentifier ;
+    sh:name "instanceIdentifier" ;
+    sh:datatype xsd:string ;
+    sh:minCount 0 ;
+    sh:maxCount 1 ;
+    sh:message "In an EPCISDocument, instanceIdentifier is optional, single valued and an xsd:string" ;
+.
+
+epcis:SenderShape
+    a sh:PropertyShape ;
+    sh:path epcis:sender ;
+    sh:name "sender" ;
+    sh:or (
+    	[ sh:nodeKind sh:IRI ; ]
+    	[ sh:datatype xsd:string; ]
+    );
+    sh:minCount 0 ;
+    sh:maxCount 1 ;
+    sh:message "In an EPCISDocument, sender is optional, single valued and a URI/IRI that typically expresses a SGLN of the sender, either as an EPC URN or the equivalent constrained GS1 Digital Link URI" ;
+.
+
+epcis:ReceiverShape
+    a sh:PropertyShape ;
+    sh:path epcis:receiver ;
+    sh:name "receiver" ;
+    sh:or (
+    	[ sh:nodeKind sh:IRI ; ]
+    	[ sh:datatype xsd:string; ]
+    );
+    sh:minCount 0 ;
+    sh:maxCount 1 ;
+    sh:message "In an EPCISDocument, receiver is optional, single valued and a URI/IRI that typically expresses a SGLN of the intended receiver, either as an EPC URN or the equivalent constrained GS1 Digital Link URI" ;
+.
+
+epcis:EpcisHeaderShape
+    a sh:NodeShape;
+    sh:path epcis:epcisHeader;
+    sh:name "epcisHeader" ;
+    sh:maxCount 1;
+.
+
+epcis:EpcisBodyShape
+    a sh:NodeShape;
+    sh:path epcis:epcisBody;
+    sh:name "epcisBody" ;
+    sh:minCount 1;
+    sh:maxCount 1;
+    sh:node epcis:EventListShape;
+.
+
+epcis:EventListShape
+    a sh:NodeShape;
+    sh:path epcis:eventList;
+    sh:name "eventList" ;
+.
+
+
+epcis:ObjectEventShape
+    a sh:NodeShape ;
+    sh:targetClass epcis:ObjectEvent ;
+    sh:or (
+      [ sh:nodeKind sh:IRI ; sh:pattern "^(urn:uuid:|ni:///)";]
+      [ sh:nodeKind sh:BlankNode; ]
+    );
+    sh:property epcis:EventTimeShape ;
+    sh:property epcis:EventTimeZoneOffsetShape ;
+    sh:property epcis:RecordTimeShape ;
+    sh:property epcis:ActionShape ;
+    sh:property epcis:BizStepShape ;
+    sh:property epcis:DispositionShape ;
+    sh:property epcis:ReadPointShape ;
+    sh:property epcis:BizLocationShape ;
+    sh:property epcis:EPCListShape ;
+    sh:property epcis:ParentIDForbiddenShape;
+    sh:property epcis:ChildEPCsForbiddenShape ;   
+    sh:property epcis:InputEPCListForbiddenShape ; 
+    sh:property epcis:OutputEPCListForbiddenShape ; 
+    sh:node epcis:QuantityElementShape ;
+    sh:node epcis:InputQuantityElementForbiddenShape ;
+    sh:node epcis:OutputQuantityElementForbiddenShape ;
+    sh:node epcis:ChildQuantityElementForbiddenShape ;
+    sh:node epcis:ILMDConditionallyForbiddenShape ;
+    sh:node epcis:PersistentDispositionShape ;
+    sh:node epcis:BizTransactionShape ;
+    sh:node epcis:SourceListShape ;
+    sh:node epcis:DestinationListShape ;
+    sh:node epcis:ErrorDeclarationShape ;
+    sh:node epcis:SensorElementShape ;
+    sh:node epcis:CertificationInfoShape ;
+.    
+
+epcis:AggregationEventShape
+    a sh:NodeShape ;
+    sh:targetClass epcis:AggregationEvent ;
+    sh:or (
+      [ sh:nodeKind sh:IRI ; sh:pattern "^(urn:uuid:|ni:///)";]
+      [ sh:nodeKind sh:BlankNode; ]
+    );
+    sh:property epcis:EventTimeShape ;
+    sh:property epcis:EventTimeZoneOffsetShape ;
+    sh:property epcis:RecordTimeShape ;
+    sh:property epcis:ActionShape ;
+    sh:property epcis:BizStepShape ;
+    sh:property epcis:DispositionShape ;
+    sh:property epcis:ReadPointShape ;
+    sh:property epcis:BizLocationShape ;
+    sh:property epcis:ParentIDShape ;
+    sh:property epcis:ChildEPCsShape ;
+    sh:property epcis:EPCListForbiddenShape ;
+    sh:property epcis:InputEPCListForbiddenShape ; 
+    sh:property epcis:OutputEPCListForbiddenShape ;
+    sh:property epcis:ILMDForbiddenShape ;
+    sh:node epcis:ChildQuantityElementShape ;
+    sh:node epcis:QuantityElementForbiddenShape ;
+    sh:node epcis:InputQuantityElementForbiddenShape ;
+    sh:node epcis:OutputQuantityElementForbiddenShape ;
+    sh:node epcis:PersistentDispositionForbiddenShape ;
+    sh:node epcis:BizTransactionShape ;
+    sh:node epcis:SourceListShape ;
+    sh:node epcis:DestinationListShape ;
+    sh:node epcis:ErrorDeclarationShape ;
+    sh:node epcis:SensorElementShape ;
+    sh:node epcis:CertificationInfoShape ;
+.    
+
+epcis:AssociationEventShape
+    a sh:NodeShape ;
+    sh:targetClass epcis:AssociationEvent ;
+    sh:or (
+      [ sh:nodeKind sh:IRI ; sh:pattern "^(urn:uuid:|ni:///)";]
+      [ sh:nodeKind sh:BlankNode; ]
+    );
+    sh:property epcis:EventTimeShape ;
+    sh:property epcis:EventTimeZoneOffsetShape ;
+    sh:property epcis:RecordTimeShape ;
+    sh:property epcis:ActionShape ;
+    sh:property epcis:BizStepShape ;
+    sh:property epcis:DispositionShape ;
+    sh:property epcis:ReadPointShape ;
+    sh:property epcis:BizLocationShape ;
+    sh:property epcis:MandatoryParentIDShape ;
+    sh:property epcis:ChildEPCsShape ;
+    sh:property epcis:EPCListForbiddenShape ;
+    sh:property epcis:InputEPCListForbiddenShape ; 
+    sh:property epcis:OutputEPCListForbiddenShape ; 
+    sh:property epcis:ILMDForbiddenShape ;
+    sh:node epcis:ChildQuantityElementShape ;
+    sh:node epcis:QuantityElementForbiddenShape ;
+    sh:node epcis:InputQuantityElementForbiddenShape ;
+    sh:node epcis:OutputQuantityElementForbiddenShape ;
+    sh:node epcis:PersistentDispositionForbiddenShape ;
+    sh:node epcis:BizTransactionShape ;
+    sh:node epcis:SourceListShape ;
+    sh:node epcis:DestinationListShape ;
+    sh:node epcis:ErrorDeclarationShape ;
+    sh:node epcis:SensorElementShape ;
+    sh:node epcis:CertificationInfoShape ;
+.    
+
+epcis:TransactionEventShape
+    a sh:NodeShape ;
+    sh:targetClass epcis:TransactionEvent ;
+    sh:or (
+      [ sh:nodeKind sh:IRI ; sh:pattern "^(urn:uuid:|ni:///)";]
+      [ sh:nodeKind sh:BlankNode; ]
+    );
+    sh:property epcis:EventTimeShape ;
+    sh:property epcis:EventTimeZoneOffsetShape ;
+    sh:property epcis:RecordTimeShape ;
+    sh:property epcis:ActionShape ;
+    sh:property epcis:BizStepShape ;
+    sh:property epcis:DispositionShape ;
+    sh:property epcis:ReadPointShape ;
+    sh:property epcis:BizLocationShape ;
+    sh:property epcis:ParentIDShape ;
+    sh:property epcis:EPCListShape ;
+    sh:property epcis:ChildEPCsForbiddenShape ;    
+    sh:property epcis:InputEPCListForbiddenShape ; 
+    sh:property epcis:OutputEPCListForbiddenShape ; 
+    sh:property epcis:ILMDForbiddenShape ;
+    sh:node epcis:QuantityElementShape ;
+    sh:node epcis:ChildQuantityElementForbiddenShape ;
+    sh:node epcis:InputQuantityElementForbiddenShape ;
+    sh:node epcis:OutputQuantityElementForbiddenShape ;
+    sh:node epcis:PersistentDispositionForbiddenShape ;
+    sh:node epcis:BizTransactionMandatoryShape ;
+    sh:node epcis:SourceListShape ;
+    sh:node epcis:DestinationListShape ;
+    sh:node epcis:ErrorDeclarationShape ;
+    sh:node epcis:SensorElementShape ;
+    sh:node epcis:CertificationInfoShape ;
+.    
+
+epcis:TransformationEventShape
+    a sh:NodeShape ;
+    sh:targetClass epcis:TransformationEvent ;
+    sh:or (
+      [ sh:nodeKind sh:IRI ; sh:pattern "^(urn:uuid:|ni:///)";]
+      [ sh:nodeKind sh:BlankNode; ]
+    );
+    sh:property epcis:EventTimeShape ;
+    sh:property epcis:EventTimeZoneOffsetShape ;
+    sh:property epcis:RecordTimeShape ;
+    sh:property epcis:BizStepShape ;
+    sh:property epcis:DispositionShape ;
+    sh:property epcis:ReadPointShape ;
+    sh:property epcis:BizLocationShape ;
+    sh:property epcis:InputEPCListShape ;
+    sh:property epcis:OutputEPCListShape ;
+    sh:property epcis:ActionForbiddenShape ;
+	sh:property epcis:ParentIDForbiddenShape;
+    sh:property epcis:ChildEPCsForbiddenShape ;    
+    sh:property epcis:EPCListForbiddenShape ;
+    sh:property epcis:TransformationIDShape ;    
+    sh:node epcis:InputQuantityElementShape ;
+    sh:node epcis:OutputQuantityElementShape ;
+    sh:node epcis:QuantityElementForbiddenShape ;
+    sh:node epcis:ChildQuantityElementForbiddenShape ;
+    sh:node epcis:PersistentDispositionShape ;
+    sh:node epcis:BizTransactionShape ;
+    sh:node epcis:SourceListShape ;
+    sh:node epcis:DestinationListShape ;
+    sh:node epcis:ErrorDeclarationShape ;
+    sh:node epcis:SensorElementShape ;
+    sh:node epcis:CertificationInfoShape ;
+    sh:node epcis:TransformationIDConditionsShape ;
+.    
+
+    
+epcis:EventTimeShape
+    a sh:PropertyShape ;
+    sh:path epcis:eventTime ;
+    sh:name "eventTime" ;
+    sh:datatype xsd:dateTimeStamp ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "In all EPCIS events, eventTime is mandatory, single valued and an xsd:dateTimeStamp" ;
+.
+
+epcis:EventTimeZoneOffsetShape
+    a sh:PropertyShape ;
+    sh:path epcis:eventTimeZoneOffset ;
+    sh:name "eventTimeZoneOffset" ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:pattern "^(\\+|-)((0[0-9]|1[0-3]):([0-5][0-9])|14:00)$" ;
+    sh:message "In all EPCIS events, eventTimeZoneOffset is mandatory, single valued and an xsd:string" ;
+.
+
+epcis:RecordTimeShape
+    a sh:PropertyShape ;
+    sh:path epcis:recordTime ;
+    sh:name "recordTime" ;
+    sh:datatype xsd:dateTimeStamp ;
+    sh:maxCount 1 ;
+    sh:message "recordTime is optional; if present, a xsd:dateTimeStamp with only one value" ;
+.
+
+epcis:CertificationInfoShape
+    a sh:PropertyShape ;
+    sh:path epcis:certificationInfo ;
+    sh:name "certificationInfo" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:message "Any values of certificationInfo must be IRIs/URIs" ;
+.
+
+epcis:ActionShape
+    a sh:PropertyShape ;
+    sh:path epcis:action ;
+    sh:name "action" ;
+    sh:datatype xsd:string ;
+    sh:in ("ADD" "OBSERVE" "DELETE") ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "Within ObjectEvent, AggregationEvent, TransactionEvent, AssociationEvent, action is mandatory, and must be a string value, one of either 'ADD', 'OBSERVE' or 'DELETE'" ;
+.
+
+epcis:ActionForbiddenShape
+    a sh:PropertyShape ;
+    sh:path epcis:action ;
+    sh:name "action (forbidden within TransformationEvent)" ;
+    sh:maxCount 0 ;
+    sh:message "action should not appear within TransformationEvent" ;
+.
+
+epcis:BizStepShape
+    a sh:PropertyShape ;
+    sh:path epcis:bizStep ;
+    sh:name "bizStep" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1;
+    sh:message "bizStep must be single-valued and an IRI/URI" ;
+.
+
+epcis:DispositionShape
+    a sh:PropertyShape ;
+    sh:path epcis:disposition ;
+    sh:name "disposition" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1;
+    sh:message "disposition must be single-valued and an IRI/URI" ;
+.
+
+epcis:ReadPointShape
+    a sh:PropertyShape ;
+    sh:path epcis:readPoint ;
+    sh:name "readPoint" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1;
+    sh:message "readPoint must be single-valued and an IRI/URI" ;
+.
+
+epcis:BizLocationShape
+    a sh:PropertyShape ;
+    sh:path epcis:bizLocation ;
+    sh:name "bizLocation" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1;
+    sh:message "bizLocation must be single-valued and an IRI/URI" ;
+.
+
+epcis:ChildEPCsShape
+    a sh:PropertyShape ;
+    sh:path epcis:childEPCs ;
+    sh:name "childEPCs" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:message "Any values within childEPCs must be IRIs/URIs" ;
+.
+
+epcis:ChildEPCsForbiddenShape
+    a sh:PropertyShape ;
+    sh:path epcis:childEPCs ;
+    sh:name "childEPCs (forbidden)" ;
+    sh:maxCount 0 ;
+    sh:message "childEPCs should not appear within ObjectEvent, TransactionEvent or TransformationEvent" ;
+.
+
+epcis:ILMDForbiddenShape
+    a sh:PropertyShape ;
+    sh:path epcis:ilmd ;
+    sh:name "ilmd (forbidden)" ;
+    sh:maxCount 0 ;
+    sh:message "ilmd should not appear within AggregationEvent, AssociationEvent or TransactionEvent" ;
+.
+
+epcis:MandatoryParentIDShape
+    a sh:PropertyShape ;
+    sh:path epcis:parentID ;
+    sh:name "parentID" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+	sh:minCount 1;
+	sh:maxCount 1;
+    sh:message "parentID is mandatory, single-valued and must be an IRI/URI" ;
+.
+
+epcis:ParentIDShape
+    a sh:PropertyShape ;
+    sh:path epcis:parentID ;
+    sh:name "parentID" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1;
+    sh:message "Within AggregationEvent and AssociationEvent, TransactionEvent, parentID is optional, single-valued and must be an IRI/URI" ;
+.
+
+epcis:ParentIDForbiddenShape
+	a sh:PropertyShape;
+	sh:path epcis:parentID;
+    sh:name "parentID (forbidden within ObjectEvent or TransformationEvent)" ;
+	sh:maxCount 0;
+	sh:message "parentID should not appear within ObjectEvent or TransformationEvent";
+.
+
+epcis:TransformationIDConditionsShape
+	a sh:NodeShape;
+    sh:targetClass epcis:TransformationEvent;
+	sh:or(
+     	[sh:and (
+				[ sh:property epcis:TransformationIDRequiredShape ; ]
+      		[sh:or(
+ 				[ sh:property epcis:outputEPCListNonEmptyShape ; ]
+				[ sh:property epcis:outputQuantityListNonEmptyShape ; ]
+				[ sh:property epcis:inputEPCListNonEmptyShape ; ]
+				[ sh:property epcis:inputQuantityListNonEmptyShape ; ]
+				)]
+		)]
+      
+        [sh:and (
+			[sh:or(
+				[ sh:property epcis:outputEPCListNonEmptyShape ; ]
+				[ sh:property epcis:outputQuantityListNonEmptyShape ; ]
+			)]
+			[sh:or(
+				[ sh:property epcis:inputEPCListNonEmptyShape ; ]
+				[ sh:property epcis:inputQuantityListNonEmptyShape ; ]
+			)]
+		)]
+    );
+	sh:message "Within each TransformationEvent, transformationID is required unless at least one of (inputEPCList or inputQuantityList) AND at least one of (outputEPCList or outputQuantityList) are specified. If transactionID is specified then at least one of (inputEPCList, inputQuantityList, outputEPCList, outputQuantityList) must be specified.";
+.
+
+epcis:TransformationIDRequiredShape
+	a sh:PropertyShape;
+	sh:path epcis:transformationID;
+    sh:name "transformationID" ;
+	sh:minCount 1;
+.
+
+epcis:outputEPCListNonEmptyShape
+	a sh:PropertyShape;
+	sh:path epcis:outputEPCList;
+    sh:name "outputEPCList" ;
+	sh:minCount 1;
+.
+
+epcis:inputEPCListNonEmptyShape
+	a sh:PropertyShape;
+	sh:path epcis:inputEPCList;
+    sh:name "inputEPCList" ;
+	sh:minCount 1;
+.
+
+epcis:outputQuantityListNonEmptyShape
+	a sh:PropertyShape;
+	sh:path epcis:outputQuantityList;
+    sh:name "outputQuantityList" ;
+	sh:minCount 1;
+.
+
+epcis:inputQuantityListNonEmptyShape
+	a sh:PropertyShape;
+	sh:path epcis:inputQuantityList;
+    sh:name "inputQuantityList" ;
+	sh:minCount 1;
+.
+
+epcis:EPCListShape
+    a sh:PropertyShape ;
+    sh:path epcis:epcList ;
+    sh:name "epcList" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:message "Any values within epcList must be IRIs/URIs" ;
+.
+
+epcis:EPCListForbiddenShape
+    a sh:PropertyShape ;
+    sh:path epcis:epcList ;
+    sh:name "epcList (forbidden within AggregationEvent, AssociationEvent or TransformationEvent)" ;
+    sh:maxCount 0 ;
+    sh:message "epcList should not appear within AggregationEvent, AssociationEvent or TransformationEvent" ;
+.
+
+epcis:InputEPCListShape
+    a sh:PropertyShape ;
+    sh:path epcis:inputEPCList ;
+    sh:name "inputEPCList" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:message "Any values within inputEPCList must be IRIs/URIs" ;
+.
+
+epcis:OutputEPCListShape
+    a sh:PropertyShape ;
+    sh:path epcis:outputEPCList ;
+    sh:name "outputEPCList" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:message "Any values within outputEPCList must be IRIs/URIs" ;
+.
+
+epcis:InputEPCListForbiddenShape
+    a sh:PropertyShape ;
+    sh:path epcis:inputEPCList ;
+    sh:name "inputEPCList (forbidden)" ;
+    sh:maxCount 0 ;
+    sh:message "inputEPCList should not appear within ObjectEvent, AggregationEvent, AssociationEvent or TransactionEvent - only within TransformationEvent" ;
+.
+
+epcis:OutputEPCListForbiddenShape
+    a sh:PropertyShape ;
+    sh:path epcis:outputEPCList ;
+    sh:name "outputEPCList (forbidden)" ;
+    sh:maxCount 0 ;
+    sh:message "outputEPCList should not appear within ObjectEvent, AggregationEvent, AssociationEvent or TransactionEvent - only within TransformationEvent" ;
+.
+
+epcis:PersistentDispositionShape
+    a sh:NodeShape ;
+    sh:path epcis:persistentDisposition ;
+    sh:name "persistentDisposition" ;
+    sh:maxCount 1;
+    sh:property epcis:SetShape ;
+    sh:property epcis:UnsetShape ;
+    sh:property epcis:SpecifySetOrUnsetShape;
+    sh:message "Within each event, persistentDisposition must not appear more than once, although its properties 'set' and 'unset' may each specify multiple values.";
+.
+
+epcis:PersistentDispositionForbiddenShape
+	a sh:NodeShape ;
+	sh:path epcis:persistentDisposition ;
+    sh:name "persistentDisposition (forbidden)" ;
+	sh:maxCount 0;
+	sh:message "persistentDisposition may not appear in an AggregationEvent, AssociationEvent or TransactionEvent";
+.
+
+epcis:SetShape
+    a sh:PropertyShape ;
+    sh:path epcis:set ;
+    sh:name "set" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:message "Within persistentDisposition, values of set must be IRIs/URIs" ;
+.
+
+epcis:UnsetShape
+    a sh:PropertyShape ;
+    sh:path epcis:unset ;
+    sh:name "unset" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:message "Within persistentDisposition, values of unset must be IRIs/URIs" ;
+.
+
+epcis:SpecifySetOrUnsetShape
+	a sh:NodeShape ;
+	sh:or (
+		[
+			sh:path epcis:set ;
+			sh:minCount 1 ;
+		]
+		[
+			sh:path epcis:unset ;
+			sh:minCount 1 ;
+		]
+	);
+	sh:message "If persistentDisposition is specified within an event, then at least one disposition value must be specified by either of 'set' or 'unset'";
+.
+
+epcis:TransformationIDShape
+    a sh:PropertyShape ;
+    sh:path epcis:transformationID ;
+    sh:name "transformationID" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1;
+    sh:message "Within a TransformationEvent, transformationID is optional, single-valued and must be an IRI/URI" ;
+.
+
+epcis:BizTransactionShape
+    a sh:NodeShape ;
+    sh:path epcis:bizTransactionList ;
+    sh:name "bizTransactionList" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:property epcis:BizTransactionTypeShape ;
+    sh:message "Each value of bizTransactionList ('bizTransaction') must be an IRI/URI" ;
+.
+
+epcis:BizTransactionTypeShape 
+    a sh:PropertyShape ;
+    sh:path epcis:bizTransactionType ;
+    sh:name "type (within epcis:BizTransaction)" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+	sh:maxCount 1;
+    sh:message "Within each value of bizTransactionList, bizTransactionType ('type') is optional, single-valued and must be an IRI/URI" ;
+.
+
+epcis:BizTransactionMandatoryShape
+    a sh:NodeShape ;
+    sh:path epcis:bizTransactionList ;
+    sh:name "bizTransactionList" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:minCount 1;
+    sh:property epcis:BizTransactionTypeShape ;
+    sh:message "Each value of bizTransactionList ('bizTransaction') must be an IRI/URI.  Within a TransactionEvent, bizTransactionList must contain at least one value." ;
+.
+
+epcis:SourceListShape
+    a sh:NodeShape ;
+    sh:path epcis:sourceList ;
+    sh:name "sourceList" ;
+    sh:property epcis:SourceShape ;
+    sh:property epcis:SourceOrDestinationTypeShape ; 
+.
+
+epcis:DestinationListShape
+    a sh:NodeShape ;
+    sh:path epcis:destinationList ;
+    sh:name "destinationList" ;
+    sh:property epcis:DestinationShape ;
+    sh:property epcis:SourceOrDestinationTypeShape ;
+.
+
+epcis:SourceShape 
+    a sh:PropertyShape ;
+    sh:path epcis:sourceOrDestination ;
+    sh:name "'source' within sourceList" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:minCount 1;
+    sh:maxCount 1;
+    sh:message "Within sourceList, sourceOrDestination ('source') is mandatory, single-valued and must be an IRI/URI" ;
+.
+
+epcis:DestinationShape 
+    a sh:PropertyShape ;
+    sh:path epcis:sourceOrDestination ;
+    sh:name "'destination' within destinationList" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:minCount 1;
+    sh:maxCount 1;
+    sh:message "Within destinationList, sourceOrDestination ('destination') is mandatory, single-valued and must be an IRI/URI" ;
+.
+
+epcis:SourceOrDestinationTypeShape 
+    a sh:PropertyShape ;
+    sh:path epcis:sourceOrDestinationType ;
+    sh:name "'type' within sourceList or destinationList" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:minCount 1;
+    sh:maxCount 1;
+    sh:message "Within sourceList or destinationList, sourceOrDestinationType ('type') is mandatory, single-valued and must be an IRI/URI" ;
+.
+
+epcis:QuantityElementShape
+    a sh:NodeShape ;
+    sh:path epcis:quantityList ;
+    sh:name "quantityList" ;
+    sh:property epcis:EPCClassShape ;
+    sh:property epcis:QuantityShape ;
+    sh:property epcis:UOMShape ;
+.
+
+epcis:QuantityElementForbiddenShape
+    a sh:NodeShape ;
+    sh:path epcis:quantityList ;
+    sh:name "quantityList (forbidden)" ;
+    sh:maxCount 0;
+    sh:message "quantityList should not appear within AggregationEvent, AssociationEvent or TransformationEvent";
+.
+
+epcis:ChildQuantityElementShape
+    a sh:NodeShape ;
+    sh:path epcis:childQuantityList ;
+    sh:name "childQuantityList" ;
+    sh:property epcis:EPCClassShape ;
+    sh:property epcis:QuantityShape ;
+    sh:property epcis:UOMShape ;
+.
+
+epcis:ChildQuantityElementForbiddenShape
+    a sh:NodeShape ;
+    sh:path epcis:childQuantityList ;
+    sh:name "childQuantityList (forbidden)" ;
+    sh:maxCount 0;
+    sh:message "childQuantityList should not appear within ObjectEvent, TransactionEvent or TransformationEvent";
+.
+
+epcis:InputQuantityElementShape
+    a sh:NodeShape ;
+    sh:path epcis:inputQuantityList ;
+    sh:name "inputQuantityList" ;
+    sh:property epcis:EPCClassShape ;
+    sh:property epcis:QuantityShape ;
+    sh:property epcis:UOMShape ;
+.
+
+epcis:OutputQuantityElementShape
+    a sh:NodeShape ;
+    sh:path epcis:outputQuantityList ;
+    sh:name "outputQuantityList" ;
+    sh:property epcis:EPCClassShape ;
+    sh:property epcis:QuantityShape ;
+    sh:property epcis:UOMShape ;
+.
+
+epcis:InputQuantityElementForbiddenShape
+    a sh:NodeShape ;
+    sh:path epcis:inputQuantityList ;
+    sh:name "inputQuantityList (forbidden)" ;
+	sh:maxCount 0;
+    sh:message "inputQuantityList should not appear within ObjectEvent, AggregationEvent, AssociationEvent or TransactionEvent - only within TransformationEvent" ;
+.
+
+epcis:OutputQuantityElementForbiddenShape
+    a sh:NodeShape ;
+    sh:path epcis:outputQuantityList ;
+    sh:name "outputQuantityList (forbidden)" ;
+	sh:maxCount 0;
+    sh:message "outputQuantityList should not appear within ObjectEvent, AggregationEvent, AssociationEvent or TransactionEvent - only within TransformationEvent" ;	
+.
+
+epcis:ILMDConditionallyForbiddenShape
+	a sh:NodeShape;
+    sh:or( 
+    [ sh:path epcis:ilmd;
+      sh:maxCount 0; ]
+    [ sh:path epcis:action;
+      sh:in ("ADD"); ]
+    )
+.
+
+epcis:EPCClassShape 
+    a sh:PropertyShape ;
+    sh:path epcis:epcClass ;
+    sh:name "epcClass" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:message "Within a QuantityElement, epcClass is mandatory and must be an IRI/URI and with only one value" ;
+.
+
+epcis:QuantityShape 
+    a sh:PropertyShape ;
+    sh:path epcis:quantity ;
+    sh:name "quantity" ;
+    sh:minCount 0 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:double ;
+    sh:not [ sh:hasValue "NaN"^^xsd:double ; ];
+    sh:message "Within a QuantityElement, quantity is optional and must be an xsd:double with only one value" ;
+.
+
+epcis:UOMShape 
+    a sh:PropertyShape ;
+    sh:path epcis:uom ;
+    sh:name "uom" ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    sh:pattern "^[A-Z0-9]{2,3}$";
+    sh:message "uom must be an xsd:string and can only have one value" ;
+.
+
+epcis:UOMAnyStringShape 
+    a sh:PropertyShape ;
+    sh:path epcis:uom ;
+    sh:name "uom" ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    sh:message "uom must be an xsd:string and can only have one value" ;
+.
+
+epcis:ErrorDeclarationShape
+    a sh:NodeShape ;
+    sh:path epcis:errorDeclaration ;
+    sh:name "errorDeclaration" ;
+    sh:property epcis:CorrectiveEventIDsShape ;
+    sh:property epcis:ReasonShape ;
+    sh:property epcis:DeclarationTimeShape ;
+    sh:maxCount 1;
+    sh:message "errorDeclaration is optional and single-valued within each event";
+.
+
+epcis:CorrectiveEventIDsShape 
+    a sh:PropertyShape ;
+    sh:path epcis:correctiveEventIDs ;
+    sh:name "correctiveEventIDs" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:message "Within errorDeclaration, correctiveEventIDs must be IRIs/URIs" ;
+.
+
+epcis:ReasonShape 
+    a sh:PropertyShape ;
+    sh:path epcis:reason ;
+    sh:name "reason" ;
+    sh:maxCount 1;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:message "Within errorDeclaration, reason is optional but must be single-valued and an IRI/URI" ;
+.
+
+epcis:DeclarationTimeShape
+    a sh:PropertyShape ;
+    sh:path epcis:declarationTime ;
+    sh:name "declarationTime" ;
+    sh:datatype xsd:dateTimeStamp ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "Within errorDeclaration, declarationTime is mandatory and must be an xsd:dateTimeStamp" ;
+.
+
+epcis:SensorElementShape
+    a sh:NodeShape ;
+    sh:path epcis:sensorElementList ;
+    sh:name "sensorElementList" ;
+    sh:property epcis:SensorMetadataShape ;
+    sh:property epcis:SensorReportShape ;
+.
+
+epcis:SensorReportShape
+    a sh:NodeShape ;
+    sh:path epcis:sensorReport ;
+    sh:name "sensorReport" ;
+    sh:property epcis:TimeShape ;
+    sh:property epcis:DeviceIDShape ;
+    sh:property epcis:DeviceMetadataShape ;
+    sh:property epcis:RawDataShape ;
+    sh:property epcis:DataProcessingMethodShape ;
+    sh:property epcis:MeasurementTypeShape ;
+    sh:property epcis:ExceptionShape ;
+    sh:property epcis:MicroorganismShape ;
+    sh:property epcis:ChemicalSubstanceShape ;
+    sh:property epcis:CoordinateReferenceSystemShape ;
+    sh:property epcis:URIValueShape ;
+    sh:property epcis:ValueShape ;
+    sh:property epcis:MinValueShape ;
+    sh:property epcis:MaxValueShape ;
+    sh:property epcis:MeanValueShape ;
+    sh:property epcis:SDevShape ;
+    sh:property epcis:PercRankShape ;
+    sh:property epcis:PercValueShape ;
+    sh:property epcis:BooleanValueShape ;
+    sh:property epcis:HexBinaryValueShape ;
+    sh:property epcis:StringValueShape ;
+    sh:property epcis:UOMAnyStringShape ;
+    sh:property epcis:ComponentShape ;
+    sh:minCount 1 ;
+.
+
+epcis:SensorMetadataShape
+    a sh:NodeShape ;
+    sh:path epcis:sensorMetadata ;
+    sh:name "sensorMetadata" ;
+    sh:property epcis:TimeShape ;
+    sh:property epcis:StartTimeShape ;
+    sh:property epcis:EndTimeShape ;
+    sh:property epcis:DeviceIDShape ;
+    sh:property epcis:DeviceMetadataShape ;
+    sh:property epcis:RawDataShape ;
+    sh:property epcis:DataProcessingMethodShape ;
+    sh:property epcis:BizRulesShape ;
+    sh:maxCount 1 ;
+.
+
+epcis:TimeShape
+    a sh:PropertyShape ;
+    sh:path epcis:time ;
+    sh:name "time" ;
+    sh:datatype xsd:dateTimeStamp ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport or sensorMetadata, tine is optional but must be an xsd:dateTimeStamp and can only have one value" ;
+.
+
+epcis:StartTimeShape
+    a sh:PropertyShape ;
+    sh:path epcis:startTime ;
+    sh:name "startTime" ;
+    sh:datatype xsd:dateTimeStamp ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorMetadata, startTime is optional but must be an xsd:dateTimeStamp and can only have one value" ;
+.
+
+epcis:EndTimeShape
+    a sh:PropertyShape ;
+    sh:path epcis:endTime ;
+    sh:name "endTime" ;
+    sh:datatype xsd:dateTimeStamp ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorMetadata, endTime is optional but must be an xsd:dateTimeStamp and can only have one value" ;
+.
+
+epcis:DeviceIDShape
+    a sh:PropertyShape ;
+    sh:path epcis:deviceID ;
+    sh:name "deviceID" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport or sensorMetadata, deviceID is optional but must be an IRI/URI and can only have one value" ;
+.
+
+epcis:DeviceMetadataShape
+    a sh:PropertyShape ;
+    sh:path epcis:deviceMetadata ;
+    sh:name "deviceMetadata" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport or sensorMetadata, deviceMetadata is optional but must be an IRI/URI and can only have one value" ;
+.
+
+epcis:RawDataShape
+    a sh:PropertyShape ;
+    sh:path epcis:rawData ;
+    sh:name "rawData" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport or sensorMetadata, rawData is optional but must be an IRI/URI and can only have one value" ;
+.
+
+epcis:DataProcessingMethodShape
+    a sh:PropertyShape ;
+    sh:path epcis:dataProcessingMethod ;
+    sh:name "dataProcessingMethod" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport or sensorMetadata, dataProcessingMethod is optional but must be an IRI/URI and can only have one value" ;
+.
+
+epcis:BizRulesShape
+    a sh:PropertyShape ;
+    sh:path epcis:bizRules ;
+    sh:name "bizRules" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport or sensorMetadata, bizRules is optional but must be an IRI/URI and can only have one value" ;
+.
+
+epcis:MeasurementTypeShape
+    a sh:PropertyShape ;
+    sh:path epcis:measurementType ;
+    sh:name "measurementType" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, measurementType is optional but must be an IRI/URI and can only have one value" ;
+.
+
+epcis:ExceptionShape
+    a sh:PropertyShape ;
+    sh:path epcis:exception ;
+    sh:name "exception" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, exception is optional but must be an IRI/URI and can only have one value" ;
+.
+
+epcis:MicroorganismShape
+    a sh:PropertyShape ;
+    sh:path epcis:microorganism ;
+    sh:name "microorganism" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, microorganism is optional but must be an IRI/URI and can only have one value" ;
+.
+
+epcis:ChemicalSubstanceShape
+    a sh:PropertyShape ;
+    sh:path epcis:chemicalSubstance ;
+    sh:name "chemicalSubstance" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, chemicalSubstance is optional but must be an IRI/URI and can only have one value" ;
+.
+
+epcis:CoordinateReferenceSystemShape
+    a sh:PropertyShape ;
+    sh:path epcis:coordinateReferenceSystem ;
+    sh:name "coordinateReferenceSystem" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, coordinateReferenceSystem is optional but must be an IRI/URI and can only have one value" ;
+.
+
+epcis:ComponentShape
+    a sh:PropertyShape ;
+    sh:path epcis:component ;
+    sh:name "component" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, component is optional but must be an IRI/URI and can only have one value" ;
+.
+
+epcis:URIValueShape
+    a sh:PropertyShape ;
+    sh:path epcis:uriValue ;
+    sh:name "uriValue" ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "^(.+?):(.+)$" ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, uriValue is optional but must be an IRI/URI and can only have one value" ;
+.
+
+epcis:ValueShape
+    a sh:PropertyShape ;
+    sh:path epcis:value ;
+    sh:name "value" ;
+    sh:datatype xsd:double ;
+    sh:not [ sh:hasValue "NaN"^^xsd:double ; ];
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, value is optional but must be an xsd:double and can only have one value" ;
+.
+
+epcis:MinValueShape
+    a sh:PropertyShape ;
+    sh:path epcis:minValue ;
+    sh:name "minValue" ;
+    sh:datatype xsd:double ;
+    sh:not [ sh:hasValue "NaN"^^xsd:double ; ];
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, minValue is optional but must be an xsd:double and can only have one value" ;
+.
+
+epcis:MaxValueShape
+    a sh:PropertyShape ;
+    sh:path epcis:maxValue ;
+    sh:name "maxValue" ;
+    sh:datatype xsd:double ;
+    sh:not [ sh:hasValue "NaN"^^xsd:double ; ];
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, maxValue is optional but must be an xsd:double and can only have one value" ;
+.
+
+epcis:MeanValueShape
+    a sh:PropertyShape ;
+    sh:path epcis:meanValue ;
+    sh:name "meanValue" ;
+    sh:datatype xsd:double ;
+    sh:not [ sh:hasValue "NaN"^^xsd:double ; ];
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, meanValue is optional but must be an xsd:double and can only have one value" ;
+.
+
+epcis:SDevShape
+    a sh:PropertyShape ;
+    sh:path epcis:sDev ;
+    sh:name "sDev" ;
+    sh:datatype xsd:double ;
+    sh:not [ sh:hasValue "NaN"^^xsd:double ; ];
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, sDev is optional but must be an xsd:double and can only have one valuee" ;
+.
+
+epcis:PercRankShape
+    a sh:PropertyShape ;
+    sh:path epcis:percRank ;
+    sh:name "percRank" ;
+    sh:datatype xsd:double ;
+    sh:not [ sh:hasValue "NaN"^^xsd:double ; ];
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, percRank is optional but must be an xsd:double and can only have one value" ;
+.
+
+epcis:PercValueShape
+    a sh:PropertyShape ;
+    sh:path epcis:percValue ;
+    sh:name "percValue" ;
+    sh:datatype xsd:double ;
+    sh:not [ sh:hasValue "NaN"^^xsd:double ; ];
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, percValue is optional but must be an xsd:double and can only have one value" ;
+.
+
+epcis:BooleanValueShape
+    a sh:PropertyShape ;
+    sh:path epcis:booleanValue ;
+    sh:name "booleanValue" ;
+    sh:datatype xsd:boolean ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, booleanValue is optional but must be an xsd:boolean and can only have one value" ;
+.
+
+epcis:HexBinaryValueShape
+    a sh:PropertyShape ;
+    sh:path epcis:hexBinaryValue ;
+    sh:name "hexBinaryValue" ;
+    sh:datatype xsd:hexBinary ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, hexBinaryValue is optional but must be an xsd:hexBinary and can only have one value" ;
+.
+
+epcis:StringValueShape
+    a sh:PropertyShape ;
+    sh:path epcis:stringValue ;
+    sh:name "stringValue" ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    sh:message "Within each value of sensorReport, stringValue is optional but must be an xsd:string and can only have one value" ;
+.

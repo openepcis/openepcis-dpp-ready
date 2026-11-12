@@ -1,0 +1,32 @@
+@prefix ex: <https://example.org/textile/> .
+@prefix txt: <https://w3id.org/eudpp/textile-core#> .
+@prefix txtind: <https://w3id.org/eudpp/textile-indicator#> .
+@prefix txtass: <https://w3id.org/eudpp/textile-assessment#> .
+@prefix txtdur: <https://w3id.org/eudpp/textile-durability#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:shirt a txt:TextileApparel .
+
+ex:robustnessMethod a txtass:RobustnessAssessment .
+ex:dimensionalChangeResult a txtass:MeasurementResult .
+ex:visualInspectionResult a txtass:MeasurementResult .
+
+ex:intrinsicDurabilityAspect
+    a txtdur:IntrinsicDurability .
+
+ex:robustnessScoreValue
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "8"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .
+
+ex:shirtRobustnessScore
+    a txtind:RobustnessScore ;
+    txtind:isIndicatorOf ex:shirt ;
+    txtind:concernsDurabilityAspect ex:intrinsicDurabilityAspect ;
+    txtind:derivedFrom ex:dimensionalChangeResult, ex:visualInspectionResult ;
+    txtind:derivedUsingMethod ex:robustnessMethod ;
+    txtind:hasQuantitativeValue ex:robustnessScoreValue ;
+    txtind:calculationDescription "Sum of points awarded under the selected robustness scoring profile." ;
+    txtind:calculationAssumption "This score is proxy information for robustness and is not interpreted as a service-lifetime estimate." .
