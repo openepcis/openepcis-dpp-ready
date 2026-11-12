@@ -1,18 +1,20 @@
-# The manufacturer (gs1:manufacturer): its name, its postal address written on one line
+# The manufacturer (gs1:manufacturer): its name, the trademark the battery is sold under (the
+# product's gs1:brand), its postal address written on one line
 # ("street, postal code locality, country code"; a one-line schema:address as it is), and its
 # contact details (e-mail as a mailto URI, website).
 CONSTRUCT {
-  ?r bat:manufacturerIdentification ?mi . ?mi bat:manufacturerName ?name .
+  ?r bat:manufacturerIdentification ?mi . ?mi bat:manufacturerName ?name ; bat:manufacturerTrademark ?tm .
   ?r bat:manufacturerPostalAddress ?addr .
   ?r bat:manufacturerContactDetails ?cd . ?cd bat:manufacturerEmail ?mail ; bat:manufacturerWebsite ?web .
 }
 WHERE {
   {
-    SELECT ?r (SAMPLE(STR(?n)) AS ?name) (SAMPLE(COALESCE(?line, STR(?al))) AS ?addr) (SAMPLE(?m) AS ?mail) (SAMPLE(?w) AS ?web)
+    SELECT ?r (SAMPLE(STR(?n)) AS ?name) (SAMPLE(STR(?bn)) AS ?tm) (SAMPLE(COALESCE(?line, STR(?al))) AS ?addr) (SAMPLE(?m) AS ?mail) (SAMPLE(?w) AS ?web)
     WHERE {
       GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
       GRAPH <urn:xw:in> { ?r gs1:manufacturer ?org }
       OPTIONAL { GRAPH <urn:xw:in> { ?org gs1:organizationName ?n } }
+      OPTIONAL { GRAPH <urn:xw:in> { ?r gs1:brand/gs1:brandName ?bn } }
       OPTIONAL {
         GRAPH <urn:xw:in> { ?org gs1:address ?a }
         OPTIONAL { GRAPH <urn:xw:in> { ?a gs1:streetAddress ?st } }

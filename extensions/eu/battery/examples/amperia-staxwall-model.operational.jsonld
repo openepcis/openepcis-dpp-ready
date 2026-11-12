@@ -44,6 +44,12 @@
     "certificationStandard": "EU Declaration of Conformity (Battery Regulation 2023/1542)",
     "certificationURI": "https://files.example.org/files/products/09521234002000/docs/declaration-of-conformity.pdf"
   },
+  "compositionDescription": [
+    {
+      "@language": "en-gb",
+      "@value": "Cathode: lithium iron phosphate (LFP); anode: graphite; electrolyte: LiPF6 in organic carbonates; casing: aluminium."
+    }
+  ],
   "countryOfOrigin": {
     "type": "Country",
     "countryCode": "SE"
@@ -54,6 +60,14 @@
       "@value": "Contains lithium (1.6 %), natural graphite (15.8 %) and phosphorus (8.9 %), which are on the EU list of critical raw materials (Regulation (EU) 2024/1252)."
     }
   ],
+  "documents": {
+    "type": "DocumentReference",
+    "contentType": "application/pdf",
+    "documentType": "https://ref.openepcis.org/extensions/eu/battery/SparePartReplacementDocument",
+    "language": "en-GB",
+    "resourceTitle": "StaxWall 10 spare part replacement",
+    "url": "https://www.amperia.example/staxwall-10/docs/spare-part-replacement.pdf"
+  },
   "facilityIdentifier": "9521234000112",
   "gtin": "09521234002000",
   "hasAccessRights": "https://ref.openepcis.org/extensions/common/core/Public",
@@ -419,6 +433,93 @@
             },
             "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/PowerCapability"
           }
+        },
+        {
+          "hasCondition": [
+            {
+              "hasConditionType": "https://ref.openepcis.org/extensions/eu/battery/LowerTemperatureBound",
+              "hasConditionValue": {
+                "type": "QuantitativeValue",
+                "unitCode": "CEL",
+                "value": 20
+              }
+            },
+            {
+              "hasConditionType": "https://ref.openepcis.org/extensions/eu/battery/UpperTemperatureBound",
+              "hasConditionValue": {
+                "type": "QuantitativeValue",
+                "unitCode": "CEL",
+                "value": 30
+              }
+            }
+          ],
+          "hasResult": {
+            "type": "MeasurementResult",
+            "hasMeasuredValue": {
+              "type": "QuantitativeValue",
+              "unitCode": "VLT",
+              "value": "51.2"
+            },
+            "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/NominalVoltage"
+          }
+        },
+        {
+          "hasCondition": [
+            {
+              "hasConditionType": "https://ref.openepcis.org/extensions/eu/battery/LowerTemperatureBound",
+              "hasConditionValue": {
+                "type": "QuantitativeValue",
+                "unitCode": "CEL",
+                "value": -10
+              }
+            },
+            {
+              "hasConditionType": "https://ref.openepcis.org/extensions/eu/battery/UpperTemperatureBound",
+              "hasConditionValue": {
+                "type": "QuantitativeValue",
+                "unitCode": "CEL",
+                "value": 50
+              }
+            }
+          ],
+          "hasResult": {
+            "type": "MeasurementResult",
+            "hasMeasuredValue": {
+              "type": "QuantitativeValue",
+              "unitCode": "VLT",
+              "value": "44.8"
+            },
+            "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/MinimumVoltage"
+          }
+        },
+        {
+          "hasCondition": [
+            {
+              "hasConditionType": "https://ref.openepcis.org/extensions/eu/battery/LowerTemperatureBound",
+              "hasConditionValue": {
+                "type": "QuantitativeValue",
+                "unitCode": "CEL",
+                "value": -10
+              }
+            },
+            {
+              "hasConditionType": "https://ref.openepcis.org/extensions/eu/battery/UpperTemperatureBound",
+              "hasConditionValue": {
+                "type": "QuantitativeValue",
+                "unitCode": "CEL",
+                "value": 50
+              }
+            }
+          ],
+          "hasResult": {
+            "type": "MeasurementResult",
+            "hasMeasuredValue": {
+              "type": "QuantitativeValue",
+              "unitCode": "VLT",
+              "value": "58.4"
+            },
+            "hasObservedParameter": "https://ref.openepcis.org/extensions/eu/battery/MaximumVoltage"
+          }
         }
       ],
       "isEvaluatedAgainst": {
@@ -458,7 +559,13 @@
         "type": "QuantitativeValue",
         "unitCode": "CEL",
         "value": -20
-      }
+      },
+      "temperatureRangeTestDescription": [
+        {
+          "@language": "en-gb",
+          "@value": "Storage at the range bounds for 30 days, then capacity check (IEC 62619, clause 7.2)."
+        }
+      ]
     }
   },
   "manufacturer": {

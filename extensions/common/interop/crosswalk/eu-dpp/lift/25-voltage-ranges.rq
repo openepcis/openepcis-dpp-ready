@@ -1,0 +1,22 @@
+# Voltages measured within a temperature range (the performance test's sub-assessment, handle of
+# shared/battery-handles.ttl named by the row's xw:measured): {unit, value, valueRange} with the
+# range of the observed characteristic temperature in degrees Celsius. The rating without
+# conditions is 20-quantities.rq's, and yields to this.
+CONSTRUCT {
+  ?r ?field ?q . ?q dppcom:value ?val ; dppcom:unit ?u ; dppcom:valueRange ?vr .
+  ?vr dppcom:observedCharacteristic obs:temperature ; dppcom:unit unit:degreeCelsius ; dppcom:lowerBound ?lo ; dppcom:upperBound ?hi .
+}
+WHERE {
+  ?row xw:euField ?field ; xw:measured ?mh .
+  GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
+  GRAPH <urn:xw:in> { ?r eubat:hasTechnicalSpecifications ?ts . ?ts ?mh ?sub . ?sub <urn:xw:v:hasVoltage> ?vq . ?vq gs1:value ?v ; gs1:unitCode ?code }
+  ?urow xw:unitCode ?uc ; xw:euUnit ?u . FILTER(STR(?uc) = STR(?code))
+  OPTIONAL { ?urow xw:factor ?f }
+  OPTIONAL { GRAPH <urn:xw:in> { ?sub <urn:xw:v:lowerTemperature> ?l } }
+  OPTIONAL { GRAPH <urn:xw:in> { ?sub <urn:xw:v:upperTemperature> ?h } }
+  BIND(xsd:double(STR(?v)) * COALESCE(?f, 1) AS ?val)
+  BIND(xsd:double(STR(?l)) AS ?lo)
+  BIND(xsd:double(STR(?h)) AS ?hi)
+  BIND(BNODE() AS ?q)
+  BIND(IF(BOUND(?lo) || BOUND(?hi), BNODE(), ?none) AS ?vr)
+}

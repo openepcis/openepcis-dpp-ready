@@ -89,9 +89,11 @@ bat:batteryStatus   xw:codeNamespace "https://repository.product-passport.ec.eur
 [] xw:euField bat:batteryWeight ; xw:ours gs1:netWeight ; xw:form xw:Quantity ; xw:lowerSkip true .
 [] xw:euField bat:batteryCapacity ; xw:ours eubat:hasRatedCapacity ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications .
 [] xw:euField bat:ratedCapacity ; xw:ours eubat:hasRatedCapacity ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications ; xw:subgroup true ; xw:lowerSkip true .
-[] xw:euField bat:minimalVoltage ; xw:ours eubat:hasMinimumVoltage ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications .
-[] xw:euField bat:nominalVoltage ; xw:ours eubat:hasNominalVoltage ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications .
-[] xw:euField bat:maximumVoltage ; xw:ours eubat:hasMaximumVoltage ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications .
+# A voltage measured within a temperature range (xw:measured, the performance test's sub-assessment,
+# shared/battery-handles.ttl) takes the place of the rating: the Registry wants the range with it.
+[] xw:euField bat:minimalVoltage ; xw:ours eubat:hasMinimumVoltage ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications ; xw:measured <urn:xw:v:hasMeasuredMinimumVoltage> .
+[] xw:euField bat:nominalVoltage ; xw:ours eubat:hasNominalVoltage ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications ; xw:measured <urn:xw:v:hasMeasuredNominalVoltage> .
+[] xw:euField bat:maximumVoltage ; xw:ours eubat:hasMaximumVoltage ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications ; xw:measured <urn:xw:v:hasMeasuredMaximumVoltage> .
 [] xw:euField bat:powerLimit ; xw:ours eubat:hasMaximumPermittedBatteryPower ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications .
 [] xw:euField bat:internalCellResistance ; xw:ours <urn:xw:v:hasInitialCellInternalResistance> ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications .
 [] xw:euField bat:internalPackResistance ; xw:ours <urn:xw:v:hasInitialPackInternalResistance> ; xw:form xw:Quantity ; xw:via eubat:hasTechnicalSpecifications .
@@ -120,6 +122,8 @@ bat:batteryStatus   xw:codeNamespace "https://repository.product-passport.ec.eur
 [] xw:euField bat:expectedLifetimeCyclesRest ; xw:ours <urn:xw:v:expectedRemainingCycles> ; xw:form xw:Plain ; xw:theirDatatype xsd:positiveInteger ; xw:ourDatatype xsd:integer ; xw:subgroup true .
 [] xw:euField bat:numberOfChargingCycles ; xw:ours <urn:xw:v:hasCycleCount> ; xw:form xw:Plain ; xw:theirDatatype xsd:nonNegativeInteger ; xw:ourDatatype xsd:integer ; xw:ourUnit "C62" .
 [] xw:euField bat:extinguishingAgent ; xw:ours eubat:extinguishingAgent ; xw:form xw:Text ; xw:via eubat:hasEndOfLifeInfo .
+# The detailed composition as text; eubat:hasMaterialComposition keeps it per material.
+[] xw:euField bat:detailedComposition ; xw:ours eubat:compositionDescription ; xw:form xw:Text .
 
 # ---------------------------------------------------------------- separate collection symbol
 # The Registry asks whether the label shows the crossed-out wheeled bin (true is the only valid
@@ -136,6 +140,8 @@ bat:batteryStatus   xw:codeNamespace "https://repository.product-passport.ec.eur
 [] xw:euField bat:euDeclarationOfConformity ; xw:ours oec:hasConformityDeclaration ; xw:form xw:Document ; xw:lowerSkip true .
 [] xw:euField bat:complianceTestReportResults ; xw:ours eubat:resultOfTestReport ; xw:form xw:Url .
 [] xw:euField bat:safetyMeasures ; xw:ours eubat:hasSafetyMeasures ; xw:form xw:Document ; xw:via eubat:hasEndOfLifeInfo .
+# Spare part replacement details: a document among the product's documents, of the type xw:docType names.
+[] xw:euField bat:sparePartReplacementDetails ; xw:ours oec:hasDocuments ; xw:form xw:Document ; xw:docType eubat:SparePartReplacementDocument .
 
 # ---------------------------------------------------------------- battery chemistry
 # The Registry's chemistry list against the short name OpenEPCIS gives the electrochemical system

@@ -1,113 +1,49 @@
 # commission-ev-battery: lower then lift
-input 207 triples, lower 227, back 121
+input 207 triples, lower 324, back 161
 
 ## the way back compared with the input
 - missing 6  dppcom:bin
 - missing 2  dppcom:binRangeUnit
 - missing 6  dppcom:binValue
 - missing 2  dppcom:binValueUnit
-- missing 10  dppcom:lowerBound
-- missing 5  dppcom:observedCharacteristic
-- missing 6  dppcom:unit
-- missing 10  dppcom:upperBound
-- missing 2  dppcom:value
-- missing 4  dppcom:valueRange
-- missing 1  dpp:contentType
-- missing 3  dpp:language
-- missing 3  dpp:resourceTitle
-- missing 1  dpp:url
-- missing 1  bat:batteryLabelSymbolMeaning
-- missing 1  bat:batterySubstancesImpact
+- missing 7  dppcom:lowerBound
+- missing 2  dppcom:observedCharacteristic
+- missing 1  dppcom:unit
+- missing 7  dppcom:upperBound
+- missing 1  dppcom:valueRange
+- missing 2  dpp:language
+- missing 2  dpp:resourceTitle
 - missing 1  bat:cycleLifeReferenceTest
-- missing 1  bat:detailedComposition
-- missing 1  bat:endUserRoleInSeparateCollection
-- missing 1  bat:endUserRoleInWastePrevention
 - missing 1  bat:environmentalConditionHistogram
 - missing 1  bat:environmentalConditionHistogramSet
-- missing 1  bat:manufacturerTrademark
 - missing 1  bat:manufacturerTradeName
 - missing 1  bat:manufacturingDate
 - missing 1  bat:negativeEvents
-- missing 1  bat:notInUseTemperatureRangeTest
 - missing 1  bat:numberOfDischargingCycles
-- missing 1  bat:originalPowerCapability
-- missing 1  bat:powerCapability
-- missing 1  bat:preparationForRepurposingFacilities
-- missing 1  bat:preparationForReuseFacilities
-- missing 1  bat:separateCollectionPoints
-- missing 1  bat:sparePartReplacementDetails
 - missing 1  bat:stateOfChargeHistogram
-- missing 1  bat:takeBackCollectionPoints
-- missing 1  bat:wasteBatteryPreventionManagementInfo
-- missing 1  bat:wasteBatterySafetyInstructions
-- missing 1  bat:wasteBatteryTreatmentFacilities
 
 ## not converted (no rule handles these input terms)
   6  dppcom:bin
   2  dppcom:binRangeUnit
   6  dppcom:binValue
   2  dppcom:binValueUnit
-  1  bat:batteryLabelSymbolMeaning
-  1  bat:batterySubstancesImpact
   1  bat:cycleLifeReferenceTest
-  1  bat:detailedComposition
-  1  bat:endUserRoleInSeparateCollection
-  1  bat:endUserRoleInWastePrevention
   1  bat:environmentalConditionHistogram
   1  bat:environmentalConditionHistogramSet
-  1  bat:manufacturerTrademark
   1  bat:manufacturerTradeName
   1  bat:negativeEvents
-  1  bat:notInUseTemperatureRangeTest
   1  bat:numberOfDischargingCycles
-  1  bat:preparationForRepurposingFacilities
-  1  bat:preparationForReuseFacilities
-  1  bat:separateCollectionPoints
-  1  bat:sparePartReplacementDetails
   1  bat:stateOfChargeHistogram
-  1  bat:takeBackCollectionPoints
-  1  bat:wasteBatteryPreventionManagementInfo
-  1  bat:wasteBatterySafetyInstructions
-  1  bat:wasteBatteryTreatmentFacilities
 
 ## target-ontology axioms the lifted document does not satisfy (accepted gaps)
 none
 
 ## target shapes and schemas: values the passport lacks
   schema pub-batteries / required: must have required property 'manufacturingDate'
-  schema pub-batteries / required: must have required property 'originalPowerCapability'
-  schema pub-batteries / required: must have required property 'wasteBatteryPreventionManagementInfo'
-  schema pub-batteries /maximumVoltage required: must have required property 'valueRange'
-  schema pub-batteries /minimalVoltage required: must have required property 'valueRange'
-  schema pub-batteries /nominalVoltage required: must have required property 'valueRange'
-  schema pub-batteries /notInUseTemperatureRange required: must have required property 'notInUseTemperatureRangeTest'
   schema pub-evb / required: must have required property 'cycleLifeReferenceTest'
   schema pub-evb / required: must have required property 'manufacturingDate'
-  schema pub-evb / required: must have required property 'originalPowerCapability'
-  schema pub-evb / required: must have required property 'wasteBatteryPreventionManagementInfo'
-  schema pub-evb /maximumVoltage required: must have required property 'valueRange'
-  schema pub-evb /minimalVoltage required: must have required property 'valueRange'
-  schema pub-evb /nominalVoltage required: must have required property 'valueRange'
-  schema pub-evb /notInUseTemperatureRange required: must have required property 'notInUseTemperatureRangeTest'
-  schema res1-batteries / required: must have required property 'detailedComposition'
-  schema res1-batteries / required: must have required property 'sparePartReplacementDetails'
-  schema res1-evb / required: must have required property 'detailedComposition'
-  schema res1-evb / required: must have required property 'sparePartReplacementDetails'
-  schema res3-evb / required: must have required property 'powerCapability'
   shacl cycleLifeReferenceTest MinCountConstraintComponent: SEM-BAT-MSG-032
-  shacl detailedComposition MinCountConstraintComponent: SEM-BAT-MSG-059
   shacl manufacturingDate MinCountConstraintComponent: SEM-BAT-MSG-020
-  shacl maximumVoltage NodeConstraintComponent: SEM-BAT-MSG-028 [_ HasValueConstraintComponent]
-  shacl maximumVoltage NodeConstraintComponent: SEM-BAT-MSG-028 [valueRange MinCountConstraintComponent]
-  shacl minimalVoltage NodeConstraintComponent: SEM-BAT-MSG-091 [_ HasValueConstraintComponent]
-  shacl minimalVoltage NodeConstraintComponent: SEM-BAT-MSG-091 [valueRange MinCountConstraintComponent]
-  shacl nominalVoltage NodeConstraintComponent: SEM-BAT-MSG-027 [_ HasValueConstraintComponent]
-  shacl nominalVoltage NodeConstraintComponent: SEM-BAT-MSG-027 [valueRange MinCountConstraintComponent]
-  shacl notInUseTemperatureRange NodeConstraintComponent: SEM-BAT-MSG-034 [notInUseTemperatureRangeTest MinCountConstraintComponent]
-  shacl originalPowerCapability MinCountConstraintComponent: SEM-BAT-MSG-029
-  shacl powerCapability MinCountConstraintComponent: SEM-BAT-MSG-066
-  shacl sparePartReplacementDetails MinCountConstraintComponent: SEM-BAT-MSG-060
-  shacl wasteBatteryPreventionManagementInfo MinCountConstraintComponent: SEM-BAT-MSG-046
 
 ## target shapes and schemas: accepted defects of the target
 none

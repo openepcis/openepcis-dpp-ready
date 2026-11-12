@@ -29,7 +29,7 @@ the publisher.
 | CIRPASS-2 Battery | 0.3.0 | `c8e584748cb8a9085ad` | 4 | 14/14 | 0/0 | 0/0 | 0/0 |
 | CIRPASS-2 Textile | 2.0.0 | `ff8a429f232771e3b8c` | 1 | 27/27 | 0/0 | 0/0 | 0/0 |
 | GS1 EPCIS / CBV | 2.0.1 | `6f71468231838e424bb` | 1 | 46/46 | 54/54 | 54/54 | 0/0 |
-| EU DPP Registry semantic data artifacts | 1.0.0 | `sha256:46b753cdcdf1` | 17 | 29/29 | 17/17 | 5/13 | 1/4 |
+| EU DPP Registry semantic data artifacts | 1.0.0 | `sha256:46b753cdcdf1` | 17 | 29/29 | 17/17 | 7/13 | 3/4 |
 | DPP Keystone | v3 | `4d9bd0c9b784b366a67` | 1 | 9/9 | 0/0 | 0/0 | 0/0 |
 | UN Transparency Protocol | 0.7.0 | `retrieved 2026-11-12` | 5 | 5/5 | 0/0 | 0/0 | 0/0 |
 | UN Transparency Protocol | 0.8.0 | `retrieved 2026-11-12` | 5 | 4/4 | 0/0 | 0/0 | 0/0 |
@@ -473,8 +473,8 @@ the publisher.
 | `eu-dpp/1.0.0/product/batteries/subgroup/lmt/1.0.0/tests/conforms/res1-batteries-lmt.json` | publisher | `lmt.res1` | valid |  |  |
 | `eu-dpp/1.0.0/product/batteries/subgroup/lmt/1.0.0/tests/conforms/res2-batteries-lmt.json` | publisher | `lmt.res2` | valid |  |  |
 | `eu-dpp/1.0.0/product/batteries/subgroup/lmt/1.0.0/tests/conforms/res3-batteries-lmt.json` | publisher | `lmt.res3` | valid |  |  |
-| `eu-dpp/tests/amperia-stationary-item/lifted.eu-dpp.json` | openepcis | `ind.pub` | incomplete | 18 | 8 |
-| `eu-dpp/tests/amperia-stationary-item/lifted.eu-dpp.json` | openepcis | `ind.res1` | incomplete | 6 |  |
+| `eu-dpp/tests/amperia-stationary-item/lifted.eu-dpp.json` | openepcis | `ind.pub` | conforms |  | 8 |
+| `eu-dpp/tests/amperia-stationary-item/lifted.eu-dpp.json` | openepcis | `ind.res1` | valid |  |  |
 | `eu-dpp/tests/amperia-stationary-item/lifted.eu-dpp.json` | openepcis | `ind.res2` | valid |  |  |
 | `eu-dpp/tests/amperia-stationary-item/lifted.eu-dpp.json` | openepcis | `ind.res3` | valid |  |  |
 | `eu-dpp/tests/battery-industrial-item/lifted.eu-dpp.json` | openepcis | `ind.pub` | incomplete | 21 | 8 |
@@ -485,10 +485,10 @@ the publisher.
 | `eu-dpp/tests/battery-stationary-item/lifted.eu-dpp.json` | openepcis | `batteries.res1` | incomplete | 8 |  |
 | `eu-dpp/tests/battery-stationary-item/lifted.eu-dpp.json` | openepcis | `batteries.res2` | incomplete | 2 |  |
 | `eu-dpp/tests/battery-stationary-item/lifted.eu-dpp.json` | openepcis | `batteries.res3` | valid |  |  |
-| `eu-dpp/tests/commission-ev-battery/lifted.eu-dpp.json` | roundtrip | `evb.pub` | incomplete | 26 |  |
-| `eu-dpp/tests/commission-ev-battery/lifted.eu-dpp.json` | roundtrip | `evb.res1` | incomplete | 6 |  |
+| `eu-dpp/tests/commission-ev-battery/lifted.eu-dpp.json` | roundtrip | `evb.pub` | incomplete | 5 |  |
+| `eu-dpp/tests/commission-ev-battery/lifted.eu-dpp.json` | roundtrip | `evb.res1` | valid |  |  |
 | `eu-dpp/tests/commission-ev-battery/lifted.eu-dpp.json` | roundtrip | `evb.res2` | valid |  |  |
-| `eu-dpp/tests/commission-ev-battery/lifted.eu-dpp.json` | roundtrip | `evb.res3` | incomplete | 2 |  |
+| `eu-dpp/tests/commission-ev-battery/lifted.eu-dpp.json` | roundtrip | `evb.res3` | valid |  |  |
 | `eu-dpp/tests/core-garment/lifted.eu-dpp.json` | openepcis | `core` | incomplete | 2 |  |
 
 ### Accepted deviations

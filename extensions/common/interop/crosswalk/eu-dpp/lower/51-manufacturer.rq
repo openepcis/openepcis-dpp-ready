@@ -1,9 +1,10 @@
-# The manufacturer: an organisation with its name, the one-line postal address (schema:address
+# The manufacturer: an organisation with its name (the trademark is the product's gs1:brand), the one-line postal address (schema:address
 # text: GS1's address is structured and the line cannot be split reliably), e-mail (without the
 # mailto scheme) and website.
 CONSTRUCT {
   ?r gs1:manufacturer ?org . ?org a gs1:Organization ; gs1:organizationName ?name ; schema:address ?addr ; schema:url ?web .
   ?org gs1:contactPoint ?cp . ?cp a gs1:ContactPoint ; gs1:email ?email .
+  ?r gs1:brand ?brand . ?brand a gs1:Brand ; gs1:brandName ?tm .
 }
 WHERE {
   GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport }
@@ -16,6 +17,10 @@ WHERE {
     GRAPH <urn:xw:in> { ?r bat:manufacturerPostalAddress ?a } BIND(STR(?a) AS ?addr)
   } UNION {
     GRAPH <urn:xw:in> { ?r bat:manufacturerContactDetails/bat:manufacturerWebsite ?w } BIND(IRI(STR(?w)) AS ?web)
+  } UNION {
+    GRAPH <urn:xw:in> { ?r bat:manufacturerIdentification/bat:manufacturerTrademark ?t }
+    BIND(STR(?t) AS ?tm)
+    BIND(IRI(CONCAT(STR(?r), "#brand")) AS ?brand)
   } UNION {
     GRAPH <urn:xw:in> { ?r bat:manufacturerContactDetails/bat:manufacturerEmail ?m }
     BIND(IRI(CONCAT(STR(?r), "#manufacturer-contact")) AS ?cp)

@@ -348,6 +348,10 @@
         "type": "gs1:QuantitativeValue",
         "gs1:value": 55,
         "gs1:unitCode": "CEL"
+      },
+      "eubat:temperatureRangeTestDescription": {
+        "@value": "Storage at the range bounds for 30 days, then capacity check (IEC 62619, clause 7.2).",
+        "@language": "en-GB"
       }
     },
     "eubat:hasPerformanceTest": {
@@ -492,6 +496,123 @@
               "gs1:unitCode": "KWT"
             }
           }
+        },
+        {
+          "id": "https://id.gs1.org/01/09521234002000#voltage-nominal",
+          "type": "oea:TestExecution",
+          "oea:hasCondition": [
+            {
+              "type": "oea:AssessmentCondition",
+              "oea:hasConditionType": {
+                "@id": "eubat:LowerTemperatureBound"
+              },
+              "oea:hasConditionValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": 20,
+                "gs1:unitCode": "CEL"
+              }
+            },
+            {
+              "type": "oea:AssessmentCondition",
+              "oea:hasConditionType": {
+                "@id": "eubat:UpperTemperatureBound"
+              },
+              "oea:hasConditionValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": 30,
+                "gs1:unitCode": "CEL"
+              }
+            }
+          ],
+          "oea:hasResult": {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:NominalVoltage"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "51.2",
+              "gs1:unitCode": "VLT"
+            }
+          }
+        },
+        {
+          "id": "https://id.gs1.org/01/09521234002000#voltage-minimum",
+          "type": "oea:TestExecution",
+          "oea:hasCondition": [
+            {
+              "type": "oea:AssessmentCondition",
+              "oea:hasConditionType": {
+                "@id": "eubat:LowerTemperatureBound"
+              },
+              "oea:hasConditionValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": -10,
+                "gs1:unitCode": "CEL"
+              }
+            },
+            {
+              "type": "oea:AssessmentCondition",
+              "oea:hasConditionType": {
+                "@id": "eubat:UpperTemperatureBound"
+              },
+              "oea:hasConditionValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": 50,
+                "gs1:unitCode": "CEL"
+              }
+            }
+          ],
+          "oea:hasResult": {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:MinimumVoltage"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "44.8",
+              "gs1:unitCode": "VLT"
+            }
+          }
+        },
+        {
+          "id": "https://id.gs1.org/01/09521234002000#voltage-maximum",
+          "type": "oea:TestExecution",
+          "oea:hasCondition": [
+            {
+              "type": "oea:AssessmentCondition",
+              "oea:hasConditionType": {
+                "@id": "eubat:LowerTemperatureBound"
+              },
+              "oea:hasConditionValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": -10,
+                "gs1:unitCode": "CEL"
+              }
+            },
+            {
+              "type": "oea:AssessmentCondition",
+              "oea:hasConditionType": {
+                "@id": "eubat:UpperTemperatureBound"
+              },
+              "oea:hasConditionValue": {
+                "type": "gs1:QuantitativeValue",
+                "gs1:value": 50,
+                "gs1:unitCode": "CEL"
+              }
+            }
+          ],
+          "oea:hasResult": {
+            "type": "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:MaximumVoltage"
+            },
+            "oea:hasMeasuredValue": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": "58.4",
+              "gs1:unitCode": "VLT"
+            }
+          }
         }
       ]
     },
@@ -619,5 +740,21 @@
     "gs1:globalLocationNumber": "9521234000334",
     "gs1:organizationName": "EPCIS Cloud DPP Services"
   },
-  "oec:passportStatus": "active"
+  "oec:passportStatus": "active",
+  "eubat:compositionDescription": {
+    "@value": "Cathode: lithium iron phosphate (LFP); anode: graphite; electrolyte: LiPF6 in organic carbonates; casing: aluminium.",
+    "@language": "en-GB"
+  },
+  "oec:hasDocuments": [
+    {
+      "type": "oec:DocumentReference",
+      "oec:hasDocumentType": {
+        "@id": "eubat:SparePartReplacementDocument"
+      },
+      "oec:documentUrl": "https://www.amperia.example/staxwall-10/docs/spare-part-replacement.pdf",
+      "oec:mimeType": "application/pdf",
+      "oec:languageCode": "en-GB",
+      "schema:name": "StaxWall 10 spare part replacement"
+    }
+  ]
 }

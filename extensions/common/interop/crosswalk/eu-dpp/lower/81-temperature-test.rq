@@ -1,0 +1,11 @@
+# How the temperature range not in use was determined: the description of the idle-state range.
+CONSTRUCT {
+  ?r eubat:hasTechnicalSpecifications ?ts . ?ts a eubat:TechnicalSpecification ; eubat:hasTemperatureRangeIdleState ?tr .
+  ?tr a eubat:TemperatureRange ; eubat:temperatureRangeTestDescription ?d .
+}
+WHERE {
+  GRAPH <urn:xw:in> { ?r a dpp:DigitalProductPassport ; bat:notInUseTemperatureRange/bat:notInUseTemperatureRangeTest ?d }
+  FILTER(isIRI(?r) && LANG(?d) != "")
+  BIND(IRI(CONCAT(STR(?r), "#specs")) AS ?ts)
+  BIND(IRI(CONCAT(STR(?r), "#temp-idle")) AS ?tr)
+}
