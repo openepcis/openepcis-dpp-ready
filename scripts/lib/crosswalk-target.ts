@@ -430,14 +430,22 @@ export async function targetShapeFindings(p: Profile, quads: Quad[], view?: stri
   const bySpec = ((p as Profile & { targetShapes?: TargetShapes }).targetShapes?.bySpec) ?? {};
   const files = specsOf(p, quads).flatMap((s) => bySpec[s] ?? []).filter((f) => inView(f, view));
   if (!files.length) return { form: [], missing: [] };
+  return shaclFindings(files, quads, vocabulary().nt);
+}
+
+/**
+ * SHACL findings of `quads` against the shape files (repo-relative), with `nt` (N-Triples) as
+ * background knowledge merged into the data graph, the way the GITB validator merges its
+ * background. sh:sparql constraints run on oxigraph, everything else on rdf-validate-shacl.
+ */
+export async function shaclFindings(files: string[], quads: Quad[], nt = ""): Promise<TargetFindings> {
   const { shapes, sparql } = loadShapes(files);
   const form: string[] = [];
   const missing: string[] = [];
 
   const data = new Store();
   data.addQuads(quads);
-  const { nt } = vocabulary();
-  data.addQuads(parseStore(nt).getQuads(null, null, null, null));
+  if (nt) data.addQuads(parseStore(nt).getQuads(null, null, null, null));
   const report = await new SHACLValidator(shapes).validate(data);
   for (const r of report.results as ShaclResult[]) {
     if ((r.severity?.value ?? SH + "Violation") !== SH + "Violation") continue;
@@ -453,7 +461,7 @@ export async function targetShapeFindings(p: Profile, quads: Quad[], view?: stri
   const store = new ox.Store();
   const w = new Writer({ format: "application/n-triples" });
   store.load(quads.map((q) => w.quadToString(q.subject, q.predicate, q.object)).join(""), { format: "application/n-triples" });
-  store.load(nt, { format: "application/n-triples" });
+  if (nt) store.load(nt, { format: "application/n-triples" });
   for (const c of sparql) {
     const focus = new Set((store.query(c.focus) as Map<string, ox.Term>[]).map((r) => r.get("f")!.toString()));
     if (!focus.size) continue;

@@ -54,6 +54,17 @@ import {
 import { activateBySuffix, parseTurtle, stripOwlImports } from "./lib/shacl-run.ts";
 import { expandSubProperties } from "./lib/subproperty-expansion.ts";
 import { VALIDATOR_DOMAIN, SHACL_RESOURCE_ROOT, JSON_RESOURCE_ROOT } from "./lib/gitb.ts";
+import {
+  GARBAGE,
+  fixturesOf,
+  loadTargets,
+  presenceShape,
+  provenance,
+  referencedSchemaFiles,
+  verdict,
+  verifyArtifacts,
+  type Target,
+} from "./lib/targets.ts";
 
 const WRITE = process.argv.includes("--write");
 
@@ -77,6 +88,12 @@ interface ValidationType {
   activate?: string;
   /** Document JSON Schema for the JSON validator domain, if the module ships one. */
   schema?: string;
+  /** External target type: bundle-relative artifact paths, used verbatim instead of shapes/<id>/. */
+  shaclPaths?: string[];
+  schemaPaths?: string[];
+  /** External target type: the release it checks against (report profileId / customisationId). */
+  profileId?: string;
+  customisationId?: string;
 }
 
 function typesOf(modules: ValidatableModule[], core: ValidatableModule): ValidationType[] {
@@ -192,6 +209,7 @@ async function buildShaclBundle(types: ValidationType[], version: string) {
   const files = new Map<string, string>();
 
   for (const t of types) {
+    if (t.shaclPaths) continue;
     const shapeTtls = await Promise.all(
       t.shapeFiles.map((f) => fs.readFile(path.join(ROOT, f), "utf8")),
     );
@@ -249,7 +267,8 @@ async function buildShaclBundle(types: ValidationType[], version: string) {
   ];
   for (const t of types) lines.push(`validator.typeLabel.${t.id} = ${t.label}`);
   lines.push("");
-  for (const t of types) lines.push(`validator.shaclFile.${t.id} = shapes/${t.id}`);
+  for (const t of types) lines.push(`validator.shaclFile.${t.id} = ${t.shaclPaths ? t.shaclPaths.join(", ") : `shapes/${t.id}`}`);
+  lines.push(...reportLines(types, version));
   lines.push(
     ``,
     `# Every artifact is bundled locally, so validation is offline and reproducible;`,
@@ -362,9 +381,11 @@ async function buildJsonBundle(
   types: ValidationType[],
   version: string,
   moduleByType: Map<string, ValidatableModule>,
+  targetJson: TargetBundle,
 ) {
-  const files = new Map<string, string>();
+  const files = new Map<string, string>(targetJson.files);
   const withSchema: ValidationType[] = [];
+  const referenced = targetJson.referenced;
   const notDeclared: string[] = [];
   for (const t of types.filter((x) => x.schema && !x.activate)) {
     const raw = await fs.readFile(path.join(ROOT, t.schema!), "utf8");
@@ -393,6 +414,7 @@ async function buildJsonBundle(
         `both, publishing it would mislead. Fix the schema and it appears here automatically.`,
     );
   }
+  withSchema.push(...targetJson.types);
   if (!withSchema.length) {
     // An empty domain would still start a validator that answers SUCCESS to
     // everything on its default type. Emit nothing at all instead.
@@ -413,7 +435,15 @@ async function buildJsonBundle(
   ];
   for (const t of withSchema) lines.push(`validator.typeLabel.${t.id} = ${t.label}`);
   lines.push("");
-  for (const t of withSchema) lines.push(`validator.schemaFile.${t.id} = schemas/${t.id}`);
+  for (const t of withSchema) lines.push(`validator.schemaFile.${t.id} = ${t.schemaPaths ? t.schemaPaths.join(", ") : `schemas/${t.id}`}`);
+  if (referenced.length) {
+    lines.push(
+      ``,
+      `# Schemas a $ref names by its $id (the publisher's host does not resolve; registered here instead).`,
+      `validator.referencedSchemas = ${referenced.join(", ")}`,
+    );
+  }
+  lines.push(...reportLines(withSchema, version));
   lines.push(
     ``,
     `validator.channels = form, rest_api, soap_api`,
@@ -422,6 +452,91 @@ async function buildJsonBundle(
   );
   files.set("config.properties", lines.join("\n"));
   return files;
+}
+
+/**
+ * Report metadata, so every validation report names what it was checked against: our release as
+ * the service version and, for an external type, the target release and its pin.
+ */
+function reportLines(types: ValidationType[], version: string): string[] {
+  const ext = types.filter((t) => t.profileId);
+  if (!ext.length) return [];
+  const lines = [``, `validator.report.validationServiceName = OpenEPCIS DPP-Ready validator`, `validator.report.validationServiceVersion = ${version}`];
+  for (const t of ext) lines.push(`validator.report.profileId.${t.id} = ${t.profileId}`);
+  for (const t of ext) if (t.customisationId) lines.push(`validator.report.customisationId.${t.id} = ${t.customisationId}`);
+  return lines;
+}
+
+interface TargetBundle {
+  types: ValidationType[];
+  files: Map<string, string>;
+  referenced: string[];
+}
+
+/**
+ * The external targets (scripts/lib/targets.ts) as validation types of both domains.
+ *
+ * The publisher's artifacts are bundled byte for byte under artifacts/<target>-<version>/, in the
+ * vendor layout, after their SHA-256 has been checked against the vendor manifest. A type is only
+ * declared when it rejects a document that is not one and accepts every one of the publisher's own
+ * examples that belongs to it; otherwise it would tell a third party their correct document is
+ * wrong, or that anything goes.
+ */
+async function buildTargetBundles(): Promise<{ shacl: TargetBundle; json: TargetBundle; problems: string[] }> {
+  const shacl: TargetBundle = { types: [], files: new Map(), referenced: [] };
+  const json: TargetBundle = { types: [], files: new Map(), referenced: [] };
+  const problems: string[] = [];
+  for (const target of loadTargets()) {
+    const bad = verifyArtifacts(target);
+    if (bad.length) {
+      problems.push(...bad.map((b) => `${target.id} ${target.version}: ${b}`));
+      continue;
+    }
+    const base = `artifacts/${target.id}-${target.version}`;
+    const vendorDir = target.manifest.replace(/\/MANIFEST\.json$/, "");
+    const bundled = (f: string) => (f.startsWith(vendorDir) ? `${base}${f.slice(vendorDir.length)}` : `${base}/background/${path.basename(f)}`);
+    const copy = async (into: Map<string, string>, f: string) => {
+      if (!into.has(bundled(f))) into.set(bundled(f), await fs.readFile(path.join(ROOT, f), "utf8"));
+      return bundled(f);
+    };
+    const fixtures = fixturesOf(target).filter((f) => f.role === "publisher");
+    const pin = target.manifestData.commit ?? target.manifestData.archiveSha256 ?? "";
+    for (const type of target.types) {
+      const label = `${type.label} (${target.publisher}; hosted by OpenEPCIS, not endorsed by the publisher)`;
+      const reasons: string[] = [];
+      if ((await verdict(target, type, GARBAGE)).valid) reasons.push("accepts a document that is not one");
+      for (const f of fixtures.filter((x) => x.types.includes(type.id))) {
+        const v = await verdict(target, type, JSON.parse(await fs.readFile(path.join(ROOT, f.file), "utf8")));
+        if (!v.valid) reasons.push(`rejects the publisher's own example ${f.file}: ${[...v.missing, ...v.form][0]}`);
+      }
+      if (reasons.length) {
+        problems.push(`${type.id}: not declared, ${reasons.join("; ")}`);
+        continue;
+      }
+      const common = { id: type.id, label, shapeFiles: [], ontologyFiles: [], profileId: `${target.id} ${target.version}`, customisationId: pin };
+      if (type.shapes.length) {
+        const paths = [];
+        for (const f of type.shapes) paths.push(await copy(shacl.files, f));
+        for (const f of target.shacl?.background ?? []) paths.push(await copy(shacl.files, f));
+        const presence = presenceShape(target);
+        if (presence) {
+          shacl.files.set(`${base}/presence.ttl`, presence);
+          paths.push(`${base}/presence.ttl`);
+        }
+        shacl.types.push({ ...common, shaclPaths: paths });
+      }
+      if (type.schemas.length) {
+        const paths = [];
+        for (const f of type.schemas) paths.push(await copy(json.files, f));
+        json.types.push({ ...common, schemaPaths: paths });
+      }
+    }
+    const refs = referencedSchemaFiles(target);
+    for (const f of refs) await copy(json.files, f);
+    if (refs.length) json.referenced.push(base);
+    console.log(`target ${provenance(target)}: ${target.types.length} type(s)`);
+  }
+  return { shacl, json, problems };
 }
 
 /** Write or diff a generated file set rooted at `dir`. Returns changed paths. */
@@ -474,8 +589,10 @@ async function main() {
   const types = typesOf(modules, core);
 
   const moduleByType = new Map(modules.map((m) => [m.type, m]));
-  const shacl = await buildShaclBundle(types, version);
-  const json = await buildJsonBundle(types, version, moduleByType);
+  const targets = await buildTargetBundles();
+  const shacl = await buildShaclBundle([...types, ...targets.shacl.types], version);
+  for (const [k, v] of targets.shacl.files) shacl.set(k, v);
+  const json = await buildJsonBundle(types, version, moduleByType, targets.json);
 
   const changed = [
     ...(await reconcile(SHACL_DOMAIN, shacl)),
@@ -487,6 +604,17 @@ async function main() {
       `(${modules.length} module(s) + ${types.length - modules.length} variant(s))`,
   );
   for (const t of types) console.log(`  ${t.id.padEnd(26)} ${t.label}`);
+  const ext = [...new Set([...targets.shacl.types, ...targets.json.types].map((t) => t.id))].sort();
+  console.log(`External targets: ${ext.length} validation type(s)`);
+  for (const id of ext) {
+    const kinds = [targets.shacl.types.some((t) => t.id === id) && "SHACL", targets.json.types.some((t) => t.id === id) && "JSON"].filter(Boolean);
+    console.log(`  ${id.padEnd(46)} ${kinds.join(" + ")}`);
+  }
+  if (targets.problems.length) {
+    console.log(`\n✗ external targets:`);
+    for (const p of targets.problems) console.log(`    ${p}`);
+    process.exit(1);
+  }
 
   if (!changed.length) {
     console.log(`\n✓ committed bundle is in step with the ontologies and shapes.`);

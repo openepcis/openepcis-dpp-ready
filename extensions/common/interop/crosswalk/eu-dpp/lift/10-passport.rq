@@ -1,5 +1,6 @@
 # The passport header (core specification): the product is the passport root. Its IRI is the
-# unique product identifier; the content specifications are those the roots entailment found. The
+# unique product identifier, and the passport identifier when none is stated; the content
+# specifications are those the roots entailment found. The
 # granularity comes from oec:granularityLevel, else from the battery reporting granularity.
 CONSTRUCT {
   ?r a dpp:DigitalProductPassport ;
@@ -17,7 +18,15 @@ WHERE {
     GRAPH <urn:xw:roots> { ?r xw:spec ?spec }
     BIND(CONCAT("https://repository.product-passport.ec.europa.eu/", ?spec) AS ?specId)
   } UNION {
-    GRAPH <urn:xw:in> { ?r oec:passportIdentifier ?v } BIND(STR(?v) AS ?pid)
+    # The passport identifier, else the product's own IRI: a GS1 Digital Link resolves to the
+    # passport (the Registry requires the field).
+    {
+      SELECT ?r (SAMPLE(?p1) AS ?pid) WHERE {
+        GRAPH <urn:xw:roots> { ?r xw:spec "core/1.0.0" }
+        OPTIONAL { GRAPH <urn:xw:in> { ?r oec:passportIdentifier ?p0 } }
+        BIND(STR(COALESCE(?p0, ?r)) AS ?p1)
+      } GROUP BY ?r
+    }
   } UNION {
     GRAPH <urn:xw:in> { ?r oec:lastUpdated ?v } BIND(xsd:dateTime(STR(?v)) AS ?lu)
   } UNION {

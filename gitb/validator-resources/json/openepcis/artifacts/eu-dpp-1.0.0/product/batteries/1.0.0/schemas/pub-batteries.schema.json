@@ -1,0 +1,470 @@
+{
+  "$id": "https://repository.product-passport.ec.europa.eu/product/batteries/1.0.0/schemas/pub-batteries.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Battery Product - Public view",
+  "description": "JSON Schema for the public properties of the Battery Product representation.",
+  "allOf": [
+    { "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/core.schema.json" }
+  ],
+  "properties": {
+    "registrantIdentity": {
+      "type": "string",
+      "minLength": 1,
+      "message": {
+        "type": "SEM-BAT-MSG-089"
+      }
+    },
+    "manufacturerIdentification": {
+      "type": "object",
+      "properties": {
+        "manufacturerName": {
+          "type": "string",
+          "minLength": 1,
+          "message": {
+            "type": "SEM-BAT-MSG-002"
+          }
+        },
+        "manufacturerTradeName": {
+          "type": "string",
+          "minLength": 1,
+          "message": {
+            "type": "SEM-BAT-MSG-003"
+          }
+        },
+        "manufacturerTrademark": {
+          "type": "string",
+          "minLength": 1,
+          "message": {
+            "type": "SEM-BAT-MSG-004"
+          }
+        }
+      },
+      "anyOf": [
+        { "required": [ "manufacturerName" ] },
+        { "required": [ "manufacturerTradeName" ] },
+        { "required": [ "manufacturerTrademark" ] }
+      ],
+      "message": {
+        "type": "SEM-BAT-MSG-001"
+      },
+      "additionalProperties": false
+    },
+    "manufacturerPostalAddress": {
+      "type": "string",
+      "minLength": 1,
+      "message": {
+        "type": "SEM-BAT-MSG-005"
+      }
+    },
+    "manufacturerContactDetails": {
+      "type": "object",
+      "properties": {
+        "manufacturerWebsite": {
+          "type": "string",
+          "format": "uri",
+          "minLength": 1,
+          "message": {
+            "type": "SEM-BAT-MSG-007"
+          }
+        },
+        "manufacturerEmail": {
+          "type": "string",
+          "format": "uri",
+          "minLength": 1,
+          "message": {
+            "type": "SEM-BAT-MSG-008"
+          }
+        }
+      },
+      "anyOf": [
+        { "required": [ "manufacturerWebsite" ] },
+        { "required": [ "manufacturerEmail" ] }
+      ],
+      "additionalProperties": false,
+      "message": {
+        "type": "SEM-BAT-MSG-006"
+      }
+    },
+    "batteryCategory": {
+      "type": "string",
+      "pattern": "^https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-category#[a-zA-Z]+$",
+      "minLength": 1,
+      "message": {
+        "type": "SEM-BAT-MSG-009"
+      }
+    },
+    "batteryIdentification": {
+      "type": "object",
+      "properties": {
+        "modelIdentifier": {
+          "type": "string",
+          "minLength": 1,
+          "message": {
+            "type": "SEM-BAT-MSG-011"
+          }
+        },
+        "batchNumber": {
+          "type": "string",
+          "minLength": 1,
+          "message": {
+            "type": "SEM-BAT-MSG-012"
+          }
+        },
+        "serialNumber": {
+          "type": "string",
+          "minLength": 1,
+          "message": {
+            "type": "SEM-BAT-MSG-013"
+          }
+        },
+        "productNumber": {
+          "type": "string",
+          "minLength": 1,
+          "message": {
+            "type": "SEM-BAT-MSG-014"
+          }
+        },
+        "otherIdentificationElement": {
+          "type": "string",
+          "minLength": 1,
+          "message": {
+            "type": "SEM-BAT-MSG-015"
+          }
+        }
+      },
+      "anyOf": [
+        { "required": [ "modelIdentifier", "batchNumber" ] },
+        { "required": [ "serialNumber" ] },
+        { "required": [ "productNumber" ] },
+        { "required": [ "otherIdentificationElement" ]  }
+      ],
+      "dependentRequired": {
+        "modelIdentifier": [ "batchNumber" ],
+        "batchNumber": [ "modelIdentifier" ]
+      },
+      "additionalProperties": false,
+      "message": {
+        "type": "SEM-BAT-MSG-010"
+      }
+    },
+    "manufacturingPlace": {
+      "type": "object",
+      "properties": {
+        "manufacturingCity": {
+          "type": "string",
+          "minLength": 1,
+          "message": {
+            "type": "SEM-BAT-MSG-017"
+          }
+        },
+        "manufacturingRegion": {
+          "type": "string",
+          "minLength": 1,
+          "message": {
+            "type": "SEM-BAT-MSG-018"
+          }
+        },
+        "manufacturingCountry": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "minLength": 1,
+          "message": {
+            "type": "SEM-BAT-MSG-019"
+          }
+        }
+      },
+      "required": [ "manufacturingCountry" ],
+      "anyOf": [
+        { "required": [ "manufacturingCity" ] },
+        { "required": [ "manufacturingRegion" ] }
+      ],
+      "message": {
+        "type": "SEM-BAT-MSG-016"
+      },
+      "additionalProperties": false
+    },
+    "manufacturingDate": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}$",
+      "minLength": 1,
+      "message": {
+        "type": "SEM-BAT-MSG-020"
+      }
+    },
+    "batteryWeight": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-021"
+      }
+    },
+    "batteryCapacity": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-022"
+      }
+    },
+    "batteryChemistry": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "$comment": "Controlled vocabulary: https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-chemistry#.",
+        "pattern": "^https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-chemistry#[a-zA-Z]+$"
+      },
+      "uniqueItems": true,
+      "message": {
+        "type": "SEM-BAT-MSG-023"
+      }
+    },
+    "hazardousSubstances": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "message": {
+        "type": "SEM-BAT-MSG-024"
+      }
+    },
+    "extinguishingAgent": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/multiLanguage",
+      "message": {
+        "type": "SEM-BAT-MSG-025"
+      }
+    },
+    "criticalRawMaterials": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "$comment": "Controlled vocabulary: https://repository.product-passport.ec.europa.eu/core/vocabs/critical-raw-material#.",
+        "pattern": "^https://repository.product-passport.ec.europa.eu/core/vocabs/critical-raw-material#[a-zA-Z]+$"
+      },
+      "uniqueItems": true,
+      "message": {
+        "type": "SEM-BAT-MSG-026"
+      }
+    },
+    "renewableContentShare": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-090"
+      }
+    },
+    "minimalVoltage": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValueWithRange",
+      "required": ["valueRange"],
+      "message": {
+        "type": "SEM-BAT-MSG-091"
+      }
+    },
+    "nominalVoltage": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValueWithRange",
+      "required": ["valueRange"],
+      "message": {
+        "type": "SEM-BAT-MSG-027"
+      }
+    },
+    "maximumVoltage": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValueWithRange",
+      "required": ["valueRange"],
+      "message": {
+        "type": "SEM-BAT-MSG-028"
+      }
+    },
+    "originalPowerCapability": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-029"
+      }
+    },
+    "powerLimit": {
+      "type": "array",
+      "items": {
+        "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValueWithRange"
+      },
+      "uniqueItems": true,
+      "message": {
+        "type": "SEM-BAT-MSG-030"
+      }
+    },
+    "notInUseTemperatureRange": {
+      "type": "object",
+      "properties": {
+        "notInUseTemperatureRangeTest": {
+          "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/multiLanguage",
+          "message": {
+            "type": "SEM-BAT-MSG-035"
+          }
+        },
+        "valueRange": {
+          "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/valueRange"
+        }
+      },
+      "required": [
+        "notInUseTemperatureRangeTest",
+        "valueRange"
+      ],
+      "additionalProperties": false,
+      "message": {
+        "type": "SEM-BAT-MSG-034"
+      }
+    },
+    "commercialWarrantyPeriod": {
+      "type": "integer",
+      "minimum": 0,
+      "message": {
+        "type": "SEM-BAT-MSG-036"
+      }
+    },
+    "internalCellResistance": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-039"
+      }
+    },
+    "internalPackResistance": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-040"
+      }
+    },
+    "cycleLifeDischargeCRate": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-042"
+      }
+    },
+    "separateCollectionSymbol": {
+      "type": "boolean",
+      "const": true,
+      "message": {
+        "type": "SEM-BAT-MSG-043"
+      }
+    },
+    "chemicalSymbol": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "$comment": "Controlled vocabulary: https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-chemical-symbol#.",
+        "pattern": "^https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-chemical-symbol#[a-zA-Z]+$"
+      },
+      "uniqueItems": true,
+      "message": {
+        "type": "SEM-BAT-MSG-044"
+      }
+    },
+    "euDeclarationOfConformity": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/relatedResource",
+      "message": {
+        "type": "SEM-BAT-MSG-045"
+      }
+    },
+    "wasteBatteryPreventionManagementInfo": {
+      "type": "object",
+      "properties": {
+        "endUserRoleInWastePrevention": {
+          "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/multiLanguage",
+          "message": {
+            "type": "SEM-BAT-MSG-047"
+          }
+        },
+        "endUserRoleInSeparateCollection": {
+          "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/multiLanguage",
+          "message": {
+            "type": "SEM-BAT-MSG-048"
+          }
+        },
+        "separateCollectionPoints": {
+          "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/multiLanguage",
+          "message": {
+            "type": "SEM-BAT-MSG-049"
+          }
+        },
+        "takeBackCollectionPoints": {
+          "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/multiLanguage",
+          "message": {
+            "type": "SEM-BAT-MSG-050"
+          }
+        },
+        "preparationForReuseFacilities": {
+          "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/multiLanguage",
+          "message": {
+            "type": "SEM-BAT-MSG-052"
+          }
+        },
+        "preparationForRepurposingFacilities": {
+          "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/multiLanguage",
+          "message": {
+            "type": "SEM-BAT-MSG-053"
+          }
+        },
+        "wasteBatteryTreatmentFacilities": {
+          "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/multiLanguage",
+          "message": {
+            "type": "SEM-BAT-MSG-054"
+          }
+        },
+        "wasteBatterySafetyInstructions": {
+          "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/multiLanguage",
+          "message": {
+            "type": "SEM-BAT-MSG-055"
+          }
+        },
+        "batteryLabelSymbolMeaning": {
+          "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/multiLanguage",
+          "message": {
+            "type": "SEM-BAT-MSG-057"
+          }
+        },
+        "batterySubstancesImpact": {
+          "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/multiLanguage",
+          "message": {
+            "type": "SEM-BAT-MSG-058"
+          }
+        }
+      },
+      "required": [
+        "endUserRoleInWastePrevention",
+        "endUserRoleInSeparateCollection",
+        "separateCollectionPoints",
+        "takeBackCollectionPoints",
+        "preparationForReuseFacilities",
+        "preparationForRepurposingFacilities",
+        "wasteBatteryTreatmentFacilities",
+        "wasteBatterySafetyInstructions",
+        "batteryLabelSymbolMeaning",
+        "batterySubstancesImpact"
+      ],
+      "additionalProperties": false,
+      "message": {
+        "type": "SEM-BAT-MSG-046"
+      }
+    }
+  },
+  "required": [
+    "registrantIdentity",
+    "manufacturerIdentification",
+    "manufacturerPostalAddress",
+    "batteryCategory",
+    "batteryIdentification",
+    "manufacturingPlace",
+    "manufacturingDate",
+    "batteryWeight",
+    "batteryCapacity",
+    "batteryChemistry",
+    "hazardousSubstances",
+    "extinguishingAgent",
+    "criticalRawMaterials",
+    "renewableContentShare",
+    "minimalVoltage",
+    "nominalVoltage",
+    "maximumVoltage",
+    "originalPowerCapability",
+    "powerLimit",
+    "notInUseTemperatureRange",
+    "internalCellResistance",
+    "internalPackResistance",
+    "separateCollectionSymbol",
+    "euDeclarationOfConformity",
+    "wasteBatteryPreventionManagementInfo"
+  ]
+}

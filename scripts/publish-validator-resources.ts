@@ -28,7 +28,8 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { ROOT } from "./lib/modules.ts";
-import { VALIDATOR_DOMAIN, SHACL_RESOURCE_ROOT } from "./lib/gitb.ts";
+import { VALIDATOR_DOMAIN, SHACL_RESOURCE_ROOT, JSON_RESOURCE_ROOT } from "./lib/gitb.ts";
+import { loadTargets, provenance } from "./lib/targets.ts";
 
 const args = process.argv.slice(2);
 const COMMIT = args.includes("--commit");
@@ -45,6 +46,12 @@ const TARGET =
     : path.join(path.dirname(ROOT), REPO_NAME);
 
 const BUNDLE = path.join(ROOT, SHACL_RESOURCE_ROOT, VALIDATOR_DOMAIN);
+/**
+ * The JSON validator domain travels in the same mirror under json-resources/, beside (not inside)
+ * resources/, which the Test Bed's RDF validator reads. It is self-hosted today; a Test Bed JSON
+ * domain would point at this directory.
+ */
+const JSON_BUNDLE = path.join(ROOT, JSON_RESOURCE_ROOT, VALIDATOR_DOMAIN);
 
 function git(cwd: string, ...argv: string[]): string {
   return execFileSync("git", argv, { cwd, encoding: "utf8" }).trim();
@@ -123,14 +130,32 @@ obligations apply to a battery passport too. The \`eu.battery.{model,batch,item}
 and \`eu.battery.{ev,lmt,industrial}\` variants exist because those obligations
 genuinely differ by EN 18223 granularity and by battery category.
 
+## External models
+
+Besides the OpenEPCIS types, the validator hosts types for external DPP models at a pinned release
+(type id \`x.<model>-<version>.<scope>\`), so a conformance statement always names the release it
+was made against. The publisher's SHACL shapes and JSON Schemas are bundled byte for byte under
+\`resources/artifacts/\` and \`json-resources/artifacts/\`; OpenEPCIS adds one presence shape per
+SHACL type and nothing else. Hosting does not imply endorsement by the publisher.
+
+${loadTargets().map((t) => `- ${provenance(t)}, licence ${t.manifestData.license}`).join("\n")}
+
+What each type was checked with, and the verdict on every example, is
+[docs/conformance/INTEROP_CONFORMANCE.md](https://github.com/openepcis/openepcis-dpp-ready/blob/main/docs/conformance/INTEROP_CONFORMANCE.md)
+of the source project.
+
 ## Layout
 
 \`\`\`
-resources/
+resources/                     RDF validator domain (read by the Test Bed)
 ├── config.properties          validation types, labels, shapes per type
-└── shapes/<type>/
-    ├── shapes.ttl             the constraints
-    └── background.ttl         class hierarchy and code lists the shapes need
+├── shapes/<type>/
+│   ├── shapes.ttl             the constraints
+│   └── background.ttl         class hierarchy and code lists the shapes need
+└── artifacts/<model>-<version>/   an external model's shapes, verbatim
+json-resources/                JSON validator domain (isaitb/json-validator)
+├── config.properties
+└── artifacts/<model>-<version>/   an external model's JSON Schemas, verbatim
 \`\`\`
 
 \`background.ttl\` is not decoration. \`sh:class\`, and the subclass resolution
@@ -168,7 +193,9 @@ overwritten by the next sync — please raise issues and pull requests against
 
 ## Licence
 
-[Apache License 2.0](./LICENSE), as the source project.
+[Apache License 2.0](./LICENSE), as the source project, except the external models' artifacts
+under \`resources/artifacts/\` and \`json-resources/artifacts/\`, which keep the licence of their
+publisher listed under "External models".
 `;
 }
 
@@ -201,6 +228,9 @@ async function main() {
   const files = new Map<string, string>();
   for (const rel of await walk(BUNDLE)) {
     files.set(`resources/${rel}`, await fs.readFile(path.join(BUNDLE, rel), "utf8"));
+  }
+  for (const rel of await walk(JSON_BUNDLE)) {
+    files.set(`json-resources/${rel}`, await fs.readFile(path.join(JSON_BUNDLE, rel), "utf8"));
   }
   files.set("README.md", await readme(version, sha));
   files.set("LICENSE", await fs.readFile(path.join(ROOT, "LICENSE"), "utf8"));

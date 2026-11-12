@@ -1,0 +1,119 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dpp-shapes: <https://repository.product-passport.ec.europa.eu/core/shapes/> .
+@prefix batevb-shapes: <https://repository.product-passport.ec.europa.eu/product/batteries/subgroup/evb/shapes/> .
+@prefix dpp: <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#> .
+@prefix dppcom: <https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#> .
+@prefix bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#> .
+@prefix dppunit: <https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#> .
+
+batevb-shapes:battery-evb-public-shapes
+    a sh:NodeShape ;
+    sh:targetClass dpp:DigitalProductPassport ;
+
+    sh:property [
+        sh:path dpp:contentSpecificationIds ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:qualifiedValueShape [
+            sh:datatype xsd:string ;
+            sh:pattern "^https://repository\\.product-passport\\.ec\\.europa\\.eu/product/batteries/subgroup/evb/\\d+\\.\\d+\\.\\d+$"
+        ] ;
+        sh:message "SEM-MSG-009"
+    ] ;
+
+    sh:property [
+        sh:path bat:expectedLifetimeCycles ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:positiveInteger;
+        sh:message "SEM-BAT-MSG-031"
+    ] ;
+
+    sh:property [
+        sh:path bat:cycleLifeReferenceTest ;
+        sh:minCount 1 ;
+        sh:datatype rdf:langString;
+        sh:message "SEM-BAT-MSG-032"
+    ] ;
+
+    sh:property [
+        sh:path bat:cycleLifeReferenceTest ;
+        sh:message "SEM-COM-MSG-012";
+
+        sh:sparql [
+            a sh:SPARQLConstraint ;
+            sh:select """
+                PREFIX bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#>
+                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+                SELECT $this (?value AS ?path)
+                WHERE {
+                    $this bat:cycleLifeReferenceTest ?value .
+                    BIND(lang(?value) AS ?langTag)
+                    FILTER(!regex(?langTag, "^[A-Za-z]{2}-[A-Za-z]{2}$"))
+                }
+            """ ;
+        ] ;
+    ] ;
+
+    sh:property [
+        sh:path bat:capacityExhaustionThreshold ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:percent;
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-033"
+    ] ;
+
+    sh:property [
+        sh:path bat:initialRoundTripEnergyEfficiency ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:percent;
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-037"
+    ] ;
+
+    sh:property [
+        sh:path bat:roundTripEfficiencyAtHalfCycleLife ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:percent;
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-038"
+    ] ;
+
+    sh:property [
+        sh:path bat:cycleLifeChargeCRate ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:reciprocalHour;
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-041"
+    ] .

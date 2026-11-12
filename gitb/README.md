@@ -6,9 +6,10 @@ the measurements behind them are in
 run and publish it.
 
 ```
-validator-resources/shacl/openepcis  RDF validator domain: 16 validation types
-validator-resources/json/openepcis   empty on purpose — see GITB_CONFORMANCE.md
+validator-resources/shacl/openepcis  RDF validator domain: 16 OpenEPCIS types + external models (x.*)
+validator-resources/json/openepcis   JSON validator domain: external models (x.*) + us.fsma204
 test-suites/openepcis-dpp            GITB TDL suite: 16 specifications, 32 test cases
+test-suites/interop-<model>-<ver>    one suite per external model release (EU DPP Registry 1.0.0, BatteryPass-Ready 2.0.1)
 docker/                              local stacks
 dev.sh                               entry point
 ```
@@ -18,14 +19,16 @@ gates in `pnpm run build` fail otherwise:
 
 ```bash
 pnpm run build:gitb            # validator bundle
-pnpm run build:gitb-testsuite  # TDL suite and fixtures
+pnpm run build:gitb-testsuite  # TDL suites and fixtures
+pnpm run build:interop-conformance  # docs/conformance/INTEROP_CONFORMANCE.md
 ```
 
 ---
 
 ## 1. The validator alone
 
-Enough for the parity gate and for poking at shapes by hand. One image, ~490 MB.
+Enough for the parity gates and for poking at shapes by hand: the RDF validator (~490 MB) and the
+JSON validator.
 
 ```bash
 gitb/dev.sh up validators
@@ -38,11 +41,15 @@ Then:
 | Web form | <http://localhost:8080/shacl/openepcis/upload> |
 | REST API | `POST http://localhost:8080/shacl/openepcis/api/validate` |
 | SOAP (GITB validation service) | <http://localhost:8080/shacl/soap/openepcis/validation?wsdl> |
+| JSON web form | <http://localhost:8081/json/openepcis/upload> |
+| JSON REST API | `POST http://localhost:8081/json/openepcis/api/validate` |
+| JSON SOAP | <http://localhost:8081/json/soap/openepcis/validation?wsdl> |
 
 Verify it:
 
 ```bash
 pnpm run check:shapes:itb
+pnpm run check:json-itb
 ```
 
 That validates every example passport **and** every shipped test-suite fixture in
@@ -60,8 +67,22 @@ curl -s -X POST http://localhost:8080/shacl/openepcis/api/validate \
        \"reportSyntax\":\"text/turtle\"}"
 ```
 
-`validationType` must be one of the 16 ids listed in
+`validationType` must be one of the ids listed in
 `validator-resources/shacl/openepcis/config.properties`.
+
+An external model's document, here a BatteryPass-Ready 2.0.1 passport (the JSON validator answers
+a GITB report in XML):
+
+```bash
+curl -s -X POST http://localhost:8081/json/openepcis/api/validate \
+  -H 'Content-Type: application/json' \
+  -d "{\"contentToValidate\":\"$(base64 -w0 passport.bpr.json)\",
+       \"embeddingMethod\":\"BASE64\",
+       \"validationType\":\"x.bpr-2.0.1.stationary-industrial\"}"
+```
+
+Without any container: `pnpm run validate:target -- passport.bpr.json` (same artifacts, picks the
+type from the document; `--list` for all types).
 
 ---
 

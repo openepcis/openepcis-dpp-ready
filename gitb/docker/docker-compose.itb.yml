@@ -12,6 +12,8 @@
 #   Test Bed UI      http://localhost:9000   (admin@itb, one-time password in the
 #                                             gitb-ui log until the first login)
 #   RDF validator    http://localhost:8080/shacl/openepcis/upload
+#   JSON validator   http://localhost:8081/json/openepcis/upload   (called by the
+#                    gitb/test-suites/interop-* suites as http://json-validator:8080)
 #
 # The validator's resource root is the GENERATED bundle, so regenerate before
 # starting whenever the ontologies or shapes changed:  pnpm run build:gitb
@@ -29,6 +31,21 @@ services:
       - "8080:8080"
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8080/shacl/openepcis/upload > /dev/null"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+
+  json-validator:
+    image: isaitb/json-validator:latest
+    container_name: openepcis-json-validator
+    environment:
+      validator.resourceRoot: /validator/resources/
+    volumes:
+      - ../validator-resources/json:/validator/resources:ro
+    ports:
+      - "8081:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/json/openepcis/upload > /dev/null"]
       interval: 15s
       timeout: 5s
       retries: 20
@@ -64,6 +81,8 @@ services:
       HMAC_KEY: openepcis-local-dev
     depends_on:
       shacl-validator:
+        condition: service_started
+      json-validator:
         condition: service_started
 
   gitb-ui:

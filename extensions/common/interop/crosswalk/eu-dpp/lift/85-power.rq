@@ -1,0 +1,27 @@
+# The original and the remaining power capability (W): the Registry keeps one value each, the
+# Regulation (Annex IV, part B) and OpenEPCIS state it per state of charge (sub-assessments of the
+# performance test and of the battery state, shared/battery-handles.ttl). The value at the highest
+# state of charge stated goes over (80 % in the EU test method). The way back cannot restore the
+# state of charge and leaves the field to roundtrip.txt. The remaining power capability is a data
+# element of the subgroups (EV, LMT, industrial) only.
+CONSTRUCT { ?r ?field ?q . ?q dppcom:value ?val ; dppcom:unit unit:watt . }
+WHERE {
+  {
+    SELECT ?r ?field (MAX(?soc) AS ?top) WHERE {
+      GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
+      VALUES (?h ?field) { (<urn:xw:v:hasOriginalPowerCapability> bat:originalPowerCapability) (<urn:xw:v:hasRemainingPowerCapability> bat:powerCapability) }
+      { GRAPH <urn:xw:in> { ?r ?h ?sub } } UNION { GRAPH <urn:xw:in> { ?r eubat:hasTechnicalSpecifications ?ts . ?ts ?h ?sub } }
+      GRAPH <urn:xw:in> { ?sub <urn:xw:v:stateOfChargeLevel> ?s0 ; <urn:xw:v:hasPowerCapability> ?q0 }
+      BIND(xsd:double(STR(?s0)) AS ?soc)
+    } GROUP BY ?r ?field
+  }
+  VALUES (?h2 ?field) { (<urn:xw:v:hasOriginalPowerCapability> bat:originalPowerCapability) (<urn:xw:v:hasRemainingPowerCapability> bat:powerCapability) }
+  { GRAPH <urn:xw:in> { ?r ?h2 ?sub2 } } UNION { GRAPH <urn:xw:in> { ?r eubat:hasTechnicalSpecifications ?ts2 . ?ts2 ?h2 ?sub2 } }
+  GRAPH <urn:xw:in> { ?sub2 <urn:xw:v:stateOfChargeLevel> ?s1 ; <urn:xw:v:hasPowerCapability> ?pq . ?pq gs1:value ?v ; gs1:unitCode ?u }
+  FILTER(xsd:double(STR(?s1)) = ?top)
+  ?urow xw:unitCode ?uc ; xw:euUnit unit:watt . FILTER(STR(?uc) = STR(?u))
+  OPTIONAL { ?urow xw:factor ?f }
+  FILTER(?field != bat:powerCapability || EXISTS { GRAPH <urn:xw:roots> { ?r xw:spec ?sg } FILTER(CONTAINS(?sg, "/subgroup/")) })
+  BIND(xsd:double(STR(?v)) * COALESCE(?f, 1) AS ?val)
+  BIND(BNODE() AS ?q)
+}

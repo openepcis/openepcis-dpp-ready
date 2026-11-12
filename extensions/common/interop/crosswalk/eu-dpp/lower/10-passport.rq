@@ -15,7 +15,7 @@ WHERE {
     FILTER(STRSTARTS(STR(?spec), "https://repository.product-passport.ec.europa.eu/product/batteries/"))
     BIND(eubat:Battery AS ?cls)
   } UNION {
-    GRAPH <urn:xw:in> { ?r dpp:digitalProductPassportId ?v } BIND(STRDT(STR(?v), xsd:anyURI) AS ?pid)
+    GRAPH <urn:xw:in> { ?r dpp:digitalProductPassportId ?v } FILTER(STR(?v) != STR(?r)) BIND(STRDT(STR(?v), xsd:anyURI) AS ?pid)
   } UNION {
     GRAPH <urn:xw:in> { ?r dpp:lastUpdate ?lu }
   } UNION {

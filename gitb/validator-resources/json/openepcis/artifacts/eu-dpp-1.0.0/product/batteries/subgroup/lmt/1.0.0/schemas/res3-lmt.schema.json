@@ -1,0 +1,128 @@
+{
+  "$id": "https://repository.product-passport.ec.europa.eu/product/batteries/1.0.0/subgroup/lmt/schemas/res3-lmt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Light Means of Transport Batteries (LMT) Product subgroup - Restricted: Only to persons with legitimate interest (individual battery) (RES3)",
+  "description": "JSON Schema for the restricted (RES3) properties of the Light Means of Transport Batteries (LMT) Subgroup representation.",
+  "allOf": [
+    { "$ref": "https://repository.product-passport.ec.europa.eu/product/batteries/1.0.0/schemas/res3-batteries.schema.json" }
+  ],
+  "properties": {
+    "ratedCapacity": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-064"
+      }
+    },
+    "capacityFade": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-065"
+      }
+    },
+    "powerCapability": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-066"
+      }
+    },
+    "powerFade": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-067"
+      }
+    },
+    "internalResistance": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-068"
+      }
+    },
+    "internalResistanceIncrease": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-069"
+      }
+    },
+    "expectedLifetimeCyclesRest": {
+      "type": "integer",
+      "minimum": 1,
+      "message": {
+        "type": "SEM-BAT-MSG-072"
+      }
+    },
+    "expectedLifetimeYears": {
+      "type": "integer",
+      "minimum": 1,
+      "message": {
+        "type": "SEM-BAT-MSG-073"
+      }
+    },
+    "remainingCapacity": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-075"
+      }
+    },
+    "remainingPowerCapability": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-076"
+      }
+    },
+    "remainingRoundTripEfficiency": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-077"
+      }
+    },
+    "selfDischargingRateSet": {
+      "type": "object",
+      "properties": {
+        "selfDischargingRate": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue"
+          },
+          "message": {
+            "type": "SEM-BAT-MSG-080"
+          }
+        },
+        "recordedTime": {
+          "type": "string",
+          "format": "date-time",
+          "message": {
+            "type": "SEM-COM-MSG-011"
+          }
+        }
+      },
+      "required": [
+        "selfDischargingRate","recordedTime"
+      ],
+      "message": {
+        "type": "SEM-BAT-MSG-078"
+      }
+    },
+    "ohmicResistance": {
+      "$ref": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/common.schema.json#/$defs/unitValue",
+      "message": {
+        "type": "SEM-BAT-MSG-081"
+      }
+    }
+  },
+  "required": [
+    "ratedCapacity",
+    "capacityFade",
+    "powerCapability",
+    "powerFade",
+    "internalResistance",
+    "internalResistanceIncrease",
+    "expectedLifetimeCyclesRest",
+    "expectedLifetimeYears",
+    "remainingCapacity",
+    "remainingPowerCapability",
+    "remainingRoundTripEfficiency",
+    "selfDischargingRateSet",
+    "ohmicResistance"
+  ]
+}

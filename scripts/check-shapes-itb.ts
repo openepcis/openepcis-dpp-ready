@@ -59,6 +59,8 @@ import {
   type ValidatableModule,
 } from "./lib/modules.ts";
 import { VALIDATOR_DOMAIN } from "./lib/gitb.ts";
+import { documentQuads, fixturesOf, loadTargets, rootType, shapeFindings } from "./lib/targets.ts";
+import { Writer } from "n3";
 
 const args = process.argv.slice(2);
 const VERBOSE = args.includes("--verbose");
@@ -311,6 +313,52 @@ async function main() {
         }
         console.log(`   FAIL   ${rel} [${type}]: ${result.violations.length} violation(s)`);
         for (const v of VERBOSE ? result.violations : result.violations.slice(0, 5)) console.log(`            ${v}`);
+      }
+    }
+  }
+
+  // Phase 4: the external targets (scripts/lib/targets.ts). Every fixture of a target, the
+  // publisher's examples and what our crosswalk lifts, goes through each SHACL type it belongs to;
+  // the hosted validator must say what the local engines say on the publisher's unmodified shapes.
+  // A graph without the target's root class must be rejected (the presence shape).
+  for (const target of loadTargets()) {
+    const types = target.types.filter((t) => t.shapes.length);
+    if (!types.length) continue;
+    console.log(`\n── external: ${target.title} ${target.version}`);
+    const nq = (quads: Awaited<ReturnType<typeof documentQuads>>) => new Writer({ format: "application/n-quads" }).quadsToString(quads);
+    for (const type of types) {
+      checked++;
+      const probe = await validate(`<urn:openepcis:probe> <urn:openepcis:says> "not a passport" .\n`, type.id);
+      if (probe.conforms) {
+        failed++;
+        console.log(`   FAIL   ${type.id}: accepts a graph with no ${rootType(target)?.replace(/.*[#/]/, "")}`);
+      }
+    }
+    for (const f of fixturesOf(target)) {
+      const doc = JSON.parse(await fs.readFile(path.join(ROOT, f.file), "utf8"));
+      const quads = await documentQuads(target, doc);
+      for (const id of f.types) {
+        const type = types.find((t) => t.id === id);
+        if (!type) continue;
+        checked++;
+        const local = await shapeFindings(target, type, quads);
+        const expected = !local.form.length && !local.missing.length;
+        let result: TarResult;
+        try {
+          result = await validate(nq(quads), id);
+        } catch (e) {
+          failed++;
+          console.log(`   ERROR  ${f.file} [${id}]: ${(e as Error).message}`);
+          continue;
+        }
+        if (result.conforms === expected) {
+          console.log(`   OK     ${f.file} [${id}]${expected ? "" : `: rejected, as locally (${result.violations.length} violation(s))`}`);
+          continue;
+        }
+        failed++;
+        console.log(`   FAIL   ${f.file} [${id}]: hosted ${result.conforms ? "conforms" : "rejects"}, local engines ${expected ? "accept" : "reject"}`);
+        for (const v of VERBOSE ? result.violations : result.violations.slice(0, 5)) console.log(`            ${v}`);
+        for (const v of [...local.form, ...local.missing].slice(0, VERBOSE ? undefined : 5)) console.log(`            local: ${v}`);
       }
     }
   }

@@ -9,6 +9,38 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Added: conformance to external DPP models, hosted and on record
+
+The GITB validator now hosts the external models this project bridges, each at a pinned release:
+the EU DPP Registry semantic data artifacts 1.0.0 (17 types, SHACL and JSON Schema, every view and
+subgroup) and BatteryPass-Ready 2.0.1 (10 types, JSON Schema per battery category, full and
+February 2027). Type ids carry the release (`x.<model>-<version>.<scope>`), the publisher's
+artifacts are bundled byte for byte after a SHA-256 check, and every report names model, release,
+pin and our version. A type is declared only when it accepts every example the publisher ships and
+rejects a non-document; `check:shapes:itb` and the new `check:json-itb` hold the EC validator images
+to the local engines.
+
+- Registry: `extensions/common/interop/targets/<model>/<version>/target.json`
+  (`scripts/lib/targets.ts`).
+- Statement per release: `docs/conformance/INTEROP_CONFORMANCE.md` / `.json`
+  (`pnpm run build:interop-conformance`, gated in `pnpm run build`).
+- Test suites: `gitb/test-suites/interop-<model>-<version>/` (upload, self-test, bridge).
+- Without a login or a container: `pnpm run validate:target -- <file.json>`.
+- The JSON validator runs in both local stacks (port 8081) and is published to
+  `validator-resources-openepcis` under `json-resources/`.
+
+See `docs/GITB_CONFORMANCE.md`, section "External models".
+
+### Changed
+
+- eu-dpp crosswalk: the passport identifier falls back to the product IRI; a stationary battery is
+  an industrial one in the Registry (category and subgroup); a document without a MIME type gets
+  its content type from the URL; the original and remaining power capability go over. New case
+  `amperia-stationary-item` (the reconstructed Amperia passport). See
+  `extensions/common/interop/CHANGELOG.md`.
+- `validate:batterypass-live` picks the GEFEG schema from the document's battery category
+  (version "Guide").
+
 ## [0.13.1] - 2026-11-11
 
 ### Added: BatteryPass-Ready 2.0.1 from EPCIS events

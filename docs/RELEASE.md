@@ -48,7 +48,7 @@ pnpm run release -- --version 0.9.10
 pnpm run release -- --version 0.9.10 --write
 
 # 2. Regenerate everything that carries the version, then prove the tree agrees with itself.
-pnpm run build:gitb && pnpm run build:gitb-testsuite
+pnpm run build:gitb && pnpm run build:gitb-testsuite && pnpm run build:interop-conformance
 pnpm run build
 pnpm run validate:examples
 
@@ -62,11 +62,13 @@ pnpm run publish:validator-resources -- --commit --push        # Test Bed re-rea
 #    openepcis-web: main pipeline → build:ref-openepcis → deploy:ref-openepcis → deploy:ref-openepcis-prod
 pnpm run check:shapes:deployed -- --validator-url http://localhost:18080   # local ISAITB container
 pnpm run check:shapes:itb -- --validator-url https://www.itb.ec.europa.eu  # the hosted one
+pnpm run check:json-itb -- --validator-url http://localhost:8081            # JSON domain (self-hosted)
 git tag v0.9.10 && git push origin v0.9.10
 ```
 
 `release.ts --check` runs inside `pnpm run build`, so a half-stamped tree cannot build. The
-GITB drift gates fail the build until step 2 has re-run them.
+GITB drift gates and the interop conformance statement (`docs/conformance/INTEROP_CONFORMANCE.md`,
+which names the release) fail the build until step 2 has re-run them.
 
 ## What the release commit must not contain
 
