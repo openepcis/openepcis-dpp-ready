@@ -1,0 +1,701 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix txt: <https://w3id.org/eudpp/textile-core#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtdur: <https://w3id.org/eudpp/textile-durability#> .
+@prefix txtstr: <https://w3id.org/eudpp/textile-structure#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+txtstr:CutPrecision a owl:Class ;
+    rdfs:label "Cut precision"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Assembly characteristic concerning precision of cutting or pattern construction."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:AssemblyCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence,
+        txtcon:stronglyImpliedEvidence ;
+    txtcon:modellingNote "Cut precision may influence assembly quality and seam performance, but it is reconstructed here mainly to prepare links with the future confectioning process model."@en,
+        "Reconstructed concept added to support future links with confectioning process and final product quality."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.2, Table 182, printed pages 494-495; table caption at line 11907; supporting text on printed page 495, lines 11927-11932."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction ;
+    txtcon:typicalInfluenceOn txtstr:SeamStrength .
+
+txtstr:FabricElasticity a owl:Class ;
+    rdfs:label "Fabric elasticity"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Fabric structural characteristic denoting elastic behaviour of the fabric."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FabricStructuralCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence,
+        txtcon:stronglyImpliedEvidence ;
+    txtcon:modellingNote "Fabric elasticity may influence dimensional stability and wrinkle recovery; the relation depends on fibre composition, yarn structure and fabric construction."@en,
+        "Reconstructed concept added to support relations between fabric manufacturing methods, fabric structure and deformation performance."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.2, Tables 178-179, printed pages 488-490; captions at lines 11875 and 11877."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction ;
+    txtcon:typicalInfluenceOn txtdur:DimensionalStability,
+        txtdur:Wrinkling .
+
+txtstr:FabricMassPerUnitArea a owl:Class ;
+    rdfs:label "Fabric mass per unit area"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Fabric construction characteristic expressing the mass of fabric per unit surface area."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FabricConstructionCharacteristic ;
+    skos:altLabel "Fabric grammage"@en,
+        "Fabric weight"@en ;
+    txtcon:modellingNote "The preferred term uses mass rather than weight, following the technical note in JRC Section 2, page 14, footnote 15. Expected SI quantity kind: quantities:SUDE (surface density)."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 4.5, printed page 41, lines 1018-1020; JRC Preparatory Study, Section 13.10.2, printed pages 493-494, lines 11902-11915; Table 182, printed page 494, caption line 11907."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicalInfluenceOn txtstr:FabricBreathability,
+        txtstr:FabricDrape,
+        txtstr:FabricInsulation .
+
+txtstr:FabricRigidity a owl:Class ;
+    rdfs:label "Fabric rigidity"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Fabric structural characteristic denoting rigidity or stiffness."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FabricStructuralCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence,
+        txtcon:stronglyImpliedEvidence ;
+    txtcon:modellingNote "Fabric rigidity may influence wrinkling and deformation behaviour, but the direction and acceptability depend on product type and fabric construction."@en,
+        "Reconstructed concept added to support relations between fabric manufacturing methods and fabric behaviour."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.2, Tables 178-179, printed pages 488-490; captions at lines 11875 and 11877."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction ;
+    txtcon:typicalInfluenceOn txtdur:Wrinkling .
+
+txtstr:FibreCleanliness a owl:Class ;
+    rdfs:label "Fibre cleanliness"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Fibre quality characteristic concerning impurities or foreign matter remaining in the fibre."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FibreQualityCharacteristic ;
+    skos:editorialNote "The term is named FibreCleanliness rather than FibreCleanness, following standard textile and English usage."@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "A weak influence link from fibre cleanliness to yarn appearance is represented in this module. The corresponding link to fabric appearance remains pending until a fabric appearance target concept is introduced."@en,
+        "Fibre cleanliness is modelled as a fibre quality characteristic, not as a structural dimension such as length, fineness or section shape. Quantitative or qualitative measurements of contamination, trash content or impurity levels should be represented through assessment results."@en ;
+    txtcon:sourceLocator "JRC Section 9.2.1, printed page 110, lines 2895-2900; Annex 13.10.2, Tables 177 and 180, printed pages 486-491; captions at lines 11873 and 11879; supporting text on printed page 484, lines 11853-11859."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicalInfluenceOn txtstr:FabricAppearance,
+        txtstr:YarnAppearance .
+
+txtstr:FibreColour a owl:Class ;
+    rdfs:label "Fibre colour"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Visual fibre characteristic concerning the colour of a fibre and its influence on dyeing or bleaching behaviour."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:VisualFibreCharacteristic ;
+    txtcon:evidenceStatus txtcon:explicitEvidence,
+        txtcon:reconstructedEvidence ;
+    txtcon:sourceLocator "JRC Section 9.2.1, printed page 110, lines 2895-2900; Annex 13.10.2, Tables 177 and 180, printed pages 486-491; captions at lines 11873 and 11879; supporting text on printed page 484, lines 11853-11859."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtstr:FibreElasticity a owl:Class ;
+    rdfs:label "Fibre elasticity"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Mechanical fibre characteristic concerning deformation and recovery after removal of a load."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:MechanicalFibreCharacteristic ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Fibre elasticity may influence wrinkling behaviour through recovery behaviour. The relation is context-dependent and mediated by fabric and garment structure."@en ;
+    txtcon:sourceLocator "JRC Section 9.2.1, printed page 110, lines 2895-2900; Annex 13.10.2, Tables 177 and 180, printed pages 486-491; captions at lines 11873 and 11879; supporting text on printed page 484, lines 11853-11859."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicalInfluenceOn txtdur:Wrinkling .
+
+txtstr:FibreFineness a owl:Class ;
+    rdfs:label "Fibre fineness"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Structural fibre characteristic expressing fibre fineness or linear density."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:StructuralFibreCharacteristic ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Fibre fineness typically affects yarn uniformity and regularity, but the direction and magnitude depend on fibre type and process conditions."@en ;
+    txtcon:sourceLocator "JRC Section 9.2.1, printed page 110, lines 2895-2900; Annex 13.10.2, Tables 177 and 180, printed pages 486-491; captions at lines 11873 and 11879; supporting text on printed page 484, lines 11853-11859."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicalInfluenceOn txtstr:FabricDrape,
+        txtstr:FabricHandle,
+        txtstr:FabricLustre,
+        txtstr:YarnHairiness,
+        txtstr:YarnUniformity .
+
+txtstr:FibreLength a owl:Class ;
+    rdfs:label "Fibre length"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Structural fibre characteristic expressing the length of textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:StructuralFibreCharacteristic ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Fibre length is modelled as typically influencing yarn strength through yarn structure. The relation should not be interpreted as a deterministic rule."@en,
+        "This is modelled as an OWL class because it is a semantic category and potential target of assessment/indicator relations, not merely a codelist value."@en ;
+    txtcon:sourceLocator "JRC Section 9.2.1, printed page 110, lines 2895-2900; Annex 13.10.2, Tables 177 and 180, printed pages 486-491; captions at lines 11873 and 11879; supporting text on printed page 484, lines 11853-11859."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicalInfluenceOn txtstr:FabricHandle,
+        txtstr:FabricLustre,
+        txtstr:YarnHairiness,
+        txtstr:YarnStrength .
+
+txtstr:FibreSectionShape a owl:Class ;
+    rdfs:label "Fibre section shape"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Structural fibre characteristic expressing the cross-sectional shape of textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:StructuralFibreCharacteristic ;
+    skos:altLabel "Fibre cross-section shape"@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence,
+        txtcon:reconstructedEvidence ;
+    txtcon:sourceLocator "JRC Section 9.2.1, printed page 110, lines 2895-2900; Annex 13.10.2, Tables 177 and 180, printed pages 486-491; captions at lines 11873 and 11879; supporting text on printed page 484, lines 11853-11859."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtstr:FibreStrength a owl:Class ;
+    rdfs:label "Fibre strength"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Mechanical fibre characteristic expressing resistance of fibres to tensile stress or breakage."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:MechanicalFibreCharacteristic ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Fibre strength typically contributes to yarn strength as a mechanical input."@en,
+        "This is modelled as an OWL class because it is a semantic category and potential target of assessment/indicator relations, not merely a codelist value."@en ;
+    txtcon:sourceLocator "JRC Section 9.2.1, printed page 110, lines 2895-2900; Annex 13.10.2, Tables 177 and 180, printed pages 486-491; captions at lines 11873 and 11879; supporting text on printed page 484, lines 11853-11859."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicalInfluenceOn txtstr:YarnHairiness,
+        txtstr:YarnStrength .
+
+txtstr:MoistureRetention a owl:Class ;
+    rdfs:label "Moisture retention"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Physical fibre characteristic concerning the capacity of fibres to absorb or retain moisture."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:PhysicalFibreCharacteristic ;
+    txtcon:evidenceStatus txtcon:explicitEvidence,
+        txtcon:reconstructedEvidence ;
+    txtcon:sourceLocator "JRC Annex 13.10.2, Tables 178-179, printed pages 488-490; captions at lines 11875 and 11877."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtstr:ResistanceCharacteristic a owl:Class ;
+    rdfs:label "Resistance characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Structural or material resistance characteristic, distinct from the observed degradation phenomenon itself."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:IntermediateTextileCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "Resistance characteristics are distinct from the observed degradation phenomena themselves. For example, pilling resistance is not the same as observed pilling."@en,
+        "Structural superclass introduced to organise the module; not necessarily a verbatim JRC term."@en ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:SewingCharacteristic a owl:Class ;
+    rdfs:label "Sewing characteristic"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Assembly characteristic concerning sewing quality or sewing-related construction."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:AssemblyCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence,
+        txtcon:stronglyImpliedEvidence ;
+    txtcon:modellingNote "Reconstructed concept added to support future links with confectioning process and seam-related durability."@en,
+        "Sewing characteristics may influence seam strength and final product durability. Detailed process parameters should be represented in TEXTILE_PROCESS."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.2, Table 182, printed pages 494-495; table caption at line 11907; supporting text on printed page 495, lines 11927-11932."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction ;
+    txtcon:typicalInfluenceOn txtstr:SeamStrength .
+
+txtstr:ThreadCount a owl:Class ;
+    rdfs:label "Thread count"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Fabric construction characteristic expressing the number of threads per specified unit length in a woven fabric."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:seeAlso <https://w3id.org/eudpp/textile-process#TargetFabricDensity> ;
+    rdfs:subClassOf txtstr:FabricConstructionCharacteristic ;
+    skos:altLabel "Number of threads"@en,
+        "Thread density"@en ;
+    skos:relatedMatch <https://w3id.org/eudpp/textile-process#TargetFabricDensity> ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Although the JRC uses the term thread count, its definition is a density per unit length. A quantitative value should therefore include a reciprocal-length unit rather than a dimensionless count."@en,
+        "Thread count is represented in TEXTILE_STRUCTURE as a fabric construction characteristic. The related process-side concept txtprc:TargetFabricDensity remains a fabric manufacturing parameter. The two concepts should not be merged automatically; one describes a product/fabric characteristic, the other a process parameter or target."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.2, printed pages 493-494, lines 11902-11907; JRC Preparatory Study, relevant section, Table 182, printed page 302; caption line 9114."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicalInfluenceOn txtstr:FabricBreathability,
+        txtstr:FabricHandle .
+
+txtstr:YarnElasticity a owl:Class ;
+    rdfs:label "Yarn elasticity"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Yarn mechanical characteristic concerning the ability of yarn to deform and recover."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:YarnMechanicalCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence,
+        txtcon:stronglyImpliedEvidence ;
+    txtcon:modellingNote "Reconstructed concept added to support process-related relations such as the effect of twist level on yarn elasticity."@en,
+        "Yarn elasticity may influence wrinkling and recovery behaviour, but the relation is mediated by fabric structure and garment construction."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.2, printed pages 492-493, lines 11889-11901; JRC Preparatory Study, relevant section, Table 181, printed page 302; caption line 9113."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicalInfluenceOn txtdur:Wrinkling .
+
+txtstr:YarnSoftness a owl:Class ;
+    rdfs:label "Yarn softness"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Yarn tactile characteristic concerning perceived softness or smoothness."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:YarnTactileCharacteristic ;
+    txtcon:evidenceStatus txtcon:explicitEvidence,
+        txtcon:stronglyImpliedEvidence ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.2, printed pages 492-493, lines 11889-11901; JRC Preparatory Study, relevant section, Table 181, printed page 302; caption line 9113."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtstr:hasCharacteristicValue a owl:ObjectProperty ;
+    rdfs:label "has characteristic value"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a textile structure characteristic occurrence to a quantitative value containing a number and a measurement unit."@en ;
+    rdfs:domain txtstr:TextileStructureCharacteristic ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:range txtcon:QuantitativeValue ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "This property structures textile structure data in RDF/OWL; it is not claimed as a verbatim JRC relation."@en ;
+    txtcon:sourceLocator "docs/decisions/TXT-DEC-002.md"@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:hasTextualValue a owl:DatatypeProperty ;
+    rdfs:label "has textual value"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a textile structure characteristic occurrence to a free-text value when no controlled value list is available."@en ;
+    rdfs:domain txtstr:TextileStructureCharacteristic ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:range xsd:string ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "Controlled qualitative characteristic values may later be represented as SKOS concepts if required."@en,
+        "This property structures textile structure data in RDF/OWL; it is not claimed as a verbatim JRC relation."@en ;
+    txtcon:sourceLocator "docs/decisions/TXT-DEC-005.md"@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:FabricBehaviouralCharacteristic a owl:Class ;
+    rdfs:label "Fabric behavioural characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Fabric-level characteristic concerning the physical behaviour of a fabric under use, gravity, movement, care or stress conditions."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FabricCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "This superclass organises fabric drape without reducing it either to a purely structural dimension or to an assessment result."@en ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:FabricInsulation a owl:Class ;
+    rdfs:label "Fabric insulation"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Fabric functional characteristic concerning the retention of heat and reduction of heat transfer."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FabricFunctionalCharacteristic ;
+    skos:altLabel "Insulation"@en,
+        "Thermal insulation"@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Fabric insulation is represented as a fabric-level functional characteristic. Concrete insulation values or standard test results should be represented in TEXTILE_ASSESSMENT."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.2, printed pages 488-491, lines 11875-11888; JRC Preparatory Study, relevant section, Table 178, printed page 302; caption line 9109."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtstr:FabricTactileCharacteristic a owl:Class ;
+    rdfs:label "Fabric tactile characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Fabric-level characteristic concerning touch, hand-feel or perceived tactile behaviour."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FabricCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "This superclass organises G-006 Fabric handle / fabric softness without treating it as a purely structural dimension or as an assessment result."@en ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:FibreQualityCharacteristic a owl:Class ;
+    rdfs:label "Fibre quality characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Fibre characteristic concerning fibre quality conditions that are not purely structural, mechanical, physical or visual."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FibreCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "This superclass was introduced to avoid forcing fibre cleanliness under a purely structural or visual fibre characteristic. It organises G-002 without changing the semantics of existing fibre characteristic subclasses."@en ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:PhysicalFibreCharacteristic a owl:Class ;
+    rdfs:label "Physical fibre characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Fibre characteristic concerning physical behaviour such as moisture retention."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FibreCharacteristic ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:VisualFibreCharacteristic a owl:Class ;
+    rdfs:label "Visual fibre characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Fibre characteristic concerning visual properties such as colour."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FibreCharacteristic ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:YarnAppearance a owl:Class ;
+    rdfs:label "Yarn appearance"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Yarn visual characteristic concerning diameter, hairiness, visible defects and overall appearance."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:YarnVisualCharacteristic ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Quantitative or qualitative observations of yarn appearance should be represented through the assessment module when a concrete test, inspection or result is recorded."@en,
+        "Table 180 reports that yarn appearance improves with the increase of fibre cleanliness. Yarn appearance is therefore modelled as a yarn-level visual characteristic, not as a fibre characteristic and not as an assessment result."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.2, printed pages 488-491, lines 11875-11888; JRC Preparatory Study, relevant section, Table 178, printed page 302; caption line 9109."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicalInfluenceOn txtstr:FabricAppearance .
+
+txtstr:YarnTactileCharacteristic a owl:Class ;
+    rdfs:label "Yarn tactile characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Yarn characteristic concerning tactile or hand-feel behaviour."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:YarnCharacteristic ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:YarnUniformity a owl:Class ;
+    rdfs:label "Yarn uniformity"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Yarn structural characteristic expressing uniformity in thickness and mass along the yarn length."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:YarnStructuralCharacteristic ;
+    txtcon:evidenceStatus txtcon:explicitEvidence,
+        txtcon:stronglyImpliedEvidence ;
+    txtcon:modellingNote "Yarn uniformity may contribute to fabric strength and regularity, but the relation depends on fabric structure and process conditions."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.2, printed pages 488-491, lines 11875-11888; JRC Preparatory Study, relevant section, Table 178, printed page 302; caption line 9109."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicalInfluenceOn txtdur:FabricStrength .
+
+txtstr:YarnVisualCharacteristic a owl:Class ;
+    rdfs:label "Yarn visual characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Yarn characteristic concerning visible appearance or visual quality."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:YarnCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "This superclass was introduced to organise G-003 Yarn appearance without placing a yarn-level visual characteristic under a fibre-level visual characteristic."@en ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:characteristicOf a owl:ObjectProperty ;
+    rdfs:label "characteristic of"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Relates a textile structure characteristic occurrence to the textile product that it describes, including a product used as a component of another product."@en ;
+    rdfs:domain txtstr:TextileStructureCharacteristic ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:range txt:TextileProduct ;
+    owl:inverseOf txtstr:hasStructuralCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "This property structures textile structure data in RDF/OWL; it is not claimed as a verbatim JRC relation."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.2, Tables 177-182, printed pages 486-495; captions at lines 11873-11907."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:hasStructuralCharacteristic a owl:ObjectProperty ;
+    rdfs:label "has structural characteristic"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Relates a textile product, including a product used as a component of another product, to a textile structure characteristic occurrence."@en ;
+    rdfs:domain txt:TextileProduct ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:range txtstr:TextileStructureCharacteristic ;
+    rdfs:subPropertyOf dpp:hasProperty ;
+    owl:inverseOf txtstr:characteristicOf ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "This property structures textile structure data in RDF/OWL; it is not claimed as a verbatim JRC relation."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.2, Tables 177-182, printed pages 486-495; captions at lines 11873-11907."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:FabricAppearance a owl:Class ;
+    rdfs:label "Fabric appearance"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Fabric visual characteristic concerning the overall visible appearance or visual quality of a fabric."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FabricVisualCharacteristic ;
+    skos:altLabel "Fabric visual appearance"@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence,
+        txtcon:stronglyImpliedEvidence ;
+    txtcon:modellingNote "Fabric appearance is represented as a fabric visual characteristic in TEXTILE_STRUCTURE. Observed changes in fabric appearance after use or cleaning cycles should be represented in TEXTILE_DURABILITY or TEXTILE_ASSESSMENT, not as the structural characteristic itself."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.2, printed pages 488-491, lines 11875-11888; JRC Preparatory Study, relevant section, Table 178, printed page 302; caption line 9109."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtstr:FabricBreathability a owl:Class ;
+    rdfs:label "Fabric breathability"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Fabric functional characteristic concerning the passage of water vapour through the fabric and evaporative cooling."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FabricFunctionalCharacteristic ;
+    skos:altLabel "Air permeability"@en,
+        "Breathability"@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Fabric breathability is represented in TEXTILE_STRUCTURE as a fabric-level functional characteristic, not as a TEXTILE_CORE product class and not as an assessment result."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.2, printed pages 488-491, lines 11875-11888; JRC Preparatory Study, relevant section, Table 178, printed page 302; caption line 9109."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtstr:FabricConstructionCharacteristic a owl:Class ;
+    rdfs:label "Fabric construction characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Fabric structural characteristic concerning fabric construction, density, mass per area or arrangement of yarns/threads."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FabricStructuralCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "This superclass distinguishes structural fabric characteristics from process parameters in TEXTILE_PROCESS. The same real-world quantity may be represented as a process target/parameter in TEXTILE_PROCESS and as a product/fabric characteristic in TEXTILE_STRUCTURE, but these roles should be kept explicit."@en ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:FabricDrape a owl:Class ;
+    rdfs:label "Fabric drape"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Fabric behavioural characteristic concerning how a fabric hangs in three dimensions and adapts to contours."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FabricBehaviouralCharacteristic ;
+    skos:altLabel "Drape"@en,
+        "Drapeability"@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Fabric drape is modelled as a fabric behavioural characteristic. Concrete drape measurements, test methods or performance levels should be represented in TEXTILE_ASSESSMENT."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.2, printed pages 488-491, lines 11875-11888; JRC Preparatory Study, relevant section, Table 178, printed page 302; caption line 9109."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtstr:FabricFunctionalCharacteristic a owl:Class ;
+    rdfs:label "Fabric functional characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Fabric-level characteristic concerning functional performance relevant to use, comfort or intended application."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FabricCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "This superclass keeps functional fabric characteristics out of TEXTILE_CORE and separate from observed durability parameters."@en ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:FabricLustre a owl:Class ;
+    rdfs:label "Fabric lustre"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Fabric visual characteristic concerning the reflection of light that creates a shiny or glossy appearance."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FabricVisualCharacteristic ;
+    skos:altLabel "Fabric luster"@en,
+        "Fabric sheen"@en,
+        "Fabric shininess"@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Concrete observations or measurements of lustre, shininess or appearance should be represented through the assessment module when a test method, visual inspection protocol or measured value is recorded."@en,
+        "Table 180 reports that fabric shininess increases with the increase of fibre length and fibre fineness. Fabric lustre is modelled as a fabric visual characteristic, not as a structural dimension and not as an assessment result."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.2, printed pages 488-491, lines 11875-11888; JRC Preparatory Study, relevant section, Table 178, printed page 302; caption line 9109."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtstr:FabricVisualCharacteristic a owl:Class ;
+    rdfs:label "Fabric visual characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Fabric-level characteristic concerning visible appearance, lustre, shininess, sheen or other visual qualities."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FabricCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "This superclass organises G-007 Fabric lustre / fabric shininess without treating it as a purely structural dimension or as an assessment result."@en ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:MechanicalFibreCharacteristic a owl:Class ;
+    rdfs:label "Mechanical fibre characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Fibre characteristic concerning mechanical behaviour such as strength or elasticity."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FibreCharacteristic ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:SeamStrength a owl:Class ;
+    rdfs:label "Seam strength"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Assembly characteristic expressing the mechanical strength or integrity of a seam."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:AssemblyCharacteristic ;
+    txtcon:evidenceStatus txtcon:explicitEvidence,
+        txtcon:stronglyImpliedEvidence ;
+    txtcon:modellingNote "Seam strength typically reduces the likelihood of seam-related failure modes and influences seam slippage behaviour."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.2, Table 182, printed pages 494-495; table caption at line 11907; supporting text on printed page 495, lines 11927-11932."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicalInfluenceOn txtdur:SeamSlippage ;
+    txtcon:typicallyReducesLikelihoodOf txtdur:SeamFailure .
+
+txtstr:YarnMechanicalCharacteristic a owl:Class ;
+    rdfs:label "Yarn mechanical characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Yarn characteristic concerning mechanical behaviour such as yarn strength or elasticity."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:YarnCharacteristic ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:YarnStrength a owl:Class ;
+    rdfs:label "Yarn strength"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Yarn mechanical characteristic expressing the ability of a yarn to withstand tensile force without breaking."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:YarnMechanicalCharacteristic ;
+    skos:altLabel "Yarn tenacity"@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence,
+        txtcon:stronglyImpliedEvidence ;
+    txtcon:modellingNote "This is modelled as an OWL class because it is a semantic category and potential target of assessment/indicator relations, not merely a codelist value."@en,
+        "Yarn strength typically contributes to fabric strength, but the relation is mediated by fabric construction and processing."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.2, printed pages 488-491, lines 11875-11888; JRC Preparatory Study, relevant section, Table 178, printed page 302; caption line 9109."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicalInfluenceOn txtdur:FabricStrength .
+
+txtstr:YarnStructuralCharacteristic a owl:Class ;
+    rdfs:label "Yarn structural characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Yarn characteristic concerning structural regularity or configuration."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:YarnCharacteristic ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:AssemblyCharacteristic a owl:Class ;
+    rdfs:label "Assembly characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Characteristic of garment or textile assembly, including seams, sewing and cutting quality."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:IntermediateTextileCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "Structural superclass introduced to organise the module; not necessarily a verbatim JRC term."@en ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:FabricHandle a owl:Class ;
+    rdfs:label "Fabric handle"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Fabric tactile characteristic concerning softness, smoothness, flexibility and overall sensation when touched."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FabricTactileCharacteristic ;
+    skos:altLabel "Fabric hand"@en,
+        "Fabric softness"@en,
+        "Hand feel"@en ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Fabric handle is modelled as a fabric tactile characteristic, not as a simple fabric structural characteristic and not as an assessment result. Quantitative or qualitative measurements of softness, handle or touch should be represented through the assessment module when a concrete method or result is recorded."@en,
+        "Table 180 relates fabric softness or handle to fibre characteristics. The influence links are represented as weak annotation-level relations, not as deterministic OWL causal axioms."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.2, printed pages 488-491, lines 11875-11888; JRC Preparatory Study, relevant section, Table 178, printed page 302; caption line 9109."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtstr:FabricStructuralCharacteristic a owl:Class ;
+    rdfs:label "Fabric structural characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Characteristic of fabric structure or fabric-level physical behaviour."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FabricCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "Specific fabric structural characteristics are included as reconstructed or strongly implied concepts where needed to represent relations extracted from the JRC study."@en ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:StructuralFibreCharacteristic a owl:Class ;
+    rdfs:label "Structural fibre characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Fibre characteristic concerning fibre structure, morphology or geometry."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:FibreCharacteristic ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:YarnHairiness a owl:Class ;
+    rdfs:label "Yarn hairiness"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Yarn structural characteristic concerning fibre ends and loops protruding from the yarn body."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:YarnStructuralCharacteristic ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "Table 180 identifies yarn hairiness as an unwanted yarn characteristic. It reports that hairiness decreases with increasing fibre length and fibre strength, while it may increase with fibre fineness after the optimal working range."@en,
+        "Yarn hairiness is modelled as a yarn structural characteristic rather than as an assessment result. Quantitative hairiness values, test methods or thresholds should be represented in the assessment module."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.2, printed pages 488-491, lines 11875-11888; JRC Preparatory Study, relevant section, Table 178, printed page 302; caption line 9109."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtstr:IntermediateTextileCharacteristic a owl:Class ;
+    rdfs:label "Intermediate textile characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Characteristic of an intermediate textile structure such as yarn, fabric, resistance property or assembly."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:TextileStructureCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "Structural superclass introduced to organise the module; not necessarily a verbatim JRC term."@en ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:YarnCharacteristic a owl:Class ;
+    rdfs:label "Yarn characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Characteristic of a yarn that may influence fabric and product durability."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:IntermediateTextileCharacteristic ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "This class corresponds to the aggregated INT-001 concept. More specific yarn characteristics are represented as subclasses."@en ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:FabricCharacteristic a owl:Class ;
+    rdfs:label "Fabric characteristic"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Fabric-level characteristic relevant to durability, comfort, appearance or functional performance."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:IntermediateTextileCharacteristic ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "This superclass avoids forcing tactile fabric properties such as fabric handle under a purely structural fabric category."@en ;
+    txtcon:sourceLocator "Textile Structure modelling hierarchy, version 1.1.0; motivated by JRC Annex 13.10.2, Tables 177-182."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtstr:FibreCharacteristic a owl:Class ;
+    rdfs:label "Fibre characteristic"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A characteristic of a textile fibre that can influence yarn manufacture, fabric behaviour and durability-related performance."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf txtstr:TextileStructureCharacteristic ;
+    txtcon:evidenceStatus txtcon:explicitEvidence ;
+    txtcon:modellingNote "This class corresponds to the aggregated MAT-001 concept. MAT-004 Fibre type is represented in TEXTILE_CORE through txt:FibreTypeConcept and txtcs:FibreTypeScheme, and used through txt:hasFibreType on txt:FibreCompositionComponent. It is therefore not duplicated as a textile structure class in this module."@en,
+        "This is modelled as an OWL class because it is a semantic category and potential target of assessment/indicator relations, not merely a codelist value."@en ;
+    txtcon:sourceLocator "JRC Section 9.2.1, printed page 110, lines 2895-2900; Annex 13.10.2, Tables 177 and 180, printed pages 486-491; captions at lines 11873 and 11879; supporting text on printed page 484, lines 11853-11859."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtstr:TextileStructureCharacteristic a owl:Class ;
+    rdfs:label "Textile structure characteristic"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A property describing the structure, physical constitution, mechanical behaviour, tactile quality, visual quality or functional behaviour of a textile fibre, yarn, fabric or assembly."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-structure> ;
+    rdfs:subClassOf dpp:Property ;
+    txtcon:evidenceStatus txtcon:reconstructedEvidence ;
+    txtcon:modellingNote "Modelled as a subclass of dpp:Property because instances are linked from products through a subproperty of dpp:hasProperty."@en,
+        "Structural characteristics are disjoint from observed performance parameters, degradation phenomena and failure modes. For example, pilling resistance is a structure/resistance characteristic, while pilling is an observed degradation phenomenon."@en,
+        "Structural superclass introduced to organise the module; not necessarily a verbatim JRC term."@en,
+        "This is the top-level class for structural characteristics in the textile structure module. It should not be used for observed durability performance parameters themselves."@en ;
+    txtcon:sourceLocator "JRC Annex 13.10.2, Tables 177-182, printed pages 486-495; captions at lines 11873-11907."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+<https://w3id.org/eudpp/textile-structure> a owl:Ontology ;
+    rdfs:label "EU DPP Textile Structure Ontology"@en ;
+    dcterms:bibliographicCitation "EU DPP Textile Structure Ontology. Version 2.0.0 candidate."@en ;
+    dcterms:created "2026-03-06"^^xsd:date ;
+    dcterms:creator "Elio Hbeich"@en,
+        "BOUGACHA Racem"@en,
+        "Ivo Ladenius"@en,
+        "Andreas Schneider"@en,
+        "Jan Merckx"@en,
+        "Piero de Sabbata"@en ;
+    dcterms:description "Ontology module for characteristics of textile fibres, yarns, fabrics and assemblies. It separates characteristic types from quantitative or qualitative values and does not represent process settings, assessment results or observed degradation phenomena."@en ;
+    dcterms:issued "2026-03-06"^^xsd:date ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:modified "2026-10-27"^^xsd:date ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    dcterms:title "EU DPP Textile Structure Ontology"@en ;
+    vann:preferredNamespacePrefix "txtstr" ;
+    vann:preferredNamespaceUri "https://w3id.org/eudpp/textile-structure#" ;
+    rdfs:comment "Characteristic classes describe what is observed or declared about a fibre, yarn, fabric or assembly. Concrete numerical values are represented as txtcon:QuantitativeValue instances, while methods and results belong to Textile Assessment and process settings belong to Textile Process."@en ;
+    owl:imports <https://w3id.org/eudpp/textile-connector>,
+        <https://w3id.org/eudpp/textile-core>,
+        <https://w3id.org/eudpp/textile-dpp-mireot>,
+        <https://w3id.org/eudpp/textile-durability> ;
+    owl:priorVersion <https://w3id.org/eudpp/textile-structure/1.1.2> ;
+    owl:versionIRI <https://w3id.org/eudpp/textile-structure/2.0.0> ;
+    owl:versionInfo "Version 2.0.0 candidate" ;
+    txtcon:sourceLocator "JRC Annex 13.10.2, pages 484-495, Tables 177-182, lines ending at 11874 and lines 11875-11920; Section 4.5, page 41, lines 1001-1037."@en ;
+    txtcon:sourceType txtcon:ontologyModule .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( txtstr:TextileStructureCharacteristic txtdur:ObservedPerformanceParameter txtdur:ObservedDegradationPhenomenon txtdur:FailureMode ) .
+

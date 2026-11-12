@@ -9,7 +9,7 @@ run and publish it.
 validator-resources/shacl/openepcis  RDF validator domain: 16 OpenEPCIS types + external models (x.*)
 validator-resources/json/openepcis   JSON validator domain: external models (x.*) + us.fsma204
 test-suites/openepcis-dpp            GITB TDL suite: 16 specifications, 32 test cases
-test-suites/interop-<model>-<ver>    one suite per external model release (EU DPP Registry 1.0.0, BatteryPass-Ready 2.0.1, DPP Keystone v3)
+test-suites/interop-<model>-<ver>    one suite per external model release (11: EU DPP Registry, BatteryPass-Ready 2.0.1 / 1.3, Keystone, GS1 EPCIS, CIRPASS-2 textile / battery, Battery Pass SAMM, Catena-X, UNTP 0.8.0 / 0.7.0)
 docker/                              local stacks
 dev.sh                               entry point
 ```

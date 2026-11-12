@@ -6,6 +6,13 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ### Added
 
+- Validation targets `epcis/2.0.1`, `cirpass2-textile/2.0.0`, `cirpass2-battery/0.3.0` (draft),
+  `batterypass-ready/1.3` (derived), `batterypass-samm/1.2`, `catenax-battery-pass/6.1.0`, `untp/0.8.0`,
+  `untp/0.7.0`. Targets may name no crosswalk profile, read Turtle fixtures, replay a publisher's test
+  corpus (`expectations`), map fixtures to types (`scopes`), mark a draft release (`status`).
+
+### Added
+
 - Validation targets: `targets/eu-dpp/1.0.0`, `targets/batterypass-ready/2.0.1` and `targets/keystone/v3`
   describe an external model release as GITB validation types (vendored artifacts with their
   manifest, crosswalk profile, fixtures, accepted deviations with reasons). Read by

@@ -1,0 +1,124 @@
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix ns1: <https://w3id.org/eudpp/textile-process#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix si: <https://si-digital-framework.org/SI#> .
+@prefix txtam: <https://w3id.org/eudpp/textile-associated-materials#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtsoc: <https://w3id.org/eudpp/textile-soc#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/textile-abox/valid/recyclingAlertThreshold> a txtsoc:TextileRecyclingAlertThreshold ;
+    txtsoc:hasThresholdQuantitativeValue <https://example.org/textile-abox/valid/maximumAllowed> .
+
+<https://example.org/textile-abox/valid/trackingThreshold> a txtsoc:TextileTrackingThreshold ;
+    txtsoc:hasThresholdQuantitativeValue <https://example.org/textile-abox/valid/reportedRange> .
+
+<https://example.org/textile-soc/dimensionlessUnit> a si:MeasurementUnit ;
+    rdfs:label "dimensionless mass fraction"@en .
+
+<https://example.org/textile-soc/execution> a ns1:TextileProcessExecution ;
+    ns1:concernsProduct <https://example.org/textile-soc/jacket> ;
+    ns1:usesChemicalSubstance <https://example.org/textile-soc/genericChemical> .
+
+<https://example.org/textile-soc/otherPresence> a txtsoc:TextileSubstanceOfConcernPresenceContext ;
+    dpp:concernsSubstance <https://example.org/textile-soc/reportedSubstance> ;
+    dpp:hasApplicableQualification <https://example.org/textile-soc/typeAQualification> ;
+    dpp:hasConcentration <https://example.org/textile-soc/maximumConcentration> ;
+    dpp:isSubstancePresenceOf <https://example.org/textile-soc/otherProduct> .
+
+<https://example.org/textile-soc/presence> a txtsoc:TextileSubstanceOfConcernPresenceContext ;
+    dpp:concernsSubstance <https://example.org/textile-soc/reportedSubstance> ;
+    dpp:hasApplicableQualification <https://example.org/textile-soc/typeAQualification>,
+        <https://example.org/textile-soc/typeDQualification> ;
+    dpp:hasConcentration <https://example.org/textile-soc/concentrationInformation> ;
+    dpp:hasRecyclingInstruction <https://example.org/textile-soc/recyclingInformation> ;
+    dpp:isSubstancePresenceOf <https://example.org/textile-soc/jacket> ;
+    txtsoc:hasLocationInformation <https://example.org/textile-soc/locationInformation> ;
+    txtsoc:hasPresenceChemicalFunction <https://w3id.org/eudpp/textile-associated-materials-codelists#waterRepellent> ;
+    txtsoc:hasPresenceUseCategory <https://w3id.org/eudpp/textile-associated-materials-codelists#performanceChemical> ;
+    txtsoc:hasTextileHandlingInformation <https://example.org/textile-soc/recyclingInformation> ;
+    txtsoc:hasThresholdEvaluation <https://example.org/textile-soc/thresholdEvaluation> .
+
+<https://example.org/textile-soc/rangeConcentration> a dpp:ConcentrationRange,
+        txtsoc:TextileConcentrationInformation ;
+    dpp:hasMeasurementUnit dpp:massFractionUnit ;
+    dpp:maximumNumericalValue 0.0009 ;
+    dpp:minimumNumericalValue 0.0006 .
+
+<https://example.org/textile-abox/valid/maximumAllowed> a txtsoc:MaximumThresholdValue ;
+    txtcon:hasMeasurementUnit units:one ;
+    txtsoc:maximumValue 0.5 .
+
+<https://example.org/textile-abox/valid/reportedRange> a txtsoc:RangeThresholdValue ;
+    txtcon:hasMeasurementUnit units:one ;
+    txtsoc:lowerBound 0.1 ;
+    txtsoc:upperBound 0.9 .
+
+<https://example.org/textile-soc/foreignGroup> a txtsoc:TextileMaterialGroup .
+
+<https://example.org/textile-soc/genericChemical> a txtam:TextileChemicalSubstance .
+
+<https://example.org/textile-soc/locationInformation> a txtsoc:LocationInformation ;
+    txtsoc:hasTextileLocationType txtsoc:coatingOrFinishLocation ;
+    txtsoc:locationDescriptor "Water-repellent finish on the outer fabric." ;
+    txtsoc:refersToProductPartForLocation <https://example.org/textile-soc/outerFabricMaterialGroup> .
+
+<https://example.org/textile-soc/maximumConcentration> a dpp:MaximumConcentration,
+        txtsoc:TextileConcentrationInformation ;
+    dpp:hasMeasurementUnit dpp:massFractionUnit ;
+    dpp:numericalValue 0.002 .
+
+<https://example.org/textile-soc/reference> a txtsoc:TextileProductGroupSoCReference ;
+    txtsoc:productGroupApplicability "Illustrative textile product group" ;
+    txtsoc:referenceDate "2026-10-15"^^xsd:date ;
+    txtsoc:referenceIdentifier "Illustrative reference; no legal determination" ;
+    txtsoc:referenceVersion "example-v1" .
+
+<https://example.org/textile-soc/thresholdEvaluation> a txtsoc:ThresholdEvaluation ;
+    txtsoc:evaluatesAgainstThreshold <https://example.org/textile-soc/nonExemptionThreshold> ;
+    txtsoc:evaluatesConcentrationInformation <https://example.org/textile-soc/concentrationInformation> ;
+    txtsoc:evaluationNote "Illustrative comparison: 0.0008 is below 0.001." ;
+    txtsoc:hasThresholdEvaluationResult txtsoc:BelowThreshold .
+
+<https://example.org/textile-soc/thresholdMassFraction> a txtsoc:ExactThresholdValue ;
+    txtcon:hasMeasurementUnit dpp:massFractionUnit ;
+    txtcon:numericValue 0.001 .
+
+<https://example.org/textile-soc/typeDQualification> a txtsoc:TextileTypeDQualification ;
+    dpp:hasSoCCriterion dpp:CriterionD ;
+    dpp:qualifiesSubstance <https://example.org/textile-soc/reportedSubstance> ;
+    txtsoc:appliesToProduct <https://example.org/textile-soc/jacket> ;
+    txtsoc:hasRegulatoryBasis <https://example.org/textile-soc/reference> .
+
+<https://example.org/textile-soc/concentrationInformation> a txtsoc:TextileConcentrationInformation ;
+    dpp:hasMeasurementUnit dpp:massFractionUnit ;
+    dpp:numericalValue 0.0008 ;
+    txtsoc:analyticalMethod "Illustrative laboratory method" ;
+    txtsoc:hasApplicableRegulatoryThreshold <https://example.org/textile-soc/nonExemptionThreshold> ;
+    txtsoc:hasConcentrationReferenceBasis txtsoc:MaterialGroupMassBasis ;
+    txtsoc:hasConcentrationReportingLevel txtsoc:MaterialLevel ;
+    txtsoc:refersToProductPartForConcentration <https://example.org/textile-soc/foreignGroup> .
+
+<https://example.org/textile-soc/nonExemptionThreshold> a txtsoc:NonExemptionThreshold ;
+    txtsoc:hasThresholdQuantitativeValue <https://example.org/textile-soc/thresholdMassFraction> ;
+    txtsoc:thresholdNote "Illustrative encoding of a 0.1 % w/w threshold; applicability depends on the relevant qualification and legal rule." .
+
+<https://example.org/textile-soc/outerFabricMaterialGroup> a txtsoc:TextileFibreCompositionMaterialGroup .
+
+<https://example.org/textile-soc/recyclingInformation> a txtsoc:TextileSoCHandlingInformation ;
+    txtsoc:hasInstructionType txtsoc:RecyclingInstructionType ;
+    txtsoc:instructionContent "Route the product to an operator able to manage the reported substance and consult the applicable product-group rules before recycling." .
+
+<https://example.org/textile-soc/typeAQualification> a dpp:SoCQualificationAssertion ;
+    dpp:hasSoCCriterion dpp:CriterionA ;
+    dpp:qualifiesSubstance <https://example.org/textile-soc/reportedSubstance> ;
+    txtsoc:qualificationSource "Illustrative qualification for this RDF example." .
+
+units:one a si:MeasurementUnit .
+
+<https://example.org/textile-soc/jacket> a <https://w3id.org/eudpp/textile-core#TextileApparel> ;
+    txtsoc:hasPart <https://example.org/textile-soc/outerFabricMaterialGroup> .
+
+<https://example.org/textile-soc/reportedSubstance> a txtam:TextileChemicalSubstance ;
+    txtsoc:substanceIdentifier "illustrative-substance-id" .

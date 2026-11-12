@@ -18,6 +18,7 @@ import { createHash } from "node:crypto";
 import { existsSync, globSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import Ajv2020 from "ajv/dist/2020.js";
+import AjvDraft04 from "ajv-draft-04";
 import addFormats from "ajv-formats";
 import type { Quad } from "n3";
 import * as ox from "oxigraph";
@@ -41,12 +42,16 @@ export interface TargetSpec {
   title: string;
   publisher: string;
   manifest: string;
-  profile: string;
+  /** The crosswalk profile that reads the model's own JSON (none for a model we do not convert). */
+  profile?: string;
+  /** "draft": the publisher marks the release as a draft; labels and the report say so. */
+  status?: "draft";
   shacl?: { background?: string[] };
-  json?: { referencedSchemas?: string };
+  /** referencedSchemas: directories (every *.schema.json in them) or files, registered by $id. */
+  json?: { referencedSchemas?: string | string[] };
   chains?: Record<string, Chain>;
   /** Types stated outright: scope, label, shapes and schemas (repo-relative), all applying. */
-  types?: { scope: string; label: string; shapes?: string[]; schemas?: string[] }[];
+  types?: { scope: string; label: string; shapes?: string[]; schemas?: string[]; when?: { typeIncludes: string } }[];
   /** JSON-LD documents of the model: context URL prefixes served from vendored directories. */
   jsonld?: { contexts: Record<string, string> };
   /** The class every document is an instance of, when the crosswalk profile does not say. */
@@ -56,7 +61,15 @@ export interface TargetSpec {
   /** File names that apply to the public view only (the passport header). */
   publicOnly?: { files: string[] };
   categories?: Record<string, string>;
-  fixtures: { role: "publisher" | "openepcis"; glob: string }[];
+  /**
+   * glob: documents, all expected valid unless `expect` says otherwise. expectations: a publisher's
+   * test corpus, a JSON file of scenarios ({fixture_path, expected_conforms}, paths relative to
+   * `base`), as CIRPASS-2 ships it.
+   */
+  fixtures: (
+    | { role: "publisher" | "openepcis"; glob: string; expect?: "valid" | "invalid"; scopes?: string[] }
+    | { role: "publisher"; expectations: string; base: string; scopes?: string[] }
+  )[];
   accepted: { match: string; reason: string }[];
 }
 
@@ -64,6 +77,7 @@ export interface Manifest {
   version: string;
   commit?: string;
   archiveSha256?: string;
+  retrieved?: string;
   repository?: string;
   source?: string;
   license: string;
@@ -82,12 +96,14 @@ export interface TargetType {
   specs?: string[];
   view?: string;
   category?: string;
+  /** A document belongs to the type when its JSON `type` (string or array) includes this value. */
+  typeIncludes?: string;
 }
 
 export interface Target extends TargetSpec {
   dir: string;
   manifestData: Manifest;
-  profileData: Profile;
+  profileData?: Profile;
   types: TargetType[];
 }
 
@@ -103,21 +119,42 @@ export interface Fixture {
   types: string[];
   /** Why the SHACL side does not apply to this document (it is checked by JSON Schema only). */
   noShacl?: string;
+  /** The publisher's verdict on its own fixture: a test corpus has documents that must fail. */
+  expect: "valid" | "invalid";
+}
+
+/** A Turtle fixture travels as `{ "@turtle": text }`: RDF only, no JSON Schema side. */
+export const TURTLE = "@turtle";
+
+/** A text file as published: UTF-8, or UTF-16 when it starts with a byte-order mark (SAMM tooling). */
+export function readText(file: string): string {
+  const bytes = readFileSync(join(ROOT, file));
+  if (bytes[0] === 0xff && bytes[1] === 0xfe) return bytes.subarray(2).toString("utf16le");
+  if (bytes[0] === 0xfe && bytes[1] === 0xff) return Buffer.from(bytes.subarray(2)).swap16().toString("utf16le");
+  return bytes.toString("utf8").replace(/^\uFEFF/, "");
+}
+
+/** Read a fixture or a document to validate: JSON, or Turtle (.ttl) wrapped under TURTLE. */
+export function readDocument(file: string): Record<string, unknown> {
+  const text = readText(file);
+  return /\.ttl$/.test(file) ? { [TURTLE]: text } : JSON.parse(text);
 }
 
 const typeId = (t: TargetSpec, ...parts: string[]) => ["x", `${t.id}-${t.version}`, ...parts].join(".");
+const draft = (t: TargetSpec) => (t.status === "draft" ? " (draft release)" : "");
 
 /** The view a file serves, from its name (pub-…, res1-…); undefined for files of every view. */
 export function viewOfName(file: string): string | undefined {
   return /^(pub|res\d)-/.exec(file.replace(/.*\//, ""))?.[1];
 }
 
-function typesOf(t: TargetSpec, profile: Profile): TargetType[] {
+function typesOf(t: TargetSpec, profile: Profile = {} as Profile): TargetType[] {
   const types: TargetType[] = (t.types ?? []).map((ty) => ({
     id: typeId(t, ty.scope),
-    label: `${t.title} ${t.version}, ${ty.label}`,
+    label: `${t.title} ${t.version}${draft(t)}, ${ty.label}`,
     shapes: ty.shapes ?? [],
     schemas: ty.schemas ?? [],
+    ...(ty.when ? { typeIncludes: ty.when.typeIncludes } : {}),
   }));
   const p = profile as Profile & {
     targetShapes?: { bySpec: Record<string, string[]> };
@@ -170,7 +207,7 @@ export function loadTargets(): Target[] {
       const file = join(base, id, version, "target.json");
       if (!existsSync(file)) continue;
       const spec = JSON.parse(readFileSync(file, "utf8")) as TargetSpec;
-      const profileData = loadProfile(spec.profile);
+      const profileData = spec.profile ? loadProfile(spec.profile) : undefined;
       out.push({
         ...spec,
         dir: join(TARGETS_DIR, id, version),
@@ -183,56 +220,81 @@ export function loadTargets(): Target[] {
   return out;
 }
 
-/** The artifacts a target bundles that do not match its MANIFEST.json (path: reason). */
+/**
+ * The artifacts a target bundles that do not match their vendor MANIFEST.json (path: reason). A
+ * file from another vendored release (a schema a $ref names, say) is checked against its own
+ * manifest, the nearest MANIFEST.json above it.
+ */
 export function verifyArtifacts(t: Target): string[] {
   const vendorDir = t.manifest.replace(/\/MANIFEST\.json$/, "");
-  const sums = new Map(t.manifestData.files.map((f) => [join(vendorDir, f.path), f.sha256]));
-  const used = new Set(t.types.flatMap((ty) => [...ty.shapes, ...ty.schemas]).filter((f) => f.startsWith(vendorDir)));
+  const used = new Set(t.types.flatMap((ty) => [...ty.shapes, ...ty.schemas]).filter((f) => f.startsWith("vendor/")));
   for (const f of referencedSchemaFiles(t)) used.add(f);
-  for (const f of t.shacl?.background ?? []) if (f.startsWith(vendorDir)) used.add(f);
-  for (const fx of t.fixtures) for (const f of globSync(fx.glob, { cwd: ROOT })) if (f.startsWith(vendorDir)) used.add(f);
+  for (const f of t.shacl?.background ?? []) if (f.startsWith("vendor/")) used.add(f);
+  for (const f of fixturesOf(t)) if (f.file.startsWith(vendorDir)) used.add(f.file);
+  for (const fx of t.fixtures) if ("expectations" in fx) used.add(fx.expectations);
   const bad: string[] = [];
   for (const f of [...used].sort()) {
-    const want = sums.get(f);
+    let dir = f.replace(/\/[^/]+$/, "");
+    while (dir.includes("/") && !existsSync(join(ROOT, dir, "MANIFEST.json"))) dir = dir.replace(/\/[^/]+$/, "");
+    const manifestFile = join(dir, "MANIFEST.json");
+    if (!existsSync(join(ROOT, manifestFile))) {
+      bad.push(`${f}: no MANIFEST.json above it`);
+      continue;
+    }
+    const m = JSON.parse(readFileSync(join(ROOT, manifestFile), "utf8")) as Manifest;
+    const want = m.files.find((x) => join(dir, x.path) === f)?.sha256;
     if (!want) {
-      bad.push(`${f}: not in ${t.manifest}`);
+      bad.push(`${f}: not in ${manifestFile}`);
       continue;
     }
     const got = createHash("sha256").update(readFileSync(join(ROOT, f))).digest("hex");
-    if (got !== want) bad.push(`${f}: SHA-256 ${got} differs from the manifest`);
+    if (got !== want) bad.push(`${f}: SHA-256 ${got} differs from ${manifestFile}`);
   }
   return bad;
 }
 
 /** Every JSON Schema of the release that a $ref may name by its $id. */
 export function referencedSchemaFiles(t: Target): string[] {
-  const dir = t.json?.referencedSchemas;
-  if (!dir) return [];
-  return globSync(`${dir}/**/*.schema.json`, { cwd: ROOT }).sort();
+  const entries = ([] as string[]).concat(t.json?.referencedSchemas ?? []);
+  return entries.flatMap((e) => (e.endsWith(".json") ? [e] : globSync(`${e}/**/*.schema.json`, { cwd: ROOT }))).sort();
 }
 
 /** The release's provenance in one line, for labels, headers and the report. */
 export function provenance(t: Target): string {
   const m = t.manifestData;
-  const pin = m.commit ? `commit ${m.commit.slice(0, 8)}` : m.archiveSha256 ? `archive sha256 ${m.archiveSha256.slice(0, 12)}` : "unpinned";
-  return `${t.publisher}, ${t.title} ${t.version} (${pin}, ${m.repository ?? m.source ?? ""})`;
+  const pin = m.commit
+    ? `commit ${m.commit.slice(0, 8)}`
+    : m.archiveSha256
+      ? `archive sha256 ${m.archiveSha256.slice(0, 12)}`
+      : m.retrieved
+        ? `retrieved ${m.retrieved}, SHA-256 per file`
+        : "unpinned";
+  return `${t.publisher}, ${t.title} ${t.version}${draft(t)} (${pin}, ${m.repository ?? m.source ?? ""})`;
 }
 
 /** The fixtures of a target with the types each is a document of. */
 export function fixturesOf(t: Target): Fixture[] {
   const out: Fixture[] = [];
   for (const f of t.fixtures) {
-    for (const file of globSync(f.glob, { cwd: ROOT }).sort()) {
+    const listed: { file: string; expect: "valid" | "invalid" }[] =
+      "expectations" in f
+        ? (JSON.parse(readFileSync(join(ROOT, f.expectations), "utf8")).scenarios as { fixture_path: string; expected_conforms: boolean }[])
+            .map((sc) => ({ file: join(f.base, sc.fixture_path), expect: sc.expected_conforms ? ("valid" as const) : ("invalid" as const) }))
+            .sort((a, b) => a.file.localeCompare(b.file))
+        : globSync(f.glob, { cwd: ROOT }).sort().map((file) => ({ file, expect: f.expect ?? ("valid" as const) }));
+    for (const { file, expect } of listed) {
       const ex = t.exclude?.find((x) => x.file === file);
       if (ex && !ex.only) continue;
-      const doc = JSON.parse(readFileSync(join(ROOT, file), "utf8"));
+      const doc = readDocument(file);
+      const scoped = f.scopes?.map((sc) => typeId(t, sc));
       // A crosswalk case that starts from the target's document holds it next to the lifted one.
       const roundtrip = f.role === "openepcis" && /\/lifted\.[^/]+\.json$/.test(file) &&
         existsSync(join(ROOT, file.replace(/lifted\.([^/]+)\.json$/, "$1.json")));
       out.push({
         file,
         role: roundtrip ? "roundtrip" : f.role,
-        types: typesForDocument(t, doc, file).map((ty) => ty.id),
+        types: scoped ?? typesForDocument(t, doc, file).map((ty) => ty.id),
+        expect,
         ...(ex?.only === "shacl" ? { noShacl: ex.reason } : {}),
       });
     }
@@ -242,14 +304,18 @@ export function fixturesOf(t: Target): Fixture[] {
 
 /** The types a document belongs to: its content specifications and view, or its category. */
 export function typesForDocument(t: Target, doc: Record<string, unknown>, file = ""): TargetType[] {
-  if (t.types.length && !t.chains && !t.categories) return t.types;
+  if (t.types.length && !t.chains && !t.categories) {
+    const declared = ([] as unknown[]).concat(doc.type ?? doc["@type"] ?? []).map(String);
+    return t.types.filter((ty) => !ty.typeIncludes || declared.includes(ty.typeIncludes));
+  }
   const cats = t.types.filter((ty) => ty.category);
   if (cats.length) {
-    const p = t.profileData as Profile & { json?: { schemaBy?: { path: string } } };
+    const p = (t.profileData ?? {}) as Profile & { json?: { schemaBy?: { path: string } } };
     const path = p.json?.schemaBy?.path ?? "";
     const category = path.split(".").reduce<unknown>((o, k) => (o as Record<string, unknown>)?.[k], doc);
     return cats.filter((ty) => ty.category === category);
   }
+  if (!t.profileData) return [];
   const specs = new Set(specsOf(t.profileData, doc));
   const view = viewOfName(file);
   // The most specific chain whose specifications the document declares, every view unless the
@@ -259,13 +325,27 @@ export function typesForDocument(t: Target, doc: Record<string, unknown>, file =
   return chains.filter((ty) => ty.specs!.length === longest && (!view || !ty.view || ty.view === view));
 }
 
+type AnyAjv = InstanceType<typeof Ajv2020> | InstanceType<typeof AjvDraft04>;
 const ajvByTarget = new Map<string, InstanceType<typeof Ajv2020>>();
+const draft04ByTarget = new Map<string, InstanceType<typeof AjvDraft04>>();
+
+/** JSON Schema draft-04 (SAMM generators) reads exclusiveMinimum and id differently: its own dialect. */
+function draft04For(t: Target): InstanceType<typeof AjvDraft04> {
+  let ajv = draft04ByTarget.get(t.dir);
+  if (ajv) return ajv;
+  ajv = new AjvDraft04({ strict: false, allErrors: true });
+  addFormats(ajv as never);
+  draft04ByTarget.set(t.dir, ajv);
+  return ajv;
+}
 
 function ajvFor(t: Target): InstanceType<typeof Ajv2020> {
   let ajv = ajvByTarget.get(t.dir);
   if (ajv) return ajv;
   ajv = new Ajv2020({ strict: false, allErrors: true });
   addFormats(ajv);
+  // GS1 EPCIS states draft-07; draft-07 keywords are a subset ajv's 2020 vocabulary evaluates alike.
+  ajv.addMetaSchema(JSON.parse(readFileSync(join(ROOT, "node_modules/ajv/dist/refs/json-schema-draft-07.json"), "utf8")));
   for (const f of referencedSchemaFiles(t)) {
     const schema = JSON.parse(readFileSync(join(ROOT, f), "utf8"));
     if (schema.$id && !ajv.getSchema(schema.$id)) ajv.addSchema(schema);
@@ -274,15 +354,16 @@ function ajvFor(t: Target): InstanceType<typeof Ajv2020> {
   return ajv;
 }
 
-const compiled = new Map<string, ReturnType<InstanceType<typeof Ajv2020>["compile"]>>();
+const compiled = new Map<string, ReturnType<AnyAjv["compile"]>>();
 
 /** JSON Schema findings of a document for one type: a missing property apart from any other error. */
 export function jsonFindings(t: Target, type: TargetType, doc: unknown): TargetFindings {
-  const ajv = ajvFor(t);
+  if (doc && typeof doc === "object" && TURTLE in doc) return { form: [], missing: [] };
   const form: string[] = [];
   const missing: string[] = [];
   for (const file of type.schemas) {
-    const schema = JSON.parse(readFileSync(join(ROOT, file), "utf8"));
+    const schema = JSON.parse(readText(file));
+    const ajv: AnyAjv = /draft-04/.test(String(schema.$schema ?? "")) ? draft04For(t) : ajvFor(t);
     let validate = schema.$id ? ajv.getSchema(schema.$id) : compiled.get(file);
     if (!validate) {
       validate = ajv.compile(schema);
@@ -322,7 +403,54 @@ export async function shapeFindings(t: Target, type: TargetType, quads: Quad[]):
     registerShapeText(f, await jsonldFileToNTriples(t, f));
     converted.add(f);
   }
-  return shaclFindings(type.shapes, quads, nt);
+  // Shapes that declare sh:entailment RDFS are evaluated over the RDFS closure of data plus
+  // background, as Jena (the Test Bed) does; rdf-validate-shacl has no entailment of its own.
+  const rdfs = type.shapes.some((f) => !f.endsWith(".jsonld") && /sh:entailment\s+<http:\/\/www\.w3\.org\/ns\/entailment\/RDFS>/.test(readText(f)));
+  return shaclFindings(type.shapes, rdfs ? rdfsClosure(quads, nt) : quads, nt);
+}
+
+/**
+ * The RDFS entailments a SHACL processor applies under sh:entailment RDFS that matter for
+ * validation: rdfs:subPropertyOf (rdfs7), rdfs:domain / rdfs:range typing (rdfs2, rdfs3) and
+ * rdfs:subClassOf typing (rdfs9), over the data and the background ontology, to a fixpoint.
+ * Only the data's own triples and what they entail are returned (the background is merged later).
+ */
+function rdfsClosure(quads: Quad[], backgroundNt: string): Quad[] {
+  const store = new ox.Store();
+  const w = new Writer({ format: "application/n-triples" });
+  store.load(quads.map((q) => w.quadToString(q.subject, q.predicate, q.object)).join(""), { format: "application/n-triples" });
+  const bg = new ox.Store();
+  if (backgroundNt) bg.load(backgroundNt, { format: "application/n-triples" });
+  const RDFS = "http://www.w3.org/2000/01/rdf-schema#";
+  const sub = (p: string) => new Map<string, string[]>(
+    (bg.query(`SELECT ?a ?b WHERE { ?a <${RDFS}${p}>+ ?b . FILTER(isIRI(?a) && isIRI(?b)) }`) as Map<string, ox.Term>[]).reduce((m, r) => {
+      const a = r.get("a")!.value;
+      m.set(a, [...(m.get(a) ?? []), r.get("b")!.value]);
+      return m;
+    }, new Map<string, string[]>()),
+  );
+  const superProps = sub("subPropertyOf");
+  const superClasses = sub("subClassOf");
+  const one = (p: string) => new Map((bg.query(`SELECT ?a ?b WHERE { ?a <${RDFS}${p}> ?b . FILTER(isIRI(?b)) }`) as Map<string, ox.Term>[]).map((r) => [r.get("a")!.value, r.get("b")!.value]));
+  const domain = one("domain");
+  const range = one("range");
+  const add = (s: ox.Term, p: string, o: ox.Term) => {
+    const q = ox.quad(s as ox.NamedNode, ox.namedNode(p), o as ox.NamedNode);
+    if (store.has(q)) return false;
+    store.add(q);
+    return true;
+  };
+  for (let changed = true; changed; ) {
+    changed = false;
+    for (const q of store.match(null, null, null, null)) {
+      const p = q.predicate.value;
+      for (const sp of superProps.get(p) ?? []) changed = add(q.subject, sp, q.object) || changed;
+      if (domain.has(p)) changed = add(q.subject, RDF_TYPE, ox.namedNode(domain.get(p)!)) || changed;
+      if (range.has(p) && q.object.termType !== "Literal") changed = add(q.object, RDF_TYPE, ox.namedNode(range.get(p)!)) || changed;
+      if (p === RDF_TYPE) for (const c of superClasses.get(q.object.value) ?? []) changed = add(q.subject, RDF_TYPE, ox.namedNode(c)) || changed;
+    }
+  }
+  return new Parser({ format: "application/n-quads" }).parse(store.dump({ format: "application/n-quads" }));
 }
 
 const converted = new Set<string>();
@@ -346,14 +474,19 @@ async function loaderFor(t: Target) {
   return async (url: string) => {
     const hit = prefixes.find(([p]) => url.startsWith(p));
     if (!hit) return fallback(url);
-    const file = join(ROOT, hit[1], url.slice(hit[0].length));
+    // A prefix maps onto a directory; a whole URL maps onto one file.
+    const file = join(ROOT, hit[1], hit[1].endsWith(".jsonld") ? "" : url.slice(hit[0].length));
     return { contextUrl: undefined, documentUrl: url, document: JSON.parse(readFileSync(file, "utf8")) };
   };
 }
 
 /** A target document (the model's own JSON, no @context) as RDF, the way the crosswalk reads it. */
 export async function documentQuads(t: Target, doc: Record<string, unknown>): Promise<Quad[]> {
-  if (!t.jsonld) return theirJsonToQuads(t.profileData, doc);
+  if (typeof doc[TURTLE] === "string") return new Parser({ format: "text/turtle" }).parse(doc[TURTLE] as string);
+  if (!t.jsonld) {
+    if (!t.profileData) throw new Error(`${t.id} ${t.version} reads no RDF from JSON`);
+    return theirJsonToQuads(t.profileData, doc);
+  }
   if (!doc["@context"]) throw new Error("no @context");
   const nq = (await jsonld.toRDF(doc as never, { format: "application/n-quads", documentLoader: (await loaderFor(t)) as never })) as unknown as string;
   return new Parser({ format: "application/n-quads" }).parse(nq);
@@ -406,7 +539,7 @@ const RDF_TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
 
 /** The class every document of the target is an instance of (the profile's JSON root type). */
 export function rootType(t: Target): string | undefined {
-  return t.rootType ?? (t.profileData as Profile & { json?: { rootType?: string } }).json?.rootType;
+  return t.rootType ?? (t.profileData as (Profile & { json?: { rootType?: string } }) | undefined)?.json?.rootType;
 }
 
 /**

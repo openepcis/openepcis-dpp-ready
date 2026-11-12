@@ -1,0 +1,242 @@
+{
+  "@context": {
+    "dpp": "https://w3id.org/eudpp#",
+    "bat": "https://w3id.org/eudpp/battery#",
+    "batperf": "https://w3id.org/eudpp/battery-performance#",
+    "batmat": "https://w3id.org/eudpp/battery-materials#",
+    "batlab": "https://w3id.org/eudpp/battery-labeling#",
+    "batcat": "https://w3id.org/eudpp/battery-categories#",
+    "batchem": "https://w3id.org/eudpp/battery-chemistries#",
+    "batmet": "https://w3id.org/eudpp/battery-metals#",
+    "batext": "https://w3id.org/eudpp/battery-extinguisher-classes#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "si": "https://si-digital-framework.org/SI#"
+  },
+  "@id": "https://example.org/dpp/battery/DEMO-LFP-200",
+  "@type": "bat:Battery",
+  "dpp:hasUniqueProductIdentifier": [
+    {
+      "@id": "urn:epc:id:sgtin:9520000.000200.DEMO-0001"
+    },
+    {
+      "@id": "https://id.gs1.org/01/09520000002008"
+    },
+    {
+      "@id": "urn:example:serial:DEMO-0001"
+    }
+  ],
+  "dpp:hasDPP": {
+    "@id": "https://example.org/dpp/battery/DEMO-LFP-200#dpp",
+    "@type": "dpp:DPP",
+    "dpp:hasDigitalProductPassportId": {
+      "@id": "urn:example:passport:DEMO-LFP-200"
+    },
+    "dpp:dppStatus": "Active",
+    "dpp:dppSchemaVersion": "prEN18223:v1.0",
+    "dpp:granularity": "item",
+    "dpp:lastUpdate": {
+      "@type": "xsd:dateTimeStamp",
+      "@value": "2026-09-03T10:15:00Z"
+    }
+  },
+  "dpp:hasEconomicOperator": {
+    "@id": "urn:example:operator:demo-distributor",
+    "@type": "dpp:EconomicOperator"
+  },
+  "dpp:hasManufacturer": {
+    "@id": "urn:example:manufacturer:demo-cells",
+    "@type": "dpp:Manufacturer"
+  },
+  "dpp:usesFacility": {
+    "@id": "urn:gln:9520000000011",
+    "@type": "dpp:Facility"
+  },
+  "dpp:manufacturingDate": {
+    "@type": "xsd:date",
+    "@value": "2026-06-01"
+  },
+  "bat:warrantyPeriod": {
+    "@type": "xsd:duration",
+    "@value": "P24M"
+  },
+  "dpp:hasProductGroup": {
+    "@id": "batcat:IndustrialBattery"
+  },
+  "dpp:hasProperty": [
+    {
+      "@type": "dpp:Weight",
+      "dpp:numericalValue": {
+        "@type": "xsd:decimal",
+        "@value": "20.0"
+      },
+      "dpp:hasMeasurementUnit": {
+        "@id": "si:kilogram"
+      }
+    },
+    {
+      "@type": "dpp:CarbonFootprint",
+      "dpp:numericalValue": {
+        "@type": "xsd:decimal",
+        "@value": "150"
+      },
+      "dpp:hasMeasurementUnit": {
+        "@id": "si:kilogram"
+      }
+    },
+    {
+      "@type": "dpp:SustainableRenewableMaterialsUse",
+      "dpp:numericalValue": {
+        "@type": "xsd:decimal",
+        "@value": "0"
+      },
+      "dpp:hasMeasurementUnit": {
+        "@id": "si:percent"
+      }
+    }
+  ],
+  "batlab:hasBatteryLabel": {
+    "@type": "batlab:BatteryLabel",
+    "batlab:separateCollectionSymbol": {
+      "@type": "xsd:anyURI",
+      "@value": "https://example.org/symbols/separate-collection.svg"
+    },
+    "batlab:cadmiumSymbol": {
+      "@type": "xsd:anyURI",
+      "@value": "https://example.org/symbols/separate-collection.svg"
+    },
+    "batlab:extinguishingAgent": {
+      "@id": "batext:ClassD"
+    }
+  },
+  "dpp:hasEUDeclarationOfConformity": {
+    "@id": "https://example.org/doc/demo-lfp-200-declaration-of-conformity.pdf"
+  },
+  "batmat:hasBatteryChemistry": {
+    "@id": "batchem:LFP"
+  },
+  "dpp:hasMaterial": [
+    {
+      "@type": "dpp:Material",
+      "dpp:hasMaterialType": {
+        "@id": "batmet:Lithium"
+      },
+      "dpp:isCriticalRawMaterial": true,
+      "dpp:materialRecycledContent": {
+        "@type": "xsd:decimal",
+        "@value": "5"
+      }
+    },
+    {
+      "@type": "dpp:Material",
+      "dpp:hasMaterialType": {
+        "@id": "batmet:Cobalt"
+      },
+      "dpp:isCriticalRawMaterial": true,
+      "dpp:materialRecycledContent": {
+        "@type": "xsd:decimal",
+        "@value": "0"
+      }
+    },
+    {
+      "@type": "dpp:Material",
+      "dpp:hasMaterialType": {
+        "@id": "batmet:Nickel"
+      },
+      "dpp:isCriticalRawMaterial": true,
+      "dpp:materialRecycledContent": {
+        "@type": "xsd:decimal",
+        "@value": "0"
+      }
+    },
+    {
+      "@type": "dpp:Material",
+      "dpp:hasMaterialType": {
+        "@id": "batmet:Lead"
+      },
+      "dpp:isCriticalRawMaterial": false,
+      "dpp:materialRecycledContent": {
+        "@type": "xsd:decimal",
+        "@value": "0"
+      }
+    }
+  ],
+  "dpp:containsSubstanceOfConcern": {
+    "@id": "urn:example:soc:lipf6",
+    "@type": "dpp:SubstanceOfConcern",
+    "dpp:hasImpactOnEnvironment": "Lithium hexafluorophosphate electrolyte salt; see safety data sheet."
+  },
+  "batperf:hasBatteryPerformance": {
+    "@type": "batperf:BatteryPerformance",
+    "batperf:ratedCapacity": {
+      "@type": "xsd:decimal",
+      "@value": "200"
+    },
+    "batperf:certifiedUsableBatteryEnergy": {
+      "@type": "xsd:decimal",
+      "@value": "2560"
+    },
+    "batperf:minimumVoltage": {
+      "@type": "xsd:decimal",
+      "@value": "10.0"
+    },
+    "batperf:maximumVoltage": {
+      "@type": "xsd:decimal",
+      "@value": "14.6"
+    },
+    "batperf:nominalVoltage": {
+      "@type": "xsd:decimal",
+      "@value": "12.8"
+    },
+    "batperf:originalPowerCapability": {
+      "@type": "xsd:decimal",
+      "@value": "2560"
+    },
+    "batperf:maximumPermittedBatteryPower": {
+      "@type": "xsd:decimal",
+      "@value": "2560"
+    },
+    "batperf:powerToEnergyRatio": {
+      "@type": "xsd:decimal",
+      "@value": "1"
+    },
+    "batperf:initialRoundTripEnergyEfficiency": {
+      "@type": "xsd:decimal",
+      "@value": "96"
+    },
+    "batperf:roundTripEnergyEfficiencyAt50PercentCycleLife": {
+      "@type": "xsd:decimal",
+      "@value": "94"
+    },
+    "batperf:initialInternalResistance": {
+      "@type": "xsd:decimal",
+      "@value": "0.02"
+    },
+    "batperf:cycleLifeReferenceTest": "IEC 61960",
+    "batperf:cRateOfCycleLifeTest": {
+      "@type": "xsd:decimal",
+      "@value": "0.5"
+    }
+  },
+  "batperf:hasBatteryDurability": {
+    "@type": "batperf:BatteryDurability",
+    "batperf:expectedLifetimeCycles": {
+      "@type": "xsd:integer",
+      "@value": "3500"
+    },
+    "batperf:capacityThresholdForExhaustion": {
+      "@type": "xsd:decimal",
+      "@value": "80"
+    }
+  },
+  "batperf:hasTemperatureExposure": {
+    "@type": "batperf:TemperatureExposure",
+    "batperf:temperatureRangeIdleStateLowerBoundary": {
+      "@type": "xsd:decimal",
+      "@value": "-20"
+    },
+    "batperf:temperatureRangeIdleStateUpperBoundary": {
+      "@type": "xsd:decimal",
+      "@value": "60"
+    }
+  }
+}

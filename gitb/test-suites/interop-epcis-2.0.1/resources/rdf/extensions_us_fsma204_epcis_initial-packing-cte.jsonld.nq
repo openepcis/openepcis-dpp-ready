@@ -1,0 +1,111 @@
+<urn:epcglobal:cbv:bt:0860009999992:861-20260417-001> <https://ref.gs1.org/epcis/bizTransactionType> <https://ref.gs1.org/cbv/BTT-recadv> .
+<urn:epcglobal:cbv:bt:0860009999992:PACK-20260418-042> <https://ref.gs1.org/epcis/bizTransactionType> <https://ref.gs1.org/cbv/BTT-prodorder> .
+_:b241_b0 <http://purl.org/dc/terms/created> "2026-04-18T17:02:27.452Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+_:b241_b0 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://ref.gs1.org/epcis/EPCISDocument> .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "         and 'quantity received' KDE (quantityList)." .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "  TransformationEvent, bizStep=creating_class_instance, disposition=active." .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "  bizTransactionList = reference document type + number KDEs." .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "  eventTime = date of initial packing KDE." .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "  inputQuantityList.epcClass = upstream TLC of the raw commodity." .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "  outputQuantityList.epcClass = NEW TLC assigned by the packer (GTIN+Batch/Lot of the case)." .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "  readPoint + bizLocation = TLC source location KDE." .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "" .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "Event 3: Receive at packer (ObjectEvent / receiving / in_progress). Records 'date received' KDE (eventTime)" .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "Event 6: Initial Packing itself:" .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "Events 1-2: Harvest (creating_class_instance) + Transport (transporting); see harvest-cte.jsonld." .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "Events 4-5: Cooling (other) + Transport, optional intermediate cooling step before packing." .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "GS1 US requires the packer to persist upstream Harvest and Cooling KDEs alongside its own pack event," .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "Initial Packing CTE per GS1 US 'EPCIS Recommendations for FSMA 204 CTEs' R2.0, §4." .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "NO usfsma: extension fields ride inside the event." .
+_:b241_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "so this document carries all five events end-to-end: harvest → transport → receive → cool → transport → pack." .
+_:b241_b0 <http://www.w3.org/2002/07/owl#versionInfo> "2.0" .
+_:b241_b0 <https://ref.gs1.org/epcis/epcisBody> _:b241_b1 .
+_:b241_b1 <https://ref.gs1.org/epcis/eventList> _:b241_b12 .
+_:b241_b1 <https://ref.gs1.org/epcis/eventList> _:b241_b16 .
+_:b241_b1 <https://ref.gs1.org/epcis/eventList> _:b241_b2 .
+_:b241_b1 <https://ref.gs1.org/epcis/eventList> _:b241_b4 .
+_:b241_b1 <https://ref.gs1.org/epcis/eventList> _:b241_b8 .
+_:b241_b10 <https://ref.gs1.org/epcis/epcClass> <https://id.gs1.org/01/00860009999923/10/ABC1234> .
+_:b241_b10 <https://ref.gs1.org/epcis/quantity> "2.5E4"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:b241_b10 <https://ref.gs1.org/epcis/uom> "LBR" .
+_:b241_b11 <https://ref.gs1.org/epcis/sourceOrDestination> <https://id.gs1.org/414/0860009999060> .
+_:b241_b11 <https://ref.gs1.org/epcis/sourceOrDestinationType> <https://ref.gs1.org/cbv/SDT-location> .
+_:b241_b12 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://ref.gs1.org/epcis/ObjectEvent> .
+_:b241_b12 <https://ref.gs1.org/epcis/action> "OBSERVE" .
+_:b241_b12 <https://ref.gs1.org/epcis/bizLocation> <https://id.gs1.org/414/0860009999992> .
+_:b241_b12 <https://ref.gs1.org/epcis/bizStep> <https://ref.gs1.org/cbv/BizStep-other> .
+_:b241_b12 <https://ref.gs1.org/epcis/disposition> <https://ref.gs1.org/cbv/Disp-in_progress> .
+_:b241_b12 <https://ref.gs1.org/epcis/eventTime> "2026-04-17T17:30:00-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTimeStamp> .
+_:b241_b12 <https://ref.gs1.org/epcis/eventTimeZoneOffset> "-04:00" .
+_:b241_b12 <https://ref.gs1.org/epcis/quantityList> _:b241_b13 .
+_:b241_b12 <https://ref.gs1.org/epcis/readPoint> <https://id.gs1.org/414/0860009999992> .
+_:b241_b12 <https://ref.gs1.org/epcis/sensorElementList> _:b241_b14 .
+_:b241_b13 <https://ref.gs1.org/epcis/epcClass> <https://id.gs1.org/01/00860009999923/10/ABC1234> .
+_:b241_b13 <https://ref.gs1.org/epcis/quantity> "2.5E4"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:b241_b13 <https://ref.gs1.org/epcis/uom> "LBR" .
+_:b241_b14 <https://ref.gs1.org/epcis/sensorReport> _:b241_b15 .
+_:b241_b15 <https://ref.gs1.org/epcis/deviceID> <https://id.gs1.org/8004/086000999999200001> .
+_:b241_b15 <https://ref.gs1.org/epcis/measurementType> <https://ref.gs1.org/voc/Temperature> .
+_:b241_b15 <https://ref.gs1.org/epcis/uom> "FAH" .
+_:b241_b15 <https://ref.gs1.org/epcis/value> "3.6E1"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:b241_b16 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://ref.gs1.org/epcis/TransformationEvent> .
+_:b241_b16 <https://ref.gs1.org/epcis/bizLocation> <https://id.gs1.org/414/0860009999992> .
+_:b241_b16 <https://ref.gs1.org/epcis/bizStep> <https://ref.gs1.org/cbv/BizStep-creating_class_instance> .
+_:b241_b16 <https://ref.gs1.org/epcis/bizTransactionList> <urn:epcglobal:cbv:bt:0860009999992:PACK-20260418-042> .
+_:b241_b16 <https://ref.gs1.org/epcis/disposition> <https://ref.gs1.org/cbv/Disp-active> .
+_:b241_b16 <https://ref.gs1.org/epcis/eventTime> "2026-04-18T10:26:42-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTimeStamp> .
+_:b241_b16 <https://ref.gs1.org/epcis/eventTimeZoneOffset> "-04:00" .
+_:b241_b16 <https://ref.gs1.org/epcis/inputQuantityList> _:b241_b17 .
+_:b241_b16 <https://ref.gs1.org/epcis/outputQuantityList> _:b241_b18 .
+_:b241_b16 <https://ref.gs1.org/epcis/readPoint> <https://id.gs1.org/414/0860009999992> .
+_:b241_b16 <https://ref.gs1.org/epcis/recordTime> "2026-04-18T10:26:42-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTimeStamp> .
+_:b241_b17 <https://ref.gs1.org/epcis/epcClass> <https://id.gs1.org/01/00860009999923/10/ABC1234> .
+_:b241_b17 <https://ref.gs1.org/epcis/quantity> "2.5E4"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:b241_b17 <https://ref.gs1.org/epcis/uom> "LBR" .
+_:b241_b18 <https://ref.gs1.org/epcis/epcClass> <https://id.gs1.org/01/10860009999920/10/ABC1234> .
+_:b241_b18 <https://ref.gs1.org/epcis/quantity> "5.0E2"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:b241_b18 <https://ref.gs1.org/epcis/uom> "CS" .
+_:b241_b2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://ref.gs1.org/epcis/ObjectEvent> .
+_:b241_b2 <https://ref.gs1.org/epcis/action> "ADD" .
+_:b241_b2 <https://ref.gs1.org/epcis/bizLocation> <https://id.gs1.org/414/0860009999060> .
+_:b241_b2 <https://ref.gs1.org/epcis/bizStep> <https://ref.gs1.org/cbv/BizStep-creating_class_instance> .
+_:b241_b2 <https://ref.gs1.org/epcis/disposition> <https://ref.gs1.org/cbv/Disp-active> .
+_:b241_b2 <https://ref.gs1.org/epcis/eventTime> "2026-04-17T09:26:42-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTimeStamp> .
+_:b241_b2 <https://ref.gs1.org/epcis/eventTimeZoneOffset> "-04:00" .
+_:b241_b2 <https://ref.gs1.org/epcis/quantityList> _:b241_b3 .
+_:b241_b2 <https://ref.gs1.org/epcis/readPoint> <https://id.gs1.org/414/0860009999060> .
+_:b241_b2 <https://ref.gs1.org/epcis/recordTime> "2026-04-17T09:26:42-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTimeStamp> .
+_:b241_b3 <https://ref.gs1.org/epcis/epcClass> <https://id.gs1.org/01/00860009999923/10/ABC1234> .
+_:b241_b3 <https://ref.gs1.org/epcis/quantity> "2.5E4"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:b241_b3 <https://ref.gs1.org/epcis/uom> "LBR" .
+_:b241_b4 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://ref.gs1.org/epcis/ObjectEvent> .
+_:b241_b4 <https://ref.gs1.org/epcis/action> "OBSERVE" .
+_:b241_b4 <https://ref.gs1.org/epcis/bizStep> <https://ref.gs1.org/cbv/BizStep-transporting> .
+_:b241_b4 <https://ref.gs1.org/epcis/destinationList> _:b241_b5 .
+_:b241_b4 <https://ref.gs1.org/epcis/disposition> <https://ref.gs1.org/cbv/Disp-in_transit> .
+_:b241_b4 <https://ref.gs1.org/epcis/eventTime> "2026-04-17T11:26:42-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTimeStamp> .
+_:b241_b4 <https://ref.gs1.org/epcis/eventTimeZoneOffset> "-04:00" .
+_:b241_b4 <https://ref.gs1.org/epcis/quantityList> _:b241_b6 .
+_:b241_b4 <https://ref.gs1.org/epcis/readPoint> <https://id.gs1.org/414/0860009999060> .
+_:b241_b4 <https://ref.gs1.org/epcis/recordTime> "2026-04-17T11:26:42-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTimeStamp> .
+_:b241_b4 <https://ref.gs1.org/epcis/sourceList> _:b241_b7 .
+_:b241_b5 <https://ref.gs1.org/epcis/sourceOrDestination> <https://id.gs1.org/414/0860009999992> .
+_:b241_b5 <https://ref.gs1.org/epcis/sourceOrDestinationType> <https://ref.gs1.org/cbv/SDT-location> .
+_:b241_b6 <https://ref.gs1.org/epcis/epcClass> <https://id.gs1.org/01/00860009999923/10/ABC1234> .
+_:b241_b6 <https://ref.gs1.org/epcis/quantity> "2.5E4"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:b241_b6 <https://ref.gs1.org/epcis/uom> "LBR" .
+_:b241_b7 <https://ref.gs1.org/epcis/sourceOrDestination> <https://id.gs1.org/417/0860009999060> .
+_:b241_b7 <https://ref.gs1.org/epcis/sourceOrDestinationType> <https://ref.gs1.org/cbv/SDT-owning_party> .
+_:b241_b8 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://ref.gs1.org/epcis/ObjectEvent> .
+_:b241_b8 <https://ref.gs1.org/epcis/action> "OBSERVE" .
+_:b241_b8 <https://ref.gs1.org/epcis/bizStep> <https://ref.gs1.org/cbv/BizStep-receiving> .
+_:b241_b8 <https://ref.gs1.org/epcis/bizTransactionList> <urn:epcglobal:cbv:bt:0860009999992:861-20260417-001> .
+_:b241_b8 <https://ref.gs1.org/epcis/destinationList> _:b241_b9 .
+_:b241_b8 <https://ref.gs1.org/epcis/disposition> <https://ref.gs1.org/cbv/Disp-in_progress> .
+_:b241_b8 <https://ref.gs1.org/epcis/eventTime> "2026-04-17T16:00:00-04:00"^^<http://www.w3.org/2001/XMLSchema#dateTimeStamp> .
+_:b241_b8 <https://ref.gs1.org/epcis/eventTimeZoneOffset> "-04:00" .
+_:b241_b8 <https://ref.gs1.org/epcis/quantityList> _:b241_b10 .
+_:b241_b8 <https://ref.gs1.org/epcis/readPoint> <https://id.gs1.org/414/0860009999992> .
+_:b241_b8 <https://ref.gs1.org/epcis/sourceList> _:b241_b11 .
+_:b241_b9 <https://ref.gs1.org/epcis/sourceOrDestination> <https://id.gs1.org/414/0860009999992> .
+_:b241_b9 <https://ref.gs1.org/epcis/sourceOrDestinationType> <https://ref.gs1.org/cbv/SDT-location> .

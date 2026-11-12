@@ -19,7 +19,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { VALIDATOR_DOMAIN } from "./lib/gitb.ts";
 import { ROOT } from "./lib/modules.ts";
-import { GARBAGE, fixturesOf, jsonFindings, loadTargets } from "./lib/targets.ts";
+import { GARBAGE, fixturesOf, jsonFindings, loadTargets, readDocument, TURTLE } from "./lib/targets.ts";
 
 const args = process.argv.slice(2);
 const VERBOSE = args.includes("--verbose");
@@ -66,7 +66,8 @@ async function main() {
       }
     }
     for (const f of fixturesOf(target)) {
-      const doc = JSON.parse(await fs.readFile(path.join(ROOT, f.file), "utf8"));
+      const doc = readDocument(f.file);
+      if (TURTLE in doc) continue;
       for (const id of f.types) {
         const type = types.find((t) => t.id === id);
         if (!type) continue;

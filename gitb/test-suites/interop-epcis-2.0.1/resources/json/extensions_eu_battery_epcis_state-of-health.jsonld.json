@@ -1,0 +1,125 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "rdfs:comment": [
+    "State of Health measurement event with detailed sensor diagnostics.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "gs1:masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
+    "",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,eubat=https://ref.openepcis.org/extensions/eu/battery/",
+    "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "schemaVersion": "2.0",
+  "creationDate": "2025-06-15T09:30:00.000Z",
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:550e8400-e29b-41d4-a716-446655440003",
+        "eventTime": "2025-06-15T09:30:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "OBSERVE",
+        "bizStep": "inspecting",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000013/21/BAT2024-001"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521987000018"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521987000018"
+        },
+        "gs1:masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
+            "type": "Product",
+            "regulatoryInformation": [
+              {
+                "type": "RegulatoryInformation",
+                "regulationType": {
+                  "id": "gs1:RegulationTypeCode-BATTERY_DIRECTIVE"
+                },
+                "regulatoryAct": "EU 2023/1542"
+              }
+            ]
+          }
+        ],
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "time": "2025-06-15T09:30:00.000Z",
+              "deviceID": "https://id.gs1.org/8004/9521987BMS-001",
+              "deviceMetadata": "https://bms-vendor.example.com/devices/BMS-3000"
+            },
+            "sensorReport": [
+              {
+                "type": "eubat:StateOfHealth",
+                "value": 94.2,
+                "uom": "P1",
+                "dataProcessingMethod": "https://www.iec.ch/standards/iec-62660-1"
+              },
+              {
+                "type": "eubat:StateOfCharge",
+                "value": 78.5,
+                "uom": "P1"
+              },
+              {
+                "type": "eubat:RemainingCapacity",
+                "value": 263.8,
+                "uom": "AMH"
+              },
+              {
+                "type": "eubat:RemainingUsableEnergy",
+                "value": 13.5,
+                "uom": "KWH"
+              },
+              {
+                "type": "eubat:FullCycleCount",
+                "value": 847,
+                "uom": "C62"
+              },
+              {
+                "type": "eubat:CapacityFade",
+                "value": 5.8,
+                "uom": "P1"
+              },
+              {
+                "type": "eubat:InternalResistance",
+                "value": 2.4,
+                "uom": "OHM",
+                "eubat:hasComponentLocation": {
+                  "@id": "eubat:Casing"
+                }
+              },
+              {
+                "type": "eubat:EnergyThroughput",
+                "value": 12108,
+                "uom": "KWH"
+              }
+            ]
+          },
+          {
+            "sensorMetadata": {
+              "time": "2025-06-15T09:30:00.000Z",
+              "deviceID": "https://id.gs1.org/8004/9521987BMS-001",
+              "deviceMetadata": "https://bms-vendor.example.com/devices/BMS-3000"
+            },
+            "sensorReport": [
+              {
+                "type": "Temperature",
+                "value": 28.3,
+                "uom": "CEL"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

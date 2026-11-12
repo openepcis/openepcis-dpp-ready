@@ -1,0 +1,73 @@
+{
+  "type": [
+    "DigitalIdentityAnchor",
+    "RecognizedEntityCredential",
+    "VerifiableCredential"
+  ],
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://vocabulary.uncefact.org/untp/0.8.0/context/"
+  ],
+  "id": "https://credentials.sample-business-register.example.com/dia/BR-12345678",
+  "issuer": {
+    "type": [
+      "Party"
+    ],
+    "id": "did:web:sample-business-register.example.com",
+    "name": "Sample Business Register"
+  },
+  "validFrom": "2024-03-15T12:00:00Z",
+  "validUntil": "2034-03-15T12:00:00Z",
+  "name": "Business registration",
+  "credentialStatus": {
+    "id": "https://example-cab.com/credentials/status/3#94567",
+    "type": "BitstringStatusListEntry",
+    "statusPurpose": "refresh",
+    "statusListIndex": "94567",
+    "statusListCredential": "https://example-cab.com/credentials/status/4"
+  },
+  "issuingSoftware": {
+    "id": "https://sample-software-vendor.example.com/.well-known/untp/software/passport-builder/2026.04.1",
+    "name": "Sample Passport Builder",
+    "version": "2026.04.1",
+    "vendor": {
+      "id": "did:web:sample-software-vendor.example.com",
+      "name": "Sample Software Vendor Inc"
+    }
+  },
+  "credentialSubject": {
+    "type": [
+      "RecognizedEntity"
+    ],
+    "id": "did:web:sample-company.example.com",
+    "name": "Sample Company Pty Ltd",
+    "registration": [
+      {
+        "type": [
+          "RegisteredIdentity"
+        ],
+        "id": "https://sample-business-register.example.com/registers/business/entities/BR-12345678",
+        "registeredId": "BR-12345678",
+        "registeredDate": "2019-04-02",
+        "register": {
+          "type": [
+            "Register"
+          ],
+          "id": "https://sample-business-register.example.com/registers/business",
+          "name": "Sample Business Register",
+          "registerType": "business"
+        },
+        "controlType": "self",
+        "recognitionScope": [
+          {
+            "type": [
+              "RecognitionScope"
+            ],
+            "id": "https://sample-business-register.example.com/entity-types/private-company-limited-by-shares",
+            "name": "Private Company Limited by Shares"
+          }
+        ]
+      }
+    ]
+  }
+}

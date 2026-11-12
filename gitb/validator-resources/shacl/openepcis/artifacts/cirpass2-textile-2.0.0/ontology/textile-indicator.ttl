@@ -1,0 +1,407 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix txtass: <https://w3id.org/eudpp/textile-assessment#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtdur: <https://w3id.org/eudpp/textile-durability#> .
+@prefix txtind: <https://w3id.org/eudpp/textile-indicator#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+txtind:DegradationRate a owl:Class ;
+    rdfs:label "Degradation rate"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Calculated indicator expressing change in a performance parameter or degradation phenomenon per stated unit of time, use, cycle or exposure."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:subClassOf txtind:PerformanceIndicator ;
+    txtcon:sourceLocator "JRC Section 11.1.1, printed page 185, lines 5231-5243."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:EstimatedLifetime a owl:Class ;
+    rdfs:label "Estimated lifetime"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "An estimated lifetime is not a directly measured property and must identify its evidence, method and assumptions."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:subClassOf txtind:LifetimeOfProduct ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 9.2.1.5, printed page 121, lines 3168-3181; JRC Preparatory Study, Section 11.1.1, printed page 185, lines 5231-5243."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:NumberOfUseCycles a owl:Class ;
+    rdfs:label "Number of use cycles"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "This indicator concerns product use and must not be confused with txtass:NumberOfCycles used as a test-protocol parameter."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:subClassOf txtind:UseRelatedIndicator ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.1, printed page 185, lines 5231-5238."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtind:PerformanceAfterNCycles a owl:Class ;
+    rdfs:label "Performance after N cycles"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Derived performance indicator reporting a performance state or level after a stated number and type of use, wash, abrasion, ageing or other cycles."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:subClassOf txtind:PerformanceIndicator ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.1, printed page 185, lines 5231-5238."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:PerformanceLevelOverTime a owl:Class ;
+    rdfs:label "Performance level over time"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "A performance trajectory should preserve the underlying assessment results or constituent point indicators from which it was derived."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:subClassOf txtind:PerformanceIndicator ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.1, printed page 185, lines 5231-5243."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:PerformanceRetentionRate a owl:Class ;
+    rdfs:label "Performance retention rate"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Calculated indicator expressing retained performance relative to an initial or reference performance value under stated calculation rules."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:subClassOf txtind:PerformanceIndicator ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.1, printed page 185, lines 5231-5243."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:ProductReplacementFrequency a owl:Class ;
+    rdfs:label "Product replacement frequency"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Replacement frequency is not a direct measure of intrinsic durability because disposal and replacement also depend on fit, perceived value, fashion and other contextual factors."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:subClassOf txtind:UseRelatedIndicator ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 5.8, printed page 73, lines 1695-1710; JRC Preparatory Study, Section 6.4.1, printed pages 88-89, lines 2281-2294."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:RobustnessScore a owl:Class ;
+    rdfs:label "Robustness score"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Score produced by a robustness scoring method from selected textile test and visual-inspection results; it is proxy information for physical durability and is not a service-lifetime value."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:subClassOf txtind:PerformanceIndicator ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.1, printed page 185, lines 5228-5246; JRC Preparatory Study, Section 11.1.1.1, printed pages 185-186, lines 5251-5286; JRC Preparatory Study, Section 11.1.1.1, Table 71, printed page 186; caption line 5284."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicallyContributesTo txtdur:IntrinsicDurability .
+
+txtind:calculationAssumption a owl:DatatypeProperty ;
+    rdfs:label "calculation assumption"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Textual statement of an assumption used in calculating, estimating or interpreting an indicator."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range xsd:string ;
+    txtcon:sourceLocator "JRC Section 11.1.1, printed page 185, lines 5239-5243."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:calculationDescription a owl:DatatypeProperty ;
+    rdfs:label "calculation description"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Textual description of the calculation, aggregation or interpretation procedure used for an indicator."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range xsd:string ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:concernsDegradationPhenomenon a owl:ObjectProperty ;
+    rdfs:label "concerns degradation phenomenon"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to an observed textile degradation phenomenon that it interprets."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range txtdur:ObservedDegradationPhenomenon ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:concernsDurabilityAspect a owl:ObjectProperty ;
+    rdfs:label "concerns durability aspect"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to the durability concept whose interpretation it supports."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range txtdur:Durability ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:concernsFailureMode a owl:ObjectProperty ;
+    rdfs:label "concerns failure mode"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to a textile failure mode that it interprets or uses in its derivation."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range txtdur:FailureMode ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 9.2.1.5, printed page 121, lines 3177-3180."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:concernsPerformanceParameter a owl:ObjectProperty ;
+    rdfs:label "concerns performance parameter"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to the durability-related performance parameter that it interprets."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range txtdur:ObservedPerformanceParameter ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:derivedFrom a owl:ObjectProperty ;
+    rdfs:label "derived from"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to an assessment result or another indicator used as evidence in its calculation, aggregation or interpretation."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( txtass:AssessmentResult txtind:Indicator ) ] ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:derivedUsingMethod a owl:ObjectProperty ;
+    rdfs:label "derived using method"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to the assessment, scoring or interpretive method used to derive it."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range txtass:AssessmentMethod ;
+    txtcon:sourceLocator "JRC Section 11.1.1.1, printed pages 185-186, lines 5251-5284."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:evaluatedAgainstThreshold a owl:ObjectProperty ;
+    rdfs:label "evaluated against threshold"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to a performance threshold used to interpret or classify its value."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range txtass:PerformanceThreshold ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:hasCategoricalValue a owl:ObjectProperty ;
+    rdfs:label "has categorical value"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to a controlled categorical, ordinal or rating value represented as a SKOS concept."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range skos:Concept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:hasConstituentIndicator a owl:ObjectProperty ;
+    rdfs:label "has constituent indicator"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an aggregate or trajectory indicator to a more specific indicator included in its derivation."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range txtind:Indicator ;
+    owl:inverseOf txtind:contributesToIndicator ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:hasIndicator a owl:ObjectProperty ;
+    rdfs:label "has indicator"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a product to an indicator that describes or interprets it."@en ;
+    rdfs:domain dpp:Product ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range txtind:Indicator ;
+    owl:inverseOf txtind:isIndicatorOf ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:hasQuantitativeValue a owl:ObjectProperty ;
+    rdfs:label "has quantitative value"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to the quantitative value that expresses its reported or calculated value."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range txtcon:QuantitativeValue ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:hasReferencePeriod a owl:ObjectProperty ;
+    rdfs:label "has reference period"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to the structured temporal interval to which it applies."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range txtcon:ReferencePeriod ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:hasTextualValue a owl:DatatypeProperty ;
+    rdfs:label "has textual value"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to a free-text value when no controlled categorical value is available."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range xsd:string ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:informsEstimateOf a owl:ObjectProperty ;
+    rdfs:label "informs estimate of"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates supporting indicator evidence to a lifetime-of-product indicator whose value is inferred from that evidence."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range txtind:LifetimeOfProduct ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 9.2.1.5, printed page 121, lines 3168-3181."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:isQualifiedByParameterSetting a owl:ObjectProperty ;
+    rdfs:label "is qualified by parameter setting"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to the concrete measurement-parameter setting that qualifies its meaning, such as a number and type of cycles."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range txtass:MeasurementParameterSetting ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:isStructuredByMeasurementParameter a owl:ObjectProperty ;
+    rdfs:label "is structured by measurement parameter"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a series or trajectory indicator to the measurement parameter used as its organising axis."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range txtass:MeasurementParameter ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:supportsAssessmentOf a owl:ObjectProperty ;
+    rdfs:label "supports assessment of"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to a durability concept whose assessment it supports without asserting equivalence."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range txtdur:Durability ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:LifetimeIndicator a owl:Class ;
+    rdfs:label "Lifetime indicator"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Durability indicator expressing, estimating or interpreting a product lifespan or duration of service."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:subClassOf txtind:DurabilityIndicator ;
+    txtcon:sourceLocator "JRC Section 5.8, printed page 73, lines 1695-1715; Section 9.2.1.5, printed page 121, lines 3168-3179."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:concernsProduct a owl:ObjectProperty ;
+    rdfs:label "concerns product"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to the product that it describes or interprets."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range dpp:Product ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:contributesToIndicator a owl:ObjectProperty ;
+    rdfs:label "contributes to indicator"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to a broader indicator to which it contributes."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range txtind:Indicator ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:isIndicatorOf a owl:ObjectProperty ;
+    rdfs:label "is indicator of"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an indicator to the product that it describes or interprets."@en ;
+    rdfs:domain txtind:Indicator ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:range dpp:Product ;
+    rdfs:subPropertyOf txtind:concernsProduct ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:DurabilityIndicator a owl:Class ;
+    rdfs:label "Durability indicator"@en ;
+    dcterms:relation dpp:QualityIndicator ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Indicator used to express or interpret durability-related evidence about a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:subClassOf txtind:Indicator ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:LifetimeOfProduct a owl:Class ;
+    rdfs:label "Lifetime of product"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Indicator expressing a stated, observed or inferred lifespan of a textile product using a specified lifespan descriptor and stated assumptions."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:subClassOf txtind:LifetimeIndicator ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 5.8, printed page 73, lines 1695-1710; JRC Preparatory Study, Section 9.2.1.5, printed page 121, lines 3168-3181; JRC Preparatory Study, Section 5.8, Table 32, printed page 73; caption line 1703."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtind:UseRelatedIndicator a owl:Class ;
+    rdfs:label "Use-related indicator"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Indicator concerning actual or expected product use, use-cycle count or replacement behaviour."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:subClassOf txtind:Indicator ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 5.8, printed page 73, lines 1705-1710; JRC Preparatory Study, Section 6.4.1, printed pages 88-89, lines 2281-2294."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:PerformanceIndicator a owl:Class ;
+    rdfs:label "Performance indicator"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Durability indicator expressing a derived level, score, rate, retention or trajectory of a durability-related performance parameter."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    rdfs:subClassOf txtind:DurabilityIndicator ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtind:Indicator a owl:Class ;
+    rdfs:label "Indicator"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Derived information object used to calculate, interpret, aggregate, compare or communicate evidence about a textile product. An indicator is not the underlying assessment result, characteristic, threshold or quantitative value."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-indicator> ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+<https://w3id.org/eudpp/textile-indicator> a owl:Ontology ;
+    rdfs:label "EU DPP Textile Indicator Ontology"@en ;
+    dcterms:bibliographicCitation "EU DPP Textile Indicator Ontology. Version 2.0.0 candidate."@en ;
+    dcterms:created "2026-03-06"^^xsd:date ;
+    dcterms:creator "Elio Hbeich"@en,
+        "BOUGACHA Racem"@en,
+        "Ivo Ladenius"@en,
+        "Andreas Schneider"@en,
+        "Jan Merckx"@en,
+        "Piero de Sabbata"@en ;
+    dcterms:description "Ontology module for derived textile durability and use-related indicators. It separates indicators from assessment results, product characteristics, thresholds and quantitative values."@en ;
+    dcterms:issued "2026-03-06"^^xsd:date ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:modified "2026-10-27"^^xsd:date ;
+    dcterms:title "EU DPP Textile Indicator Ontology"@en ;
+    vann:preferredNamespacePrefix "txtind" ;
+    vann:preferredNamespaceUri "https://w3id.org/eudpp/textile-indicator#" ;
+    rdfs:comment "This module does not assert a subclass alignment to dpp:QualityIndicator. CORE dpp:QuantitativeProperty, a superclass of dpp:QualityIndicator, represents a quantitative property or measurand of a product. Textile txtcon:QuantitativeValue represents a structured numerical value with a measurement unit and, optionally, a quantity kind. These roles are distinct; the CORE hierarchy alone does not establish their equivalence or justify an Indicator alignment."@en,
+        "This module models interpretive or calculated indicators. It does not treat a raw assessment result, a durability characteristic, a threshold or a quantitative value as an indicator."@en ;
+    owl:imports <https://w3id.org/eudpp/textile-assessment>,
+        <https://w3id.org/eudpp/textile-connector>,
+        <https://w3id.org/eudpp/textile-dpp-mireot>,
+        <https://w3id.org/eudpp/textile-durability> ;
+    owl:priorVersion <https://w3id.org/eudpp/textile-indicator/1.1.2> ;
+    owl:versionIRI <https://w3id.org/eudpp/textile-indicator/2.0.0> ;
+    owl:versionInfo "Version 2.0.0 candidate" .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( txtind:Indicator txtass:AssessmentResult txtdur:ObservedPerformanceParameter txtdur:ObservedDegradationPhenomenon txtdur:FailureMode txtcon:QuantitativeValue ) .

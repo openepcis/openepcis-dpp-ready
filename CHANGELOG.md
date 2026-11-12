@@ -9,6 +9,25 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Added: eight more external model releases on the validator
+
+GS1 EPCIS / CBV 2.0.1, CIRPASS-2 Textile 2.0.0 and Battery 0.3.0 (draft), the BatteryPass-Ready 1.3
+upload format (derived from the live GEFEG validator), the Battery Pass Consortium data model 1.2
+and Catena-X battery pass 6.1.0 (SAMM), and UNTP 0.8.0 and 0.7.0: 61 external validation types in
+11 releases, each with its test suite and a row in `docs/conformance/INTEROP_CONFORMANCE.md`.
+Publisher test corpora with expected failures are replayed as such; declared `sh:entailment` RDFS is
+applied; new sync scripts `sync:epcis`, `sync:cirpass2-shapes`, `sync:samm-battery`,
+`sync:untp -- --latest`.
+
+### Changed: EPCIS examples conform to GS1 EPCIS 2.0.1
+
+Every `extensions/*/*/epcis/*.jsonld` now passes GS1's JSON Schema and SHACL: editorial notes
+(`_comment`, `_comment_architecture`, `_scenario`, `_notes`) are `rdfs:comment`, CBV values the bare
+2.0 JSON form (`owning_party`, `po`, `commissioning`, not `urn:epcglobal:cbv:…`), sensor values
+numbers. `retail_sold` replaces the non-CBV disposition `sold`; the software update's transaction
+drops the non-CBV type `updnotification`; the battery negative event no longer declares itself an
+error (`errorDeclaration` retracts an event in EPCIS). Bruno requests and docs follow.
+
 ### Added: conformance to external DPP models, hosted and on record
 
 The GITB validator now hosts the external models this project bridges, each at a pinned release:

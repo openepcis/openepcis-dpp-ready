@@ -1,0 +1,82 @@
+{
+  "type": ["DigitalTraceabilityEvent", "VerifiableCredential"],
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://vocabulary.uncefact.org/untp/0.8.0/context/",
+    "https://ref.gs1.org/standards/epcis/2.0.0/epcis-context.jsonld"
+  ],
+  "id": "https://credentials.sample-mine.example.com/dte/ship-conc-2025-0110",
+  "issuer": {
+    "type": ["Party"],
+    "id": "did:web:sample-mine.example.com",
+    "name": "Sample Copper Mine Pty Ltd",
+    "alsoKnownAs": [
+      {
+        "type": ["Party"],
+        "id": "https://sample-register.example.com/companies/MINE-001",
+        "name": "Sample Copper Mine Pty Ltd",
+        "registeredId": "MINE-001",
+        "idScheme": {
+          "type": ["IdentifierScheme"],
+          "id": "https://sample-register.example.com",
+          "name": "Patents and Companies Registration Agency (Zambia)"
+        }
+      }
+    ]
+  },
+  "validFrom": "2025-01-10T00:00:00Z",
+  "validUntil": "2026-01-10T00:00:00Z",
+  "name": "Shipment of Copper Concentrate — Sample Mine to Sample Smelter",
+  "issuingSoftware": {
+    "id": "https://sample-software-vendor.example.com/.well-known/untp/software/passport-builder/2026.04.1",
+    "name": "Sample Passport Builder",
+    "version": "2026.04.1",
+    "vendor": {
+      "id": "did:web:sample-software-vendor.example.com",
+      "name": "Sample Software Vendor Inc"
+    }
+  },
+  "credentialSubject": [
+    {
+      "type": "ObjectEvent",
+      "eventID": "https://sample-mine.example.com/events/ship-conc-2025-0110",
+      "eventTime": "2025-01-10T08:00:00Z",
+      "eventTimeZoneOffset": "+02:00",
+      "action": "OBSERVE",
+      "bizStep": "shipping",
+      "disposition": "in_transit",
+      "readPoint": {
+        "id": "https://facility-register.example.com/fac-001"
+      },
+      "epcList": [
+        "https://id.sample-mine.example.com/container/CTN-2025-0110-01"
+      ],
+      "sourceList": [
+        {
+          "type": "location",
+          "source": "https://facility-register.example.com/fac-001"
+        },
+        {
+          "type": "possessing_party",
+          "source": "did:web:sample-mine.example.com"
+        }
+      ],
+      "destinationList": [
+        {
+          "type": "location",
+          "destination": "https://facility-register.example.com/fac-002"
+        },
+        {
+          "type": "possessing_party",
+          "destination": "did:web:sample-refinery.example.com"
+        }
+      ],
+      "bizTransactionList": [
+        {
+          "type": "bol",
+          "bizTransaction": "urn:carrier:zm-road:WB-2025-KM-CS-0301"
+        }
+      ]
+    }
+  ]
+}

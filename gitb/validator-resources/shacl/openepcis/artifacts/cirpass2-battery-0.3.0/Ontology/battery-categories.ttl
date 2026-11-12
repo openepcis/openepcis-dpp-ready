@@ -1,0 +1,137 @@
+@prefix batcat: <https://w3id.org/eudpp/battery-categories#> .
+@prefix bat: <https://w3id.org/eudpp/battery#> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+#################################################
+# Ontology
+#################################################
+# The five battery categories of Article 3(1) of Regulation (EU) 2023/1542.
+# No term is declared in the battery namespace: the categories are
+# individuals of dpp:ClassificationCode (P_DPP), attached to a battery
+# through the existing CORE property dpp:hasProductGroup.
+# NOTE: the definitions sit in Article 3(1). Article 2 is "Objectives".
+
+<https://w3id.org/eudpp/battery-categories>
+    a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/eudpp/battery-categories/0.1.1> ;
+    rdfs:seeAlso <https://w3id.org/eudpp/battery> ;
+    rdfs:label "EU DPP Battery Categories Vocabulary"@en ;
+    dcterms:title "EU DPP Battery Categories Vocabulary"@en ;
+    dcterms:description "Controlled vocabulary of the five battery categories defined in Article 3(1) of Regulation (EU) 2023/1542: portable (9), LMT (11), SLI (12), industrial (13) and electric vehicle (14). Declared as individuals of the cross-sectoral class dpp:ClassificationCode and attached to a battery through dpp:hasProductGroup; no term is declared in the battery namespace. The category conditions the scope of the battery passport."@en ;
+    rdfs:comment "Developed against the CIRPASS-2 CORE ontology of October 2026 (P_DPP v2.1.0, MAT v1.1.0). External references are pinned to these versions."@en ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:license "This ontology is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0). In case of dispute over CC BY 4.0 applicability, or in case considering the ontology as a software or part of it, this ontology is to be considered licensed under the Apache License, Version 2.0."@en ;
+    dcterms:bibliographicCitation "EU DPP Battery Categories Vocabulary. Draft version 0.1.1."@en ;
+    dcterms:creator "Nader Jelassi"@en , "Marc-Andree Wolf"@en ;
+    dcterms:contributor "Arnab Sinha"@en ;
+    dcterms:created "2026-08-18"^^xsd:date ;
+    dcterms:issued "2026-08-18"^^xsd:date ;
+    dcterms:modified "2026-11-03"^^xsd:date ;
+    dcterms:references "Regulation (EU) 2023/1542, Art. 3(1)(9), (11), (12), (13), (14); Regulation (EU) No 168/2013; Regulation (EU) 2018/858"@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2023/1542/oj> ;
+    owl:versionInfo "Version 0.1.1 DRAFT"@en ;
+    vann:preferredNamespaceUri "https://w3id.org/eudpp/battery-categories#" ;
+    vann:preferredNamespacePrefix "batcat" .
+
+#################################################
+# Concept Scheme
+#################################################
+
+batcat:BatteryCategoryScheme
+    a skos:ConceptScheme ;
+    rdfs:label "Battery categories per Regulation (EU) 2023/1542, Art. 3(1)"@en ;
+    skos:prefLabel "Battery categories per Regulation (EU) 2023/1542, Art. 3(1)"@en ;
+    skos:scopeNote "Battery passport scope (Art. 77): LMT, industrial above 2 kWh and electric vehicle batteries are in scope; portable and SLI batteries are not."@en ;
+    skos:hasTopConcept batcat:PortableBattery ,
+                       batcat:LMTBattery ,
+                       batcat:SLIBattery ,
+                       batcat:IndustrialBattery ,
+                       batcat:ElectricVehicleBattery ;
+    dcterms:references "Regulation (EU) 2023/1542, Art. 3(1)"@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2023/1542/oj> ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-categories> .
+
+#################################################
+# Categories — individuals of dpp:ClassificationCode
+#################################################
+# skos:definition quotes Article 3(1) verbatim.
+
+batcat:PortableBattery
+    a dpp:ClassificationCode , skos:Concept ;
+    dpp:codeValue "portable" ;
+    dpp:codeSet "https://w3id.org/eudpp/battery-categories#BatteryCategoryScheme"^^xsd:anyURI ;
+    skos:inScheme batcat:BatteryCategoryScheme ;
+    skos:topConceptOf batcat:BatteryCategoryScheme ;
+    skos:notation "portable" ;
+    rdfs:label "Portable battery"@en ;
+    skos:prefLabel "Portable battery"@en ;
+    skos:definition "a battery that is sealed, weighs 5 kg or less, is not designed specifically for industrial use and is neither an electric vehicle battery, an LMT battery, nor an SLI battery"@en ;
+    skos:scopeNote "Out of scope of the battery passport."@en ;
+    dcterms:references "Regulation (EU) 2023/1542, Art. 3(1)(9)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-categories> .
+
+batcat:LMTBattery
+    a dpp:ClassificationCode , skos:Concept ;
+    dpp:codeValue "LMT" ;
+    dpp:codeSet "https://w3id.org/eudpp/battery-categories#BatteryCategoryScheme"^^xsd:anyURI ;
+    skos:inScheme batcat:BatteryCategoryScheme ;
+    skos:topConceptOf batcat:BatteryCategoryScheme ;
+    skos:notation "LMT" ;
+    rdfs:label "Light means of transport battery"@en ;
+    skos:prefLabel "Light means of transport battery"@en ;
+    skos:altLabel "LMT battery"@en ;
+    skos:definition "a battery that is sealed, weighs 25 kg or less and is specifically designed to provide electric power for the traction of wheeled vehicles that can be powered by an electric motor alone or by a combination of motor and human power, including type-approved vehicles of category L within the meaning of Regulation (EU) No 168/2013 of the European Parliament and of the Council, and that is not an electric vehicle battery"@en ;
+    skos:scopeNote "In scope of the battery passport."@en ;
+    dcterms:references "Regulation (EU) 2023/1542, Art. 3(1)(11)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-categories> .
+
+batcat:SLIBattery
+    a dpp:ClassificationCode , skos:Concept ;
+    dpp:codeValue "SLI" ;
+    dpp:codeSet "https://w3id.org/eudpp/battery-categories#BatteryCategoryScheme"^^xsd:anyURI ;
+    skos:inScheme batcat:BatteryCategoryScheme ;
+    skos:topConceptOf batcat:BatteryCategoryScheme ;
+    skos:notation "SLI" ;
+    rdfs:label "Starting, lighting and ignition battery"@en ;
+    skos:prefLabel "Starting, lighting and ignition battery"@en ;
+    skos:altLabel "SLI battery"@en ;
+    skos:definition "a battery that is specifically designed to supply electric power for starting, lighting, or ignition and that can also be used for auxiliary or backup purposes in vehicles, other means of transport or machinery"@en ;
+    skos:scopeNote "Out of scope of the battery passport."@en ;
+    dcterms:references "Regulation (EU) 2023/1542, Art. 3(1)(12)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-categories> .
+
+batcat:IndustrialBattery
+    a dpp:ClassificationCode , skos:Concept ;
+    dpp:codeValue "industrial" ;
+    dpp:codeSet "https://w3id.org/eudpp/battery-categories#BatteryCategoryScheme"^^xsd:anyURI ;
+    skos:inScheme batcat:BatteryCategoryScheme ;
+    skos:topConceptOf batcat:BatteryCategoryScheme ;
+    skos:notation "industrial" ;
+    rdfs:label "Industrial battery"@en ;
+    skos:prefLabel "Industrial battery"@en ;
+    skos:definition "a battery that is specifically designed for industrial uses, intended for industrial uses after having been subject to preparation for repurposing or repurposing, or any other battery that weighs more than 5 kg and that is neither an electric vehicle battery, an LMT battery, nor an SLI battery"@en ;
+    skos:scopeNote "In scope of the battery passport above 2 kWh."@en ;
+    dcterms:references "Regulation (EU) 2023/1542, Art. 3(1)(13)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-categories> .
+
+batcat:ElectricVehicleBattery
+    a dpp:ClassificationCode , skos:Concept ;
+    dpp:codeValue "EV" ;
+    dpp:codeSet "https://w3id.org/eudpp/battery-categories#BatteryCategoryScheme"^^xsd:anyURI ;
+    skos:inScheme batcat:BatteryCategoryScheme ;
+    skos:topConceptOf batcat:BatteryCategoryScheme ;
+    skos:notation "EV" ;
+    rdfs:label "Electric vehicle battery"@en ;
+    skos:prefLabel "Electric vehicle battery"@en ;
+    skos:altLabel "EV battery"@en ;
+    skos:definition "a battery that is specifically designed to provide electric power for traction in hybrid or electric vehicles of category L as provided for in Regulation (EU) No 168/2013, that weighs more than 25 kg, or a battery that is specifically designed to provide electric power for traction in hybrid or electric vehicles of categories M, N or O as provided for in Regulation (EU) 2018/858"@en ;
+    skos:scopeNote "In scope of the battery passport."@en ;
+    dcterms:references "Regulation (EU) 2023/1542, Art. 3(1)(14)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-categories> .

@@ -1,0 +1,67 @@
+<urn:epc:id:gdti:9521234.00001.INV-2025-00789> <https://ref.gs1.org/epcis/bizTransactionType> <https://ref.gs1.org/cbv/BTT-inv> .
+<urn:epc:id:gdti:9521234.00001.SHIP-2025-00456> <https://ref.gs1.org/epcis/bizTransactionType> <https://ref.gs1.org/cbv/BTT-desadv> .
+<urn:epc:id:gdti:9521235.00001.POS-2025-00567> <https://ref.gs1.org/epcis/bizTransactionType> <https://ref.gs1.org/cbv/BTT-po> .
+<urn:epc:id:gdti:9521235.00001.REC-2025-00123> <https://ref.gs1.org/epcis/bizTransactionType> <https://ref.gs1.org/cbv/BTT-recadv> .
+_:b157_b0 <http://purl.org/dc/terms/created> "2025-01-20T11:00:00.000Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+_:b157_b0 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://ref.gs1.org/epcis/EPCISDocument> .
+_:b157_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "" .
+_:b157_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event." .
+_:b157_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "GS1 demo prefix 952 (7-digit GCP: 9521234)." .
+_:b157_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "HTTP header: GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,euelec=https://ref.openepcis.org/extensions/eu/electronics/" .
+_:b157_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "Ownership transfer chain: shipping, receiving, and retail sale of a serialized device." .
+_:b157_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md" .
+_:b157_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "Warranty and purchase country are deliberately NOT event extensions here: the retail_selling eventTime is the warranty start, the warranty terms (gs1:manufacturersWarranty / gs1:WarrantyPromise with gs1:durationOfWarranty) are model-level master data, and the country of purchase is location-level master data of the store GLN in readPoint/bizLocation. All three are resolver-served." .
+_:b157_b0 <http://www.w3.org/2000/01/rdf-schema#comment> "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level." .
+_:b157_b0 <http://www.w3.org/2002/07/owl#versionInfo> "2.0" .
+_:b157_b0 <https://ref.gs1.org/epcis/epcisBody> _:b157_b1 .
+_:b157_b1 <https://ref.gs1.org/epcis/eventList> _:b157_b2 .
+_:b157_b1 <https://ref.gs1.org/epcis/eventList> _:b157_b7 .
+_:b157_b1 <https://ref.gs1.org/epcis/eventList> _:b157_b8 .
+_:b157_b10 <https://ref.gs1.org/epcis/sourceOrDestination> <urn:epc:id:pgln:9521235.00000> .
+_:b157_b10 <https://ref.gs1.org/epcis/sourceOrDestinationType> <https://ref.gs1.org/cbv/SDT-owning_party> .
+_:b157_b2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://ref.gs1.org/epcis/ObjectEvent> .
+_:b157_b2 <https://ref.gs1.org/epcis/action> "OBSERVE" .
+_:b157_b2 <https://ref.gs1.org/epcis/bizStep> <https://ref.gs1.org/cbv/BizStep-shipping> .
+_:b157_b2 <https://ref.gs1.org/epcis/bizTransactionList> <urn:epc:id:gdti:9521234.00001.INV-2025-00789> .
+_:b157_b2 <https://ref.gs1.org/epcis/bizTransactionList> <urn:epc:id:gdti:9521234.00001.SHIP-2025-00456> .
+_:b157_b2 <https://ref.gs1.org/epcis/destinationList> _:b157_b3 .
+_:b157_b2 <https://ref.gs1.org/epcis/destinationList> _:b157_b4 .
+_:b157_b2 <https://ref.gs1.org/epcis/disposition> <https://ref.gs1.org/cbv/Disp-in_transit> .
+_:b157_b2 <https://ref.gs1.org/epcis/epcList> <https://id.gs1.org/01/09506000134352/21/ABC123456> .
+_:b157_b2 <https://ref.gs1.org/epcis/eventTime> "2025-01-18T09:00:00.000Z"^^<http://www.w3.org/2001/XMLSchema#dateTimeStamp> .
+_:b157_b2 <https://ref.gs1.org/epcis/eventTimeZoneOffset> "+01:00" .
+_:b157_b2 <https://ref.gs1.org/epcis/readPoint> <urn:epc:id:sgln:9521234.00001.warehouse> .
+_:b157_b2 <https://ref.gs1.org/epcis/sourceList> _:b157_b5 .
+_:b157_b2 <https://ref.gs1.org/epcis/sourceList> _:b157_b6 .
+_:b157_b3 <https://ref.gs1.org/epcis/sourceOrDestination> <urn:epc:id:pgln:9521235.00000> .
+_:b157_b3 <https://ref.gs1.org/epcis/sourceOrDestinationType> <https://ref.gs1.org/cbv/SDT-owning_party> .
+_:b157_b4 <https://ref.gs1.org/epcis/sourceOrDestination> <urn:epc:id:pgln:9521235.00000> .
+_:b157_b4 <https://ref.gs1.org/epcis/sourceOrDestinationType> <https://ref.gs1.org/cbv/SDT-possessing_party> .
+_:b157_b5 <https://ref.gs1.org/epcis/sourceOrDestination> <urn:epc:id:pgln:9521234.00000> .
+_:b157_b5 <https://ref.gs1.org/epcis/sourceOrDestinationType> <https://ref.gs1.org/cbv/SDT-owning_party> .
+_:b157_b6 <https://ref.gs1.org/epcis/sourceOrDestination> <urn:epc:id:pgln:9521234.00000> .
+_:b157_b6 <https://ref.gs1.org/epcis/sourceOrDestinationType> <https://ref.gs1.org/cbv/SDT-possessing_party> .
+_:b157_b7 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://ref.gs1.org/epcis/ObjectEvent> .
+_:b157_b7 <https://ref.gs1.org/epcis/action> "OBSERVE" .
+_:b157_b7 <https://ref.gs1.org/epcis/bizLocation> <urn:epc:id:sgln:9521235.00001.0> .
+_:b157_b7 <https://ref.gs1.org/epcis/bizStep> <https://ref.gs1.org/cbv/BizStep-receiving> .
+_:b157_b7 <https://ref.gs1.org/epcis/bizTransactionList> <urn:epc:id:gdti:9521235.00001.REC-2025-00123> .
+_:b157_b7 <https://ref.gs1.org/epcis/disposition> <https://ref.gs1.org/cbv/Disp-sellable_accessible> .
+_:b157_b7 <https://ref.gs1.org/epcis/epcList> <https://id.gs1.org/01/09506000134352/21/ABC123456> .
+_:b157_b7 <https://ref.gs1.org/epcis/eventTime> "2025-01-19T14:30:00.000Z"^^<http://www.w3.org/2001/XMLSchema#dateTimeStamp> .
+_:b157_b7 <https://ref.gs1.org/epcis/eventTimeZoneOffset> "+01:00" .
+_:b157_b7 <https://ref.gs1.org/epcis/readPoint> <urn:epc:id:sgln:9521235.00001.receiving-dock> .
+_:b157_b8 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://ref.gs1.org/epcis/ObjectEvent> .
+_:b157_b8 <https://ref.gs1.org/epcis/action> "OBSERVE" .
+_:b157_b8 <https://ref.gs1.org/epcis/bizLocation> <urn:epc:id:sgln:9521235.00002.0> .
+_:b157_b8 <https://ref.gs1.org/epcis/bizStep> <https://ref.gs1.org/cbv/BizStep-retail_selling> .
+_:b157_b8 <https://ref.gs1.org/epcis/bizTransactionList> <urn:epc:id:gdti:9521235.00001.POS-2025-00567> .
+_:b157_b8 <https://ref.gs1.org/epcis/destinationList> _:b157_b9 .
+_:b157_b8 <https://ref.gs1.org/epcis/disposition> <https://ref.gs1.org/cbv/Disp-retail_sold> .
+_:b157_b8 <https://ref.gs1.org/epcis/epcList> <https://id.gs1.org/01/09506000134352/21/ABC123456> .
+_:b157_b8 <https://ref.gs1.org/epcis/eventTime> "2025-01-20T10:45:00.000Z"^^<http://www.w3.org/2001/XMLSchema#dateTimeStamp> .
+_:b157_b8 <https://ref.gs1.org/epcis/eventTimeZoneOffset> "+01:00" .
+_:b157_b8 <https://ref.gs1.org/epcis/readPoint> <urn:epc:id:sgln:9521235.00002.store-checkout> .
+_:b157_b8 <https://ref.gs1.org/epcis/sourceList> _:b157_b10 .
+_:b157_b9 <https://ref.gs1.org/epcis/sourceOrDestination> <urn:epc:id:consumer> .
+_:b157_b9 <https://ref.gs1.org/epcis/sourceOrDestinationType> <https://ref.gs1.org/cbv/SDT-owning_party> .

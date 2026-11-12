@@ -1,0 +1,363 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix tsh: <https://w3id.org/eudpp/textile-shacl#> .
+@prefix txtass: <https://w3id.org/eudpp/textile-assessment#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtind: <https://w3id.org/eudpp/textile-indicator#> .
+@prefix txtrec: <https://w3id.org/eudpp/textile-recyclability#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+tsh:RecyclabilityAssessmentShape a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path txtass:assessesProduct ],
+        [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path txtass:appliesMethod ],
+        [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path txtrec:assessesRecyclingRoute ],
+        [ sh:maxCount 1 ;
+            sh:message "A recyclability assessment must produce exactly one structurally complete overall result."@en ;
+            sh:minCount 1 ;
+            sh:node tsh:OverallRecyclabilityResultShape ;
+            sh:path txtass:producesResult ] ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "The recycling route assessed by an assessment must match the route of its result."@en ;
+            sh:prefixes <https://w3id.org/eudpp/textile-shacl/recyclability> ;
+            sh:select """
+          SELECT $this WHERE {
+            $this txtrec:assessesRecyclingRoute ?route ; txtass:producesResult ?result .
+            ?result txtrec:resultForRecyclingRoute ?resultRoute .
+            FILTER (?route != ?resultRoute)
+          }
+        """ ] ;
+    sh:targetClass txtrec:RecyclabilityAssessment .
+
+tsh:RecyclabilityScoreShape a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "A recyclability score must have exactly one dimensionless quantitative value."@en ;
+            sh:minCount 1 ;
+            sh:node tsh:ScoreValueShape ;
+            sh:path txtind:hasQuantitativeValue ] ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "A recyclability score linked through an assessment must fall within the declared scoring-method bounds and use the same unit."@en ;
+            sh:prefixes <https://w3id.org/eudpp/textile-shacl/recyclability> ;
+            sh:select """
+          SELECT $this WHERE {
+            $this txtind:hasQuantitativeValue ?scoreNode .
+            ?result txtrec:hasRecyclabilityScore $this ; txtass:resultOfAssessment ?assessment .
+            ?assessment txtass:appliesMethod ?method .
+            ?method txtrec:hasMinimumScoreValue ?minNode ; txtrec:hasMaximumScoreValue ?maxNode .
+            ?scoreNode txtcon:numericValue ?score ; txtcon:hasMeasurementUnit ?scoreUnit .
+            ?minNode txtcon:numericValue ?min ; txtcon:hasMeasurementUnit ?minUnit .
+            ?maxNode txtcon:numericValue ?max ; txtcon:hasMeasurementUnit ?maxUnit .
+            FILTER (?score < ?min || ?score > ?max || ?scoreUnit != ?minUnit || ?scoreUnit != ?maxUnit)
+          }
+        """ ] ;
+    sh:targetClass txtrec:RecyclabilityScore .
+
+tsh:RecyclabilityScoringMethodShape a sh:NodeShape ;
+    sh:property [ sh:class txtrec:RecyclabilityScoringRule ;
+            sh:message "A scoring method must contain at least one scoring rule."@en ;
+            sh:minCount 1 ;
+            sh:path txtrec:hasScoringRule ],
+        [ sh:maxCount 1 ;
+            sh:message "A bounded scoring method must have exactly one minimum score value."@en ;
+            sh:minCount 1 ;
+            sh:node tsh:ScoreValueShape ;
+            sh:path txtrec:hasMinimumScoreValue ],
+        [ sh:maxCount 1 ;
+            sh:message "A bounded scoring method must have exactly one maximum score value."@en ;
+            sh:minCount 1 ;
+            sh:node tsh:ScoreValueShape ;
+            sh:path txtrec:hasMaximumScoreValue ] ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "The minimum score must not exceed the maximum score, and both bounds must use the same unit."@en ;
+            sh:prefixes <https://w3id.org/eudpp/textile-shacl/recyclability> ;
+            sh:select """
+          SELECT $this WHERE {
+            $this txtrec:hasMinimumScoreValue ?minNode ; txtrec:hasMaximumScoreValue ?maxNode .
+            ?minNode txtcon:numericValue ?min ; txtcon:hasMeasurementUnit ?minUnit .
+            ?maxNode txtcon:numericValue ?max ; txtcon:hasMeasurementUnit ?maxUnit .
+            FILTER (?min > ?max || ?minUnit != ?maxUnit)
+          }
+        """ ] ;
+    sh:targetClass txtrec:RecyclabilityScoringMethod .
+
+tsh:RecyclabilityScoringRuleShape a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "A scoring rule must evaluate exactly one controlled criterion."@en ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path txtrec:ruleEvaluatesCriterion ],
+        [ sh:maxCount 1 ;
+            sh:message "A scoring rule must award exactly one non-negative quantitative score value."@en ;
+            sh:minCount 1 ;
+            sh:node tsh:ScoreValueShape ;
+            sh:path txtrec:awardsScoreValue ],
+        [ sh:maxCount 1 ;
+            sh:path txtrec:ruleUsesThreshold ],
+        [ sh:maxCount 1 ;
+            sh:path txtrec:ruleAppliesToRoute ] ;
+    sh:targetClass txtrec:RecyclabilityScoringRule .
+
+tsh:RecycledContentAssessmentResultShape a sh:NodeShape ;
+    sh:property [ sh:class txtrec:RecycledContentAssessment ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path txtass:resultOfAssessment ],
+        [ sh:class txtrec:RecycledContentDeclaration ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path txtrec:verifiesRecycledContentDeclaration ],
+        [ sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path txtrec:hasRecycledContentTechnologyLevel ] ;
+    sh:targetClass txtrec:RecycledContentAssessmentResult .
+
+tsh:RecycledContentAssessmentShape a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path txtass:assessesProduct ],
+        [ sh:class txtrec:RecycledContentVerificationMethod ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path txtass:appliesMethod ],
+        [ sh:class txtrec:RecycledContentAssessmentResult ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path txtass:producesResult ] ;
+    sh:targetClass txtrec:RecycledContentAssessment .
+
+tsh:RecycledContentDeclarationShape a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "A recycled-content declaration must identify exactly one source category."@en ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path txtrec:hasRecycledContentSource ],
+        [ sh:class txtcon:QuantitativeValue ;
+            sh:maxCount 1 ;
+            sh:message "A recycled-content declaration must have exactly one mass-fraction value."@en ;
+            sh:minCount 1 ;
+            sh:path txtrec:hasRecycledContentMassFractionValue ],
+        [ sh:class txtcon:QuantitativeValue ;
+            sh:maxCount 1 ;
+            sh:path txtrec:hasReferenceProductMassValue ],
+        [ sh:class txtcon:QuantitativeValue ;
+            sh:maxCount 1 ;
+            sh:path txtrec:hasRecycledMaterialMassValue ] ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "Reference-product mass and recycled-material mass must either both be present or both be absent."@en ;
+            sh:prefixes <https://w3id.org/eudpp/textile-shacl/recyclability> ;
+            sh:select """
+          SELECT $this WHERE {
+            FILTER (
+              (EXISTS { $this txtrec:hasReferenceProductMassValue ?referenceMass } &&
+               NOT EXISTS { $this txtrec:hasRecycledMaterialMassValue ?recycledMass }) ||
+              (EXISTS { $this txtrec:hasRecycledMaterialMassValue ?recycledMass2 } &&
+               NOT EXISTS { $this txtrec:hasReferenceProductMassValue ?referenceMass2 })
+            )
+          }
+        """ ],
+        [ a sh:SPARQLConstraint ;
+            sh:message "When masses are supplied, recycled mass must not exceed reference mass and both masses must use the same unit."@en ;
+            sh:prefixes <https://w3id.org/eudpp/textile-shacl/recyclability> ;
+            sh:select """
+          SELECT $this WHERE {
+            $this txtrec:hasReferenceProductMassValue ?referenceNode ;
+                  txtrec:hasRecycledMaterialMassValue ?recycledNode .
+            ?referenceNode txtcon:numericValue ?reference ; txtcon:hasMeasurementUnit ?referenceUnit .
+            ?recycledNode txtcon:numericValue ?recycled ; txtcon:hasMeasurementUnit ?recycledUnit .
+            FILTER (?recycled > ?reference || ?referenceUnit != ?recycledUnit)
+          }
+        """ ],
+        [ a sh:SPARQLConstraint ;
+            sh:message "The declared recycled-content fraction must be consistent with recycled mass divided by reference mass."@en ;
+            sh:prefixes <https://w3id.org/eudpp/textile-shacl/recyclability> ;
+            sh:select """
+          SELECT $this WHERE {
+            $this txtrec:hasRecycledContentMassFractionValue ?fractionNode ;
+                  txtrec:hasReferenceProductMassValue ?referenceNode ;
+                  txtrec:hasRecycledMaterialMassValue ?recycledNode .
+            ?fractionNode txtcon:numericValue ?fraction .
+            ?referenceNode txtcon:numericValue ?reference .
+            ?recycledNode txtcon:numericValue ?recycled .
+            FILTER (?reference > 0 && ABS(xsd:decimal(?fraction) - (xsd:decimal(?recycled) / xsd:decimal(?reference))) > 0.000001)
+          }
+        """ ] ;
+    sh:targetClass txtrec:RecycledContentDeclaration .
+
+tsh:RecycledContentPerformanceThresholdShape a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "A recycled-content threshold must identify exactly one recycled-content source category."@en ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path txtrec:thresholdForRecycledContentSource ] ;
+    sh:targetClass txtrec:RecycledContentPerformanceThreshold .
+
+tsh:OverallRecyclabilityResultShape a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path txtass:resultOfAssessment ],
+        [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path txtrec:resultForRecyclingRoute ],
+        [ sh:message "An overall recyclability result must contain criterion results covering the five JRC characteristics."@en ;
+            sh:minCount 5 ;
+            sh:node tsh:RecyclabilityCriterionResultShape ;
+            sh:path txtrec:hasCriterionResult ],
+        [ sh:class txtrec:RecyclabilityScore ;
+            sh:maxCount 1 ;
+            sh:path txtrec:hasRecyclabilityScore ],
+        [ sh:class txtcon:QuantitativeValue ;
+            sh:maxCount 1 ;
+            sh:path txtrec:hasRecyclableMassFractionValue ] ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "The effective-collection criterion result is mandatory."@en ;
+            sh:prefixes <https://w3id.org/eudpp/textile-shacl/recyclability> ;
+            sh:select "SELECT $this WHERE { FILTER NOT EXISTS { $this txtrec:hasCriterionResult/txtrec:evaluatesCriterion txtrec:effectiveCollectionCriterion . } }" ],
+        [ a sh:SPARQLConstraint ;
+            sh:message "The sortability criterion result is mandatory."@en ;
+            sh:prefixes <https://w3id.org/eudpp/textile-shacl/recyclability> ;
+            sh:select "SELECT $this WHERE { FILTER NOT EXISTS { $this txtrec:hasCriterionResult/txtrec:evaluatesCriterion txtrec:sortabilityCriterion . } }" ],
+        [ a sh:SPARQLConstraint ;
+            sh:message "The preparation-for-recycling criterion result is mandatory."@en ;
+            sh:prefixes <https://w3id.org/eudpp/textile-shacl/recyclability> ;
+            sh:select "SELECT $this WHERE { FILTER NOT EXISTS { $this txtrec:hasCriterionResult/txtrec:evaluatesCriterion txtrec:preparationForRecyclingCriterion . } }" ],
+        [ a sh:SPARQLConstraint ;
+            sh:message "The fibre-feedstock-use criterion result is mandatory."@en ;
+            sh:prefixes <https://w3id.org/eudpp/textile-shacl/recyclability> ;
+            sh:select "SELECT $this WHERE { FILTER NOT EXISTS { $this txtrec:hasCriterionResult/txtrec:evaluatesCriterion txtrec:fibreFeedstockUseCriterion . } }" ],
+        [ a sh:SPARQLConstraint ;
+            sh:message "The absence-of-disruptive-elements criterion result is mandatory."@en ;
+            sh:prefixes <https://w3id.org/eudpp/textile-shacl/recyclability> ;
+            sh:select "SELECT $this WHERE { FILTER NOT EXISTS { $this txtrec:hasCriterionResult/txtrec:evaluatesCriterion txtrec:disruptiveElementAbsenceCriterion . } }" ],
+        [ a sh:SPARQLConstraint ;
+            sh:message "An overall recyclability result must not contain two criterion results for the same criterion."@en ;
+            sh:prefixes <https://w3id.org/eudpp/textile-shacl/recyclability> ;
+            sh:select """
+          SELECT $this ?criterion WHERE {
+            $this txtrec:hasCriterionResult ?r1, ?r2 .
+            ?r1 txtrec:evaluatesCriterion ?criterion .
+            ?r2 txtrec:evaluatesCriterion ?criterion .
+            FILTER (?r1 != ?r2 && STR(?r1) < STR(?r2))
+          }
+        """ ],
+        [ a sh:SPARQLConstraint ;
+            sh:message "Every criterion result must refer to the same recycling route as its overall result."@en ;
+            sh:prefixes <https://w3id.org/eudpp/textile-shacl/recyclability> ;
+            sh:select """
+          SELECT $this ?criterionResult WHERE {
+            $this txtrec:resultForRecyclingRoute ?route ; txtrec:hasCriterionResult ?criterionResult .
+            ?criterionResult txtrec:resultForRecyclingRoute ?criterionRoute .
+            FILTER (?route != ?criterionRoute)
+          }
+        """ ] .
+
+tsh:RecyclabilityCriterionResultShape a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "A recyclability criterion result must evaluate exactly one criterion."@en ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path txtrec:evaluatesCriterion ],
+        [ sh:maxCount 1 ;
+            sh:message "A recyclability criterion result must have exactly one controlled outcome."@en ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path txtrec:hasCriterionOutcome ],
+        [ sh:maxCount 1 ;
+            sh:message "A recyclability criterion result must identify exactly one recycling route."@en ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path txtrec:resultForRecyclingRoute ] .
+
+tsh:ScoreValueShape a sh:NodeShape ;
+    sh:class txtcon:QuantitativeValue ;
+    sh:property [ sh:hasValue units:one ;
+            sh:maxCount 1 ;
+            sh:message "Score values and score bounds must use units:one."@en ;
+            sh:path txtcon:hasMeasurementUnit ] .
+
+<https://w3id.org/eudpp/textile-shacl/recyclability> a owl:Ontology ;
+    rdfs:label "Textile recyclability SHACL profile"@en ;
+    rdfs:comment "Structural and quantitative constraints for recyclability assessment, scoring and recycled-content declarations."@en ;
+    sh:entailment <http://www.w3.org/ns/entailment/RDFS> ;
+    sh:declare [ sh:namespace "http://www.w3.org/ns/prov#"^^xsd:anyURI ;
+            sh:prefix "prov" ],
+        [ sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ;
+            sh:prefix "skos" ],
+        [ sh:namespace "https://w3id.org/eudpp/textile-indicator#"^^xsd:anyURI ;
+            sh:prefix "txtind" ],
+        [ sh:namespace "https://schema.org/"^^xsd:anyURI ;
+            sh:prefix "schema" ],
+        [ sh:namespace "http://purl.org/dc/elements/1.1/"^^xsd:anyURI ;
+            sh:prefix "dc" ],
+        [ sh:namespace "http://purl.org/vocab/vann/"^^xsd:anyURI ;
+            sh:prefix "vann" ],
+        [ sh:namespace "http://rdfs.org/ns/void#"^^xsd:anyURI ;
+            sh:prefix "void" ],
+        [ sh:namespace "http://www.w3.org/2006/time#"^^xsd:anyURI ;
+            sh:prefix "time" ],
+        [ sh:namespace "https://w3id.org/eudpp/textile-connector#"^^xsd:anyURI ;
+            sh:prefix "txtcon" ],
+        [ sh:namespace "http://www.w3.org/ns/ssn/"^^xsd:anyURI ;
+            sh:prefix "ssn" ],
+        [ sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ;
+            sh:prefix "rdfs" ],
+        [ sh:namespace "http://www.w3.org/ns/odrl/2/"^^xsd:anyURI ;
+            sh:prefix "odrl" ],
+        [ sh:namespace "http://www.w3.org/2002/07/owl#"^^xsd:anyURI ;
+            sh:prefix "owl" ],
+        [ sh:namespace "http://purl.org/dc/dcam/"^^xsd:anyURI ;
+            sh:prefix "dcam" ],
+        [ sh:namespace "https://www.w3.org/2003/01/geo/wgs84_pos#"^^xsd:anyURI ;
+            sh:prefix "wgs" ],
+        [ sh:namespace "http://www.w3.org/ns/org#"^^xsd:anyURI ;
+            sh:prefix "org" ],
+        [ sh:namespace "http://purl.org/dc/terms/"^^xsd:anyURI ;
+            sh:prefix "dcterms" ],
+        [ sh:namespace "https://w3id.org/eudpp/textile-assessment#"^^xsd:anyURI ;
+            sh:prefix "txtass" ],
+        [ sh:namespace "http://www.w3.org/2001/XMLSchema#"^^xsd:anyURI ;
+            sh:prefix "xsd" ],
+        [ sh:namespace "http://xmlns.com/foaf/0.1/"^^xsd:anyURI ;
+            sh:prefix "foaf" ],
+        [ sh:namespace "https://si-digital-framework.org/SI/units/"^^xsd:anyURI ;
+            sh:prefix "units" ],
+        [ sh:namespace "http://usefulinc.com/ns/doap#"^^xsd:anyURI ;
+            sh:prefix "doap" ],
+        [ sh:namespace "http://www.w3.org/ns/shacl#"^^xsd:anyURI ;
+            sh:prefix "sh" ],
+        [ sh:namespace "https://w3id.org/eudpp/textile-shacl#"^^xsd:anyURI ;
+            sh:prefix "tsh" ],
+        [ sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ;
+            sh:prefix "rdf" ],
+        [ sh:namespace "http://www.w3.org/ns/dcat#"^^xsd:anyURI ;
+            sh:prefix "dcat" ],
+        [ sh:namespace "https://brickschema.org/schema/Brick#"^^xsd:anyURI ;
+            sh:prefix "brick" ],
+        [ sh:namespace "http://purl.org/linked-data/cube#"^^xsd:anyURI ;
+            sh:prefix "qb" ],
+        [ sh:namespace "http://www.w3.org/ns/sosa/"^^xsd:anyURI ;
+            sh:prefix "sosa" ],
+        [ sh:namespace "http://www.w3.org/ns/csvw#"^^xsd:anyURI ;
+            sh:prefix "csvw" ],
+        [ sh:namespace "http://www.opengis.net/ont/geosparql#"^^xsd:anyURI ;
+            sh:prefix "geo" ],
+        [ sh:namespace "http://www.w3.org/XML/1998/namespace"^^xsd:anyURI ;
+            sh:prefix "xml" ],
+        [ sh:namespace "https://w3id.org/eudpp/textile-recyclability#"^^xsd:anyURI ;
+            sh:prefix "txtrec" ],
+        [ sh:namespace "http://www.w3.org/ns/dx/prof/"^^xsd:anyURI ;
+            sh:prefix "prof" ],
+        [ sh:namespace "http://purl.org/dc/dcmitype/"^^xsd:anyURI ;
+            sh:prefix "dcmitype" ] .

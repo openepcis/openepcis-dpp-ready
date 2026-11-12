@@ -1,0 +1,111 @@
+@prefix batmat: <https://w3id.org/eudpp/battery-materials#> .
+@prefix bat: <https://w3id.org/eudpp/battery#> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+#################################################
+# Ontology
+#################################################
+# 2 classes, 2 object properties. Chemistry values come from the
+# battery-chemistries vocabulary: BatteryChemistry is a subclass of
+# dpp:MaterialOfComposition, so it inherits dpp:hasMaterialType.
+# Location values come from the battery-locations vocabulary, new in
+# v0.3.0: BatteryLocation was declared but had no value set.
+# MAT keeps a flat model with no part level (ontologies-core#24, closed):
+# the locations stay in the battery-locations vocabulary.
+
+<https://w3id.org/eudpp/battery-materials>
+    a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/eudpp/battery-materials/0.3.0> ;
+    rdfs:seeAlso <https://w3id.org/eudpp/battery-chemistries> ,
+                 <https://w3id.org/eudpp/battery-locations> ;
+    rdfs:label "EU DPP Battery Materials Ontology"@en ;
+    dcterms:title "EU DPP Battery Materials Ontology"@en ;
+    dcterms:description "Module for the chemistry and material composition specifics of batteries in EU Digital Product Passports: battery chemistry, typed through the battery-chemistries controlled vocabulary, and the internal location of materials within the battery, typed through the battery-locations controlled vocabulary. Extends the cross-sectoral MAT module of the CIRPASS-2 CORE ontology by direct reference."@en ;
+    rdfs:comment "Developed against the CIRPASS-2 CORE ontology of October 2026 (P_DPP v2.1.0, MAT v1.1.0). External references are pinned to these versions."@en ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:license "This ontology is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0). In case of dispute over CC BY 4.0 applicability, or in case considering the ontology as a software or part of it, this ontology is to be considered licensed under the Apache License, Version 2.0."@en ;
+    dcterms:bibliographicCitation "EU DPP Battery Materials Ontology. Draft version 0.3.0."@en ;
+    dcterms:creator "Nader Jelassi"@en , "Marc-Andree Wolf"@en ;
+    dcterms:contributor "Arnab Sinha"@en ;
+    dcterms:created "2026-07-07"^^xsd:date ;
+    dcterms:issued "2026-07-07"^^xsd:date ;
+    dcterms:modified "2026-11-03"^^xsd:date ;
+    dcterms:references "Regulation (EU) 2023/1542, Annex XIII; BatteryPass-Ready Data Attribute Long List v1.3; Spherity Battery Pass ontology v0.1"@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2023/1542/oj> ;
+    owl:versionInfo "Version 0.3.0 DRAFT"@en ;
+    vann:preferredNamespaceUri "https://w3id.org/eudpp/battery-materials#" ;
+    vann:preferredNamespacePrefix "batmat" .
+
+#################################################
+# Classes
+#################################################
+
+batmat:BatteryChemistry
+    a owl:Class ;
+    rdfs:subClassOf dpp:MaterialOfComposition ;
+    rdfs:label "Battery Chemistry"@en ;
+    rdfs:comment "The electrochemical composition of the battery, reflecting the active materials used in cathode and anode and, voluntarily, electrolyte. Specialises the cross-sectoral MaterialOfComposition class."@en ;
+    dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39; Spherity Battery Pass ontology v0.1, BatteryChemistryEntity"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-materials> .
+
+batmat:BatteryLocation
+    a owl:Class ;
+    rdfs:label "Battery Location"@en ;
+    rdfs:comment "An internal location within the battery where a material or sub-component resides. Battery-specific class with no CORE anchor. Its value set is the battery-locations vocabulary, which declares the three locations named by Regulation (EU) 2023/1542, Annex XIII 2(a): cathode, anode and electrolyte."@en ;
+    rdfs:seeAlso <https://w3id.org/eudpp/battery-locations> ;
+    dcterms:references "Spherity Battery Pass ontology v0.1, BatteryLocationEntity"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-materials> .
+
+#################################################
+# Object Properties
+#################################################
+
+batmat:hasBatteryChemistry
+    a owl:ObjectProperty ;
+    rdfs:domain bat:Battery ;
+    rdfs:range batmat:BatteryChemistry ;
+    rdfs:subPropertyOf dpp:hasMaterial ;
+    rdfs:label "has battery chemistry"@en ;
+    rdfs:comment "Links a battery to its electrochemical chemistry. Declared as a sub-property of the CORE product-to-material link dpp:hasMaterial (CONNECTOR)."@en ;
+    dcterms:references "BatteryPass-Ready Data Attribute Long List v1.3, attribute 39; Spherity Battery Pass ontology v0.1, batteryChemistry"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-materials> .
+
+batmat:hasBatteryLocation
+    a owl:ObjectProperty ;
+    rdfs:domain batmat:BatteryChemistry ;
+    rdfs:range batmat:BatteryLocation ;
+    rdfs:label "has battery location"@en ;
+    rdfs:comment "Links a battery material of composition to its internal location within the battery. The domain is restricted to BatteryChemistry rather than the cross-sectoral MaterialOfComposition, so that this battery-specific property is not asserted on materials of other sectors."@en ;
+    dcterms:references "Spherity Battery Pass ontology v0.1, batteryMaterialLocation"@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/battery-materials> .
+
+#################################################
+# Chemistry values
+#################################################
+# batmat:BatteryChemistry is a subclass of dpp:MaterialOfComposition, so
+# the chemistry is typed with the inherited dpp:hasMaterialType pointing
+# to an individual of the battery-chemistries vocabulary:
+#
+#     :chem-1 a batmat:BatteryChemistry ;
+#             dpp:hasMaterialType batchem:NMC .
+#
+# batmat:chemistryShortName and batmat:chemistryClearName are removed in
+# v0.2.0: the short code is skos:notation and the full name is
+# skos:prefLabel on the concept (ontologies-battery#9).
+
+#################################################
+# Location values
+#################################################
+# batmat:BatteryLocation has a value set since v0.3.0: the three
+# locations of Annex XIII 2(a), declared in the battery-locations
+# vocabulary as individuals of this class:
+#
+#     :chem-1 a batmat:BatteryChemistry ;
+#             batmat:hasBatteryLocation batloc:Cathode .

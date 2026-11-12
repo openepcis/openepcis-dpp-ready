@@ -1,0 +1,92 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "rdfs:comment": [
+    "Battery replacement in a smartphone: TransformationEvent for the swap,",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
+    "",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,euelec=https://ref.openepcis.org/extensions/eu/electronics/",
+    "The firmware version the device runs after the swap uses euelec:newVersion, the module's event-level 'version after update' carrier, rather than a repair-specific duplicate of it.",
+    "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "schemaVersion": "2.0",
+  "creationDate": "2025-02-01T16:45:00.000Z",
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "TransformationEvent",
+        "eventTime": "2025-02-01T16:30:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "inputEPCList": [
+          "https://id.gs1.org/01/09506000134352/21/ABC123456",
+          "https://id.gs1.org/01/09506000134369/21/BAT789012"
+        ],
+        "outputEPCList": [
+          "https://id.gs1.org/01/09506000134352/21/ABC123456",
+          "https://id.gs1.org/01/09506000134369/21/BAT-NEW-456"
+        ],
+        "bizStep": "repairing",
+        "disposition": "active",
+        "readPoint": {
+          "id": "urn:epc:id:sgln:9521234.00002.repair-station-3"
+        },
+        "bizLocation": {
+          "id": "urn:epc:id:sgln:9521234.00002.0"
+        },
+        "bizTransactionList": [
+          {
+            "type": "desadv",
+            "bizTransaction": "urn:epc:id:gdti:9521234.00001.REP-2025-00234"
+          }
+        ],
+        "euelec:repairType": "BatteryReplacement",
+        "euelec:hasComponentType": "BatteryComponent",
+        "euelec:repairDescription": {
+          "@value": "Original battery replaced due to capacity degradation (75% SoH)",
+          "@language": "en"
+        },
+        "euelec:repairTechnician": "Authorized Service Center - Berlin",
+        "euelec:removalReason": "Capacity degradation - 75% State of Health",
+        "euelec:hasReplacedComponentPassport": {
+          "id": "https://id.gs1.org/01/09506000134369/21/BAT789012",
+          "type": "euelec:ElectronicComponent"
+        },
+        "euelec:hasInstalledComponentPassport": {
+          "id": "https://id.gs1.org/01/09506000134369/21/BAT-NEW-456",
+          "type": "euelec:ElectronicComponent"
+        },
+        "euelec:newVersion": "EP2025.1.2.45",
+        "euelec:warrantyStatus": "InWarranty",
+        "euelec:hasRepairCost": {
+          "type": "gs1:PriceSpecification",
+          "gs1:price": 0,
+          "gs1:priceCurrency": "EUR"
+        }
+      },
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2025-02-01T16:35:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "epcList": [
+          "https://id.gs1.org/01/09506000134369/21/BAT789012"
+        ],
+        "action": "OBSERVE",
+        "bizStep": "inspecting",
+        "disposition": "needs_replacement",
+        "readPoint": {
+          "id": "urn:epc:id:sgln:9521234.00002.repair-station-3"
+        },
+        "euelec:hasComponentType": "BatteryComponent",
+        "euelec:removalReason": "Capacity degradation - 75% State of Health",
+        "euelec:nextDisposition": "RecyclingWEEECategory6",
+        "euelec:hazardousWasteGenerated": false
+      }
+    ]
+  }
+}

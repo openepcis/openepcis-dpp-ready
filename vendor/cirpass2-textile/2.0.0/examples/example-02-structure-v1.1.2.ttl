@@ -1,0 +1,55 @@
+@prefix ex: <https://example.org/eu-dpp-textile/> .
+@prefix txt: <https://w3id.org/eudpp/textile-core#> .
+@prefix txtstr: <https://w3id.org/eudpp/textile-structure#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix si: <https://si-digital-framework.org/SI#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix quantities: <https://si-digital-framework.org/quantities/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:body-fabric-001
+    a txt:Fabric ;
+    rdfs:label "Example body fabric"@en ;
+    txtstr:hasStructuralCharacteristic ex:fabric-surface-density-001,
+        ex:thread-count-001,
+        ex:fabric-breathability-001 .
+
+ex:fabric-surface-density-001
+    a txtstr:FabricMassPerUnitArea ;
+    txtstr:characteristicOf ex:body-fabric-001 ;
+    txtstr:hasCharacteristicValue ex:value-surface-density .
+
+ex:value-surface-density
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "145"^^xsd:decimal ;
+    txtcon:hasQuantityKind quantities:SUDE ;
+    txtcon:hasMeasurementUnit [
+        a si:UnitProduct ;
+        si:hasLeftUnitTerm units:kilogram ;
+        si:hasRightUnitTerm [
+            a si:UnitPower ;
+            si:hasUnitBase units:metre ;
+            si:hasNumericExponent "-2"^^xsd:short
+        ]
+    ] .
+
+ex:thread-count-001
+    a txtstr:ThreadCount ;
+    txtstr:characteristicOf ex:body-fabric-001 ;
+    txtstr:hasCharacteristicValue ex:value-thread-count .
+
+# 2 000 threads per metre. The reciprocal-length unit is built from SI terms.
+ex:value-thread-count
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "2000"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit [
+        a si:UnitPower ;
+        si:hasUnitBase units:metre ;
+        si:hasNumericExponent "-1"^^xsd:short
+    ] .
+
+ex:fabric-breathability-001
+    a txtstr:FabricBreathability ;
+    txtstr:characteristicOf ex:body-fabric-001 ;
+    txtstr:hasTextualValue "medium breathability" .

@@ -1,0 +1,918 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix txt: <https://w3id.org/eudpp/textile-core#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtcs: <https://w3id.org/eudpp/textile-codelists#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+txt:ElectronicTextile a owl:Class ;
+    rdfs:label "Electronic textile"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile-based system that exhibits an intended and exploitable response to changes in its surroundings or to an external signal or input."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf txt:TextileProduct ;
+    skos:altLabel "E-textile"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.2, printed page 25, lines 469-477."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txt:defaultStudyScopeStatus txtcs:excludedFromJRCPreparatoryStudyScope ;
+    txt:jrcExclusionReason "Excluded because electronic textiles are very different from textile apparel in terms of function and physical characteristics."@en .
+
+txt:Fabric a owl:Class ;
+    rdfs:label "Fabric"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile product made from yarns, fibres or filaments and intended to be incorporated into another textile product or used in further manufacturing."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf txt:TextileProduct ;
+    txtcon:modellingNote "Fabric is modelled as a textile product. When a fabric is incorporated into another product, the instance-level relation dpp:isComponentOf expresses that role; no separate intermediate-product class is required."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.2, printed page 25, lines 486-492; JRC Preparatory Study, Section 3.3.1, printed page 27, lines 536-546."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txt:MedicalDeviceTextileApparel a owl:Class ;
+    rdfs:label "Medical device textile apparel"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile apparel identified as a medical device or as an accessory for a medical device in accordance with Regulation (EU) 2017/745."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf txt:TextileApparel ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.2, printed page 25, lines 469-481."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txt:defaultStudyScopeStatus txtcs:excludedFromJRCPreparatoryStudyScope ;
+    txt:jrcExclusionReason "Excluded because textile apparel identified as a medical device or as an accessory for a medical device is outside the selected scope."@en .
+
+txt:PPETextileApparel a owl:Class ;
+    rdfs:label "PPE textile apparel"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile apparel identified as personal protective equipment in accordance with Regulation (EU) 2016/425."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf txt:TextileApparel ;
+    skos:altLabel "Personal protective equipment textile apparel"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.2, printed page 25, lines 469-479."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txt:defaultStudyScopeStatus txtcs:excludedFromJRCPreparatoryStudyScope ;
+    txt:jrcExclusionReason "Excluded because textile apparel identified as personal protective equipment is outside the selected scope."@en .
+
+txt:ReusableTextileAbsorbentHygieneProduct a owl:Class ;
+    rdfs:label "Reusable textile absorbent hygiene product"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Reusable textile absorbent hygiene product considered a technical textile and excluded from scope."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf txt:TextileProduct ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.2, printed pages 25-26, lines 495-506; JRC Preparatory Study, relevant section, printed page 19, lines 275-279; JRC Preparatory Study, relevant section, Table 3, printed page 19; caption line 275."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txt:defaultStudyScopeStatus txtcs:excludedFromJRCPreparatoryStudyScope ;
+    txt:jrcExclusionReason "Excluded because reusable textile absorbent hygiene products perform a different function from textile apparel and are considered technical textiles."@en .
+
+txt:SmartTextile a owl:Class ;
+    rdfs:label "Smart textile"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile able to sense and react to environmental conditions or external stimuli through incorporated sensors or responsive components."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf txt:TextileProduct ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.2, printed page 25, lines 469-474."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txt:defaultStudyScopeStatus txtcs:excludedFromJRCPreparatoryStudyScope ;
+    txt:jrcExclusionReason "Excluded because smart textiles are very different from textile apparel in terms of function and physical characteristics."@en .
+
+txt:TextileCleaningProduct a owl:Class ;
+    rdfs:label "Textile cleaning product"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile cleaning product considered a technical textile and excluded from scope because its function differs from apparel."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf txt:TextileProduct ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.2, printed pages 25-26, lines 495-505; JRC Preparatory Study, relevant section, printed page 19, lines 275-279; JRC Preparatory Study, relevant section, Table 3, printed page 19; caption line 275."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txt:defaultStudyScopeStatus txtcs:excludedFromJRCPreparatoryStudyScope ;
+    txt:jrcExclusionReason "Excluded because textile cleaning products perform a different function from textile apparel and are considered technical textiles."@en .
+
+txt:TextileFibre a owl:Class ;
+    rdfs:label "Textile fibre"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Unit of matter characterised by flexibility, fineness and a high ratio of length to maximum transverse dimension, suitable for textile applications."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf txt:TextileProduct ;
+    txtcon:modellingNote "TextileFibre is modelled as a textile product when it is represented as an identifiable fibre batch or traceability object. Its incorporation into yarn, fabric or another product is represented with dpp:isComponentOf."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, relevant section, printed page 14, lines 154-160."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txt:ToyTextileApparel a owl:Class ;
+    rdfs:label "Toy textile apparel"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile apparel identified as a toy in accordance with Directive 2009/48/EC."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf txt:TextileApparel ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.2, printed page 25, lines 469-482."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txt:defaultStudyScopeStatus txtcs:excludedFromJRCPreparatoryStudyScope ;
+    txt:jrcExclusionReason "Excluded because textile apparel identified as a toy is outside the selected scope."@en .
+
+txt:Yarn a owl:Class ;
+    rdfs:label "Yarn"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile product consisting of fibres assembled into a continuous strand and intended to be incorporated into fabric or another textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf txt:TextileProduct ;
+    txtcon:modellingNote "Yarn is modelled as a textile product. Its role as an input or component of a fabric or another product is represented with dpp:isComponentOf."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.2, printed page 25, lines 486-492; JRC Preparatory Study, Section 3.3.1, printed page 27, lines 536-546."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txt:defaultStudyScopeStatus a owl:AnnotationProperty ;
+    rdfs:label "default study scope status"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Annotation property used on product-type classes to document their default status with respect to a study or regulatory modelling scope."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    txtcon:modellingNote "This is an annotation-level modelling aid for product types. Instance-level scope status, if needed, should be represented with a data validation pattern or a dedicated object property in a context module."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 443-468; JRC Preparatory Study, Section 3.2.2, printed pages 25-26, lines 469-506."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txt:hasFibreComponent a owl:ObjectProperty ;
+    rdfs:label "has fibre component"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Relates a textile product to a textile fibre type concept that is part of its composition."@en ;
+    rdfs:domain txt:TextileProduct ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:range txt:FibreTypeConcept ;
+    txtcon:modellingNote "Non-quantitative relation indicating that a textile product contains a given textile fibre type. This property is useful when the presence of a fibre type is known but its quantitative share is not represented."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 2, printed page 14, lines 161-166; JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535; JRC Preparatory Study, Section 4.1, printed page 33, lines 703-709."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txt:hasFibreCompositionComponent a owl:ObjectProperty ;
+    rdfs:label "has fibre composition component"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Relates a textile product to a structured fibre composition component."@en ;
+    rdfs:domain txt:TextileProduct ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:range txt:FibreCompositionComponent ;
+    txtcon:modellingNote "No subproperty alignment with dpp:hasMaterialType is asserted because hasFibreCompositionComponent links a textile product to a structured composition entry, whereas dpp:hasMaterialType links a material-of-composition entry to a classification value. Their subject and object roles differ."@en,
+        "Preferred relation for representing the declared fibre composition of a textile product, including the fibre type and its quantitative share."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 2, printed page 14, lines 161-166; JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535; JRC Preparatory Study, Section 4.1, printed page 33, lines 703-709."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txt:hasNonTextileMaterialMassFraction a owl:ObjectProperty ;
+    rdfs:label "has non-textile material mass fraction"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Relates a textile product to the mass fraction represented by non-textile materials."@en ;
+    rdfs:domain txt:TextileProduct ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:range txtcon:QuantitativeValue ;
+    txtcon:modellingNote "Values use a 0-1 mass-fraction scale and the dimensionless SI unit units:one. Cardinality, range and sum rules will be defined in SHACL."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 2, printed page 14, lines 161-166; JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535; JRC Preparatory Study, Section 4.1, printed page 33, lines 703-709."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txt:hasStudyScopeStatus a owl:ObjectProperty ;
+    rdfs:label "has study scope status"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Relates a textile product instance to a controlled study scope status concept."@en ;
+    rdfs:domain txt:TextileProduct ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:range txt:StudyScopeStatusConcept ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 443-468; JRC Preparatory Study, Section 3.2.2, printed pages 25-26, lines 469-506."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txt:hasTextileApparelProductType a owl:ObjectProperty ;
+    rdfs:label "has textile apparel product type"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Relates a textile apparel product to a controlled textile apparel product type concept."@en ;
+    rdfs:domain txt:TextileApparel ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:range txt:TextileApparelProductTypeConcept ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 443-468; JRC Preparatory Study, Section 3.2.1, Table 7, printed page 24; caption line 450."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txt:hasTextileFibreMassFraction a owl:ObjectProperty ;
+    rdfs:label "has textile fibre mass fraction"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Relates a product to the total mass fraction represented by textile fibres."@en ;
+    rdfs:domain dpp:Product ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:range txtcon:QuantitativeValue ;
+    txtcon:modellingNote "Values use a 0-1 mass-fraction scale and the dimensionless SI unit units:one. Cardinality, range and sum rules will be defined in SHACL."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 2, printed page 14, lines 161-166; JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535; JRC Preparatory Study, Section 4.1, printed page 33, lines 703-709."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txt:jrcExclusionReason a owl:AnnotationProperty ;
+    rdfs:label "JRC exclusion reason"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Annotation specifying the reason why a textile product class or category is excluded from the JRC preparatory study scope."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:range xsd:string ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 443-468; JRC Preparatory Study, Section 3.2.2, printed pages 25-26, lines 469-506."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txt:jrcScopeCondition a owl:AnnotationProperty ;
+    rdfs:label "JRC scope condition"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Annotation specifying a textual condition governing inclusion of a textile product class or category in the JRC preparatory study scope."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:range xsd:string ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 443-468; JRC Preparatory Study, Section 3.2.2, printed pages 25-26, lines 469-506."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtcs:acetate a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Acetate"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A man-made cellulosic fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:manMadeCellulosicFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_ACETATE" ;
+    skos:prefLabel "Acetate"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:acrylic a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Acrylic"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A synthetic polymer fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:syntheticPolymerFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_ACRYLIC" ;
+    skos:prefLabel "Acrylic"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:belt a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "Belt"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Flexible band or strap worn around the waist or over the shoulders, used to secure or hold up clothing such as pants."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:textileApparelAccessory ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:notation "ACCESSORY_BELT" ;
+    skos:prefLabel "Belt"@en ;
+    txtcon:sourceLocator "JRC Section 3.2.1, Table 7, printed page 24; table caption at line 455."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:cotton a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Cotton"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A vegetable-origin textile fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:vegetableOriginFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_COTTON" ;
+    skos:prefLabel "Cotton"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:cupro a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Cupro"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A man-made cellulosic fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:manMadeCellulosicFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_CUPRO" ;
+    skos:prefLabel "Cupro"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:dressSkirtOrJumpsuit a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "Dresses, skirts and jumpsuits"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "One-piece garment covering the upper and lower body, or the lower body only, other than pants and shorts."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:notation "APPAREL_DRESS_SKIRT_JUMPSUIT" ;
+    skos:prefLabel "Dresses, skirts and jumpsuits"@en ;
+    skos:topConceptOf txtcs:TextileApparelProductTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 443-468; JRC Preparatory Study, Section 3.2.1, Table 7, printed page 24; caption line 450."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:elastane a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Elastane"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A synthetic polymer fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:syntheticPolymerFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_ELASTANE" ;
+    skos:prefLabel "Elastane"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:flax a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Flax"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A vegetable-origin textile fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:vegetableOriginFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_FLAX" ;
+    skos:prefLabel "Flax"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:gloveOrMitten a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "Glove or mitten"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Article of clothing used in pairs to protect hands and wrists from the elements or as a fashion item."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:altLabel "Gloves and mittens"@en ;
+    skos:broader txtcs:textileApparelAccessory ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:notation "ACCESSORY_GLOVE_MITTEN" ;
+    skos:prefLabel "Glove or mitten"@en ;
+    txtcon:sourceLocator "JRC Section 3.2.1, Table 7, printed page 24; table caption at line 455."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:hair a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Hair"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "An animal-origin textile fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:animalOriginFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_HAIR" ;
+    skos:prefLabel "Hair"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:hat a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "Hat"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile apparel accessory used to cover the head for warmth or as a fashion item, including caps, flat caps, woollen hats, beanies, fedoras, panamas, bowlers, newsboys and berets."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:textileApparelAccessory ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:notation "ACCESSORY_HAT" ;
+    skos:prefLabel "Hat"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 443-468; JRC Preparatory Study, Section 3.2.1, Table 7, printed page 24; caption line 450."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:jacketOrCoat a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "Jackets and coats"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Garments worn on top of a shirt or sweater or intended to protect from natural elements, including blazers, suit jackets, overcoats, rain jackets, parkas and anoraks."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:notation "APPAREL_JACKET_COAT" ;
+    skos:prefLabel "Jackets and coats"@en ;
+    skos:topConceptOf txtcs:TextileApparelProductTypeScheme ;
+    txtcon:sourceLocator "JRC Section 3.2.1, Table 7, printed page 24; table caption at line 455."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:jute a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Jute"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A vegetable-origin textile fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:vegetableOriginFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_JUTE" ;
+    skos:prefLabel "Jute"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:leggingStockingTightOrSock a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "Leggings, stockings, tights and socks"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Tight garment to cover the legs and/or feet."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:notation "APPAREL_LEGGING_STOCKING_TIGHT_SOCK" ;
+    skos:prefLabel "Leggings, stockings, tights and socks"@en ;
+    skos:topConceptOf txtcs:TextileApparelProductTypeScheme ;
+    txtcon:sourceLocator "JRC Section 3.2.1, Table 7, printed page 24; table caption at line 455."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:lyocell a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Lyocell"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A man-made cellulosic fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:manMadeCellulosicFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_LYOCELL" ;
+    skos:prefLabel "Lyocell"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:nonPPEWorkwear a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "Non-PPE workwear"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Workwear included in the JRC preparatory study scope when it is not classified as personal protective equipment."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:workwear ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:notation "APPAREL_NON_PPE_WORKWEAR" ;
+    skos:prefLabel "Non-PPE workwear"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 455-468; JRC Preparatory Study, Section 3.2.2, printed page 25, lines 469-482."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:pantsOrShorts a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "Pants and shorts"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Garment to cover the lower body, including casual pants, jeans, sports pants, dress pants and shorts."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:notation "APPAREL_PANTS_SHORTS" ;
+    skos:prefLabel "Pants and shorts"@en ;
+    skos:topConceptOf txtcs:TextileApparelProductTypeScheme ;
+    txtcon:sourceLocator "JRC Section 3.2.1, Table 7, printed page 24; table caption at line 455."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:polyamide a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Polyamide"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A synthetic polymer fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:syntheticPolymerFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_POLYAMIDE" ;
+    skos:prefLabel "Polyamide"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:polyester a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Polyester"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A synthetic polymer fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:syntheticPolymerFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_POLYESTER" ;
+    skos:prefLabel "Polyester"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:polypropylene a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Polypropylene"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A synthetic polymer fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:syntheticPolymerFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_POLYPROPYLENE" ;
+    skos:prefLabel "Polypropylene"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:scarfOrTie a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "Scarf or tie"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile apparel accessory worn around the neck for warmth or as a fashion item, including warm and light scarves, buffs, neckerchiefs, headscarves, shawls, bowties and ties."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:altLabel "Scarves and ties"@en ;
+    skos:broader txtcs:textileApparelAccessory ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:notation "ACCESSORY_SCARF_TIE" ;
+    skos:prefLabel "Scarf or tie"@en ;
+    txtcon:sourceLocator "JRC Section 3.2.1, Table 7, printed page 24; table caption at line 455."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:shirtOrBlouse a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "Shirts and blouses"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Garment to cover the upper body including the entire arm, including long-sleeved shirts, blouses and base layers."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:notation "APPAREL_SHIRT_BLOUSE" ;
+    skos:prefLabel "Shirts and blouses"@en ;
+    skos:topConceptOf txtcs:TextileApparelProductTypeScheme ;
+    txtcon:sourceLocator "JRC Section 3.2.1, Table 7, printed page 24; table caption at line 455."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:silk a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Silk"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "An animal-origin textile fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:animalOriginFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_SILK" ;
+    skos:prefLabel "Silk"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:sweaterOrMidLayer a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "Sweaters, pullovers and mid-layers"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Garment to keep the upper body warm and covered, including pullovers, cardigans, hoodies, jerseys, sweatshirts and sweaters."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:altLabel "Sweaters and mid-layers"@en ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:notation "APPAREL_SWEATER_MID_LAYER" ;
+    skos:prefLabel "Sweaters, pullovers and mid-layers"@en ;
+    skos:topConceptOf txtcs:TextileApparelProductTypeScheme ;
+    txtcon:sourceLocator "JRC Section 3.2.1, Table 7, printed page 24; table caption at line 455."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:swimwear a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "Swimwear"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Garment worn for water-based or sun-based activities, including bikinis, bathing suits, racing-style swimwear and board shorts."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:notation "APPAREL_SWIMWEAR" ;
+    skos:prefLabel "Swimwear"@en ;
+    skos:topConceptOf txtcs:TextileApparelProductTypeScheme ;
+    txtcon:sourceLocator "JRC Section 3.2.1, Table 7, printed page 24; table caption at line 455."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:tShirt a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "T-shirts and tops"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Garment to cover the upper body to the elbow, including singlets, vests, T-shirts, polo shirts and other short-sleeved shirts."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:altLabel "T-shirts"@en ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:notation "APPAREL_TSHIRT_TOP" ;
+    skos:prefLabel "T-shirts and tops"@en ;
+    skos:topConceptOf txtcs:TextileApparelProductTypeScheme ;
+    txtcon:sourceLocator "JRC Section 3.2.1, Table 7, printed page 24; table caption at line 455."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:triacetate a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Triacetate"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A man-made cellulosic fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:manMadeCellulosicFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_TRIACETATE" ;
+    skos:prefLabel "Triacetate"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:underwear a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "Underwear"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Garment worn under clothes, often next to the skin of the upper or lower body, including boxers, briefs, panties, bras and body-shaping suits."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:notation "APPAREL_UNDERWEAR" ;
+    skos:prefLabel "Underwear"@en ;
+    skos:topConceptOf txtcs:TextileApparelProductTypeScheme ;
+    txtcon:sourceLocator "JRC Section 3.2.1, Table 7, printed page 24; table caption at line 455."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:viscose a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Viscose"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A man-made cellulosic fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:manMadeCellulosicFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_VISCOSE" ;
+    skos:prefLabel "Viscose"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:wool a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Wool"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "An animal-origin textile fibre listed in the JRC classification of commonly used textile fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:animalOriginFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:notation "FIBRE_WOOL" ;
+    skos:prefLabel "Wool"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txt:hasFibreMassFraction a owl:ObjectProperty ;
+    rdfs:label "has fibre mass fraction"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Relates a fibre composition component to the mass fraction of that fibre in the textile product."@en ;
+    rdfs:domain txt:FibreCompositionComponent ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:range txtcon:QuantitativeValue ;
+    txtcon:modellingNote "Values use a 0-1 mass-fraction scale and the dimensionless SI unit units:one. Cardinality, range and sum rules will be defined in SHACL."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 2, printed page 14, lines 161-166; JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535; JRC Preparatory Study, Section 4.1, printed page 33, lines 703-709."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txt:hasFibreType a owl:ObjectProperty ;
+    rdfs:label "has fibre type"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Relates a fibre composition component to the textile fibre type concept it describes."@en ;
+    rdfs:domain txt:FibreCompositionComponent ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:range txt:FibreTypeConcept ;
+    rdfs:subPropertyOf dpp:hasMaterialType ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 2, printed page 14, lines 161-166; JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535; JRC Preparatory Study, Section 4.1, printed page 33, lines 703-709."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtcs:includedInJRCPreparatoryStudyScope a skos:Concept,
+        txt:StudyScopeStatusConcept ;
+    rdfs:label "Included in JRC preparatory study scope"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Study scope status indicating that the textile product type is included in the JRC preparatory study scope."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:inScheme txtcs:StudyScopeStatusScheme ;
+    skos:prefLabel "Included in JRC preparatory study scope"@en ;
+    skos:topConceptOf txtcs:StudyScopeStatusScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 443-468; JRC Preparatory Study, Section 3.2.2, printed pages 25-26, lines 469-506."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtcs:workwear a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "Workwear"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile apparel designed or used for professional or occupational contexts."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:narrower txtcs:nonPPEWorkwear ;
+    skos:notation "APPAREL_WORKWEAR" ;
+    skos:prefLabel "Workwear"@en ;
+    skos:topConceptOf txtcs:TextileApparelProductTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 455-468; JRC Preparatory Study, Section 3.2.2, printed page 25, lines 469-482."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:chemicalFibre a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Chemical fibre"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A man-made textile fibre category that includes man-made cellulosic fibres and synthetic polymer fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:narrower txtcs:manMadeCellulosicFibre,
+        txtcs:syntheticPolymerFibre ;
+    skos:notation "FIBRE_CHEMICAL" ;
+    skos:prefLabel "Chemical fibre"@en ;
+    skos:topConceptOf txtcs:FibreTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:naturalOriginFibre a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Natural origin fibre"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A textile fibre category of natural origin."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:narrower txtcs:animalOriginFibre,
+        txtcs:vegetableOriginFibre ;
+    skos:notation "FIBRE_NATURAL_ORIGIN" ;
+    skos:prefLabel "Natural origin fibre"@en ;
+    skos:topConceptOf txtcs:FibreTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txt:FibreCompositionComponent a owl:Class ;
+    rdfs:label "Fibre composition component"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A structured component of a textile product fibre composition, specifying a fibre type and its quantitative share in the product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty txt:hasFibreType ;
+            owl:someValuesFrom txt:FibreTypeConcept ],
+        [ a owl:Restriction ;
+            owl:onProperty txt:hasFibreMassFraction ;
+            owl:someValuesFrom txtcon:QuantitativeValue ],
+        dpp:MaterialOfComposition ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 2, printed page 14, lines 161-166; JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535; JRC Preparatory Study, Section 4.1, printed page 33, lines 703-709."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txt:StudyScopeStatusConcept a owl:Class ;
+    rdfs:label "Study scope status concept"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "SKOS concept used to indicate whether a textile product type is included in, excluded from, or otherwise qualified with respect to a study or regulatory modelling scope."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 443-468; JRC Preparatory Study, Section 3.2.2, printed pages 25-26, lines 469-506."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtcs:StudyScopeStatusScheme a skos:ConceptScheme ;
+    rdfs:label "Study scope status scheme"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Controlled vocabulary for representing the status of a textile product type with respect to the JRC preparatory study scope."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:hasTopConcept txtcs:excludedFromJRCPreparatoryStudyScope,
+        txtcs:includedInJRCPreparatoryStudyScope ;
+    skos:prefLabel "Study scope status scheme"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 443-468; JRC Preparatory Study, Section 3.2.2, printed pages 25-26, lines 469-506."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtcs:animalOriginFibre a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Animal origin fibre"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A natural-origin textile fibre category that includes wool, silk and hair."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:naturalOriginFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:narrower txtcs:hair,
+        txtcs:silk,
+        txtcs:wool ;
+    skos:notation "FIBRE_ANIMAL_ORIGIN" ;
+    skos:prefLabel "Animal origin fibre"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:vegetableOriginFibre a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Vegetable origin fibre"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A natural-origin textile fibre category that includes cotton, flax and jute."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:naturalOriginFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:narrower txtcs:cotton,
+        txtcs:flax,
+        txtcs:jute ;
+    skos:notation "FIBRE_VEGETABLE_ORIGIN" ;
+    skos:prefLabel "Vegetable origin fibre"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txt:TextileApparel a owl:Class ;
+    rdfs:label "Textile apparel"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile products that aim to cover the body with everything except footwear, including clothing and clothing accessories worn to clothe, adorn, shield, provide comfort, or express identity and belonging."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf txt:TextileProduct ;
+    txtcon:modellingNote "TextileApparel is a final textile product category for apparel and apparel accessories. The supplied EU DPP Core snapshot does not declare a separate FinalProduct class, so final-product status remains a local textile distinction under dpp:Product. It is narrower than TextileProduct and should not be confused with the whole textile product domain."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, relevant section, printed page 14, lines 167-170; JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 443-468; JRC Preparatory Study, Section 3.2.1, Table 7, printed page 24; caption line 450."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txt:defaultStudyScopeStatus txtcs:includedInJRCPreparatoryStudyScope .
+
+txtcs:textileApparelAccessory a skos:Concept,
+        txt:TextileApparelProductTypeConcept ;
+    rdfs:label "Textile apparel accessory"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Controlled product-type concept corresponding to the textile apparel accessories category in JRC Table 7, including hats, scarves and ties, belts, gloves and mittens."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:inScheme txtcs:TextileApparelProductTypeScheme ;
+    skos:narrower txtcs:belt,
+        txtcs:gloveOrMitten,
+        txtcs:hat,
+        txtcs:scarfOrTie ;
+    skos:notation "APPAREL_ACCESSORY" ;
+    skos:prefLabel "Textile apparel accessory"@en ;
+    skos:topConceptOf txtcs:TextileApparelProductTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed page 24, lines 443-456; JRC Preparatory Study, Section 3.2.1, Table 7, printed page 24; caption line 450."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:manMadeCellulosicFibre a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Man-made cellulosic fibre"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A man-made cellulosic fibre category that includes viscose, cupro, lyocell, acetate and triacetate."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:chemicalFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:narrower txtcs:acetate,
+        txtcs:cupro,
+        txtcs:lyocell,
+        txtcs:triacetate,
+        txtcs:viscose ;
+    skos:notation "FIBRE_MAN_MADE_CELLULOSIC" ;
+    skos:prefLabel "Man-made cellulosic fibre"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:syntheticPolymerFibre a skos:Concept,
+        txt:FibreTypeConcept ;
+    rdfs:label "Synthetic polymer fibre"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A synthetic polymer fibre category that includes polyester, polyamide, acrylic, polypropylene and elastane."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:broader txtcs:chemicalFibre ;
+    skos:inScheme txtcs:FibreTypeScheme ;
+    skos:narrower txtcs:acrylic,
+        txtcs:elastane,
+        txtcs:polyamide,
+        txtcs:polyester,
+        txtcs:polypropylene ;
+    skos:notation "FIBRE_SYNTHETIC_POLYMER" ;
+    skos:prefLabel "Synthetic polymer fibre"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtcs:excludedFromJRCPreparatoryStudyScope a skos:Concept,
+        txt:StudyScopeStatusConcept ;
+    rdfs:label "Excluded from JRC preparatory study scope"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Study scope status indicating that the textile product type is excluded from the JRC preparatory study scope without implying that it is not a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:inScheme txtcs:StudyScopeStatusScheme ;
+    skos:prefLabel "Excluded from JRC preparatory study scope"@en ;
+    skos:topConceptOf txtcs:StudyScopeStatusScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 443-468; JRC Preparatory Study, Section 3.2.2, printed pages 25-26, lines 469-506."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txt:TextileProduct a owl:Class ;
+    rdfs:label "Textile product"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Any raw, semi-worked, worked, semi-manufactured, manufactured, semi-made-up or made-up product which is exclusively composed of textile fibres, as well as a product containing at least 80% textile fibres by weight."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf dpp:Product ;
+    txtcon:modellingNote "TextileProduct is the broad textile product class. It includes final products and products serving an intermediate or component role when they are represented as product-like traceability resources. Identification constraints should be specified by SHACL according to product granularity rather than imposed uniformly on every TextileProduct."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, relevant section, printed page 14, lines 161-166."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txt:TextileApparelProductTypeConcept a owl:Class ;
+    rdfs:label "Textile apparel product type concept"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "SKOS concept used as a controlled value for classifying textile apparel product types."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 443-468; JRC Preparatory Study, Section 3.2.1, Table 7, printed page 24; caption line 450."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtcs:FibreTypeScheme a skos:ConceptScheme ;
+    rdfs:label "Textile fibre type scheme"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Controlled vocabulary of textile fibre types used to describe textile fibre composition."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:hasTopConcept txtcs:chemicalFibre,
+        txtcs:naturalOriginFibre ;
+    skos:prefLabel "Textile fibre type scheme"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txt:FibreTypeConcept a owl:Class ;
+    rdfs:label "Fibre type concept"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "SKOS concept used as a controlled value for textile fibre type in a fibre composition."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    rdfs:subClassOf skos:Concept,
+        dpp:MaterialType ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed page 26, lines 522-535."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtcs:TextileApparelProductTypeScheme a skos:ConceptScheme ;
+    rdfs:label "Textile apparel product type scheme"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Controlled vocabulary representing the textile apparel categories of JRC Table 7. The JRC categories are aligned with the PEFCR Apparel and Footwear work but this scheme does not claim identity with the complete PEFCR segmentation."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-core> ;
+    skos:hasTopConcept txtcs:dressSkirtOrJumpsuit,
+        txtcs:jacketOrCoat,
+        txtcs:leggingStockingTightOrSock,
+        txtcs:pantsOrShorts,
+        txtcs:shirtOrBlouse,
+        txtcs:sweaterOrMidLayer,
+        txtcs:swimwear,
+        txtcs:tShirt,
+        txtcs:textileApparelAccessory,
+        txtcs:underwear,
+        txtcs:workwear ;
+    skos:prefLabel "Textile apparel product type scheme"@en ;
+    txtcon:modellingNote "A single textile product-type scheme is retained to avoid duplicating JRC and PEFCR classifications. External PEFCR identifiers may be mapped when a stable authoritative classification is selected."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.2.1, printed pages 24-25, lines 443-468; JRC Preparatory Study, Section 3.2.1, Table 7, printed page 24; caption line 450."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+<https://w3id.org/eudpp/textile-core> a owl:Ontology ;
+    rdfs:label "EU DPP Textile Core Ontology"@en ;
+    dcterms:bibliographicCitation "EU DPP Textile Core Ontology. Version 2.0.0 candidate."@en ;
+    dcterms:created "2026-03-06"^^xsd:date ;
+    dcterms:creator "Elio Hbeich"@en,
+        "BOUGACHA Racem"@en,
+        "Ivo Ladenius"@en,
+        "Andreas Schneider"@en,
+        "Jan Merckx"@en,
+        "Piero de Sabbata"@en ;
+    dcterms:description "Ontology module for representing core textile product data relevant to EU Digital Product Passports, including textile product classes, textile apparel scope concepts, fibre composition structures, and controlled SKOS vocabularies for textile apparel product types and fibre types aligned with the JRC preparatory study on textiles."@en ;
+    dcterms:issued "2026-03-06"^^xsd:date ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:modified "2026-11-02"^^xsd:date ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    dcterms:title "EU DPP Textile Core Ontology"@en ;
+    vann:preferredNamespacePrefix "txt" ;
+    vann:preferredNamespaceUri "https://w3id.org/eudpp/textile-core#" ;
+    rdfs:comment "Fibre, yarn and fabric are modelled as textile products. When one product is intended to be incorporated into another, dpp:isComponentOf expresses the component role; the ontology does not create a separate intermediate-product class."@en,
+        "Named fibre types and textile apparel product categories are represented as SKOS concepts because they are controlled classification values rather than product subclasses."@en,
+        "Product types such as medical-device, PPE or toy textile apparel remain textile apparel by product nature but are annotated as excluded from the JRC preparatory study scope where appropriate."@en,
+        "These notations are stable local identifiers intended to support data exchange, mapping and validation."@en ;
+    owl:imports <https://w3id.org/eudpp/textile-connector>,
+        <https://w3id.org/eudpp/textile-dpp-mireot>,
+        <https://w3id.org/eudpp/textile-mat-mireot> ;
+    owl:priorVersion <https://w3id.org/eudpp/textile-core/1.1.2> ;
+    owl:versionIRI <https://w3id.org/eudpp/textile-core/2.0.0> ;
+    owl:versionInfo "Version 2.0.0 candidate" .
+

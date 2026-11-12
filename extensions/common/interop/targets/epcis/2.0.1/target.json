@@ -1,0 +1,65 @@
+{
+  "$comment": "A validation target: an external model at one version, hosted as GITB validation types by OpenEPCIS DPP-Ready. GS1 EPCIS/CBV 2.0.1 as published on ref.gs1.org, examples from the standard's repository. Artifacts are checked against the vendor MANIFEST.json on every build.",
+  "id": "epcis",
+  "version": "2.0.1",
+  "title": "GS1 EPCIS / CBV",
+  "publisher": "GS1",
+  "manifest": "vendor/gs1-epcis/2.0.1/MANIFEST.json",
+  "rootType": "https://ref.gs1.org/epcis/EPCISDocument",
+  "jsonld": {
+    "contexts": {
+      "https://ref.gs1.org/standards/epcis/2.0.0/epcis-context.jsonld": "vendor/gs1-epcis/2.0.1/epcis-context.jsonld",
+      "https://ref.gs1.org/standards/epcis/2.0.1/epcis-context.jsonld": "vendor/gs1-epcis/2.0.1/epcis-context.jsonld",
+      "https://ref.gs1.org/standards/epcis/epcis-context.jsonld": "vendor/gs1-epcis/2.0.1/epcis-context.jsonld"
+    }
+  },
+  "shacl": {
+    "background": [
+      "vendor/gs1-epcis/2.0.1/epcis-ontology.ttl",
+      "vendor/gs1-epcis/2.0.1/cbv-ontology.ttl"
+    ]
+  },
+  "types": [
+    {
+      "scope": "document",
+      "label": "EPCIS document (JSON Schema and SHACL)",
+      "schemas": [
+        "vendor/gs1-epcis/2.0.1/epcis-json-schema.json"
+      ],
+      "shapes": [
+        "vendor/gs1-epcis/2.0.1/epcis-shacl.ttl"
+      ],
+      "when": {
+        "typeIncludes": "EPCISDocument"
+      }
+    }
+  ],
+  "fixtures": [
+    {
+      "role": "publisher",
+      "glob": "vendor/gs1-epcis/2.0.1/examples/**/*.jsonld"
+    },
+    {
+      "role": "openepcis",
+      "glob": "extensions/*/*/epcis/*.jsonld"
+    }
+  ],
+  "accepted": [],
+  "exclude": [
+    {
+      "file": "vendor/gs1-epcis/2.0.1/examples/WithFullCombinationOfFields/transformation_event_all_possible_fields.jsonld",
+      "reason": "Redefines the protected term cbvmda of the EPCIS context in its own @context, which a JSON-LD 1.1 processor rejects, so the example has no RDF; its JSON Schema check stands.",
+      "only": "shacl"
+    },
+    {
+      "file": "vendor/gs1-epcis/2.0.1/examples/WithSensorData/SensorDataExample10.jsonld",
+      "reason": "Redefines the protected prefix gs1 of the EPCIS context (as https://gs1.org/voc/), which a JSON-LD 1.1 processor rejects, so the example has no RDF; its JSON Schema check stands.",
+      "only": "shacl"
+    },
+    {
+      "file": "vendor/gs1-epcis/2.0.1/examples/WithSensorData/SensorDataExample13.jsonld",
+      "reason": "Redefines the protected prefix gs1 of the EPCIS context (as https://gs1.org/voc/), which a JSON-LD 1.1 processor rejects, so the example has no RDF; its JSON Schema check stands.",
+      "only": "shacl"
+    }
+  ]
+}

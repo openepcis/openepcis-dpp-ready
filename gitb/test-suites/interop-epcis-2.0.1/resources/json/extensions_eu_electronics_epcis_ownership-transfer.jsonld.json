@@ -1,0 +1,126 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "rdfs:comment": [
+    "Ownership transfer chain: shipping, receiving, and retail sale of a serialized device.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
+    "",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,euelec=https://ref.openepcis.org/extensions/eu/electronics/",
+    "Warranty and purchase country are deliberately NOT event extensions here: the retail_selling eventTime is the warranty start, the warranty terms (gs1:manufacturersWarranty / gs1:WarrantyPromise with gs1:durationOfWarranty) are model-level master data, and the country of purchase is location-level master data of the store GLN in readPoint/bizLocation. All three are resolver-served.",
+    "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "schemaVersion": "2.0",
+  "creationDate": "2025-01-20T11:00:00.000Z",
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2025-01-18T09:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "epcList": [
+          "https://id.gs1.org/01/09506000134352/21/ABC123456"
+        ],
+        "action": "OBSERVE",
+        "bizStep": "shipping",
+        "disposition": "in_transit",
+        "readPoint": {
+          "id": "urn:epc:id:sgln:9521234.00001.warehouse"
+        },
+        "sourceList": [
+          {
+            "type": "owning_party",
+            "source": "urn:epc:id:pgln:9521234.00000"
+          },
+          {
+            "type": "possessing_party",
+            "source": "urn:epc:id:pgln:9521234.00000"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "owning_party",
+            "destination": "urn:epc:id:pgln:9521235.00000"
+          },
+          {
+            "type": "possessing_party",
+            "destination": "urn:epc:id:pgln:9521235.00000"
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "desadv",
+            "bizTransaction": "urn:epc:id:gdti:9521234.00001.SHIP-2025-00456"
+          },
+          {
+            "type": "inv",
+            "bizTransaction": "urn:epc:id:gdti:9521234.00001.INV-2025-00789"
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2025-01-19T14:30:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "epcList": [
+          "https://id.gs1.org/01/09506000134352/21/ABC123456"
+        ],
+        "action": "OBSERVE",
+        "bizStep": "receiving",
+        "disposition": "sellable_accessible",
+        "readPoint": {
+          "id": "urn:epc:id:sgln:9521235.00001.receiving-dock"
+        },
+        "bizLocation": {
+          "id": "urn:epc:id:sgln:9521235.00001.0"
+        },
+        "bizTransactionList": [
+          {
+            "type": "recadv",
+            "bizTransaction": "urn:epc:id:gdti:9521235.00001.REC-2025-00123"
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2025-01-20T10:45:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "epcList": [
+          "https://id.gs1.org/01/09506000134352/21/ABC123456"
+        ],
+        "action": "OBSERVE",
+        "bizStep": "retail_selling",
+        "disposition": "retail_sold",
+        "readPoint": {
+          "id": "urn:epc:id:sgln:9521235.00002.store-checkout"
+        },
+        "bizLocation": {
+          "id": "urn:epc:id:sgln:9521235.00002.0"
+        },
+        "sourceList": [
+          {
+            "type": "owning_party",
+            "source": "urn:epc:id:pgln:9521235.00000"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "owning_party",
+            "destination": "urn:epc:id:consumer"
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "po",
+            "bizTransaction": "urn:epc:id:gdti:9521235.00001.POS-2025-00567"
+          }
+        ]
+      }
+    ]
+  }
+}

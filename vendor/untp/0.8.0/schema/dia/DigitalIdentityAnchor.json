@@ -1,0 +1,816 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "type": {
+      "type": "array",
+      "readOnly": true,
+      "default": [
+        "DigitalIdentityAnchor",
+        "RecognizedEntityCredential",
+        "VerifiableCredential"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "const": "DigitalIdentityAnchor",
+            "minContains": 1
+          }
+        },
+        {
+          "contains": {
+            "const": "VerifiableCredential",
+            "minContains": 1
+          }
+        },
+        {
+          "contains": {
+            "const": "RecognizedEntityCredential",
+            "minContains": 1
+          }
+        }
+      ],
+      "description": "MUST include `RecognizedEntityCredential` so that the DIA is processable as a W3C Recognized Entities v1.0 credential, and `DigitalIdentityAnchor` so that it is recognisable as the UNTP profile of one."
+    },
+    "@context": {
+      "example": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://vocabulary.uncefact.org/untp/0.8.0/context/"
+      ],
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "A list of JSON-LD context URIs that define the semantic meaning of properties within the credential. ",
+      "readOnly": true,
+      "prefixItems": [
+        {
+          "const": "https://www.w3.org/ns/credentials/v2",
+          "type": "string"
+        },
+        {
+          "const": "https://vocabulary.uncefact.org/untp/0.8.0/context/",
+          "type": "string"
+        }
+      ],
+      "default": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://vocabulary.uncefact.org/untp/0.8.0/context/"
+      ],
+      "minItems": 2,
+      "uniqueItems": true
+    },
+    "id": {
+      "example": "https://example-company.com/credentials/2a423366-a0d6-4855-ba65-2e0c926d09b0",
+      "type": "string",
+      "format": "uri",
+      "description": "A unique identifier (URI) assigned to this verifiable credential."
+    },
+    "issuer": {
+      "$ref": "#/$defs/IssuerParty",
+      "description": "The organisation that is the issuer of this VC. The \"id\" property MUST be a W3C DID. Other identifiers, such as business or tax registration numbers, are listed in the \"issuerAlsoKnownAs\" property."
+    },
+    "validFrom": {
+      "example": "2024-03-15T12:00:00Z",
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time from which the credential is valid."
+    },
+    "validUntil": {
+      "example": "2034-03-15T12:00:00Z",
+      "type": "string",
+      "format": "date-time",
+      "description": "The expiry date (if applicable) of this verifiable credential."
+    },
+    "name": {
+      "example": "Some name",
+      "type": "string",
+      "description": "Name of this verifiable credential instance (eg the title of a digital product passport, facility record, lifecycle event, or conformity credential)"
+    },
+    "credentialStatus": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/BitstringStatusListEntry"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/BitstringStatusListEntry"
+          },
+          "minItems": 1
+        }
+      ],
+      "description": "A W3C VCDM2.0 compliant object, or array of such objects, containing credential status information."
+    },
+    "renderMethod": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RenderTemplate2024"
+      },
+      "description": "Human rendering information for this credential. An array of RenderTemplate2024 methods that may be used to display the credential."
+    },
+    "credentialSubject": {
+      "$ref": "#/$defs/RecognizedEntity",
+      "description": "The recognized entity whose registration this credential anchors. Exactly one."
+    },
+    "issuingSoftware": {
+      "$ref": "#/$defs/IssuingSoftware",
+      "description": "Optional metadata identifying the software product (and its vendor) that issued this credential. Useful for vendor traceability and conformity testing. Issuers MAY omit this property."
+    }
+  },
+  "description": "The Digital Identity Anchor (DIA) is a very simple credential that is issued by a trusted authority and asserts an equivalence between a member identity as known to the authority (eg a VAT number) and one or more decentralised identifiers (DIDs) held by the member.  ",
+  "required": [
+    "@context",
+    "id",
+    "issuer",
+    "validFrom",
+    "name",
+    "credentialSubject"
+  ],
+  "$defs": {
+    "BitstringStatusListEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "BitstringStatusListEntry"
+          ],
+          "example": "BitstringStatusListEntry",
+          "description": "The type of status list - must be set to \"The type property MUST be BitstringStatusListEntry.\""
+        },
+        "id": {
+          "example": "https://example-cab.com/credentials/status/3#94567",
+          "type": "string",
+          "format": "uri",
+          "description": "optional identifier of this status list entry."
+        },
+        "statusPurpose": {
+          "type": "string",
+          "examples": [
+            "refresh",
+            "revocation",
+            "suspension",
+            "message"
+          ],
+          "description": "Status purpose drawn from a standard list but extensible as per w3c bitstring status list specification."
+        },
+        "statusListIndex": {
+          "example": "94567",
+          "type": "string",
+          "pattern": "^[0-9]+$",
+          "description": "The statusListIndex property MUST be an arbitrary size integer greater than or equal to 0, expressed as a string in base 10. The value identifies the position of the status of the verifiable credential."
+        },
+        "statusListCredential": {
+          "example": "https://example-cab.com/credentials/status/4",
+          "type": "string",
+          "format": "uri",
+          "description": "The statusListCredential property MUST be a URL to a verifiable credential. When the URL is dereferenced, the resulting verifiable credential MUST have type property that includes the BitstringStatusListCredential value."
+        },
+        "statusSize": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "statusMessage": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": [
+              "status",
+              "message"
+            ],
+            "properties": {
+              "status": {
+                "type": "string",
+                "pattern": "^0x[0-9a-fA-F]+$"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "statusReference": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          ]
+        }
+      },
+      "description": "A privacy-preserving, space-efficient, and high-performance mechanism for publishing status information such as suspension or revocation of Verifiable Credentials through use of bitstrings.  See https://www.w3.org/TR/vc-bitstring-status-list/ for full details.",
+      "required": [
+        "type",
+        "statusPurpose",
+        "statusListIndex",
+        "statusListCredential"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "required": [
+              "statusSize"
+            ],
+            "properties": {
+              "statusSize": {
+                "type": "integer",
+                "minimum": 2
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "statusMessage"
+            ],
+            "properties": {
+              "statusMessage": {
+                "type": "array"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "statusSize": {
+                "type": "integer",
+                "const": 1
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "statusMessage": {
+                "type": "array",
+                "maxItems": 2
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Coordinate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "latitude": {
+          "maximum": 90,
+          "minimum": -90,
+          "example": -33.87,
+          "type": "number",
+          "description": "latitude: Angular distance north or south of the equator, expressed in decimal degrees.Valid range: \u221290.0 to +90.0."
+        },
+        "longitude": {
+          "maximum": 180,
+          "minimum": -180,
+          "example": -151.21,
+          "type": "number",
+          "description": "longitude: Angular distance east or west of the Prime Meridian, expressed in decimal degrees.Valid range: \u2212180.0 to +180.0."
+        }
+      },
+      "description": "A geographic point defined by latitude and longitude using the WGS84 geodetic coordinate reference system (EPSG:4326). Latitude and longitude are expressed in decimal degrees as floating-point numbers. Coordinates follow the conventional order (latitude, longitude) and represent a point on the Earth\u2019s surface.",
+      "required": [
+        "latitude",
+        "longitude"
+      ]
+    },
+    "IssuerParty": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "Party"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "Party",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "id": {
+          "example": "did:web:identifiers.example-company.com:12345",
+          "type": "string",
+          "format": "uri",
+          "description": "The W3C DID of the issuer. did:web and did:webvh are the RECOMMENDED methods."
+        },
+        "name": {
+          "example": "Example Company Pty Ltd",
+          "type": "string",
+          "description": "The name of the issuer person or organisation"
+        },
+        "alsoKnownAs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "array",
+                "readOnly": true,
+                "default": [
+                  "Party"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "const": "Party",
+                      "minContains": 1
+                    }
+                  }
+                ]
+              },
+              "id": {
+                "example": "https://sample-business-register.gov/123456789",
+                "type": "string",
+                "format": "uri",
+                "description": "Globally unique identifier of this party. Typically represented as a URI identifierScheme/Identifier URI"
+              },
+              "name": {
+                "example": "Sample Company Ltd",
+                "type": "string",
+                "description": "Legal registered name of this party."
+              },
+              "registeredId": {
+                "example": 90664869327,
+                "type": "string",
+                "description": "The registration number (alphanumeric) of the Party within the register. Unique within the register."
+              },
+              "idScheme": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "array",
+                    "readOnly": true,
+                    "default": [
+                      "IdentifierScheme"
+                    ],
+                    "items": {
+                      "type": "string"
+                    },
+                    "allOf": [
+                      {
+                        "contains": {
+                          "const": "IdentifierScheme",
+                          "minContains": 1
+                        }
+                      }
+                    ]
+                  },
+                  "id": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "The URI of this identifier scheme"
+                  },
+                  "name": {
+                    "example": "Global Identifier Scheme Name",
+                    "type": "string",
+                    "description": "The name of the identifier scheme. "
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ],
+                "description": "The identifier scheme of the registeredId - eg the register that issued this identifier."
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "description": "An optional list of other registered identifiers for this credential issuer "
+        }
+      },
+      "description": "The issuer party (person or organisation) of a verifiable credential.",
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "IssuingSoftware": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "example": "https://example.com/.well-known/untp/software/yourproduct/2026.04.1",
+          "type": "string",
+          "format": "uri",
+          "description": "A resolvable identifier for the specific version of the software product that issued this credential."
+        },
+        "name": {
+          "example": "Your Product Name",
+          "type": "string",
+          "description": "The name of the software product that issued this credential."
+        },
+        "version": {
+          "example": "2026.04.1",
+          "type": "string",
+          "description": "The version of the software product that issued this credential."
+        },
+        "vendor": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "example": "did:web:example.com",
+              "type": "string",
+              "format": "uri",
+              "description": "The decentralised identifier (DID) or other resolvable identifier of the software vendor."
+            },
+            "name": {
+              "example": "Your Vendor Name",
+              "type": "string",
+              "description": "The name of the software vendor."
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ],
+          "description": "The vendor of the software product that issued this credential."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "version",
+        "vendor"
+      ],
+      "description": "Optional metadata identifying the software product (and its vendor) that issued the parent credential. When present, all listed sub-properties MUST be populated; when absent, the credential is still valid (verifiers MUST treat the property as optional)."
+    },
+    "RecognitionScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "RecognitionScope"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "RecognitionScope",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "id": {
+          "type": "string",
+          "format": "uri",
+          "example": "https://abr.business.gov.au/Help/EntityTypeDescription?Id=19",
+          "description": "The registrar's own definition of this class, mandate, action or territory, as a resolvable URI. Authority stays with the register; UNTP maintains no list of the world's legal forms."
+        },
+        "name": {
+          "type": "string",
+          "example": "Australian Private Company",
+          "description": "The value as the register names it, in the register's own language."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "description": "One aspect of what a registrar recognises about a registration - its class, the mandate it rests on, or a territory it is limited to. The `id` is the registrar's own definition of the value, as a resolvable URI; where a verifier needs to know which controlled list the value belongs to, the registrar declares that at the URI with `skos:inScheme`."
+    },
+    "EntityList": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "description": "The JSON-LD type of the referenced list, not a code value. `ExternalEntityList` is a list published outside the Verifiable Credentials ecosystem, such as an X.509 certificate authority list or an ETSI trusted list, where the origin of the list URL is the root of trust. `RecognizedEntityCredential` is a list that itself conforms to W3C Recognized Entities. W3C states these as a SHOULD over an open type space; UNTP restricts the value to the two it can interpret. A plain string or a single-element array are equivalent.",
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "ExternalEntityList",
+                "RecognizedEntityCredential"
+              ]
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "ExternalEntityList",
+                  "RecognizedEntityCredential"
+                ]
+              }
+            }
+          ],
+          "example": "ExternalEntityList"
+        },
+        "id": {
+          "type": "string",
+          "format": "uri",
+          "example": "https://ec.europa.example/tsl/lotl.xml",
+          "description": "The URL of the list. A verifier fetches it to determine which list specification it complies with and whether it supports that specification."
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "description": "A list of recognised entities that contains this entity, as defined by the W3C Recognized Entities `recognizedIn` property."
+    },
+    "RegisteredIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "RegisteredIdentity"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "RegisteredIdentity",
+                "minContains": 1
+              }
+            }
+          ],
+          "description": "MUST be `RegisteredIdentity`. In v0.8.0 this term was a second type on the credential subject; it is now the type of the `registration` object, which is where W3C Recognized Entities expects an ecosystem type to sit."
+        },
+        "id": {
+          "type": "string",
+          "format": "uri",
+          "example": "https://sample-business-register.example.com/registers/business/entities/BR-12345678",
+          "description": "The register's own record of this registration, as a resolvable URI. Replaces the v0.8.0 `publicInformation`."
+        },
+        "registeredId": {
+          "example": "BR-12345678",
+          "type": "string",
+          "description": "The registration number (alphanumeric) of the entity within the register. Unique within the register."
+        },
+        "registeredName": {
+          "type": "string",
+          "example": "SampleCell",
+          "description": "The name or designation of the registered thing as the register records it - a vessel name, a trademark text, a parcel designation. OPTIONAL, and omitted where the registration is of the recognized entity itself and would merely repeat the subject's `name`."
+        },
+        "registeredDate": {
+          "type": "string",
+          "format": "date",
+          "description": "The date on which this identity was first registered with the registrar."
+        },
+        "register": {
+          "$ref": "#/$defs/Register",
+          "description": "MUST identify the register, maintained by the issuer, that holds this registration. A registrar may maintain several registers, so a verifier MUST NOT infer the register from the issuer. Replaces the v0.8.0 `idScheme` on a registered identity, which named a numbering scheme where what matters is the register itself."
+        },
+        "controlType": {
+          "type": "string",
+          "enum": [
+            "owner",
+            "lessee",
+            "licensee",
+            "operator",
+            "member",
+            "agent",
+            "self"
+          ],
+          "example": "owner",
+          "description": "How the recognized entity controls the registered thing, from the UN/CEFACT [control type code list](https://test.uncefact.org/vocabulary/control-type/). `self` is used where the registration is of the entity itself, as in a business register or a membership register, and the other values where the register records a thing distinct from its controller: a parcel held by its owner or lessee, a vessel by its owner, a licence by its operator."
+        },
+        "recognitionScope": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecognitionScope"
+          },
+          "description": "What the registrar recognises this entity as, and under what mandate - its legal form, class or licence category, the standards or schemes the recognition rests on, the actions it covers, and any territorial limit. Each entry references a definition the registrar itself publishes. Replaces the v0.8.0 `registrationScope`, which conflated these."
+        },
+        "geoBoundary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Coordinate"
+          },
+          "description": "The ordered coordinates of a closed polygon bounding the registered thing, where the register records a geographic extent - the area a land title covers, or the area a mining licence is granted over. The first and last coordinates must match. It bounds what is registered, not where the controller is located."
+        }
+      },
+      "required": [
+        "registeredId",
+        "register"
+      ],
+      "description": "One registration in a register maintained by the issuer: the thing registered, the number it holds, the register that assigned it, and what the registrar recognises about it. Where the register records the recognized entity itself, as a business or membership register does, the registration is of that entity."
+    },
+    "RenderTemplate2024": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "RenderTemplate2024"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "RenderTemplate2024",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-facing display name for selection"
+        },
+        "mediaQuery": {
+          "type": "string",
+          "description": "Media query as defined in https://www.w3.org/TR/mediaqueries-4/"
+        },
+        "template": {
+          "type": "string",
+          "description": "An inline template field for use cases where remote retrieval of a render method is suboptimal"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL for a remotely hosted template"
+        },
+        "mediaType": {
+          "type": "string",
+          "description": "Media type of the rendered output (for example, text/html)"
+        },
+        "digestMultibase": {
+          "type": "string",
+          "description": "Used for resource integrity validation of the remote or inline template"
+        }
+      },
+      "description": "The UNTP template-based render method retained while the W3C Verifiable Credential Rendering Methods specification remains a Working Draft."
+    },
+    "RecognizedEntity": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "RecognizedEntity"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "RecognizedEntity",
+                "minContains": 1
+              }
+            }
+          ],
+          "description": "MUST be `RecognizedEntity`, which W3C Recognized Entities v1.0 states as a single value. The UNTP type `RegisteredIdentity` is the type of the `registration` object."
+        },
+        "id": {
+          "example": "did:web:samplecompany.com",
+          "type": "string",
+          "format": "uri",
+          "description": "The subject identifier of the DIA, and the `RecognizedEntity` identifier in W3C Recognized Entities v1.0. SHOULD be a DID controlled by the registered entity - where it is a DID, the registrar MUST have proved control of it before issuing. MAY be the register's own authoritative URI for the entity, in which case the DIA attests to the registration without anchoring any DID."
+        },
+        "name": {
+          "type": "string",
+          "example": "Sample Company Pty Ltd",
+          "description": "The name of the recognized entity as the registrar holds it. `schema:name`, a W3C Recognized Entities general property, so it covers an organisation and a natural person alike."
+        },
+        "alsoKnownAs": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uri",
+              "example": "https://sample-registrars-office.example.org/registers/business/entities/BR-87654321",
+              "description": "A URI identifying the same entity in another system or register."
+            },
+            "name": {
+              "type": "string",
+              "description": "OPTIONAL name the entity goes by in that system."
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "description": "OPTIONAL reference to the same entity in another system or register, such as a land registry's cross-reference to the titleholder's entry in a business register. A pointer rather than an assertion: the issuer states where else the entity appears and makes no claim about the standing it holds there, which is all a registrar can honestly say about a record another register maintains. Anything the issuer does attest to is a `registration`."
+        },
+        "recognizedIn": {
+          "$ref": "#/$defs/EntityList",
+          "description": "OPTIONAL reference to a list of recognised entities that contains this entity, for a recognition that also rests on a trust framework outside the Verifiable Credentials ecosystem such as a public key infrastructure. SHOULD be omitted where the entity is discoverable from its own DID through a service endpoint, which is the mechanism UNTP uses."
+        },
+        "registration": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/RegisteredIdentity"
+          },
+          "description": "The registrations in registers maintained by the issuer that the recognized entity controls. The container property is defined by W3C Recognized Entities; its contents are UNTP DIA vocabulary. One entry per registration. Registrations that change independently, such as parcels bought and sold, SHOULD be issued as separate DIAs so that one can be revoked without reissuing the rest, and so that a verifier is not shown a holding it has no need to see."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "registration"
+      ],
+      "description": "The subject of a DIA: the recognized entity that the registrar attests is the controller of the registrations listed in `registration`. In a business register or a membership register the registration is of the entity itself; in a land, vessel or trademark register it is of a thing the entity controls. Beyond its identifier and name the subject carries nothing the issuer would be asserting outside its own register. A profile of W3C Recognized Entities v1.0 \u00a73.2."
+    },
+    "Register": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "Register"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "Register",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "id": {
+          "type": "string",
+          "format": "uri",
+          "example": "https://sample-business-register.example.com/registers/business",
+          "description": "The URI of the register, as the registrar publishes it. Where the register is listed on the UN GRID this SHOULD be the URI GRID holds for it, so that a verifier can match the two without comparing names."
+        },
+        "name": {
+          "type": "string",
+          "example": "Sample Business Register",
+          "description": "The name of the register as the registrar publishes it."
+        },
+        "registerType": {
+          "type": "string",
+          "enum": [
+            "product",
+            "facility",
+            "business",
+            "trademark",
+            "land",
+            "accreditation",
+            "membership",
+            "asset"
+          ],
+          "example": "product",
+          "description": "The thematic purpose of the register, from the UN/CEFACT [register type code list](https://test.uncefact.org/vocabulary/registry-type/) - organisations, facilities, products, trademarks, land, movable assets, accreditations or memberships. `asset` covers a register of movable assets such as vessels, aircraft or rolling stock. `membership` covers a voluntary register maintained by an association for its members, where the authority to maintain the register is constitutional rather than statutory."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "registerType"
+      ],
+      "description": "A register maintained by a registrar. Identified by its own URI rather than by the registrar that maintains it, because one registrar commonly maintains several."
+    }
+  }
+}

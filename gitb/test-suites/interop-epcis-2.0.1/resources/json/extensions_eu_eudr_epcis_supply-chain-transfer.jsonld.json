@@ -1,0 +1,139 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "rdfs:comment": [
+    "Supply chain transfer events recording ownership change (shipping + receiving).",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "gs1:masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
+    "",
+    "HTTP header: GS1-Extensions: eudr=https://ref.openepcis.org/extensions/eu/eudr/",
+    "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "schemaVersion": "2.0",
+  "creationDate": "2025-01-25T12:00:00.000Z",
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:550e8400-e29b-41d4-a716-446655440040",
+        "eventTime": "2025-01-25T09:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "OBSERVE",
+        "bizStep": "shipping",
+        "disposition": "in_transit",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
+          "https://id.gs1.org/01/09521234000020/21/LOG-2025-002"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000006"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000006"
+        },
+        "gs1:masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
+            "countryOfOrigin": {
+              "countryCode": "DE"
+            },
+            "regulatoryInformation": [
+              {
+                "regulationType": "gs1:RegulationTypeCode-DEFORESTATION_REGULATION",
+                "regulatoryAct": "EU 2023/1115"
+              }
+            ]
+          },
+          {
+            "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-002",
+            "countryOfOrigin": {
+              "countryCode": "DE"
+            },
+            "regulatoryInformation": [
+              {
+                "regulationType": "gs1:RegulationTypeCode-DEFORESTATION_REGULATION",
+                "regulatoryAct": "EU 2023/1115"
+              }
+            ]
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "owning_party",
+            "source": "https://id.gs1.org/417/9521234000006"
+          },
+          {
+            "type": "location",
+            "source": "https://id.gs1.org/414/9521234000006"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "owning_party",
+            "destination": "https://id.gs1.org/417/9521234000105"
+          },
+          {
+            "type": "location",
+            "destination": "https://id.gs1.org/414/9521234000105"
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "po",
+            "bizTransaction": "urn:epcglobal:cbv:bt:9521234000105:PO-2025-001"
+          },
+          {
+            "type": "desadv",
+            "bizTransaction": "urn:epcglobal:cbv:bt:9521234000006:DESADV-2025-001"
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:550e8400-e29b-41d4-a716-446655440041",
+        "eventTime": "2025-01-26T14:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "OBSERVE",
+        "bizStep": "receiving",
+        "disposition": "in_progress",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
+          "https://id.gs1.org/01/09521234000020/21/LOG-2025-002"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000105"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000105"
+        },
+        "sourceList": [
+          {
+            "type": "owning_party",
+            "source": "https://id.gs1.org/417/9521234000006"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "owning_party",
+            "destination": "https://id.gs1.org/417/9521234000105"
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "po",
+            "bizTransaction": "urn:epcglobal:cbv:bt:9521234000105:PO-2025-001"
+          },
+          {
+            "type": "recadv",
+            "bizTransaction": "urn:epcglobal:cbv:bt:9521234000105:RECADV-2025-001"
+          }
+        ]
+      }
+    ]
+  }
+}

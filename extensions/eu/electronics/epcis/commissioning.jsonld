@@ -5,9 +5,7 @@
     "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld"
   ],
   "type": "EPCISDocument",
-  "schemaVersion": "2.0",
-  "creationDate": "2025-01-15T14:30:00.000Z",
-  "_comment_architecture": [
+  "rdfs:comment": [
     "Commissioning of a serialized electronic device (smartphone).",
     "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
     "gs1:masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
@@ -16,6 +14,8 @@
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
+  "schemaVersion": "2.0",
+  "creationDate": "2025-01-15T14:30:00.000Z",
   "epcisBody": {
     "eventList": [
       {
@@ -26,8 +26,8 @@
           "https://id.gs1.org/01/09506000134352/21/ABC123456"
         ],
         "action": "ADD",
-        "bizStep": "urn:epcglobal:cbv:bizstep:commissioning",
-        "disposition": "urn:epcglobal:cbv:disp:active",
+        "bizStep": "commissioning",
+        "disposition": "active",
         "readPoint": {
           "id": "urn:epc:id:sgln:9521234.00002.0"
         },
@@ -76,7 +76,7 @@
             "sensorReport": [
               {
                 "type": "Temperature",
-                "value": "22.5",
+                "value": 22.5,
                 "uom": "CEL",
                 "time": "2025-01-15T14:25:00.000Z",
                 "deviceID": "urn:epc:id:sgln:9521234.00002.assembly-line-1"

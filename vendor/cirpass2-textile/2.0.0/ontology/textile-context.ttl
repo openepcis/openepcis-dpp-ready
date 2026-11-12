@@ -1,0 +1,583 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtctx: <https://w3id.org/eudpp/textile-context#> .
+@prefix txtdur: <https://w3id.org/eudpp/textile-durability#> .
+@prefix txtprc: <https://w3id.org/eudpp/textile-process#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+txtctx:hasCategoricalValue a owl:ObjectProperty ;
+    rdfs:label "has categorical value"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a textile context observation to a controlled categorical value represented as a SKOS concept."@en ;
+    rdfs:domain txtctx:TextileContextObservation ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    rdfs:range skos:Concept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:hasContextFactorType a owl:ObjectProperty ;
+    rdfs:label "has context factor type"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Identifies the controlled context factor concept observed or declared by a textile context observation."@en ;
+    rdfs:domain txtctx:TextileContextObservation ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    rdfs:range txtctx:TextileContextFactorConcept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:hasQuantitativeValue a owl:ObjectProperty ;
+    rdfs:label "has quantitative value"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a textile context observation to its quantitative value."@en ;
+    rdfs:domain txtctx:TextileContextObservation ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    rdfs:range txtcon:QuantitativeValue ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:hasReferencePeriod a owl:ObjectProperty ;
+    rdfs:label "has reference period"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a textile context observation to the structured time interval for which it is valid or observed."@en ;
+    rdfs:domain txtctx:TextileContextObservation ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    rdfs:range txtcon:ReferencePeriod ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:hasTextualValue a owl:DatatypeProperty ;
+    rdfs:label "has textual value"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a textile context observation to a textual value used when no controlled concept or quantitative representation is available."@en ;
+    rdfs:domain txtctx:TextileContextObservation ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    rdfs:range xsd:string ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:typicallyQualifiesProcess a owl:AnnotationProperty ;
+    rdfs:label "typically qualifies process"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Weak annotation relation indicating that a context factor typically qualifies the interpretation, applicability or expected effect of a textile process type."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtctx:abrasionExposure a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Abrasion exposure"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Exposure of a textile product to rubbing, friction or abrasion during use."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:useContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Abrasion exposure"@en ;
+    txtcon:sourceLocator "JRC Section 9.2.1.3, printed page 113, lines 3000-3009; Annex 13.4, Table 124, printed pages 362-367."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtctx:activeOrInactiveStorage a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Active or inactive storage"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Whether a textile item is stored for regular access and use or kept unused for an extended period."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:storageContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Active or inactive storage"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 6.3.4, printed pages 86-87, lines 2220-2231; JRC Preparatory Study, Section 13.7.2.10, printed page 410, lines 10618-10646."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtctx:bleachingPractice a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Bleaching practice"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Practice or condition describing whether bleaching is used and under what care conditions."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:careContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Bleaching practice"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 9.2.2.2, printed page 125, lines 3296-3305."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtctx:typicallyQualifiesProcess txtprc:WashingProcess .
+
+txtctx:careBehaviour a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Care behaviour"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "User choices and practices affecting laundering, drying, ironing, storage or maintenance of a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:altLabel "Maintenance practice"@en ;
+    skos:broader txtctx:userBehaviourFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Care behaviour"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 6.3.1, printed pages 84-85, lines 2105-2143; JRC Preparatory Study, Section 13.7.2, printed pages 394-395, lines 10227-10248."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtctx:careInstructionCompliance a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Care-instruction compliance"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Extent to which the user follows the care instructions provided for a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:userBehaviourFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Care-instruction compliance"@en ;
+    txtcon:modellingNote "Following care instructions may support maintenance of product condition, but no deterministic lifetime inference is asserted."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 6.3.2, printed page 85, lines 2144-2157; JRC Preparatory Study, Section 13.7.2.8, printed page 404, lines 10440-10458; JRC Preparatory Study, Section 9.2.2.1, printed pages 122-123, lines 3234-3262."@en ;
+    txtcon:sourceType txtcon:directExtraction ;
+    txtcon:typicalInfluenceOn txtdur:IntrinsicDurability .
+
+txtctx:cleaningFrequency a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Cleaning frequency"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "How often a textile product undergoes laundering, professional cleaning, hand washing, airing, steaming or another cleaning operation."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:careContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Cleaning frequency"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.7.2, printed page 395, lines 10230-10248."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtctx:typicallyQualifiesProcess txtprc:WashingProcess .
+
+txtctx:detergentUsePractice a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Detergent use practice"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Practice concerning the choice and dosing of detergent or softener during textile care."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:careContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Detergent use practice"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 6.3.1, printed page 84, lines 2112-2116; JRC Preparatory Study, Section 9.2.2.2, printed page 125, lines 3308-3314."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtctx:typicallyQualifiesProcess txtprc:WashingProcess .
+
+txtctx:dryingPractice a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Drying practice"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Method or practice used to dry a textile product, such as tumble drying, indoor line drying or outdoor line drying."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:careContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Drying practice"@en ;
+    txtcon:modellingNote "Drying method and temperature may influence shrinkage and dimensional stability; no deterministic effect is asserted."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.7.2.5, printed page 403, lines 10404-10416; JRC Preparatory Study, Section 6.3.1, printed page 85, lines 2126-2131."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicalInfluenceOn txtdur:DimensionalStability ;
+    txtctx:typicallyQualifiesProcess txtprc:DryingProcess .
+
+txtctx:durationOfUse a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Duration of use"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "The duration for which a product is used during a stated episode or reference period, distinct from an estimated product lifetime."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:useContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Duration of use"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Annex 13.7.2, printed page 395, lines 10235-10243."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtctx:externalChemicalExposure a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "External chemical exposure"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Exposure of a textile product to an external chemical formulation during care or use; the substance or formulation should be identified separately where possible."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:environmentalContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "External chemical exposure"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.7.2, printed page 395, lines 10241-10244; JRC Preparatory Study, Section 9.2.2.2, printed page 125, lines 3310-3314."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:foldingOrHangingCondition a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Folding or hanging condition"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Whether and how a textile product is folded or hung during storage."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:storageContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Folding or hanging condition"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 9.2.2.1, printed page 123, lines 3259-3262; JRC Preparatory Study, Section 9.2.2.2, printed page 125, lines 3322-3325; JRC Preparatory Study, Section 13.7.2.7, printed page 403, lines 10434-10439."@en ;
+    txtcon:sourceType txtcon:directExtraction ;
+    txtctx:typicallyQualifiesProcess txtprc:StorageProcess .
+
+txtctx:frequencyOfUse a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Frequency of use"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "How often a textile product is used or worn during a stated reference period."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:useContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Frequency of use"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.7.2, printed page 395, lines 10235-10243; JRC Preparatory Study, Section 6.3.1, printed page 84, lines 2105-2111."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtctx:hasContextObservation a owl:ObjectProperty ;
+    rdfs:label "has context observation"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a product or a concrete textile process execution to a context observation applying to it."@en ;
+    rdfs:domain _:na28fd3c649554e6cb5a900ff416e8bbdb1 ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    rdfs:range txtctx:TextileContextObservation ;
+    owl:inverseOf txtctx:observationOf ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:humidityExposure a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Humidity exposure"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Exposure of a textile product to a stated ambient humidity condition."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:environmentalContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Humidity exposure"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 9.2.2.2, printed page 125, lines 3322-3325."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtctx:intensityOfUse a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Intensity of use"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "The severity or demanding nature of product use; any implementation must define the scale or operational criterion used."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:useContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Intensity of use"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 9.2.6.1, printed pages 146-147, lines 4090-4130."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:ironingPractice a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Ironing practice"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Practice and frequency with which a textile product is ironed or steamed."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:careContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Ironing practice"@en ;
+    txtcon:modellingNote "High-temperature ironing may contribute to shrinkage; the effect remains product- and condition-dependent."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.7.2.6, printed page 403, lines 10417-10433; JRC Preparatory Study, Section 6.3.1, printed page 85, lines 2132-2134."@en ;
+    txtcon:sourceType txtcon:directExtraction ;
+    txtcon:typicalInfluenceOn txtdur:DimensionalStability ;
+    txtctx:typicallyQualifiesProcess txtprc:IroningProcess .
+
+txtctx:laundrySortingPractice a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Laundry sorting practice"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Practice used to sort textile items before washing, for example by colour, fibre type or washing temperature."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:careContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Laundry sorting practice"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.7.2.1, printed pages 395-396, lines 10249-10268; JRC Preparatory Study, Section 9.2.2.1, printed page 123, lines 3249-3255."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtctx:typicallyQualifiesProcess txtprc:WashingProcess .
+
+txtctx:mechanicalStress a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Mechanical stress"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Mechanical loading or deformation imposed on a textile product during use."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:useContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Mechanical stress"@en ;
+    txtcon:sourceLocator "JRC Section 9.2.1.3, printed page 113, lines 3000-3009; Annex 13.4, Table 124, printed pages 362-367."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:moistureExposure a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Moisture exposure"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Exposure of a textile product to moisture or a wet condition, distinguished from ambient relative humidity."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:environmentalContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Moisture exposure"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 9.2.2.2, printed page 125, lines 3317-3318."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:observationOf a owl:ObjectProperty ;
+    rdfs:label "observation of"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a textile context observation to the product or process execution to which it applies."@en ;
+    rdfs:domain txtctx:TextileContextObservation ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    rdfs:range _:na28fd3c649554e6cb5a900ff416e8bbdb1 ;
+    owl:inverseOf txtctx:hasContextObservation ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:repairBehaviour a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Repair behaviour"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "User behaviour concerning self-repair, seeking help or using a professional repair service."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:userBehaviourFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Repair behaviour"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 6.3.3, printed page 86, lines 2196-2219; JRC Preparatory Study, Section 13.7.2.9, printed pages 406-407, lines 10528-10556."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtctx:typicallyQualifiesProcess txtprc:RepairProcess .
+
+txtctx:replacementBehaviour a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Replacement behaviour"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "User behaviour concerning substitution or disposal of a textile product; replacement frequency remains a derived indicator in TEXTILE_INDICATOR."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:userBehaviourFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Replacement behaviour"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 6.3.4, printed pages 86-87, lines 2220-2244; JRC Preparatory Study, Section 6.4.1, printed page 87, lines 2246-2259."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtctx:storageHumidity a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Storage humidity"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Ambient humidity condition applying while a textile product is stored."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:storageContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Storage humidity"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 9.2.2.2, printed page 125, lines 3322-3325; JRC Preparatory Study, Section 9.2.2.1, printed page 123, lines 3260-3262."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtctx:storageSunlightExposure a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Storage sunlight exposure"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Exposure to sunlight while a textile product is stored."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:storageContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Storage sunlight exposure"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 9.2.2.2, printed page 125, lines 3322-3325; JRC Preparatory Study, Section 9.2.2.1, printed page 123, lines 3257-3262."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtctx:sunlightExposure a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Sunlight exposure"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Exposure of a textile product to direct or indirect sunlight during drying, storage or use."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:environmentalContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Sunlight exposure"@en ;
+    txtcon:modellingNote "Sunlight exposure may influence colour fastness and appearance depending on dyes, material and exposure conditions."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 9.2.2.1, printed page 123, lines 3257-3262; JRC Preparatory Study, Section 9.2.2.2, printed page 125, lines 3315-3316; JRC Preparatory Study, Section 9.2.2.2, printed page 125, lines 3322-3325."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition ;
+    txtcon:typicalInfluenceOn txtdur:ColourFastness .
+
+txtctx:temperatureExposure a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Temperature exposure"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Exposure of a textile product to a stated temperature condition during use, care, drying, ironing or storage."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:environmentalContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Temperature exposure"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 9.2.2.2, printed page 125, lines 3309-3318."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:uvExposure a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Ultraviolet exposure"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Exposure of a textile product to ultraviolet radiation; the source and exposure conditions should be stated where known."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:environmentalContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Ultraviolet exposure"@en ;
+    txtcon:sourceLocator "JRC Section 10.2.3, printed page 180, lines 5038-5043."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:washingFrequency a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Washing frequency"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "How often a textile product is washed during a stated reference period."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:broader txtctx:careContextFactor ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:prefLabel "Washing frequency"@en ;
+    txtcon:modellingNote "Washing frequency may influence physical durability and dimensional stability, but the effect depends on material, programme and care conditions."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.7.2, printed page 395, lines 10241-10248; JRC Preparatory Study, Section 6.3.1, printed page 84, lines 2105-2111."@en ;
+    txtcon:sourceType txtcon:directExtraction ;
+    txtcon:typicalInfluenceOn txtdur:DimensionalStability ;
+    txtctx:typicallyQualifiesProcess txtprc:WashingProcess .
+
+txtctx:storageContextFactor a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Storage context factor"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Context factor related to storage practice or storage conditions."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:narrower txtctx:activeOrInactiveStorage,
+        txtctx:foldingOrHangingCondition,
+        txtctx:storageHumidity,
+        txtctx:storageSunlightExposure ;
+    skos:prefLabel "Storage context factor"@en ;
+    skos:topConceptOf txtctx:ContextFactorScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:userBehaviourFactor a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "User behaviour factor"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Context factor related to user choices affecting care, repair, storage, replacement or product use."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:narrower txtctx:careBehaviour,
+        txtctx:careInstructionCompliance,
+        txtctx:repairBehaviour,
+        txtctx:replacementBehaviour ;
+    skos:prefLabel "User behaviour factor"@en ;
+    skos:topConceptOf txtctx:ContextFactorScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:useContextFactor a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Use context factor"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Context factor related to how a textile product is used or worn."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:narrower txtctx:abrasionExposure,
+        txtctx:durationOfUse,
+        txtctx:frequencyOfUse,
+        txtctx:intensityOfUse,
+        txtctx:mechanicalStress ;
+    skos:prefLabel "Use context factor"@en ;
+    skos:topConceptOf txtctx:ContextFactorScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:environmentalContextFactor a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Environmental exposure context factor"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Context factor related to sunlight, ultraviolet radiation, humidity, moisture, temperature or external chemicals."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:narrower txtctx:externalChemicalExposure,
+        txtctx:humidityExposure,
+        txtctx:moistureExposure,
+        txtctx:sunlightExposure,
+        txtctx:temperatureExposure,
+        txtctx:uvExposure ;
+    skos:prefLabel "Environmental exposure context factor"@en ;
+    skos:topConceptOf txtctx:ContextFactorScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:TextileContextObservation a owl:Class ;
+    rdfs:label "Textile context observation"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "A concrete observation, declaration or setting of a contextual condition applying to a textile product or a textile process execution."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:careContextFactor a skos:Concept,
+        txtctx:TextileContextFactorConcept ;
+    rdfs:label "Care context factor"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Context factor related to laundering, cleaning, drying, ironing, bleaching or other care practices."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:inScheme txtctx:ContextFactorScheme ;
+    skos:narrower txtctx:bleachingPractice,
+        txtctx:cleaningFrequency,
+        txtctx:detergentUsePractice,
+        txtctx:dryingPractice,
+        txtctx:ironingPractice,
+        txtctx:laundrySortingPractice,
+        txtctx:washingFrequency ;
+    skos:prefLabel "Care context factor"@en ;
+    skos:topConceptOf txtctx:ContextFactorScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:TextileContextFactorConcept a owl:Class ;
+    rdfs:label "Textile context factor concept"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "A SKOS concept identifying the type of contextual condition observed or declared for a textile product or process execution."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtctx:ContextFactorScheme a skos:ConceptScheme ;
+    rdfs:label "Textile context factor scheme"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Controlled vocabulary of textile use, care, exposure, storage and user-behaviour context factor types."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-context> ;
+    skos:hasTopConcept txtctx:careContextFactor,
+        txtctx:environmentalContextFactor,
+        txtctx:storageContextFactor,
+        txtctx:useContextFactor,
+        txtctx:userBehaviourFactor ;
+    skos:prefLabel "Textile context factor scheme"@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+<https://w3id.org/eudpp/textile-context> a owl:Ontology ;
+    rdfs:label "EU DPP Textile Context Ontology"@en ;
+    dcterms:bibliographicCitation "EU DPP Textile Context Ontology. Version 2.0.0 candidate."@en ;
+    dcterms:created "2026-03-06"^^xsd:date ;
+    dcterms:creator "Elio Hbeich"@en,
+        "BOUGACHA Racem"@en,
+        "Ivo Ladenius"@en,
+        "Andreas Schneider"@en,
+        "Jan Merckx"@en,
+        "Piero de Sabbata"@en ;
+    dcterms:description "Ontology module for representing concrete observations, declarations and settings about textile use, care, environmental exposure, storage and user behaviour. Context factor types are represented as SKOS concepts; processes and process parameters remain in TEXTILE_PROCESS."@en ;
+    dcterms:issued "2026-03-06"^^xsd:date ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:modified "2026-10-27"^^xsd:date ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    dcterms:title "EU DPP Textile Context Ontology"@en ;
+    vann:preferredNamespacePrefix "txtctx" ;
+    vann:preferredNamespaceUri "https://w3id.org/eudpp/textile-context#" ;
+    rdfs:comment "A context observation is not a textile process, process parameter, assessment result or derived indicator. Washing temperature and similar operational settings remain represented through TEXTILE_PROCESS."@en ;
+    owl:imports <https://w3id.org/eudpp/textile-connector>,
+        <https://w3id.org/eudpp/textile-dpp-mireot>,
+        <https://w3id.org/eudpp/textile-durability>,
+        <https://w3id.org/eudpp/textile-process> ;
+    owl:priorVersion <https://w3id.org/eudpp/textile-context/1.1.2> ;
+    owl:versionIRI <https://w3id.org/eudpp/textile-context/2.0.0> ;
+    owl:versionInfo "Version 2.0.0 candidate" ;
+    txtcon:sourceLocator "JRC 3rd milestone, Sections 6.3 (pages 84-87, lines 2105-2244), 9.2.2.2 (pages 125-126, lines 3296-3327), and 13.7.2 (pages 395-410, lines 10227-10646)."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( txtctx:TextileContextObservation txtctx:TextileContextFactorConcept txtprc:TextileProcessExecution ) .
+
+_:na28fd3c649554e6cb5a900ff416e8bbdb6 rdf:first txtprc:TextileProcessExecution ;
+    rdf:rest () .
+
+_:na28fd3c649554e6cb5a900ff416e8bbdb7 rdf:first dpp:Product ;
+    rdf:rest _:na28fd3c649554e6cb5a900ff416e8bbdb6 .
+
+_:na28fd3c649554e6cb5a900ff416e8bbdb1 a owl:Class ;
+    owl:unionOf _:na28fd3c649554e6cb5a900ff416e8bbdb7 .
+

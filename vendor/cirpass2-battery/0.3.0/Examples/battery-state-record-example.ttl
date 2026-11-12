@@ -1,0 +1,88 @@
+# Working example for issue #6 — the time dimension of in-use battery data.
+#
+# One EV battery, two state records taken eleven months apart. The static
+# nameplate values sit once on the BatteryPerformance container; everything
+# the BMS updates sits on dated BatteryStateRecord instances, and the series
+# of records is the history.
+#
+# Validate with:
+#   pyshacl -s battery-performance-shapes.ttl -df turtle \
+#           -e "battery ontology.ttl" examples/battery-state-record-example.ttl
+
+@prefix ex:      <https://example.org/battery/> .
+@prefix bat:     <https://w3id.org/eudpp/battery#> .
+@prefix batperf: <https://w3id.org/eudpp/battery-performance#> .
+@prefix batcat:  <https://w3id.org/eudpp/battery-categories#> .
+@prefix batchem: <https://w3id.org/eudpp/battery-chemistries#> .
+@prefix batstat: <https://w3id.org/eudpp/battery-statuses#> .
+@prefix batmat:  <https://w3id.org/eudpp/battery-materials#> .
+@prefix dpp:     <https://w3id.org/eudpp#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+ex:battery-12345
+    a                              bat:Battery ;
+    dpp:hasProductGroup            batcat:ElectricVehicleBattery ;
+    bat:hasBatteryStatus           batstat:Original ;
+    batmat:hasBatteryChemistry     ex:chemistry-12345 ;
+    batperf:hasBatteryPerformance  ex:nameplate-12345 ;
+    batperf:hasBatteryDurability   ex:design-life-12345 ;
+    batperf:hasBatteryStateRecord  ex:state-2025-09-01 ,
+                                   ex:state-2026-08-01 .
+
+ex:chemistry-12345
+    a                       batmat:BatteryChemistry ;
+    dpp:hasMaterialType     batchem:LiIonNMC .
+
+# ---- declared at manufacture, written once -----------------------------
+ex:nameplate-12345
+    a                                        batperf:BatteryPerformance ;
+    batperf:ratedCapacity                    "232.0"^^xsd:decimal ;
+    batperf:nominalVoltage                   "400.0"^^xsd:decimal ;
+    batperf:minimumVoltage                   "300.0"^^xsd:decimal ;
+    batperf:maximumVoltage                   "430.0"^^xsd:decimal ;
+    batperf:certifiedUsableBatteryEnergy     "77.4"^^xsd:decimal ;
+    batperf:originalPowerCapability          "150000.0"^^xsd:decimal ;
+    batperf:initialInternalResistance        "0.045"^^xsd:decimal ;
+    batperf:initialSelfDischargeRate         "1.5"^^xsd:decimal ;
+    batperf:initialRoundTripEnergyEfficiency "95.0"^^xsd:decimal ;
+    batperf:temperatureRangeIdleStateLowerBoundary "-20.0"^^xsd:decimal ;
+    batperf:temperatureRangeIdleStateUpperBoundary  "45.0"^^xsd:decimal .
+
+ex:design-life-12345
+    a                                     batperf:BatteryDurability ;
+    batperf:expectedLifetimeCycles        1500 ;
+    batperf:expectedLifetimeCalendarYears "8.0"^^xsd:decimal ;
+    batperf:capacityThresholdForExhaustion "70.0"^^xsd:decimal .
+
+# ---- updated in use, one record per reading ----------------------------
+ex:state-2025-09-01
+    a                                   batperf:BatteryStateRecord ;
+    batperf:asOfDate                    "2025-09-01T08:00:00+02:00"^^xsd:dateTimeStamp ;
+    batperf:stateOfCharge               "82.0"^^xsd:decimal ;
+    batperf:stateOfCertifiedEnergy      "99.1"^^xsd:decimal ;
+    batperf:remainingCapacity           "230.1"^^xsd:decimal ;
+    batperf:capacityFade                 "0.8"^^xsd:decimal ;
+    batperf:remainingUsableBatteryEnergy "76.7"^^xsd:decimal ;
+    batperf:internalResistanceIncrease   "0.4"^^xsd:decimal ;
+    batperf:numberOfFullCycles           64 ;
+    batperf:numberOfDeepDischargeEvents   0 ;
+    batperf:numberOfOverchargeEvents      0 ;
+    batperf:energyThroughput            "4950.0"^^xsd:decimal ;
+    batperf:temperatureInformation       "21.0"^^xsd:decimal ;
+    batperf:timeSpentInExtremeTemperaturesAboveBoundary "0.0"^^xsd:decimal .
+
+ex:state-2026-08-01
+    a                                   batperf:BatteryStateRecord ;
+    batperf:asOfDate                    "2026-08-01T09:30:00+02:00"^^xsd:dateTimeStamp ;
+    batperf:stateOfCharge               "64.0"^^xsd:decimal ;
+    batperf:stateOfCertifiedEnergy      "94.6"^^xsd:decimal ;
+    batperf:remainingCapacity           "219.6"^^xsd:decimal ;
+    batperf:capacityFade                 "5.3"^^xsd:decimal ;
+    batperf:remainingUsableBatteryEnergy "73.2"^^xsd:decimal ;
+    batperf:internalResistanceIncrease   "3.1"^^xsd:decimal ;
+    batperf:numberOfFullCycles          412 ;
+    batperf:numberOfDeepDischargeEvents   1 ;
+    batperf:numberOfOverchargeEvents      0 ;
+    batperf:energyThroughput           "31880.0"^^xsd:decimal ;
+    batperf:temperatureInformation       "24.0"^^xsd:decimal ;
+    batperf:timeSpentInExtremeTemperaturesAboveBoundary "126.0"^^xsd:decimal .

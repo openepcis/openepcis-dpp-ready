@@ -1,0 +1,829 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix txt: <https://w3id.org/eudpp/textile-core#> .
+@prefix txtam: <https://w3id.org/eudpp/textile-associated-materials#> .
+@prefix txtamcs: <https://w3id.org/eudpp/textile-associated-materials-codelists#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+txtam:hasComponentMaterial a owl:ObjectProperty ;
+    rdfs:label "has component material"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-mat-mireot> ;
+    rdfs:comment "Relates a non-textile component to a material occurrence from which the component is made."@en ;
+    rdfs:domain txtam:NonTextileComponent ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    rdfs:range dpp:MaterialOfComposition ;
+    txtcon:sourceLocator "EU DPP MAT module v1.0.2, dpp:MaterialOfComposition; JRC Annex 13.8.3, Table 168, page 459, from line 10991 (details/accessories with material type)"@en ;
+    txtcon:sourceType txtcon:externalReuse .
+
+txtam:hasNonTextileComponent a owl:ObjectProperty ;
+    rdfs:label "has non-textile component"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a textile product to a non-textile component physically integrated into it."@en ;
+    rdfs:domain txt:TextileProduct ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    rdfs:range txtam:NonTextileComponent ;
+    txtcon:modellingNote "The property is owned by Textile Associated Materials so that Textile Core remains independent of this extension module."@en ;
+    txtcon:sourceLocator "JRC Section 3.3.1, Table 8, printed pages 27-29; table caption at line 546."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtam:hasNonTextileComponentType a owl:ObjectProperty ;
+    rdfs:label "has non-textile component type"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Relates a non-textile component to a controlled concept describing its component type."@en ;
+    rdfs:domain txtam:NonTextileComponent ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    rdfs:range txtam:NonTextileComponentTypeConcept ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 12.3.12, printed page 246, lines 6847-6861."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtam:hasPackagingMaterial a owl:ObjectProperty ;
+    rdfs:label "has packaging material"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a textile product to a packaging-material occurrence used for its packaging, transport, storage or delivery."@en ;
+    rdfs:domain txt:TextileProduct ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    rdfs:range txtam:PackagingMaterial ;
+    txtcon:modellingNote "The property is owned by Textile Associated Materials so that Textile Core remains independent of this extension module."@en ;
+    txtcon:sourceLocator "JRC Annex 13.8.3, Table 168, printed page 459; table caption at line 10991."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtam:hasPackagingMaterialType a owl:ObjectProperty ;
+    rdfs:label "has packaging material type"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Relates a packaging material occurrence to a controlled concept describing the material type."@en ;
+    rdfs:domain txtam:PackagingMaterial ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    rdfs:range txtam:PackagingMaterialTypeConcept ;
+    txtcon:sourceLocator "JRC Annex 13.8.3, Table 168, printed page 459; table caption at line 10991."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtam:hasTextileChemicalFunction a owl:ObjectProperty ;
+    rdfs:label "has textile chemical function"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Relates a textile chemical substance to a controlled concept describing its function in textile manufacturing, treatment, finishing or functionalisation."@en ;
+    rdfs:domain txtam:TextileChemicalSubstance ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    rdfs:range txtam:TextileChemicalFunctionConcept ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.2, printed pages 29-30, lines 584-593; JRC Preparatory Study, Section 12.3, printed page 226, lines 6437-6455."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtam:hasTextileChemicalUseCategory a owl:ObjectProperty ;
+    rdfs:label "has textile chemical use category"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Relates a textile chemical substance to a controlled category describing whether it is used as a process chemical, a performance chemical or occurs unintentionally."@en ;
+    rdfs:domain txtam:TextileChemicalSubstance ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    rdfs:range txtam:TextileChemicalUseCategoryConcept ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 12.3, printed page 226, lines 6428-6455."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtam:TextileProductPart a owl:Class ;
+    rdfs:label "Textile product part"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:definition "A structural part of a textile product, including non-textile components and material reporting groups, without universally classifying the part as a product or material occurrence."@en ;
+    txtcon:sourceLocator "docs/decisions/TXT-DEC-010.md"@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtamcs:acidDye a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Acid dye"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Dye function corresponding to acid dyes used for compatible fibre types such as wool, silk or polyamide."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:altLabel "Acid dyes"@en ;
+    skos:broader txtamcs:dye ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_ACID_DYE" ;
+    skos:prefLabel "Acid dye"@en ;
+    txtcon:sourceLocator "JRC Section 12.3, printed page 227, lines 6506-6516; Annex 13.3.4, Table 121, printed page 355, caption at line 9581."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:acidOrAlkali a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Acid or alkali"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function involving pH adjustment or chemical treatment during textile preparation, dyeing or finishing."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:altLabel "Acids and alkalis"@en ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_ACID_OR_ALKALI" ;
+    skos:prefLabel "Acid or alkali"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Section 12.3, printed pages 226-228, lines 6440-6449, 6466-6470 and 6536-6537."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:antimicrobialAgent a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Antimicrobial agent"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function intended to prevent or limit growth of microorganisms on textile materials or products."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:altLabel "Anti-microbial agent"@en ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_ANTIMICROBIAL_AGENT" ;
+    skos:prefLabel "Antimicrobial agent"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Section 12.3, printed pages 223 and 226, lines 6337-6342 and 6442-6445."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:basicDye a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Basic dye"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Dye function corresponding to basic or cationic dyes used for compatible fibre types such as acrylic fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:altLabel "Basic dyes"@en ;
+    skos:broader txtamcs:dye ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_BASIC_DYE" ;
+    skos:prefLabel "Basic dye"@en ;
+    txtcon:sourceLocator "JRC Section 12.3, printed page 227, lines 6506-6516; Annex 13.3.4, Table 121, printed page 355, caption at line 9581."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:biocide a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Biocide"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function involving biocidal activity. Depending on use, a biocide may be a process chemical, such as a preservative, or a performance chemical intended to remain in the article."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_BIOCIDE" ;
+    skos:prefLabel "Biocide"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Section 12.3, printed page 226, lines 6440-6445 and 6470."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:bleachingAgent a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Bleaching agent"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function involving bleaching or decolourising textile materials during preparation or finishing."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_BLEACHING_AGENT" ;
+    skos:prefLabel "Bleaching agent"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Sections 5.4.2 and 12.3, printed pages 64 and 228, lines 1450-1451 and 6528."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:buckle a skos:Concept,
+        txtam:NonTextileComponentTypeConcept ;
+    rdfs:label "Buckle"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "A buckle integrated into a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:NonTextileComponentTypeScheme ;
+    skos:notation "COMP_BUCKLE" ;
+    skos:prefLabel "Buckle"@en ;
+    skos:topConceptOf txtamcs:NonTextileComponentTypeScheme ;
+    txtcon:sourceLocator "TEXTILE_ONTOLOGY_COMMON_MODELLING_RULES.md, associated-materials code-list decision; domain evidence: JRC Table 8, printed pages 27-29, caption line 546; Table 168, printed page 459, caption line 10991."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtamcs:button a skos:Concept,
+        txtam:NonTextileComponentTypeConcept ;
+    rdfs:label "Button"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A button integrated into a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:NonTextileComponentTypeScheme ;
+    skos:notation "COMP_BUTTON" ;
+    skos:prefLabel "Button"@en ;
+    skos:topConceptOf txtamcs:NonTextileComponentTypeScheme ;
+    txtcon:sourceLocator "JRC Section 12.3.12, printed page 246, lines 6855-6863."@en ;
+    txtcon:sourceType txtcon:directExtraction .
+
+txtamcs:cardboardPackagingMaterial a skos:Concept,
+        txtam:PackagingMaterialTypeConcept ;
+    rdfs:label "Cardboard packaging material"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Packaging material made primarily of cardboard."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:PackagingMaterialTypeScheme ;
+    skos:notation "PACK_MAT_CARDBOARD" ;
+    skos:prefLabel "Cardboard packaging material"@en ;
+    skos:topConceptOf txtamcs:PackagingMaterialTypeScheme ;
+    txtcon:sourceLocator "JRC Section 13.11.9, printed page 512, lines 12384-12387."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:decorativeHardware a skos:Concept,
+        txtam:NonTextileComponentTypeConcept ;
+    rdfs:label "Decorative hardware"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Decorative non-textile hardware integrated into a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:NonTextileComponentTypeScheme ;
+    skos:notation "COMP_DECORATIVE_HARDWARE" ;
+    skos:prefLabel "Decorative hardware"@en ;
+    skos:topConceptOf txtamcs:NonTextileComponentTypeScheme ;
+    txtcon:sourceLocator "TEXTILE_ONTOLOGY_COMMON_MODELLING_RULES.md, associated-materials code-list decision; domain evidence: JRC Table 8, printed pages 27-29, caption line 546; Table 168, printed page 459, caption line 10991."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtamcs:disperseDye a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Disperse dye"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Dye function corresponding to disperse dyes used for compatible synthetic fibres."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:altLabel "Disperse dyes"@en ;
+    skos:broader txtamcs:dye ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_DISPERSE_DYE" ;
+    skos:prefLabel "Disperse dye"@en ;
+    txtcon:sourceLocator "JRC Section 12.3, printed page 227, lines 6506-6516; Annex 13.3.4, Table 121, printed page 355, caption at line 9581."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:dispersingAgent a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Dispersing agent"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Chemical function involving dispersion of dyes, pigments or other substances in a textile-processing formulation."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_DISPERSING_AGENT" ;
+    skos:prefLabel "Dispersing agent"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Section 12.3, printed page 228, lines 6524-6527."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:fixingAgent a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Fixing agent"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Chemical function involving improved fixation of a dye or finishing substance on a textile material."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_FIXING_AGENT" ;
+    skos:prefLabel "Fixing agent"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Section 12.3, printed page 228, lines 6524-6527."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:flameRetardant a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Flame retardant"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function intended to reduce flammability or delay ignition and flame propagation in a textile material."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_FLAME_RETARDANT" ;
+    skos:prefLabel "Flame retardant"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Sections 3.3.2 and 12.3, printed pages 29-30 and 226, lines 584-593 and 6444-6445."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:hookAndLoopFastener a skos:Concept,
+        txtam:NonTextileComponentTypeConcept ;
+    rdfs:label "Hook-and-loop fastener"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "A hook-and-loop fastening component integrated into a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:NonTextileComponentTypeScheme ;
+    skos:notation "COMP_HOOK_LOOP_FASTENER" ;
+    skos:prefLabel "Hook-and-loop fastener"@en ;
+    skos:topConceptOf txtamcs:NonTextileComponentTypeScheme ;
+    txtcon:sourceLocator "TEXTILE_ONTOLOGY_COMMON_MODELLING_RULES.md, associated-materials code-list decision; domain evidence: JRC Table 8, printed pages 27-29, caption line 546; Table 168, printed page 459, caption line 10991."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtamcs:levellingAgent a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Levelling agent"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Chemical function involving promotion of uniform dye uptake or colour distribution during dyeing."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_LEVELLING_AGENT" ;
+    skos:prefLabel "Levelling agent"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Section 12.3, printed page 228, lines 6524-6527."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:metalRivet a skos:Concept,
+        txtam:NonTextileComponentTypeConcept ;
+    rdfs:label "Metal rivet"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "A metal rivet integrated into a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:NonTextileComponentTypeScheme ;
+    skos:notation "COMP_METAL_RIVET" ;
+    skos:prefLabel "Metal rivet"@en ;
+    skos:topConceptOf txtamcs:NonTextileComponentTypeScheme ;
+    txtcon:sourceLocator "TEXTILE_ONTOLOGY_COMMON_MODELLING_RULES.md, associated-materials code-list decision; domain evidence: JRC Table 8, printed pages 27-29, caption line 546; Table 168, printed page 459, caption line 10991."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtamcs:paperPackagingMaterial a skos:Concept,
+        txtam:PackagingMaterialTypeConcept ;
+    rdfs:label "Paper packaging material"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Packaging material made primarily of paper."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:PackagingMaterialTypeScheme ;
+    skos:notation "PACK_MAT_PAPER" ;
+    skos:prefLabel "Paper packaging material"@en ;
+    skos:topConceptOf txtamcs:PackagingMaterialTypeScheme ;
+    txtcon:sourceLocator "JRC Section 13.11.9, printed page 512, lines 12384-12387."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:performanceChemical a skos:Concept,
+        txtam:TextileChemicalUseCategoryConcept ;
+    rdfs:label "Performance chemical"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A chemical intended to remain in the final textile article at a concentration needed to provide a desired function."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:altLabel "Functional chemical"@en ;
+    skos:inScheme txtamcs:TextileChemicalUseCategoryScheme ;
+    skos:notation "CHEM_ROLE_PERFORMANCE",
+        "CHEM_USE_PERFORMANCE" ;
+    skos:prefLabel "Performance chemical"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalUseCategoryScheme ;
+    txtcon:sourceLocator "JRC Section 12.3, printed page 226, lines 6442-6446."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:pigment a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Pigment"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function involving imparting colour through a pigment used in textile printing, coating or related treatment."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_PIGMENT" ;
+    skos:prefLabel "Pigment"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Sections 3.3.2 and 12.3, printed pages 29-30 and 226-227, lines 584-593, 6444-6445 and 6506-6516."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:polyethylenePackagingMaterial a skos:Concept,
+        txtam:PackagingMaterialTypeConcept ;
+    rdfs:label "Polyethylene packaging material"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Plastic packaging material made from polyethylene."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:broader txtamcs:plasticPackagingMaterial ;
+    skos:inScheme txtamcs:PackagingMaterialTypeScheme ;
+    skos:notation "PACK_MAT_POLYETHYLENE" ;
+    skos:prefLabel "Polyethylene packaging material"@en ;
+    txtcon:sourceLocator "JRC Annex 13.8.3, Table 168, printed page 459; table caption at line 10991."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:polyethyleneTerephthalatePackagingMaterial a skos:Concept,
+        txtam:PackagingMaterialTypeConcept ;
+    rdfs:label "Polyethylene terephthalate packaging material"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Plastic packaging material made from polyethylene terephthalate."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:broader txtamcs:plasticPackagingMaterial ;
+    skos:inScheme txtamcs:PackagingMaterialTypeScheme ;
+    skos:notation "PACK_MAT_POLYETHYLENE_TEREPHTHALATE" ;
+    skos:prefLabel "Polyethylene terephthalate packaging material"@en ;
+    txtcon:sourceLocator "JRC Annex 13.8.3, Table 168, printed page 459; table caption at line 10991."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:polypropylenePackagingMaterial a skos:Concept,
+        txtam:PackagingMaterialTypeConcept ;
+    rdfs:label "Polypropylene packaging material"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Plastic packaging material made from polypropylene."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:broader txtamcs:plasticPackagingMaterial ;
+    skos:inScheme txtamcs:PackagingMaterialTypeScheme ;
+    skos:notation "PACK_MAT_POLYPROPYLENE" ;
+    skos:prefLabel "Polypropylene packaging material"@en ;
+    txtcon:sourceLocator "JRC Annex 13.8.3, Table 168, printed page 459; table caption at line 10991."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:polyvinylChloridePackagingMaterial a skos:Concept,
+        txtam:PackagingMaterialTypeConcept ;
+    rdfs:label "Polyvinyl chloride packaging material"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Plastic packaging material made from polyvinyl chloride. The vocabulary term does not imply that this material satisfies an applicable packaging requirement."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:broader txtamcs:plasticPackagingMaterial ;
+    skos:inScheme txtamcs:PackagingMaterialTypeScheme ;
+    skos:notation "PACK_MAT_POLYVINYL_CHLORIDE" ;
+    skos:prefLabel "Polyvinyl chloride packaging material"@en ;
+    txtcon:sourceLocator "JRC Annex 13.8.3, Table 168, printed page 459; table caption at line 10991."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:printedLabelOrTag a skos:Concept,
+        txtam:NonTextileComponentTypeConcept ;
+    rdfs:label "Printed label or tag"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "A printed label or tag integrated into or attached to a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:NonTextileComponentTypeScheme ;
+    skos:notation "COMP_PRINTED_LABEL_OR_TAG" ;
+    skos:prefLabel "Printed label or tag"@en ;
+    skos:topConceptOf txtamcs:NonTextileComponentTypeScheme ;
+    txtcon:sourceLocator "TEXTILE_ONTOLOGY_COMMON_MODELLING_RULES.md, associated-materials code-list decision; domain evidence: JRC Table 8, printed pages 27-29, caption line 546; Table 168, printed page 459, caption line 10991."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtamcs:processChemical a skos:Concept,
+        txtam:TextileChemicalUseCategoryConcept ;
+    rdfs:label "Process chemical"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A chemical used during textile processing and not intended to remain in the final textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:altLabel "Auxiliary process chemical"@en ;
+    skos:inScheme txtamcs:TextileChemicalUseCategoryScheme ;
+    skos:notation "CHEM_ROLE_PROCESS",
+        "CHEM_USE_PROCESS" ;
+    skos:prefLabel "Process chemical"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalUseCategoryScheme ;
+    txtcon:sourceLocator "JRC Section 12.3, printed page 226, lines 6438-6442."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:sequin a skos:Concept,
+        txtam:NonTextileComponentTypeConcept ;
+    rdfs:label "Sequin"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A sequin integrated into a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:NonTextileComponentTypeScheme ;
+    skos:notation "COMP_SEQUIN" ;
+    skos:prefLabel "Sequin"@en ;
+    skos:topConceptOf txtamcs:NonTextileComponentTypeScheme ;
+    txtcon:sourceLocator "JRC Section 12.3.12, printed page 246, lines 6855-6863."@en ;
+    txtcon:sourceType txtcon:directExtraction .
+
+txtamcs:sizingAgent a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Sizing agent"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function involving application of sizing to improve yarn strength, smoothness or processability."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_SIZING_AGENT" ;
+    skos:prefLabel "Sizing agent"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Section 12.3, printed page 228, lines 6530-6533."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:snapFastener a skos:Concept,
+        txtam:NonTextileComponentTypeConcept ;
+    rdfs:label "Snap fastener"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "A snap fastener integrated into a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:NonTextileComponentTypeScheme ;
+    skos:notation "COMP_SNAP_FASTENER" ;
+    skos:prefLabel "Snap fastener"@en ;
+    skos:topConceptOf txtamcs:NonTextileComponentTypeScheme ;
+    txtcon:sourceLocator "TEXTILE_ONTOLOGY_COMMON_MODELLING_RULES.md, associated-materials code-list decision; domain evidence: JRC Table 8, printed pages 27-29, caption line 546; Table 168, printed page 459, caption line 10991."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtamcs:softener a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Softener"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function involving improvement of textile handle or drape. A softener may be used as an auxiliary or may remain as a finishing chemical, depending on the process."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:broader txtamcs:finishingAgent ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_SOFTENER" ;
+    skos:prefLabel "Softener"@en ;
+    txtcon:sourceLocator "JRC Section 12.3, printed pages 226-227, lines 6438-6445, 6470 and 6518."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:solvent a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Solvent"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function involving dissolution or carrying of other substances in textile processing."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_SOLVENT" ;
+    skos:prefLabel "Solvent"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Sections 3.3.2 and 12.3, printed pages 29-30 and 226, lines 584-593 and 6438-6442."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:stainRepellent a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Stain repellent"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function intended to reduce retention or penetration of stains in a textile material."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_STAIN_REPELLENT" ;
+    skos:prefLabel "Stain repellent"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Section 3.3.2, printed pages 29-30, lines 584-593."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:unintendedChemical a skos:Concept,
+        txtam:TextileChemicalUseCategoryConcept ;
+    rdfs:label "Unintended chemical substance"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A contaminant or degradation product not intended to remain in the finished textile and having no intended function in textile processing or in the final product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalUseCategoryScheme ;
+    skos:notation "CHEM_USE_UNINTENDED" ;
+    skos:prefLabel "Unintended chemical substance"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalUseCategoryScheme ;
+    txtcon:sourceLocator "JRC Section 12.3, printed page 226, lines 6447-6452."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:uvAbsorberOrStabiliser a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "UV absorber or stabiliser"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function covering ultraviolet absorbers or stabilisers added to reduce radiation-induced degradation of textile materials."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_FUNCTION_UV_ABSORBER_OR_STABILISER" ;
+    skos:prefLabel "UV absorber or stabiliser"@en ;
+    skos:related txtamcs:uvProtectant ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Section 12.3, printed page 223, lines 6325-6334; Section 12.3.16, printed page 254, lines 7150-7157."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:waterRepellent a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Water repellent"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function intended to confer water repellency to a textile material."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_WATER_REPELLENT" ;
+    skos:prefLabel "Water repellent"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Section 12.3, printed pages 226-227, lines 6442-6445 and 6520."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:wettingAgent a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Wetting agent"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Surfactant function intended to improve wetting or liquid penetration of textile fibres, yarns or fabrics during wet processing."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:broader txtamcs:surfactant ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_WETTING_AGENT" ;
+    skos:prefLabel "Wetting agent"@en ;
+    txtcon:sourceLocator "JRC Section 12.3, printed page 228, lines 6524-6527."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:zipper a skos:Concept,
+        txtam:NonTextileComponentTypeConcept ;
+    rdfs:label "Zipper"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A zipper integrated into a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:NonTextileComponentTypeScheme ;
+    skos:notation "COMP_ZIPPER" ;
+    skos:prefLabel "Zipper"@en ;
+    skos:topConceptOf txtamcs:NonTextileComponentTypeScheme ;
+    txtcon:sourceLocator "JRC Section 12.3.12, printed page 246, lines 6855-6863."@en ;
+    txtcon:sourceType txtcon:directExtraction .
+
+txtam:PackagingMaterial a owl:Class ;
+    rdfs:label "Packaging material"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A material occurrence used for the packaging, transport, storage or delivery of a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    rdfs:subClassOf dpp:MaterialOfComposition ;
+    txtcon:modellingNote "PackagingMaterial is aligned as a subclass of dpp:MaterialOfComposition. Instances of a SKOS-based classification class can also instantiate an OWL material-classification class; the SKOS representation does not prevent such alignment. Packaging-specific class and type-property alignment remains a separate modelling decision requiring its own semantic assessment. No packaging alignment is introduced here."@en ;
+    txtcon:sourceLocator "JRC Annex 13.8.3, Table 168, printed page 459; table caption at line 10991."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtam:TextileChemicalSubstance a owl:Class ;
+    rdfs:label "Textile chemical substance"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A substance used or occurring in a textile manufacturing, treatment, finishing, coating or related textile-production context."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    rdfs:subClassOf dpp:Substance ;
+    txtcon:modellingNote "This class describes textile use context only. It does not assert that the substance remains in the final product or qualifies as a substance of concern."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.2, printed pages 29-30, lines 584-593; JRC Preparatory Study, Section 12.3, printed pages 225-226, lines 6424-6455."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:finishingAgent a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Finishing agent"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function involving modification of appearance, handle or functional behaviour during textile finishing."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:narrower txtamcs:softener ;
+    skos:notation "CHEM_ROLE_FINISHING_AGENT" ;
+    skos:prefLabel "Finishing agent"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Section 3.3.1 and Annex 13.3.4, printed pages 27-29 and 354-355, lines 536-547 and 9563-9581."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:surfactant a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Surfactant"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function involving reduction of surface tension in a textile-processing operation."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:narrower txtamcs:wettingAgent ;
+    skos:notation "CHEM_ROLE_SURFACTANT" ;
+    skos:prefLabel "Surfactant"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Sections 3.3.2 and 12.3, printed pages 29-30, 226 and 228, lines 584-593, 6438-6442 and 6535."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:uvProtectant a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "UV protectant"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function intended to protect a textile material from ultraviolet radiation or related degradation."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:notation "CHEM_ROLE_UV_PROTECTANT" ;
+    skos:prefLabel "UV protectant"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Section 12.3, printed pages 227-228, lines 6517-6522."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtam:NonTextileComponent a owl:Class ;
+    rdfs:label "Non-textile component"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A physical component integrated into a textile product that is not itself part of the primary textile fibre composition, such as a button, zipper or sequin."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    rdfs:subClassOf txtam:TextileProductPart ;
+    txtcon:modellingNote "A structural product part; neither Product nor MaterialOfComposition is universally entailed."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed pages 27, 29, lines 536-547; JRC Preparatory Study, Section 12.3.12, printed page 246, lines 6855-6861; JRC Preparatory Study, Section 3.3.1, Table 8, printed page 27; caption line 546."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtam:TextileChemicalUseCategoryConcept a owl:Class ;
+    rdfs:label "Textile chemical use category concept"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A controlled concept describing whether a chemical is intended to act during processing, remain for product performance, or occur unintentionally."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 12.3, printed page 226, lines 6428-6455."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtamcs:dye a skos:Concept,
+        txtam:TextileChemicalFunctionConcept ;
+    rdfs:label "Dye"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Chemical function involving imparting colour to textile fibres, yarns, fabrics or finished textile products."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:TextileChemicalFunctionScheme ;
+    skos:narrower txtamcs:acidDye,
+        txtamcs:basicDye,
+        txtamcs:disperseDye ;
+    skos:notation "CHEM_ROLE_DYE" ;
+    skos:prefLabel "Dye"@en ;
+    skos:topConceptOf txtamcs:TextileChemicalFunctionScheme ;
+    txtcon:sourceLocator "JRC Sections 3.3.2 and 12.3, printed pages 29-30 and 226-227, lines 584-593, 6444-6445 and 6506-6516."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:plasticPackagingMaterial a skos:Concept,
+        txtam:PackagingMaterialTypeConcept ;
+    rdfs:label "Plastic packaging material"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Packaging material made primarily of plastic."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:inScheme txtamcs:PackagingMaterialTypeScheme ;
+    skos:narrower txtamcs:polyethylenePackagingMaterial,
+        txtamcs:polyethyleneTerephthalatePackagingMaterial,
+        txtamcs:polypropylenePackagingMaterial,
+        txtamcs:polyvinylChloridePackagingMaterial ;
+    skos:notation "PACK_MAT_PLASTIC" ;
+    skos:prefLabel "Plastic packaging material"@en ;
+    skos:topConceptOf txtamcs:PackagingMaterialTypeScheme ;
+    txtcon:sourceLocator "JRC Annex 13.8.3, Table 168, printed page 459; table caption at line 10991."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtamcs:TextileChemicalUseCategoryScheme a skos:ConceptScheme ;
+    rdfs:label "Textile chemical use category scheme"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Controlled vocabulary distinguishing process chemicals, performance chemicals and unintended chemical substances."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:hasTopConcept txtamcs:performanceChemical,
+        txtamcs:processChemical,
+        txtamcs:unintendedChemical ;
+    skos:prefLabel "Textile chemical use category scheme"@en ;
+    txtcon:sourceLocator "JRC Section 12.3, printed pages 225-226, lines 6424-6455."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtam:PackagingMaterialTypeConcept a owl:Class ;
+    rdfs:label "Packaging material type concept"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A controlled SKOS concept used to classify a packaging material occurrence."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "JRC Annex 13.8.3, Table 168, printed page 459; table caption at line 10991."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtam:NonTextileComponentTypeConcept a owl:Class ;
+    rdfs:label "Non-textile component type concept"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A controlled SKOS concept used to classify the functional type of a non-textile component."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 12.3.12, printed page 246, lines 6855-6861."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtamcs:PackagingMaterialTypeScheme a skos:ConceptScheme ;
+    rdfs:label "Packaging material type scheme"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Controlled vocabulary of material types used for textile-product packaging."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:hasTopConcept txtamcs:cardboardPackagingMaterial,
+        txtamcs:paperPackagingMaterial,
+        txtamcs:plasticPackagingMaterial ;
+    skos:prefLabel "Packaging material type scheme"@en ;
+    txtcon:sourceLocator "JRC Annex 13.8.3, Table 168, printed page 459; table caption at line 10991."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtamcs:NonTextileComponentTypeScheme a skos:ConceptScheme ;
+    rdfs:label "Non-textile component type scheme"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Controlled vocabulary of functional types of non-textile components integrated into textile products."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:hasTopConcept txtamcs:buckle,
+        txtamcs:button,
+        txtamcs:decorativeHardware,
+        txtamcs:hookAndLoopFastener,
+        txtamcs:metalRivet,
+        txtamcs:printedLabelOrTag,
+        txtamcs:sequin,
+        txtamcs:snapFastener,
+        txtamcs:zipper ;
+    skos:prefLabel "Non-textile component type scheme"@en ;
+    txtcon:sourceLocator "JRC Section 3.3.1, printed pages 27-29, lines 536-547; Section 12.3.12, printed page 246, lines 6847-6863."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtam:TextileChemicalFunctionConcept a owl:Class ;
+    rdfs:label "Textile chemical function concept"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "A controlled concept describing the technical function performed by a chemical in textile production or treatment."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.2, printed pages 29-30, lines 584-593; JRC Preparatory Study, Section 12.3, printed page 226, lines 6437-6455."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtamcs:TextileChemicalFunctionScheme a skos:ConceptScheme ;
+    rdfs:label "Textile chemical function scheme"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Controlled vocabulary of technical functions performed by chemical substances in textile manufacturing, treatment, finishing or functionalisation."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-associated-materials> ;
+    skos:hasTopConcept txtamcs:acidOrAlkali,
+        txtamcs:antimicrobialAgent,
+        txtamcs:biocide,
+        txtamcs:bleachingAgent,
+        txtamcs:dispersingAgent,
+        txtamcs:dye,
+        txtamcs:finishingAgent,
+        txtamcs:fixingAgent,
+        txtamcs:flameRetardant,
+        txtamcs:levellingAgent,
+        txtamcs:pigment,
+        txtamcs:sizingAgent,
+        txtamcs:solvent,
+        txtamcs:stainRepellent,
+        txtamcs:surfactant,
+        txtamcs:uvAbsorberOrStabiliser,
+        txtamcs:uvProtectant,
+        txtamcs:waterRepellent ;
+    skos:prefLabel "Textile chemical function scheme"@en ;
+    txtcon:sourceLocator "JRC Section 12.3, printed pages 225-228, lines 6424-6455 and 6466-6537."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+<https://w3id.org/eudpp/textile-associated-materials> a owl:Ontology ;
+    rdfs:label "EU DPP Textile Associated Materials Ontology"@en ;
+    dcterms:bibliographicCitation "EU DPP Textile Associated Materials Ontology. Version 2.0.0 candidate."@en ;
+    dcterms:created "2026-03-06"^^xsd:date ;
+    dcterms:creator "BOUGACHA Racem"@en,
+        "Elio Hbeich"@en,
+        "Ivo Ladenius"@en,
+        "Andreas Schneider"@en,
+        "Jan Merckx"@en,
+        "Piero de Sabbata"@en ;
+    dcterms:description "Ontology module for non-textile components, packaging materials, textile chemical substances and controlled chemical classifications associated with textile products. Fibre composition remains in Textile Core, while regulatory qualification and occurrence of substances of concern belong to the Textile SoC module."@en ;
+    dcterms:issued "2026-03-06"^^xsd:date ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:modified "2026-11-02"^^xsd:date ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    dcterms:title "EU DPP Textile Associated Materials Ontology"@en ;
+    vann:preferredNamespacePrefix "txtam" ;
+    vann:preferredNamespaceUri "https://w3id.org/eudpp/textile-associated-materials#" ;
+    rdfs:comment "Chemical use category and chemical function are modelled as separate SKOS classification axes. This avoids treating a chemical function such as dye, biocide or softener as equivalent to whether the substance is intended to remain in the final article."@en,
+        "The module reuses dpp:Substance for substance identity and the MAT MaterialOfComposition pattern where material occurrences are needed. It does not classify a substance as a substance of concern."@en ;
+    owl:imports <https://w3id.org/eudpp/textile-connector>,
+        <https://w3id.org/eudpp/textile-core>,
+        <https://w3id.org/eudpp/textile-mat-mireot>,
+        <https://w3id.org/eudpp/textile-soc-mireot> ;
+    owl:versionIRI <https://w3id.org/eudpp/textile-associated-materials/2.0.0> ;
+    owl:versionInfo "Version 2.0.0 candidate" ;
+    txtcon:sourceLocator "JRC Textile Preparatory Study, Section 3.3.1, pages 27-29, lines 536-547; Section 3.3.2, pages 29-30, lines 575-593; Section 12.3, page 226, lines 6424-6455; Annex 13.8.3, Table 168, page 459, from line 10991."@en ;
+    txtcon:sourceType txtcon:ontologyModule .

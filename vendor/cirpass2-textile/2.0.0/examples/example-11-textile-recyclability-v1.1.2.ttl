@@ -1,0 +1,260 @@
+@prefix ex: <https://example.org/textile-recyclability/> .
+@prefix txt: <https://w3id.org/eudpp/textile-core#> .
+@prefix txtam: <https://w3id.org/eudpp/textile-associated-materials#> .
+@prefix txtass: <https://w3id.org/eudpp/textile-assessment#> .
+@prefix txtasscs: <https://w3id.org/eudpp/textile-assessment-codelists#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtind: <https://w3id.org/eudpp/textile-indicator#> .
+@prefix txtprc: <https://w3id.org/eudpp/textile-process#> .
+@prefix txtrec: <https://w3id.org/eudpp/textile-recyclability#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:shirt123
+    a txt:TextileApparel ;
+    txtrec:hasRecyclabilityAspect ex:shirtRecyclability ;
+    txtrec:hasRecycledContentAspect ex:shirtRecycledContent ;
+    txtrec:hasRecyclabilityAssessment ex:mechanicalRouteAssessment ;
+    txtrec:hasRecycledContentAssessment ex:recycledContentAssessment ;
+    txtrec:hasRecycledContentDeclaration ex:recycledContentDeclaration .
+
+ex:shirtRecycledContent
+    a txtrec:RecycledContent .
+
+ex:shirtRecyclability
+    a txtrec:Recyclability .
+
+ex:zipperComponent
+    a txtam:NonTextileComponent .
+
+ex:mechanicalRoute
+    a txtrec:MechanicalRecyclingRoute ;
+    txtrec:requiresRouteStage ex:collectionStage,
+        ex:sortingStage,
+        ex:preparationStage ;
+    txtrec:hasRecyclingLoop txtrec:fibreToFibreRecycling .
+
+ex:collectionStage
+    a txtrec:CollectionForRecyclingProcess ;
+    txtrec:usesCollectionScheme txtrec:dropOffCollectionScheme .
+
+ex:sortingStage
+    a txtrec:SortingForRecyclingProcess ;
+    txtrec:usesSortingTechnique txtrec:hybridSortingTechnique ;
+    txtrec:appliesSortingCriterion txtrec:fibreCompositionSortingCriterion,
+        txtrec:productConstructionSortingCriterion,
+        txtrec:colourSortingCriterion .
+
+ex:preparationStage
+    a txtrec:PreparationForRecyclingProcess ;
+    txtrec:usesPreTreatmentTechnique txtrec:manualSeparationPreTreatment,
+        txtrec:shreddingPreTreatment .
+
+ex:assessmentMethod
+    a txtrec:RecyclabilityScoringMethod ;
+    txtrec:hasScoringRule ex:monoMaterialPointRule,
+        ex:mechanicalRecyclingPointRule ;
+    txtrec:hasMinimumScoreValue ex:zeroScore ;
+    txtrec:hasMaximumScoreValue ex:tenScore ;
+    rdfs:comment "Illustrative implementation of the candidate JRC DO2 0-to-10 scoring approach. It is not an enacted ESPR requirement."@en .
+
+ex:monoMaterialPointRule
+    a txtrec:RecyclabilityScoringRule ;
+    txtrec:ruleEvaluatesCriterion txtrec:monoMaterialCriterion ;
+    txtrec:awardsScoreValue ex:onePoint .
+
+ex:mechanicalRecyclingPointRule
+    a txtrec:RecyclabilityScoringRule ;
+    txtrec:ruleEvaluatesCriterion txtrec:mechanicalRecyclingCompatibilityCriterion ;
+    txtrec:ruleAppliesToRoute ex:mechanicalRoute ;
+    txtrec:awardsScoreValue ex:onePoint .
+
+ex:onePoint
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "1"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .
+
+ex:mechanicalRouteAssessment
+    a txtrec:RecyclabilityAssessment ;
+    txtass:appliesMethod ex:assessmentMethod ;
+    txtrec:assessesRecyclabilityOf ex:shirt123 ;
+    txtrec:assessesRecyclingRoute ex:mechanicalRoute ;
+    txtass:producesResult ex:mechanicalRouteResult .
+
+ex:mechanicalRouteResult
+    a txtrec:RecyclabilityAssessmentResult ;
+    txtass:resultOfAssessment ex:mechanicalRouteAssessment ;
+    txtrec:resultForRecyclingRoute ex:mechanicalRoute ;
+    txtrec:hasCriterionResult ex:collectionCriterionResult,
+        ex:sortabilityCriterionResult,
+        ex:preparationCriterionResult,
+        ex:feedstockCriterionResult,
+        ex:disruptiveElementsCriterionResult,
+        ex:monoMaterialCriterionResult,
+        ex:componentCriterionResult ;
+    txtrec:hasRecyclabilityBarrier ex:mixedFibreBarrier,
+        ex:zipperBarrier ;
+    txtrec:hasRecyclabilityScore ex:routeScore ;
+    txtrec:hasRecyclabilityTechnologyLevel txtcon:baseCaseTechnologyLevel ;
+    txtrec:hasRecyclableMassFractionValue ex:recyclableMassFraction ;
+    txtrec:hasRecyclingLoop txtrec:fibreToFibreRecycling .
+
+ex:collectionCriterionResult
+    a txtrec:RecyclabilityCriterionResult ;
+    txtrec:evaluatesCriterion txtrec:effectiveCollectionCriterion ;
+    txtrec:hasCriterionOutcome txtrec:criterionSatisfied ;
+    txtrec:resultForRecyclingRoute ex:mechanicalRoute .
+
+
+ex:sortabilityCriterionResult
+    a txtrec:RecyclabilityCriterionResult ;
+    txtrec:evaluatesCriterion txtrec:sortabilityCriterion ;
+    txtrec:hasCriterionOutcome txtrec:criterionSatisfied ;
+    txtrec:resultForRecyclingRoute ex:mechanicalRoute .
+
+ex:preparationCriterionResult
+    a txtrec:RecyclabilityCriterionResult ;
+    txtrec:evaluatesCriterion txtrec:preparationForRecyclingCriterion ;
+    txtrec:hasCriterionOutcome txtrec:criterionSatisfied ;
+    txtrec:resultForRecyclingRoute ex:mechanicalRoute .
+
+ex:feedstockCriterionResult
+    a txtrec:RecyclabilityCriterionResult ;
+    txtrec:evaluatesCriterion txtrec:fibreFeedstockUseCriterion ;
+    txtrec:hasCriterionOutcome txtrec:criterionPartlySatisfied ;
+    txtrec:resultForRecyclingRoute ex:mechanicalRoute .
+
+ex:disruptiveElementsCriterionResult
+    a txtrec:RecyclabilityCriterionResult ;
+    txtrec:evaluatesCriterion txtrec:disruptiveElementAbsenceCriterion ;
+    txtrec:hasCriterionOutcome txtrec:criterionNotSatisfied ;
+    txtrec:resultForRecyclingRoute ex:mechanicalRoute .
+
+ex:monoMaterialCriterionResult
+    a txtrec:RecyclabilityCriterionResult ;
+    txtrec:evaluatesCriterion txtrec:monoMaterialCriterion ;
+    txtrec:hasCriterionOutcome txtrec:criterionNotSatisfied ;
+    txtrec:resultForRecyclingRoute ex:mechanicalRoute .
+
+ex:componentCriterionResult
+    a txtrec:RecyclabilityCriterionResult ;
+    txtrec:evaluatesCriterion txtrec:materialSeparabilityCriterion ;
+    txtrec:hasCriterionOutcome txtrec:criterionPartlySatisfied ;
+    txtrec:resultForRecyclingRoute ex:mechanicalRoute .
+
+ex:mixedFibreBarrier
+    a txtrec:RecyclabilityBarrier ;
+    txtrec:hasBarrierType txtrec:mixedFibreCompositionBarrier ;
+    txtrec:barrierAppliesToRoute ex:mechanicalRoute .
+
+ex:zipperBarrier
+    a txtrec:RecyclabilityBarrier ;
+    txtrec:hasBarrierType txtrec:nonTextileComponentBarrier ;
+    txtrec:refersToNonTextileComponent ex:zipperComponent ;
+    txtrec:barrierAppliesToRoute ex:mechanicalRoute .
+
+ex:routeScore
+    a txtrec:RecyclabilityScore ;
+    txtind:hasQuantitativeValue ex:scoreValue ;
+    txtrec:hasRecyclabilityLabel txtrec:conditionalRecyclabilityLabel .
+
+ex:scoreValue
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "7"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .
+
+ex:recyclableMassFraction
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "0.78"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .
+
+ex:yieldResult
+    a txtrec:RecyclingYieldResult ;
+    txtrec:hasRecyclingYieldValue ex:yieldValue .
+
+ex:yieldValue
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "0.72"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .
+
+ex:recycledContentDeclaration
+    a txtrec:RecycledContentDeclaration ;
+    txtrec:hasRecycledContentSource txtrec:postConsumerRecycledContent ;
+    txtrec:hasRecycledContentMassFractionValue ex:recycledContentValue ;
+    txtrec:hasReferenceProductMassValue ex:referenceProductMass ;
+    txtrec:hasRecycledMaterialMassValue ex:recycledMaterialMass .
+
+ex:recycledContentAssessment
+    a txtrec:RecycledContentAssessment ;
+    txtass:assessesProduct ex:shirt123 ;
+    txtass:appliesMethod ex:chainOfCustodyMethod ;
+    txtass:producesResult ex:recycledContentAssessmentResult .
+
+ex:chainOfCustodyMethod
+    a txtrec:ChainOfCustodyVerificationMethod .
+
+ex:recycledContentAssessmentResult
+    a txtrec:RecycledContentAssessmentResult ;
+    txtass:resultOfAssessment ex:recycledContentAssessment ;
+    txtrec:verifiesRecycledContentDeclaration ex:recycledContentDeclaration ;
+    txtrec:hasRecycledContentTechnologyLevel txtcon:bestAvailableTechnologyLevel .
+
+ex:recycledContentValue
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "0.30"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .
+
+
+ex:referenceProductMass
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "0.250"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:kilogram .
+
+ex:recycledMaterialMass
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "0.075"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:kilogram .
+
+ex:mechanicalRecyclingProcessType
+    a txtprc:MechanicalRecyclingProcess .
+
+ex:mechanicalRecyclingEvent
+    a txtrec:TextileMechanicalRecyclingEvent ;
+    txtprc:executesProcessType ex:mechanicalRecyclingProcessType ;
+    txtprc:concernsProduct ex:shirt123 ;
+    txtrec:followsRecyclingRoute ex:mechanicalRoute ;
+    txtrec:hasRecoveredMaterial ex:recoveredCottonFibre ;
+    txtrec:hasRecyclingYieldResult ex:yieldResult ;
+    txtrec:hasRecyclingLoop txtrec:fibreToFibreRecycling .
+
+ex:recoveredCottonFibre
+    a txtrec:RecycledTextileFibre .
+
+
+# A discarded product is represented as a waste resource and classified by generation stage.
+ex:discardedShirt123
+    a txtrec:TextileWaste ;
+    txtrec:hasWasteSourceType txtrec:postConsumerTextileWaste .
+
+# Candidate DO3 threshold represented through the shared assessment threshold pattern.
+ex:postConsumerThreshold
+    a txtrec:RecycledContentPerformanceThreshold ;
+    txtass:hasComparisonOperator txtasscs:greaterThanOrEqualTo ;
+    txtass:hasThresholdValue ex:twentyPercent ;
+    txtrec:thresholdForRecycledContentSource txtrec:postConsumerRecycledContent .
+
+ex:twentyPercent
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "0.20"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .
+
+ex:zeroScore
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "0"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .
+
+ex:tenScore
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "10"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .

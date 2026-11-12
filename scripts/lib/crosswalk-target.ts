@@ -321,10 +321,19 @@ function loadShapes(files: string[]): { shapes: Store; sparql: SparqlConstraint[
     const shapeName = pathNode && pathNode.object.termType === "NamedNode" ? local(pathNode.object.value) : local(q.subject.value);
     const patterns = focusPattern(raw, q.subject);
     if (!patterns.length) continue;
+    // SHACL-SPARQL prefix declarations: sh:prefixes names nodes whose sh:declare entries carry
+    // sh:prefix and sh:namespace; the query is written against them.
+    const declared = raw.match(q.object as ox.BlankNode, ox.namedNode(SH + "prefixes"), null, null).flatMap((pq) =>
+      raw.match(pq.object as ox.NamedNode, ox.namedNode(SH + "declare"), null, null).map((dq) => {
+        const prefix = raw.match(dq.object as ox.BlankNode, ox.namedNode(SH + "prefix"), null, null)[0]?.object.value;
+        const ns = raw.match(dq.object as ox.BlankNode, ox.namedNode(SH + "namespace"), null, null)[0]?.object.value;
+        return prefix !== undefined && ns ? `PREFIX ${prefix}: <${ns}>\n` : "";
+      }),
+    );
     sparql.push({
       shape: shapeName,
       message: msg,
-      query: select.replaceAll("$this", "?this"),
+      query: [...new Set(declared)].join("") + select.replaceAll("$this", "?this"),
       focus: `SELECT DISTINCT ?f WHERE { ${patterns.map((p) => `{ ${p} }`).join(" UNION ")} }`,
     });
   }
@@ -478,8 +487,23 @@ export async function shaclFindings(files: string[], quads: Quad[], nt = ""): Pr
       form.push(`sparql ${c.shape}: query fails (${(e as Error).message.split("\n")[0]})`);
       continue;
     }
-    for (const r of rows) {
-      if (!focus.has(r.get("this")?.toString() ?? "")) continue;
+    // SHACL-SPARQL pre-binds $this to each focus node. A query that selects ?this itself is
+    // answered once and filtered; one that only reads it (FILTER NOT EXISTS { $this … }) has no
+    // answer unbound, so it runs per focus node with ?this bound (IRIs; a blank node cannot be named).
+    const unbound = rows.filter((r) => focus.has(r.get("this")?.toString() ?? ""));
+    const bound: Map<string, ox.Term>[] = [];
+    if (!unbound.length && /NOT\s+EXISTS/i.test(c.query)) {
+      for (const f of focus) {
+        if (!f.startsWith("<")) continue;
+        const q = c.query.replace(/WHERE\s*\{/i, (w) => `${w} VALUES ?this { ${f} } `);
+        try {
+          for (const r of store.query(q) as Map<string, ox.Term>[]) bound.push(r);
+        } catch {
+          /* reported above if the query itself is broken */
+        }
+      }
+    }
+    for (const r of [...unbound, ...bound]) {
       const v = r.get("value") ?? r.get("path");
       form.push(`sparql ${c.shape}: ${c.message}${v ? ` (${v.termType === "Literal" ? JSON.stringify(v.value) : local(v.value)})` : ""}`);
     }
