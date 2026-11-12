@@ -9,6 +9,8 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.14.2] - 2026-11-12
+
 ### Changed: EU DPP Registry output complete for a full passport
 
 The eu-dpp crosswalk now carries voltages measured within a temperature range, the end-of-life

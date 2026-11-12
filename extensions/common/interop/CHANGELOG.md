@@ -4,6 +4,8 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+## [0.14.2] - 2026-11-12
+
 ### Changed
 
 - `eu-dpp`: voltages with a temperature range (new handles in `shared/battery-handles.ttl`, entail and
