@@ -5,9 +5,7 @@
     "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld"
   ],
   "type": "EPCISDocument",
-  "schemaVersion": "2.0",
-  "creationDate": "2025-01-20T11:00:00.000Z",
-  "_comment_architecture": [
+  "rdfs:comment": [
     "Ownership transfer chain: shipping, receiving, and retail sale of a serialized device.",
     "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
     "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
@@ -17,6 +15,8 @@
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
+  "schemaVersion": "2.0",
+  "creationDate": "2025-01-20T11:00:00.000Z",
   "epcisBody": {
     "eventList": [
       {
@@ -27,38 +27,38 @@
           "https://id.gs1.org/01/09506000134352/21/ABC123456"
         ],
         "action": "OBSERVE",
-        "bizStep": "urn:epcglobal:cbv:bizstep:shipping",
-        "disposition": "urn:epcglobal:cbv:disp:in_transit",
+        "bizStep": "shipping",
+        "disposition": "in_transit",
         "readPoint": {
           "id": "urn:epc:id:sgln:9521234.00001.warehouse"
         },
         "sourceList": [
           {
-            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "type": "owning_party",
             "source": "urn:epc:id:pgln:9521234.00000"
           },
           {
-            "type": "urn:epcglobal:cbv:sdt:possessing_party",
+            "type": "possessing_party",
             "source": "urn:epc:id:pgln:9521234.00000"
           }
         ],
         "destinationList": [
           {
-            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "type": "owning_party",
             "destination": "urn:epc:id:pgln:9521235.00000"
           },
           {
-            "type": "urn:epcglobal:cbv:sdt:possessing_party",
+            "type": "possessing_party",
             "destination": "urn:epc:id:pgln:9521235.00000"
           }
         ],
         "bizTransactionList": [
           {
-            "type": "urn:epcglobal:cbv:btt:desadv",
+            "type": "desadv",
             "bizTransaction": "urn:epc:id:gdti:9521234.00001.SHIP-2025-00456"
           },
           {
-            "type": "urn:epcglobal:cbv:btt:inv",
+            "type": "inv",
             "bizTransaction": "urn:epc:id:gdti:9521234.00001.INV-2025-00789"
           }
         ]
@@ -71,8 +71,8 @@
           "https://id.gs1.org/01/09506000134352/21/ABC123456"
         ],
         "action": "OBSERVE",
-        "bizStep": "urn:epcglobal:cbv:bizstep:receiving",
-        "disposition": "urn:epcglobal:cbv:disp:sellable_accessible",
+        "bizStep": "receiving",
+        "disposition": "sellable_accessible",
         "readPoint": {
           "id": "urn:epc:id:sgln:9521235.00001.receiving-dock"
         },
@@ -81,7 +81,7 @@
         },
         "bizTransactionList": [
           {
-            "type": "urn:epcglobal:cbv:btt:recadv",
+            "type": "recadv",
             "bizTransaction": "urn:epc:id:gdti:9521235.00001.REC-2025-00123"
           }
         ]
@@ -94,8 +94,8 @@
           "https://id.gs1.org/01/09506000134352/21/ABC123456"
         ],
         "action": "OBSERVE",
-        "bizStep": "urn:epcglobal:cbv:bizstep:retail_selling",
-        "disposition": "urn:epcglobal:cbv:disp:sold",
+        "bizStep": "retail_selling",
+        "disposition": "retail_sold",
         "readPoint": {
           "id": "urn:epc:id:sgln:9521235.00002.store-checkout"
         },
@@ -104,19 +104,19 @@
         },
         "sourceList": [
           {
-            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "type": "owning_party",
             "source": "urn:epc:id:pgln:9521235.00000"
           }
         ],
         "destinationList": [
           {
-            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "type": "owning_party",
             "destination": "urn:epc:id:consumer"
           }
         ],
         "bizTransactionList": [
           {
-            "type": "urn:epcglobal:cbv:btt:po",
+            "type": "po",
             "bizTransaction": "urn:epc:id:gdti:9521235.00001.POS-2025-00567"
           }
         ]

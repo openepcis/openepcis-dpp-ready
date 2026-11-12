@@ -32,11 +32,11 @@ body:json {
           "epcList": ["{{bottleEpc}}"],
           "readPoint":   { "id": `https://id.gs1.org/414/${bru.getVar("bottlingPlantGln")}` },
           "bizLocation": { "id": `https://id.gs1.org/414/${bru.getVar("bottlingPlantGln")}` },
-          "sourceList":      [{ "type": "urn:epcglobal:cbv:sdt:owning_party", "source":      `https://id.gs1.org/417/${bru.getVar("bottlerOrgGln")}` }],
-          "destinationList": [{ "type": "urn:epcglobal:cbv:sdt:owning_party", "destination": `https://id.gs1.org/417/${bru.getVar("brandOwnerOrgGln")}` }],
+          "sourceList":      [{ "type": "owning_party", "source":      `https://id.gs1.org/417/${bru.getVar("bottlerOrgGln")}` }],
+          "destinationList": [{ "type": "owning_party", "destination": `https://id.gs1.org/417/${bru.getVar("brandOwnerOrgGln")}` }],
           "bizTransactionList": [
-            { "type": "urn:epcglobal:cbv:btt:po",     "bizTransaction": "https://eurobeverage-brands.example.com/orders/PO-2026-04822" },
-            { "type": "urn:epcglobal:cbv:btt:desadv", "bizTransaction": "https://mountain-spring.example.com/shipping/DESADV-2026-01340" }
+            { "type": "po",     "bizTransaction": "https://eurobeverage-brands.example.com/orders/PO-2026-04822" },
+            { "type": "desadv", "bizTransaction": "https://mountain-spring.example.com/shipping/DESADV-2026-01340" }
           ]
         }
       ]

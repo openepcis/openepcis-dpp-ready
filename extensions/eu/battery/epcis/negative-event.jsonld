@@ -5,9 +5,7 @@
     "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld"
   ],
   "type": "EPCISDocument",
-  "schemaVersion": "2.0",
-  "creationDate": "2025-02-20T16:45:00.000Z",
-  "_comment_architecture": [
+  "rdfs:comment": [
     "Negative event (accident/damage) recording physical damage to a battery.",
     "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
     "gs1:masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
@@ -16,6 +14,8 @@
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
+  "schemaVersion": "2.0",
+  "creationDate": "2025-02-20T16:45:00.000Z",
   "epcisBody": {
     "eventList": [
       {
@@ -26,11 +26,6 @@
         "action": "OBSERVE",
         "bizStep": "inspecting",
         "disposition": "damaged",
-        "errorDeclaration": {
-          "declarationTime": "2025-02-20T16:50:00.000Z",
-          "reason": "urn:epcglobal:cbv:er:other",
-          "correctiveEventIDs": []
-        },
         "epcList": [
           "https://id.gs1.org/01/09521234000013/21/BAT2024-001"
         ],
@@ -61,9 +56,9 @@
         "sensorElementList": [
           {
             "sensorMetadata": {
+              "rdfs:comment": "Negative event report per EU 2023/1542",
               "time": "2025-02-20T16:45:00.000Z",
-              "bizRules": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-              "_comment": "Negative event report per EU 2023/1542"
+              "bizRules": "https://eur-lex.europa.eu/eli/reg/2023/1542"
             },
             "sensorReport": [
               {
@@ -76,7 +71,7 @@
         ],
         "bizTransactionList": [
           {
-            "type": "urn:epcglobal:cbv:btt:cert",
+            "type": "cert",
             "bizTransaction": "https://energy-systems.example.com/incidents/INC-2025-0034.pdf"
           }
         ]
