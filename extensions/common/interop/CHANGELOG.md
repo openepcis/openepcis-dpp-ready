@@ -4,6 +4,31 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+### Added
+
+- Validation targets `epcis/2.0.1`, `cirpass2-textile/2.0.0`, `cirpass2-battery/0.3.0` (draft),
+  `batterypass-ready/1.3` (derived), `batterypass-samm/1.2`, `catenax-battery-pass/6.1.0`, `untp/0.8.0`,
+  `untp/0.7.0`. Targets may name no crosswalk profile, read Turtle fixtures, replay a publisher's test
+  corpus (`expectations`), map fixtures to types (`scopes`), mark a draft release (`status`).
+
+### Added
+
+- Validation targets: `targets/eu-dpp/1.0.0`, `targets/batterypass-ready/2.0.1` and `targets/keystone/v3`
+  describe an external model release as GITB validation types (vendored artifacts with their
+  manifest, crosswalk profile, fixtures, accepted deviations with reasons). Read by
+  `scripts/lib/targets.ts`; see `docs/GITB_CONFORMANCE.md`, "External models".
+- `eu-dpp` test case `amperia-stationary-item`: the merged Amperia StaxWall 10 item passport
+  (`reconstruct:batterypass-ready --passport`).
+
+### Changed
+
+- `eu-dpp`: `digitalProductPassportId` is the passport identifier, else the product IRI (the way
+  back drops it when it equals the product); battery category and subgroup follow a code's
+  `skos:broadMatch` when it has no `skos:exactMatch` (stationary → industrial); a resource without a
+  MIME type gets its content type from the URL (as in `batterypass`); new `lift/85-power.rq`:
+  `originalPowerCapability` and, for a subgroup, `powerCapability`, the value at the highest state
+  of charge stated (one way: the state of charge cannot be restored).
+
 ## [0.13.1] - 2026-11-11
 
 ### Changed

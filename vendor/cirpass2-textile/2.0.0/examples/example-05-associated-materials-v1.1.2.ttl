@@ -1,0 +1,42 @@
+@prefix ex: <https://example.org/eu-dpp-textile/> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix txt: <https://w3id.org/eudpp/textile-core#> .
+@prefix txtam: <https://w3id.org/eudpp/textile-associated-materials#> .
+@prefix txtamcs: <https://w3id.org/eudpp/textile-associated-materials-codelists#> .
+@prefix txtprc: <https://w3id.org/eudpp/textile-process#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Example 05 - non-textile component, packaging material and chemical classifications.
+
+ex:jacket-001
+    a txt:TextileApparel ;
+    rdfs:label "Example jacket with associated resources"@en ;
+    txtam:hasNonTextileComponent ex:zipper-001 ;
+    txtam:hasPackagingMaterial ex:cardboard-packaging-material-001 .
+
+ex:zipper-001
+    a txtam:NonTextileComponent ;
+    txtam:hasNonTextileComponentType txtamcs:zipper ;
+    txtam:hasComponentMaterial ex:zipper-metal-material-001 .
+
+ex:zipper-metal-material-001
+    a dpp:MaterialOfComposition ;
+    dpp:hasMaterialType ex:metal-material-type .
+
+ex:metal-material-type
+    a dpp:MaterialType ;
+    rdfs:label "Metal material type"@en .
+
+# This resource represents the material used for packaging, not the physical box.
+ex:cardboard-packaging-material-001
+    a txtam:PackagingMaterial ;
+    txtam:hasPackagingMaterialType txtamcs:cardboardPackagingMaterial .
+
+ex:water-repellent-substance-001
+    a txtam:TextileChemicalSubstance ;
+    txtam:hasTextileChemicalUseCategory txtamcs:performanceChemical ;
+    txtam:hasTextileChemicalFunction txtamcs:waterRepellent .
+
+ex:finishing-execution-001
+    a txtprc:TextileProcessExecution ;
+    txtprc:usesChemicalSubstance ex:water-repellent-substance-001 .

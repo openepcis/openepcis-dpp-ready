@@ -109,6 +109,21 @@ if (rdoc) {
     rdoc.dppHeader?.lastUpdated);
 }
 
+// The committed 2.0.1 document of the Amperia item (a fixture of the GITB target bpr 2.0.1,
+// extensions/common/interop/targets) is what the reconstruction gives today.
+const full = await reconstructReady({
+  layers: [AMP("model"), AMP("batch"), AMP("item")],
+  events: join(ROOT, "extensions/eu/battery/epcis/amperia-staxwall-lifecycle.jsonld"),
+});
+const committed = readFileSync(join(ROOT, "extensions/eu/battery/examples/amperia-staxwall-item.bpr-2.0.1.json"), "utf8");
+record("RECONSTRUCT: amperia-staxwall-item.bpr-2.0.1.json is in step with the reconstruction",
+  committed === JSON.stringify(full.export.docs[0], null, 2) + "\n",
+  "regenerate with: pnpm run reconstruct:batterypass-ready -- --out extensions/eu/battery/examples/amperia-staxwall-item.bpr-2.0.1.json");
+const merged = readFileSync(join(ROOT, "extensions/common/interop/crosswalk/eu-dpp/tests/amperia-stationary-item/ours.jsonld"), "utf8");
+record("RECONSTRUCT: the eu-dpp crosswalk case amperia-stationary-item is the merged passport",
+  merged === JSON.stringify(full.passport, null, 2) + "\n",
+  "regenerate with: pnpm run reconstruct:batterypass-ready -- --passport extensions/common/interop/crosswalk/eu-dpp/tests/amperia-stationary-item/ours.jsonld, then pnpm run build:crosswalk-goldens");
+
 const passed = results.filter((r) => r.passed).length;
 console.log("\nBatteryPass-Ready 2.0.1 conformance run (offline, vendored GEFEG schemas)\n" + "=".repeat(60));
 for (const r of results) console.log(`  ${r.passed ? "PASS" : "FAIL"}  ${r.name}${r.detail ? `  — ${r.detail}` : ""}`);

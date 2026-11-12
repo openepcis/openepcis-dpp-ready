@@ -5,9 +5,7 @@
     "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld"
   ],
   "type": "EPCISDocument",
-  "schemaVersion": "2.0",
-  "creationDate": "2024-03-20T10:00:00.000Z",
-  "_comment_architecture": [
+  "rdfs:comment": [
     "Carbon footprint declaration event with lifecycle breakdown.",
     "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
     "gs1:masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
@@ -16,6 +14,8 @@
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
+  "schemaVersion": "2.0",
+  "creationDate": "2024-03-20T10:00:00.000Z",
   "epcisBody": {
     "eventList": [
       {
@@ -53,47 +53,47 @@
         "sensorElementList": [
           {
             "sensorMetadata": {
+              "rdfs:comment": "Carbon footprint per EU 2023/1542 and ISO 14067",
               "time": "2024-03-20T10:00:00.000Z",
-              "bizRules": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-              "_comment": "Carbon footprint per EU 2023/1542 and ISO 14067"
+              "bizRules": "https://eur-lex.europa.eu/eli/reg/2023/1542"
             },
             "sensorReport": [
               {
+                "rdfs:comment": "Unit: kg CO2e/kWh",
                 "type": "eubat:hasCarbonFootprintTotal",
-                "value": "45.2",
-                "uom": "KGM",
-                "_comment": "Unit: kg CO2e/kWh"
+                "value": 45.2,
+                "uom": "KGM"
               },
               {
+                "rdfs:comment": "Unit: kg CO2e/kWh",
                 "type": "eubat:hasCarbonFootprintRawMaterialExtraction",
-                "value": "18.5",
-                "uom": "KGM",
-                "_comment": "Unit: kg CO2e/kWh"
+                "value": 18.5,
+                "uom": "KGM"
               },
               {
+                "rdfs:comment": "Unit: kg CO2e/kWh",
                 "type": "eubat:hasCarbonFootprintProduction",
-                "value": "15.3",
-                "uom": "KGM",
-                "_comment": "Unit: kg CO2e/kWh"
+                "value": 15.3,
+                "uom": "KGM"
               },
               {
+                "rdfs:comment": "Unit: kg CO2e/kWh",
                 "type": "eubat:hasCarbonFootprintDistribution",
-                "value": "2.8",
-                "uom": "KGM",
-                "_comment": "Unit: kg CO2e/kWh"
+                "value": 2.8,
+                "uom": "KGM"
               },
               {
+                "rdfs:comment": "Unit: kg CO2e/kWh",
                 "type": "eubat:hasCarbonFootprintRecycling",
-                "value": "8.6",
-                "uom": "KGM",
-                "_comment": "Unit: kg CO2e/kWh"
+                "value": 8.6,
+                "uom": "KGM"
               }
             ]
           }
         ],
         "bizTransactionList": [
           {
-            "type": "urn:epcglobal:cbv:btt:cert",
+            "type": "cert",
             "bizTransaction": "https://ecocell-batteries.example.com/cfp/BAT2024-001-study.pdf"
           }
         ]

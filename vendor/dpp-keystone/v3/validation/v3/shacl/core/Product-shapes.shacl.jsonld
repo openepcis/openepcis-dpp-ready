@@ -1,0 +1,226 @@
+{
+  "@context": {
+    "sh": "http://www.w3.org/ns/shacl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dppk": "https://dpp-keystone.org/spec/v3/terms#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "@vocab": "http://www.w3.org/ns/shacl#",
+    "node": {
+      "@type": "@id"
+    },
+    "path": {
+      "@type": "@id"
+    },
+    "targetClass": {
+      "@type": "@id"
+    },
+    "class": {
+      "@type": "@id"
+    },
+    "datatype": {
+      "@type": "@id"
+    }
+  },
+  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/core/Product",
+  "@type": "ShapesGraph",
+  "@graph": [
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_ProductShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#Product",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#productName",
+          "message": "Auto-generated rule for dppk:productName",
+          "datatype": "rdf:langString"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#description",
+          "message": "Auto-generated rule for dppk:description",
+          "datatype": "rdf:langString"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#gtin",
+          "message": "Auto-generated rule for dppk:gtin",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#brand",
+          "message": "Auto-generated rule for dppk:brand",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#model",
+          "message": "Auto-generated rule for dppk:model",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#image",
+          "message": "Auto-generated rule for dppk:image",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_RelatedResourceShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:RelatedResource"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#color",
+          "message": "Auto-generated rule for dppk:color",
+          "datatype": "rdf:langString"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#components",
+          "message": "Auto-generated rule for dppk:components",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_ComponentShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:Component"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#countryOfOrigin",
+          "message": "Auto-generated rule for dppk:countryOfOrigin",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#recycledContentPercentage",
+          "message": "Auto-generated rule for dppk:recycledContentPercentage",
+          "datatype": "xsd:double"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#netWeight",
+          "message": "Auto-generated rule for dppk:netWeight",
+          "datatype": "xsd:double"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#grossWeight",
+          "message": "Auto-generated rule for dppk:grossWeight",
+          "datatype": "xsd:double"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#length",
+          "message": "Auto-generated rule for dppk:length",
+          "datatype": "xsd:double"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#width",
+          "message": "Auto-generated rule for dppk:width",
+          "datatype": "xsd:double"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#height",
+          "message": "Auto-generated rule for dppk:height",
+          "datatype": "xsd:double"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#depth",
+          "message": "Auto-generated rule for dppk:depth",
+          "datatype": "xsd:double"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#productCharacteristics",
+          "message": "Auto-generated rule for dppk:productCharacteristics",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_ProductCharacteristicShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:ProductCharacteristic"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#warrantyDuration",
+          "message": "Auto-generated rule for dppk:warrantyDuration",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#apparelSize",
+          "message": "Auto-generated rule for dppk:apparelSize",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#apparelSizeSystem",
+          "message": "Auto-generated rule for dppk:apparelSizeSystem",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#manufacturingDate",
+          "message": "Auto-generated rule for dppk:manufacturingDate",
+          "datatype": "xsd:date"
+        }
+      ]
+    },
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_QuantitativeValueShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#QuantitativeValue",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#value",
+          "message": "Auto-generated rule for dppk:value",
+          "datatype": "xsd:double"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#unitCode",
+          "message": "Auto-generated rule for dppk:unitCode",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#unitText",
+          "message": "Auto-generated rule for dppk:unitText",
+          "datatype": "xsd:string"
+        }
+      ]
+    },
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_ProductCharacteristicShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#ProductCharacteristic",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#characteristicName",
+          "message": "Auto-generated rule for dppk:characteristicName",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#characteristicValue",
+          "message": "Auto-generated rule for dppk:characteristicValue",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#testMethod",
+          "message": "Auto-generated rule for dppk:testMethod",
+          "datatype": "xsd:string"
+        }
+      ]
+    }
+  ]
+}

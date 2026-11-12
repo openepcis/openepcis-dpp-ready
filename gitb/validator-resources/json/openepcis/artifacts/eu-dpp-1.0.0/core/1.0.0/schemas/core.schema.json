@@ -1,0 +1,51 @@
+{
+  "$id": "https://repository.product-passport.ec.europa.eu/core/1.0.0/schemas/core.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Digital Product Passport",
+  "description": "JSON Schema for the core properties of the compact Digital Product Passport representation.",
+  "type": "object",
+  "properties": {
+    "digitalProductPassportId": {
+      "type": "string",
+      "message": { "type": "SEM-MSG-001" }
+    },
+    "uniqueProductIdentifier": {
+      "type": "string",
+      "message": { "type": "SEM-MSG-002" }
+    },
+    "granularity": {
+      "type": "string",
+      "$comment": "Controlled vocabulary: https://repository.product-passport.ec.europa.eu/core/vocabs/granularity-level#.",
+      "pattern": "^https://repository.product-passport.ec.europa.eu/core/vocabs/granularity-level#[a-zA-Z]+$",
+      "message": { "type": "SEM-MSG-003" }
+    },
+    "dppStatus": {
+      "type": "string",
+      "$comment": "Controlled vocabulary: https://repository.product-passport.ec.europa.eu/core/vocabs/instance-status#.",
+      "pattern": "^https://repository.product-passport.ec.europa.eu/core/vocabs/instance-status#[a-zA-Z]+$",
+      "message": { "type": "SEM-MSG-005" }
+    },
+    "lastUpdate": {
+      "type": "string",
+      "format": "date-time",
+      "message": { "type": "SEM-MSG-006" }
+    },
+    "contentSpecificationIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^https://repository\\.product-passport\\.ec\\.europa\\.eu/(core|product/[a-z0-9-]+(/subgroup/[a-z0-9-]+)?)/\\d+\\.\\d+\\.\\d+$"
+      },
+      "uniqueItems": true,
+      "message": { "type": "SEM-MSG-009" }
+    }
+  },
+  "required": [
+    "digitalProductPassportId",
+    "uniqueProductIdentifier",
+    "granularity",
+    "dppStatus",
+    "lastUpdate",
+    "contentSpecificationIds"
+  ]
+}

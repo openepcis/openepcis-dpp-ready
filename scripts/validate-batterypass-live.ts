@@ -13,19 +13,23 @@
  *   2. Let the script fetch one from Keycloak with your login:
  *        BPASS_USER=you@example.com BPASS_PASSWORD=…
  *      (realm/client default to the GEFEG values; override with BPASS_REALM_URL
- *      and BPASS_CLIENT_ID if they change.)
+ *      and BPASS_CLIENT_ID if they change.) Measured 2026-11-12: the batterypass-ui client
+ *      answers "Client not allowed for direct access grants", so in practice only 1. works.
  * Pass credentials via env, never on the command line.
  *
  * Usage:
  *   BPASS_TOKEN=eyJ... tsx scripts/validate-batterypass-live.ts <file.json> [tag] [version]
  *   BPASS_USER=… BPASS_PASSWORD=… tsx scripts/validate-batterypass-live.ts <file.json> [tag] [version]
  *
- * Defaults: tag=Other_Industrial_BatteryPass version=1.0
- * Tags: EV_BatteryPass | LMT_BatteryPass | Other_Industrial_BatteryPass | Stationary_Industrial_BatteryPass
+ * Defaults: the 2.0.1 schema for the document's batteryCategoryValue, taken from the schemaBy
+ * table of the crosswalk profile (extensions/common/interop/crosswalk/batterypass/profile.json),
+ * e.g. tag=Stationary_Industrial_Above_2kWh_2.0.1; the server files 2.0.1 schemas under
+ * version "Guide". Pass tag and version to override (the Feb 2027 subsets are <Category>_Feb27_2.0.1).
  *
- * Which schemas (tag, version) the server offers: --list (GET /Schemas). The data model 2.0.1
- * (scripts/export-batterypass-ready.ts) validates offline against the vendored GEFEG schemas
- * (pnpm test); once the server lists a 2.0.1 tag, pass that tag and version 2.0.1 here.
+ * Which schemas (tag, version) the server offers: --list (GET /Schemas).
+ *
+ * The same 2.0.1 schemas are validated offline, with no login, by `pnpm run validate:target` and by
+ * the OpenEPCIS GITB validator (types x.bpr-2.0.1.*); this script is the comparison with GEFEG.
  */
 
 import { readFileSync } from "fs";
@@ -123,16 +127,41 @@ async function listSchemas(): Promise<void> {
   console.log((await res.text()).slice(0, 8000));
 }
 
+/** The GEFEG tag for a 2.0.1 document: the schema file the crosswalk profile picks for its category. */
+function tagFor(doc: any): string | undefined {
+  const profile = JSON.parse(readFileSync(new URL("../extensions/common/interop/crosswalk/batterypass/profile.json", import.meta.url), "utf-8"));
+  const by = findKey(profile, "schemaBy");
+  const category = by?.path.split(".").reduce((o: any, k: string) => o?.[k], doc);
+  const file: string | undefined = typeof category === "string" ? by.files[category] : undefined;
+  return file?.replace(/.*\//, "").replace(/\.json$/, "");
+}
+
+function findKey(o: any, key: string): any {
+  if (!o || typeof o !== "object") return undefined;
+  if (key in o) return o[key];
+  for (const v of Object.values(o)) {
+    const r = findKey(v, key);
+    if (r !== undefined) return r;
+  }
+  return undefined;
+}
+
 async function main() {
   if (process.argv[2] === "--list") return listSchemas();
-  const [file, tag = "Other_Industrial_BatteryPass", version = "1.0"] = process.argv.slice(2);
+  const [file, tagArg, version = "Guide"] = process.argv.slice(2);
   if (!file) {
     console.error("usage: (BPASS_TOKEN=… | BPASS_USER=… BPASS_PASSWORD=…) tsx scripts/validate-batterypass-live.ts <file.json> [tag] [version]");
     process.exit(2);
   }
+  const body = readFileSync(file, "utf-8");
+  const tag = tagArg ?? tagFor(JSON.parse(body));
+  if (!tag) {
+    console.error("no 2.0.1 schema for this batteryCategoryValue; pass the tag explicitly (see --list)");
+    process.exit(2);
+  }
+  console.error(`tag=${tag} version=${version}`);
   const token = await resolveToken();
 
-  const body = readFileSync(file, "utf-8");
   const url = `${BASE}?tag=${encodeURIComponent(tag)}&version=${encodeURIComponent(version)}&variant=${encodeURIComponent('""')}&language=EN`;
 
   const res = await fetch(url, {

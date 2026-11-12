@@ -1,0 +1,31 @@
+{
+  "$comment": "A validation target: an external DPP model at one version, hosted as GITB validation types by OpenEPCIS DPP-Ready. Types are derived from the crosswalk profile; artifacts are checked against the vendor MANIFEST.json on every build. See docs/GITB_CONFORMANCE.md, section 'External models'.",
+  "id": "bpr",
+  "version": "2.0.1",
+  "title": "BatteryPass-Ready data model",
+  "publisher": "BatteryPass-Ready consortium (GEFEG)",
+  "manifest": "vendor/batterypass-ready/2.0.1/MANIFEST.json",
+  "profile": "batterypass",
+  "categories": {
+    "EV_2.0.1": "ev",
+    "LMT_2.0.1": "lmt",
+    "Industrial_Without_BMS_2.0.1": "industrial-without-bms",
+    "Other_Industrial_Above_2kWh_2.0.1": "other-industrial",
+    "Stationary_Industrial_Above_2kWh_2.0.1": "stationary-industrial"
+  },
+  "fixtures": [
+    { "role": "publisher", "glob": "extensions/common/interop/crosswalk/batterypass/tests/*/batterypass.json" },
+    { "role": "openepcis", "glob": "extensions/common/interop/crosswalk/batterypass/tests/*/lifted.batterypass.json" },
+    { "role": "openepcis", "glob": "extensions/eu/battery/examples/*.bpr-2.0.1.json" }
+  ],
+  "accepted": [
+    {
+      "match": "ohmValueForBatteryCell",
+      "reason": "Release 2.0.1 types the cell resistance as an integer number of ohms ($defs/ohmInteger); a cell's internal resistance is a fraction of an ohm (Amperia: 0.25 mOhm), so the only integer is 0, which would be false."
+    },
+    {
+      "match": "informationOnAccidents",
+      "reason": "Release 2.0.1 requires a document on accidents unconditionally; a battery that has had none has nothing to link (Regulation (EU) 2023/1542, Annex XIII 4: information on accidents where they occurred)."
+    }
+  ]
+}

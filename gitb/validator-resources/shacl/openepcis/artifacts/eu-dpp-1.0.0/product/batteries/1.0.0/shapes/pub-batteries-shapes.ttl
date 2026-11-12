@@ -1,0 +1,857 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dpp: <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#> .
+@prefix bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#> .
+@prefix dppcom: <https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#> .
+@prefix dpp-shapes: <https://repository.product-passport.ec.europa.eu/core/shapes/> .
+@prefix bat-shapes: <https://repository.product-passport.ec.europa.eu/product/batteries/shapes/> .
+@prefix dppunit: <https://repository.product-passport.ec.europa.eu/core/vocabs/measurement-unit#> .
+
+bat-shapes:battery-public-shapes
+    a sh:NodeShape ;
+    sh:targetClass dpp:DigitalProductPassport ;
+
+    sh:property [
+        sh:path dpp:granularity ;
+        sh:hasValue <https://repository.product-passport.ec.europa.eu/core/vocabs/granularity-level#item> ;
+        sh:message "SEM-MSG-003"
+    ] ;
+
+    sh:property [
+        sh:path dpp:contentSpecificationIds ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:qualifiedValueShape [
+            sh:datatype xsd:string ;
+            sh:pattern "^https://repository\\.product-passport\\.ec\\.europa\\.eu/product/batteries/\\d+\\.\\d+\\.\\d+$"
+        ] ;
+        sh:message "SEM-MSG-009"
+    ] ;
+    
+    sh:property [
+        sh:path bat:registrantIdentity ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "SEM-BAT-MSG-089"
+    ] ;
+
+    sh:property [
+        sh:path bat:manufacturerIdentification ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:property bat-shapes:manufacturer-name-shape ;
+        sh:property bat-shapes:manufacturer-trade-name-shape ;
+        sh:property bat-shapes:manufacturer-trademark-shape ;
+        sh:node bat-shapes:manufacturer-name-or ;
+        sh:message "SEM-BAT-MSG-001"
+    ] ;
+
+    sh:property [
+        sh:path bat:manufacturerPostalAddress ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string;
+        sh:message "SEM-BAT-MSG-005"
+    ] ;
+
+    sh:property [
+        sh:path bat:manufacturerContactDetails ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:node bat-shapes:manufacturer-contact-details-shape ;
+        sh:message "SEM-BAT-MSG-006"
+    ] ;
+
+    sh:property [
+        sh:path bat:batteryCategory ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "SEM-BAT-MSG-009";
+        sh:sparql [
+            a sh:SPARQLConstraint ;
+            sh:select """
+                PREFIX bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#>
+                PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+                SELECT $this ?value
+                WHERE {
+                    $this bat:batteryCategory ?value .
+                    filter not EXISTS {
+                        ?concept skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-category> .
+                        ?concept a skos:Concept.
+                        FILTER (?concept = ?value)
+                    }
+                }
+            """ ;
+        ]
+    ] ;
+
+    sh:property [
+        sh:path bat:batteryIdentification ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:node bat-shapes:battery-identification-shape ;
+        sh:message "SEM-BAT-MSG-010"
+    ] ;
+
+    sh:property [
+        sh:path bat:manufacturingPlace ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:node bat-shapes:manufacturing-place-shape ;
+        sh:message "SEM-BAT-MSG-016"
+    ] ;
+
+    sh:property [
+        sh:path bat:manufacturingDate ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:gYearMonth;
+        sh:message "SEM-BAT-MSG-020"
+    ] ;
+
+    sh:property [
+        sh:path bat:batteryWeight ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:or (
+                    [ sh:hasValue dppunit:kilogram ]
+                    [ sh:hasValue dppunit:gram ]
+                ) ;
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-021"
+    ] ;
+
+    sh:property [
+        sh:path bat:batteryCapacity ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:or (
+                    [ sh:hasValue dppunit:ampereHour ]
+                    [ sh:hasValue dppunit:milliampereHour ]
+                ) ;
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-022"
+    ] ;
+
+    sh:property [
+        sh:path bat:batteryChemistry ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI;
+        sh:message "SEM-BAT-MSG-023";
+        sh:sparql [
+            a sh:SPARQLConstraint ;
+            sh:select """
+                PREFIX bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#>
+                PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+                SELECT $this ?value
+                WHERE {
+                    $this bat:batteryChemistry ?value .
+                    filter not EXISTS {
+                        ?concept skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-chemistry> .
+                        ?concept a skos:Concept.
+                        FILTER (?concept = ?value)
+                    }
+                }
+            """ ;
+        ]
+    ] ;
+
+    sh:property [
+        sh:path bat:hazardousSubstances ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string;
+        sh:message "SEM-BAT-MSG-024"
+    ] ;
+
+    sh:property [
+        sh:path bat:extinguishingAgent ;
+        sh:minCount 1 ;
+        sh:datatype rdf:langString;
+        sh:message "SEM-BAT-MSG-025"
+    ] ;
+
+    sh:property [
+        sh:path bat:criticalRawMaterials ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "SEM-BAT-MSG-026" ;
+        sh:sparql [
+            a sh:SPARQLConstraint ;
+            sh:select """
+                PREFIX bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#>
+                PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+                SELECT $this ?value
+                WHERE {
+                    $this bat:criticalRawMaterials ?value .
+                    filter not EXISTS {
+                        ?concept skos:inScheme <https://repository.product-passport.ec.europa.eu/core/vocabs/critical-raw-material> .
+                        ?concept a skos:Concept.
+                        FILTER (?concept = ?value)
+                    }
+                }
+            """ ;
+        ]
+    ] ;
+
+    sh:property [
+       sh:path bat:renewableContentShare ;
+       sh:minCount 1 ;
+       sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:percent;
+            ]
+        ) ;
+       sh:message "SEM-BAT-MSG-090"
+    ] ;
+
+    sh:property [
+        sh:path bat:minimalVoltage ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:and (
+            dpp-shapes:unit-range-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:volt;
+            ]
+            [
+                sh:path (dppcom:valueRange dppcom:unit);
+                sh:hasValue dppunit:degreeCelsius
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-091"
+    ] ;
+
+    sh:property [
+        sh:path bat:nominalVoltage ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:and (
+            dpp-shapes:unit-range-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:volt;
+            ]
+            [
+                sh:path (dppcom:valueRange dppcom:unit);
+                sh:hasValue dppunit:degreeCelsius
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-027"
+    ] ;
+
+    sh:property [
+        sh:path bat:maximumVoltage ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:and (
+            dpp-shapes:unit-range-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:volt;
+            ]
+            [
+                sh:path (dppcom:valueRange dppcom:unit);
+                sh:hasValue dppunit:degreeCelsius
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-028"
+    ] ;
+
+    sh:property [
+       sh:path bat:originalPowerCapability ;
+       sh:minCount 1 ;
+       sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:watt
+            ]
+        ) ;
+       sh:message "SEM-BAT-MSG-029"
+    ] ;
+
+    sh:property [
+        sh:path bat:powerLimit ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit ;
+                sh:hasValue dppunit:watt
+            ]
+            [
+                sh:or (
+                    [
+                        sh:path dppcom:valueRange ;
+                        sh:maxCount 0
+                    ]
+                    [
+                        sh:and (
+                            dpp-shapes:value-range-shape
+                            [
+                                sh:path ( dppcom:valueRange dppcom:unit ) ;
+                                sh:hasValue dppunit:degreeCelsius
+                            ]
+                        )
+                    ]
+                )
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-030"
+    ] ;
+
+    sh:property [
+        sh:path bat:notInUseTemperatureRange ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:node bat-shapes:not-in-use-temperature-range-shape ;
+        sh:message "SEM-BAT-MSG-034"
+    ] ;
+
+    sh:property [
+        sh:path bat:commercialWarrantyPeriod ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer;
+        sh:message "SEM-BAT-MSG-036"
+    ] ;
+
+    sh:property [
+        sh:path bat:internalCellResistance ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:ohm
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-039"
+    ] ;
+
+    sh:property [
+        sh:path bat:internalPackResistance ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:ohm
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-040"
+    ] ;
+
+    sh:property [
+        sh:path bat:cycleLifeDischargeCRate ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:unit-shape
+            dpp-shapes:value-shape
+            [
+                sh:path dppcom:unit;
+                sh:hasValue dppunit:reciprocalHour
+            ]
+        ) ;
+        sh:message "SEM-BAT-MSG-042"
+    ] ;
+
+    sh:property [
+        sh:path bat:separateCollectionSymbol ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:boolean;
+        sh:hasValue true ;
+        sh:message "SEM-BAT-MSG-043"
+    ] ;
+
+    sh:property [
+        sh:path bat:chemicalSymbol ;
+        sh:minCount 0 ;
+        sh:nodeKind sh:IRI;
+        sh:message "SEM-BAT-MSG-044" ;
+        sh:sparql [
+            a sh:SPARQLConstraint ;
+            sh:select """
+                PREFIX bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#>
+                PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+                SELECT $this ?value
+                WHERE {
+                    $this bat:chemicalSymbol ?value .
+                    filter not EXISTS {
+                        ?concept skos:inScheme <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-chemical-symbol> .
+                        ?concept a skos:Concept.
+                        FILTER (?concept = ?value)
+                    }
+                }
+            """ ;
+        ]
+    ] ;
+
+    sh:property [
+        sh:path bat:euDeclarationOfConformity ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:node dpp-shapes:resource-shapes ;
+        sh:message "SEM-BAT-MSG-045"
+    ] ;
+
+    sh:property [
+        sh:path bat:wasteBatteryPreventionManagementInfo ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:node bat-shapes:waste-battery-prevention-info-shape ;
+        sh:message "SEM-BAT-MSG-046"
+    ] ;
+
+   sh:property [
+            sh:path bat:extinguishingAgent ;
+           sh:message "SEM-COM-MSG-012";
+
+           sh:sparql [
+               a sh:SPARQLConstraint ;
+               sh:select """
+                   PREFIX bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#>
+                   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+                   SELECT $this (?value AS ?path)
+                   WHERE {
+                       $this bat:extinguishingAgent ?value .
+                       BIND(lang(?value) AS ?langTag)
+                       FILTER(!regex(?langTag, "^[A-Za-z]{2}-[A-Za-z]{2}$"))
+                   }
+               """ ;
+           ] ;
+   ] .
+
+bat-shapes:manufacturer-name-shape
+   a sh:PropertyShape ;
+   sh:path bat:manufacturerName ;
+   sh:minCount 0 ;
+   sh:maxCount 1 ;
+   sh:datatype xsd:string;
+   sh:message "SEM-BAT-MSG-002" .
+
+bat-shapes:manufacturer-trade-name-shape
+   a sh:PropertyShape ;
+   sh:path bat:manufacturerTradeName ;
+   sh:minCount 0 ;
+   sh:maxCount 1 ;
+   sh:datatype xsd:string;
+   sh:message "SEM-BAT-MSG-003" .
+
+bat-shapes:manufacturer-trademark-shape
+   a sh:PropertyShape ;
+   sh:path bat:manufacturerTrademark ;
+   sh:minCount 0 ;
+   sh:maxCount 1 ;
+   sh:datatype xsd:string;
+   sh:message "SEM-BAT-MSG-004" .
+
+bat-shapes:manufacturer-name-or
+    a sh:NodeShape ;
+    sh:message "SEM-BAT-MSG-001" ;
+
+    sh:or (
+        [
+            sh:property [
+                sh:path bat:manufacturerName ;
+                sh:minCount 1;
+            ]
+        ]
+        [
+            sh:property [
+                sh:path bat:manufacturerTradeName ;
+                sh:minCount 1
+            ]
+        ]
+        [
+            sh:property [
+                sh:path bat:manufacturerTrademark ;
+                sh:minCount 1
+            ]
+        ]
+    ) .
+
+bat-shapes:manufacturer-contact-details-shape
+    a sh:NodeShape ;
+
+    sh:property [
+       sh:path bat:manufacturerWebsite ;
+       sh:minCount 0 ;
+       sh:maxCount 1 ;
+       sh:datatype xsd:anyURI;
+       sh:message "SEM-BAT-MSG-007"
+    ] ;
+
+    sh:property [
+       sh:path bat:manufacturerEmail ;
+       sh:maxCount 1 ;
+       sh:datatype xsd:anyURI;
+       sh:message "SEM-BAT-MSG-008"
+    ] ;
+
+    sh:or (
+        [ sh:path bat:manufacturerWebsite ; sh:minCount 1 ]
+        [ sh:path bat:manufacturerEmail   ; sh:minCount 1 ]
+    ) .
+
+bat-shapes:battery-identification-shape
+    a sh:NodeShape ;
+
+    sh:property [
+        sh:path bat:modelIdentifier ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string;
+        sh:message "SEM-BAT-MSG-011"
+    ] ;
+
+    sh:property [
+        sh:path bat:batchNumber ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string;
+        sh:message "SEM-BAT-MSG-012"
+    ] ;
+
+    sh:property [
+        sh:path bat:serialNumber ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string;
+        sh:message "SEM-BAT-MSG-013"
+    ] ;
+
+    sh:property [
+        sh:path bat:productNumber ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string;
+        sh:message "SEM-BAT-MSG-014"
+    ] ;
+
+    sh:property [
+        sh:path bat:otherIdentificationElement ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string;
+        sh:message "SEM-BAT-MSG-015"
+    ] ;
+
+    sh:node bat-shapes:battery-identification-or ;
+    sh:node bat-shapes:model-identifier-requires-batch-number ;
+    sh:node bat-shapes:batch-number-requires-model-identifier .
+
+bat-shapes:model-identifier-requires-batch-number
+    a sh:NodeShape ;
+    sh:message "SEM-BAT-MSG-012" ;
+
+    sh:or (
+        [
+            sh:property [
+                sh:path bat:modelIdentifier ;
+                sh:maxCount 0
+            ]
+        ]
+        [
+            sh:property [
+                sh:path bat:batchNumber ;
+                sh:minCount 1
+            ]
+        ]
+    ) .
+
+bat-shapes:batch-number-requires-model-identifier
+    a sh:NodeShape ;
+    sh:message "SEM-BAT-MSG-011" ;
+
+    sh:or (
+        [
+            sh:property [
+                sh:path bat:batchNumber ;
+                sh:maxCount 0
+            ]
+        ]
+        [
+            sh:property [
+                sh:path bat:modelIdentifier ;
+                sh:minCount 1
+            ]
+        ]
+    ) .
+
+bat-shapes:battery-identification-or
+    a sh:NodeShape ;
+    sh:message "SEM-BAT-MSG-010" ;
+
+    sh:or (
+        [
+            sh:and (
+                [
+                     sh:property [
+                        sh:path bat:modelIdentifier ;
+                        sh:minCount 1 ;
+                    ]
+                ]
+                [
+                     sh:property [
+                        sh:path bat:batchNumber ;
+                        sh:minCount 1 ;
+                    ]
+                ]
+            )
+        ]
+        [
+            sh:property [
+                sh:path bat:serialNumber ;
+                sh:minCount 1
+            ]
+        ]
+        [
+            sh:property [
+                sh:path bat:productNumber ;
+                sh:minCount 1
+            ]
+        ]
+        [
+            sh:property [
+                sh:path bat:otherIdentificationElement ;
+                sh:minCount 1
+            ]
+        ]
+    ) .
+
+bat-shapes:manufacturing-place-shape
+    a sh:NodeShape ;
+
+    sh:property [
+        sh:path bat:manufacturingCity ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string;
+        sh:message "SEM-BAT-MSG-017"
+    ] ;
+
+    sh:property [
+        sh:path bat:manufacturingRegion ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string;
+        sh:message "SEM-BAT-MSG-018"
+    ] ;
+
+    sh:property [
+        sh:path bat:manufacturingCountry ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "SEM-BAT-MSG-019";
+        sh:datatype xsd:string;
+        sh:pattern "^[A-Z]{3}$"
+    ] ;
+
+    sh:node bat-shapes:manufacturing-place-or .
+
+bat-shapes:manufacturing-place-or
+    a sh:NodeShape ;
+    sh:message "SEM-BAT-MSG-016" ;
+
+    sh:or (
+        [
+            sh:property [
+                sh:path bat:manufacturingCity ;
+                sh:minCount 1
+            ]
+        ]
+        [
+            sh:property [
+                sh:path bat:manufacturingRegion ;
+                sh:minCount 1
+            ]
+        ]
+    ) .
+
+bat-shapes:waste-battery-prevention-info-shape
+    a sh:NodeShape ;
+
+    sh:property [
+        sh:path bat:endUserRoleInWastePrevention ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString;
+        sh:message "SEM-BAT-MSG-047"
+    ] ;
+
+    sh:property [
+        sh:path bat:endUserRoleInSeparateCollection ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString;
+        sh:message "SEM-BAT-MSG-048"
+    ] ;
+
+    sh:property [
+        sh:path bat:separateCollectionPoints ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString;
+        sh:message "SEM-BAT-MSG-049"
+    ] ;
+
+    sh:property [
+        sh:path bat:takeBackCollectionPoints;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString;
+        sh:message "SEM-BAT-MSG-050"
+    ] ;
+
+    sh:property [
+        sh:path bat:preparationForReuseFacilities ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString;
+        sh:message "SEM-BAT-MSG-052"
+    ] ;
+
+    sh:property [
+        sh:path bat:preparationForRepurposingFacilities ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString;
+        sh:message "SEM-BAT-MSG-053"
+    ] ;
+
+    sh:property [
+        sh:path bat:wasteBatteryTreatmentFacilities ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString;
+        sh:message "SEM-BAT-MSG-054"
+    ] ;
+
+    sh:property [
+        sh:path bat:wasteBatterySafetyInstructions ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString;
+        sh:message "SEM-BAT-MSG-055"
+    ] ;
+
+    sh:property [
+        sh:path bat:batteryLabelSymbolMeaning ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString;
+        sh:message "SEM-BAT-MSG-057"
+    ] ;
+
+    sh:property [
+        sh:path bat:batterySubstancesImpact ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString;
+        sh:message "SEM-BAT-MSG-058"
+    ] ;
+
+    sh:property [
+        sh:path [ sh:alternativePath (
+            bat:endUserRoleInWastePrevention
+            bat:endUserRoleInSeparateCollection
+            bat:separateCollectionPoints
+            bat:takeBackCollectionPoints
+            bat:preparationForReuseFacilities
+            bat:preparationForRepurposingFacilities
+            bat:wasteBatteryTreatmentFacilities
+            bat:wasteBatterySafetyInstructions
+            bat:batteryLabelSymbolMeaning
+            bat:batterySubstancesImpact
+        ) ] ;
+        sh:message "SEM-COM-MSG-012";
+
+        sh:sparql [
+            a sh:SPARQLConstraint ;
+            sh:select """
+                PREFIX bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#>
+                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+                SELECT $this (?value AS ?path)
+                WHERE {
+                    $this (bat:endUserRoleInWastePrevention | bat:endUserRoleInSeparateCollection | bat:separateCollectionPoints | bat:takeBackCollectionPoints | bat:preparationForReuseFacilities | bat:preparationForRepurposingFacilities | bat:wasteBatteryTreatmentFacilities | bat:wasteBatterySafetyInstructions | bat:batteryLabelSymbolMeaning | bat:batterySubstancesImpact) ?value .
+                    BIND(lang(?value) AS ?langTag)
+                    FILTER(!regex(?langTag, "^[A-Za-z]{2}-[A-Za-z]{2}$"))
+                }
+            """ ;
+        ] ;
+    ] .
+
+bat-shapes:not-in-use-temperature-range-shape
+    a sh:NodeShape ;
+
+    sh:and (
+            dpp-shapes:value-range-shape
+    ) ;
+    sh:property [
+        sh:path bat:notInUseTemperatureRangeTest ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString;
+        sh:message "SEM-BAT-MSG-035"
+    ] ;
+
+    sh:property [
+        sh:path bat:notInUseTemperatureRangeTest ;
+        sh:message "SEM-COM-MSG-012";
+
+        sh:sparql [
+            a sh:SPARQLConstraint ;
+            sh:select """
+                PREFIX bat: <https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#>
+                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+                SELECT $this (?value AS ?path)
+                WHERE {
+                    $this bat:notInUseTemperatureRangeTest ?value .
+                    BIND(lang(?value) AS ?langTag)
+                    FILTER(!regex(?langTag, "^[A-Za-z]{2}-[A-Za-z]{2}$"))
+                }
+            """ ;
+        ] ;
+    ] .

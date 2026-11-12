@@ -9,11 +9,13 @@
 #   RDF validator    http://localhost:8080/shacl/openepcis/upload
 #                    http://localhost:8080/shacl/soap/openepcis/validation?wsdl
 #
-# The JSON validator is deliberately NOT declared. `pnpm run build:gitb` emits no
-# JSON domain yet: every module schema is either a $defs-only library that would
-# accept any document, or rejects this project's own examples. A validator that
-# says SUCCESS to anything is worse than none, so the service appears here only
-# once the schemas earn it.
+#   JSON validator   http://localhost:8081/json/openepcis/upload
+#                    http://localhost:8081/json/soap/openepcis/validation?wsdl
+#
+# The JSON domain carries the external models' JSON Schemas (EU DPP Registry,
+# BatteryPass-Ready, …; type ids x.<model>-<version>.<scope>) and every module
+# schema that both rejects a non-passport and accepts our examples
+# (scripts/build-gitb-resources.ts). Parity gate: pnpm run check:json-itb.
 #
 # Regenerate the bundle before starting whenever ontologies or shapes changed:
 #   pnpm run build:gitb
@@ -30,6 +32,21 @@ services:
       - "8080:8080"
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8080/shacl/openepcis/upload > /dev/null"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+
+  json-validator:
+    image: isaitb/json-validator:latest
+    container_name: openepcis-json-validator
+    environment:
+      validator.resourceRoot: /validator/resources/
+    volumes:
+      - ../validator-resources/json:/validator/resources:ro
+    ports:
+      - "8081:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/json/openepcis/upload > /dev/null"]
       interval: 15s
       timeout: 5s
       retries: 20

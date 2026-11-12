@@ -1,0 +1,52 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dpp:RefurbishmentEvent a owl:Class ;
+    rdfs:label "Refurbishment"@en ;
+    dcterms:identifier "https://eur-lex.europa.eu/eli/reg/2024/1781/oj" ;
+    dcterms:source "Regulation (EU) 2024/1781; Art 2(18)"@en ;
+    rdfs:comment "Actions carried out to prepare, clean, test, service and, where necessary, repair a product or a discarded product in order to restore its performance or functionality within the intended use and range of performance originally conceived at the design stage at the time of the placing of the product on the market. ESPR Art 2(18)."@en ;
+    rdfs:subClassOf dpp:ProductEvent .
+
+dpp:RemanufacturingEvent a owl:Class ;
+    rdfs:label "Remanufacturing"@en ;
+    dcterms:identifier "https://eur-lex.europa.eu/eli/reg/2024/1781/oj" ;
+    dcterms:source "Regulation (EU) 2024/1781; Art 2(16)"@en ;
+    rdfs:comment "Actions through which a new product is produced from objects that are waste, products or components and through which at least one change is made that substantially affects the safety, performance, purpose or type of the product. ESPR Art 2(16)."@en ;
+    rdfs:subClassOf dpp:ProductEvent .
+
+dpp:RepairEvent a owl:Class ;
+    rdfs:label "Repair"@en ;
+    dcterms:identifier "https://eur-lex.europa.eu/eli/reg/2024/1781/oj" ;
+    dcterms:source "Regulation (EU) 2024/1781; Art 2(20)"@en ;
+    rdfs:comment "Actions taken to return a defective product or waste to a condition where it fulfils its intended purpose. ESPR Art 2(20)."@en ;
+    rdfs:subClassOf dpp:ProductEvent .
+
+dpp:UpgradingEvent a owl:Class ;
+    rdfs:label "Upgrading"@en ;
+    dcterms:identifier "https://eur-lex.europa.eu/eli/reg/2024/1781/oj" ;
+    dcterms:source "Regulation (EU) 2024/1781; Art 2(17)"@en ;
+    rdfs:comment "Actions carried out to enhance the functionality, performance, capacity, safety or aesthetics of a product. ESPR Art 2(17)."@en ;
+    rdfs:subClassOf dpp:ProductEvent .
+
+<https://w3id.org/eudpp/textile-event-mireot> a owl:Ontology ;
+    rdfs:label "Textile EVENT bounded MIREOT"@en ;
+    dcterms:modified "2026-10-27"^^xsd:date ;
+    dcterms:references "Owner-designated CORE 1.0.0; unchanged source in dependencies/current-core/event.owl."@en ;
+    dcterms:source <https://w3id.org/eudpp/EVENT> ;
+    owl:versionIRI <https://w3id.org/eudpp/textile-event-mireot/2.0.0> ;
+    owl:versionInfo "Version 2.0.0 candidate" .
+
+dpp:ESPREvent a owl:Class ;
+    rdfs:label "ESPR Event"@en ;
+    dcterms:identifier "https://eur-lex.europa.eu/eli/reg/2024/1781/oj" ;
+    dcterms:source "Regulation (EU) 2024/1781; lifecycle-event-oriented abstraction introduced for modelling purposes."@en ;
+    rdfs:comment "Abstract superclass introduced for modelling purposes. Used to represent the regulatory or business semantics of an event relevant in the ESPR context and concerning either a product or its DPP, independently of its technical journalisation."@en .
+
+dpp:ProductEvent a owl:Class ;
+    rdfs:label "Product Event"@en ;
+    rdfs:comment "An ESPR-level event concept representing an event that affects the state, condition, use, circulation, transformation, maintenance, or end-of-life status of a product. A ProductEvent captures the product-facing semantics of the occurrence and is distinct from any DPP-side event that may be triggered to record or reflect it."@en ;
+    rdfs:subClassOf dpp:ESPREvent .

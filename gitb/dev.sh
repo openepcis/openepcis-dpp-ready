@@ -83,9 +83,13 @@ EOF
     # The Test Bed expects the suite's CONTENTS at the archive root, with no
     # wrapping directory: resource references inside the test cases are relative
     # to it.
-    out="$ROOT/gitb/openepcis-dpp-testsuite.zip"
-    (cd "$ROOT/gitb/test-suites/openepcis-dpp" && rm -f "$out" && zip -qr "$out" .)
-    echo "→ $out"
+    # One archive per suite: the OpenEPCIS suite and one per external model release.
+    for dir in "$ROOT"/gitb/test-suites/*/; do
+      name="$(basename "$dir")"
+      out="$ROOT/gitb/$name-testsuite.zip"
+      (cd "$dir" && rm -f "$out" && zip -qr "$out" .)
+      echo "→ $out"
+    done
     ;;
   *)
     cat <<EOF
@@ -94,7 +98,7 @@ usage: gitb/dev.sh <command> [profile]
   up [validators|itb]    start the stack (default profile: validators)
   down [profile]         stop it
   logs [profile]         tail the logs
-  zip                    package the test suite for import into a Test Bed
+  zip                    package the test suites for import into a Test Bed
 
 Verify the running stack with:
   pnpm run check:shapes:itb

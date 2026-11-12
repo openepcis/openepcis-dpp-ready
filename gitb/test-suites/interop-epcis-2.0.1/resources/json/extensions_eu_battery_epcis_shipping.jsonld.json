@@ -1,0 +1,84 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "rdfs:comment": [
+    "Battery SHIPPING event (battery placed on the market / dispatched to a buyer).",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "gs1:masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
+    "",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,eubat=https://ref.openepcis.org/extensions/eu/battery/",
+    "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md"
+  ],
+  "schemaVersion": "2.0",
+  "creationDate": "2024-03-22T09:15:00.000Z",
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:550e8400-e29b-41d4-a716-446655440002",
+        "eventTime": "2024-03-22T09:15:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "OBSERVE",
+        "bizStep": "shipping",
+        "disposition": "in_transit",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000013/21/BAT2024-001"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000013"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000013"
+        },
+        "gs1:masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
+            "type": "Product",
+            "countryOfOrigin": {
+              "countryCode": "DE"
+            },
+            "regulatoryInformation": [
+              {
+                "type": "RegulatoryInformation",
+                "regulationType": {
+                  "id": "gs1:RegulationTypeCode-BATTERY_DIRECTIVE"
+                },
+                "regulatoryAct": "EU 2023/1542"
+              }
+            ]
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "desadv",
+            "bizTransaction": "https://ecocell-batteries.example.com/dispatch/DA-2024-00318"
+          },
+          {
+            "type": "po",
+            "bizTransaction": "https://greengrid.example.com/orders/GG-PO-2024-7781"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "owning_party",
+            "source": "https://id.gs1.org/417/9521234000006"
+          },
+          {
+            "type": "location",
+            "source": "https://id.gs1.org/414/9521234000013"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "owning_party",
+            "destination": "https://id.gs1.org/417/4099999000005"
+          }
+        ]
+      }
+    ]
+  }
+}

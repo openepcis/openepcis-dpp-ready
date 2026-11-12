@@ -5,9 +5,7 @@
     "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld"
   ],
   "type": "EPCISDocument",
-  "schemaVersion": "2.0",
-  "creationDate": "2025-09-10T11:00:00.000Z",
-  "_comment_architecture": [
+  "rdfs:comment": [
     "State of Certified Energy (SOCE) measurement event.",
     "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
     "gs1:masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
@@ -16,6 +14,8 @@
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
+  "schemaVersion": "2.0",
+  "creationDate": "2025-09-10T11:00:00.000Z",
   "epcisBody": {
     "eventList": [
       {
@@ -53,26 +53,26 @@
         "sensorElementList": [
           {
             "sensorMetadata": {
+              "rdfs:comment": "SOCE measurement per EU 2023/1542 Annex XIII",
               "time": "2025-09-10T11:00:00.000Z",
               "deviceID": "https://id.gs1.org/8004/9521987SOCE-001",
-              "bizRules": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-              "_comment": "SOCE measurement per EU 2023/1542 Annex XIII"
+              "bizRules": "https://eur-lex.europa.eu/eli/reg/2023/1542"
             },
             "sensorReport": [
               {
                 "type": "eubat:StateOfCertifiedEnergy",
-                "value": "13.2",
+                "value": 13.2,
                 "uom": "KWH",
                 "dataProcessingMethod": "https://www.iec.ch/standards/iec-62660-1"
               },
               {
                 "type": "eubat:StateOfHealth",
-                "value": "92.3",
+                "value": 92.3,
                 "uom": "P1"
               },
               {
                 "type": "eubat:RemainingRoundTripEfficiency",
-                "value": "95.8",
+                "value": 95.8,
                 "uom": "P1"
               }
             ]

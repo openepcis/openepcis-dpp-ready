@@ -5,9 +5,7 @@
     "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld"
   ],
   "type": "EPCISDocument",
-  "schemaVersion": "2.0",
-  "creationDate": "2025-07-18T08:15:00.000Z",
-  "_comment_architecture": [
+  "rdfs:comment": [
     "Temperature extreme event recording a thermal excursion beyond rated limits.",
     "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
     "gs1:masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
@@ -16,6 +14,8 @@
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
+  "schemaVersion": "2.0",
+  "creationDate": "2025-07-18T08:15:00.000Z",
   "epcisBody": {
     "eventList": [
       {
@@ -53,9 +53,9 @@
         "sensorElementList": [
           {
             "sensorMetadata": {
+              "rdfs:comment": "Temperature excursion alert triggered",
               "time": "2025-07-18T08:15:00.000Z",
-              "deviceID": "https://id.gs1.org/8004/9521987TEMP-003",
-              "_comment": "Temperature excursion alert triggered"
+              "deviceID": "https://id.gs1.org/8004/9521987TEMP-003"
             },
             "sensorReport": [
               {
@@ -67,14 +67,14 @@
           },
           {
             "sensorMetadata": {
+              "rdfs:comment": "Temperature excursion alert triggered",
               "time": "2025-07-18T08:15:00.000Z",
-              "deviceID": "https://id.gs1.org/8004/9521987TEMP-003",
-              "_comment": "Temperature excursion alert triggered"
+              "deviceID": "https://id.gs1.org/8004/9521987TEMP-003"
             },
             "sensorReport": [
               {
                 "type": "Temperature",
-                "value": "52.3",
+                "value": 52.3,
                 "uom": "CEL"
               },
               {

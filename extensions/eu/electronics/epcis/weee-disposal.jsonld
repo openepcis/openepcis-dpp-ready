@@ -5,9 +5,7 @@
     "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld"
   ],
   "type": "EPCISDocument",
-  "schemaVersion": "2.0",
-  "creationDate": "2032-03-15T14:00:00.000Z",
-  "_comment_architecture": [
+  "rdfs:comment": [
     "WEEE end-of-life chain: collection (OBSERVE), sorting/inspection (OBSERVE),",
     "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
     "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
@@ -17,6 +15,8 @@
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
+  "schemaVersion": "2.0",
+  "creationDate": "2032-03-15T14:00:00.000Z",
   "epcisBody": {
     "eventList": [
       {
@@ -27,8 +27,8 @@
           "https://id.gs1.org/01/09506000134352/21/ABC123456"
         ],
         "action": "OBSERVE",
-        "bizStep": "urn:epcglobal:cbv:bizstep:arriving",
-        "disposition": "urn:epcglobal:cbv:disp:returned",
+        "bizStep": "arriving",
+        "disposition": "returned",
         "readPoint": {
           "id": "urn:epc:id:sgln:6000001.00001.collection-point"
         },
@@ -51,8 +51,8 @@
           "https://id.gs1.org/01/09506000134352/21/ABC123456"
         ],
         "action": "OBSERVE",
-        "bizStep": "urn:epcglobal:cbv:bizstep:inspecting",
-        "disposition": "urn:epcglobal:cbv:disp:recalled",
+        "bizStep": "inspecting",
+        "disposition": "recalled",
         "readPoint": {
           "id": "urn:epc:id:sgln:6000001.00002.sorting-facility"
         },
@@ -131,8 +131,8 @@
             "uom": "GRM"
           }
         ],
-        "bizStep": "urn:epcglobal:cbv:bizstep:destroying",
-        "disposition": "urn:epcglobal:cbv:disp:destroyed",
+        "bizStep": "destroying",
+        "disposition": "destroyed",
         "readPoint": {
           "id": "urn:epc:id:sgln:6000001.00003.recycling-line-1"
         },

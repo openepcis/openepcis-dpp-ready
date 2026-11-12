@@ -5,9 +5,7 @@
     "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld"
   ],
   "type": "EPCISDocument",
-  "schemaVersion": "2.0",
-  "creationDate": "2025-01-25T10:15:00.000Z",
-  "_comment_architecture": [
+  "rdfs:comment": [
     "Software/firmware update events for electronic devices (OTA security patch and manual BIOS update).",
     "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
     "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
@@ -16,6 +14,8 @@
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
+  "schemaVersion": "2.0",
+  "creationDate": "2025-01-25T10:15:00.000Z",
   "epcisBody": {
     "eventList": [
       {
@@ -26,8 +26,8 @@
           "https://id.gs1.org/01/09506000134352/21/ABC123456"
         ],
         "action": "OBSERVE",
-        "bizStep": "urn:epcglobal:cbv:bizstep:inspecting",
-        "disposition": "urn:epcglobal:cbv:disp:active",
+        "bizStep": "inspecting",
+        "disposition": "active",
         "euelec:hasSoftwareSupport": {
           "type": "euelec:SoftwareSupport",
           "schema:operatingSystem": "Android",
@@ -44,7 +44,6 @@
         },
         "bizTransactionList": [
           {
-            "type": "urn:epcglobal:cbv:btt:updnotification",
             "bizTransaction": "https://updates.ecotech-electronics.example.com/updates/EP2025.1.2.45"
           }
         ]
@@ -57,8 +56,8 @@
           "https://id.gs1.org/01/09506000467894/21/LPT-2025-001"
         ],
         "action": "OBSERVE",
-        "bizStep": "urn:epcglobal:cbv:bizstep:inspecting",
-        "disposition": "urn:epcglobal:cbv:disp:active",
+        "bizStep": "inspecting",
+        "disposition": "active",
         "euelec:hasSoftwareSupport": {
           "type": "euelec:SoftwareSupport",
           "euelec:firmwareVersion": "BIOS 1.8.0 / EC 2.3.1",

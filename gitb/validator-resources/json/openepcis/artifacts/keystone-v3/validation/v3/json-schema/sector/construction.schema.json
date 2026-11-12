@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dpp-keystone.org/spec/validation/v3/json-schema/sector/construction.schema.json",
+  "title": "DPP for Construction Products (Draft)",
+  "description": "A conditional schema that applies if the DPP is for the construction sector.",
+  "if": {
+    "type": "object",
+    "properties": {
+      "contentSpecificationIds": {
+        "type": "array",
+        "contains": {
+          "const": "draft_construction_specification_id"
+        }
+      }
+    },
+    "required": [
+      "contentSpecificationIds"
+    ]
+  },
+  "then": {
+    "type": "object",
+    "properties": {
+      "versionNumber": {
+        "type": "string"
+      },
+      "versionDate": {
+        "type": "string",
+        "format": "date"
+      },
+      "instructionsForUse": {
+        "$ref": "../shared/related-resource.schema.json"
+      },
+      "safetyDataSheet": {
+        "$ref": "../shared/related-resource.schema.json"
+      },
+      "notifiedBody": {
+        "$ref": "../shared/organization.schema.json"
+      },
+      "technicalAssessmentBody": {
+        "$ref": "../shared/organization.schema.json"
+      },
+      "validationReports": {
+        "type": "array",
+        "items": {
+          "$ref": "../shared/related-resource.schema.json"
+        }
+      },
+      "harmonisedStandardReference": {
+        "type": "string",
+        "format": "uri-reference"
+      },
+      "europeanAssessmentDocument": {
+        "$ref": "../shared/related-resource.schema.json"
+      },
+      "dopc": {
+        "oneOf": [
+          {
+            "$ref": "../shared/dopc.schema.json"
+          },
+          {
+            "$ref": "../shared/related-resource.schema.json"
+          }
+        ]
+      },
+      "epd": {
+        "oneOf": [
+          {
+            "$ref": "../shared/epd.schema.json"
+          },
+          {
+            "$ref": "../shared/related-resource.schema.json"
+          }
+        ]
+      }
+    }
+  }
+}

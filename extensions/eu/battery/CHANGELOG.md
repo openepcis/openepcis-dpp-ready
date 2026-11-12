@@ -4,6 +4,13 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- `eubat:StationaryBattery` `skos:broadMatch` the EU DPP Registry category `industrialBattery`:
+  above 2 kWh a stationary battery is an industrial battery (Regulation (EU) 2023/1542 Art. 3(1)(14)).
+- Example `amperia-staxwall-item.bpr-2.0.1.json`: the Amperia item as BatteryPass-Ready 2.0.1, a
+  fixture of the hosted BatteryPass-Ready types; kept in step by `pnpm test`.
+
 ## [0.13.1] - 2026-11-11
 
 ### Added

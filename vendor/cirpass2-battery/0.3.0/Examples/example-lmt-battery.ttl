@@ -1,0 +1,409 @@
+##############################################################################
+# EU DPP Battery Ontology - worked example
+##############################################################################
+
+@prefix ex:      <https://example.org/dpp/lmt/> .
+@prefix eudpp:   <https://w3id.org/eudpp#> .
+@prefix bat:     <https://w3id.org/eudpp/battery#> .
+@prefix batperf: <https://w3id.org/eudpp/battery-performance#> .
+@prefix batmat:  <https://w3id.org/eudpp/battery-materials#> .
+@prefix batlab:  <https://w3id.org/eudpp/battery-labeling#> .
+@prefix batcat:  <https://w3id.org/eudpp/battery-categories#> .
+@prefix batchem: <https://w3id.org/eudpp/battery-chemistries#> .
+@prefix batmet:  <https://w3id.org/eudpp/battery-metals#> .
+@prefix batloc:  <https://w3id.org/eudpp/battery-locations#> .
+@prefix batext:  <https://w3id.org/eudpp/battery-extinguisher-classes#> .
+@prefix batstat: <https://w3id.org/eudpp/battery-statuses#> .
+@prefix schema:  <https://schema.org/> .
+@prefix siunit:  <https://si-digital-framework.org/SI/units/> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+##############################################################################
+# 1. The passport - CORE only.
+# The nine attributes of EN 18223 Table 1 live here, not on the battery.
+##############################################################################
+
+ex:dpp-1
+    a                                 eudpp:DPP ;
+    eudpp:appliesToProduct            ex:battery-1 ;
+    eudpp:hasDigitalProductPassportId ex:dppid-1 ;
+    eudpp:hasIssuer                   ex:manufacturer ;
+    eudpp:granularity                 "item" ;
+    eudpp:dppStatus                   "Active" ;
+    eudpp:dppSchemaVersion            "prEN18223:v1.0" ;
+    eudpp:validFrom                   "2027-02-18T00:00:00Z"^^xsd:dateTimeStamp ;
+    eudpp:lastUpdate                  "2029-04-12T10:05:00Z"^^xsd:dateTimeStamp .
+
+ex:dppid-1
+    a                     eudpp:DPPIdentifier ;
+    eudpp:identifierValue "urn:uuid:0b2b1f28-3c71-4a1e-9a2b-7c5d1e4f80aa" .
+
+##############################################################################
+# 2. The battery - CORE identity and BAT type
+##############################################################################
+
+ex:battery-1
+    a                                  bat:Battery ;
+    eudpp:productName                  "Example e-bike battery 0.63 kWh" ;
+    eudpp:description                  "Removable lithium-ion LFP down-tube battery for a pedal-assist bicycle." ;
+    eudpp:isEnergyRelated              true ;
+    eudpp:hasDPP                       ex:dpp-1 ;
+    eudpp:hasUniqueProductIdentifier   ex:pid-1 ;
+    eudpp:hasManufacturer              ex:manufacturer ;
+    eudpp:usesFacility                 ex:plant-1 ;
+
+    # Data point 9. Month and year; typed here, the CORE range is left open.
+    eudpp:manufacturingDate            "2027-05"^^xsd:gYearMonth ;
+
+    # Data point 6, carried by the CORE property, valued from the BAT vocabulary.
+    eudpp:hasProductGroup              batcat:LMTBattery ;
+
+    # Data point 67.
+    bat:hasBatteryStatus               batstat:Original ;
+
+    # Data point 12, and data point 45 through the chemistry's location.
+    batmat:hasBatteryChemistry         ex:chemistry-1 ;
+    eudpp:hasMaterial                  ex:chemistry-1 ;
+
+    # Data point 46.
+    bat:partNumber                     "LMT-630-A" , "CELL-21700-14S" ;
+
+    # Data points 48, 49 and 50.
+    bat:dismantlingInformation         "https://example.org/doc/lmt/dismantling.pdf"^^xsd:anyURI ;
+    eudpp:hasProperty                  ex:safety-instruction-1 ;
+    bat:testReportResults              "https://example.org/doc/lmt/test-reports.pdf"^^xsd:anyURI ;
+
+    # Data point 19. Conditional.
+    bat:dueDiligenceReport             "https://example.org/doc/lmt/due-diligence-2026.pdf"^^xsd:anyURI ;
+    bat:dueDiligenceAudit              "https://example.org/doc/lmt/due-diligence-audit-2026.pdf"^^xsd:anyURI ;
+
+    # Data point 35. Conditional, only where a commercial warranty exists.
+    # xsd:duration, not a date: the long list gives a number of months.
+    bat:warrantyPeriod                 "P24M"^^xsd:duration ;
+
+    # Data point 42, carried by the CORE.
+    eudpp:hasEUDeclarationOfConformity ex:eu-doc-1 ;
+
+    # Data points 17 and 18, carried by the CORE through the LCA study.
+    eudpp:hasLCAStudy                  ex:lca-study-1 ;
+
+    batlab:hasBatteryLabel             ex:label-1 ;
+    batperf:hasBatteryPerformance      ex:nameplate-1 ;
+    batperf:hasBatteryDurability       ex:design-life-1 ;
+    batperf:hasTemperatureExposure     ex:idle-temperature-range-1 ;
+    batperf:hasBatteryStateRecord      ex:state-2028-04-15 ,
+                                       ex:state-2029-04-10 .
+
+ex:pid-1
+    a                     eudpp:ProductIdentifier ;
+    eudpp:identifierValue "04012345678905" .
+
+##############################################################################
+# 3. Actors and facility - CORE (ACTOR, IDENT, CONNECTOR)
+##############################################################################
+
+# Contact details come from schema.org, which is what ACTOR reuses;
+# there is no eudpp:email.
+ex:manufacturer
+    a                                  eudpp:Actor ;
+    eudpp:actorName                    "Example Light Mobility Cells GmbH" ;
+    schema:email                       "dpp@example.org" ;
+    schema:url                         "https://example.org/lmt" ;
+    eudpp:hasUniqueOperatorIdentifier  ex:operator-id-1 .
+
+ex:operator-id-1
+    a                     eudpp:ActorIdentifier ;
+    eudpp:identifierValue "LEI:969500EXAMPLE0000002" .
+
+# Data point 8: the place of manufacture is the facility, not a free-text address.
+ex:plant-1
+    a                                  eudpp:Facility ;
+    eudpp:hasUniqueFacilityIdentifier  ex:facility-id-1 .
+
+ex:facility-id-1
+    a                     eudpp:FacilityIdentifier ;
+    eudpp:identifierValue "GLN:0401234567002" .
+
+##############################################################################
+# 4. Chemistry and material location - BAT classes, CORE properties
+##############################################################################
+
+ex:chemistry-1
+    a                          batmat:BatteryChemistry ;
+    eudpp:hasMaterialType      batchem:LiIonLFP ;
+    eudpp:materialPercentage   "100.0"^^xsd:decimal ;
+    batmat:hasBatteryLocation  batloc:Cathode , batloc:Anode , batloc:Electrolyte .
+
+##############################################################################
+# 5. Nameplate performance - written once, at manufacture
+##############################################################################
+
+ex:nameplate-1
+    a                                                 batperf:BatteryPerformance ;
+    batperf:ratedCapacity                             "17.5"^^xsd:decimal ;
+    batperf:certifiedUsableBatteryEnergy              "0.63"^^xsd:decimal ;
+    batperf:nominalVoltage                            "36.0"^^xsd:decimal ;
+    batperf:minimumVoltage                            "30.0"^^xsd:decimal ;
+    batperf:maximumVoltage                            "42.0"^^xsd:decimal ;
+    batperf:originalPowerCapability                   "500.0"^^xsd:decimal ;
+    batperf:maximumPermittedBatteryPower              "750.0"^^xsd:decimal ;
+    batperf:initialInternalResistance                 "0.12"^^xsd:decimal ;
+    batperf:initialSelfDischargeRate                  "2.5"^^xsd:decimal ;
+    batperf:initialRoundTripEnergyEfficiency          "93.0"^^xsd:decimal ;
+    batperf:roundTripEnergyEfficiencyAt50PercentCycleLife "89.5"^^xsd:decimal ;
+    batperf:cycleLifeReferenceTest                    "IEC 61960-3:2017, 0.5C/1C at 20 degrees Celsius, 80 percent depth of discharge" ;
+    batperf:cRateOfCycleLifeTest                      "0.5"^^xsd:decimal .
+
+##############################################################################
+# 6. Design life - Annex XIII 3
+##############################################################################
+
+ex:design-life-1
+    a                                      batperf:BatteryDurability ;
+    batperf:expectedLifetimeCalendarYears  "5.0"^^xsd:decimal ;
+    batperf:expectedLifetimeCycles         800 ;
+    batperf:capacityThresholdForExhaustion "70.0"^^xsd:decimal .
+
+##############################################################################
+# 7. Idle-state temperature range - data point 34
+##############################################################################
+
+ex:idle-temperature-range-1
+    a                                              batperf:TemperatureExposure ;
+    batperf:temperatureRangeIdleStateLowerBoundary "-10.0"^^xsd:decimal ;
+    batperf:temperatureRangeIdleStateUpperBoundary "45.0"^^xsd:decimal .
+
+##############################################################################
+# 8. Dated state records - everything the BMS updates
+# One record per reading; the series of records is the history required by
+# Annex XIII 4 and Annex VII Part B.
+##############################################################################
+
+ex:state-2028-04-15
+    a                                    batperf:BatteryStateRecord ;
+    batperf:asOfDate                     "2028-04-15T18:20:00+02:00"^^xsd:dateTimeStamp ;
+    batperf:stateOfCharge                "55.0"^^xsd:decimal ;
+    batperf:capacityFade                 "2.1"^^xsd:decimal ;
+    batperf:powerFade                    "1.6"^^xsd:decimal ;
+    batperf:internalResistanceIncrease   "1.9"^^xsd:decimal ;
+    batperf:temperatureInformation       "18.0"^^xsd:decimal ;
+    batperf:numberOfFullCycles           180 ;
+    batperf:roundTripEnergyEfficiencyFade "1.1"^^xsd:decimal ;
+    batperf:remainingCapacity            "17.1"^^xsd:decimal ;
+    batperf:remainingPowerCapability     "492.0"^^xsd:decimal ;
+    batperf:remainingUsableBatteryEnergy "0.62"^^xsd:decimal ;
+    batperf:remainingRoundTripEnergyEfficiency "92.0"^^xsd:decimal ;
+    batperf:stateOfCertifiedEnergy       "97.9"^^xsd:decimal ;
+    batperf:currentSelfDischargeRate     "2.6"^^xsd:decimal ;
+    batperf:selfDischargeRateEvolution   "4.0"^^xsd:decimal ;
+    batperf:numberOfDeepDischargeEvents  0 ;
+    batperf:numberOfOverchargeEvents     0 .
+ex:state-2029-04-10
+    a                                    batperf:BatteryStateRecord ;
+    batperf:asOfDate                     "2029-04-10T17:45:00+02:00"^^xsd:dateTimeStamp ;
+    batperf:stateOfCharge                "38.0"^^xsd:decimal ;
+    batperf:capacityFade                 "6.4"^^xsd:decimal ;
+    batperf:powerFade                    "5.2"^^xsd:decimal ;
+    batperf:internalResistanceIncrease   "5.5"^^xsd:decimal ;
+    batperf:temperatureInformation       "19.0"^^xsd:decimal ;
+    batperf:numberOfFullCycles           392 ;
+    batperf:roundTripEnergyEfficiencyFade "2.8"^^xsd:decimal ;
+    batperf:remainingCapacity            "16.4"^^xsd:decimal ;
+    batperf:remainingPowerCapability     "474.0"^^xsd:decimal ;
+    batperf:remainingUsableBatteryEnergy "0.59"^^xsd:decimal ;
+    batperf:remainingRoundTripEnergyEfficiency "90.4"^^xsd:decimal ;
+    batperf:stateOfCertifiedEnergy       "93.6"^^xsd:decimal ;
+    batperf:currentSelfDischargeRate     "3.0"^^xsd:decimal ;
+    batperf:selfDischargeRateEvolution   "20.0"^^xsd:decimal ;
+    batperf:numberOfDeepDischargeEvents  1 ;
+    batperf:numberOfOverchargeEvents     0 .
+
+##############################################################################
+# 9. Label - Annex VI Part B and Art. 13
+##############################################################################
+
+ex:label-1
+    a                               batlab:BatteryLabel ;
+    batlab:separateCollectionSymbol "https://example.org/img/separate-collection.svg"^^xsd:anyURI ;
+    batlab:labelingSymbol           "https://example.org/doc/lmt/label-legend.pdf"^^xsd:anyURI ;
+    batlab:extinguishingAgent       batext:ClassD .
+
+##############################################################################
+# 10. Carbon footprint - pure CORE (LCA module), constrained by
+# battery-cf-shapes.ttl. The footprint is an LCIA result of the LCA study.
+##############################################################################
+
+ex:lca-study-1
+    a                                      eudpp:LCAStudy ;
+    eudpp:hasLCIAResult                    ex:carbon-footprint-1 ;
+    eudpp:hasReview                        ex:cf-review-1 ;
+    eudpp:hasReferenceToBackgroundDatabase ex:background-database-1 ;
+    eudpp:declaresManufacturerRecord       ex:manufacturer-record-1 ;
+    eudpp:hasExternalSource                <https://example.org/doc/lmt/carbon-footprint-study.pdf> .
+
+ex:carbon-footprint-1
+    a                         eudpp:CarbonFootprint ;
+    eudpp:quantifiesIndicator eudpp:ind_EF_climateChange ;
+    eudpp:numericalValue      "41.8"^^xsd:decimal ;
+    eudpp:hasMeasurementUnit  siunit:kilogram .
+
+# Verification by the notified body of section 11.
+ex:cf-review-1
+    a                                     eudpp:Review ;
+    eudpp:hasTypeOfReview                 eudpp:accreditedThirdPartyReview ;
+    eudpp:reviewDate                      "2026-11-30"^^xsd:date ;
+    eudpp:referenceToCompleteReviewReport <https://example.org/doc/lmt/carbon-footprint-verification.pdf> ;
+    eudpp:hasLCAVerifier                  ex:notified-body-1 .
+
+<https://example.org/doc/lmt/carbon-footprint-verification.pdf>
+    a eudpp:ReviewReport .
+
+ex:background-database-1
+    a          eudpp:BackgroundDatabase ;
+    rdfs:label "Example EF-compliant background database" .
+
+# The plant the carbon footprint applies to: the facility of data point 8.
+ex:manufacturer-record-1
+    a                            eudpp:ManufacturerRecord ;
+    eudpp:identifiesManufacturer ex:manufacturer ;
+    eudpp:hasManufacturingSite   ex:plant-1 .
+
+<https://example.org/doc/lmt/carbon-footprint-study.pdf>
+    a eudpp:Source .
+
+##############################################################################
+# 11. EU declaration of conformity - pure CORE (CONNECTOR + COMP)
+##############################################################################
+
+ex:eu-doc-1
+    a                                    eudpp:EUDeclarationOfConformity ;
+    eudpp:conformityDeclaredTo           ex:reg-2023-1542 ;
+    eudpp:hasNotifiedBody                ex:notified-body-1 ;
+    eudpp:performedAssessmentAccordingTo eudpp:moduleA ;
+    eudpp:value                          "https://example.org/doc/lmt/eu-declaration.pdf" ;
+    eudpp:contentType                    "pdf" .
+
+ex:reg-2023-1542
+    a                 eudpp:UnionHarmonisationLegislation ;
+    eudpp:assignedELI "https://eur-lex.europa.eu/eli/reg/2023/1542/oj"^^xsd:anyURI .
+
+ex:notified-body-1
+    a               eudpp:Actor ;
+    eudpp:actorName "Example Notified Body" .
+
+##############################################################################
+# 12. Completion of 2 September 2026 — the data points the SHACL profile
+# reported as missing when the three examples were first validated against it.
+# Placeholder values; the structure is what matters.
+##############################################################################
+
+# Data points 9 and 12. The economic operator is a distinct role from the
+# manufacturer: the regulation asks for both.
+ex:battery-1  eudpp:hasEconomicOperator  ex:economic-operator-1 .
+
+ex:economic-operator-1
+    a                                 eudpp:Actor ;
+    eudpp:actorName                   "Example Light Mobility Cells GmbH" ;
+    schema:email                      "compliance@example.org" ;
+    eudpp:hasUniqueOperatorIdentifier ex:economic-operator-id-1 .
+
+ex:economic-operator-id-1
+    a                     eudpp:ActorIdentifier ;
+    eudpp:identifierValue "LEI:969500EXAMPLE0000002" .
+
+# Data point 19. Battery mass. There is no eudpp:hasWeight: a Weight is a
+# QuantitativeProperty, reached through eudpp:hasProperty.
+ex:battery-1  eudpp:hasProperty  ex:mass-1 .
+
+ex:mass-1
+    a                        eudpp:Weight ;
+    eudpp:numericalValue     "3.4"^^xsd:decimal ;
+    eudpp:hasMeasurementUnit siunit:kilogram .
+
+# Data point 22. Two separate symbols since the 26 August split.
+ex:label-1
+    batlab:cadmiumSymbol  "https://example.org/img/cadmium.svg"^^xsd:anyURI ;
+    batlab:leadSymbol     "https://example.org/img/lead.svg"^^xsd:anyURI .
+
+# Data point 40 on the cell chemistry.
+ex:chemistry-1
+    eudpp:isCriticalRawMaterial  true .
+
+# Data points 48 to 54. eudpp:materialRecycledContent is declared on a material,
+# so one material is declared per metal and each carries its own figure. Each is
+# named by eudpp:hasMaterialType pointing into battery-metals.ttl, the vocabulary
+# of the four metals Art. 8(1) names.
+# The figures below are the totals for each metal, as long list v2.0 and the
+# Commission guidance ask. A split would take one material per metal and origin,
+# typed by eudpp:materialRecycledContentType (MAT v1.1.0, ontologies-core#25).
+ex:battery-1  eudpp:hasMaterial  ex:material-nickel , ex:material-cobalt ,
+                                 ex:material-lithium , ex:material-lead .
+
+ex:material-nickel
+    a                             eudpp:MaterialOfComposition ;
+    eudpp:hasMaterialType         batmet:Nickel ;
+    rdfs:comment                  "Attributes 48 and 51, pre- and post-consumer, stated as a total."@en ;
+    eudpp:materialPercentage      "12.0"^^xsd:decimal ;
+    eudpp:materialRecycledContent "16.0"^^xsd:decimal ;
+    eudpp:isCriticalRawMaterial   true .
+
+ex:material-cobalt
+    a                             eudpp:MaterialOfComposition ;
+    eudpp:hasMaterialType         batmet:Cobalt ;
+    rdfs:comment                  "Attributes 49 and 52, pre- and post-consumer, stated as a total."@en ;
+    eudpp:materialPercentage      "4.0"^^xsd:decimal ;
+    eudpp:materialRecycledContent "22.0"^^xsd:decimal ;
+    eudpp:isCriticalRawMaterial   true .
+
+ex:material-lithium
+    a                             eudpp:MaterialOfComposition ;
+    eudpp:hasMaterialType         batmet:Lithium ;
+    rdfs:comment                  "Attributes 50 and 53, pre- and post-consumer, stated as a total."@en ;
+    eudpp:materialPercentage      "6.5"^^xsd:decimal ;
+    eudpp:materialRecycledContent "9.0"^^xsd:decimal ;
+    eudpp:isCriticalRawMaterial   true .
+
+ex:material-lead
+    a                             eudpp:MaterialOfComposition ;
+    eudpp:hasMaterialType         batmet:Lead ;
+    rdfs:comment                  "Attribute 54. Art. 8(1) measures lead on the whole battery, not on active materials, and has no pre- / post-consumer split."@en ;
+    eudpp:materialPercentage      "0.4"^^xsd:decimal ;
+    eudpp:materialRecycledContent "85.0"^^xsd:decimal ;
+    eudpp:isCriticalRawMaterial   false .
+
+# Data point 55, the share of renewable content, is left out: P_DPP removed
+# eudpp:SustainableRenewableMaterialsUse on 16 October 2026, and the CORE has
+# no term for this share yet.
+
+# Data point 42. The substance of concern. Data point 43, its impacts, is left
+# out: SOC 2.2.0 removed hasImpactOnEnvironment and hasImpactOnHumanHealth on
+# 15 October 2026, and the CORE has no term for them yet.
+ex:battery-1  eudpp:containsSubstanceOfConcern  ex:soc-1 .
+
+ex:soc-1
+    a  eudpp:SubstanceOfConcern .
+
+# Data points 88, 89 and 94 to 97, required for LMT and stationary batteries.
+ex:state-2028-04-15
+    batperf:energyThroughput                                    "62.0"^^xsd:decimal ;
+    batperf:capacityThroughput                                  "3150.0"^^xsd:decimal ;
+    batperf:timeSpentInExtremeTemperaturesAboveBoundary         "310.0"^^xsd:decimal ;
+    batperf:timeSpentInExtremeTemperaturesBelowBoundary         "1240.0"^^xsd:decimal ;
+    batperf:timeSpentChargingInExtremeTemperaturesAboveBoundary "45.0"^^xsd:decimal ;
+    batperf:timeSpentChargingInExtremeTemperaturesBelowBoundary "180.0"^^xsd:decimal .
+
+ex:state-2029-04-10
+    batperf:energyThroughput                                    "134.0"^^xsd:decimal ;
+    batperf:capacityThroughput                                  "6860.0"^^xsd:decimal ;
+    batperf:timeSpentInExtremeTemperaturesAboveBoundary         "690.0"^^xsd:decimal ;
+    batperf:timeSpentInExtremeTemperaturesBelowBoundary         "2510.0"^^xsd:decimal ;
+    batperf:timeSpentChargingInExtremeTemperaturesAboveBoundary "95.0"^^xsd:decimal ;
+    batperf:timeSpentChargingInExtremeTemperaturesBelowBoundary "372.0"^^xsd:decimal .
+
+# Data point 49. The safety measures are a digital instruction
+# (ontologies-core#45): a bat:SafetyInstruction reached through
+# eudpp:hasProperty, its URL on eudpp:webLink.
+ex:safety-instruction-1
+    a              bat:SafetyInstruction ;
+    eudpp:webLink  "https://example.org/doc/lmt/safety.pdf"^^xsd:anyURI .

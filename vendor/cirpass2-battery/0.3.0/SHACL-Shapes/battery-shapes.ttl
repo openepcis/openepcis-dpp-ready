@@ -1,0 +1,1076 @@
+@prefix batsh: <https://w3id.org/eudpp/battery-shapes#> .
+@prefix bat: <https://w3id.org/eudpp/battery#> .
+@prefix batperf: <https://w3id.org/eudpp/battery-performance#> .
+@prefix batmat: <https://w3id.org/eudpp/battery-materials#> .
+@prefix batlab: <https://w3id.org/eudpp/battery-labeling#> .
+@prefix batcat: <https://w3id.org/eudpp/battery-categories#> .
+@prefix batstat: <https://w3id.org/eudpp/battery-statuses#> .
+@prefix batmet: <https://w3id.org/eudpp/battery-metals#> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+#################################################
+# Ontology
+#################################################
+# The battery conformance profile, rebuilt on 2 September 2026 against
+# BatteryPass-Ready Data Attribute Long List v1.3 (March 2026), as
+# requested, in place of v2.0.
+#
+# SOURCES, in order of authority
+#   1. Regulation (EU) 2023/1542
+#      - Art. 77, which batteries carry a passport: LMT, industrial above
+#        2 kWh and electric vehicle. Portable and SLI are out of scope.
+#      - Art. 3(1), the categories; Annex XIII, the passport content;
+#        Annex VI Parts A and C, marking; Annex VII Part B, the extreme
+#        temperature attributes.
+#   2. BatteryPass-Ready Data Attribute Long List v1.3, 100 attributes:
+#      - the four applicability columns EV / LMT / Other Industrial >2kWh
+#        / Stationary >2kWh give the cardinalities;
+#      - "Data format" and "Unit of attribute" give the datatypes;
+#      - "Data behavioural characteristic: static vs. dynamic" decides
+#        what hangs off the dated state record rather than the battery.
+#   3. prEN 18223 Table 1 for the passport-level attributes.
+#   4. The battery vocabularies for the closed value lists.
+#
+# THE RULE. v1.3 marks an attribute "x" when the Battery Regulation makes
+# it mandatory and "(x)" when the ESPR or JTC-24 does; both are legal
+# obligations, so both produce sh:minCount 1 and the message names which
+# text applies. "o" and a blank column produce a datatype only.
+# Two exceptions, attributes 22 and 36, are explained in section 4.
+#
+# An attribute mandatory in all four columns is required unconditionally.
+# An attribute mandatory in some columns is required inside a shape
+# conditioned on dpp:hasProductGroup.
+#
+# ⚠ v1.3 carries no "Mandatory from February 2027" column, unlike v2.0.
+# This profile therefore validates the full v1.3 requirement set and does
+# not defer anything to a later date. The Commission guidance (version
+# 3.2 of 19 October 2026) does defer some data points; reconciling the
+# two is an open point, recorded in the README.
+#
+# Access tiers are not here: they live in the three battery-view-*.ttl
+# files, so this profile stays about conformance (issue #5).
+
+<https://w3id.org/eudpp/battery-shapes>
+    a owl:Ontology ;
+    owl:imports <https://w3id.org/eudpp/battery-cf-shapes> ;
+    owl:versionIRI <https://w3id.org/eudpp/battery-shapes/0.3.0> ;
+    rdfs:seeAlso <https://w3id.org/eudpp/battery> ,
+                 <https://github.com/CIRPASS-2/ontologies-battery/issues/10> ;
+    rdfs:label "EU DPP Battery Shapes"@en ;
+    dcterms:title "EU DPP Battery Shapes"@en ;
+    dcterms:description "SHACL conformance profile for battery Digital Product Passports under Regulation (EU) 2023/1542. Carries the cardinalities, datatypes and closed vocabularies that the battery ontology deliberately leaves out of OWL. Built against BatteryPass-Ready Data Attribute Long List v1.3. Covers the three passport categories: electric vehicle, light means of transport, and industrial batteries above 2 kWh."@en ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:license "This ontology is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0). In case of dispute over CC BY 4.0 applicability, or in case considering the ontology as a software or part of it, this ontology is to be considered licensed under the Apache License, Version 2.0."@en ;
+    dcterms:bibliographicCitation "EU DPP Battery Shapes. Draft version 0.3.0."@en ;
+    dcterms:creator "Nader Jelassi"@en , "Marc-Andree Wolf"@en ;
+    dcterms:contributor "Arnab Sinha"@en ;
+    dcterms:created "2026-08-28"^^xsd:date ;
+    dcterms:issued "2026-08-28"^^xsd:date ;
+    dcterms:modified "2026-11-03"^^xsd:date ;
+    dcterms:references "Regulation (EU) 2023/1542, Art. 77, Art. 3(1), Annexes VI, VII and XIII; BatteryPass-Ready Data Attribute Long List v1.3, March 2026; prEN 18223 Table 1"@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2023/1542/oj> ;
+    owl:versionInfo "Version 0.3.0 DRAFT"@en ;
+    vann:preferredNamespaceUri "https://w3id.org/eudpp/battery-shapes#" ;
+    vann:preferredNamespacePrefix "batsh" .
+
+#################################################
+# 1. Passport scope — Regulation (EU) 2023/1542, Art. 77
+#################################################
+
+# Portable and SLI batteries carry no passport. A battery declaring one
+# of those two categories is out of scope of this profile.
+batsh:PassportScopeShape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:label "Passport scope"@en ;
+    rdfs:comment "Art. 77: only LMT, industrial above 2 kWh and electric vehicle batteries carry a passport."@en ;
+    sh:not [
+        sh:property [
+            sh:path dpp:hasProductGroup ;
+            sh:in ( batcat:PortableBattery batcat:SLIBattery ) ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "Portable and SLI batteries do not carry a battery passport (Art. 77)." .
+
+#################################################
+# 2. Required for every passport category
+#################################################
+# 64 of the 66 attributes that v1.3 marks mandatory in all four
+# applicability columns. The other two, 22 and 36, are declared in
+# section 4: no validator can tell when they are due (issue #14).
+
+batsh:BatteryShape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:label "Battery conformance shape"@en ;
+    rdfs:comment "Attributes mandatory for every passport category in long list v1.3."@en ;
+
+
+    # 1. DPP Schema version
+    #     DPP node; back in P_DPP v2.1.0 (ontologies-core#62)
+    sh:property [
+        sh:path ( dpp:hasDPP dpp:dppSchemaVersion ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "DPP Schema version — long list v1.3 attribute 1, ESPR / JTC-24." ;
+    ] ;
+
+    # 2. DPP Status
+    #     DPP node
+    sh:property [
+        sh:path ( dpp:hasDPP dpp:dppStatus ) ;
+        sh:minCount 1 ;
+        sh:message "DPP Status — long list v1.3 attribute 2, ESPR / JTC-24." ;
+    ] ;
+
+    # 3. DPP Granularity
+    #     DPP node
+    sh:property [
+        sh:path ( dpp:hasDPP dpp:granularity ) ;
+        sh:minCount 1 ;
+        sh:message "DPP Granularity — long list v1.3 attribute 3, ESPR / JTC-24." ;
+    ] ;
+
+    # 4. Date-time of latest update of DPP
+    #     DPP node
+    sh:property [
+        sh:path ( dpp:hasDPP dpp:lastUpdate ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:dateTimeStamp ;
+        sh:message "Date-time of latest update of DPP — long list v1.3 attribute 4, ESPR / JTC-24." ;
+    ] ;
+
+    # 5. Unique battery passport identifier / unique DPP identifier
+    #     DPP node
+    sh:property [
+        sh:path ( dpp:hasDPP dpp:hasDigitalProductPassportId ) ;
+        sh:minCount 1 ;
+        sh:message "Unique battery passport identifier / unique DPP identifier — long list v1.3 attribute 5, Battery Regulation." ;
+    ] ;
+
+    # 6. Unique battery identifier / unique product identifier
+    sh:property [
+        sh:path dpp:hasUniqueProductIdentifier ;
+        sh:minCount 1 ;
+        sh:message "Unique battery identifier / unique product identifier — long list v1.3 attribute 6, Battery Regulation." ;
+    ] ;
+
+    # 7. Battery model identifier
+    #     model granularity
+    sh:property [
+        sh:path dpp:hasUniqueProductIdentifier ;
+        sh:minCount 1 ;
+        sh:message "Battery model identifier — long list v1.3 attribute 7, Battery Regulation." ;
+    ] ;
+
+    # 8. Battery serial number
+    #     item granularity
+    sh:property [
+        sh:path dpp:hasUniqueProductIdentifier ;
+        sh:minCount 1 ;
+        sh:message "Battery serial number — long list v1.3 attribute 8, Battery Regulation." ;
+    ] ;
+
+    # 9. Unique economic operator identifier
+    #     actor node
+    sh:property [
+        sh:path ( dpp:hasEconomicOperator dpp:hasUniqueOperatorIdentifier ) ;
+        sh:minCount 1 ;
+        sh:message "Unique economic operator identifier — long list v1.3 attribute 9, ESPR / JTC-24." ;
+    ] ;
+
+    # 10. Unique manufacturer identifier
+    #     actor node, manufacturer role
+    sh:property [
+        sh:path ( dpp:hasManufacturer dpp:hasUniqueOperatorIdentifier ) ;
+        sh:minCount 1 ;
+        sh:message "Unique manufacturer identifier — long list v1.3 attribute 10, Battery Regulation." ;
+    ] ;
+
+    # 11. Unique facility identifier
+    #     facility node
+    sh:property [
+        sh:path ( dpp:usesFacility dpp:hasUniqueFacilityIdentifier ) ;
+        sh:minCount 1 ;
+        sh:message "Unique facility identifier — long list v1.3 attribute 11, ESPR / JTC-24." ;
+    ] ;
+
+    # 12. Economic operator information
+    sh:property [
+        sh:path dpp:hasEconomicOperator ;
+        sh:minCount 1 ;
+        sh:message "Economic operator information — long list v1.3 attribute 12, Battery Regulation." ;
+    ] ;
+
+    # 13. Manufacturer information
+    sh:property [
+        sh:path dpp:hasManufacturer ;
+        sh:minCount 1 ;
+        sh:message "Manufacturer information — long list v1.3 attribute 13, Battery Regulation." ;
+    ] ;
+
+    # 14. Manufacturing place
+    sh:property [
+        sh:path dpp:usesFacility ;
+        sh:minCount 1 ;
+        sh:message "Manufacturing place — long list v1.3 attribute 14, Battery Regulation." ;
+    ] ;
+
+    # 15. Manufacturing date
+    sh:property [
+        sh:path dpp:manufacturingDate ;
+        sh:minCount 1 ;
+        sh:message "Manufacturing date — long list v1.3 attribute 15, Battery Regulation." ;
+    ] ;
+
+    # 17. Warranty period of the battery
+    sh:property [
+        sh:path bat:warrantyPeriod ;
+        sh:minCount 1 ;
+        sh:datatype xsd:duration ;
+        sh:message "Warranty period of the battery — long list v1.3 attribute 17, Battery Regulation." ;
+    ] ;
+
+    # 18. Battery category
+    sh:property [
+        sh:path dpp:hasProductGroup ;
+        sh:minCount 1 ;
+        sh:in ( batcat:PortableBattery batcat:LMTBattery batcat:SLIBattery
+                batcat:IndustrialBattery batcat:ElectricVehicleBattery ) ;
+        sh:message "Battery category — long list v1.3 attribute 18, Battery Regulation." ;
+    ] ;
+
+    # 19. Battery mass
+    #     sh:class dpp:Weight (Weight < ProductDimension < QuantitativeProperty < Property)
+    sh:property [
+        sh:path dpp:hasProperty ;
+        sh:qualifiedValueShape [ sh:class dpp:Weight ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Battery mass — long list v1.3 attribute 19, Battery Regulation." ;
+    ] ;
+
+    # 20. Battery status
+    sh:property [
+        sh:path bat:hasBatteryStatus ;
+        sh:minCount 1 ;
+        sh:in ( batstat:Original batstat:ReUsed batstat:Repurposed
+                batstat:Remanufactured batstat:Waste ) ;
+        sh:message "Battery status — long list v1.3 attribute 20, Battery Regulation." ;
+    ] ;
+
+    # 21. Separate collection symbol
+    sh:property [
+        sh:path ( batlab:hasBatteryLabel batlab:separateCollectionSymbol ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:anyURI ;
+        sh:message "Separate collection symbol — long list v1.3 attribute 21, Battery Regulation." ;
+    ] ;
+
+    # 24. Extinguishing agent
+    sh:property [
+        sh:path ( batlab:hasBatteryLabel batlab:extinguishingAgent ) ;
+        sh:minCount 1 ;
+        sh:message "Extinguishing agent — long list v1.3 attribute 24, Battery Regulation." ;
+    ] ;
+
+    # 26. EU declaration of conformity
+    sh:property [
+        sh:path dpp:hasEUDeclarationOfConformity ;
+        sh:minCount 1 ;
+        sh:message "EU declaration of conformity — long list v1.3 attribute 26, Battery Regulation." ;
+    ] ;
+
+    # 27. Results of test reports proving compliance
+    sh:property [
+        sh:path bat:testReportResults ;
+        sh:minCount 1 ;
+        sh:datatype xsd:anyURI ;
+        sh:message "Results of test reports proving compliance — long list v1.3 attribute 27, Battery Regulation." ;
+    ] ;
+
+    # 39. Battery chemistry
+    sh:property [
+        sh:path batmat:hasBatteryChemistry ;
+        sh:minCount 1 ;
+        sh:message "Battery chemistry — long list v1.3 attribute 39, Battery Regulation." ;
+    ] ;
+
+    # 40. Critical raw materials
+    #     material node
+    sh:property [
+        sh:path ( dpp:hasMaterial dpp:isCriticalRawMaterial ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:boolean ;
+        sh:message "Critical raw materials — long list v1.3 attribute 40, Battery Regulation." ;
+    ] ;
+
+    # 41. Materials used in cathode, anode and electrolyte
+    #     material node
+    sh:property [
+        sh:path ( batmat:hasBatteryChemistry batmat:hasBatteryLocation ) ;
+        sh:minCount 1 ;
+        sh:message "Materials used in cathode, anode and electrolyte — long list v1.3 attribute 41, Battery Regulation." ;
+    ] ;
+
+    # 42. Hazardous substances
+    sh:property [
+        sh:path dpp:containsSubstanceOfConcern ;
+        sh:minCount 1 ;
+        sh:message "Hazardous substances — long list v1.3 attribute 42, Battery Regulation." ;
+    ] ;
+
+    # 43. Impact of substances on environment, human health, safety, persons
+    #     DEACTIVATED on 26 October 2026: SOC 2.2.0 (15 October) removed
+    #     hasImpactOnEnvironment and hasImpactOnHumanHealth, with no replacement.
+    #     Pending a CORE issue on SOC; the path records the former term.
+    sh:property [
+        sh:deactivated true ;
+        sh:path ( dpp:containsSubstanceOfConcern dpp:hasImpactOnEnvironment ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Impact of substances on environment, human health, safety, persons — long list v1.3 attribute 43, Battery Regulation." ;
+    ] ;
+
+    # 44. Dismantling information: Manuals for the removal and the disassembly of the battery pack
+    sh:property [
+        sh:path bat:dismantlingInformation ;
+        sh:minCount 1 ;
+        sh:datatype xsd:anyURI ;
+        sh:message "Dismantling information: Manuals for the removal and the disassembly o — long list v1.3 attribute 44, Battery Regulation." ;
+    ] ;
+
+    # 45. Part numbers for components
+    sh:property [
+        sh:path bat:partNumber ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Part numbers for components — long list v1.3 attribute 45, Battery Regulation." ;
+    ] ;
+
+    # 47. Safety measures
+    #     a bat:SafetyInstruction (dpp:DigitalInstruction) reached through
+    #     dpp:hasProperty, URL on dpp:webLink (ontologies-core#45)
+    sh:property [
+        sh:path dpp:hasProperty ;
+        sh:qualifiedValueShape [
+            sh:class bat:SafetyInstruction ;
+            sh:property [ sh:path dpp:webLink ; sh:minCount 1 ; sh:datatype xsd:anyURI ] ;
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Safety measures — long list v1.3 attribute 47, Battery Regulation." ;
+    ] ;
+
+    # 48 to 53. One total share per metal. MAT v1.1.0 can split pre- from
+    #     post-consumer content (dpp:materialRecycledContentType,
+    #     ontologies-core#25), but long list v2.0 and the Commission guidance
+    #     ask for one share per metal, so the six shapes below stay identical.
+    # 48. Pre-consumer recycled nickel share
+    #     material node, pre-consumer nickel
+    sh:property [
+        sh:path dpp:hasMaterial ;
+        sh:qualifiedValueShape [
+            sh:property [ sh:path dpp:hasMaterialType ; sh:hasValue batmet:Nickel ] ;
+            sh:property [ sh:path dpp:materialRecycledContent ; sh:minCount 1 ] ;
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Pre-consumer recycled nickel share — long list v1.3 attribute 48, Battery Regulation." ;
+    ] ;
+
+    # 49. Pre-consumer recycled cobalt share
+    #     material node, pre-consumer cobalt
+    sh:property [
+        sh:path dpp:hasMaterial ;
+        sh:qualifiedValueShape [
+            sh:property [ sh:path dpp:hasMaterialType ; sh:hasValue batmet:Cobalt ] ;
+            sh:property [ sh:path dpp:materialRecycledContent ; sh:minCount 1 ] ;
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Pre-consumer recycled cobalt share — long list v1.3 attribute 49, Battery Regulation." ;
+    ] ;
+
+    # 50. Pre-consumer recycled lithium share
+    #     material node, pre-consumer lithium
+    sh:property [
+        sh:path dpp:hasMaterial ;
+        sh:qualifiedValueShape [
+            sh:property [ sh:path dpp:hasMaterialType ; sh:hasValue batmet:Lithium ] ;
+            sh:property [ sh:path dpp:materialRecycledContent ; sh:minCount 1 ] ;
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Pre-consumer recycled lithium share — long list v1.3 attribute 50, Battery Regulation." ;
+    ] ;
+
+    # 51. Post-consumer recycled nickel share
+    #     material node, post-consumer nickel
+    sh:property [
+        sh:path dpp:hasMaterial ;
+        sh:qualifiedValueShape [
+            sh:property [ sh:path dpp:hasMaterialType ; sh:hasValue batmet:Nickel ] ;
+            sh:property [ sh:path dpp:materialRecycledContent ; sh:minCount 1 ] ;
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Post-consumer recycled nickel share — long list v1.3 attribute 51, Battery Regulation." ;
+    ] ;
+
+    # 52. Post-consumer recycled cobalt share
+    #     material node, post-consumer cobalt
+    sh:property [
+        sh:path dpp:hasMaterial ;
+        sh:qualifiedValueShape [
+            sh:property [ sh:path dpp:hasMaterialType ; sh:hasValue batmet:Cobalt ] ;
+            sh:property [ sh:path dpp:materialRecycledContent ; sh:minCount 1 ] ;
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Post-consumer recycled cobalt share — long list v1.3 attribute 52, Battery Regulation." ;
+    ] ;
+
+    # 53. Post-consumer recycled lithium share
+    #     material node, post-consumer lithium
+    sh:property [
+        sh:path dpp:hasMaterial ;
+        sh:qualifiedValueShape [
+            sh:property [ sh:path dpp:hasMaterialType ; sh:hasValue batmet:Lithium ] ;
+            sh:property [ sh:path dpp:materialRecycledContent ; sh:minCount 1 ] ;
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Post-consumer recycled lithium share — long list v1.3 attribute 53, Battery Regulation." ;
+    ] ;
+
+    # 54. Recycled lead share
+    #     material node, lead
+    sh:property [
+        sh:path dpp:hasMaterial ;
+        sh:qualifiedValueShape [
+            sh:property [ sh:path dpp:hasMaterialType ; sh:hasValue batmet:Lead ] ;
+            sh:property [ sh:path dpp:materialRecycledContent ; sh:minCount 1 ] ;
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Recycled lead share — long list v1.3 attribute 54, Battery Regulation." ;
+    ] ;
+
+    # 55. Renewable content share
+    #     DEACTIVATED on 26 October 2026: P_DPP (16 October) removed
+    #     SustainableRenewableMaterialsUse; its LCA successor measures renewable
+    #     secondary fuels, not this share. Pending a CORE issue on P_DPP; the
+    #     class below records the former term.
+    sh:property [
+        sh:deactivated true ;
+        sh:path dpp:hasProperty ;
+        sh:qualifiedValueShape [ sh:class dpp:SustainableRenewableMaterialsUse ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Renewable content share — long list v1.3 attribute 55, Battery Regulation." ;
+    ] ;
+
+    # 56. Information on the role of end-users in contributing to waste prevention
+    #     DigitalInstruction, waste prevention
+    sh:property [
+        sh:path dpp:hasProperty ;
+        sh:minCount 1 ;
+        sh:message "Information on the role of end-users in contributing to waste preventi — long list v1.3 attribute 56, Battery Regulation." ;
+    ] ;
+
+    # 57. Information on the role of end-users in contributing to the separate collection of waste
+    #     DigitalInstruction, separate collection
+    sh:property [
+        sh:path dpp:hasProperty ;
+        sh:minCount 1 ;
+        sh:message "Information on the role of end-users in contributing to the separate c — long list v1.3 attribute 57, Battery Regulation." ;
+    ] ;
+
+    # 58. Information on battery collection, preparation for second life and on treatment at end o
+    #     DigitalInstruction, collection and second life
+    sh:property [
+        sh:path dpp:hasProperty ;
+        sh:minCount 1 ;
+        sh:message "Information on battery collection, preparation for second life and on  — long list v1.3 attribute 58, Battery Regulation." ;
+    ] ;
+
+    # 59. Rated capacity
+    sh:property [
+        sh:path ( batperf:hasBatteryPerformance batperf:ratedCapacity ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Rated capacity — long list v1.3 attribute 59, Battery Regulation." ;
+    ] ;
+
+    # 61. Capacity fade
+    sh:property [
+        sh:path ( batperf:hasBatteryStateRecord batperf:capacityFade ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Capacity fade — long list v1.3 attribute 61, Battery Regulation." ;
+    ] ;
+
+    # 65. State of Charge (SoC)
+    sh:property [
+        sh:path ( batperf:hasBatteryStateRecord batperf:stateOfCharge ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "State of Charge (SoC) — long list v1.3 attribute 65, Battery Regulation." ;
+    ] ;
+
+    # 66. Minimum voltage
+    sh:property [
+        sh:path ( batperf:hasBatteryPerformance batperf:minimumVoltage ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Minimum voltage — long list v1.3 attribute 66, Battery Regulation." ;
+    ] ;
+
+    # 67. Maximum voltage
+    sh:property [
+        sh:path ( batperf:hasBatteryPerformance batperf:maximumVoltage ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Maximum voltage — long list v1.3 attribute 67, Battery Regulation." ;
+    ] ;
+
+    # 68. Nominal voltage
+    sh:property [
+        sh:path ( batperf:hasBatteryPerformance batperf:nominalVoltage ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Nominal voltage — long list v1.3 attribute 68, Battery Regulation." ;
+    ] ;
+
+    # 69. Original power capability
+    sh:property [
+        sh:path ( batperf:hasBatteryPerformance batperf:originalPowerCapability ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Original power capability — long list v1.3 attribute 69, Battery Regulation." ;
+    ] ;
+
+    # 71. Power fade
+    sh:property [
+        sh:path ( batperf:hasBatteryStateRecord batperf:powerFade ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Power fade — long list v1.3 attribute 71, Battery Regulation." ;
+    ] ;
+
+    # 72. Maximum permitted battery power
+    sh:property [
+        sh:path ( batperf:hasBatteryPerformance batperf:maximumPermittedBatteryPower ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Maximum permitted battery power — long list v1.3 attribute 72, Battery Regulation." ;
+    ] ;
+
+    # 74. Initial round trip energy efficiency
+    sh:property [
+        sh:path ( batperf:hasBatteryPerformance batperf:initialRoundTripEnergyEfficiency ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Initial round trip energy efficiency — long list v1.3 attribute 74, Battery Regulation." ;
+    ] ;
+
+    # 75. Round trip energy efficiency at 50% of cycle life
+    sh:property [
+        sh:path ( batperf:hasBatteryPerformance batperf:roundTripEnergyEfficiencyAt50PercentCycleLife ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Round trip energy efficiency at 50% of cycle life — long list v1.3 attribute 75, Battery Regulation." ;
+    ] ;
+
+    # 77. Energy round trip efficiency fade
+    sh:property [
+        sh:path ( batperf:hasBatteryStateRecord batperf:roundTripEnergyEfficiencyFade ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Energy round trip efficiency fade — long list v1.3 attribute 77, Battery Regulation." ;
+    ] ;
+
+    # 81. Initial internal resistance of battery cell and pack (module recommended)
+    #     the cell and pack values of data point 38 of the Commission guidance v3.2 count too
+    sh:property [
+        sh:path ( batperf:hasBatteryPerformance [ sh:alternativePath ( batperf:initialInternalResistance batperf:initialCellInternalResistance batperf:initialPackInternalResistance ) ] ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Initial internal resistance of battery cell and pack (module recommended) — long list v1.3 attribute 81, Battery Regulation." ;
+    ] ;
+
+    # 82. Internal resistance increase of pack (cell and module recommended)
+    sh:property [
+        sh:path ( batperf:hasBatteryStateRecord batperf:internalResistanceIncrease ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Internal resistance increase of pack (cell and module recommended) — long list v1.3 attribute 82, Battery Regulation." ;
+    ] ;
+
+    # 83. Expected lifetime in calendar years
+    sh:property [
+        sh:path ( batperf:hasBatteryDurability batperf:expectedLifetimeCalendarYears ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Expected lifetime in calendar years — long list v1.3 attribute 83, Battery Regulation." ;
+    ] ;
+
+    # 84. Expected lifetime: Number of charge-discharge cycles
+    sh:property [
+        sh:path ( batperf:hasBatteryDurability batperf:expectedLifetimeCycles ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:message "Expected lifetime: Number of charge-discharge cycles — long list v1.3 attribute 84, Battery Regulation." ;
+    ] ;
+
+    # 85. Number of full charging and discharging cycles
+    sh:property [
+        sh:path ( batperf:hasBatteryStateRecord batperf:numberOfFullCycles ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:message "Number of full charging and discharging cycles — long list v1.3 attribute 85, Battery Regulation." ;
+    ] ;
+
+    # 86. Cycle-life reference test
+    sh:property [
+        sh:path ( batperf:hasBatteryPerformance batperf:cycleLifeReferenceTest ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Cycle-life reference test — long list v1.3 attribute 86, Battery Regulation." ;
+    ] ;
+
+    # 87. C-rate of relevant cycle-life test
+    #     the charge C-rate, data point 39 of the Commission guidance v3.2, counts too
+    sh:property [
+        sh:path ( batperf:hasBatteryPerformance [ sh:alternativePath ( batperf:cRateOfCycleLifeTest batperf:chargeCRateOfCycleLifeTest ) ] ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "C-rate of relevant cycle-life test — long list v1.3 attribute 87, Battery Regulation." ;
+    ] ;
+
+    # 91. Temperature information
+    sh:property [
+        sh:path ( batperf:hasBatteryStateRecord batperf:temperatureInformation ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Temperature information — long list v1.3 attribute 91, Battery Regulation." ;
+    ] ;
+
+    # 92. Temperature range idle state, lower boundary
+    sh:property [
+        sh:path ( batperf:hasTemperatureExposure batperf:temperatureRangeIdleStateLowerBoundary ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Temperature range idle state, lower boundary — long list v1.3 attribute 92, Battery Regulation." ;
+    ] ;
+
+    # 93. Temperature range idle state, upper boundary
+    sh:property [
+        sh:path ( batperf:hasTemperatureExposure batperf:temperatureRangeIdleStateUpperBoundary ) ;
+        sh:minCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:message "Temperature range idle state, upper boundary — long list v1.3 attribute 93, Battery Regulation." ;
+    ]  .
+
+#################################################
+# 3. Required for some categories only
+#################################################
+
+# v1.3 requires these for LMT AND for stationary batteries. Only the LMT
+# half is enforceable: batcat carries no stationary concept yet, so a
+# stationary battery declares batcat:IndustrialBattery and escapes this
+# shape. Proposed in ontologies-battery#13.
+
+# 60. Remaining capacity
+batsh:LMT60Shape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:comment "Required for LMT batteries by long list v1.3; the same set applies to stationary batteries, which batcat cannot express yet (ontologies-battery#13)."@en ;
+    sh:message "Remaining capacity — long list v1.3 attribute 60, Battery Regulation." ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path dpp:hasProductGroup ;
+                                 sh:in ( batcat:LMTBattery ) ;
+                                 sh:minCount 1 ] ] ]
+        [
+            sh:property [
+                sh:path ( batperf:hasBatteryStateRecord batperf:remainingCapacity ) ;
+                sh:minCount 1 ;
+                sh:datatype xsd:decimal ;
+                sh:message "Remaining capacity — long list v1.3 attribute 60, Battery Regulation." ;
+            ]
+        ]
+    ) .
+
+# 70. Remaining power capability
+batsh:LMT70Shape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:comment "Required for LMT batteries by long list v1.3; the same set applies to stationary batteries, which batcat cannot express yet (ontologies-battery#13)."@en ;
+    sh:message "Remaining power capability — long list v1.3 attribute 70, Battery Regulation." ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path dpp:hasProductGroup ;
+                                 sh:in ( batcat:LMTBattery ) ;
+                                 sh:minCount 1 ] ] ]
+        [
+            sh:property [
+                sh:path ( batperf:hasBatteryStateRecord batperf:remainingPowerCapability ) ;
+                sh:minCount 1 ;
+                sh:datatype xsd:decimal ;
+                sh:message "Remaining power capability — long list v1.3 attribute 70, Battery Regulation." ;
+            ]
+        ]
+    ) .
+
+# 76. Remaining round trip energy efficiency
+batsh:LMT76Shape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:comment "Required for LMT batteries by long list v1.3; the same set applies to stationary batteries, which batcat cannot express yet (ontologies-battery#13)."@en ;
+    sh:message "Remaining round trip energy efficiency — long list v1.3 attribute 76, Battery Regulation." ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path dpp:hasProductGroup ;
+                                 sh:in ( batcat:LMTBattery ) ;
+                                 sh:minCount 1 ] ] ]
+        [
+            sh:property [
+                sh:path ( batperf:hasBatteryStateRecord batperf:remainingRoundTripEnergyEfficiency ) ;
+                sh:minCount 1 ;
+                sh:datatype xsd:decimal ;
+                sh:message "Remaining round trip energy efficiency — long list v1.3 attribute 76, Battery Regulation." ;
+            ]
+        ]
+    ) .
+
+# 80. Evolution of self-discharge rates
+batsh:LMT80Shape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:comment "Required for LMT batteries by long list v1.3; the same set applies to stationary batteries, which batcat cannot express yet (ontologies-battery#13)."@en ;
+    sh:message "Evolution of self-discharge rates — long list v1.3 attribute 80, Battery Regulation." ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path dpp:hasProductGroup ;
+                                 sh:in ( batcat:LMTBattery ) ;
+                                 sh:minCount 1 ] ] ]
+        [
+            sh:property [
+                sh:path ( batperf:hasBatteryStateRecord batperf:selfDischargeRateEvolution ) ;
+                sh:minCount 1 ;
+                sh:datatype xsd:decimal ;
+                sh:message "Evolution of self-discharge rates — long list v1.3 attribute 80, Battery Regulation." ;
+            ]
+        ]
+    ) .
+
+# 88. Energy throughput
+batsh:LMT88Shape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:comment "Required for LMT batteries by long list v1.3; the same set applies to stationary batteries, which batcat cannot express yet (ontologies-battery#13)."@en ;
+    sh:message "Energy throughput — long list v1.3 attribute 88, Battery Regulation." ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path dpp:hasProductGroup ;
+                                 sh:in ( batcat:LMTBattery ) ;
+                                 sh:minCount 1 ] ] ]
+        [
+            sh:property [
+                sh:path ( batperf:hasBatteryStateRecord batperf:energyThroughput ) ;
+                sh:minCount 1 ;
+                sh:datatype xsd:decimal ;
+                sh:message "Energy throughput — long list v1.3 attribute 88, Battery Regulation." ;
+            ]
+        ]
+    ) .
+
+# 89. Capacity throughput
+batsh:LMT89Shape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:comment "Required for LMT batteries by long list v1.3; the same set applies to stationary batteries, which batcat cannot express yet (ontologies-battery#13)."@en ;
+    sh:message "Capacity throughput — long list v1.3 attribute 89, Battery Regulation." ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path dpp:hasProductGroup ;
+                                 sh:in ( batcat:LMTBattery ) ;
+                                 sh:minCount 1 ] ] ]
+        [
+            sh:property [
+                sh:path ( batperf:hasBatteryStateRecord batperf:capacityThroughput ) ;
+                sh:minCount 1 ;
+                sh:datatype xsd:decimal ;
+                sh:message "Capacity throughput — long list v1.3 attribute 89, Battery Regulation." ;
+            ]
+        ]
+    ) .
+
+# 94. Time spent in extreme temperatures above boundary
+batsh:LMT94Shape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:comment "Required for LMT batteries by long list v1.3; the same set applies to stationary batteries, which batcat cannot express yet (ontologies-battery#13)."@en ;
+    sh:message "Time spent in extreme temperatures above boundary — long list v1.3 attribute 94, Battery Regulation." ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path dpp:hasProductGroup ;
+                                 sh:in ( batcat:LMTBattery ) ;
+                                 sh:minCount 1 ] ] ]
+        [
+            sh:property [
+                sh:path ( batperf:hasBatteryStateRecord batperf:timeSpentInExtremeTemperaturesAboveBoundary ) ;
+                sh:minCount 1 ;
+                sh:datatype xsd:decimal ;
+                sh:message "Time spent in extreme temperatures above boundary — long list v1.3 attribute 94, Battery Regulation." ;
+            ]
+        ]
+    ) .
+
+# 95. Time spent in extreme temperatures below boundary
+batsh:LMT95Shape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:comment "Required for LMT batteries by long list v1.3; the same set applies to stationary batteries, which batcat cannot express yet (ontologies-battery#13)."@en ;
+    sh:message "Time spent in extreme temperatures below boundary — long list v1.3 attribute 95, Battery Regulation." ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path dpp:hasProductGroup ;
+                                 sh:in ( batcat:LMTBattery ) ;
+                                 sh:minCount 1 ] ] ]
+        [
+            sh:property [
+                sh:path ( batperf:hasBatteryStateRecord batperf:timeSpentInExtremeTemperaturesBelowBoundary ) ;
+                sh:minCount 1 ;
+                sh:datatype xsd:decimal ;
+                sh:message "Time spent in extreme temperatures below boundary — long list v1.3 attribute 95, Battery Regulation." ;
+            ]
+        ]
+    ) .
+
+# 96. Time spent charging during extreme temperatures above boundary
+batsh:LMT96Shape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:comment "Required for LMT batteries by long list v1.3; the same set applies to stationary batteries, which batcat cannot express yet (ontologies-battery#13)."@en ;
+    sh:message "Time spent charging during extreme temperatures above boundary — long list v1.3 attribute 96, Battery Regulation." ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path dpp:hasProductGroup ;
+                                 sh:in ( batcat:LMTBattery ) ;
+                                 sh:minCount 1 ] ] ]
+        [
+            sh:property [
+                sh:path ( batperf:hasBatteryStateRecord batperf:timeSpentChargingInExtremeTemperaturesAboveBoundary ) ;
+                sh:minCount 1 ;
+                sh:datatype xsd:decimal ;
+                sh:message "Time spent charging during extreme temperatures above boundary — long list v1.3 attribute 96, Battery Regulation." ;
+            ]
+        ]
+    ) .
+
+# 97. Time spent charging during extreme temperatures below boundary
+batsh:LMT97Shape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:comment "Required for LMT batteries by long list v1.3; the same set applies to stationary batteries, which batcat cannot express yet (ontologies-battery#13)."@en ;
+    sh:message "Time spent charging during extreme temperatures below boundary — long list v1.3 attribute 97, Battery Regulation." ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path dpp:hasProductGroup ;
+                                 sh:in ( batcat:LMTBattery ) ;
+                                 sh:minCount 1 ] ] ]
+        [
+            sh:property [
+                sh:path ( batperf:hasBatteryStateRecord batperf:timeSpentChargingInExtremeTemperaturesBelowBoundary ) ;
+                sh:minCount 1 ;
+                sh:datatype xsd:decimal ;
+                sh:message "Time spent charging during extreme temperatures below boundary — long list v1.3 attribute 97, Battery Regulation." ;
+            ]
+        ]
+    ) .
+
+# 98. Number of deep discharge events
+batsh:LMT98Shape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:comment "Required for LMT batteries by long list v1.3; the same set applies to stationary batteries, which batcat cannot express yet (ontologies-battery#13)."@en ;
+    sh:message "Number of deep discharge events — long list v1.3 attribute 98, Battery Regulation." ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path dpp:hasProductGroup ;
+                                 sh:in ( batcat:LMTBattery ) ;
+                                 sh:minCount 1 ] ] ]
+        [
+            sh:property [
+                sh:path ( batperf:hasBatteryStateRecord batperf:numberOfDeepDischargeEvents ) ;
+                sh:minCount 1 ;
+                sh:datatype xsd:integer ;
+                sh:message "Number of deep discharge events — long list v1.3 attribute 98, Battery Regulation." ;
+            ]
+        ]
+    ) .
+
+
+# 64. State of certified energy (SOCE)
+batsh:EV64Shape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:comment "Required for electric vehicle batteries by long list v1.3."@en ;
+    sh:message "State of certified energy (SOCE) — long list v1.3 attribute 64, Battery Regulation." ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path dpp:hasProductGroup ;
+                                 sh:in ( batcat:ElectricVehicleBattery ) ;
+                                 sh:minCount 1 ] ] ]
+        [
+            sh:property [
+                sh:path ( batperf:hasBatteryStateRecord batperf:stateOfCertifiedEnergy ) ;
+                sh:minCount 1 ;
+                sh:datatype xsd:decimal ;
+                sh:message "State of certified energy (SOCE) — long list v1.3 attribute 64, Battery Regulation." ;
+            ]
+        ]
+    ) .
+
+# 90. Capacity threshold for exhaustion
+batsh:EV90Shape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:comment "Required for electric vehicle batteries by long list v1.3."@en ;
+    sh:message "Capacity threshold for exhaustion — long list v1.3 attribute 90, Battery Regulation." ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path dpp:hasProductGroup ;
+                                 sh:in ( batcat:ElectricVehicleBattery ) ;
+                                 sh:minCount 1 ] ] ]
+        [
+            sh:property [
+                sh:path ( batperf:hasBatteryDurability batperf:capacityThresholdForExhaustion ) ;
+                sh:minCount 1 ;
+                sh:datatype xsd:decimal ;
+                sh:message "Capacity threshold for exhaustion — long list v1.3 attribute 90, Battery Regulation." ;
+            ]
+        ]
+    ) .
+
+#################################################
+# 4. Declared, never required
+#################################################
+# The 7 attributes v1.3 marks voluntary or not applicable in all
+# four columns: typed here, never required.
+#
+# Two attributes v1.3 marks mandatory join them (ontologies-battery#14):
+#   22. the cadmium and lead symbols are due only above 0.002 % cadmium
+#       and 0.004 % lead by weight (Art. 13(5)), which the passport
+#       does not state;
+#   36. the due diligence report is due only from 18 August 2027
+#       (Regulation (EU) 2025/1561), and only from economic operators
+#       above the net turnover threshold set for due diligence.
+#
+# The discharge C-rate, data point 40 of the Commission guidance v3.2 and
+# optional there, is typed here too: v1.3 has no attribute for it.
+
+batsh:BatteryVoluntaryShape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:label "Voluntary attributes"@en ;
+    rdfs:comment "Typed but never required: voluntary in long list v1.3, due under conditions a validator cannot check (22, 36), or optional in the Commission guidance v3.2 (discharge C-rate)."@en ;
+
+    # 22. Symbols for cadmium and lead
+    #     due only above 0.002 % cadmium or 0.004 % lead by weight: declared, not required
+    sh:property [
+        sh:path ( batlab:hasBatteryLabel batlab:cadmiumSymbol ) ;
+        sh:datatype xsd:anyURI ;
+        sh:message "Symbols for cadmium and lead — long list v1.3 attribute 22, Battery Regulation." ;
+    ] ;
+
+    sh:property [
+        sh:path ( batlab:hasBatteryLabel batlab:leadSymbol ) ;
+        sh:datatype xsd:anyURI ;
+        sh:message "Symbols for cadmium and lead — long list v1.3 attribute 22, Battery Regulation." ;
+    ] ;
+
+    # 36. Information of due diligence report
+    #     due from 18 August 2027 (Regulation (EU) 2025/1561): declared, not required
+    sh:property [
+        sh:path bat:dueDiligenceReport ;
+        sh:datatype xsd:anyURI ;
+        sh:message "Information of due diligence report — long list v1.3 attribute 36, Battery Regulation." ;
+    ] ;
+
+    # 37. Third party assurances of recognised schemes
+    sh:property [
+        sh:path bat:dueDiligenceAudit ;
+        sh:datatype xsd:anyURI ;
+        sh:message "Third party assurances of recognised schemes — long list v1.3 attribute 37, Battery Regulation." ;
+    ] ;
+
+    # 62. Certified usable battery energy
+    sh:property [
+        sh:path ( batperf:hasBatteryPerformance batperf:certifiedUsableBatteryEnergy ) ;
+        sh:datatype xsd:decimal ;
+        sh:message "Certified usable battery energy — long list v1.3 attribute 62, Battery Regulation." ;
+    ] ;
+
+    # 63. Remaining usable battery energy
+    sh:property [
+        sh:path ( batperf:hasBatteryStateRecord batperf:remainingUsableBatteryEnergy ) ;
+        sh:datatype xsd:decimal ;
+        sh:message "Remaining usable battery energy — long list v1.3 attribute 63, Battery Regulation." ;
+    ] ;
+
+    # 73. Ratio between nominal battery power and battery energy
+    sh:property [
+        sh:path ( batperf:hasBatteryPerformance batperf:powerToEnergyRatio ) ;
+        sh:datatype xsd:decimal ;
+        sh:message "Ratio between nominal battery power and battery energy — long list v1.3 attribute 73, Battery Regulation." ;
+    ] ;
+
+    # 78. Initial self-discharge rate
+    sh:property [
+        sh:path ( batperf:hasBatteryPerformance batperf:initialSelfDischargeRate ) ;
+        sh:datatype xsd:decimal ;
+        sh:message "Initial self-discharge rate — long list v1.3 attribute 78, Battery Regulation." ;
+    ] ;
+
+    # 79. Current self-discharge rate
+    sh:property [
+        sh:path ( batperf:hasBatteryStateRecord batperf:currentSelfDischargeRate ) ;
+        sh:datatype xsd:decimal ;
+        sh:message "Current self-discharge rate — long list v1.3 attribute 79, Battery Regulation." ;
+    ] ;
+
+    # 99. Number of overcharge events
+    sh:property [
+        sh:path ( batperf:hasBatteryStateRecord batperf:numberOfOverchargeEvents ) ;
+        sh:datatype xsd:integer ;
+        sh:message "Number of overcharge events — long list v1.3 attribute 99, Battery Regulation." ;
+    ] ;
+
+    # Discharge C-rate of relevant cycle-life test — Commission guidance v3.2, data point 40
+    sh:property [
+        sh:path ( batperf:hasBatteryPerformance batperf:dischargeCRateOfCycleLifeTest ) ;
+        sh:datatype xsd:decimal ;
+        sh:message "Discharge C-rate of relevant cycle-life test — Commission guidance v3.2, data point 40." ;
+    ]  .
+
+#################################################
+# 5. Deliberately not constrained
+#################################################
+# 14 of the 100 v1.3 attributes have no path here. Each line says why.
+#
+#    16. Date of putting the battery into service
+#        no CORE date property; event vs property still open (battery#26 line of the Broader table)
+#    23. Carbon footprint label
+#        carbon footprint label; core#36 closed without a term, the URL goes through hasExternalDocumentation -> Source (LCA)
+#    25. Meaning of labels and symbols
+#        meaning of labels and symbols; long list v2.0 subsumes it in data point 43 of the Commission guidance (Art. 74(1)), not a separate data point (ontologies-core#37)
+#    28. Battery carbon footprint per Functional Unit
+#        carbon footprint: battery-cf-shapes.ttl, deferred to the LCA module (core#41)
+#    29. Contribution of raw material acquisition and pre-processing 
+#        carbon footprint: battery-cf-shapes.ttl
+#    30. Contribution of main product production lifecycle stage
+#        carbon footprint: battery-cf-shapes.ttl
+#    31. Contribution of distribution lifecycle stage
+#        carbon footprint: battery-cf-shapes.ttl
+#    32. Contribution of end of life and recycling lifecycle stage
+#        carbon footprint: battery-cf-shapes.ttl
+#    33. Carbon footprint performance class
+#        performance class: core#41 makes it an LCA concept, not yet implemented
+#    34. Web link to public carbon footprint study
+#        public study link: hasExternalDocumentation -> Source (LCA), core#36
+#    35. Absolute battery carbon footprint
+#        absolute carbon footprint: battery-cf-shapes.ttl
+#    38. Supply chain indices
+#        supply chain indices: no term, in the CORE or in the battery modules
+#    46. Information on sources of spare parts
+#        spare-part sources are actor data in ACTOR, not a battery term
+#   100. Information on accidents
+#        no object property links bat:Battery to batperf:AccidentEvent; same gap as the putting-into-service event

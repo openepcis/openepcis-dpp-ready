@@ -1,5 +1,5 @@
 # commission-ev-battery: lower then lift
-input 207 triples, lower 227, back 119
+input 207 triples, lower 227, back 121
 
 ## the way back compared with the input
 - missing 6  dppcom:bin
@@ -12,7 +12,7 @@ input 207 triples, lower 227, back 119
 - missing 10  dppcom:upperBound
 - missing 2  dppcom:value
 - missing 4  dppcom:valueRange
-- missing 3  dpp:contentType
+- missing 1  dpp:contentType
 - missing 3  dpp:language
 - missing 3  dpp:resourceTitle
 - missing 1  dpp:url
@@ -60,8 +60,6 @@ input 207 triples, lower 227, back 119
   1  bat:negativeEvents
   1  bat:notInUseTemperatureRangeTest
   1  bat:numberOfDischargingCycles
-  1  bat:originalPowerCapability
-  1  bat:powerCapability
   1  bat:preparationForRepurposingFacilities
   1  bat:preparationForReuseFacilities
   1  bat:separateCollectionPoints
@@ -79,7 +77,6 @@ none
   schema pub-batteries / required: must have required property 'manufacturingDate'
   schema pub-batteries / required: must have required property 'originalPowerCapability'
   schema pub-batteries / required: must have required property 'wasteBatteryPreventionManagementInfo'
-  schema pub-batteries /euDeclarationOfConformity required: must have required property 'contentType'
   schema pub-batteries /maximumVoltage required: must have required property 'valueRange'
   schema pub-batteries /minimalVoltage required: must have required property 'valueRange'
   schema pub-batteries /nominalVoltage required: must have required property 'valueRange'
@@ -88,7 +85,6 @@ none
   schema pub-evb / required: must have required property 'manufacturingDate'
   schema pub-evb / required: must have required property 'originalPowerCapability'
   schema pub-evb / required: must have required property 'wasteBatteryPreventionManagementInfo'
-  schema pub-evb /euDeclarationOfConformity required: must have required property 'contentType'
   schema pub-evb /maximumVoltage required: must have required property 'valueRange'
   schema pub-evb /minimalVoltage required: must have required property 'valueRange'
   schema pub-evb /nominalVoltage required: must have required property 'valueRange'
@@ -97,13 +93,9 @@ none
   schema res1-batteries / required: must have required property 'sparePartReplacementDetails'
   schema res1-evb / required: must have required property 'detailedComposition'
   schema res1-evb / required: must have required property 'sparePartReplacementDetails'
-  schema res2-batteries /complianceTestReportResults required: must have required property 'contentType'
-  schema res2-evb /complianceTestReportResults required: must have required property 'contentType'
   schema res3-evb / required: must have required property 'powerCapability'
-  shacl complianceTestReportResults NodeConstraintComponent: SEM-BAT-MSG-063 [contentType MinCountConstraintComponent]
   shacl cycleLifeReferenceTest MinCountConstraintComponent: SEM-BAT-MSG-032
   shacl detailedComposition MinCountConstraintComponent: SEM-BAT-MSG-059
-  shacl euDeclarationOfConformity NodeConstraintComponent: SEM-BAT-MSG-045 [contentType MinCountConstraintComponent]
   shacl manufacturingDate MinCountConstraintComponent: SEM-BAT-MSG-020
   shacl maximumVoltage NodeConstraintComponent: SEM-BAT-MSG-028 [_ HasValueConstraintComponent]
   shacl maximumVoltage NodeConstraintComponent: SEM-BAT-MSG-028 [valueRange MinCountConstraintComponent]

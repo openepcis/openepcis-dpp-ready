@@ -1,9 +1,11 @@
-# Battery category and status: our code value's skos:exactMatch into the Registry's value list.
+# Battery category and status: our code value's skos:exactMatch into the Registry's value list, else
+# its skos:broadMatch (a stationary battery is an industrial battery; the way back keeps exactMatch).
 CONSTRUCT { ?r ?field ?eu . }
 WHERE {
   GRAPH <urn:xw:roots> { ?r xw:spec "product/batteries/1.0.0" }
   GRAPH <urn:xw:in> { ?r ?p ?code }
-  ?code skos:exactMatch ?eu .
+  ?code skos:exactMatch|skos:broadMatch ?eu .
+  FILTER NOT EXISTS { ?code skos:exactMatch ?other . FILTER(?other != ?eu && STRSTARTS(STR(?other), STR(?ns))) }
   VALUES (?ns ?field) { (batcat: bat:batteryCategory) (batsta: bat:batteryStatus) }
   FILTER(STRSTARTS(STR(?eu), STR(?ns)))
 }

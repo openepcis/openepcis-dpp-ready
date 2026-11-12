@@ -1,0 +1,31 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dpp:Actor a owl:Class ;
+    rdfs:label "Actor"@en ;
+    dcterms:references "CIRPASS-2 User Stories 3.1"@en ;
+    dcterms:source "https://zenodo.org/records/17979585" ;
+    rdfs:comment "Actor means a legal or natural person (e.g. John Doe, TNO). One actor can take on multiple roles; [CIRPASS-2 User Stories 3.1]"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom schema:PostalAddress ;
+            owl:onProperty schema:address ] .
+
+<https://w3id.org/eudpp/textile-actor-mireot> a owl:Ontology ;
+    rdfs:label "Textile ACTOR bounded MIREOT"@en ;
+    dcterms:modified "2026-10-27"^^xsd:date ;
+    dcterms:references "Owner-designated CORE 2.2.0; unchanged source in dependencies/current-core/actor.owl."@en ;
+    dcterms:source <https://w3id.org/eudpp/ACTOR> ;
+    owl:versionIRI <https://w3id.org/eudpp/textile-actor-mireot/2.0.0> ;
+    owl:versionInfo "Version 2.0.0 candidate" .
+
+schema:PostalAddress a owl:Class ;
+    rdfs:isDefinedBy schema:PostalAddress .
+
+schema:address a owl:ObjectProperty ;
+    rdfs:label "has address"@en ;
+    rdfs:comment "Links an Actor or Facility to its postal address, represented as a schema:PostalAddress"@en ;
+    rdfs:isDefinedBy schema:address .

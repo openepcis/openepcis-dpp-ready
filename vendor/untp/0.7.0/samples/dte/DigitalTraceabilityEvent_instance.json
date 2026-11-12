@@ -1,0 +1,148 @@
+{
+  "type": [
+    "DigitalTraceabilityEvent",
+    "VerifiableCredential"
+  ],
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://vocabulary.uncefact.org/untp/0.7.0/context/"
+  ],
+  "id": "https://credentials.sample-mine.example.com/dte/move-conc-2025-0301",
+  "issuer": {
+    "type": [
+      "CredentialIssuer"
+    ],
+    "id": "did:web:sample-mine.example.com",
+    "name": "Sample Copper Mine Pty Ltd",
+    "issuerAlsoKnownAs": [
+      {
+        "type": [
+          "Party"
+        ],
+        "id": "https://sample-register.example.com/companies/MINE-001",
+        "name": "Sample Copper Mine Pty Ltd",
+        "registeredId": "MINE-001",
+        "idScheme": {
+          "type": [
+            "IdentifierScheme"
+          ],
+          "id": "https://sample-register.example.com",
+          "name": "Patents and Companies Registration Agency (Zambia)"
+        }
+      }
+    ]
+  },
+  "validFrom": "2025-03-01T00:00:00Z",
+  "validUntil": "2026-03-01T00:00:00Z",
+  "name": "Shipment of Copper Concentrate — Sample Mine to Sample Smelter",
+  "issuingSoftware": {
+    "id": "https://sample-software-vendor.example.com/.well-known/untp/software/passport-builder/2026.04.1",
+    "name": "Sample Passport Builder",
+    "version": "2026.04.1",
+    "vendor": {
+      "id": "did:web:sample-software-vendor.example.com",
+      "name": "Sample Software Vendor Inc"
+    }
+  },
+  "credentialSubject": [
+    {
+      "type": [
+        "MoveEvent",
+        "LifecycleEvent"
+      ],
+      "id": "https://sample-mine.example.com/events/move-conc-2025-0301",
+      "name": "Copper concentrate shipment to Sample",
+      "description": "Shipment of 100 tonnes of copper concentrate (Cu 30%) from Sample Copper Mine to Sample Copper Refinery via sea freight.",
+      "eventDate": "2025-03-01T08:00:00Z",
+      "activityType": {
+        "code": "shipping",
+        "name": "Shipping",
+        "definition": "The movement of goods from one location to another.",
+        "schemeId": "https://ref.gs1.org/cbv/BizStep",
+        "schemeName": "GS1 CBV Business Step"
+      },
+      "relatedParty": [
+        {
+          "role": "consignor",
+          "party": {
+            "type": [
+              "Party"
+            ],
+            "id": "did:web:sample-mine.example.com",
+            "name": "Sample Copper Mine Pty Ltd",
+            "registeredId": "MINE-001",
+            "idScheme": {
+              "type": [
+                "IdentifierScheme"
+              ],
+              "id": "https://sample-register.example.com",
+              "name": "Patents and Companies Registration Agency (Zambia)"
+            }
+          }
+        },
+        {
+          "role": "consignee",
+          "party": {
+            "type": [
+              "Party"
+            ],
+            "id": "did:web:sample-refinery.example.com",
+            "name": "Sample Copper Refinery Co. Ltd",
+            "registeredId": "REF-001",
+            "idScheme": {
+              "type": [
+                "IdentifierScheme"
+              ],
+              "id": "https://www.sample-register.example.com",
+              "name": "Japan Corporate Number (Houjin Bangou)"
+            }
+          }
+        }
+      ],
+      "movedProduct": [
+        {
+          "product": {
+            "type": [
+              "Product"
+            ],
+            "id": "https://id.sample-mine.example.com/product/cu-conc-2025",
+            "name": "Copper Concentrate (Cu 30%)",
+            "modelNumber": "SM-CU-CONC-30",
+            "batchNumber": "2025-Q1-4501",
+            "idGranularity": "model"
+          },
+          "quantity": {
+            "value": 100000,
+            "unit": "KGM"
+          },
+          "disposition": "new"
+        }
+      ],
+      "fromFacility": {
+        "type": [
+          "Facility"
+        ],
+        "id": "https://facility-register.example.com/fac-001",
+        "name": "Sample Copper Mine",
+        "registeredId": "fac-001"
+      },
+      "toFacility": {
+        "type": [
+          "Facility"
+        ],
+        "id": "https://facility-register.example.com/fac-002",
+        "name": "Sample Copper Refinery",
+        "registeredId": "fac-002"
+      },
+      "consignmentId": "urn:carrier:zm-road:WB-2025-KM-CS-0301",
+      "relatedDocument": [
+        {
+          "linkURL": "https://credentials.sample-mine.example.com/dpp/cu-conc-2025",
+          "linkName": "Digital Product Passport — Copper Concentrate (Cu 30%)",
+          "mediaType": "application/ld+json",
+          "linkType": "https://test.uncefact.org/vocabulary/linkTypes/dpp"
+        }
+      ]
+    }
+  ]
+}

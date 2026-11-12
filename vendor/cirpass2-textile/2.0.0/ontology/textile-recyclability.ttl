@@ -1,0 +1,2078 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix txt: <https://w3id.org/eudpp/textile-core#> .
+@prefix txtam: <https://w3id.org/eudpp/textile-associated-materials#> .
+@prefix txtass: <https://w3id.org/eudpp/textile-assessment#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtind: <https://w3id.org/eudpp/textile-indicator#> .
+@prefix txtprc: <https://w3id.org/eudpp/textile-process#> .
+@prefix txtrec: <https://w3id.org/eudpp/textile-recyclability#> .
+@prefix txtsoc: <https://w3id.org/eudpp/textile-soc#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+txtrec:ChainOfCustodyVerificationMethod a owl:Class ;
+    rdfs:label "Chain-of-custody verification method"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Third-party verification method relying on chain-of-custody tracking of recycled material."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtrec:RecycledContentVerificationMethod ;
+    txtcon:sourceLocator "JRC Section 9.2.5.4, printed pages 143-144, lines 3957-3974."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:ChemicalRecyclingRoute a owl:Class ;
+    rdfs:label "Chemical recycling route"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Recycling route whose principal recycling stage chemically transforms textile inputs to recover polymeric, cellulosic or other material feedstock."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:hasValue txtprc:ChemicalRecyclingProcess ;
+            owl:onProperty txtrec:usesRecyclingProcessType ],
+        txtrec:RecyclingRoute ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed pages 27, 29, lines 536-547; JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730; JRC Preparatory Study, Section 3.3.1, Table 8, printed page 27; caption line 546."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:ManufacturerDeclarationVerificationMethod a owl:Class ;
+    rdfs:label "Manufacturer-declaration verification method"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Verification method based on a declaration made by the manufacturer."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtrec:RecycledContentVerificationMethod ;
+    txtcon:sourceLocator "JRC Section 9.2.5.4, printed pages 143-144, lines 3957-3974."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:MechanicalRecyclingRoute a owl:Class ;
+    rdfs:label "Mechanical recycling route"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Recycling route whose principal recycling stage mechanically transforms textile inputs into reusable fibres or materials."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:hasValue txtprc:MechanicalRecyclingProcess ;
+            owl:onProperty txtrec:usesRecyclingProcessType ],
+        txtrec:RecyclingRoute ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed pages 27, 29, lines 536-547; JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730; JRC Preparatory Study, Section 3.3.1, Table 8, printed page 27; caption line 546."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:RecycledTextileFibre a owl:Class ;
+    rdfs:label "Recycled textile fibre"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Recovered textile material represented as a textile fibre suitable, subject to quality and process requirements, for use in textile products."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txt:TextileFibre,
+        txtrec:RecoveredTextileMaterial ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:TextileChemicalRecyclingEvent a owl:Class ;
+    rdfs:label "Textile chemical recycling event"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Textile recycling event executing the chemical recycling process type."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:hasValue txtprc:ChemicalRecyclingProcess ;
+            owl:onProperty txtprc:executesProcessType ],
+        txtrec:TextileRecyclingEvent ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:TextileMechanicalRecyclingEvent a owl:Class ;
+    rdfs:label "Textile mechanical recycling event"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Textile recycling event executing the mechanical recycling process type."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:hasValue txtprc:MechanicalRecyclingProcess ;
+            owl:onProperty txtprc:executesProcessType ],
+        txtrec:TextileRecyclingEvent ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:appliesSortingCriterion a owl:ObjectProperty ;
+    rdfs:label "applies sorting criterion"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a sorting-for-recycling process to a criterion applied during sorting."@en ;
+    rdfs:domain txtrec:SortingForRecyclingProcess ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:SortingCriterionConcept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtrec:assessesRecyclabilityOf a owl:ObjectProperty ;
+    rdfs:label "assesses recyclability of"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability assessment execution specifically to the product whose recyclability it assesses."@en ;
+    rdfs:domain txtrec:RecyclabilityAssessment ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range dpp:Product ;
+    rdfs:subPropertyOf txtass:assessesProduct ;
+    owl:inverseOf txtrec:hasRecyclabilityAssessment ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:assessesRecyclingRoute a owl:ObjectProperty ;
+    rdfs:label "assesses recycling route"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability assessment to a recycling route evaluated by that assessment."@en ;
+    rdfs:domain txtrec:RecyclabilityAssessment ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclingRoute ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:awardsScoreValue a owl:ObjectProperty ;
+    rdfs:label "awards score value"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability scoring rule to the dimensionless quantitative score value awarded when the rule is satisfied."@en ;
+    rdfs:domain txtrec:RecyclabilityScoringRule ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtcon:QuantitativeValue ;
+    txtcon:sourceLocator "JRC Section 11.1.2.1, Table 76, pages 190-191."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:barrierAppliesToRoute a owl:ObjectProperty ;
+    rdfs:label "barrier applies to route"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability barrier to the recycling route it hinders."@en ;
+    rdfs:domain txtrec:RecyclabilityBarrier ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclingRoute ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:evaluatesCriterion a owl:ObjectProperty ;
+    rdfs:label "evaluates criterion"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a criterion result to the controlled criterion it evaluates."@en ;
+    rdfs:domain txtrec:RecyclabilityCriterionResult ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclabilityCriterionConcept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:followsRecyclingRoute a owl:ObjectProperty ;
+    rdfs:label "follows recycling route"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an actual textile recycling event to the route it follows."@en ;
+    rdfs:domain txtrec:TextileRecyclingEvent ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclingRoute ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:hasBarrierType a owl:ObjectProperty ;
+    rdfs:label "has barrier type"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Classifies a recyclability barrier using a controlled barrier concept."@en ;
+    rdfs:domain txtrec:RecyclabilityBarrier ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclabilityBarrierTypeConcept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:hasCriterionOutcome a owl:ObjectProperty ;
+    rdfs:label "has criterion outcome"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a criterion result to its controlled assessment outcome."@en ;
+    rdfs:domain txtrec:RecyclabilityCriterionResult ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclabilityOutcomeConcept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:hasCriterionResult a owl:ObjectProperty ;
+    rdfs:label "has criterion result"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an aggregate recyclability result to an outcome for one evaluated criterion."@en ;
+    rdfs:domain txtrec:RecyclabilityAssessmentResult ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclabilityCriterionResult ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:hasMaximumScoreValue a owl:ObjectProperty ;
+    rdfs:label "has maximum score value"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability scoring method to the maximum dimensionless score value defined by that method."@en ;
+    rdfs:domain txtrec:RecyclabilityScoringMethod ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtcon:QuantitativeValue ;
+    txtcon:sourceLocator "candidate JRC DO2 scale in Section 11.1.2.1, pages 190-191."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:hasMinimumScoreValue a owl:ObjectProperty ;
+    rdfs:label "has minimum score value"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability scoring method to the minimum dimensionless score value defined by that method."@en ;
+    rdfs:domain txtrec:RecyclabilityScoringMethod ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtcon:QuantitativeValue ;
+    txtcon:sourceLocator "candidate JRC DO2 scale in Section 11.1.2.1, pages 190-191."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:hasRecoveredMaterial a owl:ObjectProperty ;
+    rdfs:label "has recovered material"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an actual textile recycling event to material recovered as an output."@en ;
+    rdfs:domain txtrec:TextileRecyclingEvent ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecoveredTextileMaterial ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:hasRecoveredMaterialQualityResult a owl:ObjectProperty ;
+    rdfs:label "has recovered material quality result"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an assessment or recycling result to a quality result for the recovered material."@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( txtrec:RecyclabilityAssessmentResult txtrec:TextileRecyclingEvent ) ] ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecoveredMaterialQualityResult ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:hasRecyclabilityAspect a owl:ObjectProperty ;
+    rdfs:label "has recyclability aspect"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a product to its recyclability product aspect."@en ;
+    rdfs:domain dpp:Product ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:Recyclability ;
+    rdfs:subPropertyOf dpp:hasProperty ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedRelation .
+
+txtrec:hasRecyclabilityBarrier a owl:ObjectProperty ;
+    rdfs:label "has recyclability barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a route-specific assessment result to a barrier identified during the assessment."@en ;
+    rdfs:domain txtrec:RecyclabilityAssessmentResult ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclabilityBarrier ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedRelation .
+
+txtrec:hasRecyclabilityLabel a owl:ObjectProperty ;
+    rdfs:label "has recyclability label"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability score to a controlled method-specific label."@en ;
+    rdfs:domain txtrec:RecyclabilityScore ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclabilityLabelConcept ;
+    rdfs:subPropertyOf txtind:hasCategoricalValue ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 6.3.3, printed page 86, lines 2193-2205; JRC DPP Study, Section 7.3, printed page 49, data point “Recyclability score”."@en ;
+    txtcon:sourceType txtcon:adaptedRelation .
+
+txtrec:hasRecyclabilityScore a owl:ObjectProperty ;
+    rdfs:label "has recyclability score"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability assessment result to its method-specific score indicator."@en ;
+    rdfs:domain txtrec:RecyclabilityAssessmentResult ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclabilityScore ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 6.3.3, printed page 86, lines 2193-2205; JRC DPP Study, Section 7.3, printed page 49, data point “Recyclability score”."@en ;
+    txtcon:sourceType txtcon:adaptedRelation .
+
+txtrec:hasRecyclabilityTechnologyLevel a owl:ObjectProperty ;
+    rdfs:label "has recyclability technology level"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Classifies a recyclability assessment result using the shared product-technology-level vocabulary defined in Textile Connector."@en ;
+    rdfs:domain txtrec:RecyclabilityAssessmentResult ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtcon:ProductTechnologyLevelConcept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtrec:hasRecyclableMassFractionValue a owl:ObjectProperty ;
+    rdfs:label "has recyclable mass fraction value"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability assessment result to the mass fraction judged recyclable for the stated route and conditions."@en ;
+    rdfs:domain txtrec:RecyclabilityAssessmentResult ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtcon:QuantitativeValue ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:hasRecycledContentAspect a owl:ObjectProperty ;
+    rdfs:label "has recycled content aspect"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a textile product to the recycled-content product aspect used to organise declarations and assessments."@en ;
+    rdfs:domain txt:TextileProduct ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecycledContent ;
+    txtcon:sourceLocator "domain evidence from JRC Section 9.2.5.4, page 143."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:hasRecycledContentAssessment a owl:ObjectProperty ;
+    rdfs:label "has recycled content assessment"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a textile product to a recycled-content assessment execution."@en ;
+    rdfs:domain txt:TextileProduct ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecycledContentAssessment ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:hasRecycledContentDeclaration a owl:ObjectProperty ;
+    rdfs:label "has recycled content declaration"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a product to a recycled-content declaration."@en ;
+    rdfs:domain dpp:Product ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecycledContentDeclaration ;
+    txtcon:sourceLocator "JRC DPP Study, Section 7.3, printed page 50, data point “Recycled content”."@en ;
+    txtcon:sourceType txtcon:adaptedRelation .
+
+txtrec:hasRecycledContentMassFractionValue a owl:ObjectProperty ;
+    rdfs:label "has recycled content mass fraction value"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recycled-content declaration to a quantitative mass fraction expressed using the shared textile value pattern."@en ;
+    rdfs:domain txtrec:RecycledContentDeclaration ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtcon:QuantitativeValue ;
+    txtcon:sourceLocator "JRC Study on DPP content for textile apparel products under ESPR, page 51, lines 2218-2233; JRC 3rd Milestone working document, page 194"@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:hasRecycledContentSource a owl:ObjectProperty ;
+    rdfs:label "has recycled content source"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recycled-content declaration to a controlled post-industrial, pre-consumer or post-consumer source category defined by the stated methodology."@en ;
+    rdfs:domain txtrec:RecycledContentDeclaration ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecycledContentSourceConcept ;
+    txtcon:sourceLocator "JRC DPP Study, Section 7.3, printed page 50, data point “Origin of the recycled content”."@en ;
+    txtcon:sourceType txtcon:adaptedRelation .
+
+txtrec:hasRecycledContentTechnologyLevel a owl:ObjectProperty ;
+    rdfs:label "has recycled content technology level"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Classifies a recycled-content assessment result using the shared product-technology-level vocabulary defined in Textile Connector."@en ;
+    rdfs:domain txtrec:RecycledContentAssessmentResult ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtcon:ProductTechnologyLevelConcept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtrec:hasRecycledMaterialMassValue a owl:ObjectProperty ;
+    rdfs:label "has recycled material mass value"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf> ;
+    rdfs:comment "Relates a recycled-content declaration to the absolute mass of recycled material included in the product."@en ;
+    rdfs:domain txtrec:RecycledContentDeclaration ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtcon:QuantitativeValue ;
+    txtcon:sourceLocator "JRC DPP Study, Section 7.4, printed page 54, data point “Amount of recycled material”."@en ;
+    txtcon:sourceType txtcon:adaptedRelation .
+
+txtrec:hasRecyclingLoop a owl:ObjectProperty ;
+    rdfs:label "has recycling loop"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a route, assessment result or event to the intended material-loop destination."@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( txtrec:RecyclingRoute txtrec:RecyclabilityAssessmentResult txtrec:TextileRecyclingEvent ) ] ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclingLoopConcept ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedRelation .
+
+txtrec:hasRecyclingYieldResult a owl:ObjectProperty ;
+    rdfs:label "has recycling yield result"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates an actual textile recycling event to a result reporting the recovered-material yield of that event."@en ;
+    rdfs:domain txtrec:TextileRecyclingEvent ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclingYieldResult ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:hasRecyclingYieldValue a owl:ObjectProperty ;
+    rdfs:label "has recycling yield value"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recycling yield result to its quantitative value."@en ;
+    rdfs:domain txtrec:RecyclingYieldResult ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtcon:QuantitativeValue ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:hasReferenceProductMassValue a owl:ObjectProperty ;
+    rdfs:label "has reference product mass value"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf> ;
+    rdfs:comment "Relates a recycled-content declaration to the reference product mass, excluding trims where the applicable method requires this basis."@en ;
+    rdfs:domain txtrec:RecycledContentDeclaration ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtcon:QuantitativeValue ;
+    txtcon:sourceLocator "JRC DPP Study, Section 7.4, printed page 54, reference product weight excluding trims."@en ;
+    txtcon:sourceType txtcon:adaptedRelation .
+
+txtrec:hasScoringRule a owl:ObjectProperty ;
+    rdfs:label "has scoring rule"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability scoring method to a scoring rule used by that method."@en ;
+    rdfs:domain txtrec:RecyclabilityScoringMethod ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclabilityScoringRule ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:hasWasteSourceType a owl:ObjectProperty ;
+    rdfs:label "has waste source type"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Relates a textile waste resource to the lifecycle-stage category in which it became waste."@en ;
+    rdfs:domain txtrec:TextileWaste ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:TextileWasteSourceConcept ;
+    txtcon:sourceLocator "JRC Preparatory Study, relevant section, printed page 15, lines 188-212; JRC Preparatory Study, Section 9.2.4, printed page 130, lines 3487-3509."@en ;
+    txtcon:sourceType txtcon:adaptedRelation .
+
+txtrec:refersToNonTextileComponent a owl:ObjectProperty ;
+    rdfs:label "refers to non-textile component"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability barrier to a non-textile component responsible for or affected by the barrier."@en ;
+    rdfs:domain txtrec:RecyclabilityBarrier ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtam:NonTextileComponent ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5410-5443; Table 76, printed page 191, caption line 5441; JRC Preparatory Study, Section 12.3.8, printed pages 239-240, lines 6673-6719; JRC Preparatory Study, Section 12.3.10, printed pages 241-242, lines 6739-6779."@en ;
+    txtcon:sourceType txtcon:adaptedRelation .
+
+txtrec:refersToSubstancePresence a owl:ObjectProperty ;
+    rdfs:label "refers to substance presence"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability barrier to a textile substance-of-concern presence context."@en ;
+    rdfs:domain txtrec:RecyclabilityBarrier ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtsoc:TextileSubstanceOfConcernPresenceContext ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 9.2.5.2, printed page 142, lines 3910-3927; JRC Preparatory Study, Section 11.1.2, printed page 190, lines 5392-5401; JRC Preparatory Study, Section 11.1.2.1, printed page 190, lines 5402-5409."@en ;
+    txtcon:sourceType txtcon:adaptedRelation .
+
+txtrec:requiresRouteStage a owl:ObjectProperty ;
+    rdfs:label "requires route stage"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recycling route to a collection, sorting, preparation or recycling stage required by the route."@en ;
+    rdfs:domain txtrec:RecyclingRoute ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtprc:EndOfLifeProcess ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:resultForRecyclingRoute a owl:ObjectProperty ;
+    rdfs:label "result for recycling route"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability assessment result to the route for which it is valid."@en ;
+    rdfs:domain txtrec:RecyclabilityAssessmentResult ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclingRoute ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:ruleAppliesToRoute a owl:ObjectProperty ;
+    rdfs:label "rule applies to route"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability scoring rule to a recycling route in which the rule applies."@en ;
+    rdfs:domain txtrec:RecyclabilityScoringRule ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclingRoute ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:ruleEvaluatesCriterion a owl:ObjectProperty ;
+    rdfs:label "rule evaluates criterion"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability scoring rule to the recyclability criterion that it evaluates."@en ;
+    rdfs:domain txtrec:RecyclabilityScoringRule ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclabilityCriterionConcept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:ruleUsesThreshold a owl:ObjectProperty ;
+    rdfs:label "rule uses threshold"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recyclability scoring rule to a performance threshold used by that rule."@en ;
+    rdfs:domain txtrec:RecyclabilityScoringRule ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtass:PerformanceThreshold ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:thresholdForRecycledContentSource a owl:ObjectProperty ;
+    rdfs:label "threshold for recycled content source"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recycled-content performance threshold to the recycled-content source category that it constrains."@en ;
+    rdfs:domain txtrec:RecycledContentPerformanceThreshold ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecycledContentSourceConcept ;
+    txtcon:sourceLocator "JRC Section 11.1.3.1, Table 80, pages 194-197."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:usesCollectionScheme a owl:ObjectProperty ;
+    rdfs:label "uses collection scheme"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a collection-for-recycling process type or configuration to the collection scheme it uses."@en ;
+    rdfs:domain txtrec:CollectionForRecyclingProcess ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:CollectionSchemeConcept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtrec:usesPreTreatmentTechnique a owl:ObjectProperty ;
+    rdfs:label "uses pre-treatment technique"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a preparation-for-recycling process to the pre-treatment technique it uses."@en ;
+    rdfs:domain txtrec:PreparationForRecyclingProcess ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:PreTreatmentTechniqueConcept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtrec:usesSortingTechnique a owl:ObjectProperty ;
+    rdfs:label "uses sorting technique"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a sorting-for-recycling process to the sorting technique it uses."@en ;
+    rdfs:domain txtrec:SortingForRecyclingProcess ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:SortingTechniqueConcept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+txtrec:verifiesRecycledContentDeclaration a owl:ObjectProperty ;
+    rdfs:label "verifies recycled content declaration"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recycled-content assessment result to the declaration that it verifies."@en ;
+    rdfs:domain txtrec:RecycledContentAssessmentResult ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecycledContentDeclaration ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:CollectionForRecyclingProcess a owl:Class ;
+    rdfs:label "Collection for recycling process"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "End-of-life process in which discarded textile products are collected for potential sorting, preparation and recycling."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtprc:EndOfLifeProcess ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:PreparationForRecyclingProcess a owl:Class ;
+    rdfs:label "Preparation for recycling process"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "End-of-life process that prepares a textile product or material for recycling, including removal, cleaning, cutting, opening or other pre-treatment required by a route."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtprc:EndOfLifeProcess ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:RecoveredMaterialQualityResult a owl:Class ;
+    rdfs:label "Recovered material quality result"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Assessment result describing whether recovered textile material meets stated quality requirements for a target use."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtass:AssessmentResult ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecyclabilityAssessmentMethod a owl:Class ;
+    rdfs:label "Recyclability assessment method"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Reusable procedure for evaluating textile-product recyclability against stated criteria, assumed system conditions and one or more recycling routes."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtass:AssessmentMethod ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecycledContentPerformanceThreshold a owl:Class ;
+    rdfs:label "Recycled content performance threshold"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Performance threshold defining a minimum recycled-content value for a stated product, fibre or source context. Candidate values proposed in the JRC design option remain assessment data rather than universal OWL axioms."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtass:PerformanceThreshold ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.3, printed page 194, lines 5496-5503; JRC Preparatory Study, Section 11.1.3.1, printed page 194, lines 5504-5519."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:TextileWaste a owl:Class ;
+    rdfs:label "Textile waste"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile product that the holder discards, intends to discard or is required to discard."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txt:TextileProduct ;
+    txtcon:modellingNote "TextileWaste represents a textile product in a waste status. The generation-stage category is supplied separately through hasWasteSourceType."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, relevant section, printed page 15, lines 188-212; JRC Preparatory Study, Section 9.2.4, printed page 130, lines 3487-3509."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:automatedSortingTechnique a skos:Concept,
+        txtrec:SortingTechniqueConcept ;
+    rdfs:label "Automated sorting technique"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Machine-based sorting technique, including systems using near-infrared spectroscopy or product identifiers."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:SortingTechniqueScheme ;
+    skos:prefLabel "Automated sorting technique"@en ;
+    skos:topConceptOf txtrec:SortingTechniqueScheme ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed pages 135-136, lines 3713-3752."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:coatingAbsenceCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Coating absence criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Method-specific criterion evaluating absence of coatings that may interfere with a selected recycling route."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:routeSpecificCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Coating absence criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5402-5443; Table 76, printed page 191, caption line 5441."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:collectionOrSortingSystemBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Collection or sorting system barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "The assumed collection or sorting system cannot reliably direct the product to the intended recycling route."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "Collection or sorting system barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:colourSortingCriterion a skos:Concept,
+        txtrec:SortingCriterionConcept ;
+    rdfs:label "Colour sorting criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Sorting criterion based on colour, especially relevant where colour transfers to the recovered output."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:SortingCriterionScheme ;
+    skos:prefLabel "Colour sorting criterion"@en ;
+    skos:topConceptOf txtrec:SortingCriterionScheme ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed pages 135-136, lines 3713-3752."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:conditionalRecyclabilityLabel a skos:Concept,
+        txtrec:RecyclabilityLabelConcept ;
+    rdfs:label "Conditional recyclability label"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Method-specific label indicating recyclability only for certain routes, conditions or pre-treatments."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityLabelScheme ;
+    skos:prefLabel "Conditional recyclability label"@en ;
+    skos:topConceptOf txtrec:RecyclabilityLabelScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:criterionNotApplicable a skos:Concept,
+        txtrec:RecyclabilityOutcomeConcept ;
+    rdfs:label "Criterion not applicable"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "The criterion does not apply to the assessed route or product context."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityOutcomeScheme ;
+    skos:prefLabel "Criterion not applicable"@en ;
+    skos:topConceptOf txtrec:RecyclabilityOutcomeScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:criterionNotAssessed a skos:Concept,
+        txtrec:RecyclabilityOutcomeConcept ;
+    rdfs:label "Criterion not assessed"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "The criterion was not evaluated."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityOutcomeScheme ;
+    skos:prefLabel "Criterion not assessed"@en ;
+    skos:topConceptOf txtrec:RecyclabilityOutcomeScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:criterionNotSatisfied a skos:Concept,
+        txtrec:RecyclabilityOutcomeConcept ;
+    rdfs:label "Criterion not satisfied"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "The assessed evidence does not satisfy the criterion."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityOutcomeScheme ;
+    skos:prefLabel "Criterion not satisfied"@en ;
+    skos:topConceptOf txtrec:RecyclabilityOutcomeScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:criterionPartlySatisfied a skos:Concept,
+        txtrec:RecyclabilityOutcomeConcept ;
+    rdfs:label "Criterion partly satisfied"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "The assessed evidence partly satisfies the criterion."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityOutcomeScheme ;
+    skos:prefLabel "Criterion partly satisfied"@en ;
+    skos:topConceptOf txtrec:RecyclabilityOutcomeScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:criterionSatisfied a skos:Concept,
+        txtrec:RecyclabilityOutcomeConcept ;
+    rdfs:label "Criterion satisfied"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "The assessed evidence satisfies the criterion."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityOutcomeScheme ;
+    skos:prefLabel "Criterion satisfied"@en ;
+    skos:topConceptOf txtrec:RecyclabilityOutcomeScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:criterionUncertain a skos:Concept,
+        txtrec:RecyclabilityOutcomeConcept ;
+    rdfs:label "Criterion outcome uncertain"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "The available evidence is insufficient for a confident outcome."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityOutcomeScheme ;
+    skos:prefLabel "Criterion outcome uncertain"@en ;
+    skos:topConceptOf txtrec:RecyclabilityOutcomeScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:darkColourSortingBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Dark-colour sorting barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf> ;
+    rdfs:comment "Dark colour limits the performance of an assumed automated textile identification or sorting technique."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "Dark-colour sorting barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC DPP Study, Section 6.1.4, printed page 38, sorting limitations including dark colours."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:differentInnerOuterFibreBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Different inner and outer fibre sorting barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf> ;
+    rdfs:comment "Different fibre compositions in inner and outer layers limit reliable automated identification or separation."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "Different inner and outer fibre sorting barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC DPP Study, Section 6.1.4, printed page 38, sorting limitations involving different fibres in outer and inner layers."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:disassemblyPreTreatment a skos:Concept,
+        txtrec:PreTreatmentTechniqueConcept ;
+    rdfs:label "Disassembly pre-treatment"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Pre-treatment in which product parts or stitches are loosened, dissolved or otherwise separated before recycling."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:PreTreatmentTechniqueScheme ;
+    skos:prefLabel "Disassembly pre-treatment"@en ;
+    skos:topConceptOf txtrec:PreTreatmentTechniqueScheme ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed pages 136-137, lines 3753-3760; Table 50, printed pages 137-138, caption at line 3774."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:disruptiveElementAbsenceCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Absence of disruptive elements criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Whether the product lacks elements or substances that disrupt collection, sorting, preparation or recycling or limit recovered-fibre use."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:productDesignCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Absence of disruptive elements criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5410-5443; Table 76, printed page 191, caption line 5441; JRC Preparatory Study, Section 12.3.8, printed pages 239-240, lines 6673-6719; JRC Preparatory Study, Section 12.3.10, printed pages 241-242, lines 6739-6779."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:dropOffCollectionScheme a skos:Concept,
+        txtrec:CollectionSchemeConcept ;
+    rdfs:label "Drop-off collection scheme"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Collection scheme requiring holders to deliver textile waste to designated containers or collection points."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:CollectionScheme ;
+    skos:prefLabel "Drop-off collection scheme"@en ;
+    skos:topConceptOf txtrec:CollectionScheme ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed page 135, lines 3705-3712."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:dyeAbsenceCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Dye absence criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Method-specific criterion evaluating whether dyes interfere with the intended recycling route. It must not be interpreted as a universal requirement that recyclable textiles be undyed."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:routeSpecificCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Dye absence criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5402-5443; Table 76, printed page 191, caption line 5441."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:effectiveCollectionCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Effective collection criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Whether the product can be effectively collected for subsequent recycling."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:systemConditionCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Effective collection criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:elastaneProportionCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Elastane proportion criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Method-specific criterion evaluating whether the elastane mass fraction is compatible with the selected recycling route."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:routeSpecificCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Elastane proportion criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5402-5443; Table 76, printed page 191, caption line 5441."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:fabricOrConfectioningStageTextileWaste a skos:Concept,
+        txtrec:TextileWasteSourceConcept ;
+    rdfs:label "Fabric or confectioning-stage textile waste"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Post-industrial textile waste generated during fabric manufacturing or apparel confectioning."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:postIndustrialTextileWaste ;
+    skos:inScheme txtrec:TextileWasteSourceScheme ;
+    skos:prefLabel "Fabric or confectioning-stage textile waste"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 2, printed page 15, lines 188-212; JRC Preparatory Study, Section 9.2.4, printed pages 130-131, lines 3487-3509; Table 51, printed page 140, caption line 3849."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:fibreCompositionEligibilityCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Fibre composition eligibility criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Whether the fibre composition meets route-specific thresholds used by the assessment method."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:routeSpecificCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Fibre composition eligibility criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5402-5443; Table 76, printed page 191, caption line 5441."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:fibreCompositionSortingCriterion a skos:Concept,
+        txtrec:SortingCriterionConcept ;
+    rdfs:label "Fibre-composition sorting criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Sorting criterion based on the fibre composition of textile waste."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:SortingCriterionScheme ;
+    skos:prefLabel "Fibre-composition sorting criterion"@en ;
+    skos:topConceptOf txtrec:SortingCriterionScheme ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed pages 135-136, lines 3713-3752."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:fibreFeedstockUseCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Fibre feedstock use criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Whether the fibre content can be used as feedstock for one or more recycling techniques producing fibres usable in textile products."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:routeSpecificCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Fibre feedstock use criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:fibreStageTextileWaste a skos:Concept,
+        txtrec:TextileWasteSourceConcept ;
+    rdfs:label "Fibre-stage textile waste"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Post-industrial textile waste generated during fibre manufacturing or preparation."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:postIndustrialTextileWaste ;
+    skos:inScheme txtrec:TextileWasteSourceScheme ;
+    skos:prefLabel "Fibre-stage textile waste"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 2, printed page 15, lines 188-212; JRC Preparatory Study, Section 9.2.4, printed pages 130-131, lines 3487-3509; Table 51, printed page 140, caption line 3849."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:fibreToFibreRecycling a skos:Concept,
+        txtrec:RecyclingLoopConcept ;
+    rdfs:label "Fibre-to-fibre recycling"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Recycling route intended to produce fibre or material feedstock usable in textile products."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclingLoopScheme ;
+    skos:prefLabel "Fibre-to-fibre recycling"@en ;
+    skos:topConceptOf txtrec:RecyclingLoopScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:hasRecyclabilityAssessment a owl:ObjectProperty ;
+    rdfs:label "has recyclability assessment"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a product to a concrete recyclability assessment performed on it."@en ;
+    rdfs:domain dpp:Product ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtrec:RecyclabilityAssessment ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:highElastaneContentBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "High elastane content barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Elastane content exceeds a route-specific acceptable value."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "High elastane content barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:highRecyclabilityLabel a skos:Concept,
+        txtrec:RecyclabilityLabelConcept ;
+    rdfs:label "High recyclability label"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Method-specific label indicating a comparatively favourable assessment outcome under stated assumptions."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityLabelScheme ;
+    skos:prefLabel "High recyclability label"@en ;
+    skos:topConceptOf txtrec:RecyclabilityLabelScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:highRiskCoatingBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "High-risk coating barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Barrier associated with polyurethane, polyacrylate, PVC, fluorocarbon or rubber coatings identified as high risk for recycling."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:coatingBarrier ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "High-risk coating barrier"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5410-5443; Table 76, printed page 191, caption line 5441; JRC Preparatory Study, Section 12.3.8, printed pages 239-240, lines 6673-6719; JRC Preparatory Study, Section 12.3.10, printed pages 241-242, lines 6739-6779."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:highRiskFinishBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "High-risk chemical-finish barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Barrier associated with chemical finishes identified as high risk for recycling, including selected flame-retardant, anti-pilling, wrinkle-resistant, colour-fastness or repellent treatments."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:chemicalFinishBarrier ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "High-risk chemical-finish barrier"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5410-5443; Table 76, printed page 191, caption line 5441; JRC Preparatory Study, Section 12.3.8, printed pages 239-240, lines 6673-6719; JRC Preparatory Study, Section 12.3.10, printed pages 241-242, lines 6739-6779."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:hybridSortingTechnique a skos:Concept,
+        txtrec:SortingTechniqueConcept ;
+    rdfs:label "Hybrid sorting technique"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Sorting technique combining human inspection and automated sorting."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:SortingTechniqueScheme ;
+    skos:prefLabel "Hybrid sorting technique"@en ;
+    skos:topConceptOf txtrec:SortingTechniqueScheme ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed pages 135-136, lines 3713-3752."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:innerOuterCompositionSimilarityCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Inner and outer composition similarity criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Method-specific criterion comparing the composition of inner and outer product structures."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:productDesignCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Inner and outer composition similarity criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5402-5443; Table 76, printed page 191, caption line 5441."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:insufficientCompositionInformationBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Insufficient composition information barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Composition or dismantling data are insufficient for reliable route selection."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "Insufficient composition information barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:limitedRecyclabilityLabel a skos:Concept,
+        txtrec:RecyclabilityLabelConcept ;
+    rdfs:label "Limited recyclability label"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Method-specific label indicating substantial barriers or restricted route compatibility."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityLabelScheme ;
+    skos:prefLabel "Limited recyclability label"@en ;
+    skos:topConceptOf txtrec:RecyclabilityLabelScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:manualSeparationPreTreatment a skos:Concept,
+        txtrec:PreTreatmentTechniqueConcept ;
+    rdfs:label "Manual separation pre-treatment"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Manual removal of non-textile parts from fibre-containing textile parts."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:PreTreatmentTechniqueScheme ;
+    skos:prefLabel "Manual separation pre-treatment"@en ;
+    skos:topConceptOf txtrec:PreTreatmentTechniqueScheme ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed pages 136-137, lines 3753-3760; Table 50, printed pages 137-138, caption at line 3774."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:manualSortingTechnique a skos:Concept,
+        txtrec:SortingTechniqueConcept ;
+    rdfs:label "Manual sorting technique"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Sorting technique based on human inspection."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:SortingTechniqueScheme ;
+    skos:prefLabel "Manual sorting technique"@en ;
+    skos:topConceptOf txtrec:SortingTechniqueScheme ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed pages 135-136, lines 3713-3752."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:materialChoiceCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Material choice criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Whether selected materials and combinations are compatible with the intended recycling route."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:productDesignCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Material choice criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5402-5443; Table 76, printed page 191, caption line 5441."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:materialSeparabilityCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Material separability criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Whether different materials or components can be separated with effort and damage compatible with the intended recycling route."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:productDesignCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Material separability criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5402-5443; Table 76, printed page 191, caption line 5441."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:mechanicalRecyclingCompatibilityCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Mechanical recycling compatibility criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Whether the product or material stream is compatible with the stated mechanical recycling process."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:routeSpecificCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Mechanical recycling compatibility criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5402-5443; Table 76, printed page 191, caption line 5441."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:mechanicalSeparationPreTreatment a skos:Concept,
+        txtrec:PreTreatmentTechniqueConcept ;
+    rdfs:label "Mechanical separation pre-treatment"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Mechanical separation of non-textile parts, potentially combined with shredding."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:PreTreatmentTechniqueScheme ;
+    skos:prefLabel "Mechanical separation pre-treatment"@en ;
+    skos:topConceptOf txtrec:PreTreatmentTechniqueScheme ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed pages 136-137, lines 3753-3760; Table 50, printed pages 137-138, caption at line 3774."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:mediumRiskCoatingBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Medium-risk coating barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Barrier associated with a coating such as silicone that is identified as a medium recycling risk."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:coatingBarrier ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "Medium-risk coating barrier"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5410-5443; Table 76, printed page 191, caption line 5441; JRC Preparatory Study, Section 12.3.8, printed pages 239-240, lines 6673-6719; JRC Preparatory Study, Section 12.3.10, printed pages 241-242, lines 6739-6779."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:minorFibreDetectionBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Minor fibre detection barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf> ;
+    rdfs:comment "A minor fibre content may fall below the reliable detection capability of the assumed automated sorting technique."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "Minor fibre detection barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC DPP Study, Section 6.1.4, printed page 38, sorting limitation where minor fibre content is below 5%."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:mixedFibreCompositionBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Mixed-fibre composition barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Mixed fibre composition hinders or constrains the selected recycling route."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "Mixed-fibre composition barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:monoMaterialCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Mono-material criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Method-specific criterion evaluating whether the product or assessed material group consists of one principal material stream."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:productDesignCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Mono-material criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5402-5443; Table 76, printed page 191, caption line 5441."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:multiLayerConstructionBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Multi-layer construction sorting barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf> ;
+    rdfs:comment "A multi-layer construction limits reliable automated identification or separation for recycling."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "Multi-layer construction sorting barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC DPP Study, Section 6.1.4, printed page 38, sorting limitations involving multilayer or different inner/outer fibre construction."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:nonTextileComponentBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Non-textile component barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "A non-textile component interferes with sorting, preparation or recycling."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "Non-textile component barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5410-5443; Table 76, printed page 191, caption line 5441; JRC Preparatory Study, Section 12.3.8, printed pages 239-240, lines 6673-6719; JRC Preparatory Study, Section 12.3.10, printed pages 241-242, lines 6739-6779."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:openLoopRecycling a skos:Concept,
+        txtrec:RecyclingLoopConcept ;
+    rdfs:label "Open-loop recycling"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Recycling route producing material for a product system other than textile fibre-to-fibre use."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclingLoopScheme ;
+    skos:prefLabel "Open-loop recycling"@en ;
+    skos:topConceptOf txtrec:RecyclingLoopScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:pickUpCollectionScheme a skos:Concept,
+        txtrec:CollectionSchemeConcept ;
+    rdfs:label "Pick-up collection scheme"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Collection scheme based on scheduled collection routes, including door-to-door or kerbside collection."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:CollectionScheme ;
+    skos:prefLabel "Pick-up collection scheme"@en ;
+    skos:topConceptOf txtrec:CollectionScheme ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed page 135, lines 3705-3712."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:postConsumerRecycledContent a skos:Concept,
+        txtrec:RecycledContentSourceConcept ;
+    rdfs:label "Post-consumer recycled content"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Recycled material recovered from products after use by consumers or end users."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecycledContentSourceScheme ;
+    skos:prefLabel "Post-consumer recycled content"@en ;
+    skos:topConceptOf txtrec:RecycledContentSourceScheme ;
+    txtcon:sourceLocator "JRC DPP Study, Section 7.3, printed page 50, post-consumer recycled-content origin."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:postConsumerTextileWaste a skos:Concept,
+        txtrec:TextileWasteSourceConcept ;
+    rdfs:label "Post-consumer textile waste"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile product discarded after consumption and use by citizens or by end users in commercial or industrial activities."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:TextileWasteSourceScheme ;
+    skos:notation "WASTE_POST_CONSUMER" ;
+    skos:prefLabel "Post-consumer textile waste"@en ;
+    skos:topConceptOf txtrec:TextileWasteSourceScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, relevant section, printed page 15, lines 208-212; JRC Preparatory Study, Section 9.2.4, printed page 130, lines 3506-3509."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:postIndustrialRecycledContent a skos:Concept,
+        txtrec:RecycledContentSourceConcept ;
+    rdfs:label "Post-industrial recycled content"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf> ;
+    rdfs:comment "Recycled material originating from industrial production waste, using the ESPR-oriented source terminology described by the DPP content study."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecycledContentSourceScheme ;
+    skos:prefLabel "Post-industrial recycled content"@en ;
+    skos:topConceptOf txtrec:RecycledContentSourceScheme ;
+    txtcon:sourceLocator "JRC DPP Study, Section 7.3, printed page 50, post-industrial recycled-content origin."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:preConsumerRecycledContent a skos:Concept,
+        txtrec:RecycledContentSourceConcept ;
+    rdfs:label "Pre-consumer recycled content"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Recycled material recovered from waste generated before a product reaches the consumer."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecycledContentSourceScheme ;
+    skos:prefLabel "Pre-consumer recycled content"@en ;
+    skos:topConceptOf txtrec:RecycledContentSourceScheme ;
+    txtcon:sourceLocator "JRC DPP Study, Section 7.3, printed page 50, pre-consumer recycled-content origin."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:preConsumerTextileWaste a skos:Concept,
+        txtrec:TextileWasteSourceConcept ;
+    rdfs:label "Pre-consumer textile waste"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile waste generated at the retailer stage by discarding unsold products because of overstock, obsolescence, damage, defects or qualifying returns."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:TextileWasteSourceScheme ;
+    skos:notation "WASTE_PRE_CONSUMER" ;
+    skos:prefLabel "Pre-consumer textile waste"@en ;
+    skos:topConceptOf txtrec:TextileWasteSourceScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, relevant section, printed page 15, lines 197-207; JRC Preparatory Study, Section 9.2.4, printed page 130, lines 3496-3505."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:preparationForRecyclingCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Preparation for recycling criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Whether the product can be prepared for recycling, or sent directly to recycling without route-incompatible preparation."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:systemConditionCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Preparation for recycling criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:printingAbsenceCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Printing absence criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Method-specific criterion evaluating absence of printing that may interfere with a selected recycling route."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:routeSpecificCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Printing absence criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5402-5443; Table 76, printed page 191, caption line 5441."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:printingBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Printing barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "A printed layer or ink system interferes with a selected recycling route."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "Printing barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5410-5443; Table 76, printed page 191, caption line 5441; JRC Preparatory Study, Section 12.3.8, printed pages 239-240, lines 6673-6719; JRC Preparatory Study, Section 12.3.10, printed pages 241-242, lines 6739-6779."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:productConstructionSortingCriterion a skos:Concept,
+        txtrec:SortingCriterionConcept ;
+    rdfs:label "Product-construction sorting criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Sorting criterion based on product or fabric construction, including mono-layer or multi-layer and woven or knitted structures."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:SortingCriterionScheme ;
+    skos:prefLabel "Product-construction sorting criterion"@en ;
+    skos:topConceptOf txtrec:SortingCriterionScheme ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed pages 135-136, lines 3713-3752."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:productTypeSortingCriterion a skos:Concept,
+        txtrec:SortingCriterionConcept ;
+    rdfs:label "Product-type sorting criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Sorting criterion based on the type of textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:SortingCriterionScheme ;
+    skos:prefLabel "Product-type sorting criterion"@en ;
+    skos:topConceptOf txtrec:SortingCriterionScheme ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed pages 135-136, lines 3713-3752."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:reactiveOrSulphurDyeBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Reactive or sulphur dye barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Barrier associated with reactive dyes, sulphur dyes or pigments that may hinder recycling or affect recovered-material quality."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:dyeBarrier ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "Reactive or sulphur dye barrier"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5410-5443; Table 76, printed page 191, caption line 5441; JRC Preparatory Study, Section 12.3.8, printed pages 239-240, lines 6673-6719; JRC Preparatory Study, Section 12.3.10, printed pages 241-242, lines 6739-6779."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:recyclingInformationAvailabilityCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Recycling information availability criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Whether composition, dismantling and other route-relevant product data are accessible to recycling actors."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:informationCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Recycling information availability criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed page 190, lines 5402-5417; JRC Preparatory Study, Section 12.3.8, printed page 240, lines 6695-6705."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:sequinAbsenceCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Sequin absence criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Method-specific criterion evaluating absence of sequins or similar attached decorative components."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:productDesignCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Sequin absence criterion"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5402-5443; Table 76, printed page 191, caption line 5441."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:sequinBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Sequin barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Sequins or similar decorative components interfere with processing or stream purity."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "Sequin barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5410-5443; Table 76, printed page 191, caption line 5441; JRC Preparatory Study, Section 12.3.8, printed pages 239-240, lines 6673-6719; JRC Preparatory Study, Section 12.3.10, printed pages 241-242, lines 6739-6779."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:shreddingPreTreatment a skos:Concept,
+        txtrec:PreTreatmentTechniqueConcept ;
+    rdfs:label "Shredding pre-treatment"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Pre-treatment in which textile material is shredded to improve the efficiency of a subsequent recycling technique."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:PreTreatmentTechniqueScheme ;
+    skos:prefLabel "Shredding pre-treatment"@en ;
+    skos:topConceptOf txtrec:PreTreatmentTechniqueScheme ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed pages 136-137, lines 3753-3760; Table 50, printed pages 137-138, caption at line 3774."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:sortabilityCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Sortability criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Whether the product can be segregated from other waste and assigned to an appropriate recycling stream."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:systemConditionCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Sortability criterion"@en ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed pages 135-136, lines 3713-3752."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:spinningStageTextileWaste a skos:Concept,
+        txtrec:TextileWasteSourceConcept ;
+    rdfs:label "Spinning-stage textile waste"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Post-industrial textile waste generated during yarn spinning."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:postIndustrialTextileWaste ;
+    skos:inScheme txtrec:TextileWasteSourceScheme ;
+    skos:prefLabel "Spinning-stage textile waste"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 2, printed page 15, lines 188-212; JRC Preparatory Study, Section 9.2.4, printed pages 130-131, lines 3487-3509; Table 51, printed page 140, caption line 3849."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:substanceOfConcernBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Substance-of-concern barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "A substance presence or qualification hinders reuse, recycling or recovered-material use."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "Substance-of-concern barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5410-5443; Table 76, printed page 191, caption line 5441; JRC Preparatory Study, Section 12.3.8, printed pages 239-240, lines 6673-6719; JRC Preparatory Study, Section 12.3.10, printed pages 241-242, lines 6739-6779."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:substanceRestrictionCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Substance restriction criterion"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Whether substances that hinder the intended recycling route are absent or below the applicable route-specific threshold."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:broader txtrec:productDesignCriterion ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:prefLabel "Substance restriction criterion"@en ;
+    txtcon:sourceLocator "JRC Section 9.2.5.2, printed page 142, lines 3910-3927; Section 12.3.11-12.3.12, printed page 246, lines 6818-6837."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:takeBackCollectionScheme a skos:Concept,
+        txtrec:CollectionSchemeConcept ;
+    rdfs:label "Take-back collection scheme"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Collection scheme based on return logistics or a take-back system offered by a retailer or another operator."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:CollectionScheme ;
+    skos:prefLabel "Take-back collection scheme"@en ;
+    skos:topConceptOf txtrec:CollectionScheme ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed page 135, lines 3705-3712."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:unavailableDataCarrierBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Unavailable data carrier barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf> ;
+    rdfs:comment "The product data carrier is missing, damaged or inaccessible at end of life, preventing retrieval of reliable sorting and recycling information."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:prefLabel "Unavailable data carrier barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC DPP Study, Section 6.1.4, printed pages 38-39, dependence of end-of-life sorting on an available DPP data carrier."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:RecoveredTextileMaterial a owl:Class ;
+    rdfs:label "Recovered textile material"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Material output recovered from an actual textile recycling process and potentially usable as input to another production process."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf dpp:MaterialOfComposition ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:Recyclability a owl:Class ;
+    rdfs:label "Recyclability"@en ;
+    dcterms:relation dpp:RecoverableRate,
+        dpp:RecyclingRate ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Potential of a textile product, under a specified collection, sorting, preparation and recycling context, to provide fibre or material feedstock usable in one or more recycling routes without disruptive elements or substances."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf dpp:Property ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:RecyclabilityScore a owl:Class ;
+    rdfs:label "Recyclability score"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Method-specific indicator calculated from stated recyclability criteria and assumptions. A score does not by itself prove that a product will be collected or recycled in practice."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtind:Indicator ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5392-5443; Table 76, printed page 191; JRC DPP Study, Section 7.3, printed page 49, data point “Recyclability score”."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:RecycledContent a owl:Class ;
+    rdfs:label "Recycled content"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Product aspect describing the proportion by mass of recycled fibres from post-industrial, pre-consumer or post-consumer waste in a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf dpp:Property ;
+    txtcon:sourceLocator "JRC Section 9.2.5, printed page 134, lines 3666-3675; Section 9.2.5.4, printed page 143, lines 3957-3961."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:RecycledContentAssessment a owl:Class ;
+    rdfs:label "Recycled content assessment"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Assessment execution that verifies or evaluates a recycled-content declaration for a textile product."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtass:AssessmentExecution ;
+    txtcon:sourceLocator "JRC Section 9.2.5.4, printed pages 143-144, lines 3957-3982."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:RecycledContentVerificationMethod a owl:Class ;
+    rdfs:label "Recycled content verification method"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Assessment method used to verify a recycled-content declaration where no direct laboratory determination of recycled versus virgin fibre origin is available at scale."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtass:AssessmentMethod ;
+    txtcon:sourceLocator "JRC Section 9.2.5.4, printed pages 143-144, lines 3957-3974."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:RecyclingYieldResult a owl:Class ;
+    rdfs:label "Recycling yield result"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Assessment result reporting the mass fraction or other stated yield of recovered material produced by an actual or modelled recycling operation."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtass:AssessmentResult ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:SortingForRecyclingProcess a owl:Class ;
+    rdfs:label "Sorting for recycling process"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "End-of-life process in which collected textile products or materials are segregated into streams suitable for subsequent recycling routes."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtprc:EndOfLifeProcess ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:chemicalFinishBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Chemical-finish barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Barrier caused by a chemical finish that hinders a recycling route or degrades recovered-material quality."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:narrower txtrec:highRiskFinishBarrier ;
+    skos:prefLabel "Chemical-finish barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5410-5443; Table 76, printed page 191, caption line 5441; JRC Preparatory Study, Section 12.3.8, printed pages 239-240, lines 6673-6719; JRC Preparatory Study, Section 12.3.10, printed pages 241-242, lines 6739-6779."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:dyeBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Dye barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "A dye or colour system interferes with a selected recycling route or recovered-material quality."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:narrower txtrec:reactiveOrSulphurDyeBarrier ;
+    skos:prefLabel "Dye barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5410-5443; Table 76, printed page 191, caption line 5441; JRC Preparatory Study, Section 12.3.8, printed pages 239-240, lines 6673-6719; JRC Preparatory Study, Section 12.3.10, printed pages 241-242, lines 6739-6779."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:informationCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Information criterion"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Criterion concerning availability and accessibility of data needed for recycling decisions."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:narrower txtrec:recyclingInformationAvailabilityCriterion ;
+    skos:prefLabel "Information criterion"@en ;
+    skos:topConceptOf txtrec:RecyclabilityCriterionScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:usesRecyclingProcessType a owl:ObjectProperty ;
+    rdfs:label "uses recycling process type"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Relates a recycling route to its principal recycling process type."@en ;
+    rdfs:domain txtrec:RecyclingRoute ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:range txtprc:RecyclingProcess ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 3.3.1, printed pages 27, 29, lines 536-547; JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730; JRC Preparatory Study, Section 3.3.1, Table 8, printed page 27; caption line 546."@en ;
+    txtcon:sourceType txtcon:adaptedRelation .
+
+txtrec:RecyclabilityCriterionResult a owl:Class ;
+    rdfs:label "Recyclability criterion result"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Assessment result reporting the outcome of one controlled recyclability criterion for a product and, where relevant, a specified recycling route."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtrec:RecyclabilityAssessmentResult ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecyclabilityScoringMethod a owl:Class ;
+    rdfs:label "Recyclability scoring method"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Assessment method that combines criterion outcomes into a method-specific recyclability score or label. It is not a universal regulatory scoring formula."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtrec:RecyclabilityAssessmentMethod ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5402-5443; Table 76, printed page 191, caption line 5441."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:RecycledContentAssessmentResult a owl:Class ;
+    rdfs:label "Recycled content assessment result"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Assessment result reporting the outcome of verifying or evaluating a recycled-content declaration."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtass:AssessmentResult ;
+    txtcon:sourceLocator "JRC Sections 9.2.5.4-9.2.5.5, pages 143-144."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecyclingLoopConcept a owl:Class ;
+    rdfs:label "Recycling loop concept"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Controlled concept identifying the intended material-loop destination of a recycling route."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:coatingBarrier a skos:Concept,
+        txtrec:RecyclabilityBarrierTypeConcept ;
+    rdfs:label "Coating barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "A coating interferes with separation, recycling or recovered-material quality."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityBarrierTypeScheme ;
+    skos:narrower txtrec:highRiskCoatingBarrier,
+        txtrec:mediumRiskCoatingBarrier ;
+    skos:prefLabel "Coating barrier"@en ;
+    skos:topConceptOf txtrec:RecyclabilityBarrierTypeScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 11.1.2.1, printed pages 190-191, lines 5410-5443; Table 76, printed page 191, caption line 5441; JRC Preparatory Study, Section 12.3.8, printed pages 239-240, lines 6673-6719; JRC Preparatory Study, Section 12.3.10, printed pages 241-242, lines 6739-6779."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:CollectionSchemeConcept a owl:Class ;
+    rdfs:label "Collection scheme concept"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "SKOS concept used to classify an arrangement for collecting textile waste."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, pages 135-136."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecyclabilityAssessment a owl:Class ;
+    rdfs:label "Recyclability assessment"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Concrete execution of a recyclability assessment method on a specified textile product for stated recycling routes and conditions."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtass:AssessmentExecution ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecyclabilityLabelConcept a owl:Class ;
+    rdfs:label "Recyclability label concept"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Controlled categorical label used by a specified recyclability scoring method."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecyclingLoopScheme a skos:ConceptScheme ;
+    rdfs:label "Recycling loop scheme"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Controlled vocabulary for recycling loop scheme."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:hasTopConcept txtrec:fibreToFibreRecycling,
+        txtrec:openLoopRecycling ;
+    skos:prefLabel "Recycling loop scheme"@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:SortingTechniqueConcept a owl:Class ;
+    rdfs:label "Sorting technique concept"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "SKOS concept used to classify a textile sorting technique."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, page 137."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:postIndustrialTextileWaste a skos:Concept,
+        txtrec:TextileWasteSourceConcept ;
+    rdfs:label "Post-industrial textile waste"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Textile waste generated during manufacturing of textile products or their fibre, yarn and fabric precursors, including cutting waste, roll ends, excess material, production errors and certain discarded finished products."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:TextileWasteSourceScheme ;
+    skos:narrower txtrec:fabricOrConfectioningStageTextileWaste,
+        txtrec:fibreStageTextileWaste,
+        txtrec:spinningStageTextileWaste ;
+    skos:notation "WASTE_POST_INDUSTRIAL" ;
+    skos:prefLabel "Post-industrial textile waste"@en ;
+    skos:topConceptOf txtrec:TextileWasteSourceScheme ;
+    txtcon:sourceLocator "JRC Preparatory Study, relevant section, printed page 15, lines 190-196; JRC Preparatory Study, Section 9.2.4, printed page 130, lines 3488-3495."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:systemConditionCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "System-condition criterion"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Criterion concerning collection, sorting or preparation conditions outside the product itself."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:narrower txtrec:effectiveCollectionCriterion,
+        txtrec:preparationForRecyclingCriterion,
+        txtrec:sortabilityCriterion ;
+    skos:prefLabel "System-condition criterion"@en ;
+    skos:topConceptOf txtrec:RecyclabilityCriterionScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:PreTreatmentTechniqueConcept a owl:Class ;
+    rdfs:label "Pre-treatment technique concept"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "SKOS concept used to classify a technique that prepares textile waste for a recycling process."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, page 137."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecyclabilityBarrier a owl:Class ;
+    rdfs:label "Recyclability barrier"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Product, material, substance, information or system condition that hinders collection, sorting, preparation, recycling or the use and quality of recovered material for a specified route."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtass:AssessmentElement ;
+    txtcon:sourceLocator "JRC Preparatory Study, Section 13.10.1.14, printed pages 481-482, lines 11685-11730."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:RecyclabilityScoringRule a owl:Class ;
+    rdfs:label "Recyclability scoring rule"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Rule belonging to a recyclability scoring method and assigning a quantitative point value to a stated criterion under stated route or threshold conditions."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    txtcon:sourceLocator "domain evidence from JRC Section 11.1.2.1, Table 76, pages 190-191."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecycledContentSourceConcept a owl:Class ;
+    rdfs:label "Recycled content source concept"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Controlled concept identifying the lifecycle source category of recycled content, including post-industrial, pre-consumer and post-consumer material. The declaration or method must state the definition framework used because ISO and ESPR terminology are not fully aligned."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "JRC DPP Study, Section 7.3, printed page 50, data point “Origin of the recycled content”."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:SortingCriterionConcept a owl:Class ;
+    rdfs:label "Sorting criterion concept"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "SKOS concept used to classify a criterion applied during sorting for recycling."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, pages 136-137."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:CollectionScheme a skos:ConceptScheme ;
+    rdfs:label "Collection scheme"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Controlled vocabulary of collection schemes for textile waste."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:hasTopConcept txtrec:dropOffCollectionScheme,
+        txtrec:pickUpCollectionScheme,
+        txtrec:takeBackCollectionScheme ;
+    skos:prefLabel "Collection scheme"@en ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed page 135, lines 3705-3712."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:RecyclabilityLabelScheme a skos:ConceptScheme ;
+    rdfs:label "Recyclability label scheme"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Controlled vocabulary for recyclability label scheme."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:hasTopConcept txtrec:conditionalRecyclabilityLabel,
+        txtrec:highRecyclabilityLabel,
+        txtrec:limitedRecyclabilityLabel ;
+    skos:prefLabel "Recyclability label scheme"@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecycledContentDeclaration a owl:Class ;
+    rdfs:label "Recycled content declaration"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Declaration reporting the mass fraction of recycled material in a textile product or material. Recycled content is related to, but distinct from, recyclability."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    txtcon:sourceLocator "JRC DPP Study, Section 7.3, printed page 50, data point “Recycled content”."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:RecycledContentSourceScheme a skos:ConceptScheme ;
+    rdfs:label "Recycled content source scheme"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Controlled vocabulary for recycled content source scheme."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:hasTopConcept txtrec:postConsumerRecycledContent,
+        txtrec:postIndustrialRecycledContent,
+        txtrec:preConsumerRecycledContent ;
+    skos:prefLabel "Recycled content source scheme"@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:SortingTechniqueScheme a skos:ConceptScheme ;
+    rdfs:label "Sorting technique scheme"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Controlled vocabulary of manual, automated and hybrid textile sorting techniques."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:hasTopConcept txtrec:automatedSortingTechnique,
+        txtrec:hybridSortingTechnique,
+        txtrec:manualSortingTechnique ;
+    skos:prefLabel "Sorting technique scheme"@en ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed pages 135-136, lines 3713-3752."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:RecyclabilityOutcomeConcept a owl:Class ;
+    rdfs:label "Recyclability outcome concept"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Controlled concept expressing the outcome of a recyclability criterion."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:TextileRecyclingEvent a owl:Class ;
+    rdfs:label "Textile recycling event"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Concrete textile recycling occurrence represented both as a product event and as a textile process execution."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf dpp:ProductEvent,
+        txtprc:TextileProcessExecution ;
+    txtcon:sourceLocator "EU DPP EVENT module: dpp:ProductEvent."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:TextileWasteSourceConcept a owl:Class ;
+    rdfs:label "Textile waste source concept"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Controlled concept classifying textile waste according to the lifecycle stage at which it became waste."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:modellingNote "This vocabulary classifies a concrete waste resource and is distinct from RecycledContentSourceConcept, which classifies the declared origin of material already incorporated as recycled content."@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, relevant section, printed page 15, lines 188-212; JRC Preparatory Study, Section 9.2.4, printed page 130, lines 3487-3509."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:PreTreatmentTechniqueScheme a skos:ConceptScheme ;
+    rdfs:label "Pre-treatment technique scheme"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Controlled vocabulary of techniques used to prepare textile waste for recycling."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:hasTopConcept txtrec:disassemblyPreTreatment,
+        txtrec:manualSeparationPreTreatment,
+        txtrec:mechanicalSeparationPreTreatment,
+        txtrec:shreddingPreTreatment ;
+    skos:prefLabel "Pre-treatment technique scheme"@en ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed pages 136-137, lines 3753-3760; Table 50, printed pages 137-138, caption at line 3774."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:SortingCriterionScheme a skos:ConceptScheme ;
+    rdfs:label "Sorting criterion scheme"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Controlled vocabulary of criteria used to sort textile waste for recycling routes."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:hasTopConcept txtrec:colourSortingCriterion,
+        txtrec:fibreCompositionSortingCriterion,
+        txtrec:productConstructionSortingCriterion,
+        txtrec:productTypeSortingCriterion ;
+    skos:prefLabel "Sorting criterion scheme"@en ;
+    txtcon:sourceLocator "JRC Section 9.2.5.1, printed pages 135-136, lines 3713-3752."@en ;
+    txtcon:sourceType txtcon:adaptedDefinition .
+
+txtrec:productDesignCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Product-design criterion"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Criterion concerning product composition, components, finishes or construction."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:narrower txtrec:disruptiveElementAbsenceCriterion,
+        txtrec:innerOuterCompositionSimilarityCriterion,
+        txtrec:materialChoiceCriterion,
+        txtrec:materialSeparabilityCriterion,
+        txtrec:monoMaterialCriterion,
+        txtrec:sequinAbsenceCriterion,
+        txtrec:substanceRestrictionCriterion ;
+    skos:prefLabel "Product-design criterion"@en ;
+    skos:topConceptOf txtrec:RecyclabilityCriterionScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:routeSpecificCriterion a skos:Concept,
+        txtrec:RecyclabilityCriterionConcept ;
+    rdfs:label "Route-specific criterion"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Criterion whose outcome depends on the selected recycling technology or route."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:inScheme txtrec:RecyclabilityCriterionScheme ;
+    skos:narrower txtrec:coatingAbsenceCriterion,
+        txtrec:dyeAbsenceCriterion,
+        txtrec:elastaneProportionCriterion,
+        txtrec:fibreCompositionEligibilityCriterion,
+        txtrec:fibreFeedstockUseCriterion,
+        txtrec:mechanicalRecyclingCompatibilityCriterion,
+        txtrec:printingAbsenceCriterion ;
+    skos:prefLabel "Route-specific criterion"@en ;
+    skos:topConceptOf txtrec:RecyclabilityCriterionScheme ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:TextileWasteSourceScheme a skos:ConceptScheme ;
+    rdfs:label "Textile waste source scheme"@en ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    rdfs:comment "Controlled vocabulary of post-industrial, pre-consumer and post-consumer textile waste source categories."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:hasTopConcept txtrec:postConsumerTextileWaste,
+        txtrec:postIndustrialTextileWaste,
+        txtrec:preConsumerTextileWaste ;
+    skos:prefLabel "Textile waste source scheme"@en ;
+    txtcon:sourceLocator "JRC Preparatory Study, relevant section, printed page 15, lines 188-212; JRC Preparatory Study, Section 9.2.4, printed page 130, lines 3487-3509."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecyclabilityAssessmentResult a owl:Class ;
+    rdfs:label "Recyclability assessment result"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Result produced by a recyclability assessment, reporting route-specific criterion outcomes, barriers, recyclable fraction, score or label when applicable."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf txtass:AssessmentResult ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecyclingRoute a owl:Class ;
+    rdfs:label "Recycling route"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Specified sequence or configuration of collection, sorting, preparation and recycling stages used as the context for a recyclability assessment or actual recycling operation."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecyclabilityOutcomeScheme a skos:ConceptScheme ;
+    rdfs:label "Recyclability outcome scheme"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Controlled vocabulary for recyclability outcome scheme."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:hasTopConcept txtrec:criterionNotApplicable,
+        txtrec:criterionNotAssessed,
+        txtrec:criterionNotSatisfied,
+        txtrec:criterionPartlySatisfied,
+        txtrec:criterionSatisfied,
+        txtrec:criterionUncertain ;
+    skos:prefLabel "Recyclability outcome scheme"@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecyclabilityBarrierTypeConcept a owl:Class ;
+    rdfs:label "Recyclability barrier type concept"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Controlled concept classifying a recyclability barrier."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecyclabilityCriterionConcept a owl:Class ;
+    rdfs:label "Recyclability criterion concept"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Controlled concept identifying a criterion used in a recyclability assessment."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    rdfs:subClassOf skos:Concept ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecyclabilityCriterionScheme a skos:ConceptScheme ;
+    rdfs:label "Recyclability criterion scheme"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Controlled vocabulary for recyclability criterion scheme."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:hasTopConcept txtrec:informationCriterion,
+        txtrec:productDesignCriterion,
+        txtrec:routeSpecificCriterion,
+        txtrec:systemConditionCriterion ;
+    skos:prefLabel "Recyclability criterion scheme"@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+txtrec:RecyclabilityBarrierTypeScheme a skos:ConceptScheme ;
+    rdfs:label "Recyclability barrier type scheme"@en ;
+    dcterms:source <https://w3id.org/eudpp/textile-ontology> ;
+    rdfs:comment "Controlled vocabulary for recyclability barrier type scheme."@en ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/textile-recyclability> ;
+    skos:hasTopConcept txtrec:chemicalFinishBarrier,
+        txtrec:coatingBarrier,
+        txtrec:collectionOrSortingSystemBarrier,
+        txtrec:darkColourSortingBarrier,
+        txtrec:differentInnerOuterFibreBarrier,
+        txtrec:dyeBarrier,
+        txtrec:highElastaneContentBarrier,
+        txtrec:insufficientCompositionInformationBarrier,
+        txtrec:minorFibreDetectionBarrier,
+        txtrec:mixedFibreCompositionBarrier,
+        txtrec:multiLayerConstructionBarrier,
+        txtrec:nonTextileComponentBarrier,
+        txtrec:printingBarrier,
+        txtrec:sequinBarrier,
+        txtrec:substanceOfConcernBarrier,
+        txtrec:unavailableDataCarrierBarrier ;
+    skos:prefLabel "Recyclability barrier type scheme"@en ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:modellingAbstraction .
+
+<https://w3id.org/eudpp/textile-recyclability> a owl:Ontology ;
+    rdfs:label "EU DPP Textile Recyclability Ontology"@en ;
+    dcterms:bibliographicCitation "EU DPP Textile Recyclability Ontology. Version 2.0.0 candidate."@en ;
+    dcterms:created "2026-07-09"^^xsd:date ;
+    dcterms:creator "BOUGACHA Racem"@en,
+        "Elio Hbeich"@en,
+        "Ivo Ladenius"@en,
+        "Andreas Schneider"@en,
+        "Jan Merckx"@en,
+        "Piero de Sabbata"@en ;
+    dcterms:description "Ontology module for route-specific textile recyclability, assessment criteria and results, barriers, scores and labels, actual recycling events, recovered materials, textile waste categories, recycling yield and recycled-content declarations."@en ;
+    dcterms:issued "2026-07-09"^^xsd:date ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:modified "2026-10-27"^^xsd:date ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf>,
+        <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2026-05/Textiles_DPP_20260513.pdf>,
+        <https://w3id.org/eudpp/textile-ontology> ;
+    dcterms:title "EU DPP Textile Recyclability Ontology"@en ;
+    vann:preferredNamespacePrefix "txtrec" ;
+    vann:preferredNamespaceUri "https://w3id.org/eudpp/textile-recyclability#" ;
+    rdfs:comment "Recyclability is represented as route-specific potential assessed under stated collection, sorting, preparation and recycling conditions. It must not be inferred from a universal boolean."@en,
+        "Recycled content is represented separately from recyclability: a product can contain recycled material without being recyclable through a given route, and a recyclable product may contain no recycled material."@en,
+        "Scores and labels are method-specific and do not constitute adopted regulatory classifications unless a future delegated act or standard defines them."@en ;
+    owl:imports <https://w3id.org/eudpp/textile-assessment>,
+        <https://w3id.org/eudpp/textile-associated-materials>,
+        <https://w3id.org/eudpp/textile-connector>,
+        <https://w3id.org/eudpp/textile-core>,
+        <https://w3id.org/eudpp/textile-dpp-mireot>,
+        <https://w3id.org/eudpp/textile-event-mireot>,
+        <https://w3id.org/eudpp/textile-indicator>,
+        <https://w3id.org/eudpp/textile-process>,
+        <https://w3id.org/eudpp/textile-soc> ;
+    owl:versionIRI <https://w3id.org/eudpp/textile-recyclability/2.0.0> ;
+    owl:versionInfo "Version 2.0.0 candidate" ;
+    txtcon:sourceLocator "CIRPASS Textile Ontology modelling specification, version 1.1.0."@en ;
+    txtcon:sourceType txtcon:projectDecision .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( txtrec:Recyclability txtrec:RecycledContent ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( txtrec:RecyclabilityAssessment txtrec:RecycledContentAssessment ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( txtrec:RecyclabilityAssessmentResult txtrec:RecycledContentAssessmentResult ) .

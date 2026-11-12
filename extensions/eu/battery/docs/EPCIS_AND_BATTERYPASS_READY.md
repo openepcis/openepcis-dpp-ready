@@ -169,6 +169,19 @@ accidents (the battery had none, so there is no incident report to link) and the
 resistance (0.25 mΩ; 2.0.1 types ohms as integers). The script lists such values. `pnpm test` checks
 the reconstruction with the item's state results removed, so the events alone feed them.
 
+The result is committed as `extensions/eu/battery/examples/amperia-staxwall-item.bpr-2.0.1.json`
+(`pnpm test` keeps it in step) and is a fixture of the BatteryPass-Ready 2.0.1 types the OpenEPCIS
+GITB validator hosts (`x.bpr-2.0.1.<category>[.feb27]`, docs/GITB_CONFORMANCE.md, "External
+models"); the two values are recorded there as deviations of the release, with these reasons.
+Any 2.0.1 document is checked the same way without a GEFEG login:
+
+```bash
+pnpm run validate:target -- passport.bpr.json   # schema of the document's category, full and Feb 2027
+```
+
+The live GEFEG check (`validate:batterypass-live`) remains for comparison; it needs a token from
+the browser (the realm does not allow a password grant).
+
 ## Why the split
 
 The passport is a point-in-time conformance document that GEFEG validates structurally. EPCIS keeps

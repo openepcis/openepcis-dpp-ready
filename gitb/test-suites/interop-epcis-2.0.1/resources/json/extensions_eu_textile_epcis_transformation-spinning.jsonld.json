@@ -1,0 +1,47 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "rdfs:comment": [
+    "Fiber to yarn transformation at spinning facility.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
+    "",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,eutex=https://ref.openepcis.org/extensions/eu/textile/",
+    "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "schemaVersion": "2.0",
+  "creationDate": "2025-08-01T06:00:00.000Z",
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "TransformationEvent",
+        "eventID": "urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567002",
+        "eventTime": "2025-08-01T06:00:00.000Z",
+        "eventTimeZoneOffset": "+08:00",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "inputEPCList": [
+          "https://id.gs1.org/01/09521234000105/10/RPET-BATCH-2025-044"
+        ],
+        "outputEPCList": [
+          "https://id.gs1.org/01/09521234000112/10/YARN-RPET-2025-088"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000044"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000044"
+        },
+        "ilmd": {
+          "eutex:isRecycledFiber": true,
+          "eutex:recycledContentSource": "Post-consumer PET bottles"
+        }
+      }
+    ]
+  }
+}

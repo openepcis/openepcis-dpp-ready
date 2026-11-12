@@ -1,0 +1,60 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/ppwr/ppwr-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "rdfs:comment": [
+    "Deposit-return event: a consumer redeems an empty PET bottle at a reverse-vending machine (RVM); the item leaves circulation (DELETE / decommissioning) and the refund is captured as an event-level observation. A single physical item is redeemed, so the epcList carries a serialised GTIN (AI 01 + AI 21).",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
+    "",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/, euppwr=https://ref.openepcis.org/extensions/eu/ppwr/",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "schemaVersion": "2.0",
+  "creationDate": "2026-06-12T14:25:00.000Z",
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:5c2b4e90-1234-4abc-9876-1f2c3d4e5f62",
+        "eventTime": "2026-06-12T14:25:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "DELETE",
+        "bizStep": "decommissioning",
+        "disposition": "returned",
+        "epcList": [
+          "https://id.gs1.org/01/09521004005019/21/000001042"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000051"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000051"
+        },
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "time": "2026-06-12T14:25:00.000Z",
+              "deviceID": "https://id.gs1.org/8004/95212340RVM-1042",
+              "deviceMetadata": "https://rvm-vendor.example.com/devices/RVM-2300"
+            },
+            "sensorReport": [
+              {
+                "type": "euppwr:depositRefundIssued",
+                "value": 0.25,
+                "uom": "EUR"
+              },
+              {
+                "type": "euppwr:containerCondition",
+                "stringValue": "intact"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

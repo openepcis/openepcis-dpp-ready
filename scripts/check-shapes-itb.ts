@@ -59,6 +59,8 @@ import {
   type ValidatableModule,
 } from "./lib/modules.ts";
 import { VALIDATOR_DOMAIN } from "./lib/gitb.ts";
+import { documentQuads, fixturesOf, livenessMutation, loadTargets, readDocument, rootType, shapeFindings } from "./lib/targets.ts";
+import { Writer } from "n3";
 
 const args = process.argv.slice(2);
 const VERBOSE = args.includes("--verbose");
@@ -311,6 +313,69 @@ async function main() {
         }
         console.log(`   FAIL   ${rel} [${type}]: ${result.violations.length} violation(s)`);
         for (const v of VERBOSE ? result.violations : result.violations.slice(0, 5)) console.log(`            ${v}`);
+      }
+    }
+  }
+
+  // Phase 4: the external targets (scripts/lib/targets.ts). Every fixture of a target, the
+  // publisher's examples and what our crosswalk lifts, goes through each SHACL type it belongs to;
+  // the hosted validator must say what the local engines say on the publisher's unmodified shapes.
+  // A graph without the target's root class must be rejected (the presence shape).
+  for (const target of loadTargets()) {
+    const types = target.types.filter((t) => t.shapes.length);
+    if (!types.length) continue;
+    console.log(`\n── external: ${target.title} ${target.version}`);
+    const nq = (quads: Awaited<ReturnType<typeof documentQuads>>) => new Writer({ format: "application/n-quads" }).quadsToString(quads);
+    for (const type of types.filter(() => rootType(target))) {
+      checked++;
+      const probe = await validate(`<urn:openepcis:probe> <urn:openepcis:says> "not a passport" .\n`, type.id);
+      if (probe.conforms) {
+        failed++;
+        console.log(`   FAIL   ${type.id}: accepts a graph with no ${rootType(target)?.replace(/.*[#/]/, "")}`);
+      }
+    }
+    // The publisher's shapes must be live in the validator, not only the presence shape: a valid
+    // publisher example with one root property retyped must be rejected by both engines.
+    for (const type of types) {
+      const f = fixturesOf(target).find((x) => x.role === "publisher" && x.expect === "valid" && !x.noShacl && x.types.includes(type.id));
+      if (!f) continue;
+      const m = await livenessMutation(target, type, await documentQuads(target, readDocument(f.file)));
+      if (!m) {
+        console.log(`   NOTE   ${type.id}: no datatype or required property on the root class to prove the shapes live`);
+        continue;
+      }
+      checked++;
+      const local = await shapeFindings(target, type, m.quads);
+      const hosted = await validate(nq(m.quads), type.id);
+      if (!hosted.conforms && (local.form.length || local.missing.length)) continue;
+      failed++;
+      console.log(`   FAIL   ${type.id}: ${m.path.replace(/.*[#/]/, "")} retyped or dropped: hosted ${hosted.conforms ? "accepts" : "rejects"}, local engines ${local.form.length ? "reject" : "accept"} (shapes not live?)`);
+    }
+    for (const f of fixturesOf(target)) {
+      if (f.noShacl) continue;
+      const quads = await documentQuads(target, readDocument(f.file));
+      for (const id of f.types) {
+        const type = types.find((t) => t.id === id);
+        if (!type) continue;
+        checked++;
+        const local = await shapeFindings(target, type, quads);
+        const expected = !local.form.length && !local.missing.length;
+        let result: TarResult;
+        try {
+          result = await validate(nq(quads), id);
+        } catch (e) {
+          failed++;
+          console.log(`   ERROR  ${f.file} [${id}]: ${(e as Error).message}`);
+          continue;
+        }
+        if (result.conforms === expected) {
+          console.log(`   OK     ${f.file} [${id}]${expected ? "" : `: rejected, as locally (${result.violations.length} violation(s))`}`);
+          continue;
+        }
+        failed++;
+        console.log(`   FAIL   ${f.file} [${id}]: hosted ${result.conforms ? "conforms" : "rejects"}, local engines ${expected ? "accept" : "reject"}`);
+        for (const v of VERBOSE ? result.violations : result.violations.slice(0, 5)) console.log(`            ${v}`);
+        for (const v of [...local.form, ...local.missing].slice(0, VERBOSE ? undefined : 5)) console.log(`            local: ${v}`);
       }
     }
   }

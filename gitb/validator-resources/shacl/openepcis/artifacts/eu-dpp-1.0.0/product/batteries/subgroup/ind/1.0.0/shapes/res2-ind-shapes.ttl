@@ -1,0 +1,19 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dpp: <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#> .
+@prefix batind-shapes: <https://repository.product-passport.ec.europa.eu/product/batteries/subgroup/ind/shapes/> .
+
+batind-shapes:battery-ind-restricted-1-shapes
+    a sh:NodeShape ;
+    sh:targetClass dpp:DigitalProductPassport ;
+
+    sh:property [
+        sh:path dpp:contentSpecificationIds ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:qualifiedValueShape [
+            sh:datatype xsd:string ;
+            sh:pattern "^https://repository\\.product-passport\\.ec\\.europa\\.eu/product/batteries/subgroup/ind/\\d+\\.\\d+\\.\\d+$"
+        ] ;
+        sh:message "SEM-MSG-009"
+    ] .

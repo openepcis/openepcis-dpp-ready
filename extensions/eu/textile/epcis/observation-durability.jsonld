@@ -5,9 +5,7 @@
     "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld"
   ],
   "type": "EPCISDocument",
-  "schemaVersion": "2.0",
-  "creationDate": "2025-10-01T14:00:00.000Z",
-  "_comment_architecture": [
+  "rdfs:comment": [
     "Robustness observation event. The event is the assessment execution (eventTime, readPoint say when and where); the eutex:RobustnessAssessment at event level applies eutex:JRCRobustnessScoring after 5 cleaning cycles (ISO 6330) and carries its three tests, their measurement results and the 0-10 robustness score indicator (common/assessment model).",
     "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
     "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
@@ -16,6 +14,8 @@
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
+  "schemaVersion": "2.0",
+  "creationDate": "2025-10-01T14:00:00.000Z",
   "epcisBody": {
     "eventList": [
       {

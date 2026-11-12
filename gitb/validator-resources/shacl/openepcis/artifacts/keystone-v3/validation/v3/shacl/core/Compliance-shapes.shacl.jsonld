@@ -1,0 +1,280 @@
+{
+  "@context": {
+    "sh": "http://www.w3.org/ns/shacl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dppk": "https://dpp-keystone.org/spec/v3/terms#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "@vocab": "http://www.w3.org/ns/shacl#",
+    "node": {
+      "@type": "@id"
+    },
+    "path": {
+      "@type": "@id"
+    },
+    "targetClass": {
+      "@type": "@id"
+    },
+    "class": {
+      "@type": "@id"
+    },
+    "datatype": {
+      "@type": "@id"
+    }
+  },
+  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/core/Compliance",
+  "@type": "ShapesGraph",
+  "@graph": [
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_CertificationShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#Certification",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#certificationName",
+          "message": "Auto-generated rule for dppk:certificationName",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#certificationId",
+          "message": "Auto-generated rule for dppk:certificationId",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#certificationUrl",
+          "message": "Auto-generated rule for dppk:certificationUrl",
+          "or": {
+            "@list": [
+              {
+                "datatype": "xsd:anyURI"
+              },
+              {
+                "nodeKind": {
+                  "@id": "sh:IRI"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#certificationBodyName",
+          "message": "Auto-generated rule for dppk:certificationBodyName"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#certificationBodyId",
+          "message": "Auto-generated rule for dppk:certificationBodyId",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#certificationStartDate",
+          "message": "Auto-generated rule for dppk:certificationStartDate",
+          "datatype": "xsd:date"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#certificationEndDate",
+          "message": "Auto-generated rule for dppk:certificationEndDate",
+          "datatype": "xsd:date"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#certificationBodyRole",
+          "message": "Auto-generated rule for dppk:certificationBodyRole",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_CertificationBodyRoleTypeShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:CertificationBodyRoleType"
+              }
+            ]
+          },
+          "in": {
+            "@list": [
+              {
+                "@id": "https://dpp-keystone.org/spec/v3/terms#EconomicOperatorRole"
+              },
+              {
+                "@id": "https://dpp-keystone.org/spec/v3/terms#ManufacturerRole"
+              },
+              {
+                "@id": "https://dpp-keystone.org/spec/v3/terms#ImporterRole"
+              },
+              {
+                "@id": "https://dpp-keystone.org/spec/v3/terms#NotifiedBodyRole"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_PackagingShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#Packaging",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#packagingMaterialType",
+          "message": "Auto-generated rule for dppk:packagingMaterialType"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#packagingMaterialCompositionQuantity",
+          "message": "Auto-generated rule for dppk:packagingMaterialCompositionQuantity"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#packagingRecyclingProcessType",
+          "message": "Auto-generated rule for dppk:packagingRecyclingProcessType"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#packagingRecycledContent",
+          "message": "Auto-generated rule for dppk:packagingRecycledContent"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#packagingSubstanceOfConcern",
+          "message": "Auto-generated rule for dppk:packagingSubstanceOfConcern"
+        }
+      ]
+    },
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_ProductionStepShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#ProductionStep",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#productionStepType",
+          "message": "Auto-generated rule for dppk:productionStepType",
+          "datatype": "xsd:string"
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#productionLocationCountry",
+          "message": "Auto-generated rule for dppk:productionLocationCountry",
+          "datatype": "xsd:string"
+        }
+      ]
+    },
+    {
+      "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_ProductShape",
+      "@type": "NodeShape",
+      "targetClass": "https://dpp-keystone.org/spec/v3/terms#Product",
+      "property": [
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#documents",
+          "message": "Auto-generated rule for dppk:documents",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_RelatedResourceShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:RelatedResource"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#certifications",
+          "message": "Auto-generated rule for dppk:certifications",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_CertificationShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:Certification"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#additionalCertification",
+          "message": "Auto-generated rule for dppk:additionalCertification",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_CertificationShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:Certification"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#substancesOfConcern",
+          "message": "Auto-generated rule for dppk:substancesOfConcern",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_ComponentShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:Component"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#packaging",
+          "message": "Auto-generated rule for dppk:packaging",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_PackagingShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:Packaging"
+              }
+            ]
+          }
+        },
+        {
+          "path": "https://dpp-keystone.org/spec/v3/terms#productionSteps",
+          "message": "Auto-generated rule for dppk:productionSteps",
+          "or": {
+            "@list": [
+              {
+                "node": {
+                  "@id": "https://dpp-keystone.org/spec/validation/v3/shacl/shapes#dppk_ProductionStepShape"
+                },
+                "nodeKind": {
+                  "@id": "sh:BlankNodeOrIRI"
+                }
+              },
+              {
+                "datatype": "dppk:ProductionStep"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dpp-keystone.org/spec/validation/v3/json-schema/shared/packaging.schema.json",
+  "title": "Packaging Module",
+  "description": "Details about product packaging materials and their properties.",
+  "type": "object",
+  "properties": {
+    "packagingMaterials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "packagingMaterialType": {
+            "type": "string"
+          },
+          "packagingMaterialCompositionQuantity": {
+            "type": "number"
+          },
+          "packagingRecyclingProcessType": {
+            "type": "string",
+            "enum": [
+              "Recyclable",
+              "Reusable",
+              "Compostable",
+              "None"
+            ]
+          },
+          "packagingRecycledContent": {
+            "type": "number"
+          },
+          "packagingSubstanceOfConcern": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "packagingMaterialType"
+        ]
+      }
+    }
+  }
+}

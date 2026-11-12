@@ -300,31 +300,116 @@ than the suite quietly asserting nothing.
 
 ---
 
+## External models
+
+Besides its own modules, the validator hosts the external DPP models this project bridges, each
+at a pinned release, so that a passport can be checked against them without a login or a
+publisher-run service, and so that our own conformance to them is on record.
+
+| Model | Release | Artifacts | Types |
+|---|---|---|---|
+| EU DPP Registry semantic data artifacts | 1.0.0 (European Commission, archive SHA-256 pinned) | SHACL shapes and JSON Schemas per view (pub, res1 to res3), core, batteries, subgroups EV / industrial / LMT | `x.eu-dpp-1.0.0.<core\|batteries\|evb\|ind\|lmt>[.<view>]`, SHACL + JSON |
+| BatteryPass-Ready data model | 2.0.1 (GEFEG repository, commit pinned) | JSON Schema per battery category, full and February 2027 requirements | `x.bpr-2.0.1.<category>[.feb27]`, JSON |
+| BatteryPass-Ready upload format | 1.3, **derived** by OpenEPCIS from the live GEFEG validator (2026-06-17); GEFEG's published static files require nothing | JSON Schema per category (`extensions/eu/battery/validation/gefeg-live`) | `x.bpr-1.3.<category>`, JSON |
+| DPP Keystone | v3 (dpp-keystone.org, repository commit and file SHA-256 pinned) | core and conditional sector JSON Schemas; SHACL generated from the ontology | `x.keystone-v3.dpp`, SHACL + JSON |
+| GS1 EPCIS / CBV | 2.0.1 (ref.gs1.org; examples from gs1/EPCIS, commit pinned) | JSON Schema, SHACL, EPCIS and CBV ontologies | `x.epcis-2.0.1.document`, SHACL + JSON |
+| CIRPASS-2 Textile | 2.0.0 (ontologies-docs publication package, commit pinned) | three shapes graphs over the ontology modules and MIREOT extracts; the package's SHACL test corpus | `x.cirpass2-textile-2.0.0.product`, SHACL |
+| CIRPASS-2 Battery | shapes 0.3.0 / ontology 0.4.0, **draft** (ontologies-battery, commit pinned) | profile and three access views, over the ontology modules and CIRPASS-2 CORE 2.2.0 | `x.cirpass2-battery-0.3.0.<profile\|view-*>`, SHACL |
+| Battery Pass Consortium data model (SAMM) | 1.2 (Performance 1.2.1; commit pinned) | generated JSON Schema (draft-04) per aspect | `x.batterypass-samm-1.2.<aspect>`, JSON |
+| Catena-X battery pass (SAMM) | 6.1.0 (sldt-semantic-models, commit pinned) | generated JSON Schema (draft-04) | `x.catenax-battery-pass-6.1.0.battery-pass`, JSON |
+| UN Transparency Protocol | 0.8.0 (newest published artefacts) and 0.7.0 (last reviewed release), side by side | JSON Schema per credential (DPP, DCC, DFR, DIA, DTE) | `x.untp-<version>.<credential>`, JSON |
+
+- **A target is one file**, `extensions/common/interop/targets/<model>/<version>/target.json`: the
+  vendored artifacts (`vendor/…/MANIFEST.json`, written by the model's sync script with the SHA-256
+  of every file), the crosswalk profile that knows how a document of the model is read, the
+  fixtures, and the deviations a defect of the release makes unavoidable, each with its reason.
+  `scripts/lib/targets.ts` derives the validation types from it.
+- **The type id carries the release** (`x.<model>-<version>.<scope>`), and every report names it
+  again: `validator.report.profileId.<type>` is the model and release, `customisationId` its pin,
+  `validationServiceVersion` our release. A new release of a model is a new target directory and
+  new types; the old ones stay until removed on purpose.
+- **The publisher's artifacts are bundled byte for byte** under `artifacts/<model>-<version>/` of
+  either domain, after their SHA-256 is checked against the manifest. OpenEPCIS adds one presence
+  shape per SHACL type (the input must contain the model's root class; without it a graph with
+  nothing in it passes the publisher's shapes) and nothing else. The JSON domain registers the
+  model's schemas by `$id` (`validator.referencedSchemas`): the Registry's host does not resolve.
+- **A type is declared only when it is faithful**: it rejects `{"this":"is not a passport"}` (or a
+  graph without the root class), and accepts every example the publisher ships for it. All 29
+  Registry examples and the GEFEG example pass their types.
+- **The Registry's restricted views (res1 to res3) carry no header**: the Commission's examples for
+  them hold the restricted fields alone, so the header shapes and schema (`core-shapes.ttl`,
+  `core.schema.json`) belong to the public view only (`publicOnly` in the target).
+- **Shapes in JSON-LD are loaded as Turtle.** Keystone publishes its shapes as JSON-LD whose
+  `@graph` carries an `@id`, a named graph. The validator reads a shapes file into one graph and
+  drops it: measured, the type then passed a document with a retyped property. The bundle keeps the
+  original and loads the same triples as Turtle beside it.
+- **What the publishers ship is held to what they say.** A test corpus with expected failures
+  (CIRPASS-2 textile, the battery views) is replayed as such: a case the publisher expects to fail
+  must fail. A publisher example that breaks its own schema is left out with the reason (the Battery
+  Pass Consortium's material composition payload: a CAS number with a trailing space); one whose
+  RDF a JSON-LD 1.1 processor rejects is checked by JSON Schema only (three GS1 EPCIS examples
+  redefine protected context terms; two untyped Keystone examples).
+- **Declared entailment is applied.** Shapes that state `sh:entailment` RDFS (CIRPASS-2 textile
+  recyclability) are evaluated over the RDFS closure, as the Test Bed's Jena does; the local check
+  reproduces it. `owl:imports` in a publisher's shapes are skipped (`validator.owlImportSkippedUris`):
+  the type bundles what they name. SAMM tooling writes some files in UTF-16; they are bundled as UTF-8,
+  the same characters, and their draft-04 schemas are checked with ajv's draft-04 dialect.
+- **Our EPCIS examples conform to GS1 EPCIS 2.0.1** since this target: editorial notes are
+  `rdfs:comment` (the EPCIS context defines the prefix; an unprefixed key is not an allowed extension),
+  CBV values are the bare 2.0 JSON form (`owning_party`, not `urn:epcglobal:cbv:sdt:owning_party`),
+  sensor values are numbers.
+- **The publisher's shapes are proven live**, not only the presence shape: per SHACL type a valid
+  publisher example with one root property retyped (or a required one dropped) must be rejected by
+  the hosted validator and the local engines alike (`check:shapes:itb`, and a negative step in the
+  self-test).
+- **Two engines, one verdict, again**: `pnpm run check:shapes:itb` sends every fixture of a SHACL
+  type through `isaitb/shacl-validator` and compares with the local engines (rdf-validate-shacl,
+  `sh:sparql` on oxigraph); `pnpm run check:json-itb` does the same for the JSON types against
+  `isaitb/json-validator` and ajv.
+
+**Our conformance to each release** is `docs/conformance/INTEROP_CONFORMANCE.md` (and `.json`),
+regenerated by `pnpm run build:interop-conformance` and gated in `pnpm run build`: per target the
+pin and licence, the types, and the verdict on every fixture, sorted by where it comes from (the
+publisher's example, our crosswalk's output for an OpenEPCIS passport, or a publisher's document
+taken in and lifted back). The gate fails on drift, on a publisher example a type rejects, on any
+wrong form in our output, and on an accepted deviation no document needs any more.
+
+Per target and release there is a test suite, `gitb/test-suites/interop-<model>-<version>/`
+(`pnpm run build:gitb-testsuite`): upload cases (JSON and RDF), a self-test per type (the
+publisher's examples pass, a non-document fails) and a bridge case per type with the crosswalk
+output the hosted type accepts. RDF fixtures are pre-expanded N-Quads: the Registry's contexts do
+not resolve, BatteryPass-Ready publishes none.
+
+Locally, without a validator: `pnpm run validate:target -- <file.json>` picks the target and type
+from the document (BatteryPass-Ready: its battery category; Registry: its content specifications
+and, from the file name, its view) and lists missing values, wrong forms and accepted deviations;
+`--list` shows every type.
+
+Not hosted yet: GS1 Rail 2.6 (shapes, but the published examples are empty, so a type could not be
+held to them), SEMIC, CIRPASS-2 CORE (OWL only; no shapes to host). Bridge output exists for EU DPP
+Registry, BatteryPass-Ready (2.0.1 and 1.3) and GS1 EPCIS; for CIRPASS-2 textile 2.0.0 it needs the
+mirror update from 1.1.2, for UNTP a crosswalk profile, and our `keystone` crosswalk carries Keystone
+terms on an OpenEPCIS passport rather than a Keystone document. New UNTP versions:
+`pnpm run sync:untp -- --latest` adds the newest published one as a target of its own.
+
 ## The JSON domain
 
-`gitb/validator-resources/json/dpp` is **empty on purpose**, and
-`pnpm run build:gitb` prints per module why.
+`gitb/validator-resources/json/openepcis` holds the external models' JSON types (above) and the
+module schemas fit to be one. A module JSON type is declared only when its schema both rejects a
+wrong document and accepts ours, which today only `us.fsma204` does; `pnpm run build:gitb` prints
+per module why the others are not:
 
-A JSON validation type is declared only when its schema both rejects a wrong
-document and accepts ours. None currently does:
+- Six modules ship `$defs`-only libraries, with no top-level `type`, `required`, `properties` or
+  `$ref`. JSON Schema treats a schema with no applicable keyword as satisfied by any instance.
+  Measured: `{"this":"is not a passport at all"}` returned `SUCCESS` with 0 assertions.
+- A schema that rejects this project's own examples is not declared either.
 
-- Six modules ship `$defs`-only libraries — 21–37 named definitions, no top-level
-  `type`, `required`, `properties` or `$ref`. JSON Schema treats a schema with no
-  applicable keyword as satisfied by any instance. Measured:
-  `{"this":"is not a passport at all"}` returned `SUCCESS` with 0 assertions.
-- `eu.electronics` and `us.fsma204` **reject this project's own examples**, both
-  from leftovers of the `has*` rename: `required` names `repairabilityClass` and
-  `foodTraceabilityListCategory`, while the documents (and in the fsma204 case the
-  schema's own `properties`) carry `hasRepairabilityClass` and
-  `hasFoodTraceabilityListCategory`.
+The module schemas are written against the **bare-keyed operational form** (the shape an EN 18223
+API serves), so the generator's positive control validates the `*.operational.jsonld` goldens.
 
-Note also that the JSON schemas are written against the **bare-keyed operational
-form** — the shape an EN 18223 API serves — not the prefixed seed form. That is why
-the generator's positive control validates the `*.operational.jsonld` goldens.
-
-A conformance service that accepts anything is worse than none, and one that
-rejects correct passports is worse still. Giving each module a document-level
-schema is work on the JSON Schema layer; the domain fills itself in as that lands.
+The Test Bed hosts the RDF domain only; the JSON domain runs self-hosted
+(`gitb/docker/docker-compose.validators.yml`, port 8081) and is published with the RDF one to
+`validator-resources-openepcis` under `json-resources/`, ready for a Test Bed JSON domain.
 
 ---
 

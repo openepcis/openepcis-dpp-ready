@@ -1,0 +1,289 @@
+@prefix batv: <https://w3id.org/eudpp/battery-view-public#> .
+@prefix batacc: <https://w3id.org/eudpp/battery-access-tiers#> .
+@prefix bat: <https://w3id.org/eudpp/battery#> .
+@prefix batcat: <https://w3id.org/eudpp/battery-categories#> .
+@prefix batperf: <https://w3id.org/eudpp/battery-performance#> .
+@prefix batmat: <https://w3id.org/eudpp/battery-materials#> .
+@prefix batlab: <https://w3id.org/eudpp/battery-labeling#> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+#################################################
+# Ontology
+#################################################
+# SHACL shapes for the publicly accessible view of a battery Digital Product Passport: what it must carry, and what it must not disclose.
+#
+# Tiers come from the "Access rights according to Battery Regulation"
+# column of BatteryPass-Ready Data Attribute Long List v1.3, which
+# restates Regulation (EU) 2023/1542 Art. 77.
+#
+# Validate a view against THIS file alone, never together with
+# battery-shapes.ttl: that profile requires data points a restricted view
+# is not allowed to disclose.
+#
+# SHACL enforces nothing. The passport service decides who receives what;
+# this file is the specification it implements and the test that it did.
+
+<https://w3id.org/eudpp/battery-view-public>
+    a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/eudpp/battery-view-public/0.3.0> ;
+    rdfs:seeAlso <https://w3id.org/eudpp/battery> ,
+                 <https://w3id.org/eudpp/battery-access-tiers> ,
+                 <https://github.com/CIRPASS-2/ontologies-battery/issues/5> ;
+    rdfs:label "EU DPP Battery Public View Shapes"@en ;
+    dcterms:title "EU DPP Battery Public View Shapes"@en ;
+    dcterms:description "SHACL shapes for the publicly accessible view of a battery Digital Product Passport: what it must carry, and what it must not disclose."@en ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:license "This ontology is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0). In case of dispute over CC BY 4.0 applicability, or in case considering the ontology as a software or part of it, this ontology is to be considered licensed under the Apache License, Version 2.0."@en ;
+    dcterms:creator "Nader Jelassi"@en , "Marc-Andree Wolf"@en ;
+    dcterms:contributor "Arnab Sinha"@en ;
+    dcterms:created "2026-08-28"^^xsd:date ;
+    dcterms:modified "2026-11-03"^^xsd:date ;
+    dcterms:references "Regulation (EU) 2023/1542, Art. 77; BatteryPass-Ready Data Attribute Long List v1.3, column 'Access rights according to Battery Regulation'"@en ;
+    owl:versionInfo "Version 0.3.0 DRAFT"@en ;
+    vann:preferredNamespaceUri "https://w3id.org/eudpp/battery-view-public#" ;
+    vann:preferredNamespacePrefix "batv" .
+
+
+#################################################
+# Must be there
+#################################################
+
+batv:PublicBatteryShape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    batacc:accessTier batacc:Public ;
+    rdfs:comment "The 47 data points visible to this audience that battery-shapes.ttl requires for every battery category; 1 more is required for some categories only, below."@en ;
+    # Visible here but never required, as in section 4 of battery-shapes.ttl: 22, 36, 37, 62, 73.
+    # 1. DPP Schema version
+    sh:property [ sh:path ( dpp:hasDPP dpp:dppSchemaVersion ) ; sh:minCount 1 ] ;
+    # 2. DPP Status
+    sh:property [ sh:path ( dpp:hasDPP dpp:dppStatus ) ; sh:minCount 1 ] ;
+    # 3. DPP Granularity
+    sh:property [ sh:path ( dpp:hasDPP dpp:granularity ) ; sh:minCount 1 ] ;
+    # 4. Date-time of latest update of DPP
+    sh:property [ sh:path ( dpp:hasDPP dpp:lastUpdate ) ; sh:minCount 1 ] ;
+    # 5. Unique battery passport identifier / unique DPP identifier
+    sh:property [ sh:path ( dpp:hasDPP dpp:hasDigitalProductPassportId ) ; sh:minCount 1 ] ;
+    # 6. Unique battery identifier / unique product identifier
+    sh:property [ sh:path dpp:hasUniqueProductIdentifier ; sh:minCount 1 ] ;
+    # 7. Battery model identifier
+    sh:property [ sh:path dpp:hasUniqueProductIdentifier ; sh:minCount 1 ] ;
+    # 8. Battery serial number
+    sh:property [ sh:path dpp:hasUniqueProductIdentifier ; sh:minCount 1 ] ;
+    # 12. Economic operator information
+    sh:property [ sh:path dpp:hasEconomicOperator ; sh:minCount 1 ] ;
+    # 13. Manufacturer information
+    sh:property [ sh:path dpp:hasManufacturer ; sh:minCount 1 ] ;
+    # 14. Manufacturing place
+    sh:property [ sh:path dpp:usesFacility ; sh:minCount 1 ] ;
+    # 15. Manufacturing date
+    sh:property [ sh:path dpp:manufacturingDate ; sh:minCount 1 ] ;
+    # 17. Warranty period of the battery
+    sh:property [ sh:path bat:warrantyPeriod ; sh:minCount 1 ] ;
+    # 18. Battery category
+    sh:property [ sh:path dpp:hasProductGroup ; sh:minCount 1 ] ;
+    # 19. Battery mass
+    sh:property [ sh:path dpp:hasProperty ; sh:minCount 1 ] ;
+    # 21. Separate collection symbol
+    sh:property [ sh:path ( batlab:hasBatteryLabel batlab:separateCollectionSymbol ) ; sh:minCount 1 ] ;
+    # 24. Extinguishing agent
+    sh:property [ sh:path ( batlab:hasBatteryLabel batlab:extinguishingAgent ) ; sh:minCount 1 ] ;
+    # 26. EU declaration of conformity
+    sh:property [ sh:path dpp:hasEUDeclarationOfConformity ; sh:minCount 1 ] ;
+    # 39. Battery chemistry
+    sh:property [ sh:path batmat:hasBatteryChemistry ; sh:minCount 1 ] ;
+    # 40. Critical raw materials
+    sh:property [ sh:path ( dpp:hasMaterial dpp:isCriticalRawMaterial ) ; sh:minCount 1 ] ;
+    # 42. Hazardous substances
+    sh:property [ sh:path dpp:containsSubstanceOfConcern ; sh:minCount 1 ] ;
+    # 43. Impact of substances on environment, human health, safety, persons
+    #     deactivated: SOC 2.2.0 removed hasImpactOnEnvironment (pending a CORE issue)
+    sh:property [ sh:path ( dpp:containsSubstanceOfConcern dpp:hasImpactOnEnvironment ) ; sh:minCount 1 ; sh:deactivated true ] ;
+    # 48. Pre-consumer recycled nickel share
+    sh:property [ sh:path ( dpp:hasMaterial dpp:materialRecycledContent ) ; sh:minCount 1 ] ;
+    # 49. Pre-consumer recycled cobalt share
+    sh:property [ sh:path ( dpp:hasMaterial dpp:materialRecycledContent ) ; sh:minCount 1 ] ;
+    # 50. Pre-consumer recycled lithium share
+    sh:property [ sh:path ( dpp:hasMaterial dpp:materialRecycledContent ) ; sh:minCount 1 ] ;
+    # 51. Post-consumer recycled nickel share
+    sh:property [ sh:path ( dpp:hasMaterial dpp:materialRecycledContent ) ; sh:minCount 1 ] ;
+    # 52. Post-consumer recycled cobalt share
+    sh:property [ sh:path ( dpp:hasMaterial dpp:materialRecycledContent ) ; sh:minCount 1 ] ;
+    # 53. Post-consumer recycled lithium share
+    sh:property [ sh:path ( dpp:hasMaterial dpp:materialRecycledContent ) ; sh:minCount 1 ] ;
+    # 54. Recycled lead share
+    sh:property [ sh:path ( dpp:hasMaterial dpp:materialRecycledContent ) ; sh:minCount 1 ] ;
+    # 55. Renewable content share
+    #     deactivated: P_DPP removed SustainableRenewableMaterialsUse (pending a CORE issue)
+    sh:property [ sh:path dpp:hasProperty ; sh:minCount 1 ; sh:deactivated true ] ;
+    # 56. Information on the role of end-users in contributing to waste prevention
+    sh:property [ sh:path dpp:hasProperty ; sh:minCount 1 ] ;
+    # 57. Information on the role of end-users in contributing to the separate colle
+    sh:property [ sh:path dpp:hasProperty ; sh:minCount 1 ] ;
+    # 58. Information on battery collection, preparation for second life and on trea
+    sh:property [ sh:path dpp:hasProperty ; sh:minCount 1 ] ;
+    # 59. Rated capacity
+    sh:property [ sh:path ( batperf:hasBatteryPerformance batperf:ratedCapacity ) ; sh:minCount 1 ] ;
+    # 66. Minimum voltage
+    sh:property [ sh:path ( batperf:hasBatteryPerformance batperf:minimumVoltage ) ; sh:minCount 1 ] ;
+    # 67. Maximum voltage
+    sh:property [ sh:path ( batperf:hasBatteryPerformance batperf:maximumVoltage ) ; sh:minCount 1 ] ;
+    # 68. Nominal voltage
+    sh:property [ sh:path ( batperf:hasBatteryPerformance batperf:nominalVoltage ) ; sh:minCount 1 ] ;
+    # 69. Original power capability
+    sh:property [ sh:path ( batperf:hasBatteryPerformance batperf:originalPowerCapability ) ; sh:minCount 1 ] ;
+    # 72. Maximum permitted battery power
+    sh:property [ sh:path ( batperf:hasBatteryPerformance batperf:maximumPermittedBatteryPower ) ; sh:minCount 1 ] ;
+    # 74. Initial round trip energy efficiency
+    sh:property [ sh:path ( batperf:hasBatteryPerformance batperf:initialRoundTripEnergyEfficiency ) ; sh:minCount 1 ] ;
+    # 75. Round trip energy efficiency at 50% of cycle life
+    sh:property [ sh:path ( batperf:hasBatteryPerformance batperf:roundTripEnergyEfficiencyAt50PercentCycleLife ) ; sh:minCount 1 ] ;
+    # 81. Initial internal resistance of battery cell and pack (module recommended)
+    sh:property [ sh:path ( batperf:hasBatteryPerformance [ sh:alternativePath ( batperf:initialInternalResistance batperf:initialCellInternalResistance batperf:initialPackInternalResistance ) ] ) ; sh:minCount 1 ] ;
+    # 84. Expected lifetime: Number of charge-discharge cycles
+    sh:property [ sh:path ( batperf:hasBatteryDurability batperf:expectedLifetimeCycles ) ; sh:minCount 1 ] ;
+    # 86. Cycle-life reference test
+    sh:property [ sh:path ( batperf:hasBatteryPerformance batperf:cycleLifeReferenceTest ) ; sh:minCount 1 ] ;
+    # 87. C-rate of relevant cycle-life test
+    sh:property [ sh:path ( batperf:hasBatteryPerformance [ sh:alternativePath ( batperf:cRateOfCycleLifeTest batperf:chargeCRateOfCycleLifeTest ) ] ) ; sh:minCount 1 ] ;
+    # 92. Temperature range idle state, lower boundary
+    sh:property [ sh:path ( batperf:hasTemperatureExposure batperf:temperatureRangeIdleStateLowerBoundary ) ; sh:minCount 1 ] ;
+    # 93. Temperature range idle state, upper boundary
+    sh:property [ sh:path ( batperf:hasTemperatureExposure batperf:temperatureRangeIdleStateUpperBoundary ) ; sh:minCount 1 ]  .
+
+#################################################
+# Must be there for some categories only
+#################################################
+# Required only for the categories named, as in section 3 of
+# battery-shapes.ttl: a view never requires more than the profile
+# (ontologies-battery#14).
+
+# 90. Capacity threshold for exhaustion
+batv:Public90Shape
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    batacc:accessTier batacc:Public ;
+    sh:message "Capacity threshold for exhaustion — long list v1.3 attribute 90, required for electric vehicle batteries." ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path dpp:hasProductGroup ;
+                                 sh:in ( batcat:ElectricVehicleBattery ) ;
+                                 sh:minCount 1 ] ] ]
+        [ sh:property [ sh:path ( batperf:hasBatteryDurability batperf:capacityThresholdForExhaustion ) ; sh:minCount 1 ] ]
+    ) .
+
+#################################################
+# Must not be there
+#################################################
+
+batv:PublicBatteryShapeExclusions
+    a sh:NodeShape ;
+    sh:targetClass bat:Battery ;
+    rdfs:comment "The 33 data points this view must not disclose."@en ;
+    # 20. Battery status
+    sh:property [ sh:path bat:hasBatteryStatus ; sh:maxCount 0 ;
+                  sh:message "Attribute 20 is not disclosed in this view." ] ;
+    # 60. Remaining capacity
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:remainingCapacity ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 60 is not disclosed in this view." ] ;
+    # 61. Capacity fade
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:capacityFade ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 61 is not disclosed in this view." ] ;
+    # 63. Remaining usable battery energy
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:remainingUsableBatteryEnergy ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 63 is not disclosed in this view." ] ;
+    # 64. State of certified energy (SOCE)
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:stateOfCertifiedEnergy ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 64 is not disclosed in this view." ] ;
+    # 65. State of Charge (SoC)
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:stateOfCharge ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 65 is not disclosed in this view." ] ;
+    # 70. Remaining power capability
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:remainingPowerCapability ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 70 is not disclosed in this view." ] ;
+    # 71. Power fade
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:powerFade ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 71 is not disclosed in this view." ] ;
+    # 76. Remaining round trip energy efficiency
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:remainingRoundTripEnergyEfficiency ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 76 is not disclosed in this view." ] ;
+    # 77. Energy round trip efficiency fade
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:roundTripEnergyEfficiencyFade ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 77 is not disclosed in this view." ] ;
+    # 78. Initial self-discharge rate
+    sh:property [ sh:path ( batperf:hasBatteryPerformance batperf:initialSelfDischargeRate ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 78 is not disclosed in this view." ] ;
+    # 79. Current self-discharge rate
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:currentSelfDischargeRate ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 79 is not disclosed in this view." ] ;
+    # 80. Evolution of self-discharge rates
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:selfDischargeRateEvolution ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 80 is not disclosed in this view." ] ;
+    # 82. Internal resistance increase of pack (cell and module recommended)
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:internalResistanceIncrease ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 82 is not disclosed in this view." ] ;
+    # 83. Expected lifetime in calendar years
+    sh:property [ sh:path ( batperf:hasBatteryDurability batperf:expectedLifetimeCalendarYears ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 83 is not disclosed in this view." ] ;
+    # 85. Number of full charging and discharging cycles
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:numberOfFullCycles ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 85 is not disclosed in this view." ] ;
+    # 88. Energy throughput
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:energyThroughput ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 88 is not disclosed in this view." ] ;
+    # 89. Capacity throughput
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:capacityThroughput ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 89 is not disclosed in this view." ] ;
+    # 91. Temperature information
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:temperatureInformation ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 91 is not disclosed in this view." ] ;
+    # 94. Time spent in extreme temperatures above boundary
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:timeSpentInExtremeTemperaturesAboveBoundary ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 94 is not disclosed in this view." ] ;
+    # 95. Time spent in extreme temperatures below boundary
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:timeSpentInExtremeTemperaturesBelowBoundary ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 95 is not disclosed in this view." ] ;
+    # 96. Time spent charging during extreme temperatures above boundary
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:timeSpentChargingInExtremeTemperaturesAboveBoundary ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 96 is not disclosed in this view." ] ;
+    # 97. Time spent charging during extreme temperatures below boundary
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:timeSpentChargingInExtremeTemperaturesBelowBoundary ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 97 is not disclosed in this view." ] ;
+    # 98. Number of deep discharge events
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:numberOfDeepDischargeEvents ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 98 is not disclosed in this view." ] ;
+    # 99. Number of overcharge events
+    sh:property [ sh:path ( batperf:hasBatteryStateRecord batperf:numberOfOverchargeEvents ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 99 is not disclosed in this view." ] ;
+    # 41. Materials used in cathode, anode and electrolyte
+    sh:property [ sh:path ( batmat:hasBatteryChemistry batmat:hasBatteryLocation ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 41 is not disclosed in this view." ] ;
+    # 44. Dismantling information: Manuals for the removal and the disassembly of th
+    sh:property [ sh:path bat:dismantlingInformation ; sh:maxCount 0 ;
+                  sh:message "Attribute 44 is not disclosed in this view." ] ;
+    # 45. Part numbers for components
+    sh:property [ sh:path bat:partNumber ; sh:maxCount 0 ;
+                  sh:message "Attribute 45 is not disclosed in this view." ] ;
+    # 47. Safety measures
+    sh:property [ sh:path dpp:hasProperty ; sh:qualifiedMaxCount 0 ;
+                  sh:qualifiedValueShape [ sh:class bat:SafetyInstruction ] ;
+                  sh:message "Attribute 47 is not disclosed in this view." ] ;
+    sh:property [ sh:path bat:safetyMeasures ; sh:maxCount 0 ;
+                  sh:message "Attribute 47 is not disclosed in this view (deprecated property)." ] ;
+    # 9. Unique economic operator identifier
+    sh:property [ sh:path ( dpp:hasEconomicOperator dpp:hasUniqueOperatorIdentifier ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 9 is not disclosed in this view." ] ;
+    # 10. Unique manufacturer identifier
+    sh:property [ sh:path ( dpp:hasManufacturer dpp:hasUniqueOperatorIdentifier ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 10 is not disclosed in this view." ] ;
+    # 11. Unique facility identifier
+    sh:property [ sh:path ( dpp:usesFacility dpp:hasUniqueFacilityIdentifier ) ; sh:maxCount 0 ;
+                  sh:message "Attribute 11 is not disclosed in this view." ] ;
+    # 27. Results of test reports proving compliance
+    sh:property [ sh:path bat:testReportResults ; sh:maxCount 0 ;
+                  sh:message "Attribute 27 is not disclosed in this view." ]  .

@@ -1,0 +1,106 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "rdfs:comment": [
+    "Timber transformation event: two oak logs assembled into one dining table.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "gs1:masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
+    "",
+    "HTTP header: GS1-Extensions: eudr=https://ref.openepcis.org/extensions/eu/eudr/",
+    "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "schemaVersion": "2.0",
+  "creationDate": "2025-02-15T18:00:00.000Z",
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "TransformationEvent",
+        "eventID": "urn:uuid:550e8400-e29b-41d4-a716-446655440030",
+        "eventTime": "2025-02-15T14:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "inputEPCList": [
+          "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
+          "https://id.gs1.org/01/09521234000020/21/LOG-2025-002"
+        ],
+        "outputEPCList": [
+          "https://id.gs1.org/01/09521234000037/21/TABLE-2025-001"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000105"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000105"
+        },
+        "gs1:masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
+            "countryOfOrigin": {
+              "countryCode": "DE"
+            },
+            "regulatoryInformation": [
+              {
+                "regulationType": "gs1:RegulationTypeCode-DEFORESTATION_REGULATION",
+                "regulatoryAct": "EU 2023/1115"
+              }
+            ],
+            "eudr:hasCommodityType": "Wood",
+            "eudr:hasTimberProductType": "RoundWood",
+            "eudr:speciesScientificName": "Quercus robur",
+            "eudr:speciesCommonName": "European Oak"
+          },
+          {
+            "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-002",
+            "countryOfOrigin": {
+              "countryCode": "DE"
+            },
+            "regulatoryInformation": [
+              {
+                "regulationType": "gs1:RegulationTypeCode-DEFORESTATION_REGULATION",
+                "regulatoryAct": "EU 2023/1115"
+              }
+            ],
+            "eudr:hasCommodityType": "Wood",
+            "eudr:hasTimberProductType": "RoundWood",
+            "eudr:speciesScientificName": "Quercus robur",
+            "eudr:speciesCommonName": "European Oak"
+          },
+          {
+            "id": "https://id.gs1.org/01/09521234000037/21/TABLE-2025-001",
+            "countryOfOrigin": {
+              "countryCode": "DE"
+            },
+            "regulatoryInformation": [
+              {
+                "regulationType": "gs1:RegulationTypeCode-DEFORESTATION_REGULATION",
+                "regulatoryAct": "EU 2023/1115"
+              }
+            ],
+            "eudr:hasCommodityType": "Wood",
+            "eudr:hasTimberProductType": "Furniture",
+            "eudr:speciesScientificName": "Quercus robur",
+            "eudr:speciesCommonName": "European Oak"
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "prodorder",
+            "bizTransaction": "https://example.com/orders/furniture-2025-001"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "owning_party",
+            "source": "https://id.gs1.org/417/9521234000105"
+          }
+        ]
+      }
+    ]
+  }
+}

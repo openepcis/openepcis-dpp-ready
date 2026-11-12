@@ -1,0 +1,12 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# Added by OpenEPCIS DPP-Ready, not part of the DPP Keystone v3 release.
+<https://ref.openepcis.org/extensions/common/interop/targets/keystone/v3/shapes#Presence>
+  a sh:NodeShape ;
+  sh:targetNode <https://dpp-keystone.org/spec/v3/terms#DigitalProductPassport> ;
+  sh:property [
+    sh:path [ sh:inversePath rdf:type ] ;
+    sh:minCount 1 ;
+    sh:message "The document contains no DigitalProductPassport: it is not a DPP Keystone v3 document." ;
+  ] .

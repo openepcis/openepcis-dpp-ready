@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dpp-keystone.org/spec/validation/v3/json-schema/sector/iron-steel.schema.json",
+  "title": "Iron and Steel Sector Module",
+  "description": "A conditional schema for the Iron and Steel sector.",
+  "if": {
+    "type": "object",
+    "properties": {
+      "contentSpecificationIds": {
+        "type": "array",
+        "contains": {
+          "const": "draft_iron_and_steel_specification_id"
+        }
+      }
+    },
+    "required": [
+      "contentSpecificationIds"
+    ]
+  },
+  "then": {
+    "type": "object",
+    "properties": {
+      "heatNumber": {
+        "type": "string"
+      },
+      "productNumber": {
+        "type": "string"
+      },
+      "castNumber": {
+        "type": "string"
+      },
+      "lotNumber": {
+        "type": "string"
+      },
+      "purchaserOrder": {
+        "type": "string"
+      },
+      "steelGradeClassification": {
+        "type": "string"
+      },
+      "steelDesignation": {
+        "type": "string"
+      },
+      "technologyRoute": {
+        "type": "string"
+      },
+      "manufacturerInfo": {
+        "$ref": "../shared/organization.schema.json"
+      },
+      "importerInfo": {
+        "$ref": "../shared/organization.schema.json"
+      },
+      "manufacturingDate": {
+        "type": "string",
+        "format": "date"
+      },
+      "countryOfOrigin": {
+        "type": "string"
+      },
+      "meltAndPourCountry": {
+        "type": "string"
+      },
+      "substancesOfConcern": {
+        "type": "array",
+        "items": {
+          "$ref": "../shared/component.schema.json"
+        }
+      },
+      "safeUseInstructions": {
+        "$ref": "../shared/related-resource.schema.json"
+      },
+      "endOfLifeInstructions": {
+        "$ref": "../shared/related-resource.schema.json"
+      },
+      "recycledContentPercentage": {
+        "type": "number"
+      },
+      "preConsumerRecycledContent": {
+        "type": "number"
+      },
+      "postConsumerRecycledContent": {
+        "type": "number"
+      },
+      "recycledContentConformity": {
+        "type": "string",
+        "format": "uri"
+      },
+      "cbamReportId": {
+        "type": "string"
+      },
+      "reachDocumentation": {
+        "$ref": "../shared/related-resource.schema.json"
+      },
+      "mtc": {
+        "$ref": "../shared/mtc.schema.json"
+      },
+      "epd": {
+        "oneOf": [
+          {
+            "$ref": "../shared/epd.schema.json"
+          },
+          {
+            "$ref": "../shared/related-resource.schema.json"
+          }
+        ]
+      },
+      "dopc": {
+        "oneOf": [
+          {
+            "$ref": "../shared/dopc.schema.json"
+          },
+          {
+            "$ref": "../shared/related-resource.schema.json"
+          }
+        ]
+      }
+    }
+  }
+}

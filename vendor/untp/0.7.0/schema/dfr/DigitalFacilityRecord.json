@@ -1,0 +1,1404 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "type": {
+      "type": "array",
+      "readOnly": true,
+      "default": [
+        "DigitalFacilityRecord",
+        "VerifiableCredential"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "const": "DigitalFacilityRecord",
+            "minContains": 1
+          }
+        },
+        {
+          "contains": {
+            "const": "VerifiableCredential",
+            "minContains": 1
+          }
+        }
+      ]
+    },
+    "@context": {
+      "example": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://vocabulary.uncefact.org/untp/0.7.0/context/"
+      ],
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "A list of JSON-LD context URIs that define the semantic meaning of properties within the credential. ",
+      "readOnly": true,
+      "prefixItems": [
+        {
+          "const": "https://www.w3.org/ns/credentials/v2",
+          "type": "string"
+        },
+        {
+          "const": "https://vocabulary.uncefact.org/untp/0.7.0/context/",
+          "type": "string"
+        }
+      ],
+      "default": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://vocabulary.uncefact.org/untp/0.7.0/context/"
+      ],
+      "minItems": 2,
+      "uniqueItems": true
+    },
+    "id": {
+      "example": "https://example-company.com/credentials/2a423366-a0d6-4855-ba65-2e0c926d09b0",
+      "type": "string",
+      "format": "uri",
+      "description": "A unique identifier (URI) assigned to this verifiable credential."
+    },
+    "issuer": {
+      "$ref": "#/$defs/CredentialIssuer",
+      "description": "The organisation that is the issuer of this VC. Note that the \"id\" property MUST be a W3C DID.  Other identifiers such as tax registration numbers can be listed in the \"otherIdentifiers\" property."
+    },
+    "validFrom": {
+      "example": "2024-03-15T12:00:00Z",
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time from which the credential is valid."
+    },
+    "validUntil": {
+      "example": "2034-03-15T12:00:00Z",
+      "type": "string",
+      "format": "date-time",
+      "description": "The expiry date (if applicable) of this verifiable credential."
+    },
+    "name": {
+      "example": "Some name",
+      "type": "string",
+      "description": "Name of this verifiable credential instance (eg the title of a digital product passport, facility record, lifecycle event, or conformity credential)"
+    },
+    "credentialStatus": {
+      "$ref": "#/$defs/BitstringStatusListEntry",
+      "description": "A W3C VCDM2.0 compliant object containing credential status information."
+    },
+    "renderMethod": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RenderTemplate2024"
+      },
+      "description": "Human rendering information for this credential. An array of render methods (eg RenderTemplate2024) that may be used to display the credential."
+    },
+    "credentialSubject": {
+      "$ref": "#/$defs/Facility",
+      "description": "The facility that is the subject of this digital facility record."
+    },
+    "issuingSoftware": {
+      "$ref": "#/$defs/IssuingSoftware",
+      "description": "Optional metadata identifying the software product (and its vendor) that issued this credential. Useful for vendor traceability and conformity testing. Issuers MAY omit this property."
+    }
+  },
+  "description": "A digital Facility Record (DFR) credential.",
+  "required": [
+    "@context",
+    "id",
+    "issuer",
+    "validFrom",
+    "name",
+    "credentialSubject"
+  ],
+  "$defs": {
+    "CredentialIssuer": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "CredentialIssuer"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "CredentialIssuer",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "id": {
+          "example": "did:web:identifiers.example-company.com:12345",
+          "type": "string",
+          "format": "uri",
+          "description": "The W3C DID of the issuer - should be a did:web or did:webvh"
+        },
+        "name": {
+          "example": "Example Company Pty Ltd",
+          "type": "string",
+          "description": "The name of the issuer person or organisation"
+        },
+        "issuerAlsoKnownAs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "array",
+                "readOnly": true,
+                "default": [
+                  "Party"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "const": "Party",
+                      "minContains": 1
+                    }
+                  }
+                ]
+              },
+              "id": {
+                "example": "https://sample-business-register.gov/123456789",
+                "type": "string",
+                "format": "uri",
+                "description": "Globally unique identifier of this party. Typically represented as a URI identifierScheme/Identifier URI"
+              },
+              "name": {
+                "example": "Sample Company Ltd",
+                "type": "string",
+                "description": "Legal registered name of this party."
+              },
+              "registeredId": {
+                "example": 90664869327,
+                "type": "string",
+                "description": "The registration number (alphanumeric) of the Party within the register. Unique within the register."
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "description": "An optional list of other registered identifiers for this credential issuer "
+        }
+      },
+      "description": "The issuer party (person or organisation) of a verifiable credential.",
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "BitstringStatusListEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "BitstringStatusListEntry"
+          ],
+          "example": "BitstringStatusListEntry",
+          "description": "The type of status list - must be set to \"The type property MUST be BitstringStatusListEntry.\""
+        },
+        "id": {
+          "example": "https://example-cab.com/credentials/status/3#94567\"",
+          "type": "string",
+          "format": "uri",
+          "description": "optional identifier of this status list entry."
+        },
+        "statusPurpose": {
+          "type": "string",
+          "enum": [
+            "refresh",
+            "revocation",
+            "suspension",
+            "message"
+          ],
+          "example": "refresh",
+          "description": "Status purpose drawn from a standard list but extensible as per w3c bitstring status list specification."
+        },
+        "statusListIndex": {
+          "minimum": 0,
+          "example": 94567,
+          "type": "integer",
+          "description": "\tThe statusListIndex property MUST be an arbitrary size integer greater than or equal to 0, expressed as a string in base 10. The value identifies the position of the status of the verifiable credential."
+        },
+        "statusListCredential": {
+          "example": "https://example-cab.com/credentials/status/4",
+          "type": "string",
+          "format": "uri",
+          "description": "The statusListCredential property MUST be a URL to a verifiable credential. When the URL is dereferenced, the resulting verifiable credential MUST have type property that includes the BitstringStatusListCredential value."
+        }
+      },
+      "description": "A privacy-preserving, space-efficient, and high-performance mechanism for publishing status information such as suspension or revocation of Verifiable Credentials through use of bitstrings.  See https://www.w3.org/TR/vc-bitstring-status-list/ for full details.",
+      "required": [
+        "type",
+        "statusPurpose",
+        "statusListIndex",
+        "statusListCredential"
+      ]
+    },
+    "RenderTemplate2024": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "RenderTemplate2024"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "RenderTemplate2024",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "name": {
+          "type": "string",
+          "description": "Human facing display name for selection"
+        },
+        "mediaQuery": {
+          "type": "string",
+          "description": "Media query as defined in https://www.w3.org/TR/mediaqueries-4/"
+        },
+        "template": {
+          "type": "string",
+          "description": "An inline template field for use cases where remote retrieval of a render method is suboptimal"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL for remotely hosted template"
+        },
+        "mediaType": {
+          "type": "string",
+          "description": "media type of the rendered output (eg text/html)"
+        },
+        "digestMultibase": {
+          "type": "string",
+          "description": "Used for resource integrity and/or validation of the inline `template`"
+        }
+      },
+      "description": "A single template format focused render method where the content/media type decision becomes secondary (and is expressed separately).See https://github.com/w3c-ccg/vc-render-method/issues/9"
+    },
+    "IssuingSoftware": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "example": "https://example.com/.well-known/untp/software/yourproduct/2026.04.1",
+          "type": "string",
+          "format": "uri",
+          "description": "A resolvable identifier for the specific version of the software product that issued this credential."
+        },
+        "name": {
+          "example": "Your Product Name",
+          "type": "string",
+          "description": "The name of the software product that issued this credential."
+        },
+        "version": {
+          "example": "2026.04.1",
+          "type": "string",
+          "description": "The version of the software product that issued this credential."
+        },
+        "vendor": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "example": "did:web:example.com",
+              "type": "string",
+              "format": "uri",
+              "description": "The decentralised identifier (DID) or other resolvable identifier of the software vendor."
+            },
+            "name": {
+              "example": "Your Vendor Name",
+              "type": "string",
+              "description": "The name of the software vendor."
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ],
+          "description": "The vendor of the software product that issued this credential."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "version",
+        "vendor"
+      ],
+      "description": "Optional metadata identifying the software product (and its vendor) that issued the parent credential. When present, all listed sub-properties MUST be populated; when absent, the credential is still valid (verifiers MUST treat the property as optional)."
+    },
+    "Facility": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "Facility"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "Facility",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "id": {
+          "example": "https://sample-location-register.com/987654321",
+          "type": "string",
+          "format": "uri",
+          "description": "Globally unique identifier of this facility. Typically represented as a URI identifierScheme/Identifier URI"
+        },
+        "name": {
+          "example": "Sample Factory A",
+          "type": "string",
+          "description": "Name of this facility as defined the location register."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the facility including function and other names."
+        },
+        "registeredId": {
+          "example": 1234567,
+          "type": "string",
+          "description": "The registration number (alphanumeric) of the facility within the identifier scheme. Unique within the register."
+        },
+        "idScheme": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "array",
+              "readOnly": true,
+              "default": [
+                "IdentifierScheme"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "allOf": [
+                {
+                  "contains": {
+                    "const": "IdentifierScheme",
+                    "minContains": 1
+                  }
+                }
+              ]
+            },
+            "id": {
+              "type": "string",
+              "format": "uri",
+              "description": "The URI of this identifier scheme"
+            },
+            "name": {
+              "example": "Global Identifier Scheme Name",
+              "type": "string",
+              "description": "The name of the identifier scheme. "
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ],
+          "description": "The ID scheme of the facility. eg a GS1 GLN or a National land registry scheme. If self issued then use the party ID of the facility owner. "
+        },
+        "countryOfOperation": {
+          "$ref": "#/$defs/Country",
+          "description": "The country in which this facility is operating.using ISO-3166 code and name."
+        },
+        "processCategory": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Classification"
+          },
+          "description": "The industrial or production processes performed by this facility. Example unstats.un.org/isic/1030."
+        },
+        "relatedParty": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PartyRole"
+          },
+          "description": "A list of parties with a specified role relationship to this facility "
+        },
+        "relatedDocument": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Link"
+          },
+          "description": "A list of links to documents providing additional facility information. Documents that support a conformity claim (e.g. permits or certificates) SHOULD be referenced as claim evidence rather than here."
+        },
+        "facilityAlsoKnownAs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "array",
+                "readOnly": true,
+                "default": [
+                  "Facility"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "const": "Facility",
+                      "minContains": 1
+                    }
+                  }
+                ]
+              },
+              "id": {
+                "example": "https://sample-location-register.com/987654321",
+                "type": "string",
+                "format": "uri",
+                "description": "Globally unique identifier of this facility. Typically represented as a URI identifierScheme/Identifier URI"
+              },
+              "name": {
+                "example": "Sample Factory A",
+                "type": "string",
+                "description": "Name of this facility as defined the location register."
+              },
+              "registeredId": {
+                "example": 1234567,
+                "type": "string",
+                "description": "The registration number (alphanumeric) of the facility within the identifier scheme. Unique within the register."
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "description": "An optional list of other registered identifiers for this facility - eg GLNs or other schemes."
+        },
+        "locationInformation": {
+          "$ref": "#/$defs/Location",
+          "description": "Geo-location information for this facility as a resolvable geographic area (a Plus Code), and/or a geo-located point (latitude / longitude), and/or a defined boundary (GeoJSON Polygon)."
+        },
+        "address": {
+          "$ref": "#/$defs/Address",
+          "description": "The Postal address of the location."
+        },
+        "materialUsage": {
+          "$ref": "#/$defs/MaterialUsage",
+          "description": "The type and provenance of materials consumed by the facility during the reporting period. "
+        },
+        "performanceClaim": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Claim"
+          },
+          "description": "A list of performance claims (eg deforestation status) for this facility."
+        }
+      },
+      "description": "The physical site (eg farm or factory) where the product or materials was produced.",
+      "required": [
+        "id",
+        "name",
+        "countryOfOperation",
+        "processCategory",
+        "locationInformation",
+        "address"
+      ]
+    },
+    "Country": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "countryCode": {
+          "type": "string",
+          "x-external-enumeration": "https://vocabulary.uncefact.org/CountryId#",
+          "description": "ISO 3166 country code\n\n    This is an enumerated value, but the list of valid values are too big, or change too often to include here. You can access the list of allowable values at this URL:  https://vocabulary.uncefact.org/CountryId#\n    "
+        },
+        "countryName": {
+          "type": "string",
+          "description": "Country Name as defined in ISO 3166"
+        }
+      },
+      "description": "Country Code and Name from ISO 3166",
+      "required": [
+        "countryCode"
+      ]
+    },
+    "Classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "example": 46410,
+          "type": "string",
+          "description": "classification code within the scheme"
+        },
+        "name": {
+          "example": "Primary cells and primary batteries",
+          "type": "string",
+          "description": "Name of the classification represented by the code"
+        },
+        "definition": {
+          "type": "string",
+          "description": "A rich definition of this classification code."
+        },
+        "schemeId": {
+          "example": "https://unstats.un.org/unsd/classifications/Econ/cpc/",
+          "type": "string",
+          "format": "uri",
+          "description": "Classification scheme ID"
+        },
+        "schemeName": {
+          "example": "UN Central Product Classification (CPC)",
+          "type": "string",
+          "description": "The name of the classification scheme"
+        }
+      },
+      "description": "A classification scheme and code / name representing a category value for a product, entity, or facility.",
+      "required": [
+        "code",
+        "name",
+        "schemeId",
+        "schemeName"
+      ]
+    },
+    "PartyRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": [
+            "owner",
+            "producer",
+            "manufacturer",
+            "processor",
+            "remanufacturer",
+            "recycler",
+            "operator",
+            "serviceProvider",
+            "inspector",
+            "certifier",
+            "logisticsProvider",
+            "carrier",
+            "consignor",
+            "consignee",
+            "importer",
+            "exporter",
+            "distributor",
+            "retailer",
+            "brandOwner",
+            "regulator"
+          ],
+          "example": "owner",
+          "description": "The role played by the party in this relationship"
+        },
+        "party": {
+          "$ref": "#/$defs/Party",
+          "description": "The party that has the specified role."
+        }
+      },
+      "description": "A party with a defined relationship to the referencing entity",
+      "required": [
+        "role",
+        "party"
+      ]
+    },
+    "Party": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "Party"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "Party",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "id": {
+          "example": "https://sample-business-register.gov/123456789",
+          "type": "string",
+          "format": "uri",
+          "description": "Globally unique identifier of this party. Typically represented as a URI identifierScheme/Identifier URI"
+        },
+        "name": {
+          "example": "Sample Company Ltd",
+          "type": "string",
+          "description": "Legal registered name of this party."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the party including function and other names."
+        },
+        "registeredId": {
+          "example": 90664869327,
+          "type": "string",
+          "description": "The registration number (alphanumeric) of the Party within the register. Unique within the register."
+        },
+        "idScheme": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "array",
+              "readOnly": true,
+              "default": [
+                "IdentifierScheme"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "allOf": [
+                {
+                  "contains": {
+                    "const": "IdentifierScheme",
+                    "minContains": 1
+                  }
+                }
+              ]
+            },
+            "id": {
+              "type": "string",
+              "format": "uri",
+              "description": "The URI of this identifier scheme"
+            },
+            "name": {
+              "example": "Global Identifier Scheme Name",
+              "type": "string",
+              "description": "The name of the identifier scheme. "
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ],
+          "description": "The identifier scheme of the party.  Typically a national business register or a global scheme such as GLEIF. "
+        },
+        "registrationCountry": {
+          "$ref": "#/$defs/Country",
+          "description": "the country in which this organisation is registered - using ISO-3166 code and name."
+        },
+        "partyAddress": {
+          "$ref": "#/$defs/Address",
+          "description": "The address of the party"
+        },
+        "organisationWebsite": {
+          "example": "https://example-company.com",
+          "type": "string",
+          "format": "uri",
+          "description": "Website for this organisation"
+        },
+        "industryCategory": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Classification"
+          },
+          "description": "The industry categories for this organisation.  Recommend use of UNCPC as the category scheme. for example - unstats.un.org/isic/1030"
+        },
+        "partyAlsoKnownAs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "array",
+                "readOnly": true,
+                "default": [
+                  "Party"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "const": "Party",
+                      "minContains": 1
+                    }
+                  }
+                ]
+              },
+              "id": {
+                "example": "https://sample-business-register.gov/123456789",
+                "type": "string",
+                "format": "uri",
+                "description": "Globally unique identifier of this party. Typically represented as a URI identifierScheme/Identifier URI"
+              },
+              "name": {
+                "example": "Sample Company Ltd",
+                "type": "string",
+                "description": "Legal registered name of this party."
+              },
+              "registeredId": {
+                "example": 90664869327,
+                "type": "string",
+                "description": "The registration number (alphanumeric) of the Party within the register. Unique within the register."
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "description": "An optional list of other registered identifiers for this organisation. For example DUNS, GLN, LEI, etc"
+        }
+      },
+      "description": "An organisation.  May be a supply chain actor, a certifier, a government agency.",
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "Address": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "streetAddress": {
+          "example": "level 11, 15 London Circuit",
+          "type": "string",
+          "description": "the street address as an unstructured string."
+        },
+        "postalCode": {
+          "example": 2601,
+          "type": "string",
+          "description": "The postal code or zip code for this address."
+        },
+        "addressLocality": {
+          "example": "Acton",
+          "type": "string",
+          "description": "The city, suburb or township name."
+        },
+        "addressRegion": {
+          "example": "ACT",
+          "type": "string",
+          "description": "The state or territory or province"
+        },
+        "addressCountry": {
+          "$ref": "#/$defs/Country",
+          "description": "The address country as an ISO-3166 two letter country code and name."
+        }
+      },
+      "description": "A postal address.",
+      "required": [
+        "streetAddress",
+        "postalCode",
+        "addressLocality",
+        "addressRegion",
+        "addressCountry"
+      ]
+    },
+    "Link": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "linkURL": {
+          "example": "https://files.example-certifier.com/1234567.json",
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the target resource.  "
+        },
+        "linkName": {
+          "type": "string",
+          "description": "Display name for this link."
+        },
+        "digestMultibase": {
+          "example": "abc123-example-digest-invalid",
+          "type": "string",
+          "description": "An optional multi-base encoded digest to ensure the content of the link has not changed. See https://www.w3.org/TR/vc-data-integrity/#resource-integrity for more information."
+        },
+        "mediaType": {
+          "example": "application/ld+json",
+          "type": "string",
+          "description": "The media type of the target resource."
+        },
+        "linkType": {
+          "example": "https://test.uncefact.org/vocabulary/linkTypes/dcc",
+          "type": "string",
+          "description": "The type of the target resource - drawn from a controlled vocabulary "
+        }
+      },
+      "description": "A structure to provide a URL link plus metadata associated with the link.",
+      "required": [
+        "linkURL",
+        "linkName"
+      ]
+    },
+    "Location": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "plusCode": {
+          "example": "https://plus.codes/8CGRC78W+MM",
+          "type": "string",
+          "format": "uri",
+          "description": "An open location code (https://maps.google.com/pluscodes/) representing this geographic location or region. Open location codes can represent any sized area from a point to a large region and are easily resolved to a visual map location. "
+        },
+        "geoLocation": {
+          "$ref": "#/$defs/Coordinate",
+          "description": "The latitude and longitude coordinates that best represent the specified location. "
+        },
+        "geoBoundary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Coordinate"
+          },
+          "description": "The list of ordered coordinates that define a closed area polygon as a location boundary. The first and last coordinates in the array must match - thereby defining a closed boundary."
+        }
+      },
+      "description": "Location information including address and geo-location of points, areas, and boundaries. At least one of plusCode, geoLocation, or geoBoundary are required."
+    },
+    "Coordinate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "latitude": {
+          "maximum": 90,
+          "minimum": -90,
+          "example": -33.87,
+          "type": "number",
+          "description": "latitude: Angular distance north or south of the equator, expressed in decimal degrees.Valid range: −90.0 to +90.0."
+        },
+        "longitude": {
+          "maximum": 180,
+          "minimum": -180,
+          "example": -151.21,
+          "type": "number",
+          "description": "longitude: Angular distance east or west of the Prime Meridian, expressed in decimal degrees.Valid range: −180.0 to +180.0."
+        }
+      },
+      "description": "A geographic point defined by latitude and longitude using the WGS84 geodetic coordinate reference system (EPSG:4326). Latitude and longitude are expressed in decimal degrees as floating-point numbers. Coordinates follow the conventional order (latitude, longitude) and represent a point on the Earth’s surface.",
+      "required": [
+        "latitude",
+        "longitude"
+      ]
+    },
+    "MaterialUsage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "applicablePeriod": {
+          "$ref": "#/$defs/Period",
+          "description": "The period over which this material consumption is reported"
+        },
+        "materialConsumed": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Material"
+          },
+          "description": "An list of materials consumed during the usage period. "
+        }
+      },
+      "description": "A material usage record defining the consumption of materials for a given period, typically at an operating facility.  Used to specify volumetric consumption and country of origin without specifying specific suppliers.",
+      "required": [
+        "materialConsumed"
+      ]
+    },
+    "Period": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "format": "date",
+          "description": "The period start date"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "description": "The period end date"
+        },
+        "periodInformation": {
+          "type": "string",
+          "description": "Additional information relevant to this reporting period"
+        }
+      },
+      "description": "A period of time, typically a month, quarter or a year, which defines the context boundary for reported facts.",
+      "required": [
+        "startDate",
+        "endDate"
+      ]
+    },
+    "Material": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "name": {
+          "example": "Lithium Spodumene",
+          "type": "string",
+          "description": "Name of this material (eg \"Egyptian Cotton\")"
+        },
+        "originCountry": {
+          "$ref": "#/$defs/Country",
+          "description": "A ISO 3166-1 code representing the country of origin of the component or ingredient."
+        },
+        "materialType": {
+          "$ref": "#/$defs/Classification",
+          "description": "The type of this material - as a value drawn from a controlled vocabulary eg from UN Framework Classification for Resources (UNFC)."
+        },
+        "massFraction": {
+          "maximum": 1,
+          "minimum": 0,
+          "example": 0.2,
+          "type": "number",
+          "description": "The mass fraction as a decimal of the product (or facility reporting period)  represented by this material. "
+        },
+        "mass": {
+          "$ref": "#/$defs/Measure",
+          "description": "The mass of the material component."
+        },
+        "recycledMassFraction": {
+          "maximum": 1,
+          "minimum": 0,
+          "example": 0.5,
+          "type": "number",
+          "description": "Mass fraction of this material that is recycled (eg 50% recycled Lithium)"
+        },
+        "hazardous": {
+          "type": "boolean",
+          "description": "Indicates whether this material is hazardous. If true then the materialSafetyInformation property must be present"
+        },
+        "symbol": {
+          "$ref": "#/$defs/Image",
+          "description": "Based 64 encoded binary used to represent a visual symbol for a given material. "
+        },
+        "materialSafetyInformation": {
+          "$ref": "#/$defs/Link",
+          "description": "Reference to further information about safe handling of this hazardous material (for example a link to a material safety data sheet)"
+        }
+      },
+      "description": "The material class encapsulates details about the origin or source of raw materials in a product, including the country of origin and the mass fraction.",
+      "required": [
+        "name",
+        "originCountry",
+        "materialType",
+        "massFraction"
+      ]
+    },
+    "Measure": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "example": 10,
+          "type": "number",
+          "description": "The numeric value of the measure"
+        },
+        "upperTolerance": {
+          "type": "number",
+          "description": "The upper tolerance associated with this measure expressed in the same units as the measure.  For example value=10, upperTolerance=0.1, unit=KGM would mean that this measure is 10kg + 0.1kg"
+        },
+        "lowerTolerance": {
+          "type": "number",
+          "description": "The lower tolerance associated with this measure expressed in the same units as the measure.  For example value=10, lowerTolerance=0.1, unit=KGM would mean that this measure is 10kg - 0.1kg"
+        },
+        "unit": {
+          "type": "string",
+          "x-external-enumeration": "https://vocabulary.uncefact.org/UnitMeasureCode#",
+          "description": "Unit of measure drawn from the UNECE Rec20 measure code list.\n\n    This is an enumerated value, but the list of valid values are too big, or change too often to include here. You can access the list of allowable values at this URL:  https://vocabulary.uncefact.org/UnitMeasureCode#\n    "
+        }
+      },
+      "description": "The measure class defines a numeric measured value (eg 10) and a coded unit of measure (eg KG).  There is an optional upper and lower tolerance which can be used to specify uncertainty in the measure.  ",
+      "required": [
+        "value",
+        "unit"
+      ]
+    },
+    "Image": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "example": "certification trust mark",
+          "type": "string",
+          "description": "the display name for this image"
+        },
+        "description": {
+          "type": "string",
+          "description": "The detailed description / supporting information for this image."
+        },
+        "imageData": {
+          "type": "string",
+          "format": "byte",
+          "description": "The image data encoded as a base64 string."
+        },
+        "mediaType": {
+          "type": "string",
+          "x-external-enumeration": "https://mimetype.io/",
+          "description": "The media type of this image (eg image/png)\n\n    This is an enumerated value, but the list of valid values are too big, or change too often to include here. You can access the list of allowable values at this URL:  https://mimetype.io/\n    "
+        }
+      },
+      "description": "A binary image encoded as base64 text and embedded into the data.  Use this for small images like certification trust marks or regulated labels.  Large images should be external links.",
+      "required": [
+        "name",
+        "imageData",
+        "mediaType"
+      ]
+    },
+    "Claim": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "Claim"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "Claim",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "id": {
+          "example": "https://sample-company.com/claim/e78dab5d-b6f6-4bc4-a458-7feb039f6cb3",
+          "type": "string",
+          "format": "uri",
+          "description": "Globally unique identifier of this claim. Typically represented as a URI companyURL/claimID URI or a UUID"
+        },
+        "name": {
+          "example": "Sample company Forced Labour claim",
+          "type": "string",
+          "description": "Name of this claim - typically similar or the same as the referenced criterion name."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of this conformity claim"
+        },
+        "referenceCriteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "array",
+                "readOnly": true,
+                "default": [
+                  "Criterion"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "const": "Criterion",
+                      "minContains": 1
+                    }
+                  }
+                ]
+              },
+              "id": {
+                "example": "https://vocabulary.sample-scheme.org/criterion/lb/v1.0",
+                "type": "string",
+                "format": "uri",
+                "description": "Globally unique identifier of this conformity criterion. Typically represented as a URI SchemeOwner/CriterionID URI"
+              },
+              "name": {
+                "example": "Forced labour assessment criterion",
+                "type": "string",
+                "description": "Name of this criterion as defined by the scheme owner."
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "description": "The criterion against which the claim is made."
+        },
+        "referenceRegulation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "array",
+                "readOnly": true,
+                "default": [
+                  "Regulation"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "const": "Regulation",
+                      "minContains": 1
+                    }
+                  }
+                ]
+              },
+              "id": {
+                "example": "https://regulations.country.gov/ABC-12345",
+                "type": "string",
+                "format": "uri",
+                "description": "Globally unique identifier of this standard. Typically represented as a URI government/regulation URI"
+              },
+              "name": {
+                "example": "Due Diligence Directove",
+                "type": "string",
+                "description": "Name of this regulation as defined by the regulator."
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "description": "List of references to regulation to which conformity is claimed claimed for this product"
+        },
+        "referenceStandard": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "array",
+                "readOnly": true,
+                "default": [
+                  "Standard"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "const": "Standard",
+                      "minContains": 1
+                    }
+                  }
+                ]
+              },
+              "id": {
+                "example": "https://sample-standards.org/A1234",
+                "type": "string",
+                "format": "uri",
+                "description": "Globally unique identifier of this standard. Typically represented as a URI issuer/standard URI"
+              },
+              "name": {
+                "example": "Labour rights standard",
+                "type": "string",
+                "description": "Name for this standard"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          },
+          "description": "List of references to standards to which conformity is claimed claimed for this product"
+        },
+        "claimDate": {
+          "type": "string",
+          "format": "date",
+          "description": "That date on which the claimed performance is applicable."
+        },
+        "applicablePeriod": {
+          "$ref": "#/$defs/Period",
+          "description": "The applicable reporting period for this facility record."
+        },
+        "claimedPerformance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Performance"
+          },
+          "description": "The claimed performance level "
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Link"
+          },
+          "description": "A URI pointing to the evidence supporting the claim. SHOULD be a URL to a UNTP Digital Conformity Credential (DCC)"
+        },
+        "conformityTopic": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ConformityTopic"
+          },
+          "description": "The conformity topic category for this assessment"
+        }
+      },
+      "description": "A performance claim about a product, facility, or organisation that is made against a well defined criterion.",
+      "required": [
+        "id",
+        "name",
+        "referenceCriteria",
+        "claimDate",
+        "claimedPerformance",
+        "conformityTopic"
+      ]
+    },
+    "Performance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "metric": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "array",
+              "readOnly": true,
+              "default": [
+                "PerformanceMetric"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "allOf": [
+                {
+                  "contains": {
+                    "const": "PerformanceMetric",
+                    "minContains": 1
+                  }
+                }
+              ]
+            },
+            "id": {
+              "example": "https://authority.gov/schemeABC/123456789",
+              "type": "string",
+              "format": "uri",
+              "description": "Globally unique identifier of this reporting metric. "
+            },
+            "name": {
+              "example": "emissions intensity",
+              "type": "string",
+              "description": "A human readable name for this metric (for example \"water usage per Kg of material\")"
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ],
+          "description": "The metric (eg material emissions intensity CO2e/Kg or percentage of young workers) that is measured."
+        },
+        "measure": {
+          "$ref": "#/$defs/Measure",
+          "description": "The measured performance value"
+        },
+        "score": {
+          "$ref": "#/$defs/Score",
+          "description": "A performance score (eg \"AA\") drawn from a scoring framework defined by the scheme or criterion."
+        }
+      },
+      "description": "A claimed, assessed, or required performance level defined either by a scoring system or a numeric measure. When a numeric measure is provided, the metric classifying the measurement is required. When only a score is provided, the scoring framework is discoverable via the conformity scheme or criterion.",
+      "dependentRequired": {
+        "measure": [
+          "metric"
+        ]
+      }
+    },
+    "Score": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "The coded value for this score (eg \"AAA\")"
+        },
+        "rank": {
+          "type": "integer",
+          "description": "The ranking of this score within the scoring framework - using an integer where \"1\" is the highest rank."
+        },
+        "definition": {
+          "type": "string",
+          "description": "A description of the meaning of this score."
+        }
+      },
+      "description": "A single score within a scoring framework. ",
+      "required": [
+        "code"
+      ]
+    },
+    "ConformityTopic": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "array",
+          "readOnly": true,
+          "default": [
+            "ConformityTopic"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "ConformityTopic",
+                "minContains": 1
+              }
+            }
+          ]
+        },
+        "id": {
+          "type": "string",
+          "format": "uri",
+          "description": "The unique identifier for this conformity topic"
+        },
+        "name": {
+          "example": "forced-labour",
+          "type": "string",
+          "description": "The human readable name for this conformity topic."
+        },
+        "definition": {
+          "type": "string",
+          "description": "The rich definition of this conformity topic."
+        }
+      },
+      "description": "The UNTP standard classification scheme for conformity topic.  see http://vocabulary.uncefact.org/ConformityTopic",
+      "required": [
+        "id",
+        "name"
+      ]
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "$comment": "A validation target: an external model at one version, hosted as GITB validation types by OpenEPCIS DPP-Ready. CIRPASS-2 Textile 2.0.0 publication package: shapes evaluated with the ontology modules and MIREOT extracts, as the package's own test corpus does. Artifacts are checked against the vendor MANIFEST.json on every build. The vocabulary mirror extensions/upstream/cirpass2-textile is still 1.1.2. The recyclability shapes declare sh:entailment RDFS, which the Test Bed (Jena) applies and the local check reproduces; so example 11, which the package uses as its negative control without inference, conforms here as it does with inference.",
+  "id": "cirpass2-textile",
+  "version": "2.0.0",
+  "title": "CIRPASS-2 Textile",
+  "publisher": "CIRPASS-2",
+  "manifest": "vendor/cirpass2-textile/2.0.0/MANIFEST.json",
+  "shacl": {
+    "background": [
+      "vendor/cirpass2-textile/2.0.0/ontology/textile-assessment.ttl",
+      "vendor/cirpass2-textile/2.0.0/ontology/textile-associated-materials.ttl",
+      "vendor/cirpass2-textile/2.0.0/ontology/textile-connector.ttl",
+      "vendor/cirpass2-textile/2.0.0/ontology/textile-context.ttl",
+      "vendor/cirpass2-textile/2.0.0/ontology/textile-core.ttl",
+      "vendor/cirpass2-textile/2.0.0/ontology/textile-durability.ttl",
+      "vendor/cirpass2-textile/2.0.0/ontology/textile-indicator.ttl",
+      "vendor/cirpass2-textile/2.0.0/ontology/textile-ontology.ttl",
+      "vendor/cirpass2-textile/2.0.0/ontology/textile-process.ttl",
+      "vendor/cirpass2-textile/2.0.0/ontology/textile-recyclability.ttl",
+      "vendor/cirpass2-textile/2.0.0/ontology/textile-repairability.ttl",
+      "vendor/cirpass2-textile/2.0.0/ontology/textile-soc.ttl",
+      "vendor/cirpass2-textile/2.0.0/ontology/textile-structure.ttl",
+      "vendor/cirpass2-textile/2.0.0/mireot/actor-textile-mireot.ttl",
+      "vendor/cirpass2-textile/2.0.0/mireot/con-textile-mireot.ttl",
+      "vendor/cirpass2-textile/2.0.0/mireot/dpp-textile-mireot.ttl",
+      "vendor/cirpass2-textile/2.0.0/mireot/event-textile-mireot.ttl",
+      "vendor/cirpass2-textile/2.0.0/mireot/mat-textile-mireot.ttl",
+      "vendor/cirpass2-textile/2.0.0/mireot/si-textile-mireot.ttl",
+      "vendor/cirpass2-textile/2.0.0/mireot/soc-textile-mireot.ttl"
+    ]
+  },
+  "types": [
+    {
+      "scope": "product",
+      "label": "textile product data (quantitative, recyclability and substances-of-concern shapes)",
+      "shapes": [
+        "vendor/cirpass2-textile/2.0.0/shacl/textile-quantitative-shapes.ttl",
+        "vendor/cirpass2-textile/2.0.0/shacl/textile-recyclability-shapes.ttl",
+        "vendor/cirpass2-textile/2.0.0/shacl/textile-soc-shapes.ttl"
+      ]
+    }
+  ],
+  "fixtures": [
+    {
+      "role": "publisher",
+      "expectations": "vendor/cirpass2-textile/2.0.0/tests/abox_corpus/expectations/shacl-expectations.json",
+      "base": "vendor/cirpass2-textile/2.0.0/"
+    },
+    {
+      "role": "publisher",
+      "glob": "vendor/cirpass2-textile/2.0.0/examples/*.ttl"
+    }
+  ],
+  "accepted": []
+}

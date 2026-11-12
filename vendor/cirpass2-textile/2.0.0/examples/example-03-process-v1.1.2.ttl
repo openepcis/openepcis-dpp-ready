@@ -1,0 +1,120 @@
+@prefix ex: <https://example.org/eu-dpp-textile/> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix txt: <https://w3id.org/eudpp/textile-core#> .
+@prefix txtprc: <https://w3id.org/eudpp/textile-process#> .
+@prefix txtam: <https://w3id.org/eudpp/textile-associated-materials#> .
+@prefix txtamcs: <https://w3id.org/eudpp/textile-associated-materials-codelists#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix si: <https://si-digital-framework.org/SI#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix quantities: <https://si-digital-framework.org/quantities/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Example 03 — concrete weaving and dyeing executions with typed parameter settings.
+
+ex:body-fabric-002 a txt:Fabric .
+
+ex:weaving-execution-002
+    a txtprc:TextileProcessExecution ;
+    txtprc:executesProcessType ex:weaving-process-type-002 ;
+    txtprc:concernsProduct ex:body-fabric-002 ;
+    txtprc:producesOutput ex:body-fabric-002 ;
+    txtprc:hasProcessParameterSetting ex:target-mass-setting-002,
+        ex:weave-pattern-setting-002 .
+
+ex:target-fabric-mass-parameter-002
+    a txtprc:TargetFabricMassPerUnitArea .
+
+ex:weave-pattern-parameter-002
+    a txtprc:WeavePatternSpecification .
+
+ex:weaving-process-type-002
+    a txtprc:WeavingProcess ;
+    txtprc:hasProcessParameter ex:target-fabric-mass-parameter-002,
+        ex:weave-pattern-parameter-002 ;
+    txtprc:hasFabricManufacturingMethod txtprc:weavingMethod .
+
+ex:target-mass-setting-002
+    a txtprc:ProcessParameterSetting ;
+    txtprc:settingForProcessParameter ex:target-fabric-mass-parameter-002 ;
+    txtprc:hasQuantitativeValue ex:value-145-g-per-m2 .
+
+ex:value-145-g-per-m2
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "145"^^xsd:decimal ;
+    txtcon:hasQuantityKind quantities:SUDE ;
+    txtcon:hasMeasurementUnit [
+        a si:UnitProduct ;
+        si:hasLeftUnitTerm units:gram ;
+        si:hasRightUnitTerm [
+            a si:UnitPower ;
+            si:hasUnitBase units:metre ;
+            si:hasNumericExponent "-2"^^xsd:short
+        ]
+    ] .
+
+ex:plain-weave a skos:Concept ;
+    skos:prefLabel "plain weave"@en .
+
+ex:weave-pattern-setting-002
+    a txtprc:ProcessParameterSetting ;
+    txtprc:settingForProcessParameter ex:weave-pattern-parameter-002 ;
+    txtprc:hasCategoricalValue ex:plain-weave .
+
+ex:dyeing-execution-002
+    a txtprc:TextileProcessExecution ;
+    txtprc:executesProcessType ex:dyeing-process-type-002 ;
+    txtprc:concernsProduct ex:body-fabric-002 ;
+    txtprc:usesChemicalSubstance ex:blue-dye-substance ;
+    txtprc:usesChemicalFunction txtamcs:dye ;
+    txtprc:usesChemicalUseCategory txtamcs:performanceChemical ;
+    txtprc:hasProcessParameterSetting ex:dye-temperature-setting-002,
+        ex:dye-time-setting-002 .
+
+ex:dyeing-process-type-002 a txtprc:DyeingProcess .
+
+ex:dyeing-temperature-parameter-002
+    a txtprc:DyeingTemperature .
+
+ex:dyeing-time-parameter-002
+    a txtprc:DyeingTime .
+
+ex:blue-dye-substance a txtam:TextileChemicalSubstance .
+
+ex:dye-temperature-setting-002
+    a txtprc:ProcessParameterSetting ;
+    txtprc:settingForProcessParameter ex:dyeing-temperature-parameter-002 ;
+    txtprc:hasQuantitativeValue ex:value-60-celsius .
+
+ex:value-60-celsius
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "60"^^xsd:decimal ;
+    txtcon:hasQuantityKind quantities:TEMC ;
+    txtcon:hasMeasurementUnit units:degreeCelsius .
+
+ex:dye-time-setting-002
+    a txtprc:ProcessParameterSetting ;
+    txtprc:settingForProcessParameter ex:dyeing-time-parameter-002 ;
+    txtprc:hasQuantitativeValue ex:value-45-minute .
+
+ex:value-45-minute
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "45"^^xsd:decimal ;
+    txtcon:hasQuantityKind quantities:TIME ;
+    txtcon:hasMeasurementUnit units:minute .
+
+
+# Product instructions are product properties, distinct from process executions.
+ex:jacket-instruction-example
+    a txt:TextileApparel ;
+    txtprc:hasCareInstruction ex:digital-care-instruction ;
+    txtprc:hasEndOfLifeInstruction ex:digital-end-of-life-instruction .
+
+ex:digital-care-instruction
+    a txtprc:DigitalTextileCareInstruction ;
+    dpp:webLink "https://example.org/instructions/jacket-care"^^xsd:anyURI .
+
+ex:digital-end-of-life-instruction
+    a txtprc:DigitalTextileEndOfLifeInstruction ;
+    dpp:webLink "https://example.org/instructions/jacket-end-of-life"^^xsd:anyURI .

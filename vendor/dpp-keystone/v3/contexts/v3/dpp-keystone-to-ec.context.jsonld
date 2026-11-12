@@ -1,0 +1,244 @@
+{
+  "@context": [
+    "https://dpp-keystone.org/spec/contexts/v3/dpp-battery.context.jsonld",
+    {
+      "@version": 1.1,
+      "dppk": "https://dpp-keystone.org/spec/v3/terms#",
+      "dpp": "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#",
+      "dppcom": "https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#",
+      "dppgra": "https://repository.product-passport.ec.europa.eu/core/vocabs/granularity-level#",
+      "dppsta": "https://repository.product-passport.ec.europa.eu/core/vocabs/instance-status#",
+      "bat": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-vocabulary#",
+      "batcat": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-category#",
+      "batchem": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-chemistry#",
+      "batsta": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "DigitalProductPassport": "dpp:DigitalProductPassport",
+      "digitalProductPassportId": "dpp:digitalProductPassportId",
+      "uniqueProductIdentifier": "dpp:uniqueProductIdentifier",
+      "granularity": {
+        "@id": "dpp:granularity",
+        "@type": "@vocab",
+        "@context": {
+          "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/granularity-level#",
+          "Model": "dppgra:model",
+          "Batch": "dppgra:batch",
+          "Item": "dppgra:item"
+        }
+      },
+      "dppStatus": {
+        "@id": "dpp:dppStatus",
+        "@type": "@vocab",
+        "@context": {
+          "@vocab": "https://repository.product-passport.ec.europa.eu/core/vocabs/instance-status#",
+          "Active": "dppsta:validStatus",
+          "Archived": "dppsta:invalidStatus",
+          "Revoked": "dppsta:invalidStatus",
+          "Draft": "dppsta:invalidStatus"
+        }
+      },
+      "lastUpdate": {
+        "@id": "dpp:lastUpdate",
+        "@type": "xsd:dateTime"
+      },
+      "contentSpecificationIds": {
+        "@id": "dpp:contentSpecificationIds",
+        "@container": "@set"
+      },
+      "dppSchemaVersion": "dpp:dppSchemaVersion",
+      "economicOperatorId": "dpp:economicOperatorId",
+      "facilityId": "dpp:facilityId",
+      "productName": {
+        "@id": "dpp:productName",
+        "@container": "@language"
+      },
+      "resourceTitle": "dpp:resourceTitle",
+      "contentType": "dpp:contentType",
+      "url": {
+        "@id": "dpp:url",
+        "@type": "xsd:anyURI"
+      },
+      "language": "dpp:language",
+      "manufacturerInfo": {
+        "@id": "bat:manufacturerIdentification",
+        "@context": {
+          "organizationName": "bat:manufacturerName",
+          "tradingName": "bat:manufacturerTradeName",
+          "website": {
+            "@id": "bat:manufacturerWebsite",
+            "@type": "xsd:anyURI"
+          },
+          "email": "bat:manufacturerEmail"
+        }
+      },
+      "manufacturer": {
+        "@id": "bat:manufacturerIdentification",
+        "@context": {
+          "organizationName": "bat:manufacturerName",
+          "tradingName": "bat:manufacturerTradeName",
+          "website": {
+            "@id": "bat:manufacturerWebsite",
+            "@type": "xsd:anyURI"
+          },
+          "email": "bat:manufacturerEmail"
+        }
+      },
+      "brand": "bat:manufacturerTrademark",
+      "model": "bat:modelIdentifier",
+      "gtin": "bat:productNumber",
+      "manufacturingPlace": "bat:manufacturingPlace",
+      "manufacturingDate": {
+        "@id": "bat:manufacturingDate",
+        "@type": "xsd:date"
+      },
+      "warrantyPeriod": "bat:commercialWarrantyPeriod",
+      "batteryCategory": {
+        "@id": "bat:batteryCategory",
+        "@type": "@vocab",
+        "@context": {
+          "@vocab": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-category#",
+          "EVBattery": "batcat:electricVehicleBattery",
+          "LMVBattery": "batcat:lightMeansOfTransportBattery",
+          "IndustrialBattery": "batcat:industrialBattery"
+        }
+      },
+      "batteryChemistry": {
+        "@id": "bat:batteryChemistry",
+        "@container": "@set",
+        "@type": "@vocab",
+        "@context": {
+          "@vocab": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-chemistry#",
+          "LFP": "batchem:lithiumIonLFP",
+          "NMC": "batchem:lithiumIonNMC",
+          "NCA": "batchem:lithiumIonNCA",
+          "LMO": "batchem:lithiumIonLMO",
+          "LCO": "batchem:lithiumIonLCO",
+          "LeadAcid": "batchem:leadAcid",
+          "NiCd": "batchem:nickelCadmium",
+          "NiMH": "batchem:nickelMetalHydride",
+          "SodiumIon": "batchem:sodiumIon"
+        }
+      },
+      "batteryMass": "bat:batteryWeight",
+      "batteryStatus": {
+        "@id": "bat:batteryStatus",
+        "@type": "@vocab",
+        "@context": {
+          "@vocab": "https://repository.product-passport.ec.europa.eu/product/batteries/vocabs/battery-status#",
+          "Original": "batsta:original",
+          "Reused": "batsta:reused",
+          "Repurposed": "batsta:repurposed",
+          "Remanufactured": "batsta:remanufactured",
+          "Waste": "batsta:waste"
+        }
+      },
+      "separateCollectionSymbol": "bat:separateCollectionSymbol",
+      "heavyMetalSymbols": "bat:chemicalSymbol",
+      "extinguishingAgent": "bat:extinguishingAgent",
+      "labelMeaning": "bat:batteryLabelSymbolMeaning",
+      "hazardousSubstancesImpact": "bat:batterySubstancesImpact",
+      "criticalRawMaterials": "bat:criticalRawMaterials",
+      "renewableContent": "bat:renewableContentShare",
+      "hazardousSubstances": {
+        "@id": "bat:hazardousSubstances",
+        "@container": "@set",
+        "@context": {
+          "name": "dppk:componentName",
+          "percentage": "dppk:componentPercentage",
+          "uniqueProductIdentifier": "dppk:componentIdentifier",
+          "casNumber": "dppk:componentCasNumber",
+          "ecNumber": "dppk:componentEcNumber",
+          "iupacName": "dppk:componentIupacName",
+          "locationInProduct": "dppk:componentLocationInProduct"
+        }
+      },
+      "dopc": "bat:euDeclarationOfConformity",
+      "testReports": "bat:complianceTestReportResults",
+      "dismantlingInformation": "bat:dismantlingInformation",
+      "sparePartsSources": "bat:sparePartReplacementDetails",
+      "safetyMeasures": "bat:safetyMeasures",
+      "wastePreventionInfo": "bat:wasteBatteryPreventionManagementInfo",
+      "performance": "@nest",
+      "capacity": "@nest",
+      "efficiency": "@nest",
+      "internalResistance": "@nest",
+      "lifetime": "@nest",
+      "negativeEvents": "@nest",
+      "rated": "bat:batteryCapacity",
+      "remaining": "bat:remainingCapacity",
+      "fade": "bat:capacityFade",
+      "soce": "bat:stateOfCertifiedEnergy",
+      "voltageMin": "bat:minimalVoltage",
+      "voltageNominal": "bat:nominalVoltage",
+      "voltageMax": "bat:maximumVoltage",
+      "certifiedUsableEnergy": {
+        "@id": "dppk:certifiedUsableEnergy",
+        "@type": "xsd:double"
+      },
+      "remainingUsableEnergy": {
+        "@id": "dppk:remainingUsableEnergy",
+        "@type": "xsd:double"
+      },
+      "stateOfCharge": "dppk:stateOfCharge",
+      "power": {
+        "@id": "dppk:power",
+        "@context": {
+          "original": "bat:originalPowerCapability",
+          "remaining": "bat:remainingPowerCapability",
+          "fade": "bat:powerFade",
+          "maximumPermitted": "bat:powerLimit",
+          "energyRatio": {
+            "@id": "dppk:powerEnergyRatio",
+            "@type": "xsd:double"
+          }
+        }
+      },
+      "roundTripInitial": "bat:initialRoundTripEnergyEfficiency",
+      "roundTripAt50Cycles": "bat:roundTripEfficiencyAtHalfCycleLife",
+      "roundTripRemaining": "bat:remainingRoundTripEfficiency",
+      "roundTripFade": "bat:roundTripEnergyEfficiencyFade",
+      "selfDischargeInitial": "dppk:selfDischargeInitial",
+      "selfDischargeCurrent": "bat:selfDischargingRate",
+      "selfDischargeEvolution": "dppk:selfDischargeEvolution",
+      "initial": "bat:internalPackResistance",
+      "increase": "bat:internalResistanceIncrease",
+      "ohmic": "bat:ohmicResistance",
+      "dynamic": "bat:internalResistance",
+      "years": "bat:expectedLifetimeYears",
+      "cycles": "bat:expectedLifetimeCycles",
+      "cycleCountFull": "bat:numberOfDischargingCycles",
+      "referenceTest": "bat:cycleLifeReferenceTest",
+      "cRateTest": "bat:cycleLifeDischargeCRate",
+      "exhaustionThreshold": "bat:capacityExhaustionThreshold",
+      "energyThroughput": "dppk:energyThroughput",
+      "capacityThroughput": "dppk:capacityThroughput",
+      "temperature": {
+        "@id": "bat:notInUseTemperatureRange",
+        "@context": {
+          "idleLower": "dppcom:lowerBound",
+          "idleUpper": "dppcom:upperBound",
+          "timeExtremeUpper": {
+            "@id": "dppk:timeExtremeTempUpper",
+            "@type": "xsd:double"
+          },
+          "timeExtremeLower": {
+            "@id": "dppk:timeExtremeTempLower",
+            "@type": "xsd:double"
+          },
+          "timeChargingUpper": {
+            "@id": "dppk:timeChargingTempUpper",
+            "@type": "xsd:double"
+          },
+          "timeChargingLower": {
+            "@id": "dppk:timeChargingTempLower",
+            "@type": "xsd:double"
+          }
+        }
+      },
+      "deepDischarge": "dppk:eventsDeepDischarge",
+      "overcharge": "dppk:eventsOvercharge",
+      "accidents": "bat:negativeEvents"
+    }
+  ],
+  "@id": "https://dpp-keystone.org/spec/contexts/v3/dpp-keystone-to-ec"
+}

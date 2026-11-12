@@ -1,0 +1,70 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dpp:SubstanceManagementInstruction a owl:Class ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/SOC> ;
+    rdfs:subClassOf dpp:DigitalInstruction .
+
+dpp:hasConcentration a owl:ObjectProperty ;
+    rdfs:label "has concentration"@en ;
+    rdfs:comment """Links a substance presence to concentration information. A concentration is contextual to the structural location identified by the associated SubstancePresence. 
+
+Different product, component, or spare-part locations requiring different concentrations should normally use distinct SubstancePresence records. 
+
+Exact, maximum, and range representations remain distinguished by the existing P_DPP/SOC concentration model.
+
+ConcentrationOfSubstanceOfConcern is modelled in the EU DPP CO P_DPP module.
+SubstancePresence is modelled in the EU DPP CO IDENT module."""@en ;
+    rdfs:domain dpp:SubstancePresence ;
+    rdfs:range dpp:ConcentrationOfSubstanceOfConcern .
+
+dpp:hasSubstancePresence a owl:ObjectProperty ;
+    rdfs:label "has substance presence"@en ;
+    rdfs:comment """Relation from Product to contextual SubstancePresence.
+
+Product is modelled in the EU DPP CO P_DPP module.
+SubstancePresence is modelled in the EU DPP CO IDENT module."""@en ;
+    rdfs:domain dpp:Product ;
+    rdfs:range dpp:SubstancePresence ;
+    owl:inverseOf dpp:isSubstancePresenceOf .
+
+dpp:isLocatedInProduct a owl:ObjectProperty ;
+    rdfs:label "is located in product"@en ;
+    rdfs:comment """Location of a substance presence in a product, component or spare part, connection between substance presence and product.
+
+Product is modelled in the EU DPP CO P_DPP module.
+SubstancePresence is modelled in the EU DPP CO IDENT module."""@en ;
+    rdfs:domain dpp:SubstancePresence ;
+    rdfs:range dpp:Product .
+
+<https://w3id.org/eudpp/textile-con-mireot> a owl:Ontology ;
+    rdfs:label "Textile CON bounded MIREOT"@en ;
+    dcterms:modified "2026-10-27"^^xsd:date ;
+    dcterms:references "Owner-designated CORE 2.4.0; unchanged source in dependencies/current-core/connector.owl."@en ;
+    dcterms:source <https://w3id.org/eudpp/CON> ;
+    owl:versionIRI <https://w3id.org/eudpp/textile-con-mireot/2.0.0> ;
+    owl:versionInfo "Version 2.0.0 candidate" .
+
+dpp:ConcentrationOfSubstanceOfConcern a owl:Class ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/P_DPP> .
+
+dpp:DigitalInstruction a owl:Class ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/P_DPP> .
+
+dpp:isSubstancePresenceOf a owl:ObjectProperty ;
+    rdfs:label "is substance presence of"@en ;
+    rdfs:comment """Inverse relation from SubstancePresence to Product.
+
+Product is modelled in the EU DPP CO P_DPP module.
+SubstancePresence is modelled in the EU DPP CO IDENT module."""@en ;
+    rdfs:domain dpp:SubstancePresence ;
+    rdfs:range dpp:Product .
+
+dpp:Product a owl:Class ;
+    rdfs:isDefinedBy <https://w3id.org/eudpp/P_DPP> .
+
+dpp:SubstancePresence a owl:Class ;
+    rdfs:isDefinedBy "https://w3id.org/eudpp/SOC" .

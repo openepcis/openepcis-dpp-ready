@@ -1,0 +1,64 @@
+@prefix dpp: <https://w3id.org/eudpp#> .
+@prefix ex: <https://example.org/eu-dpp-textile/> .
+@prefix txt: <https://w3id.org/eudpp/textile-core#> .
+@prefix txtcon: <https://w3id.org/eudpp/textile-connector#> .
+@prefix txtcs: <https://w3id.org/eudpp/textile-codelists#> .
+@prefix units: <https://si-digital-framework.org/SI/units/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Illustrative data. Fractions are represented on a 0-1 scale and use the
+# dimensionless SI unit units:one. The values are not extracted from the JRC.
+
+ex:tshirt-001
+    a txt:TextileApparel ;
+    rdfs:label "Example cotton T-shirt"@en ;
+    txt:hasTextileApparelProductType txtcs:tShirt ;
+    txt:hasStudyScopeStatus txtcs:includedInJRCPreparatoryStudyScope ;
+    txt:hasTextileFibreMassFraction ex:value-textile-fibre-fraction ;
+    txt:hasFibreCompositionComponent ex:composition-cotton-95,
+        ex:composition-elastane-5 .
+
+ex:composition-cotton-95
+    a txt:FibreCompositionComponent ;
+    txt:hasFibreType txtcs:cotton ;
+    txt:hasFibreMassFraction ex:value-cotton-fraction .
+
+ex:composition-elastane-5
+    a txt:FibreCompositionComponent ;
+    txt:hasFibreType txtcs:elastane ;
+    txt:hasFibreMassFraction ex:value-elastane-fraction .
+
+ex:value-textile-fibre-fraction
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "1.00"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .
+
+ex:value-cotton-fraction
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "0.95"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .
+
+ex:value-elastane-fraction
+    a txtcon:QuantitativeValue ;
+    txtcon:numericValue "0.05"^^xsd:decimal ;
+    txtcon:hasMeasurementUnit units:one .
+
+# Product-component chain. Fibre, yarn and fabric remain products; their
+# incorporation role is expressed by dpp:isComponentOf. Because the property
+# is transitive, the fibre batch is also indirectly a component of the T-shirt.
+
+ex:fibre-batch-001
+    a txt:TextileFibre ;
+    rdfs:label "Example cotton fibre batch"@en ;
+    dpp:isComponentOf ex:yarn-lot-001 .
+
+ex:yarn-lot-001
+    a txt:Yarn ;
+    rdfs:label "Example yarn lot"@en ;
+    dpp:isComponentOf ex:fabric-roll-001 .
+
+ex:fabric-roll-001
+    a txt:Fabric ;
+    rdfs:label "Example jersey fabric roll"@en ;
+    dpp:isComponentOf ex:tshirt-001 .

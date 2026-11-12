@@ -1,0 +1,107 @@
+{
+  "$comment": "A validation target: an external DPP model at one version, hosted as GITB validation types by OpenEPCIS DPP-Ready. Types are derived from the crosswalk profile; artifacts are checked against the vendor MANIFEST.json on every build. See docs/GITB_CONFORMANCE.md, section 'External models'.",
+  "id": "eu-dpp",
+  "version": "1.0.0",
+  "title": "EU DPP Registry semantic data artifacts",
+  "publisher": "European Commission",
+  "manifest": "vendor/eu-dpp/1.0.0/MANIFEST.json",
+  "profile": "eu-dpp",
+  "shacl": {
+    "background": [
+      "extensions/upstream/eu-dpp/ontology/eu-dpp.ttl"
+    ]
+  },
+  "json": {
+    "referencedSchemas": "vendor/eu-dpp/1.0.0"
+  },
+  "chains": {
+    "core": {
+      "label": "core passport",
+      "specs": [
+        "core/1.0.0"
+      ]
+    },
+    "batteries": {
+      "label": "batteries",
+      "specs": [
+        "core/1.0.0",
+        "product/batteries/1.0.0"
+      ],
+      "views": [
+        "pub",
+        "res1",
+        "res2",
+        "res3"
+      ]
+    },
+    "evb": {
+      "label": "batteries, EV subgroup",
+      "specs": [
+        "core/1.0.0",
+        "product/batteries/1.0.0",
+        "product/batteries/subgroup/evb/1.0.0"
+      ],
+      "views": [
+        "pub",
+        "res1",
+        "res2",
+        "res3"
+      ]
+    },
+    "ind": {
+      "label": "batteries, industrial subgroup",
+      "specs": [
+        "core/1.0.0",
+        "product/batteries/1.0.0",
+        "product/batteries/subgroup/ind/1.0.0"
+      ],
+      "views": [
+        "pub",
+        "res1",
+        "res2",
+        "res3"
+      ]
+    },
+    "lmt": {
+      "label": "batteries, LMT subgroup",
+      "specs": [
+        "core/1.0.0",
+        "product/batteries/1.0.0",
+        "product/batteries/subgroup/lmt/1.0.0"
+      ],
+      "views": [
+        "pub",
+        "res1",
+        "res2",
+        "res3"
+      ]
+    }
+  },
+  "publicOnly": {
+    "_comment": "Files that describe the passport header, which only the public view carries: the Commission's res1 to res3 examples hold the restricted fields alone.",
+    "files": [
+      "core-shapes.ttl",
+      "core.schema.json"
+    ]
+  },
+  "fixtures": [
+    {
+      "role": "publisher",
+      "glob": "vendor/eu-dpp/1.0.0/**/tests/conforms/*.json"
+    },
+    {
+      "role": "openepcis",
+      "glob": "extensions/common/interop/crosswalk/eu-dpp/tests/*/lifted.eu-dpp.json"
+    }
+  ],
+  "accepted": [
+    {
+      "match": "(SEM-COM-MSG-012|/(extinguishingAgent|detailedComposition|negativeEvents|cycleLifeReferenceTest|notInUseTemperatureRangeTest)[^ ]* (pattern|propertyNames))",
+      "reason": "Release 1.0.0 accepts a language-tagged text only with a region subtag (en-IE); plain BCP 47 tags such as en are rejected, and OpenEPCIS data has no region to add (crosswalk README, eu-dpp gap 1)."
+    },
+    {
+      "match": "batteryIdentification (NodeConstraintComponent: SEM-BAT-MSG-010|dependentRequired: must have property batchNumber)",
+      "reason": "Release 1.0.0 accepts a model identifier only together with a batch number, so an item passport with a serial number but no batch cannot name its model (crosswalk README, eu-dpp gap 2)."
+    }
+  ]
+}

@@ -298,11 +298,17 @@ function focusPattern(shapes: ox.Store, shape: ox.Term, depth = 0): string[] {
   return out;
 }
 
+/** Shape files in another syntax, registered as N-Triples (scripts/lib/targets.ts converts JSON-LD). */
+const shapeTexts = new Map<string, string>();
+export function registerShapeText(file: string, ntriples: string): void {
+  shapeTexts.set(file, ntriples);
+}
+
 function loadShapes(files: string[]): { shapes: Store; sparql: SparqlConstraint[] } {
   const key = files.join("|");
   let entry = shapeCache.get(key);
   if (entry) return entry;
-  const texts = files.map((f) => readFileSync(join(ROOT, f), "utf8"));
+  const texts = files.map((f) => shapeTexts.get(f) ?? readFileSync(join(ROOT, f), "utf8"));
   const raw = new ox.Store();
   for (const t of texts) raw.load(t, { format: "text/turtle" });
   const sparql: SparqlConstraint[] = [];
@@ -315,10 +321,19 @@ function loadShapes(files: string[]): { shapes: Store; sparql: SparqlConstraint[
     const shapeName = pathNode && pathNode.object.termType === "NamedNode" ? local(pathNode.object.value) : local(q.subject.value);
     const patterns = focusPattern(raw, q.subject);
     if (!patterns.length) continue;
+    // SHACL-SPARQL prefix declarations: sh:prefixes names nodes whose sh:declare entries carry
+    // sh:prefix and sh:namespace; the query is written against them.
+    const declared = raw.match(q.object as ox.BlankNode, ox.namedNode(SH + "prefixes"), null, null).flatMap((pq) =>
+      raw.match(pq.object as ox.NamedNode, ox.namedNode(SH + "declare"), null, null).map((dq) => {
+        const prefix = raw.match(dq.object as ox.BlankNode, ox.namedNode(SH + "prefix"), null, null)[0]?.object.value;
+        const ns = raw.match(dq.object as ox.BlankNode, ox.namedNode(SH + "namespace"), null, null)[0]?.object.value;
+        return prefix !== undefined && ns ? `PREFIX ${prefix}: <${ns}>\n` : "";
+      }),
+    );
     sparql.push({
       shape: shapeName,
       message: msg,
-      query: select.replaceAll("$this", "?this"),
+      query: [...new Set(declared)].join("") + select.replaceAll("$this", "?this"),
       focus: `SELECT DISTINCT ?f WHERE { ${patterns.map((p) => `{ ${p} }`).join(" UNION ")} }`,
     });
   }
@@ -430,14 +445,22 @@ export async function targetShapeFindings(p: Profile, quads: Quad[], view?: stri
   const bySpec = ((p as Profile & { targetShapes?: TargetShapes }).targetShapes?.bySpec) ?? {};
   const files = specsOf(p, quads).flatMap((s) => bySpec[s] ?? []).filter((f) => inView(f, view));
   if (!files.length) return { form: [], missing: [] };
+  return shaclFindings(files, quads, vocabulary().nt);
+}
+
+/**
+ * SHACL findings of `quads` against the shape files (repo-relative), with `nt` (N-Triples) as
+ * background knowledge merged into the data graph, the way the GITB validator merges its
+ * background. sh:sparql constraints run on oxigraph, everything else on rdf-validate-shacl.
+ */
+export async function shaclFindings(files: string[], quads: Quad[], nt = ""): Promise<TargetFindings> {
   const { shapes, sparql } = loadShapes(files);
   const form: string[] = [];
   const missing: string[] = [];
 
   const data = new Store();
   data.addQuads(quads);
-  const { nt } = vocabulary();
-  data.addQuads(parseStore(nt).getQuads(null, null, null, null));
+  if (nt) data.addQuads(parseStore(nt).getQuads(null, null, null, null));
   const report = await new SHACLValidator(shapes).validate(data);
   for (const r of report.results as ShaclResult[]) {
     if ((r.severity?.value ?? SH + "Violation") !== SH + "Violation") continue;
@@ -453,7 +476,7 @@ export async function targetShapeFindings(p: Profile, quads: Quad[], view?: stri
   const store = new ox.Store();
   const w = new Writer({ format: "application/n-triples" });
   store.load(quads.map((q) => w.quadToString(q.subject, q.predicate, q.object)).join(""), { format: "application/n-triples" });
-  store.load(nt, { format: "application/n-triples" });
+  if (nt) store.load(nt, { format: "application/n-triples" });
   for (const c of sparql) {
     const focus = new Set((store.query(c.focus) as Map<string, ox.Term>[]).map((r) => r.get("f")!.toString()));
     if (!focus.size) continue;
@@ -464,8 +487,23 @@ export async function targetShapeFindings(p: Profile, quads: Quad[], view?: stri
       form.push(`sparql ${c.shape}: query fails (${(e as Error).message.split("\n")[0]})`);
       continue;
     }
-    for (const r of rows) {
-      if (!focus.has(r.get("this")?.toString() ?? "")) continue;
+    // SHACL-SPARQL pre-binds $this to each focus node. A query that selects ?this itself is
+    // answered once and filtered; one that only reads it (FILTER NOT EXISTS { $this … }) has no
+    // answer unbound, so it runs per focus node with ?this bound (IRIs; a blank node cannot be named).
+    const unbound = rows.filter((r) => focus.has(r.get("this")?.toString() ?? ""));
+    const bound: Map<string, ox.Term>[] = [];
+    if (!unbound.length && /NOT\s+EXISTS/i.test(c.query)) {
+      for (const f of focus) {
+        if (!f.startsWith("<")) continue;
+        const q = c.query.replace(/WHERE\s*\{/i, (w) => `${w} VALUES ?this { ${f} } `);
+        try {
+          for (const r of store.query(q) as Map<string, ox.Term>[]) bound.push(r);
+        } catch {
+          /* reported above if the query itself is broken */
+        }
+      }
+    }
+    for (const r of [...unbound, ...bound]) {
       const v = r.get("value") ?? r.get("path");
       form.push(`sparql ${c.shape}: ${c.message}${v ? ` (${v.termType === "Literal" ? JSON.stringify(v.value) : local(v.value)})` : ""}`);
     }

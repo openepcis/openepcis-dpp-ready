@@ -1,0 +1,84 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix si: <https://si-digital-framework.org/SI#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+si:hasLeftUnitTerm a owl:ObjectProperty ;
+    rdfs:domain si:UnitProduct ;
+    rdfs:isDefinedBy si: ;
+    rdfs:range si:MeasurementUnit .
+
+si:hasNumericExponent a owl:DatatypeProperty ;
+    rdfs:domain si:UnitPower ;
+    rdfs:isDefinedBy si: ;
+    rdfs:range xsd:integer .
+
+si:hasRightUnitTerm a owl:ObjectProperty ;
+    rdfs:domain si:UnitProduct ;
+    rdfs:isDefinedBy si: ;
+    rdfs:range si:MeasurementUnit .
+
+si:hasUnitBase a owl:ObjectProperty ;
+    rdfs:domain si:UnitPower ;
+    rdfs:isDefinedBy si: ;
+    rdfs:range si:MeasurementUnit .
+
+<https://si-digital-framework.org/SI/units/day> a owl:NamedIndividual,
+        si:MeasurementUnit .
+
+<https://si-digital-framework.org/SI/units/degreeCelsius> a owl:NamedIndividual,
+        si:MeasurementUnit .
+
+<https://si-digital-framework.org/SI/units/gram> a owl:NamedIndividual,
+        si:MeasurementUnit .
+
+<https://si-digital-framework.org/SI/units/kilogram> a owl:NamedIndividual,
+        si:MeasurementUnit .
+
+<https://si-digital-framework.org/SI/units/metre> a owl:NamedIndividual,
+        si:MeasurementUnit .
+
+<https://si-digital-framework.org/SI/units/minute> a owl:NamedIndividual,
+        si:MeasurementUnit .
+
+<https://si-digital-framework.org/SI/units/one> a owl:NamedIndividual,
+        si:MeasurementUnit .
+
+<https://si-digital-framework.org/quantities/SUDE> a owl:NamedIndividual,
+        si:QuantityKind .
+
+<https://si-digital-framework.org/quantities/TEMC> a owl:NamedIndividual,
+        si:QuantityKind .
+
+<https://si-digital-framework.org/quantities/TIME> a owl:NamedIndividual,
+        si:QuantityKind .
+
+<https://w3id.org/eudpp/textile-si-mireot> a owl:Ontology ;
+    rdfs:label "Textile SI Digital Framework MIREOT subset"@en ;
+    dcterms:description "Bounded, project-local, Textile-scoped MIREOT extract of the SI Digital Framework entities required by the CIRPASS Textile Ontology; unrelated SI axioms remain outside this profile."@en ;
+    dcterms:modified "2026-07-24"^^xsd:date ;
+    dcterms:references "SI Reference Point knowledge model 1.0.0, last updated 2026-06-10."@en ;
+    dcterms:source <https://si-digital-framework.org/SI> ;
+    dcterms:title "Textile SI Digital Framework MIREOT subset"@en ;
+    owl:versionIRI <https://w3id.org/eudpp/textile-si-mireot/1.1.2> ;
+    owl:versionInfo "Version 1.1.2" .
+
+si:UnitPower a owl:Class ;
+    rdfs:label "unit power"@en ;
+    rdfs:isDefinedBy si: ;
+    rdfs:subClassOf si:MeasurementUnit .
+
+si:UnitProduct a owl:Class ;
+    rdfs:label "unit product"@en ;
+    rdfs:isDefinedBy si: ;
+    rdfs:subClassOf si:MeasurementUnit .
+
+si:QuantityKind a owl:Class ;
+    rdfs:label "quantity kind"@en ;
+    rdfs:isDefinedBy si: .
+
+si:MeasurementUnit a owl:Class ;
+    rdfs:label "measurement unit"@en ;
+    rdfs:isDefinedBy si: .
+

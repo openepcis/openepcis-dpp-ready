@@ -460,7 +460,7 @@ have a corresponding context entry, and vice versa.
       "eudr:verificationMethod": "On-site inspection combined with satellite imagery analysis",
 
       "sourceList": [{
-        "type": "urn:epcglobal:cbv:sdt:owning_party",
+        "type": "owning_party",
         "source": "https://id.gs1.org/417/9521234000006"
       }]
     }]

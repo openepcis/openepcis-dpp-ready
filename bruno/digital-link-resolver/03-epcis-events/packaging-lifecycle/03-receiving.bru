@@ -32,10 +32,10 @@ body:json {
           "epcList": ["{{bottleEpc}}"],
           "readPoint":   { "id": `https://id.gs1.org/414/${bru.getVar("brandOwnerGln")}` },
           "bizLocation": { "id": `https://id.gs1.org/414/${bru.getVar("brandOwnerGln")}` },
-          "sourceList":      [{ "type": "urn:epcglobal:cbv:sdt:owning_party", "source":      `https://id.gs1.org/417/${bru.getVar("bottlerOrgGln")}` }],
-          "destinationList": [{ "type": "urn:epcglobal:cbv:sdt:owning_party", "destination": `https://id.gs1.org/417/${bru.getVar("brandOwnerOrgGln")}` }],
+          "sourceList":      [{ "type": "owning_party", "source":      `https://id.gs1.org/417/${bru.getVar("bottlerOrgGln")}` }],
+          "destinationList": [{ "type": "owning_party", "destination": `https://id.gs1.org/417/${bru.getVar("brandOwnerOrgGln")}` }],
           "bizTransactionList": [
-            { "type": "urn:epcglobal:cbv:btt:recadv", "bizTransaction": "https://eurobeverage-brands.example.com/receiving/RECADV-2026-09110" }
+            { "type": "recadv", "bizTransaction": "https://eurobeverage-brands.example.com/receiving/RECADV-2026-09110" }
           ]
         }
       ]

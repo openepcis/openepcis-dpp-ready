@@ -1,0 +1,67 @@
+{
+  "$comment": "A validation target: an external DPP model at one version, hosted as GITB validation types by OpenEPCIS DPP-Ready. UNTP 0.7.0: the release whose public review closed in July 2026; OpenEPCIS's bridge context extensions/common/interop/context/untp-0.7.0-context.jsonld follows it. Artifacts are checked against the vendor MANIFEST.json on every build; pnpm run sync:untp -- --latest adds a newer version as a target of its own.",
+  "id": "untp",
+  "version": "0.7.0",
+  "title": "UN Transparency Protocol",
+  "publisher": "UN/CEFACT (UNTP)",
+  "manifest": "vendor/untp/0.7.0/MANIFEST.json",
+  "types": [
+    {
+      "scope": "dpp",
+      "label": "Digital Product Passport credential",
+      "schemas": [
+        "vendor/untp/0.7.0/schema/dpp/DigitalProductPassport.json"
+      ],
+      "when": {
+        "typeIncludes": "DigitalProductPassport"
+      }
+    },
+    {
+      "scope": "dcc",
+      "label": "Digital Conformity Credential credential",
+      "schemas": [
+        "vendor/untp/0.7.0/schema/dcc/ConformityCredential.json"
+      ],
+      "when": {
+        "typeIncludes": "DigitalConformityCredential"
+      }
+    },
+    {
+      "scope": "dfr",
+      "label": "Digital Facility Record credential",
+      "schemas": [
+        "vendor/untp/0.7.0/schema/dfr/DigitalFacilityRecord.json"
+      ],
+      "when": {
+        "typeIncludes": "DigitalFacilityRecord"
+      }
+    },
+    {
+      "scope": "dia",
+      "label": "Digital Identity Anchor credential",
+      "schemas": [
+        "vendor/untp/0.7.0/schema/dia/DigitalIdentityAnchor.json"
+      ],
+      "when": {
+        "typeIncludes": "DigitalIdentityAnchor"
+      }
+    },
+    {
+      "scope": "dte",
+      "label": "Digital Traceability Event credential",
+      "schemas": [
+        "vendor/untp/0.7.0/schema/dte/DigitalTraceabilityEvent.json"
+      ],
+      "when": {
+        "typeIncludes": "DigitalTraceabilityEvent"
+      }
+    }
+  ],
+  "fixtures": [
+    {
+      "role": "publisher",
+      "glob": "vendor/untp/0.7.0/samples/*/*_instance.json"
+    }
+  ],
+  "accepted": []
+}

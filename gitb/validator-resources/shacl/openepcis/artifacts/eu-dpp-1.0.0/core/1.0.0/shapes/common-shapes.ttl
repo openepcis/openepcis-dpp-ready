@@ -1,0 +1,128 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dpp-shapes: <https://repository.product-passport.ec.europa.eu/core/shapes/> .
+@prefix dppcom: <https://repository.product-passport.ec.europa.eu/core/vocabs/common-vocabulary#> .
+@prefix dpp: <https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#> .
+
+dpp-shapes:unit-range-shape
+    a sh:NodeShape ;
+    sh:and (
+        dpp-shapes:unit-shape
+        dpp-shapes:value-shape
+        dpp-shapes:value-range-shape
+        [
+            sh:path dppcom:valueRange;
+            sh:minCount 1 ;
+        ]
+    ) .
+
+dpp-shapes:value-range-shape
+    a sh:NodeShape ;
+
+    sh:property [
+        sh:path dppcom:valueRange ;
+        sh:maxCount 1 ;
+        sh:and (
+            dpp-shapes:observed-characteristic-shape
+            dpp-shapes:lower-bound-shape
+            dpp-shapes:upper-bound-shape
+            dpp-shapes:unit-shape
+        ) ;
+        sh:message "SEM-COM-MSG-008" ;
+    ] .
+
+dpp-shapes:unit-shape
+    a sh:PropertyShape ;
+    sh:path dppcom:unit ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "SEM-COM-MSG-010" ;
+    sh:nodeKind sh:IRI .
+
+dpp-shapes:value-shape
+    sh:path dppcom:value ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "SEM-COM-MSG-009";
+    sh:datatype xsd:double .
+
+dpp-shapes:observed-characteristic-shape
+    a sh:PropertyShape ;
+    sh:path dppcom:observedCharacteristic ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "SEM-COM-MSG-001";
+    sh:nodeKind sh:IRI .
+
+dpp-shapes:lower-bound-shape
+    sh:path dppcom:lowerBound ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "SEM-COM-MSG-005";
+    sh:datatype xsd:double .
+
+dpp-shapes:upper-bound-shape
+    sh:path dppcom:upperBound ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "SEM-COM-MSG-006";
+   sh:datatype xsd:double .
+
+dpp-shapes:unknown-properties-shape
+    a sh:NodeShape ;
+    sh:targetClass dpp:DigitalProductPassport ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "SEM-COM-MSG-013" ;
+        sh:select """
+            PREFIX unk: <https://repository.product-passport.ec.europa.eu/unknown#>
+            SELECT $this ?path ?value
+            WHERE {
+                $this (<urn:x:any>|!<urn:x:any>)* ?node .
+                ?node ?path ?value .
+                FILTER (STRSTARTS(STR(?path), STR(unk:)))
+            }
+        """ ;
+    ] .
+    
+dpp-shapes:histogram-shape
+    a sh:NodeShape ;
+
+    sh:property [
+        sh:path dppcom:binRangeUnit ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "SEM-COM-MSG-002";
+        sh:nodeKind sh:IRI ;
+    ] ;
+
+    sh:property [
+        sh:path dppcom:binValueUnit ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "SEM-COM-MSG-003";
+        sh:nodeKind sh:IRI ;
+    ] ;
+
+    sh:property [
+        sh:path dppcom:bin ;
+        sh:minCount 1 ;
+        sh:message "SEM-COM-MSG-004";
+        sh:node dpp-shapes:histogram-bin-shape ;
+    ] .
+
+dpp-shapes:histogram-bin-shape
+    a sh:NodeShape ;
+
+    sh:and (
+        dpp-shapes:lower-bound-shape
+        dpp-shapes:upper-bound-shape
+
+        [
+            sh:path dppcom:binValue ;
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+            sh:message "SEM-COM-MSG-007";
+            sh:datatype xsd:double ;
+        ]
+    ) .

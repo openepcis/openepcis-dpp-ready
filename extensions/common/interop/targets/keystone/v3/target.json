@@ -1,0 +1,84 @@
+{
+  "$comment": "A validation target: an external DPP model at one version, hosted as GITB validation types by OpenEPCIS DPP-Ready. Artifacts are checked against the vendor MANIFEST.json on every build. See docs/GITB_CONFORMANCE.md, section 'External models'.",
+  "id": "keystone",
+  "version": "v3",
+  "title": "DPP Keystone",
+  "publisher": "DPP Keystone (dpp-keystone.org)",
+  "manifest": "vendor/dpp-keystone/v3/MANIFEST.json",
+  "profile": "keystone",
+  "rootType": "https://dpp-keystone.org/spec/v3/terms#DigitalProductPassport",
+  "jsonld": {
+    "contexts": {
+      "https://dpp-keystone.org/spec/": "vendor/dpp-keystone/v3/"
+    }
+  },
+  "shacl": {
+    "background": [
+      "vendor/dpp-keystone/v3/ontology/v3/dpp-ontology.jsonld"
+    ]
+  },
+  "json": {
+    "referencedSchemas": "vendor/dpp-keystone/v3/validation"
+  },
+  "types": [
+    {
+      "scope": "dpp",
+      "label": "passport (core schema and every sector schema, which apply by contentSpecificationIds; SHACL generated from the ontology)",
+      "schemas": [
+        "vendor/dpp-keystone/v3/validation/v3/json-schema/dpp.schema.json",
+        "vendor/dpp-keystone/v3/validation/v3/json-schema/sector/battery.schema.json",
+        "vendor/dpp-keystone/v3/validation/v3/json-schema/sector/battery-ev.schema.json",
+        "vendor/dpp-keystone/v3/validation/v3/json-schema/sector/battery-industrial.schema.json",
+        "vendor/dpp-keystone/v3/validation/v3/json-schema/sector/battery-lmv.schema.json",
+        "vendor/dpp-keystone/v3/validation/v3/json-schema/sector/construction.schema.json",
+        "vendor/dpp-keystone/v3/validation/v3/json-schema/sector/electronics.schema.json",
+        "vendor/dpp-keystone/v3/validation/v3/json-schema/sector/iron-steel.schema.json",
+        "vendor/dpp-keystone/v3/validation/v3/json-schema/sector/textile.schema.json"
+      ],
+      "shapes": [
+        "vendor/dpp-keystone/v3/validation/v3/shacl/core/Compliance-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/core/DoPC-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/core/EPD-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/core/EPDIndicators-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/core/EPDLifecycle-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/core/EPDMetadata-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/core/Header-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/core/MTC-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/core/Organization-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/core/Product-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/core/RelatedResource-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/core/Signature-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/core/Unit-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/sectors/Battery-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/sectors/Construction-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/sectors/Electronics-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/sectors/EUApparelSizeSystem-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/sectors/IronSteel-shapes.shacl.jsonld",
+        "vendor/dpp-keystone/v3/validation/v3/shacl/sectors/Textile-shapes.shacl.jsonld"
+      ]
+    }
+  ],
+  "fixtures": [
+    {
+      "role": "publisher",
+      "glob": "vendor/dpp-keystone/v3/examples/*.json"
+    }
+  ],
+  "exclude": [
+    {
+      "file": "vendor/dpp-keystone/v3/examples/battery-dpp-ec-aligned-v1.json",
+      "reason": "An EU DPP Registry-form passport (Keystone's EC-aligned example), validated by Keystone through its keystone-to-ec context, not by the v3 schemas."
+    },
+    {
+      "file": "vendor/dpp-keystone/v3/examples/construction-product-dpp-v1.json",
+      "reason": "The example states no @type, so its root is no dppk:DigitalProductPassport in RDF and Keystone's SHACL shapes (all sh:targetClass) cannot apply; its JSON Schemas check it.",
+      "only": "shacl"
+    },
+    {
+      "file": "vendor/dpp-keystone/v3/examples/iron-steel-dpp-v1.json",
+      "reason": "The example states no @type, so its root is no dppk:DigitalProductPassport in RDF and Keystone's SHACL shapes (all sh:targetClass) cannot apply; its JSON Schemas check it.",
+      "only": "shacl"
+    }
+  ],
+  "accepted": []
+}

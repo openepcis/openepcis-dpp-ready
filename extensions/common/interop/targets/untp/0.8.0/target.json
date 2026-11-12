@@ -1,0 +1,72 @@
+{
+  "$comment": "A validation target: an external DPP model at one version, hosted as GITB validation types by OpenEPCIS DPP-Ready. UNTP 0.8.0: the newest version with published artefacts; the UNTP documentation lists it as work in progress towards 1.0. Artifacts are checked against the vendor MANIFEST.json on every build; pnpm run sync:untp -- --latest adds a newer version as a target of its own. The traceability event schema names GS1's EPCIS 2.0.0 JSON Schema by its $id; the vendored copy (vendor/gs1-epcis) is registered.",
+  "id": "untp",
+  "version": "0.8.0",
+  "title": "UN Transparency Protocol",
+  "publisher": "UN/CEFACT (UNTP)",
+  "manifest": "vendor/untp/0.8.0/MANIFEST.json",
+  "types": [
+    {
+      "scope": "dpp",
+      "label": "Digital Product Passport credential",
+      "schemas": [
+        "vendor/untp/0.8.0/schema/dpp/DigitalProductPassport.json"
+      ],
+      "when": {
+        "typeIncludes": "DigitalProductPassport"
+      }
+    },
+    {
+      "scope": "dcc",
+      "label": "Digital Conformity Credential credential",
+      "schemas": [
+        "vendor/untp/0.8.0/schema/dcc/ConformityCredential.json"
+      ],
+      "when": {
+        "typeIncludes": "DigitalConformityCredential"
+      }
+    },
+    {
+      "scope": "dfr",
+      "label": "Digital Facility Record credential",
+      "schemas": [
+        "vendor/untp/0.8.0/schema/dfr/DigitalFacilityRecord.json"
+      ],
+      "when": {
+        "typeIncludes": "DigitalFacilityRecord"
+      }
+    },
+    {
+      "scope": "dia",
+      "label": "Digital Identity Anchor credential",
+      "schemas": [
+        "vendor/untp/0.8.0/schema/dia/DigitalIdentityAnchor.json"
+      ],
+      "when": {
+        "typeIncludes": "DigitalIdentityAnchor"
+      }
+    },
+    {
+      "scope": "dte",
+      "label": "Digital Traceability Event credential",
+      "schemas": [
+        "vendor/untp/0.8.0/schema/dte/DigitalTraceabilityEvent.json"
+      ],
+      "when": {
+        "typeIncludes": "DigitalTraceabilityEvent"
+      }
+    }
+  ],
+  "fixtures": [
+    {
+      "role": "publisher",
+      "glob": "vendor/untp/0.8.0/samples/*/*_instance.json"
+    }
+  ],
+  "accepted": [],
+  "json": {
+    "referencedSchemas": [
+      "vendor/gs1-epcis/2.0.1/2.0.0/epcis-json-schema.json"
+    ]
+  }
+}

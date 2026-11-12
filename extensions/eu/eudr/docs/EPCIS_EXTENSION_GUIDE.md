@@ -247,7 +247,7 @@ only `gs1:` properties; all `eudr:` properties are at event level.
 
         "sourceList": [
           {
-            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "type": "owning_party",
             "source": "https://id.gs1.org/417/9521234000006"
           }
         ]

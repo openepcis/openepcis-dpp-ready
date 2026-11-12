@@ -1,0 +1,90 @@
+{
+  "$comment": "A validation target hosted by OpenEPCIS DPP-Ready for the older BatteryPass-Ready upload format (data model 1.0, attribute longlist v1.3). GEFEG's published static schemas require nothing; these schemas are DERIVED by OpenEPCIS from what the live GEFEG validator enforced on 2026-06-17 (extensions/eu/battery/validation/gefeg-live/README.md), not a publisher artifact. The fixtures are OpenEPCIS's exports (scripts/export-batterypass-gefeg.ts).",
+  "id": "bpr",
+  "version": "1.3",
+  "title": "BatteryPass-Ready upload format 1.3 (derived from the live GEFEG validator)",
+  "publisher": "BatteryPass-Ready consortium (GEFEG); schemas derived by OpenEPCIS",
+  "manifest": "extensions/eu/battery/validation/gefeg-live/MANIFEST.json",
+  "types": [
+    {
+      "scope": "ev",
+      "label": "electric vehicle battery",
+      "schemas": [
+        "extensions/eu/battery/validation/gefeg-live/EV.schema.json"
+      ]
+    },
+    {
+      "scope": "lmt",
+      "label": "LMT battery",
+      "schemas": [
+        "extensions/eu/battery/validation/gefeg-live/LMT.schema.json"
+      ]
+    },
+    {
+      "scope": "other-industrial",
+      "label": "other industrial battery > 2 kWh",
+      "schemas": [
+        "extensions/eu/battery/validation/gefeg-live/OtherIndustrial2kWh.schema.json"
+      ]
+    },
+    {
+      "scope": "stationary-industrial",
+      "label": "stationary industrial battery > 2 kWh",
+      "schemas": [
+        "extensions/eu/battery/validation/gefeg-live/StationaryIndustrial2kWh.schema.json"
+      ]
+    },
+    {
+      "scope": "industrial-without-bms",
+      "label": "industrial battery without BMS",
+      "schemas": [
+        "extensions/eu/battery/validation/gefeg-live/IndustrialWithoutBMS.schema.json"
+      ]
+    }
+  ],
+  "fixtures": [
+    {
+      "role": "openepcis",
+      "glob": "extensions/eu/battery/examples/batterypass-ready/ev.gefeg.json",
+      "scopes": [
+        "ev"
+      ]
+    },
+    {
+      "role": "openepcis",
+      "glob": "extensions/eu/battery/examples/batterypass-ready/lmt.gefeg.json",
+      "scopes": [
+        "lmt"
+      ]
+    },
+    {
+      "role": "openepcis",
+      "glob": "extensions/eu/battery/examples/batterypass-ready/other-industrial.gefeg.json",
+      "scopes": [
+        "other-industrial"
+      ]
+    },
+    {
+      "role": "openepcis",
+      "glob": "extensions/eu/battery/examples/batterypass-ready/stationary.gefeg.json",
+      "scopes": [
+        "stationary-industrial"
+      ]
+    },
+    {
+      "role": "openepcis",
+      "glob": "extensions/eu/battery/examples/batterypass-ready/industrial-without-bms.gefeg.json",
+      "scopes": [
+        "industrial-without-bms"
+      ]
+    },
+    {
+      "role": "openepcis",
+      "glob": "extensions/eu/battery/examples/batterypass-ready/reconstruction.gefeg.json",
+      "scopes": [
+        "stationary-industrial"
+      ]
+    }
+  ],
+  "accepted": []
+}

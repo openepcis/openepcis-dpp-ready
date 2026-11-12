@@ -5,9 +5,7 @@
     "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld"
   ],
   "type": "EPCISDocument",
-  "schemaVersion": "2.0",
-  "creationDate": "2025-02-01T16:45:00.000Z",
-  "_comment_architecture": [
+  "rdfs:comment": [
     "Battery replacement in a smartphone: TransformationEvent for the swap,",
     "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
     "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
@@ -17,6 +15,8 @@
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
+  "schemaVersion": "2.0",
+  "creationDate": "2025-02-01T16:45:00.000Z",
   "epcisBody": {
     "eventList": [
       {
@@ -31,8 +31,8 @@
           "https://id.gs1.org/01/09506000134352/21/ABC123456",
           "https://id.gs1.org/01/09506000134369/21/BAT-NEW-456"
         ],
-        "bizStep": "urn:epcglobal:cbv:bizstep:repairing",
-        "disposition": "urn:epcglobal:cbv:disp:active",
+        "bizStep": "repairing",
+        "disposition": "active",
         "readPoint": {
           "id": "urn:epc:id:sgln:9521234.00002.repair-station-3"
         },
@@ -41,7 +41,7 @@
         },
         "bizTransactionList": [
           {
-            "type": "urn:epcglobal:cbv:btt:desadv",
+            "type": "desadv",
             "bizTransaction": "urn:epc:id:gdti:9521234.00001.REP-2025-00234"
           }
         ],
@@ -77,8 +77,8 @@
           "https://id.gs1.org/01/09506000134369/21/BAT789012"
         ],
         "action": "OBSERVE",
-        "bizStep": "urn:epcglobal:cbv:bizstep:inspecting",
-        "disposition": "urn:epcglobal:cbv:disp:needs_replacement",
+        "bizStep": "inspecting",
+        "disposition": "needs_replacement",
         "readPoint": {
           "id": "urn:epc:id:sgln:9521234.00002.repair-station-3"
         },

@@ -9,6 +9,59 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Added: eight more external model releases on the validator
+
+GS1 EPCIS / CBV 2.0.1, CIRPASS-2 Textile 2.0.0 and Battery 0.3.0 (draft), the BatteryPass-Ready 1.3
+upload format (derived from the live GEFEG validator), the Battery Pass Consortium data model 1.2
+and Catena-X battery pass 6.1.0 (SAMM), and UNTP 0.8.0 and 0.7.0: 61 external validation types in
+11 releases, each with its test suite and a row in `docs/conformance/INTEROP_CONFORMANCE.md`.
+Publisher test corpora with expected failures are replayed as such; declared `sh:entailment` RDFS is
+applied; new sync scripts `sync:epcis`, `sync:cirpass2-shapes`, `sync:samm-battery`,
+`sync:untp -- --latest`.
+
+### Changed: EPCIS examples conform to GS1 EPCIS 2.0.1
+
+Every `extensions/*/*/epcis/*.jsonld` now passes GS1's JSON Schema and SHACL: editorial notes
+(`_comment`, `_comment_architecture`, `_scenario`, `_notes`) are `rdfs:comment`, CBV values the bare
+2.0 JSON form (`owning_party`, `po`, `commissioning`, not `urn:epcglobal:cbv:…`), sensor values
+numbers. `retail_sold` replaces the non-CBV disposition `sold`; the software update's transaction
+drops the non-CBV type `updnotification`; the battery negative event no longer declares itself an
+error (`errorDeclaration` retracts an event in EPCIS). Bruno requests and docs follow.
+
+### Added: conformance to external DPP models, hosted and on record
+
+The GITB validator now hosts the external models this project bridges, each at a pinned release:
+the EU DPP Registry semantic data artifacts 1.0.0 (17 types, SHACL and JSON Schema, every view and
+subgroup), BatteryPass-Ready 2.0.1 (10 types, JSON Schema per battery category, full and
+February 2027) and DPP Keystone v3 (SHACL and JSON Schema, `pnpm run sync:keystone`,
+`vendor/dpp-keystone`). Type ids carry the release (`x.<model>-<version>.<scope>`), the publisher's
+artifacts are bundled byte for byte after a SHA-256 check, and every report names model, release,
+pin and our version. A type is declared only when it accepts every example the publisher ships and
+rejects a non-document, and every SHACL type is proven live (a retyped or dropped root property of a
+publisher example is rejected); `check:shapes:itb` and the new `check:json-itb` hold the EC validator
+images to the local engines.
+
+- Registry: `extensions/common/interop/targets/<model>/<version>/target.json`
+  (`scripts/lib/targets.ts`).
+- Statement per release: `docs/conformance/INTEROP_CONFORMANCE.md` / `.json`
+  (`pnpm run build:interop-conformance`, gated in `pnpm run build`).
+- Test suites: `gitb/test-suites/interop-<model>-<version>/` (upload, self-test, bridge).
+- Without a login or a container: `pnpm run validate:target -- <file.json>`.
+- The JSON validator runs in both local stacks (port 8081) and is published to
+  `validator-resources-openepcis` under `json-resources/`.
+
+See `docs/GITB_CONFORMANCE.md`, section "External models".
+
+### Changed
+
+- eu-dpp crosswalk: the passport identifier falls back to the product IRI; a stationary battery is
+  an industrial one in the Registry (category and subgroup); a document without a MIME type gets
+  its content type from the URL; the original and remaining power capability go over. New case
+  `amperia-stationary-item` (the reconstructed Amperia passport). See
+  `extensions/common/interop/CHANGELOG.md`.
+- `validate:batterypass-live` picks the GEFEG schema from the document's battery category
+  (version "Guide").
+
 ## [0.13.1] - 2026-11-11
 
 ### Added: BatteryPass-Ready 2.0.1 from EPCIS events

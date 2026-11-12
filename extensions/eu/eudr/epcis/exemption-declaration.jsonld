@@ -5,18 +5,22 @@
     "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld"
   ],
   "type": "EPCISDocument",
-  "schemaVersion": "2.0",
-  "creationDate": "2026-04-15T10:00:00.000Z",
-  "_comment_architecture": [
+  "rdfs:comment": [
     "EUDR Exemption Declaration: reference pattern for GS1 standardization.",
     "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
     "gs1:masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,eudr=https://ref.openepcis.org/extensions/eu/eudr/",
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
-    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+    "GS1 demo prefix 952 (7-digit GCP: 9521234).",
+    "A downstream operator (Waldwirtschaft Schmidt GmbH) declares a temporary exemption for a specific batch of European Oak round wood, asserting that the batch originated from already-verified low-risk sources per EUDR Article 2.17 (downstream operator simplified due diligence). The exemption is scoped to batch LOT-2026-Q1-0042 and valid from 2026-04-15 to 2026-07-15.",
+    "EANCOM equivalence: In EANCOM syntax this exemption would be carried as IMD segment C272:DE7081='TEMPORARY_EXEMPTION' + C273:DE7009 with reason code 'DOWNSTREAM_VERIFIED_LOW_RISK'. The batch scope LOT-2026-Q1-0042 would appear in GIN segment under SG22. See GS1 standardization for the full EANCOM solution.",
+    "GS1 XML equivalence: The equivalent GS1 XML structure is defined in GS1 standardization.",
+    "GDSN equivalence: The equivalent GDSN master data structure is defined in GS1 standardization.",
+    "Status: Reference pattern; the EANCOM/XML/GDSN specifications are authoritative. This EPCIS JSON-LD example demonstrates the equivalent semantics for projects using EPCIS as their data sharing layer."
   ],
-  "_scenario": "A downstream operator (Waldwirtschaft Schmidt GmbH) declares a temporary exemption for a specific batch of European Oak round wood, asserting that the batch originated from already-verified low-risk sources per EUDR Article 2.17 (downstream operator simplified due diligence). The exemption is scoped to batch LOT-2026-Q1-0042 and valid from 2026-04-15 to 2026-07-15.",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-04-15T10:00:00.000Z",
   "epcisBody": {
     "eventList": [
       {
@@ -64,7 +68,9 @@
               "eudr:hasExemptionAuthority": {
                 "id": "https://id.gs1.org/417/9521234000006",
                 "type": "oec:OperatorInformation",
-                "oec:hasOperatorRole": { "id": "oec:DownstreamOperator" },
+                "oec:hasOperatorRole": {
+                  "id": "oec:DownstreamOperator"
+                },
                 "oec:economicOperatorId": "EOID-DE-2026-009988"
               }
             },
@@ -76,23 +82,17 @@
         ],
         "sourceList": [
           {
-            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "type": "owning_party",
             "source": "https://id.gs1.org/417/9521234000006"
           }
         ],
         "bizTransactionList": [
           {
-            "type": "urn:epcglobal:cbv:btt:cert",
+            "type": "cert",
             "bizTransaction": "https://example.com/eudr/exemption/LOT-2026-Q1-0042.pdf"
           }
         ]
       }
     ]
-  },
-  "_notes": [
-    "EANCOM equivalence: In EANCOM syntax this exemption would be carried as IMD segment C272:DE7081='TEMPORARY_EXEMPTION' + C273:DE7009 with reason code 'DOWNSTREAM_VERIFIED_LOW_RISK'. The batch scope LOT-2026-Q1-0042 would appear in GIN segment under SG22. See GS1 standardization for the full EANCOM solution.",
-    "GS1 XML equivalence: The equivalent GS1 XML structure is defined in GS1 standardization.",
-    "GDSN equivalence: The equivalent GDSN master data structure is defined in GS1 standardization.",
-    "Status: Reference pattern; the EANCOM/XML/GDSN specifications are authoritative. This EPCIS JSON-LD example demonstrates the equivalent semantics for projects using EPCIS as their data sharing layer."
-  ]
+  }
 }
