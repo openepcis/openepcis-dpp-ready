@@ -352,12 +352,26 @@ image_sources() { # gtin slug
   return 0
 }
 
-image_entries() { # key src ... -> one {url, mime} object per pair, from stdin lines
+# Where a picture comes from, read from the XMP that scripts/stamp-image-provenance.sh
+# writes into the file: IPTC digital source type, licence, credit line, creator.
+# The passport repeats it on the image's ReferencedFileDetails as schema.org
+# terms, so a reader of the passport sees it without opening the file. Prints {}
+# for an unstamped file or without exiftool, and the image entry stays as before.
+image_provenance() { # src -> {source, license, credit, creator} or {}
+  command -v exiftool >/dev/null || { echo '{}'; return 0; }
+  exiftool -j -XMP-iptcExt:DigitalSourceType -XMP-cc:License -XMP-photoshop:Credit -XMP-dc:Creator "$1" 2>/dev/null \
+    | jq -c '.[0] | if (.DigitalSourceType // "") == "" then {} else
+        {source: .DigitalSourceType, license: (.License // ""), credit: (.Credit // ""),
+         creator: ([.Creator] | flatten | map(select(. != null)) | first // "")} end' 2>/dev/null || echo '{}'
+}
+
+image_entries() { # key src ... -> one {url, mime, prov} object per pair, from stdin lines
   local key src entries=() url
   while IFS=$'\t' read -r key src; do
     [[ -n "$key" ]] || continue
     url="$FILES_URL/files/products/$1/$key"
-    entries+=("$(jq -nc --arg u "$url" --arg m "$(mime_of "$src")" '{url:$u, mime:$m}')")
+    entries+=("$(jq -nc --arg u "$url" --arg m "$(mime_of "$src")" --argjson p "$(image_provenance "$src")" \
+      '{url:$u, mime:$m, prov:$p}')")
   done
   # bash 3.2 (macOS default) errors on "${entries[@]}" when the array is empty
   # under set -u, and an empty printf line would become [""] — guard both.
@@ -408,6 +422,13 @@ EMBED_IMAGES='
       "referencedFileType": {"id":"gs1:ReferencedFileTypeCode-PRODUCT_IMAGE"},
       "id": .value.url, "referencedFileURL": .value.url }
       + (if (.value.mime // "") != "" then {"schema:encodingFormat": .value.mime} else {} end)
+      + (.value.prov // {} | if (.source // "") == "" then {} else
+          {"schema:digitalSourceType": {"id": ("schema:" + (.source | split("/") | last
+              | (.[0:1] | ascii_upcase) + .[1:]) + "DigitalSource")}}
+          + (if .license != "" then {"schema:license": {"id": .license}} else {} end)
+          + (if .credit != "" then {"schema:creditText": .credit} else {} end)
+          + (if .creator != "" then {"schema:creator": {"type": "schema:Organization", "schema:name": .creator}} else {} end)
+        end)
     ))) else . end'
 
 provision_product() { # gtin file slug desc
