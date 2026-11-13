@@ -357,12 +357,21 @@ image_sources() { # gtin slug
 # The passport repeats it on the image's ReferencedFileDetails as schema.org
 # terms, so a reader of the passport sees it without opening the file. Prints {}
 # for an unstamped file or without exiftool, and the image entry stays as before.
-image_provenance() { # src -> {source, license, credit, creator} or {}
+# The creator goes into the passport as a gs1:Organization (GS1 first, schema.org
+# only for what GS1 lacks): its gs1:organizationName from the XMP creator, tagged
+# "de" because GS1 ranges the name over rdf:langString, and, for benelog, its
+# party GLN. IMAGE_CREATOR_GLN overrides it for another creator.
+IMAGE_CREATOR_NAME="${IMAGE_CREATOR_NAME:-benelog GmbH & Co. KG}"
+IMAGE_CREATOR_GLN="${IMAGE_CREATOR_GLN:-4068194000004}"
+
+image_provenance() { # src -> {source, license, credit, creator, gln} or {}
   command -v exiftool >/dev/null || { echo '{}'; return 0; }
   exiftool -j -XMP-iptcExt:DigitalSourceType -XMP-cc:License -XMP-photoshop:Credit -XMP-dc:Creator "$1" 2>/dev/null \
     | jq -c '.[0] | if (.DigitalSourceType // "") == "" then {} else
         {source: .DigitalSourceType, license: (.License // ""), credit: (.Credit // ""),
-         creator: ([.Creator] | flatten | map(select(. != null)) | first // "")} end' 2>/dev/null || echo '{}'
+         creator: ([.Creator] | flatten | map(select(. != null)) | first // "")} end' 2>/dev/null \
+    | jq -c --arg n "$IMAGE_CREATOR_NAME" --arg g "$IMAGE_CREATOR_GLN" \
+        'if (.creator // "") == $n and $g != "" then . + {gln: $g} else . end' 2>/dev/null || echo '{}'
 }
 
 image_entries() { # key src ... -> one {url, mime, prov} object per pair, from stdin lines
@@ -427,7 +436,8 @@ EMBED_IMAGES='
               | (.[0:1] | ascii_upcase) + .[1:]) + "DigitalSource")}}
           + (if .license != "" then {"schema:license": {"id": .license}} else {} end)
           + (if .credit != "" then {"schema:creditText": .credit} else {} end)
-          + (if .creator != "" then {"schema:creator": {"type": "schema:Organization", "schema:name": .creator}} else {} end)
+          + (if .creator != "" then {"schema:creator": ({"type": "gs1:Organization", "gs1:organizationName": {"@value": .creator, "@language": "de"}}
+              + (if (.gln // "") != "" then {"gs1:globalLocationNumber": .gln} else {} end))} else {} end)
         end)
     ))) else . end'
 
