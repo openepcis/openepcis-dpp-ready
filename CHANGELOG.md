@@ -9,6 +9,29 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Added: provenance and licence on the generated product images
+
+The demo product images are generated with FLUX.2 [klein] 4B in Draw Things. They are now published
+under CC0 1.0 and say so in two places:
+
+- In the file: `scripts/stamp-image-provenance.sh` writes IPTC `DigitalSourceType`
+  `trainedAlgorithmicMedia`, `AISystemUsed`, the licence (`xmpRights:WebStatement`, `cc:license`),
+  credit line and creator into the XMP, next to the prompt and seed Draw Things already records, and
+  signs a C2PA manifest (`c2pa.created`, digital source type, schema.org CreativeWork with author
+  and licence). It signs with c2patool's test certificate unless `C2PA_SIGN_CONFIG` names a real
+  one, so verifiers list the signer as untrusted. It accepts only models whose output may be
+  published under CC0 and refuses FLUX.2 [dev] output.
+- In the passport: `scripts/provision-demo.sh` reads that XMP and adds `schema:digitalSourceType`
+  (`schema:TrainedAlgorithmicMediaDigitalSource`), `schema:license`, `schema:creditText` and
+  `schema:creator` to each picture's `ReferencedFileDetails`.
+
+The six pictures of 09521234002000 and 09521234003007 came from FLUX.2 [dev], whose licence covers
+non-commercial generation only; they are re-rendered with FLUX.2 [klein] 4B from the same prompts
+and seeds. Three needed a nudge: the third battery view gets a different seed and a line asking for
+flat cabinets without cables, and the two jacket views ask for ghost-mannequin photography, since
+klein otherwise drew faces on the battery and a mannequin head in the jacket. The exact prompts are
+recorded in each file's XMP.
+
 ## [0.14.2] - 2026-11-12
 
 ### Changed: EU DPP Registry output complete for a full passport
