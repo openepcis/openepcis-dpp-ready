@@ -9,6 +9,14 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Changed: pictures rendered from a reference photo carry no licence
+
+`scripts/stamp-image-provenance.sh` recognises a picture rendered from a reference image (the prompt
+names one, or Draw Things recorded controls or an image-to-image strength below 1). It marks it
+`compositeWithTrainedAlgorithmicMedia` and writes credit and creator but no licence, because the
+reference shows a third party's design and CC0 can only waive rights we hold. JPEG input is signed
+as JPEG.
+
 ### Added: provenance and licence on the generated product images
 
 The demo product images are generated with FLUX.2 [klein] 4B in Draw Things. They are now published

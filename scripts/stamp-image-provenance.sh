@@ -18,6 +18,12 @@
 # non-commercial generation only and forbids using output to train competing
 # models, which CC0 cannot carry.
 #
+# A picture rendered from a reference image (the prompt names one, or Draw
+# Things recorded controls or an image-to-image strength below 1) is marked
+# compositeWithTrainedAlgorithmicMedia and gets NO licence: the reference shows
+# someone else's design (Sven's own photos of doll clothes for the Fjordline
+# mini line), and CC0 can only waive rights we hold. Credit and creator stay.
+#
 # A file that already carries a C2PA manifest is skipped: any later byte change
 # would break its hash binding.
 #
@@ -26,7 +32,7 @@
 set -euo pipefail
 
 LICENSE_URL="https://creativecommons.org/publicdomain/zero/1.0/"
-DIGITAL_SOURCE="http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia"
+IPTC_SOURCE="http://cv.iptc.org/newscodes/digitalsourcetype"
 CREATOR_NAME="benelog GmbH & Co. KG"
 CREATOR_URL="https://benelog.com"
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -57,22 +63,33 @@ for f in "$@"; do
     fail=1
     continue
   fi
-  credit="AI-generated with $label (Black Forest Labs) in Draw Things, $CREATOR_NAME"
+  params=$(exiftool -s3 -XMP-exif:UserComment "$f")
+  if jq -e '((.c // "") | test("reference image"; "i")) or ((.v2.controls // []) | length > 0) or ((.strength // 1) < 1)' <<< "$params" >/dev/null 2>&1; then
+    kind=composite
+    DIGITAL_SOURCE="$IPTC_SOURCE/compositeWithTrainedAlgorithmicMedia"
+    credit="AI-generated with $label (Black Forest Labs) in Draw Things from a reference photo, $CREATOR_NAME"
+    lic=""
+  else
+    kind=generated
+    DIGITAL_SOURCE="$IPTC_SOURCE/trainedAlgorithmicMedia"
+    credit="AI-generated with $label (Black Forest Labs) in Draw Things, $CREATOR_NAME"
+    lic="$LICENSE_URL"
+  fi
 
+  rights=()
+  [[ -n "$lic" ]] && rights=(-XMP-xmpRights:WebStatement="$lic" -XMP-xmpRights:Marked=False \
+    -XMP-cc:License="$lic" -XMP-dc:Rights="CC0 1.0 Universal, $lic")
   exiftool -q -overwrite_original \
     -XMP-iptcExt:DigitalSourceType="$DIGITAL_SOURCE" \
     -XMP-iptcExt:AISystemUsed="$label" \
-    -XMP-xmpRights:WebStatement="$LICENSE_URL" \
-    -XMP-xmpRights:Marked=False \
-    -XMP-cc:License="$LICENSE_URL" \
-    -XMP-dc:Rights="CC0 1.0 Universal, $LICENSE_URL" \
+    ${rights[@]+"${rights[@]}"} \
     -XMP-dc:Creator="$CREATOR_NAME" \
     -XMP-photoshop:Credit="$credit" \
     "$f"
 
   manifest=$(mktemp)
   jq -n --arg v "$VERSION" --arg label "$label" --arg ckpt "$ckpt" --arg src "$DIGITAL_SOURCE" \
-    --arg lic "$LICENSE_URL" --arg name "$CREATOR_NAME" --arg url "$CREATOR_URL" '{
+    --arg lic "$lic" --arg name "$CREATOR_NAME" --arg url "$CREATOR_URL" '{
       claim_generator_info: [{name: "OpenEPCIS DPP-Ready image provenance", version: $v}],
       assertions: [
         {label: "c2pa.actions.v2", data: {actions: [{
@@ -81,12 +98,12 @@ for f in "$@"; do
         {label: "stds.schema-org.CreativeWork", data: {
           "@context": "https://schema.org", "@type": "CreativeWork",
           author: [{"@type": "Organization", name: $name, url: $url}],
-          license: $lic}}
+          } + (if $lic == "" then {} else {license: $lic} end)}
       ]}' > "$manifest"
-  signed=$(mktemp -t stamp).png
+  signed=$(mktemp -t stamp).${f##*.}
   c2patool "$f" -m "$manifest" ${C2PA_SIGN_CONFIG:+-c "$C2PA_SIGN_CONFIG"} -o "$signed" -f >/dev/null 2>&1
   mv "$signed" "$f"
   rm -f "$manifest"
-  echo "stamped $f ($label)"
+  echo "stamped $f ($label, $kind)"
 done
 exit $fail
