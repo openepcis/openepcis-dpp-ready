@@ -9,6 +9,13 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Changed: the image creator is a gs1:Organization
+
+`scripts/provision-demo.sh` writes the creator of a stamped picture as a `gs1:Organization` with a
+language-tagged `gs1:organizationName` (GS1 ranges it over `rdf:langString`) and, for benelog, the
+party GLN 4068194000004 (`IMAGE_CREATOR_GLN` overrides it). GS1 first, schema.org only for what GS1
+lacks: `schema:creator` itself, licence, credit and digital source type.
+
 ### Changed: pictures rendered from a reference photo carry no licence
 
 `scripts/stamp-image-provenance.sh` recognises a picture rendered from a reference image (the prompt
