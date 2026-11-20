@@ -9,6 +9,56 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Changed: external vocabularies leave the extension tree
+
+The five upstream ontologies that were mirrored as modules under `extensions/upstream/` (GS1 Rail,
+CIRPASS-2 EUDPP Core, CIRPASS-2 Textile, CIRPASS-2 Battery, EU DPP Registry) now live under
+`vocabularies/`. They were never OpenEPCIS extensions: no context, schema or shape is generated
+from them and their namespaces are the publishers' own. The move makes the boundary explicit:
+`extensions/` holds the OpenEPCIS golden set, `vocabularies/` holds what that set is aligned to.
+Every path that read the mirrors (mapping guard, crosswalk profiles, validation targets, sync
+scripts, vocab-sync) follows; the served GS1 Rail context is byte-identical. `pnpm run release`
+no longer special-cases an `upstream` region. The reference site lists these vocabularies under
+`/vocabularies/<id>` with the alignment of our terms instead of rendering them as extension modules.
+
+### Changed: the image creator is a gs1:Organization
+
+`scripts/provision-demo.sh` writes the creator of a stamped picture as a `gs1:Organization` with a
+language-tagged `gs1:organizationName` (GS1 ranges it over `rdf:langString`) and, for benelog, the
+party GLN 4068194000004 (`IMAGE_CREATOR_GLN` overrides it). GS1 first, schema.org only for what GS1
+lacks: `schema:creator` itself, licence, credit and digital source type.
+
+### Changed: pictures rendered from a reference photo carry no licence
+
+`scripts/stamp-image-provenance.sh` recognises a picture rendered from a reference image (the prompt
+names one, or Draw Things recorded controls or an image-to-image strength below 1). It marks it
+`compositeWithTrainedAlgorithmicMedia` and writes credit and creator but no licence, because the
+reference shows a third party's design and CC0 can only waive rights we hold. JPEG input is signed
+as JPEG.
+
+### Added: provenance and licence on the generated product images
+
+The demo product images are generated with FLUX.2 [klein] 4B in Draw Things. They are now published
+under CC0 1.0 and say so in two places:
+
+- In the file: `scripts/stamp-image-provenance.sh` writes IPTC `DigitalSourceType`
+  `trainedAlgorithmicMedia`, `AISystemUsed`, the licence (`xmpRights:WebStatement`, `cc:license`),
+  credit line and creator into the XMP, next to the prompt and seed Draw Things already records, and
+  signs a C2PA manifest (`c2pa.created`, digital source type, schema.org CreativeWork with author
+  and licence). It signs with c2patool's test certificate unless `C2PA_SIGN_CONFIG` names a real
+  one, so verifiers list the signer as untrusted. It accepts only models whose output may be
+  published under CC0 and refuses FLUX.2 [dev] output.
+- In the passport: `scripts/provision-demo.sh` reads that XMP and adds `schema:digitalSourceType`
+  (`schema:TrainedAlgorithmicMediaDigitalSource`), `schema:license`, `schema:creditText` and
+  `schema:creator` to each picture's `ReferencedFileDetails`.
+
+The six pictures of 09521234002000 and 09521234003007 came from FLUX.2 [dev], whose licence covers
+non-commercial generation only; they are re-rendered with FLUX.2 [klein] 4B from the same prompts
+and seeds. Three needed a nudge: the third battery view gets a different seed and a line asking for
+flat cabinets without cables, and the two jacket views ask for ghost-mannequin photography, since
+klein otherwise drew faces on the battery and a mannequin head in the jacket. The exact prompts are
+recorded in each file's XMP.
+
 ## [0.14.2] - 2026-11-12
 
 ### Changed: EU DPP Registry output complete for a full passport

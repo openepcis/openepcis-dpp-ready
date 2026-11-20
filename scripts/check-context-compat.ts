@@ -59,7 +59,7 @@ function baseRef(): string {
 /** Loader that serves every ref.openepcis.org context and vendored snapshot from the base revision. */
 function baseLoader(ref: string, files: string[], fallback: JsonLdDocumentLoader): JsonLdDocumentLoader {
   const map: Record<string, string> = {
-    "https://gs1-epcis-reg.org/rail/rail-context.jsonld": "extensions/upstream/gs1-rail/context/rail-context.jsonld",
+    "https://gs1-epcis-reg.org/rail/rail-context.jsonld": "vocabularies/gs1-rail/context/rail-context.jsonld",
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld": "vendor/gs1/epcis-context.jsonld",
     "https://ref.gs1.org/voc/": "vendor/gs1/gs1Voc.jsonld",
   };

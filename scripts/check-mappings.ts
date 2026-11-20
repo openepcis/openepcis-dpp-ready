@@ -173,7 +173,7 @@ const SEMICEU_PREFIXES = new Set(["cv", "cccev", "locn", "adms", "cpsv", "foaf",
 
 /**
  * 13. CIRPASS-2 EUDPP targets must exist in the mirror. The mirror under
- * extensions/upstream/cirpass2-eudpp/ontology/eudpp.ttl is the ground truth for the
+ * vocabularies/cirpass2-eudpp/ontology/eudpp.ttl is the ground truth for the
  * `cirpass2:` / `eudpp:` namespace (https://w3id.org/eudpp#), and unlike the other upstream
  * peers it lives in this repository, so a pointer can be checked offline. Both the graded
  * SKOS relations and rdfs:seeAlso are covered: the 2.0.5 → 2.1.0 bump renamed or removed
@@ -184,7 +184,7 @@ const SEMICEU_PREFIXES = new Set(["cv", "cccev", "locn", "adms", "cpsv", "foaf",
 const EUDPP_NS = "https://w3id.org/eudpp#";
 const EUDPP_PREFIXES = new Set(["cirpass2", "eudpp"]);
 const EUDPP_TERMS: Set<string> = (() => {
-  const mirror = join(PROJECT_ROOT, "extensions/upstream/cirpass2-eudpp/ontology/eudpp.ttl");
+  const mirror = join(PROJECT_ROOT, "vocabularies/cirpass2-eudpp/ontology/eudpp.ttl");
   const ttl = readFileSync(mirror, "utf8");
   const terms = new Set<string>();
   for (const m of ttl.matchAll(/^(?:eudpp:([\w.-]+)|<https:\/\/w3id\.org\/eudpp#([^>]+)>)\s/gm)) terms.add(m[1] ?? m[2]);
@@ -196,7 +196,7 @@ const EUDPP_TERMS: Set<string> = (() => {
 })();
 
 /**
- * 14. EU DPP Registry targets must exist in the mirror. extensions/upstream/eu-dpp/ontology/eu-dpp.ttl
+ * 14. EU DPP Registry targets must exist in the mirror. vocabularies/eu-dpp/ontology/eu-dpp.ttl
  * holds the seventeen SKOS vocabularies of the Commission's semantic data artifacts, and the host
  * their IRIs point at (repository.product-passport.ec.europa.eu) did not resolve when release
  * 1.0.0 came out, so the mirror is the only place a pointer can be checked. Covers the data
@@ -205,7 +205,7 @@ const EUDPP_TERMS: Set<string> = (() => {
  */
 const EU_DPP_BASE = "https://repository.product-passport.ec.europa.eu/";
 const EU_DPP_TERMS: Set<string> = (() => {
-  const mirror = join(PROJECT_ROOT, "extensions/upstream/eu-dpp/ontology/eu-dpp.ttl");
+  const mirror = join(PROJECT_ROOT, "vocabularies/eu-dpp/ontology/eu-dpp.ttl");
   const subjects = new Set<string>();
   for (const q of new Parser().parse(readFileSync(mirror, "utf8"))) {
     if (q.subject.termType === "NamedNode" && q.subject.value.startsWith(EU_DPP_BASE)) subjects.add(q.subject.value);
@@ -318,7 +318,7 @@ function isEntityClass(target: string): boolean {
 
 for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
   // Upstream mirrors are the ground truth, not the subject of this guard.
-  if (f.includes("/extensions/upstream/")) continue;
+  if (f.includes("/vocabularies/")) continue;
   const ttl = blankLongLiterals(readFileSync(f, "utf8"));
   const rel = relative(PROJECT_ROOT, f);
   const isTextile = rel.includes("/textile/");
@@ -380,7 +380,7 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
         if (!EUDPP_TERMS.has(local)) {
           violations.push({
             file: rel, subject: subj, rule: "dead-eudpp-target", target,
-            detail: `${pred} ${target} — no such term in the CIRPASS-2 EUDPP mirror (extensions/upstream/cirpass2-eudpp); the term was renamed or removed upstream, re-point it or drop the pointer`,
+            detail: `${pred} ${target} — no such term in the CIRPASS-2 EUDPP mirror (vocabularies/cirpass2-eudpp); the term was renamed or removed upstream, re-point it or drop the pointer`,
           });
         }
       }
@@ -393,7 +393,7 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
         if (iri && !EU_DPP_TERMS.has(iri)) {
           violations.push({
             file: rel, subject: subj, rule: "dead-eu-dpp-target", target,
-            detail: `${pred} ${target} — no such concept in the EU DPP Registry mirror (extensions/upstream/eu-dpp); re-point it or drop the pointer`,
+            detail: `${pred} ${target} — no such concept in the EU DPP Registry mirror (vocabularies/eu-dpp); re-point it or drop the pointer`,
           });
         }
       }

@@ -35,7 +35,7 @@ CATEGORIES = ["EV", "LMT", "Industrial_Without_BMS", "Other_Industrial_Above_2kW
 ONT = "https://ref.openepcis.org/vocab/batterypass-ready/2.0.1"
 NS = Namespace(ONT + "#")
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
-EU_TTL = "extensions/upstream/eu-dpp/ontology/eu-dpp.ttl"
+EU_TTL = "vocabularies/eu-dpp/ontology/eu-dpp.ttl"
 OUT = "extensions/eu/battery/vocab/batterypass-ready-2.0.1.ttl"
 SLOT = re.compile(r"(Unit|Value|Values)$|^(value|unit|identifier|identifierType|name|url|"
                   r"additionallyPossibleValue)$")

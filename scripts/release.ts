@@ -16,7 +16,7 @@
  *   README.md                           status badge, the TL;DR sentence, both module tables
  *   CLAUDE.md                           the module table
  *
- * Upstream mirrors under extensions/upstream/ keep their upstream version and are skipped.
+ * External vocabularies under vocabularies/ are not modules: they keep their upstream version and are not touched.
  * Generated artifacts (context files, json/) carry the version from the TTL, so run the build
  * afterwards; the script reminds you.
  *
@@ -57,9 +57,9 @@ if (target && !/^\d+\.\d+\.\d+$/.test(target)) {
   process.exit(64);
 }
 
-interface Module { slug: string; region: string; dir: string; path: string; upstream: boolean }
+interface Module { slug: string; region: string; dir: string; path: string }
 
-/** Every module directory, with `upstream` flagged so mirrors keep their own version. */
+/** Every module directory under extensions/. */
 function modules(): Module[] {
   const out: Module[] = [];
   const root = join(repoRoot, "extensions");
@@ -74,7 +74,6 @@ function modules(): Module[] {
         region: region.name,
         dir,
         path: `${region.name}/${mod.name}`,
-        upstream: region.name === "upstream",
       });
     }
   }
@@ -82,7 +81,7 @@ function modules(): Module[] {
 }
 
 const MODULES = modules();
-const OWNED = MODULES.filter((m) => !m.upstream);
+const OWNED = MODULES;
 
 const problems: string[] = [];
 const changes: string[] = [];
@@ -146,18 +145,14 @@ for (const m of OWNED) {
 
 // ── CHANGELOGs: open the Unreleased section into a dated release heading ────────
 // Only where the section has content; an empty Unreleased means the module did not change.
-// The upstream mirror keeps a dated sync log rather than versions, so it is read for presence
-// only. The root CHANGELOG.md is the cross-cutting summary and is stamped like a module.
+// The root CHANGELOG.md is the cross-cutting summary and is stamped like a module.
 const changelogTargets = [
   "CHANGELOG.md",
-  ...MODULES.map((m) => ({ rel: `extensions/${m.path}/CHANGELOG.md`, upstream: m.upstream })),
+  ...MODULES.map((m) => `extensions/${m.path}/CHANGELOG.md`),
 ];
-for (const t of changelogTargets) {
-  const rel = typeof t === "string" ? t : t.rel;
-  const upstream = typeof t === "string" ? false : t.upstream;
+for (const rel of changelogTargets) {
   const abs = join(repoRoot, rel);
   if (!existsSync(abs)) { problems.push(`${rel} is missing`); continue; }
-  if (upstream) continue;
   const src = readFileSync(abs, "utf8");
 
   // --check verifies version STAMPS. It deliberately does not require a `## [version]` heading

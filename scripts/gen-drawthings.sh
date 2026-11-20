@@ -13,6 +13,9 @@
 # Flux.2 Klein checkpoint loaded (flux_2_klein_*). Check:
 #   curl -s http://127.0.0.1:7860/sdapi/v1/options | jq -r .model
 #
+# After rendering, stamp provenance and licence into the files before they are
+# committed or uploaded: scripts/stamp-image-provenance.sh scripts/images/<gtin>-*.png
+#
 # Usage:
 #   scripts/gen-drawthings.sh 09521890340331            # all variants
 #   scripts/gen-drawthings.sh 09521890340331 1 3        # only variants 1 and 3

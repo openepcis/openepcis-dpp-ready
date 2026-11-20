@@ -22,7 +22,7 @@
  * the upstream HTML index 404s as of 2026-05). This script converts the
  * JSON-LD to Turtle preserving the upstream namespace, copies the
  * JSON-LD context, the two SHACL files, and the three example documents
- * verbatim into extensions/upstream/gs1-rail/.
+ * verbatim into vocabularies/gs1-rail/.
  */
 
 import { promises as fs } from "node:fs";
@@ -33,7 +33,7 @@ import jsonld from "jsonld";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
-const MODULE_DIR = path.join(ROOT, "extensions/upstream/gs1-rail");
+const MODULE_DIR = path.join(ROOT, "vocabularies/gs1-rail");
 
 /**
  * Since version 2.x GS1 Switzerland publishes the vocabulary from github.com/GS1-Switzerland/WebOntology

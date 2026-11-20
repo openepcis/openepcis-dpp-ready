@@ -17,7 +17,7 @@
  * written with dashes, because a validator configuration lists files comma-separated; MANIFEST.json
  * records the upstream path of every file.
  *
- * Extensions/upstream/cirpass2-textile still mirrors 1.1.2 for the vocabulary and the crosswalk;
+ * vocabularies/cirpass2-textile still mirrors 1.1.2 for the vocabulary and the crosswalk;
  * this sync only feeds the hosted validation types.
  */
 import { createHash } from "node:crypto";

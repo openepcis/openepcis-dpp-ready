@@ -188,7 +188,7 @@ now indicator objects of `common/assessment`, which a key alias cannot produce.
 
 ### Changed: CIRPASS-2 EUDPP mirror on release 2.1.0, two sectoral mirrors added
 
-- The EUDPP Core Ontology mirror ([`extensions/upstream/cirpass2-eudpp/`](../../upstream/cirpass2-eudpp/README.md))
+- The EUDPP Core Ontology mirror ([`extensions/upstream/cirpass2-eudpp/`](../../../vocabularies/cirpass2-eudpp/README.md))
   moved from v2.0.5 to **v2.1.0** (documentation refresh 2026-10-12, CORE with LCA
   import 2026-10-22): EVENT 1.0.0 (the EPCIS carrier clone is gone, GS1 IRIs are
   referenced), SOC 2.2.0 (identity renames, `SubstancePresence`, ESPR Art. 2(27)
@@ -196,9 +196,9 @@ now indicator objects of `common/assessment`, which a key alias cannot produce.
   `hasPreviousDPP`/`hasNextDPP`). The sync now reads the pinned module files of
   `github.com/CIRPASS-2/ontologies-docs` (`scripts/sync-cirpass2.ts`) instead of the
   unpinnable hub exports, whose `COMP` export was broken on 2026-10-29.
-- New upstream mirrors [`cirpass2-textile/`](../../upstream/cirpass2-textile/README.md)
+- New upstream mirrors [`cirpass2-textile/`](../../../vocabularies/cirpass2-textile/README.md)
   (CIRPASS-2 Textile Ontology 1.1.2, task T3.2 led by GS1 in Europe, CC BY 4.0) and
-  [`cirpass2-battery/`](../../upstream/cirpass2-battery/README.md) (EU DPP Battery
+  [`cirpass2-battery/`](../../../vocabularies/cirpass2-battery/README.md) (EU DPP Battery
   Ontology 0.4.0 DRAFT). Alignment of `eu/textile` and `eu/battery` to them is a
   follow-up SKOS audit.
 - [`docs/CIRPASS2_ALIGNMENT.md`](docs/CIRPASS2_ALIGNMENT.md) rewritten for 2.1.0:
@@ -225,7 +225,7 @@ now indicator objects of `common/assessment`, which a key alias cannot produce.
   Nothing of the schema is vendored (no published license); verified by expanding the
   vendor sample through the context.
 - The CIRPASS-2 EUDPP Core Ontology is now mirrored as a Layer-2 upstream module
-  ([`extensions/upstream/cirpass2-eudpp/`](../../upstream/cirpass2-eudpp/README.md),
+  ([`extensions/upstream/cirpass2-eudpp/`](../../../vocabularies/cirpass2-eudpp/README.md),
   upstream v2.0.5) so the alignment documented in
   [`docs/CIRPASS2_ALIGNMENT.md`](docs/CIRPASS2_ALIGNMENT.md) has a browsable target on
   ref.openepcis.org. The alignment strategy itself is unchanged: `rdfs:seeAlso` by
