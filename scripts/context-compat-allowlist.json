@@ -98,8 +98,8 @@
     "file": "extensions/common/interop/context/dpp-keystone-bridge-context.jsonld",
     "term": "dppk",
     "reason": "DPP Keystone publishes v3 as its only current specification; the bridge moves its namespace from spec/v2/terms# to spec/v3/terms#. Every local name the bridge uses exists unchanged in v3, so a Keystone document keeps its meaning; the module ontologies already cite v3."
-    },
-    {
+  },
+  {
     "file": "extensions/eu/detergent/context/detergent-operational-context.jsonld",
     "term": "BiodegradabilityTestMethod",
     "reason": "eudet:BiodegradabilityTestMethod was an exactMatch duplicate of oec:BiodegradabilityTestMethod (an oea:TestMethod since the assessment model, wave 2); the class keeps its meaning and the key now lands on the surviving core term."
@@ -593,5 +593,10 @@
     "file": "extensions/us/fsma204/context/fsma204-operational-context.jsonld",
     "term": "packagingMaterialType",
     "reason": "packagingMaterialType carries a GS1 code-list value (gs1:PackagingMaterialTypeCode). ppwr-shortcut-context already defines it as \"@type\": \"@vocab\" with the codes, but gs1-shortcuts-context defined it as \"@type\": \"@id\" and wins inside scoped contexts, so a bare code such as PLASTIC_OTHER became a relative IRI. gs1-shortcuts-context now carries the same definition as ppwr-shortcut-context. Absolute and compact IRIs expand exactly as before, so no stored valid value changes meaning."
+  },
+  {
+    "file": "extensions/upstream/gs1-rail/context/rail-context.jsonld",
+    "term": "*",
+    "reason": "Not a redefinition: the file moved byte-identical to vocabularies/gs1-rail/context/rail-context.jsonld when the external vocabularies left the extension tree. The published URL on ref.openepcis.org keeps answering with a 301 to the new path (openepcis-web routeRules), and stored documents name the upstream URL https://gs1-epcis-reg.org/rail/rail-context.jsonld, which every loader maps to the moved file."
   }
 ]
