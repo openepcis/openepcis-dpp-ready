@@ -74,7 +74,7 @@ def main(root):
         if "/upstream/" in f or f.endswith("-access-levels.ttl"):
             continue
         ours.parse(f, format="turtle")
-    eu = Graph().parse(os.path.join(root, "extensions/upstream/eu-dpp/ontology/eu-dpp.ttl"),
+    eu = Graph().parse(os.path.join(root, "vocabularies/eu-dpp/ontology/eu-dpp.ttl"),
                        format="turtle")
     nm = ours.namespace_manager
 

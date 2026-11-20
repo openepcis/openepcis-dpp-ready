@@ -265,7 +265,7 @@ S=2026-10-30
 # 0) The previous mirror as baseline (so the run is limited to what the release added) and a
 #    term → module map (from the per-module upstream files; only used for the Module column
 #    and the EVENT policy bucket).
-git show <pre-release-commit>:extensions/upstream/cirpass2-eudpp/ontology/eudpp.ttl > tools/vocab-sync/.cache/eudpp-baseline.ttl
+git show <pre-release-commit>:vocabularies/cirpass2-eudpp/ontology/eudpp.ttl > tools/vocab-sync/.cache/eudpp-baseline.ttl
 
 # 1) Coverage with grading and advice. Classes/properties nothing of ours maps to get their
 #    nearest terms of ours LLM-graded (QA panel included); what stays uncovered gets a
@@ -394,7 +394,7 @@ finding the QA model confirms; `apply --confirmed-only` writes just those.
 - Upstream term sets, three source kinds (see `UpstreamIndex`):
   - **RDF** (real labels/comments, via Jena): GS1 + schema.org (`.cache/vocab/{gs1-voc.ttl,
     schemaorg.ttl}`), SEMICeu (`.cache/vocab/semic-{m8g,adms,locn}.jsonld`), and the in-repo
-    GS1 Rail vocabulary (`extensions/upstream/gs1-rail/ontology/gs1RailVoc.ttl`).
+    GS1 Rail vocabulary (`vocabularies/gs1-rail/ontology/gs1RailVoc.ttl`).
   - **SAMM** (Eclipse ESMF aspect models): BatteryPass, read as `samm:Property`/`samm:Entity` with
     `samm:preferredName`/`samm:description`, latest version per aspect from the sibling checkout
     (`batterypass-root`).

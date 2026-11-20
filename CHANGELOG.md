@@ -9,6 +9,18 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Changed: external vocabularies leave the extension tree
+
+The five upstream ontologies that were mirrored as modules under `extensions/upstream/` (GS1 Rail,
+CIRPASS-2 EUDPP Core, CIRPASS-2 Textile, CIRPASS-2 Battery, EU DPP Registry) now live under
+`vocabularies/`. They were never OpenEPCIS extensions: no context, schema or shape is generated
+from them and their namespaces are the publishers' own. The move makes the boundary explicit:
+`extensions/` holds the OpenEPCIS golden set, `vocabularies/` holds what that set is aligned to.
+Every path that read the mirrors (mapping guard, crosswalk profiles, validation targets, sync
+scripts, vocab-sync) follows; the served GS1 Rail context is byte-identical. `pnpm run release`
+no longer special-cases an `upstream` region. The reference site lists these vocabularies under
+`/vocabularies/<id>` with the alignment of our terms instead of rendering them as extension modules.
+
 ### Changed: the image creator is a gs1:Organization
 
 `scripts/provision-demo.sh` writes the creator of a stamped picture as a `gs1:Organization` with a

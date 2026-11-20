@@ -196,7 +196,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     prefix: "usfsma",
     imports: [DPP_CORE_IMPORT],
   },
-  // GS1 Rail is not generated: extensions/upstream/gs1-rail/context/rail-context.jsonld is the
+  // GS1 Rail is not generated: vocabularies/gs1-rail/context/rail-context.jsonld is the
   // served v1.6 context and stays frozen. The mirrored vocabulary moved to v2.6 under
   // https://ref.gs1.ch/voc/rail/ (2026-11-06); regenerating the context from it would redefine
   // every rail term that stored documents expand against.

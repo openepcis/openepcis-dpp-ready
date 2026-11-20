@@ -1,9 +1,9 @@
 /**
- * Sync the CIRPASS-2 ontology mirrors under extensions/upstream/cirpass2-*.
+ * Sync the CIRPASS-2 ontology mirrors under vocabularies/cirpass2-*.
  *
- *   pnpm run sync:eudpp              # CORE: extensions/upstream/cirpass2-eudpp/ontology/eudpp.ttl
- *   pnpm run sync:cirpass2-textile   # extensions/upstream/cirpass2-textile/ontology/textile.ttl
- *   pnpm run sync:cirpass2-battery   # extensions/upstream/cirpass2-battery/ontology/battery.ttl
+ *   pnpm run sync:eudpp              # CORE: vocabularies/cirpass2-eudpp/ontology/eudpp.ttl
+ *   pnpm run sync:cirpass2-textile   # vocabularies/cirpass2-textile/ontology/textile.ttl
+ *   pnpm run sync:cirpass2-battery   # vocabularies/cirpass2-battery/ontology/battery.ttl
  *
  * NETWORK SYNC — NEVER RUN THIS AS PART OF A BULK REGENERATION.
  * This script FETCHES FROM UPSTREAM. Every other generator here is
@@ -102,7 +102,7 @@ const MIRRORS: Record<string, MirrorSpec> = {
     ],
     namespaces: [EUDPP_NS],
     ontologyIri: "https://w3id.org/eudpp/",
-    out: "extensions/upstream/cirpass2-eudpp/ontology/eudpp.ttl",
+    out: "vocabularies/cirpass2-eudpp/ontology/eudpp.ttl",
     prefixes: { eudpp: EUDPP_NS },
     license: [
       "# Upstream license: CC BY 4.0 (Apache License 2.0 fallback as software),",
@@ -117,7 +117,7 @@ const MIRRORS: Record<string, MirrorSpec> = {
     modules: [{ path: "Textile/textile-ontology-complete", key: "textile-ontology-complete", minTerms: 300 }],
     namespaces: ["https://w3id.org/eudpp/textile-"],
     ontologyIri: "https://w3id.org/eudpp/textile-ontology",
-    out: "extensions/upstream/cirpass2-textile/ontology/textile.ttl",
+    out: "vocabularies/cirpass2-textile/ontology/textile.ttl",
     prefixes: Object.fromEntries(
       [
         "assessment", "associated-materials", "associated-materials-codelists", "codelists",
@@ -139,7 +139,7 @@ const MIRRORS: Record<string, MirrorSpec> = {
     modules: [{ path: "Battery/battery-ontology-complete", key: "battery-ontology-complete", minTerms: 50 }],
     namespaces: ["https://w3id.org/eudpp/battery#", "https://w3id.org/eudpp/battery-"],
     ontologyIri: "https://w3id.org/eudpp/battery",
-    out: "extensions/upstream/cirpass2-battery/ontology/battery.ttl",
+    out: "vocabularies/cirpass2-battery/ontology/battery.ttl",
     prefixes: {
       bat: "https://w3id.org/eudpp/battery#",
       ...Object.fromEntries(

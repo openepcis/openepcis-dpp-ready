@@ -292,7 +292,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
   },
   {
     name: "rail",
-    dir: "extensions/upstream/gs1-rail",
+    dir: "vocabularies/gs1-rail",
     ttlFile: "gs1RailVoc.ttl",
     namespace: "https://ref.gs1.ch/voc/rail/",
   },
@@ -302,7 +302,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
   // so ontologyIri points at the CORE node for title/version.
   {
     name: "eudpp",
-    dir: "extensions/upstream/cirpass2-eudpp",
+    dir: "vocabularies/cirpass2-eudpp",
     ttlFile: "eudpp.ttl",
     namespace: "https://w3id.org/eudpp#",
     ontologyIri: "https://w3id.org/eudpp/",
@@ -316,7 +316,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
   // disambiguated as <module>.<name> — see disambiguateLocalNames().
   {
     name: "cirpass2-textile",
-    dir: "extensions/upstream/cirpass2-textile",
+    dir: "vocabularies/cirpass2-textile",
     ttlFile: "textile.ttl",
     namespace: "https://w3id.org/eudpp/textile-core#",
     extraNamespaces: [
@@ -334,7 +334,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
   // namespaces and are not indexed here (the CORE mirror owns them).
   {
     name: "cirpass2-battery",
-    dir: "extensions/upstream/cirpass2-battery",
+    dir: "vocabularies/cirpass2-battery",
     ttlFile: "battery.ttl",
     namespace: "https://w3id.org/eudpp/battery#",
     extraNamespaces: [
@@ -350,7 +350,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
   // the core vocabulary scheme carries title and version.
   {
     name: "eu-dpp",
-    dir: "extensions/upstream/eu-dpp",
+    dir: "vocabularies/eu-dpp",
     ttlFile: "eu-dpp.ttl",
     namespace: "https://repository.product-passport.ec.europa.eu/core/vocabs/core-vocabulary#",
     extraNamespaces: [

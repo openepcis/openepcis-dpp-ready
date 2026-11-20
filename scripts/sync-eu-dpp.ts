@@ -18,7 +18,7 @@
  * OUTPUT.
  *   vendor/eu-dpp/<version>/                  verbatim archive content (core/, product/) plus
  *                                             MANIFEST.json (archive hash, per-file SHA-256)
- *   extensions/upstream/eu-dpp/ontology/eu-dpp.ttl
+ *   vocabularies/eu-dpp/ontology/eu-dpp.ttl
  *                                             every SKOS vocabulary of the release merged into one
  *                                             Turtle file, triples unchanged, for build:json,
  *                                             the vocabulary browser and vocab-sync

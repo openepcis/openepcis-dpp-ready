@@ -23,7 +23,7 @@ mirror is built from the module files in
 > (`CORE/core-complete/index-en.html#<Term>`). The hub export trails the
 > documented release by a patch level and its `COMP` export was unusable
 > on 2026-10-29, which is why the mirror reads the GitHub files (see
-> [`extensions/upstream/cirpass2-eudpp/README.md`](../../../upstream/cirpass2-eudpp/README.md)).
+> [`vocabularies/cirpass2-eudpp/README.md`](../../../../vocabularies/cirpass2-eudpp/README.md)).
 
 ## Module structure (v2.1.0)
 
@@ -46,9 +46,9 @@ nine content modules (LCA is imported since 2.1.0):
 Sectoral extensions published alongside CORE are mirrored as their own
 upstream modules: the **Textile Ontology 1.1.2** (task T3.2 led by GS1 in Europe, twelve modules
 under `https://w3id.org/eudpp/textile-<module>#`,
-[`extensions/upstream/cirpass2-textile/`](../../../upstream/cirpass2-textile/README.md))
+[`vocabularies/cirpass2-textile/`](../../../../vocabularies/cirpass2-textile/README.md))
 and the **EU DPP Battery Ontology 0.4.0 DRAFT**
-([`extensions/upstream/cirpass2-battery/`](../../../upstream/cirpass2-battery/README.md)).
+([`vocabularies/cirpass2-battery/`](../../../../vocabularies/cirpass2-battery/README.md)).
 The 2026-10-30 vocab-sync round audited `common/core`, `eu/battery` and
 `eu/textile` against all three mirrors (reports
 `docs/skos-alignment/skos-completeness-{core,battery,textile}-2026-10-29`,
@@ -237,7 +237,7 @@ substance versus a substance presence), the crosswalk converts the shape. Assess
 same pattern on both sides (`common/assessment` is modelled on textile-assessment and
 textile-indicator), so the conversion is close to one to one. What CIRPASS-2 cannot express
 travels in W3C, schema.org or GS1 vocabulary, never in ours, and is listed with the gaps in the
-crosswalk README. The gaps are proposed upstream in [`upstream/cirpass2/`](upstream/cirpass2/):
+crosswalk README. The gaps are proposed upstream in [`vocabularies/cirpass2/`](upstream/cirpass2/):
 the assessment gaps as [ontologies-docs#3](https://github.com/CIRPASS-2/ontologies-docs/issues/3),
 the EUDPP core gaps as a draft.
 
@@ -246,9 +246,9 @@ the EUDPP core gaps as a draft.
 - **Do not import CIRPASS-2 TTL into the ontology.** No `owl:imports`
   of the module files, no re-declared classes. Our ontology references
   terms by IRI. What *does* exist are the **upstream mirror modules**
-  ([`extensions/upstream/cirpass2-eudpp/`](../../../upstream/cirpass2-eudpp/README.md),
-  [`cirpass2-textile/`](../../../upstream/cirpass2-textile/README.md),
-  [`cirpass2-battery/`](../../../upstream/cirpass2-battery/README.md),
+  ([`vocabularies/cirpass2-eudpp/`](../../../../vocabularies/cirpass2-eudpp/README.md),
+  [`cirpass2-textile/`](../../../../vocabularies/cirpass2-textile/README.md),
+  [`cirpass2-battery/`](../../../../vocabularies/cirpass2-battery/README.md),
   regenerated with `pnpm run sync:eudpp` / `sync:cirpass2-textile` /
   `sync:cirpass2-battery` from the pinned `CIRPASS-2/ontologies-docs`
   commit) — the same pattern as the GS1 Rail mirror: verbatim copies,

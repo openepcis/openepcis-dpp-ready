@@ -425,7 +425,7 @@ function leafComponents(r: ShaclResult): string[] {
 function vocabulary(): { store: ox.Store; nt: string } {
   if (!vocabStore) {
     vocabStore = new ox.Store();
-    vocabStore.load(readFileSync(join(ROOT, "extensions/upstream/eu-dpp/ontology/eu-dpp.ttl"), "utf8"), { format: "text/turtle" });
+    vocabStore.load(readFileSync(join(ROOT, "vocabularies/eu-dpp/ontology/eu-dpp.ttl"), "utf8"), { format: "text/turtle" });
     vocabNt = (vocabStore.query("CONSTRUCT { ?s ?p ?o } WHERE { ?s ?p ?o }") as ox.Quad[]).map((q) => q.toString() + " .").join("\n");
   }
   return { store: vocabStore, nt: vocabNt };

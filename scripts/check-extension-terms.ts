@@ -80,6 +80,7 @@ function parseTtl(ttl: string): Promise<Store> {
 async function definedTerms(): Promise<Set<string>> {
   const defined = new Set<string>();
   const files = walk(join(PROJECT_ROOT, "extensions"), (f) => isOntologySource(f))
+    .concat(walk(join(PROJECT_ROOT, "vocabularies"), (f) => isOntologySource(f)))
     .concat(walk(join(PROJECT_ROOT, "masterdata"), (f) => isOntologySource(f)));
   for (const file of files) {
     const store = await parseTtl(readFileSync(file, "utf-8"));

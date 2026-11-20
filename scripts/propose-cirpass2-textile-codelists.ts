@@ -45,7 +45,7 @@ const prefillPath = resolve(DOCS, `skos-adoption-proposal-${VOCAB}-${STAMP}-pref
 const prefill: Record<string, { decision: string; notes: string }> = JSON.parse(readFileSync(prefillPath, "utf8"));
 
 const store = new Store();
-store.addQuads(new Parser().parse(readFileSync(resolve(ROOT, "extensions/upstream/cirpass2-textile/ontology/textile.ttl"), "utf8")));
+store.addQuads(new Parser().parse(readFileSync(resolve(ROOT, "vocabularies/cirpass2-textile/ontology/textile.ttl"), "utf8")));
 const ours = new Store();
 ours.addQuads(new Parser().parse(readFileSync(resolve(ROOT, "extensions/eu/textile/ontology/textile.ttl"), "utf8")));
 const lit = (s: string, p: string) => store.getObjects(namedNode(s), namedNode(p), null).find((o) => o.termType === "Literal")?.value;

@@ -11,7 +11,7 @@ One version stamp (`package.json`, every module `VERSION`, every ontology's `owl
 and `owl:versionIRI`, the `## [Unreleased]` headings of every changelog, the README tables)
 plus the generated artifacts that the build derives from the ontologies at that stamp: JSON
 views, contexts, schemas, the GITB validator bundle and test suite. Upstream mirrors under
-`extensions/upstream/` keep their own upstream version and are not stamped.
+`vocabularies/` keep their own upstream version and are not stamped.
 
 A release is consumed in three places, in this order:
 
@@ -38,7 +38,7 @@ A release is consumed in three places, in this order:
 | Which audited SKOS mappings go in? | The review workbook's `decisions` sheet (`Apply?`), applied by `vocab-sync curate`; held items with reasons in `docs/skos-alignment/OPEN_DECISIONS.md`. |
 | Which upstream terms do we adopt, map, leave to EPCIS/CBV, or ignore? | The workbook's `coverage` sheet (`Decision`), exported by `vocab-sync coverage-decisions`; adopted terms become ordinary ontology edits with changelog lines. |
 | Is a module's change breaking? | Its `CHANGELOG.md` `## [Unreleased]` section: a renamed or removed term is a major bump for that module; the project version follows the highest bump. |
-| Does an upstream release need a mirror bump first? | `extensions/upstream/<mirror>/CHANGELOG.md` sync log; the mirror commit precedes the release commit. |
+| Does an upstream release need a mirror bump first? | `vocabularies/<mirror>/CHANGELOG.md` sync log; the mirror commit precedes the release commit. |
 
 ## Sequence
 

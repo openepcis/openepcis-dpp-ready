@@ -27,7 +27,8 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 
 | | Count |
 |---|---|
-| Modules | 17 — `common/{core,assessment,interop,carrier}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}`, `upstream/{gs1-rail,cirpass2-eudpp,cirpass2-textile,cirpass2-battery,eu-dpp}` |
+| Modules | 13 — `common/{core,assessment,interop,carrier}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}` |
+| External vocabularies | 5 vendored under `vocabularies/` (GS1 Rail, CIRPASS-2 EUDPP Core, Textile and Battery, EU DPP Registry), aligned to, never extended |
 | Classes | 106 |
 | Properties | 805 |
 | EPCIS Event Examples | 47 |
@@ -119,11 +120,26 @@ This monorepo provides a consistent, GS1-aligned approach to implementing Digita
 | [eu/ppwr](./extensions/eu/ppwr/) | EU | Packaging and Packaging Waste Regulation (EU) 2025/40 | Preview | 0.14.2 | Aug 2026 (Art. 12(2) reuse card, DPP document schema) |
 | [eu/cpr](./extensions/eu/cpr/) | EU | Construction Products Regulation (EU) 2024/3110 | Preview | 0.14.2 | Jul 2026 |
 | [us/fsma204](./extensions/us/fsma204/) | US | FSMA §204 Food Traceability Rule (21 CFR 1 Subpart S) | Preview | 0.14.2 | Apr 2026 (new module) |
-| [upstream/gs1-rail](./extensions/upstream/gs1-rail/) | Upstream (GS1 AISBL / GS1 Switzerland) | GS1 Rail Vocabulary — sectoral Layer-2 upstream profile (sensor metadata, wheel diagnostics, rail EPCIS Registry shapes); namespace stays at `https://gs1-epcis-reg.org/rail/voc/data#` | Mirror | upstream 1.6 | May 2026 (initial mirror, bridge to dpp-core) |
-| [upstream/cirpass2-eudpp](./extensions/upstream/cirpass2-eudpp/) | Upstream (CIRPASS-2 / TalTech) | CIRPASS-2 EUDPP Core Ontology — Layer-2 community profile, mirrored for browsing; namespace stays at `https://w3id.org/eudpp#` | Mirror | upstream 2.1.0 | Oct 2026 (release 2.1.0, pinned to `CIRPASS-2/ontologies-docs`) |
-| [upstream/cirpass2-textile](./extensions/upstream/cirpass2-textile/) | Upstream (CIRPASS-2, task T3.2 led by GS1 in Europe) | CIRPASS-2 Textile Ontology — sectoral Layer-2 profile, twelve modules under `https://w3id.org/eudpp/textile-*#` | Mirror | upstream 1.1.2 | Oct 2026 (initial mirror) |
-| [upstream/cirpass2-battery](./extensions/upstream/cirpass2-battery/) | Upstream (CIRPASS-2) | CIRPASS-2 EU DPP Battery Ontology — sectoral Layer-2 profile, DRAFT | Mirror | upstream 0.4.0 DRAFT | Oct 2026 (initial mirror) |
-| [upstream/eu-dpp](./extensions/upstream/eu-dpp/) | Upstream (European Commission, DG GROW) | EU DPP Registry semantic data artifacts — the Registry's data model for core passports and batteries (17 SKOS vocabularies; full release in `vendor/eu-dpp/`) | Mirror | upstream 1.0.0 | Nov 2026 (initial mirror) |
+
+### External vocabularies (not extensions)
+
+The vocabularies this project aligns to are vendored under [`vocabularies/`](./vocabularies/) so
+that the build can validate every SKOS mapping against the real upstream term and the reference
+site can show how the OpenEPCIS terms distribute across them. They are **not** EPCIS extensions:
+no module is derived from them, no context or schema is generated for them, and their namespaces
+stay exactly as published. The OpenEPCIS extensions above are the golden set; the external
+vocabularies are what that set is anchored to.
+
+| Vocabulary | Publisher | Namespace | Vendored version |
+|------------|-----------|-----------|------------------|
+| [gs1-rail](./vocabularies/gs1-rail/) | GS1 AISBL / GS1 Switzerland | `https://gs1-epcis-reg.org/rail/voc/data#` (`rail:`) | 2.6 (served context frozen at 1.6) |
+| [cirpass2-eudpp](./vocabularies/cirpass2-eudpp/) | CIRPASS-2 / TalTech | `https://w3id.org/eudpp#` (`eudpp:`, aliased `cirpass2:`) | 2.2.0 |
+| [cirpass2-textile](./vocabularies/cirpass2-textile/) | CIRPASS-2, task T3.2 led by GS1 in Europe | `https://w3id.org/eudpp/textile-<module>#` | 1.1.2 |
+| [cirpass2-battery](./vocabularies/cirpass2-battery/) | CIRPASS-2 | `https://w3id.org/eudpp/battery#` | 0.4.0 DRAFT |
+| [eu-dpp](./vocabularies/eu-dpp/) | European Commission, DG GROW | `https://repository.product-passport.ec.europa.eu/…/vocabs/*#` | 1.0.0 |
+
+Keystone, UNTP, SEMICeu, schema.org and the GS1 Web Vocabulary are referenced the same way
+(see the prefix table below); their snapshots live under [`vendor/`](./vendor/).
 
 ## Repository Structure
 
@@ -155,6 +171,15 @@ openepcis-dpp-ready/
     │
     └── us/                             # US regulations
         └── fsma204/                    # FDA FSMA §204 Food Traceability Rule
+│
+├── vocabularies/                       # External vocabularies we align to (vendored, not extensions)
+│   ├── gs1-rail/                       # GS1 Rail Vocabulary (rail:)
+│   ├── cirpass2-eudpp/                 # CIRPASS-2 EUDPP Core Ontology
+│   ├── cirpass2-textile/               # CIRPASS-2 Textile Ontology
+│   ├── cirpass2-battery/               # CIRPASS-2 EU DPP Battery Ontology (draft)
+│   └── eu-dpp/                         # EU DPP Registry semantic data artifacts
+│
+└── vendor/                             # Raw upstream snapshots the build scripts read
 ```
 
 Each module under `eu/`, `us/`, or `common/` follows the same internal layout:
@@ -270,7 +295,7 @@ The project follows a **`gs1:` → SEMICeu (`cv:` / `cccev:` / `locn:` / `adms:`
 | Electronics | `https://ref.openepcis.org/extensions/eu/electronics/` | `euelec:` |
 | Detergent | `https://ref.openepcis.org/extensions/eu/detergent/` | `eudet:` |
 | FSMA §204 | `https://ref.openepcis.org/extensions/us/fsma204/` | `usfsma:` |
-| GS1 Rail (upstream — GS1 AISBL / GS1 Switzerland; mirrored under `extensions/upstream/gs1-rail/`) | `https://gs1-epcis-reg.org/rail/voc/data#` | `rail:` |
+| GS1 Rail (external — GS1 AISBL / GS1 Switzerland; vendored under `vocabularies/gs1-rail/`) | `https://gs1-epcis-reg.org/rail/voc/data#` | `rail:` |
 | _Reused_: schema.org | `https://schema.org/` | `schema:` |
 | _Reused_: GS1 Web Vocabulary | `https://ref.gs1.org/voc/` | `gs1:` |
 | _Reused_: SEMICeu CCCEV / CPOV / Core Business / Person / Public Event / CPSV-AP | `http://data.europa.eu/m8g/` | `cv:` (general) / `cccev:` (criterion-evidence aliases) |

@@ -41,7 +41,7 @@ const URL_TO_FILE = {
   'https://ref.openepcis.org/extensions/common/interop/jtc24-bridge-context.jsonld': 'extensions/common/interop/context/jtc24-bridge-context.jsonld',
   'https://ref.openepcis.org/extensions/common/interop/cirpass2-bridge-context.jsonld': 'extensions/common/interop/context/cirpass2-bridge-context.jsonld',
   'https://ref.openepcis.org/extensions/common/interop/rail-bridge-context.jsonld': 'extensions/common/interop/context/rail-bridge-context.jsonld',
-  'https://gs1-epcis-reg.org/rail/rail-context.jsonld': 'extensions/upstream/gs1-rail/context/rail-context.jsonld',
+  'https://gs1-epcis-reg.org/rail/rail-context.jsonld': 'vocabularies/gs1-rail/context/rail-context.jsonld',
 };
 
 const remoteCache = new Map();
@@ -210,7 +210,7 @@ async function main() {
   const filter = args.find((a) => !a.startsWith('--'));
 
   const files = [];
-  const mods = ['common/core', 'common/interop', 'eu/battery', 'eu/textile', 'eu/electronics', 'eu/eudr', 'eu/detergent', 'eu/ppwr', 'eu/cpr', 'us/fsma204', 'upstream/gs1-rail'];
+  const mods = ['common/core', 'common/interop', 'eu/battery', 'eu/textile', 'eu/electronics', 'eu/eudr', 'eu/detergent', 'eu/ppwr', 'eu/cpr', 'us/fsma204'];
   for (const dir of mods) {
     for (const sub of ['examples', 'epcis']) {
       const full = path.join(ROOT, 'extensions', dir, sub);

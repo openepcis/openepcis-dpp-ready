@@ -272,7 +272,7 @@ async function main(): Promise<number> {
   // The rail mirror publishes its own bare sensor terms (leftValue, visibility, …).
   const railStructural = new Set(structural);
   collectTerms(
-    JSON.parse(await fs.readFile(path.join(ROOT, "extensions/upstream/gs1-rail/context/rail-context.jsonld"), "utf8"))["@context"],
+    JSON.parse(await fs.readFile(path.join(ROOT, "vocabularies/gs1-rail/context/rail-context.jsonld"), "utf8"))["@context"],
     railStructural,
   );
   for (const abs of events) {
