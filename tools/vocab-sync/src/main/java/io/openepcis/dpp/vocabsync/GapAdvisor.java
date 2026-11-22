@@ -23,7 +23,7 @@ public interface GapAdvisor {
             extension for Digital Product Passports: a cross-cutting core (prefix oec:, module
             "core") plus regulation modules "battery" (eubat:), "textile" (eutex:), "electronics"
             (euelec:), "detergent" (eudet:), "ppwr" (euppwr:), "cpr" (eucpr:), "iron-steel"
-            (eusteel:), "eudr" (eudr:), "fsma204" (usfsma:) and "carrier". These are the ONLY
+            (eusteel:), "eudr" (eudr:), "fsma204" (usfsma:) and "benetag". These are the ONLY
             module values you may use. It is built on the GS1 Web Vocabulary, GS1 identifiers
             (GTIN, GLN, SGTIN, lot, serial) and EPCIS 2.0 / CBV: supply-chain and life-cycle
             events are EPCIS events with CBV bizStep and disposition values, actors on an event

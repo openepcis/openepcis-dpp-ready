@@ -125,7 +125,7 @@
     "reason": "eutex:lciaUnit was removed in the assessment model, wave 3: the value carries a UN/CEFACT unitCode in oea:hasMeasuredValue and the unit as stated moves to oec:declaredUnit. Same meaning (the free-text unit of the LCIA value), same string value."
   },
   {
-    "file": "extensions/common/carrier/context/carrier-context.jsonld",
+    "file": "extensions/product/benetag/context/benetag-context.jsonld",
     "term": "certificationStatus",
     "reason": "certificationStatus carries a GS1 code-list value. The API stores it as the bare code (ACTIVE, INACTIVE), and with \"@type\": \"@id\" that code became a relative IRI against the document URL, which strict processors reject and lenient ones turn into a meaningless IRI. \"@type\": \"@vocab\" with a scoped context maps both codes to gs1:CertificationStatus-ACTIVE/-INACTIVE, the pattern referencedFileType already uses. Absolute and compact IRIs (gs1:CertificationStatus-ACTIVE) expand exactly as before, so no stored valid value changes meaning."
   },
@@ -285,12 +285,12 @@
     "reason": "certificationStatus carries a GS1 code-list value. The API stores it as the bare code (ACTIVE, INACTIVE), and with \"@type\": \"@id\" that code became a relative IRI against the document URL, which strict processors reject and lenient ones turn into a meaningless IRI. \"@type\": \"@vocab\" with a scoped context maps both codes to gs1:CertificationStatus-ACTIVE/-INACTIVE, the pattern referencedFileType already uses. Absolute and compact IRIs (gs1:CertificationStatus-ACTIVE) expand exactly as before, so no stored valid value changes meaning."
   },
   {
-    "file": "extensions/common/carrier/context/carrier-context.jsonld",
+    "file": "extensions/product/benetag/context/benetag-context.jsonld",
     "term": "colourCodeList",
     "reason": "colourCodeList carries a GS1 code-list value (gs1:ColourCodeList). The API stores it as the bare code (for example PANTONE_PROCESS_COLOUR), and with \"@type\": \"@id\" that code became a relative IRI against the document URL, which strict processors reject. \"@type\": \"@vocab\" with a scoped context maps the eleven GS1 codes to gs1:ColourCodeList-<CODE>, the pattern certificationStatus and referencedFileType use. Absolute and compact IRIs expand exactly as before, so no stored valid value changes meaning."
   },
   {
-    "file": "extensions/common/carrier/context/carrier-context.jsonld",
+    "file": "extensions/product/benetag/context/benetag-context.jsonld",
     "term": "packagingMaterialType",
     "reason": "packagingMaterialType carries a GS1 code-list value (gs1:PackagingMaterialTypeCode). ppwr-shortcut-context already defines it as \"@type\": \"@vocab\" with the codes, but gs1-shortcuts-context defined it as \"@type\": \"@id\" and wins inside scoped contexts, so a bare code such as PLASTIC_OTHER became a relative IRI. gs1-shortcuts-context now carries the same definition as ppwr-shortcut-context. Absolute and compact IRIs expand exactly as before, so no stored valid value changes meaning."
   },
@@ -598,5 +598,15 @@
     "file": "extensions/upstream/gs1-rail/context/rail-context.jsonld",
     "term": "*",
     "reason": "Not a redefinition: the file moved byte-identical to vocabularies/gs1-rail/context/rail-context.jsonld when the external vocabularies left the extension tree. The published URL on ref.openepcis.org keeps answering with a 301 to the new path (openepcis-web routeRules), and stored documents name the upstream URL https://gs1-epcis-reg.org/rail/rail-context.jsonld, which every loader maps to the moved file."
+  },
+  {
+    "file": "extensions/common/carrier/context/carrier-context.jsonld",
+    "term": "*",
+    "reason": "Intended removal, Sven 2026-11-22: carrier is the BeneTag product extension of benelog, not a regulation module. It moved to extensions/product/benetag with the new namespace https://ref.openepcis.org/extensions/product/benetag/ and prefix benetag. The old namespace is dropped without an alias; the only data using it were test and demo tags, which are re-encoded and whose old events are hard-deleted."
+  },
+  {
+    "file": "extensions/common/carrier/context/carrier-shortcut-context.jsonld",
+    "term": "*",
+    "reason": "Intended removal, Sven 2026-11-22: carrier is the BeneTag product extension of benelog, not a regulation module. It moved to extensions/product/benetag with the new namespace https://ref.openepcis.org/extensions/product/benetag/ and prefix benetag. The old namespace is dropped without an alias; the only data using it were test and demo tags, which are re-encoded and whose old events are hard-deleted."
   }
 ]

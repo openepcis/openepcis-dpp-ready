@@ -29031,22 +29031,22 @@ var contexts_default = {
       }
     }
   },
-  "https://ref.openepcis.org/extensions/common/carrier/carrier-context.jsonld": {
-    _comment: "OpenEPCIS Data Carrier Authentication Vocabulary v0.12.0, generated from extensions/common/carrier/ontology/carrier.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/carrier/context/.context-overrides.json for non-derivable hints.",
+  "https://ref.openepcis.org/extensions/product/benetag/benetag-context.jsonld": {
+    _comment: "OpenEPCIS Data Carrier Authentication Vocabulary v0.12.0, generated from extensions/product/benetag/ontology/benetag.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/product/benetag/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
         "@version": 1.1,
         id: "@id",
         type: "@type",
-        carrier: "https://ref.openepcis.org/extensions/common/carrier/",
+        carrier: "https://ref.openepcis.org/extensions/product/benetag/",
         xsd: "http://www.w3.org/2001/XMLSchema#",
-        "carrier:readCounter": {
-          "@id": "carrier:readCounter",
+        "benetag:readCounter": {
+          "@id": "benetag:readCounter",
           "@type": "xsd:nonNegativeInteger"
         },
-        "carrier:piccEncrypted": {
-          "@id": "carrier:piccEncrypted",
+        "benetag:piccEncrypted": {
+          "@id": "benetag:piccEncrypted",
           "@type": "xsd:boolean"
         }
       }

@@ -27,7 +27,7 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 
 | | Count |
 |---|---|
-| Modules | 13 — `common/{core,assessment,interop,carrier}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}` |
+| Modules | 13 — `common/{core,assessment,interop}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr,iron-steel}`, `us/{fsma204}`, `product/{benetag}` |
 | External vocabularies | 5 vendored under `vocabularies/` (GS1 Rail, CIRPASS-2 EUDPP Core, Textile and Battery, EU DPP Registry), aligned to, never extended |
 | Classes | 106 |
 | Properties | 805 |
@@ -110,7 +110,7 @@ This monorepo provides a consistent, GS1-aligned approach to implementing Digita
 | [common/core](./extensions/common/core/) | Cross-cutting | ESPR 2024/1781 Framework | Preview | 0.14.2 | Apr 2026 |
 | [common/assessment](./extensions/common/assessment/) | Cross-cutting | Assessments, tests, results, criteria and indicators (ESPR Art. 7 / Annex I; CIRPASS-2 assessment pattern) | Preview | 0.14.2 | Oct 2026 (new module, below core) |
 | [common/interop](./extensions/common/interop/) | Cross-cutting | Standards Harmonization (UNTP, CIRPASS2, JTC 24, BatteryPass) | Preview | 0.14.2 | Apr 2026 |
-| [common/carrier](./extensions/common/carrier/) | Cross-cutting | Data carrier authentication (NTAG 424 DNA SUN, NXP AN12196; RAIN RFID and signed QR reserved) | Preview | 0.14.2 | Oct 2026 (new module) |
+| [product/benetag](./extensions/product/benetag/) | Product (BeneTag) | BeneTag carrier authentication, a benelog product extension, no regulation (NTAG 424 DNA SUN, NXP AN12196; RAIN RFID and signed QR reserved) | Preview | 0.14.2 | Oct 2026 (new module) |
 | [eu/battery](./extensions/eu/battery/) | EU | Battery Regulation 2023/1542 | Preview | 0.14.2 | Feb 2026 |
 | [eu/eudr](./extensions/eu/eudr/) | EU | Deforestation Regulation 2023/1115 | Preview | 0.14.2 | Apr 2026 (exemption pattern added) |
 | [eu/textile](./extensions/eu/textile/) | EU | Sustainable Textiles Strategy | Preview | 0.14.2 | Mar 2026 (JRC Milestone 3 alignment) |
@@ -288,7 +288,7 @@ The project follows a **`gs1:` → SEMICeu (`cv:` / `cccev:` / `locn:` / `adms:`
 | DPP Core | `https://ref.openepcis.org/extensions/common/core/` | `oec:` |
 | Assessment | `https://ref.openepcis.org/extensions/common/assessment/` | `oea:` |
 | Interop | `https://ref.openepcis.org/extensions/common/interop/` | `oei:` |
-| Carrier | `https://ref.openepcis.org/extensions/common/carrier/` | `carrier:` |
+| BeneTag | `https://ref.openepcis.org/extensions/product/benetag/` | `benetag:` |
 | Battery | `https://ref.openepcis.org/extensions/eu/battery/` | `eubat:` |
 | EUDR | `https://ref.openepcis.org/extensions/eu/eudr/` | `eudr:` |
 | Textile | `https://ref.openepcis.org/extensions/eu/textile/` | `eutex:` |
@@ -424,7 +424,7 @@ Each module follows [Semantic Versioning](https://semver.org/) and is versioned 
 | `common/core` | 0.14.2 | ESPR framework + shared patterns; breaking changes bump major |
 | `common/assessment` | 0.14.2 | Assessment and test model below the core (methods, standards, results, criteria, indicators) |
 | `common/interop` | 0.14.2 | UNTP / CIRPASS2 / JTC 24 / BatteryPass bridges |
-| `common/carrier` | 0.14.2 | Data carrier authentication (NTAG 424 DNA SUN) |
+| `product/benetag` | 0.14.2 | BeneTag carrier authentication (NTAG 424 DNA SUN), benelog product extension |
 | `eu/battery` | 0.14.2 | Battery Regulation 2023/1542 |
 | `eu/eudr` | 0.14.2 | Deforestation Regulation 2023/1115 |
 | `eu/textile` | 0.14.2 | Sustainable Textiles |
