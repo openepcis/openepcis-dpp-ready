@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-11-22
+
 - Renamed to BeneTag and moved from `common/carrier` to `product/benetag`. New namespace
   `https://ref.openepcis.org/extensions/product/benetag/`, prefix `benetag`. The old namespace
   `https://ref.openepcis.org/extensions/common/carrier/` is removed without an alias; tags written

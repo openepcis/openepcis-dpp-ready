@@ -9,6 +9,8 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-11-22
+
 ### Changed: carrier becomes the BeneTag product extension
 
 `extensions/common/carrier` moved to `extensions/product/benetag`. It is the extension of the
