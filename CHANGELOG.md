@@ -9,6 +9,18 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-11-22
+
+### Changed: carrier becomes the BeneTag product extension
+
+`extensions/common/carrier` moved to `extensions/product/benetag`. It is the extension of the
+BeneTag product by benelog and implements no regulation, so it leaves the common modules. New
+namespace `https://ref.openepcis.org/extensions/product/benetag/`, prefix `benetag`, files
+`benetag-context.jsonld`, `benetag-shortcut-context.jsonld`, `benetag.ttl`, `benetag.json`. Term
+local names are unchanged. The old namespace `https://ref.openepcis.org/extensions/common/carrier/`
+and its contexts are removed without an alias; only test and demo tags used it, and those are
+re-encoded.
+
 ### Changed: external vocabularies leave the extension tree
 
 The five upstream ontologies that were mirrored as modules under `extensions/upstream/` (GS1 Rail,

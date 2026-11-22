@@ -51,7 +51,7 @@ import { operationalContextFor } from "./en18223/serialize.ts";
 const STANDARD_CONTEXTS = [
   "extensions/common/core/context/dpp-core-context.jsonld",
   "extensions/common/assessment/context/assessment-context.jsonld",
-  "extensions/common/carrier/context/carrier-context.jsonld",
+  "extensions/product/benetag/context/benetag-context.jsonld",
   "extensions/eu/battery/context/battery-context.jsonld",
   "extensions/eu/textile/context/textile-context.jsonld",
   "extensions/eu/electronics/context/electronics-context.jsonld",

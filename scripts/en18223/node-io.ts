@@ -79,8 +79,8 @@ export const URL_TO_FILE: Record<string, string> = {
     "extensions/eu/battery/context/battery-context-batterypass-bridge.jsonld",
   "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld":
     "extensions/common/assessment/context/assessment-context.jsonld",
-  "https://ref.openepcis.org/extensions/common/carrier/carrier-context.jsonld":
-    "extensions/common/carrier/context/carrier-context.jsonld",
+  "https://ref.openepcis.org/extensions/product/benetag/benetag-context.jsonld":
+    "extensions/product/benetag/context/benetag-context.jsonld",
   "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld":
     "extensions/eu/textile/context/textile-context.jsonld",
   "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld":

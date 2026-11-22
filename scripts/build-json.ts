@@ -216,10 +216,10 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     namespace: "https://ref.openepcis.org/extensions/common/assessment/",
   },
   {
-    name: "carrier",
-    dir: "extensions/common/carrier",
-    ttlFile: "carrier.ttl",
-    namespace: "https://ref.openepcis.org/extensions/common/carrier/",
+    name: "benetag",
+    dir: "extensions/product/benetag",
+    ttlFile: "benetag.ttl",
+    namespace: "https://ref.openepcis.org/extensions/product/benetag/",
   },
   // Served master-data fields. NOT an EPCIS extension and not a vocabulary of
   // its own: 143 of the 152 served fields are GS1 Web Vocabulary properties
