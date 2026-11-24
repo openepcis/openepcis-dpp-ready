@@ -9,6 +9,15 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Added: annotation properties in the module JSON
+
+`build-json` lists `owl:AnnotationProperty` terms in a new `annotationProperties` array, so the
+vocabulary browser can give them a page. Until now they were dropped, and addresses such as
+`https://ref.openepcis.org/extensions/common/core/defaultAccessLevel` answered 404. This affects the
+8 access-level annotations in dpp-core and 21 annotations in the CIRPASS-2 mirrors (EU DPP 3,
+battery 1, textile 17). They stay out of `properties`, which lists document fields only, so
+contexts, schemas, access-level checks and the access matrix are unchanged.
+
 ## [0.14.2] - 2026-11-12
 
 ### Changed: EU DPP Registry output complete for a full passport
