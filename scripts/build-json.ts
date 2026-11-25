@@ -161,6 +161,12 @@ interface OntologyData {
   description: string;
   classes: TermData[];
   properties: TermData[];
+  /**
+   * owl:AnnotationProperty terms: they describe other terms (oec:defaultAccessLevel), never a
+   * field of a document, so they stay out of `properties`, which every data-field consumer
+   * reads. Listed so the vocabulary browser gives them a page. Omitted when empty.
+   */
+  annotationProperties?: TermData[];
   enumerations: EnumerationData[];
   accessRoleDefaults?: AccessRoleDefaults;
 }
@@ -417,6 +423,10 @@ function isProperty(store: Store, subject: string): boolean {
   );
 }
 
+function isAnnotationProperty(store: Store, subject: string): boolean {
+  return getObjectValues(store, subject, `${RDF}type`).includes(`${OWL}AnnotationProperty`);
+}
+
 function extractTermData(store: Store, subject: string, namespace: string): TermData {
   const localName = getLocalName(subject, namespace);
   const label =
@@ -573,7 +583,7 @@ function extractExternalEnumerations(
   const isOwn = (uri: string) => termNamespaces.some((ns) => uri.startsWith(ns));
 
   for (const subject of allSubjects) {
-    if (isClass(store, subject) || isProperty(store, subject)) continue;
+    if (isClass(store, subject) || isProperty(store, subject) || isAnnotationProperty(store, subject)) continue;
     // Skip the ontology root (subject IRI exactly equals a namespace, no local name)
     if (termNamespaces.some((ns) => subject === ns || subject === ns.replace(/[#/]$/, ""))) continue;
 
@@ -740,6 +750,7 @@ function extractOntologyData(store: Store, module: OntologyModule): OntologyData
 
   const classes: TermData[] = [];
   const properties: TermData[] = [];
+  const annotationProperties: TermData[] = [];
 
   for (const subject of allSubjects) {
     // Strip whichever namespace the subject actually sits in, so a served
@@ -748,6 +759,8 @@ function extractOntologyData(store: Store, module: OntologyModule): OntologyData
       classes.push(extractTermData(store, subject, nsFor(subject)));
     } else if (isProperty(store, subject)) {
       properties.push(extractTermData(store, subject, nsFor(subject)));
+    } else if (isAnnotationProperty(store, subject)) {
+      annotationProperties.push(extractTermData(store, subject, nsFor(subject)));
     }
   }
 
@@ -782,11 +795,12 @@ function extractOntologyData(store: Store, module: OntologyModule): OntologyData
   const regularClasses = classes.filter((c) => !enumClassIds.has(c.id));
 
   if (module.extraNamespaces?.length && !module.keepCollidingLocalNames) {
-    disambiguateLocalNames(module.name, [regularClasses, properties, enumerations, ...enumerations.map((e) => e.values)], nsFor);
+    disambiguateLocalNames(module.name, [regularClasses, properties, annotationProperties, enumerations, ...enumerations.map((e) => e.values)], nsFor);
   }
 
   regularClasses.sort((a, b) => a.localName.localeCompare(b.localName));
   properties.sort((a, b) => a.localName.localeCompare(b.localName));
+  annotationProperties.sort((a, b) => a.localName.localeCompare(b.localName));
   enumerations.sort((a, b) => a.localName.localeCompare(b.localName));
 
   return {
@@ -801,6 +815,7 @@ function extractOntologyData(store: Store, module: OntologyModule): OntologyData
     description,
     classes: regularClasses,
     properties,
+    ...(annotationProperties.length && { annotationProperties }),
     enumerations,
     ...(accessRoleDefaults && { accessRoleDefaults }),
   };
@@ -861,6 +876,7 @@ async function buildOntologyJson(): Promise<void> {
 
       console.log(`  Found ${data.classes.length} classes`);
       console.log(`  Found ${data.properties.length} properties`);
+      if (data.annotationProperties) console.log(`  Found ${data.annotationProperties.length} annotation properties`);
       console.log(`  Found ${data.enumerations.length} enumerations`);
 
       // Ensure output directory exists

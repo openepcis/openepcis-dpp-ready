@@ -4175,6 +4175,91 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
     }
   ],
+  "annotationProperties": [
+    {
+      "id": "https://ref.openepcis.org/extensions/common/core/accessGrantedToRole",
+      "localName": "accessGrantedToRole",
+      "label": "access granted to role",
+      "comment": "Actor roles (EN 18239:2026 4.2) that the legal act named in\noec:accessLevelMandatedBy admits to the annotated property. Multi-valued. Only meaningful\ntogether with oec:accessLevelMandatedBy: it FIXES the audience of the term - EN 18239 5.2.7\nhas the product-group legal act define the roles that grant access to regulated data, so an\neconomic operator may neither widen nor narrow this set at runtime. Terms without it fall\nback to the module's tier-level role defaults (oec:authorizedOnlyGrantedToRole /\noec:restrictedGrantedToRole), and for non-mandated terms the economic operator may grant\nadditional roles. Role gating never applies to the economic operator reading its own data:\nit governs OTHER actors' access (EN 18239 5.2.8 - a trustworthy role credential admits an\nactor without the EO's individual approval).",
+      "range": [
+        "https://ref.openepcis.org/extensions/common/core/ActorRole"
+      ],
+      "source": "EN 18239:2026, 5.2 (CEN/CENELEC JTC 24)"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/core/accessLevelInherited",
+      "localName": "accessLevelInherited",
+      "label": "access level inherited",
+      "comment": "Marks a structural value-carrier sub-property (value, unit,\ndocument URL, ...) that has NO tier of its own: at runtime its visibility is\ngoverned entirely by the embedding parent property's tier. Declaring it keeps\nthe vocabulary 100% explicitly classified (the completeness guard accepts\naccessLevelInherited in lieu of defaultAccessLevel) without inventing a fake\ntier, and keeps such terms out of the enforcement alias map.",
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/core/accessLevelMandatedBy",
+      "localName": "accessLevelMandatedBy",
+      "label": "access level mandated by",
+      "comment": "Legal act that fixes the access tier of the annotated property. Presence of\nthis annotation makes the oec:defaultAccessLevel non-overridable at runtime (locked in both\ndirections).",
+      "range": [
+        "rdfs:Resource"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/core/accessLevelRationale",
+      "localName": "accessLevelRationale",
+      "label": "access level rationale",
+      "comment": "One-sentence justification for the annotated property's\noec:defaultAccessLevel — why this tier, in terms a reviewer or auditor can check\nagainst the underlying regulation. REQUIRED wherever oec:defaultAccessLevel is\nset (enforced by check-access-levels). Rendered on ref.openepcis.org term pages\nand in the DDM field-access matrix.",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/core/accessLevelSource",
+      "localName": "accessLevelSource",
+      "label": "access level source",
+      "comment": "Legal act or article that GROUNDS the tier decision (citation).\nUnlike oec:accessLevelMandatedBy it does NOT lock the tier — it documents where\nthe default came from. Use an ELI/CELEX IRI, as specific as available.",
+      "range": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/core/authorizedOnlyGrantedToRole",
+      "localName": "authorizedOnlyGrantedToRole",
+      "label": "AuthorizedOnly tier granted to role",
+      "comment": "Module-level default, stated on the module's owl:Ontology node in its\n*-access-levels.ttl sidecar: the actor roles the module's governing legal act admits to\nAuthorizedOnly-tier data as a whole. Applies to every AuthorizedOnly term of the module that\ncarries no oec:accessGrantedToRole of its own. A module without this statement inherits the\ndpp-core defaults (ESPR Art. 9).",
+      "domain": [
+        "owl:Ontology"
+      ],
+      "range": [
+        "https://ref.openepcis.org/extensions/common/core/ActorRole"
+      ],
+      "source": "EN 18239:2026, 5.2.7 (CEN/CENELEC JTC 24)"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/core/defaultAccessLevel",
+      "localName": "defaultAccessLevel",
+      "label": "default access level",
+      "comment": "Default ESPR Article 9 access tier for values of the annotated property in\nDPP / master-data documents (Public, AuthorizedOnly, Restricted). Deployments may tighten a\nfield's tier at runtime but never loosen it below this default. Properties without this\nannotation default to AuthorizedOnly (fail-closed toward the public).",
+      "range": [
+        "https://ref.openepcis.org/extensions/common/core/AccessLevel"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/core/restrictedGrantedToRole",
+      "localName": "restrictedGrantedToRole",
+      "label": "Restricted tier granted to role",
+      "comment": "Module-level default, stated on the module's owl:Ontology node in its\n*-access-levels.ttl sidecar: the actor roles the module's governing legal act admits to\nRestricted-tier data as a whole. Applies to every Restricted term of the module that carries\nno oec:accessGrantedToRole of its own. A module without this statement inherits the dpp-core\ndefaults (ESPR Art. 9(3): authorities and notified actors).",
+      "domain": [
+        "owl:Ontology"
+      ],
+      "range": [
+        "https://ref.openepcis.org/extensions/common/core/ActorRole"
+      ],
+      "source": "EN 18239:2026, 5.2.7 (CEN/CENELEC JTC 24)"
+    }
+  ],
   "enumerations": [
     {
       "id": "https://ref.openepcis.org/extensions/common/core/AccessLevel",
