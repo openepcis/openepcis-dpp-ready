@@ -24,6 +24,7 @@ const ROOT = path.resolve(__dirname, '..');
 const URL_TO_FILE = {
   'https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld': 'extensions/common/core/context/dpp-core-context.jsonld',
   'https://ref.openepcis.org/extensions/common/core/gs1-shortcuts-context.jsonld': 'extensions/common/core/context/gs1-shortcuts-context.jsonld',
+  'https://ref.openepcis.org/extensions/common/core/gs1-shortcuts-scoped-context.jsonld': 'extensions/common/core/context/gs1-shortcuts-scoped-context.jsonld',
   'https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld': 'extensions/eu/battery/context/battery-context.jsonld',
   'https://ref.openepcis.org/extensions/eu/battery/battery-context-batterypass-bridge.jsonld': 'extensions/eu/battery/context/battery-context-batterypass-bridge.jsonld',
   'https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld': 'extensions/eu/textile/context/textile-context.jsonld',

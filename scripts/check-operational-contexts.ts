@@ -39,6 +39,15 @@
  *       the seeding scripts rewrite both per environment
  *       (scripts/lib/seed-hosts.sh). A hardcoded `*.epcis.cloud` host is how dev
  *       ended up serving passports whose own URLs named demo.
+ *   (i) no standard context, and no context one of them names as a property-scoped
+ *       @context by URL (the scoped GS1 layer under gs1:masterDataAvailableFor),
+ *       defines a term of the EPCIS base context differently. The EPCIS context is
+ *       @protected and comes first in every event; a top-level redefinition is an
+ *       error for every processor, and the normative Context Processing algorithm
+ *       (JSON-LD 1.1, step 5.2.6) processes a context loaded by URL without
+ *       override-protected, so there it is one too: Titanium, the processor of the
+ *       EPCIS repository, rejects the document, while jsonld.js, which every other
+ *       check here uses, lets it pass.
  *
  * Runs offline against the bundled contexts. Wired into `pnpm run build` and CI.
  */
@@ -68,7 +77,8 @@ const EPCIS_BASE = "https://ref.gs1.org/standards/epcis/epcis-context.jsonld";
 const DPP_CORE = "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld";
 const MDAF = "gs1:masterDataAvailableFor";
 const EPCIS_CONTEXT_FILE = "vendor/gs1/epcis-context.jsonld";
-const GS1_SHORTCUTS_FILE = "extensions/common/core/context/gs1-shortcuts-context.jsonld";
+// the GS1 layer as it applies inside gs1:masterDataAvailableFor of an EPCIS event
+const GS1_SHORTCUTS_FILE = "extensions/common/core/context/gs1-shortcuts-scoped-context.jsonld";
 // The rail mirror re-publishes EPCIS sensor terms of its own, so rail events are
 // allowed the upstream rail context in addition to the standard chain.
 const RAIL_EXTRA = new Set([
@@ -89,6 +99,28 @@ function bareAliases(ctxDoc: any): string[] {
     }
   }
   return bare;
+}
+
+/** (i) The URLs a context names as the @context of a term definition. */
+function remoteScopedContexts(ctx: any): string[] {
+  const out: string[] = [];
+  for (const part of Array.isArray(ctx) ? ctx : [ctx]) {
+    if (!part || typeof part !== "object") continue;
+    for (const [k, v] of Object.entries(part)) {
+      if (k.startsWith("@") || !v || typeof v !== "object") continue;
+      const scoped = (v as any)["@context"];
+      for (const entry of Array.isArray(scoped) ? scoped : [scoped]) {
+        if (typeof entry === "string") out.push(entry);
+      }
+    }
+  }
+  return out;
+}
+
+/** (i) Where this repository keeps a context it publishes under ref.openepcis.org. */
+function localContextPath(url: string): string | null {
+  const m = /^https:\/\/ref\.openepcis\.org\/extensions\/([^/]+)\/([^/]+)\/([^/]+\.jsonld)$/.exec(url);
+  return m ? `extensions/${m[1]}/${m[2]}/context/${m[3]}` : null;
 }
 
 /** (b) Bare property keys / bare `type` class values anywhere in a seed. */
@@ -349,6 +381,40 @@ async function main(): Promise<number> {
     }
   }
 
+  // (i) no protected EPCIS term redefined by a remote property-scoped context
+  const epcisDefs = JSON.parse(await fs.readFile(path.join(ROOT, EPCIS_CONTEXT_FILE), "utf8"))["@context"];
+  let scopedChecked = 0;
+  const clashesWithEpcis = (part: any): string[] =>
+    Object.keys(part).filter(
+      (k) => !k.startsWith("@") && k in epcisDefs && JSON.stringify(part[k]) !== JSON.stringify(epcisDefs[k]),
+    );
+  for (const rel of STANDARD_CONTEXTS) {
+    const own = JSON.parse(await fs.readFile(path.join(ROOT, rel), "utf8"))["@context"];
+    for (const part of Array.isArray(own) ? own : [own]) {
+      if (!part || typeof part !== "object") continue;
+      const clash = clashesWithEpcis(part);
+      if (clash.length) problems.push(`standard context ${rel} redefines protected EPCIS term(s) ${clash.join(", ")}`);
+    }
+  }
+  for (const rel of STANDARD_CONTEXTS) {
+    for (const url of remoteScopedContexts(JSON.parse(await fs.readFile(path.join(ROOT, rel), "utf8"))["@context"])) {
+      const local = localContextPath(url);
+      if (!local) { problems.push(`standard context ${rel} names ${url} as a scoped context, which this repository does not publish`); continue; }
+      scopedChecked++;
+      const scoped = JSON.parse(await fs.readFile(path.join(ROOT, local), "utf8"))["@context"];
+      for (const part of Array.isArray(scoped) ? scoped : [scoped]) {
+        if (!part || typeof part !== "object") continue;
+        const clash = clashesWithEpcis(part);
+        if (clash.length) {
+          problems.push(
+            `${local}, the scoped context of ${rel}, redefines protected EPCIS term(s) ${clash.join(", ")}: ` +
+              `a conforming JSON-LD processor rejects every EPCIS event using ${rel}`,
+          );
+        }
+      }
+    }
+  }
+
   if (problems.length) {
     console.error(`✗ operational-context guard: ${problems.length} problem(s)`);
     problems.forEach((p) => console.error("  - " + p));
@@ -359,7 +425,8 @@ async function main(): Promise<number> {
       `graph-identical under their operational context; ${events.length} EPCIS event(s) on standard contexts with ` +
       `GS1 bare only inside ${MDAF}; ${orgs.length} organization record(s) prefixed and lossless; ` +
       `${compressed.length} compressed artifact(s) fully bare-termed; ` +
-      `${seeds.length + events.length + orgs.length + compressed.length} artifact(s) environment-neutral.`,
+      `${seeds.length + events.length + orgs.length + compressed.length} artifact(s) environment-neutral; ` +
+      `${scopedChecked} remote scoped context(s) leave the protected EPCIS terms alone.`,
   );
   return 0;
 }
