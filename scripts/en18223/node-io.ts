@@ -73,6 +73,8 @@ export const URL_TO_FILE: Record<string, string> = {
     "extensions/us/fsma204/context/fsma204-operational-context.jsonld",
   "https://ref.openepcis.org/extensions/common/core/gs1-shortcuts-context.jsonld":
     "extensions/common/core/context/gs1-shortcuts-context.jsonld",
+  "https://ref.openepcis.org/extensions/common/core/gs1-shortcuts-scoped-context.jsonld":
+    "extensions/common/core/context/gs1-shortcuts-scoped-context.jsonld",
   "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld":
     "extensions/eu/battery/context/battery-context.jsonld",
   "https://ref.openepcis.org/extensions/eu/battery/battery-context-batterypass-bridge.jsonld":

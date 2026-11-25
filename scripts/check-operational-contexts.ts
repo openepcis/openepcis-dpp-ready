@@ -39,13 +39,15 @@
  *       the seeding scripts rewrite both per environment
  *       (scripts/lib/seed-hosts.sh). A hardcoded `*.epcis.cloud` host is how dev
  *       ended up serving passports whose own URLs named demo.
- *   (i) a context that a standard context names as a property-scoped @context by
- *       URL (gs1-shortcuts under gs1:masterDataAvailableFor) defines no term of the
- *       EPCIS base context differently. The EPCIS context is @protected, and JSON-LD
- *       1.1 processes a context loaded by URL without override-protected (Context
- *       Processing, step 5.2.6), so in an EPCIS event such a term is a protected term
- *       redefinition: Titanium, the processor of the EPCIS repository, rejects the
- *       document, while jsonld.js, which every other check here uses, lets it pass.
+ *   (i) no standard context, and no context one of them names as a property-scoped
+ *       @context by URL (the scoped GS1 layer under gs1:masterDataAvailableFor),
+ *       defines a term of the EPCIS base context differently. The EPCIS context is
+ *       @protected and comes first in every event; a top-level redefinition is an
+ *       error for every processor, and the normative Context Processing algorithm
+ *       (JSON-LD 1.1, step 5.2.6) processes a context loaded by URL without
+ *       override-protected, so there it is one too: Titanium, the processor of the
+ *       EPCIS repository, rejects the document, while jsonld.js, which every other
+ *       check here uses, lets it pass.
  *
  * Runs offline against the bundled contexts. Wired into `pnpm run build` and CI.
  */
@@ -75,7 +77,8 @@ const EPCIS_BASE = "https://ref.gs1.org/standards/epcis/epcis-context.jsonld";
 const DPP_CORE = "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld";
 const MDAF = "gs1:masterDataAvailableFor";
 const EPCIS_CONTEXT_FILE = "vendor/gs1/epcis-context.jsonld";
-const GS1_SHORTCUTS_FILE = "extensions/common/core/context/gs1-shortcuts-context.jsonld";
+// the GS1 layer as it applies inside gs1:masterDataAvailableFor of an EPCIS event
+const GS1_SHORTCUTS_FILE = "extensions/common/core/context/gs1-shortcuts-scoped-context.jsonld";
 // The rail mirror re-publishes EPCIS sensor terms of its own, so rail events are
 // allowed the upstream rail context in addition to the standard chain.
 const RAIL_EXTRA = new Set([
@@ -381,6 +384,18 @@ async function main(): Promise<number> {
   // (i) no protected EPCIS term redefined by a remote property-scoped context
   const epcisDefs = JSON.parse(await fs.readFile(path.join(ROOT, EPCIS_CONTEXT_FILE), "utf8"))["@context"];
   let scopedChecked = 0;
+  const clashesWithEpcis = (part: any): string[] =>
+    Object.keys(part).filter(
+      (k) => !k.startsWith("@") && k in epcisDefs && JSON.stringify(part[k]) !== JSON.stringify(epcisDefs[k]),
+    );
+  for (const rel of STANDARD_CONTEXTS) {
+    const own = JSON.parse(await fs.readFile(path.join(ROOT, rel), "utf8"))["@context"];
+    for (const part of Array.isArray(own) ? own : [own]) {
+      if (!part || typeof part !== "object") continue;
+      const clash = clashesWithEpcis(part);
+      if (clash.length) problems.push(`standard context ${rel} redefines protected EPCIS term(s) ${clash.join(", ")}`);
+    }
+  }
   for (const rel of STANDARD_CONTEXTS) {
     for (const url of remoteScopedContexts(JSON.parse(await fs.readFile(path.join(ROOT, rel), "utf8"))["@context"])) {
       const local = localContextPath(url);
@@ -389,9 +404,7 @@ async function main(): Promise<number> {
       const scoped = JSON.parse(await fs.readFile(path.join(ROOT, local), "utf8"))["@context"];
       for (const part of Array.isArray(scoped) ? scoped : [scoped]) {
         if (!part || typeof part !== "object") continue;
-        const clash = Object.keys(part).filter(
-          (k) => !k.startsWith("@") && k in epcisDefs && JSON.stringify(part[k]) !== JSON.stringify(epcisDefs[k]),
-        );
+        const clash = clashesWithEpcis(part);
         if (clash.length) {
           problems.push(
             `${local}, the scoped context of ${rel}, redefines protected EPCIS term(s) ${clash.join(", ")}: ` +

@@ -9,20 +9,27 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
-### Fixed: EPCIS events with dpp-core-context expand in every conforming processor
+### Fixed: EPCIS events with dpp-core-context expand in every processor
 
-`dpp-core-context` names `gs1-shortcuts-context` as the property-scoped context of
-`gs1:masterDataAvailableFor`, and that layer aliased three GS1 terms whose names the protected GS1
-EPCIS context already defines: `epcis` (the EPCIS prefix itself), `masterData` and
-`certificationInfo`. JSON-LD 1.1 processes a context loaded by URL without override-protected
-(Context Processing, step 5.2.6), so a conforming processor rejects every EPCIS event naming
-dpp-core-context with a protected term redefinition; Titanium, the processor of the OpenEPCIS
-repository, rejected all 46 event examples here and so extracted no extension field from them.
-jsonld.js, which the checks here use, accepted them. The GS1 layer no longer generates an alias
-for a name the EPCIS context defines, and an override doing so fails the build; the three stay
-CURIEs (`gs1:masterData`). No example used them bare, and jsonld.js produces the identical graph
-for all 46 events before and after. The operational-context guard gains rule (i), which fails on
-any remote scoped context that redefines a protected EPCIS term.
+`dpp-core-context` gives `gs1:masterDataAvailableFor` a property-scoped context by URL, and that was
+the full GS1 shortcut layer, which aliases three names the protected GS1 EPCIS context defines
+differently: `epcis` (the EPCIS prefix itself), `masterData` and `certificationInfo`. The normative
+JSON-LD 1.1 Context Processing algorithm (step 5.2.6) processes a context loaded by URL without
+override-protected, so a processor that follows it rejects every EPCIS event naming
+dpp-core-context with a protected term redefinition. Titanium, the processor of the OpenEPCIS
+repository, rejected all 46 EPCIS event examples (the 54 the guard counts, less benetag's 8) and so
+extracted no extension field from them; jsonld.js, which the checks here use, reads the
+non-normative syntax text more leniently and accepted them.
+
+The scoped context is now `gs1-shortcuts-scoped-context`, generated as the GS1 layer without those
+three names. `gs1-shortcuts-context` itself and the operational contexts are unchanged, since they
+never meet the EPCIS context. Inside `gs1:masterDataAvailableFor` of an EPCIS event the three keep
+their EPCIS meaning, so write `gs1:masterData` and `gs1:certificationInfo` there; the
+operational-context guard (rule (e)) reports them bare. Rule (i) is new: no standard context, and no
+context one of them names as a remote scoped context, may redefine a protected EPCIS term.
+
+All 182 JSON-LD artifacts give the identical graph before and after (jsonld.js, URDNA2015), and
+Titanium now expands all 182.
 
 ## [0.15.1] - 2026-11-25
 
