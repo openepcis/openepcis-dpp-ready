@@ -585,6 +585,7 @@ function mergeOverrides(derived: ContextMap, overrides: ContextMap): ContextMap 
 // ---------------------------------------------------------------------------
 
 const GS1_VOC_PATH = join(PROJECT_ROOT, "vendor/gs1/gs1Voc.jsonld");
+const EPCIS_CONTEXT_PATH = join(PROJECT_ROOT, "vendor/gs1/epcis-context.jsonld");
 const GS1_SHORTCUT_DIR = join(PROJECT_ROOT, "extensions/common/core/context");
 const COLLISION_MANIFEST = join(GS1_SHORTCUT_DIR, ".alias-collisions.json");
 const DIVERGENCE_MANIFEST = join(GS1_SHORTCUT_DIR, ".alias-divergence.json");
@@ -703,15 +704,32 @@ function isGs1ObjectProperty(node: any, types: string[]): boolean {
   return types.includes("owl:ObjectProperty") && !types.includes("owl:DatatypeProperty");
 }
 
+/**
+ * The terms the GS1 EPCIS context defines. It is @protected, and dpp-core-context
+ * names the GS1 alias layer as the property-scoped context of
+ * gs1:masterDataAvailableFor. JSON-LD 1.1 (Context Processing, step 5.2.6) processes
+ * a context loaded by URL without override-protected, so inside an EPCIS document a
+ * GS1 alias that reuses one of these names is a protected term redefinition: a
+ * conforming processor (Titanium, the one in the EPCIS repository) rejects the whole
+ * document, a lenient one (jsonld.js) silently rebinds the name, `epcis` being the
+ * EPCIS prefix itself. Such a name stays a CURIE (gs1:masterData).
+ */
+function epcisContextTerms(): Set<string> {
+  const ctx = JSON.parse(readFileSync(EPCIS_CONTEXT_PATH, "utf-8"))["@context"];
+  return new Set(Object.keys(ctx).filter((k) => !k.startsWith("@")));
+}
+
 function buildGs1AliasLayer(): Gs1Layer {
   const voc = JSON.parse(readFileSync(GS1_VOC_PATH, "utf-8"));
   const graph: any[] = voc["@graph"] || [];
+  const epcisTerms = epcisContextTerms();
   const bare: ContextMap = {};
   for (const node of graph) {
     const id = node["@id"];
     if (typeof id !== "string" || !id.startsWith("gs1:")) continue;
     const local = id.slice("gs1:".length);
     if (!local || local.includes("-")) continue; // skip code-list instances (RegulationTypeCode-CE)
+    if (epcisTerms.has(local)) continue; // taken by the protected EPCIS context, see epcisContextTerms
     const types: string[] = ([] as string[]).concat(node["@type"] || []);
     const isClass = types.includes("owl:Class") || types.includes("rdfs:Class");
     const isProp =
@@ -735,6 +753,13 @@ function buildGs1AliasLayer(): Gs1Layer {
     join(GS1_SHORTCUT_DIR, "gs1-shortcuts-context.jsonld"),
     bare
   );
+  const clashing = Object.keys(overrides).filter((k) => epcisTerms.has(k));
+  if (clashing.length > 0) {
+    throw new Error(
+      `${overridesPath} aliases ${clashing.join(", ")}, defined by the protected EPCIS context; ` +
+        `inside gs1:masterDataAvailableFor that is a protected term redefinition (see epcisContextTerms)`,
+    );
+  }
   return { bareAliases: bare, overrides };
 }
 

@@ -9,6 +9,21 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Fixed: EPCIS events with dpp-core-context expand in every conforming processor
+
+`dpp-core-context` names `gs1-shortcuts-context` as the property-scoped context of
+`gs1:masterDataAvailableFor`, and that layer aliased three GS1 terms whose names the protected GS1
+EPCIS context already defines: `epcis` (the EPCIS prefix itself), `masterData` and
+`certificationInfo`. JSON-LD 1.1 processes a context loaded by URL without override-protected
+(Context Processing, step 5.2.6), so a conforming processor rejects every EPCIS event naming
+dpp-core-context with a protected term redefinition; Titanium, the processor of the OpenEPCIS
+repository, rejected all 46 event examples here and so extracted no extension field from them.
+jsonld.js, which the checks here use, accepted them. The GS1 layer no longer generates an alias
+for a name the EPCIS context defines, and an override doing so fails the build; the three stay
+CURIEs (`gs1:masterData`). No example used them bare, and jsonld.js produces the identical graph
+for all 46 events before and after. The operational-context guard gains rule (i), which fails on
+any remote scoped context that redefines a protected EPCIS term.
+
 ## [0.15.1] - 2026-11-25
 
 ### Added: annotation properties in the module JSON
