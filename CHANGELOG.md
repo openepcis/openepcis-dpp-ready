@@ -9,6 +9,8 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.15.1] - 2026-11-25
+
 ### Added: annotation properties in the module JSON
 
 `build-json` lists `owl:AnnotationProperty` terms in a new `annotationProperties` array, so the
