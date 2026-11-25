@@ -34,7 +34,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", ".
 /** Contexts served from a host other than ref.openepcis.org, plus the upstream snapshots. */
 const SPECIAL_HOST_MAP: Record<string, string> = {
   "https://gs1-epcis-reg.org/rail/rail-context.jsonld":
-    "extensions/upstream/gs1-rail/context/rail-context.jsonld",
+    "vocabularies/gs1-rail/context/rail-context.jsonld",
   "https://ref.gs1.org/standards/epcis/epcis-context.jsonld": "vendor/gs1/epcis-context.jsonld",
   "https://ref.gs1.org/voc/": "vendor/gs1/gs1Voc.jsonld",
 };

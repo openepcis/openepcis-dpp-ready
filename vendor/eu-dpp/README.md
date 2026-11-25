@@ -13,7 +13,7 @@ Written by `pnpm run sync:eu-dpp`; nothing under `<version>/core` and `<version>
 Licence: EUPL-1.2, as stated in every vocabulary.
 
 The SKOS vocabularies are also merged into the upstream module
-[`extensions/upstream/eu-dpp`](../../extensions/upstream/eu-dpp/README.md), which the build,
+[`vocabularies/eu-dpp`](../../vocabularies/eu-dpp/README.md), which the build,
 the vocabulary browser and vocab-sync read. The OpenEPCIS dpp-api validates its
 `representation=eu` output against the JSON Schemas of this release.
 

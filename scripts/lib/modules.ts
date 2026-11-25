@@ -12,7 +12,7 @@
  * appears on disk without a curated entry is a hard error, so adding one is a
  * one-line edit that cannot be forgotten.
  *
- * Upstream mirrors (extensions/upstream/**) are deliberately absent. We do not
+ * Upstream mirrors (vocabularies/**) are deliberately absent. We do not
  * govern GS1 Rail or the CIRPASS-2 EUDPP ontology, so a conformance statement
  * must not claim them; neither ships a *-shapes.ttl anyway.
  *

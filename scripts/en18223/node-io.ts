@@ -79,8 +79,8 @@ export const URL_TO_FILE: Record<string, string> = {
     "extensions/eu/battery/context/battery-context-batterypass-bridge.jsonld",
   "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld":
     "extensions/common/assessment/context/assessment-context.jsonld",
-  "https://ref.openepcis.org/extensions/common/carrier/carrier-context.jsonld":
-    "extensions/common/carrier/context/carrier-context.jsonld",
+  "https://ref.openepcis.org/extensions/product/benetag/benetag-context.jsonld":
+    "extensions/product/benetag/context/benetag-context.jsonld",
   "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld":
     "extensions/eu/textile/context/textile-context.jsonld",
   "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld":
@@ -112,7 +112,7 @@ const LOADER_ONLY: Record<string, string> = {
   "https://ref.gs1.org/voc/data/gs1Voc.jsonld": "vendor/gs1/gs1Voc.jsonld",
   "https://ref.gs1.org/standards/epcis/epcis-context.jsonld": "vendor/gs1/epcis-context.jsonld",
   "https://gs1-epcis-reg.org/rail/rail-context.jsonld":
-    "extensions/upstream/gs1-rail/context/rail-context.jsonld",
+    "vocabularies/gs1-rail/context/rail-context.jsonld",
 };
 
 const remoteCache = new Map<string, any>();

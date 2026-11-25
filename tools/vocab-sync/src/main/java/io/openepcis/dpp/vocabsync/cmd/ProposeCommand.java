@@ -110,9 +110,9 @@ public class ProposeCommand implements Runnable {
             Map.entry("core", "oec"), Map.entry("battery", "eubat"), Map.entry("textile", "eutex"),
             Map.entry("electronics", "euelec"), Map.entry("detergent", "eudet"), Map.entry("ppwr", "euppwr"),
             Map.entry("cpr", "eucpr"), Map.entry("iron-steel", "eusteel"), Map.entry("eudr", "eudr"),
-            Map.entry("fsma204", "usfsma"), Map.entry("carrier", "carrier"));
+            Map.entry("fsma204", "usfsma"), Map.entry("benetag", "benetag"));
     private static final Map<String, String> REGION = Map.ofEntries(
-            Map.entry("core", "common"), Map.entry("carrier", "common"), Map.entry("fsma204", "us"));
+            Map.entry("core", "common"), Map.entry("benetag", "product"), Map.entry("fsma204", "us"));
 
     private record Draft(CoverageRow row, UpstreamTerm up, TermProposal p) {
     }

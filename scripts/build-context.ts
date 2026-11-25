@@ -117,11 +117,11 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     imports: [ASSESSMENT_IMPORT],
   },
   {
-    name: "carrier",
-    dir: "extensions/common/carrier",
-    ttlFile: "carrier.ttl",
-    namespace: "https://ref.openepcis.org/extensions/common/carrier/",
-    prefix: "carrier",
+    name: "benetag",
+    dir: "extensions/product/benetag",
+    ttlFile: "benetag.ttl",
+    namespace: "https://ref.openepcis.org/extensions/product/benetag/",
+    prefix: "benetag",
     imports: [DPP_CORE_IMPORT],
   },
   {
@@ -196,7 +196,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     prefix: "usfsma",
     imports: [DPP_CORE_IMPORT],
   },
-  // GS1 Rail is not generated: extensions/upstream/gs1-rail/context/rail-context.jsonld is the
+  // GS1 Rail is not generated: vocabularies/gs1-rail/context/rail-context.jsonld is the
   // served v1.6 context and stays frozen. The mirrored vocabulary moved to v2.6 under
   // https://ref.gs1.ch/voc/rail/ (2026-11-06); regenerating the context from it would redefine
   // every rail term that stored documents expand against.
@@ -210,7 +210,7 @@ const NAMESPACE_TO_PREFIX: Record<string, string> = {
   "https://ref.openepcis.org/extensions/common/core/": "oec",
   "https://ref.openepcis.org/extensions/common/interop/": "oei",
   "https://ref.openepcis.org/extensions/common/assessment/": "oea",
-  "https://ref.openepcis.org/extensions/common/carrier/": "carrier",
+  "https://ref.openepcis.org/extensions/product/benetag/": "benetag",
   "https://ref.openepcis.org/extensions/eu/battery/": "eubat",
   "https://ref.openepcis.org/extensions/eu/eudr/": "eudr",
   "https://ref.openepcis.org/extensions/eu/textile/": "eutex",

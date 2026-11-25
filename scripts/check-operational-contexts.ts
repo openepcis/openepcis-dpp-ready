@@ -51,7 +51,7 @@ import { operationalContextFor } from "./en18223/serialize.ts";
 const STANDARD_CONTEXTS = [
   "extensions/common/core/context/dpp-core-context.jsonld",
   "extensions/common/assessment/context/assessment-context.jsonld",
-  "extensions/common/carrier/context/carrier-context.jsonld",
+  "extensions/product/benetag/context/benetag-context.jsonld",
   "extensions/eu/battery/context/battery-context.jsonld",
   "extensions/eu/textile/context/textile-context.jsonld",
   "extensions/eu/electronics/context/electronics-context.jsonld",
@@ -272,7 +272,7 @@ async function main(): Promise<number> {
   // The rail mirror publishes its own bare sensor terms (leftValue, visibility, …).
   const railStructural = new Set(structural);
   collectTerms(
-    JSON.parse(await fs.readFile(path.join(ROOT, "extensions/upstream/gs1-rail/context/rail-context.jsonld"), "utf8"))["@context"],
+    JSON.parse(await fs.readFile(path.join(ROOT, "vocabularies/gs1-rail/context/rail-context.jsonld"), "utf8"))["@context"],
     railStructural,
   );
   for (const abs of events) {

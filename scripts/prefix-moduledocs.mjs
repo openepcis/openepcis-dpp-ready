@@ -34,7 +34,7 @@ const URL_TO_FILE = {
   'https://ref.openepcis.org/extensions/eu/cpr/cpr-context.jsonld': 'extensions/eu/cpr/context/cpr-context.jsonld',
   'https://ref.openepcis.org/extensions/us/fsma204/fsma204-context.jsonld': 'extensions/us/fsma204/context/fsma204-context.jsonld',
   'https://ref.openepcis.org/extensions/common/interop/untp-bridge-context.jsonld': 'extensions/common/interop/context/untp-bridge-context.jsonld',
-  'https://gs1-epcis-reg.org/rail/rail-context.jsonld': 'extensions/upstream/gs1-rail/context/rail-context.jsonld',
+  'https://gs1-epcis-reg.org/rail/rail-context.jsonld': 'vocabularies/gs1-rail/context/rail-context.jsonld',
 };
 const remoteCache = new Map();
 async function loadDoc(url) {

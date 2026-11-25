@@ -42,7 +42,7 @@ const prefillPath = resolve(DOCS, `skos-adoption-proposal-eudpp-${STAMP}-prefill
 const prefill: Record<string, { decision: string; notes: string }> = JSON.parse(readFileSync(prefillPath, "utf8"));
 
 const store = new Store();
-store.addQuads(new Parser().parse(readFileSync(resolve(ROOT, "extensions/upstream/cirpass2-eudpp/ontology/eudpp.ttl"), "utf8")));
+store.addQuads(new Parser().parse(readFileSync(resolve(ROOT, "vocabularies/cirpass2-eudpp/ontology/eudpp.ttl"), "utf8")));
 const lit = (s: string, p: string) => store.getObjects(namedNode(s), namedNode(p), null).find((o) => o.termType === "Literal")?.value;
 const objs = (s: string, p: string) => store.getObjects(namedNode(s), namedNode(p), null).map((o) => o.value);
 
