@@ -20797,6 +20797,7 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/cobaltPostConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/cobaltPreConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/cobaltRecycledShare": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.org/extensions/eu/battery/compositionDescription": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/concentration": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/conflictMineralFree": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/battery/cRate": "http://www.w3.org/2001/XMLSchema#decimal",
@@ -20810,6 +20811,8 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/dueDiligenceReportUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/electrolyteComposition": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/electrolyteType": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+  "https://ref.openepcis.org/extensions/eu/battery/endUserRoleInSeparateCollection": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+  "https://ref.openepcis.org/extensions/eu/battery/endUserRoleInWastePrevention": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/estimatedImpact": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/euDeclarationOfConformityId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/eventDate": "http://www.w3.org/2001/XMLSchema#dateTime",
@@ -20893,6 +20896,7 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/isSubstanceOfConcern": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.org/extensions/eu/battery/labelMeaning": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/labelSymbol": "http://www.w3.org/2001/XMLSchema#anyURI",
+  "https://ref.openepcis.org/extensions/eu/battery/labelSymbolMeaning": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/languageCode": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/leadPostConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/leadPreConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
@@ -20917,6 +20921,8 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/numberOfModules": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.org/extensions/eu/battery/operatorIdentifier": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/powerCapabilityRatio": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.org/extensions/eu/battery/preparationForRepurposingFacilities": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+  "https://ref.openepcis.org/extensions/eu/battery/preparationForReuseFacilities": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/previousApplications": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/puttingIntoService": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.org/extensions/eu/battery/recommendedAction": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
@@ -20932,14 +20938,18 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/riskAssessmentSummary": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/safetyInstructions": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/separateCollection": "http://www.w3.org/2001/XMLSchema#anyURI",
+  "https://ref.openepcis.org/extensions/eu/battery/separateCollectionPoints": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/separateCollectionSymbolUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/shippingName": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/soceMeasurementId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/spareParts": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+  "https://ref.openepcis.org/extensions/eu/battery/substancesImpact": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/supplyChainIndex": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.org/extensions/eu/battery/supplyChainMappingAvailable": "http://www.w3.org/2001/XMLSchema#boolean",
+  "https://ref.openepcis.org/extensions/eu/battery/takeBackCollectionPoints": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/temperatureExcursionId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/temperatureExcursionReportUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
+  "https://ref.openepcis.org/extensions/eu/battery/temperatureRangeTestDescription": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/testReportNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/thirdPartyAssurancesUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/battery/transportationSafetyClass": "http://www.w3.org/2001/XMLSchema#string",
@@ -20949,6 +20959,8 @@ var range_index_default = {
   "https://ref.openepcis.org/extensions/eu/battery/verificationDate": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.org/extensions/eu/battery/verificationStandard": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.org/extensions/eu/battery/warrantyConditions": "http://www.w3.org/2001/XMLSchema#anyURI",
+  "https://ref.openepcis.org/extensions/eu/battery/wasteBatterySafetyInstructions": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+  "https://ref.openepcis.org/extensions/eu/battery/wasteBatteryTreatmentFacilities": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.org/extensions/eu/battery/wastePrevention": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.org/extensions/eu/cpr/dateOfIssue": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.org/extensions/eu/cpr/declarationCode": "http://www.w3.org/2001/XMLSchema#string",
@@ -21210,7 +21222,7 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld": {
-    _comment: "OpenEPCIS DPP Core Vocabulary v0.12.0, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS DPP Core Vocabulary v0.15.1, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld",
       {
@@ -21702,7 +21714,7 @@ var contexts_default = {
         "gs1:masterDataAvailableFor": {
           "@id": "gs1:masterDataAvailableFor",
           "@container": "@set",
-          "@context": "https://ref.openepcis.org/extensions/common/core/gs1-shortcuts-context.jsonld"
+          "@context": "https://ref.openepcis.org/extensions/common/core/gs1-shortcuts-scoped-context.jsonld"
         },
         "gs1:glnType": {
           "@id": "gs1:glnType",
@@ -23271,6 +23283,7 @@ var contexts_default = {
         "@id": "eubat:cobaltRecycledShare",
         "@type": "xsd:decimal"
       },
+      compositionDescription: "eubat:compositionDescription",
       concentration: {
         "@id": "eubat:concentration",
         "@type": "xsd:decimal"
@@ -23310,6 +23323,8 @@ var contexts_default = {
         "@type": "xsd:string"
       },
       electrolyteType: "eubat:electrolyteType",
+      endUserRoleInSeparateCollection: "eubat:endUserRoleInSeparateCollection",
+      endUserRoleInWastePrevention: "eubat:endUserRoleInWastePrevention",
       estimatedImpact: "eubat:estimatedImpact",
       euDeclarationOfConformityId: {
         "@id": "eubat:euDeclarationOfConformityId",
@@ -23741,6 +23756,7 @@ var contexts_default = {
         "@id": "eubat:labelSymbol",
         "@type": "@id"
       },
+      labelSymbolMeaning: "eubat:labelSymbolMeaning",
       languageCode: {
         "@id": "eubat:languageCode",
         "@type": "xsd:string"
@@ -23844,6 +23860,8 @@ var contexts_default = {
         "@id": "eubat:powerCapabilityRatio",
         "@type": "xsd:decimal"
       },
+      preparationForRepurposingFacilities: "eubat:preparationForRepurposingFacilities",
+      preparationForReuseFacilities: "eubat:preparationForReuseFacilities",
       previousApplications: "eubat:previousApplications",
       puttingIntoService: {
         "@id": "eubat:puttingIntoService",
@@ -23907,6 +23925,7 @@ var contexts_default = {
         "@id": "eubat:separateCollection",
         "@type": "@id"
       },
+      separateCollectionPoints: "eubat:separateCollectionPoints",
       separateCollectionSymbolUrl: {
         "@id": "eubat:separateCollectionSymbolUrl",
         "@type": "@id"
@@ -23922,6 +23941,7 @@ var contexts_default = {
         "@type": "xsd:string"
       },
       spareParts: "eubat:spareParts",
+      substancesImpact: "eubat:substancesImpact",
       supplyChainIndex: {
         "@id": "eubat:supplyChainIndex",
         "@type": "xsd:decimal"
@@ -23930,6 +23950,7 @@ var contexts_default = {
         "@id": "eubat:supplyChainMappingAvailable",
         "@type": "xsd:boolean"
       },
+      takeBackCollectionPoints: "eubat:takeBackCollectionPoints",
       temperatureExcursionId: {
         "@id": "eubat:temperatureExcursionId",
         "@type": "xsd:string"
@@ -23938,6 +23959,7 @@ var contexts_default = {
         "@id": "eubat:temperatureExcursionReportUrl",
         "@type": "@id"
       },
+      temperatureRangeTestDescription: "eubat:temperatureRangeTestDescription",
       testReportNumber: {
         "@id": "eubat:testReportNumber",
         "@type": "xsd:string"
@@ -23975,6 +23997,8 @@ var contexts_default = {
         "@id": "eubat:warrantyConditions",
         "@type": "@id"
       },
+      wasteBatterySafetyInstructions: "eubat:wasteBatterySafetyInstructions",
+      wasteBatteryTreatmentFacilities: "eubat:wasteBatteryTreatmentFacilities",
       wastePrevention: {
         "@id": "eubat:wastePrevention",
         "@type": "@id"
@@ -25409,111 +25433,6 @@ var contexts_default = {
         "@type": "@id",
         "@container": "@set"
       },
-      packagingMaterialType: {
-        "@id": "gs1:packagingMaterialType",
-        "@type": "@vocab",
-        "@context": {
-          BAMBOO: "gs1:PackagingMaterialTypeCode-BAMBOO",
-          CELLULOSE_HYDRATE: "gs1:PackagingMaterialTypeCode-CELLULOSE_HYDRATE",
-          CERAMIC: "gs1:PackagingMaterialTypeCode-CERAMIC",
-          CLOTH_OR_FABRIC: "gs1:PackagingMaterialTypeCode-CLOTH_OR_FABRIC",
-          COMPOSITE: "gs1:PackagingMaterialTypeCode-COMPOSITE",
-          CORK_NATURAL: "gs1:PackagingMaterialTypeCode-CORK_NATURAL",
-          CORRUGATED_BOARD_DOUBLE_WALL: "gs1:PackagingMaterialTypeCode-CORRUGATED_BOARD_DOUBLE_WALL",
-          CORRUGATED_BOARD_OTHER: "gs1:PackagingMaterialTypeCode-CORRUGATED_BOARD_OTHER",
-          CORRUGATED_BOARD_SINGLE_WALL: "gs1:PackagingMaterialTypeCode-CORRUGATED_BOARD_SINGLE_WALL",
-          CORRUGATED_BOARD_TRIPLE_WALL: "gs1:PackagingMaterialTypeCode-CORRUGATED_BOARD_TRIPLE_WALL",
-          FIBRE_BURLAP: "gs1:PackagingMaterialTypeCode-FIBRE_BURLAP",
-          FIBRE_COTTON: "gs1:PackagingMaterialTypeCode-FIBRE_COTTON",
-          FIBRE_FLAX: "gs1:PackagingMaterialTypeCode-FIBRE_FLAX",
-          FIBRE_HEMP: "gs1:PackagingMaterialTypeCode-FIBRE_HEMP",
-          FIBRE_JUTE: "gs1:PackagingMaterialTypeCode-FIBRE_JUTE",
-          FIBRE_OTHER: "gs1:PackagingMaterialTypeCode-FIBRE_OTHER",
-          FOAM: "gs1:PackagingMaterialTypeCode-FOAM",
-          GLASS: "gs1:PackagingMaterialTypeCode-GLASS",
-          GLASS_BOROSILICATE: "gs1:PackagingMaterialTypeCode-GLASS_BOROSILICATE",
-          GLASS_COLOURED: "gs1:PackagingMaterialTypeCode-GLASS_COLOURED",
-          GLASS_CRYSTAL: "gs1:PackagingMaterialTypeCode-GLASS_CRYSTAL",
-          LAMINATED_CARTON: "gs1:PackagingMaterialTypeCode-LAMINATED_CARTON",
-          METAL_ALUMINUM: "gs1:PackagingMaterialTypeCode-METAL_ALUMINUM",
-          METAL_BRASS: "gs1:PackagingMaterialTypeCode-METAL_BRASS",
-          METAL_COMPOSITE: "gs1:PackagingMaterialTypeCode-METAL_COMPOSITE",
-          METAL_IRON: "gs1:PackagingMaterialTypeCode-METAL_IRON",
-          METAL_LEAD: "gs1:PackagingMaterialTypeCode-METAL_LEAD",
-          METAL_OTHER: "gs1:PackagingMaterialTypeCode-METAL_OTHER",
-          METAL_STAINLESS_STEEL: "gs1:PackagingMaterialTypeCode-METAL_STAINLESS_STEEL",
-          METAL_STEEL: "gs1:PackagingMaterialTypeCode-METAL_STEEL",
-          METAL_TIN: "gs1:PackagingMaterialTypeCode-METAL_TIN",
-          METAL_ZAMAC: "gs1:PackagingMaterialTypeCode-METAL_ZAMAC",
-          MINERAL_CALCIUM_CARBONATE: "gs1:PackagingMaterialTypeCode-MINERAL_CALCIUM_CARBONATE",
-          MINERAL_OTHER: "gs1:PackagingMaterialTypeCode-MINERAL_OTHER",
-          MINERAL_TALC: "gs1:PackagingMaterialTypeCode-MINERAL_TALC",
-          NATURAL_RUBBER: "gs1:PackagingMaterialTypeCode-NATURAL_RUBBER",
-          OTHER: "gs1:PackagingMaterialTypeCode-OTHER",
-          PAPER_CORRUGATED: "gs1:PackagingMaterialTypeCode-PAPER_CORRUGATED",
-          PAPER_KRAFT: "gs1:PackagingMaterialTypeCode-PAPER_KRAFT",
-          PAPER_KRAFT_WET_STRENGTH: "gs1:PackagingMaterialTypeCode-PAPER_KRAFT_WET_STRENGTH",
-          PAPER_MOLDED_PULP: "gs1:PackagingMaterialTypeCode-PAPER_MOLDED_PULP",
-          PAPER_OTHER: "gs1:PackagingMaterialTypeCode-PAPER_OTHER",
-          PAPER_PAPER: "gs1:PackagingMaterialTypeCode-PAPER_PAPER",
-          PAPER_PAPERBOARD: "gs1:PackagingMaterialTypeCode-PAPER_PAPERBOARD",
-          PAPER_RAYON: "gs1:PackagingMaterialTypeCode-PAPER_RAYON",
-          PLANT_LEAVES: "gs1:PackagingMaterialTypeCode-PLANT_LEAVES",
-          PLASTIC_BIOPLASTIC: "gs1:PackagingMaterialTypeCode-PLASTIC_BIOPLASTIC",
-          PLASTIC_OTHER: "gs1:PackagingMaterialTypeCode-PLASTIC_OTHER",
-          PLASTIC_THERMOPLASTICS: "gs1:PackagingMaterialTypeCode-PLASTIC_THERMOPLASTICS",
-          POLYMER_APET: "gs1:PackagingMaterialTypeCode-POLYMER_APET",
-          POLYMER_BOPP: "gs1:PackagingMaterialTypeCode-POLYMER_BOPP",
-          POLYMER_CELLULOSE_ACETATE: "gs1:PackagingMaterialTypeCode-POLYMER_CELLULOSE_ACETATE",
-          POLYMER_CPET: "gs1:PackagingMaterialTypeCode-POLYMER_CPET",
-          POLYMER_EPE: "gs1:PackagingMaterialTypeCode-POLYMER_EPE",
-          POLYMER_EPOXY: "gs1:PackagingMaterialTypeCode-POLYMER_EPOXY",
-          POLYMER_EPS: "gs1:PackagingMaterialTypeCode-POLYMER_EPS",
-          POLYMER_EVA: "gs1:PackagingMaterialTypeCode-POLYMER_EVA",
-          POLYMER_EVOH: "gs1:PackagingMaterialTypeCode-POLYMER_EVOH",
-          POLYMER_HDPE: "gs1:PackagingMaterialTypeCode-POLYMER_HDPE",
-          POLYMER_IONOMER: "gs1:PackagingMaterialTypeCode-POLYMER_IONOMER",
-          POLYMER_LDPE: "gs1:PackagingMaterialTypeCode-POLYMER_LDPE",
-          POLYMER_LLDPE: "gs1:PackagingMaterialTypeCode-POLYMER_LLDPE",
-          POLYMER_MDPE: "gs1:PackagingMaterialTypeCode-POLYMER_MDPE",
-          POLYMER_MIX: "gs1:PackagingMaterialTypeCode-POLYMER_MIX",
-          POLYMER_NYLON: "gs1:PackagingMaterialTypeCode-POLYMER_NYLON",
-          POLYMER_OPP: "gs1:PackagingMaterialTypeCode-POLYMER_OPP",
-          POLYMER_OTHER: "gs1:PackagingMaterialTypeCode-POLYMER_OTHER",
-          POLYMER_PA: "gs1:PackagingMaterialTypeCode-POLYMER_PA",
-          POLYMER_PAN: "gs1:PackagingMaterialTypeCode-POLYMER_PAN",
-          POLYMER_PC: "gs1:PackagingMaterialTypeCode-POLYMER_PC",
-          POLYMER_PCL: "gs1:PackagingMaterialTypeCode-POLYMER_PCL",
-          POLYMER_PE: "gs1:PackagingMaterialTypeCode-POLYMER_PE",
-          POLYMER_PEN: "gs1:PackagingMaterialTypeCode-POLYMER_PEN",
-          POLYMER_PET: "gs1:PackagingMaterialTypeCode-POLYMER_PET",
-          POLYMER_PETG: "gs1:PackagingMaterialTypeCode-POLYMER_PETG",
-          POLYMER_PHA: "gs1:PackagingMaterialTypeCode-POLYMER_PHA",
-          POLYMER_PLA: "gs1:PackagingMaterialTypeCode-POLYMER_PLA",
-          POLYMER_PMMA: "gs1:PackagingMaterialTypeCode-POLYMER_PMMA",
-          POLYMER_POM: "gs1:PackagingMaterialTypeCode-POLYMER_POM",
-          POLYMER_PP: "gs1:PackagingMaterialTypeCode-POLYMER_PP",
-          POLYMER_PS: "gs1:PackagingMaterialTypeCode-POLYMER_PS",
-          POLYMER_PU: "gs1:PackagingMaterialTypeCode-POLYMER_PU",
-          POLYMER_PVA: "gs1:PackagingMaterialTypeCode-POLYMER_PVA",
-          POLYMER_PVC: "gs1:PackagingMaterialTypeCode-POLYMER_PVC",
-          POLYMER_PVDC: "gs1:PackagingMaterialTypeCode-POLYMER_PVDC",
-          POLYMER_SAN: "gs1:PackagingMaterialTypeCode-POLYMER_SAN",
-          POLYMER_SILICONE: "gs1:PackagingMaterialTypeCode-POLYMER_SILICONE",
-          POLYMER_TPS: "gs1:PackagingMaterialTypeCode-POLYMER_TPS",
-          POLYMER_XPS: "gs1:PackagingMaterialTypeCode-POLYMER_XPS",
-          RUBBER: "gs1:PackagingMaterialTypeCode-RUBBER",
-          VINYL: "gs1:PackagingMaterialTypeCode-VINYL",
-          WOOD_HARDBOARD: "gs1:PackagingMaterialTypeCode-WOOD_HARDBOARD",
-          WOOD_HARDWOOD: "gs1:PackagingMaterialTypeCode-WOOD_HARDWOOD",
-          WOOD_MEDIUM_DENSITY_FIBREBOARD: "gs1:PackagingMaterialTypeCode-WOOD_MEDIUM_DENSITY_FIBREBOARD",
-          WOOD_ORIENTED_STRANDBOARD: "gs1:PackagingMaterialTypeCode-WOOD_ORIENTED_STRANDBOARD",
-          WOOD_OTHER: "gs1:PackagingMaterialTypeCode-WOOD_OTHER",
-          WOOD_PARTICLE_BOARD: "gs1:PackagingMaterialTypeCode-WOOD_PARTICLE_BOARD",
-          WOOD_PLYWOOD: "gs1:PackagingMaterialTypeCode-WOOD_PLYWOOD",
-          WOOD_SOFTWOOD: "gs1:PackagingMaterialTypeCode-WOOD_SOFTWOOD"
-        }
-      },
       packagingRecyclingProcessType: {
         "@id": "gs1:packagingRecyclingProcessType",
         "@type": "@vocab",
@@ -26293,7 +26212,11 @@ var contexts_default = {
       certificationStatement: "gs1:certificationStatement",
       certificationStatus: {
         "@id": "gs1:certificationStatus",
-        "@type": "@id"
+        "@type": "@vocab",
+        "@context": {
+          ACTIVE: "gs1:CertificationStatus-ACTIVE",
+          INACTIVE: "gs1:CertificationStatus-INACTIVE"
+        }
       },
       certificationSubject: {
         "@id": "gs1:certificationSubject",
@@ -26331,7 +26254,20 @@ var contexts_default = {
       },
       colourCodeList: {
         "@id": "gs1:colourCodeList",
-        "@type": "@id"
+        "@type": "@vocab",
+        "@context": {
+          BUYER: "gs1:ColourCodeList-BUYER",
+          IFPS: "gs1:ColourCodeList-IFPS",
+          NCS: "gs1:ColourCodeList-NCS",
+          NRF: "gs1:ColourCodeList-NRF",
+          PANTONE_HEXACHROME: "gs1:ColourCodeList-PANTONE_HEXACHROME",
+          PANTONE_MATCHING: "gs1:ColourCodeList-PANTONE_MATCHING",
+          PANTONE_PROCESS_COLOUR: "gs1:ColourCodeList-PANTONE_PROCESS_COLOUR",
+          PANTONE_TEXTILE: "gs1:ColourCodeList-PANTONE_TEXTILE",
+          RAL: "gs1:ColourCodeList-RAL",
+          SELLER: "gs1:ColourCodeList-SELLER",
+          WWS: "gs1:ColourCodeList-WWS"
+        }
       },
       colourCodeValue: "gs1:colourCodeValue",
       colourDescription: "gs1:colourDescription",
@@ -27067,7 +27003,1765 @@ var contexts_default = {
       },
       packagingMaterialType: {
         "@id": "gs1:packagingMaterialType",
+        "@type": "@vocab",
+        "@context": {
+          BAMBOO: "gs1:PackagingMaterialTypeCode-BAMBOO",
+          CELLULOSE_HYDRATE: "gs1:PackagingMaterialTypeCode-CELLULOSE_HYDRATE",
+          CERAMIC: "gs1:PackagingMaterialTypeCode-CERAMIC",
+          CLOTH_OR_FABRIC: "gs1:PackagingMaterialTypeCode-CLOTH_OR_FABRIC",
+          COMPOSITE: "gs1:PackagingMaterialTypeCode-COMPOSITE",
+          CORK_NATURAL: "gs1:PackagingMaterialTypeCode-CORK_NATURAL",
+          CORRUGATED_BOARD_DOUBLE_WALL: "gs1:PackagingMaterialTypeCode-CORRUGATED_BOARD_DOUBLE_WALL",
+          CORRUGATED_BOARD_OTHER: "gs1:PackagingMaterialTypeCode-CORRUGATED_BOARD_OTHER",
+          CORRUGATED_BOARD_SINGLE_WALL: "gs1:PackagingMaterialTypeCode-CORRUGATED_BOARD_SINGLE_WALL",
+          CORRUGATED_BOARD_TRIPLE_WALL: "gs1:PackagingMaterialTypeCode-CORRUGATED_BOARD_TRIPLE_WALL",
+          FIBRE_BURLAP: "gs1:PackagingMaterialTypeCode-FIBRE_BURLAP",
+          FIBRE_COTTON: "gs1:PackagingMaterialTypeCode-FIBRE_COTTON",
+          FIBRE_FLAX: "gs1:PackagingMaterialTypeCode-FIBRE_FLAX",
+          FIBRE_HEMP: "gs1:PackagingMaterialTypeCode-FIBRE_HEMP",
+          FIBRE_JUTE: "gs1:PackagingMaterialTypeCode-FIBRE_JUTE",
+          FIBRE_OTHER: "gs1:PackagingMaterialTypeCode-FIBRE_OTHER",
+          FOAM: "gs1:PackagingMaterialTypeCode-FOAM",
+          GLASS: "gs1:PackagingMaterialTypeCode-GLASS",
+          GLASS_BOROSILICATE: "gs1:PackagingMaterialTypeCode-GLASS_BOROSILICATE",
+          GLASS_COLOURED: "gs1:PackagingMaterialTypeCode-GLASS_COLOURED",
+          GLASS_CRYSTAL: "gs1:PackagingMaterialTypeCode-GLASS_CRYSTAL",
+          LAMINATED_CARTON: "gs1:PackagingMaterialTypeCode-LAMINATED_CARTON",
+          METAL_ALUMINUM: "gs1:PackagingMaterialTypeCode-METAL_ALUMINUM",
+          METAL_BRASS: "gs1:PackagingMaterialTypeCode-METAL_BRASS",
+          METAL_COMPOSITE: "gs1:PackagingMaterialTypeCode-METAL_COMPOSITE",
+          METAL_IRON: "gs1:PackagingMaterialTypeCode-METAL_IRON",
+          METAL_LEAD: "gs1:PackagingMaterialTypeCode-METAL_LEAD",
+          METAL_OTHER: "gs1:PackagingMaterialTypeCode-METAL_OTHER",
+          METAL_STAINLESS_STEEL: "gs1:PackagingMaterialTypeCode-METAL_STAINLESS_STEEL",
+          METAL_STEEL: "gs1:PackagingMaterialTypeCode-METAL_STEEL",
+          METAL_TIN: "gs1:PackagingMaterialTypeCode-METAL_TIN",
+          METAL_ZAMAC: "gs1:PackagingMaterialTypeCode-METAL_ZAMAC",
+          MINERAL_CALCIUM_CARBONATE: "gs1:PackagingMaterialTypeCode-MINERAL_CALCIUM_CARBONATE",
+          MINERAL_OTHER: "gs1:PackagingMaterialTypeCode-MINERAL_OTHER",
+          MINERAL_TALC: "gs1:PackagingMaterialTypeCode-MINERAL_TALC",
+          NATURAL_RUBBER: "gs1:PackagingMaterialTypeCode-NATURAL_RUBBER",
+          OTHER: "gs1:PackagingMaterialTypeCode-OTHER",
+          PAPER_CORRUGATED: "gs1:PackagingMaterialTypeCode-PAPER_CORRUGATED",
+          PAPER_KRAFT: "gs1:PackagingMaterialTypeCode-PAPER_KRAFT",
+          PAPER_KRAFT_WET_STRENGTH: "gs1:PackagingMaterialTypeCode-PAPER_KRAFT_WET_STRENGTH",
+          PAPER_MOLDED_PULP: "gs1:PackagingMaterialTypeCode-PAPER_MOLDED_PULP",
+          PAPER_OTHER: "gs1:PackagingMaterialTypeCode-PAPER_OTHER",
+          PAPER_PAPER: "gs1:PackagingMaterialTypeCode-PAPER_PAPER",
+          PAPER_PAPERBOARD: "gs1:PackagingMaterialTypeCode-PAPER_PAPERBOARD",
+          PAPER_RAYON: "gs1:PackagingMaterialTypeCode-PAPER_RAYON",
+          PLANT_LEAVES: "gs1:PackagingMaterialTypeCode-PLANT_LEAVES",
+          PLASTIC_BIOPLASTIC: "gs1:PackagingMaterialTypeCode-PLASTIC_BIOPLASTIC",
+          PLASTIC_OTHER: "gs1:PackagingMaterialTypeCode-PLASTIC_OTHER",
+          PLASTIC_THERMOPLASTICS: "gs1:PackagingMaterialTypeCode-PLASTIC_THERMOPLASTICS",
+          POLYMER_APET: "gs1:PackagingMaterialTypeCode-POLYMER_APET",
+          POLYMER_BOPP: "gs1:PackagingMaterialTypeCode-POLYMER_BOPP",
+          POLYMER_CELLULOSE_ACETATE: "gs1:PackagingMaterialTypeCode-POLYMER_CELLULOSE_ACETATE",
+          POLYMER_CPET: "gs1:PackagingMaterialTypeCode-POLYMER_CPET",
+          POLYMER_EPE: "gs1:PackagingMaterialTypeCode-POLYMER_EPE",
+          POLYMER_EPOXY: "gs1:PackagingMaterialTypeCode-POLYMER_EPOXY",
+          POLYMER_EPS: "gs1:PackagingMaterialTypeCode-POLYMER_EPS",
+          POLYMER_EVA: "gs1:PackagingMaterialTypeCode-POLYMER_EVA",
+          POLYMER_EVOH: "gs1:PackagingMaterialTypeCode-POLYMER_EVOH",
+          POLYMER_HDPE: "gs1:PackagingMaterialTypeCode-POLYMER_HDPE",
+          POLYMER_IONOMER: "gs1:PackagingMaterialTypeCode-POLYMER_IONOMER",
+          POLYMER_LDPE: "gs1:PackagingMaterialTypeCode-POLYMER_LDPE",
+          POLYMER_LLDPE: "gs1:PackagingMaterialTypeCode-POLYMER_LLDPE",
+          POLYMER_MDPE: "gs1:PackagingMaterialTypeCode-POLYMER_MDPE",
+          POLYMER_MIX: "gs1:PackagingMaterialTypeCode-POLYMER_MIX",
+          POLYMER_NYLON: "gs1:PackagingMaterialTypeCode-POLYMER_NYLON",
+          POLYMER_OPP: "gs1:PackagingMaterialTypeCode-POLYMER_OPP",
+          POLYMER_OTHER: "gs1:PackagingMaterialTypeCode-POLYMER_OTHER",
+          POLYMER_PA: "gs1:PackagingMaterialTypeCode-POLYMER_PA",
+          POLYMER_PAN: "gs1:PackagingMaterialTypeCode-POLYMER_PAN",
+          POLYMER_PC: "gs1:PackagingMaterialTypeCode-POLYMER_PC",
+          POLYMER_PCL: "gs1:PackagingMaterialTypeCode-POLYMER_PCL",
+          POLYMER_PE: "gs1:PackagingMaterialTypeCode-POLYMER_PE",
+          POLYMER_PEN: "gs1:PackagingMaterialTypeCode-POLYMER_PEN",
+          POLYMER_PET: "gs1:PackagingMaterialTypeCode-POLYMER_PET",
+          POLYMER_PETG: "gs1:PackagingMaterialTypeCode-POLYMER_PETG",
+          POLYMER_PHA: "gs1:PackagingMaterialTypeCode-POLYMER_PHA",
+          POLYMER_PLA: "gs1:PackagingMaterialTypeCode-POLYMER_PLA",
+          POLYMER_PMMA: "gs1:PackagingMaterialTypeCode-POLYMER_PMMA",
+          POLYMER_POM: "gs1:PackagingMaterialTypeCode-POLYMER_POM",
+          POLYMER_PP: "gs1:PackagingMaterialTypeCode-POLYMER_PP",
+          POLYMER_PS: "gs1:PackagingMaterialTypeCode-POLYMER_PS",
+          POLYMER_PU: "gs1:PackagingMaterialTypeCode-POLYMER_PU",
+          POLYMER_PVA: "gs1:PackagingMaterialTypeCode-POLYMER_PVA",
+          POLYMER_PVC: "gs1:PackagingMaterialTypeCode-POLYMER_PVC",
+          POLYMER_PVDC: "gs1:PackagingMaterialTypeCode-POLYMER_PVDC",
+          POLYMER_SAN: "gs1:PackagingMaterialTypeCode-POLYMER_SAN",
+          POLYMER_SILICONE: "gs1:PackagingMaterialTypeCode-POLYMER_SILICONE",
+          POLYMER_TPS: "gs1:PackagingMaterialTypeCode-POLYMER_TPS",
+          POLYMER_XPS: "gs1:PackagingMaterialTypeCode-POLYMER_XPS",
+          RUBBER: "gs1:PackagingMaterialTypeCode-RUBBER",
+          VINYL: "gs1:PackagingMaterialTypeCode-VINYL",
+          WOOD_HARDBOARD: "gs1:PackagingMaterialTypeCode-WOOD_HARDBOARD",
+          WOOD_HARDWOOD: "gs1:PackagingMaterialTypeCode-WOOD_HARDWOOD",
+          WOOD_MEDIUM_DENSITY_FIBREBOARD: "gs1:PackagingMaterialTypeCode-WOOD_MEDIUM_DENSITY_FIBREBOARD",
+          WOOD_ORIENTED_STRANDBOARD: "gs1:PackagingMaterialTypeCode-WOOD_ORIENTED_STRANDBOARD",
+          WOOD_OTHER: "gs1:PackagingMaterialTypeCode-WOOD_OTHER",
+          WOOD_PARTICLE_BOARD: "gs1:PackagingMaterialTypeCode-WOOD_PARTICLE_BOARD",
+          WOOD_PLYWOOD: "gs1:PackagingMaterialTypeCode-WOOD_PLYWOOD",
+          WOOD_SOFTWOOD: "gs1:PackagingMaterialTypeCode-WOOD_SOFTWOOD"
+        }
+      },
+      packagingRecyclingProcessType: {
+        "@id": "gs1:packagingRecyclingProcessType",
         "@type": "@id"
+      },
+      packagingRecyclingScheme: {
+        "@id": "gs1:packagingRecyclingScheme",
+        "@type": "@id"
+      },
+      packagingShape: {
+        "@id": "gs1:packagingShape",
+        "@type": "@id"
+      },
+      packagingType: "gs1:packagingType",
+      pantothenicAcidPerNutrientBasis: {
+        "@id": "gs1:pantothenicAcidPerNutrientBasis",
+        "@type": "@id"
+      },
+      parentOrganization: {
+        "@id": "gs1:parentOrganization",
+        "@type": "@id"
+      },
+      partyGLN: "gs1:partyGLN",
+      paymentLink: "gs1:paymentLink",
+      paymentTerms: "gs1:paymentTerms",
+      percentageOfAlcoholByVolume: "gs1:percentageOfAlcoholByVolume",
+      phosphorusPerNutrientBasis: {
+        "@id": "gs1:phosphorusPerNutrientBasis",
+        "@type": "@id"
+      },
+      physicalLocationName: "gs1:physicalLocationName",
+      pip: "gs1:pip",
+      polygon: "gs1:polygon",
+      polyolsPerNutrientBasis: {
+        "@id": "gs1:polyolsPerNutrientBasis",
+        "@type": "@id"
+      },
+      polyunsaturatedFatPerNutrientBasis: {
+        "@id": "gs1:polyunsaturatedFatPerNutrientBasis",
+        "@type": "@id"
+      },
+      postOfficeBoxNumber: "gs1:postOfficeBoxNumber",
+      postalCode: "gs1:postalCode",
+      postalName: "gs1:postalName",
+      potassiumPerNutrientBasis: {
+        "@id": "gs1:potassiumPerNutrientBasis",
+        "@type": "@id"
+      },
+      preparationCode: {
+        "@id": "gs1:preparationCode",
+        "@type": "@id"
+      },
+      preparationConsumptionPrecautions: "gs1:preparationConsumptionPrecautions",
+      preparationInformation: {
+        "@id": "gs1:preparationInformation",
+        "@type": "@id"
+      },
+      preparationInstructions: "gs1:preparationInstructions",
+      preservationTechnique: {
+        "@id": "gs1:preservationTechnique",
+        "@type": "@id"
+      },
+      price: "gs1:price",
+      priceCurrency: "gs1:priceCurrency",
+      priceSpecification: {
+        "@id": "gs1:priceSpecification",
+        "@type": "@id"
+      },
+      primaryAlternateProduct: {
+        "@id": "gs1:primaryAlternateProduct",
+        "@type": "@id"
+      },
+      primaryLocationOf: {
+        "@id": "gs1:primaryLocationOf",
+        "@type": "@id"
+      },
+      productDescription: "gs1:productDescription",
+      productFeatureBenefit: "gs1:productFeatureBenefit",
+      productFormDescription: "gs1:productFormDescription",
+      productID: "gs1:productID",
+      productMarketingMessage: "gs1:productMarketingMessage",
+      productName: "gs1:productName",
+      productRange: "gs1:productRange",
+      productSustainabilityInfo: "gs1:productSustainabilityInfo",
+      productYield: {
+        "@id": "gs1:productYield",
+        "@type": "@id"
+      },
+      productYieldType: {
+        "@id": "gs1:productYieldType",
+        "@type": "@id"
+      },
+      productYieldVariationPercentage: "gs1:productYieldVariationPercentage",
+      productionDate: "gs1:productionDate",
+      productionDateTime: "gs1:productionDateTime",
+      productionVariantDescription: "gs1:productionVariantDescription",
+      productionVariantEffectiveDateTime: "gs1:productionVariantEffectiveDateTime",
+      promotion: "gs1:promotion",
+      proteinPerNutrientBasis: {
+        "@id": "gs1:proteinPerNutrientBasis",
+        "@type": "@id"
+      },
+      provenanceStatement: "gs1:provenanceStatement",
+      purchaseSuppliesOrAccessories: "gs1:purchaseSuppliesOrAccessories",
+      qualifyingBrandName: "gs1:qualifyingBrandName",
+      qualifyingGPCs: "gs1:qualifyingGPCs",
+      qualifyingProductCategoryDescription: "gs1:qualifyingProductCategoryDescription",
+      qualifyingProductClassificationCode: {
+        "@id": "gs1:qualifyingProductClassificationCode",
+        "@type": "@id"
+      },
+      qualifyingProductGTINs: "gs1:qualifyingProductGTINs",
+      qualifyingSubBrandName: "gs1:qualifyingSubBrandName",
+      quickStartGuide: "gs1:quickStartGuide",
+      recallStatus: "gs1:recallStatus",
+      recipeInfo: "gs1:recipeInfo",
+      referencedFile: {
+        "@id": "gs1:referencedFile",
+        "@type": "@id"
+      },
+      referencedFileEffectiveEndDateTime: "gs1:referencedFileEffectiveEndDateTime",
+      referencedFileEffectiveStartDateTime: "gs1:referencedFileEffectiveStartDateTime",
+      referencedFileSize: {
+        "@id": "gs1:referencedFileSize",
+        "@type": "@id"
+      },
+      referencedFileType: {
+        "@id": "gs1:referencedFileType",
+        "@type": "@vocab",
+        "@context": {
+          "360_DEGREE_IMAGE": "gs1:ReferencedFileTypeCode-360_DEGREE_IMAGE",
+          AMBIENCE_MOOD_IMAGE: "gs1:ReferencedFileTypeCode-AMBIENCE_MOOD_IMAGE",
+          APPLICATION_IMAGE: "gs1:ReferencedFileTypeCode-APPLICATION_IMAGE",
+          ASSEMBLY_INSTRUCTIONS: "gs1:ReferencedFileTypeCode-ASSEMBLY_INSTRUCTIONS",
+          AUDIO: "gs1:ReferencedFileTypeCode-AUDIO",
+          AWARD_CERTIFICATE: "gs1:ReferencedFileTypeCode-AWARD_CERTIFICATE",
+          BARCODE: "gs1:ReferencedFileTypeCode-BARCODE",
+          CERTIFICATION: "gs1:ReferencedFileTypeCode-CERTIFICATION",
+          CHEMICAL_ASSESSMENT_SUMMARY: "gs1:ReferencedFileTypeCode-CHEMICAL_ASSESSMENT_SUMMARY",
+          CHEMICAL_SAFETY_REPORT: "gs1:ReferencedFileTypeCode-CHEMICAL_SAFETY_REPORT",
+          CHILD_NUTRITION_LABEL: "gs1:ReferencedFileTypeCode-CHILD_NUTRITION_LABEL",
+          CLEANING_DISINFECTION_STERILISATION_INSTRUCTIONS: "gs1:ReferencedFileTypeCode-CLEANING_DISINFECTION_STERILISATION_INSTRUCTIONS",
+          CLINICIAN_MEDICINE_INFORMATION: "gs1:ReferencedFileTypeCode-CLINICIAN_MEDICINE_INFORMATION",
+          CONSUMER_HANDLING_AND_STORAGE: "gs1:ReferencedFileTypeCode-CONSUMER_HANDLING_AND_STORAGE",
+          CONTENT_TEXTURE_IMAGE: "gs1:ReferencedFileTypeCode-CONTENT_TEXTURE_IMAGE",
+          CROSSSECTION_VIEW: "gs1:ReferencedFileTypeCode-CROSSSECTION_VIEW",
+          DECLARATION_OF_CONFORMITY: "gs1:ReferencedFileTypeCode-DECLARATION_OF_CONFORMITY",
+          DIET_CERTIFICATE: "gs1:ReferencedFileTypeCode-DIET_CERTIFICATE",
+          DISPOSAL_INSTRUCTIONS: "gs1:ReferencedFileTypeCode-DISPOSAL_INSTRUCTIONS",
+          DOCUMENT: "gs1:ReferencedFileTypeCode-DOCUMENT",
+          DOP_SHEET: "gs1:ReferencedFileTypeCode-DOP_SHEET",
+          DRUG_FACT_LABEL: "gs1:ReferencedFileTypeCode-DRUG_FACT_LABEL",
+          ECOLOGICAL_FACT_SHEET: "gs1:ReferencedFileTypeCode-ECOLOGICAL_FACT_SHEET",
+          ENERGY_LABEL: "gs1:ReferencedFileTypeCode-ENERGY_LABEL",
+          FOOD_CONTACT_CONFORMITY_CERTIFICATE: "gs1:ReferencedFileTypeCode-FOOD_CONTACT_CONFORMITY_CERTIFICATE",
+          GROUP_CHARACTERISTIC_SHEET: "gs1:ReferencedFileTypeCode-GROUP_CHARACTERISTIC_SHEET",
+          HAZARDOUS_SUBSTANCES_DATA: "gs1:ReferencedFileTypeCode-HAZARDOUS_SUBSTANCES_DATA",
+          IFU: "gs1:ReferencedFileTypeCode-IFU",
+          IFU_INCLUDING_CLEANING_DISINFECTION_STERILISATION_INSTRUCTIONS: "gs1:ReferencedFileTypeCode-IFU_INCLUDING_CLEANING_DISINFECTION_STERILISATION_INSTRUCTIONS",
+          INGREDIENTS_LABEL: "gs1:ReferencedFileTypeCode-INGREDIENTS_LABEL",
+          INTERNAL_VIEW: "gs1:ReferencedFileTypeCode-INTERNAL_VIEW",
+          LIGHTING_FACT_LABEL: "gs1:ReferencedFileTypeCode-LIGHTING_FACT_LABEL",
+          LOGO: "gs1:ReferencedFileTypeCode-LOGO",
+          MARKETING_INFORMATION: "gs1:ReferencedFileTypeCode-MARKETING_INFORMATION",
+          MATERIAL_SAMPLES: "gs1:ReferencedFileTypeCode-MATERIAL_SAMPLES",
+          MOBILE_DEVICE_IMAGE: "gs1:ReferencedFileTypeCode-MOBILE_DEVICE_IMAGE",
+          MOBILE_READY_HERO_IMAGE: "gs1:ReferencedFileTypeCode-MOBILE_READY_HERO_IMAGE",
+          MONTAGE_IMAGE: "gs1:ReferencedFileTypeCode-MONTAGE_IMAGE",
+          NUTRITION_FACT_LABEL: "gs1:ReferencedFileTypeCode-NUTRITION_FACT_LABEL",
+          NUTRITION_FACT_LABEL_WITH_INGREDIENTS: "gs1:ReferencedFileTypeCode-NUTRITION_FACT_LABEL_WITH_INGREDIENTS",
+          OPTIMISED_HERO_IMAGE: "gs1:ReferencedFileTypeCode-OPTIMISED_HERO_IMAGE",
+          OPTIMIZED_PACK_IMAGE: "gs1:ReferencedFileTypeCode-OPTIMIZED_PACK_IMAGE",
+          ORGANIC_CERTIFICATE: "gs1:ReferencedFileTypeCode-ORGANIC_CERTIFICATE",
+          OTHER_EXTERNAL_INFORMATION: "gs1:ReferencedFileTypeCode-OTHER_EXTERNAL_INFORMATION",
+          OUT_OF_PACKAGE_IMAGE: "gs1:ReferencedFileTypeCode-OUT_OF_PACKAGE_IMAGE",
+          PACKAGING_ARTWORK: "gs1:ReferencedFileTypeCode-PACKAGING_ARTWORK",
+          PATIENT_INFORMATION_LEAFLET: "gs1:ReferencedFileTypeCode-PATIENT_INFORMATION_LEAFLET",
+          PETFOOD_FEEDING_INSTRUCTIONS: "gs1:ReferencedFileTypeCode-PETFOOD_FEEDING_INSTRUCTIONS",
+          PLANOGRAM: "gs1:ReferencedFileTypeCode-PLANOGRAM",
+          PREPARATION_INSTRUCTIONS: "gs1:ReferencedFileTypeCode-PREPARATION_INSTRUCTIONS",
+          PRODUCT_FORMULATION_STATEMENT: "gs1:ReferencedFileTypeCode-PRODUCT_FORMULATION_STATEMENT",
+          PRODUCT_IMAGE: "gs1:ReferencedFileTypeCode-PRODUCT_IMAGE",
+          PRODUCT_IMAGE_FORMED: "gs1:ReferencedFileTypeCode-PRODUCT_IMAGE_FORMED",
+          PRODUCT_LABEL_IMAGE: "gs1:ReferencedFileTypeCode-PRODUCT_LABEL_IMAGE",
+          PRODUCT_WEBSITE: "gs1:ReferencedFileTypeCode-PRODUCT_WEBSITE",
+          QR_CODE: "gs1:ReferencedFileTypeCode-QR_CODE",
+          QUALITY_CONTROL_PLAN: "gs1:ReferencedFileTypeCode-QUALITY_CONTROL_PLAN",
+          RECIPE_WEBSITE: "gs1:ReferencedFileTypeCode-RECIPE_WEBSITE",
+          RECYCLABILITY_ASSESSMENT_CERTIFICATE: "gs1:ReferencedFileTypeCode-RECYCLABILITY_ASSESSMENT_CERTIFICATE",
+          REGULATORY_INSPECTION_AUDIT: "gs1:ReferencedFileTypeCode-REGULATORY_INSPECTION_AUDIT",
+          RISK_ANALYSIS_DOCUMENT: "gs1:ReferencedFileTypeCode-RISK_ANALYSIS_DOCUMENT",
+          SAFETY_DATA_SHEET: "gs1:ReferencedFileTypeCode-SAFETY_DATA_SHEET",
+          SAFETY_SUMMARY_SHEET: "gs1:ReferencedFileTypeCode-SAFETY_SUMMARY_SHEET",
+          SAMPLE_SHIPPING_ORDER: "gs1:ReferencedFileTypeCode-SAMPLE_SHIPPING_ORDER",
+          SIDEKICK_IMAGE: "gs1:ReferencedFileTypeCode-SIDEKICK_IMAGE",
+          SOCIAL_MEDIA_IMAGE: "gs1:ReferencedFileTypeCode-SOCIAL_MEDIA_IMAGE",
+          SUMMARY_OF_PRODUCT_CHARACTERISTICS: "gs1:ReferencedFileTypeCode-SUMMARY_OF_PRODUCT_CHARACTERISTICS",
+          SUPPLEMENT_FACT_LABEL: "gs1:ReferencedFileTypeCode-SUPPLEMENT_FACT_LABEL",
+          TECHNICAL_DATA_SHEET: "gs1:ReferencedFileTypeCode-TECHNICAL_DATA_SHEET",
+          TECHNICAL_DRAWING: "gs1:ReferencedFileTypeCode-TECHNICAL_DRAWING",
+          TESTING_METHODOLOGY_RESULTS: "gs1:ReferencedFileTypeCode-TESTING_METHODOLOGY_RESULTS",
+          TRADE_ITEM_DESCRIPTION: "gs1:ReferencedFileTypeCode-TRADE_ITEM_DESCRIPTION",
+          TRADE_ITEM_IMAGE_WITH_DIMENSIONS: "gs1:ReferencedFileTypeCode-TRADE_ITEM_IMAGE_WITH_DIMENSIONS",
+          VIDEO: "gs1:ReferencedFileTypeCode-VIDEO",
+          VISUAL_VERIFICATION_IMAGE: "gs1:ReferencedFileTypeCode-VISUAL_VERIFICATION_IMAGE",
+          WARRANTY_INFORMATION: "gs1:ReferencedFileTypeCode-WARRANTY_INFORMATION",
+          WEBSITE: "gs1:ReferencedFileTypeCode-WEBSITE",
+          ZOOM_VIEW: "gs1:ReferencedFileTypeCode-ZOOM_VIEW"
+        }
+      },
+      referencedFileURL: "gs1:referencedFileURL",
+      registerProduct: "gs1:registerProduct",
+      registryEntry: "gs1:registryEntry",
+      regulatedProductName: "gs1:regulatedProductName",
+      regulationType: {
+        "@id": "gs1:regulationType",
+        "@type": "@id"
+      },
+      regulatoryAct: "gs1:regulatoryAct",
+      regulatoryIdentifier: {
+        "@id": "gs1:regulatoryIdentifier",
+        "@type": "@id"
+      },
+      regulatoryIdentifierType: {
+        "@id": "gs1:regulatoryIdentifierType",
+        "@type": "@id"
+      },
+      regulatoryInformation: {
+        "@id": "gs1:regulatoryInformation",
+        "@type": "@id"
+      },
+      regulatoryInformationProvider: {
+        "@id": "gs1:regulatoryInformationProvider",
+        "@type": "@id"
+      },
+      regulatoryReferenceApplicabilityEndDate: "gs1:regulatoryReferenceApplicabilityEndDate",
+      regulatoryReferenceApplicabilityStartDate: "gs1:regulatoryReferenceApplicabilityStartDate",
+      regulatoryReferenceNumber: "gs1:regulatoryReferenceNumber",
+      regulatoryVerificationNumber: "gs1:regulatoryVerificationNumber",
+      reheatingClaim: {
+        "@id": "gs1:reheatingClaim",
+        "@type": "@id"
+      },
+      relatedImage: "gs1:relatedImage",
+      relatedOrganization: {
+        "@id": "gs1:relatedOrganization",
+        "@type": "@id"
+      },
+      relatedVideo: "gs1:relatedVideo",
+      replacedByOrganization: {
+        "@id": "gs1:replacedByOrganization",
+        "@type": "@id"
+      },
+      replacedByPlace: {
+        "@id": "gs1:replacedByPlace",
+        "@type": "@id"
+      },
+      replacedByProduct: {
+        "@id": "gs1:replacedByProduct",
+        "@type": "@id"
+      },
+      replacedOrganization: {
+        "@id": "gs1:replacedOrganization",
+        "@type": "@id"
+      },
+      replacedPlace: {
+        "@id": "gs1:replacedPlace",
+        "@type": "@id"
+      },
+      replacedProduct: {
+        "@id": "gs1:replacedProduct",
+        "@type": "@id"
+      },
+      reportFound: "gs1:reportFound",
+      responsibility: "gs1:responsibility",
+      responsibleForLocation: {
+        "@id": "gs1:responsibleForLocation",
+        "@type": "@id"
+      },
+      responsibleOrganization: {
+        "@id": "gs1:responsibleOrganization",
+        "@type": "@id"
+      },
+      returnablePackageDepositAmount: {
+        "@id": "gs1:returnablePackageDepositAmount",
+        "@type": "@id"
+      },
+      returnablePackageDepositRegion: {
+        "@id": "gs1:returnablePackageDepositRegion",
+        "@type": "@id"
+      },
+      review: "gs1:review",
+      riboflavinPerNutrientBasis: {
+        "@id": "gs1:riboflavinPerNutrientBasis",
+        "@type": "@id"
+      },
+      safetyInfo: "gs1:safetyInfo",
+      saltPerNutrientBasis: {
+        "@id": "gs1:saltPerNutrientBasis",
+        "@type": "@id"
+      },
+      saturatedFatPerNutrientBasis: {
+        "@id": "gs1:saturatedFatPerNutrientBasis",
+        "@type": "@id"
+      },
+      scheduleTime: "gs1:scheduleTime",
+      seasonCalendarYear: "gs1:seasonCalendarYear",
+      seasonName: "gs1:seasonName",
+      seasonParameter: {
+        "@id": "gs1:seasonParameter",
+        "@type": "@id"
+      },
+      seeker: {
+        "@id": "gs1:seeker",
+        "@type": "@id"
+      },
+      selectedProductsOnly: "gs1:selectedProductsOnly",
+      seleniumPerNutrientBasis: {
+        "@id": "gs1:seleniumPerNutrientBasis",
+        "@type": "@id"
+      },
+      sellByDate: "gs1:sellByDate",
+      seller: {
+        "@id": "gs1:seller",
+        "@type": "@id"
+      },
+      serviceInfo: "gs1:serviceInfo",
+      servingSize: {
+        "@id": "gs1:servingSize",
+        "@type": "@id"
+      },
+      servingSizeDescription: "gs1:servingSizeDescription",
+      servingSuggestion: "gs1:servingSuggestion",
+      sharpnessOfCheese: {
+        "@id": "gs1:sharpnessOfCheese",
+        "@type": "@id"
+      },
+      siteAccessRequirements: "gs1:siteAccessRequirements",
+      size: {
+        "@id": "gs1:size",
+        "@type": "@id"
+      },
+      sizeCode: {
+        "@id": "gs1:sizeCode",
+        "@type": "@id"
+      },
+      sizeCodeListCode: "gs1:sizeCodeListCode",
+      sizeCodeValue: "gs1:sizeCodeValue",
+      sizeDimension: {
+        "@id": "gs1:sizeDimension",
+        "@type": "@id"
+      },
+      sizeGroup: {
+        "@id": "gs1:sizeGroup",
+        "@type": "@id"
+      },
+      sizeSystem: {
+        "@id": "gs1:sizeSystem",
+        "@type": "@id"
+      },
+      sizeType: {
+        "@id": "gs1:sizeType",
+        "@type": "@id"
+      },
+      smartLabel: "gs1:smartLabel",
+      smpc: "gs1:smpc",
+      socialMedia: "gs1:socialMedia",
+      sodiumPerNutrientBasis: {
+        "@id": "gs1:sodiumPerNutrientBasis",
+        "@type": "@id"
+      },
+      sourceAnimal: {
+        "@id": "gs1:sourceAnimal",
+        "@type": "@id"
+      },
+      sportingActivityType: {
+        "@id": "gs1:sportingActivityType",
+        "@type": "@id"
+      },
+      starchPerNutrientBasis: {
+        "@id": "gs1:starchPerNutrientBasis",
+        "@type": "@id"
+      },
+      statisticInfo: "gs1:statisticInfo",
+      statusTimestamp: "gs1:statusTimestamp",
+      streetAddress: "gs1:streetAddress",
+      streetAddressLine2: "gs1:streetAddressLine2",
+      streetAddressLine3: "gs1:streetAddressLine3",
+      streetAddressLine4: "gs1:streetAddressLine4",
+      styleDescription: "gs1:styleDescription",
+      subBrandName: "gs1:subBrandName",
+      subOrganization: {
+        "@id": "gs1:subOrganization",
+        "@type": "@id"
+      },
+      subscribe: "gs1:subscribe",
+      sugarsPerNutrientBasis: {
+        "@id": "gs1:sugarsPerNutrientBasis",
+        "@type": "@id"
+      },
+      supplierSpecifiedMinimumConsumerStorageDays: "gs1:supplierSpecifiedMinimumConsumerStorageDays",
+      support: "gs1:support",
+      sustainabilityInfo: "gs1:sustainabilityInfo",
+      sweetnessLevelOfAlcoholicBeverage: {
+        "@id": "gs1:sweetnessLevelOfAlcoholicBeverage",
+        "@type": "@id"
+      },
+      targetConsumerAge: "gs1:targetConsumerAge",
+      targetConsumerGender: {
+        "@id": "gs1:targetConsumerGender",
+        "@type": "@id"
+      },
+      targetMarket: {
+        "@id": "gs1:targetMarket",
+        "@type": "@id"
+      },
+      targetMarketCountries: {
+        "@id": "gs1:targetMarketCountries",
+        "@type": "@id"
+      },
+      telephone: "gs1:telephone",
+      textileMaterial: {
+        "@id": "gs1:textileMaterial",
+        "@type": "@id"
+      },
+      textileMaterialContent: "gs1:textileMaterialContent",
+      textileMaterialDescription: "gs1:textileMaterialDescription",
+      textileMaterialPercentage: "gs1:textileMaterialPercentage",
+      textileMaterialThreadCount: "gs1:textileMaterialThreadCount",
+      textileMaterialWeight: {
+        "@id": "gs1:textileMaterialWeight",
+        "@type": "@id"
+      },
+      thiaminPerNutrientBasis: {
+        "@id": "gs1:thiaminPerNutrientBasis",
+        "@type": "@id"
+      },
+      traceability: "gs1:traceability",
+      transFatPerNutrientBasis: {
+        "@id": "gs1:transFatPerNutrientBasis",
+        "@type": "@id"
+      },
+      transactionDate: "gs1:transactionDate",
+      transactionID: "gs1:transactionID",
+      transactionType: {
+        "@id": "gs1:transactionType",
+        "@type": "@id"
+      },
+      tutorial: "gs1:tutorial",
+      unitCode: "gs1:unitCode",
+      upperMaterialType: {
+        "@id": "gs1:upperMaterialType",
+        "@type": "@id"
+      },
+      userAgreement: "gs1:userAgreement",
+      usesManagedLocation: {
+        "@id": "gs1:usesManagedLocation",
+        "@type": "@id"
+      },
+      validFrom: "gs1:validFrom",
+      validThrough: "gs1:validThrough",
+      value: "gs1:value",
+      variantDescription: "gs1:variantDescription",
+      verificationService: "gs1:verificationService",
+      vintner: "gs1:vintner",
+      vitaminAPerNutrientBasis: {
+        "@id": "gs1:vitaminAPerNutrientBasis",
+        "@type": "@id"
+      },
+      vitaminB12PerNutrientBasis: {
+        "@id": "gs1:vitaminB12PerNutrientBasis",
+        "@type": "@id"
+      },
+      vitaminB6PerNutrientBasis: {
+        "@id": "gs1:vitaminB6PerNutrientBasis",
+        "@type": "@id"
+      },
+      vitaminCPerNutrientBasis: {
+        "@id": "gs1:vitaminCPerNutrientBasis",
+        "@type": "@id"
+      },
+      vitaminDPerNutrientBasis: {
+        "@id": "gs1:vitaminDPerNutrientBasis",
+        "@type": "@id"
+      },
+      vitaminEPerNutrientBasis: {
+        "@id": "gs1:vitaminEPerNutrientBasis",
+        "@type": "@id"
+      },
+      vitaminKPerNutrientBasis: {
+        "@id": "gs1:vitaminKPerNutrientBasis",
+        "@type": "@id"
+      },
+      warningCopyDescription: "gs1:warningCopyDescription",
+      warranty: {
+        "@id": "gs1:warranty",
+        "@type": "@id"
+      },
+      warrantyScopeDescription: "gs1:warrantyScopeDescription",
+      whatsInTheBox: "gs1:whatsInTheBox",
+      yield: {
+        "@id": "gs1:yield",
+        "@type": "@id"
+      },
+      zincPerNutrientBasis: {
+        "@id": "gs1:zincPerNutrientBasis",
+        "@type": "@id"
+      }
+    }
+  },
+  "https://ref.openepcis.org/extensions/common/core/gs1-shortcuts-scoped-context.jsonld": {
+    _comment: "The GS1 shortcut layer as the property-scoped context of gs1:masterDataAvailableFor in EPCIS documents: gs1-shortcuts-context without the names the protected GS1 EPCIS context defines differently (certificationInfo, epcis, masterData), which there keep their EPCIS meaning. Generated by build-context; do not edit by hand.",
+    "@context": {
+      "@version": 1.1,
+      gs1: "https://ref.gs1.org/voc/",
+      oec: "https://ref.openepcis.org/extensions/common/core/",
+      schema: "https://schema.org/",
+      xsd: "http://www.w3.org/2001/XMLSchema#",
+      AEROSOL_REVERSE_EPSILON: "gs1:RegulationTypeCode-AEROSOL_REVERSE_EPSILON",
+      AdditionalProductClassificationDetails: "gs1:AdditionalProductClassificationDetails",
+      AdditiveDetails: "gs1:AdditiveDetails",
+      AllergenDetails: "gs1:AllergenDetails",
+      AuthenticityDetails: "gs1:AuthenticityDetails",
+      AwardPrizeDetails: "gs1:AwardPrizeDetails",
+      BATTERY_DIRECTIVE: "gs1:RegulationTypeCode-BATTERY_DIRECTIVE",
+      BIOCIDE_REGULATION: "gs1:RegulationTypeCode-BIOCIDE_REGULATION",
+      Beverage: "gs1:Beverage",
+      Brand: "gs1:Brand",
+      CE: "gs1:RegulationTypeCode-CE",
+      CE_MARKING: "gs1:RegulationTypeCode-CE",
+      COSMETICS_REGULATION: "gs1:RegulationTypeCode-COSMETIC_INFORMATION_REGULATION",
+      CertificationDetails: "gs1:CertificationDetails",
+      Clothing: "gs1:Clothing",
+      ColourCodeDetails: "gs1:ColourCodeDetails",
+      CompulsoryAdditionalInformation: "gs1:CompulsoryAdditionalInformation",
+      ContactPoint: "gs1:ContactPoint",
+      Country: "gs1:Country",
+      DEFORESTATION_REGULATION: "gs1:RegulationTypeCode-DEFORESTATION_REGULATION",
+      DietTypeCodeDetails: "gs1:DietTypeCodeDetails",
+      Discount: "gs1:Discount",
+      EMC_DIRECTIVE: "gs1:RegulationTypeCode-EMC_DIRECTIVE",
+      ESPR: "oec:RegulationTypeCode-ESPR",
+      E_MARK: "gs1:RegulationTypeCode-E_MARK",
+      FOOD_CONTACT_MATERIAL: "gs1:RegulationTypeCode-INTENDED_TO_COME_INTO_CONTACT_WITH_FOOD",
+      FoodAndBeveragePreparationInformation: "gs1:FoodAndBeveragePreparationInformation",
+      FoodBeverageTobaccoIngredientDetails: "gs1:FoodBeverageTobaccoIngredientDetails",
+      FoodBeverageTobaccoProduct: "gs1:FoodBeverageTobaccoProduct",
+      Footwear: "gs1:Footwear",
+      FruitsVegetables: "gs1:FruitsVegetables",
+      GeoCoordinates: "gs1:GeoCoordinates",
+      GeoShape: "gs1:GeoShape",
+      INFANT_FORMULA_LABELLING: "gs1:RegulationTypeCode-INFANT_FORMULA_LABELLING",
+      LVD_DIRECTIVE: "gs1:RegulationTypeCode-LVD_DIRECTIVE",
+      LocationID_Details: "gs1:LocationID_Details",
+      LocationStatusHistory: "gs1:LocationStatusHistory",
+      MEDICAL_DEVICE_REGULATION: "gs1:RegulationTypeCode-MEDICAL_DEVICE_SAFETY",
+      MeatPoultry: "gs1:MeatPoultry",
+      Message: "gs1:Message",
+      MilkButterCreamYogurtCheeseEggsSubstitutes: "gs1:MilkButterCreamYogurtCheeseEggsSubstitutes",
+      NutritionMeasurementType: "gs1:NutritionMeasurementType",
+      Offer: "gs1:Offer",
+      OrganicClaimDetails: "gs1:OrganicClaimDetails",
+      Organization: "gs1:Organization",
+      OrganizationClassificationDetails: "gs1:OrganizationClassificationDetails",
+      OrganizationID_Details: "gs1:OrganizationID_Details",
+      OrganizationStatusHistory: "gs1:OrganizationStatusHistory",
+      PackagingDetails: "gs1:PackagingDetails",
+      PackagingMaterialDetails: "gs1:PackagingMaterialDetails",
+      Place: "gs1:Place",
+      PostalAddress: "gs1:PostalAddress",
+      PriceSpecification: "gs1:PriceSpecification",
+      Product: "gs1:Product",
+      ProductYieldDetails: "gs1:ProductYieldDetails",
+      QuantitativeValue: "gs1:QuantitativeValue",
+      ROHS_DIRECTIVE: "gs1:RegulationTypeCode-ROHS_DIRECTIVE",
+      ReferencedFileDetails: "gs1:ReferencedFileDetails",
+      RegulatoryIdentifier: "gs1:RegulatoryIdentifier",
+      RegulatoryInformation: "gs1:RegulatoryInformation",
+      RegulatoryNotification: "gs1:RegulatoryNotification",
+      ReturnablePackageDepositDetails: "gs1:ReturnablePackageDepositDetails",
+      Seafood: "gs1:Seafood",
+      SizeCodeDetails: "gs1:SizeCodeDetails",
+      SizeDetails: "gs1:SizeDetails",
+      TEXTILE_LABELLING_REGULATION: "gs1:RegulationTypeCode-TEXTILE_LABELLING_REGULATION",
+      TOYS_DIRECTIVE: "gs1:RegulationTypeCode-TOY_SAFETY_DIRECTIVE",
+      TargetMarketDetails: "gs1:TargetMarketDetails",
+      TextileMaterialDetails: "gs1:TextileMaterialDetails",
+      Transaction: "gs1:Transaction",
+      TypeCode: "gs1:TypeCode",
+      UVA: "gs1:RegulationTypeCode-UVA",
+      WEEE_DIRECTIVE: "gs1:RegulationTypeCode-RETURNING_OF_ELECTRONICAL_PRODUCT_DIRECTIVE",
+      WarrantyPromise: "gs1:WarrantyPromise",
+      WearableProduct: "gs1:WearableProduct",
+      acceptedPaymentMethod: {
+        "@id": "gs1:acceptedPaymentMethod",
+        "@type": "@id"
+      },
+      activityIdeas: "gs1:activityIdeas",
+      additionalLocationID: {
+        "@id": "gs1:additionalLocationID",
+        "@type": "@id"
+      },
+      additionalOrganizationID: {
+        "@id": "gs1:additionalOrganizationID",
+        "@type": "@id"
+      },
+      additionalOrganizationIdentificationTypeValue: "gs1:additionalOrganizationIdentificationTypeValue",
+      additionalProductClassification: {
+        "@id": "gs1:additionalProductClassification",
+        "@type": "@id"
+      },
+      additionalProductClassificationCode: "gs1:additionalProductClassificationCode",
+      additionalProductClassificationCodeDescription: "gs1:additionalProductClassificationCodeDescription",
+      additionalProductClassificationValue: "gs1:additionalProductClassificationValue",
+      additionalProductDescription: "gs1:additionalProductDescription",
+      additive: {
+        "@id": "gs1:additive",
+        "@type": "@id"
+      },
+      additiveLevelOfContainment: {
+        "@id": "gs1:additiveLevelOfContainment",
+        "@type": "@id"
+      },
+      additiveName: "gs1:additiveName",
+      address: {
+        "@id": "gs1:address",
+        "@type": "@id"
+      },
+      addressCountry: {
+        "@id": "gs1:addressCountry",
+        "@type": "@id"
+      },
+      addressLocality: "gs1:addressLocality",
+      addressRegion: "gs1:addressRegion",
+      addressSuburb: "gs1:addressSuburb",
+      affiliatedTo: {
+        "@id": "gs1:affiliatedTo",
+        "@type": "@id"
+      },
+      afterHoursContact: {
+        "@id": "gs1:afterHoursContact",
+        "@type": "@id"
+      },
+      alcoholicBeverageSubregion: "gs1:alcoholicBeverageSubregion",
+      allergenInfo: "gs1:allergenInfo",
+      allergenLevelOfContainmentCode: {
+        "@id": "gs1:allergenLevelOfContainmentCode",
+        "@type": "@id"
+      },
+      allergenSpecificationAgency: "gs1:allergenSpecificationAgency",
+      allergenSpecificationName: "gs1:allergenSpecificationName",
+      allergenStatement: "gs1:allergenStatement",
+      allergenType: {
+        "@id": "gs1:allergenType",
+        "@type": "@id"
+      },
+      anatomicalForm: {
+        "@id": "gs1:anatomicalForm",
+        "@type": "@id"
+      },
+      appDownload: "gs1:appDownload",
+      applicableProducts: {
+        "@id": "gs1:applicableProducts",
+        "@type": "@id"
+      },
+      applicableTo: {
+        "@id": "gs1:applicableTo",
+        "@type": "@id"
+      },
+      applicableTransactions: {
+        "@id": "gs1:applicableTransactions",
+        "@type": "@id"
+      },
+      audioFile: {
+        "@id": "gs1:audioFile",
+        "@type": "@id"
+      },
+      authenticity: {
+        "@id": "gs1:authenticity",
+        "@type": "@id"
+      },
+      authenticitySecurityFeatureInstructions: "gs1:authenticitySecurityFeatureInstructions",
+      authenticitySecurityFeatureInstructionsURL: "gs1:authenticitySecurityFeatureInstructionsURL",
+      authenticitySecurityFeatureRegularExpression: "gs1:authenticitySecurityFeatureRegularExpression",
+      authenticitySecurityFeatureType: {
+        "@id": "gs1:authenticitySecurityFeatureType",
+        "@type": "@id"
+      },
+      authenticitySecurityFeatureValue: "gs1:authenticitySecurityFeatureValue",
+      availabilityEnds: "gs1:availabilityEnds",
+      availabilityStarts: "gs1:availabilityStarts",
+      availableAtOrFrom: {
+        "@id": "gs1:availableAtOrFrom",
+        "@type": "@id"
+      },
+      availableLanguage: "gs1:availableLanguage",
+      awardPrize: {
+        "@id": "gs1:awardPrize",
+        "@type": "@id"
+      },
+      awardPrizeCode: "gs1:awardPrizeCode",
+      awardPrizeCountryCode: {
+        "@id": "gs1:awardPrizeCountryCode",
+        "@type": "@id"
+      },
+      awardPrizeDescription: "gs1:awardPrizeDescription",
+      awardPrizeJury: "gs1:awardPrizeJury",
+      awardPrizeName: "gs1:awardPrizeName",
+      awardPrizeYear: "gs1:awardPrizeYear",
+      backgroundInfo: "gs1:backgroundInfo",
+      baseLocation: {
+        "@id": "gs1:baseLocation",
+        "@type": "@id"
+      },
+      bestBeforeDate: "gs1:bestBeforeDate",
+      beverageVintage: "gs1:beverageVintage",
+      biotinPerNutrientBasis: {
+        "@id": "gs1:biotinPerNutrientBasis",
+        "@type": "@id"
+      },
+      bonelessClaim: {
+        "@id": "gs1:bonelessClaim",
+        "@type": "@id"
+      },
+      brand: {
+        "@id": "gs1:brand",
+        "@type": "@id"
+      },
+      brandHomepageClinical: "gs1:brandHomepageClinical",
+      brandHomepagePatient: "gs1:brandHomepagePatient",
+      brandName: "gs1:brandName",
+      brandOwner: {
+        "@id": "gs1:brandOwner",
+        "@type": "@id"
+      },
+      businessEntity: {
+        "@id": "gs1:businessEntity",
+        "@type": "@id"
+      },
+      calciumPerNutrientBasis: {
+        "@id": "gs1:calciumPerNutrientBasis",
+        "@type": "@id"
+      },
+      carbohydratesPerNutrientBasis: {
+        "@id": "gs1:carbohydratesPerNutrientBasis",
+        "@type": "@id"
+      },
+      careersInfo: "gs1:careersInfo",
+      catchZone: "gs1:catchZone",
+      certification: {
+        "@id": "gs1:certification",
+        "@type": "@id"
+      },
+      certificationAgency: "gs1:certificationAgency",
+      certificationAgencyURL: {
+        "@id": "gs1:certificationAgencyURL",
+        "@type": "@id"
+      },
+      certificationAuditDate: "gs1:certificationAuditDate",
+      certificationEndDate: "gs1:certificationEndDate",
+      certificationIdentification: "gs1:certificationIdentification",
+      certificationStandard: "gs1:certificationStandard",
+      certificationStartDate: "gs1:certificationStartDate",
+      certificationStatement: "gs1:certificationStatement",
+      certificationStatus: {
+        "@id": "gs1:certificationStatus",
+        "@type": "@vocab",
+        "@context": {
+          ACTIVE: "gs1:CertificationStatus-ACTIVE",
+          INACTIVE: "gs1:CertificationStatus-INACTIVE"
+        }
+      },
+      certificationSubject: {
+        "@id": "gs1:certificationSubject",
+        "@type": "@id"
+      },
+      certificationType: {
+        "@id": "gs1:certificationType",
+        "@type": "@id"
+      },
+      certificationURI: "gs1:certificationURI",
+      certificationValue: "gs1:certificationValue",
+      cheeseFirmness: {
+        "@id": "gs1:cheeseFirmness",
+        "@type": "@id"
+      },
+      cheeseMaturationPeriodDescription: "gs1:cheeseMaturationPeriodDescription",
+      chloridePerNutrientBasis: {
+        "@id": "gs1:chloridePerNutrientBasis",
+        "@type": "@id"
+      },
+      cholesterolPerNutrientBasis: {
+        "@id": "gs1:cholesterolPerNutrientBasis",
+        "@type": "@id"
+      },
+      chromiumPerNutrientBasis: {
+        "@id": "gs1:chromiumPerNutrientBasis",
+        "@type": "@id"
+      },
+      circle: "gs1:circle",
+      clothingCut: "gs1:clothingCut",
+      collarType: "gs1:collarType",
+      colourCode: {
+        "@id": "gs1:colourCode",
+        "@type": "@id"
+      },
+      colourCodeList: {
+        "@id": "gs1:colourCodeList",
+        "@type": "@vocab",
+        "@context": {
+          BUYER: "gs1:ColourCodeList-BUYER",
+          IFPS: "gs1:ColourCodeList-IFPS",
+          NCS: "gs1:ColourCodeList-NCS",
+          NRF: "gs1:ColourCodeList-NRF",
+          PANTONE_HEXACHROME: "gs1:ColourCodeList-PANTONE_HEXACHROME",
+          PANTONE_MATCHING: "gs1:ColourCodeList-PANTONE_MATCHING",
+          PANTONE_PROCESS_COLOUR: "gs1:ColourCodeList-PANTONE_PROCESS_COLOUR",
+          PANTONE_TEXTILE: "gs1:ColourCodeList-PANTONE_TEXTILE",
+          RAL: "gs1:ColourCodeList-RAL",
+          SELLER: "gs1:ColourCodeList-SELLER",
+          WWS: "gs1:ColourCodeList-WWS"
+        }
+      },
+      colourCodeValue: "gs1:colourCodeValue",
+      colourDescription: "gs1:colourDescription",
+      companyFilingURL: "gs1:companyFilingURL",
+      compulsoryAdditionalInformation: {
+        "@id": "gs1:compulsoryAdditionalInformation",
+        "@type": "@id"
+      },
+      compulsoryAdditionalLabelInformation: "gs1:compulsoryAdditionalLabelInformation",
+      compulsoryAdditionalLabelInformationType: {
+        "@id": "gs1:compulsoryAdditionalLabelInformationType",
+        "@type": "@id"
+      },
+      consumerFirstAvailabilityDateTime: "gs1:consumerFirstAvailabilityDateTime",
+      consumerHandlingStorage: {
+        "@id": "gs1:consumerHandlingStorage",
+        "@type": "@id"
+      },
+      consumerHandlingStorageInfo: "gs1:consumerHandlingStorageInfo",
+      consumerLifestage: {
+        "@id": "gs1:consumerLifestage",
+        "@type": "@id"
+      },
+      consumerPackageDisclaimer: "gs1:consumerPackageDisclaimer",
+      consumerProductVariant: "gs1:consumerProductVariant",
+      consumerRecyclingInstructions: "gs1:consumerRecyclingInstructions",
+      consumerSafetyInformation: "gs1:consumerSafetyInformation",
+      consumerSalesCondition: {
+        "@id": "gs1:consumerSalesCondition",
+        "@type": "@id"
+      },
+      consumerStorageInstructions: "gs1:consumerStorageInstructions",
+      consumerUsageInstructions: "gs1:consumerUsageInstructions",
+      contactPoint: {
+        "@id": "gs1:contactPoint",
+        "@type": "@id"
+      },
+      contactRoleCode: {
+        "@id": "gs1:contactRoleCode",
+        "@type": "@id"
+      },
+      contactTitle: "gs1:contactTitle",
+      contactType: "gs1:contactType",
+      containedInPlace: {
+        "@id": "gs1:containedInPlace",
+        "@type": "@id"
+      },
+      containsPlace: {
+        "@id": "gs1:containsPlace",
+        "@type": "@id"
+      },
+      convenienceLevelPercent: "gs1:convenienceLevelPercent",
+      coordinateReferenceSystem: "gs1:coordinateReferenceSystem",
+      copperPerNutrientBasis: {
+        "@id": "gs1:copperPerNutrientBasis",
+        "@type": "@id"
+      },
+      countryCode: "gs1:countryCode",
+      countryOfAssembly: {
+        "@id": "gs1:countryOfAssembly",
+        "@type": "@id"
+      },
+      countryOfLastProcessing: {
+        "@id": "gs1:countryOfLastProcessing",
+        "@type": "@id"
+      },
+      countryOfOrigin: {
+        "@id": "gs1:countryOfOrigin",
+        "@type": "@id"
+      },
+      countryOfOriginStatement: "gs1:countryOfOriginStatement",
+      countrySubdivisionCode: "gs1:countrySubdivisionCode",
+      countyCode: "gs1:countyCode",
+      crossStreet: "gs1:crossStreet",
+      csrAffiliation: "gs1:csrAffiliation",
+      customerSupportCentre: {
+        "@id": "gs1:customerSupportCentre",
+        "@type": "@id"
+      },
+      dailyValueIntakePercent: "gs1:dailyValueIntakePercent",
+      defaultLink: "gs1:defaultLink",
+      defaultLinkMulti: "gs1:defaultLinkMulti",
+      department: "gs1:department",
+      dependentProprietaryProduct: {
+        "@id": "gs1:dependentProprietaryProduct",
+        "@type": "@id"
+      },
+      descriptiveSize: "gs1:descriptiveSize",
+      dietCode: {
+        "@id": "gs1:dietCode",
+        "@type": "@id"
+      },
+      dietType: {
+        "@id": "gs1:dietType",
+        "@type": "@id"
+      },
+      dietTypeDescription: "gs1:dietTypeDescription",
+      dietTypeSubcode: "gs1:dietTypeSubcode",
+      digitalAddress: "gs1:digitalAddress",
+      digitalLocationName: "gs1:digitalLocationName",
+      discountRepeatsPerMultipleMinimum: "gs1:discountRepeatsPerMultipleMinimum",
+      discountType: {
+        "@id": "gs1:discountType",
+        "@type": "@id"
+      },
+      dpp: "gs1:dpp",
+      drainedWeight: {
+        "@id": "gs1:drainedWeight",
+        "@type": "@id"
+      },
+      dueDate: "gs1:dueDate",
+      durationOfWarranty: {
+        "@id": "gs1:durationOfWarranty",
+        "@type": "@id"
+      },
+      dutyFeeTaxAmount: "gs1:dutyFeeTaxAmount",
+      dutyFeeTaxDescription: "gs1:dutyFeeTaxDescription",
+      dutyFeeTaxRate: "gs1:dutyFeeTaxRate",
+      eifu: "gs1:eifu",
+      elevation: "gs1:elevation",
+      eligibleQuantity: {
+        "@id": "gs1:eligibleQuantity",
+        "@type": "@id"
+      },
+      eligibleQuantityMaximum: {
+        "@id": "gs1:eligibleQuantityMaximum",
+        "@type": "@id"
+      },
+      eligibleQuantityMinimum: {
+        "@id": "gs1:eligibleQuantityMinimum",
+        "@type": "@id"
+      },
+      eligibleTradeChannel: {
+        "@id": "gs1:eligibleTradeChannel",
+        "@type": "@id"
+      },
+      email: "gs1:email",
+      energyFromFatPerNutrientBasis: {
+        "@id": "gs1:energyFromFatPerNutrientBasis",
+        "@type": "@id"
+      },
+      energyPerNutrientBasis: {
+        "@id": "gs1:energyPerNutrientBasis",
+        "@type": "@id"
+      },
+      epcisRepository: "gs1:epcisRepository",
+      epil: "gs1:epil",
+      equivalentProduct: {
+        "@id": "gs1:equivalentProduct",
+        "@type": "@id"
+      },
+      eventsInfo: "gs1:eventsInfo",
+      exactDiscountAmount: {
+        "@id": "gs1:exactDiscountAmount",
+        "@type": "@id"
+      },
+      exactDiscountPercentage: "gs1:exactDiscountPercentage",
+      exclusionDescription: "gs1:exclusionDescription",
+      expirationDate: "gs1:expirationDate",
+      expirationDateTime: "gs1:expirationDateTime",
+      faqs: "gs1:faqs",
+      fatInMilkContent: "gs1:fatInMilkContent",
+      fatPerNutrientBasis: {
+        "@id": "gs1:fatPerNutrientBasis",
+        "@type": "@id"
+      },
+      fatpercentageInDryMatter: "gs1:fatpercentageInDryMatter",
+      faxNumber: "gs1:faxNumber",
+      fibrePerNutrientBasis: {
+        "@id": "gs1:fibrePerNutrientBasis",
+        "@type": "@id"
+      },
+      fileLanguageCode: "gs1:fileLanguageCode",
+      filePixelHeight: "gs1:filePixelHeight",
+      filePixelWidth: "gs1:filePixelWidth",
+      firstFreezeDate: "gs1:firstFreezeDate",
+      fishType: "gs1:fishType",
+      fluoridePerNutrientBasis: {
+        "@id": "gs1:fluoridePerNutrientBasis",
+        "@type": "@id"
+      },
+      folicAcidPerNutrientBasis: {
+        "@id": "gs1:folicAcidPerNutrientBasis",
+        "@type": "@id"
+      },
+      foodBeverageRefrigerationClaim: {
+        "@id": "gs1:foodBeverageRefrigerationClaim",
+        "@type": "@id"
+      },
+      foodBeverageTargetUse: {
+        "@id": "gs1:foodBeverageTargetUse",
+        "@type": "@id"
+      },
+      footwearFasteningType: {
+        "@id": "gs1:footwearFasteningType",
+        "@type": "@id"
+      },
+      footwearUpperType: {
+        "@id": "gs1:footwearUpperType",
+        "@type": "@id"
+      },
+      franchiseeOf: {
+        "@id": "gs1:franchiseeOf",
+        "@type": "@id"
+      },
+      franchisorOf: {
+        "@id": "gs1:franchisorOf",
+        "@type": "@id"
+      },
+      freshOrSeawaterFarmed: {
+        "@id": "gs1:freshOrSeawaterFarmed",
+        "@type": "@id"
+      },
+      functionalName: "gs1:functionalName",
+      geneticallyModifiedDeclaration: {
+        "@id": "gs1:geneticallyModifiedDeclaration",
+        "@type": "@id"
+      },
+      geo: {
+        "@id": "gs1:geo",
+        "@type": "@id"
+      },
+      glnType: {
+        "@id": "gs1:glnType",
+        "@type": "@id"
+      },
+      globalLocationNumber: "gs1:globalLocationNumber",
+      gpcCategoryCode: "gs1:gpcCategoryCode",
+      gpcCategoryDescription: "gs1:gpcCategoryDescription",
+      grossArea: {
+        "@id": "gs1:grossArea",
+        "@type": "@id"
+      },
+      grossVolume: {
+        "@id": "gs1:grossVolume",
+        "@type": "@id"
+      },
+      grossWeight: {
+        "@id": "gs1:grossWeight",
+        "@type": "@id"
+      },
+      growingMethod: {
+        "@id": "gs1:growingMethod",
+        "@type": "@id"
+      },
+      gtin: "gs1:gtin",
+      handledBy: "gs1:handledBy",
+      harvestDate: "gs1:harvestDate",
+      harvestDateEnd: "gs1:harvestDateEnd",
+      harvestDateStart: "gs1:harvestDateStart",
+      hasAllergen: {
+        "@id": "gs1:hasAllergen",
+        "@type": "@id"
+      },
+      hasBatchLotNumber: "gs1:hasBatchLotNumber",
+      hasPrimaryLocation: {
+        "@id": "gs1:hasPrimaryLocation",
+        "@type": "@id"
+      },
+      hasRetailers: "gs1:hasRetailers",
+      hasReturnablePackageDeposit: {
+        "@id": "gs1:hasReturnablePackageDeposit",
+        "@type": "@id"
+      },
+      hasSerialNumber: "gs1:hasSerialNumber",
+      hasThirdPartyControlledSerialNumber: "gs1:hasThirdPartyControlledSerialNumber",
+      healthClaimDescription: "gs1:healthClaimDescription",
+      homepage: "gs1:homepage",
+      image: {
+        "@id": "gs1:image",
+        "@type": "@id"
+      },
+      inPackageDepth: {
+        "@id": "gs1:inPackageDepth",
+        "@type": "@id"
+      },
+      inPackageDiameter: {
+        "@id": "gs1:inPackageDiameter",
+        "@type": "@id"
+      },
+      inPackageHeight: {
+        "@id": "gs1:inPackageHeight",
+        "@type": "@id"
+      },
+      inPackageWidth: {
+        "@id": "gs1:inPackageWidth",
+        "@type": "@id"
+      },
+      includedAccessories: "gs1:includedAccessories",
+      ingredient: {
+        "@id": "gs1:ingredient",
+        "@type": "@id"
+      },
+      ingredientContentPercentage: "gs1:ingredientContentPercentage",
+      ingredientName: "gs1:ingredientName",
+      ingredientOfConcern: "gs1:ingredientOfConcern",
+      ingredientSequence: "gs1:ingredientSequence",
+      ingredientStatement: "gs1:ingredientStatement",
+      ingredientsInfo: "gs1:ingredientsInfo",
+      initialCertificationDate: "gs1:initialCertificationDate",
+      instructions: "gs1:instructions",
+      instructionsForUse: {
+        "@id": "gs1:instructionsForUse",
+        "@type": "@id"
+      },
+      iodinePerNutrientBasis: {
+        "@id": "gs1:iodinePerNutrientBasis",
+        "@type": "@id"
+      },
+      ironPerNutrientBasis: {
+        "@id": "gs1:ironPerNutrientBasis",
+        "@type": "@id"
+      },
+      irradiatedCode: {
+        "@id": "gs1:irradiatedCode",
+        "@type": "@id"
+      },
+      isCarbonated: {
+        "@id": "gs1:isCarbonated",
+        "@type": "@id"
+      },
+      isDecaffeinated: {
+        "@id": "gs1:isDecaffeinated",
+        "@type": "@id"
+      },
+      isFromConcentrate: {
+        "@id": "gs1:isFromConcentrate",
+        "@type": "@id"
+      },
+      isHomogenised: {
+        "@id": "gs1:isHomogenised",
+        "@type": "@id"
+      },
+      isInstant: {
+        "@id": "gs1:isInstant",
+        "@type": "@id"
+      },
+      isMaternity: {
+        "@id": "gs1:isMaternity",
+        "@type": "@id"
+      },
+      isOnlyAvailableThroughRetailer: "gs1:isOnlyAvailableThroughRetailer",
+      isOnlyWithMailingListSignup: "gs1:isOnlyWithMailingListSignup",
+      isOnlyWithPaymentCard: {
+        "@id": "gs1:isOnlyWithPaymentCard",
+        "@type": "@id"
+      },
+      isOnlyWithRetailerLoyaltyCard: "gs1:isOnlyWithRetailerLoyaltyCard",
+      isOnlyWithRetailerPaymentCard: "gs1:isOnlyWithRetailerPaymentCard",
+      isPatterned: {
+        "@id": "gs1:isPatterned",
+        "@type": "@id"
+      },
+      isPittedStoned: {
+        "@id": "gs1:isPittedStoned",
+        "@type": "@id"
+      },
+      isProductRecalled: "gs1:isProductRecalled",
+      isPromoterExclusiveOffer: "gs1:isPromoterExclusiveOffer",
+      isRegulationCompliant: {
+        "@id": "oec:isRegulationCompliant",
+        "@type": "xsd:boolean"
+      },
+      isRindEdible: {
+        "@id": "gs1:isRindEdible",
+        "@type": "@id"
+      },
+      isSeedless: {
+        "@id": "gs1:isSeedless",
+        "@type": "@id"
+      },
+      isShelledPeeled: {
+        "@id": "gs1:isShelledPeeled",
+        "@type": "@id"
+      },
+      isSliced: {
+        "@id": "gs1:isSliced",
+        "@type": "@id"
+      },
+      isThermal: {
+        "@id": "gs1:isThermal",
+        "@type": "@id"
+      },
+      isVintage: {
+        "@id": "gs1:isVintage",
+        "@type": "@id"
+      },
+      isWashedReadyToEat: {
+        "@id": "gs1:isWashedReadyToEat",
+        "@type": "@id"
+      },
+      isWaterproof: {
+        "@id": "gs1:isWaterproof",
+        "@type": "@id"
+      },
+      isWearableItemDisposable: {
+        "@id": "gs1:isWearableItemDisposable",
+        "@type": "@id"
+      },
+      itemOffered: {
+        "@id": "gs1:itemOffered",
+        "@type": "@id"
+      },
+      juiceContentPercent: "gs1:juiceContentPercent",
+      jws: "gs1:jws",
+      latitude: "gs1:latitude",
+      leasedFrom: {
+        "@id": "gs1:leasedFrom",
+        "@type": "@id"
+      },
+      leasedTo: {
+        "@id": "gs1:leasedTo",
+        "@type": "@id"
+      },
+      leaveReview: "gs1:leaveReview",
+      lesseeOf: {
+        "@id": "gs1:lesseeOf",
+        "@type": "@id"
+      },
+      lessorFor: {
+        "@id": "gs1:lessorFor",
+        "@type": "@id"
+      },
+      line: "gs1:line",
+      linkType: "gs1:linkType",
+      location: {
+        "@id": "gs1:location",
+        "@type": "@id"
+      },
+      locationDescription: "gs1:locationDescription",
+      locationFinalClosureDate: "gs1:locationFinalClosureDate",
+      locationGLN: "gs1:locationGLN",
+      locationHistory: {
+        "@id": "gs1:locationHistory",
+        "@type": "@id"
+      },
+      locationID: "gs1:locationID",
+      locationID_Qualifier: "gs1:locationID_Qualifier",
+      locationID_Type: {
+        "@id": "gs1:locationID_Type",
+        "@type": "@id"
+      },
+      locationID_URI: "gs1:locationID_URI",
+      locationInfo: "gs1:locationInfo",
+      locationOpeningDate: "gs1:locationOpeningDate",
+      locationRole: {
+        "@id": "gs1:locationRole",
+        "@type": "@id"
+      },
+      locationStatus: {
+        "@id": "gs1:locationStatus",
+        "@type": "@id"
+      },
+      logisticsInfo: "gs1:logisticsInfo",
+      longitude: "gs1:longitude",
+      loyaltyProgram: "gs1:loyaltyProgram",
+      magnesiumPerNutrientBasis: {
+        "@id": "gs1:magnesiumPerNutrientBasis",
+        "@type": "@id"
+      },
+      makesOffer: {
+        "@id": "gs1:makesOffer",
+        "@type": "@id"
+      },
+      managedBy: {
+        "@id": "gs1:managedBy",
+        "@type": "@id"
+      },
+      managedFor: {
+        "@id": "gs1:managedFor",
+        "@type": "@id"
+      },
+      manages: {
+        "@id": "gs1:manages",
+        "@type": "@id"
+      },
+      manganesePerNutrientBasis: {
+        "@id": "gs1:manganesePerNutrientBasis",
+        "@type": "@id"
+      },
+      manufacturer: {
+        "@id": "gs1:manufacturer",
+        "@type": "@id"
+      },
+      manufacturerPreparationCode: {
+        "@id": "gs1:manufacturerPreparationCode",
+        "@type": "@id"
+      },
+      manufacturersWarranty: {
+        "@id": "gs1:manufacturersWarranty",
+        "@type": "@id"
+      },
+      manufacturingPlant: {
+        "@id": "gs1:manufacturingPlant",
+        "@type": "@id"
+      },
+      massPerUnitArea: {
+        "@id": "gs1:massPerUnitArea",
+        "@type": "@id"
+      },
+      masterDataAvailableFor: {
+        "@id": "gs1:masterDataAvailableFor",
+        "@type": "@id"
+      },
+      maturationMethod: {
+        "@id": "gs1:maturationMethod",
+        "@type": "@id"
+      },
+      maxPrice: "gs1:maxPrice",
+      maximumDiscountAmount: {
+        "@id": "gs1:maximumDiscountAmount",
+        "@type": "@id"
+      },
+      maximumDiscountPercentage: "gs1:maximumDiscountPercentage",
+      maximumOptimumConsumptionTemperature: {
+        "@id": "gs1:maximumOptimumConsumptionTemperature",
+        "@type": "@id"
+      },
+      maximumQualifyingItems: "gs1:maximumQualifyingItems",
+      maximumQualifyingSpend: {
+        "@id": "gs1:maximumQualifyingSpend",
+        "@type": "@id"
+      },
+      meatPoultryType: "gs1:meatPoultryType",
+      menuInfo: "gs1:menuInfo",
+      messageRecipient: {
+        "@id": "gs1:messageRecipient",
+        "@type": "@id"
+      },
+      messageSender: {
+        "@id": "gs1:messageSender",
+        "@type": "@id"
+      },
+      minPrice: "gs1:minPrice",
+      minimumDiscountAmount: {
+        "@id": "gs1:minimumDiscountAmount",
+        "@type": "@id"
+      },
+      minimumDiscountPercentage: "gs1:minimumDiscountPercentage",
+      minimumFishContent: {
+        "@id": "gs1:minimumFishContent",
+        "@type": "@id"
+      },
+      minimumMeatPoultryContent: {
+        "@id": "gs1:minimumMeatPoultryContent",
+        "@type": "@id"
+      },
+      minimumOptimumConsumptionTemperature: {
+        "@id": "gs1:minimumOptimumConsumptionTemperature",
+        "@type": "@id"
+      },
+      minimumQualifyingItems: "gs1:minimumQualifyingItems",
+      minimumQualifyingSpend: {
+        "@id": "gs1:minimumQualifyingSpend",
+        "@type": "@id"
+      },
+      molybdenumPerNutrientBasis: {
+        "@id": "gs1:molybdenumPerNutrientBasis",
+        "@type": "@id"
+      },
+      monounsaturatedFatPerNutrientBasis: {
+        "@id": "gs1:monounsaturatedFatPerNutrientBasis",
+        "@type": "@id"
+      },
+      netArea: {
+        "@id": "gs1:netArea",
+        "@type": "@id"
+      },
+      netContent: {
+        "@id": "gs1:netContent",
+        "@type": "@id"
+      },
+      netWeight: {
+        "@id": "gs1:netWeight",
+        "@type": "@id"
+      },
+      niacinPerNutrientBasis: {
+        "@id": "gs1:niacinPerNutrientBasis",
+        "@type": "@id"
+      },
+      numberOfServingsPerPackage: "gs1:numberOfServingsPerPackage",
+      numberOfServingsPerPackageMeasurementPrecision: {
+        "@id": "gs1:numberOfServingsPerPackageMeasurementPrecision",
+        "@type": "@id"
+      },
+      numberOfServingsRangeDescription: "gs1:numberOfServingsRangeDescription",
+      nutrientBasisQuantity: {
+        "@id": "gs1:nutrientBasisQuantity",
+        "@type": "@id"
+      },
+      nutrientBasisQuantityType: {
+        "@id": "gs1:nutrientBasisQuantityType",
+        "@type": "@id"
+      },
+      nutrientMeasurementPrecision: {
+        "@id": "gs1:nutrientMeasurementPrecision",
+        "@type": "@id"
+      },
+      nutritionalClaim: {
+        "@id": "gs1:nutritionalClaim",
+        "@type": "@id"
+      },
+      nutritionalClaimStatement: "gs1:nutritionalClaimStatement",
+      nutritionalInfo: "gs1:nutritionalInfo",
+      occupiedBy: {
+        "@id": "gs1:occupiedBy",
+        "@type": "@id"
+      },
+      occupies: {
+        "@id": "gs1:occupies",
+        "@type": "@id"
+      },
+      offerDescription: "gs1:offerDescription",
+      offerDiscount: {
+        "@id": "gs1:offerDiscount",
+        "@type": "@id"
+      },
+      offerRedemptionType: {
+        "@id": "gs1:offerRedemptionType",
+        "@type": "@id"
+      },
+      offerRedemptionURL: {
+        "@id": "gs1:offerRedemptionURL",
+        "@type": "@id"
+      },
+      offerRestrictionDescription: "gs1:offerRestrictionDescription",
+      openingHoursInfo: "gs1:openingHoursInfo",
+      organicClaim: {
+        "@id": "gs1:organicClaim",
+        "@type": "@id"
+      },
+      organicClaimAgency: {
+        "@id": "gs1:organicClaimAgency",
+        "@type": "@id"
+      },
+      organicPercentClaim: "gs1:organicPercentClaim",
+      organizationClassification: {
+        "@id": "gs1:organizationClassification",
+        "@type": "@id"
+      },
+      organizationClassificationID: "gs1:organizationClassificationID",
+      organizationClassificationType: {
+        "@id": "gs1:organizationClassificationType",
+        "@type": "@id"
+      },
+      organizationFormationDate: "gs1:organizationFormationDate",
+      organizationHistory: {
+        "@id": "gs1:organizationHistory",
+        "@type": "@id"
+      },
+      organizationID: "gs1:organizationID",
+      organizationID_Qualifier: "gs1:organizationID_Qualifier",
+      organizationID_Type: {
+        "@id": "gs1:organizationID_Type",
+        "@type": "@id"
+      },
+      organizationID_URI: "gs1:organizationID_URI",
+      organizationLegalName: "gs1:organizationLegalName",
+      organizationName: "gs1:organizationName",
+      organizationRole: {
+        "@id": "gs1:organizationRole",
+        "@type": "@id"
+      },
+      organizationStatus: {
+        "@id": "gs1:organizationStatus",
+        "@type": "@id"
+      },
+      organizationTerminationDate: "gs1:organizationTerminationDate",
+      organizationTradingName: "gs1:organizationTradingName",
+      originalCodeValue: "gs1:originalCodeValue",
+      outOfPackageDepth: {
+        "@id": "gs1:outOfPackageDepth",
+        "@type": "@id"
+      },
+      outOfPackageDiameter: {
+        "@id": "gs1:outOfPackageDiameter",
+        "@type": "@id"
+      },
+      outOfPackageHeight: {
+        "@id": "gs1:outOfPackageHeight",
+        "@type": "@id"
+      },
+      outOfPackageWidth: {
+        "@id": "gs1:outOfPackageWidth",
+        "@type": "@id"
+      },
+      ownedBy: {
+        "@id": "gs1:ownedBy",
+        "@type": "@id"
+      },
+      owns: {
+        "@id": "gs1:owns",
+        "@type": "@id"
+      },
+      packaging: {
+        "@id": "gs1:packaging",
+        "@type": "@id"
+      },
+      packagingDate: "gs1:packagingDate",
+      packagingFeature: {
+        "@id": "gs1:packagingFeature",
+        "@type": "@id"
+      },
+      packagingFunction: {
+        "@id": "gs1:packagingFunction",
+        "@type": "@id"
+      },
+      packagingMarkedDietAllergenType: {
+        "@id": "gs1:packagingMarkedDietAllergenType",
+        "@type": "@id"
+      },
+      packagingMarkedFreeFrom: {
+        "@id": "gs1:packagingMarkedFreeFrom",
+        "@type": "@id"
+      },
+      packagingMarkedLabelAccreditation: {
+        "@id": "gs1:packagingMarkedLabelAccreditation",
+        "@type": "@id"
+      },
+      packagingMaterial: {
+        "@id": "gs1:packagingMaterial",
+        "@type": "@id"
+      },
+      packagingMaterialCompositionQuantity: {
+        "@id": "gs1:packagingMaterialCompositionQuantity",
+        "@type": "@id"
+      },
+      packagingMaterialThickness: {
+        "@id": "gs1:packagingMaterialThickness",
+        "@type": "@id"
+      },
+      packagingMaterialType: {
+        "@id": "gs1:packagingMaterialType",
+        "@type": "@vocab",
+        "@context": {
+          BAMBOO: "gs1:PackagingMaterialTypeCode-BAMBOO",
+          CELLULOSE_HYDRATE: "gs1:PackagingMaterialTypeCode-CELLULOSE_HYDRATE",
+          CERAMIC: "gs1:PackagingMaterialTypeCode-CERAMIC",
+          CLOTH_OR_FABRIC: "gs1:PackagingMaterialTypeCode-CLOTH_OR_FABRIC",
+          COMPOSITE: "gs1:PackagingMaterialTypeCode-COMPOSITE",
+          CORK_NATURAL: "gs1:PackagingMaterialTypeCode-CORK_NATURAL",
+          CORRUGATED_BOARD_DOUBLE_WALL: "gs1:PackagingMaterialTypeCode-CORRUGATED_BOARD_DOUBLE_WALL",
+          CORRUGATED_BOARD_OTHER: "gs1:PackagingMaterialTypeCode-CORRUGATED_BOARD_OTHER",
+          CORRUGATED_BOARD_SINGLE_WALL: "gs1:PackagingMaterialTypeCode-CORRUGATED_BOARD_SINGLE_WALL",
+          CORRUGATED_BOARD_TRIPLE_WALL: "gs1:PackagingMaterialTypeCode-CORRUGATED_BOARD_TRIPLE_WALL",
+          FIBRE_BURLAP: "gs1:PackagingMaterialTypeCode-FIBRE_BURLAP",
+          FIBRE_COTTON: "gs1:PackagingMaterialTypeCode-FIBRE_COTTON",
+          FIBRE_FLAX: "gs1:PackagingMaterialTypeCode-FIBRE_FLAX",
+          FIBRE_HEMP: "gs1:PackagingMaterialTypeCode-FIBRE_HEMP",
+          FIBRE_JUTE: "gs1:PackagingMaterialTypeCode-FIBRE_JUTE",
+          FIBRE_OTHER: "gs1:PackagingMaterialTypeCode-FIBRE_OTHER",
+          FOAM: "gs1:PackagingMaterialTypeCode-FOAM",
+          GLASS: "gs1:PackagingMaterialTypeCode-GLASS",
+          GLASS_BOROSILICATE: "gs1:PackagingMaterialTypeCode-GLASS_BOROSILICATE",
+          GLASS_COLOURED: "gs1:PackagingMaterialTypeCode-GLASS_COLOURED",
+          GLASS_CRYSTAL: "gs1:PackagingMaterialTypeCode-GLASS_CRYSTAL",
+          LAMINATED_CARTON: "gs1:PackagingMaterialTypeCode-LAMINATED_CARTON",
+          METAL_ALUMINUM: "gs1:PackagingMaterialTypeCode-METAL_ALUMINUM",
+          METAL_BRASS: "gs1:PackagingMaterialTypeCode-METAL_BRASS",
+          METAL_COMPOSITE: "gs1:PackagingMaterialTypeCode-METAL_COMPOSITE",
+          METAL_IRON: "gs1:PackagingMaterialTypeCode-METAL_IRON",
+          METAL_LEAD: "gs1:PackagingMaterialTypeCode-METAL_LEAD",
+          METAL_OTHER: "gs1:PackagingMaterialTypeCode-METAL_OTHER",
+          METAL_STAINLESS_STEEL: "gs1:PackagingMaterialTypeCode-METAL_STAINLESS_STEEL",
+          METAL_STEEL: "gs1:PackagingMaterialTypeCode-METAL_STEEL",
+          METAL_TIN: "gs1:PackagingMaterialTypeCode-METAL_TIN",
+          METAL_ZAMAC: "gs1:PackagingMaterialTypeCode-METAL_ZAMAC",
+          MINERAL_CALCIUM_CARBONATE: "gs1:PackagingMaterialTypeCode-MINERAL_CALCIUM_CARBONATE",
+          MINERAL_OTHER: "gs1:PackagingMaterialTypeCode-MINERAL_OTHER",
+          MINERAL_TALC: "gs1:PackagingMaterialTypeCode-MINERAL_TALC",
+          NATURAL_RUBBER: "gs1:PackagingMaterialTypeCode-NATURAL_RUBBER",
+          OTHER: "gs1:PackagingMaterialTypeCode-OTHER",
+          PAPER_CORRUGATED: "gs1:PackagingMaterialTypeCode-PAPER_CORRUGATED",
+          PAPER_KRAFT: "gs1:PackagingMaterialTypeCode-PAPER_KRAFT",
+          PAPER_KRAFT_WET_STRENGTH: "gs1:PackagingMaterialTypeCode-PAPER_KRAFT_WET_STRENGTH",
+          PAPER_MOLDED_PULP: "gs1:PackagingMaterialTypeCode-PAPER_MOLDED_PULP",
+          PAPER_OTHER: "gs1:PackagingMaterialTypeCode-PAPER_OTHER",
+          PAPER_PAPER: "gs1:PackagingMaterialTypeCode-PAPER_PAPER",
+          PAPER_PAPERBOARD: "gs1:PackagingMaterialTypeCode-PAPER_PAPERBOARD",
+          PAPER_RAYON: "gs1:PackagingMaterialTypeCode-PAPER_RAYON",
+          PLANT_LEAVES: "gs1:PackagingMaterialTypeCode-PLANT_LEAVES",
+          PLASTIC_BIOPLASTIC: "gs1:PackagingMaterialTypeCode-PLASTIC_BIOPLASTIC",
+          PLASTIC_OTHER: "gs1:PackagingMaterialTypeCode-PLASTIC_OTHER",
+          PLASTIC_THERMOPLASTICS: "gs1:PackagingMaterialTypeCode-PLASTIC_THERMOPLASTICS",
+          POLYMER_APET: "gs1:PackagingMaterialTypeCode-POLYMER_APET",
+          POLYMER_BOPP: "gs1:PackagingMaterialTypeCode-POLYMER_BOPP",
+          POLYMER_CELLULOSE_ACETATE: "gs1:PackagingMaterialTypeCode-POLYMER_CELLULOSE_ACETATE",
+          POLYMER_CPET: "gs1:PackagingMaterialTypeCode-POLYMER_CPET",
+          POLYMER_EPE: "gs1:PackagingMaterialTypeCode-POLYMER_EPE",
+          POLYMER_EPOXY: "gs1:PackagingMaterialTypeCode-POLYMER_EPOXY",
+          POLYMER_EPS: "gs1:PackagingMaterialTypeCode-POLYMER_EPS",
+          POLYMER_EVA: "gs1:PackagingMaterialTypeCode-POLYMER_EVA",
+          POLYMER_EVOH: "gs1:PackagingMaterialTypeCode-POLYMER_EVOH",
+          POLYMER_HDPE: "gs1:PackagingMaterialTypeCode-POLYMER_HDPE",
+          POLYMER_IONOMER: "gs1:PackagingMaterialTypeCode-POLYMER_IONOMER",
+          POLYMER_LDPE: "gs1:PackagingMaterialTypeCode-POLYMER_LDPE",
+          POLYMER_LLDPE: "gs1:PackagingMaterialTypeCode-POLYMER_LLDPE",
+          POLYMER_MDPE: "gs1:PackagingMaterialTypeCode-POLYMER_MDPE",
+          POLYMER_MIX: "gs1:PackagingMaterialTypeCode-POLYMER_MIX",
+          POLYMER_NYLON: "gs1:PackagingMaterialTypeCode-POLYMER_NYLON",
+          POLYMER_OPP: "gs1:PackagingMaterialTypeCode-POLYMER_OPP",
+          POLYMER_OTHER: "gs1:PackagingMaterialTypeCode-POLYMER_OTHER",
+          POLYMER_PA: "gs1:PackagingMaterialTypeCode-POLYMER_PA",
+          POLYMER_PAN: "gs1:PackagingMaterialTypeCode-POLYMER_PAN",
+          POLYMER_PC: "gs1:PackagingMaterialTypeCode-POLYMER_PC",
+          POLYMER_PCL: "gs1:PackagingMaterialTypeCode-POLYMER_PCL",
+          POLYMER_PE: "gs1:PackagingMaterialTypeCode-POLYMER_PE",
+          POLYMER_PEN: "gs1:PackagingMaterialTypeCode-POLYMER_PEN",
+          POLYMER_PET: "gs1:PackagingMaterialTypeCode-POLYMER_PET",
+          POLYMER_PETG: "gs1:PackagingMaterialTypeCode-POLYMER_PETG",
+          POLYMER_PHA: "gs1:PackagingMaterialTypeCode-POLYMER_PHA",
+          POLYMER_PLA: "gs1:PackagingMaterialTypeCode-POLYMER_PLA",
+          POLYMER_PMMA: "gs1:PackagingMaterialTypeCode-POLYMER_PMMA",
+          POLYMER_POM: "gs1:PackagingMaterialTypeCode-POLYMER_POM",
+          POLYMER_PP: "gs1:PackagingMaterialTypeCode-POLYMER_PP",
+          POLYMER_PS: "gs1:PackagingMaterialTypeCode-POLYMER_PS",
+          POLYMER_PU: "gs1:PackagingMaterialTypeCode-POLYMER_PU",
+          POLYMER_PVA: "gs1:PackagingMaterialTypeCode-POLYMER_PVA",
+          POLYMER_PVC: "gs1:PackagingMaterialTypeCode-POLYMER_PVC",
+          POLYMER_PVDC: "gs1:PackagingMaterialTypeCode-POLYMER_PVDC",
+          POLYMER_SAN: "gs1:PackagingMaterialTypeCode-POLYMER_SAN",
+          POLYMER_SILICONE: "gs1:PackagingMaterialTypeCode-POLYMER_SILICONE",
+          POLYMER_TPS: "gs1:PackagingMaterialTypeCode-POLYMER_TPS",
+          POLYMER_XPS: "gs1:PackagingMaterialTypeCode-POLYMER_XPS",
+          RUBBER: "gs1:PackagingMaterialTypeCode-RUBBER",
+          VINYL: "gs1:PackagingMaterialTypeCode-VINYL",
+          WOOD_HARDBOARD: "gs1:PackagingMaterialTypeCode-WOOD_HARDBOARD",
+          WOOD_HARDWOOD: "gs1:PackagingMaterialTypeCode-WOOD_HARDWOOD",
+          WOOD_MEDIUM_DENSITY_FIBREBOARD: "gs1:PackagingMaterialTypeCode-WOOD_MEDIUM_DENSITY_FIBREBOARD",
+          WOOD_ORIENTED_STRANDBOARD: "gs1:PackagingMaterialTypeCode-WOOD_ORIENTED_STRANDBOARD",
+          WOOD_OTHER: "gs1:PackagingMaterialTypeCode-WOOD_OTHER",
+          WOOD_PARTICLE_BOARD: "gs1:PackagingMaterialTypeCode-WOOD_PARTICLE_BOARD",
+          WOOD_PLYWOOD: "gs1:PackagingMaterialTypeCode-WOOD_PLYWOOD",
+          WOOD_SOFTWOOD: "gs1:PackagingMaterialTypeCode-WOOD_SOFTWOOD"
+        }
       },
       packagingRecyclingProcessType: {
         "@id": "gs1:packagingRecyclingProcessType",
@@ -27579,7 +29273,7 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld": {
-    _comment: "OpenEPCIS Battery Vocabulary v0.12.0, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Battery Vocabulary v0.15.1, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -28093,7 +29787,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/battery/battery-context-batterypass-bridge.jsonld": {
-    _comment: "This context interprets incoming BatteryPass documents as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). One BatteryPass data model, referenced through two renderings. (1) bpsamm-* = the Battery Pass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl \u2014 the canonical form. (2) bpr: = an OpenEPCIS-hosted reference namespace for the few GEFEG BatteryPass-Ready longlist v1.3 attributes with no SAMM equivalent (DPP-information group #1-#4) plus the flat lossless-carrier keys below; GEFEG (thebatterypass.eu) is the Consortium's publication and validation channel and publishes no RDF IRIs. No SAMM 1.3.0 / DPPInformation submodel exists. Target-selection rule: every key resolves to the highest layer that already covers the concept (gs1: > oec: > eubat:); no key mints a new IRI. Where the longlist carries one flat value that OpenEPCIS models structurally across several terms (materialsUsedInCathode -> eubat:hasBatteryChemistry + eubat:hasMaterialComposition; symbolsForCadmiumAndLead -> eubat:cadmiumSymbolRequired + eubat:leadSymbolRequired; carbonFootprintLabel -> eubat:hasLabels/eubat:labelSymbol + eubat:CarbonFootprintLabel; informationOnAccidents -> eubat:hasNegativeEvents) no 1:1 project term exists, so the key keeps its upstream bpr: IRI and the incoming value is preserved losslessly rather than forced into a partial match. Attribute [5] batteryPassportIdentifier (the DPP identifier) and [6] batteryIdentifier (the unique battery/product identifier) are DISTINCT longlist attributes and map to different IRIs \u2014 oec:passportIdentifier vs gs1:productID. The expected lifetime arrives as a bare year count and eubat:hasExpectedLifetime carries a gs1:QuantitativeValue, so both lifetime keys keep the upstream SAMM IRI bpsamm-perf:expectedLifetime (exactMatch of eubat:hasExpectedLifetime) and the value stays lossless. The single initial internal resistance of the longlist and of SAMM keeps its upstream SAMM IRI, because the EU guidance 3.2 asks for a cell and a pack value (eubat:hasInitialCellInternalResistance, eubat:hasInitialPackInternalResistance) and one undifferentiated value fills neither. Quantity carriers use the longlist's bare {value, unitCode} shape, aliased onto gs1:value/gs1:unitCode with the same xsd:decimal coercion the prefixed terms carry, so examples/batterypass-v1.3.jsonld validates against validation/batterypass-v1.3-schema.json (85/85 required attributes) while staying graph-identical.",
+    _comment: "This context interprets incoming BatteryPass documents of the older state (Battery Pass Consortium SAMM 1.2.x, BatteryPass-Ready longlist v1.3; crosswalk profile batterypass-1.3) as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). A BatteryPass-Ready 2.0.1 document (the current data model, nested in dppHeader and batteryPassportData) reads with batterypass-ready-2.0.1-context.jsonld and converts through the crosswalk profile batterypass. One BatteryPass data model, referenced through two renderings. (1) bpsamm-* = the Battery Pass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl \u2014 the canonical form. (2) bpr: = an OpenEPCIS-hosted reference namespace for the few GEFEG BatteryPass-Ready longlist v1.3 attributes with no SAMM equivalent (DPP-information group #1-#4) plus the flat lossless-carrier keys below; GEFEG (thebatterypass.eu) is the Consortium's publication and validation channel and publishes no RDF IRIs. No SAMM 1.3.0 / DPPInformation submodel exists. Target-selection rule: every key resolves to the highest layer that already covers the concept (gs1: > oec: > eubat:); no key mints a new IRI. Where the longlist carries one flat value that OpenEPCIS models structurally across several terms (materialsUsedInCathode -> eubat:hasBatteryChemistry + eubat:hasMaterialComposition; symbolsForCadmiumAndLead -> eubat:cadmiumSymbolRequired + eubat:leadSymbolRequired; carbonFootprintLabel -> eubat:hasLabels/eubat:labelSymbol + eubat:CarbonFootprintLabel; informationOnAccidents -> eubat:hasNegativeEvents) no 1:1 project term exists, so the key keeps its upstream bpr: IRI and the incoming value is preserved losslessly rather than forced into a partial match. Attribute [5] batteryPassportIdentifier (the DPP identifier) and [6] batteryIdentifier (the unique battery/product identifier) are DISTINCT longlist attributes and map to different IRIs \u2014 oec:passportIdentifier vs gs1:productID. The expected lifetime arrives as a bare year count and eubat:hasExpectedLifetime carries a gs1:QuantitativeValue, so both lifetime keys keep the upstream SAMM IRI bpsamm-perf:expectedLifetime (exactMatch of eubat:hasExpectedLifetime) and the value stays lossless. The single initial internal resistance of the longlist and of SAMM keeps its upstream SAMM IRI, because the EU guidance 3.2 asks for a cell and a pack value (eubat:hasInitialCellInternalResistance, eubat:hasInitialPackInternalResistance) and one undifferentiated value fills neither. Quantity carriers use the longlist's bare {value, unitCode} shape, aliased onto gs1:value/gs1:unitCode with the same xsd:decimal coercion the prefixed terms carry, so examples/batterypass-v1.3.jsonld validates against validation/batterypass-v1.3-schema.json (85/85 required attributes) while staying graph-identical.",
     "@context": {
       "@version": 1.1,
       gs1: "https://ref.gs1.org/voc/",
@@ -28856,7 +30550,7 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.org/extensions/common/assessment/assessment-context.jsonld": {
-    _comment: "OpenEPCIS Assessment and Test Vocabulary v0.12.0, generated from extensions/common/assessment/ontology/assessment.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/assessment/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Assessment and Test Vocabulary v0.15.1, generated from extensions/common/assessment/ontology/assessment.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/assessment/context/.context-overrides.json for non-derivable hints.",
     "@context": {
       "@version": 1.1,
       id: "@id",
@@ -29032,14 +30726,14 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.org/extensions/product/benetag/benetag-context.jsonld": {
-    _comment: "OpenEPCIS Data Carrier Authentication Vocabulary v0.12.0, generated from extensions/product/benetag/ontology/benetag.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/product/benetag/context/.context-overrides.json for non-derivable hints.",
+    _comment: "BeneTag Carrier Authentication Vocabulary v0.15.1, generated from extensions/product/benetag/ontology/benetag.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/product/benetag/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
         "@version": 1.1,
         id: "@id",
         type: "@type",
-        carrier: "https://ref.openepcis.org/extensions/product/benetag/",
+        benetag: "https://ref.openepcis.org/extensions/product/benetag/",
         xsd: "http://www.w3.org/2001/XMLSchema#",
         "benetag:readCounter": {
           "@id": "benetag:readCounter",
@@ -29053,7 +30747,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld": {
-    _comment: "OpenEPCIS Textile DPP Vocabulary v0.12.0, generated from extensions/eu/textile/ontology/textile.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/textile/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Textile DPP Vocabulary v0.15.1, generated from extensions/eu/textile/ontology/textile.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/textile/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29235,7 +30929,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld": {
-    _comment: "OpenEPCIS Electronics Vocabulary v0.12.0, generated from extensions/eu/electronics/ontology/electronics.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/electronics/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Electronics Vocabulary v0.15.1, generated from extensions/eu/electronics/ontology/electronics.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/electronics/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29425,7 +31119,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld": {
-    _comment: "OpenEPCIS EUDR Vocabulary v0.12.0, generated from extensions/eu/eudr/ontology/eudr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/eudr/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS EUDR Vocabulary v0.15.1, generated from extensions/eu/eudr/ontology/eudr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/eudr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29623,7 +31317,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/ppwr/ppwr-context.jsonld": {
-    _comment: "OpenEPCIS PPWR Vocabulary v0.12.0, generated from extensions/eu/ppwr/ontology/ppwr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/ppwr/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS PPWR Vocabulary v0.15.1, generated from extensions/eu/ppwr/ontology/ppwr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/ppwr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29832,7 +31526,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/cpr/cpr-context.jsonld": {
-    _comment: "OpenEPCIS CPR Vocabulary v0.12.0, generated from extensions/eu/cpr/ontology/cpr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/cpr/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS CPR Vocabulary v0.15.1, generated from extensions/eu/cpr/ontology/cpr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/cpr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29879,7 +31573,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/detergent/detergent-context.jsonld": {
-    _comment: "OpenEPCIS Detergent Vocabulary v0.12.0, generated from extensions/eu/detergent/ontology/detergent.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/detergent/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Detergent Vocabulary v0.15.1, generated from extensions/eu/detergent/ontology/detergent.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/detergent/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29979,7 +31673,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/us/fsma204/fsma204-context.jsonld": {
-    _comment: "OpenEPCIS FSMA 204 Vocabulary v0.12.0, generated from extensions/us/fsma204/ontology/fsma204.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/us/fsma204/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS FSMA 204 Vocabulary v0.15.1, generated from extensions/us/fsma204/ontology/fsma204.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/us/fsma204/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30005,7 +31699,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.org/extensions/eu/iron-steel/iron-steel-context.jsonld": {
-    _comment: "OpenEPCIS Iron & Steel Vocabulary v0.12.0, generated from extensions/eu/iron-steel/ontology/iron-steel.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/iron-steel/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Iron & Steel Vocabulary v0.15.1, generated from extensions/eu/iron-steel/ontology/iron-steel.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/iron-steel/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -30294,7 +31988,60 @@ var samples_default = [
       "eubat:hasEndOfLifeInfo": {
         id: "https://id.gs1.org/01/09521234002000/10/LOT-2026-AMP01#eol",
         type: "eubat:EndOfLifeInfo",
-        "eubat:renewableContent": "4.5"
+        "eubat:renewableContent": "4.5",
+        "eubat:hasSafetyMeasures": {
+          type: "oec:DocumentReference",
+          "oec:documentUrl": "https://www.amperia.example/staxwall-10/docs/safety-measures.pdf",
+          "oec:mimeType": "application/pdf",
+          "oec:languageCode": "en"
+        },
+        "eubat:extinguishingAgent": {
+          "@value": "Large amounts of water for cooling; Class D powder for exposed cells",
+          "@language": "en"
+        },
+        "eubat:wastePrevention": "https://www.amperia.example/staxwall-10/docs/waste-prevention.pdf",
+        "eubat:separateCollection": "https://www.amperia.example/staxwall-10/docs/separate-collection.pdf",
+        "eubat:informationOnCollection": "https://www.amperia.example/staxwall-10/docs/collection-and-second-life.pdf",
+        "eubat:endUserRoleInWastePrevention": {
+          "@value": "Use the battery within its rated limits and have faults repaired by an authorised installer to extend its life.",
+          "@language": "en-GB"
+        },
+        "eubat:endUserRoleInSeparateCollection": {
+          "@value": "Do not dispose of the battery with household waste; hand it to the installer or a registered collection point.",
+          "@language": "en-GB"
+        },
+        "eubat:separateCollectionPoints": {
+          "@value": "Registered collection points: https://www.amperia.example/staxwall-10/collection-points",
+          "@language": "en-GB"
+        },
+        "eubat:takeBackCollectionPoints": {
+          "@value": "Amperia takes the battery back free of charge through its installer network.",
+          "@language": "en-GB"
+        },
+        "eubat:preparationForReuseFacilities": {
+          "@value": "Authorised re-use partner: Amperia Service Centre, Kassel.",
+          "@language": "en-GB"
+        },
+        "eubat:preparationForRepurposingFacilities": {
+          "@value": "Authorised repurposing partner for second-life storage: Amperia Second Life, Kassel.",
+          "@language": "en-GB"
+        },
+        "eubat:wasteBatteryTreatmentFacilities": {
+          "@value": "Authorised recycler for lithium iron phosphate batteries: see https://www.amperia.example/staxwall-10/recycling",
+          "@language": "en-GB"
+        },
+        "eubat:wasteBatterySafetyInstructions": {
+          "@value": "Disconnect, keep the terminals covered, store dry and away from heat; a damaged battery goes in a non-flammable container.",
+          "@language": "en-GB"
+        },
+        "eubat:labelSymbolMeaning": {
+          "@value": "The crossed-out wheeled bin means the battery must be collected separately from household waste.",
+          "@language": "en-GB"
+        },
+        "eubat:substancesImpact": {
+          "@value": "Electrolyte and electrode materials can harm soil, water and health if the battery is disposed of improperly or damaged.",
+          "@language": "en-GB"
+        }
       },
       "oec:passportStatus": "active"
     }
@@ -30445,6 +32192,104 @@ var samples_default = [
               "gs1:value": "9.98",
               "gs1:unitCode": "KWH"
             }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:PowerFade"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "3.1",
+              "gs1:unitCode": "P1"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:RoundTripEfficiencyFade"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "1.9",
+              "gs1:unitCode": "P1"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:BatteryTemperature"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": "24.5",
+              "gs1:unitCode": "CEL"
+            }
+          },
+          {
+            type: "oea:MeasurementResult",
+            "oea:hasObservedParameter": {
+              "@id": "eubat:TimeAboveTemperatureBoundary"
+            },
+            "oea:hasMeasuredValue": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 72,
+              "gs1:unitCode": "MIN"
+            }
+          }
+        ],
+        "oea:hasSubAssessment": [
+          {
+            id: "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001#remaining-power-80",
+            type: "oea:TestExecution",
+            "oea:hasCondition": {
+              type: "oea:AssessmentCondition",
+              "oea:hasConditionType": {
+                "@id": "eubat:StateOfChargeLevel"
+              },
+              "oea:hasConditionValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 80,
+                "gs1:unitCode": "P1"
+              }
+            },
+            "oea:hasResult": {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:PowerCapability"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "5.4",
+                "gs1:unitCode": "KWT"
+              }
+            }
+          },
+          {
+            id: "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001#remaining-power-20",
+            type: "oea:TestExecution",
+            "oea:hasCondition": {
+              type: "oea:AssessmentCondition",
+              "oea:hasConditionType": {
+                "@id": "eubat:StateOfChargeLevel"
+              },
+              "oea:hasConditionValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 20,
+                "gs1:unitCode": "P1"
+              }
+            },
+            "oea:hasResult": {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:PowerCapability"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "4.9",
+                "gs1:unitCode": "KWT"
+              }
+            }
           }
         ]
       }
@@ -30570,6 +32415,16 @@ var samples_default = [
         "gs1:organizationName": "Amperia Energy Systems AB",
         "eubat:hasOperatorRole": {
           "@id": "oec:Manufacturer"
+        },
+        "gs1:address": {
+          type: "gs1:PostalAddress",
+          "gs1:streetAddress": "Batteriv\xE4gen 10",
+          "gs1:addressLocality": "G\xF6teborg",
+          "gs1:postalCode": "417 56",
+          "gs1:addressCountry": {
+            type: "gs1:Country",
+            "gs1:countryCode": "SE"
+          }
         }
       },
       "gs1:countryOfOrigin": {
@@ -30589,8 +32444,160 @@ var samples_default = [
         "eubat:electrolyteType": {
           "@value": "Liquid organic carbonate-based with LiPF6 salt",
           "@language": "en"
-        }
+        },
+        "schema:name": {
+          "@value": "Lithium Iron Phosphate",
+          "@language": "en"
+        },
+        "schema:alternateName": "LFP"
       },
+      "eubat:hasMaterialComposition": [
+        {
+          id: "https://id.gs1.org/01/09521234002000#mat-lithium",
+          type: "eubat:BatteryMaterial",
+          "schema:name": {
+            "@value": "Lithium",
+            "@language": "en"
+          },
+          "oec:casNumber": "7439-93-2",
+          "oec:ecNumber": "231-102-5",
+          "eubat:hasComponentLocation": {
+            "@id": "eubat:Cathode"
+          },
+          "schema:category": {
+            "@id": "eubat:ActiveMaterial"
+          },
+          "schema:weightPercentage": "1.6",
+          "eubat:isCriticalRawMaterial": true,
+          "eubat:isSubstanceOfConcern": false
+        },
+        {
+          id: "https://id.gs1.org/01/09521234002000#mat-graphite",
+          type: "eubat:BatteryMaterial",
+          "schema:name": {
+            "@value": "Graphite",
+            "@language": "en"
+          },
+          "oec:casNumber": "7782-42-5",
+          "oec:ecNumber": "231-955-3",
+          "eubat:hasComponentLocation": {
+            "@id": "eubat:Anode"
+          },
+          "schema:category": {
+            "@id": "eubat:ActiveMaterial"
+          },
+          "schema:weightPercentage": "15.8",
+          "eubat:isCriticalRawMaterial": true,
+          "eubat:isSubstanceOfConcern": false
+        },
+        {
+          id: "https://id.gs1.org/01/09521234002000#mat-phosphorus",
+          type: "eubat:BatteryMaterial",
+          "schema:name": {
+            "@value": "Phosphorus",
+            "@language": "en"
+          },
+          "oec:casNumber": "7723-14-0",
+          "oec:ecNumber": "231-768-7",
+          "eubat:hasComponentLocation": {
+            "@id": "eubat:Cathode"
+          },
+          "schema:category": {
+            "@id": "eubat:ActiveMaterial"
+          },
+          "schema:weightPercentage": "8.9",
+          "eubat:isCriticalRawMaterial": true,
+          "eubat:isSubstanceOfConcern": false
+        },
+        {
+          id: "https://id.gs1.org/01/09521234002000#mat-iron",
+          type: "eubat:BatteryMaterial",
+          "schema:name": {
+            "@value": "Iron",
+            "@language": "en"
+          },
+          "oec:casNumber": "7439-89-6",
+          "oec:ecNumber": "231-096-4",
+          "eubat:hasComponentLocation": {
+            "@id": "eubat:Cathode"
+          },
+          "schema:category": {
+            "@id": "eubat:ActiveMaterial"
+          },
+          "schema:weightPercentage": "17.6",
+          "eubat:isCriticalRawMaterial": false,
+          "eubat:isSubstanceOfConcern": false
+        }
+      ],
+      "eubat:criticalRawMaterialsStatement": {
+        "@value": "Contains lithium (1.6 %), natural graphite (15.8 %) and phosphorus (8.9 %), which are on the EU list of critical raw materials (Regulation (EU) 2024/1252).",
+        "@language": "en"
+      },
+      "eubat:hasHazardousSubstances": [
+        {
+          id: "https://id.gs1.org/01/09521234002000#haz-lipf6",
+          type: "eubat:HazardousSubstance",
+          "schema:name": {
+            "@value": "Lithium hexafluorophosphate (LiPF6)",
+            "@language": "en"
+          },
+          "oec:casNumber": "21324-40-3",
+          "oec:ecNumber": "244-334-7",
+          "eubat:hasHazardClass": {
+            "@id": "eubat:AcuteToxicity"
+          },
+          "eubat:concentration": "1.4",
+          "eubat:hazardImpact": {
+            "@value": "Toxic if swallowed; causes severe skin burns and eye damage; releases hydrogen fluoride on contact with water",
+            "@language": "en"
+          },
+          "eubat:hasSubstanceLocation": {
+            "@id": "eubat:Electrolyte"
+          },
+          "oec:hazardStatement": [
+            "H301",
+            "H314",
+            "H372"
+          ],
+          "oec:precautionaryStatement": [
+            "P260",
+            "P280",
+            "P301+P310",
+            "P305+P351+P338"
+          ]
+        },
+        {
+          id: "https://id.gs1.org/01/09521234002000#haz-ec",
+          type: "eubat:HazardousSubstance",
+          "schema:name": {
+            "@value": "Ethylene carbonate",
+            "@language": "en"
+          },
+          "oec:casNumber": "96-49-1",
+          "oec:ecNumber": "202-510-0",
+          "eubat:hasHazardClass": {
+            "@id": "eubat:EyeDamageOrIrritation"
+          },
+          "eubat:concentration": "5.1",
+          "eubat:hazardImpact": {
+            "@value": "Causes serious eye irritation",
+            "@language": "en"
+          },
+          "eubat:hasSubstanceLocation": {
+            "@id": "eubat:Electrolyte"
+          },
+          "oec:hazardStatement": [
+            "H302",
+            "H319",
+            "H373"
+          ],
+          "oec:precautionaryStatement": [
+            "P260",
+            "P280",
+            "P305+P351+P338"
+          ]
+        }
+      ],
       "eubat:hasTechnicalSpecifications": {
         id: "https://id.gs1.org/01/09521234002000#specs",
         type: "eubat:TechnicalSpecification",
@@ -30641,6 +32648,10 @@ var samples_default = [
             type: "gs1:QuantitativeValue",
             "gs1:value": 55,
             "gs1:unitCode": "CEL"
+          },
+          "eubat:temperatureRangeTestDescription": {
+            "@value": "Storage at the range bounds for 30 days, then capacity check (IEC 62619, clause 7.2).",
+            "@language": "en-GB"
           }
         },
         "eubat:hasPerformanceTest": {
@@ -30664,6 +32675,17 @@ var samples_default = [
             }
           },
           "oea:hasResult": [
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:InitialCellInternalResistance"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "0.00025",
+                "gs1:unitCode": "OHM"
+              }
+            },
             {
               type: "oea:MeasurementResult",
               "oea:hasObservedParameter": {
@@ -30696,8 +32718,208 @@ var samples_default = [
                 "gs1:value": 8e3,
                 "gs1:unitCode": "C62"
               }
+            },
+            {
+              type: "oea:MeasurementResult",
+              "oea:hasObservedParameter": {
+                "@id": "eubat:RoundTripEfficiencyAt50PercentCycleLife"
+              },
+              "oea:hasMeasuredValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": 93,
+                "gs1:unitCode": "P1"
+              }
+            }
+          ],
+          "oea:hasParameterSetting": [
+            {
+              type: "oea:ParameterSetting",
+              "oea:hasParameter": {
+                "@id": "eubat:ChargeCRate"
+              },
+              "oea:hasParameterValue": {
+                type: "gs1:QuantitativeValue",
+                "gs1:value": "0.5",
+                "gs1:unitCode": "C62"
+              }
+            }
+          ],
+          "oea:hasSubAssessment": [
+            {
+              id: "https://id.gs1.org/01/09521234002000#power-80",
+              type: "oea:TestExecution",
+              "oea:hasCondition": {
+                type: "oea:AssessmentCondition",
+                "oea:hasConditionType": {
+                  "@id": "eubat:StateOfChargeLevel"
+                },
+                "oea:hasConditionValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": 80,
+                  "gs1:unitCode": "P1"
+                }
+              },
+              "oea:hasResult": {
+                type: "oea:MeasurementResult",
+                "oea:hasObservedParameter": {
+                  "@id": "eubat:PowerCapability"
+                },
+                "oea:hasMeasuredValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": "5.6",
+                  "gs1:unitCode": "KWT"
+                }
+              }
+            },
+            {
+              id: "https://id.gs1.org/01/09521234002000#power-20",
+              type: "oea:TestExecution",
+              "oea:hasCondition": {
+                type: "oea:AssessmentCondition",
+                "oea:hasConditionType": {
+                  "@id": "eubat:StateOfChargeLevel"
+                },
+                "oea:hasConditionValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": 20,
+                  "gs1:unitCode": "P1"
+                }
+              },
+              "oea:hasResult": {
+                type: "oea:MeasurementResult",
+                "oea:hasObservedParameter": {
+                  "@id": "eubat:PowerCapability"
+                },
+                "oea:hasMeasuredValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": "5.1",
+                  "gs1:unitCode": "KWT"
+                }
+              }
+            },
+            {
+              id: "https://id.gs1.org/01/09521234002000#voltage-nominal",
+              type: "oea:TestExecution",
+              "oea:hasCondition": [
+                {
+                  type: "oea:AssessmentCondition",
+                  "oea:hasConditionType": {
+                    "@id": "eubat:LowerTemperatureBound"
+                  },
+                  "oea:hasConditionValue": {
+                    type: "gs1:QuantitativeValue",
+                    "gs1:value": 20,
+                    "gs1:unitCode": "CEL"
+                  }
+                },
+                {
+                  type: "oea:AssessmentCondition",
+                  "oea:hasConditionType": {
+                    "@id": "eubat:UpperTemperatureBound"
+                  },
+                  "oea:hasConditionValue": {
+                    type: "gs1:QuantitativeValue",
+                    "gs1:value": 30,
+                    "gs1:unitCode": "CEL"
+                  }
+                }
+              ],
+              "oea:hasResult": {
+                type: "oea:MeasurementResult",
+                "oea:hasObservedParameter": {
+                  "@id": "eubat:NominalVoltage"
+                },
+                "oea:hasMeasuredValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": "51.2",
+                  "gs1:unitCode": "VLT"
+                }
+              }
+            },
+            {
+              id: "https://id.gs1.org/01/09521234002000#voltage-minimum",
+              type: "oea:TestExecution",
+              "oea:hasCondition": [
+                {
+                  type: "oea:AssessmentCondition",
+                  "oea:hasConditionType": {
+                    "@id": "eubat:LowerTemperatureBound"
+                  },
+                  "oea:hasConditionValue": {
+                    type: "gs1:QuantitativeValue",
+                    "gs1:value": -10,
+                    "gs1:unitCode": "CEL"
+                  }
+                },
+                {
+                  type: "oea:AssessmentCondition",
+                  "oea:hasConditionType": {
+                    "@id": "eubat:UpperTemperatureBound"
+                  },
+                  "oea:hasConditionValue": {
+                    type: "gs1:QuantitativeValue",
+                    "gs1:value": 50,
+                    "gs1:unitCode": "CEL"
+                  }
+                }
+              ],
+              "oea:hasResult": {
+                type: "oea:MeasurementResult",
+                "oea:hasObservedParameter": {
+                  "@id": "eubat:MinimumVoltage"
+                },
+                "oea:hasMeasuredValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": "44.8",
+                  "gs1:unitCode": "VLT"
+                }
+              }
+            },
+            {
+              id: "https://id.gs1.org/01/09521234002000#voltage-maximum",
+              type: "oea:TestExecution",
+              "oea:hasCondition": [
+                {
+                  type: "oea:AssessmentCondition",
+                  "oea:hasConditionType": {
+                    "@id": "eubat:LowerTemperatureBound"
+                  },
+                  "oea:hasConditionValue": {
+                    type: "gs1:QuantitativeValue",
+                    "gs1:value": -10,
+                    "gs1:unitCode": "CEL"
+                  }
+                },
+                {
+                  type: "oea:AssessmentCondition",
+                  "oea:hasConditionType": {
+                    "@id": "eubat:UpperTemperatureBound"
+                  },
+                  "oea:hasConditionValue": {
+                    type: "gs1:QuantitativeValue",
+                    "gs1:value": 50,
+                    "gs1:unitCode": "CEL"
+                  }
+                }
+              ],
+              "oea:hasResult": {
+                type: "oea:MeasurementResult",
+                "oea:hasObservedParameter": {
+                  "@id": "eubat:MaximumVoltage"
+                },
+                "oea:hasMeasuredValue": {
+                  type: "gs1:QuantitativeValue",
+                  "gs1:value": "58.4",
+                  "gs1:unitCode": "VLT"
+                }
+              }
             }
           ]
+        },
+        "eubat:hasMaximumPermittedBatteryPower": {
+          type: "gs1:QuantitativeValue",
+          "gs1:value": "6.0",
+          "gs1:unitCode": "KWT"
         }
       },
       "gs1:manufacturersWarranty": {
@@ -30730,7 +32952,111 @@ var samples_default = [
       },
       "eubat:resultOfTestReport": "https://files.example.org/files/products/09521234002000/docs/test-report.pdf",
       "eubat:separateCollectionSymbolUrl": "https://files.example.org/files/products/_common/symbols/separate-collection.svg",
-      "oec:passportStatus": "active"
+      "eubat:hasLabels": [
+        {
+          id: "https://id.gs1.org/01/09521234002000#label-cfp",
+          type: "eubat:Label",
+          "eubat:hasLabelSubject": {
+            "@id": "eubat:CarbonFootprintLabel"
+          },
+          "eubat:labelSymbol": "https://www.amperia.example/staxwall-10/docs/carbon-footprint-label.svg",
+          "eubat:labelMeaning": {
+            "@value": "Carbon footprint performance class B",
+            "@language": "en"
+          }
+        },
+        {
+          id: "https://id.gs1.org/01/09521234002000#label-fire",
+          type: "eubat:Label",
+          "eubat:hasLabelSubject": {
+            "@id": "eubat:ExtinguishingAgentLabel"
+          },
+          "eubat:labelSymbol": "https://www.amperia.example/staxwall-10/docs/extinguishing-agent-label.svg",
+          "eubat:labelMeaning": {
+            "@value": "In case of fire, cool with large amounts of water from a safe distance; Class D powder for exposed cells",
+            "@language": "en"
+          }
+        }
+      ],
+      "eubat:hasDismantlingAndRemovalInformation": [
+        {
+          id: "https://id.gs1.org/01/09521234002000#dismantle-bom",
+          type: "eubat:DismantlingDocument",
+          "eubat:hasDocumentType": {
+            "@id": "eubat:BillOfMaterial"
+          },
+          "eubat:documentUrl": "https://www.amperia.example/staxwall-10/docs/bill-of-materials.pdf",
+          "eubat:mimeType": "application/pdf",
+          "eubat:languageCode": "en"
+        },
+        {
+          id: "https://id.gs1.org/01/09521234002000#dismantle-manual",
+          type: "eubat:DismantlingDocument",
+          "eubat:hasDocumentType": {
+            "@id": "eubat:DismantlingManual"
+          },
+          "eubat:documentUrl": "https://www.amperia.example/staxwall-10/docs/dismantling-manual.pdf",
+          "eubat:mimeType": "application/pdf",
+          "eubat:languageCode": "en"
+        },
+        {
+          id: "https://id.gs1.org/01/09521234002000#dismantle-sds",
+          type: "eubat:DismantlingDocument",
+          "eubat:hasDocumentType": {
+            "@id": "eubat:SafetyDataSheet"
+          },
+          "eubat:documentUrl": "https://www.amperia.example/staxwall-10/docs/safety-data-sheet.pdf",
+          "eubat:mimeType": "application/pdf",
+          "eubat:languageCode": "en"
+        }
+      ],
+      "eubat:hasSparePartSources": [
+        {
+          id: "https://id.gs1.org/01/09521234002000#spare-1",
+          type: "gs1:Organization",
+          "gs1:organizationName": "Amperia Service Nordic AB",
+          "schema:url": {
+            id: "https://www.amperia.example/service/spare-parts"
+          },
+          "eubat:spareParts": {
+            "@value": "BMS board, module connectors, inverter interface cable, enclosure fasteners",
+            "@language": "en"
+          },
+          "gs1:address": {
+            type: "gs1:PostalAddress",
+            "gs1:streetAddress": "Servicegatan 4",
+            "gs1:addressLocality": "G\xF6teborg",
+            "gs1:postalCode": "417 60",
+            "gs1:addressCountry": {
+              type: "gs1:Country",
+              "gs1:countryCode": "SE"
+            }
+          }
+        }
+      ],
+      "oec:hasBackupCopyHost": {
+        id: "https://id.gs1.org/417/9521234000334",
+        type: "oec:OperatorInformation",
+        "gs1:globalLocationNumber": "9521234000334",
+        "gs1:organizationName": "EPCIS Cloud DPP Services"
+      },
+      "oec:passportStatus": "active",
+      "eubat:compositionDescription": {
+        "@value": "Cathode: lithium iron phosphate (LFP); anode: graphite; electrolyte: LiPF6 in organic carbonates; casing: aluminium.",
+        "@language": "en-GB"
+      },
+      "oec:hasDocuments": [
+        {
+          type: "oec:DocumentReference",
+          "oec:hasDocumentType": {
+            "@id": "eubat:SparePartReplacementDocument"
+          },
+          "oec:documentUrl": "https://www.amperia.example/staxwall-10/docs/spare-part-replacement.pdf",
+          "oec:mimeType": "application/pdf",
+          "oec:languageCode": "en-GB",
+          "schema:name": "StaxWall 10 spare part replacement"
+        }
+      ]
     }
   },
   {
